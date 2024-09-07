@@ -1,0 +1,3 @@
+cube_low_poly.obj
+sphere_high_poly.obj
+bunny_high_poly.obj

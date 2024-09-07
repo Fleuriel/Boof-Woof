@@ -1,0 +1,13 @@
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/CMakeFiles/uninstall.dir
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/CMakeFiles/UpdateAssimpLibsDebugSymbolsAndDLLs.dir
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/CMakeFiles/INSTALL.dir
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/contrib/zlib/CMakeFiles/zlibstatic.dir
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/contrib/zlib/CMakeFiles/INSTALL.dir
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/contrib/zlib/CMakeFiles/ALL_BUILD.dir
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/code/CMakeFiles/assimp.dir
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/code/CMakeFiles/INSTALL.dir
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/test/CMakeFiles/unit.dir
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/test/CMakeFiles/INSTALL.dir
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/test/headercheck/CMakeFiles/INSTALL.dir

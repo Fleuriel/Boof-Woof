@@ -1,0 +1,39 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.30/Modules/BasicConfigVersion-SameMajorVersion.cmake.in
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeCXXInformation.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeGenericSystem.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeRCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CheckFunctionExists.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFileCXX.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/CheckTypeSize.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Compiler/MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Compiler/MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Compiler/MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows-MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows-MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows-MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake
+C:/Program Files/CMake/share/cmake-3.30/Modules/WriteBasicConfigVersionFile.cmake
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/CMakeLists.txt
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/assimp.pc.in
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/CMakeFiles/3.30.0-rc3/CMakeCCompiler.cmake
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/CMakeFiles/3.30.0-rc3/CMakeCXXCompiler.cmake
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/CMakeFiles/3.30.0-rc3/CMakeRCCompiler.cmake
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/build/CMakeFiles/3.30.0-rc3/CMakeSystem.cmake
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/cmake-modules/FindPkgMacros.cmake
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/cmake-modules/PrecompiledHeader.cmake
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/cmake-modules/assimp-plain-config.cmake.in
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/cmake-modules/cmake_uninstall.cmake.in
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/include/assimp/config.h.in
+C:/Users/angus/OneDrive/Documents/GitHub/USAssignment2/lib/assimp-master/include/assimp/revision.h.in
