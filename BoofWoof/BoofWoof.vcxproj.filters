@@ -28,6 +28,12 @@
     <Filter Include="Source Files\Shader">
       <UniqueIdentifier>{db6b40ae-4d1b-4edb-9525-c6aca2065f3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Base Engine">
+      <UniqueIdentifier>{069afd92-e789-4d96-99e7-86521a8a8d8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{536f40e0-c63d-4343-8cbf-42e8f444481b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\lib\imgui-docking\imgui.cpp">
@@ -75,14 +81,14 @@
     <ClCompile Include="source\Input.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="source\main.cpp">
-      <Filter>Source Files\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Shader.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="Source\AssetManager.cpp">
       <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +151,27 @@
     </ClInclude>
     <ClInclude Include="Headers\TestCases.h">
       <Filter>Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentArray.h">
+      <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemManager.h">
+      <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Coordinator.h">
+      <Filter>Header Files\Base Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
