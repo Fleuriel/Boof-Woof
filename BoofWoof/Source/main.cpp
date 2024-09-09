@@ -40,18 +40,17 @@ int main()
 	Graphics::initWindow();
 
 	
+	// Initialize Graphics Pipeline
+	Graphics::initGraphicsPipeline();
 	
 
 	// Check if Loading of shaders have error
-	bool test = assetManager.LoadAll();
+	bool test = assetManager.LoadShaders();
 	if (!test)
 	{
-		std::cout << "\nLoadAll Failed\n";
+		std::cout << "Failed to Load Shaders\n";
 		return 0;
 	}
-
-	// Initialize Graphics Pipeline
-	Graphics::initGraphicsPipeline();
 
 	// Initialize Previous Time with NOW()
 	previousTime = std::chrono::high_resolution_clock::now();

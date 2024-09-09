@@ -178,43 +178,6 @@ void MouseCallBack(GLFWwindow* window4, int button, int action, int mod) {
 	inputSystem.buttonPressed = action;
 }
 
-// Camera or view angles
-float yaw = 0.0f;
-float pitch = 0.0f;
-
-// Mouse sensitivity
-float sensitivity = 0.1f;
-
-// Last mouse positions
-double lastMouseX, lastMouseY;
-// Mouse callback for relative movement
-void MouseMovementCallBack(GLFWwindow* window, double xpos, double ypos) {
-	static bool firstMouse = true;
-	if (firstMouse) {
-		lastMouseX = xpos;
-		lastMouseY = ypos;
-		firstMouse = false;
-	}
-
-	double offsetX = xpos - lastMouseX;
-	double offsetY = lastMouseY - xpos; // Reversed since y-coordinates go from bottom to top
-
-	lastMouseX = xpos;
-	lastMouseY = ypos;
-
-	offsetX *= sensitivity;
-	offsetY *= sensitivity;
-
-	yaw += offsetX;
-	pitch += offsetY;
-
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
-
-	std::cout << "Yaw: " << yaw << "\tPitch: " << pitch << std::endl;
-}
 
 /**************************************************************************
  * @brief Callback function for handling mouse scroll wheel input in a GLFW window.

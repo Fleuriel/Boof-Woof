@@ -1,5 +1,5 @@
 /**************************************************************************
- * @file GraphicsUserInterface.cpp
+ * @file GraphicsUserInterface.h
  * @author 	TAN Angus Yit Hoe
  * @param DP email: tan.a@digipen.edu [0067684]
  * @param Course: CS 350
@@ -42,8 +42,5 @@ private:
 
 
 };
-
-extern int Position1[3];
-extern int LookAt[3];
 
 #endif

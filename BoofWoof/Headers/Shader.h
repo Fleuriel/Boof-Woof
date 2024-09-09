@@ -1,5 +1,5 @@
 /**************************************************************************
- * @file Shader.cpp
+ * @file Shader.h
  * @author 	TAN Angus Yit Hoe
  * @param DP email: tan.a@digipen.edu [0067684]
  * @param Course: CS 350

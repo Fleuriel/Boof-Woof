@@ -17,15 +17,7 @@
 #ifndef TESTCASE_H
 #define TESTCASE_H
 
-
-#define PROJECT_ONE 1
-#define PROJECT_TWO 0
-#define PROJECT_THREE 0
-
 namespace TESTCASE {
-
-
-
 
 	enum testcases {
 
@@ -48,15 +40,6 @@ namespace TESTCASE {
 		PLANE_VS_SPHERE
 	};
 
-	enum BVolume
-	{
-		BOUNDING_VOLUME_AABB = 0,
-		BOUNDING_VOLUME_SPHERE_RITTER,
-		BOUNDING_VOLUME_SPHERE_LARSSON,
-		BOUNDING_VOLUME_SPHERE_PCA,
-		BOUNDING_VOLUME_ORIGINAL_SPHERE
-	};
-
 
 	inline bool drawRectangle = false;
 	inline bool Sphere_vs_Sphere = false;
@@ -76,19 +59,6 @@ namespace TESTCASE {
 
 	inline bool Plane_vs_AABB = false;
 	inline bool Plane_vs_Sphere = false;
-
-
-
-	inline bool AABB_BOUNDING_VOLUME = false;
-	inline bool SPHERE_RITTER = false;
-	inline bool SPHERE_LARSSON = false;
-	inline bool SPHERE_PCA = false;
-	inline bool ORIGINAL_SPHERE = false;
-
-
-
-
-	inline bool mouseEnabled = false;
 
 
 
@@ -410,51 +380,6 @@ namespace TESTCASE {
 		}
 	}
 
-
-
-	inline void turnOnOffTestPROJECT2(int testCase)
-	{
-		if (testCase == BOUNDING_VOLUME_AABB)
-		{
-			AABB_BOUNDING_VOLUME = true;
-			SPHERE_RITTER = false;
-			SPHERE_LARSSON = false;
-			SPHERE_PCA = false;
-			ORIGINAL_SPHERE = false;
-		}
-		else if (testCase == BOUNDING_VOLUME_SPHERE_RITTER)
-		{
-			AABB_BOUNDING_VOLUME = false;
-			SPHERE_RITTER = true;
-			SPHERE_LARSSON = false;
-			SPHERE_PCA = false;
-			ORIGINAL_SPHERE = false;
-		}
-		else if (testCase == BOUNDING_VOLUME_SPHERE_LARSSON)
-		{
-			AABB_BOUNDING_VOLUME = false;
-			SPHERE_RITTER = false;
-			SPHERE_LARSSON = true;
-			SPHERE_PCA = false;
-			ORIGINAL_SPHERE = false;
-		}
-		else if (testCase == BOUNDING_VOLUME_SPHERE_PCA)
-		{
-			AABB_BOUNDING_VOLUME = false;
-			SPHERE_RITTER = false;
-			SPHERE_LARSSON = false;
-			SPHERE_PCA = true;
-			ORIGINAL_SPHERE = false;
-		}
-		else if(testCase == BOUNDING_VOLUME_ORIGINAL_SPHERE)
-		{
-			AABB_BOUNDING_VOLUME = false;
-			SPHERE_RITTER = false;
-			SPHERE_LARSSON = false;
-			SPHERE_PCA = false;
-			ORIGINAL_SPHERE = true;
-		}
-	}
 
 
 }

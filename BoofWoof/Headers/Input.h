@@ -1,5 +1,5 @@
 /**************************************************************************
- * @file Input.cpp
+ * @file Input.h
  * @author 	TAN Angus Yit Hoe
  * @param DP email: tan.a@digipen.edu [0067684]
  * @param Course: CS 350
@@ -144,5 +144,4 @@ void KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mod)
  *************************************************************************/
 void MouseCallBack(GLFWwindow* window, int button, int action, int mod);
 
-void MouseMovementCallBack(GLFWwindow* window, double xpos, double ypos);
 #endif

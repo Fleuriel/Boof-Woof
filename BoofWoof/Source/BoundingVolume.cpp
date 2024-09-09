@@ -44,12 +44,6 @@ void PrintData(const char* name, glm::vec3 &data)
     std::cout << name << ": " << data.x << '\t' << data.y << '\t' << data.z << '\n';
 }
 
-void PrintData2(const char* name, glm::vec3& data)
-{
-
-    std::cout << name << ": " << data.x << '\t' << data.y << '\t' << data.z << '\t';
-}
-
 /**************************************************************************
 * @brief Creating Sphere
 * @param void
@@ -653,92 +647,4 @@ bool checkCollisionPlaneSphere(const Plane& plane, const Sphere& sphere) {
     else {
         return false;
     }
-}
-
-
-
-glm::vec4 RitterBoundingSphere(const std::vector<glm::vec3>& points) {
-    glm::vec3 minCoords(FLT_MAX);
-    glm::vec3 maxCoords(-FLT_MAX);
-
-    for (const auto& point : points) {
-        minCoords = glm::min(minCoords, point);
-        maxCoords = glm::max(maxCoords, point);
-    }
-
-    glm::vec3 center = (minCoords + maxCoords) * 0.5f;
-    float radius = glm::length(maxCoords - center);
-
-    // Refinement step
-    for (const auto& point : points) {
-        float dist = glm::length(point - center);
-        if (dist > radius) {
-            radius = (radius + dist) * 0.5f;
-            center = center + (dist - radius) / dist * (point - center);
-        }
-    }
-
-    return glm::vec4(center, radius);
-}
-
-
-glm::vec4 LarssonBoundingSphere(const std::vector<glm::vec3>& points) {
-    // Placeholder for Larsson's method
-    return RitterBoundingSphere(points);
-}
-
-
-glm::vec3 Mean(const std::vector<glm::vec3>& points) {
-    glm::vec3 mean(0.0f);
-    for (const auto& point : points) {
-        mean += point;
-    }
-    return mean / static_cast<float>(points.size());
-}
-
-std::vector<std::vector<float>> CovarianceMatrix(const std::vector<glm::vec3>& points, const glm::vec3& mean) {
-    std::vector<std::vector<float>> covMatrix(3, std::vector<float>(3, 0.0f));
-    for (const auto& point : points) {
-        glm::vec3 centered = point - mean;
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                covMatrix[i][j] += centered[i] * centered[j];
-            }
-        }
-    }
-    return covMatrix;
-}
-
-std::vector<float> Eigenvalues(const std::vector<std::vector<float>>& covMatrix) {
-    // Placeholder for eigenvalue computation
-    return { 1.0f, 1.0f, 1.0f };
-}
-
-std::vector<glm::vec3> Eigenvectors(const std::vector<std::vector<float>>& covMatrix) {
-    // Placeholder for eigenvector computation
-    return { glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f) };
-}
-
-glm::vec4 PCABoundingSphere(const std::vector<glm::vec3>& points) {
-    glm::vec3 mean = Mean(points);
-    auto covMatrix = CovarianceMatrix(points, mean);
-    auto eigenvalues = Eigenvalues(covMatrix);
-    auto eigenvectors = Eigenvectors(covMatrix);
-
-    // Use eigenvectors to find the extremal points
-    glm::vec3 minExtremal(FLT_MAX);
-    glm::vec3 maxExtremal(-FLT_MAX);
-    for (const auto& point : points) {
-        glm::vec3 projection;
-        for (int i = 0; i < 3; ++i) {
-            projection[i] = glm::dot(point - mean, eigenvectors[i]);
-        }
-        minExtremal = glm::min(minExtremal, projection);
-        maxExtremal = glm::max(maxExtremal, projection);
-    }
-
-    glm::vec3 center = (minExtremal + maxExtremal) * 0.5f;
-    float radius = glm::length(maxExtremal - center);
-
-    return glm::vec4(center, radius);
 }

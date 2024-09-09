@@ -1,5 +1,5 @@
 /**************************************************************************
- * @file Graphics.cpp
+ * @file Graphics.h
  * @author 	TAN Angus Yit Hoe
  * @param DP email: tan.a@digipen.edu [0067684]
  * @param Course: CS 350
@@ -23,7 +23,6 @@
 #include <glm/glm.hpp>
 
 #include "Shader.h"
-#include <assimp/scene.h>  // Assimp header for aiNode and aiMesh
 #include <utility>
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
@@ -31,10 +30,6 @@
 #include <map>
 #include <unordered_map>
 
-
-#define RITTER_MODEL "Ritter"
-#define LARSSON_MODEL "Larsson"
-#define PCA_MODEL	"PCA"
 
 /**************************************************************************
 * @brief Allow usage of the newWindow variable for the OpenGL Pipeline
@@ -52,15 +47,8 @@ enum ModelType {
 	RAY,
 	PLANE,
 	TRIANGLE,
-	ARROW,
-	RITTER,
-	LARSSON,
-	PCA,
-	POWERPLANT,
-	TESTING_MODEL
+	ARROW
 }; 
-
-
 
 
 
@@ -96,7 +84,6 @@ public:
 	*************************************************************************/
 	void Draw();
 
-	void DrawModel();
 
 	/**************************************************************************
 	* @brief Draw the Objects Models (Iterate through the objects to draw)
@@ -122,7 +109,7 @@ public:
 	float angleSpeed;						// Speed of the Model Displacement
 
 	int TagID;								// Tag ID in the future if required assets and/or textures and/or force data into this tag.
-	int count;								// Number Count of the object.
+	
 
 
 	/**************************************************************************
@@ -138,70 +125,6 @@ public:
 	static GLuint shd_ref; // Model and Shader Reference
 
 
-
-	struct Vertex {
-		glm::vec3 Position;
-		glm::vec3 Normal;
-		glm::vec2 TexCoords; 
-		glm::vec3 Tangent;
-		// bitangent
-		glm::vec3 Bitangent;
-	};
-
-	class Mesh {
-	public:
-		// mesh data
-		std::vector<Vertex>       vertices;
-		std::vector<unsigned int> indices;
-		glm::vec3 Position;
-
-		Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
-		{
-			this->vertices = vertices;
-			this->indices = indices;
-			
-			setupMesh();
-		}
-
-
-		void Draw();
-
-
-	private:
-
-		void setupMesh();
-
-	};
-
-
-
-
-	class Model
-	{
-	public:
-	
-		Model() : directory("abc"), gammaCorrection(false){}
-	
-		// model data 
-		std::vector<Mesh>    meshes;
-		std::string directory;
-		bool gammaCorrection;
-	
-		// constructor, expects a filepath to a 3D model.
-		Model(std::string const& path, bool gamma = false) : gammaCorrection(gamma)
-		{
-			//loadModel(path);
-		}
-	
-		// draws the model, and thus all its meshes
-	
-	
-	private:
-	
-	};
-
-
-
 	/**************************************************************************
 	* @brief Struct of OpenGLModels
 	*		-> Creation of Objects usage of this struct.
@@ -214,63 +137,31 @@ public:
 		GLsizei draw_cnt;			// Draw Count of the model
 		size_t idx_elem_cnt;		// Index Element Count of the Model
 
-		glm::vec3 Position;
+
+		OpenGLModel() : primitive_type(0), primitive_cnt(0), vaoid(0), draw_cnt(0), idx_elem_cnt(0) {}
+
+	};
 
 
-		// model data 
-		std::vector<Mesh>    meshes;
-		std::string directory;
-
-		OpenGLModel() :primitive_type(0), primitive_cnt(0), vaoid(0), draw_cnt(0), idx_elem_cnt(0), directory("") {}
-
-		OpenGLModel(std::string const& path) : primitive_type(0), primitive_cnt(0), vaoid(0), draw_cnt(0), idx_elem_cnt(0), directory("")
-		{
-		}
-
-		OpenGLModel(std::vector<std::string> const& path) : primitive_type(0), primitive_cnt(0), vaoid(0), draw_cnt(0), idx_elem_cnt(0), directory("")
-		{
-		}
-
-
-
-		void Draw()
-		{
-			for (unsigned int i = 0; i < meshes.size(); i++)
-				meshes[i].Draw();
-		}
-
-
-	}; 
-
-	static void InputBoundingBoxes();
-
-	OpenGLModel ModelControl;
-
-
-	static OpenGLModel LoadModel(const std::string& path, const std::string& path2);
-
-
-	static OpenGLModel ProcessMesh(aiMesh* mesh, const aiScene* scene);
 
 	/**************************************************************************
 	* @brief Create Object with model and Tag
 	*************************************************************************/
-	static void CreateObject(OpenGLModel model, int Tag, int Counter = 1);
+	static void CreateObject(OpenGLModel model, int Tag);
 
-	//static void CreateObjectFromFile(Model model, int Tag);
 
 	/**************************************************************************
 	* @brief What the model to create is
 	*************************************************************************/
 	OpenGLModel model_to_create;
-	//Model modelModelCreate;
+
 
 	/**************************************************************************
 	* @brief Container for OpenGL Models
 	*************************************************************************/
 	static std::vector<OpenGLModel> models;
 
-	//static std::vector<Model> OURModel;
+
 
 	/**************************************************************************
 	* @brief OpenGL Models
@@ -281,12 +172,9 @@ public:
 	static OpenGLModel RayModel();
 	static OpenGLModel PlaneModel();
 	static OpenGLModel TriangleModel();
-	static OpenGLModel ArrowModel(); 
-	static OpenGLModel PowerPlantModel();
-	static OpenGLModel TestingModel();
-	static OpenGLModel SphereModelMethodRITTER();
-	static OpenGLModel SphereModelMethodLARSSON();
-	static OpenGLModel SphereModelMethodPCA();
+	static OpenGLModel ArrowModel();
+
+
 
 	/**************************************************************************
 	* @brief size
@@ -309,7 +197,6 @@ public:
 	glm::vec3 PositionRight;
 	glm::vec3 AngleLeft;
 	glm::vec3 AngleRight;
-	glm::vec3 ScaleRight;
 
 
 
@@ -331,23 +218,15 @@ public:
 		angleX(0.0f), angleY(0.0f), angleZ(0.0f),
 		angleSpeed(0.0f), TagID(id), model_to_create(model) {}
 
-	// Constructor with parameters
-	//Graphics(const Model model, int id = 0)
-	//	: model_To_NDC_xform(1.0f), Position(0.0f), ScaleModel(0.5f),
-	//	setColor(1.0f), setColorLeft(1.0f), setColorRight(1.0f),
-	//	PositionLeft(0.0f), PositionRight(0.0f),
-	//	AngleLeft(0.0f), AngleRight(0.0f),
-	//	angleX(0.0f), angleY(0.0f), angleZ(0.0f),
-	//	angleSpeed(0.0f), TagID(id), modelModelCreate(model) {}
-
 	// Deconstructor 
 	~Graphics() {}
 
 
-
-
 private:
 
+	/**************************************************************************
+	* @brief  private variables for Graphic Pipelines model creation etc.
+	*************************************************************************/
 	static unsigned int VBO, VAO, EBO;
 };
 
@@ -361,8 +240,6 @@ private:
 * @brief  allow other files to access Graphics class.
 *************************************************************************/
 extern Graphics graphicObject;
-
-extern Graphics::OpenGLModel ModelControl;
 
 
 #endif

@@ -1,5 +1,5 @@
 /**************************************************************************
- * @file BoundingVolume.cpp
+ * @file BoundingVolume.h
  * @author 	TAN Angus Yit Hoe
  * @param DP email: tan.a@digipen.edu [0067684]
  * @param Course: CS 350
@@ -153,13 +153,7 @@ public:
 /**************************************************************************
 * @brief Print glm::vec3 paramters XYZ to easier debug
 *************************************************************************/
-void PrintData(const char* name, glm::vec3& data);
-
-
-/**************************************************************************
-* @brief Print glm::vec3 paramters XYZ to easier debug
-*************************************************************************/
-void PrintData2(const char* name, glm::vec3& data);
+void PrintData(const char* name, glm::vec3 &data);
 
 
 /**************************************************************************
@@ -193,31 +187,6 @@ bool checkCollisionRaySphere(const Ray& BB1, const Sphere& BB2);						// Ray Vs 
 
 bool checkCollisionPlaneAABB(const Plane& BB1, const AABB& BB2);						// Plane Vs AABB
 bool checkCollisionPlaneSphere(const Plane& BB1, const Sphere& BB2);					// Plane Vs Sphere
-
-
-
-
-
-
-
-glm::vec4 RitterBoundingSphere(const std::vector<glm::vec3>& points);
-
-glm::vec4 LarssonBoundingSphere(const std::vector<glm::vec3>& points);
-
-glm::vec3 Mean(const std::vector<glm::vec3>& points);
-
-std::vector<std::vector<float>> CovarianceMatrix(const std::vector<glm::vec3>& points, const glm::vec3& mean);
-
-std::vector<float> Eigenvalues(const std::vector<std::vector<float>>& covMatrix);
-
-std::vector<glm::vec3> Eigenvectors(const std::vector<std::vector<float>>& covMatrix);
-
-glm::vec4 PCABoundingSphere(const std::vector<glm::vec3>& points);
-
-
-
-
-
 
 
 
