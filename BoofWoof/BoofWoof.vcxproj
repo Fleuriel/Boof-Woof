@@ -186,21 +186,22 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="..\lib\imgui-docking\imstb_rectpack.h" />
     <ClInclude Include="..\lib\imgui-docking\imstb_textedit.h" />
     <ClInclude Include="..\lib\imgui-docking\imstb_truetype.h" />
-    <ClInclude Include="ComponentArray.h" />
-    <ClInclude Include="ComponentManager.h" />
-    <ClInclude Include="Coordinator.h" />
-    <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Headers\AssetManager.h" />
     <ClInclude Include="Headers\BoundingVolume.h" />
+    <ClInclude Include="Headers\ComponentArray.h" />
+    <ClInclude Include="Headers\ComponentManager.h" />
+    <ClInclude Include="Headers\Coordinator.h" />
+    <ClInclude Include="Headers\EntityManager.h" />
+    <ClInclude Include="Headers\GameObject.h" />
     <ClInclude Include="Headers\GameStateMachine.h" />
     <ClInclude Include="Headers\Graphics.h" />
     <ClInclude Include="Headers\GraphicsUserInterface.h" />
     <ClInclude Include="Headers\Input.h" />
+    <ClInclude Include="Headers\pch.h" />
     <ClInclude Include="Headers\Shader.h" />
+    <ClInclude Include="Headers\System.h" />
+    <ClInclude Include="Headers\SystemManager.h" />
     <ClInclude Include="Headers\TestCases.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="System.h" />
-    <ClInclude Include="SystemManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Shader.frag" />

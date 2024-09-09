@@ -149,27 +149,6 @@
     <ClInclude Include="Headers\Shader.h">
       <Filter>Header Files\Graphics\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentManager.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityManager.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentArray.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="System.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="SystemManager.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Coordinator.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\AssetManager.h">
       <Filter>Header Files\Unorganized</Filter>
     </ClInclude>
@@ -184,6 +163,30 @@
     </ClInclude>
     <ClInclude Include="Headers\TestCases.h">
       <Filter>Header Files\Unorganized</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\ComponentArray.h">
+      <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\ComponentManager.h">
+      <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Coordinator.h">
+      <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\EntityManager.h">
+      <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\GameObject.h">
+      <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\pch.h">
+      <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\System.h">
+      <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\SystemManager.h">
+      <Filter>Header Files\Base Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

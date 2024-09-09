@@ -1,6 +1,5 @@
 #pragma once
 #include "pch.h"
-#include "EntityManager.h"
 
 
 // The one instance of virtual inheritance in the entire implementation.

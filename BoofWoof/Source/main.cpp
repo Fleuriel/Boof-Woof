@@ -18,8 +18,7 @@
 #include "GameStateMachine.h"
 #include "GraphicsUserInterface.h"
 #include "AssetManager.h"
-
-
+#include "pch.h"
 
 /**************************************************************************
 * @brief Main Function
@@ -58,7 +57,7 @@ int main()
 	// Initialize ImGui
 	GraphicsUserInterface::Initialize();
 
-	
+	// 
 
 	// While Loop
 	while (!glfwWindowShouldClose(newWindow))
