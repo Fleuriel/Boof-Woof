@@ -1,5 +1,10 @@
 #pragma once
 #include "pch.h"
+#include "System.h"
+#include "ComponentArray.h"
+#include "ComponentManager.h"
+#include "EntityManager.h"
+
 
 class SystemManager
 {
@@ -27,7 +32,7 @@ public:
 		// Set the signature for this system
 		mSignatures.insert({ typeName, signature });
 	}
-
+	
 	void EntityDestroyed(Entity entity)
 	{
 		// Erase a destroyed entity from all system lists

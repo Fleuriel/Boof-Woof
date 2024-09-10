@@ -1,7 +1,11 @@
 #pragma once
 #include "pch.h"
+<<<<<<< Updated upstream:BoofWoof/ComponentManager.h
 #include "EntityManager.h"
 #include "ComponentArray.h"
+=======
+#include <ComponentArray.h>
+>>>>>>> Stashed changes:BoofWoof/Headers/ComponentManager.h
 
 // A simple type alias
 using ComponentType = std::uint8_t;
