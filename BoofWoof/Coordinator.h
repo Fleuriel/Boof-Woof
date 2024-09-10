@@ -1,5 +1,8 @@
 #pragma once
 #include "pch.h"
+#include "ComponentManager.h"
+#include "EntityManager.h"
+#include "SystemManager.h"
 
 class Coordinator
 {

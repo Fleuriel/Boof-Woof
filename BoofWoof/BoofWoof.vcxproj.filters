@@ -90,6 +90,9 @@
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\TestSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\imgui-docking\imconfig.h">
@@ -172,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="Coordinator.h">
       <Filter>Header Files\Base Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\TestComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\TestSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

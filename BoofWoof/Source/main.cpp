@@ -18,17 +18,27 @@
 #include "GameStateMachine.h"
 #include "GraphicsUserInterface.h"
 #include "AssetManager.h"
+<<<<<<< Updated upstream
 
 
+=======
+#include "pch.h"
+#include <Coordinator.h>
+#include <TestSystem.h>
+>>>>>>> Stashed changes
 
+Coordinator gCoordinator;
 /**************************************************************************
 * @brief Main Function
 * @return void
 *************************************************************************/
 int main()
 {
+
 	// Initializing States
 	StartUp();
+
+	
 
 	// Check glfwInit
 	if (!glfwInit())
@@ -38,6 +48,24 @@ int main()
 
 	// Initialize Window
 	Graphics::initWindow();
+	
+	// Initialize Coordinator
+	gCoordinator.Init();
+	
+	gCoordinator.RegisterComponent<TestComponent>();
+	auto testSystem = gCoordinator.RegisterSystem<TestSystem>();
+	
+	Signature signature;
+	signature.set(gCoordinator.GetComponentType<TestComponent>());
+	gCoordinator.SetSystemSignature<TestSystem>(signature);
+
+	std::vector<Entity> entities(MAX_ENTITIES);
+
+	for (auto& entity : entities) {
+		entity = gCoordinator.CreateEntity();
+		gCoordinator.AddComponent<TestComponent>(entity, TestComponent{ .data = "Hello World" });
+	}
+	
 
 	
 	
@@ -60,7 +88,10 @@ int main()
 	GraphicsUserInterface::Initialize();
 
 	
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 	// While Loop
 	while (!glfwWindowShouldClose(newWindow))
 	{
@@ -69,6 +100,8 @@ int main()
 			std::cout << " Current State is END\n";
 			break;
 		}
+
+		testSystem->Update(0.0f);
 
 		// Render GUI
 		GraphicsUserInterface::RenderGUI();
