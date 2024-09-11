@@ -7,6 +7,7 @@
 #include <queue>
 #include <cstdint>
 #include <set>
+#include <iostream>
 
 
 // A simple type alias
@@ -23,9 +24,3 @@ const Entity MAX_ENTITIES = 5000;
 
 // A simple type alias
 using Signature = std::bitset<MAX_COMPONENTS>;
-
-#include "System.h"
-#include "ComponentArray.h"
-#include "ComponentManager.h"
-#include "EntityManager.h"
-#include "SystemManager.h"

@@ -1,6 +1,6 @@
 #pragma once
 #include "pch.h"
-
+#include "ComponentArray.h"
 
 class ComponentManager
 {

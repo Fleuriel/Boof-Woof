@@ -202,6 +202,8 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="Headers\System.h" />
     <ClInclude Include="Headers\SystemManager.h" />
     <ClInclude Include="Headers\TestCases.h" />
+    <ClInclude Include="Headers\TestComponent.h" />
+    <ClInclude Include="Headers\TestSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Shader.frag" />

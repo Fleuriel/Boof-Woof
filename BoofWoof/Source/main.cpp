@@ -19,7 +19,13 @@
 #include "GraphicsUserInterface.h"
 #include "AssetManager.h"
 #include "pch.h"
+#include "Coordinator.h"
+#include <TestComponent.h>
+#include <TestSystem.h>
 
+
+// Global Variables
+Coordinator gCoordinator;
 /**************************************************************************
 * @brief Main Function
 * @return void
@@ -34,6 +40,25 @@ int main()
 	{
 		return -1;
 	}
+
+	gCoordinator.Init();
+	gCoordinator.RegisterComponent<TestComponent>();
+
+	auto testSystem = gCoordinator.RegisterSystem<TestSystem>();
+
+	Signature signature;
+	signature.set(gCoordinator.GetComponentType<TestComponent>());
+	gCoordinator.SetSystemSignature<TestSystem>(signature);
+
+	std::vector<Entity> entities(MAX_ENTITIES);
+
+	for(auto& entity : entities)
+	{
+		entity = gCoordinator.CreateEntity();
+		gCoordinator.AddComponent<TestComponent>(entity, TestComponent{ 1, 2 });
+	}
+
+
 
 	// Initialize Window
 	Graphics::initWindow();
@@ -58,7 +83,7 @@ int main()
 	GraphicsUserInterface::Initialize();
 
 	// 
-
+	float dt = 0.0f;
 	// While Loop
 	while (!glfwWindowShouldClose(newWindow))
 	{
@@ -67,6 +92,14 @@ int main()
 			std::cout << " Current State is END\n";
 			break;
 		}
+
+		auto startTime = std::chrono::high_resolution_clock::now();
+
+		testSystem->Update(dt);
+
+		auto stopTime = std::chrono::high_resolution_clock::now();
+
+		dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
 
 		// Render GUI
 		GraphicsUserInterface::RenderGUI();
