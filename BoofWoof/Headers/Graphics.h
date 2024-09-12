@@ -56,6 +56,7 @@ enum ModelType {
 * @brief Graphics Class
 *************************************************************************/
 
+
 class Graphics {
 public:
 
@@ -110,25 +111,32 @@ public:
 
 	int TagID;								// Tag ID in the future if required assets and/or textures and/or force data into this tag.
 	
-
-
-	/**************************************************************************
-	* @brief Update Object Orientation and/or Position
-	*************************************************************************/
-	void Update(glm::vec3 position, glm::vec3 scale, glm::vec3 angle);
-
-
 	/**************************************************************************
 	* @brief Shaders Variables
 	*************************************************************************/
 	static GLuint mdl_ref;
 	static GLuint shd_ref; // Model and Shader Reference
 
+	/**************************************************************************
+* @brief Set Color to primitives
+*************************************************************************/
+	glm::vec3 setColor;					// Parsing Value to the Shader							
+	glm::vec3 setColorLeft;				// Will set the value to setColor. (When Pushing to Shader)
+	glm::vec3 setColorRight;			// Will set the value to setColor. (When Pushing to Shader)
+
 
 	/**************************************************************************
-	* @brief Struct of OpenGLModels
-	*		-> Creation of Objects usage of this struct.
+	* @brief Position and Angle (Separate to easier control)
 	*************************************************************************/
+	glm::vec3 PositionLeft;
+	glm::vec3 PositionRight;
+	glm::vec3 AngleLeft;
+	glm::vec3 AngleRight;
+
+	/**************************************************************************
+* @brief Struct of OpenGLModels
+*		-> Creation of Objects usage of this struct.
+*************************************************************************/
 	struct OpenGLModel {
 		std::string Name;
 		GLenum primitive_type;		// Primitive Type
@@ -143,6 +151,10 @@ public:
 	};
 
 
+	/**************************************************************************
+	* @brief Update Object Orientation and/or Position
+	*************************************************************************/
+	void Update(glm::vec3 position, glm::vec3 scale, glm::vec3 angle);
 
 	/**************************************************************************
 	* @brief Create Object with model and Tag
@@ -160,8 +172,6 @@ public:
 	* @brief Container for OpenGL Models
 	*************************************************************************/
 	static std::vector<OpenGLModel> models;
-
-
 
 	/**************************************************************************
 	* @brief OpenGL Models
@@ -182,21 +192,6 @@ public:
 	float size = 1.0f;
 
 
-	/**************************************************************************
-	* @brief Set Color to primitives
-	*************************************************************************/
-	glm::vec3 setColor;					// Parsing Value to the Shader							
-	glm::vec3 setColorLeft;				// Will set the value to setColor. (When Pushing to Shader)
-	glm::vec3 setColorRight;			// Will set the value to setColor. (When Pushing to Shader)
-
-
-	/**************************************************************************
-	* @brief Position and Angle (Separate to easier control)
-	*************************************************************************/
-	glm::vec3 PositionLeft;	
-	glm::vec3 PositionRight;
-	glm::vec3 AngleLeft;
-	glm::vec3 AngleRight;
 
 
 

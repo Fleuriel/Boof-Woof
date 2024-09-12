@@ -168,10 +168,14 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClCompile Include="source\BoundingVolume.cpp" />
     <ClCompile Include="source\GameStateMachine.cpp" />
     <ClCompile Include="source\Graphics.cpp" />
+    <ClCompile Include="Source\GraphicsComponent.cpp" />
+    <ClCompile Include="Source\GraphicsSystem.cpp" />
     <ClCompile Include="source\GraphicsUserInterface.cpp" />
     <ClCompile Include="source\Input.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
+    <ClCompile Include="Source\WindowComponent.cpp" />
+    <ClCompile Include="Source\WindowSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\imgui-docking\backends\imgui_impl_glfw.h" />
@@ -195,6 +199,8 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="Headers\GameObject.h" />
     <ClInclude Include="Headers\GameStateMachine.h" />
     <ClInclude Include="Headers\Graphics.h" />
+    <ClInclude Include="Headers\GraphicsComponent.h" />
+    <ClInclude Include="Headers\GraphicsSystem.h" />
     <ClInclude Include="Headers\GraphicsUserInterface.h" />
     <ClInclude Include="Headers\Input.h" />
     <ClInclude Include="Headers\pch.h" />
@@ -204,6 +210,8 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="Headers\TestCases.h" />
     <ClInclude Include="Headers\TestComponent.h" />
     <ClInclude Include="Headers\TestSystem.h" />
+    <ClInclude Include="Headers\WindowComponent.h" />
+    <ClInclude Include="Headers\WindowSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Shader.frag" />

@@ -2,7 +2,6 @@
 #include "pch.h"
 #include "System.h"
 
-
 extern Coordinator gCoordinator;
 class TestSystem : public System
 {

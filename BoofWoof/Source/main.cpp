@@ -22,7 +22,11 @@
 #include "Coordinator.h"
 #include <TestComponent.h>
 #include <TestSystem.h>
+#include <WindowComponent.h>
+#include <WindowSystem.h>
 
+#include <GraphicsSystem.h>
+#include <GraphicsComponent.h>
 
 // Global Variables
 Coordinator gCoordinator;
@@ -43,11 +47,19 @@ int main()
 
 	gCoordinator.Init();
 	gCoordinator.RegisterComponent<TestComponent>();
+	gCoordinator.RegisterComponent<GraphicsComponent>();
+	gCoordinator.RegisterComponent<WindowComponent>();
 
 	auto testSystem = gCoordinator.RegisterSystem<TestSystem>();
+	auto testSystem1 = gCoordinator.RegisterSystem<GraphicsSystem>();
+	auto testSystem2 = gCoordinator.RegisterSystem<WindowSystem>();
+
+
 
 	Signature signature;
 	signature.set(gCoordinator.GetComponentType<TestComponent>());
+	signature.set(gCoordinator.GetComponentType<GraphicsComponent>());
+	signature.set(gCoordinator.GetComponentType<WindowComponent>());
 	gCoordinator.SetSystemSignature<TestSystem>(signature);
 
 	std::vector<Entity> entities(MAX_ENTITIES);
@@ -56,6 +68,7 @@ int main()
 	{
 		entity = gCoordinator.CreateEntity();
 		gCoordinator.AddComponent<TestComponent>(entity, TestComponent{ 1, 2 });
+		//gCoordinator.AddComponent<GraphicsComponent>(entity);
 	}
 
 
