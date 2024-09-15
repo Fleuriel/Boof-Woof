@@ -1,5 +1,4 @@
 #define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
-#include <Windows.h>
 #include "ImGuiEditor.h"
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -24,7 +23,7 @@ ImGuiEditor& ImGuiEditor::GetInstance() {
 // parameter should have windows
 void ImGuiEditor::ImGuiInit() {
 
-	win = glfwCreateWindow(1280, 720, "Dear ImGui Starter", NULL, NULL);
+	win = glfwCreateWindow(1920, 1080, "Dear ImGui Starter", NULL, NULL);
 	if (!win)
 	{
 		std::cout << "Failed to create GLFW window!" << std::endl;
