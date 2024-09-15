@@ -23,12 +23,63 @@ ImGuiEditor& ImGuiEditor::GetInstance() {
 // parameter should have windows
 void ImGuiEditor::ImGuiInit() {
 
+
 	win = glfwCreateWindow(1920, 1080, "Dear ImGui Starter", NULL, NULL);
 	if (!win)
 	{
 		std::cout << "Failed to create GLFW window!" << std::endl;
 		glfwTerminate();
 		return;
+	}
+
+
+	// Tell GLFW we are using OpenGL 4.5
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+
+
+	// Tell GLFW that we are using the CORE Profile
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	// Create viewport of width and height.
+	glViewport(0, 0, 1920,1080);
+
+	glfwSwapInterval(1);
+
+	// Receives Key input/output [Checks for Key Presses]
+	//glfwSetKeyCallback(win, KeyCallBack);
+	//
+	//// Receives Mouse input/output [Checks for Mouse Clicks]
+	//glfwSetMouseButtonCallback(win, MouseCallBack);
+	//
+	////glfwSetScrollCallback(newWindow, ScrollCallBack);
+	////
+	////glfwSetWindowFocusCallback(newWindow, windowFocusCallback);
+	//
+	//
+	//glfwSetWindowSizeCallback(win, OpenGLWindowResizeCallback);
+
+	// Make the current window the current context
+	glfwMakeContextCurrent(win);
+
+	// Set input mode for the window with the cursor (Enables Cursor Input)
+	glfwSetInputMode(win, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+
+	glEnable(GL_DEPTH_TEST);
+
+	glDepthRange(0.0f, 1.0f);
+
+	bool glewInitialized = false;
+	if (!glewInitialized)
+	{
+		GLenum err = glewInit();
+		if (err != GLEW_OK)
+		{
+			std::cerr << "Error initializing GLEW: " << glewGetErrorString(err) << std::endl;
+			return;
+		}
+	    glewInitialized = true;
 	}
 
 	IMGUI_CHECKVERSION();

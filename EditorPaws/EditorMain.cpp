@@ -5,6 +5,7 @@
 #include <crtdbg.h>
 #include "ImGuiEditor.h"
 #include <glfw3.h>
+#include <iostream>
 
 GLFWwindow* win;
 
@@ -30,8 +31,19 @@ int main()
 
 	while (!glfwWindowShouldClose(win))
 	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
 		g_ImGuiEditor.ImGuiUpdate();
 		g_ImGuiEditor.ImGuiRender();
+
+
+
+
+		//these two needs to be at the end.
+		glfwSwapBuffers(win);
+		glfwPollEvents();
+
 	}
 
 	g_ImGuiEditor.ImGuiEnd();
