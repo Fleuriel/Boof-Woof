@@ -19,23 +19,22 @@
 #include "../Core/Graphics/GraphicsUserInterface.h"
 #include "../Core/AssetManager/AssetManager.h"
 
-#include "../Core/ECS/pch.h"
-#include "../Coordinator.h"
 #include "../Headers/TestSystem.h"
+#include "EngineCore.h"
 
+EngineCore* gCore = nullptr;
 
-Coordinator gCoordinator;
 /**************************************************************************
 * @brief Main Function
 * @return void
 *************************************************************************/
 int main()
 {
+	gCore = new EngineCore();
+	gCore->OnInit();
 
 	// Initializing States
 	StartUp();
-
-	
 
 	// Check glfwInit
 	if (!glfwInit())
@@ -45,27 +44,22 @@ int main()
 
 	// Initialize Window
 	Graphics::initWindow();
-	
-	// Initialize Coordinator
-	gCoordinator.Init();
-	
-	gCoordinator.RegisterComponent<TestComponent>();
-	auto testSystem = gCoordinator.RegisterSystem<TestSystem>();
-	
-	Signature signature;
-	signature.set(gCoordinator.GetComponentType<TestComponent>());
-	gCoordinator.SetSystemSignature<TestSystem>(signature);
 
-	std::vector<Entity> entities(MAX_ENTITIES);
+	//auto testSystem = g_Coordinator.RegisterSystem<TestSystem>();
+	//Signature signature;
+	//signature.set(g_Coordinator.GetComponentType<TestComponent>());
+	//g_Coordinator.SetSystemSignature<TestSystem>(signature);
 
-	for (auto& entity : entities) {
-		entity = gCoordinator.CreateEntity();
-		gCoordinator.AddComponent<TestComponent>(entity, TestComponent{ .data = "Hello World" });
-	}
-	
+	Entity entity = g_Coordinator.CreateEntity();
+	g_Coordinator.AddComponent<TestComponent>(entity, TestComponent{ .data = "Hello World" });
 
-	
-	
+	//std::vector<Entity> entities(MAX_ENTITIES);
+
+	//for (auto& entity : entities) {
+	//	entity = g_Coordinator.CreateEntity();
+	//	g_Coordinator.AddComponent<TestComponent>(entity, TestComponent{ .data = "Hello World" });
+	//}
+
 
 	// Check if Loading of shaders have error
 	bool test = assetManager.LoadAll();
@@ -93,14 +87,14 @@ int main()
 			break;
 		}
 
-		testSystem->Update(0.0f);
+		gCore->OnUpdate();
 
 		// Render GUI
 		GraphicsUserInterface::RenderGUI();
 		
 		previousState = currentState;
 		currentState = nextState;
-		// Update Graphics
+		// Update Graphics - this part will crash ??
 		graphicObject.UpdateLoop();
 
 		// Update the ImGui

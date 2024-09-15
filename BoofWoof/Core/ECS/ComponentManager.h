@@ -66,6 +66,11 @@ public:
 		}
 	}
 
+	template <typename T>
+	bool HaveComponent(Entity entity) {
+		return GetComponentArray<T>()->HaveComponent(entity);
+	}
+
 private:
 	// Map from type string pointer to a component type
 	std::unordered_map<const char*, ComponentType> mComponentTypes{};

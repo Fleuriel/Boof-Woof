@@ -165,6 +165,7 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClCompile Include="..\lib\imgui-docking\implot.cpp" />
     <ClCompile Include="..\lib\imgui-docking\implot_items.cpp" />
     <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
+    <ClCompile Include="Core\EngineCore.cpp" />
     <ClCompile Include="Core\Graphics\BoundingVolume.cpp" />
     <ClCompile Include="Core\Graphics\Graphics.cpp" />
     <ClCompile Include="Core\Graphics\GraphicsUserInterface.cpp" />
@@ -195,6 +196,7 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="Core\ECS\pch.h" />
     <ClInclude Include="Core\ECS\System.h" />
     <ClInclude Include="Core\ECS\SystemManager.h" />
+    <ClInclude Include="Core\EngineCore.h" />
     <ClInclude Include="Core\Graphics\BoundingVolume.h" />
     <ClInclude Include="Core\Graphics\Graphics.h" />
     <ClInclude Include="Core\Graphics\GraphicsUserInterface.h" />
