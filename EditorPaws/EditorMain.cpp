@@ -16,6 +16,12 @@ int main()
 	_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
 #endif
 
+	// Check glfwInit
+	if (!glfwInit())
+	{
+		return -1;
+	}
+
 	//for use with debugging, change the value to the location of the mem leak per the crt debug info from the console
 	// refer to stack frame and see where it all went wrong
 	//_crtBreakAlloc = 372;
