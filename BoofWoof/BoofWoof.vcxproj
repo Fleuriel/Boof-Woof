@@ -199,14 +199,14 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="Headers\Input.h" />
     <ClInclude Include="Headers\Shader.h" />
     <ClInclude Include="Headers\TestCases.h" />
-<<<<<<< Updated upstream
+
     <ClInclude Include="pch.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />
-=======
+
     <ClInclude Include="Headers\TestComponent.h" />
     <ClInclude Include="Headers\TestSystem.h" />
->>>>>>> Stashed changes
+
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Shader.frag" />
