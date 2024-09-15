@@ -115,7 +115,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Core</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -137,7 +137,7 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Core</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -171,14 +171,7 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClCompile Include="Core\Graphics\Shader.cpp" />
     <ClCompile Include="Core\GSM\GameStateMachine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
-    <ClCompile Include="Source\AssetManager.cpp" />
-    <ClCompile Include="source\BoundingVolume.cpp" />
-    <ClCompile Include="source\GameStateMachine.cpp" />
-    <ClCompile Include="source\Graphics.cpp" />
-    <ClCompile Include="source\GraphicsUserInterface.cpp" />
-    <ClCompile Include="source\Input.cpp" />
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\TestSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -208,13 +201,6 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="Core\Graphics\Shader.h" />
     <ClInclude Include="Core\GSM\GameStateMachine.h" />
     <ClInclude Include="Core\Input\Input.h" />
-    <ClInclude Include="Headers\AssetManager.h" />
-    <ClInclude Include="Headers\BoundingVolume.h" />
-    <ClInclude Include="Headers\GameStateMachine.h" />
-    <ClInclude Include="Headers\Graphics.h" />
-    <ClInclude Include="Headers\GraphicsUserInterface.h" />
-    <ClInclude Include="Headers\Input.h" />
-    <ClInclude Include="Headers\Shader.h" />
     <ClInclude Include="Headers\TestCases.h" />
     <ClInclude Include="Headers\TestComponent.h" />
     <ClInclude Include="Headers\TestSystem.h" />
@@ -222,8 +208,6 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
   <ItemGroup>
     <None Include="Assets\Shaders\Shader.frag" />
     <None Include="Assets\Shaders\Shader.vert" />
-    <None Include="Shaders\Shader.frag" />
-    <None Include="Shaders\Shader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

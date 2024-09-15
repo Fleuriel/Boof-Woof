@@ -1,7 +1,5 @@
 #pragma once
-#include "pch.h"
 #include "System.h"
-#include "ComponentArray.h"
 
 class SystemManager
 {

@@ -1,16 +1,6 @@
 #pragma once
 #include "pch.h"
 
-// A simple type alias
-using Entity = std::uint32_t;
-
-// Used to define the size of arrays later on
-const Entity MAX_ENTITIES = 5000;
-
-// A simple type alias
-using Signature = std::bitset<MAX_COMPONENTS>;
-
-
 class EntityManager
 {
 public:
@@ -71,5 +61,5 @@ private:
 	std::array<Signature, MAX_ENTITIES> mSignatures{};
 
 	// Total living entities - used to keep limits on how many exist
-	uint32_t mLivingEntityCount{};
+	Entity mLivingEntityCount{};
 };

@@ -1,7 +1,7 @@
 #pragma once
-#include "pch.h"
-#include "Coordinator.h"
-#include <TestComponent.h>
+#include "../Core/ECS/pch.h"
+#include "../Coordinator.h"
+#include "TestComponent.h"
 
 
 class TestSystem : public System

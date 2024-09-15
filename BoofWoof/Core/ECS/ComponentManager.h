@@ -1,13 +1,6 @@
 #pragma once
 #include "pch.h"
-
 #include "ComponentArray.h"
-
-// A simple type alias
-using ComponentType = std::uint8_t;
-
-// Used to define the size of arrays later on
-const ComponentType MAX_COMPONENTS = 32;
 
 class ComponentManager
 {

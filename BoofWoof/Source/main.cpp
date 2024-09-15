@@ -13,15 +13,15 @@
  *************************************************************************/
 
 #include <iostream>
-#include "Graphics.h"
+#include "../Core/Graphics/Graphics.h"
 
-#include "GameStateMachine.h"
-#include "GraphicsUserInterface.h"
-#include "AssetManager.h"
+#include "../Core/GSM/GameStateMachine.h"
+#include "../Core/Graphics/GraphicsUserInterface.h"
+#include "../Core/AssetManager/AssetManager.h"
 
-#include "pch.h"
-#include <Coordinator.h>
-#include <TestSystem.h>
+#include "../Core/ECS/pch.h"
+#include "../Coordinator.h"
+#include "../Headers/TestSystem.h"
 
 
 Coordinator gCoordinator;
@@ -84,11 +84,6 @@ int main()
 	// Initialize ImGui
 	GraphicsUserInterface::Initialize();
 
-	
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 	// While Loop
 	while (!glfwWindowShouldClose(newWindow))
 	{
@@ -102,8 +97,6 @@ int main()
 
 		// Render GUI
 		GraphicsUserInterface::RenderGUI();
-
-
 		
 		previousState = currentState;
 		currentState = nextState;

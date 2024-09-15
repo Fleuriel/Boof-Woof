@@ -1,8 +1,8 @@
 #pragma once
-#include "pch.h"
-#include "ComponentManager.h"
-#include "EntityManager.h"
-#include "SystemManager.h"
+#include "../BoofWoof/Core/ECS/pch.h"
+#include "../BoofWoof/Core/ECS/ComponentManager.h"
+#include "../BoofWoof/Core/ECS/EntityManager.h"
+#include "../BoofWoof/Core/ECS/SystemManager.h"
 
 class Coordinator
 {
