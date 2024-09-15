@@ -1,7 +1,5 @@
 #pragma once
 #include "pch.h"
-#include "ComponentManager.h"
-<<<<<<< Updated upstream:BoofWoof/EntityManager.h
 
 // A simple type alias
 using Entity = std::uint32_t;
@@ -11,9 +9,7 @@ const Entity MAX_ENTITIES = 5000;
 
 // A simple type alias
 using Signature = std::bitset<MAX_COMPONENTS>;
-=======
-#include "SystemManager.h"
->>>>>>> Stashed changes:BoofWoof/Headers/EntityManager.h
+
 
 class EntityManager
 {

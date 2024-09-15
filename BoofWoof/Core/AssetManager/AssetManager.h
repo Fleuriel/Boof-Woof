@@ -17,14 +17,14 @@
 #ifndef ASSETMANAGER_H
 #define ASSETMANAGER_H
 
-#include "Shader.h"
 #include <vector>
 #include <string>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <iostream>
-#include "Graphics.h"
+#include "../Graphics/Graphics.h"
+#include "../Graphics/Shader.h"
 
 
 #define ARRAY_SIZE_IN_ELEMENTS(a) (sizeof(a)/sizeof(a[0]))

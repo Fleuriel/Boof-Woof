@@ -31,6 +31,12 @@
 #include <map>
 #include <unordered_map>
 
+#include "../Input/Input.h"
+#include "TestCases.h"
+#include "BoundingVolume.h"
+#include "GraphicsUserInterface.h"
+#include "../GSM/GameStateMachine.h"
+#include "../AssetManager/AssetManager.h"
 
 #define RITTER_MODEL "Ritter"
 #define LARSSON_MODEL "Larsson"

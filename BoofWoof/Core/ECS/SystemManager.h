@@ -2,9 +2,6 @@
 #include "pch.h"
 #include "System.h"
 #include "ComponentArray.h"
-#include "ComponentManager.h"
-#include "EntityManager.h"
-
 
 class SystemManager
 {

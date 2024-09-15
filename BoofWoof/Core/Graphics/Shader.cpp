@@ -12,10 +12,8 @@
  *
  *************************************************************************/
 
-#include <Shader.h>
-#include <iostream>
-#include <fstream>
-#include <sstream>
+#include "Shader.h"
+
 
  /**************************************************************************
  * @brief		Link the Shader

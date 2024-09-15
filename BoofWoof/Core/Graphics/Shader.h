@@ -12,6 +12,7 @@
  *
  *************************************************************************/
 
+#pragma once
 
 #ifndef OPENGL_SHADERS_H
 #define OPENGL_SHADERS_H

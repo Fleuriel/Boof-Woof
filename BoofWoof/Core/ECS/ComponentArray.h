@@ -1,7 +1,5 @@
 #pragma once
 #include "pch.h"
-#include "EntityManager.h"
-
 
 // The one instance of virtual inheritance in the entire implementation.
 // An interface is needed so that the ComponentManager (seen later)

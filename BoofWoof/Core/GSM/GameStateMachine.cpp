@@ -14,8 +14,6 @@
  *************************************************************************/
 
 #include "GameStateMachine.h"
-#include <iostream>
-
 
 std::chrono::high_resolution_clock::time_point currentTime;
 std::chrono::high_resolution_clock::time_point previousTime;

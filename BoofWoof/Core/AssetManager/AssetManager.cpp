@@ -16,15 +16,10 @@
 #include "AssetManager.h"
 #include <filesystem>
 #include "windows.h"
-#include <iostream>
-#include "Graphics.h"
-#include "Shader.h"
 #include <fstream>
 
 
 extern AssetManager assetManager;
-
-
 
 std::vector<std::string> AssetManager::txtFile;
 std::vector<std::string> AssetManager::mtlFile;

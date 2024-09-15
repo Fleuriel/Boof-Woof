@@ -13,6 +13,18 @@
  *************************************************************************/
 
 #pragma once
+#include "BoundingVolume.h"
+
+ //Include IMGUI
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
+#include "TestCases.h"
+
+#include "Graphics.h"
+
+#include <assimp/ai_assert.h>
 
 #ifndef GRAPHICSUSERINTERFACE_H
 #define GRAPHICSUSERINTERFACE_H

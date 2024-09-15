@@ -18,14 +18,11 @@
 #include "GameStateMachine.h"
 #include "GraphicsUserInterface.h"
 #include "AssetManager.h"
-<<<<<<< Updated upstream
 
-
-=======
 #include "pch.h"
 #include <Coordinator.h>
 #include <TestSystem.h>
->>>>>>> Stashed changes
+
 
 Coordinator gCoordinator;
 /**************************************************************************
