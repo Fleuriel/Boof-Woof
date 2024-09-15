@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Coordinator.h"
+#include "../Core/ECS/Coordinator.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "../Headers/TestComponent.h"

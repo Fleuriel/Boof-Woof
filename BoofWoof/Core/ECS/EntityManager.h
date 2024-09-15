@@ -53,6 +53,10 @@ public:
 		return mSignatures[entity];
 	}
 
+	Entity GetTotalEntites() {
+		return mLivingEntityCount;
+	}
+
 private:
 	// Queue of unused entity IDs
 	std::queue<Entity> mAvailableEntities{};

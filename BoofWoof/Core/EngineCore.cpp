@@ -21,6 +21,12 @@ void EngineCore::OnInit()
 		signature.set(g_Coordinator.GetComponentType<TestComponent>());
 		g_Coordinator.SetSystemSignature<TestSystem>(signature);
 	}
+
+	Entity entity = g_Coordinator.CreateEntity();
+	g_Coordinator.AddComponent<TestComponent>(entity, TestComponent{ .data = "Hello World" });
+	std::cout << "EngineCore Initialized!" << std::endl;
+
+	std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
 }
 
 void EngineCore::OnUpdate()

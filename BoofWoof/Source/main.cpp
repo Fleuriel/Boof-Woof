@@ -50,16 +50,12 @@ int main()
 	//signature.set(g_Coordinator.GetComponentType<TestComponent>());
 	//g_Coordinator.SetSystemSignature<TestSystem>(signature);
 
-	Entity entity = g_Coordinator.CreateEntity();
-	g_Coordinator.AddComponent<TestComponent>(entity, TestComponent{ .data = "Hello World" });
-
 	//std::vector<Entity> entities(MAX_ENTITIES);
 
 	//for (auto& entity : entities) {
 	//	entity = g_Coordinator.CreateEntity();
 	//	g_Coordinator.AddComponent<TestComponent>(entity, TestComponent{ .data = "Hello World" });
 	//}
-
 
 	// Check if Loading of shaders have error
 	bool test = assetManager.LoadAll();

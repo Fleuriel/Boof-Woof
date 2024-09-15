@@ -1,8 +1,8 @@
 #pragma once
-#include "../BoofWoof/Core/ECS/pch.h"
-#include "../BoofWoof/Core/ECS/ComponentManager.h"
-#include "../BoofWoof/Core/ECS/EntityManager.h"
-#include "../BoofWoof/Core/ECS/SystemManager.h"
+#include "pch.h"
+#include "ComponentManager.h"
+#include "EntityManager.h"
+#include "SystemManager.h"
 
 #define g_Coordinator Coordinator::GetInstance()
 
@@ -39,6 +39,11 @@ public:
 		mComponentManager->EntityDestroyed(entity);
 
 		mSystemManager->EntityDestroyed(entity);
+	}
+
+	Entity GetTotalEntities() 
+	{
+		return mEntityManager->GetTotalEntites();
 	}
 
 	// clone entities, if needed in future.
