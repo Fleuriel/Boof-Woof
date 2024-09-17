@@ -10,14 +10,17 @@
 class GraphicsSystem : public System
 {
 public:
-    static void initWindow();
-    static void initGraphicsPipeline();
+    void initWindow();
+    static void initGraphicsPipeline(const GraphicsComponent& graphicsComponent);
     static void OpenGLWindowResizeCallback(GLFWwindow* window, int width, int height);
     void UpdateLoop(std::vector<GraphicsComponent>& components);
     void Draw(std::vector<GraphicsComponent>& components);
     static void DrawObject(GraphicsComponent& component);
     static void CreateObject(OpenGLModel model, int Tag);
 
+    static bool glewInitialized;
+    
+    
     void Update(glm::vec3 newPosition, glm::vec3 Scale, glm::vec3 angle);
 
 

@@ -2,4 +2,8 @@
 
 
 
-WindowComponent::WindowComponent() : window(nullptr), windowSize{800, 600} {}  // Default window size
+WindowComponent::WindowComponent() : window(nullptr), windowSize{1366, 768} {}  // Default window size
+
+
+
+

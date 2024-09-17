@@ -4,15 +4,6 @@
 #include <GL/glew.h>
 #include <string>
 
-enum ModelType {
-    BOX,
-    SPHERE,
-    POINTT,
-    RAY,
-    PLANE,
-    TRIANGLE,
-    ARROW
-};
 
 struct OpenGLModel {
     std::string Name;

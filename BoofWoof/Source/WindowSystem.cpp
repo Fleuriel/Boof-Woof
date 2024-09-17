@@ -50,6 +50,9 @@ void WindowSystem::initWindow(WindowComponent& windowComponent) {
 
     glEnable(GL_DEPTH_TEST);
     glDepthRange(0.0f, 1.0f);
+
+
+    std::cout << "Window successfully created." << std::endl;
 }
 
 void WindowSystem::OpenGLWindowResizeCallback(GLFWwindow* window, int width, int height) {

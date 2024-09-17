@@ -4,7 +4,7 @@
 #include "WindowComponent.h"
 #include <iostream>
 
-class WindowSystem {
+class WindowSystem : public System{
 public:
     WindowSystem();   // Constructor
     ~WindowSystem();  // Destructor

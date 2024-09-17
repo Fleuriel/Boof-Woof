@@ -103,6 +103,7 @@ void AssetManager::InitShdrpgms(VectorPairString const& vpss)
 		shdr_pgm.CompileLinkValidate(shdr_files);
 		// insert shader program into container
 		shdrpgms.emplace_back(shdr_pgm);
+
 	}
 }
 /**************************************************************************

@@ -1,8 +1,10 @@
 #pragma once
 #include "pch.h"
 #include "System.h"
+#include "Coordinator.h"
 
 extern Coordinator gCoordinator;
+
 class TestSystem : public System
 {
 public:

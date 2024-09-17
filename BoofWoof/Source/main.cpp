@@ -22,14 +22,17 @@
 #include "Coordinator.h"
 #include <TestComponent.h>
 #include <TestSystem.h>
+
+
+
 #include <WindowComponent.h>
 #include <WindowSystem.h>
-
 #include <GraphicsSystem.h>
 #include <GraphicsComponent.h>
 
 // Global Variables
 Coordinator gCoordinator;
+
 /**************************************************************************
 * @brief Main Function
 * @return void
@@ -45,41 +48,69 @@ int main()
 		return -1;
 	}
 
+	// Initialize the coordinator
 	gCoordinator.Init();
+
+	// Register components with the coordinator
 	gCoordinator.RegisterComponent<TestComponent>();
 	gCoordinator.RegisterComponent<GraphicsComponent>();
 	gCoordinator.RegisterComponent<WindowComponent>();
 
+	// Register systems with the coordinator
 	auto testSystem = gCoordinator.RegisterSystem<TestSystem>();
-	auto testSystem1 = gCoordinator.RegisterSystem<GraphicsSystem>();
-	auto testSystem2 = gCoordinator.RegisterSystem<WindowSystem>();
+	auto graphicsSystem = gCoordinator.RegisterSystem<GraphicsSystem>();
+	auto windowSystem = gCoordinator.RegisterSystem<WindowSystem>();
 
 
 
 	Signature signature;
 	signature.set(gCoordinator.GetComponentType<TestComponent>());
-	signature.set(gCoordinator.GetComponentType<GraphicsComponent>());
-	signature.set(gCoordinator.GetComponentType<WindowComponent>());
 	gCoordinator.SetSystemSignature<TestSystem>(signature);
+
+	Signature windowSystemSignature;
+	windowSystemSignature.set(gCoordinator.GetComponentType<WindowComponent>()); // Add WindowComponent bit to signature
+	gCoordinator.SetSystemSignature<WindowSystem>(windowSystemSignature);
+
+	Signature graphicsSystemSignature;
+	graphicsSystemSignature.set(gCoordinator.GetComponentType<GraphicsComponent>()); // Add WindowComponent bit to signature
+	gCoordinator.SetSystemSignature<GraphicsSystem>(graphicsSystemSignature);
+
+	Entity windowEntity = gCoordinator.CreateEntity();
+	gCoordinator.AddComponent(windowEntity, WindowComponent{});// Add a WindowComponent to the entity
+
+
+	Entity graphicsEntity = gCoordinator.CreateEntity();
+	gCoordinator.AddComponent(graphicsEntity, GraphicsComponent{ /* initialization data */ });
+
+
+	// INIT THE WINDOW AND PIPELINE.
+	WindowComponent& windowComp = gCoordinator.GetComponent<WindowComponent>(windowEntity);
+
+	// Initialize the window with the window component
+	windowSystem->initWindow(windowComp);
+
+
+	GraphicsComponent& graphicsComp = gCoordinator.GetComponent<GraphicsComponent>(graphicsEntity);
+	// Call the initialization function with the component
+	graphicsSystem->initGraphicsPipeline(graphicsComp);
 
 	std::vector<Entity> entities(MAX_ENTITIES);
 
-	for(auto& entity : entities)
-	{
-		entity = gCoordinator.CreateEntity();
-		gCoordinator.AddComponent<TestComponent>(entity, TestComponent{ 1, 2 });
-		//gCoordinator.AddComponent<GraphicsComponent>(entity);
+
+
+	//for(auto& entity : entities)
+	//{
+	//	entity = gCoordinator.CreateEntity();
+	//	gCoordinator.AddComponent<TestComponent>(entity, TestComponent{ 1, 2 });
+	//	//gCoordinator.AddComponent<GraphicsComponent>(entity);
+	//}
+	// Now that the window system is ready and we have an entity with WindowComponent, we can initialize the window
+
+	
+	if (!windowSystem) {
+		std::cerr << "WindowSystem is null!" << std::endl;
+		return 1;
 	}
-
-
-
-	// Initialize Window
-	Graphics::initWindow();
-
-	
-	// Initialize Graphics Pipeline
-	Graphics::initGraphicsPipeline();
-	
 
 	// Check if Loading of shaders have error
 	bool test = assetManager.LoadShaders();
@@ -93,12 +124,12 @@ int main()
 	previousTime = std::chrono::high_resolution_clock::now();
 	
 	// Initialize ImGui
-	GraphicsUserInterface::Initialize();
+	//GraphicsUserInterface::Initialize();
 
 	// 
 	float dt = 0.0f;
 	// While Loop
-	while (!glfwWindowShouldClose(newWindow))
+	while (!glfwWindowShouldClose(windowComp.window))
 	{
 		if (currentState == STATE::END)
 		{
@@ -115,7 +146,7 @@ int main()
 		dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
 
 		// Render GUI
-		GraphicsUserInterface::RenderGUI();
+		//GraphicsUserInterface::RenderGUI();
 
 
 		
@@ -125,10 +156,10 @@ int main()
 		graphicObject.UpdateLoop();
 
 		// Update the ImGui
-		GraphicsUserInterface::Update();
+		//GraphicsUserInterface::Update();
 		
 		// Swap Buffers and Poll the events
-		glfwSwapBuffers(newWindow);
+		glfwSwapBuffers(windowComp.window);
 		glfwPollEvents();
 
 		// After everything happened, set the current time.
