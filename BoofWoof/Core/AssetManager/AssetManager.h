@@ -1,5 +1,5 @@
 /**************************************************************************
- * @file AssetManager.h
+ * @file AssetManager.cpp
  * @author 	TAN Angus Yit Hoe
  * @param DP email: tan.a@digipen.edu [0067684]
  * @param Course: CS 350
@@ -48,7 +48,7 @@
 
 #define FILEPATH_RABBITMODEL "../Adv Computer Graphics/Model/TestingModel/bunny_high_poly.obj"
 #define FILEPATH_RABBITMODEL2 "../Adv Computer Graphics/Model/TestingModel/g5.obj"
-//#define FILEPATH_RABBITMODEL2 "../Adv Computer Graphics/Model/TestingModel/g0.obj"
+ //#define FILEPATH_RABBITMODEL2 "../Adv Computer Graphics/Model/TestingModel/g0.obj"
 
 #define FILEPATH_OBJ1 "../Adv Computer Graphics/Model/PPlantModel/ppsection5/part_a/g5.obj"
 
@@ -101,21 +101,71 @@ public:
 	~AssetManager();																		// Default DeConstructor
 
 
-	void LoadAll();																			// Function to load all the assets that are required (NOT IMPLEMENTED)																
-	void Free();																			// Function to Free Assets
+	bool LoadAll();																			// Function to load all the assets that are required (NOT IMPLEMENTED)		
+	bool Free();																			// Function to Free Assets
 
 	using VectorPairString = std::vector <std::pair<std::string, std::string>>;				// Using a vector-->pair string for shaders
 
+
+	bool LoadScene();
 	bool LoadShaders();																		// Load Shaders
 	void InitShdrpgms(VectorPairString const& vpss);										//Function to initialize shaders
-	
+
 	bool FreeShaders();																		//Function to free shaders
+
+	//std::vector<std::string> LoadModelPaths(const std::vector<std::string>& filepath);
+
+	bool FindModelFiles(int chooseMode = MODEL);
+	void PrintModelFiles(const std::string& directory);
+
+
+
+	std::vector<std::string> readFilePathsFromFile(const std::string& filename);
+	std::vector<std::string> readFilePathsFromFileMaterial(const std::string& filename);
+
+	//bool LoadModel(const std::string& path);
+	//bool ProcessNode(aiNode* node, const aiScene* scene); 
+	//
+	//Graphics::Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
+
+
+	bool LoadMesh(const std::string& fileName);
+
+
+
+	//static ObjData Objectdata;
 
 
 	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
 
+	static std::vector<std::string> txtFile;
+	static std::vector<std::string> mtlFile;
+	static std::vector<glm::vec3> modelCenterCoord;
+	static std::vector<glm::vec3> modelAABBHalfExtents;
+
+
+	static std::vector<std::string> objFilesA;
+	static std::vector<std::string> mtlFilesA;
+
+	static std::vector<std::string> objFilesB;
+	static std::vector<std::string> mtlFilesB;
+
+	static std::vector<std::string> objFilesC;
+	static std::vector<std::string> mtlFilesC;
+
+
+	static std::vector<std::string> testingContainer;
+
+	static std::vector <ObjData> Vector3_Objects;
+
+
+
 private:
+
 };
+
+
+
 
 extern AssetManager assetManager;		// Allow usage of class outside of assetManager.cpp
 
