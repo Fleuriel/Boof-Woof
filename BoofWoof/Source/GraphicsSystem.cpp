@@ -10,7 +10,7 @@
 #include "pch.h"
 #include "TestSystem.h"
 #include "Input.h"
-
+#include "AssetManager.h"
 
 // Assignment 1
 #include "BoundingVolume.h"
@@ -21,6 +21,8 @@
 GLuint GraphicsSystem::mdl_ref = 0;
 GLuint GraphicsSystem::shd_ref = 0;
 unsigned int GraphicsSystem::VBO = 0, GraphicsSystem::VAO = 0, GraphicsSystem::EBO = 0;
+
+
 
 bool GraphicsSystem::glewInitialized = false;
 
@@ -51,70 +53,15 @@ void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsCompo
 void GraphicsSystem::UpdateLoop(GraphicsComponent& graphicsComp) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//if (inputSystem.GetKeyState(GLFW_KEY_A) == 1)
-	//{
-	//	std::cout << "Position left " << PositionLeft.x << '\t' << PositionLeft.y << '\t' << PositionLeft.z << '\n';
-	//	std::cout << "PositionRight " << PositionRight.x << '\t' << PositionRight.y << '\t' << PositionRight.z << '\n';
-	//}
 
 
-	CheckTestsCollisions();
-	
-
-	// Iterate through all objects and set variables and/or stuff so that it matches what is on the screen
-	for (auto& obj : objects)
-	{
-	
-		
-
-		if (obj.TagID == 1)
-		{
-			glm::vec3 changePlaneRot = glm::vec3(0.0f, 0.0f, 0.0f);
-
-			if (TESTCASE::Plane_vs_AABB || TESTCASE::Plane_vs_Sphere)
-			{
-				changePlaneRot = glm::vec3(0.0f, 0.0f, 90.0f);
-				obj.UpdateObject(PositionLeft, glm::vec3(1.0f, 1.0f, 1.0f), changePlaneRot);
-			}
-			else
-				obj.Update(PositionLeft, glm::vec3(1.0f, 1.0f, 1.0f), AngleLeft);
-		}
-
-		if (obj.TagID == 2)
-		{
-			// ONLY FOR PLANE FOR OBJECT 2
-			glm::vec3 changePlaneRot = glm::vec3(0.0f, 0.0f, 0.0f);
-			if (TESTCASE::Point_vs_Plane || TESTCASE::Ray_vs_Plane)
-			{
-				changePlaneRot = glm::vec3(0.0f, 0.0f, 90.0f);
-
-				obj.Update(PositionRight, glm::vec3(1.0f, 1.0f, 1.0f), changePlaneRot);
-			}
-			else
-				obj.Update(PositionRight, glm::vec3(1.0f, 1.0f, 1.0f), AngleRight);
-
-
-		}
-
-	}
-
-	// If True, set to line else FILL it with color.
-	if (togglePolygonMode == true) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	if (togglePolygonMode == false) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-
-	// Update the state for keypresses
-	inputSystem.UpdateStatesForNextFrame();
-
-	// Draw Objects after calculations etc.
-	DrawObject();
 }
 
-void GraphicsSystem::UpdateObject(Entity entity, GraphicsComponent& graphicsComp, const WindowComponent& windowComp, float deltaTime)
+
+
+void GraphicsSystem::UpdateObject(Entity entity, GraphicsComponent& graphicsComp, WindowComponent& windowComp, float deltaTime)
 {
+
 	using glm::radians;
 
 	// Compute matrices
@@ -132,7 +79,7 @@ void GraphicsSystem::UpdateObject(Entity entity, GraphicsComponent& graphicsComp
 		0.0f, 0.0f, graphicsComp.ScaleModel.z, 0.0f,
 		0.0f, 0.0f, 0.0f, 1.0f
 	);
-
+	
 	glm::mat4 Translate = glm::mat4{
 		1, 0, 0, 0,
 		0, 1, 0, 0,
@@ -199,9 +146,98 @@ void GraphicsSystem::DrawObject(GraphicsComponent& component) {
 
 void GraphicsSystem::CreateObject(OpenGLModel model, int Tag) {
     // Implement object creation
+
+
+
 }
 
 
+OpenGLModel SphereModel() {
+	struct Vertex {
+		glm::vec3 position;
+	};
+
+	std::vector<Vertex> vertices;
+	std::vector<GLushort> indices;
+
+
+	const float PI = 3.14159265359f;
+	const int latitudeBands = 40;
+	const int longitudeBands = 40;
+	const float radius = 0.5f;
+
+	for (int latNumber = 0; latNumber <= latitudeBands; ++latNumber) {
+		float theta = latNumber * PI / latitudeBands;
+		float sinTheta = sin(theta);
+		float cosTheta = cos(theta);
+
+		for (int longNumber = 0; longNumber <= longitudeBands; ++longNumber) {
+			float phi = longNumber * 2 * PI / longitudeBands;
+			float sinPhi = sin(phi);
+			float cosPhi = cos(phi);
+
+			glm::vec3 position = glm::vec3(
+				cosPhi * sinTheta * radius,
+				cosTheta * radius,
+				sinPhi * sinTheta * radius
+			);
+			vertices.push_back({ position });
+
+			int first = (latNumber * (longitudeBands + 1)) + longNumber;
+			int second = first + longitudeBands + 1;
+
+			if (latNumber < latitudeBands && longNumber < longitudeBands) {
+				indices.push_back(first);
+				indices.push_back(second);
+				indices.push_back(first + 1);
+
+				indices.push_back(second);
+				indices.push_back(second + 1);
+				indices.push_back(first + 1);
+			}
+		}
+	}
+
+	OpenGLModel mdl;
+
+	GLuint vbo_hdl;
+	glCreateBuffers(1, &vbo_hdl);
+	glNamedBufferStorage(vbo_hdl, sizeof(Vertex) * vertices.size(), vertices.data(), GL_DYNAMIC_STORAGE_BIT);
+
+	GLuint vaoid;
+	glCreateVertexArrays(1, &vaoid);
+
+	glEnableVertexArrayAttrib(vaoid, 0);
+	glVertexArrayVertexBuffer(vaoid, 0, vbo_hdl, offsetof(Vertex, position), sizeof(Vertex));
+	glVertexArrayAttribFormat(vaoid, 0, 3, GL_FLOAT, GL_FALSE, 0);
+	glVertexArrayAttribBinding(vaoid, 0, 0);
+
+	GLuint ebo_hdl;
+	glCreateBuffers(1, &ebo_hdl);
+	glNamedBufferStorage(ebo_hdl, sizeof(GLushort) * indices.size(), indices.data(), GL_DYNAMIC_STORAGE_BIT);
+	glVertexArrayElementBuffer(vaoid, ebo_hdl);
+
+	mdl.Name = "Sphere Model";
+	mdl.vaoid = vaoid;
+	mdl.primitive_type = GL_TRIANGLES;
+	mdl.draw_cnt = static_cast<GLsizei>(indices.size());
+	mdl.primitive_cnt = vertices.size();
+
+	return mdl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//DEPRECIATED
 void GraphicsSystem::CheckTestsCollisions()
 {
 	if (TESTCASE::Sphere_vs_Sphere)

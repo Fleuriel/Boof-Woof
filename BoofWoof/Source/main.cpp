@@ -105,6 +105,7 @@ int main()
 	//	//gCoordinator.AddComponent<GraphicsComponent>(entity);
 	//}
 	// Now that the window system is ready and we have an entity with WindowComponent, we can initialize the window
+	AssetManager assetManager;
 
 	
 	if (!windowSystem) {
@@ -153,7 +154,7 @@ int main()
 		previousState = currentState;
 		currentState = nextState;
 		// Update Graphics
-		graphicObject.UpdateLoop();
+		//graphicObject.UpdateLoop();
 
 		// Update the ImGui
 		//GraphicsUserInterface::Update();
@@ -169,7 +170,7 @@ int main()
 	}
 
 	// Cleanup
-	GraphicsUserInterface::Cleanup();
+	//GraphicsUserInterface::Cleanup();
 
 
 	// Terminate

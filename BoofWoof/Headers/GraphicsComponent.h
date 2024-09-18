@@ -40,4 +40,4 @@ public:
     ~GraphicsComponent() = default;
 };
 
-std::list<GraphicsComponent> objects;
+extern std::list<GraphicsComponent> objects;

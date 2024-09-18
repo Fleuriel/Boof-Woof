@@ -1,10 +1,12 @@
 #pragma once
 #include "GraphicsComponent.h"
+#include "WindowComponent.h"
 #include "pch.h"
 #include "System.h"
 #include <vector>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
 
 
 class GraphicsSystem : public System
@@ -22,7 +24,7 @@ public:;
     void Update(float deltaTime);
 
     void CheckTestsCollisions();
-    void UpdateObject(Entity entity, GraphicsComponent& graphicsComp, const WindowComponent& windowComp, float deltaTime);
+    void UpdateObject(Entity entity, GraphicsComponent& graphicsComp, WindowComponent& windowComp, float deltaTime);
 
 
     static GLuint mdl_ref;    // Model reference

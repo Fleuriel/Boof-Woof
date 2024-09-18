@@ -10,6 +10,7 @@ GraphicsComponent::GraphicsComponent()
     Angle(glm::vec3(0.0f)), angleSpeed(0.0f), TagID(0), size(1.0f) {}
 
 
+std::list<GraphicsComponent> objects;
 //GraphicsComponent::GraphicsComponent(const OpenGLModel& model, int id)
 //    : model_To_NDC_xform(1.0f), Position(0.0f), ScaleModel(0.5f),
 //    setColor(1.0f), setColorLeft(1.0f), setColorRight(1.0f),
