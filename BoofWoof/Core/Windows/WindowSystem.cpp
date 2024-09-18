@@ -3,6 +3,7 @@
 #include <windows.h>
 #include "WindowSystem.h"
 
+
 Window* g_Window = nullptr;
 int g_WindowX, g_WindowY;
 int g_DesktopWidth, g_DesktopHeight;

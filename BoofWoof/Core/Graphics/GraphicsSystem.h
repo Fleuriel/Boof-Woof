@@ -1,6 +1,5 @@
 #pragma once
 #include "../Utilities/Components/GraphicsComponent.h"
-#include "../Utilities/Components/WindowComponent.h"
 #include "../ECS/pch.h"
 #include "../ECS/System.h"
 #include <vector>
@@ -24,7 +23,7 @@ public:;
     void Update(float deltaTime);
 
     void CheckTestsCollisions();
-    void UpdateObject(Entity entity, GraphicsComponent& graphicsComp, WindowComponent& windowComp, float deltaTime);
+    void UpdateObject(Entity entity, GraphicsComponent& graphicsComp, float deltaTime);
 
 
     static GLuint mdl_ref;    // Model reference

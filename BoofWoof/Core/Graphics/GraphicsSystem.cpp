@@ -1,5 +1,4 @@
 #include "GraphicsSystem.h"
-#include "../Utilities/Components/WindowComponent.h"
 #include "Shader.h"
 #include <utility>
 #include <vector>
@@ -61,15 +60,15 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-void GraphicsSystem::UpdateObject(Entity entity, GraphicsComponent& graphicsComp, WindowComponent& windowComp, float deltaTime)
+void GraphicsSystem::UpdateObject(Entity entity, GraphicsComponent& graphicsComp, float deltaTime)
 {
 
 	using glm::radians;
 
 	// Compute matrices
 	glm::mat4 ScaleToWorldToNDC = glm::mat4{
-		2.0f / windowComp.windowSize.first, 0, 0, 0,
-		0, 2.0f / windowComp.windowSize.second, 0, 0,
+		2.0f / g_WindowX, 0, 0, 0,
+		0, 2.0f / g_WindowY, 0, 0,
 		0, 0, 2.0f / 1000000000.0f, 0,
 		0, 0, 0, 1
 	};
