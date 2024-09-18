@@ -34,8 +34,6 @@ int main()
 	// Initializing States
 	StartUp();
 
-	std::cout << "Main here\n";
-
 	// Initialize Previous Time with NOW()
 	previousTime = std::chrono::high_resolution_clock::now();
 	
@@ -53,10 +51,6 @@ int main()
 		
 		previousState = currentState;
 		currentState = nextState;
-		
-		// Swap Buffers and Poll the events
-		//glfwSwapBuffers(g_Window->GetGLFWWindow());
-		//glfwPollEvents();
 
 		// After everything happened, set the current time.
 		currentTime = std::chrono::high_resolution_clock::now();
@@ -66,6 +60,6 @@ int main()
 
 	// Terminate
 	glfwTerminate();
-	std::cout << " End of Program" << std::endl;
+	std::cout << "End of Program" << std::endl;
 	return 0;
 }
