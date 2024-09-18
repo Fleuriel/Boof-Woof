@@ -4,10 +4,22 @@
 #include "EntityManager.h"
 #include "SystemManager.h"
 
+<<<<<<<< HEAD:BoofWoof/Headers/Coordinator.h
+========
+#define g_Coordinator Coordinator::GetInstance()
+>>>>>>>> Sys&CompTest:BoofWoof/Core/ECS/Coordinator.h
 
 class Coordinator
 {
 public:
+
+	// get instance of ECS being used
+	static Coordinator& GetInstance() 
+	{
+		static Coordinator instance{};
+		return instance;
+	}
+
 	void Init()
 	{
 		// Create pointers to each manager
@@ -32,6 +44,12 @@ public:
 		mSystemManager->EntityDestroyed(entity);
 	}
 
+	Entity GetTotalEntities() 
+	{
+		return mEntityManager->GetTotalEntites();
+	}
+
+	// clone entities, if needed in future.
 
 	// Component methods
 	template<typename T>
@@ -76,6 +94,10 @@ public:
 		return mComponentManager->GetComponentType<T>();
 	}
 
+	template <typename T>
+	bool HaveComponent(Entity entity) {
+		return mComponentManager->RemoveComponent<T>(entity);
+	}
 
 	// System methods
 	template<typename T>
@@ -89,6 +111,10 @@ public:
 	{
 		mSystemManager->SetSignature<T>(signature);
 	}
+
+	// get system signatures in future if need
+
+	// get systems in future if need
 
 private:
 	std::unique_ptr<ComponentManager> mComponentManager;

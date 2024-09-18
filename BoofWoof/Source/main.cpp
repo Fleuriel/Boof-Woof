@@ -13,16 +13,14 @@
  *************************************************************************/
 
 #include <iostream>
-#include "Graphics.h"
+#include "../Core/Graphics/Graphics.h"
 
-#include "GameStateMachine.h"
-#include "GraphicsUserInterface.h"
-#include "AssetManager.h"
-#include "pch.h"
-#include "Coordinator.h"
-#include <TestComponent.h>
-#include <TestSystem.h>
+#include "../Core/GSM/GameStateMachine.h"
+#include "../Core/Graphics/GraphicsUserInterface.h"
+#include "../Core/AssetManager/AssetManager.h"
 
+#include "../Headers/TestSystem.h"
+#include "EngineCore.h"
 
 
 #include <WindowComponent.h>
@@ -33,12 +31,17 @@
 // Global Variables
 Coordinator gCoordinator;
 
+EngineCore* gCore = nullptr;
+
 /**************************************************************************
 * @brief Main Function
 * @return void
 *************************************************************************/
 int main()
 {
+	gCore = new EngineCore();
+	gCore->OnInit();
+
 	// Initializing States
 	StartUp();
 
@@ -110,6 +113,17 @@ int main()
 	// Now that the window system is ready and we have an entity with WindowComponent, we can initialize the window
 	AssetManager assetManager;
 
+	//auto testSystem = g_Coordinator.RegisterSystem<TestSystem>();
+	//Signature signature;
+	//signature.set(g_Coordinator.GetComponentType<TestComponent>());
+	//g_Coordinator.SetSystemSignature<TestSystem>(signature);
+
+	//std::vector<Entity> entities(MAX_ENTITIES);
+
+	//for (auto& entity : entities) {
+	//	entity = g_Coordinator.CreateEntity();
+	//	g_Coordinator.AddComponent<TestComponent>(entity, TestComponent{ .data = "Hello World" });
+	//}
 	
 	if (!windowSystem) {
 		std::cerr << "WindowSystem is null!" << std::endl;
@@ -130,8 +144,6 @@ int main()
 	// Initialize ImGui
 	//GraphicsUserInterface::Initialize();
 
-	// 
-	float dt = 0.0f;
 	// While Loop
 	while (!glfwWindowShouldClose(windowComp.window))
 	{
@@ -141,13 +153,7 @@ int main()
 			break;
 		}
 
-		auto startTime = std::chrono::high_resolution_clock::now();
-
-		testSystem->Update(dt);
-
-		auto stopTime = std::chrono::high_resolution_clock::now();
-
-		dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
+		gCore->OnUpdate();
 
 		// Render GUI
 		//GraphicsUserInterface::RenderGUI();

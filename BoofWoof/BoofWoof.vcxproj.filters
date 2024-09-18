@@ -81,26 +81,29 @@
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\AssetManager.cpp">
-      <Filter>Source Files\Unorganized</Filter>
+    <ClCompile Include="Source\TestSystem.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\BoundingVolume.cpp">
-      <Filter>Source Files\Unorganized</Filter>
+    <ClCompile Include="Core\AssetManager\AssetManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\GameStateMachine.cpp">
-      <Filter>Source Files\Unorganized</Filter>
+    <ClCompile Include="Core\Graphics\Graphics.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Input.cpp">
-      <Filter>Source Files\Unorganized</Filter>
+    <ClCompile Include="Core\Graphics\GraphicsUserInterface.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Graphics.cpp">
-      <Filter>Source Files\Graphics\OpenGL</Filter>
+    <ClCompile Include="Core\Graphics\Shader.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\GraphicsUserInterface.cpp">
-      <Filter>Source Files\Graphics\OpenGL</Filter>
+    <ClCompile Include="Core\Graphics\BoundingVolume.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Shader.cpp">
-      <Filter>Source Files\Graphics\OpenGL</Filter>
+    <ClCompile Include="Core\GSM\GameStateMachine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Input\Input.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\GraphicsComponent.cpp">
       <Filter>Source Files\Graphics\OpenGL</Filter>
@@ -176,34 +179,52 @@
     <ClInclude Include="Headers\TestCases.h">
       <Filter>Header Files\Unorganized</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\ComponentArray.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\ComponentManager.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Coordinator.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\EntityManager.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\GameObject.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\pch.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\System.h">
-      <Filter>Header Files\Base Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\SystemManager.h">
+    <ClInclude Include="Coordinator.h">
       <Filter>Header Files\Base Engine</Filter>
     </ClInclude>
     <ClInclude Include="Headers\TestComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\TestSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\AssetManager\AssetManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ECS\ComponentArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ECS\ComponentManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ECS\EntityManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ECS\pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ECS\System.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ECS\SystemManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Graphics\BoundingVolume.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Graphics\Graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Graphics\GraphicsUserInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Graphics\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\GSM\GameStateMachine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Input\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\GraphicsComponent.h">
@@ -226,5 +247,7 @@
     <None Include="Shaders\Shader.vert">
       <Filter>Source Files\Shader</Filter>
     </None>
+    <None Include="Assets\Shaders\Shader.frag" />
+    <None Include="Assets\Shaders\Shader.vert" />
   </ItemGroup>
 </Project>

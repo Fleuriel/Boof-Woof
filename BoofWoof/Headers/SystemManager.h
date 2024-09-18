@@ -1,5 +1,8 @@
 #pragma once
+<<<<<<<< HEAD:BoofWoof/Headers/SystemManager.h
 #include "pch.h"
+========
+>>>>>>>> Sys&CompTest:BoofWoof/Core/ECS/SystemManager.h
 #include "System.h"
 
 class SystemManager
@@ -28,7 +31,7 @@ public:
 		// Set the signature for this system
 		mSignatures.insert({ typeName, signature });
 	}
-
+	
 	void EntityDestroyed(Entity entity)
 	{
 		// Erase a destroyed entity from all system lists

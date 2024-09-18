@@ -1,8 +1,11 @@
 #pragma once
 #include "pch.h"
+<<<<<<<< HEAD:BoofWoof/Headers/EntityManager.h
 #include "ComponentManager.h"
 
 
+========
+>>>>>>>> Sys&CompTest:BoofWoof/Core/ECS/EntityManager.h
 
 class EntityManager
 {
@@ -56,6 +59,10 @@ public:
 		return mSignatures[entity];
 	}
 
+	Entity GetTotalEntites() {
+		return mLivingEntityCount;
+	}
+
 private:
 	// Queue of unused entity IDs
 	std::queue<Entity> mAvailableEntities{};
@@ -64,5 +71,5 @@ private:
 	std::array<Signature, MAX_ENTITIES> mSignatures{};
 
 	// Total living entities - used to keep limits on how many exist
-	uint32_t mLivingEntityCount{};
+	Entity mLivingEntityCount{};
 };

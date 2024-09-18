@@ -76,10 +76,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -115,7 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Core</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -137,7 +141,7 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Core</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -164,18 +168,19 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClCompile Include="..\lib\imgui-docking\imgui_widgets.cpp" />
     <ClCompile Include="..\lib\imgui-docking\implot.cpp" />
     <ClCompile Include="..\lib\imgui-docking\implot_items.cpp" />
-    <ClCompile Include="Source\AssetManager.cpp" />
-    <ClCompile Include="source\BoundingVolume.cpp" />
-    <ClCompile Include="source\GameStateMachine.cpp" />
-    <ClCompile Include="source\Graphics.cpp" />
-    <ClCompile Include="Source\GraphicsComponent.cpp" />
-    <ClCompile Include="Source\GraphicsSystem.cpp" />
-    <ClCompile Include="source\GraphicsUserInterface.cpp" />
-    <ClCompile Include="source\Input.cpp" />
+    <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
+    <ClCompile Include="Core\EngineCore.cpp" />
+    <ClCompile Include="Core\Graphics\BoundingVolume.cpp" />
+    <ClCompile Include="Core\Graphics\Graphics.cpp" />
+    <ClCompile Include="Core\Graphics\GraphicsUserInterface.cpp" />
+    <ClCompile Include="Core\Graphics\Shader.cpp" />
+    <ClCompile Include="Core\GSM\GameStateMachine.cpp" />
+    <ClCompile Include="Core\Input\Input.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\WindowComponent.cpp" />
     <ClCompile Include="Source\WindowSystem.cpp" />
+    <ClCompile Include="Source\TestSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\imgui-docking\backends\imgui_impl_glfw.h" />
@@ -190,6 +195,21 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="..\lib\imgui-docking\imstb_rectpack.h" />
     <ClInclude Include="..\lib\imgui-docking\imstb_textedit.h" />
     <ClInclude Include="..\lib\imgui-docking\imstb_truetype.h" />
+    <ClInclude Include="Core\AssetManager\AssetManager.h" />
+    <ClInclude Include="Core\ECS\ComponentArray.h" />
+    <ClInclude Include="Core\ECS\ComponentManager.h" />
+    <ClInclude Include="Core\ECS\Coordinator.h" />
+    <ClInclude Include="Core\ECS\EntityManager.h" />
+    <ClInclude Include="Core\ECS\pch.h" />
+    <ClInclude Include="Core\ECS\System.h" />
+    <ClInclude Include="Core\ECS\SystemManager.h" />
+    <ClInclude Include="Core\EngineCore.h" />
+    <ClInclude Include="Core\Graphics\BoundingVolume.h" />
+    <ClInclude Include="Core\Graphics\Graphics.h" />
+    <ClInclude Include="Core\Graphics\GraphicsUserInterface.h" />
+    <ClInclude Include="Core\Graphics\Shader.h" />
+    <ClInclude Include="Core\GSM\GameStateMachine.h" />
+    <ClInclude Include="Core\Input\Input.h" />
     <ClInclude Include="Headers\AssetManager.h" />
     <ClInclude Include="Headers\BoundingVolume.h" />
     <ClInclude Include="Headers\ComponentArray.h" />
@@ -214,8 +234,8 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="Headers\WindowSystem.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\Shader.frag" />
-    <None Include="Shaders\Shader.vert" />
+    <None Include="Assets\Shaders\Shader.frag" />
+    <None Include="Assets\Shaders\Shader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
