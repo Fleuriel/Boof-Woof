@@ -162,6 +162,15 @@ void Window::OnUpdate()
     // no of frames if u ever need it
     m_FrameCount++;
 
+    std::stringstream ss;
+    ss << std::fixed;
+    ss.precision(2);
+    ss << m_Title;
+#ifdef _DEBUG
+    ss << " | " << "FPS: " << g_Window->GetFPS();
+#endif
+    glfwSetWindowTitle(m_Window, ss.str().c_str());
+
     // Swap Buffers and Poll the events
     glfwSwapBuffers(g_Window->GetGLFWWindow());
     glfwPollEvents();
