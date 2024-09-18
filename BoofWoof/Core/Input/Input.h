@@ -14,14 +14,13 @@
  *************************************************************************/
 #pragma once
 
-
-
 #ifndef INPUT_H
 #define INPUT_H
 
-#include "Graphics.h"
+#include "../Graphics/Graphics.h"
 #include <vector>
 #include <array>
+#include <iostream>
 
 /**************************************************************************
  * @brief InputSystem Class

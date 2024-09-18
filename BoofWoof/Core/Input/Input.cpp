@@ -14,10 +14,6 @@
  *************************************************************************/
 
 #include "Input.h"
-#include "Graphics.h"
-#include <vector>
-#include <iostream>
-
 
 // true for on, false for off
 bool capsLockReleased{ true };

@@ -13,25 +13,26 @@
  *************************************************************************/
 
 #include <iostream>
-#include "Graphics.h"
+#include "../Core/Graphics/Graphics.h"
 
-#include "GameStateMachine.h"
-#include "GraphicsUserInterface.h"
-#include "AssetManager.h"
-#include "pch.h"
-#include "Coordinator.h"
-#include <TestComponent.h>
-#include <TestSystem.h>
+#include "../Core/GSM/GameStateMachine.h"
+#include "../Core/Graphics/GraphicsUserInterface.h"
+#include "../Core/AssetManager/AssetManager.h"
 
+#include "../Headers/TestSystem.h"
+#include "EngineCore.h"
 
-// Global Variables
-Coordinator gCoordinator;
+EngineCore* gCore = nullptr;
+
 /**************************************************************************
 * @brief Main Function
 * @return void
 *************************************************************************/
 int main()
 {
+	gCore = new EngineCore();
+	gCore->OnInit();
+
 	// Initializing States
 	StartUp();
 
@@ -63,10 +64,17 @@ int main()
 	// Initialize Window
 	Graphics::initWindow();
 
-	
-	// Initialize Graphics Pipeline
-	Graphics::initGraphicsPipeline();
-	
+	//auto testSystem = g_Coordinator.RegisterSystem<TestSystem>();
+	//Signature signature;
+	//signature.set(g_Coordinator.GetComponentType<TestComponent>());
+	//g_Coordinator.SetSystemSignature<TestSystem>(signature);
+
+	//std::vector<Entity> entities(MAX_ENTITIES);
+
+	//for (auto& entity : entities) {
+	//	entity = g_Coordinator.CreateEntity();
+	//	g_Coordinator.AddComponent<TestComponent>(entity, TestComponent{ .data = "Hello World" });
+	//}
 
 	// Check if Loading of shaders have error
 	bool test = assetManager.LoadShaders();
@@ -82,8 +90,6 @@ int main()
 	// Initialize ImGui
 	GraphicsUserInterface::Initialize();
 
-	// 
-	float dt = 0.0f;
 	// While Loop
 	while (!glfwWindowShouldClose(newWindow))
 	{
@@ -93,22 +99,14 @@ int main()
 			break;
 		}
 
-		auto startTime = std::chrono::high_resolution_clock::now();
-
-		testSystem->Update(dt);
-
-		auto stopTime = std::chrono::high_resolution_clock::now();
-
-		dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
+		gCore->OnUpdate();
 
 		// Render GUI
 		GraphicsUserInterface::RenderGUI();
-
-
 		
 		previousState = currentState;
 		currentState = nextState;
-		// Update Graphics
+		// Update Graphics - this part will crash ??
 		graphicObject.UpdateLoop();
 
 		// Update the ImGui

@@ -16,13 +16,34 @@
 #include "AssetManager.h"
 #include <filesystem>
 #include "windows.h"
-#include <iostream>
-#include "Graphics.h"
-#include "Shader.h"
+#include <fstream>
+
 
 extern AssetManager assetManager;
 
-#define FILEPATH_SHADERS "../Shaders"
+std::vector<std::string> AssetManager::txtFile;
+std::vector<std::string> AssetManager::mtlFile;
+
+
+std::vector<glm::vec3> AssetManager::modelCenterCoord;
+std::vector<glm::vec3> AssetManager::modelAABBHalfExtents;
+
+std::vector<std::string> AssetManager::objFilesA;
+std::vector<std::string> AssetManager::mtlFilesA;
+
+std::vector<std::string> AssetManager::objFilesB;
+std::vector<std::string> AssetManager::mtlFilesB;
+
+std::vector<std::string> AssetManager::objFilesC;
+std::vector<std::string> AssetManager::mtlFilesC;
+
+std::vector<std::string> AssetManager::testingContainer;
+
+
+std::vector <ObjData> AssetManager::Vector3_Objects;
+
+
+ObjData Objectdata;
 
 namespace fs = std::filesystem;
 

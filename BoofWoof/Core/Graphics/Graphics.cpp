@@ -15,18 +15,16 @@
  *************************************************************************/
 
 #include "Graphics.h"
-#include "Input.h"
-#include <map>
+
 #include <iostream>
-#include "Shader.h"
 #include <array>
-#include "AssetManager.h"
 #include <list>
-#include "TestCases.h"
-#include "BoundingVolume.h"
 #include <sstream>
 #include <string>
-#include "GameStateMachine.h"
+#include <initializer_list>
+
+
+
 
 GLFWwindow* newWindow;
 AssetManager assetManager;

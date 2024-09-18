@@ -30,6 +30,12 @@
 #include <map>
 #include <unordered_map>
 
+#include "../Input/Input.h"
+#include "../../Headers/TestCases.h"
+#include "BoundingVolume.h"
+#include "GraphicsUserInterface.h"
+#include "../GSM/GameStateMachine.h"
+#include "../AssetManager/AssetManager.h"
 
 /**************************************************************************
 * @brief Allow usage of the newWindow variable for the OpenGL Pipeline
