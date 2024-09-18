@@ -11,6 +11,8 @@
 #include "../Input/Input.h"
 #include "../AssetManager/AssetManager.h"
 
+#include "Windows/WindowSystem.h"
+
 // Assignment 1
 #include "BoundingVolume.h"
 #include "TestCases.h"
@@ -116,13 +118,12 @@ void GraphicsSystem::UpdateObject(Entity entity, GraphicsComponent& graphicsComp
 	glm::mat4 viewMatrix = glm::lookAt(cameraPosition, cameraTarget, cameraUp);
 
 	float fov = 45.0f; // Field of view in degrees
-	float aspectRatio = static_cast<float>(windowComp.windowSize.first) / static_cast<float>(windowComp.windowSize.second);
+	float aspectRatio = static_cast<float>(g_WindowX) / static_cast<float>(g_WindowY);
 	float nearPlane = 1.0f;
 	float farPlane = 100.0f;
 	glm::mat4 PerspectiveProjection = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
 
-
-
+	
 	// Final transformation matrix
 	graphicsComp.model_To_NDC_xform = viewMatrix * Translate * Rotation * ScaledVector;
 
