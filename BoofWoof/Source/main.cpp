@@ -34,12 +34,6 @@ int main()
 	// Initializing States
 	StartUp();
 
-	// Check glfwInit
-	if (!glfwInit())
-	{
-		return -1;
-	}
-
 	std::cout << "Main here\n";
 
 	// Initialize Previous Time with NOW()
@@ -61,8 +55,9 @@ int main()
 		currentState = nextState;
 		
 		// Swap Buffers and Poll the events
-		glfwSwapBuffers(g_Window->GetGLFWWindow());
-		glfwPollEvents();
+		//glfwSwapBuffers(g_Window->GetGLFWWindow());
+		//glfwPollEvents();
+
 		// After everything happened, set the current time.
 		currentTime = std::chrono::high_resolution_clock::now();
 		deltaTime = std::chrono::duration_cast<std::chrono::duration<double>>(currentTime - previousTime);

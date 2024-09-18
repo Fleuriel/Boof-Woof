@@ -12,6 +12,7 @@
  *
  *
  *************************************************************************/
+#define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
 
 #include "AssetManager.h"
 #include <filesystem>
