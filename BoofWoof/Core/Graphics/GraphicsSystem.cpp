@@ -1,5 +1,5 @@
 #include "GraphicsSystem.h"
-#include "WindowComponent.h"
+#include "../Utilities/Components/WindowComponent.h"
 #include "Shader.h"
 #include <utility>
 #include <vector>
@@ -7,10 +7,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <map>
 #include <unordered_map>
-#include "pch.h"
-#include "TestSystem.h"
-#include "Input.h"
-#include "AssetManager.h"
+#include "../ECS/pch.h"
+#include "../Input/Input.h"
+#include "../AssetManager/AssetManager.h"
 
 // Assignment 1
 #include "BoundingVolume.h"
@@ -50,7 +49,7 @@ void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsCompo
 
 
 
-void GraphicsSystem::UpdateLoop(GraphicsComponent& graphicsComp) {
+void GraphicsSystem::UpdateLoop() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);

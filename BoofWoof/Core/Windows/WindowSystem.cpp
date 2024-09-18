@@ -1,8 +1,6 @@
 #include "WindowSystem.h"
 
-
-
-
+WindowSystem* g_Window = nullptr;
 
 WindowSystem::WindowSystem() {
     // Initialization if needed
@@ -64,6 +62,11 @@ void WindowSystem::OpenGLWindowResizeCallback(GLFWwindow* window, int width, int
 
     // If you want to update the component's size, you would do it here:
     // Find the appropriate WindowComponent and update its size
+}
+
+GLFWwindow* WindowSystem::GetGLFWWindow()
+{
+    return m_Window;
 }
 
 void WindowSystem::KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods) {

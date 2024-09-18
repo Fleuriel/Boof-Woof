@@ -46,6 +46,32 @@ public:
 		return mEntityManager->GetTotalEntites();
 	}
 
+	// Gets the number of alive entities
+	Entity GetAliveEntities() 
+	{
+		return static_cast<Entity>(mEntityManager->GetAliveEntites().size());
+	}
+
+	// Gets the set of entites alive
+	std::vector<Entity> GetAliveEntitiesSet() 
+	{
+		return mEntityManager->GetAliveEntites();
+	}
+
+	Entity GetEntityId(Entity entity) 
+	{
+		return mEntityManager->GetEntityId(entity);
+	}
+
+	void ResetEntities()
+	{
+		auto alive_set = mEntityManager->GetAliveEntites();
+
+		for (const auto& it : alive_set) {
+			DestroyEntity(it);
+		}
+	}
+
 	// clone entities, if needed in future.
 
 	// Component methods
@@ -112,6 +138,16 @@ public:
 	// get system signatures in future if need
 
 	// get systems in future if need
+
+
+	void ClearSystems() {
+		mSystemManager->ClearSystem();
+	}
+
+	size_t GetSystemAlive() {
+		return mSystemManager->GetSystemAlive();
+	}
+
 
 private:
 	std::unique_ptr<ComponentManager> mComponentManager;

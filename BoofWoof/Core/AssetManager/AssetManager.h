@@ -23,7 +23,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <iostream>
-#include "../Graphics/Graphics.h"
+#include "Graphics/GraphicsSystem.h"
 #include "../Graphics/Shader.h"
 
 
@@ -167,6 +167,6 @@ private:
 
 
 
-extern AssetManager assetManager;		// Allow usage of class outside of assetManager.cpp
+extern AssetManager g_AssetManager;		// Allow usage of class outside of assetManager.cpp
 
 #endif

@@ -1,5 +1,5 @@
 #include "GraphicsComponent.h"
-#include "GraphicsSystem.h"
+#include "../Core/Graphics/GraphicsSystem.h"
 
 
 GraphicsComponent::GraphicsComponent()

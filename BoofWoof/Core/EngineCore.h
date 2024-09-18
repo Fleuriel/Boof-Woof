@@ -1,11 +1,15 @@
 #pragma once
 
 #include "../Core/ECS/Coordinator.h"
-#include <GLFW/glfw3.h>
 #include <iostream>
-#include "../Headers/TestComponent.h"
-#include "../Headers/TestSystem.h"
 #include "../Core/ECS/Coordinator.h"
+#include "../Utilities/Components/GraphicsComponent.h"
+#include "../Utilities/Components/WindowComponent.h"
+#include "Windows/WindowSystem.h"
+#include "Graphics/GraphicsSystem.h"
+#include "AssetManager/AssetManager.h"
+
+#include <GLFW/glfw3.h>
 
 class EngineCore 
 {

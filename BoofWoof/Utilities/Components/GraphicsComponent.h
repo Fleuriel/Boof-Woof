@@ -1,5 +1,5 @@
 #pragma once
-#include "pch.h"
+#include "../Core/ECS/pch.h"
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 #include <string>

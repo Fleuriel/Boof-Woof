@@ -63,6 +63,23 @@ public:
 		}
 	}
 
+	// Getter for the 'm_Signatures' map
+	const std::unordered_map<const char*, Signature>& GetSignatures() const 
+	{
+		return mSignatures;
+	}
+
+	// Getter for the 'systems' map from SystemManager
+	const std::unordered_map<const char*, std::shared_ptr<System>>& GetSystems() const 
+	{
+		return mSystems;
+	}
+
+	// clear systems
+	void ClearSystem() { mSystems.clear(); }
+
+	size_t GetSystemAlive() { return mSystems.size(); }
+
 private:
 	// Map from system type string pointer to a signature
 	std::unordered_map<const char*, Signature> mSignatures{};

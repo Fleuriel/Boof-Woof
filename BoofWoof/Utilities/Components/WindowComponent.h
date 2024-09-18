@@ -1,6 +1,6 @@
 // WindowComponent.h
 #pragma once
-#include "pch.h"
+#include "../Core/ECS/pch.h"
 #include <GLFW/glfw3.h>
 #include <utility> // For std::pair
 

@@ -171,16 +171,18 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
     <ClCompile Include="Core\EngineCore.cpp" />
     <ClCompile Include="Core\Graphics\BoundingVolume.cpp" />
-    <ClCompile Include="Core\Graphics\Graphics.cpp" />
-    <ClCompile Include="Core\Graphics\GraphicsUserInterface.cpp" />
+    <ClCompile Include="Core\Graphics\Camera.cpp" />
+    <ClCompile Include="Core\Graphics\GraphicsSystem.cpp" />
+    <ClCompile Include="Core\Graphics\Mesh.cpp" />
+    <ClCompile Include="Core\Graphics\Model.cpp" />
+    <ClCompile Include="Core\Graphics\Object.cpp" />
     <ClCompile Include="Core\Graphics\Shader.cpp" />
     <ClCompile Include="Core\GSM\GameStateMachine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
+    <ClCompile Include="Core\Windows\WindowSystem.cpp" />
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="Source\Shader.cpp" />
-    <ClCompile Include="Source\WindowComponent.cpp" />
-    <ClCompile Include="Source\WindowSystem.cpp" />
-    <ClCompile Include="Source\TestSystem.cpp" />
+    <ClCompile Include="Utilities\Components\GraphicsComponent.cpp" />
+    <ClCompile Include="Utilities\Components\WindowComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\imgui-docking\backends\imgui_impl_glfw.h" />
@@ -205,33 +207,18 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="Core\ECS\SystemManager.h" />
     <ClInclude Include="Core\EngineCore.h" />
     <ClInclude Include="Core\Graphics\BoundingVolume.h" />
-    <ClInclude Include="Core\Graphics\Graphics.h" />
-    <ClInclude Include="Core\Graphics\GraphicsUserInterface.h" />
+    <ClInclude Include="Core\Graphics\Camera.h" />
+    <ClInclude Include="Core\Graphics\GraphicsSystem.h" />
+    <ClInclude Include="Core\Graphics\Mesh.h" />
+    <ClInclude Include="Core\Graphics\Model.h" />
+    <ClInclude Include="Core\Graphics\Object.h" />
     <ClInclude Include="Core\Graphics\Shader.h" />
+    <ClInclude Include="Core\Graphics\TestCases.h" />
     <ClInclude Include="Core\GSM\GameStateMachine.h" />
     <ClInclude Include="Core\Input\Input.h" />
-    <ClInclude Include="Headers\AssetManager.h" />
-    <ClInclude Include="Headers\BoundingVolume.h" />
-    <ClInclude Include="Headers\ComponentArray.h" />
-    <ClInclude Include="Headers\ComponentManager.h" />
-    <ClInclude Include="Headers\Coordinator.h" />
-    <ClInclude Include="Headers\EntityManager.h" />
-    <ClInclude Include="Headers\GameObject.h" />
-    <ClInclude Include="Headers\GameStateMachine.h" />
-    <ClInclude Include="Headers\Graphics.h" />
-    <ClInclude Include="Headers\GraphicsComponent.h" />
-    <ClInclude Include="Headers\GraphicsSystem.h" />
-    <ClInclude Include="Headers\GraphicsUserInterface.h" />
-    <ClInclude Include="Headers\Input.h" />
-    <ClInclude Include="Headers\pch.h" />
-    <ClInclude Include="Headers\Shader.h" />
-    <ClInclude Include="Headers\System.h" />
-    <ClInclude Include="Headers\SystemManager.h" />
-    <ClInclude Include="Headers\TestCases.h" />
-    <ClInclude Include="Headers\TestComponent.h" />
-    <ClInclude Include="Headers\TestSystem.h" />
-    <ClInclude Include="Headers\WindowComponent.h" />
-    <ClInclude Include="Headers\WindowSystem.h" />
+    <ClInclude Include="Core\Windows\WindowSystem.h" />
+    <ClInclude Include="Utilities\Components\GraphicsComponent.h" />
+    <ClInclude Include="Utilities\Components\WindowComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader.frag" />

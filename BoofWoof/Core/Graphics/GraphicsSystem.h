@@ -1,8 +1,8 @@
 #pragma once
-#include "GraphicsComponent.h"
-#include "WindowComponent.h"
-#include "pch.h"
-#include "System.h"
+#include "../Utilities/Components/GraphicsComponent.h"
+#include "../Utilities/Components/WindowComponent.h"
+#include "../ECS/pch.h"
+#include "../ECS/System.h"
 #include <vector>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -13,7 +13,7 @@ class GraphicsSystem : public System
 {
 public:;
     void initGraphicsPipeline(const GraphicsComponent& graphicsComponent);
-    void UpdateLoop(GraphicsComponent& graphicsComp);
+    void UpdateLoop();
     void Draw(std::vector<GraphicsComponent>& components);
     void DrawObject(GraphicsComponent& component);
     void CreateObject(OpenGLModel model, int Tag);
