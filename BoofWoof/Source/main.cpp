@@ -48,6 +48,8 @@ int main()
 		return -1;
 	}
 
+	std::cout << "here1\n";
+
 	// Initialize the coordinator
 	gCoordinator.Init();
 
@@ -60,8 +62,6 @@ int main()
 	auto testSystem = gCoordinator.RegisterSystem<TestSystem>();
 	auto graphicsSystem = gCoordinator.RegisterSystem<GraphicsSystem>();
 	auto windowSystem = gCoordinator.RegisterSystem<WindowSystem>();
-
-
 
 	Signature signature;
 	signature.set(gCoordinator.GetComponentType<TestComponent>());
@@ -77,7 +77,6 @@ int main()
 
 	Entity windowEntity = gCoordinator.CreateEntity();
 	gCoordinator.AddComponent(windowEntity, WindowComponent{});// Add a WindowComponent to the entity
-
 
 	Entity graphicsEntity = gCoordinator.CreateEntity();
 	gCoordinator.AddComponent(graphicsEntity, GraphicsComponent{ /* initialization data */ });
@@ -96,7 +95,11 @@ int main()
 
 	std::vector<Entity> entities(MAX_ENTITIES);
 
+	std::cout << "here2\n";
 
+	GraphicsSystem graphicSystem;
+
+	std::cout << "here331\n";
 
 	//for(auto& entity : entities)
 	//{
@@ -149,8 +152,9 @@ int main()
 		// Render GUI
 		//GraphicsUserInterface::RenderGUI();
 
-
 		
+		graphicSystem.UpdateLoop(graphicsComp);
+
 		previousState = currentState;
 		currentState = nextState;
 		// Update Graphics
@@ -162,7 +166,6 @@ int main()
 		// Swap Buffers and Poll the events
 		glfwSwapBuffers(windowComp.window);
 		glfwPollEvents();
-
 		// After everything happened, set the current time.
 		currentTime = std::chrono::high_resolution_clock::now();
 		deltaTime = std::chrono::duration_cast<std::chrono::duration<double>>(currentTime - previousTime);
