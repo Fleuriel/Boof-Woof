@@ -13,15 +13,13 @@
  *************************************************************************/
 
 #include <iostream>
-#include "../Core/Graphics/Graphics.h"
 
 #include "../Core/GSM/GameStateMachine.h"
-#include "../Core/Graphics/GraphicsUserInterface.h"
 #include "../Core/AssetManager/AssetManager.h"
 
-#include "../Headers/TestSystem.h"
 #include "EngineCore.h"
 
+// Global Variables
 EngineCore* gCore = nullptr;
 
 /**************************************************************************
@@ -36,43 +34,14 @@ int main()
 	// Initializing States
 	StartUp();
 
-	// Check glfwInit
-	if (!glfwInit())
-	{
-		return -1;
-	}
-
-	// Initialize Window
-	Graphics::initWindow();
-
-	//auto testSystem = g_Coordinator.RegisterSystem<TestSystem>();
-	//Signature signature;
-	//signature.set(g_Coordinator.GetComponentType<TestComponent>());
-	//g_Coordinator.SetSystemSignature<TestSystem>(signature);
-
-	//std::vector<Entity> entities(MAX_ENTITIES);
-
-	//for (auto& entity : entities) {
-	//	entity = g_Coordinator.CreateEntity();
-	//	g_Coordinator.AddComponent<TestComponent>(entity, TestComponent{ .data = "Hello World" });
-	//}
-
-	// Check if Loading of shaders have error
-	bool test = assetManager.LoadShaders();
-	if (!test)
-	{
-		std::cout << "Failed to Load Shaders\n";
-		return 0;
-	}
+	std::cout << "Main here\n";
 
 	// Initialize Previous Time with NOW()
 	previousTime = std::chrono::high_resolution_clock::now();
 	
-	// Initialize ImGui
-	GraphicsUserInterface::Initialize();
 
 	// While Loop
-	while (!glfwWindowShouldClose(newWindow))
+	while (!glfwWindowShouldClose(g_Window->GetGLFWWindow()))
 	{
 		if (currentState == STATE::END)
 		{
@@ -81,31 +50,19 @@ int main()
 		}
 
 		gCore->OnUpdate();
-
-		// Render GUI
-		GraphicsUserInterface::RenderGUI();
 		
 		previousState = currentState;
 		currentState = nextState;
-		// Update Graphics - this part will crash ??
-		graphicObject.UpdateLoop();
-
-		// Update the ImGui
-		GraphicsUserInterface::Update();
 		
 		// Swap Buffers and Poll the events
-		glfwSwapBuffers(newWindow);
-		glfwPollEvents();
+		//glfwSwapBuffers(g_Window->GetGLFWWindow());
+		//glfwPollEvents();
 
 		// After everything happened, set the current time.
 		currentTime = std::chrono::high_resolution_clock::now();
 		deltaTime = std::chrono::duration_cast<std::chrono::duration<double>>(currentTime - previousTime);
 		previousTime = currentTime;
 	}
-
-	// Cleanup
-	GraphicsUserInterface::Cleanup();
-
 
 	// Terminate
 	glfwTerminate();

@@ -17,7 +17,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include "../Graphics/Graphics.h"
+#include "../Graphics/GraphicsSystem.h"
 #include <vector>
 #include <array>
 #include <iostream>

@@ -171,13 +171,17 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
     <ClCompile Include="Core\EngineCore.cpp" />
     <ClCompile Include="Core\Graphics\BoundingVolume.cpp" />
-    <ClCompile Include="Core\Graphics\Graphics.cpp" />
-    <ClCompile Include="Core\Graphics\GraphicsUserInterface.cpp" />
+    <ClCompile Include="Core\Graphics\Camera.cpp" />
+    <ClCompile Include="Core\Graphics\GraphicsSystem.cpp" />
+    <ClCompile Include="Core\Graphics\Mesh.cpp" />
+    <ClCompile Include="Core\Graphics\Model.cpp" />
+    <ClCompile Include="Core\Graphics\Object.cpp" />
     <ClCompile Include="Core\Graphics\Shader.cpp" />
     <ClCompile Include="Core\GSM\GameStateMachine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
+    <ClCompile Include="Core\Windows\WindowSystem.cpp" />
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="Source\TestSystem.cpp" />
+    <ClCompile Include="Utilities\Components\GraphicsComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\imgui-docking\backends\imgui_impl_glfw.h" />
@@ -202,14 +206,17 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="Core\ECS\SystemManager.h" />
     <ClInclude Include="Core\EngineCore.h" />
     <ClInclude Include="Core\Graphics\BoundingVolume.h" />
-    <ClInclude Include="Core\Graphics\Graphics.h" />
-    <ClInclude Include="Core\Graphics\GraphicsUserInterface.h" />
+    <ClInclude Include="Core\Graphics\Camera.h" />
+    <ClInclude Include="Core\Graphics\GraphicsSystem.h" />
+    <ClInclude Include="Core\Graphics\Mesh.h" />
+    <ClInclude Include="Core\Graphics\Model.h" />
+    <ClInclude Include="Core\Graphics\Object.h" />
     <ClInclude Include="Core\Graphics\Shader.h" />
+    <ClInclude Include="Core\Graphics\TestCases.h" />
     <ClInclude Include="Core\GSM\GameStateMachine.h" />
     <ClInclude Include="Core\Input\Input.h" />
-    <ClInclude Include="Headers\TestCases.h" />
-    <ClInclude Include="Headers\TestComponent.h" />
-    <ClInclude Include="Headers\TestSystem.h" />
+    <ClInclude Include="Core\Windows\WindowSystem.h" />
+    <ClInclude Include="Utilities\Components\GraphicsComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader.frag" />

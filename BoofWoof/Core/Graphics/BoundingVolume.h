@@ -36,8 +36,9 @@
 #ifndef BVOLUME_H
 #define BVOLUME_H
 
-#include "Graphics.h"
+#include "GraphicsSystem.h"
 #include <vector>
+#include <iostream>
 
 
 /**************************************************************************

@@ -154,8 +154,9 @@ GLboolean OpenGLShader::CompileShaderFromFile(GLenum shader_type, const std::str
         log_string = "File not found";
         return GL_FALSE;
     }
+
     if (pgm_handle <= 0) {
-        //std::cout << "Create Program\n";
+        std::cout << "Create Program\n";
 
         pgm_handle = glCreateProgram();
         if (0 == pgm_handle) {

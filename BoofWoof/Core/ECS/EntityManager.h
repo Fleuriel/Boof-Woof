@@ -53,8 +53,23 @@ public:
 		return mSignatures[entity];
 	}
 
-	Entity GetTotalEntites() {
+	Entity GetTotalEntites() 
+	{
 		return mLivingEntityCount;
+	}
+
+	const std::vector<Entity> GetAliveEntites() 
+	{
+		return mAliveEntities;
+	}
+
+	// Get entity ID
+	Entity GetEntityId(Entity entity) 
+	{
+		// Ensure that the provided entity is within range
+		assert(entity < MAX_ENTITIES && "Entity ID out of range");
+
+		return entity;
 	}
 
 private:
@@ -66,4 +81,7 @@ private:
 
 	// Total living entities - used to keep limits on how many exist
 	Entity mLivingEntityCount{};
+
+	// Set of alive entities
+	std::vector<Entity> mAliveEntities{};
 };
