@@ -28,9 +28,7 @@ public:
     glm::vec3 PositionRight;        // Position Right
     glm::vec3 AngleLeft;            // Angle Left
     glm::vec3 AngleRight;           // Angle Right
-    float angleX;                   // Rotation X
-    float angleY;                   // Rotation Y
-    float angleZ;                   // Rotation Z
+    glm::vec3 Angle;
     float angleSpeed;               // Rotation Speed
     int TagID;                      // Tag ID
     OpenGLModel model_to_create;    // Model to create
@@ -41,3 +39,5 @@ public:
 //    GraphicsComponent(const OpenGLModel& model, int id = 0);
     ~GraphicsComponent() = default;
 };
+
+std::list<GraphicsComponent> objects;

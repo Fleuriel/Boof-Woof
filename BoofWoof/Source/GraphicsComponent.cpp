@@ -7,8 +7,7 @@ GraphicsComponent::GraphicsComponent()
     setColor(1.0f), setColorLeft(1.0f), setColorRight(1.0f),
     PositionLeft(0.0f), PositionRight(0.0f),
     AngleLeft(0.0f), AngleRight(0.0f),
-    angleX(0.0f), angleY(0.0f), angleZ(0.0f),
-    angleSpeed(0.0f), TagID(0), size(1.0f) {}
+    Angle(glm::vec3(0.0f)), angleSpeed(0.0f), TagID(0), size(1.0f) {}
 
 
 //GraphicsComponent::GraphicsComponent(const OpenGLModel& model, int id)

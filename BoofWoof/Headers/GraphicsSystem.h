@@ -9,19 +9,20 @@
 
 class GraphicsSystem : public System
 {
-public:
-    void initWindow();
-    static void initGraphicsPipeline(const GraphicsComponent& graphicsComponent);
-    static void OpenGLWindowResizeCallback(GLFWwindow* window, int width, int height);
-    void UpdateLoop(std::vector<GraphicsComponent>& components);
+public:;
+    void initGraphicsPipeline(const GraphicsComponent& graphicsComponent);
+    void UpdateLoop(GraphicsComponent& graphicsComp);
     void Draw(std::vector<GraphicsComponent>& components);
-    static void DrawObject(GraphicsComponent& component);
-    static void CreateObject(OpenGLModel model, int Tag);
+    void DrawObject(GraphicsComponent& component);
+    void CreateObject(OpenGLModel model, int Tag);
 
     static bool glewInitialized;
     
     
-    void Update(glm::vec3 newPosition, glm::vec3 Scale, glm::vec3 angle);
+    void Update(float deltaTime);
+
+    void CheckTestsCollisions();
+    void UpdateObject(Entity entity, GraphicsComponent& graphicsComp, const WindowComponent& windowComp, float deltaTime);
 
 
     static GLuint mdl_ref;    // Model reference

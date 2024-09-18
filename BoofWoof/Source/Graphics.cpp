@@ -550,7 +550,7 @@ void Graphics::UpdateLoop()
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	// Update the state for keypresses
+	 //Update the state for keypresses
 	inputSystem.UpdateStatesForNextFrame();
 
 	// Draw Objects after calculations etc.
