@@ -14,14 +14,14 @@
 
 #include "GraphicsUserInterface.h"
 #include <iostream>
-#include <BoundingVolume.h>
+#include "../Graphics/BoundingVolume.h"
 
 //Include IMGUI
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-#include "TestCases.h"
+#include "../Headers/TestCases.h"
 
 #include "Graphics.h"
 

@@ -5,6 +5,7 @@
 #include <iostream>
 #include "../Headers/TestComponent.h"
 #include "../Headers/TestSystem.h"
+#include "../Core/ECS/Coordinator.h"
 
 class EngineCore 
 {

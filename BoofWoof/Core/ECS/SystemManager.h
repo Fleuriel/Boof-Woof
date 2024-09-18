@@ -1,8 +1,5 @@
 #pragma once
-<<<<<<<< HEAD:BoofWoof/Headers/SystemManager.h
 #include "pch.h"
-========
->>>>>>>> Sys&CompTest:BoofWoof/Core/ECS/SystemManager.h
 #include "System.h"
 
 class SystemManager

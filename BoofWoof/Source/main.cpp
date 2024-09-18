@@ -42,25 +42,6 @@ int main()
 		return -1;
 	}
 
-	gCoordinator.Init();
-	gCoordinator.RegisterComponent<TestComponent>();
-
-	auto testSystem = gCoordinator.RegisterSystem<TestSystem>();
-
-	Signature signature;
-	signature.set(gCoordinator.GetComponentType<TestComponent>());
-	gCoordinator.SetSystemSignature<TestSystem>(signature);
-
-	std::vector<Entity> entities(MAX_ENTITIES);
-
-	for(auto& entity : entities)
-	{
-		entity = gCoordinator.CreateEntity();
-		gCoordinator.AddComponent<TestComponent>(entity, TestComponent{ 1, 2 });
-	}
-
-
-
 	// Initialize Window
 	Graphics::initWindow();
 

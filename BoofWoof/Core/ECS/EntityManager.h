@@ -1,11 +1,5 @@
 #pragma once
-#include "pch.h"
-<<<<<<<< HEAD:BoofWoof/Headers/EntityManager.h
 #include "ComponentManager.h"
-
-
-========
->>>>>>>> Sys&CompTest:BoofWoof/Core/ECS/EntityManager.h
 
 class EntityManager
 {

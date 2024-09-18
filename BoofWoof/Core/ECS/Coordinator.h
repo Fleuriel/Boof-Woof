@@ -4,10 +4,7 @@
 #include "EntityManager.h"
 #include "SystemManager.h"
 
-<<<<<<<< HEAD:BoofWoof/Headers/Coordinator.h
-========
 #define g_Coordinator Coordinator::GetInstance()
->>>>>>>> Sys&CompTest:BoofWoof/Core/ECS/Coordinator.h
 
 class Coordinator
 {
