@@ -2,11 +2,12 @@
 
 #include "../ECS/pch.h"
 #include "../ECS/System.h"
-#include "../Utilities/Components/WindowComponent.h"
 #include <iostream>
 #include <cstdio>
 #include <stdlib.h>
 #include <sstream>
+
+#include <GLFW/glfw3.h>
 
 extern int g_WindowX, g_WindowY;
 
