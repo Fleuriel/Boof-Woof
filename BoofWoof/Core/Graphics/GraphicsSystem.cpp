@@ -10,7 +10,7 @@
 #include "../Input/Input.h"
 #include "../AssetManager/AssetManager.h"
 
-#include "Windows/WindowSystem.h"
+#include "Windows/WindowManager.h"
 
 // Assignment 1
 #include "BoundingVolume.h"

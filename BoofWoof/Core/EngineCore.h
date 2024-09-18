@@ -4,7 +4,7 @@
 #include <iostream>
 #include "../Core/ECS/Coordinator.h"
 #include "../Utilities/Components/GraphicsComponent.h"
-#include "Windows/WindowSystem.h"
+#include "Windows/WindowManager.h"
 #include "Graphics/GraphicsSystem.h"
 #include "AssetManager/AssetManager.h"
 

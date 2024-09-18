@@ -179,7 +179,7 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClCompile Include="Core\Graphics\Shader.cpp" />
     <ClCompile Include="Core\GSM\GameStateMachine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
-    <ClCompile Include="Core\Windows\WindowSystem.cpp" />
+    <ClCompile Include="Core\Windows\WindowManager.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="Utilities\Components\GraphicsComponent.cpp" />
   </ItemGroup>
@@ -215,7 +215,7 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="Core\Graphics\TestCases.h" />
     <ClInclude Include="Core\GSM\GameStateMachine.h" />
     <ClInclude Include="Core\Input\Input.h" />
-    <ClInclude Include="Core\Windows\WindowSystem.h" />
+    <ClInclude Include="Core\Windows\WindowManager.h" />
     <ClInclude Include="Utilities\Components\GraphicsComponent.h" />
   </ItemGroup>
   <ItemGroup>
