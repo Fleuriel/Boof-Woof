@@ -14,11 +14,25 @@
 
 #version 450 core
 
-layout (location = 0) out vec4 FragColor;
+layout(location = 0) in vec3 vertColor;
+layout(location = 1) in vec3 vertNormal;
+layout(location = 2) in vec3 FragPos;
 
-uniform vec3 colorSet;
+uniform bool lineRender;
+
+out vec3 fragColor;
+
 
 void main()
-{
-    FragColor = vec4(colorSet, 1.0f);
+{   
+    if(lineRender)
+    {
+        fragColor = vertColor;
+        
+    }else{
+        vec3 lightVector = vec3(-2567, 44448, 91008)-FragPos;
+        float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
+        fragColor = vertColor * N_dot_L;
+    }
+
 }

@@ -13,19 +13,27 @@
 
 #version 450 core
 
-layout (location = 0) in vec4 aVertexPosition;
+uniform mat4 projection;
+uniform mat4 view;
+uniform mat4 vertexTransform;
+uniform vec3 objectColor;
 
+in layout(location = 0) vec3 modelPosition;
+in layout(location = 1) vec3 vertexNormal;
+//in layout(location = 2) vec3 diffuseColor;
 
-uniform float size;
+vec3 diffuseColor = vec3( 0.8f, 0.8f, 0.8f );
 
-uniform mat4 uModel_to_NDC;
-
+out layout(location = 0)vec3 vertColor;
+out layout(location = 1)vec3 vertNormal;
+out layout(location = 2)vec3 FragPos;
 
 void main()
 {
-	//gl_Position = vec4(uModel_to_NDC * vec4(aVertexPosition * size, 1.0));
-  gl_Position = uModel_to_NDC * vec4(aVertexPosition.xyz * size, aVertexPosition.w);
-//	gl_Position = vec4(vec3(uModel_to_NDC * vec4(aVertexPosition * size)), 1.0f);
-
- //   gl_Position = vec4(size * aPos.x, size * aPos.y, size * aPos.z, 1.0f);
+    
+   
+    gl_Position =  projection* view * vertexTransform * vec4( modelPosition, 1.0f );
+    vertColor = objectColor;
+    vertNormal = vertexNormal;
+    FragPos = vec3( vertexTransform * vec4( modelPosition, 1.0f ) );
 }
