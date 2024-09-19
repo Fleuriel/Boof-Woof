@@ -50,7 +50,7 @@ void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsCompo
 	g_AssetManager.LoadShaders();
 
 	// load one model
-	model_try.loadModel("sphere.obj", GL_LINE);
+	model_try.loadModel("sphere.obj", GL_TRIANGLES);
 
 	// load one object
 	object_try.model = &model_try;
