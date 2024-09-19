@@ -23,9 +23,6 @@
 
 bool GraphicsSystem::glewInitialized = false;
 
-Model model_try;
-Object object_try;
-
 
 
 void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsComponent) {
@@ -48,19 +45,6 @@ void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsCompo
 	// load shaders
 	g_AssetManager.LoadShaders();
 
-	// load one model
-	model_try.loadModel("../../sphere.obj", GL_LINE);
-
-	// load one object
-	object_try.model = &model_try;
-	object_try.position = glm::vec3(0.0f, 0.0f, 0.0f);
-	object_try.scale = glm::vec3(1.0f, 1.0f, 1.0f);
-	object_try.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-	object_try.color = glm::vec3(1.0f, 0.0f, 0.0f);
-	
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
 
 }
 
@@ -72,18 +56,6 @@ void GraphicsSystem::UpdateLoop() {
 
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 
-	// emply matrix
-	glm::mat4 mtx = glm::mat4(1.0f);
-	// Draw the object
-	/*g_AssetManager.shdrpgms[0].Use();
-	g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", object_try.getWorldMatrix());
-	g_AssetManager.shdrpgms[0].SetUniform("view", mtx);
-	g_AssetManager.shdrpgms[0].SetUniform("projection", mtx);
-	g_AssetManager.shdrpgms[0].SetUniform("objectColor", object_try.color);
-	g_AssetManager.shdrpgms[0].SetUniform("lineRender", false);
-	object_try.model->Draw(g_AssetManager.shdrpgms[0]);
-
-	g_AssetManager.shdrpgms[0].UnUse();*/
 
 }
 
