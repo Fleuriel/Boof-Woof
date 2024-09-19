@@ -22,7 +22,7 @@
 
 
 bool GraphicsSystem::glewInitialized = false;
-OpenGLShader GraphicsSystem::shader_test;
+
 
 
 void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsComponent) {
@@ -43,8 +43,7 @@ void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsCompo
 
 
 	// load shaders
-	vector<string> shaderPaths = { "shaders/vertexShader.glsl", "shaders/fragmentShader.glsl" };
-	shader_test.CompileLinkValidate(shaderPaths);
+	//g_AssetManager.LoadShaders();
 
 
 }

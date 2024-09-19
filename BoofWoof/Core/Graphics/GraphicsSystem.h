@@ -1,5 +1,6 @@
 #pragma once
 #include "../Utilities/Components/GraphicsComponent.h"
+#include "../Core/AssetManager/AssetManager.h"
 #include "../ECS/pch.h"
 #include "../ECS/System.h"
 #include <vector>
@@ -22,10 +23,11 @@ public:;
     void Update(float deltaTime);
 
 
-    static OpenGLShader shader_test;
+    
 
 
 private:
     static GLFWwindow* newWindow;  // OpenGL window
 
 };
+

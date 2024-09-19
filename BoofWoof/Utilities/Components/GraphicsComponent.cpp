@@ -3,7 +3,7 @@
 
 
 GraphicsComponent::GraphicsComponent()
-  {}
+ {}
 
 
 std::list<GraphicsComponent> objects;

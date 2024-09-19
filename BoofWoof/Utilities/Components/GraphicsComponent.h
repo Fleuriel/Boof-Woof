@@ -3,12 +3,12 @@
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 #include <string>
-#include "Object.h"
+//#include "Object.h"
 
 
 
 class GraphicsComponent {
-
+public:
     // Constructor and destructor
     GraphicsComponent();
 //    GraphicsComponent(const OpenGLModel& model, int id = 0);

@@ -37,7 +37,7 @@ void EngineCore::OnInit()
 
 	// tempo creation of entity for the systems
 	Entity graphicsEntity = g_Coordinator.CreateEntity();
-	g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent{ /* initialization data */ });
+	g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent{});
 
 	// init system
 	GraphicsComponent& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(graphicsEntity);
