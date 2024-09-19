@@ -2,10 +2,9 @@
 #define OBJECT_H
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "aabb.h"
-#include "sphere.h"
 
-#include "model.h"
+
+#include "Model.h"
 #include <memory>
 
 enum class ObjectType
@@ -51,7 +50,7 @@ class Object
 
 		glm::mat4 translateMat = glm::mat4(1.0f);
 
-		translateMat = glm::translate(translateMat, position+shiftpos);
+		translateMat = glm::translate(translateMat, position);
 
 		worldMatrix = translateMat * worldMatrix * scaleMat;
 
@@ -67,8 +66,5 @@ class Object
 	}
 
 	// bounding volume
-	AABB aabb{};
-	Sphere sphere{};
-	glm::vec3 shiftpos{0.f, 0.f, 0.f};
 };
 #endif

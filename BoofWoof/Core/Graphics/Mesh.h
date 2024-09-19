@@ -3,8 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <GL/glew.h> // for access to OpenGL API declarations
-
-#include "glslshader.h"
+#include "Shader.h"
 #include <string>
 #include <vector>
 using namespace std;
@@ -58,7 +57,7 @@ public:
     }
 
     // render the mesh
-    void Draw(GLSLShader& shader)
+    void Draw(OpenGLShader& shader)
     {
         (void)shader;
         //// bind appropriate textures
@@ -99,7 +98,7 @@ public:
     }
 
     // render the mesh with lines
-    void DrawLines(GLSLShader& shader)
+    void DrawLines(OpenGLShader& shader)
     {
         (void)shader;
         //glPolygonMode(GL_FRONT_AND_BACK, drawMode);
@@ -113,7 +112,7 @@ public:
 	}
     
     // render the mesh with point
-    void DrawPoints(GLSLShader& shader)
+    void DrawPoints(OpenGLShader& shader)
 	{
         (void)shader;
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

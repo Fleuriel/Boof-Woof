@@ -3,8 +3,8 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include <glslshader.h>
-#include <mesh.h>
+#include "Shader.h""
+#include "Mesh.h"
 
 
 
@@ -31,20 +31,20 @@ public:
     
 
     // draws the model, and thus all its meshes
-    void Draw(GLSLShader& shader)
+    void Draw(OpenGLShader& shader)
     {
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Draw(shader);
     }
 
     // draw with line
-    void DrawLine(GLSLShader& shader)
+    void DrawLine(OpenGLShader& shader)
     {
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].DrawLines(shader);
 	}
 
-    void DrawPoint(GLSLShader& shader)
+    void DrawPoint(OpenGLShader& shader)
 	{
 		for (unsigned int i = 0; i < meshes.size(); i++)
 			meshes[i].DrawPoints(shader);

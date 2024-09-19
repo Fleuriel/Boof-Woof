@@ -15,21 +15,17 @@ public:;
     void UpdateLoop();
     void Draw(std::vector<GraphicsComponent>& components);
     void DrawObject(GraphicsComponent& component);
-    void CreateObject(OpenGLModel model, int Tag);
-
+    
     static bool glewInitialized;
     
     
     void Update(float deltaTime);
 
-    void CheckTestsCollisions();
-    void UpdateObject(Entity entity, GraphicsComponent& graphicsComp, float deltaTime);
 
+    static OpenGLShader shader_test;
 
-    static GLuint mdl_ref;    // Model reference
-    static GLuint shd_ref;    // Shader reference
 
 private:
     static GLFWwindow* newWindow;  // OpenGL window
-    static unsigned int VBO, VAO, EBO;
+
 };
