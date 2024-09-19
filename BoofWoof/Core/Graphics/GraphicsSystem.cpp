@@ -9,7 +9,8 @@
 #include "../ECS/pch.h"
 #include "../Input/Input.h"
 #include "../AssetManager/AssetManager.h"
-
+#include "Object.h"
+#include "Model.h"
 #include "Windows/WindowManager.h"
 
 // Assignment 1
@@ -49,7 +50,7 @@ void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsCompo
 	g_AssetManager.LoadShaders();
 
 	// load one model
-	model_try.loadModel("../../sphere.obj", GL_LINE);
+	model_try.loadModel("sphere.obj", GL_LINE);
 
 	// load one object
 	object_try.model = &model_try;
@@ -75,7 +76,7 @@ void GraphicsSystem::UpdateLoop() {
 	// emply matrix
 	glm::mat4 mtx = glm::mat4(1.0f);
 	// Draw the object
-	/*g_AssetManager.shdrpgms[0].Use();
+	g_AssetManager.shdrpgms[0].Use();
 	g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", object_try.getWorldMatrix());
 	g_AssetManager.shdrpgms[0].SetUniform("view", mtx);
 	g_AssetManager.shdrpgms[0].SetUniform("projection", mtx);
@@ -83,7 +84,7 @@ void GraphicsSystem::UpdateLoop() {
 	g_AssetManager.shdrpgms[0].SetUniform("lineRender", false);
 	object_try.model->Draw(g_AssetManager.shdrpgms[0]);
 
-	g_AssetManager.shdrpgms[0].UnUse();*/
+	g_AssetManager.shdrpgms[0].UnUse();
 
 }
 
