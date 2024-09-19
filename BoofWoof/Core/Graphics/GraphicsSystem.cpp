@@ -43,7 +43,7 @@ void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsCompo
 
 
 	// load shaders
-	//g_AssetManager.LoadShaders();
+	g_AssetManager.LoadShaders();
 
 
 }

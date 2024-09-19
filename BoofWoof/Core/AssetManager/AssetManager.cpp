@@ -1,3 +1,4 @@
+
 /**************************************************************************
  * @file AssetManager.cpp
  * @author 	TAN Angus Yit Hoe
@@ -21,7 +22,7 @@
 #include "Graphics/Shader.h"
 #include "Graphics/GraphicsSystem.h"
 
-extern AssetManager g_AssetMan;
+AssetManager g_AssetManager;
 
 #define FILEPATH_SHADERS "../Shaders"
 
