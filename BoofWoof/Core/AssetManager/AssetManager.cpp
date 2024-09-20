@@ -69,14 +69,16 @@ bool AssetManager::LoadShaders() {
 	VectorPairString SHADER
 	{
 		std::make_pair<std::string, std::string>
-		("Shaders\\Shader.vert", "Shaders\\Shader.frag")
+		("Assets\\Shaders\\Shader.vert", "Assets\\Shaders\\Shader.frag")
 	};
 
 	InitShdrpgms(SHADER);
 
 	if (shdrpgms.size() == 0)
+	{
+		std::cout << "shader program size is 0\n";
 		return false;
-
+	}
 	return true;
 }
 /**************************************************************************
@@ -107,6 +109,9 @@ void AssetManager::InitShdrpgms(VectorPairString const& vpss)
 		shdrpgms.emplace_back(shdr_pgm);
 
 	}
+
+	std::cout << shdrpgms.size() << "\n";
+
 }
 /**************************************************************************
  * @brief Free Shaders (Unimplemented)
