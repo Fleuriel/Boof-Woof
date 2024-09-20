@@ -55,6 +55,9 @@ void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsCompo
 	object_try.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	object_try.color = glm::vec3(1.0f, 1.0f, 1.0f);
 
+	g_AssetManager.Models.push_back(model_try);
+	g_AssetManager.Objects.push_back(object_try);
+
 	//init camera
 	camera = Camera(glm::vec3(0.f, 0.f, 3.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
 	
@@ -85,15 +88,12 @@ void GraphicsSystem::UpdateLoop() {
 
 	// Draw the object
 	g_AssetManager.shdrpgms[0].Use();
-
-
 	g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", object_try.getWorldMatrix());
 	g_AssetManager.shdrpgms[0].SetUniform("view", view_);
 	g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
 	g_AssetManager.shdrpgms[0].SetUniform("objectColor", object_try.color);
-
-
-	object_try.model->Draw(g_AssetManager.shdrpgms[0]);
+	
+	g_AssetManager.Models[0].Draw(g_AssetManager.shdrpgms[0]);
 
 	g_AssetManager.shdrpgms[0].UnUse();
 

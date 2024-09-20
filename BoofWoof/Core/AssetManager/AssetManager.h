@@ -16,7 +16,6 @@
 
 #ifndef ASSETMANAGER_H
 #define ASSETMANAGER_H
-
 #include <vector>
 #include <string>
 #include <assimp/Importer.hpp>
@@ -24,7 +23,14 @@
 #include <assimp/postprocess.h>
 #include <iostream>
 #include "Graphics/GraphicsSystem.h"
-#include "../Graphics/Shader.h"
+#include "Graphics/Shader.h"
+
+
+#include "Graphics/Model.h"
+#include "Graphics/Object.h"
+
+ // Forward declarations
+
 
 
 #define ARRAY_SIZE_IN_ELEMENTS(a) (sizeof(a)/sizeof(a[0]))
@@ -77,16 +83,17 @@ struct Material {
 };
 
 
-struct ObjData {
-	std::vector<glm::vec3> positions; // Vertex positions
-	std::vector<glm::vec3> normals;   // Vertex normals
-	std::vector<unsigned int> indices; // Indices for triangles
-	std::vector<Material> materials;  // Materials in the OBJ file
-};
+//struct ObjData {
+//	std::vector<glm::vec3> positions; // Vertex positions
+//	std::vector<glm::vec3> normals;   // Vertex normals
+//	std::vector<unsigned int> indices; // Indices for triangles
+//	std::vector<Material> materials;  // Materials in the OBJ file
+//};
 
-extern ObjData Objectdata;
+//extern ObjData Objectdata;
 
-ObjData LoadOBJ(const std::vector<std::string>& filePath);
+//ObjData LoadOBJ(const std::vector<std::string>& filePath);
+
 
 /**************************************************************************
 * @brief AssetManager Class
@@ -156,7 +163,9 @@ public:
 
 	static std::vector<std::string> testingContainer;
 
-	static std::vector <ObjData> Vector3_Objects;
+	
+	std::vector <Model>	Models;
+	std::vector <Object> Objects;
 
 
 

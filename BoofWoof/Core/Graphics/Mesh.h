@@ -1,4 +1,7 @@
 #pragma once
+#ifndef MESH_H
+#define MESH_H
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -6,7 +9,7 @@
 #include "Shader.h"
 #include <string>
 #include <vector>
-using namespace std;
+
 
 #define MAX_BONE_INFLUENCE 4
 
@@ -36,8 +39,8 @@ struct Vertex {
 class Mesh {
 public:
     // mesh Data
-    vector<Vertex>       vertices{};
-    vector<unsigned int> indices{};
+    std::vector<Vertex>       vertices{};
+    std::vector<unsigned int> indices{};
     //vector<Texture>      textures;
     unsigned int VAO{};
     unsigned int drawMode{};
@@ -45,7 +48,7 @@ public:
     // constructor
     Mesh() {}
     //Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures
-    Mesh(vector<Vertex> vertices, vector<unsigned int> indices)
+    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
     {
         this->vertices = vertices;
         this->indices = indices;
@@ -209,3 +212,5 @@ public:
     
 
 };
+
+#endif
