@@ -11,6 +11,8 @@
 #include "../AssetManager/AssetManager.h"
 #include "Object.h"
 #include "Model.h"
+#include "Camera.h"
+#include "../Windows/WindowManager.h"
 #include "Windows/WindowManager.h"
 
 // Assignment 1
@@ -18,9 +20,9 @@
 
 bool GraphicsSystem::glewInitialized = false;
 
-Model model_try;
-Object object_try;
-
+Model		model_try;
+Object		object_try;
+Camera		camera;
 
 
 void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsComponent) {
@@ -51,7 +53,10 @@ void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsCompo
 	object_try.position = glm::vec3(0.0f, 0.0f, 0.0f);
 	object_try.scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	object_try.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-	object_try.color = glm::vec3(1.0f, 0.0f, 0.0f);
+	object_try.color = glm::vec3(1.0f, 1.0f, 1.0f);
+
+	//init camera
+	camera = Camera(glm::vec3(0.f, 0.f, 3.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -69,15 +74,24 @@ void GraphicsSystem::UpdateLoop() {
 
 	// emply matrix
 	glm::mat4 mtx = glm::mat4(1.0f);
+
+	// camera matrix
+	// camera initial position is (0, 0, 3)
+	//camera.ProcessKeyboard(Camera_Movement::FORWARD, -0.001f);
+	glm::mat4 view_ = camera.GetViewMatrix();
+	//std::cout << "camera position: " << camera.Position.x << " " << camera.Position.y << " " << camera.Position.z << std::endl;
+	
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX/ (float)g_WindowY, 0.1f, 100.0f);
+
 	// Draw the object
 	g_AssetManager.shdrpgms[0].Use();
 
 
 	g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", object_try.getWorldMatrix());
-	g_AssetManager.shdrpgms[0].SetUniform("view", mtx);
-	g_AssetManager.shdrpgms[0].SetUniform("projection", mtx);
+	g_AssetManager.shdrpgms[0].SetUniform("view", view_);
+	g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
 	g_AssetManager.shdrpgms[0].SetUniform("objectColor", object_try.color);
-//	g_AssetManager.shdrpgms[0].SetUniform("lineRender", false);
+
 
 	object_try.model->Draw(g_AssetManager.shdrpgms[0]);
 
