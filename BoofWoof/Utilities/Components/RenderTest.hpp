@@ -1,9 +1,5 @@
 #pragma once
 #include "../Core/ECS/Coordinator.hpp"
-#include <glm/glm.hpp>
-#include <GL/glew.h>
-#include <string>
-#include "../Core/Graphics/Model.h"
 #include "../Core/Graphics/Object.h"
 
 
