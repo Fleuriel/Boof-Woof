@@ -24,7 +24,7 @@ ImGuiEditor& ImGuiEditor::GetInstance() {
 void ImGuiEditor::ImGuiInit() {
 
 
-	win = glfwCreateWindow(1920, 1080, "Dear ImGui Starter", NULL, NULL);
+	win = glfwCreateWindow(1280, 1024, "Dear ImGui Starter", NULL, NULL);
 	if (!win)
 	{
 		std::cout << "Failed to create GLFW window!" << std::endl;
@@ -107,6 +107,9 @@ void ImGuiEditor::ImGuiUpdate()
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
+	// Dock the ImGui windows
+	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+
 	ImGui::ShowDemoWindow();
 }
 
@@ -115,6 +118,10 @@ void ImGuiEditor::ImGuiRender() {
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	ImGuiIO& io = ImGui::GetIO();
 	io.WantCaptureKeyboard = false;
+
+	//these two needs to be at the end.
+	glfwSwapBuffers(win);
+	glfwPollEvents();
 
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
 		auto* Window = glfwGetCurrentContext();

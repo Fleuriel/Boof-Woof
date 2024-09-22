@@ -40,9 +40,6 @@ int main()
 
 
 
-		//these two needs to be at the end.
-		glfwSwapBuffers(win);
-		glfwPollEvents();
 
 	}
 
