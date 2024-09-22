@@ -1,4 +1,7 @@
 #pragma once
+#ifndef SYSTEM_MANAGER_H
+#define SYSTEM_MANAGER_H
+
 #include "pch.h"
 #include "System.h"
 
@@ -87,3 +90,5 @@ private:
 	// Map from system type string pointer to a system pointer
 	std::unordered_map<const char*, std::shared_ptr<System>> mSystems{};
 };
+
+#endif

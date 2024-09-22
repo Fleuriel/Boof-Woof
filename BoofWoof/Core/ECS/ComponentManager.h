@@ -1,4 +1,6 @@
 #pragma once
+#ifndef COMPONENT_MANAGER_H
+#define COMPONENT_MANAGER_H
 #include "pch.h"
 #include "ComponentArray.h"
 
@@ -92,3 +94,5 @@ private:
 		return std::static_pointer_cast<ComponentArray<T>>(mComponentArrays[typeName]);
 	}
 };
+
+#endif

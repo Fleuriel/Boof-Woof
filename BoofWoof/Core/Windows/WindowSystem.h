@@ -1,4 +1,6 @@
 #pragma once
+#ifndef WINDOW_SYSTEM_H
+#define WINDOW_SYSTEM_H
 
 #include "../ECS/pch.h"
 #include "../ECS/System.h"
@@ -68,3 +70,5 @@ private:
 };
 
 extern Window* g_Window;
+
+#endif

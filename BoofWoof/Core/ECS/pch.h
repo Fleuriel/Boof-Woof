@@ -1,4 +1,7 @@
 #pragma once
+#ifndef PCH_H
+#define PCH_H
+
 #include <memory>
 #include <unordered_map>
 #include <cassert>
@@ -26,3 +29,5 @@ const ComponentType MAX_COMPONENTS = 32;
 
 // A simple type alias
 using Signature = std::bitset<MAX_COMPONENTS>;
+
+#endif

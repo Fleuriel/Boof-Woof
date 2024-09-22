@@ -1,4 +1,7 @@
 #pragma once
+#ifndef COMPONENT_ARRAY_H
+#define COMPONENT_ARRAY_H
+
 #include "pch.h"
 
 // The one instance of virtual inheritance in the entire implementation.
@@ -82,3 +85,5 @@ private:
 	// Total size of valid entries in the array.
 	size_t mSize;
 };
+
+#endif

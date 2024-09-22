@@ -1,5 +1,13 @@
 #pragma once
+
+#ifndef GRAPHICS_SYSTEM_H
+#define GRAPHICS_SYSTEM_H
+
 #include "../Utilities/Components/GraphicsComponent.h"
+
+
+class GraphicsComponent;
+
 //#include "../Core/AssetManager/AssetManager.h"
 #include "../ECS/pch.h"
 #include "../ECS/System.h"
@@ -32,3 +40,4 @@ private:
 
 };
 
+#endif

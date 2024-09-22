@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef ENGINE_CORE_H
+#define ENGINE_CORE_H
+
 #include "../Core/ECS/Coordinator.h"
 #include <iostream>
 #include "../Core/ECS/Coordinator.h"
@@ -19,3 +22,5 @@ public:
 };
 
 extern EngineCore* gCore;
+
+#endif
