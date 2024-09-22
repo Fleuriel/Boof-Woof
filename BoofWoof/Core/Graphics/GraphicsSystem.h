@@ -13,7 +13,7 @@
 class GraphicsSystem : public System
 {
 public:;
-    void initGraphicsPipeline(GraphicsComponent& graphicsComponent);
+    void initGraphicsPipeline();
     void UpdateLoop();
     void Draw(std::vector<GraphicsComponent>& components);
     void DrawObject(GraphicsComponent& component);
@@ -23,9 +23,9 @@ public:;
     
     void Update(float deltaTime);
 
-
+    void AddModel(std::string const& path);
+    void AddObject(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model);
     
-
 
 private:
     static GLFWwindow* newWindow;  // OpenGL window

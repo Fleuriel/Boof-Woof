@@ -24,7 +24,7 @@ bool GraphicsSystem::glewInitialized = false;
 Camera		camera;
 
 
-void GraphicsSystem::initGraphicsPipeline(GraphicsComponent& graphicsComponent) {
+void GraphicsSystem::initGraphicsPipeline() {
     // Implement graphics pipeline initialization
 		// OpenGL Initialization
 	std::cout << "Initializing Graphics Pipeline\n";
@@ -58,10 +58,10 @@ void GraphicsSystem::initGraphicsPipeline(GraphicsComponent& graphicsComponent) 
 	g_AssetManager.Objects.push_back(object_try);*/
 
 	// load models
-	graphicsComponent.addModel("sphere.obj");
+	AddModel("sphere.obj");
 
 	// load objects
-	graphicsComponent.addObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), &g_AssetManager.Models[0]);
+	AddObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), &g_AssetManager.Models[0]);
 
 
 	//init camera
@@ -123,3 +123,20 @@ void GraphicsSystem::DrawObject(GraphicsComponent& component) {
 }
 
 
+void GraphicsSystem::AddModel(std::string const& path)
+{
+	Model model;
+	model.loadModel(path, GL_TRIANGLES);
+	g_AssetManager.Models.push_back(model);
+}
+
+void GraphicsSystem::AddObject(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model)
+{
+	Object object;
+	object.model = model;
+	object.position = position;
+	object.scale = scale;
+	object.rotation = rotation;
+	object.color = color;
+	g_AssetManager.Objects.push_back(object);
+}

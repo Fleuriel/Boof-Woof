@@ -3,23 +3,23 @@
 #include "../Core/AssetManager/AssetManager.h"
 
 
-void GraphicsComponent::addModel(std::string const& path)
-{
-	Model model;
-	model.loadModel(path, GL_TRIANGLES);
-	g_AssetManager.Models.push_back(model);
-}
-
-void GraphicsComponent::addObject(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model)
-{
-	Object object;
-	object.model = model;
-	object.position = position;
-	object.scale = scale;
-	object.rotation = rotation;
-	object.color = color;
-	g_AssetManager.Objects.push_back(object);
-}
+//void GraphicsComponent::addModel(std::string const& path)
+//{
+//	Model model;
+//	model.loadModel(path, GL_TRIANGLES);
+//	g_AssetManager.Models.push_back(model);
+//}
+//
+//void GraphicsComponent::addObject(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model)
+//{
+//	Object object;
+//	object.model = model;
+//	object.position = position;
+//	object.scale = scale;
+//	object.rotation = rotation;
+//	object.color = color;
+//	g_AssetManager.Objects.push_back(object);
+//}
 
 GraphicsComponent::GraphicsComponent()
  {}

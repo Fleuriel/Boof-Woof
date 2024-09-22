@@ -13,11 +13,11 @@
 
 class GraphicsComponent {
 public:
-    // add model
-    void addModel(std::string const& path);
+ //   // add model
+ //   void addModel(std::string const& path);
 
-	// add object
-	void addObject(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model);
+	//// add object
+	//void addObject(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model);
 
 	// set position
 	void setPosition(Object& object, glm::vec3 position) { object.position = position; }

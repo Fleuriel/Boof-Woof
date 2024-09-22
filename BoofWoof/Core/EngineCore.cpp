@@ -40,8 +40,8 @@ void EngineCore::OnInit()
 	g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent{});
 
 	// init system
-	GraphicsComponent& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(graphicsEntity);
-	mGraphicsSys->initGraphicsPipeline(graphicsComp);
+	//GraphicsComponent& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(graphicsEntity);
+	mGraphicsSys->initGraphicsPipeline();
 
 	std::cout << "EngineCore Initialized!" << std::endl;
 	std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
