@@ -8,6 +8,7 @@
 #include <string>
 #include "../Core/Graphics/Model.h"  // Make sure Model is included
 #include "../Core/Graphics/Object.h"  // Full definition of Object is needed here
+#include "../Core/AssetManager/AssetManager.h"
 
 class GraphicsComponent {
 public:
