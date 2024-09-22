@@ -400,6 +400,13 @@ FodyWeavers.xsd
 *.idb
 *.recipe
 *.recipe
+
+
+#I hate this thing. and i want it to STOP.
+
 /bin-int/Debug-x64/BoofWoof
-/bin-int/Debug-x64/BoofWoof
+/bin-int/Release-x64/BoofWoof
 bin-int/Debug-x64/BoofWoof/BoofWoof.exe.recipe
+bin-int/Debug-64/projectName/vc143.idb
+bin-int/Release-64/projectName/vc143.idb
+bin-int/Debug-64/BoofWoof/BoofWoof.exe.recipe
