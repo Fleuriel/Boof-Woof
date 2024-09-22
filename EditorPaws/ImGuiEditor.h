@@ -4,7 +4,8 @@
 
 #define g_ImGuiEditor ImGuiEditor::GetInstance()
 
-class ImGuiEditor {
+class ImGuiEditor 
+{
 public:
 	ImGuiEditor() = default;
 	~ImGuiEditor() = default;
@@ -14,6 +15,12 @@ public:
 	void ImGuiUpdate();
 	void ImGuiRender();
 	void ImGuiEnd();
+
+	// Panels
+	void InspectorWindow();
+
+	// Variables
+	//Entity g_SelectedEntity = 0;
 
 	static ImGuiEditor& GetInstance();
 };

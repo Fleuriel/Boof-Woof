@@ -1,5 +1,5 @@
 #pragma once
-#include <ECS/Coordinator.h>
+#include "../Core/ECS/Coordinator.h"
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 #include <string>

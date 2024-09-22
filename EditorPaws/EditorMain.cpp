@@ -36,11 +36,6 @@ int main()
 
 		g_ImGuiEditor.ImGuiUpdate();
 		g_ImGuiEditor.ImGuiRender();
-
-
-
-
-
 	}
 
 	g_ImGuiEditor.ImGuiEnd();
