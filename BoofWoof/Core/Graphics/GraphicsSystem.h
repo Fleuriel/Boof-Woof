@@ -1,6 +1,6 @@
 #pragma once
 #include "../Utilities/Components/GraphicsComponent.h"
-#include "../Core/AssetManager/AssetManager.h"
+//#include "../Core/AssetManager/AssetManager.h"
 #include "../ECS/pch.h"
 #include "../ECS/System.h"
 
@@ -13,7 +13,7 @@
 class GraphicsSystem : public System
 {
 public:;
-    void initGraphicsPipeline(const GraphicsComponent& graphicsComponent);
+    void initGraphicsPipeline(GraphicsComponent& graphicsComponent);
     void UpdateLoop();
     void Draw(std::vector<GraphicsComponent>& components);
     void DrawObject(GraphicsComponent& component);

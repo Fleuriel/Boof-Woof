@@ -8,23 +8,22 @@
 #include "Model.h"
 #include <memory>
 
-enum class ObjectType
-{
-	SPHERE,
-	AABB_,
-	RAY,
-	PLANE,
-	POINT3D,
-	TRIANGLE,
-	OBJECT
-};
+//enum class ObjectType
+//{
+//	SPHERE,
+//	AABB_,
+//	RAY,
+//	PLANE,
+//	POINT3D,
+//	TRIANGLE,
+//	OBJECT
+//};
 
 
 class Object
 {
 	public:
-	ObjectType type;
-	
+	//ObjectType type;
 	
 	glm::vec3 position;
 	glm::vec3 scale;
@@ -33,6 +32,7 @@ class Object
 	
 
 	Model* model;
+	
 
 	glm::mat4 worldMatrix;
 	glm::mat4 getWorldMatrix() {

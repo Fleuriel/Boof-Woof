@@ -20,12 +20,11 @@
 
 bool GraphicsSystem::glewInitialized = false;
 
-Model		model_try;
-Object		object_try;
+
 Camera		camera;
 
 
-void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsComponent) {
+void GraphicsSystem::initGraphicsPipeline(GraphicsComponent& graphicsComponent) {
     // Implement graphics pipeline initialization
 		// OpenGL Initialization
 	std::cout << "Initializing Graphics Pipeline\n";
@@ -46,17 +45,24 @@ void GraphicsSystem::initGraphicsPipeline(const GraphicsComponent& graphicsCompo
 	g_AssetManager.LoadShaders();
 
 	// load one model
-	model_try.loadModel("sphere.obj", GL_TRIANGLES);
+	//model_try.loadModel("sphere.obj", GL_TRIANGLES);
 
 	// load one object
-	object_try.model = &model_try;
+	/*object_try.model = &model_try;
 	object_try.position = glm::vec3(0.0f, 0.0f, 0.0f);
 	object_try.scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	object_try.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	object_try.color = glm::vec3(1.0f, 1.0f, 1.0f);
 
 	g_AssetManager.Models.push_back(model_try);
-	g_AssetManager.Objects.push_back(object_try);
+	g_AssetManager.Objects.push_back(object_try);*/
+
+	// load models
+	graphicsComponent.addModel("sphere.obj", GL_TRIANGLES);
+
+	// load objects
+	graphicsComponent.addObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), &g_AssetManager.Models[0]);
+
 
 	//init camera
 	camera = Camera(glm::vec3(0.f, 0.f, 3.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
@@ -88,12 +94,16 @@ void GraphicsSystem::UpdateLoop() {
 
 	// Draw the object
 	g_AssetManager.shdrpgms[0].Use();
-	g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", object_try.getWorldMatrix());
-	g_AssetManager.shdrpgms[0].SetUniform("view", view_);
-	g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
-	g_AssetManager.shdrpgms[0].SetUniform("objectColor", object_try.color);
+	for (auto& object : g_AssetManager.Objects)
+	{
+		g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", object.getWorldMatrix());
+		g_AssetManager.shdrpgms[0].SetUniform("view", view_);
+		g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
+		g_AssetManager.shdrpgms[0].SetUniform("objectColor", object.color);
+
+		object.model->Draw(g_AssetManager.shdrpgms[0]);
+	}
 	
-	g_AssetManager.Models[0].Draw(g_AssetManager.shdrpgms[0]);
 
 	g_AssetManager.shdrpgms[0].UnUse();
 
