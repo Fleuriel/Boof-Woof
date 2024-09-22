@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Core/ECS/Coordinator.h"
+#include "../Core/ECS/Coordinator.hpp"
 #include <iostream>
 #include "../Utilities/Components/GraphicsComponent.h"
 #include "Windows/WindowManager.h"

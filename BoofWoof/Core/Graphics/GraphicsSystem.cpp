@@ -6,7 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <map>
 #include <unordered_map>
-#include "../ECS/pch.h"
+#include "../ECS/pch.hpp"
 #include "../Input/Input.h"
 #include "../AssetManager/AssetManager.h"
 #include "Object.h"

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../ECS/pch.h"
-#include "../ECS/System.h"
+#include "../ECS/pch.hpp"
+#include "../ECS/System.hpp"
 #include <iostream>
 #include <cstdio>
 #include <stdlib.h>

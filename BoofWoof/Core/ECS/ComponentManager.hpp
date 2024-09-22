@@ -1,6 +1,6 @@
 #pragma once
-#include "pch.h"
-#include "ComponentArray.h"
+#include "pch.hpp"
+#include "ComponentArray.hpp"
 
 class ComponentManager
 {
@@ -10,16 +10,25 @@ public:
 	{
 		const char* typeName = typeid(T).name();
 
+		// Gets the component array
+		auto compArray = std::make_shared<ComponentArray<T>>();
+
 		assert(mComponentTypes.find(typeName) == mComponentTypes.end() && "Registering component type more than once.");
 
 		// Add this component type to the component type map
 		mComponentTypes.insert({ typeName, mNextComponentType });
 
 		// Create a ComponentArray pointer and add it to the component arrays map
-		mComponentArrays.insert({ typeName, std::make_shared<ComponentArray<T>>() });
+		mComponentArrays.insert({ typeName, compArray });
+
+		ComponentType type = mComponentTypes[typeName];
+
+		mComponentArrayFromType.try_emplace(type, compArray);
 
 		// Increment the value so that the next component registered will be different
 		++mNextComponentType;
+
+		++mComponentsRegistered;
 	}
 
 	template<typename T>
@@ -71,12 +80,30 @@ public:
 		return GetComponentArray<T>()->HaveComponent(entity);
 	}
 
+	const ComponentType GetTotalRegisteredComponents() {
+		return mComponentsRegistered;
+	}
+
+	const size_t GetEntitySize(ComponentType type) {
+		return GetComponentArrayFromType(type)->GetEntitySize();
+	}
+
+	inline std::shared_ptr<IComponentArray> GetComponentArrayFromType(ComponentType type) {
+		return mComponentArrayFromType[type];
+	}
+
 private:
+	// Static counter for number of components registered
+	inline static ComponentType mComponentsRegistered{};
+
 	// Map from type string pointer to a component type
 	std::unordered_map<const char*, ComponentType> mComponentTypes{};
 
 	// Map from type string pointer to a component array
 	std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays{};
+
+	// Map from component type to component array
+	std::unordered_map<ComponentType, std::shared_ptr<IComponentArray>> mComponentArrayFromType{};
 
 	// The component type to be assigned to the next registered component - starting at 0
 	ComponentType mNextComponentType{};

@@ -1,6 +1,6 @@
 #pragma once
-#include "pch.h"
-#include "System.h"
+
+#include "System.hpp"
 
 class SystemManager
 {
@@ -37,7 +37,11 @@ public:
 		{
 			auto const& system = pair.second;
 
-			system->mEntities.erase(entity);
+			// find and remove the entity from the system's entity list with safety checks
+			auto it = std::find(system->mEntities.begin(), system->mEntities.end(), entity);
+			if (it != system->mEntities.end()) {
+				system->mEntities.erase(it);
+			}
 		}
 	}
 
@@ -50,15 +54,38 @@ public:
 			auto const& system = pair.second;
 			auto const& systemSignature = mSignatures[type];
 
-			// Entity signature matches system signature - insert into set
+			bool entityPresent = false;
+
+			// Check if entity is already present in system's entities
+			for (const auto& existingEntity : system->mEntities) 
+			{
+				if (existingEntity == entity) 
+				{
+					entityPresent = true;
+					break;
+				}
+			}
+
+			// Entity signature matches system signature - insert into vector
 			if ((entitySignature & systemSignature) == systemSignature)
 			{
-				system->mEntities.insert(entity);
+				if (!entityPresent) 
+				{
+					system->mEntities.emplace_back(entity);
+				}
 			}
-			// Entity signature does not match system signature - erase from set
+			// Entity signature does not match system signature - erase from vector
 			else
 			{
-				system->mEntities.erase(entity);
+				// Remove the entity if present
+				if (entityPresent) 
+				{
+					auto it = std::find(system->mEntities.begin(), system->mEntities.end(), entity);
+					if (it != system->mEntities.end()) 
+					{
+						system->mEntities.erase(it);
+					}
+				}
 			}
 		}
 	}

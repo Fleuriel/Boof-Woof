@@ -1,5 +1,5 @@
 #pragma once
-#include "pch.h"
+#include "pch.hpp"
 
 // The one instance of virtual inheritance in the entire implementation.
 // An interface is needed so that the ComponentManager (seen later)
@@ -10,6 +10,8 @@ class IComponentArray
 public:
 	virtual ~IComponentArray() = default;
 	virtual void EntityDestroyed(Entity entity) = 0;
+	virtual void CopyComponent(Entity entity, Entity entityToCopy) = 0;
+	virtual const size_t GetEntitySize() = 0;
 };
 
 
@@ -19,6 +21,9 @@ class ComponentArray : public IComponentArray
 public:
 	void InsertData(Entity entity, T component)
 	{
+		// Ensure entity ID is in range
+		assert(entity < MAX_ENTITIES && "Entity ID out of range");
+
 		assert(mEntityToIndexMap.find(entity) == mEntityToIndexMap.end() && "Component added to same entity more than once.");
 
 		// Put new entry at end and update the maps
@@ -31,6 +36,9 @@ public:
 
 	void RemoveData(Entity entity)
 	{
+		// Ensure entity ID is in range
+		assert(entity < MAX_ENTITIES && "Entity ID out of range");
+
 		assert(mEntityToIndexMap.find(entity) != mEntityToIndexMap.end() && "Removing non-existent component.");
 
 		// Copy element at end into deleted element's place to maintain density
@@ -51,6 +59,9 @@ public:
 
 	T& GetData(Entity entity)
 	{
+		// Ensure entity ID is in range
+		assert(entity < MAX_ENTITIES && "Entity ID out of range");
+
 		assert(mEntityToIndexMap.find(entity) != mEntityToIndexMap.end() && "Retrieving non-existent component.");
 
 		// Return a reference to the entity's component
@@ -59,11 +70,45 @@ public:
 
 	void EntityDestroyed(Entity entity) override
 	{
-		if (mEntityToIndexMap.find(entity) != mEntityToIndexMap.end())
+		if (entity < MAX_ENTITIES && mEntityToIndexMap.find(entity) != mEntityToIndexMap.end())
 		{
 			// Remove the entity's component if it existed
 			RemoveData(entity);
 		}
+	}
+
+	// Check if entity has component
+	bool HaveComponent(Entity entity) 
+	{
+		if (mEntityToIndexMap[entity] != MAX_ENTITIES) 
+		{
+			return true;
+		}
+		return false;
+	}
+
+	// For cloning function - copy component from one entity to another
+	void CopyComponent(Entity entity, Entity entityToCopy) override 
+	{
+		T* copy_component = &mComponentArray[mEntityToIndexMap[entity]];
+		T* clone_component = new T(*copy_component);
+		clone_component->SetComponentEntityID(entityToCopy);
+		InsertData(entityToCopy, *clone_component);
+		delete clone_component;
+	}
+
+	// getter functions
+	std::array<size_t, MAX_ENTITIES>& GetEntityToIndexMap() {
+		return mEntityToIndexMap;
+	}
+
+	std::array<Entity, MAX_ENTITIES>& GetIndexToEntityMap() {
+		return mIndexToEntityMap;
+	}
+
+	// return size of entity
+	const size_t GetEntitySize() {
+		return mSize;
 	}
 
 private:

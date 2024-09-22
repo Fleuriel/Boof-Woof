@@ -1,8 +1,8 @@
 #pragma once
 #include "../Utilities/Components/GraphicsComponent.h"
 //#include "../Core/AssetManager/AssetManager.h"
-#include "../ECS/pch.h"
-#include "../ECS/System.h"
+#include "../ECS/pch.hpp"
+#include "../ECS/System.hpp"
 
 #include <vector>
 #include <GL/glew.h>
