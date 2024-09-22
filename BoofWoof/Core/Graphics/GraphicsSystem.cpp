@@ -61,7 +61,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	AddModel("sphere.obj");
 
 	// load objects
-	AddObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), &g_AssetManager.Models[0]);
+	//AddObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), &g_AssetManager.Models[0]);
 
 
 	//init camera

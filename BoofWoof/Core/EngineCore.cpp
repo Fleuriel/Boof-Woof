@@ -18,7 +18,8 @@ void EngineCore::OnInit()
 
 	// register components here
 	g_Coordinator.Init();
-	g_Coordinator.RegisterComponent<GraphicsComponent>();
+	//g_Coordinator.RegisterComponent<GraphicsComponent>();
+	g_Coordinator.RegisterComponent<RenderTest>();
 
 	// setting global pointer
 	gCore = this;
@@ -26,22 +27,23 @@ void EngineCore::OnInit()
 	// Set up your global managers
 	//g_AssetManager.LoadShaders();
 
-
 	// register system & signatures
 	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
 	{
 		Signature signature;
-		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
+		//signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
+		signature.set(g_Coordinator.GetComponentType<RenderTest>());
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
-	// tempo creation of entity for the systems
-	Entity graphicsEntity = g_Coordinator.CreateEntity();
-	g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent{});
 
 	// init system
 	//GraphicsComponent& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(graphicsEntity);
 	mGraphicsSys->initGraphicsPipeline();
+
+	// tempo creation of entity for the systems
+	Entity graphicsEntity = g_Coordinator.CreateEntity();
+	g_Coordinator.AddComponent<RenderTest>(graphicsEntity, RenderTest(&g_AssetManager.Models[0], glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), graphicsEntity));
 
 	std::cout << "EngineCore Initialized!" << std::endl;
 	std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
@@ -61,7 +63,6 @@ void EngineCore::OnUpdate()
 	//	{
 	//		auto graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 	//		mGraphicsSys->UpdateLoop(graphicsComp);
-
 	//	}
 	//}
 
