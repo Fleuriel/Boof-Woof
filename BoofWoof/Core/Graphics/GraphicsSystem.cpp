@@ -58,7 +58,7 @@ void GraphicsSystem::initGraphicsPipeline(GraphicsComponent& graphicsComponent) 
 	g_AssetManager.Objects.push_back(object_try);*/
 
 	// load models
-	graphicsComponent.addModel("sphere.obj", GL_TRIANGLES);
+	graphicsComponent.addModel("sphere.obj");
 
 	// load objects
 	graphicsComponent.addObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), &g_AssetManager.Models[0]);

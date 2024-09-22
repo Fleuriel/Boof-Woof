@@ -3,10 +3,10 @@
 #include "../Core/AssetManager/AssetManager.h"
 
 
-void GraphicsComponent::addModel(std::string const& path, GLenum mode)
+void GraphicsComponent::addModel(std::string const& path)
 {
 	Model model;
-	model.loadModel(path, mode);
+	model.loadModel(path, GL_TRIANGLES);
 	g_AssetManager.Models.push_back(model);
 }
 
