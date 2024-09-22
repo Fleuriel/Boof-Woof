@@ -15,7 +15,7 @@ std::list<GraphicsComponent> objects;
 //    angleX(0.0f), angleY(0.0f), angleZ(0.0f),
 //    angleSpeed(0.0f), TagID(id), model_to_create(model), size(1.0f) {}
 
-//
+
 //void GraphicsSystem::Update() {
 //    for (auto& entity : mEntities) {
 //        // Assuming you have a way to get the component data
