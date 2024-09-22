@@ -48,36 +48,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\lib\imgui-docking\imgui.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\imgui_demo.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\imgui_draw.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\imgui_stdlib.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\imgui_tables.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\imgui_widgets.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\implot.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\implot_items.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\backends\imgui_impl_glfw.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\backends\imgui_impl_opengl3.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -122,42 +92,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\lib\imgui-docking\imconfig.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\imgui.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\imgui_internal.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\imgui_stdlib.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\implot.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\implot_internal.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\imstb_rectpack.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\imstb_textedit.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\imstb_truetype.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\backends\imgui_impl_glfw.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\backends\imgui_impl_opengl3.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\backends\imgui_impl_opengl3_loader.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
     <ClInclude Include="Core\AssetManager\AssetManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
