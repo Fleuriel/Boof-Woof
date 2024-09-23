@@ -1,6 +1,5 @@
 #include "../Utilities/Components/GraphicsComponent.h"
-#include "Windows/WindowSystem.h"
-
+#include "Windows/WindowManager.h"
 
 glm::mat4 Object::getWorldMatrix() {
 
