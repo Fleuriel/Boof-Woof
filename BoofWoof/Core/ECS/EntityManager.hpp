@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef ENTITY_MANAGER_H
+#define ENTITY_MANAGER_H
+
+
 #include "pch.hpp"
 
 class EntityManager
@@ -109,3 +113,5 @@ private:
 	// Set of alive entities
 	std::vector<Entity> mAliveEntities{};
 };
+
+#endif

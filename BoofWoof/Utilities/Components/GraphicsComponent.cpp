@@ -1,6 +1,8 @@
-#include "GraphicsComponent.h"
+//#include "GraphicsComponent.h"
 #include "../Core/Graphics/GraphicsSystem.h"
 #include "../Core/AssetManager/AssetManager.h"
+
+//#include "../Core/Graphics/Object.h"
 
 
 //void GraphicsComponent::addModel(std::string const& path)
@@ -21,11 +23,13 @@
 //	g_AssetManager.Objects.push_back(object);
 //}
 
+
+
+
 GraphicsComponent::GraphicsComponent()
  {}
 
 
-std::list<GraphicsComponent> objects;
 //GraphicsComponent::GraphicsComponent(const OpenGLModel& model, int id)
 //    : model_To_NDC_xform(1.0f), Position(0.0f), ScaleModel(0.5f),
 //    setColor(1.0f), setColorLeft(1.0f), setColorRight(1.0f),

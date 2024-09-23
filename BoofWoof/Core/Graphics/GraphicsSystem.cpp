@@ -20,6 +20,7 @@
 
 bool GraphicsSystem::glewInitialized = false;
 
+//std::vector<Model2D> models;
 
 Camera		camera;
 
@@ -41,6 +42,8 @@ void GraphicsSystem::initGraphicsPipeline() {
 	}
 
 
+
+
 	// load shaders
 	g_AssetManager.LoadShaders();
 
@@ -56,6 +59,16 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 	g_AssetManager.Models.push_back(model_try);
 	g_AssetManager.Objects.push_back(object_try);*/
+
+	// store the model
+	//models.emplace_back(SquareModel(glm::vec3(1.0f, 1.0f, 1.0f)));
+
+	//Model2D createModel;
+
+//	objects.emplace_back(createModel);
+
+	// initialize the model
+
 
 	// load models
 	AddModel("sphere.obj");
@@ -81,6 +94,7 @@ void GraphicsSystem::UpdateLoop() {
 
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 
+
 	// emply matrix
 	glm::mat4 mtx = glm::mat4(1.0f);
 
@@ -92,6 +106,9 @@ void GraphicsSystem::UpdateLoop() {
 	
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX/ (float)g_WindowY, 0.1f, 100.0f);
 
+	
+
+
 	// Draw the object
 	g_AssetManager.shdrpgms[0].Use();
 	for (auto& object : g_AssetManager.Objects)
@@ -100,10 +117,10 @@ void GraphicsSystem::UpdateLoop() {
 		g_AssetManager.shdrpgms[0].SetUniform("view", view_);
 		g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
 		g_AssetManager.shdrpgms[0].SetUniform("objectColor", object.color);
-
 		object.model->Draw(g_AssetManager.shdrpgms[0]);
+
 	}
-	
+
 
 	g_AssetManager.shdrpgms[0].UnUse();
 

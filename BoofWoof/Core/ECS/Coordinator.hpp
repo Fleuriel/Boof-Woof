@@ -1,4 +1,7 @@
 #pragma once
+#ifndef COORDINATOR_H
+#define COORDINATOR_H
+
 #include "pch.hpp"
 #include "ComponentManager.hpp"
 #include "EntityManager.hpp"
@@ -201,3 +204,5 @@ private:
 	std::unique_ptr<EntityManager> mEntityManager;
 	std::unique_ptr<SystemManager> mSystemManager;
 };
+
+#endif

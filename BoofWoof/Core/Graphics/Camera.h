@@ -1,4 +1,7 @@
 #pragma once
+#ifndef CAMERA_H
+#define CAMERA_H
+
 // Include GLEW
 #include <GL/glew.h>
 #include <glm/glm.hpp>
@@ -71,3 +74,6 @@ private:
     // calculates the front vector from the Camera's (updated) Euler Angles
     void updateCameraVectors();
 };
+
+
+#endif

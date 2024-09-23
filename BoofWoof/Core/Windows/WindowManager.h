@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef WINDOW_MANAGER_H
+#define WINDOW_MANAGER_H
+
 #include "../ECS/pch.hpp"
 #include "../ECS/System.hpp"
 #include <iostream>
@@ -69,3 +72,5 @@ private:
 };
 
 extern Window* g_Window;
+
+#endif
