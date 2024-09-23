@@ -61,6 +61,9 @@ public:
 	std::vector <Model>	Models;
 	std::vector <Object> Objects;
 
+	std::vector <Model2D> Model2D;
+	std::vector <Object2D> Object2D;
+
 
 
 private:

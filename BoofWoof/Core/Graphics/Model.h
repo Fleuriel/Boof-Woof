@@ -20,23 +20,29 @@
 #include <map>
 #include <vector>
 //
-//class Model2D
-//{
-//public:
-//
-//    GLenum primitive_type;		// Primitive Type
-//    size_t primitive_cnt;		// Primitive Count
-//    GLuint vaoid;				// Vaoid of the Model
-//    GLsizei draw_cnt;			// Draw Count of the model
-//    size_t idx_elem_cnt;		// Index Element Count of the Model
-//
-//
-//    Model2D() : primitive_type(0), primitive_cnt(0), vaoid(0), draw_cnt(0), idx_elem_cnt(0) {}
-//};
-//
-//Model2D SquareModel(glm::vec3 color);
-//
-//
+
+
+#include "AssetManager/AssetManager.h"
+
+class Model2D
+{
+public:
+
+    GLenum primitive_type;		// Primitive Type
+    size_t primitive_cnt;		// Primitive Count
+    GLuint vaoid;				// Vaoid of the Model
+    GLsizei draw_cnt;			// Draw Count of the model
+    size_t idx_elem_cnt;		// Index Element Count of the Model
+
+
+    Model2D() : primitive_type(0), primitive_cnt(0), vaoid(0), draw_cnt(0), idx_elem_cnt(0) {}
+
+    void Draw(OpenGLShader& Shader);
+};
+
+Model2D SquareModel(glm::vec3 color);
+
+
 //extern std::vector<Model2D> models;
 
 

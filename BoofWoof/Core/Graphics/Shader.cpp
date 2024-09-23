@@ -459,7 +459,21 @@ void OpenGLShader::SetUniform(GLchar const* name, glm::vec4 const& val) {
 * @return void
 *************************************************************************/
 void OpenGLShader::SetUniform(GLchar const* name, glm::mat3 const& val) {
+
+#ifdef _DEBUG
+
+    std::cout << "DEBUG [ " << name << " ] " << '\t';
+
+#endif
+
     GLint loc = glGetUniformLocation(pgm_handle, name);
+
+#ifdef _DEBUG
+
+    std::cout << loc << '\n';
+
+#endif
+
     if (loc >= 0) {
         glUniformMatrix3fv(loc, 1, GL_FALSE, &val[0][0]);
     }

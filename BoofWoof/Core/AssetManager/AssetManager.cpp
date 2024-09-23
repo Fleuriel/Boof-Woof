@@ -64,13 +64,21 @@ bool AssetManager::LoadShaders() {
 	
 	std::cout << "Load Shaders\n";
 
-	VectorPairString SHADER
+	VectorPairString SHADER3D
 	{
 		std::make_pair<std::string, std::string>
-		("Assets\\Shaders\\Shader.vert", "Assets\\Shaders\\Shader.frag")
+		("Assets\\Shaders\\Shader3D.vert", "Assets\\Shaders\\Shader3D.frag")
 	};
 
-	InitShdrpgms(SHADER);
+
+	VectorPairString SHADER2D
+	{
+		std::make_pair<std::string, std::string>
+		("Assets\\Shaders\\Shader2D.vert", "Assets\\Shaders\\Shader2D.frag")
+	};
+
+	InitShdrpgms(SHADER3D);
+	InitShdrpgms(SHADER2D);
 
 	if (shdrpgms.size() == 0)
 	{

@@ -6,6 +6,8 @@
 #include "../Utilities/Components/GraphicsComponent.h"
 
 
+class Model;
+class Model2D;
 class GraphicsComponent;
 
 #include "../ECS/System.hpp"
@@ -29,9 +31,14 @@ public:;
     
     void Update(float deltaTime);
 
-    void AddModel(std::string const& path);
-    void AddObject(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model);
-    
+    void AddModel_3D(std::string const& path);
+    void AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model);
+
+    void AddModel_2D();
+
+    void AddObject_2D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model2D model);
+
+
 
 private:
     static GLFWwindow* newWindow;  // OpenGL window

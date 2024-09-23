@@ -121,7 +121,8 @@ GLFWwindow* Window::GetGLFWWindow()
 
 void Window::OnUpdate()
 {
-    // Update FPS
+    // Update 
+
     OnUpdateFPS(1.0);
 
     // no of frames if u ever need it
