@@ -19,8 +19,6 @@
 #include <filesystem>
 #include "windows.h"
 #include <iostream>
-#include "Graphics/Shader.h"
-#include "Graphics/GraphicsSystem.h"
 
 AssetManager g_AssetManager;
 

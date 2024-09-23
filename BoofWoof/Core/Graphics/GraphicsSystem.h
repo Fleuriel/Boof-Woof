@@ -8,8 +8,6 @@
 
 class GraphicsComponent;
 
-//#include "../Core/AssetManager/AssetManager.h"
-#include "../ECS/pch.hpp"
 #include "../ECS/System.hpp"
 
 #include <vector>

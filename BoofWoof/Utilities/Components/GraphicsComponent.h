@@ -2,21 +2,13 @@
 #ifndef GRAPHICS_COMPONENT_H
 #define GRAPHICS_COMPONENT_H
 
-#include "../Core/ECS/pch.hpp"
-#include <glm/glm.hpp>
-#include <GL/glew.h>
-#include <string>
-#include "../Core/Graphics/Model.h"  // Make sure Model is included
+#include "ECS/Coordinator.hpp"
+#include "../Core/Graphics/Model.h"   // Make sure Model is included
 #include "../Core/Graphics/Object.h"  // Full definition of Object is needed here
-#include "../Core/AssetManager/AssetManager.h"
 
-class GraphicsComponent {
+class GraphicsComponent 
+{
 public:
- //   // add model
- //   void addModel(std::string const& path);
-
-	//// add object
-	//void addObject(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model);
 
     // set position
     void setPosition(Object& object, glm::vec3 position) { object.position = position; }

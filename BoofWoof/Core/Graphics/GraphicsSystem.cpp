@@ -1,18 +1,12 @@
 #include "GraphicsSystem.h"
-#include "Shader.h"
 #include <utility>
-#include <vector>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <map>
-#include <unordered_map>
-#include "../ECS/pch.hpp"
 #include "../Input/Input.h"
-#include "../AssetManager/AssetManager.h"
-#include "Object.h"
-#include "Model.h"
 #include "Camera.h"
-#include "../Windows/WindowManager.h"
+
+#include "AssetManager/AssetManager.h"
 #include "Windows/WindowManager.h"
 
 // Assignment 1
@@ -74,7 +68,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	AddModel("sphere.obj");
 
 	// load objects
-	//AddObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), &g_AssetManager.Models[0]);
+	AddObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), &g_AssetManager.Models[0]);
 
 
 	//init camera

@@ -24,8 +24,6 @@
 #include <iostream>
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/Shader.h"
-
-
 #include "Graphics/Model.h"
 #include "Graphics/Object.h"
 
