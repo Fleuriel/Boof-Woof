@@ -26,6 +26,8 @@ public:
 		mComponentManager = std::make_unique<ComponentManager>();
 		mEntityManager = std::make_unique<EntityManager>();
 		mSystemManager = std::make_unique<SystemManager>();
+
+		std::cout << "Coordinator Initialized!\n";
 	}
 
 
@@ -152,7 +154,7 @@ public:
 
 	template <typename T>
 	bool HaveComponent(Entity entity) {
-		return mComponentManager->RemoveComponent<T>(entity);
+		return mComponentManager->HaveComponent<T>(entity);
 	}
 
 	const ComponentType GetTotalRegisteredComponents() {

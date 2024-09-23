@@ -21,6 +21,6 @@ public:
 	void OnShutdown();
 };
 
-extern EngineCore* gCore;
+extern EngineCore* g_Core;
 
 #endif

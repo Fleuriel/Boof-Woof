@@ -52,8 +52,8 @@ public:
 		GetComponentArray<T>()->InsertData(entity, component);
 	}
 
-	template<typename T>
-	void RemoveComponent(Entity entity)
+	template <typename T>
+	void RemoveComponent(Entity entity) 
 	{
 		// Remove a component from the array for an entity
 		GetComponentArray<T>()->RemoveData(entity);

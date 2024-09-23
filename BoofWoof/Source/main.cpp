@@ -20,7 +20,7 @@
 #include "EngineCore.h"
 
 // Global Variables
-EngineCore* gCore = nullptr;
+EngineCore* g_Core = nullptr;
 
 /**************************************************************************
 * @brief Main Function
@@ -28,8 +28,8 @@ EngineCore* gCore = nullptr;
 *************************************************************************/
 int main()
 {
-	gCore = new EngineCore();
-	gCore->OnInit();
+	g_Core = new EngineCore();
+	g_Core->OnInit();
 
 	// Initializing States
 	StartUp();
@@ -47,7 +47,7 @@ int main()
 			break;
 		}
 
-		gCore->OnUpdate();
+		g_Core->OnUpdate();
 		
 		previousState = currentState;
 		currentState = nextState;

@@ -22,7 +22,7 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<RenderTest>();
 
 	// setting global pointer
-	gCore = this;
+	g_Core = this;
 
 	// Set up your global managers
 	//g_AssetManager.LoadShaders();
@@ -76,4 +76,6 @@ void EngineCore::OnShutdown()
 	// shutdown all systems & delete window
 
 	g_Window->OnShutdown();
+
+	
 }

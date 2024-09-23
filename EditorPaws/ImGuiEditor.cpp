@@ -90,6 +90,7 @@ void ImGuiEditor::ImGuiUpdate()
 	ImGui::ShowDemoWindow();
 
 	// Panels
+	WorldHierarchy();
 	InspectorWindow();
 }
 
@@ -115,6 +116,41 @@ void ImGuiEditor::ImGuiEnd() {
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext(ImGui::GetCurrentContext());
+}
+
+void ImGuiEditor::WorldHierarchy()
+{
+	ImGui::Begin("World Hierarchy");
+	{
+		/*if (g_Coordinator.GetTotalEntities() != MAX_ENTITIES)
+		{
+			if (ImGui::BeginPopupContextItem("GameObj"))
+			{
+				if (ImGui::Selectable("Empty GameObject"))
+				{
+					g_SelectedEntity = g_Coordinator.CreateEntity();
+				}
+				ImGui::EndPopup();
+			}
+
+			if (ImGui::Button("Create"))
+			{
+				ImGui::OpenPopup("GameObj");
+			}
+
+			ImGui::SameLine();
+
+			if (ImGui::Button("Clone Object") && g_Coordinator.GetTotalEntities() != 0) {
+
+				if (g_SelectedEntity != MAX_ENTITIES)
+				{
+					Entity clone = g_Coordinator.CloneEntity(g_SelectedEntity);
+					g_SelectedEntity = clone;
+				}
+			}
+		}*/
+	}
+	ImGui::End();
 }
 
 void ImGuiEditor::InspectorWindow()

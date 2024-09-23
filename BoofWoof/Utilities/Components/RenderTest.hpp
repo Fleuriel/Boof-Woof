@@ -1,7 +1,12 @@
 #pragma once
-#include "../Core/ECS/Coordinator.hpp"
-#include "../Core/Graphics/Object.h"
+#ifndef RENDERTEST_H
+#define RENDERTEST_H
 
+class Coordinator;
+class Model;
+class Object;
+
+#include <glm/glm.hpp>
 
 class RenderTest
 {
@@ -57,3 +62,5 @@ private:
 
     Entity m_EntityID{};
 };
+
+#endif  // RENDERTEST_H
