@@ -86,7 +86,7 @@ private:
 	std::array<int, GLFW_KEY_LAST + 1> keyStates{};
 
 	// Define an array to keep track of mouse button states
-	std::array<bool, GLFW_MOUSE_BUTTON_LAST + 1> mouseButtonStates{};
+	std::array<int, GLFW_MOUSE_BUTTON_LAST + 1> mouseButtonStates{};
 
 	// 1 for scrolling up, 0 for not scrolling, -1 for scrolling down
 	int mouseScrollState{ 0 };
@@ -98,29 +98,5 @@ private:
 
 
 extern InputSystem inputSystem;
-
-
-void KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mod);
-
-/**************************************************************************
- * @brief Callback function for handling mouse button input in a GLFW window.
- *
- * This function is a callback used with the GLFW library to handle mouse button input events.
- *
- * @param window The GLFW window that received the input.
- * @param button The mouse button that was pressed or released.
- * @param action The action taken (GLFW_PRESS or GLFW_RELEASE).
- * @param mod Bitfield describing which modifier keys (e.g., Shift, Ctrl, Alt) were held down.
- *
- * This function updates the mouseButtonStates array based on mouse button input events. It specifically
- * records the state of the mouse buttons based on whether they are pressed or released.
- *
- * @note The UNREFERENCED_PARAMETER macro is used to suppress unused parameter warnings.
- * @note This function is typically registered with GLFW using glfwSetMouseButtonCallback().
- *
- * @see mouseButtonStates - The array used to store the state of various input events.
- * @see glfwSetMouseButtonCallback() - Function to register this callback with GLFW.
- *************************************************************************/
-void MouseCallBack(GLFWwindow* window, int button, int action, int mod);
 
 #endif

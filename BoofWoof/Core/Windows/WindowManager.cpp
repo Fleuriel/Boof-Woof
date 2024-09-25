@@ -38,17 +38,6 @@ void WindowFocusCallback(GLFWwindow* window, int focused)
     }
 }
 
-// Function for key callback
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) 
-{
-    static_cast<void>(scancode);
-    if (key == GLFW_KEY_TAB && mods == GLFW_MOD_ALT && action == GLFW_PRESS) 
-    {
-        // Alt + Tab is pressed, minimize the window
-        glfwIconifyWindow(window);
-    }
-}
-
 void Window::OnInitialize()
 {
     std::cout << "Initializing OpenGL Window Settings\n";
@@ -94,6 +83,7 @@ void Window::OnInitialize()
     // Set callbacks
     glfwSetKeyCallback(m_Window, KeyCallBack);
     glfwSetMouseButtonCallback(m_Window, MouseCallBack);
+    glfwSetScrollCallback(m_Window, ScrollCallBack);
     glfwSetWindowSizeCallback(m_Window, OpenGLWindowResizeCallback);
 
     glfwSwapInterval(1); // Enable V-Sync
@@ -286,6 +276,74 @@ void Window::KeyCallBack(GLFWwindow* window, int key, int scancode, int action, 
     inputSystem.buttonPressed = action;
 }
 
+/**************************************************************************
+ * @brief Callback function for handling mouse button input in a GLFW window.
+ *
+ * This function is a callback used with the GLFW library to handle mouse button input events.
+ *
+ * @param window The GLFW window that received the input.
+ * @param button The mouse button that was pressed or released.
+ * @param action The action taken (GLFW_PRESS or GLFW_RELEASE).
+ * @param mod Bitfield describing which modifier keys (e.g., Shift, Ctrl, Alt) were held down.
+ *
+ * This function updates the mouseButtonStates array based on mouse button input events. It specifically
+ * records the state of the mouse buttons based on whether they are pressed or released.
+ *
+ * @note The UNREFERENCED_PARAMETER macro is used to suppress unused parameter warnings.
+ * @note This function is typically registered with GLFW using glfwSetMouseButtonCallback().
+ *
+ * @see mouseButtonStates - The array used to store the state of various input events.
+ * @see glfwSetMouseButtonCallback() - Function to register this callback with GLFW.
+ *************************************************************************/
 void Window::MouseCallBack(GLFWwindow* window, int button, int action, int mods) {
-    // Handle mouse input
+    (void)window;
+    (void)mods;
+    //UNREFERENCED_PARAMETER(window);
+    //UNREFERENCED_PARAMETER(mod);
+
+    inputSystem.SetMouseState(button, action);
+
+    //std::cout << inputSystem.GetMouseState(button);
+
+    inputSystem.buttonPressed = action;
+
+}
+
+/**************************************************************************
+ * @brief Callback function for handling mouse scroll wheel input in a GLFW window.
+ *
+ * This function is a callback used with the GLFW library to handle mouse scroll wheel input events.
+ *
+ * @param window The GLFW window that received the input.
+ * @param xOffset The horizontal scroll offset (not used in this function).
+ * @param yOffset The vertical scroll offset, indicating the amount of scrolling.
+ *
+ * This function updates the `mouse_scroll_total_Y_offset` variable to keep track of the total vertical
+ * scrolling that has occurred. It also sets the mouseScrollState variable to indicate whether scrolling
+ * is in the upward (INPUT_SCROLLUP) or downward (INPUT_SCROLLDOWN) direction based on the `yOffset` value.
+ *
+ * @param mouse_scroll_total_Y_offset A global variable that tracks the total vertical scrolling.
+ * @param mouseScrollState The array used to store the state of various input events.
+ *
+ * @note The UNREFERENCED_PARAMETER macro is not used in this function.
+ * @note This function is typically registered with GLFW using glfwSetScrollCallback().
+ *
+ * @see mouse_scroll_total_Y_offset - Global variable to track total vertical scrolling.
+ * @see mouseScrollState - The array used to store the state of various input events.
+ * @see glfwSetScrollCallback() - Function to register this callback with GLFW.
+ *************************************************************************/
+void Window::ScrollCallBack(GLFWwindow* window, double xOffset, double yOffset) {
+    (void)xOffset;
+    (void)window;
+    //UNREFERENCED_PARAMETER(window);
+    //UNREFERENCED_PARAMETER(xOffset);
+
+    //Update variable to track total vertical scrolling
+    inputSystem.UpdateScrollTotalYOffset(static_cast<float>(yOffset));
+
+    //Change the scroll states based on y offset value
+    inputSystem.SetScrollState((yOffset > 0) ? 1 : (yOffset == 0) ? 0 : -1);
+
+    //std::cout << inputSystem.GetScrollState() << std::endl;
+    std::cout << inputSystem.GetScrollTotalYOffset() << std::endl;
 }
