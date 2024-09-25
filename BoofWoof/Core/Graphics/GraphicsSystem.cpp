@@ -77,7 +77,7 @@ void GraphicsSystem::UpdateLoop() {
 
 	// Draw the object
 	g_AssetManager.shdrpgms[0].Use();
-	g_AssetManager.shdrpgms[1].Use();
+//	g_AssetManager.shdrpgms[1].Use();
 
 	static float f = 0.01;
 
@@ -109,7 +109,7 @@ void GraphicsSystem::UpdateLoop() {
 
 	g_AssetManager.shdrpgms[0].UnUse();
 
-	g_AssetManager.shdrpgms[1].UnUse();
+	//g_AssetManager.shdrpgms[1].UnUse();
 
  
  
