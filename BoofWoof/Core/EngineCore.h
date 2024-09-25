@@ -12,6 +12,7 @@
 #include "AssetManager/AssetManager.h"
 
 #include <GLFW/glfw3.h>
+#include "fmod.hpp"
 
 class EngineCore 
 {
