@@ -46,44 +46,8 @@
     <Filter Include="Source Files\Graphics\OpenGL">
       <UniqueIdentifier>{215aef7c-1a00-4c43-b2e0-9ca8ee358b71}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Animation">
-      <UniqueIdentifier>{68fb091a-f1d8-4641-9971-bda5ac1c582d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Animation">
-      <UniqueIdentifier>{5384472f-45be-4415-be69-1bd668d635e7}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\lib\imgui-docking\imgui.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\imgui_demo.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\imgui_draw.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\imgui_stdlib.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\imgui_tables.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\imgui_widgets.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\implot.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\implot_items.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\backends\imgui_impl_glfw.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\imgui-docking\backends\imgui_impl_opengl3.cpp">
-      <Filter>Source Files\ImGUI</Filter>
-    </ClCompile>
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -117,84 +81,33 @@
     <ClCompile Include="Core\Graphics\Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Windows\WindowSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\Components\GraphicsComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Graphics\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Animation\AnimationManager.cpp">
-      <Filter>Source Files\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Animation\SkeletalAnimation.cpp">
-      <Filter>Source Files\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Animation\SpriteAnimation.cpp">
-      <Filter>Source Files\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Animation\Transition.cpp">
-      <Filter>Source Files\Animation</Filter>
+    <ClCompile Include="Core\Windows\WindowManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\lib\imgui-docking\imconfig.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\imgui.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\imgui_internal.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\imgui_stdlib.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\implot.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\implot_internal.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\imstb_rectpack.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\imstb_textedit.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\imstb_truetype.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\backends\imgui_impl_glfw.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\backends\imgui_impl_opengl3.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\imgui-docking\backends\imgui_impl_opengl3_loader.h">
-      <Filter>Header Files\ImGUI</Filter>
-    </ClInclude>
     <ClInclude Include="Core\AssetManager\AssetManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\ECS\ComponentArray.h">
+    <ClInclude Include="Core\ECS\ComponentArray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\ECS\ComponentManager.h">
+    <ClInclude Include="Core\ECS\ComponentManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\ECS\EntityManager.h">
+    <ClInclude Include="Core\ECS\EntityManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\ECS\pch.h">
+    <ClInclude Include="Core\ECS\pch.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\ECS\System.h">
+    <ClInclude Include="Core\ECS\System.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\ECS\SystemManager.h">
+    <ClInclude Include="Core\ECS\SystemManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Graphics\BoundingVolume.h">
@@ -209,7 +122,7 @@
     <ClInclude Include="Core\Input\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\ECS\Coordinator.h">
+    <ClInclude Include="Core\ECS\Coordinator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\EngineCore.h">
@@ -230,33 +143,20 @@
     <ClInclude Include="Core\Graphics\Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Windows\WindowSystem.h">
+    <ClInclude Include="Utilities\Components\GraphicsComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\Components\GraphicsComponent.h">
+    <ClInclude Include="Core\Windows\WindowManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Graphics\TestCases.h">
+    <ClInclude Include="Utilities\Components\TransformComponent.hpp">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Animation\AnimationManager.h">
-      <Filter>Header Files\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Animation\SkeletalAnimation.h">
-      <Filter>Header Files\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Animation\SpriteAnimation.h">
-      <Filter>Header Files\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Animation\Transition.h">
-      <Filter>Header Files\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Animation\IAnimation.h">
-      <Filter>Header Files\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\Shader.frag" />
-    <None Include="Assets\Shaders\Shader.vert" />
+    <None Include="Assets\Shaders\Shader2D.frag" />
+    <None Include="Assets\Shaders\Shader2D.vert" />
+    <None Include="Assets\Shaders\Shader3D.frag" />
+    <None Include="Assets\Shaders\Shader3D.vert" />
   </ItemGroup>
 </Project>

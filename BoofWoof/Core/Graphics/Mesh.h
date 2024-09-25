@@ -1,13 +1,15 @@
 #pragma once
+#ifndef MESH_H
+#define MESH_H
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <GL/glew.h> // for access to OpenGL API declarations
-
-#include "glslshader.h"
+#include "Shader.h"
 #include <string>
 #include <vector>
-using namespace std;
+
 
 #define MAX_BONE_INFLUENCE 4
 
@@ -37,8 +39,8 @@ struct Vertex {
 class Mesh {
 public:
     // mesh Data
-    vector<Vertex>       vertices{};
-    vector<unsigned int> indices{};
+    std::vector<Vertex>       vertices{};
+    std::vector<unsigned int> indices{};
     //vector<Texture>      textures;
     unsigned int VAO{};
     unsigned int drawMode{};
@@ -46,7 +48,7 @@ public:
     // constructor
     Mesh() {}
     //Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures
-    Mesh(vector<Vertex> vertices, vector<unsigned int> indices)
+    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
     {
         this->vertices = vertices;
         this->indices = indices;
@@ -58,7 +60,7 @@ public:
     }
 
     // render the mesh
-    void Draw(GLSLShader& shader)
+    void Draw(OpenGLShader& shader)
     {
         (void)shader;
         //// bind appropriate textures
@@ -99,7 +101,7 @@ public:
     }
 
     // render the mesh with lines
-    void DrawLines(GLSLShader& shader)
+    void DrawLines(OpenGLShader& shader)
     {
         (void)shader;
         //glPolygonMode(GL_FRONT_AND_BACK, drawMode);
@@ -113,7 +115,7 @@ public:
 	}
     
     // render the mesh with point
-    void DrawPoints(GLSLShader& shader)
+    void DrawPoints(OpenGLShader& shader)
 	{
         (void)shader;
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -210,3 +212,5 @@ public:
     
 
 };
+
+#endif

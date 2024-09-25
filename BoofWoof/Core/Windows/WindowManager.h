@@ -1,14 +1,18 @@
 #pragma once
 
-#include "../ECS/pch.h"
-#include "../ECS/System.h"
+#ifndef WINDOW_MANAGER_H
+#define WINDOW_MANAGER_H
+
+#include "../ECS/pch.hpp"
+#include "../ECS/System.hpp"
 #include <iostream>
 #include <cstdio>
 #include <stdlib.h>
 #include <sstream>
 
-#include <GLFW/glfw3.h>
-
+// Forward declare the GLFWwindow type so that everytime you spawn window, 
+// it won't have the entire GLFW lib in the space
+struct GLFWwindow;
 extern int g_WindowX, g_WindowY;
 
 class Window
@@ -68,3 +72,5 @@ private:
 };
 
 extern Window* g_Window;
+
+#endif

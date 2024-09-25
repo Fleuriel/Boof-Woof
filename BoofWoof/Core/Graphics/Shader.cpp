@@ -116,27 +116,33 @@ GLboolean OpenGLShader::IsLinked() const {
 * @return void
 *************************************************************************/
 GLboolean OpenGLShader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>> vec) {
+#ifdef _DEBUG
+    
+
     for (auto& elem : vec) {
-       // std::cout << "elem first and second elements: " << elem.first << '\t';
-       // std::cout << elem.second.c_str() << '\n';
+        std::cout << "Element First and Second elements: " << elem.first << '\t';
+        std::cout << elem.second.c_str() << '\n';
 
         if (GL_FALSE == CompileShaderFromFile(elem.first, elem.second.c_str())) {
-            //std::cout << "false";
+            std::cout << "Failed to Compile Shader from File\n";
             return GL_FALSE;
         }
     }
     if (GL_FALSE == Link()) {
-        //std::cout << "linking\n";
+        std::cout << "Linking\n";
         return GL_FALSE;
     }
     if (GL_FALSE == Validate()) {
-       // std::cout << "validate\n";
+        std::cout << "Validate\n";
         return GL_FALSE;
     }
-    //std::cout << "printing\n";
+    std::cout << "Shader has been loaded\n";
+    std::cout << "\nShader Parameters are as shown:\n";
     PrintActiveAttribs();
     PrintActiveUniforms();
     return GL_TRUE;
+
+#endif
 }
 
 /**************************************************************************
@@ -453,7 +459,21 @@ void OpenGLShader::SetUniform(GLchar const* name, glm::vec4 const& val) {
 * @return void
 *************************************************************************/
 void OpenGLShader::SetUniform(GLchar const* name, glm::mat3 const& val) {
+
+#ifdef _DEBUG
+
+    std::cout << "DEBUG [ " << name << " ] " << '\t';
+
+#endif
+
     GLint loc = glGetUniformLocation(pgm_handle, name);
+
+#ifdef _DEBUG
+
+    std::cout << loc << '\n';
+
+#endif
+
     if (loc >= 0) {
         glUniformMatrix3fv(loc, 1, GL_FALSE, &val[0][0]);
     }
@@ -493,7 +513,8 @@ void OpenGLShader::PrintActiveAttribs() const {
     glGetProgramiv(pgm_handle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &max_length);
     glGetProgramiv(pgm_handle, GL_ACTIVE_ATTRIBUTES, &num_attribs);
     GLchar* pname = new GLchar[max_length];
-    std::cout << "Index\t|\tName\n";
+    std::cout << "----------------------------------------------------------------------\n";
+    std::cout << "Index\t\t|\tName\n";
     std::cout << "----------------------------------------------------------------------\n";
     for (GLint i = 0; i < num_attribs; ++i) {
         GLsizei written;
@@ -501,7 +522,7 @@ void OpenGLShader::PrintActiveAttribs() const {
         GLenum type;
         glGetActiveAttrib(pgm_handle, i, max_length, &written, &size, &type, pname);
         GLint loc = glGetAttribLocation(pgm_handle, pname);
-        std::cout << loc << "\t\t" << pname << std::endl;
+        std::cout << loc << "\t\t\t" << pname << std::endl;
     }
     std::cout << "----------------------------------------------------------------------\n";
     delete[] pname;
@@ -545,7 +566,7 @@ void OpenGLShader::PrintActiveUniforms() const {
         GLenum type;
         glGetActiveUniform(pgm_handle, i, max_length, &written, &size, &type, pname);
         GLint loc = glGetUniformLocation(pgm_handle, pname);
-        std::cout << loc << "\t\t" << pname << std::endl;
+        std::cout << loc << "\t\t\t" << pname << std::endl;
     }
     std::cout << "----------------------------------------------------------------------\n";
     delete[] pname;

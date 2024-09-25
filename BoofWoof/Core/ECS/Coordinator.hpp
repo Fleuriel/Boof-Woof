@@ -1,8 +1,11 @@
 #pragma once
-#include "pch.h"
-#include "ComponentManager.h"
-#include "EntityManager.h"
-#include "SystemManager.h"
+#ifndef COORDINATOR_H
+#define COORDINATOR_H
+
+#include "pch.hpp"
+#include "ComponentManager.hpp"
+#include "EntityManager.hpp"
+#include "SystemManager.hpp"
 
 #define g_Coordinator Coordinator::GetInstance()
 
@@ -23,6 +26,8 @@ public:
 		mComponentManager = std::make_unique<ComponentManager>();
 		mEntityManager = std::make_unique<EntityManager>();
 		mSystemManager = std::make_unique<SystemManager>();
+
+		std::cout << "Coordinator Initialized!\n";
 	}
 
 
@@ -39,6 +44,22 @@ public:
 		mComponentManager->EntityDestroyed(entity);
 
 		mSystemManager->EntityDestroyed(entity);
+	}
+
+	// Clone Entity
+	Entity CloneEntity(Entity entity) 
+	{
+		Entity new_entity = mEntityManager->CreateEntity();
+		mEntityManager->SetSignature(new_entity, GetEntitySignature(entity));
+		for (ComponentType i{ 0 }; i < GetTotalRegisteredComponents(); ++i) {
+			if (GetEntitySignature(new_entity).test(i)) {
+				mComponentManager->GetComponentArrayFromType(i)->CopyComponent(entity, new_entity);
+			}
+		}
+		auto signature = mEntityManager->GetSignature(new_entity);
+		mSystemManager->EntitySignatureChanged(new_entity, signature);
+
+		return new_entity;
 	}
 
 	Entity GetTotalEntities() 
@@ -72,7 +93,21 @@ public:
 		}
 	}
 
-	// clone entities, if needed in future.
+	void ResetAllEntitySignatures() 
+	{
+		mEntityManager->ResetAllEntitySignatures();
+	}
+
+	Signature GetEntitySignature(Entity entity)
+	{
+		return mEntityManager->GetSignature(entity);
+	}
+
+	// set entity signature to clone
+	void SetEntitySignature(Entity entity, Signature signature)
+	{
+		mEntityManager->SetSignature(entity, signature);
+	}
 
 	// Component methods
 	template<typename T>
@@ -119,7 +154,19 @@ public:
 
 	template <typename T>
 	bool HaveComponent(Entity entity) {
-		return mComponentManager->RemoveComponent<T>(entity);
+		return mComponentManager->HaveComponent<T>(entity);
+	}
+
+	const ComponentType GetTotalRegisteredComponents() {
+		return mComponentManager->GetTotalRegisteredComponents();
+	}
+
+	const size_t GetEntitySize(ComponentType type) {
+		return mComponentManager->GetEntitySize(type);
+	}
+
+	std::shared_ptr<IComponentArray> GetComponentArrayFromType(ComponentType type) {
+		return mComponentManager->GetComponentArrayFromType(type);
 	}
 
 	// System methods
@@ -135,10 +182,15 @@ public:
 		mSystemManager->SetSignature<T>(signature);
 	}
 
-	// get system signatures in future if need
+	// Get signatures mapped from System Manager
+	const std::unordered_map<const char*, Signature>& GetSystemSignatures() const {
+		return mSystemManager->GetSignatures();
+	}
 
-	// get systems in future if need
-
+	// get systems map from system manager
+	const std::unordered_map<const char*, std::shared_ptr<System>>& GetSystems() const {
+		return mSystemManager->GetSystems();
+	}
 
 	void ClearSystems() {
 		mSystemManager->ClearSystem();
@@ -154,3 +206,5 @@ private:
 	std::unique_ptr<EntityManager> mEntityManager;
 	std::unique_ptr<SystemManager> mSystemManager;
 };
+
+#endif

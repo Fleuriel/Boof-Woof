@@ -16,7 +16,6 @@
 
 #ifndef ASSETMANAGER_H
 #define ASSETMANAGER_H
-
 #include <vector>
 #include <string>
 #include <assimp/Importer.hpp>
@@ -24,7 +23,13 @@
 #include <assimp/postprocess.h>
 #include <iostream>
 #include "Graphics/GraphicsSystem.h"
-#include "../Graphics/Shader.h"
+#include "Graphics/Shader.h"
+#include "Graphics/Model.h"
+#include "Graphics/Object.h"
+
+ // Forward declarations
+
+
 
 
 /**************************************************************************
@@ -39,20 +44,24 @@ public:
 	AssetManager();																			// Default Constructor
 	~AssetManager();																		// Default DeConstructor
 
-
-
 	using VectorPairString = std::vector <std::pair<std::string, std::string>>;				// Using a vector-->pair string for shaders
-
 
 	bool LoadShaders();																		// Load Shaders
 	void InitShdrpgms(VectorPairString const& vpss);										//Function to initialize shaders
 	bool FreeShaders();																		//Function to free shaders
 
 
+	//static ObjData Objectdata;
+
 
 	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
 
 	
+	std::vector <Model>	Models;
+	std::vector <Object> Objects;
+
+	std::vector <Model2D> Model2D;
+	std::vector <Object2D> Object2D;
 
 
 

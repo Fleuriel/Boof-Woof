@@ -36,14 +36,6 @@ int main()
 
 		g_ImGuiEditor.ImGuiUpdate();
 		g_ImGuiEditor.ImGuiRender();
-
-
-
-
-		//these two needs to be at the end.
-		glfwSwapBuffers(win);
-		glfwPollEvents();
-
 	}
 
 	g_ImGuiEditor.ImGuiEnd();

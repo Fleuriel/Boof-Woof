@@ -1,5 +1,10 @@
 #pragma once
-#include "ComponentManager.h"
+
+#ifndef ENTITY_MANAGER_H
+#define ENTITY_MANAGER_H
+
+
+#include "pch.hpp"
 
 class EntityManager
 {
@@ -17,9 +22,13 @@ public:
 	{
 		assert(mLivingEntityCount < MAX_ENTITIES && "Too many entities in existence.");
 
-		// Take an ID from the front of the queue
-		Entity id = mAvailableEntities.front();
+		// take an ID from the front of the queue and assign it to the entity
+		Entity id = mAvailableEntities.top();
+		// pop the ID from the queue
 		mAvailableEntities.pop();
+		// add to set of alive entities
+		mAliveEntities.emplace_back(id);
+		// increment the amount of living entities
 		++mLivingEntityCount;
 
 		return id;
@@ -34,6 +43,13 @@ public:
 
 		// Put the destroyed ID at the back of the queue
 		mAvailableEntities.push(entity);
+
+		auto it = std::find(mAliveEntities.begin(), mAliveEntities.end(), entity);
+		if (it != mAliveEntities.end()) 
+		{
+			mAliveEntities.erase(it);
+		}
+
 		--mLivingEntityCount;
 	}
 
@@ -63,6 +79,18 @@ public:
 		return mAliveEntities;
 	}
 
+	// gets entity signature array 
+	std::array<Signature, MAX_ENTITIES>& GetEntitySignatureArray()
+	{
+		return mSignatures;
+	}
+
+	// Resets entity signature
+	void ResetAllEntitySignatures() 
+	{
+		mSignatures.fill(0);
+	}
+
 	// Get entity ID
 	Entity GetEntityId(Entity entity) 
 	{
@@ -73,8 +101,8 @@ public:
 	}
 
 private:
-	// Queue of unused entity IDs
-	std::queue<Entity> mAvailableEntities{};
+	// use a queue for entity IDs
+	std::priority_queue<Entity, std::vector<Entity>, std::greater<Entity>> mAvailableEntities{};
 
 	// Array of signatures where the index corresponds to the entity ID
 	std::array<Signature, MAX_ENTITIES> mSignatures{};
@@ -85,3 +113,5 @@ private:
 	// Set of alive entities
 	std::vector<Entity> mAliveEntities{};
 };
+
+#endif

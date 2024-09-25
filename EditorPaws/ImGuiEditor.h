@@ -1,10 +1,13 @@
 #pragma once
 
-#include <memory>
-
+#ifndef IMGUIEDITOR_H
+#define IMGUIEDITOR_H
 #define g_ImGuiEditor ImGuiEditor::GetInstance()
 
-class ImGuiEditor {
+#include "../BoofWoof/Core/ECS/Coordinator.hpp"
+
+class ImGuiEditor 
+{
 public:
 	ImGuiEditor() = default;
 	~ImGuiEditor() = default;
@@ -15,5 +18,14 @@ public:
 	void ImGuiRender();
 	void ImGuiEnd();
 
+	// Panels
+	void WorldHierarchy();
+	void InspectorWindow();
+
+	// Variables
+	Entity g_SelectedEntity = 0;
+
 	static ImGuiEditor& GetInstance();
 };
+
+#endif  // IMGUIEDITOR_H

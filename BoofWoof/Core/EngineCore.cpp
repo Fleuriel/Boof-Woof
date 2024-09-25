@@ -19,31 +19,34 @@ void EngineCore::OnInit()
 	// register components here
 	g_Coordinator.Init();
 	g_Coordinator.RegisterComponent<GraphicsComponent>();
+	g_Coordinator.RegisterComponent<TransformComponent>();
 
 	// setting global pointer
-	gCore = this;
+	g_Core = this;
 
 	// Set up your global managers
 	//g_AssetManager.LoadShaders();
-
 
 	// register system & signatures
 	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
 	{
 		Signature signature;
 		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
+		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
-	// tempo creation of entity for the systems
-	Entity graphicsEntity = g_Coordinator.CreateEntity();
-	g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent{ /* initialization data */ });
 
 	// init system
-	GraphicsComponent& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(graphicsEntity);
-	mGraphicsSys->initGraphicsPipeline(graphicsComp);
+	mGraphicsSys->initGraphicsPipeline();
 
-	std::cout << "EngineCore Initialized!" << std::endl;
+	// tempo creation of entity for the systems
+	Entity graphicsEntity = g_Coordinator.CreateEntity();
+	// add transform component
+	g_Coordinator.AddComponent<TransformComponent>(graphicsEntity, TransformComponent(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), graphicsEntity));
+	// add graphics component
+	g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent(&g_AssetManager.Models[0], graphicsEntity));
+
 	std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
 }
 
@@ -61,7 +64,6 @@ void EngineCore::OnUpdate()
 	//	{
 	//		auto graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 	//		mGraphicsSys->UpdateLoop(graphicsComp);
-
 	//	}
 	//}
 
@@ -75,4 +77,6 @@ void EngineCore::OnShutdown()
 	// shutdown all systems & delete window
 
 	g_Window->OnShutdown();
+
+	
 }

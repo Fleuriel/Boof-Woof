@@ -1,10 +1,13 @@
 #pragma once
 
-#include "../Core/ECS/Coordinator.h"
+#ifndef ENGINE_CORE_H
+#define ENGINE_CORE_H
+
+#include "../Core/ECS/Coordinator.hpp"
 #include <iostream>
-#include "../Core/ECS/Coordinator.h"
-#include "../Utilities/Components/GraphicsComponent.h"
-#include "Windows/WindowSystem.h"
+#include "../Utilities/Components/GraphicsComponent.hpp"
+#include "../Utilities/Components/TransformComponent.hpp"
+#include "Windows/WindowManager.h"
 #include "Graphics/GraphicsSystem.h"
 #include "AssetManager/AssetManager.h"
 
@@ -18,4 +21,6 @@ public:
 	void OnShutdown();
 };
 
-extern EngineCore* gCore;
+extern EngineCore* g_Core;
+
+#endif

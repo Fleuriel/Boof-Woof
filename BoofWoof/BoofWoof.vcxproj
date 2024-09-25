@@ -158,20 +158,6 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\lib\imgui-docking\backends\imgui_impl_glfw.cpp" />
-    <ClCompile Include="..\lib\imgui-docking\backends\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="..\lib\imgui-docking\imgui.cpp" />
-    <ClCompile Include="..\lib\imgui-docking\imgui_demo.cpp" />
-    <ClCompile Include="..\lib\imgui-docking\imgui_draw.cpp" />
-    <ClCompile Include="..\lib\imgui-docking\imgui_stdlib.cpp" />
-    <ClCompile Include="..\lib\imgui-docking\imgui_tables.cpp" />
-    <ClCompile Include="..\lib\imgui-docking\imgui_widgets.cpp" />
-    <ClCompile Include="..\lib\imgui-docking\implot.cpp" />
-    <ClCompile Include="..\lib\imgui-docking\implot_items.cpp" />
-    <ClCompile Include="Core\Animation\AnimationManager.cpp" />
-    <ClCompile Include="Core\Animation\SkeletalAnimation.cpp" />
-    <ClCompile Include="Core\Animation\SpriteAnimation.cpp" />
-    <ClCompile Include="Core\Animation\Transition.cpp" />
     <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
     <ClCompile Include="Core\EngineCore.cpp" />
     <ClCompile Include="Core\Graphics\BoundingVolume.cpp" />
@@ -183,36 +169,18 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClCompile Include="Core\Graphics\Shader.cpp" />
     <ClCompile Include="Core\GSM\GameStateMachine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
-    <ClCompile Include="Core\Windows\WindowSystem.cpp" />
+    <ClCompile Include="Core\Windows\WindowManager.cpp" />
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="Utilities\Components\GraphicsComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\lib\imgui-docking\backends\imgui_impl_glfw.h" />
-    <ClInclude Include="..\lib\imgui-docking\backends\imgui_impl_opengl3.h" />
-    <ClInclude Include="..\lib\imgui-docking\backends\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="..\lib\imgui-docking\imconfig.h" />
-    <ClInclude Include="..\lib\imgui-docking\imgui.h" />
-    <ClInclude Include="..\lib\imgui-docking\imgui_internal.h" />
-    <ClInclude Include="..\lib\imgui-docking\imgui_stdlib.h" />
-    <ClInclude Include="..\lib\imgui-docking\implot.h" />
-    <ClInclude Include="..\lib\imgui-docking\implot_internal.h" />
-    <ClInclude Include="..\lib\imgui-docking\imstb_rectpack.h" />
-    <ClInclude Include="..\lib\imgui-docking\imstb_textedit.h" />
-    <ClInclude Include="..\lib\imgui-docking\imstb_truetype.h" />
-    <ClInclude Include="Core\Animation\AnimationManager.h" />
-    <ClInclude Include="Core\Animation\IAnimation.h" />
-    <ClInclude Include="Core\Animation\SkeletalAnimation.h" />
-    <ClInclude Include="Core\Animation\SpriteAnimation.h" />
-    <ClInclude Include="Core\Animation\Transition.h" />
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
-    <ClInclude Include="Core\ECS\ComponentArray.h" />
-    <ClInclude Include="Core\ECS\ComponentManager.h" />
-    <ClInclude Include="Core\ECS\Coordinator.h" />
-    <ClInclude Include="Core\ECS\EntityManager.h" />
-    <ClInclude Include="Core\ECS\pch.h" />
-    <ClInclude Include="Core\ECS\System.h" />
-    <ClInclude Include="Core\ECS\SystemManager.h" />
+    <ClInclude Include="Core\ECS\ComponentArray.hpp" />
+    <ClInclude Include="Core\ECS\ComponentManager.hpp" />
+    <ClInclude Include="Core\ECS\Coordinator.hpp" />
+    <ClInclude Include="Core\ECS\EntityManager.hpp" />
+    <ClInclude Include="Core\ECS\pch.hpp" />
+    <ClInclude Include="Core\ECS\System.hpp" />
+    <ClInclude Include="Core\ECS\SystemManager.hpp" />
     <ClInclude Include="Core\EngineCore.h" />
     <ClInclude Include="Core\Graphics\BoundingVolume.h" />
     <ClInclude Include="Core\Graphics\Camera.h" />
@@ -221,15 +189,17 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="Core\Graphics\Model.h" />
     <ClInclude Include="Core\Graphics\Object.h" />
     <ClInclude Include="Core\Graphics\Shader.h" />
-    <ClInclude Include="Core\Graphics\TestCases.h" />
     <ClInclude Include="Core\GSM\GameStateMachine.h" />
     <ClInclude Include="Core\Input\Input.h" />
-    <ClInclude Include="Core\Windows\WindowSystem.h" />
-    <ClInclude Include="Utilities\Components\GraphicsComponent.h" />
+    <ClInclude Include="Core\Windows\WindowManager.h" />
+    <ClInclude Include="Utilities\Components\GraphicsComponent.hpp" />
+    <ClInclude Include="Utilities\Components\TransformComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\Shader.frag" />
-    <None Include="Assets\Shaders\Shader.vert" />
+    <None Include="Assets\Shaders\Shader2D.frag" />
+    <None Include="Assets\Shaders\Shader2D.vert" />
+    <None Include="Assets\Shaders\Shader3D.frag" />
+    <None Include="Assets\Shaders\Shader3D.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

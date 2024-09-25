@@ -1,10 +1,14 @@
 #pragma once
+
+#ifndef MODEL_H
+#define MODEL_H
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include <glslshader.h>
-#include <mesh.h>
+#include "Shader.h"
+#include "Mesh.h"
 
 
 
@@ -15,15 +19,40 @@
 #include <iostream>
 #include <map>
 #include <vector>
-using namespace std;
+//
+
+
+#include "AssetManager/AssetManager.h"
+
+class Model2D
+{
+public:
+
+    GLenum primitive_type;		// Primitive Type
+    size_t primitive_cnt;		// Primitive Count
+    GLuint vaoid;				// Vaoid of the Model
+    GLsizei draw_cnt;			// Draw Count of the model
+    size_t idx_elem_cnt;		// Index Element Count of the Model
+
+
+    Model2D() : primitive_type(0), primitive_cnt(0), vaoid(0), draw_cnt(0), idx_elem_cnt(0) {}
+
+    void Draw(OpenGLShader& Shader);
+};
+
+Model2D SquareModel(glm::vec3 color);
+
+
+//extern std::vector<Model2D> models;
+
 
 class Model
 {
 public:
     // model data 
     //vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-    vector<Mesh>    meshes;
-    string directory;
+    std::vector<Mesh>    meshes;
+    std::string directory;
     
     
 
@@ -31,20 +60,20 @@ public:
     
 
     // draws the model, and thus all its meshes
-    void Draw(GLSLShader& shader)
+    void Draw(OpenGLShader& shader)
     {
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Draw(shader);
     }
 
     // draw with line
-    void DrawLine(GLSLShader& shader)
+    void DrawLine(OpenGLShader& shader)
     {
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].DrawLines(shader);
 	}
 
-    void DrawPoint(GLSLShader& shader)
+    void DrawPoint(OpenGLShader& shader)
 	{
 		for (unsigned int i = 0; i < meshes.size(); i++)
 			meshes[i].DrawPoints(shader);
@@ -54,7 +83,7 @@ public:
 
 
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
-    void loadModel(string const& path, unsigned int draw_mode)
+    void loadModel(std::string const& path, unsigned int draw_mode)
     {
         // read file via ASSIMP
         Assimp::Importer importer;
@@ -62,7 +91,7 @@ public:
         // check for errors
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
         {
-            cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
+            std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
             return;
         }
         // retrieve the directory path of the filepath
@@ -76,12 +105,12 @@ public:
     void loadLine()
     {
         // data to fill
-        vector<Vertex> vertices;
+        std::vector<Vertex> vertices;
         //vector<unsigned int> indices;
 
         vertices = { {glm::vec3(0.f, 0.f, 0.f)}, {glm::vec3(1.f, 0.f, 0.f)} };
 
-        vector<unsigned int> indices = { 0, 1 };
+        std::vector<unsigned int> indices = { 0, 1 };
         Mesh lineMesh;
         lineMesh.vertices = vertices;
         lineMesh.indices = indices;
@@ -114,8 +143,8 @@ public:
     {
         (void)scene;
         // data to fill
-        vector<Vertex> vertices;
-        vector<unsigned int> indices;
+        std::vector<Vertex> vertices;
+        std::vector<unsigned int> indices;
         //vector<Texture> textures;
 
 
@@ -275,3 +304,4 @@ public:
 };
 
 
+#endif // !MODEL_H
