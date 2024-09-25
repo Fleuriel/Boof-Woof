@@ -20,7 +20,6 @@ void EngineCore::OnInit()
 	g_Coordinator.Init();
 	g_Coordinator.RegisterComponent<GraphicsComponent>();
 	g_Coordinator.RegisterComponent<TransformComponent>();
-	//g_Coordinator.RegisterComponent<RenderTest>();
 
 	// setting global pointer
 	g_Core = this;
@@ -34,18 +33,15 @@ void EngineCore::OnInit()
 		Signature signature;
 		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
 		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
-		//signature.set(g_Coordinator.GetComponentType<RenderTest>());
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
 
 	// init system
-	//GraphicsComponent& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(graphicsEntity);
 	mGraphicsSys->initGraphicsPipeline();
 
 	// tempo creation of entity for the systems
 	Entity graphicsEntity = g_Coordinator.CreateEntity();
-	//g_Coordinator.AddComponent<RenderTest>(graphicsEntity, RenderTest(&g_AssetManager.Models[0], glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), graphicsEntity));
 	// add transform component
 	g_Coordinator.AddComponent<TransformComponent>(graphicsEntity, TransformComponent(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), graphicsEntity));
 	// add graphics component

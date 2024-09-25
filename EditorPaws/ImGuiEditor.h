@@ -5,9 +5,6 @@
 #define g_ImGuiEditor ImGuiEditor::GetInstance()
 
 #include "../BoofWoof/Core/ECS/Coordinator.hpp"
-#include "../BoofWoof/Utilities/Components/RenderTest.hpp"
-
-class RenderTest;
 
 class ImGuiEditor 
 {
