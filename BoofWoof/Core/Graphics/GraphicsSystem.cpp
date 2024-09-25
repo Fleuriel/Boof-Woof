@@ -35,44 +35,11 @@ void GraphicsSystem::initGraphicsPipeline() {
 		glewInitialized = true;
 	}
 
-
-
-
 	// load shaders
 	g_AssetManager.LoadShaders();
 
-	// load one model
-	//model_try.loadModel("sphere.obj", GL_TRIANGLES);
-
-	// load one object
-	/*object_try.model = &model_try;
-	object_try.position = glm::vec3(0.0f, 0.0f, 0.0f);
-	object_try.scale = glm::vec3(1.0f, 1.0f, 1.0f);
-	object_try.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-	object_try.color = glm::vec3(1.0f, 1.0f, 1.0f);
-
-	g_AssetManager.Models.push_back(model_try);
-	g_AssetManager.Objects.push_back(object_try);*/
-
-	// store the model
-	//models.emplace_back(SquareModel(glm::vec3(1.0f, 1.0f, 1.0f)));
-
-	//Model2D createModel;
-
-//	objects.emplace_back(createModel);
-
-	// initialize the model
-
-
 	// load models
 	AddModel("sphere.obj");
-
-	// load objects
-	//AddObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), &g_AssetManager.Models[0]);
-
-	// creat an entity
-	
-
 
 	//init camera
 	camera = Camera(glm::vec3(0.f, 0.f, 3.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
@@ -103,20 +70,10 @@ void GraphicsSystem::UpdateLoop() {
 	
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX/ (float)g_WindowY, 0.1f, 100.0f);
 
-	
-
 
 	// Draw the object
 	g_AssetManager.shdrpgms[0].Use();
-	/*for (auto& object : g_AssetManager.Objects)
-	{
-		g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", object.getWorldMatrix());
-		g_AssetManager.shdrpgms[0].SetUniform("view", view_);
-		g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
-		g_AssetManager.shdrpgms[0].SetUniform("objectColor", object.color);
-		object.model->Draw(g_AssetManager.shdrpgms[0]);
 
-	}*/
 	//loop through all entities
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
