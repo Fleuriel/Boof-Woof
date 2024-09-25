@@ -14,6 +14,7 @@
 
 bool GraphicsSystem::glewInitialized = false;
 
+//std::vector<Model2D> models;
 
 Camera		camera;
 
@@ -70,10 +71,10 @@ void GraphicsSystem::initGraphicsPipeline() {
 	AddModel_2D();
 
 	// load objects
-	AddObject_3D(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), &g_AssetManager.Models[0]);
+	//AddObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), &g_AssetManager.Models[0]);
 
-	AddObject_2D(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), g_AssetManager.Model2D[0]);
-
+	// creat an entity
+	
 
 
 	//init camera
@@ -110,7 +111,7 @@ void GraphicsSystem::UpdateLoop() {
 
 	// Draw the object
 	g_AssetManager.shdrpgms[0].Use();
-	for (auto& object : g_AssetManager.Objects)
+	/*for (auto& object : g_AssetManager.Objects)
 	{
 		g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", object.getWorldMatrix());
 		g_AssetManager.shdrpgms[0].SetUniform("view", view_);
@@ -136,6 +137,21 @@ void GraphicsSystem::UpdateLoop() {
 		object.model->Draw(g_AssetManager.shdrpgms[1]);
 
 
+	}*/
+	//loop through all entities
+	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+	for (auto& entity : allEntities)
+	{
+		if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+		{
+			auto graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+			auto transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+			g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", transformComp.GetWorldMatrix());
+			g_AssetManager.shdrpgms[0].SetUniform("view", view_);
+			g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
+			g_AssetManager.shdrpgms[0].SetUniform("objectColor", glm::vec3{1.0f});
+			graphicsComp.getModel()->Draw(g_AssetManager.shdrpgms[0]);
+		}
 	}
 
 	g_AssetManager.shdrpgms[1].UnUse();

@@ -5,7 +5,8 @@
 
 #include "../Core/ECS/Coordinator.hpp"
 #include <iostream>
-#include "../Utilities/Components/GraphicsComponent.h"
+#include "../Utilities/Components/GraphicsComponent.hpp"
+#include "../Utilities/Components/TransformComponent.hpp"
 #include "Windows/WindowManager.h"
 #include "Graphics/GraphicsSystem.h"
 #include "AssetManager/AssetManager.h"

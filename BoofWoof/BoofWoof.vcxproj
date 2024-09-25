@@ -171,7 +171,6 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClCompile Include="Core\Input\Input.cpp" />
     <ClCompile Include="Core\Windows\WindowManager.cpp" />
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="Utilities\Components\GraphicsComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
@@ -193,8 +192,9 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="Core\GSM\GameStateMachine.h" />
     <ClInclude Include="Core\Input\Input.h" />
     <ClInclude Include="Core\Windows\WindowManager.h" />
-    <ClInclude Include="Utilities\Components\GraphicsComponent.h" />
+    <ClInclude Include="Utilities\Components\GraphicsComponent.hpp" />
     <ClInclude Include="Utilities\Components\RenderTest.hpp" />
+    <ClInclude Include="Utilities\Components\TransformComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />
