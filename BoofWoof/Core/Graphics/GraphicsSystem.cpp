@@ -70,6 +70,9 @@ void GraphicsSystem::initGraphicsPipeline() {
 	// load objects
 	//AddObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), &g_AssetManager.Models[0]);
 
+	// creat an entity
+	
+
 
 	//init camera
 	camera = Camera(glm::vec3(0.f, 0.f, 3.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
@@ -105,7 +108,7 @@ void GraphicsSystem::UpdateLoop() {
 
 	// Draw the object
 	g_AssetManager.shdrpgms[0].Use();
-	for (auto& object : g_AssetManager.Objects)
+	/*for (auto& object : g_AssetManager.Objects)
 	{
 		g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", object.getWorldMatrix());
 		g_AssetManager.shdrpgms[0].SetUniform("view", view_);
@@ -113,6 +116,21 @@ void GraphicsSystem::UpdateLoop() {
 		g_AssetManager.shdrpgms[0].SetUniform("objectColor", object.color);
 		object.model->Draw(g_AssetManager.shdrpgms[0]);
 
+	}*/
+	//loop through all entities
+	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+	for (auto& entity : allEntities)
+	{
+		if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+		{
+			auto graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+			auto transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+			g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", transformComp.GetWorldMatrix());
+			g_AssetManager.shdrpgms[0].SetUniform("view", view_);
+			g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
+			g_AssetManager.shdrpgms[0].SetUniform("objectColor", glm::vec3{1.0f});
+			graphicsComp.getModel()->Draw(g_AssetManager.shdrpgms[0]);
+		}
 	}
 
 

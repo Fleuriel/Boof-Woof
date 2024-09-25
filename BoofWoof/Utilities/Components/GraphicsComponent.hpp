@@ -19,8 +19,8 @@ public:
 
     // Constructor and destructor
 	GraphicsComponent() {};
-	GraphicsComponent(Entity entity, Model* model)
-		: m_EntityID(entity), m_Model(model) {/*Empty by design*/
+	GraphicsComponent(Model* model, Entity entity)
+		:m_Model(model), m_EntityID(entity)  {/*Empty by design*/
 	}
     ~GraphicsComponent() = default;
 

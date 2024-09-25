@@ -46,8 +46,11 @@ void EngineCore::OnInit()
 	// tempo creation of entity for the systems
 	Entity graphicsEntity = g_Coordinator.CreateEntity();
 	//g_Coordinator.AddComponent<RenderTest>(graphicsEntity, RenderTest(&g_AssetManager.Models[0], glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), graphicsEntity));
+	// add transform component
+	g_Coordinator.AddComponent<TransformComponent>(graphicsEntity, TransformComponent(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), graphicsEntity));
+	// add graphics component
+	g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent(&g_AssetManager.Models[0], graphicsEntity));
 
-	std::cout << "EngineCore Initialized!" << std::endl;
 	std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
 }
 
