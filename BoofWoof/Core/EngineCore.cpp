@@ -18,8 +18,9 @@ void EngineCore::OnInit()
 
 	// register components here
 	g_Coordinator.Init();
-	//g_Coordinator.RegisterComponent<GraphicsComponent>();
-	g_Coordinator.RegisterComponent<RenderTest>();
+	g_Coordinator.RegisterComponent<GraphicsComponent>();
+	g_Coordinator.RegisterComponent<TransformComponent>();
+	//g_Coordinator.RegisterComponent<RenderTest>();
 
 	// setting global pointer
 	g_Core = this;
@@ -31,8 +32,9 @@ void EngineCore::OnInit()
 	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
 	{
 		Signature signature;
-		//signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
-		signature.set(g_Coordinator.GetComponentType<RenderTest>());
+		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
+		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		//signature.set(g_Coordinator.GetComponentType<RenderTest>());
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
@@ -43,7 +45,7 @@ void EngineCore::OnInit()
 
 	// tempo creation of entity for the systems
 	Entity graphicsEntity = g_Coordinator.CreateEntity();
-	g_Coordinator.AddComponent<RenderTest>(graphicsEntity, RenderTest(&g_AssetManager.Models[0], glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), graphicsEntity));
+	//g_Coordinator.AddComponent<RenderTest>(graphicsEntity, RenderTest(&g_AssetManager.Models[0], glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), graphicsEntity));
 
 	std::cout << "EngineCore Initialized!" << std::endl;
 	std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;

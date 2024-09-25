@@ -3,7 +3,7 @@
 #ifndef GRAPHICS_SYSTEM_H
 #define GRAPHICS_SYSTEM_H
 
-#include "../Utilities/Components/GraphicsComponent.h"
+#include "../Utilities/Components/GraphicsComponent.hpp"
 
 
 class GraphicsComponent;
