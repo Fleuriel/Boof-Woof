@@ -15,9 +15,7 @@
 
 #include "Input.h"
 
-// true for on, false for off
-bool capsLockReleased{ true };
-bool capsLockOn{ false };
+
 
 InputSystem inputSystem;
 
@@ -78,65 +76,6 @@ float InputSystem::GetScrollTotalYOffset() {
 	return mouse_scroll_total_Y_offset;
 }
 
-void KeyCallBack(GLFWwindow* window3, int key, int scancode, int action, int mod)
-{
-	(void)window3;
-	(void)mod;
-	(void)action;
-	(void)scancode;
-
-
-	// Return if unknown key pressed (e.g. multimedia keys)
-	if (key == GLFW_KEY_UNKNOWN)
-		return;
-
-	if (!inputSystem.typePW) {
-
-		/*
-		Update the state of the pressed key
-		 - If the key is pressed (action == GLFW_PRESS) and its state was not previously pressed,
-		   set its state to 1 (pressed).
-		 - If the key is released (action == GLFW_RELEASE), set its state to 0 (not pressed).
-		 - If the key is held down (action == GLFW_REPEAT), set its state to 2 (held down).
-		*/
-		inputSystem.SetKeyState(key, (action == GLFW_PRESS && inputSystem.GetKeyState(key) == 0) ? 1 : (action == GLFW_RELEASE) ? 0 : 2);
-
-
-#ifdef _DEBUG
-		// Print debug information based on the key action (press, hold, release)
-		//std::cout << ((action == GLFW_PRESS) ? "Pressed Keys\n" : (action == GLFW_REPEAT) ? "Held Keys\n" : "Released Keys\n");
-#endif
-
-		if (key == GLFW_KEY_CAPS_LOCK) capsLockReleased = (action == GLFW_RELEASE) ? true : false;
-
-
-
-	}
-
-
-	if (key == GLFW_KEY_F1 && action == GLFW_PRESS) {
-		std::cout << std::endl;
-		inputSystem.typePW = !inputSystem.typePW;
-	}
-
-	if (inputSystem.typePW) {
-		if (action == GLFW_PRESS) {
-			if (key >= GLFW_KEY_A && key <= GLFW_KEY_Z) {
-				char newchar{ 'a' + static_cast<char>(key - GLFW_KEY_A) };
-				inputSystem.hiddenconsole += newchar;
-#ifdef DEBUG_
-				std::cout << newchar;
-#endif
-
-#ifdef DEBUG_
-				std::cout << std::endl;
-#endif
-			}
-		}
-	}
-
-	inputSystem.buttonPressed = action;
-}
 
 
 

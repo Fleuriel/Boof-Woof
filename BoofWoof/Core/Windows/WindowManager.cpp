@@ -7,6 +7,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "Input/Input.h"
+
 Window* g_Window = nullptr;
 int g_WindowX, g_WindowY;
 int g_DesktopWidth, g_DesktopHeight;
@@ -190,8 +192,98 @@ float Window::GetAspectRatio()
     return static_cast<float>(m_Width) / static_cast<float>(m_Height);
 }
 
+/**************************************************************************
+ * @brief Callback function for handling keyboard input in a GLFW window.
+ *
+ * This function is a callback used with the GLFW library to handle keyboard input events.
+ *
+ * @param window The GLFW window that received the input.
+ * @param key The keyboard key code that was pressed or released.
+ * @param scancode The system-specific scancode of the key.
+ * @param action The action taken (GLFW_PRESS, GLFW_RELEASE, GLFW_REPEAT).
+ * @param mod Bitfield describing which modifier keys (e.g., Shift, Ctrl, Alt) were held down.
+ *
+ * This function updates various input states based on the keyboard input events.
+ * - When a key is pressed (action == GLFW_PRESS), it updates the keyStates array
+ *   to record the state of alphabets, numbers, special keys, and keyboard commands.
+ * - Additionally, it can set or clear certain input states based on the key pressed,
+ *   such as Caps Lock, Tab, and Escape.
+ *
+ * @note The UNREFERENCED_PARAMETER macro is used to suppress unused parameter warnings.
+ * @note This function is typically registered with GLFW using glfwSetKeyCallback().
+ *
+ * @see keyStates - The array used to store the state of various keyboard keys.
+ * @see glfwSetKeyCallback() - Function to register this callback with GLFW.
+ *************************************************************************/
 void Window::KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods) {
     // Handle key input
+    (void)window;
+    (void)mods;
+    (void)action;
+    (void)scancode;
+
+
+
+    // Return if unknown key pressed (e.g. multimedia keys)
+    if (key == GLFW_KEY_UNKNOWN)
+        return;
+
+    if (!inputSystem.typePW) {
+
+        /*
+        Update the state of the pressed key
+         - If the key is pressed (action == GLFW_PRESS) and its state was not previously pressed,
+           set its state to 1 (pressed).
+         - If the key is released (action == GLFW_RELEASE), set its state to 0 (not pressed).
+         - If the key is held down (action == GLFW_REPEAT), set its state to 2 (held down).
+        */
+        inputSystem.SetKeyState(key, (action == GLFW_PRESS && inputSystem.GetKeyState(key) == 0) ? 1 : (action == GLFW_RELEASE) ? 0 : 2);
+
+
+#ifdef _DEBUG
+        // Print debug information based on the key action (press, hold, release)
+        std::cout << ((action == GLFW_PRESS) ? "Pressed Keys\n" : (action == GLFW_REPEAT) ? "Held Keys\n" : "Released Keys\n");
+#endif
+
+        if (key == GLFW_KEY_CAPS_LOCK) inputSystem.capsLockReleased = (action == GLFW_RELEASE) ? true : false;
+
+    }
+
+
+    if (key == GLFW_KEY_F1 && action == GLFW_PRESS) {
+        std::cout << std::endl;
+        inputSystem.typePW = !inputSystem.typePW;
+        inputSystem.hiddenconsole = "";
+
+       
+    }
+
+
+    if (inputSystem.typePW) {
+        if (action == GLFW_PRESS) {
+            if (key >= GLFW_KEY_A && key <= GLFW_KEY_Z) {
+                char newchar{ 'a' + static_cast<char>(key - GLFW_KEY_A) };
+                inputSystem.hiddenconsole += newchar;
+#ifdef _DEBUG
+                std::cout << inputSystem.hiddenconsole << std::endl;
+#endif
+            }
+            if (key == GLFW_KEY_ENTER) {
+                if (inputSystem.hiddenconsole == "helloworld") {
+                    std::cout << "Good Bye World\n";
+                }
+                inputSystem.hiddenconsole = "";
+            }
+        }
+        if (action == GLFW_RELEASE) {
+            if (key == GLFW_KEY_ENTER) {
+                inputSystem.typePW = false;
+                std::cout << "Hidden Console Turned Off\n";
+            }
+        }
+    }
+
+    inputSystem.buttonPressed = action;
 }
 
 void Window::MouseCallBack(GLFWwindow* window, int button, int action, int mods) {
