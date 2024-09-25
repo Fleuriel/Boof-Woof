@@ -345,5 +345,5 @@ void Window::ScrollCallBack(GLFWwindow* window, double xOffset, double yOffset) 
     inputSystem.SetScrollState((yOffset > 0) ? 1 : (yOffset == 0) ? 0 : -1);
 
     //std::cout << inputSystem.GetScrollState() << std::endl;
-    std::cout << inputSystem.GetScrollTotalYOffset() << std::endl;
+    //std::cout << inputSystem.GetScrollTotalYOffset() << std::endl;
 }
