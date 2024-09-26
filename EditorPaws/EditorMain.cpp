@@ -4,7 +4,10 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 #include "ImGuiEditor.h"
-#include <glfw3.h>
+
+#include "../BoofWoof/Core/EngineCore.h"
+
+#include <GLFW/glfw3.h>
 #include <iostream>
 
 GLFWwindow* win;
