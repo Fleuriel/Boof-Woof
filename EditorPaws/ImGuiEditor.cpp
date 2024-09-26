@@ -21,46 +21,48 @@ ImGuiEditor& ImGuiEditor::GetInstance() {
 }
 
 // parameter should have windows
-void ImGuiEditor::ImGuiInit()
+void ImGuiEditor::ImGuiInit(Window* window)
 {
-	win = glfwCreateWindow(1280, 1024, "Dear ImGui Starter", NULL, NULL);
-	if (!win)
-	{
-		std::cout << "Failed to create GLFW window!" << std::endl;
-		glfwTerminate();
-		return;
-	}
+	m_Window = window;
 
-	// Tell GLFW we are using OpenGL 4.5
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+	//win = glfwCreateWindow(1280, 1024, "Dear ImGui Starter", NULL, NULL);
+	//if (!win)
+	//{
+	//	std::cout << "Failed to create GLFW window!" << std::endl;
+	//	glfwTerminate();
+	//	return;
+	//}
 
-	// Tell GLFW that we are using the CORE Profile
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	//// Tell GLFW we are using OpenGL 4.5
+	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 
-	// Create viewport of width and height.
-	glViewport(0, 0, 1920,1080);
-	glfwSwapInterval(1);
+	//// Tell GLFW that we are using the CORE Profile
+	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// Make the current window the current context
-	glfwMakeContextCurrent(win);
+	//// Create viewport of width and height.
+	//glViewport(0, 0, 1920,1080);
+	//glfwSwapInterval(1);
 
-	// Set input mode for the window with the cursor (Enables Cursor Input)
-	glfwSetInputMode(win, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	glEnable(GL_DEPTH_TEST);
-	glDepthRange(0.0f, 1.0f);
+	//// Make the current window the current context
+	//glfwMakeContextCurrent(win);
 
-	bool glewInitialized = false;
-	if (!glewInitialized)
-	{
-		GLenum err = glewInit();
-		if (err != GLEW_OK)
-		{
-			std::cerr << "Error initializing GLEW: " << glewGetErrorString(err) << std::endl;
-			return;
-		}
-	    glewInitialized = true;
-	}
+	//// Set input mode for the window with the cursor (Enables Cursor Input)
+	//glfwSetInputMode(win, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	//glEnable(GL_DEPTH_TEST);
+	//glDepthRange(0.0f, 1.0f);
+
+	//bool glewInitialized = false;
+	//if (!glewInitialized)
+	//{
+	//	GLenum err = glewInit();
+	//	if (err != GLEW_OK)
+	//	{
+	//		std::cerr << "Error initializing GLEW: " << glewGetErrorString(err) << std::endl;
+	//		return;
+	//	}
+	//    glewInitialized = true;
+	//}
 
 	IMGUI_CHECKVERSION();
 
@@ -74,7 +76,7 @@ void ImGuiEditor::ImGuiInit()
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
 
-	ImGui_ImplGlfw_InitForOpenGL(win, true);
+	ImGui_ImplGlfw_InitForOpenGL(window->GetGLFWWindow(), true);
 	ImGui_ImplOpenGL3_Init("#version 450");
 }
 
@@ -100,9 +102,9 @@ void ImGuiEditor::ImGuiRender() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.WantCaptureKeyboard = false;
 
-	//these two needs to be at the end.
-	glfwSwapBuffers(win);
-	glfwPollEvents();
+	////these two needs to be at the end.
+	//glfwSwapBuffers(win);
+	//glfwPollEvents();
 
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
 		auto* Window = glfwGetCurrentContext();

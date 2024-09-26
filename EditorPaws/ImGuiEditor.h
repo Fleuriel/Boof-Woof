@@ -5,6 +5,7 @@
 #define g_ImGuiEditor ImGuiEditor::GetInstance()
 
 #include "../BoofWoof/Core/ECS/Coordinator.hpp"
+#include "../BoofWoof/Core/Windows/WindowManager.h"
 
 class ImGuiEditor 
 {
@@ -12,8 +13,7 @@ public:
 	ImGuiEditor() = default;
 	~ImGuiEditor() = default;
 
-	// parameter should have windows initialized from windowmanager
-	void ImGuiInit();
+	void ImGuiInit(Window* window);
 	void ImGuiUpdate();
 	void ImGuiRender();
 	void ImGuiEnd();
@@ -26,6 +26,9 @@ public:
 	Entity g_SelectedEntity = 0;
 
 	static ImGuiEditor& GetInstance();
+
+private:
+	Window* m_Window = nullptr;
 };
 
 #endif  // IMGUIEDITOR_H

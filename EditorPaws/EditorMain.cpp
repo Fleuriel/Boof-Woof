@@ -7,12 +7,9 @@
 
 #include "../BoofWoof/Core/EngineCore.h"
 
-#include <GLFW/glfw3.h>
 #include <iostream>
 
-
 EngineCore* g_Core = nullptr;
-GLFWwindow* win;
 
 int main()
 {
@@ -28,8 +25,7 @@ int main()
 
 	g_Core = new EngineCore();
 	g_Core->OnInit();
-
-	//g_ImGuiEditor.ImGuiInit(g_Window);
+	g_ImGuiEditor.ImGuiInit(g_Window);
 
 	// Check glfwInit
 	//if (!glfwInit())
@@ -37,9 +33,9 @@ int main()
 	//	return -1;
 	//}
 
-	g_ImGuiEditor.ImGuiInit();
+	//g_ImGuiEditor.ImGuiInit();
 
-	while (!glfwWindowShouldClose(win))
+	while (!glfwWindowShouldClose(g_Window->GetGLFWWindow()))
 	{
 		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		//glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
