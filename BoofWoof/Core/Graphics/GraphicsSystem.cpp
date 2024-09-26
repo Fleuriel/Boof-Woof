@@ -87,11 +87,14 @@ void GraphicsSystem::UpdateLoop() {
 			if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
 			{
 				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+				std::cout << "Graphics Comp: " << graphicsComp.getModel() << '\n';
 				g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", transformComp.GetWorldMatrix());
 				g_AssetManager.shdrpgms[0].SetUniform("view", view_);
 				g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
 				g_AssetManager.shdrpgms[0].SetUniform("objectColor", glm::vec3{ 1.0f });
 				graphicsComp.getModel()->Draw(g_AssetManager.shdrpgms[0]);
+
+
 			}
 		}	
 	}
@@ -118,8 +121,17 @@ void GraphicsSystem::DrawObject(GraphicsComponent& component) {
 void GraphicsSystem::AddModel_3D(std::string const& path)
 {
 	Model model;
+	std::cout << "Loading: " << path << '\n';
+	
 	model.loadModel(path, GL_TRIANGLES);
+
+
+
+
 	g_AssetManager.Models.push_back(model);
+
+
+	std::cout << "Loaded: " << path << " [Models Reference: " << g_AssetManager.Models.size()-1 << "]" << '\n';
 }
 
 void GraphicsSystem::AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model)
