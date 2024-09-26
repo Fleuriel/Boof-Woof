@@ -18,8 +18,9 @@ void EngineCore::OnInit()
 
 	// register components here
 	g_Coordinator.Init();
-	g_Coordinator.RegisterComponent<GraphicsComponent>();
+	g_Coordinator.RegisterComponent<MetadataComponent>();
 	g_Coordinator.RegisterComponent<TransformComponent>();
+	g_Coordinator.RegisterComponent<GraphicsComponent>();
 
 	// setting global pointer
 	g_Core = this;
