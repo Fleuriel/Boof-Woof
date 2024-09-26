@@ -12,9 +12,6 @@
 #include <glm/glm.hpp>
 #include <iostream>
 
-// Declare the window as extern (it is defined in main.cpp)
-extern GLFWwindow* win;
-
 ImGuiEditor& ImGuiEditor::GetInstance() {
 	static ImGuiEditor instance{};
 	return instance;
@@ -24,45 +21,6 @@ ImGuiEditor& ImGuiEditor::GetInstance() {
 void ImGuiEditor::ImGuiInit(Window* window)
 {
 	m_Window = window;
-
-	//win = glfwCreateWindow(1280, 1024, "Dear ImGui Starter", NULL, NULL);
-	//if (!win)
-	//{
-	//	std::cout << "Failed to create GLFW window!" << std::endl;
-	//	glfwTerminate();
-	//	return;
-	//}
-
-	//// Tell GLFW we are using OpenGL 4.5
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
-
-	//// Tell GLFW that we are using the CORE Profile
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	//// Create viewport of width and height.
-	//glViewport(0, 0, 1920,1080);
-	//glfwSwapInterval(1);
-
-	//// Make the current window the current context
-	//glfwMakeContextCurrent(win);
-
-	//// Set input mode for the window with the cursor (Enables Cursor Input)
-	//glfwSetInputMode(win, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	//glEnable(GL_DEPTH_TEST);
-	//glDepthRange(0.0f, 1.0f);
-
-	//bool glewInitialized = false;
-	//if (!glewInitialized)
-	//{
-	//	GLenum err = glewInit();
-	//	if (err != GLEW_OK)
-	//	{
-	//		std::cerr << "Error initializing GLEW: " << glewGetErrorString(err) << std::endl;
-	//		return;
-	//	}
-	//    glewInitialized = true;
-	//}
 
 	IMGUI_CHECKVERSION();
 
@@ -101,10 +59,6 @@ void ImGuiEditor::ImGuiRender() {
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	ImGuiIO& io = ImGui::GetIO();
 	io.WantCaptureKeyboard = false;
-
-	////these two needs to be at the end.
-	//glfwSwapBuffers(win);
-	//glfwPollEvents();
 
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
 		auto* Window = glfwGetCurrentContext();

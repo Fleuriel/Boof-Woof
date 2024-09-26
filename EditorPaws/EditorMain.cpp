@@ -1,12 +1,8 @@
-
-
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
 #include "ImGuiEditor.h"
-
 #include "../BoofWoof/Core/EngineCore.h"
-
 #include <iostream>
 
 EngineCore* g_Core = nullptr;
@@ -27,19 +23,8 @@ int main()
 	g_Core->OnInit();
 	g_ImGuiEditor.ImGuiInit(g_Window);
 
-	// Check glfwInit
-	//if (!glfwInit())
-	//{
-	//	return -1;
-	//}
-
-	//g_ImGuiEditor.ImGuiInit();
-
 	while (!glfwWindowShouldClose(g_Window->GetGLFWWindow()))
 	{
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-
 		g_Core->OnUpdate();
 		g_ImGuiEditor.ImGuiUpdate();
 		g_ImGuiEditor.ImGuiRender();
