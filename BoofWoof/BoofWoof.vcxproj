@@ -159,6 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
+    <ClCompile Include="Core\Audio\Audio.cpp" />
     <ClCompile Include="Core\EngineCore.cpp" />
     <ClCompile Include="Core\Graphics\BoundingVolume.cpp" />
     <ClCompile Include="Core\Graphics\Camera.cpp" />
@@ -174,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
+    <ClInclude Include="Core\Audio\Audio.h" />
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
     <ClInclude Include="Core\ECS\ComponentManager.hpp" />
     <ClInclude Include="Core\ECS\Coordinator.hpp" />
