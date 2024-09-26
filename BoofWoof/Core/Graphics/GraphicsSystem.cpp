@@ -39,7 +39,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	g_AssetManager.LoadShaders();
 
 	// load models
-	AddModel_3D("sphere.obj");
+	AddModel_3D("../BoofWoof/sphere.obj");
 
 
 	AddModel_2D();
