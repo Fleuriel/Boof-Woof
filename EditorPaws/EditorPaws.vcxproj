@@ -153,10 +153,10 @@ copy "$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\lib-vc2022\glfw3.dll" "$(TargetDir)
       <IgnoreSpecificDefaultLibraries>/NODEFAULTLIB:[libcmt.lib;msvcrt.lib;libcmtd.lib]</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y
-copy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)glfw3.dll" /Y
-copy "$(SolutionDir)lib\FMOD\lib\x64\fmod.dll" "$(TargetDir)fmod.dll" /Y
-copy "$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64\freetype.dll" "$(TargetDir)freetype.dll" /Y</Command>
+      <Command>xcopy /y /d "$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64\*.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)lib\assimp\lib\*.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -182,10 +182,10 @@ copy "$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64\freet
       </IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y
-copy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)glfw3.dll" /Y
-copy "$(SolutionDir)lib\FMOD\lib\x64\fmod.dll" "$(TargetDir)fmod.dll" /Y
-copy "$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64\freetype.dll" "$(TargetDir)freetype.dll" /Y</Command>
+      <Command>xcopy /y /d "$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64\*.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)lib\assimp\lib\*.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
