@@ -7,7 +7,6 @@
 #include "../Core/Graphics/Object.h"  // Full definition of Object is needed here
 
 class TransformComponent 
-
 {
 public:
     
