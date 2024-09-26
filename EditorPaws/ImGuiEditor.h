@@ -6,6 +6,7 @@
 
 #include "../BoofWoof/Core/ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/Windows/WindowManager.h"
+#include "../BoofWoof/Utilities/Components/TransformComponent.hpp"
 
 class ImGuiEditor 
 {

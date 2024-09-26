@@ -78,13 +78,13 @@ void ImGuiEditor::WorldHierarchy()
 {
 	ImGui::Begin("World Hierarchy");
 	{
-		/*if (g_Coordinator.GetTotalEntities() != MAX_ENTITIES)
+		if (g_Coordinator.GetTotalEntities() != MAX_ENTITIES)
 		{
 			if (ImGui::BeginPopupContextItem("GameObj"))
 			{
 				if (ImGui::Selectable("Empty GameObject"))
 				{
-					g_SelectedEntity = g_Coordinator.CreateEntity();
+					//g_SelectedEntity = g_Coordinator.CreateEntity();
 				}
 				ImGui::EndPopup();
 			}
@@ -104,7 +104,7 @@ void ImGuiEditor::WorldHierarchy()
 					g_SelectedEntity = clone;
 				}
 			}
-		}*/
+		}
 	}
 	ImGui::End();
 }
@@ -113,48 +113,48 @@ void ImGuiEditor::InspectorWindow()
 {
 	ImGui::Begin("Inspector"); 
 	{
-		//if (g_SelectedEntity < MAX_ENTITIES && g_SelectedEntity >= 0 && g_Coordinator.GetTotalEntities() != 0) 
-		//{
-		//	// Adding Components
-		//	if (ImGui::BeginPopupContextItem("AComponents"))
-		//	{
-		//		if (ImGui::Selectable("RenderTest"))
-		//		{
-		//			if (!g_Coordinator.HaveComponent<RenderTest>(g_SelectedEntity))
-		//			{
-		//				g_Coordinator.AddComponent<RenderTest>(g_SelectedEntity, RenderTest());
-		//			}
-		//		}
+		if (g_SelectedEntity < MAX_ENTITIES && g_SelectedEntity >= 0 && g_Coordinator.GetTotalEntities() != 0) 
+		{
+			// Adding Components
+			if (ImGui::BeginPopupContextItem("AComponents"))
+			{
+				if (ImGui::Selectable("TransformComponent"))
+				{
+					if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
+					}
+				}
 
-		//		ImGui::EndPopup();
-		//	}
+				ImGui::EndPopup();
+			}
 
-		//	if (ImGui::Button("Add Components"))
-		//	{
-		//		ImGui::OpenPopup("AComponents");
-		//	}
+			if (ImGui::Button("Add Components"))
+			{
+				ImGui::OpenPopup("AComponents");
+			}
 
-		//	ImGui::SameLine();
+			ImGui::SameLine();
 
-		//	// Deleting Components
-		//	if (ImGui::BeginPopupContextItem("DComponents"))
-		//	{
-		//		if (g_Coordinator.HaveComponent<RenderTest>(g_SelectedEntity))
-		//		{
-		//			if (ImGui::Selectable("RenderTest"))
-		//			{
-		//				g_Coordinator.RemoveComponent<RenderTest>(g_SelectedEntity);
-		//			}
-		//		}
+			// Deleting Components
+			if (ImGui::BeginPopupContextItem("DComponents"))
+			{
+				if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+				{
+					if (ImGui::Selectable("TransformComponent"))
+					{
+						g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+					}
+				}
 
-		//		ImGui::EndPopup();
-		//	}
+				ImGui::EndPopup();
+			}
 
-		//	if (ImGui::Button("Delete Component"))
-		//	{
-		//		ImGui::OpenPopup("DComponents");
-		//	}
-		//}
+			if (ImGui::Button("Delete Component"))
+			{
+				ImGui::OpenPopup("DComponents");
+			}
+		}
 
 		ImGui::End();
 	}
