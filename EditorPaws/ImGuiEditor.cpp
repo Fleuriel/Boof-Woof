@@ -87,8 +87,15 @@ void ImGuiEditor::WorldHierarchy()
 					g_SelectedEntity = g_Coordinator.CreateEntity();
 
 					// By default, add Transform and MetadataComponent (Identifier)
-					g_Coordinator.AddComponent<MetadataComponent>(g_SelectedEntity, MetadataComponent("GameObject", g_SelectedEntity));
-					g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
+					if (!g_Coordinator.HaveComponent<MetadataComponent>(g_SelectedEntity)) 
+					{
+						g_Coordinator.AddComponent<MetadataComponent>(g_SelectedEntity, MetadataComponent("GameObject", g_SelectedEntity));
+					}
+
+					if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) 
+					{
+						g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
+					}
 				}
 				ImGui::EndPopup();
 			}
@@ -119,47 +126,67 @@ void ImGuiEditor::InspectorWindow()
 	{
 		if (g_SelectedEntity < MAX_ENTITIES && g_SelectedEntity >= 0 && g_Coordinator.GetTotalEntities() != 0) 
 		{
-			std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
+			std::cout << "IMGUI Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
 			
-			//// Adding Components
-			//if (ImGui::BeginPopupContextItem("AComponents"))
-			//{
-			//	if (ImGui::Selectable("TransformComponent"))
-			//	{
-			//		if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
-			//		{
-			//			g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
-			//		}
-			//	}
+			// Adding Components
+			if (ImGui::BeginPopupContextItem("AComponents"))
+			{
+				if (ImGui::Selectable("TransformComponent"))
+				{
+					if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
+					}
+				}
 
-			//	ImGui::EndPopup();
-			//}
+				ImGui::EndPopup();
+			}
 
-			//if (ImGui::Button("Add Components"))
-			//{
-			//	ImGui::OpenPopup("AComponents");
-			//}
+			if (ImGui::Button("Add Components"))
+			{
+				ImGui::OpenPopup("AComponents");
+			}
 
-			//ImGui::SameLine();
+			ImGui::SameLine();
 
-			//// Deleting Components
-			//if (ImGui::BeginPopupContextItem("DComponents"))
-			//{
-			//	if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
-			//	{
-			//		if (ImGui::Selectable("TransformComponent"))
-			//		{
-			//			g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
-			//		}
-			//	}
+			// Deleting Components
+			if (ImGui::BeginPopupContextItem("DComponents"))
+			{
+				if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+				{
+					if (ImGui::Selectable("TransformComponent"))
+					{
+						g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+					}
+				}
 
-			//	ImGui::EndPopup();
-			//}
+				ImGui::EndPopup();
+			}
 
-			//if (ImGui::Button("Delete Component"))
-			//{
-			//	ImGui::OpenPopup("DComponents");
-			//}
+			if (ImGui::Button("Delete Component"))
+			{
+				ImGui::OpenPopup("DComponents");
+			}
+		}
+
+		if (g_Coordinator.HaveComponent<MetadataComponent>(g_SelectedEntity))
+		{
+			if (ImGui::CollapsingHeader("Identifier", ImGuiTreeNodeFlags_None))
+			{
+				// Name
+				auto& ObjName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
+
+				char entityNameBuffer[256];
+				memset(entityNameBuffer, 0, sizeof(entityNameBuffer));
+				strcpy_s(entityNameBuffer, sizeof(entityNameBuffer), ObjName.c_str());
+
+				ImGui::Text("Name    "); ImGui::SameLine();
+				ImGui::PushItemWidth(125.0f);
+				if (ImGui::InputText("##ObjectName", entityNameBuffer, sizeof(entityNameBuffer)))
+				{
+					g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).SetName(std::string(entityNameBuffer));
+				}
+			}
 		}
 
 		ImGui::End();

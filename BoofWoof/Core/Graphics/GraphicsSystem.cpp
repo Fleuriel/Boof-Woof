@@ -81,16 +81,19 @@ void GraphicsSystem::UpdateLoop() {
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
 	{
-		if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+		if (g_Coordinator.HaveComponent<TransformComponent>(entity))
 		{
-			auto graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-			auto transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
-			g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", transformComp.GetWorldMatrix());
-			g_AssetManager.shdrpgms[0].SetUniform("view", view_);
-			g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
-			g_AssetManager.shdrpgms[0].SetUniform("objectColor", glm::vec3{1.0f});
-			graphicsComp.getModel()->Draw(g_AssetManager.shdrpgms[0]);
-		}
+			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+			if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+			{
+				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+				g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", transformComp.GetWorldMatrix());
+				g_AssetManager.shdrpgms[0].SetUniform("view", view_);
+				g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
+				g_AssetManager.shdrpgms[0].SetUniform("objectColor", glm::vec3{ 1.0f });
+				graphicsComp.getModel()->Draw(g_AssetManager.shdrpgms[0]);
+			}
+		}	
 	}
 
 	g_AssetManager.shdrpgms[0].UnUse();
