@@ -180,7 +180,12 @@ void GraphicsSystem::AddObject_2D(glm::vec3 position, glm::vec3 scale, glm::vec3
 
 
 void GraphicsSystem::UpdateViewportSize(int width, int height) {
-	// Update the OpenGL viewport size
+	if (width == 0 || height == 0) {
+		// Avoid updating the framebuffer when the size is zero
+		return;
+	}
+
+	// Update the OpenGL viewport to match the new size
 	glViewport(0, 0, width, height);
 
 	// Bind the framebuffer
@@ -190,11 +195,11 @@ void GraphicsSystem::UpdateViewportSize(int width, int height) {
 	glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 
-	// Resize the renderbuffer (depth and stencil)
+	// Resize the renderbuffer for depth and stencil
 	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
 
-	// Check if framebuffer is complete
+	// Check if the framebuffer is complete
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		std::cout << "Framebuffer is not complete!" << std::endl;
 

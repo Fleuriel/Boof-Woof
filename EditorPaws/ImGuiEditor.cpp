@@ -40,33 +40,24 @@ void ImGuiEditor::ImGuiInit(Window* window)
 
 void ImGuiEditor::ImGuiUpdate()
 {
+	// Start a new frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
+	// Docking space
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
-	// Begin the ImGui Viewport window
-	ImGui::Begin("Viewport");
-
-	// Get the size of the ImGui window (the viewport panel)
-	ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-
-	// Update OpenGL viewport to match the size of the ImGui window
-	g_Coordinator.GetSystem<GraphicsSystem>()->UpdateViewportSize(static_cast<int>(viewportPanelSize.x), static_cast<int>(viewportPanelSize.y));
-
-	// Get framebuffer texture from GraphicsSystem
-	GLuint texture = g_Coordinator.GetSystem<GraphicsSystem>()->GetFramebufferTexture();
-
-	// Display the framebuffer texture in the ImGui viewport panel
-	ImGui::Image((void*)(intptr_t)texture, viewportPanelSize);
-
-	ImGui::End();
-
-	// Render other ImGui windows
+	ImGuiViewport();
 	WorldHierarchy();
 	InspectorWindow();
+	// End the frame and render
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+
 }
+
 
 void ImGuiEditor::ImGuiRender() {
 	ImGui::Render();
@@ -87,6 +78,30 @@ void ImGuiEditor::ImGuiEnd() {
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext(ImGui::GetCurrentContext());
 }
+
+void ImGuiEditor::ImGuiViewport() {
+	// Begin the ImGui Viewport window
+	ImGui::Begin("Viewport");
+
+	// Check if the ImGui window is docked and visible
+	if (ImGui::IsWindowDocked())
+	{
+		// Get the size of the "Viewport" window
+		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+
+		// If the size changes, update the OpenGL viewport and framebuffer
+		g_Coordinator.GetSystem<GraphicsSystem>()->UpdateViewportSize(static_cast<int>(viewportPanelSize.x), static_cast<int>(viewportPanelSize.y));
+
+		// Get framebuffer texture from GraphicsSystem
+		GLuint texture = g_Coordinator.GetSystem<GraphicsSystem>()->GetFramebufferTexture();
+
+		// Display the framebuffer texture in the ImGui viewport panel
+		ImGui::Image((void*)(intptr_t)texture, viewportPanelSize);
+	}
+
+	ImGui::End();
+}
+
 
 void ImGuiEditor::WorldHierarchy()
 {

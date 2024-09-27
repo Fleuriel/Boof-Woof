@@ -21,6 +21,7 @@ public:
 	void ImGuiEnd();
 
 	// Panels
+	void ImGuiViewport();
 	void WorldHierarchy();
 	void InspectorWindow();
 
