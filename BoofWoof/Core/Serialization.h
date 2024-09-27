@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <filesystem>  // C++17 and later
+
 
 // Disable warnings for MSVC
 #ifdef _MSC_VER

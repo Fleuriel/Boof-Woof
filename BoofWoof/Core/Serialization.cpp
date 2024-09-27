@@ -1,8 +1,13 @@
 #include "Serialization.h"
 #include "EngineCore.h"
 #include <cstdio>
+#include <iostream>
+#include <filesystem>
 
 void Serialization::SaveEngineState(const std::string& filepath) {
+    // Ensure the Saves directory exists
+    std::filesystem::create_directory("Saves");
+
     rapidjson::Document doc;
     doc.SetObject();
     rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
@@ -38,28 +43,24 @@ void Serialization::SaveEngineState(const std::string& filepath) {
             entityData.AddMember("Rotation", rotation, allocator);
         }
 
-
         // Serialize GraphicsComponent
         if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
             auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 
-            // Serialize Model ID (assuming you have an ID system for models)
-            //entityData.AddMember("ModelID", graphicsComp.getModel()->GetID(), allocator);  // Replace GetID() with your model ID system if needed
+            // Serialize Model ID
+            entityData.AddMember("ModelID", graphicsComp.getModelID(), allocator);
 
             // Serialize Entity ID
-            entityData.AddMember("EntityID", entity, allocator);
+            entityData.AddMember("EntityID", static_cast<int>(entity), allocator);
         }
-
-        // Serialize Entity ID
-        entityData.AddMember("EntityID", entity, allocator);
 
         entities.PushBack(entityData, allocator);
     }
 
     doc.AddMember("Entities", entities, allocator);
 
-    // Write the document to a file
-    FILE* fp = fopen(filepath.c_str(), "wb");
+    // Write the document to a file in the "Saves" folder
+    FILE* fp = fopen("Saves/engine_state.json", "wb");
     if (fp) {
         char writeBuffer[65536];
         rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
@@ -120,13 +121,13 @@ void Serialization::LoadEngineState(const std::string& filepath) {
 
             // Deserialize GraphicsComponent
             if (entityData.HasMember("ModelID")) {
-                //int modelID = entityData["ModelID"].GetInt();
+                int modelID = entityData["ModelID"].GetInt();
 
                 // Create GraphicsComponent with the deserialized model ID
-                //GraphicsComponent graphicsComponent(&g_AssetManager.Models[modelID], entity);  // Adjust to your model system
-                //g_Coordinator.AddComponent(entity, graphicsComponent);
+                GraphicsComponent graphicsComponent(&g_AssetManager.Models[modelID], entity);
+                graphicsComponent.SetModelID(modelID);
+                g_Coordinator.AddComponent(entity, graphicsComponent);
             }
-
 
             // Set the Entity ID
             int entityID = entityData["EntityID"].GetInt();
