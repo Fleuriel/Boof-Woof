@@ -8,6 +8,7 @@
 #include "../BoofWoof/Core/Windows/WindowManager.h"
 #include "../BoofWoof/Utilities/Components/TransformComponent.hpp"
 #include "../BoofWoof/Utilities/Components/MetaData.hpp"
+#include "Serialization/Serialization.h"
 
 class ImGuiEditor 
 {
@@ -28,6 +29,8 @@ public:
 	// Variables
 	Entity g_SelectedEntity = 0;
 	Entity g_GettingDeletedEntity = static_cast<Entity>(-1);		// will be deleted from the back
+	
+	std::string m_LastOpenedFile{};									// Saving & Loading new files
 
 	bool m_IsSelected{ false };
 

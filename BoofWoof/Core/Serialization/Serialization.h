@@ -24,8 +24,16 @@
 #pragma warning(pop)
 #endif
 
+#define g_Json Serialization::GetInstance()
+
 class Serialization {
 public:
+
+	static Serialization& GetInstance() {
+		static Serialization instance;
+		return instance;
+	}
+
     static void SaveEngineState(const std::string& filepath);
     static void LoadEngineState(const std::string& filepath);
 };

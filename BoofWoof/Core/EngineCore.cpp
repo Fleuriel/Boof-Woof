@@ -41,23 +41,19 @@ void EngineCore::OnInit()
 	mGraphicsSys->initGraphicsPipeline();
 
 	// tempo creation of entity for the systems
-	Entity graphicsEntity = g_Coordinator.CreateEntity();
-	//// add transform component
-	g_Coordinator.AddComponent<MetadataComponent>(graphicsEntity, MetadataComponent("TempGameObj", graphicsEntity));
-	g_Coordinator.AddComponent<TransformComponent>(graphicsEntity, TransformComponent(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), graphicsEntity));
-	//// add graphics component
-	g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent(&g_AssetManager.Models[0], graphicsEntity));
-	g_Coordinator.GetComponent<GraphicsComponent>(graphicsEntity).SetModelID(0);
-
+	//Entity graphicsEntity = g_Coordinator.CreateEntity();
+	////// add transform component
+	//g_Coordinator.AddComponent<MetadataComponent>(graphicsEntity, MetadataComponent("TempGameObj", graphicsEntity));
+	//g_Coordinator.AddComponent<TransformComponent>(graphicsEntity, TransformComponent(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), graphicsEntity));
+	////// add graphics component
+	//g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent(&g_AssetManager.Models[0], graphicsEntity));
+	//g_Coordinator.GetComponent<GraphicsComponent>(graphicsEntity).SetModelID(0);
 
 
 	//Entity graphics2DEntity = g_Coordinator.CreateEntity();
 	//
 	//g_Coordinator.AddComponent<TransformComponent>(graphics2DEntity, TransformComponent(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), graphics2DEntity));
 	//g_Coordinator.AddComponent<GraphicsComponent>(graphics2DEntity, GraphicsComponent(g_AssetManager.Model2D[0],graphics2DEntity));
-
-
-
 
 	std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
 }
@@ -82,7 +78,7 @@ void EngineCore::OnUpdate()
 	//Test serialization
 	if (g_Input.GetKeyState(GLFW_KEY_P) == 1) {  // Save engine state
 		std::cout << "P key pressed, saving engine state..." << std::endl;
-		Serialization::SaveEngineState("Saves/engine_state.json");
+		g_Json.SaveEngineState("Saves/engine_state.json");
 		std::cout << "Engine state saved to Saves/engine_state.json" << std::endl;
 	}
 
@@ -94,7 +90,7 @@ void EngineCore::OnUpdate()
 
 	if (g_Input.GetKeyState(GLFW_KEY_L) == 1) {  // Load engine state
 		std::cout << "L key pressed, loading engine state..." << std::endl;
-		Serialization::LoadEngineState("Saves/engine_state.json");
+		g_Json.LoadEngineState("Saves/engine_state.json");
 		std::cout << "Engine state loaded from Saves/engine_state.json" << std::endl;
 	}
 	

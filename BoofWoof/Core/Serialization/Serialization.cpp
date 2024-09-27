@@ -17,6 +17,15 @@ void Serialization::SaveEngineState(const std::string& filepath) {
     for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
         rapidjson::Value entityData(rapidjson::kObjectType);
 
+        // Serialize MetadataComponent
+        if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) 
+        {
+            auto& name = g_Coordinator.GetComponent<MetadataComponent>(entity);
+            rapidjson::Value entityName;
+            entityName.SetString(name.GetName().c_str(), allocator);
+            entityData.AddMember("EntityName", entityName, allocator);
+        }
+
         // Serialize TransformComponent
         if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
             auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
@@ -94,6 +103,14 @@ void Serialization::LoadEngineState(const std::string& filepath) {
         const auto& entities = doc["Entities"];
         for (const auto& entityData : entities.GetArray()) {
             Entity entity = g_Coordinator.CreateEntity();
+
+            // Deserialize MetadataComponent
+            if (entityData.HasMember("EntityName")) {
+                std::string name = entityData["EntityName"].GetString();
+
+                MetadataComponent metadataComponent(name, entity);
+                g_Coordinator.AddComponent(entity, metadataComponent);
+            }
 
             // Deserialize TransformComponent
             if (entityData.HasMember("Position")) {

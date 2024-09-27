@@ -4,6 +4,7 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <imgui_internal.h>
+#include <ImGuiFileDialog.h>
 
 // this part must be included last. Want to add anything new, add before this line
 #include <GL/glew.h>
@@ -48,7 +49,7 @@ void ImGuiEditor::ImGuiUpdate()
 	// Docking space
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
-	ImGui::ShowDemoWindow();
+	//ImGui::ShowDemoWindow();
 
 	ImGuiViewport();
 	WorldHierarchy();
@@ -111,7 +112,7 @@ void ImGuiEditor::WorldHierarchy()
 {
 	ImGui::Begin("World Hierarchy");
 	{
-		ImGui::Text("FutureFileNameWillBeHere");
+		ImGui::Text(m_LastOpenedFile.c_str());
 		ImGui::Spacing(); ImGui::Separator(); ImGui::Spacing();
 
 		if (g_Coordinator.GetTotalEntities() != MAX_ENTITIES)
@@ -225,6 +226,14 @@ void ImGuiEditor::InspectorWindow()
 					}
 				}
 
+				if (ImGui::Selectable("GraphicsComponent"))
+				{
+					if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, GraphicsComponent());
+					}
+				}
+
 				ImGui::EndPopup();
 			}
 
@@ -240,9 +249,18 @@ void ImGuiEditor::InspectorWindow()
 			{
 				if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
 				{
+					// in the future, when deleting transform component, physics component should also be deleted
 					if (ImGui::Selectable("TransformComponent"))
 					{
 						g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+				{
+					if (ImGui::Selectable("GraphicsComponent"))
+					{
+						g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
 					}
 				}
 
@@ -350,6 +368,39 @@ void ImGuiEditor::InspectorWindow()
 				}
 			}
 		}
+
+
+		// Components add above this line
+
+		// Save & Load file portion
+
+		// open Dialog Simple
+		if (ImGui::Button("Load"))
+			ImGuiFileDialog::Instance()->OpenDialog("ChooseFileDlgKey", "Choose File", ".json", "../BoofWoof/Saves/");
+
+		// display
+		if (ImGuiFileDialog::Instance()->Display("ChooseFileDlgKey"))
+		{
+			// action if OK
+			if (ImGuiFileDialog::Instance()->IsOk())
+			{
+				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+
+				// find last / to get file name only
+				size_t lastSlash = filePathName.find_last_of("/\\");
+				m_LastOpenedFile = filePathName.substr(lastSlash + 1);
+
+				// reset world first den deserialize
+				g_Coordinator.ResetEntities();
+
+				// json deserialize file path
+				g_Json.LoadEngineState(filePathName);
+			}
+
+			// close
+			ImGuiFileDialog::Instance()->Close();
+		}
+
 
 		ImGui::End();
 	}
