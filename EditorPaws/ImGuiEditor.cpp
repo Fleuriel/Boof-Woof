@@ -98,7 +98,7 @@ void ImGuiEditor::ImGuiViewport() {
 		GLuint texture = g_Coordinator.GetSystem<GraphicsSystem>()->GetFramebufferTexture();
 
 		// Display the framebuffer texture in the ImGui viewport panel
-		ImGui::Image((void*)(intptr_t)texture, viewportPanelSize);
+		ImGui::Image((void*)(intptr_t)texture, viewportPanelSize, ImVec2(0, 1), ImVec2(1, 0));
 	}
 
 	ImGui::End();
