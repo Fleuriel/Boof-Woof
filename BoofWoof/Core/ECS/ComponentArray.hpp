@@ -83,7 +83,7 @@ public:
 	// Check if entity has component
 	bool HaveComponent(Entity entity) 
 	{
-		if (mEntityToIndexMap[entity] != MAX_ENTITIES) 
+		if (mEntityToIndexMap.find(entity) != mEntityToIndexMap.end()) 
 		{
 			return true;
 		}
