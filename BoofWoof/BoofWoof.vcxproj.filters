@@ -87,6 +87,9 @@
     <ClCompile Include="Core\Graphics\Shader.cpp">
       <Filter>Source Files\Graphics\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Serialization.cpp">
+      <Filter>Source Files\Unorganized</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager\AssetManager.h">

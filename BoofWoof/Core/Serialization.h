@@ -4,12 +4,23 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+
+// Disable warnings for MSVC
+#ifdef _MSC_VER
+#pragma warning(push, 0) // Temporarily disable all warnings
+#endif
+
 #include <rapidjson/document.h>
 #include <rapidjson/writer.h>
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/filewritestream.h>
 #include <rapidjson/prettywriter.h>
+
+// Re-enable warnings after including RapidJSON
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 class Serialization {
 public:

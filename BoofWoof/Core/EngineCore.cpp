@@ -76,16 +76,21 @@ void EngineCore::OnUpdate()
 	//	}
 	//}
 
+	if (inputSystem.GetKeyState(GLFW_KEY_P) == 1) {  // KeyState 1 indicates the key was pressed
+		std::cout << "P key pressed, saving engine state..." << std::endl;
+		Serialization::SaveEngineState("engine_state.json");
+		std::cout << "Engine state saved to engine_state.json" << std::endl;
+	}
+
+
 	mGraphicsSys->UpdateLoop();
+	inputSystem.UpdateStatesForNextFrame();
 
 	// ur glfw swapp buffer thingy
 }
 
 void EngineCore::OnShutdown()
 {
-	// shutdown all systems & delete window
-
+	// Shutdown window and other systems
 	g_Window->OnShutdown();
-
-	
 }

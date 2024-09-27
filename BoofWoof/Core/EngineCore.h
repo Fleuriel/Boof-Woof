@@ -10,6 +10,8 @@
 #include "Windows/WindowManager.h"
 #include "Graphics/GraphicsSystem.h"
 #include "AssetManager/AssetManager.h"
+#include "Serialization.h"
+#include "Input/Input.h"
 
 #include <GLFW/glfw3.h>
 #include "fmod.hpp"

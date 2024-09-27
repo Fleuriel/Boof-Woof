@@ -1,81 +1,137 @@
+#include "Serialization.h"
 #include "EngineCore.h"
+#include <cstdio>
 
-std::shared_ptr<GraphicsSystem> mGraphicsSys;
+void Serialization::SaveEngineState(const std::string& filepath) {
+    rapidjson::Document doc;
+    doc.SetObject();
+    rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
 
-void EngineCore::OnInit()
-{
-	// if need to deserialize anything
-	
-	// initialize window stuff, set window height n width n wtv
-	// tempo b4 serialization
-	g_WindowX = 1920;
-	g_WindowY = 1080;
-	g_Window = new Window(g_WindowX, g_WindowY, "Boof Woof");
-	g_Window->SetWindowWidth(g_WindowX);
-	g_Window->SetWindowHeight(g_WindowY);
+    // Serialize entities with components
+    rapidjson::Value entities(rapidjson::kArrayType);
+    for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
+        rapidjson::Value entityData(rapidjson::kObjectType);
 
-	g_Window->OnInitialize();
+        // Serialize TransformComponent
+        if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+            auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
 
-	// register components here
-	g_Coordinator.Init();
-	//g_Coordinator.RegisterComponent<GraphicsComponent>();
-	g_Coordinator.RegisterComponent<RenderTest>();
+            // Serialize Position
+            rapidjson::Value position(rapidjson::kObjectType);
+            position.AddMember("x", transformComp.GetPosition().x, allocator);
+            position.AddMember("y", transformComp.GetPosition().y, allocator);
+            position.AddMember("z", transformComp.GetPosition().z, allocator);
+            entityData.AddMember("Position", position, allocator);
 
-	// setting global pointer
-	g_Core = this;
+            // Serialize Scale
+            rapidjson::Value scale(rapidjson::kObjectType);
+            scale.AddMember("x", transformComp.GetScale().x, allocator);
+            scale.AddMember("y", transformComp.GetScale().y, allocator);
+            scale.AddMember("z", transformComp.GetScale().z, allocator);
+            entityData.AddMember("Scale", scale, allocator);
 
-	// Set up your global managers
-	//g_AssetManager.LoadShaders();
-
-	// register system & signatures
-	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
-	{
-		Signature signature;
-		//signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
-		signature.set(g_Coordinator.GetComponentType<RenderTest>());
-		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
-	}
+            // Serialize Rotation
+            rapidjson::Value rotation(rapidjson::kObjectType);
+            rotation.AddMember("x", transformComp.GetRotation().x, allocator);
+            rotation.AddMember("y", transformComp.GetRotation().y, allocator);
+            rotation.AddMember("z", transformComp.GetRotation().z, allocator);
+            entityData.AddMember("Rotation", rotation, allocator);
+        }
 
 
-	// init system
-	//GraphicsComponent& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(graphicsEntity);
-	mGraphicsSys->initGraphicsPipeline();
+        // Serialize GraphicsComponent
+        if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
+            auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 
-	// tempo creation of entity for the systems
-	Entity graphicsEntity = g_Coordinator.CreateEntity();
-	g_Coordinator.AddComponent<RenderTest>(graphicsEntity, RenderTest(&g_AssetManager.Models[0], glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), graphicsEntity));
+            // Serialize Model ID (assuming you have an ID system for models)
+            //entityData.AddMember("ModelID", graphicsComp.getModel()->GetID(), allocator);  // Replace GetID() with your model ID system if needed
 
-	std::cout << "EngineCore Initialized!" << std::endl;
-	std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
+            // Serialize Entity ID
+            entityData.AddMember("EntityID", entity, allocator);
+        }
+
+        // Serialize Entity ID
+        entityData.AddMember("EntityID", entity, allocator);
+
+        entities.PushBack(entityData, allocator);
+    }
+
+    doc.AddMember("Entities", entities, allocator);
+
+    // Write the document to a file
+    FILE* fp = fopen(filepath.c_str(), "wb");
+    if (fp) {
+        char writeBuffer[65536];
+        rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
+        rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
+        doc.Accept(writer);
+        fclose(fp);
+    }
 }
 
-void EngineCore::OnUpdate()
-{
-	// window update
-	g_Window->OnUpdate();
-	// input update
+void Serialization::LoadEngineState(const std::string& filepath) {
+    FILE* fp = fopen(filepath.c_str(), "rb");
+    if (!fp) {
+        std::cerr << "Failed to open file for loading: " << filepath << std::endl;
+        return;
+    }
 
-	// system updates
-	//auto allEntities = g_Coordinator.GetAliveEntitiesSet();
-	//for (auto& entity : allEntities)
-	//{
-	//	if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) 
-	//	{
-	//		auto graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-	//		mGraphicsSys->UpdateLoop(graphicsComp);
-	//	}
-	//}
+    char readBuffer[65536];
+    rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
 
-	mGraphicsSys->UpdateLoop();
+    rapidjson::Document doc;
+    doc.ParseStream(is);
+    fclose(fp);
 
-	// ur glfw swapp buffer thingy
-}
+    if (!doc.IsObject()) {
+        std::cerr << "Invalid JSON format in: " << filepath << std::endl;
+        return;
+    }
 
-void EngineCore::OnShutdown()
-{
-	// shutdown all systems & delete window
+    // Deserialize entities with components
+    if (doc.HasMember("Entities") && doc["Entities"].IsArray()) {
+        const auto& entities = doc["Entities"];
+        for (const auto& entityData : entities.GetArray()) {
+            Entity entity = g_Coordinator.CreateEntity();
 
-	g_Window->OnShutdown();
+            // Deserialize TransformComponent
+            if (entityData.HasMember("Position")) {
+                glm::vec3 position(
+                    entityData["Position"]["x"].GetFloat(),
+                    entityData["Position"]["y"].GetFloat(),
+                    entityData["Position"]["z"].GetFloat()
+                );
 
-	
+                glm::vec3 scale(
+                    entityData["Scale"]["x"].GetFloat(),
+                    entityData["Scale"]["y"].GetFloat(),
+                    entityData["Scale"]["z"].GetFloat()
+                );
+
+                glm::vec3 rotation(
+                    entityData["Rotation"]["x"].GetFloat(),
+                    entityData["Rotation"]["y"].GetFloat(),
+                    entityData["Rotation"]["z"].GetFloat()
+                );
+
+                TransformComponent transformComponent(position, scale, rotation, entity);
+                g_Coordinator.AddComponent(entity, transformComponent);
+            }
+
+            // Deserialize GraphicsComponent
+            if (entityData.HasMember("ModelID")) {
+                //int modelID = entityData["ModelID"].GetInt();
+
+                // Create GraphicsComponent with the deserialized model ID
+                //GraphicsComponent graphicsComponent(&g_AssetManager.Models[modelID], entity);  // Adjust to your model system
+                //g_Coordinator.AddComponent(entity, graphicsComponent);
+            }
+
+
+            // Set the Entity ID
+            int entityID = entityData["EntityID"].GetInt();
+        }
+    }
+
+    std::cout << "Engine state loaded from " << filepath << std::endl;
 }
