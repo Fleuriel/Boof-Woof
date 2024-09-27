@@ -149,18 +149,20 @@
     <ClInclude Include="Utilities\Components\GraphicsComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Graphics\TestCases.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Windows\WindowManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\Components\RenderTest.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Serialization.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\Shader.frag" />
-    <None Include="Assets\Shaders\Shader.vert" />
+    <None Include="Assets\Shaders\Shader2D.frag" />
+    <None Include="Assets\Shaders\Shader2D.vert" />
+    <None Include="Assets\Shaders\Shader3D.frag" />
+    <None Include="Assets\Shaders\Shader3D.vert" />
   </ItemGroup>
 </Project>

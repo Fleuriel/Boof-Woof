@@ -74,7 +74,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
@@ -192,6 +192,7 @@ copy "$(SolutionDir)lib\assimp\lib\assimp-vc143-mtd.dll" "$(TargetDir)assimp-vc1
     <ClInclude Include="Core\Graphics\Shader.h" />
     <ClInclude Include="Core\GSM\GameStateMachine.h" />
     <ClInclude Include="Core\Input\Input.h" />
+    <ClInclude Include="Core\Serialization.h" />
     <ClInclude Include="Core\Windows\WindowManager.h" />
     <ClInclude Include="Utilities\Components\GraphicsComponent.h" />
     <ClInclude Include="Utilities\Components\RenderTest.hpp" />
