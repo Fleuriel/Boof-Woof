@@ -415,6 +415,4 @@ bin/
 bin-int\
 bin\
 /bin-int
-/bin-int
-/bin/Debug-x64/BoofWoof/BoofWoof.exe
-/bin/Debug-x64/EditorPaws/EditorPaws.exe
+\bin-int

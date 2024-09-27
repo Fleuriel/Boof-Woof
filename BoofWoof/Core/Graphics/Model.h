@@ -37,7 +37,9 @@ public:
 
     Model2D() : primitive_type(0), primitive_cnt(0), vaoid(0), draw_cnt(0), idx_elem_cnt(0) {}
 
+
     void Draw(OpenGLShader& Shader);
+
 };
 
 Model2D SquareModel(glm::vec3 color);
