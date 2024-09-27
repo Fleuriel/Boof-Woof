@@ -65,7 +65,6 @@ void EngineCore::OnUpdate()
 {
 	// window update
 	g_Window->OnUpdate();
-	// input update
 
 	// system updates
 	//auto allEntities = g_Coordinator.GetAliveEntitiesSet();
@@ -101,6 +100,7 @@ void EngineCore::OnUpdate()
 
 
 	mGraphicsSys->UpdateLoop();
+	// input update
 	inputSystem.UpdateStatesForNextFrame();
 
 	// ur glfw swapp buffer thingy
