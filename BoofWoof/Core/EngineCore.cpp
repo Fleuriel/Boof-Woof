@@ -78,11 +78,26 @@ void EngineCore::OnUpdate()
 	//	}
 	//}
 
-	if (inputSystem.GetKeyState(GLFW_KEY_P) == 1) {  // KeyState 1 indicates the key was pressed
+	/*
+	Test serialization
+	if (inputSystem.GetKeyState(GLFW_KEY_P) == 1) {  // Save engine state
 		std::cout << "P key pressed, saving engine state..." << std::endl;
-		Serialization::SaveEngineState("engine_state.json");
-		std::cout << "Engine state saved to engine_state.json" << std::endl;
+		Serialization::SaveEngineState("Saves/engine_state.json");
+		std::cout << "Engine state saved to Saves/engine_state.json" << std::endl;
 	}
+
+	if (inputSystem.GetKeyState(GLFW_KEY_O) == 1) {  // Reset entities
+		std::cout << "O key pressed, resetting entities..." << std::endl;
+		g_Coordinator.ResetEntities();
+		std::cout << "Entities reset!" << std::endl;
+	}
+
+	if (inputSystem.GetKeyState(GLFW_KEY_L) == 1) {  // Load engine state
+		std::cout << "L key pressed, loading engine state..." << std::endl;
+		Serialization::LoadEngineState("Saves/engine_state.json");
+		std::cout << "Engine state loaded from Saves/engine_state.json" << std::endl;
+	}
+	*/
 
 
 	mGraphicsSys->UpdateLoop();
