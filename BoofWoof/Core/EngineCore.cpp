@@ -32,8 +32,8 @@ void EngineCore::OnInit()
 	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
 	{
 		Signature signature;
-		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
 		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
@@ -49,6 +49,8 @@ void EngineCore::OnInit()
 	//g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent(&g_AssetManager.Models[0], graphicsEntity));
 
 	std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
+	std::cout << g_Coordinator.GetComponentType<GraphicsComponent>() << '\n';
+
 }
 
 void EngineCore::OnUpdate()
