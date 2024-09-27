@@ -37,7 +37,6 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
-
 	// init system
 	mGraphicsSys->initGraphicsPipeline();
 
@@ -49,8 +48,6 @@ void EngineCore::OnInit()
 	//g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent(&g_AssetManager.Models[0], graphicsEntity));
 
 	std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
-	std::cout << g_Coordinator.GetComponentType<GraphicsComponent>() << '\n';
-
 }
 
 void EngineCore::OnUpdate()
