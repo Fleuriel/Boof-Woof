@@ -1,179 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\ImGUI">
-      <UniqueIdentifier>{51be4dd7-072e-4c3e-aef3-b87847915ffa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ImGUI">
-      <UniqueIdentifier>{1cf441bb-4856-4f80-9ab0-3518153bd02e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Base Engine">
-      <UniqueIdentifier>{069afd92-e789-4d96-99e7-86521a8a8d8b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Components">
-      <UniqueIdentifier>{536f40e0-c63d-4343-8cbf-42e8f444481b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Graphics">
-      <UniqueIdentifier>{c7f6d6d0-e5bc-4f5e-a021-1c85febe8ae6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Graphics\OpenGL">
-      <UniqueIdentifier>{417fc46c-06a3-4924-bc60-50b48c27b054}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Unorganized">
-      <UniqueIdentifier>{07d380f9-3213-442d-a2e1-7c26b63a1397}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Unorganized">
-      <UniqueIdentifier>{39089c6d-9495-4207-953d-fc3da9511acc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Graphics">
-      <UniqueIdentifier>{753cfb91-bd55-4189-af59-fce654651378}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Graphics\OpenGL">
-      <UniqueIdentifier>{215aef7c-1a00-4c43-b2e0-9ca8ee358b71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Graphics\Shader">
-      <UniqueIdentifier>{db6b40ae-4d1b-4edb-9525-c6aca2065f3c}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
+    <ClCompile Include="Core\EngineCore.cpp" />
+    <ClCompile Include="Core\Graphics\BoundingVolume.cpp" />
+    <ClCompile Include="Core\Graphics\Camera.cpp" />
+    <ClCompile Include="Core\Graphics\GraphicsSystem.cpp" />
+    <ClCompile Include="Core\Graphics\Mesh.cpp" />
+    <ClCompile Include="Core\Graphics\Model.cpp" />
+    <ClCompile Include="Core\Graphics\Object.cpp" />
+    <ClCompile Include="Core\Graphics\Shader.cpp" />
+    <ClCompile Include="Core\GSM\GameStateMachine.cpp" />
+    <ClCompile Include="Core\Input\Input.cpp" />
+    <ClCompile Include="Core\Serialization.cpp" />
+    <ClCompile Include="Core\Windows\WindowManager.cpp" />
+    <ClCompile Include="Core\Serialization\Serialization.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core\Graphics\GraphicsSystem.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Windows\WindowManager.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Graphics\Model.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Graphics\Mesh.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Graphics\Object.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\AssetManager\AssetManager.cpp">
-      <Filter>Source Files\Unorganized</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Graphics\BoundingVolume.cpp">
-      <Filter>Source Files\Unorganized</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Graphics\Camera.cpp">
-      <Filter>Source Files\Unorganized</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\EngineCore.cpp">
-      <Filter>Source Files\Unorganized</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\GSM\GameStateMachine.cpp">
-      <Filter>Source Files\Unorganized</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Input\Input.cpp">
-      <Filter>Source Files\Unorganized</Filter>
-    </ClCompile>
-    <ClCompile Include="source\main.cpp">
-      <Filter>Source Files\Unorganized</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Graphics\Shader.cpp">
-      <Filter>Source Files\Graphics\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Serialization.cpp">
-      <Filter>Source Files\Unorganized</Filter>
-    </ClCompile>
+    <ClInclude Include="Core\AssetManager\AssetManager.h" />
+    <ClInclude Include="Core\ECS\ComponentArray.hpp" />
+    <ClInclude Include="Core\ECS\ComponentManager.hpp" />
+    <ClInclude Include="Core\ECS\Coordinator.hpp" />
+    <ClInclude Include="Core\ECS\EntityManager.hpp" />
+    <ClInclude Include="Core\ECS\pch.hpp" />
+    <ClInclude Include="Core\ECS\System.hpp" />
+    <ClInclude Include="Core\ECS\SystemManager.hpp" />
+    <ClInclude Include="Core\EngineCore.h" />
+    <ClInclude Include="Core\Graphics\BoundingVolume.h" />
+    <ClInclude Include="Core\Graphics\Camera.h" />
+    <ClInclude Include="Core\Graphics\GraphicsSystem.h" />
+    <ClInclude Include="Core\Graphics\Mesh.h" />
+    <ClInclude Include="Core\Graphics\Model.h" />
+    <ClInclude Include="Core\Graphics\Object.h" />
+    <ClInclude Include="Core\Graphics\Shader.h" />
+    <ClInclude Include="Core\GSM\GameStateMachine.h" />
+    <ClInclude Include="Core\Input\Input.h" />
+    <ClInclude Include="Core\Serialization.h" />
+    <ClInclude Include="Core\Windows\WindowManager.h" />
+    <ClInclude Include="Utilities\Components\GraphicsComponent.hpp" />
+    <ClInclude Include="Utilities\Components\MetaData.hpp" />
+    <ClInclude Include="Utilities\Components\TransformComponent.hpp" />
+    <ClInclude Include="Core\Serialization\Serialization.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\AssetManager\AssetManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\ECS\ComponentArray.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\ECS\ComponentManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\ECS\EntityManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\ECS\pch.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\ECS\System.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\ECS\SystemManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Graphics\BoundingVolume.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Input\Input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\ECS\Coordinator.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\EngineCore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Graphics\Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Graphics\Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Graphics\Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\Components\TransformComponent.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Graphics\Camera.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Graphics\GraphicsSystem.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\Components\GraphicsComponent.hpp">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\GSM\GameStateMachine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Windows\WindowManager.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Graphics\Shader.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\Components\MetaData.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Serialization.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Shaders\Shader2D.frag">
-      <Filter>Source Files\Graphics\Shader</Filter>
-    </None>
-    <None Include="Assets\Shaders\Shader2D.vert">
-      <Filter>Source Files\Graphics\Shader</Filter>
-    </None>
-    <None Include="Assets\Shaders\Shader3D.frag">
-      <Filter>Source Files\Graphics\Shader</Filter>
-    </None>
-    <None Include="Assets\Shaders\Shader3D.vert">
-      <Filter>Source Files\Graphics\Shader</Filter>
-    </None>
+    <None Include="Assets\Shaders\Shader2D.frag" />
+    <None Include="Assets\Shaders\Shader2D.vert" />
+    <None Include="Assets\Shaders\Shader3D.frag" />
+    <None Include="Assets\Shaders\Shader3D.vert" />
+    <None Include="Assets\Scenes\engine_state.json" />
+    <None Include="Saves\engine_state.json" />
   </ItemGroup>
 </Project>

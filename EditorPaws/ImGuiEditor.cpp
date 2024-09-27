@@ -51,11 +51,11 @@ void ImGuiEditor::ImGuiUpdate()
 	ImGuiViewport();
 	WorldHierarchy();
 	InspectorWindow();
-	// End the frame and render
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 
+	//// End the frame and render - this is in ImGuiRender()
+	//ImGui::Render();
+	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 

@@ -218,7 +218,7 @@ void Window::KeyCallBack(GLFWwindow* window, int key, int scancode, int action, 
     if (key == GLFW_KEY_UNKNOWN)
         return;
 
-    if (!inputSystem.typePW) {
+    if (!g_Input.typePW) {
 
         /*
         Update the state of the pressed key
@@ -227,7 +227,7 @@ void Window::KeyCallBack(GLFWwindow* window, int key, int scancode, int action, 
          - If the key is released (action == GLFW_RELEASE), set its state to 0 (not pressed).
          - If the key is held down (action == GLFW_REPEAT), set its state to 2 (held down).
         */
-        inputSystem.SetKeyState(key, (action == GLFW_PRESS && inputSystem.GetKeyState(key) == 0) ? 1 : (action == GLFW_RELEASE) ? 0 : 2);
+        g_Input.SetKeyState(key, (action == GLFW_PRESS && g_Input.GetKeyState(key) == 0) ? 1 : (action == GLFW_RELEASE) ? 0 : 2);
 
 
 #ifdef _DEBUG
@@ -235,45 +235,45 @@ void Window::KeyCallBack(GLFWwindow* window, int key, int scancode, int action, 
         std::cout << ((action == GLFW_PRESS) ? "Pressed Keys\n" : (action == GLFW_REPEAT) ? "Held Keys\n" : "Released Keys\n");
 #endif
 
-        if (key == GLFW_KEY_CAPS_LOCK) inputSystem.capsLockReleased = (action == GLFW_RELEASE) ? true : false;
+        if (key == GLFW_KEY_CAPS_LOCK) g_Input.capsLockReleased = (action == GLFW_RELEASE) ? true : false;
 
     }
 
 
     if (key == GLFW_KEY_F1 && action == GLFW_PRESS) {
         std::cout << std::endl;
-        inputSystem.typePW = !inputSystem.typePW;
-        inputSystem.hiddenconsole = "";
+        g_Input.typePW = !g_Input.typePW;
+        g_Input.hiddenconsole = "";
 
        
     }
 
 
-    if (inputSystem.typePW) {
+    if (g_Input.typePW) {
         if (action == GLFW_PRESS) {
             if (key >= GLFW_KEY_A && key <= GLFW_KEY_Z) {
                 char newchar{ 'a' + static_cast<char>(key - GLFW_KEY_A) };
-                inputSystem.hiddenconsole += newchar;
+                g_Input.hiddenconsole += newchar;
 #ifdef _DEBUG
-                std::cout << inputSystem.hiddenconsole << std::endl;
+                std::cout << g_Input.hiddenconsole << std::endl;
 #endif
             }
             if (key == GLFW_KEY_ENTER) {
-                if (inputSystem.hiddenconsole == "helloworld") {
+                if (g_Input.hiddenconsole == "helloworld") {
                     std::cout << "Good Bye World\n";
                 }
-                inputSystem.hiddenconsole = "";
+                g_Input.hiddenconsole = "";
             }
         }
         if (action == GLFW_RELEASE) {
             if (key == GLFW_KEY_ENTER) {
-                inputSystem.typePW = false;
+                g_Input.typePW = false;
                 std::cout << "Hidden Console Turned Off\n";
             }
         }
     }
 
-    inputSystem.buttonPressed = action;
+    g_Input.buttonPressed = action;
 }
 
 /**************************************************************************
@@ -301,11 +301,11 @@ void Window::MouseCallBack(GLFWwindow* window, int button, int action, int mods)
     //UNREFERENCED_PARAMETER(window);
     //UNREFERENCED_PARAMETER(mod);
 
-    inputSystem.SetMouseState(button, action);
+    g_Input.SetMouseState(button, action);
 
-    //std::cout << inputSystem.GetMouseState(button);
+    //std::cout << g_Input.GetMouseState(button);
 
-    inputSystem.buttonPressed = action;
+    g_Input.buttonPressed = action;
 
 }
 
@@ -339,11 +339,11 @@ void Window::ScrollCallBack(GLFWwindow* window, double xOffset, double yOffset) 
     //UNREFERENCED_PARAMETER(xOffset);
 
     //Update variable to track total vertical scrolling
-    inputSystem.UpdateScrollTotalYOffset(static_cast<float>(yOffset));
+    g_Input.UpdateScrollTotalYOffset(static_cast<float>(yOffset));
 
     //Change the scroll states based on y offset value
-    inputSystem.SetScrollState((yOffset > 0) ? 1 : (yOffset == 0) ? 0 : -1);
+    g_Input.SetScrollState((yOffset > 0) ? 1 : (yOffset == 0) ? 0 : -1);
 
-    //std::cout << inputSystem.GetScrollState() << std::endl;
-    //std::cout << inputSystem.GetScrollTotalYOffset() << std::endl;
+    //std::cout << g_Input.GetScrollState() << std::endl;
+    //std::cout << g_Input.GetScrollTotalYOffset() << std::endl;
 }

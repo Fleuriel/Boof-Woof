@@ -79,19 +79,19 @@ void EngineCore::OnUpdate()
 
 	
 	//Test serialization
-	if (inputSystem.GetKeyState(GLFW_KEY_P) == 1) {  // Save engine state
+	if (g_Input.GetKeyState(GLFW_KEY_P) == 1) {  // Save engine state
 		std::cout << "P key pressed, saving engine state..." << std::endl;
 		Serialization::SaveEngineState("Saves/engine_state.json");
 		std::cout << "Engine state saved to Saves/engine_state.json" << std::endl;
 	}
 
-	if (inputSystem.GetKeyState(GLFW_KEY_O) == 1) {  // Reset entities
+	if (g_Input.GetKeyState(GLFW_KEY_O) == 1) {  // Reset entities
 		std::cout << "O key pressed, resetting entities..." << std::endl;
 		g_Coordinator.ResetEntities();
 		std::cout << "Entities reset!" << std::endl;
 	}
 
-	if (inputSystem.GetKeyState(GLFW_KEY_L) == 1) {  // Load engine state
+	if (g_Input.GetKeyState(GLFW_KEY_L) == 1) {  // Load engine state
 		std::cout << "L key pressed, loading engine state..." << std::endl;
 		Serialization::LoadEngineState("Saves/engine_state.json");
 		std::cout << "Engine state loaded from Saves/engine_state.json" << std::endl;
@@ -101,7 +101,7 @@ void EngineCore::OnUpdate()
 
 	mGraphicsSys->UpdateLoop();
 	// input update
-	inputSystem.UpdateStatesForNextFrame();
+	g_Input.UpdateStatesForNextFrame();
 
 	// ur glfw swapp buffer thingy
 }

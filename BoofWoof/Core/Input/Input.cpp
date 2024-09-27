@@ -15,11 +15,6 @@
 
 #include "Input.h"
 
-
-
-InputSystem inputSystem;
-
-
 int InputSystem::GetKeyState(int index) {
 	return keyStates[index];
 }

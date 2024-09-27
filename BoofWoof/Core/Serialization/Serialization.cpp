@@ -1,5 +1,5 @@
 #include "Serialization.h"
-#include "EngineCore.h"
+#include "../EngineCore.h"
 #include <cstdio>
 #include <iostream>
 #include <filesystem>

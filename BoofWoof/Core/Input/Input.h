@@ -22,12 +22,19 @@
 #include <array>
 #include <iostream>
 
+#define g_Input InputSystem::GetInstance()
+
 /**************************************************************************
  * @brief InputSystem Class
  *************************************************************************/
 class InputSystem
 {
 public:
+	static InputSystem& GetInstance() {
+		static InputSystem instance;
+		return instance;
+	}
+
 	int GetKeyState(int index);										// Get KeyStates
 
 	void SetKeyState(int index, int value);							// Setting KeyStates
@@ -95,8 +102,5 @@ private:
 	float mouse_scroll_total_Y_offset{ 0 };
 
 };
-
-
-extern InputSystem inputSystem;
 
 #endif
