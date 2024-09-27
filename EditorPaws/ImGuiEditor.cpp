@@ -372,9 +372,10 @@ void ImGuiEditor::InspectorWindow()
 
 		// Components add above this line
 
-		// Save & Load file portion
+		// Save & Load file portion	
+		ImGui::Spacing();
 
-		// open Dialog Simple
+		// open Dialog
 		if (ImGui::Button("Load"))
 			ImGuiFileDialog::Instance()->OpenDialog("ChooseFileDlgKey", "Choose File", ".json", "../BoofWoof/Saves/");
 
@@ -401,6 +402,42 @@ void ImGuiEditor::InspectorWindow()
 			ImGuiFileDialog::Instance()->Close();
 		}
 
+		ImGui::SameLine();
+
+		if (ImGui::Button("Save Current World"))
+		{
+			std::string filename = "../BoofWoof/Saves/" + m_LastOpenedFile;
+			// std::cout << "saving? " << m_LastOpenedFile << std::endl;
+			g_Json.SaveEngineState(filename);
+
+			ImGui::OpenPopup("Saved");
+		}
+
+		// Always center this window when appearing
+		ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+		ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+		if (ImGui::BeginPopupModal("Saved", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::Text("\nYour world has been saved!\n\n");
+			ImGui::Separator();
+
+			if (ImGui::Button("OK", ImVec2(50, 0))) { ImGui::CloseCurrentPopup(); }
+			ImGui::EndPopup();
+		}
+
+		ImGui::SameLine();
+
+		/*if (ImGui::Button("Save New World"))
+		{
+			g_Json.m_SaveCounter++;
+			std::stringstream ss;
+			ss << "../BoofWoof/Saves/SaveWorld" << g_Json.m_SaveCounter << ".json";
+
+			g_Json.JsonSerializeNew(ss.str());
+
+			ImGui::OpenPopup("Saved");
+		}*/
 
 		ImGui::End();
 	}
