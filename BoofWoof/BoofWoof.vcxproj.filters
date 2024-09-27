@@ -19,9 +19,6 @@
     <Filter Include="Source Files\ImGUI">
       <UniqueIdentifier>{1cf441bb-4856-4f80-9ab0-3518153bd02e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Shader">
-      <UniqueIdentifier>{db6b40ae-4d1b-4edb-9525-c6aca2065f3c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Base Engine">
       <UniqueIdentifier>{069afd92-e789-4d96-99e7-86521a8a8d8b}</UniqueIdentifier>
     </Filter>
@@ -46,49 +43,49 @@
     <Filter Include="Source Files\Graphics\OpenGL">
       <UniqueIdentifier>{215aef7c-1a00-4c43-b2e0-9ca8ee358b71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Graphics\Shader">
+      <UniqueIdentifier>{db6b40ae-4d1b-4edb-9525-c6aca2065f3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\AssetManager\AssetManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Graphics\Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Graphics\BoundingVolume.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\GSM\GameStateMachine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Input\Input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\EngineCore.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Graphics\GraphicsSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Graphics\Mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Graphics\Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Graphics\Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\Components\GraphicsComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Graphics\Camera.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Core\Windows\WindowManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Graphics\Model.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Graphics\Mesh.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Graphics\Object.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\AssetManager\AssetManager.cpp">
+      <Filter>Source Files\Unorganized</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Graphics\BoundingVolume.cpp">
+      <Filter>Source Files\Unorganized</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Graphics\Camera.cpp">
+      <Filter>Source Files\Unorganized</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EngineCore.cpp">
+      <Filter>Source Files\Unorganized</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\GSM\GameStateMachine.cpp">
+      <Filter>Source Files\Unorganized</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Input\Input.cpp">
+      <Filter>Source Files\Unorganized</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files\Unorganized</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Graphics\Shader.cpp">
+      <Filter>Source Files\Graphics\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,12 +113,6 @@
     <ClInclude Include="Core\Graphics\BoundingVolume.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Graphics\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\GSM\GameStateMachine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Input\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -129,12 +120,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\EngineCore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Graphics\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Graphics\GraphicsSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Graphics\Mesh.h">
@@ -146,23 +131,43 @@
     <ClInclude Include="Core\Graphics\Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\Components\GraphicsComponent.h">
+    <ClInclude Include="Utilities\Components\TransformComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Graphics\Camera.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Graphics\GraphicsSystem.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Components\GraphicsComponent.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\GSM\GameStateMachine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Windows\WindowManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\Components\RenderTest.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\Graphics\Shader.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Core\Serialization.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\Shader2D.frag" />
-    <None Include="Assets\Shaders\Shader2D.vert" />
-    <None Include="Assets\Shaders\Shader3D.frag" />
-    <None Include="Assets\Shaders\Shader3D.vert" />
+    <None Include="Assets\Shaders\Shader2D.frag">
+      <Filter>Source Files\Graphics\Shader</Filter>
+    </None>
+    <None Include="Assets\Shaders\Shader2D.vert">
+      <Filter>Source Files\Graphics\Shader</Filter>
+    </None>
+    <None Include="Assets\Shaders\Shader3D.frag">
+      <Filter>Source Files\Graphics\Shader</Filter>
+    </None>
+    <None Include="Assets\Shaders\Shader3D.vert">
+      <Filter>Source Files\Graphics\Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

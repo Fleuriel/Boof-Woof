@@ -5,13 +5,14 @@
 
 #include "../Core/ECS/Coordinator.hpp"
 #include <iostream>
-#include "../Utilities/Components/GraphicsComponent.h"
+#include "../Utilities/Components/GraphicsComponent.hpp"
+#include "../Utilities/Components/TransformComponent.hpp"
 #include "Windows/WindowManager.h"
 #include "Graphics/GraphicsSystem.h"
 #include "AssetManager/AssetManager.h"
-#include "../Utilities/Components/RenderTest.hpp"
 
 #include <GLFW/glfw3.h>
+#include "fmod.hpp"
 
 class EngineCore 
 {
