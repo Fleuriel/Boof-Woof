@@ -44,12 +44,26 @@ void ImGuiEditor::ImGuiUpdate()
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	// Dock the ImGui windows
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
-	ImGui::ShowDemoWindow();
+	// Begin the ImGui Viewport window
+	ImGui::Begin("Viewport");
 
-	// Panels
+	// Get the size of the ImGui window (the viewport panel)
+	ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+
+	// Update OpenGL viewport to match the size of the ImGui window
+	g_Coordinator.GetSystem<GraphicsSystem>()->UpdateViewportSize(static_cast<int>(viewportPanelSize.x), static_cast<int>(viewportPanelSize.y));
+
+	// Get framebuffer texture from GraphicsSystem
+	GLuint texture = g_Coordinator.GetSystem<GraphicsSystem>()->GetFramebufferTexture();
+
+	// Display the framebuffer texture in the ImGui viewport panel
+	ImGui::Image((void*)(intptr_t)texture, viewportPanelSize);
+
+	ImGui::End();
+
+	// Render other ImGui windows
 	WorldHierarchy();
 	InspectorWindow();
 }
