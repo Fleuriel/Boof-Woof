@@ -27,6 +27,9 @@ public:
 
 	// Variables
 	Entity g_SelectedEntity = 0;
+	Entity g_GettingDeletedEntity = static_cast<Entity>(-1);		// will be deleted from the back
+
+	bool m_IsSelected{ false };
 
 	static ImGuiEditor& GetInstance();
 

@@ -43,6 +43,7 @@ void EngineCore::OnInit()
 	// tempo creation of entity for the systems
 	Entity graphicsEntity = g_Coordinator.CreateEntity();
 	//// add transform component
+	g_Coordinator.AddComponent<MetadataComponent>(graphicsEntity, MetadataComponent("TempGameObj", graphicsEntity));
 	g_Coordinator.AddComponent<TransformComponent>(graphicsEntity, TransformComponent(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), graphicsEntity));
 	//// add graphics component
 	g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent(&g_AssetManager.Models[0], graphicsEntity));

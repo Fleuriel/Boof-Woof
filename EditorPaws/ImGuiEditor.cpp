@@ -48,6 +48,8 @@ void ImGuiEditor::ImGuiUpdate()
 	// Docking space
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
+	ImGui::ShowDemoWindow();
+
 	ImGuiViewport();
 	WorldHierarchy();
 	InspectorWindow();
@@ -109,6 +111,9 @@ void ImGuiEditor::WorldHierarchy()
 {
 	ImGui::Begin("World Hierarchy");
 	{
+		ImGui::Text("FutureFileNameWillBeHere");
+		ImGui::Spacing(); ImGui::Separator(); ImGui::Spacing();
+
 		if (g_Coordinator.GetTotalEntities() != MAX_ENTITIES)
 		{
 			if (ImGui::BeginPopupContextItem("GameObj"))
@@ -146,6 +151,58 @@ void ImGuiEditor::WorldHierarchy()
 					g_SelectedEntity = clone;
 				}
 			}
+
+			ImGui::SameLine();
+
+			if (ImGui::BeginPopupContextItem("Deletion"))
+			{
+				if (ImGui::Selectable("Delete Last Object"))
+				{
+					if (g_GettingDeletedEntity != MAX_ENTITIES)
+					{
+						g_Coordinator.DestroyEntity(g_GettingDeletedEntity);
+					}
+				}
+				if (m_IsSelected)
+				{
+					if (ImGui::Selectable("Delete Selected Object"))
+					{
+						if (g_SelectedEntity != MAX_ENTITIES)
+						{
+							g_Coordinator.DestroyEntity(g_SelectedEntity);
+							m_IsSelected = false;
+						}
+					}
+				}
+				ImGui::EndPopup();
+			}
+
+			if (ImGui::Button("Delete"))
+			{
+				ImGui::OpenPopup("Deletion");
+			}
+		}
+
+		ImGui::Spacing(); ImGui::Spacing(); // to insert a gap so it looks visually nicer
+
+		// Displaying hierarchy game objects - have to check for player next time
+		const std::vector<Entity>& allEntities = g_Coordinator.GetAliveEntitiesSet();
+
+		for (const auto& entity : allEntities)
+		{
+			// looping through to get EntityID, use the entityID to get the name of object		
+			auto& name = g_Coordinator.GetComponent<MetadataComponent>(entity).GetName();
+
+			ImGuiTreeNodeFlags nodeFlags = ((g_SelectedEntity == entity) ? ImGuiTreeNodeFlags_Selected : 0) | (ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen);
+			ImGui::TreeNodeEx(reinterpret_cast<void*>(static_cast<intptr_t>(entity)), nodeFlags, name.c_str());
+
+			if (ImGui::IsItemClicked())
+			{
+				m_IsSelected = true;
+				g_SelectedEntity = entity;
+			}
+
+			g_GettingDeletedEntity = entity;
 		}
 	}
 	ImGui::End();
@@ -198,6 +255,7 @@ void ImGuiEditor::InspectorWindow()
 			}
 		}
 
+		// Metadata
 		if (g_Coordinator.HaveComponent<MetadataComponent>(g_SelectedEntity))
 		{
 			if (ImGui::CollapsingHeader("Identifier", ImGuiTreeNodeFlags_None))
@@ -214,6 +272,81 @@ void ImGuiEditor::InspectorWindow()
 				if (ImGui::InputText("##ObjectName", entityNameBuffer, sizeof(entityNameBuffer)))
 				{
 					g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).SetName(std::string(entityNameBuffer));
+				}
+			}
+		}
+
+		// Transform
+		if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+		{
+			if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_None))
+			{
+				//position
+				auto& Position = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetPosition();
+				ImGui::PushItemWidth(250.0f);
+				ImGui::Text("Position"); ImGui::SameLine();
+
+				if (ImGui::DragFloat3("##Position", static_cast<float*>(&Position.x), 0.5f))
+				{
+					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetPosition(Position);
+				}
+
+				//scale
+				auto& Scale = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetScale();
+				ImGui::Text("Scale   "); ImGui::SameLine();
+
+				if (ImGui::DragFloat3("##Scale", static_cast<float*>(&Scale.x), 0.5f, 0.0f, FLT_MAX))
+				{
+					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetScale(Scale);
+				}
+
+				//rotation
+				auto& rotation = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetRotation();
+				ImGui::Text("Rotation"); ImGui::SameLine();
+				
+				if (ImGui::DragFloat3("##Rotation", static_cast<float*>(&rotation.x), 0.5f))
+				{
+					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetRotation(rotation);
+				}
+			}
+		}
+
+		if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity)) 
+		{
+			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
+			{
+				//	modelName - tempo
+				auto modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModel();
+				const char* source = "";
+
+				if (modelName == &g_AssetManager.Models[0])
+				{
+					source = "Sphere";
+				}
+
+				const char* modelNames[] = { "Sphere" };
+				static int currentModel = 0;
+
+				for (int i = 0; i < 6; ++i) {
+					if (modelNames[i] == source) {
+						currentModel = i;
+					}
+				}
+				ImGui::PushItemWidth(123.0f);
+				ImGui::Text("Model   "); ImGui::SameLine();
+				if (ImGui::Combo("##ModelCombo", &currentModel, modelNames, 1))
+				{
+					if (currentModel == 0) modelName = &g_AssetManager.Models[0];
+					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModel(modelName);
+				}
+
+				// modelID
+				auto modelID = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelID();
+				ImGui::Text("ModelID "); ImGui::SameLine();
+				/*ImGui::InputInt*/
+				if (ImGui::DragInt("##ModelID", &modelID, 1)) 
+				{
+					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModelID(modelID);
 				}
 			}
 		}
