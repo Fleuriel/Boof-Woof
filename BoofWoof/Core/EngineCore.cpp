@@ -18,8 +18,9 @@ void EngineCore::OnInit()
 
 	// register components here
 	g_Coordinator.Init();
-	g_Coordinator.RegisterComponent<GraphicsComponent>();
+	g_Coordinator.RegisterComponent<MetadataComponent>();
 	g_Coordinator.RegisterComponent<TransformComponent>();
+	g_Coordinator.RegisterComponent<GraphicsComponent>();
 
 	// setting global pointer
 	g_Core = this;
@@ -31,21 +32,20 @@ void EngineCore::OnInit()
 	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
 	{
 		Signature signature;
-		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
 		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
-
 
 	// init system
 	mGraphicsSys->initGraphicsPipeline();
 
 	// tempo creation of entity for the systems
-	Entity graphicsEntity = g_Coordinator.CreateEntity();
-	// add transform component
-	g_Coordinator.AddComponent<TransformComponent>(graphicsEntity, TransformComponent(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), graphicsEntity));
-	// add graphics component
-	g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent(&g_AssetManager.Models[0], graphicsEntity));
+	//Entity graphicsEntity = g_Coordinator.CreateEntity();
+	//// add transform component
+	//g_Coordinator.AddComponent<TransformComponent>(graphicsEntity, TransformComponent(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), graphicsEntity));
+	//// add graphics component
+	//g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent(&g_AssetManager.Models[0], graphicsEntity));
 
 
 	//Entity graphics2DEntity = g_Coordinator.CreateEntity();

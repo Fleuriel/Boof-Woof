@@ -10,6 +10,7 @@
 #include "Windows/WindowManager.h"
 #include "Graphics/GraphicsSystem.h"
 #include "AssetManager/AssetManager.h"
+#include "../Utilities/Components/MetaData.hpp"
 
 #include <GLFW/glfw3.h>
 #include "fmod.hpp"

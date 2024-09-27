@@ -20,46 +20,46 @@
 #include "EngineCore.h"
 
 // Global Variables
-EngineCore* g_Core = nullptr;
-
-/**************************************************************************
-* @brief Main Function
-* @return void
-*************************************************************************/
-int main()
-{
-	g_Core = new EngineCore();
-	g_Core->OnInit();
-
-	// Initializing States
-	StartUp();
-
-	// Initialize Previous Time with NOW()
-	previousTime = std::chrono::high_resolution_clock::now();
-	
-
-	// While Loop
-	while (!glfwWindowShouldClose(g_Window->GetGLFWWindow()))
-	{
-		if (currentState == STATE::END)
-		{
-			std::cout << " Current State is END\n";
-			break;
-		}
-
-		g_Core->OnUpdate();
-		
-		previousState = currentState;
-		currentState = nextState;
-
-		// After everything happened, set the current time.
-		currentTime = std::chrono::high_resolution_clock::now();
-		deltaTime = std::chrono::duration_cast<std::chrono::duration<double>>(currentTime - previousTime);
-		previousTime = currentTime;
-	}
-
-	// Terminate
-	glfwTerminate();
-	std::cout << "End of Program" << std::endl;
-	return 0;
-}
+//EngineCore* g_Core = nullptr;
+//
+///**************************************************************************
+//* @brief Main Function
+//* @return void
+//*************************************************************************/
+//int main()
+//{
+//	g_Core = new EngineCore();
+//	g_Core->OnInit();
+//
+//	// Initializing States
+//	StartUp();
+//
+//	// Initialize Previous Time with NOW()
+//	previousTime = std::chrono::high_resolution_clock::now();
+//	
+//
+//	// While Loop
+//	while (!glfwWindowShouldClose(g_Window->GetGLFWWindow()))
+//	{
+//		if (currentState == STATE::END)
+//		{
+//			std::cout << " Current State is END\n";
+//			break;
+//		}
+//
+//		g_Core->OnUpdate();
+//		
+//		previousState = currentState;
+//		currentState = nextState;
+//
+//		// After everything happened, set the current time.
+//		currentTime = std::chrono::high_resolution_clock::now();
+//		deltaTime = std::chrono::duration_cast<std::chrono::duration<double>>(currentTime - previousTime);
+//		previousTime = currentTime;
+//	}
+//
+//	// Terminate
+//	glfwTerminate();
+//	std::cout << "End of Program" << std::endl;
+//	return 0;
+//}

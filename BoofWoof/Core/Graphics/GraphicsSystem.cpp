@@ -39,7 +39,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	g_AssetManager.LoadShaders();
 
 	// load models
-	AddModel_3D("sphere.obj");
+	AddModel_3D("../BoofWoof/sphere.obj");
 
 
 	AddModel_2D();
@@ -79,32 +79,27 @@ void GraphicsSystem::UpdateLoop() {
 	g_AssetManager.shdrpgms[0].Use();
 //	g_AssetManager.shdrpgms[1].Use();
 
-	static float f = 0.01;
+	static float f = 0.01f;
 
 	//loop through all entities
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
 	{
-		if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+		if (g_Coordinator.HaveComponent<TransformComponent>(entity))
 		{
-			auto graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-			auto transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
-			g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", transformComp.GetWorldMatrix());
-			g_AssetManager.shdrpgms[0].SetUniform("view", view_);
-			g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
-			g_AssetManager.shdrpgms[0].SetUniform("objectColor", glm::vec3{1.0f});
-	//		std::cout << f << '\n';
-			transformComp.SetPosition(glm::vec3(f, 1.0f, 1.0f));
-
-
-
-			graphicsComp.getModel()->Draw(g_AssetManager.shdrpgms[0]);
-			//graphicsComp.getModel2D()->Draw()
-			//graphicsComp.getModel2D().Draw(g_AssetManager.shdrpgms[1]);
-		
-
-
-		}
+			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+			if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+			{
+				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+				//std::cout << "Graphics Comp: " << graphicsComp.getModel() << '\n';
+				g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", transformComp.GetWorldMatrix());
+				g_AssetManager.shdrpgms[0].SetUniform("view", view_);
+				g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
+				g_AssetManager.shdrpgms[0].SetUniform("objectColor", glm::vec3{ 1.0f });
+				transformComp.SetPosition(glm::vec3(f, 1.0f, 1.0f));
+				graphicsComp.getModel()->Draw(g_AssetManager.shdrpgms[0]);
+			}
+		}	
 	}
 
 	g_AssetManager.shdrpgms[0].UnUse();
@@ -135,8 +130,17 @@ void GraphicsSystem::DrawObject(GraphicsComponent& component) {
 void GraphicsSystem::AddModel_3D(std::string const& path)
 {
 	Model model;
+	std::cout << "Loading: " << path << '\n';
+	
 	model.loadModel(path, GL_TRIANGLES);
+
+
+
+
 	g_AssetManager.Models.push_back(model);
+
+
+	std::cout << "Loaded: " << path << " [Models Reference: " << g_AssetManager.Models.size()-1 << "]" << '\n';
 }
 
 void GraphicsSystem::AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model)
