@@ -7,13 +7,10 @@
 
 // this part must be included last. Want to add anything new, add before this line
 #include <GL/glew.h>
-#include <glfw3.h>
+#include <GLFW/glfw3.h>
 #define GLM_FORCE_SILENT_WARNINGS
 #include <glm/glm.hpp>
 #include <iostream>
-
-// Declare the window as extern (it is defined in main.cpp)
-extern GLFWwindow* win;
 
 ImGuiEditor& ImGuiEditor::GetInstance() {
 	static ImGuiEditor instance{};
@@ -21,46 +18,9 @@ ImGuiEditor& ImGuiEditor::GetInstance() {
 }
 
 // parameter should have windows
-void ImGuiEditor::ImGuiInit()
+void ImGuiEditor::ImGuiInit(Window* window)
 {
-	win = glfwCreateWindow(1280, 1024, "Dear ImGui Starter", NULL, NULL);
-	if (!win)
-	{
-		std::cout << "Failed to create GLFW window!" << std::endl;
-		glfwTerminate();
-		return;
-	}
-
-	// Tell GLFW we are using OpenGL 4.5
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
-
-	// Tell GLFW that we are using the CORE Profile
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	// Create viewport of width and height.
-	glViewport(0, 0, 1920,1080);
-	glfwSwapInterval(1);
-
-	// Make the current window the current context
-	glfwMakeContextCurrent(win);
-
-	// Set input mode for the window with the cursor (Enables Cursor Input)
-	glfwSetInputMode(win, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	glEnable(GL_DEPTH_TEST);
-	glDepthRange(0.0f, 1.0f);
-
-	bool glewInitialized = false;
-	if (!glewInitialized)
-	{
-		GLenum err = glewInit();
-		if (err != GLEW_OK)
-		{
-			std::cerr << "Error initializing GLEW: " << glewGetErrorString(err) << std::endl;
-			return;
-		}
-	    glewInitialized = true;
-	}
+	m_Window = window;
 
 	IMGUI_CHECKVERSION();
 
@@ -74,35 +34,36 @@ void ImGuiEditor::ImGuiInit()
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
 
-	ImGui_ImplGlfw_InitForOpenGL(win, true);
+	ImGui_ImplGlfw_InitForOpenGL(window->GetGLFWWindow(), true);
 	ImGui_ImplOpenGL3_Init("#version 450");
 }
 
 void ImGuiEditor::ImGuiUpdate()
 {
+	// Start a new frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	// Dock the ImGui windows
+	// Docking space
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
-	ImGui::ShowDemoWindow();
-
-	// Panels
+	ImGuiViewport();
 	WorldHierarchy();
 	InspectorWindow();
+	// End the frame and render
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+
 }
+
 
 void ImGuiEditor::ImGuiRender() {
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	ImGuiIO& io = ImGui::GetIO();
 	io.WantCaptureKeyboard = false;
-
-	//these two needs to be at the end.
-	glfwSwapBuffers(win);
-	glfwPollEvents();
 
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
 		auto* Window = glfwGetCurrentContext();
@@ -118,17 +79,54 @@ void ImGuiEditor::ImGuiEnd() {
 	ImGui::DestroyContext(ImGui::GetCurrentContext());
 }
 
+void ImGuiEditor::ImGuiViewport() {
+	// Begin the ImGui Viewport window
+	ImGui::Begin("Viewport");
+
+	// Check if the ImGui window is docked and visible
+	if (ImGui::IsWindowDocked())
+	{
+		// Get the size of the "Viewport" window
+		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+
+		// If the size changes, update the OpenGL viewport and framebuffer
+		g_Coordinator.GetSystem<GraphicsSystem>()->SetEditorMode(true);
+
+		g_Coordinator.GetSystem<GraphicsSystem>()->UpdateViewportSize(static_cast<int>(viewportPanelSize.x), static_cast<int>(viewportPanelSize.y));
+
+		// Get framebuffer texture from GraphicsSystem
+		GLuint texture = g_Coordinator.GetSystem<GraphicsSystem>()->GetFramebufferTexture();
+
+		// Display the framebuffer texture in the ImGui viewport panel
+		ImGui::Image((void*)(intptr_t)texture, viewportPanelSize, ImVec2(0, 1), ImVec2(1, 0));
+	}
+
+	ImGui::End();
+}
+
+
 void ImGuiEditor::WorldHierarchy()
 {
 	ImGui::Begin("World Hierarchy");
 	{
-		/*if (g_Coordinator.GetTotalEntities() != MAX_ENTITIES)
+		if (g_Coordinator.GetTotalEntities() != MAX_ENTITIES)
 		{
 			if (ImGui::BeginPopupContextItem("GameObj"))
 			{
 				if (ImGui::Selectable("Empty GameObject"))
 				{
 					g_SelectedEntity = g_Coordinator.CreateEntity();
+
+					// By default, add Transform and MetadataComponent (Identifier)
+					if (!g_Coordinator.HaveComponent<MetadataComponent>(g_SelectedEntity)) 
+					{
+						g_Coordinator.AddComponent<MetadataComponent>(g_SelectedEntity, MetadataComponent("GameObject", g_SelectedEntity));
+					}
+
+					if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) 
+					{
+						g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
+					}
 				}
 				ImGui::EndPopup();
 			}
@@ -148,7 +146,7 @@ void ImGuiEditor::WorldHierarchy()
 					g_SelectedEntity = clone;
 				}
 			}
-		}*/
+		}
 	}
 	ImGui::End();
 }
@@ -157,48 +155,68 @@ void ImGuiEditor::InspectorWindow()
 {
 	ImGui::Begin("Inspector"); 
 	{
-		//if (g_SelectedEntity < MAX_ENTITIES && g_SelectedEntity >= 0 && g_Coordinator.GetTotalEntities() != 0) 
-		//{
-		//	// Adding Components
-		//	if (ImGui::BeginPopupContextItem("AComponents"))
-		//	{
-		//		if (ImGui::Selectable("RenderTest"))
-		//		{
-		//			if (!g_Coordinator.HaveComponent<RenderTest>(g_SelectedEntity))
-		//			{
-		//				g_Coordinator.AddComponent<RenderTest>(g_SelectedEntity, RenderTest());
-		//			}
-		//		}
+		if (g_SelectedEntity < MAX_ENTITIES && g_SelectedEntity >= 0 && g_Coordinator.GetTotalEntities() != 0) 
+		{			
+			// Adding Components
+			if (ImGui::BeginPopupContextItem("AComponents"))
+			{
+				if (ImGui::Selectable("TransformComponent"))
+				{
+					if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
+					}
+				}
 
-		//		ImGui::EndPopup();
-		//	}
+				ImGui::EndPopup();
+			}
 
-		//	if (ImGui::Button("Add Components"))
-		//	{
-		//		ImGui::OpenPopup("AComponents");
-		//	}
+			if (ImGui::Button("Add Components"))
+			{
+				ImGui::OpenPopup("AComponents");
+			}
 
-		//	ImGui::SameLine();
+			ImGui::SameLine();
 
-		//	// Deleting Components
-		//	if (ImGui::BeginPopupContextItem("DComponents"))
-		//	{
-		//		if (g_Coordinator.HaveComponent<RenderTest>(g_SelectedEntity))
-		//		{
-		//			if (ImGui::Selectable("RenderTest"))
-		//			{
-		//				g_Coordinator.RemoveComponent<RenderTest>(g_SelectedEntity);
-		//			}
-		//		}
+			// Deleting Components
+			if (ImGui::BeginPopupContextItem("DComponents"))
+			{
+				if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+				{
+					if (ImGui::Selectable("TransformComponent"))
+					{
+						g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+					}
+				}
 
-		//		ImGui::EndPopup();
-		//	}
+				ImGui::EndPopup();
+			}
 
-		//	if (ImGui::Button("Delete Component"))
-		//	{
-		//		ImGui::OpenPopup("DComponents");
-		//	}
-		//}
+			if (ImGui::Button("Delete Component"))
+			{
+				ImGui::OpenPopup("DComponents");
+			}
+		}
+
+		if (g_Coordinator.HaveComponent<MetadataComponent>(g_SelectedEntity))
+		{
+			if (ImGui::CollapsingHeader("Identifier", ImGuiTreeNodeFlags_None))
+			{
+				// Name
+				auto& ObjName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
+
+				char entityNameBuffer[256];
+				memset(entityNameBuffer, 0, sizeof(entityNameBuffer));
+				strcpy_s(entityNameBuffer, sizeof(entityNameBuffer), ObjName.c_str());
+
+				ImGui::Text("Name    "); ImGui::SameLine();
+				ImGui::PushItemWidth(125.0f);
+				if (ImGui::InputText("##ObjectName", entityNameBuffer, sizeof(entityNameBuffer)))
+				{
+					g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).SetName(std::string(entityNameBuffer));
+				}
+			}
+		}
 
 		ImGui::End();
 	}

@@ -156,8 +156,9 @@ GLboolean OpenGLShader::CompileLinkValidate(std::vector<std::pair<GLenum, std::s
 GLboolean OpenGLShader::CompileShaderFromFile(GLenum shader_type, const std::string& file_name) {
    
     if (GL_FALSE == FileExists(file_name)) {
-        //std::cout << "not found\n";
         log_string = "File not found";
+       
+        std::cout << log_string << '\n';
         return GL_FALSE;
     }
 

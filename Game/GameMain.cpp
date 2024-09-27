@@ -1,7 +1,6 @@
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
-#include "ImGuiEditor.h"
 #include "../BoofWoof/Core/EngineCore.h"
 #include <iostream>
 
@@ -21,16 +20,12 @@ int main()
 
 	g_Core = new EngineCore();
 	g_Core->OnInit();
-	g_ImGuiEditor.ImGuiInit(g_Window);
 
 	while (!glfwWindowShouldClose(g_Window->GetGLFWWindow()))
 	{
 		g_Core->OnUpdate();
-		g_ImGuiEditor.ImGuiUpdate();
-		g_ImGuiEditor.ImGuiRender();
 	}
 
-	g_ImGuiEditor.ImGuiEnd();
 	g_Core->OnShutdown();
 
 	delete g_Core;
