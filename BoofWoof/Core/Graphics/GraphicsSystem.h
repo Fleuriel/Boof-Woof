@@ -38,11 +38,13 @@ public:;
 
     void AddObject_2D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model2D model);
     void UpdateViewportSize(int width, int height);  // Method to handle viewport resizing
+    inline void SetEditorMode(bool EditorMode) { editorMode = EditorMode; };
 
 private:
     unsigned int fbo;
     unsigned int textureColorbuffer;  // Store the framebuffer texture ID here
     unsigned int rbo;
+    bool editorMode = false;
     static GLFWwindow* newWindow;  // OpenGL window
 
 };

@@ -79,7 +79,10 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 void GraphicsSystem::UpdateLoop() {
 	// Bind the framebuffer for rendering
-	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+	if(editorMode == true)
+		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+	else
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear framebuffer
 
 	// Setup camera and projection matrix

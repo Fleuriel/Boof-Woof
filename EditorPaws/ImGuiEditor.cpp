@@ -90,6 +90,8 @@ void ImGuiEditor::ImGuiViewport() {
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 
 		// If the size changes, update the OpenGL viewport and framebuffer
+		g_Coordinator.GetSystem<GraphicsSystem>()->SetEditorMode(true);
+
 		g_Coordinator.GetSystem<GraphicsSystem>()->UpdateViewportSize(static_cast<int>(viewportPanelSize.x), static_cast<int>(viewportPanelSize.y));
 
 		// Get framebuffer texture from GraphicsSystem
