@@ -125,9 +125,7 @@ void ImGuiEditor::InspectorWindow()
 	ImGui::Begin("Inspector"); 
 	{
 		if (g_SelectedEntity < MAX_ENTITIES && g_SelectedEntity >= 0 && g_Coordinator.GetTotalEntities() != 0) 
-		{
-			std::cout << "IMGUI Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
-			
+		{			
 			// Adding Components
 			if (ImGui::BeginPopupContextItem("AComponents"))
 			{
