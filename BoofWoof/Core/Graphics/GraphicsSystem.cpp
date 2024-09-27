@@ -44,6 +44,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 	AddModel_2D();
 
+
 	//init camera
 	camera = Camera(glm::vec3(0.f, 0.f, 3.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
 	
@@ -76,6 +77,9 @@ void GraphicsSystem::UpdateLoop() {
 
 	// Draw the object
 	g_AssetManager.shdrpgms[0].Use();
+//	g_AssetManager.shdrpgms[1].Use();
+
+	static float f = 0.01;
 
 	//loop through all entities
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
@@ -89,11 +93,27 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.shdrpgms[0].SetUniform("view", view_);
 			g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
 			g_AssetManager.shdrpgms[0].SetUniform("objectColor", glm::vec3{1.0f});
+	//		std::cout << f << '\n';
+			transformComp.SetPosition(glm::vec3(f, 1.0f, 1.0f));
+
+
+
 			graphicsComp.getModel()->Draw(g_AssetManager.shdrpgms[0]);
+			//graphicsComp.getModel2D()->Draw()
+			//graphicsComp.getModel2D().Draw(g_AssetManager.shdrpgms[1]);
+		
+
+
 		}
 	}
 
 	g_AssetManager.shdrpgms[0].UnUse();
+
+	//g_AssetManager.shdrpgms[1].UnUse();
+
+ 
+ 
+
 
 
 }

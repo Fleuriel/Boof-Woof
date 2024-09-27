@@ -48,7 +48,6 @@ public:
 
 	bool LoadShaders();																		// Load Shaders
 	void InitShdrpgms(VectorPairString const& vpss);										//Function to initialize shaders
-
 	bool FreeShaders();																		//Function to free shaders
 
 
