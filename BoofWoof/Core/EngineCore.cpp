@@ -41,11 +41,13 @@ void EngineCore::OnInit()
 	mGraphicsSys->initGraphicsPipeline();
 
 	// tempo creation of entity for the systems
-	//Entity graphicsEntity = g_Coordinator.CreateEntity();
+	Entity graphicsEntity = g_Coordinator.CreateEntity();
 	//// add transform component
-	//g_Coordinator.AddComponent<TransformComponent>(graphicsEntity, TransformComponent(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), graphicsEntity));
+	g_Coordinator.AddComponent<TransformComponent>(graphicsEntity, TransformComponent(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), graphicsEntity));
 	//// add graphics component
-	//g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent(&g_AssetManager.Models[0], graphicsEntity));
+	g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent(&g_AssetManager.Models[0], graphicsEntity));
+	g_Coordinator.GetComponent<GraphicsComponent>(graphicsEntity).SetModelID(0);
+
 
 
 	//Entity graphics2DEntity = g_Coordinator.CreateEntity();
@@ -63,7 +65,6 @@ void EngineCore::OnUpdate()
 {
 	// window update
 	g_Window->OnUpdate();
-	// input update
 
 	// system updates
 	//auto allEntities = g_Coordinator.GetAliveEntitiesSet();
@@ -76,16 +77,37 @@ void EngineCore::OnUpdate()
 	//	}
 	//}
 
+	
+	//Test serialization
+	if (inputSystem.GetKeyState(GLFW_KEY_P) == 1) {  // Save engine state
+		std::cout << "P key pressed, saving engine state..." << std::endl;
+		Serialization::SaveEngineState("Saves/engine_state.json");
+		std::cout << "Engine state saved to Saves/engine_state.json" << std::endl;
+	}
+
+	if (inputSystem.GetKeyState(GLFW_KEY_O) == 1) {  // Reset entities
+		std::cout << "O key pressed, resetting entities..." << std::endl;
+		g_Coordinator.ResetEntities();
+		std::cout << "Entities reset!" << std::endl;
+	}
+
+	if (inputSystem.GetKeyState(GLFW_KEY_L) == 1) {  // Load engine state
+		std::cout << "L key pressed, loading engine state..." << std::endl;
+		Serialization::LoadEngineState("Saves/engine_state.json");
+		std::cout << "Engine state loaded from Saves/engine_state.json" << std::endl;
+	}
+	
+
+
 	mGraphicsSys->UpdateLoop();
+	// input update
+	inputSystem.UpdateStatesForNextFrame();
 
 	// ur glfw swapp buffer thingy
 }
 
 void EngineCore::OnShutdown()
 {
-	// shutdown all systems & delete window
-
+	// Shutdown window and other systems
 	g_Window->OnShutdown();
-
-	
 }

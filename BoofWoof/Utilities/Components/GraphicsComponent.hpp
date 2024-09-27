@@ -15,9 +15,11 @@ public:
 	//setter
 	void SetModel(Model* model) { m_Model = model; }
 	//void SetModel2D(Model2D model) { m_Model2D = model; }
+	inline void SetModelID(int modelid) { m_ModelID = modelid; };
 
 	//getter
 	Model* getModel() const { return m_Model; }
+	inline int getModelID() const { return m_ModelID; };
 	//Model2D getModel2D() const { return m_Model2D; }
 
     // Constructor and destructor
@@ -36,6 +38,7 @@ public:
 private:
 	Entity m_EntityID{};
 	Model* m_Model{};
+	int m_ModelID{};
 	//Model2D m_Model2D{};
 };
 
