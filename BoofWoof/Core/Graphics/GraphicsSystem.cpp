@@ -79,7 +79,7 @@ void GraphicsSystem::UpdateLoop() {
 	g_AssetManager.shdrpgms[0].Use();
 //	g_AssetManager.shdrpgms[1].Use();
 
-	static float f = 0.01;
+	static float f = 0.01f;
 
 	//loop through all entities
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
