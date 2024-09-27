@@ -13,6 +13,8 @@
 #include <glm/glm.hpp>
 #include <iostream>
 
+namespace fs = std::filesystem;
+
 ImGuiEditor& ImGuiEditor::GetInstance() {
 	static ImGuiEditor instance{};
 	return instance;
@@ -54,7 +56,7 @@ void ImGuiEditor::ImGuiUpdate()
 	ImGuiViewport();
 	WorldHierarchy();
 	InspectorWindow();
-
+	AssetWindow();
 
 	//// End the frame and render - this is in ImGuiRender()
 	//ImGui::Render();
@@ -439,6 +441,135 @@ void ImGuiEditor::InspectorWindow()
 			ImGui::OpenPopup("Saved");
 		}*/
 
+		ImGui::End();
+	}
+}
+
+// Asset Window is incomplete cause no Asset Manager yet
+void ImGuiEditor::AssetWindow()
+{
+	ImGui::Begin("Asset Browser");
+	{
+		std::string entireFilePath = m_BaseDir.relative_path().string();
+
+		if (m_CurrDir != fs::path(m_BaseDir))
+		{
+			entireFilePath = m_CurrDir.relative_path().string();
+			if (ImGui::Button("<-"))
+			{
+				m_CurrDir = m_CurrDir.parent_path();
+			}
+		}
+
+		ImGui::SameLine();
+		ImGui::Text(entireFilePath.c_str());
+
+		// Calculate the space needed for the buttons
+		float windowWidth = ImGui::GetWindowWidth();
+		float buttonWidth = ImGui::CalcTextSize("Delete Asset").x + ImGui::GetStyle().FramePadding.x * 2;
+		float availableSpace = windowWidth - ImGui::CalcTextSize(entireFilePath.c_str()).x - buttonWidth * 2 - ImGui::GetStyle().ItemSpacing.x * 3;
+
+		// subtract the width of the buttons and spacing from the available space to align to the right
+		ImGui::SameLine(availableSpace);
+		if (ImGui::Button("Add Asset"))
+		{
+			ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag", "../BoofWoof/Assets/");
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Button("Delete Asset"))
+		{
+			ImGuiFileDialog::Instance()->OpenDialog("DeleteAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag", "../BoofWoof/Assets/");
+		}
+
+		if (ImGuiFileDialog::Instance()->Display("AddAsset"))
+		{
+			// Check if the user made a selection
+			if (ImGuiFileDialog::Instance()->IsOk())
+			{
+				// Get the selected file path
+				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+
+				// Asset manager to add in the assets e.g. g_AssetManager.AddAssets(filePathName);
+			}
+
+			// close
+			ImGuiFileDialog::Instance()->Close();
+		}
+
+		if (ImGuiFileDialog::Instance()->Display("DeleteAsset"))
+		{
+			// Check if the user made a selection
+			if (ImGuiFileDialog::Instance()->IsOk())
+			{
+				// Get the selected file path
+				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+
+				// find last / to get file name only
+				size_t lastSlash = filePathName.find_last_of("/\\");
+				std::string deleteFileName = filePathName.substr(lastSlash + 1);
+
+				// Asset manager to delete the assets e.g. g_AssetManager.DeleteAssets(deleteFileName);
+			}
+
+			// close
+			ImGuiFileDialog::Instance()->Close();
+		}
+
+		ImGui::Spacing();  ImGui::Separator(); ImGui::Spacing();
+
+		float panelWidth = ImGui::GetContentRegionAvail().x;
+		int colCount = (int)(panelWidth / 100);
+		if (colCount < 1) colCount = 1;	// to ensure that it will not go down to 0 when u push the column smaller than 1 size
+
+		ImGui::Columns(colCount, 0, false);	// for resizing purposes
+
+		for (auto& entry : fs::directory_iterator(m_CurrDir))
+		{
+			const auto& path = entry.path();
+			auto relativePath = fs::relative(path, m_BaseDir);
+			std::string fileNameExt = relativePath.filename().string();
+
+			ImGui::PushID(fileNameExt.c_str()); // using filename as the ID so all are unique, the drag drop won't open same source
+			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0)); // for button background opacity to go 0
+
+			size_t lastDot = fileNameExt.find_last_of(".");
+			std::string fileName = fileNameExt.substr(0, lastDot);
+			std::string fileExtension = fileNameExt.substr(lastDot + 1);
+			std::string icon = entry.is_directory() ? "FolderIcon" : (fileExtension == "png" ? fileName : "TextIcon");
+
+			//ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture(icon), { 60,60 }, { 0,1 }, { 1,0 });
+
+			// drag from assets to components
+			/*if (ImGui::BeginDragDropSource())
+			{
+				fs::path outerRelativePath = path.c_str();
+				const wchar_t* itemPath = outerRelativePath.c_str();
+				ImGui::SetDragDropPayload("Ass", itemPath, (wcslen(itemPath) + 1) * sizeof(wchar_t));
+				ImGui::EndDragDropSource();
+			}*/
+
+			ImGui::PopStyleColor();
+
+			// must double click to go next directory
+			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+			{
+				if (entry.is_directory())
+				{
+					// showing folders
+					m_CurrDir /= path.filename();
+				}
+
+			}
+
+			ImGui::TextWrapped(fileName.c_str());
+
+			ImGui::NextColumn();
+
+			ImGui::PopID();
+		}
+
+		ImGui::Columns(1);
 		ImGui::End();
 	}
 }
