@@ -9,6 +9,7 @@
 #include "../BoofWoof/Utilities/Components/TransformComponent.hpp"
 #include "../BoofWoof/Utilities/Components/MetaData.hpp"
 #include "Serialization/Serialization.h"
+#include "EngineCore.h"
 
 class ImGuiEditor 
 {
@@ -26,6 +27,10 @@ public:
 	void WorldHierarchy();
 	void InspectorWindow();
 	void AssetWindow();
+	void Settings();
+
+	// For fun
+	void PlotSystemDT(const char* name, float dt, float totalDT);
 
 	// Variables
 	Entity g_SelectedEntity = 0;

@@ -26,7 +26,6 @@ void EngineCore::OnInit()
 	g_Core = this;
 
 	// Set up your global managers
-	//g_AssetManager.LoadShaders();
 
 	// register system & signatures
 	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
@@ -40,39 +39,46 @@ void EngineCore::OnInit()
 	// init system
 	mGraphicsSys->initGraphicsPipeline();
 
-	// tempo creation of entity for the systems
-	//Entity graphicsEntity = g_Coordinator.CreateEntity();
-	////// add transform component
-	//g_Coordinator.AddComponent<MetadataComponent>(graphicsEntity, MetadataComponent("TempGameObj", graphicsEntity));
-	//g_Coordinator.AddComponent<TransformComponent>(graphicsEntity, TransformComponent(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), graphicsEntity));
-	////// add graphics component
-	//g_Coordinator.AddComponent<GraphicsComponent>(graphicsEntity, GraphicsComponent(&g_AssetManager.Models[0], graphicsEntity));
-	//g_Coordinator.GetComponent<GraphicsComponent>(graphicsEntity).SetModelID(0);
 
 
-	//Entity graphics2DEntity = g_Coordinator.CreateEntity();
-	//
-	//g_Coordinator.AddComponent<TransformComponent>(graphics2DEntity, TransformComponent(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), graphics2DEntity));
-	//g_Coordinator.AddComponent<GraphicsComponent>(graphics2DEntity, GraphicsComponent(g_AssetManager.Model2D[0],graphics2DEntity));
 
-	std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
+	// Just leave this part at the most bottom
+	m_AccumulatedTime = 0.0;		// elapsed time
+	m_CurrNumSteps = 0;
 }
 
 void EngineCore::OnUpdate()
 {
+	m_CurrNumSteps = 0;
+	m_DeltaTime = m_EndTime - m_StartTime;	// start at 0
+	m_StartTime = g_Timer.GetCurrentTime();
+	m_AccumulatedTime += m_DeltaTime;
+
+	while (m_AccumulatedTime >= m_FixedDT)
+	{
+		m_AccumulatedTime -= m_FixedDT;
+		m_CurrNumSteps++;
+	}
+
+	// Cap at 4 to avoid performance hit due to too many steps in single frame
+	if (m_CurrNumSteps >= 4)
+	{
+		m_CurrNumSteps = 4;
+	}
+
 	// window update
 	g_Window->OnUpdate();
 
+	// input update
+	g_Input.UpdateStatesForNextFrame();
+
 	// system updates
-	//auto allEntities = g_Coordinator.GetAliveEntitiesSet();
-	//for (auto& entity : allEntities)
-	//{
-	//	if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) 
-	//	{
-	//		auto graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-	//		mGraphicsSys->UpdateLoop(graphicsComp);
-	//	}
-	//}
+	{
+		// Graphics
+		mGraphicsSys->UpdateLoop();
+		m_GraphicsDT = g_Timer.GetElapsedTime();
+	}
+
 
 	
 	//Test serialization
@@ -96,11 +102,12 @@ void EngineCore::OnUpdate()
 	
 
 
-	mGraphicsSys->UpdateLoop();
-	// input update
-	g_Input.UpdateStatesForNextFrame();
 
-	// ur glfw swapp buffer thingy
+
+
+	// keep this at the end
+	m_ElapsedDT = m_GraphicsDT; // to add more DT when more systems comes up
+	m_EndTime = g_Timer.GetCurrentTime();
 }
 
 void EngineCore::OnShutdown()

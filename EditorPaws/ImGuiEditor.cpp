@@ -57,6 +57,7 @@ void ImGuiEditor::ImGuiUpdate()
 	WorldHierarchy();
 	InspectorWindow();
 	AssetWindow();
+	Settings();
 
 	//// End the frame and render - this is in ImGuiRender()
 	//ImGui::Render();
@@ -572,4 +573,48 @@ void ImGuiEditor::AssetWindow()
 		ImGui::Columns(1);
 		ImGui::End();
 	}
+}
+
+void ImGuiEditor::Settings()
+{
+	ImGui::Begin("Settings");
+	{
+		ImGui::SeparatorText("Configurations");
+
+		// Window Size, Frame Rate, Frame Count, Camera Position (future)
+		ImGui::Text("Window Size: %d x %d", g_Window->GetWindowWidth(), g_Window->GetWindowHeight());
+		ImGui::Text("Frame Rate: %f", g_Window->GetFPS());
+		ImGui::Text("Frame Count: %d", g_Core->m_CurrNumSteps);
+
+		ImGui::Spacing();
+
+		ImGui::SeparatorText("System DT (% of Total Game Loop)");
+
+		//ImGui::Text("Graphics DT: %f", ((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100));
+		PlotSystemDT("Graphics DT", static_cast<float>((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
+	}
+
+	ImGui::End();
+}
+
+void ImGuiEditor::PlotSystemDT(const char* name, float dt, float totalDT)
+{
+	static_cast<void>(totalDT);
+
+	// keep track of values array and offset for each system based on their names
+	static std::map<std::string, std::pair<int, float[90]>> data;
+
+	// Get the values and offset for this system
+	auto& [values_offset, values] = data[name];
+
+	// Append the current dt to the values array
+	values[values_offset] = dt;
+	values_offset = (values_offset + 1) % IM_ARRAYSIZE(values);
+
+	// Create overlay string
+	char overlay[32];
+
+	sprintf_s(overlay, "%f", dt);
+	// Plot lines	
+	ImGui::PlotLines(name, values, IM_ARRAYSIZE(values), values_offset, overlay, FLT_MAX, FLT_MAX, ImVec2(0, 40.0f));
 }
