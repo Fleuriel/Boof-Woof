@@ -60,7 +60,7 @@ public:
 private:
 	Entity m_EntityID{};
 	glm::vec3 m_Position{};
-	glm::vec3 m_Scale{};
+	glm::vec3 m_Scale{1.f,1.f,1.f};
 	glm::vec3 m_Rotation{};
 
 };
