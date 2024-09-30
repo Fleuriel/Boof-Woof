@@ -5,6 +5,7 @@
 #include "ECS/Coordinator.hpp"
 #include "../Core/Graphics/Model.h"   // Make sure Model is included
 #include "../Core/Graphics/Object.h"  // Full definition of Object is needed here
+#include "AssetManager/AssetManager.h"
 
 
 class GraphicsComponent
@@ -26,7 +27,7 @@ public:
 	GraphicsComponent() {};
 
 	GraphicsComponent(Model* model, Entity entity)
-		:m_Model(model), m_EntityID(entity)  {/*Empty by design*/
+		:m_Model(model), m_EntityID(entity)  {
 	}
 
 	//GraphicsComponent(Model2D model2D, Entity entity)
@@ -37,7 +38,7 @@ public:
 
 private:
 	Entity m_EntityID{};
-	Model* m_Model{};
+	Model* m_Model=&g_AssetManager.ModelMap["sphere"]; // Default model is sphere
 	int m_ModelID{};
 	//Model2D m_Model2D{};
 };
