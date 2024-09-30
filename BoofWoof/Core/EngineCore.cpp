@@ -55,7 +55,7 @@ void EngineCore::OnInit()
 	//g_Coordinator.AddComponent<TransformComponent>(graphics2DEntity, TransformComponent(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), graphics2DEntity));
 	//g_Coordinator.AddComponent<GraphicsComponent>(graphics2DEntity, GraphicsComponent(g_AssetManager.Model2D[0],graphics2DEntity));
 
-	std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
+	//std::cout << "Total entities: " << g_Coordinator.GetTotalEntities() << std::endl;
 }
 
 void EngineCore::OnUpdate()

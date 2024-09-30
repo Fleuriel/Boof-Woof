@@ -137,13 +137,10 @@ void GraphicsSystem::AddModel_3D(std::string const& path)
 	
 	model.loadModel(path, GL_TRIANGLES);
 
+	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>(path, model));
 
 
-
-	g_AssetManager.Models.push_back(model);
-
-
-	std::cout << "Loaded: " << path << " [Models Reference: " << g_AssetManager.Models.size()-1 << "]" << '\n';
+	std::cout << "Loaded: " << path << " [Models Reference: " << g_AssetManager.ModelMap.size()-1 << "]" << '\n';
 }
 
 void GraphicsSystem::AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model)
