@@ -340,7 +340,7 @@ void ImGuiEditor::InspectorWindow()
 				auto modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModel();
 				const char* source = "";
 
-				if (modelName == &g_AssetManager.Models[0])
+				if (modelName == &g_AssetManager.ModelMap["sphere"])
 				{
 					source = "Sphere";
 				}
@@ -357,7 +357,7 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("Model   "); ImGui::SameLine();
 				if (ImGui::Combo("##ModelCombo", &currentModel, modelNames, 1))
 				{
-					if (currentModel == 0) modelName = &g_AssetManager.Models[0];
+					if (currentModel == 0) modelName = &g_AssetManager.ModelMap["sphere"];
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModel(modelName);
 				}
 

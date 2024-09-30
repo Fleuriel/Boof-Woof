@@ -141,7 +141,7 @@ void Serialization::LoadEngineState(const std::string& filepath) {
                 int modelID = entityData["ModelID"].GetInt();
 
                 // Create GraphicsComponent with the deserialized model ID
-                GraphicsComponent graphicsComponent(&g_AssetManager.Models[modelID], entity);
+                GraphicsComponent graphicsComponent(&g_AssetManager.ModelMap["sphere"], entity);
                 graphicsComponent.SetModelID(modelID);
                 g_Coordinator.AddComponent(entity, graphicsComponent);
             }
