@@ -4,10 +4,26 @@
 #include <iostream>
 #include <filesystem>
 
-void Serialization::SaveEngineState(const std::string& filepath) {
-    // Ensure the Saves directory exists
-    std::filesystem::create_directory("Saves");
+std::string GetScenesPath() {
+    // Get current working directory (should be EditorPaws when running)
+    std::filesystem::path currentPath = std::filesystem::current_path();
 
+    // Go up one level (to reach BoofWoof)
+    std::filesystem::path projectRoot = currentPath.parent_path();
+
+    // Append "BoofWoof/Assets/Scenes" to the project root
+    std::filesystem::path scenesPath = projectRoot / "BoofWoof" / "Assets" / "Scenes";
+
+    return scenesPath.string();
+}
+
+bool Serialization::SaveScene(const std::string& filepath) {
+    // Get the full path to BoofWoof/Assets/Scenes dynamically
+    std::string fullSavePath = GetScenesPath() + "/" + filepath;
+
+    // Ensure the directories exist
+    std::filesystem::create_directories(GetScenesPath());
+    // Continue with saving the scene
     rapidjson::Document doc;
     doc.SetObject();
     rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
@@ -18,8 +34,7 @@ void Serialization::SaveEngineState(const std::string& filepath) {
         rapidjson::Value entityData(rapidjson::kObjectType);
 
         // Serialize MetadataComponent
-        if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) 
-        {
+        if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) {
             auto& name = g_Coordinator.GetComponent<MetadataComponent>(entity);
             rapidjson::Value entityName;
             entityName.SetString(name.GetName().c_str(), allocator);
@@ -68,22 +83,24 @@ void Serialization::SaveEngineState(const std::string& filepath) {
 
     doc.AddMember("Entities", entities, allocator);
 
-    // Write the document to a file in the "Saves" folder
-    FILE* fp = fopen("Saves/engine_state.json", "wb");
+    // Write the document to a file in the "Scenes" folder
+    FILE* fp = fopen(fullSavePath.c_str(), "wb");
     if (fp) {
         char writeBuffer[65536];
         rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
         rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
         doc.Accept(writer);
         fclose(fp);
+        return true; // Successfully saved
     }
+    return false; // Failed to save
 }
 
-void Serialization::LoadEngineState(const std::string& filepath) {
+bool Serialization::LoadScene(const std::string& filepath) {
     FILE* fp = fopen(filepath.c_str(), "rb");
     if (!fp) {
         std::cerr << "Failed to open file for loading: " << filepath << std::endl;
-        return;
+        return false;
     }
 
     char readBuffer[65536];
@@ -95,7 +112,7 @@ void Serialization::LoadEngineState(const std::string& filepath) {
 
     if (!doc.IsObject()) {
         std::cerr << "Invalid JSON format in: " << filepath << std::endl;
-        return;
+        return false;
     }
 
     // Deserialize entities with components
@@ -151,5 +168,6 @@ void Serialization::LoadEngineState(const std::string& filepath) {
         }
     }
 
-    std::cout << "Engine state loaded from " << filepath << std::endl;
+    std::cout << "Scene loaded from " << filepath << std::endl;
+    return true; // Successfully loaded
 }

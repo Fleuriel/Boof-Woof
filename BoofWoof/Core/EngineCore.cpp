@@ -80,11 +80,11 @@ void EngineCore::OnUpdate()
 	}
 
 
-	
+	/*
 	//Test serialization
 	if (g_Input.GetKeyState(GLFW_KEY_P) == 1) {  // Save engine state
 		std::cout << "P key pressed, saving engine state..." << std::endl;
-		g_Json.SaveEngineState("Saves/engine_state.json");
+		g_SceneManager.SaveScene("Saves/engine_state.json");
 		std::cout << "Engine state saved to Saves/engine_state.json" << std::endl;
 	}
 
@@ -96,9 +96,10 @@ void EngineCore::OnUpdate()
 
 	if (g_Input.GetKeyState(GLFW_KEY_L) == 1) {  // Load engine state
 		std::cout << "L key pressed, loading engine state..." << std::endl;
-		g_Json.LoadEngineState("Saves/engine_state.json");
+		g_SceneManager.SaveScene("Saves/engine_state.json");
 		std::cout << "Engine state loaded from Saves/engine_state.json" << std::endl;
 	}
+	*/
 	
 
 
