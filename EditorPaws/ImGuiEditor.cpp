@@ -499,7 +499,7 @@ void ImGuiEditor::InspectorWindow()
 				std::filesystem::path path(scenePath);
 				std::string sceneName = path.filename().string();  // Get the file name
 				ImGui::Text("Scene: %s", sceneName.c_str());
-				ImGui::SameLine();
+				ImGui::NewLine();
 				ImGui::Text("GUID: %s", sceneGUID.c_str());
 				ImGui::Separator();
 			}
