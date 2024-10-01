@@ -231,11 +231,9 @@ void ImGuiEditor::InspectorWindow()
 {
 	static char fileNameBuffer[256] = "unnamed_scene"; // Default filename
 	static bool showSavePopup = false;
-	static bool showOverwritePopup = false;
-	static std::string pendingFileName = ""; // File name being saved before overwrite check
-	static std::string finalFileName = "";   // Final filename after checking
-	static std::string filePath = "";        // Full file path
-	static bool fileExists = false;          // To track if file exists
+	static bool showTransitionPopup = false;
+	static float transitionDuration = 1.0f; // Default transition duration
+	static bool showSceneSelectionWarning = false; // Flag to show the warning
 
 	ImGui::Begin("Inspector");
 	{
@@ -304,7 +302,6 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Identifier", ImGuiTreeNodeFlags_None))
 			{
-				// Name
 				auto& ObjName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
 
 				char entityNameBuffer[256];
@@ -325,7 +322,6 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_None))
 			{
-				//position
 				auto& Position = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetPosition();
 				ImGui::PushItemWidth(250.0f);
 				ImGui::Text("Position"); ImGui::SameLine();
@@ -335,7 +331,6 @@ void ImGuiEditor::InspectorWindow()
 					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetPosition(Position);
 				}
 
-				//scale
 				auto& Scale = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetScale();
 				ImGui::Text("Scale   "); ImGui::SameLine();
 
@@ -344,7 +339,6 @@ void ImGuiEditor::InspectorWindow()
 					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetScale(Scale);
 				}
 
-				//rotation
 				auto& rotation = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetRotation();
 				ImGui::Text("Rotation"); ImGui::SameLine();
 
@@ -359,23 +353,19 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
 			{
-				//	modelName - tempo
 				auto modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModel();
-				const char* source = "";
-
-				if (modelName == &g_AssetManager.ModelMap["sphere"])
-				{
-					source = "Sphere";
-				}
+				const char* source = (modelName == &g_AssetManager.ModelMap["sphere"]) ? "Sphere" : "";
 
 				const char* modelNames[] = { "Sphere" };
 				static int currentModel = 0;
 
-				for (int i = 0; i < 6; ++i) {
+				for (int i = 0; i < 1; ++i)
+				{
 					if (modelNames[i] == source) {
 						currentModel = i;
 					}
 				}
+
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Model   "); ImGui::SameLine();
 				if (ImGui::Combo("##ModelCombo", &currentModel, modelNames, 1))
@@ -384,7 +374,6 @@ void ImGuiEditor::InspectorWindow()
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModel(modelName);
 				}
 
-				// modelID
 				auto modelID = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelID();
 				ImGui::Text("ModelID "); ImGui::SameLine();
 				if (ImGui::DragInt("##ModelID", &modelID, 1))
@@ -394,12 +383,13 @@ void ImGuiEditor::InspectorWindow()
 			}
 		}
 
-		// Save & Load file portion	
 		ImGui::Spacing();
 
 		// Load button with file dialog
 		if (ImGui::Button("Load"))
+		{
 			ImGuiFileDialog::Instance()->OpenDialog("ChooseFileDlgKey", "Choose File", ".json", "../BoofWoof/Assets/Scenes/");
+		}
 
 		if (ImGuiFileDialog::Instance()->Display("ChooseFileDlgKey"))
 		{
@@ -416,8 +406,8 @@ void ImGuiEditor::InspectorWindow()
 
 		ImGui::SameLine();
 
-		if (ImGui::Button("Save Current World"))
-		{
+		// Save Current World button functionality
+		if (ImGui::Button("Save Current World")) {
 			showSavePopup = true;  // Show the popup when the button is pressed
 		}
 
@@ -426,33 +416,31 @@ void ImGuiEditor::InspectorWindow()
 			ImGui::OpenPopup("Save Scene As");
 		}
 
-		// Popup modal for saving the scene
 		if (ImGui::BeginPopupModal("Save Scene As", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 			ImGui::Text("Enter the name of the scene:");
-
-			// Input text box for the user to enter the filename
 			ImGui::InputText("##FileName", fileNameBuffer, IM_ARRAYSIZE(fileNameBuffer));
 
 			if (ImGui::Button("Save")) {
 				std::string fileName = fileNameBuffer;
 				if (fileName.empty()) {
-					fileName = "unnamed_scene"; // Default if empty
+					fileName = "unnamed_scene";
 				}
 
-				pendingFileName = fileName; // Save this file name to be processed
+				std::string finalFileName = fileName;
+				std::string filePath = GetScenesDir() + "/" + finalFileName + ".json";
+				int counter = 1;
 
-				// Check if the file exists
-				filePath = GetScenesDir() + "/" + pendingFileName + ".json";
-				fileExists = std::filesystem::exists(filePath);
+				while (std::filesystem::exists(filePath)) {
+					finalFileName = fileName + "_" + std::to_string(counter);
+					filePath = GetScenesDir() + "/" + finalFileName + ".json";
+					counter++;
+				}
 
-				if (fileExists) {
-					showOverwritePopup = true; // Show overwrite popup if file exists
+				if (g_SceneManager.SaveScene(finalFileName + ".json")) {
+					ImGui::OpenPopup("Saved");
 				}
 				else {
-					// File doesn't exist, save directly
-					finalFileName = pendingFileName;
-					g_SceneManager.SaveScene(finalFileName + ".json");
-					ImGui::OpenPopup("Saved");
+					ImGui::OpenPopup("Failed");
 				}
 
 				showSavePopup = false;
@@ -469,44 +457,6 @@ void ImGuiEditor::InspectorWindow()
 			ImGui::EndPopup();
 		}
 
-		// Overwrite Confirmation Popup
-		if (showOverwritePopup) {
-			ImGui::OpenPopup("Overwrite Confirmation");
-		}
-
-		// Popup to confirm overwriting
-		if (ImGui::BeginPopupModal("Overwrite Confirmation", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
-			ImGui::Text("File already exists. Do you want to overwrite it?");
-			if (ImGui::Button("Yes")) {
-				// Overwrite the file
-				finalFileName = pendingFileName;
-				g_SceneManager.SaveScene(finalFileName + ".json");
-				ImGui::OpenPopup("Saved");
-
-				showOverwritePopup = false;
-				ImGui::CloseCurrentPopup();
-			}
-
-			ImGui::SameLine();
-
-			if (ImGui::Button("No")) {
-				// Append a number to the filename and save
-				int counter = 1;
-				finalFileName = pendingFileName;
-				while (std::filesystem::exists(GetScenesDir() + "/" + finalFileName + ".json")) {
-					finalFileName = pendingFileName + "_" + std::to_string(counter);
-					counter++;
-				}
-				g_SceneManager.SaveScene(finalFileName + ".json");
-				ImGui::OpenPopup("Saved");
-
-				showOverwritePopup = false;
-				ImGui::CloseCurrentPopup();
-			}
-
-			ImGui::EndPopup();
-		}
-
 		// Confirmation popup when the scene is saved
 		if (ImGui::BeginPopupModal("Saved", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 			ImGui::Text("\nYour world has been saved!\n\n");
@@ -517,7 +467,6 @@ void ImGuiEditor::InspectorWindow()
 			ImGui::EndPopup();
 		}
 
-		// Failed popup if saving failed
 		if (ImGui::BeginPopupModal("Failed", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 			ImGui::Text("\nSaving failed! Try again.\n\n");
 			ImGui::Separator();
@@ -526,22 +475,116 @@ void ImGuiEditor::InspectorWindow()
 			}
 			ImGui::EndPopup();
 		}
-
 		ImGui::SameLine();
-		/*if (ImGui::Button("Save New World"))
+
+		if (ImGui::Button("Clear all entities")) {
+			g_Coordinator.ResetEntities();
+			g_SceneManager.ClearSceneList();
+		}
+
+		ImGui::Spacing();
+		ImGui::Separator();
+		ImGui::Text("Currently Loaded Scenes:");
+		ImGui::Separator();
+
+		// Loaded scenes display
+		const auto& scenes = g_SceneManager.GetAllScenes();
+		if (scenes.empty()) {
+			ImGui::Text("No scenes loaded");
+		}
+		else {
+			for (const auto& [sceneGUID, scenePath] : scenes)
+			{
+				// Extract the file name from the full path
+				std::filesystem::path path(scenePath);
+				std::string sceneName = path.filename().string();  // Get the file name
+				ImGui::Text("Scene: %s", sceneName.c_str());
+				ImGui::SameLine();
+				ImGui::Text("GUID: %s", sceneGUID.c_str());
+				ImGui::Separator();
+			}
+		}
+		// Add Transition button
+		if (ImGui::Button("Transition to Scene"))
 		{
-		g_Json.m_SaveCounter++;
-		std::stringstream ss;
-		ss << "../BoofWoof/Saves/SaveWorld" << g_Json.m_SaveCounter << ".json";
+			showTransitionPopup = true;  // Show the transition popup when button is pressed
+		}
 
-		g_Json.JsonSerializeNew(ss.str());
+		// Open popup for scene transition
+		if (showTransitionPopup)
+		{
+			ImGui::OpenPopup("Transition Scene");
+		}
 
-		ImGui::OpenPopup("Saved");
-		}*/
+		// Transition scene popup
+		if (ImGui::BeginPopupModal("Transition Scene", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::Text("Select a scene to transition to:");
+			ImGui::SameLine();
+			if (ImGui::Button("Open Scene Browser"))
+			{
+				ImGuiFileDialog::Instance()->OpenDialog("ChooseTransitionSceneDlgKey", "Choose Scene", ".json", "../BoofWoof/Assets/Scenes/");
+			}
+
+			// Display file dialog for selecting transition scene
+			static std::string selectedTransitionScene;
+			if (ImGuiFileDialog::Instance()->Display("ChooseTransitionSceneDlgKey"))
+			{
+				if (ImGuiFileDialog::Instance()->IsOk())
+				{
+					selectedTransitionScene = ImGuiFileDialog::Instance()->GetFilePathName();
+				}
+				ImGuiFileDialog::Instance()->Close();
+			}
+
+			// Show selected scene
+			if (!selectedTransitionScene.empty())
+			{
+				std::filesystem::path transitionPath(selectedTransitionScene);
+				ImGui::Text("Selected Scene: %s", transitionPath.filename().string().c_str());
+			}
+
+			// Input for transition duration
+			ImGui::Text("Transition Duration (seconds):");
+			ImGui::InputFloat("##TransitionDuration", &transitionDuration, 0.1f, 1.0f, "%.2f");
+
+			// Start transition
+			if (ImGui::Button("Start Transition"))
+			{
+				if (!selectedTransitionScene.empty())
+				{
+					g_SceneManager.TransitionToScene(selectedTransitionScene, transitionDuration);
+					showTransitionPopup = false;
+					ImGui::CloseCurrentPopup();
+				}
+				else
+				{
+					showSceneSelectionWarning = true;  // Set flag to true when no scene is selected
+				}
+			}
+
+			ImGui::SameLine();
+
+			// Cancel button
+			if (ImGui::Button("Cancel"))
+			{
+				showTransitionPopup = false;
+				ImGui::CloseCurrentPopup();
+			}
+
+			// Show the warning message if no scene was selected
+			if (showSceneSelectionWarning)
+			{
+				ImGui::TextColored(ImVec4(1, 0, 0, 1), "Please select a scene.");
+			}
+
+
+			ImGui::EndPopup();
+		}
 		ImGui::End();
 	}
-
 }
+
 
 
 // Asset Window is incomplete cause no Asset Manager yet

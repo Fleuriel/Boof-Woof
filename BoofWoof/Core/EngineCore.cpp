@@ -26,6 +26,7 @@ void EngineCore::OnInit()
 	g_Core = this;
 
 	// Set up your global managers
+	g_SceneManager;
 
 	// register system & signatures
 	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
@@ -71,6 +72,9 @@ void EngineCore::OnUpdate()
 
 	// input update
 	g_Input.UpdateStatesForNextFrame();
+
+	//Transition
+	g_SceneManager.Update(m_DeltaTime);
 
 	// system updates
 	{

@@ -1,9 +1,10 @@
 {
+    "SceneGUID": "c3a98518-19c1-4888-ba18-961a272ce137",
     "Entities": [
         {
             "EntityName": "GameObject",
             "Position": {
-                "x": 0.0,
+                "x": 1.0,
                 "y": 0.0,
                 "z": 0.0
             },

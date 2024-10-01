@@ -1,17 +1,14 @@
-#pragma once
-
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
 
 #include <vector>
 #include <string>
+#include <unordered_map> // To map GUIDs to scene file paths
 #include <functional> // For callbacks
 #include <chrono>     // For timing transitions
 
 #define g_SceneManager SceneManager::GetInstance()
-/**************************************************************************
-* @brief SceneManager Class
-*************************************************************************/
+
 class SceneManager
 {
 public:
@@ -30,6 +27,9 @@ public:
     // Load a scene from a file
     bool LoadScene(const std::string& filepath);
 
+    // Load a scene based on its GUID
+    bool LoadSceneByGUID(const std::string& sceneGUID);
+
     // Save the current scene to a file
     bool SaveScene(const std::string& filepath);
 
@@ -37,7 +37,7 @@ public:
     std::string GetCurrentSceneName() const;
 
     // Get all the loaded scenes
-    const std::vector<std::string>& GetAllScenes() const;
+    const std::vector<std::pair<std::string, std::string>>& GetAllScenes() const;
 
     // Reset the scene (clear all entities)
     void ResetScene();
@@ -54,7 +54,8 @@ public:
     // Optionally, register a callback for when a scene is fully loaded
     void SetSceneLoadedCallback(std::function<void(const std::string&)> callback);
 
-    void AddSceneToList(const std::string& sceneName);
+    void AddSceneToList(const std::string& sceneName, const std::string& sceneGUID);
+    inline void ClearSceneList() { sceneList.clear(); };
 
 private:
     // Internally handle loading scenes with transition
@@ -67,7 +68,11 @@ private:
     std::string targetScene;
     std::string currentScene;
 
-    std::vector<std::string> sceneList;
+    // Updated to store a pair of scene file paths and GUIDs
+    std::vector<std::pair<std::string, std::string>> sceneList; // Pair of (GUID, scene file path)
+
+    // Map GUIDs to file paths for easy lookup
+    std::unordered_map<std::string, std::string> guidToFileMap;
 
     std::function<void(const std::string&)> onSceneLoadedCallback;
 
