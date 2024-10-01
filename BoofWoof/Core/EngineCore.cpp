@@ -1,6 +1,7 @@
 #include "EngineCore.h"
 
 std::shared_ptr<GraphicsSystem> mGraphicsSys;
+std::shared_ptr<LogicSystem> mLogicSys;
 
 void EngineCore::OnInit()
 {
@@ -22,6 +23,8 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<TransformComponent>();
 	g_Coordinator.RegisterComponent<GraphicsComponent>();
 
+	g_Coordinator.RegisterComponent<BehaviourComponent>();
+
 	// setting global pointer
 	g_Core = this;
 
@@ -36,9 +39,17 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
+	mLogicSys = g_Coordinator.RegisterSystem<LogicSystem>();
+	{
+		Signature signature;
+		signature.set(g_Coordinator.GetComponentType<BehaviourComponent>());
+		g_Coordinator.SetSystemSignature<LogicSystem>(signature);
+	}
+	
+
 	// init system
 	mGraphicsSys->initGraphicsPipeline();
-
+	mLogicSys->Init();
 
 
 
@@ -77,6 +88,7 @@ void EngineCore::OnUpdate()
 		// Graphics
 		mGraphicsSys->UpdateLoop();
 		m_GraphicsDT = g_Timer.GetElapsedTime();
+		mLogicSys->Update();
 	}
 
 
