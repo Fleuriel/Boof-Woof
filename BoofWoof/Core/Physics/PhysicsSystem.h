@@ -1,44 +1,48 @@
-#ifndef PHYSICS_SYSTEM_H
-#define PHYSICS_SYSTEM_H
+#ifndef PHYSICSSYSTEM_H
+#define PHYSICSSYSTEM_H
 
 #include <Jolt/Jolt.h>
-#include <Jolt/Physics/PhysicsSystem.h>
-#include <Jolt/Physics/Body/BodyInterface.h>
-#include <Jolt/Core/TempAllocator.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
-#include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayerInterfaceTable.h>
-#include <Jolt/Physics/Collision/NarrowPhaseQuery.h>
-#include <Jolt/Physics/Collision/ObjectLayer.h>
-#include <Jolt/Physics/Collision/PhysicsMaterial.h>
-#include <Jolt/Physics/Constraints/Constraint.h>
+#include <Jolt/Physics/PhysicsSystem.h>
+#include <Jolt/Physics/PhysicsSettings.h>
+#include <Jolt/RegisterTypes.h>
 
+// Forward declarations
+namespace JPH {
+    class JobSystemThreadPool;
+    class TempAllocatorImpl;
+    class PhysicsSystem;
+}
 
-class PhysicsSystem {
+// Class to interface with JoltPhysics
+class PhysicsManager {
 public:
-    PhysicsSystem();
-    ~PhysicsSystem();
+    // Initialize JoltPhysics engine
+    void InitializeJolt();
 
-    void Initialize();
-    void Update(float deltaTime);
-    void AddObject(/* parameters for adding a physics object */);
-    void RemoveObject(/* parameters for removing a physics object */);
+    // Create and configure the PhysicsSystem
+    JPH::PhysicsSystem* CreatePhysicsSystem();
+
+    // Add a dynamic body to the PhysicsSystem
+    void AddBody(JPH::PhysicsSystem* physicsSystem, JPH::Vec3 position, float mass);
+
+    // Step the physics simulation
+    void SimulatePhysics(JPH::PhysicsSystem* physicsSystem, float deltaTime, JPH::JobSystem* jobSystem);
+
+    // Cleanup resources
+    void Cleanup();
 
 private:
-    JPH::PhysicsSystem* m_physicsSystem;    // Pointer to the Jolt physics system
-    JPH::BodyInterface* m_bodyInterface;    // Interface to manage bodies
-    JPH::TempAllocator* m_tempAllocator;    // Temporary allocator for physics system
-    JPH::JobSystem* m_jobSystem;            // Job system for multithreading
-
-    // Replace BroadPhaseLayerInterface with the correct interface implementation
-    JPH::BroadPhaseLayerInterfaceTable m_broadPhaseLayerInterface;  // Or BroadPhaseLayerInterfaceMask
-
-    // Layers for collision filtering
-    class ObjectLayerPairFilterImpl : public JPH::ObjectLayerPairFilter {
-    public:
-        virtual bool ShouldCollide(JPH::ObjectLayer object1, JPH::ObjectLayer object2) const override;
-    };
-
-    ObjectLayerPairFilterImpl m_objectLayerPairFilter;
+    JPH::JobSystemThreadPool* mJobSystem = nullptr;
+    JPH::TempAllocatorImpl* mTempAllocator = nullptr;
+    JPH::PhysicsSystem* mPhysicsSystem = nullptr;
 };
 
-#endif  // PHYSICS_SYSTEM_H
+// Custom BroadPhaseLayerInterface
+class MyBroadPhaseLayerInterface : public JPH::BroadPhaseLayerInterface {
+public:
+    virtual unsigned int GetNumBroadPhaseLayers() const override;
+    virtual JPH::BroadPhaseLayer GetBroadPhaseLayer(JPH::ObjectLayer layer) const override;
+};
+
+#endif // PHYSICSSYSTEM_H

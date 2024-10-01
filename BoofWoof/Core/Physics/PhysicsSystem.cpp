@@ -1,58 +1,120 @@
 #include "PhysicsSystem.h"
-#include <Jolt/Physics/Body/BodyCreationSettings.h>
-#include <Jolt/Physics/Collision/GroupFilterTable.h>
+#include <Jolt/Physics/Body/Body.h>                   // For Body
+#include <Jolt/Physics/Body/BodyCreationSettings.h>   // For BodyCreationSettings
+#include <Jolt/Physics/Collision/Shape/SphereShape.h> // For SphereShape
+#include <Jolt/Physics/Collision/Shape/ConvexShape.h> // For SphereShape
+#include <Jolt/Physics/Body/BodyInterface.h>          // For BodyInterface
+#include <cstdint>  // For uint32_t or standard integer types
+
+void PhysicsManager::InitializeJolt() {
+    // Initialize JobSystem with multiple threads
+    mJobSystem = new JPH::JobSystemThreadPool();
+
+    // Set up max jobs, barriers, and threads (configure according to your needs)
+    unsigned int maxJobs = 512;
+    unsigned int maxBarriers = 4;
+    int numThreads = 4;
+
+    mJobSystem->Init(maxJobs, maxBarriers, numThreads); // Call Init with proper parameters
+
+    // Create TempAllocator
+    mTempAllocator = new JPH::TempAllocatorImpl(1024 * 1024); // 1 MB allocator
+
+    // Register JoltPhysics types
+    JPH::RegisterTypes();
+}
+
+// Object-vs-broad-phase-layer filter
+class MyObjectVsBroadPhaseLayerFilter : public JPH::ObjectVsBroadPhaseLayerFilter {
+public:
+    virtual bool ShouldCollide(JPH::ObjectLayer inLayer1, JPH::BroadPhaseLayer inLayer2) const override {
+        return true; // Allow all collisions between broad phase layers and object layers for now
+    }
+};
+
+// Object-layer-pair filter
+class MyObjectLayerPairFilter : public JPH::ObjectLayerPairFilter {
+public:
+    virtual bool ShouldCollide(JPH::ObjectLayer inObjectLayer1, JPH::ObjectLayer inObjectLayer2) const override {
+        return true; // Allow all object layers to collide for now
+    }
+};
+
+JPH::PhysicsSystem* PhysicsManager::CreatePhysicsSystem() {
+    const unsigned int cMaxBodies = 1024;       // Max number of bodies
+    const unsigned int cNumBodyMutexes = 16;    // Choose a power of 2 in the range [1, 64]
+    const unsigned int cMaxBodyPairs = 1024;    // Max number of body pairs for collision detection
+    const unsigned int cMaxContactConstraints = 1024; // Max number of contact constraints
+
+    // Create the PhysicsSystem instance
+    mPhysicsSystem = new JPH::PhysicsSystem();
+
+    // Initialize filters
+    MyBroadPhaseLayerInterface broadPhaseLayerInterface;
+    MyObjectVsBroadPhaseLayerFilter objectVsBroadPhaseLayerFilter;
+    MyObjectLayerPairFilter objectLayerPairFilter;
+
+    // Initialize the PhysicsSystem with the filters
+    mPhysicsSystem->Init(
+        cMaxBodies,
+        cNumBodyMutexes,
+        cMaxBodyPairs,
+        cMaxContactConstraints,
+        broadPhaseLayerInterface,
+        objectVsBroadPhaseLayerFilter,
+        objectLayerPairFilter
+    );
+
+    // Set gravity (optional)
+    mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, -9.81f, 0.0f));
+
+    return mPhysicsSystem;
+}
+
+void PhysicsManager::AddBody(JPH::PhysicsSystem* physicsSystem, JPH::Vec3 position, float mass) {
+    // Create a dynamic sphere body (for example)
+    JPH::SphereShape* sphereShape = new JPH::SphereShape(1.0f); // 1-meter radius sphere
+
+    // Define body creation settings
+    JPH::BodyCreationSettings bodySettings(
+        sphereShape,                  // Shape
+        position,                     // Position
+        JPH::Quat::sIdentity(),       // Orientation
+        JPH::EMotionType::Dynamic,    // Dynamic motion type
+        1                             // Object layer (dynamic objects)
+    );
+
+    // Override mass if needed
+    bodySettings.mMassPropertiesOverride.mMass = mass;
+
+    // Create the body
+    JPH::Body* body = physicsSystem->GetBodyInterface().CreateBody(bodySettings);
+
+    // Add the body to the system
+    physicsSystem->GetBodyInterface().AddBody(body->GetID(), JPH::EActivation::Activate);
+}
 
 
-//PhysicsSystem::PhysicsSystem()
-//    : m_physicsSystem(nullptr),
-//    m_bodyInterface(nullptr),
-//    m_tempAllocator(nullptr),
-//    m_jobSystem(nullptr) {
-//}
-//
-//PhysicsSystem::~PhysicsSystem() {
-//    delete m_physicsSystem;
-//    delete m_tempAllocator;
-//    delete m_jobSystem;
-//}
-//
-//void PhysicsSystem::Initialize() {
-//    // Create the temp allocator for temporary memory allocations
-//    m_tempAllocator = new JPH::TempAllocatorImpl(10 * 1024 * 1024);  // Allocate 10 MB
-//
-//    // Create a job system for multithreading
-//    m_jobSystem = new JPH::JobSystemThreadPool(cMaxPhysicsJobs, cMaxPhysicsBarriers, std::thread::hardware_concurrency() - 1);
-//
-//    // Initialize the physics system with broad phase and narrow phase layers
-//    m_physicsSystem = new JPH::PhysicsSystem(cMaxBodies, cNumBodyMutexes, cMaxBodyPairs, cMaxContactConstraints);
-//
-//    m_physicsSystem->Init(cMaxBodies, cNumBodyMutexes, cMaxBodyPairs, cMaxContactConstraints,
-//        m_broadPhaseLayerInterface, m_objectLayerPairFilter);
-//
-//    m_bodyInterface = &m_physicsSystem->GetBodyInterface();
-//}
-//
-//void PhysicsSystem::Update(float deltaTime) {
-//    // Step the physics system
-//    m_physicsSystem->Update(deltaTime, /* gravity */ JPH::Vec3(0, -9.81f, 0), m_tempAllocator, m_jobSystem);
-//}
-//
-//void PhysicsSystem::AddObject(/* parameters for adding a physics object */) {
-//    // Example: Create a rigid body and add it to the physics system
-//    JPH::BodyCreationSettings settings(JPH::BoxShapeSettings(JPH::Vec3(1.0f, 1.0f, 1.0f)), JPH::Vec3(0, 10, 0),
-//        JPH::EMotionType::Dynamic, JPH::ObjectLayer::MOVING);
-//    JPH::BodyID bodyID = m_bodyInterface->CreateBody(settings);
-//    m_bodyInterface->AddBody(bodyID, JPH::EActivation::Activate);
-//}
-//
-//void PhysicsSystem::RemoveObject(/* parameters for removing a physics object */) {
-//    // Example: Remove a body from the physics system
-//    JPH::BodyID bodyID = /* body ID to remove */;
-//    m_bodyInterface->RemoveBody(bodyID);
-//}
-//
-//// Implementation for ObjectLayerPairFilter
-//bool PhysicsSystem::ObjectLayerPairFilterImpl::ShouldCollide(JPH::ObjectLayer object1, JPH::ObjectLayer object2) const {
-//    return true;  // Example: Allow all collisions
-//}
+void PhysicsManager::SimulatePhysics(JPH::PhysicsSystem* physicsSystem, float deltaTime, JPH::JobSystem* jobSystem) {
+    int collisionSteps = 1; // Adjust this as needed based on your simulation requirements
 
+    physicsSystem->Update(deltaTime, collisionSteps, mTempAllocator, jobSystem);
+}
+
+void PhysicsManager::Cleanup() {
+    delete mPhysicsSystem;
+    delete mJobSystem;
+    delete mTempAllocator;
+}
+
+unsigned int MyBroadPhaseLayerInterface::GetNumBroadPhaseLayers() const {
+    return 2; // Two layers: Static and Dynamic
+}
+
+JPH::BroadPhaseLayer MyBroadPhaseLayerInterface::GetBroadPhaseLayer(JPH::ObjectLayer layer) const {
+    switch (layer) {
+    case 0: return JPH::BroadPhaseLayer(0); // Static objects
+    case 1: return JPH::BroadPhaseLayer(1); // Dynamic objects
+    default: return JPH::BroadPhaseLayer(0);
+    }
+}
