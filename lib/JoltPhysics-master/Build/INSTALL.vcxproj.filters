@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\aloya\Downloads\JoltPhysics-master\JoltPhysics-master\Build\CMakeFiles\c89ace2facaaa616942130cf58dd0e51\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{1F20CD19-EB8B-36E3-90E4-99768E02BC27}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
