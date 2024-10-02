@@ -26,6 +26,7 @@
 #include "Graphics/Shader.h"
 #include "Graphics/Model.h"
 #include "Graphics/Object.h"
+#include "Sprite.h"
 
  // Forward declarations
 
@@ -44,6 +45,18 @@ public:
 	AssetManager();																			// Default Constructor
 	~AssetManager();																		// Default DeConstructor
 
+
+	// Texture functions
+	bool LoadTextures();																			//Function to load textures
+	int SetUpTexture(std::string filePath);															//Function to set up textures
+	bool FreeTextures();																			//Function to free textures
+	bool ReloadTextures();																			//Function to reload textures
+
+	// Sprite functions
+	bool LoadSprites();																		//Function to load sprites
+	bool FreeSprites();																		//Function to free sprites
+	bool ReloadSprites();																	//Function to reload sprites
+
 	using VectorPairString = std::vector <std::pair<std::string, std::string>>;				// Using a vector-->pair string for shaders
 
 	bool LoadShaders();																		// Load Shaders
@@ -51,21 +64,34 @@ public:
 	bool FreeShaders();																		//Function to free shaders
 
 
-	//static ObjData Objectdata;
+	//Getters
+	int GetTexture(std::string);															//Function to access textures
+	Sprite GetSprite(std::string);															//Function to access sprite
+	int GetSpriteTexture(std::string);														//Function to access sprite texture
+
+
 
 
 	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
 
-	
+
 	std::map <std::string, Model> ModelMap;
+	std::vector <Model>	Models;
 	std::vector <Object> Objects;
 
 	std::vector <Model2D> Model2D;
 	std::vector <Object2D> Object2D;
 
-
+	bool Currentlyloading{ false };
 
 private:
+
+	//Containers
+	std::map<std::string, int> textures{};													//Container to store textures
+	std::map<std::string, Sprite> sprites{};												//Container to store sprites
+
+	std::vector<std::string>shdrpgmOrder{};													//Container to store the order of shader programs
+
 
 };
 
