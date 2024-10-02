@@ -85,6 +85,7 @@ void GraphicsSystem::UpdateLoop() {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear framebuffer
 
+	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 	// Setup camera and projection matrix
 	glm::mat4 view_ = camera.GetViewMatrix();
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
