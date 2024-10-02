@@ -42,24 +42,24 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
-	//// Initialize the PhysicsManager and JoltPhysics
-	//m_PhysicsManager.InitializeJolt();
-	//m_PhysicsSystem = m_PhysicsManager.CreatePhysicsSystem();
+	// Initialize the PhysicsManager and JoltPhysics
+	m_PhysicsManager.InitializeJolt();
+	m_PhysicsSystem = m_PhysicsManager.CreatePhysicsSystem();
 
-	//// Register the CollisionSystem and set the system signature
-	//mCollisionSys = g_Coordinator.RegisterSystem<CollisionSystem>();
-	//{
-	//	Signature signature;
-	//	signature.set(g_Coordinator.GetComponentType<CollisionComponent>());
-	//	signature.set(g_Coordinator.GetComponentType<TransformComponent>()); // If needed
-	//	g_Coordinator.SetSystemSignature<CollisionSystem>(signature);
-	//}
+	// Register the CollisionSystem and set the system signature
+	mCollisionSys = g_Coordinator.RegisterSystem<CollisionSystem>();
+	{
+		Signature signature;
+		signature.set(g_Coordinator.GetComponentType<CollisionComponent>());
+		signature.set(g_Coordinator.GetComponentType<TransformComponent>()); // If needed
+		g_Coordinator.SetSystemSignature<CollisionSystem>(signature);
+	}
 
 	// init system
 	mGraphicsSys->initGraphicsPipeline();
 
-	//// Initialize the CollisionSystem with the physics system
-	//mCollisionSys->InitCollisionSystem(m_PhysicsSystem);
+	// Initialize the CollisionSystem with the physics system
+	mCollisionSys->InitCollisionSystem(m_PhysicsSystem);
 
 	// Just leave this part at the most bottom
 	m_AccumulatedTime = 0.0;		// elapsed time

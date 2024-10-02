@@ -62,13 +62,15 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Jolt.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Jolt</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.dll</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'"></LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    </LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Distribution|x64'">C:\Users\aloya\Downloads\JoltPhysics-master\JoltPhysics-master\Build\Distribution\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Distribution|x64'">Jolt.dir\Distribution\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Distribution|x64'">Jolt</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Distribution|x64'">.dll</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Distribution|x64'"></LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Distribution|x64'">
+    </LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Distribution|x64'">true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup />
@@ -98,7 +100,8 @@
       <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <SupportJustMyCode></SupportJustMyCode>
+      <SupportJustMyCode>
+      </SupportJustMyCode>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>true</UseFullPaths>
@@ -161,7 +164,8 @@
       <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <SupportJustMyCode></SupportJustMyCode>
+      <SupportJustMyCode>
+      </SupportJustMyCode>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>true</UseFullPaths>
@@ -224,7 +228,8 @@
       <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <SupportJustMyCode></SupportJustMyCode>
+      <SupportJustMyCode>
+      </SupportJustMyCode>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>true</UseFullPaths>
