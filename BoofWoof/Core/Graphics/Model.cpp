@@ -4,23 +4,7 @@
 //
 //
 
-
-
-
-void Model2D::Draw(OpenGLShader& Shader)
-{
-	auto a = g_AssetManager;
-
-	glBindVertexArray(a.Model2D[0].vaoid);
-
-	//std::cout << vaoid << '\n';
-	glDrawElements(a.Model2D[0].primitive_type, a.Model2D[0].draw_cnt, GL_UNSIGNED_SHORT, nullptr);
-
-	glBindVertexArray(0);
-
-}
-
-Model2D SquareModel(glm::vec3 color)
+Model SquareModel(glm::vec3 color)
 {
 	struct Vertex {
 		glm::vec2 position;        // Vertex position
@@ -37,7 +21,7 @@ Model2D SquareModel(glm::vec3 color)
 	};
 
 	// Create Model.
-	Model2D mdl;
+	Model mdl;
 
 
 	// Create and bind a buffer for vertex data
