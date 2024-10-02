@@ -14,14 +14,17 @@
  *************************************************************************/
 #define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
 
 #include <filesystem>
 #include <iostream>
 #include "AssetManager.h"
 #include "windows.h"
 #include "FilePaths.h"
+
+#include "CMP_Core.h"
+#include <combaseapi.h>  // For CoCreateGuid
+#include <sstream>      // For std::ostringstream
+#include "compressonator.h"  // Include Compressonator header
 
 AssetManager g_AssetManager;
 
@@ -192,6 +195,21 @@ void AssetManager::FreeAll() {
 
 
 
+void LoadTextureToCMP(const Texture& originalTexture, CMP_Texture& srcTexture) {
+    // Assuming 'originalTexture' holds some data like width, height, format, etc.
+
+    srcTexture.dwSize = sizeof(CMP_Texture);
+    srcTexture.dwWidth = originalTexture.width;
+    srcTexture.dwHeight = originalTexture.height;
+    srcTexture.dwPitch = 0;  // Can be set based on the texture format
+    srcTexture.format = CMP_FORMAT_ARGB_8888; // Example: ARGB format, this should match your texture format
+
+    // Allocate memory for pixel data
+    srcTexture.pData = (CMP_BYTE*)malloc(originalTexture.width * originalTexture.height * 4); // For RGBA
+
+    // Copy the texture data to srcTexture.pData
+    memcpy(srcTexture.pData, originalTexture.pixelData, originalTexture.width * originalTexture.height * 4);
+}
 
 
 
@@ -279,7 +297,54 @@ bool AssetManager::LoadTextures() {
                 }
 
 
-                textures[nameWithoutExtension] = AssetManager::SetUpTexture(texFilePath);
+                // Load the original texture
+                Texture originalTexture = AssetManager::SetUpTexture(texFilePath);
+
+                // Create DDS file path
+                std::string ddsFilePath = FILEPATH_TEXTURES + "/" + nameWithoutExtension + ".dds";
+
+                // Prepare the source texture for compression
+                CMP_Texture srcTexture;
+                LoadTextureToCMP(originalTexture, srcTexture);
+
+                // Prepare destination texture for DDS
+                CMP_Texture destTexture;
+                destTexture.dwSize = sizeof(destTexture);
+                destTexture.dwWidth = srcTexture.dwWidth;
+                destTexture.dwHeight = srcTexture.dwHeight;
+                destTexture.format = CMP_FORMAT_BC7; // Choose your format
+                destTexture.dwDataSize = CMP_CalculateBufferSize(&destTexture);
+                destTexture.pData = (CMP_BYTE*)malloc(destTexture.dwDataSize);
+
+                // Set compression options
+                CMP_CompressOptions options = { 0 };
+                options.dwSize = sizeof(options);
+                options.fquality = 0.05f; // Adjust as needed
+                options.dwnumThreads = 8; // Use multiple threads
+
+                // Compress the texture
+                CMP_ERROR cmpStatus = CMP_ConvertTexture(&srcTexture, &destTexture, &options, nullptr, nullptr);
+                if (cmpStatus == CMP_OK) {
+                    // Save the compressed DDS file
+                    SaveDDSFile(ddsFilePath, destTexture);
+
+                    // Generate a GUID
+                    GUID textureGUID;
+                    CoCreateGuid(&textureGUID);
+                    std::ostringstream guidStream;
+                    guidStream << std::hex << textureGUID.Data1 << "-"
+                        << std::hex << textureGUID.Data2 << "-"
+                        << std::hex << textureGUID.Data3 << "-"
+                        << std::hex << textureGUID.Data4[0] << textureGUID.Data4[1] << "-"
+                        << std::hex << textureGUID.Data4[2] << textureGUID.Data4[3]
+                        << textureGUID.Data4[4] << textureGUID.Data4[5]
+                        << textureGUID.Data4[6] << textureGUID.Data4[7];
+
+                    // Store the description in the container
+                    textureDescriptions.push_back("Texture: " + nameWithoutExtension +
+                        ", GUID: " + guidStream.str() +
+                        ", Format: BC7, Size: " + std::to_string(destTexture.dwDataSize) + " bytes.");
+
 #ifdef _DEBUG
                 std::cout << nameWithoutExtension << " success!\n";
 #endif // DEBUG

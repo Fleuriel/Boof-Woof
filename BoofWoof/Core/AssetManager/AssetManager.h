@@ -94,7 +94,7 @@ public:
 private:
 
 	//Containers
-	std::map<std::string, int> textures{};													//Container to store textures
+	std::vector<std::string> textureDescriptions;											// Container to hold texture descriptions
 	std::map<std::string, Sprite> sprites{};												//Container to store sprites
 	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
 	std::vector<std::string>shdrpgmOrder{};													//Container to store the order of shader programs
