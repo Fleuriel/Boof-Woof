@@ -1,4 +1,3 @@
-
 /**************************************************************************
  * @file AssetManager.cpp
  * @author 	TAN Angus Yit Hoe
@@ -24,7 +23,7 @@
 #include "windows.h"
 #include "FilePaths.h"
 
-AssetManager g_AssetManager;
+    AssetManager g_AssetManager;
 
 namespace fs = std::filesystem;
 
@@ -151,36 +150,36 @@ void AssetManager::FreeAll() {
  * @param None.
  * @return None.
  *************************************************************************/
-//void AssetManager::ReloadAll() {
-//
-//
-//#ifdef _DEBUG
-//    bool reloadTextures = AssetManager::ReloadTextures(),
-//        reloadSprites = AssetManager::ReloadSprites(),
-//        //reloadSounds = AssetManager::ReloadSounds(),
-//        //reloadFonts = AssetManager::ReloadFonts(),
-//        //reloadScenes = AssetManager::ReloadScenes(),
-//        //reloadPrefabs = AssetManager::ReloadPrefabs(),
-//        //reloadShaders = AssetManager::ReloadShaders();
-//
-//    //std::cout
-//    //    << ((reloadTextures) ? "Textures reloaded successfully" : "Failed to reload textures") << std::endl
-//    //    << ((reloadSprites) ? "Sprites reloaded successfully" : "Failed to reload Sprites") << std::endl
-//    //    << ((reloadSounds) ? "Sounds reloaded successfully" : "Failed to reload sounds") << std::endl
-//    //    << ((reloadFonts) ? "Fonts reloaded successfully" : "Failed to reload fonts") << std::endl
-//    //    << ((reloadScenes) ? "Scenes reloaded successfully" : "Failed to reload scenes") << std::endl
-//    //    << ((reloadPrefabs) ? "Prefabs reloaded successfully" : "Failed to reload prefabs") << std::endl
-//    //    << ((reloadShaders) ? "Shaders reloaded successfully" : "Failed to reload shaders") << std::endl;
-//#else
-//    AssetManager::ReloadTextures();
-//    AssetManager::ReloadSprites();
-//    AssetManager::ReloadSounds();
-//    AssetManager::ReloadFonts();
-//    AssetManager::ReloadScenes();
-//    AssetManager::ReloadPrefabs();
-//    AssetManager::ReloadShaders();
-//#endif // DEBUG
-//}
+ //void AssetManager::ReloadAll() {
+ //
+ //
+ //#ifdef _DEBUG
+ //    bool reloadTextures = AssetManager::ReloadTextures(),
+ //        reloadSprites = AssetManager::ReloadSprites(),
+ //        //reloadSounds = AssetManager::ReloadSounds(),
+ //        //reloadFonts = AssetManager::ReloadFonts(),
+ //        //reloadScenes = AssetManager::ReloadScenes(),
+ //        //reloadPrefabs = AssetManager::ReloadPrefabs(),
+ //        //reloadShaders = AssetManager::ReloadShaders();
+ //
+ //    //std::cout
+ //    //    << ((reloadTextures) ? "Textures reloaded successfully" : "Failed to reload textures") << std::endl
+ //    //    << ((reloadSprites) ? "Sprites reloaded successfully" : "Failed to reload Sprites") << std::endl
+ //    //    << ((reloadSounds) ? "Sounds reloaded successfully" : "Failed to reload sounds") << std::endl
+ //    //    << ((reloadFonts) ? "Fonts reloaded successfully" : "Failed to reload fonts") << std::endl
+ //    //    << ((reloadScenes) ? "Scenes reloaded successfully" : "Failed to reload scenes") << std::endl
+ //    //    << ((reloadPrefabs) ? "Prefabs reloaded successfully" : "Failed to reload prefabs") << std::endl
+ //    //    << ((reloadShaders) ? "Shaders reloaded successfully" : "Failed to reload shaders") << std::endl;
+ //#else
+ //    AssetManager::ReloadTextures();
+ //    AssetManager::ReloadSprites();
+ //    AssetManager::ReloadSounds();
+ //    AssetManager::ReloadFonts();
+ //    AssetManager::ReloadScenes();
+ //    AssetManager::ReloadPrefabs();
+ //    AssetManager::ReloadShaders();
+ //#endif // DEBUG
+ //}
 
 
 
@@ -198,22 +197,22 @@ void AssetManager::FreeAll() {
 
 
 
-/**************************************************************************
- * @brief Loads textures from the specified directory.
- *
- * This function scans the specified directory for image files and loads them
- * as OpenGL textures. It supports common image formats such as PNG, JPEG, and
- * BMP. Each image file is loaded as a texture and stored for later use in the
- * application. The textures are associated with their respective filenames
- * (without file extensions) and stored in the 'textures' map for easy access.
- *
- * @param None.
- *
- * @return bool - Returns true if textures are loaded successfully, false if
- *               there is an error. It will return false if the specified
- *               directory doesn't exist or if there are any issues with
- *               loading the textures.
- *************************************************************************/
+ /**************************************************************************
+  * @brief Loads textures from the specified directory.
+  *
+  * This function scans the specified directory for image files and loads them
+  * as OpenGL textures. It supports common image formats such as PNG, JPEG, and
+  * BMP. Each image file is loaded as a texture and stored for later use in the
+  * application. The textures are associated with their respective filenames
+  * (without file extensions) and stored in the 'textures' map for easy access.
+  *
+  * @param None.
+  *
+  * @return bool - Returns true if textures are loaded successfully, false if
+  *               there is an error. It will return false if the specified
+  *               directory doesn't exist or if there are any issues with
+  *               loading the textures.
+  *************************************************************************/
 bool AssetManager::LoadTextures() {
 
 
