@@ -26,6 +26,7 @@
 #include "Graphics/Shader.h"
 #include "Graphics/Model.h"
 #include "Graphics/Object.h"
+#include "Sprite.h"
 
  // Forward declarations
 
@@ -41,8 +42,30 @@ class AssetManager
 
 public:
 
-	AssetManager();																			// Default Constructor
-	~AssetManager();																		// Default DeConstructor
+	// General functions
+	AssetManager();																			//Constructor for AssetManager class
+	~AssetManager();																		//Destructor for AssetManager class
+
+	void LoadAll();																			//Function to load all assets
+	void FreeAll();																			//Function to free all assets
+	//void ReloadAll();																		//Function to reload all assets
+
+	// Texture functions
+	bool LoadTextures();																	//Function to load textures
+	int SetUpTexture(std::string filePath);													//Function to set up textures
+	bool FreeTextures();																	//Function to free textures
+	bool ReloadTextures();																	//Function to reload textures
+
+	// Sprite functions
+	bool LoadSprites();																		//Function to load sprites
+	bool FreeSprites();																		//Function to free sprites
+	bool ReloadSprites();																	//Function to reload sprites
+
+	// Scene functions
+	bool LoadScenes();																		//Function to load scenes
+	bool ReloadScenes();																	//Function to reload scenes
+
+
 
 	using VectorPairString = std::vector <std::pair<std::string, std::string>>;				// Using a vector-->pair string for shaders
 
@@ -51,21 +74,31 @@ public:
 	bool FreeShaders();																		//Function to free shaders
 
 
-	//static ObjData Objectdata;
+	//Getters
+	int GetTexture(std::string);															//Function to access textures
+	Sprite GetSprite(std::string);															//Function to access sprite
+	int GetSpriteTexture(std::string);														//Function to access sprite texture
+	OpenGLShader& GetShader(std::string);													//Function to access shaders
 
 
-	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
 
-	
+
+
 	std::map <std::string, Model> ModelMap;
+	std::vector <Model>	Models;
 	std::vector <Object> Objects;
 
-	std::vector <Model2D> Model2D;
-	std::vector <Object2D> Object2D;
 
-
+	bool Currentlyloading{ false };
 
 private:
+
+	//Containers
+	std::map<std::string, int> textures{};													//Container to store textures
+	std::map<std::string, Sprite> sprites{};												//Container to store sprites
+	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
+	std::vector<std::string>shdrpgmOrder{};													//Container to store the order of shader programs
+
 
 };
 

@@ -74,6 +74,11 @@ void EngineCore::OnInit()
 
 void EngineCore::OnUpdate()
 {
+
+
+
+
+
 	m_CurrNumSteps = 0;
 	m_DeltaTime = m_EndTime - m_StartTime;	// start at 0
 	m_StartTime = g_Timer.GetCurrentTime();
@@ -94,8 +99,13 @@ void EngineCore::OnUpdate()
 	// window update
 	g_Window->OnUpdate();
 
-	// input update
-	g_Input.UpdateStatesForNextFrame();
+	if (g_Input.GetKeyState(GLFW_KEY_H) == 1) {
+		std::cout << "Press\n";
+	}
+	if (g_Input.GetKeyState(GLFW_KEY_H) == 2) {
+		std::cout << "Hold\n";
+	}
+
 
 	//Transition
 	g_SceneManager.Update((float)m_DeltaTime);
@@ -137,13 +147,12 @@ void EngineCore::OnUpdate()
 	*/
 	
 
-
-
-
-
 	// keep this at the end
 	m_ElapsedDT = m_GraphicsDT + m_LogicDT; // to add more DT when more systems comes up
 	m_EndTime = g_Timer.GetCurrentTime();
+
+	// input update
+	g_Input.UpdateStatesForNextFrame();
 }
 
 void EngineCore::OnShutdown()
