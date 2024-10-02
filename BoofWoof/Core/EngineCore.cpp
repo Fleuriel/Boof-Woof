@@ -124,7 +124,6 @@ void EngineCore::OnUpdate()
 		
 	}
 
-
 	/*
 	//Test serialization
 	if (g_Input.GetKeyState(GLFW_KEY_P) == 1) {  // Save engine state
