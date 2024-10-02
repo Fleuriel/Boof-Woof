@@ -5,12 +5,16 @@
 class BehaviourComponent
 {
 public:
-	int getBehaviourIndex() { return BehaviourIndex; }
+	BehaviourComponent() {};
+	BehaviourComponent(const char* behaviourname, Entity& entity) 
+		: m_EntityID(g_Coordinator.GetEntityId(entity)), m_BehaviourName(behaviourname) {}
 
-	void setBehaviourIndex(int index) { BehaviourIndex = index; }
+	Entity GetComponentEntityID() { return m_EntityID; }
 
 	void SetComponentEntityID(Entity& entity) { m_EntityID = entity; }
+
+	const char* GetBehaviourName() { return m_BehaviourName; }
 private:
 	Entity m_EntityID{};
-	int BehaviourIndex{};
+	const char* m_BehaviourName{};
 };

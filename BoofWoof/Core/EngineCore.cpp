@@ -31,6 +31,15 @@ void EngineCore::OnInit()
 	// Set up your global managers
 
 	// register system & signatures
+
+	mLogicSys = g_Coordinator.RegisterSystem<LogicSystem>();
+	{
+		Signature signature;
+		signature.set(g_Coordinator.GetComponentType<BehaviourComponent>());
+		g_Coordinator.SetSystemSignature<LogicSystem>(signature);
+	}
+
+
 	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
 	{
 		Signature signature;
@@ -39,19 +48,22 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
-	mLogicSys = g_Coordinator.RegisterSystem<LogicSystem>();
+	// Create entities
 	{
-		Signature signature;
-		signature.set(g_Coordinator.GetComponentType<BehaviourComponent>());
-		g_Coordinator.SetSystemSignature<LogicSystem>(signature);
+		Entity entity = g_Coordinator.CreateEntity();
+		g_Coordinator.AddComponent(entity, TransformComponent());
+		g_Coordinator.AddComponent(entity, GraphicsComponent());
+		g_Coordinator.AddComponent(entity, BehaviourComponent("Test", entity));
 	}
 	
 
 	// init system
-	mGraphicsSys->initGraphicsPipeline();
 	mLogicSys->Init();
+	mGraphicsSys->initGraphicsPipeline();
+	
+	
 
-
+	
 
 	// Just leave this part at the most bottom
 	m_AccumulatedTime = 0.0;		// elapsed time
@@ -85,10 +97,12 @@ void EngineCore::OnUpdate()
 
 	// system updates
 	{
+		// Logic
+		mLogicSys->Update();
 		// Graphics
 		mGraphicsSys->UpdateLoop();
 		m_GraphicsDT = g_Timer.GetElapsedTime();
-		mLogicSys->Update();
+		
 	}
 
 

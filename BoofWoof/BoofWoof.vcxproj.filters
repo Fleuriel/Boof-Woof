@@ -16,6 +16,8 @@
     <ClCompile Include="Core\Serialization\Serialization.cpp" />
     <ClCompile Include="Core\Logic\LogicSystem.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.hpp" />
+    <ClCompile Include="Core\Logic\Behaviour.cpp" />
+    <ClCompile Include="Scripts\testScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager\AssetManager.h" />

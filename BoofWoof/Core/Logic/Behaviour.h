@@ -1,8 +1,12 @@
 #pragma once
+#ifndef BEHAVIOUR_H
+#define BEHAVIOUR_H
+
 
 #include "../ECS/pch.hpp"
 #include "../ECS/Coordinator.hpp"
 #include "LogicSystem.h"
+
 
 
 typedef void(*InitBehaviour)(Entity);
@@ -12,21 +16,19 @@ typedef void(*DestroyBehaviour)(Entity);
 class Behaviour
 {
 public:
-	Behaviour(const InitBehaviour & init, const UpdateBehaviour & update, const DestroyBehaviour & destroy)
-		: InitFunction(init), UpdateFunction(update), DestroyFunction(destroy) {
-		g_Coordinator.GetSystem<LogicSystem>()->AddBehaviour(this);
-		
-	}
+	Behaviour(const char* mBehaviourName,const InitBehaviour& init, const UpdateBehaviour& update, const DestroyBehaviour& destroy);
 
-	void Init(Entity entity) { InitFunction(entity); }
-	void Update(Entity entity) { UpdateFunction(entity); }
-	void Destroy(Entity entity) { DestroyFunction(entity); }
+	void Init(Entity entity);
+	void Update(Entity entity);
+	void Destroy(Entity entity);
 
-	int getBehaviourIndex() { return BehaviourIndex; }
+	const char* getBehaviourName() { return mBehaviourName; }
 
 private:
-	int BehaviourIndex{};
+	const char* mBehaviourName;
 	InitBehaviour InitFunction;
 	UpdateBehaviour UpdateFunction;
 	DestroyBehaviour DestroyFunction;
 };
+
+#endif  // BEHAVIOUR_H

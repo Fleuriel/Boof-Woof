@@ -1,4 +1,10 @@
 #pragma once
+
+#ifndef LOGIC_SYSTEM_H
+#define LOGIC_SYSTEM_H
+
+class Behaviour;
+
 #include "../ECS/System.hpp"
 #include "Behaviour.h"
 #include <map>
@@ -9,11 +15,10 @@ public:
 	void Init();
 	void Update();
 
-	void AddBehaviour(Behaviour * behaviour)
-	{
-		mBehaviours[behaviour->getBehaviourIndex()] = behaviour;
-	}
+	void AddBehaviour(Behaviour* behaviour);
 private:
 	// Keep track of all the behaviours
-	 std::map<int, Behaviour*> mBehaviours;
+	 std::map<const char*, Behaviour*> mBehaviours;
 };
+
+#endif  // LOGIC_SYSTEM_H
