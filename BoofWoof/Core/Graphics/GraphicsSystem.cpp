@@ -141,9 +141,9 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader("Shader2D").SetUniform("view", view_);
 				g_AssetManager.GetShader("Shader2D").SetUniform("projection", projection);
 				
-				graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
-
-
+//				graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
+				graphicsComp.getModel()->DrawCollisionBox(transformComp.GetPosition());
+				
 			}
 			g_AssetManager.GetShader("Shader2D").UnUse();
 		}

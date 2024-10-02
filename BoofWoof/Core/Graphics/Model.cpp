@@ -97,3 +97,49 @@ void Model::Draw2D(OpenGLShader& shader)
 	glBindVertexArray(0);
 	//shader.UnUse();
 }
+
+
+void Model::DrawCollisionBox(glm::vec3 position)
+{
+	glm::vec3 min, max;
+
+	glm::vec3 half_extents = glm::vec3(0.6f);
+
+	min = position - half_extents;
+	max = position + half_extents;
+
+
+
+	// Compute the 8 vertices of the AABB
+	glm::vec3 v1 = glm::vec3(min.x, min.y, min.z);
+	glm::vec3 v2 = glm::vec3(min.x, min.y, max.z);
+	glm::vec3 v3 = glm::vec3(min.x, max.y, min.z);
+	glm::vec3 v4 = glm::vec3(min.x, max.y, max.z);
+	glm::vec3 v5 = glm::vec3(max.x, min.y, min.z);
+	glm::vec3 v6 = glm::vec3(max.x, min.y, max.z);
+	glm::vec3 v7 = glm::vec3(max.x, max.y, min.z);
+	glm::vec3 v8 = glm::vec3(max.x, max.y, max.z);
+
+	// Use OpenGL to draw the edges of the AABB
+	glBegin(GL_LINES);
+
+	// Bottom square (v1, v5, v6, v2)
+	glVertex3f(v1.x, v1.y, v1.z); glVertex3f(v5.x, v5.y, v5.z); // Edge v1 -> v5
+	glVertex3f(v5.x, v5.y, v5.z); glVertex3f(v6.x, v6.y, v6.z); // Edge v5 -> v6
+	glVertex3f(v6.x, v6.y, v6.z); glVertex3f(v2.x, v2.y, v2.z); // Edge v6 -> v2
+	glVertex3f(v2.x, v2.y, v2.z); glVertex3f(v1.x, v1.y, v1.z); // Edge v2 -> v1
+
+	// Top square (v3, v7, v8, v4)
+	glVertex3f(v3.x, v3.y, v3.z); glVertex3f(v7.x, v7.y, v7.z); // Edge v3 -> v7
+	glVertex3f(v7.x, v7.y, v7.z); glVertex3f(v8.x, v8.y, v8.z); // Edge v7 -> v8
+	glVertex3f(v8.x, v8.y, v8.z); glVertex3f(v4.x, v4.y, v4.z); // Edge v8 -> v4
+	glVertex3f(v4.x, v4.y, v4.z); glVertex3f(v3.x, v3.y, v3.z); // Edge v4 -> v3
+
+	// Vertical edges (v1 -> v3, v2 -> v4, v5 -> v7, v6 -> v8)
+	glVertex3f(v1.x, v1.y, v1.z); glVertex3f(v3.x, v3.y, v3.z); // Edge v1 -> v3
+	glVertex3f(v2.x, v2.y, v2.z); glVertex3f(v4.x, v4.y, v4.z); // Edge v2 -> v4
+	glVertex3f(v5.x, v5.y, v5.z); glVertex3f(v7.x, v7.y, v7.z); // Edge v5 -> v7
+	glVertex3f(v6.x, v6.y, v6.z); glVertex3f(v8.x, v8.y, v8.z); // Edge v6 -> v8
+
+	glEnd();
+}
