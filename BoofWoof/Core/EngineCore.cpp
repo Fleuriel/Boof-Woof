@@ -94,8 +94,7 @@ void EngineCore::OnUpdate()
 	// window update
 	g_Window->OnUpdate();
 
-	// input update
-	g_Input.UpdateStatesForNextFrame();
+	
 
 	//Transition
 	g_SceneManager.Update((float)m_DeltaTime);
@@ -113,7 +112,6 @@ void EngineCore::OnUpdate()
 		m_GraphicsDT = g_Timer.GetElapsedTime();
 		
 	}
-
 
 	/*
 	//Test serialization
@@ -137,7 +135,8 @@ void EngineCore::OnUpdate()
 	*/
 	
 
-
+	// input update
+	g_Input.UpdateStatesForNextFrame();
 
 
 
