@@ -2,7 +2,7 @@
 #include "../ECS/Coordinator.hpp"
 #include "../Utilities/Components/BehaviourComponent.hpp"
 
-#include "../Scripts/testScript.cpp"
+#include "../Scripts/Movement.cpp"
 
 
 void LogicSystem::Init()
@@ -10,7 +10,7 @@ void LogicSystem::Init()
 	std::cout << "Logic System Initialized" << std::endl;
 
 	// Add behaviours here
-	AddBehaviour(new Behaviour("Test", TestScript::Start, TestScript::Update, TestScript::Destroy));
+	AddBehaviour(new Behaviour("Movement", Movement::Start, Movement::Update, Movement::Destroy));
 
 
 	for (auto const& entity : mEntities)

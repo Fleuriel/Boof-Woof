@@ -53,7 +53,7 @@ void EngineCore::OnInit()
 		Entity entity = g_Coordinator.CreateEntity();
 		g_Coordinator.AddComponent(entity, TransformComponent());
 		g_Coordinator.AddComponent(entity, GraphicsComponent());
-		g_Coordinator.AddComponent(entity, BehaviourComponent("Test", entity));
+		g_Coordinator.AddComponent(entity, BehaviourComponent("Movement", entity));
 	}
 	
 

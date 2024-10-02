@@ -17,7 +17,7 @@
     <ClCompile Include="Core\Logic\LogicSystem.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.hpp" />
     <ClCompile Include="Core\Logic\Behaviour.cpp" />
-    <ClCompile Include="Scripts\testScript.cpp" />
+    <ClCompile Include="Scripts\Movement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
