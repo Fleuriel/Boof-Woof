@@ -64,6 +64,7 @@ void EngineCore::OnInit()
 		g_Coordinator.AddComponent(entity, GraphicsComponent());
 		g_Coordinator.AddComponent(entity, BehaviourComponent("Movement", entity));
 		g_Coordinator.AddComponent(entity, MetadataComponent("Player", entity));
+		g_Coordinator.AddComponent(entity, AudioComponent("../BoofWoof/Assets/Audio/explode2.wav", 1.0f, false, entity));
 	}
 	
 
@@ -79,7 +80,7 @@ void EngineCore::OnInit()
 	m_AccumulatedTime = 0.0;		// elapsed time
 	m_CurrNumSteps = 0;
 
-	mAudioSys->PlayBGM("../BoofWoof/Assets/Audio/Test.wav");
+	//mAudioSys->PlayBGM("../BoofWoof/Assets/Audio/Test.wav");
 }
 
 void EngineCore::OnUpdate()
@@ -104,8 +105,19 @@ void EngineCore::OnUpdate()
 	// window update
 	g_Window->OnUpdate();
 
+
+	// Check for 'P' key press to trigger the explosion sound
+	if (g_Input.GetKeyState(GLFW_KEY_P) == 1 && g_Coordinator.HaveComponent<AudioComponent>(g_Coordinator.GetEntityId(0))) {
+
+		std::cout << "P key pressed, playing explosion sound..." << std::endl;
+		mAudioSys->Play(g_Coordinator.GetEntityId(0));  // Play the sound associated with the player entity
+	}
+
+
+
 	// input update
 	g_Input.UpdateStatesForNextFrame();
+
 
 	//Transition
 	g_SceneManager.Update((float)m_DeltaTime);
@@ -121,34 +133,11 @@ void EngineCore::OnUpdate()
 		// Graphics
 		mGraphicsSys->UpdateLoop();
 		m_GraphicsDT = g_Timer.GetElapsedTime();
-		mAudioSys->Update();
 		
 	}
-
-
-	/*
-	//Test serialization
-	if (g_Input.GetKeyState(GLFW_KEY_P) == 1) {  // Save engine state
-		std::cout << "P key pressed, saving engine state..." << std::endl;
-		g_SceneManager.SaveScene("Saves/engine_state.json");
-		std::cout << "Engine state saved to Saves/engine_state.json" << std::endl;
+	{
+		mAudioSys->Update();
 	}
-
-	if (g_Input.GetKeyState(GLFW_KEY_O) == 1) {  // Reset entities
-		std::cout << "O key pressed, resetting entities..." << std::endl;
-		g_Coordinator.ResetEntities();
-		std::cout << "Entities reset!" << std::endl;
-	}
-
-	if (g_Input.GetKeyState(GLFW_KEY_L) == 1) {  // Load engine state
-		std::cout << "L key pressed, loading engine state..." << std::endl;
-		g_SceneManager.SaveScene("Saves/engine_state.json");
-		std::cout << "Engine state loaded from Saves/engine_state.json" << std::endl;
-	}
-	*/
-	
-
-
 
 
 

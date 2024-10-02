@@ -24,6 +24,7 @@ public:
     // Updates the FMOD system
     void Update();
 
+    // Play background music (BGM)
     void PlayBGM(const std::string& filePath);
 
 private:
@@ -33,4 +34,7 @@ private:
     std::unordered_map<Entity, FMOD::Sound*> audioMap;
     std::unordered_map<Entity, FMOD::Channel*> channelMap;
     std::unordered_map<Entity, float> volumeMap;
+
+    // Cache for storing loaded sounds keyed by file paths to avoid multiple loads
+    std::unordered_map<std::string, FMOD::Sound*> soundCache;
 };
