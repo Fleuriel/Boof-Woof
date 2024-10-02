@@ -6,8 +6,16 @@
 #include "../ECS/Coordinator.hpp"
 #include <memory>  // For std::shared_ptr
 
+#define g_Audio AudioSystem::GetInstance()
+
 class AudioSystem : public System {
 public:
+
+    static AudioSystem& GetInstance() {
+        static AudioSystem instance;
+        return instance;
+    }
+
     AudioSystem();  // Constructor
     ~AudioSystem();  // Destructor
 

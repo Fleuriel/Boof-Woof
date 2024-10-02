@@ -1,4 +1,5 @@
 #define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
+#include <Windows.h>
 #include "ImGuiEditor.h"
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -75,6 +76,12 @@ void ImGuiEditor::ImGuiUpdate()
 	AssetWindow();
 	Settings();
 	Scenes();
+
+	if (m_ShowAudio)
+	{
+		Audio();
+	}
+
 }
 
 
@@ -421,23 +428,64 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Audio", ImGuiTreeNodeFlags_None))
 			{
-				auto fileName = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).GetFilePath();
+				auto filePathName = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).GetFilePath();
 				ImGui::PushItemWidth(250.0f);
 				ImGui::Text("Filename"); ImGui::SameLine();
 
 				static char fileNameBuffer[256]; // Default filename
 				memset(fileNameBuffer, 0, sizeof(fileNameBuffer));
-				strcpy_s(fileNameBuffer, sizeof(fileNameBuffer), fileName.c_str());
+				strcpy_s(fileNameBuffer, sizeof(fileNameBuffer), filePathName.c_str());
 
-				if (ImGui::InputText("##FileName", fileNameBuffer, IM_ARRAYSIZE(fileNameBuffer)))
+				if (ImGui::InputText("##FileName", fileNameBuffer, IM_ARRAYSIZE(fileNameBuffer), ImGuiInputTextFlags_ReadOnly))
 				{
 					g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetFilePath(fileNameBuffer);
 				}
 
+				// Check if the text box can accept drag-and-drop payloads - drop from assets
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Ass"))
+					{
+						// Need use wchar_t cause of windows
+						const wchar_t* droppedPath = (const wchar_t*)payload->Data;
+
+						// Convert wchar_t* to std::wstring and to std::string
+						std::wstring ws(droppedPath);
+
+						int count = WideCharToMultiByte(CP_UTF8, 0, ws.c_str(), static_cast<int>(ws.length()), NULL, 0, NULL, NULL);
+						std::string newFilePath(count, 0);
+						WideCharToMultiByte(CP_UTF8, 0, ws.c_str(), -1, &newFilePath[0], count, NULL, NULL);
+
+						// getting file ext only
+						size_t lastDot = newFilePath.find_last_of(".");
+						std::string fileExt = newFilePath.substr(lastDot + 1);
+
+						if (fileExt != "wav")
+						{
+							ImGui::OpenPopup("INCORRECT EXTENSION");
+						}
+						else
+						{
+							g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetFilePath(newFilePath);
+						}
+					}
+					ImGui::EndDragDropTarget();
+				}
+
+				if (ImGui::BeginPopupModal("INCORRECT EXTENSION", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+				{
+					ImGui::Text("\n Only accept WAV files \n\n");
+					ImGui::Separator();
+
+					if (ImGui::Button("OK", ImVec2(50, 0))) { ImGui::CloseCurrentPopup(); }
+					ImGui::EndPopup();
+				}
+
+
 				// Volume
 				auto volume = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).GetVolume();
 				ImGui::Text("Volume  "); ImGui::SameLine();
-				if (ImGui::DragFloat("##Volume", &volume, 0.001f))
+				if (ImGui::DragFloat("##Volume", &volume, 0.01f))
 				{
 					g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetVolume(volume);
 				}
@@ -551,16 +599,16 @@ void ImGuiEditor::AssetWindow()
 			std::string fileExtension = fileNameExt.substr(lastDot + 1);
 			std::string icon = entry.is_directory() ? "FolderIcon" : (fileExtension == "png" ? fileName : "TextIcon");
 
-			//ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture(icon), { 60,60 }, { 0,1 }, { 1,0 });
+			ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture(icon), { 60,60 }, { 0,1 }, { 1,0 });
 
 			// drag from assets to components
-			/*if (ImGui::BeginDragDropSource())
+			if (ImGui::BeginDragDropSource())
 			{
 				fs::path outerRelativePath = path.c_str();
 				const wchar_t* itemPath = outerRelativePath.c_str();
 				ImGui::SetDragDropPayload("Ass", itemPath, (wcslen(itemPath) + 1) * sizeof(wchar_t));
 				ImGui::EndDragDropSource();
-			}*/
+			}
 
 			ImGui::PopStyleColor();
 
@@ -573,6 +621,29 @@ void ImGuiEditor::AssetWindow()
 					m_CurrDir /= path.filename();
 				}
 
+				// if in the audio folder
+				if (m_CurrDir == "../BoofWoof/Assets\\Audio")
+				{
+					if (fileExtension == "wav")
+					{
+						m_ShowAudio = true;
+						m_AudioName = fileName;
+					}
+					else
+					{
+						m_ShowAudio = false;
+						ImGui::OpenPopup("INCORRECT EXTENSION");
+					}
+				}
+			}
+
+			if (ImGui::BeginPopupModal("INCORRECT EXTENSION", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+			{
+				ImGui::Text("\n Only wav files are playable\n\n");
+				ImGui::Separator();
+
+				if (ImGui::Button("OK", ImVec2(50, 0))) { ImGui::CloseCurrentPopup(); }
+				ImGui::EndPopup();
 			}
 
 			ImGui::TextWrapped(fileName.c_str());
@@ -849,6 +920,49 @@ void ImGuiEditor::Scenes()
 
 		ImGui::End();
 	}
+}
+
+void ImGuiEditor::Audio()
+{
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));							// make button transparent
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.305f, 0.31f, 0.5f));	// same as original imgui colors but just lighter opacity
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.3f, 0.305f, 0.31f, 0.5f));
+
+	if (ImGui::Begin("Audio", &m_ShowAudio, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse))
+	{
+		ImGui::Text(m_AudioName.c_str());
+		ImGui::Spacing();  ImGui::Separator(); ImGui::Spacing();
+
+		float size = ImGui::GetWindowHeight() * 0.3f;
+
+		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PlayButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		{
+			//g_Audio.Play(g_SelectedEntity);
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PauseButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		{
+			// pause ?
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("StopButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		{
+			//g_Audio.Stop(g_SelectedEntity);
+		}
+	}
+
+	if (!m_ShowAudio)
+	{
+		g_Audio.~AudioSystem();
+	}
+
+	ImGui::End();
+
+	ImGui::PopStyleColor(3);
 }
 
 

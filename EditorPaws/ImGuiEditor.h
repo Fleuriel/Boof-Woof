@@ -32,6 +32,11 @@ public:
 	void AssetWindow();
 	void Settings();
 	void Scenes();
+	void Audio();
+
+	// Audio Panel
+	std::string m_AudioName{};
+	bool m_ShowAudio = false;
 
 	// For fun
 	void PlotSystemDT(const char* name, float dt, float totalDT);
