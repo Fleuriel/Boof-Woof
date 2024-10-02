@@ -63,9 +63,7 @@ public:
 
 	// Scene functions
 	bool LoadScenes();																		//Function to load scenes
-	bool FreeScenes();																		//Function to free scenes
 	bool ReloadScenes();																	//Function to reload scenes
-	int GetNumberOfScenes();																//Retrieves number of scenes
 
 	using VectorPairString = std::vector <std::pair<std::string, std::string>>;				// Using a vector-->pair string for shaders
 
@@ -78,7 +76,6 @@ public:
 	int GetTexture(std::string);															//Function to access textures
 	Sprite GetSprite(std::string);															//Function to access sprite
 	int GetSpriteTexture(std::string);														//Function to access sprite texture
-	std::string GetScene(int);																//Function to access scenes
 	OpenGLShader& GetShader(std::string);													//Function to access shaders
 
 
@@ -97,7 +94,6 @@ private:
 	//Containers
 	std::map<std::string, int> textures{};													//Container to store textures
 	std::map<std::string, Sprite> sprites{};												//Container to store sprites
-	std::vector<std::string> scenes{};																//Container to store scenes
 	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
 	std::vector<std::string>shdrpgmOrder{};													//Container to store the order of shader programs
 

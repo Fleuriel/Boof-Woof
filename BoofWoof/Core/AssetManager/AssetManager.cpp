@@ -78,7 +78,7 @@ void AssetManager::LoadAll() {
         loadSprites = AssetManager::LoadSprites(),
         //loadSounds = AssetManager::LoadSounds(),
         //loadFonts = AssetManager::LoadFonts(),
-        //loadScenes = AssetManager::LoadScenes(),
+        loadScenes = AssetManager::LoadScenes(),
         //loadPrefabs = AssetManager::LoadPrefabs(),
         loadShaders = AssetManager::LoadShaders();
 
@@ -88,7 +88,7 @@ void AssetManager::LoadAll() {
         << ((loadSprites) ? "Sprites loaded successfully" : "Failed to load sprites") << std::endl
         //<< ((loadSounds) ? "Sounds loaded successfully" : "Failed to load sounds") << std::endl
         //<< ((loadFonts) ? "Fonts loaded successfully" : "Failed to load fonts") << std::endl
-        //<< ((loadScenes) ? "Scenes loaded successfully" : "Failed to load scenes") << std::endl
+        << ((loadScenes) ? "Scenes loaded successfully" : "Failed to load scenes") << std::endl
         //<< ((loadPrefabs) ? "Prefabs loaded successfully" : "Failed to load prefabs") << std::endl
         << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl;
 #else
@@ -743,8 +743,6 @@ bool AssetManager::LoadScenes() {
 
                 continue;
             }
-
-            scenes.push_back(entry.path().filename().string());
         }
     }
     else {
@@ -755,34 +753,8 @@ bool AssetManager::LoadScenes() {
         result = false;
     }
     Currentlyloading = false;
+
     return result;
-}
-
-/**************************************************************************
- * @brief Retrieves the scene filename at the specified index.
- *
- * This function returns the filename of the scene located at the specified
- * index in the 'scenes' container.
- *
- * @param index - The index of the scene to retrieve.
- * @return The filename of the scene at the specified index.
- *************************************************************************/
-std::string AssetManager::GetScene(int index) {
-    return scenes[index];
-}
-
-/**************************************************************************
- * @brief Frees the 'scenes' container by clearing it.
- *
- * This function clears the 'scenes' container, removing all stored scene
- * filenames from memory.
- *
- * @return True if the 'scenes' container is empty after clearing, false
- *         otherwise.
- *************************************************************************/
-bool AssetManager::FreeScenes() {
-    scenes.clear();
-    return scenes.empty();
 }
 
 /**************************************************************************
@@ -796,19 +768,7 @@ bool AssetManager::FreeScenes() {
  *         false otherwise.
  *************************************************************************/
 bool AssetManager::ReloadScenes() {
-    return (AssetManager::FreeScenes() && AssetManager::LoadScenes());
-}
-
-/**************************************************************************
- * @brief Get the number of available scenes.
- *
- * This function returns the number of available scenes that have been
- * loaded into the AssetManager.
- *
- * @return The number of available scenes.
- *************************************************************************/
-int AssetManager::GetNumberOfScenes() {
-    return static_cast<int>(scenes.size());
+    return AssetManager::LoadScenes();
 }
 
 
