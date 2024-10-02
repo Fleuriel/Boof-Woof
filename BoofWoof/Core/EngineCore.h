@@ -34,7 +34,7 @@ public:
 
 public:
 	double m_ElapsedDT{}, m_AccumulatedTime{}, m_StartTime{}, m_EndTime{}, m_DeltaTime{};
-	double m_GraphicsDT{};
+	double m_GraphicsDT{}, m_LogicDT{};
 	int m_CurrNumSteps{};
 	const double m_FixedDT = 1.0 / 60.0; // user defined 60fps
 };

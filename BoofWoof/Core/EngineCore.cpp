@@ -104,6 +104,10 @@ void EngineCore::OnUpdate()
 	{
 		// Logic
 		mLogicSys->Update();
+		m_LogicDT = g_Timer.GetElapsedTime();
+	}
+
+	{
 		// Graphics
 		mGraphicsSys->UpdateLoop();
 		m_GraphicsDT = g_Timer.GetElapsedTime();
@@ -138,7 +142,7 @@ void EngineCore::OnUpdate()
 
 
 	// keep this at the end
-	m_ElapsedDT = m_GraphicsDT; // to add more DT when more systems comes up
+	m_ElapsedDT = m_GraphicsDT + m_LogicDT; // to add more DT when more systems comes up
 	m_EndTime = g_Timer.GetCurrentTime();
 }
 
