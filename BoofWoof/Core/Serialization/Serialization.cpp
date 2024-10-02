@@ -52,15 +52,11 @@ std::string Serialization::GetSceneGUID() {
 }
 
 bool Serialization::SaveScene(const std::string& filepath) {
-    // Generate a new GUID when saving the scene
     currentSceneGUID = GenerateGUID();
 
-    // Continue with saving the scene (same logic as before)
     std::string fullSavePath = GetScenesPath() + "/" + filepath;
-
-    // Ensure the directories exist
     std::filesystem::create_directories(GetScenesPath());
-    // Continue with saving the scene
+
     rapidjson::Document doc;
     doc.SetObject();
     rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
@@ -87,21 +83,18 @@ bool Serialization::SaveScene(const std::string& filepath) {
         if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
             auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
 
-            // Serialize Position
             rapidjson::Value position(rapidjson::kObjectType);
             position.AddMember("x", transformComp.GetPosition().x, allocator);
             position.AddMember("y", transformComp.GetPosition().y, allocator);
             position.AddMember("z", transformComp.GetPosition().z, allocator);
             entityData.AddMember("Position", position, allocator);
 
-            // Serialize Scale
             rapidjson::Value scale(rapidjson::kObjectType);
             scale.AddMember("x", transformComp.GetScale().x, allocator);
             scale.AddMember("y", transformComp.GetScale().y, allocator);
             scale.AddMember("z", transformComp.GetScale().z, allocator);
             entityData.AddMember("Scale", scale, allocator);
 
-            // Serialize Rotation
             rapidjson::Value rotation(rapidjson::kObjectType);
             rotation.AddMember("x", transformComp.GetRotation().x, allocator);
             rotation.AddMember("y", transformComp.GetRotation().y, allocator);
@@ -116,12 +109,27 @@ bool Serialization::SaveScene(const std::string& filepath) {
             entityData.AddMember("EntityID", static_cast<int>(entity), allocator);
         }
 
+        // Serialize AudioComponent
+        if (g_Coordinator.HaveComponent<AudioComponent>(entity)) {
+            auto& audioComp = g_Coordinator.GetComponent<AudioComponent>(entity);
+
+            // Add audio file path
+            rapidjson::Value audioFilePath;
+            audioFilePath.SetString(audioComp.GetFilePath().c_str(), allocator);
+            entityData.AddMember("AudioFilePath", audioFilePath, allocator);
+
+            // Add volume
+            entityData.AddMember("Volume", audioComp.GetVolume(), allocator);
+
+            // Add loop status
+            entityData.AddMember("ShouldLoop", audioComp.ShouldLoop(), allocator);
+        }
+
         entities.PushBack(entityData, allocator);
     }
 
     doc.AddMember("Entities", entities, allocator);
 
-    // Write the document to a file in the "Scenes" folder
     FILE* fp = fopen(fullSavePath.c_str(), "wb");
     if (fp) {
         char writeBuffer[65536];
@@ -129,10 +137,11 @@ bool Serialization::SaveScene(const std::string& filepath) {
         rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
         doc.Accept(writer);
         fclose(fp);
-        return true; // Successfully saved
+        return true;
     }
-    return false; // Failed to save
+    return false;
 }
+
 
 bool Serialization::LoadScene(const std::string& filepath) {
     FILE* fp = fopen(filepath.c_str(), "rb");
@@ -162,7 +171,7 @@ bool Serialization::LoadScene(const std::string& filepath) {
         std::cerr << "No GUID found in scene file" << std::endl;
     }
 
-    // Continue deserializing entities...
+    // Deserialize entities
     if (doc.HasMember("Entities") && doc["Entities"].IsArray()) {
         const auto& entities = doc["Entities"];
         for (const auto& entityData : entities.GetArray()) {
@@ -174,7 +183,6 @@ bool Serialization::LoadScene(const std::string& filepath) {
                 MetadataComponent metadataComponent(name, entity);
                 g_Coordinator.AddComponent(entity, metadataComponent);
             }
-
 
             // Deserialize TransformComponent
             if (entityData.HasMember("Position")) {
@@ -208,11 +216,19 @@ bool Serialization::LoadScene(const std::string& filepath) {
                 g_Coordinator.AddComponent(entity, graphicsComponent);
             }
 
-            // Set the Entity ID
-            int entityID = entityData["EntityID"].GetInt();
+            // Deserialize AudioComponent
+            if (entityData.HasMember("AudioFilePath")) {
+                std::string filePath = entityData["AudioFilePath"].GetString();
+                float volume = entityData["Volume"].GetFloat();
+                bool shouldLoop = entityData["ShouldLoop"].GetBool();
+
+                AudioComponent audioComponent(filePath, volume, shouldLoop, entity);
+                g_Coordinator.AddComponent(entity, audioComponent);
+            }
         }
     }
 
-    return true; // Successfully loaded
+    return true;
 }
+
 

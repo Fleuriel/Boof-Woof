@@ -1,40 +1,34 @@
-#pragma once
-
-#include <fmod.hpp>
 #include <unordered_map>
+#include <vector>
 #include <string>
-#include <iostream>
+#include <fmod.hpp>
 #include "../Utilities/Components/AudioComponent.hpp"
 #include "../ECS/Coordinator.hpp"
+#include <memory>  // For std::shared_ptr
 
 class AudioSystem : public System {
 public:
-    AudioSystem();  // Constructor: Initializes FMOD
-    ~AudioSystem();  // Destructor: Releases FMOD resources
+    AudioSystem();  // Constructor
+    ~AudioSystem();  // Destructor
 
-    // Adds an AudioComponent to an entity and loads the associated audio file
     void AddAudioComponent(Entity entity, const AudioComponent& audioComp);
-
-    // Plays the audio associated with the entity
-    void Play(Entity entity);
-
-    // Stops the audio associated with the entity
+    void Play(Entity entity, float volume = 1.0f);
     void Stop(Entity entity);
-
-    // Updates the FMOD system
     void Update();
-
-    // Play background music (BGM)
     void PlayBGM(const std::string& filePath);
+    // Adjust volume for an entity's active sound channels
+    void SetVolume(Entity entity, float volume);
+    //utility functions
+    // Fade in the volume for a sound
+    void FadeIn(Entity entity, float targetVolume, float duration);
+
+    // Fade out the volume for a sound
+    void FadeOut(Entity entity, float duration);
 
 private:
     FMOD::System* system;  // FMOD system object
-
-    // Maps for managing audio data per entity
-    std::unordered_map<Entity, FMOD::Sound*> audioMap;
-    std::unordered_map<Entity, FMOD::Channel*> channelMap;
-    std::unordered_map<Entity, float> volumeMap;
-
-    // Cache for storing loaded sounds keyed by file paths to avoid multiple loads
-    std::unordered_map<std::string, FMOD::Sound*> soundCache;
+    std::unordered_map<Entity, std::vector<FMOD::Channel*>> channelMap;  // Channels per entity
+    std::unordered_map<Entity, std::shared_ptr<FMOD::Sound>> audioMap;  // Sounds per entity
+    std::unordered_map<std::string, std::shared_ptr<FMOD::Sound>> soundCache;  // Cached sounds
+    std::unordered_map<Entity, float> volumeMap;  // Volume per entity
 };

@@ -1,4 +1,19 @@
 #include "AudioSystem.h"
+#include <chrono>
+
+const char* FMODErrorToString(FMOD_RESULT result) {
+    switch (result) {
+    case FMOD_OK: return "No errors.";
+    case FMOD_ERR_BADCOMMAND: return "FMOD_ERR_BADCOMMAND: The command issued was not supported.";
+    case FMOD_ERR_CHANNEL_ALLOC: return "FMOD_ERR_CHANNEL_ALLOC: Error allocating a channel.";
+    case FMOD_ERR_CHANNEL_STOLEN: return "FMOD_ERR_CHANNEL_STOLEN: The specified channel has been reused to play another sound.";
+    case FMOD_ERR_DMA: return "FMOD_ERR_DMA: DMA Failure.";
+    case FMOD_ERR_DSP_CONNECTION: return "FMOD_ERR_DSP_CONNECTION: DSP connection error.";
+    case FMOD_ERR_DSP_DONTPROCESS: return "FMOD_ERR_DSP_DONTPROCESS: DSP not processing.";
+        // Add more error cases based on the FMOD_RESULT if needed
+    default: return "Unknown FMOD error.";
+    }
+}
 
 // Constructor
 AudioSystem::AudioSystem() {
@@ -8,16 +23,27 @@ AudioSystem::AudioSystem() {
 
 // Destructor
 AudioSystem::~AudioSystem() {
-    // Release all cached sounds
-    for (auto& [filePath, sound] : soundCache) {
-        if (sound) {
-            sound->release();  // Release each cached sound
+    // Stop all channels first
+    for (auto& [entity, channels] : channelMap) {
+        for (auto* channel : channels) {
+            if (channel) {
+                channel->stop();  // Stop playing sounds
+            }
         }
     }
 
-    system->close();  // Close FMOD system
-    system->release();  // Release FMOD system
+    // Release all cached sounds
+    for (auto& [filePath, sound] : soundCache) {
+        sound.reset();  // Reset the shared_ptr to release FMOD::Sound
+    }
+
+    // Close and release FMOD system
+    if (system) {
+        system->close();
+        system->release();
+    }
 }
+
 
 // Add an audio component to an entity and load its sound (or reuse an already loaded sound)
 void AudioSystem::AddAudioComponent(Entity entity, const AudioComponent& audioComp) {
@@ -30,56 +56,100 @@ void AudioSystem::AddAudioComponent(Entity entity, const AudioComponent& audioCo
     }
     else {
         // Load the sound if it's not already in the cache
-        FMOD::Sound* sound = nullptr;
-        FMOD_RESULT result = system->createSound(filePath.c_str(), FMOD_DEFAULT, nullptr, &sound);
+        FMOD::Sound* rawSound = nullptr;  // Use a raw pointer initially
+        FMOD_RESULT result = system->createSound(filePath.c_str(), FMOD_DEFAULT, nullptr, &rawSound);
 
         if (result != FMOD_OK) {
             std::cerr << "Error loading sound for entity " << entity << " from file: " << filePath << std::endl;
             return;
         }
 
-        // Set loop mode based on AudioComponent setting
-        sound->setMode(audioComp.ShouldLoop() ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
+        // Wrap the raw FMOD::Sound* in a shared_ptr with a custom deleter
+        std::shared_ptr<FMOD::Sound> sound(rawSound, [](FMOD::Sound* s) {});
 
         // Store the sound in both the entity's audio map and the cache
         audioMap[entity] = sound;
-        soundCache[filePath] = sound;  // Cache the sound to avoid reloading it
+        soundCache[filePath] = sound;  // Cache the sound using shared_ptr to avoid reloading it
         std::cout << "Loaded and cached sound for entity " << entity << " from file: " << filePath << std::endl;
+    }
+
+    // Check if the current loop mode is the desired mode before setting it
+    FMOD_MODE currentMode;
+    audioMap[entity]->getMode(&currentMode);  // Get the current mode
+
+    FMOD_MODE desiredMode = audioComp.ShouldLoop() ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF;
+
+    // Only set the mode if it's different from the current mode
+    if (currentMode != desiredMode) {
+        audioMap[entity]->setMode(desiredMode);  // Set loop mode based on AudioComponent setting
+        std::cout << "Updated loop mode for sound: " << filePath << std::endl;
     }
 
     // Store the volume for the entity
     volumeMap[entity] = audioComp.GetVolume();
 }
 
-// Play the audio for the entity
-void AudioSystem::Play(Entity entity) {
+
+
+// Play the audio for the entity with adjustable volume
+void AudioSystem::Play(Entity entity, float volume) {
     auto it = audioMap.find(entity);
     if (it != audioMap.end()) {
         FMOD::Channel* channel = nullptr;
-        FMOD_RESULT result = system->playSound(it->second, nullptr, false, &channel);  // Play the sound
+        FMOD_RESULT result = system->playSound(it->second.get(), nullptr, false, &channel);  // Play the sound
 
         if (result != FMOD_OK) {
-            std::cerr << "Error playing sound for entity " << entity << ": " << (result) << std::endl;
+            std::cerr << "Error playing sound for entity " << entity << ": " << FMODErrorToString(result) << std::endl;
             return;
         }
 
-        channel->setVolume(volumeMap[entity]);  // Set the volume for the sound
-        channelMap[entity] = channel;  // Store the channel to control it later
+        // Set the initial volume for the sound
+        channel->setVolume(volume);
 
-        std::cout << "Playing sound for entity " << entity << std::endl;
+        // Store the channel to control it later (dynamic volume, stopping, etc.)
+        channelMap[entity].push_back(channel);
+
+        std::cout << "Playing sound for entity " << entity << " at volume: " << volume << std::endl;
     }
     else {
         std::cerr << "Audio component not found for entity " << entity << std::endl;
     }
 }
 
+// Adjust volume for an entity's active sound channels
+void AudioSystem::SetVolume(Entity entity, float volume) {
+    auto it = channelMap.find(entity);
+    if (it != channelMap.end()) {
+        for (auto* channel : it->second) {
+            if (channel) {
+                channel->setVolume(volume);  // Set volume dynamically
+                std::cout << "Volume for entity " << entity << " set to: " << volume << std::endl;
+            }
+        }
+    }
+    else {
+        std::cerr << "No active channels found for entity " << entity << std::endl;
+    }
+}
+
+
 // Stop the audio for the entity
 void AudioSystem::Stop(Entity entity) {
     auto it = channelMap.find(entity);
     if (it != channelMap.end()) {
-        it->second->stop();  // Stop the audio channel
+        // Stop all channels associated with the entity
+        for (auto* channel : it->second) {
+            if (channel) {
+                channel->stop();
+            }
+        }
+        // Clear the channel vector after stopping
+        channelMap[entity].clear();
+
+        std::cout << "Stopped all sounds for entity " << entity << std::endl;
     }
 }
+
 
 // Update the audio system
 void AudioSystem::Update() {
@@ -97,11 +167,21 @@ void AudioSystem::Update() {
                 audioMap.erase(entity);
             }
         }
+
+        // Iterate over the channels and remove stopped channels
+        auto& channels = channelMap[entity];
+        channels.erase(std::remove_if(channels.begin(), channels.end(),
+            [](FMOD::Channel* channel) {
+                bool isPlaying;
+                channel->isPlaying(&isPlaying);
+                return !isPlaying;  // Remove the channel if it's no longer playing
+            }), channels.end());
     }
 
     // Update the FMOD system to process audio
     system->update();
 }
+
 
 // Play background music (BGM)
 void AudioSystem::PlayBGM(const std::string& filePath) {
@@ -116,15 +196,68 @@ void AudioSystem::PlayBGM(const std::string& filePath) {
             return;
         }
 
-        soundCache[filePath] = bgm;  // Cache the BGM sound
+        // Wrap the raw FMOD::Sound* in a shared_ptr with a custom deleter
+        std::shared_ptr<FMOD::Sound> bgmPtr(bgm, [](FMOD::Sound* sound) {
+            if (sound) {
+                sound->release();  // Release the sound when the shared_ptr is destroyed
+            }
+            });
+
+        soundCache[filePath] = bgmPtr;  // Cache the BGM sound using the shared_ptr
     }
 
     // Play the cached BGM sound
     FMOD::Channel* channel = nullptr;
-    system->playSound(soundCache[filePath], nullptr, false, &channel);
+    system->playSound(soundCache[filePath].get(), nullptr, false, &channel);  // Use .get() to retrieve raw pointer
     channel->setVolume(1.0f);  // Set the volume for BGM
     channel->setMode(FMOD_LOOP_NORMAL);  // Ensure BGM loops
 
     // Update system to handle the audio
     system->update();
+}
+
+// Fade in the volume for a sound
+void AudioSystem::FadeIn(Entity entity, float targetVolume, float duration) {
+    auto it = channelMap.find(entity);
+    if (it != channelMap.end()) {
+        for (auto* channel : it->second) {
+            if (channel) {
+                float currentVolume;
+                channel->getVolume(&currentVolume);  // Get the current volume
+
+                float step = (targetVolume - currentVolume) / duration;  // Calculate the step to increase volume
+
+                for (float t = 0.0f; t <= duration; t += 0.1f) {  // Increment volume gradually
+                    currentVolume += step * 0.1f;
+                    channel->setVolume(currentVolume);
+                    system->update();
+                    std::this_thread::sleep_for(std::chrono::milliseconds(100));  // Delay for smooth fading
+                }
+                channel->setVolume(targetVolume);  // Ensure we reach the exact target volume
+            }
+        }
+    }
+}
+
+// Fade out the volume for a sound
+void AudioSystem::FadeOut(Entity entity, float duration) {
+    auto it = channelMap.find(entity);
+    if (it != channelMap.end()) {
+        for (auto* channel : it->second) {
+            if (channel) {
+                float currentVolume;
+                channel->getVolume(&currentVolume);  // Get the current volume
+
+                float step = currentVolume / duration;  // Calculate the step to decrease volume
+
+                for (float t = 0.0f; t <= duration; t += 0.1f) {  // Decrement volume gradually
+                    currentVolume -= step * 0.1f;
+                    channel->setVolume(std::max(currentVolume, 0.0f));  // Ensure volume doesn't go negative
+                    system->update();
+                    std::this_thread::sleep_for(std::chrono::milliseconds(100));  // Delay for smooth fading
+                }
+                channel->setVolume(0.0f);  // Ensure the volume reaches 0
+            }
+        }
+    }
 }
