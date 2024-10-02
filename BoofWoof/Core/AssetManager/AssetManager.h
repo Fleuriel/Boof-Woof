@@ -43,23 +43,29 @@ class AssetManager
 public:
 
 	// General functions
-	AssetManager();																					//Constructor for AssetManager class
-	~AssetManager();																				//Destructor for AssetManager class
+	AssetManager();																			//Constructor for AssetManager class
+	~AssetManager();																		//Destructor for AssetManager class
 
-	void LoadAll();																					//Function to load all assets
-	void FreeAll();																					//Function to free all assets
-	//void ReloadAll();																				//Function to reload all assets
+	void LoadAll();																			//Function to load all assets
+	void FreeAll();																			//Function to free all assets
+	//void ReloadAll();																		//Function to reload all assets
 
 	// Texture functions
-	bool LoadTextures();																			//Function to load textures
-	int SetUpTexture(std::string filePath);															//Function to set up textures
-	bool FreeTextures();																			//Function to free textures
-	bool ReloadTextures();																			//Function to reload textures
+	bool LoadTextures();																	//Function to load textures
+	int SetUpTexture(std::string filePath);													//Function to set up textures
+	bool FreeTextures();																	//Function to free textures
+	bool ReloadTextures();																	//Function to reload textures
 
 	// Sprite functions
 	bool LoadSprites();																		//Function to load sprites
 	bool FreeSprites();																		//Function to free sprites
 	bool ReloadSprites();																	//Function to reload sprites
+
+	// Scene functions
+	bool LoadScenes();																		//Function to load scenes
+	bool FreeScenes();																		//Function to free scenes
+	bool ReloadScenes();																	//Function to reload scenes
+	int GetNumberOfScenes();																//Retrieves number of scenes
 
 	using VectorPairString = std::vector <std::pair<std::string, std::string>>;				// Using a vector-->pair string for shaders
 
@@ -72,6 +78,7 @@ public:
 	int GetTexture(std::string);															//Function to access textures
 	Sprite GetSprite(std::string);															//Function to access sprite
 	int GetSpriteTexture(std::string);														//Function to access sprite texture
+	std::string GetScene(int);																//Function to access scenes
 	OpenGLShader& GetShader(std::string);													//Function to access shaders
 
 
@@ -92,7 +99,7 @@ private:
 	//Containers
 	std::map<std::string, int> textures{};													//Container to store textures
 	std::map<std::string, Sprite> sprites{};												//Container to store sprites
-
+	std::vector<std::string> scenes{};																//Container to store scenes
 	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
 	std::vector<std::string>shdrpgmOrder{};													//Container to store the order of shader programs
 

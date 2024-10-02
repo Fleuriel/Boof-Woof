@@ -17,6 +17,9 @@
 // SPRITES //
 #define FILEPATH_SPRITES					std::string("..\\BoofWoof\\Assets\\Art Assets\\Sprites")
 
+// SCENES //
+#define FILEPATH_SCENES						std::string("..\\BoofWoof\\Assets\\Scenes")
+
  // SHADERS //
 #define FILEPATH_SHADERS					std::string("..\\BoofWoof\\Assets\\Shaders")
 

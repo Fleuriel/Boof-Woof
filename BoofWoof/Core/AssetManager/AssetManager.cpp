@@ -182,6 +182,22 @@ void AssetManager::FreeAll() {
 //#endif // DEBUG
 //}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**************************************************************************
  * @brief Loads textures from the specified directory.
  *
@@ -364,6 +380,46 @@ bool AssetManager::ReloadTextures() {
     // Return true if free and load successfully
     return (AssetManager::FreeTextures() && AssetManager::LoadTextures());
 }
+
+/**************************************************************************
+ * @brief Get a texture by its name.
+ *
+ * This function allows you to retrieve an OpenGL texture handler by providing
+ * the name of the texture. The name should correspond to the filename of the
+ * texture image (without the file extension) that was previously loaded using
+ * the 'LoadTextures' function. If a texture with the specified name is found,
+ * its handler is returned.
+ *
+ * @param std::string name - The name of the texture to retrieve.
+ *
+ * @return int - The OpenGL texture handler for the specified texture. If the
+ *               texture with the given name is not found, it returns 0.
+ *************************************************************************/
+int AssetManager::GetTexture(std::string name) {
+    return textures[name];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**************************************************************************
  * @brief Loads sprite data from the specified directory and populates the 'sprites' container.
@@ -601,6 +657,176 @@ bool AssetManager::FreeSprites() {
 bool AssetManager::ReloadSprites() {
     return (AssetManager::FreeSprites() && AssetManager::LoadSprites());
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**************************************************************************
+ * @brief Loads the scene filenames from the specified directory.
+ *
+ * This function scans the directory specified by FILEPATH_SCENES and retrieves
+ * the filenames of all scenes found in that directory. It populates the 'scenes'
+ * container with the filenames.
+ *
+ * @return True if the scenes were loaded successfully, false if there was an error.
+ *************************************************************************/
+bool AssetManager::LoadScenes() {
+    Currentlyloading = true;
+    bool result{ true };
+    if (fs::is_directory(FILEPATH_SCENES)) {
+        for (const auto& entry : fs::directory_iterator(FILEPATH_SCENES)) {
+
+            // find the file extension 
+            size_t extensionPos = entry.path().filename().string().find_last_of('.');
+
+            std::string Extension = entry.path().filename().string().substr(extensionPos);
+            //std::cout << Extension;
+            std::string allowedExtensions = ".json";
+
+            // Check if the substring exists in the full string
+            size_t found = allowedExtensions.find(toLowerCase(Extension));
+
+            if (found == std::string::npos) {
+                std::string file(entry.path().filename().string());
+                std::wstring widefile(file.begin(), file.end());
+                HWND hwnd = GetActiveWindow();
+                std::string filepath(FILEPATH_SCENES);
+                // Convert std::string to std::wstring
+                std::wstring widefilepath(filepath.begin(), filepath.end());
+
+                std::wstring message = L"Incompatible file \"" + widefile + L"\" detected in \"" + widefilepath + L"\" folder!\n\nFile moved to trash bin!";
+                LPCWSTR boxMessage = message.c_str();
+
+                MessageBox(hwnd, boxMessage, L"Load Failure", MB_OK | MB_ICONERROR);
+
+                // Construct the full destination path including the file name
+                fs::path destinationPath = FILEPATH_TRASHBIN / entry.path().filename();
+                fs::path trashbin = FILEPATH_TRASHBIN;
+
+                if (!fs::exists(trashbin))
+                    fs::create_directory(trashbin);
+
+                if (fs::exists(destinationPath)) {
+                    int counter = 1;
+                    std::string nameWithoutExtension = entry.path().stem().string();
+
+                    std::string addstr = nameWithoutExtension + "(" + std::to_string(counter) + ")" + Extension;
+
+                    fs::path finalDestination = trashbin / addstr;
+
+                    while (fs::exists(finalDestination)) {
+                        counter++;
+                        addstr = nameWithoutExtension + "(" + std::to_string(counter) + ")" + Extension;
+                        finalDestination = trashbin / addstr;
+                    }
+
+                    fs::rename(entry.path(), finalDestination);
+                }
+                else {
+                    fs::rename(entry.path(), destinationPath);
+                }
+
+                continue;
+            }
+
+            scenes.push_back(entry.path().filename().string());
+        }
+    }
+    else {
+        // Print error
+#ifdef _DEBUG
+        std::cout << "The specified scenes path is not a directory." << std::endl;
+#endif // DEBUG
+        result = false;
+    }
+    Currentlyloading = false;
+    return result;
+}
+
+/**************************************************************************
+ * @brief Retrieves the scene filename at the specified index.
+ *
+ * This function returns the filename of the scene located at the specified
+ * index in the 'scenes' container.
+ *
+ * @param index - The index of the scene to retrieve.
+ * @return The filename of the scene at the specified index.
+ *************************************************************************/
+std::string AssetManager::GetScene(int index) {
+    return scenes[index];
+}
+
+/**************************************************************************
+ * @brief Frees the 'scenes' container by clearing it.
+ *
+ * This function clears the 'scenes' container, removing all stored scene
+ * filenames from memory.
+ *
+ * @return True if the 'scenes' container is empty after clearing, false
+ *         otherwise.
+ *************************************************************************/
+bool AssetManager::FreeScenes() {
+    scenes.clear();
+    return scenes.empty();
+}
+
+/**************************************************************************
+ * @brief Reloads the available scene filenames.
+ *
+ * This function reloads the available scene filenames by first freeing the
+ * current list of scenes and then loading them again from the specified
+ * directory.
+ *
+ * @return True if the scenes are both successfully freed and reloaded,
+ *         false otherwise.
+ *************************************************************************/
+bool AssetManager::ReloadScenes() {
+    return (AssetManager::FreeScenes() && AssetManager::LoadScenes());
+}
+
+/**************************************************************************
+ * @brief Get the number of available scenes.
+ *
+ * This function returns the number of available scenes that have been
+ * loaded into the AssetManager.
+ *
+ * @return The number of available scenes.
+ *************************************************************************/
+int AssetManager::GetNumberOfScenes() {
+    return static_cast<int>(scenes.size());
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
