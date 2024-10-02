@@ -79,7 +79,7 @@ void InputSystem::UpdateStatesForNextFrame() {
 		// Update the state of each key
 		// If the key state is 1 (pressed in the current frame), change it to 2 (held down)
 		// If the key state is 0 (not pressed), it remains 0
-		keyStates[i] = (keyStates[i] == 1) ? 2 : keyStates[i];
+		keyStates[i] = ((keyStates[i] == 1) ? 2 : keyStates[i]);
 	}
 
 	// Reset the mouse scroll state to 0 for the next frame
