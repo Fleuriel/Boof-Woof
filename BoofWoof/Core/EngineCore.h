@@ -7,8 +7,12 @@
 #include <iostream>
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
+#include "../Utilities/Components/CollisionComponent.hpp"
 #include "Windows/WindowManager.h"
 #include "Graphics/GraphicsSystem.h"
+#include "Physics/CustomPhysicsSystem.h"
+#include "Physics/CollisionSystem.h"
+
 #include "AssetManager/AssetManager.h"
 #include "Input/Input.h"
 #include "../Utilities/Components/MetaData.hpp"

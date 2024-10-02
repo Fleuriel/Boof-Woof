@@ -1,6 +1,5 @@
-#include "PhysicsSystem.h"
+#include "CustomPhysicsSystem.h"
 #include <Jolt/Physics/Body/Body.h>                   // For Body
-#include <Jolt/Physics/Body/BodyCreationSettings.h>   // For BodyCreationSettings
 #include <Jolt/Physics/Collision/Shape/SphereShape.h> // For SphereShape
 #include <Jolt/Physics/Collision/Shape/ConvexShape.h> // For SphereShape
 #include <Jolt/Physics/Body/BodyInterface.h>          // For BodyInterface
@@ -22,6 +21,9 @@ void PhysicsManager::InitializeJolt() {
 
     // Register JoltPhysics types
     JPH::RegisterTypes();
+
+    // Any initialization specific to collision handling
+    std::cout << "Initializing Physics System" << std::endl;
 }
 
 // Object-vs-broad-phase-layer filter

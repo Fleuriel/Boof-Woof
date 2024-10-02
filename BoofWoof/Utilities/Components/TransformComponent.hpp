@@ -29,6 +29,12 @@ public:
 	glm::vec3& GetPosition() { return m_Position; }
 	glm::vec3& GetScale() { return m_Scale; }
 	glm::vec3& GetRotation() { return m_Rotation; }
+
+	// Correct the getter functions to return const references
+	const glm::vec3& GetPosition() const { return m_Position; }
+	const glm::vec3& GetScale() const { return m_Scale; }
+	const glm::vec3& GetRotation() const { return m_Rotation; }
+
 	glm::mat4 GetWorldMatrix(){
 		glm::mat4 worldMatrix = glm::mat4(1.0f);
 
@@ -65,4 +71,4 @@ private:
 
 };
 
-#endif  // GRAPHICS_COMPONENT_H
+#endif  // TRANSFORM_COMPONENT_H

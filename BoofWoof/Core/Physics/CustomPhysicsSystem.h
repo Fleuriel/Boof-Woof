@@ -1,11 +1,18 @@
-#ifndef PHYSICSSYSTEM_H
-#define PHYSICSSYSTEM_H
+#ifndef CUSTOMPHYSICSSYSTEM_H
+#define CUSTOMPHYSICSSYSTEM_H
+
+// Temporarily undefine the `free` macro
+#ifdef free
+#undef free
+#endif
 
 #include <Jolt/Jolt.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
 #include <Jolt/Physics/PhysicsSystem.h>
 #include <Jolt/Physics/PhysicsSettings.h>
 #include <Jolt/RegisterTypes.h>
+#include <Jolt/Physics/Body/BodyCreationSettings.h>   // For BodyCreationSettings
+#include "../ECS/System.hpp"
 
 // Forward declarations
 namespace JPH {
@@ -45,4 +52,4 @@ public:
     virtual JPH::BroadPhaseLayer GetBroadPhaseLayer(JPH::ObjectLayer layer) const override;
 };
 
-#endif // PHYSICSSYSTEM_H
+#endif // CUSTOMPHYSICSSYSTEM_H
