@@ -8,8 +8,10 @@
 #include "../BoofWoof/Core/Windows/WindowManager.h"
 #include "../BoofWoof/Utilities/Components/TransformComponent.hpp"
 #include "../BoofWoof/Utilities/Components/MetaData.hpp"
-#include "Serialization/Serialization.h"
+#include "../BoofWoof/Core/SceneManager/SceneManager.h"
 #include "EngineCore.h"
+
+#include <filesystem>
 
 class ImGuiEditor 
 {

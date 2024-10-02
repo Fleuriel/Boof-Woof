@@ -3,14 +3,72 @@
 #include <cstdio>
 #include <iostream>
 #include <filesystem>
+#include <random>
+#include <sstream>
+#include <iomanip>
 
-void Serialization::SaveEngineState(const std::string& filepath) {
-    // Ensure the Saves directory exists
-    std::filesystem::create_directory("Saves");
+#include "Serialization.h"
 
+// Initialize the static member variable
+std::string Serialization::currentSceneGUID = "";
+
+
+std::string GetScenesPath() {
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    std::filesystem::path projectRoot = currentPath.parent_path();
+    std::filesystem::path scenesPath = projectRoot / "BoofWoof" / "Assets" / "Scenes";
+
+    return scenesPath.string();
+}
+
+
+
+// Helper function to generate a new GUID
+std::string Serialization::GenerateGUID() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dis(0, 15);
+
+    std::stringstream ss;
+    ss << std::hex;
+
+    for (int i = 0; i < 8; ++i) ss << dis(gen);
+    ss << "-";
+    for (int i = 0; i < 4; ++i) ss << dis(gen);
+    ss << "-4"; // Version 4 UUID
+    for (int i = 0; i < 3; ++i) ss << dis(gen);
+    ss << "-";
+    ss << ((dis(gen) & 0x3) | 0x8); // variant
+    for (int i = 0; i < 3; ++i) ss << dis(gen);
+    ss << "-";
+    for (int i = 0; i < 12; ++i) ss << dis(gen);
+
+    return ss.str();
+}
+
+// Retrieve the GUID of the currently loaded scene
+std::string Serialization::GetSceneGUID() {
+    return currentSceneGUID;
+}
+
+bool Serialization::SaveScene(const std::string& filepath) {
+    // Generate a new GUID when saving the scene
+    currentSceneGUID = GenerateGUID();
+
+    // Continue with saving the scene (same logic as before)
+    std::string fullSavePath = GetScenesPath() + "/" + filepath;
+
+    // Ensure the directories exist
+    std::filesystem::create_directories(GetScenesPath());
+    // Continue with saving the scene
     rapidjson::Document doc;
     doc.SetObject();
     rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
+
+    // Add the GUID to the scene data
+    rapidjson::Value guidValue;
+    guidValue.SetString(currentSceneGUID.c_str(), allocator);
+    doc.AddMember("SceneGUID", guidValue, allocator);
 
     // Serialize entities with components
     rapidjson::Value entities(rapidjson::kArrayType);
@@ -18,8 +76,7 @@ void Serialization::SaveEngineState(const std::string& filepath) {
         rapidjson::Value entityData(rapidjson::kObjectType);
 
         // Serialize MetadataComponent
-        if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) 
-        {
+        if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) {
             auto& name = g_Coordinator.GetComponent<MetadataComponent>(entity);
             rapidjson::Value entityName;
             entityName.SetString(name.GetName().c_str(), allocator);
@@ -55,11 +112,7 @@ void Serialization::SaveEngineState(const std::string& filepath) {
         // Serialize GraphicsComponent
         if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
             auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-
-            // Serialize Model ID
             entityData.AddMember("ModelID", graphicsComp.getModelID(), allocator);
-
-            // Serialize Entity ID
             entityData.AddMember("EntityID", static_cast<int>(entity), allocator);
         }
 
@@ -68,22 +121,24 @@ void Serialization::SaveEngineState(const std::string& filepath) {
 
     doc.AddMember("Entities", entities, allocator);
 
-    // Write the document to a file in the "Saves" folder
-    FILE* fp = fopen("Saves/engine_state.json", "wb");
+    // Write the document to a file in the "Scenes" folder
+    FILE* fp = fopen(fullSavePath.c_str(), "wb");
     if (fp) {
         char writeBuffer[65536];
         rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
         rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
         doc.Accept(writer);
         fclose(fp);
+        return true; // Successfully saved
     }
+    return false; // Failed to save
 }
 
-void Serialization::LoadEngineState(const std::string& filepath) {
+bool Serialization::LoadScene(const std::string& filepath) {
     FILE* fp = fopen(filepath.c_str(), "rb");
     if (!fp) {
         std::cerr << "Failed to open file for loading: " << filepath << std::endl;
-        return;
+        return false;
     }
 
     char readBuffer[65536];
@@ -95,10 +150,19 @@ void Serialization::LoadEngineState(const std::string& filepath) {
 
     if (!doc.IsObject()) {
         std::cerr << "Invalid JSON format in: " << filepath << std::endl;
-        return;
+        return false;
     }
 
-    // Deserialize entities with components
+    // Deserialize the scene GUID
+    if (doc.HasMember("SceneGUID")) {
+        currentSceneGUID = doc["SceneGUID"].GetString();
+        std::cout << "Loaded scene with GUID: " << currentSceneGUID << std::endl;
+    }
+    else {
+        std::cerr << "No GUID found in scene file" << std::endl;
+    }
+
+    // Continue deserializing entities...
     if (doc.HasMember("Entities") && doc["Entities"].IsArray()) {
         const auto& entities = doc["Entities"];
         for (const auto& entityData : entities.GetArray()) {
@@ -107,10 +171,10 @@ void Serialization::LoadEngineState(const std::string& filepath) {
             // Deserialize MetadataComponent
             if (entityData.HasMember("EntityName")) {
                 std::string name = entityData["EntityName"].GetString();
-
                 MetadataComponent metadataComponent(name, entity);
                 g_Coordinator.AddComponent(entity, metadataComponent);
             }
+
 
             // Deserialize TransformComponent
             if (entityData.HasMember("Position")) {
@@ -139,8 +203,6 @@ void Serialization::LoadEngineState(const std::string& filepath) {
             // Deserialize GraphicsComponent
             if (entityData.HasMember("ModelID")) {
                 int modelID = entityData["ModelID"].GetInt();
-
-                // Create GraphicsComponent with the deserialized model ID
                 GraphicsComponent graphicsComponent(&g_AssetManager.ModelMap["sphere"], entity);
                 graphicsComponent.SetModelID(modelID);
                 g_Coordinator.AddComponent(entity, graphicsComponent);
@@ -151,5 +213,6 @@ void Serialization::LoadEngineState(const std::string& filepath) {
         }
     }
 
-    std::cout << "Engine state loaded from " << filepath << std::endl;
+    return true; // Successfully loaded
 }
+

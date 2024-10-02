@@ -14,7 +14,8 @@
     <ClCompile Include="Core\Input\Input.cpp" />
     <ClCompile Include="Core\Windows\WindowManager.cpp" />
     <ClCompile Include="Core\Serialization\Serialization.cpp" />
-    <ClCompile Include="Core\AssetManager\Sprite.cpp" />
+    <ClCompile Include="Core\Physics\PhysicsSystem.cpp" />
+    <ClCompile Include="Core\SceneManager\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
@@ -41,8 +42,8 @@
     <ClInclude Include="Utilities\Components\TransformComponent.hpp" />
     <ClInclude Include="Core\Serialization\Serialization.h" />
     <ClInclude Include="Core\Timer\Timer.hpp" />
-    <ClInclude Include="Core\AssetManager\FilePaths.h" />
-    <ClInclude Include="Core\AssetManager\Sprite.h" />
+    <ClInclude Include="Core\Physics\PhysicsSystem.h" />
+    <ClInclude Include="Core\SceneManager\SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />
