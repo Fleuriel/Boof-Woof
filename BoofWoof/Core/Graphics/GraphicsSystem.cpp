@@ -90,7 +90,7 @@ void GraphicsSystem::UpdateLoop() {
 	// Setup camera and projection matrix
 	glm::mat4 view_ = camera.GetViewMatrix();
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
-
+	
 	g_AssetManager.GetShader("Shader3D").Use();
 
 	// Loop through all entities and render them
@@ -106,7 +106,8 @@ void GraphicsSystem::UpdateLoop() {
 				if (graphicsComp.getModel() == nullptr)
 				{
 					std::cout << "Model is null" << std::endl;
-					graphicsComp.SetModel(&g_AssetManager.ModelMap["sphere"]);
+					graphicsComp.SetModel(&g_AssetManager.ModelMap["Sphere"]);
+					//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
 					continue;
 				}
 
@@ -114,7 +115,11 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader("Shader3D").SetUniform("view", view_);
 				g_AssetManager.GetShader("Shader3D").SetUniform("projection", projection);
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", glm::vec3{ 1.0f });
+				graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader3D"));
+
 				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
+
+
 			}
 		}
 	}
@@ -171,25 +176,15 @@ void GraphicsSystem::AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3
 
 void GraphicsSystem::AddModel_2D()
 {
-	Model2D model;
+	Model model;
 
 	model = SquareModel(glm::vec3(0.0f));
 
-	g_AssetManager.Model2D.push_back(model);
+	g_AssetManager.ModelMap.insert(std::pair<std::string,Model> ("Square", model));
+	std::cout << "Loaded: " << "Square" << " with name: "  << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
 }
 
-void GraphicsSystem::AddObject_2D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model2D model)
-{
-	Object2D obj2D;
 
-	obj2D.model = &model;
-	obj2D.position = position;
-	obj2D.scale = scale;
-	obj2D.rotation = rotation;
-	obj2D.color = color;
-
-	g_AssetManager.Object2D.push_back(obj2D);
-}
 
 
 void GraphicsSystem::UpdateViewportSize(int width, int height) {

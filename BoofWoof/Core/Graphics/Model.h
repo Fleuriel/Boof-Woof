@@ -24,6 +24,8 @@
 
 #include "AssetManager/AssetManager.h"
 
+class AssetManager;
+
 class Model2D
 {
 public:
@@ -42,7 +44,6 @@ public:
 
 };
 
-Model2D SquareModel(glm::vec3 color);
 
 
 //extern std::vector<Model2D> models;
@@ -57,9 +58,27 @@ public:
     std::string directory;
     
     
+    // 2D
+    GLenum primitive_type;		// Primitive Type
+    size_t primitive_cnt;		// Primitive Count
+    GLuint vaoid;				// Vaoid of the Model
+    GLsizei draw_cnt;			// Draw Count of the model
+    size_t idx_elem_cnt;		// Index Element Count of the Model
 
     // constructor, expects a filepath to a 3D model.
     
+
+    void Draw2D(OpenGLShader& shader)
+    {
+        
+
+        glBindVertexArray(vaoid);
+
+        //std::cout << vaoid << '\n';
+        glDrawElements(primitive_type, draw_cnt, GL_UNSIGNED_SHORT, nullptr);
+
+        glBindVertexArray(0);
+    }
 
     // draws the model, and thus all its meshes
     void Draw(OpenGLShader& shader)
@@ -306,5 +325,8 @@ public:
 //    return textureID;
 };
 
+
+
+Model SquareModel(glm::vec3 color);
 
 #endif // !MODEL_H

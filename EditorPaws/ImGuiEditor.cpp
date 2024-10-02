@@ -340,26 +340,45 @@ void ImGuiEditor::InspectorWindow()
 				auto modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModel();
 				const char* source = "";
 
+
 				if (modelName == &g_AssetManager.ModelMap["sphere"])
 				{
 					source = "Sphere";
 				}
+				if (modelName == &g_AssetManager.ModelMap["Square"])
+				{
+					source = "Square";
+				}
 
-				const char* modelNames[] = { "Sphere" };
+				std::vector<std::string> modelNames = { "Sphere", "Square"};
 				static int currentModel = 0;
 
-				for (int i = 0; i < 6; ++i) {
-					if (modelNames[i] == source) {
+				for (int i = 0; i < modelNames.size(); ++i) {
+
+					if (modelNames[i].c_str()  == source) {
 						currentModel = i;
 					}
 				}
+
+				std::string inputModelName;
+
+				for (const auto& name : modelNames)
+				{
+					inputModelName += name + '\0';
+				}
+
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Model   "); ImGui::SameLine();
-				if (ImGui::Combo("##ModelCombo", &currentModel, modelNames, 1))
+				
+				// Add in the slots to get the value.
+				if (ImGui::Combo("##ModelCombo", &currentModel, inputModelName.c_str(), modelNames.size()))
 				{
 					if (currentModel == 0) modelName = &g_AssetManager.ModelMap["sphere"];
+					if (currentModel == 1) modelName = &g_AssetManager.ModelMap["Square"];
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModel(modelName);
 				}
+
+
 
 				// modelID
 				auto modelID = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelID();
