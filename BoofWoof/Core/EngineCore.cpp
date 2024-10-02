@@ -85,6 +85,11 @@ void EngineCore::OnInit()
 
 void EngineCore::OnUpdate()
 {
+
+
+
+
+
 	m_CurrNumSteps = 0;
 	m_DeltaTime = m_EndTime - m_StartTime;	// start at 0
 	m_StartTime = g_Timer.GetCurrentTime();
@@ -118,6 +123,13 @@ void EngineCore::OnUpdate()
 
 	// input update
 	g_Input.UpdateStatesForNextFrame();
+	if (g_Input.GetKeyState(GLFW_KEY_H) == 1) {
+		std::cout << "Press\n";
+	}
+	if (g_Input.GetKeyState(GLFW_KEY_H) == 2) {
+		std::cout << "Hold\n";
+	}
+
 
 
 	//Transition
@@ -142,9 +154,34 @@ void EngineCore::OnUpdate()
 
 
 
+	/*
+	//Test serialization
+	if (g_Input.GetKeyState(GLFW_KEY_P) == 1) {  // Save engine state
+		std::cout << "P key pressed, saving engine state..." << std::endl;
+		g_SceneManager.SaveScene("Saves/engine_state.json");
+		std::cout << "Engine state saved to Saves/engine_state.json" << std::endl;
+	}
+
+	if (g_Input.GetKeyState(GLFW_KEY_O) == 1) {  // Reset entities
+		std::cout << "O key pressed, resetting entities..." << std::endl;
+		g_Coordinator.ResetEntities();
+		std::cout << "Entities reset!" << std::endl;
+	}
+
+	if (g_Input.GetKeyState(GLFW_KEY_L) == 1) {  // Load engine state
+		std::cout << "L key pressed, loading engine state..." << std::endl;
+		g_SceneManager.SaveScene("Saves/engine_state.json");
+		std::cout << "Engine state loaded from Saves/engine_state.json" << std::endl;
+	}
+	*/
+	
+
 	// keep this at the end
 	m_ElapsedDT = m_GraphicsDT + m_LogicDT; // to add more DT when more systems comes up
 	m_EndTime = g_Timer.GetCurrentTime();
+
+	// input update
+	g_Input.UpdateStatesForNextFrame();
 }
 
 void EngineCore::OnShutdown()

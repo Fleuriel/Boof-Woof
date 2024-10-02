@@ -348,26 +348,49 @@ void ImGuiEditor::InspectorWindow()
 			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
 			{
 				auto modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModel();
-				const char* source = (modelName == &g_AssetManager.ModelMap["sphere"]) ? "Sphere" : "";
+				const char* source = "";
 
-				const char* modelNames[] = { "Sphere" };
+
+				if (modelName == &g_AssetManager.ModelMap["sphere"])
+				{
+					source = "Sphere";
+				}
+				if (modelName == &g_AssetManager.ModelMap["Square"])
+				{
+					source = "Square";
+				}
+
+				std::vector<std::string> modelNames = { "Sphere", "Square"};
 				static int currentModel = 0;
 
-				for (int i = 0; i < 1; ++i)
-				{
-					if (modelNames[i] == source) {
+				for (int i = 0; i < modelNames.size(); ++i) {
+
+					if (modelNames[i].c_str()  == source) {
 						currentModel = i;
 					}
 				}
 
+				std::string inputModelName;
+
+				for (const auto& name : modelNames)
+				{
+					inputModelName += name + '\0';
+				}
+
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Model   "); ImGui::SameLine();
-				if (ImGui::Combo("##ModelCombo", &currentModel, modelNames, 1))
+				
+				// Add in the slots to get the value.
+				if (ImGui::Combo("##ModelCombo", &currentModel, inputModelName.c_str(), modelNames.size()))
 				{
 					if (currentModel == 0) modelName = &g_AssetManager.ModelMap["sphere"];
+					if (currentModel == 1) modelName = &g_AssetManager.ModelMap["Square"];
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModel(modelName);
 				}
 
+
+
+				// modelID
 				auto modelID = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelID();
 				ImGui::Text("ModelID "); ImGui::SameLine();
 				if (ImGui::DragInt("##ModelID", &modelID, 1))

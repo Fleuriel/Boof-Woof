@@ -21,9 +21,9 @@
     <ClCompile Include="Utilities\Components\BehaviourComponent.hpp" />
     <ClCompile Include="Core\Logic\Behaviour.cpp" />
     <ClCompile Include="Scripts\Movement.cpp" />
+    <ClCompile Include="Core\AssetManager\Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\AssetManager\AssetManager.h" />
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
     <ClInclude Include="Core\ECS\ComponentManager.hpp" />
     <ClInclude Include="Core\ECS\Coordinator.hpp" />
@@ -53,6 +53,8 @@
     <ClInclude Include="Utilities\Components\AudioComponent.hpp" />
     <ClInclude Include="Core\Logic\LogicSystem.h" />
     <ClInclude Include="Core\Logic\Behaviour.h" />
+    <ClInclude Include="Core\AssetManager\AssetManager.h" />
+    <ClInclude Include="Core\AssetManager\Sprite.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />
