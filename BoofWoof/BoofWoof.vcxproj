@@ -168,6 +168,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
+    <ClCompile Include="Core\Audio\AudioSystem.cpp" />
     <ClCompile Include="Core\EngineCore.cpp" />
     <ClCompile Include="Core\Graphics\BoundingVolume.cpp" />
     <ClCompile Include="Core\Graphics\Camera.cpp" />
@@ -185,6 +186,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
+    <ClInclude Include="Core\Audio\AudioSystem.h" />
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
     <ClInclude Include="Core\ECS\ComponentManager.hpp" />
     <ClInclude Include="Core\ECS\Coordinator.hpp" />
@@ -207,6 +209,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Serialization\Serialization.h" />
     <ClInclude Include="Core\Timer\Timer.hpp" />
     <ClInclude Include="Core\Windows\WindowManager.h" />
+    <ClInclude Include="Utilities\Components\AudioComponent.hpp" />
     <ClInclude Include="Utilities\Components\GraphicsComponent.hpp" />
     <ClInclude Include="Utilities\Components\MetaData.hpp" />
     <ClInclude Include="Utilities\Components\TransformComponent.hpp" />

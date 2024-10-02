@@ -1,6 +1,7 @@
 #include "EngineCore.h"
 
 std::shared_ptr<GraphicsSystem> mGraphicsSys;
+std::shared_ptr<AudioSystem> mAudioSys;
 
 void EngineCore::OnInit()
 {
@@ -21,6 +22,7 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<MetadataComponent>();
 	g_Coordinator.RegisterComponent<TransformComponent>();
 	g_Coordinator.RegisterComponent<GraphicsComponent>();
+	g_Coordinator.RegisterComponent<AudioComponent>();
 
 	// setting global pointer
 	g_Core = this;
@@ -37,6 +39,13 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
+	mAudioSys = g_Coordinator.RegisterSystem<AudioSystem>();
+	{
+		Signature signature;
+		signature.set(g_Coordinator.GetComponentType<AudioComponent>());
+		g_Coordinator.SetSystemSignature<AudioSystem>(signature);
+	}
+
 	// init system
 	mGraphicsSys->initGraphicsPipeline();
 
@@ -46,6 +55,8 @@ void EngineCore::OnInit()
 	// Just leave this part at the most bottom
 	m_AccumulatedTime = 0.0;		// elapsed time
 	m_CurrNumSteps = 0;
+
+	mAudioSys->PlayBGM("../BoofWoof/Assets/Audio/Test.wav");
 }
 
 void EngineCore::OnUpdate()
@@ -81,6 +92,7 @@ void EngineCore::OnUpdate()
 		// Graphics
 		mGraphicsSys->UpdateLoop();
 		m_GraphicsDT = g_Timer.GetElapsedTime();
+		mAudioSys->Update();
 	}
 
 

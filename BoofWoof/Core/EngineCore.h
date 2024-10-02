@@ -14,6 +14,7 @@
 #include "../Utilities/Components/MetaData.hpp"
 #include "Timer/Timer.hpp"
 #include "SceneManager/SceneManager.h"
+#include "Audio/AudioSystem.h"
 
 #include <GLFW/glfw3.h>
 #include "fmod.hpp"
