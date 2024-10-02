@@ -7,11 +7,18 @@
 #include <iostream>
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
-#include "Windows/WindowManager.h"
-#include "Graphics/GraphicsSystem.h"
-#include "AssetManager/AssetManager.h"
-#include "Input/Input.h"
+#include "../Utilities/Components/BehaviourComponent.hpp"
 #include "../Utilities/Components/MetaData.hpp"
+
+#include "Windows/WindowManager.h"
+#include "AssetManager/AssetManager.h"
+
+#include "Graphics/GraphicsSystem.h"
+#include "Logic/LogicSystem.h"
+
+#include "Serialization/Serialization.h"
+#include "Input/Input.h"
+
 #include "Timer/Timer.hpp"
 #include "SceneManager/SceneManager.h"
 #include "Audio/AudioSystem.h"
@@ -28,7 +35,7 @@ public:
 
 public:
 	double m_ElapsedDT{}, m_AccumulatedTime{}, m_StartTime{}, m_EndTime{}, m_DeltaTime{};
-	double m_GraphicsDT{};
+	double m_GraphicsDT{}, m_LogicDT{};
 	int m_CurrNumSteps{};
 	const double m_FixedDT = 1.0 / 60.0; // user defined 60fps
 };

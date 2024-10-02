@@ -20,7 +20,7 @@ class GraphicsComponent;
 
 class GraphicsSystem : public System
 {
-public:;
+public:
     void initGraphicsPipeline();
     void UpdateLoop();
     void Draw(std::vector<GraphicsComponent>& components);
