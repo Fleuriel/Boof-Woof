@@ -111,12 +111,13 @@ void EngineCore::OnUpdate()
 	g_Window->OnUpdate();
 
 	//sound test
-	
+	/*
 	if (g_Input.GetKeyState(GLFW_KEY_P) == 1 && g_Coordinator.HaveComponent<AudioComponent>(g_Coordinator.GetEntityId(0))) {
 
 		std::cout << "P key pressed, playing explosion sound..." << std::endl;
 		mAudioSys->Play(g_Coordinator.GetEntityId(0));  // Play the sound associated with the player entity
 	}
+	*/
 	
 
 
