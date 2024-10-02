@@ -1,6 +1,7 @@
 #include "EngineCore.h"
 
 std::shared_ptr<GraphicsSystem> mGraphicsSys;
+std::shared_ptr<LogicSystem> mLogicSys;
 
 void EngineCore::OnInit()
 {
@@ -22,6 +23,8 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<TransformComponent>();
 	g_Coordinator.RegisterComponent<GraphicsComponent>();
 
+	g_Coordinator.RegisterComponent<BehaviourComponent>();
+
 	// setting global pointer
 	g_Core = this;
 
@@ -29,6 +32,15 @@ void EngineCore::OnInit()
 	g_SceneManager;
 
 	// register system & signatures
+
+	mLogicSys = g_Coordinator.RegisterSystem<LogicSystem>();
+	{
+		Signature signature;
+		signature.set(g_Coordinator.GetComponentType<BehaviourComponent>());
+		g_Coordinator.SetSystemSignature<LogicSystem>(signature);
+	}
+
+
 	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
 	{
 		Signature signature;
@@ -37,11 +49,22 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
+	// Create entities
+	{
+		Entity entity = g_Coordinator.CreateEntity();
+		g_Coordinator.AddComponent(entity, TransformComponent());
+		g_Coordinator.AddComponent(entity, GraphicsComponent());
+		g_Coordinator.AddComponent(entity, BehaviourComponent("Movement", entity));
+	}
+	
+
 	// init system
+	mLogicSys->Init();
 	mGraphicsSys->initGraphicsPipeline();
+	
+	
 
-
-
+	
 
 	// Just leave this part at the most bottom
 	m_AccumulatedTime = 0.0;		// elapsed time
@@ -78,9 +101,12 @@ void EngineCore::OnUpdate()
 
 	// system updates
 	{
+		// Logic
+		mLogicSys->Update();
 		// Graphics
 		mGraphicsSys->UpdateLoop();
 		m_GraphicsDT = g_Timer.GetElapsedTime();
+		
 	}
 
 
