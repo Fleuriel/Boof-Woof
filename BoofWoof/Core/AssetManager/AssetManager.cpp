@@ -605,43 +605,240 @@ bool AssetManager::ReloadSprites() {
 
 
 /**************************************************************************
- * @brief Load Shaders
- * @param bool true or false depending on failure or success
- *************************************************************************/
+ * @brief Load the Shaders for Graphics Pipeline for Object to Render
+ *        and/or Translate their objects.
+ *
+ * @return True if prefabs are successfully loaded,
+ *         false otherwise.
+*************************************************************************/
 bool AssetManager::LoadShaders() {
 
-    std::cout << "Load Shaders\n";
+    FreeShaders();
 
-    std::cout << "We are currently working on : " << std::filesystem::current_path().string() << '\n';
+    Currentlyloading = true;
 
-    //VectorPairString SHADER3D
-    //{
-    //	std::make_pair<std::string, std::string>
-    //	("Assets\\Shaders\\Shader3D.vert", "Assets\\Shaders\\Shader3D.frag")
-    //};
-    VectorPairString SHADER3D
-    {
-        std::make_pair<std::string, std::string>
-        ("../BoofWoof/Assets/Shaders/Shader3D.vert", "../BoofWoof/Assets/Shaders/Shader3D.frag")
-    };
+    // Check if the Shaders filepath is an existing directory
+    if (fs::is_directory(FILEPATH_SHADERS)) {
 
+        // Create temporary containers for the shader files
+        std::vector<std::string> fragfiles, vertfiles;
 
-    VectorPairString SHADER2D
-    {
-        std::make_pair<std::string, std::string>
-        ("../BoofWoof/Assets/Shaders/Shader2D.vert", "../BoofWoof/Assets/Shaders/Shader2D.frag")
-    };
+        // For every file within the directory
+        for (const auto& entry : fs::directory_iterator(FILEPATH_SHADERS)) {
+            std::string texFilePath = FILEPATH_SHADERS + "/" + entry.path().filename().string();
+            //std::cout << "Texture file " << texFilePath << " Found." << std::endl;
 
-    InitShdrpgms(SHADER3D);
-    InitShdrpgms(SHADER2D);
+            size_t pos = entry.path().filename().string().find_last_of('.');
+            if (pos != std::string::npos) {
+                std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
+                //std::cout << nameWithoutExtension << std::endl;
 
-    if (shdrpgms.size() == 0)
-    {
-        std::cout << "shader program size is 0\n";
+                std::string Extension = entry.path().filename().string().substr(pos);
+                //std::cout << Extension;
+                std::string allowedExtensions = ".frag,.vert";
+
+                // Check if the substring exists in the full string
+                size_t found = allowedExtensions.find(toLowerCase(Extension));
+
+                if (found == std::string::npos) {
+                    std::string file(entry.path().filename().string());
+                    std::wstring widefile(file.begin(), file.end());
+                    HWND hwnd = GetActiveWindow();
+                    std::string filepath(FILEPATH_SHADERS);
+                    // Convert std::string to std::wstring
+                    std::wstring widefilepath(filepath.begin(), filepath.end());
+
+                    std::wstring message = L"Incompatible file \"" + widefile + L"\" detected in \"" + widefilepath + L"\" folder!\n\nFile moved to trash bin!";
+                    LPCWSTR boxMessage = message.c_str();
+
+                    MessageBox(hwnd, boxMessage, L"Load Failure", MB_OK | MB_ICONERROR);
+
+                    // Construct the full destination path including the file name
+                    fs::path destinationPath = FILEPATH_TRASHBIN / entry.path().filename();
+                    fs::path trashbin = FILEPATH_TRASHBIN;
+
+                    // If the trashbin file doesn't exist, create it
+                    if (!fs::exists(trashbin))
+                        fs::create_directory(trashbin);
+
+                    // If there exists a file in the trashbin with the same file name, add a counter to the name
+                    if (fs::exists(destinationPath)) {
+                        int counter = 1;
+
+                        std::string addstr = nameWithoutExtension + "(" + std::to_string(counter) + ")" + Extension;
+
+                        fs::path finalDestination = trashbin / addstr;
+
+                        while (fs::exists(finalDestination)) {
+                            counter++;
+                            addstr = nameWithoutExtension + "(" + std::to_string(counter) + ")" + Extension;
+                            finalDestination = trashbin / addstr;
+                        }
+
+                        // Move the file to the trashbin
+                        fs::rename(entry.path(), finalDestination);
+                    }
+                    // If there isn't an existing file in the trashbin with the same file name, move the file to the trashbin
+                    else {
+                        fs::rename(entry.path(), destinationPath);
+                    }
+
+                    continue;
+                }
+
+                // If the file is detected to be a frag file
+                if (found == 0)
+                    fragfiles.push_back(nameWithoutExtension);
+                // If the file is detected to be a vert file
+                else if (found == 6)
+                    vertfiles.push_back(nameWithoutExtension);
+#ifdef _DEBUG
+                std::cout << nameWithoutExtension << " success!\n";
+#endif // DEBUG
+            }
+            else
+            {
+#ifdef _DEBUG
+                std::cout << "File " << entry.path().filename().string() << " is missing file extension.\n";
+#endif // DEBUG
+            }
+
+        }
+
+        // sort the names in the vector alphabetically
+        std::sort(fragfiles.begin(), fragfiles.end());
+        std::sort(vertfiles.begin(), vertfiles.end());
+
+        // Find differing strings
+        std::vector<std::string> differingStrings;
+        std::set_symmetric_difference(fragfiles.begin(), fragfiles.end(), vertfiles.begin(), vertfiles.end(), std::back_inserter(differingStrings));
+
+        // Move files with missing partners to the trash bin
+        fs::path trashbin = FILEPATH_TRASHBIN;
+
+        // If trashbin doesn't exist
+        if (!fs::exists(trashbin))
+            fs::create_directory(trashbin);
+
+        // For all files with missing pairing files
+        for (const auto& file : differingStrings) {
+            size_t fragIndex = std::find(fragfiles.begin(), fragfiles.end(), file) - fragfiles.begin(),
+                vertIndex = std::find(vertfiles.begin(), vertfiles.end(), file) - vertfiles.begin();
+
+            if (fragIndex != fragfiles.size() && vertIndex == vertfiles.size()) {
+                std::string fileName = file + ".frag";  // Assuming .frag extension, modify based on your naming convention
+                fs::path sourceFilePath = FILEPATH_SHADERS + "/" + fileName;
+                fs::path destinationPath = trashbin / fileName;
+
+                if (fs::exists(sourceFilePath)) {
+                    if (fs::exists(destinationPath)) {
+                        int counter = 1;
+                        std::string addstr = file + "(" + std::to_string(counter) + ").frag";
+
+                        fs::path finalDestination = trashbin / addstr;
+
+                        while (fs::exists(finalDestination)) {
+                            counter++;
+                            addstr = file + "(" + std::to_string(counter) + ").frag";
+                            finalDestination = trashbin / addstr;
+                        }
+
+                        fs::rename(sourceFilePath, finalDestination);
+                        // Update fragfiles after moving the file
+                        fragfiles.erase(std::remove(fragfiles.begin(), fragfiles.end(), file), fragfiles.end());
+                    }
+                    else {
+                        fs::rename(sourceFilePath, destinationPath);
+                        // Update fragfiles after moving the file
+                        fragfiles.erase(std::remove(fragfiles.begin(), fragfiles.end(), file), fragfiles.end());
+                    }
+
+                    // Display a pop-up message
+                    HWND hwnd = GetActiveWindow();
+                    std::wstring wideFileName(fileName.begin(), fileName.end());
+                    std::wstring message = L"File \"" + wideFileName + L"\" moved to trash bin!";
+                    LPCWSTR boxMessage = message.c_str();
+                    MessageBox(hwnd, boxMessage, L"Missing Corresponding Vert File.", MB_OK | MB_ICONINFORMATION);
+                }
+            }
+            else if (fragIndex == fragfiles.size() && vertIndex != vertfiles.size()) {
+                std::string fileName = file + ".vert";  // Assuming .vert extension, modify based on your naming convention
+                fs::path sourceFilePath = FILEPATH_SHADERS + "/" + fileName;
+                fs::path destinationPath = trashbin / fileName;
+
+                if (fs::exists(sourceFilePath)) {
+                    if (fs::exists(destinationPath)) {
+                        int counter = 1;
+                        std::string addstr = file + "(" + std::to_string(counter) + ").vert";
+
+                        fs::path finalDestination = trashbin / addstr;
+
+                        while (fs::exists(finalDestination)) {
+                            counter++;
+                            addstr = file + "(" + std::to_string(counter) + ").vert";
+                            finalDestination = trashbin / addstr;
+                        }
+
+                        fs::rename(sourceFilePath, finalDestination);
+                        // Update vertfiles after moving the file
+                        vertfiles.erase(std::remove(vertfiles.begin(), vertfiles.end(), file), vertfiles.end());
+                    }
+                    else {
+                        fs::rename(sourceFilePath, destinationPath);
+                        // Update vertfiles after moving the file
+                        vertfiles.erase(std::remove(vertfiles.begin(), vertfiles.end(), file), vertfiles.end());
+                    }
+
+                    // Display a pop-up message
+                    HWND hwnd = GetActiveWindow();
+                    std::wstring wideFileName(fileName.begin(), fileName.end());
+                    std::wstring message = L"File \"" + wideFileName + L"\" moved to trash bin!";
+                    LPCWSTR boxMessage = message.c_str();
+                    MessageBox(hwnd, boxMessage, L"Missing Corresponding Frag File.", MB_OK | MB_ICONINFORMATION);
+                }
+            }
+        }
+
+        //// Print out fragfiles and vertfiles
+        //std::cout << "Frag files: ";
+        //for (const auto& fragFile : fragfiles) {
+        //    std::cout << fragFile << "\n";
+        //}
+        //std::cout << "\n";
+
+        /*std::cout << "Vert files: ";
+        for (const auto& vertFile : vertfiles) {
+            std::cout << vertFile << "\n";
+        }
+        std::cout << "\n";*/
+
+        // For every fragfile, pair it with a vert file
+        for (int i = 0; i < fragfiles.size(); i++) {
+            VectorPairString pairing{ std::make_pair<std::string, std::string>(FILEPATH_SHADERS + "\\" + vertfiles[i] + ".vert", FILEPATH_SHADERS + "\\" + fragfiles[i] + ".frag") };
+            InitShdrpgms(pairing);
+        }
+
+        // Copy the names in order to the shdrpgmOrder container. Needed as the shader programs stored in shdrpgms is stored in the same sequence
+        shdrpgmOrder = vertfiles;
+#ifdef _DEBUG
+        for (auto tmp : shdrpgmOrder)
+            std::cout << "Shader Program Order: " << tmp << "\n";
+#endif
+
+        Currentlyloading = false;
+        return true;
+    }
+    else {
+        // Print error
+#ifdef _DEBUG
+        std::cout << "The specified path is not a directory." << std::endl;
+#endif // DEBUG
+        Currentlyloading = false;
         return false;
     }
-    return true;
 }
+
+
 /**************************************************************************
  * @brief Initialize Shaders into the graphics pipeline
  * @param VPSS the vector paired <string,string>
