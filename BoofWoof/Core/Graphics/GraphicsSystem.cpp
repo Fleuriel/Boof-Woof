@@ -85,11 +85,13 @@ void GraphicsSystem::UpdateLoop() {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear framebuffer
 
+	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+
 	// Setup camera and projection matrix
 	glm::mat4 view_ = camera.GetViewMatrix();
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
 
-	g_AssetManager.shdrpgms[0].Use();
+	g_AssetManager.shdrpgms[1].Use();
 
 	// Loop through all entities and render them
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
@@ -107,16 +109,17 @@ void GraphicsSystem::UpdateLoop() {
 					graphicsComp.SetModel(&g_AssetManager.ModelMap["sphere"]);
 					continue;
 				}
-				g_AssetManager.shdrpgms[0].SetUniform("vertexTransform", transformComp.GetWorldMatrix());
-				g_AssetManager.shdrpgms[0].SetUniform("view", view_);
-				g_AssetManager.shdrpgms[0].SetUniform("projection", projection);
-				g_AssetManager.shdrpgms[0].SetUniform("objectColor", glm::vec3{ 1.0f });
-				graphicsComp.getModel()->Draw(g_AssetManager.shdrpgms[0]);
+
+				g_AssetManager.shdrpgms[1].SetUniform("vertexTransform", transformComp.GetWorldMatrix());
+				g_AssetManager.shdrpgms[1].SetUniform("view", view_);
+				g_AssetManager.shdrpgms[1].SetUniform("projection", projection);
+				g_AssetManager.shdrpgms[1].SetUniform("objectColor", glm::vec3{ 1.0f });
+				graphicsComp.getModel()->Draw(g_AssetManager.shdrpgms[1]);
 			}
 		}
 	}
 
-	g_AssetManager.shdrpgms[0].UnUse();
+	g_AssetManager.shdrpgms[1].UnUse();
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
 }
