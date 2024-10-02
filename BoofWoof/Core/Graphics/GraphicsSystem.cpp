@@ -91,7 +91,7 @@ void GraphicsSystem::UpdateLoop() {
 	glm::mat4 view_ = camera.GetViewMatrix();
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
 
-	g_AssetManager.shdrpgms[1].Use();
+	g_AssetManager.GetShader("Shader3D").Use();
 
 	// Loop through all entities and render them
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
@@ -110,16 +110,16 @@ void GraphicsSystem::UpdateLoop() {
 					continue;
 				}
 
-				g_AssetManager.shdrpgms[1].SetUniform("vertexTransform", transformComp.GetWorldMatrix());
-				g_AssetManager.shdrpgms[1].SetUniform("view", view_);
-				g_AssetManager.shdrpgms[1].SetUniform("projection", projection);
-				g_AssetManager.shdrpgms[1].SetUniform("objectColor", glm::vec3{ 1.0f });
-				graphicsComp.getModel()->Draw(g_AssetManager.shdrpgms[1]);
+				g_AssetManager.GetShader("Shader3D").SetUniform("vertexTransform", transformComp.GetWorldMatrix());
+				g_AssetManager.GetShader("Shader3D").SetUniform("view", view_);
+				g_AssetManager.GetShader("Shader3D").SetUniform("projection", projection);
+				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", glm::vec3{ 1.0f });
+				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
 			}
 		}
 	}
 
-	g_AssetManager.shdrpgms[1].UnUse();
+	g_AssetManager.GetShader("Shader3D").UnUse();
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
 }

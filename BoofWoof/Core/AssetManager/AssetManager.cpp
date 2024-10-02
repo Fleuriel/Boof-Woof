@@ -871,6 +871,44 @@ void AssetManager::InitShdrpgms(VectorPairString const& vpss)
     std::cout << shdrpgms.size() << "\n";
 
 }
+
+/**************************************************************************
+ * @brief  Access the shader by name
+ *
+ * @param  std::string      Name of the shader
+ * @return OpenGLShader&    The named shader
+*************************************************************************/
+OpenGLShader& AssetManager::GetShader(std::string shaderName) {
+    // Find the index of the shader in shdrpgmorder
+    auto it = std::find(shdrpgmOrder.begin(), shdrpgmOrder.end(), shaderName);
+
+
+
+
+    if (it != shdrpgmOrder.end()) {
+        // Calculate the index in shdrpgm container
+        size_t index = std::distance(shdrpgmOrder.begin(), it);
+
+        // Check if the index is valid
+        if (index < shdrpgms.size()) {
+            // Return the shader program at the corresponding index
+            return shdrpgms[index];
+
+            std::cout << shdrpgms[index].Validate();
+        }
+        else {
+            // Handle an invalid index (out of bounds)
+            // You might want to throw an exception or handle it based on your requirements
+            throw std::out_of_range("Invalid index when retrieving shader program.");
+        }
+    }
+    else {
+        // Handle the case where the shaderName is not found in shdrpgmorder
+        // You might want to throw an exception or handle it based on your requirements
+        throw std::runtime_error(shaderName + " Shader not found in shdrpgmorder.");
+    }
+}
+
 /**************************************************************************
  * @brief Free Shaders (Unimplemented)
  *************************************************************************/

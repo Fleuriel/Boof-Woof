@@ -72,11 +72,10 @@ public:
 	int GetTexture(std::string);															//Function to access textures
 	Sprite GetSprite(std::string);															//Function to access sprite
 	int GetSpriteTexture(std::string);														//Function to access sprite texture
+	OpenGLShader& GetShader(std::string);													//Function to access shaders
 
 
 
-
-	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
 
 
 	std::map <std::string, Model> ModelMap;
@@ -94,6 +93,7 @@ private:
 	std::map<std::string, int> textures{};													//Container to store textures
 	std::map<std::string, Sprite> sprites{};												//Container to store sprites
 
+	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
 	std::vector<std::string>shdrpgmOrder{};													//Container to store the order of shader programs
 
 
