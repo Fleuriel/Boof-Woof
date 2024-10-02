@@ -31,7 +31,7 @@ void EngineCore::OnInit()
 	g_Core = this;
 
 	// Set up your global managers
-	g_SceneManager;
+
 
 	// register system & signatures
 
@@ -57,6 +57,8 @@ void EngineCore::OnInit()
 		signature.set(g_Coordinator.GetComponentType<AudioComponent>());
 		g_Coordinator.SetSystemSignature<AudioSystem>(signature);
 	}
+
+
 	// Create entities
 	{
 		Entity entity = g_Coordinator.CreateEntity();
@@ -85,11 +87,6 @@ void EngineCore::OnInit()
 
 void EngineCore::OnUpdate()
 {
-
-
-
-
-
 	m_CurrNumSteps = 0;
 	m_DeltaTime = m_EndTime - m_StartTime;	// start at 0
 	m_StartTime = g_Timer.GetCurrentTime();
@@ -154,28 +151,6 @@ void EngineCore::OnUpdate()
 	}
 
 
-
-	/*
-	//Test serialization
-	if (g_Input.GetKeyState(GLFW_KEY_P) == 1) {  // Save engine state
-		std::cout << "P key pressed, saving engine state..." << std::endl;
-		g_SceneManager.SaveScene("Saves/engine_state.json");
-		std::cout << "Engine state saved to Saves/engine_state.json" << std::endl;
-	}
-
-	if (g_Input.GetKeyState(GLFW_KEY_O) == 1) {  // Reset entities
-		std::cout << "O key pressed, resetting entities..." << std::endl;
-		g_Coordinator.ResetEntities();
-		std::cout << "Entities reset!" << std::endl;
-	}
-
-	if (g_Input.GetKeyState(GLFW_KEY_L) == 1) {  // Load engine state
-		std::cout << "L key pressed, loading engine state..." << std::endl;
-		g_SceneManager.SaveScene("Saves/engine_state.json");
-		std::cout << "Engine state loaded from Saves/engine_state.json" << std::endl;
-	}
-	*/
-	
 
 	// keep this at the end
 	m_ElapsedDT = m_GraphicsDT + m_LogicDT; // to add more DT when more systems comes up

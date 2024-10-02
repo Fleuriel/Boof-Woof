@@ -236,7 +236,7 @@ void ImGuiEditor::InspectorWindow()
 			// Adding Components
 			if (ImGui::BeginPopupContextItem("AComponents"))
 			{
-				if (ImGui::Selectable("TransformComponent"))
+				if (ImGui::Selectable("Transform Component"))
 				{
 					if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
 					{
@@ -244,11 +244,19 @@ void ImGuiEditor::InspectorWindow()
 					}
 				}
 
-				if (ImGui::Selectable("GraphicsComponent"))
+				if (ImGui::Selectable("Graphics Component"))
 				{
 					if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 					{
 						g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, GraphicsComponent());
+					}
+				}
+
+				if (ImGui::Selectable("Audio Component"))
+				{
+					if (!g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<AudioComponent>(g_SelectedEntity, AudioComponent());
 					}
 				}
 
@@ -268,7 +276,7 @@ void ImGuiEditor::InspectorWindow()
 				if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
 				{
 					// in the future, when deleting transform component, physics component should also be deleted
-					if (ImGui::Selectable("TransformComponent"))
+					if (ImGui::Selectable("Transform Component"))
 					{
 						g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
 					}
@@ -276,9 +284,17 @@ void ImGuiEditor::InspectorWindow()
 
 				if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 				{
-					if (ImGui::Selectable("GraphicsComponent"))
+					if (ImGui::Selectable("Graphics Component"))
 					{
 						g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+				{
+					if (ImGui::Selectable("Audio Component"))
+					{
+						g_Coordinator.RemoveComponent<AudioComponent>(g_SelectedEntity);
 					}
 				}
 
@@ -381,7 +397,7 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("Model   "); ImGui::SameLine();
 				
 				// Add in the slots to get the value.
-				if (ImGui::Combo("##ModelCombo", &currentModel, inputModelName.c_str(), modelNames.size()))
+				if (ImGui::Combo("##ModelCombo", &currentModel, inputModelName.c_str(), static_cast<int>(modelNames.size())))
 				{
 					if (currentModel == 0) modelName = &g_AssetManager.ModelMap["sphere"];
 					if (currentModel == 1) modelName = &g_AssetManager.ModelMap["Square"];
@@ -400,6 +416,42 @@ void ImGuiEditor::InspectorWindow()
 			}
 		}
 			
+		// Audio
+		if (g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+		{
+			if (ImGui::CollapsingHeader("Audio", ImGuiTreeNodeFlags_None))
+			{
+				auto fileName = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).GetFilePath();
+				ImGui::PushItemWidth(250.0f);
+				ImGui::Text("Filename"); ImGui::SameLine();
+
+				static char fileNameBuffer[256]; // Default filename
+				memset(fileNameBuffer, 0, sizeof(fileNameBuffer));
+				strcpy_s(fileNameBuffer, sizeof(fileNameBuffer), fileName.c_str());
+
+				if (ImGui::InputText("##FileName", fileNameBuffer, IM_ARRAYSIZE(fileNameBuffer)))
+				{
+					g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetFilePath(fileNameBuffer);
+				}
+
+				// Volume
+				auto volume = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).GetVolume();
+				ImGui::Text("Volume  "); ImGui::SameLine();
+				if (ImGui::DragFloat("##Volume", &volume, 0.001f))
+				{
+					g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetVolume(volume);
+				}
+
+				// Loop
+				bool isLooping = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).ShouldLoop();
+				ImGui::Text("Loops   "); ImGui::SameLine();
+				if (ImGui::Checkbox("##Loops", &isLooping)) 
+				{
+					g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetLoop(isLooping);
+				}
+			}
+		}
+
 		ImGui::End();
 	}
 }

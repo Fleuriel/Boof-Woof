@@ -10,6 +10,7 @@
 #include "../BoofWoof/Utilities/Components/MetaData.hpp"
 #include "../BoofWoof/Core/SceneManager/SceneManager.h"
 #include "EngineCore.h"
+#include "../BoofWoof/Utilities/Components/AudioComponent.hpp"
 
 #include <filesystem>
 
