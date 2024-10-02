@@ -23,7 +23,7 @@
 #include "windows.h"
 #include "FilePaths.h"
 
-    AssetManager g_AssetManager;
+AssetManager g_AssetManager;
 
 namespace fs = std::filesystem;
 

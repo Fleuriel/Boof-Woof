@@ -72,3 +72,28 @@ Model SquareModel(glm::vec3 color)
 	// return model
 	return mdl;
 }
+
+
+
+
+
+void Model::Draw2D(OpenGLShader& shader)
+{
+	//shader.Use();
+	int tex;
+	tex = g_AssetManager.GetTexture("Sadge");
+
+
+	shader.SetUniform("uTex2d", 6);
+	//shader.SetUniform("")
+
+	glBindTextureUnit(6, tex);
+
+	glBindVertexArray(vaoid);
+
+	//std::cout << vaoid << '\n';
+	glDrawElements(primitive_type, draw_cnt, GL_UNSIGNED_SHORT, nullptr);
+
+	glBindVertexArray(0);
+	//shader.UnUse();
+}

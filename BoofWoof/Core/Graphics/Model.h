@@ -68,17 +68,8 @@ public:
     // constructor, expects a filepath to a 3D model.
     
 
-    void Draw2D(OpenGLShader& shader)
-    {
-        
-
-        glBindVertexArray(vaoid);
-
-        //std::cout << vaoid << '\n';
-        glDrawElements(primitive_type, draw_cnt, GL_UNSIGNED_SHORT, nullptr);
-
-        glBindVertexArray(0);
-    }
+    void Draw2D(OpenGLShader& shader);
+   
 
     // draws the model, and thus all its meshes
     void Draw(OpenGLShader& shader)
