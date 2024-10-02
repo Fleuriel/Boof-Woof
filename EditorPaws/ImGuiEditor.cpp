@@ -16,15 +16,16 @@
 namespace fs = std::filesystem;
 
 //Helper function to locate save file directory
-std::string GetScenesDir() {
+std::string GetScenesDir() 
+{
 	// Get current working directory (should be EditorPaws when running)
-	std::filesystem::path currentPath = std::filesystem::current_path();
+	fs::path currentPath = fs::current_path();
 
 	// Go up one level (to reach BoofWoof)
-	std::filesystem::path projectRoot = currentPath.parent_path();
+	fs::path projectRoot = currentPath.parent_path();
 
 	// Append "BoofWoof/Assets/Scenes" to the project root
-	std::filesystem::path scenesPath = projectRoot / "BoofWoof" / "Assets" / "Scenes";
+	fs::path scenesPath = projectRoot / "BoofWoof" / "Assets" / "Scenes";
 
 	return scenesPath.string();
 }
@@ -73,10 +74,7 @@ void ImGuiEditor::ImGuiUpdate()
 	InspectorWindow();
 	AssetWindow();
 	Settings();
-
-	//// End the frame and render - this is in ImGuiRender()
-	//ImGui::Render();
-	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	Scenes();
 }
 
 
@@ -130,9 +128,6 @@ void ImGuiEditor::WorldHierarchy()
 {
 	ImGui::Begin("World Hierarchy");
 	{
-		ImGui::Text(m_LastOpenedFile.c_str());
-		ImGui::Spacing(); ImGui::Separator(); ImGui::Spacing();
-
 		if (g_Coordinator.GetTotalEntities() != MAX_ENTITIES)
 		{
 			if (ImGui::BeginPopupContextItem("GameObj"))
@@ -200,6 +195,11 @@ void ImGuiEditor::WorldHierarchy()
 			{
 				ImGui::OpenPopup("Deletion");
 			}
+
+			if (ImGui::Button("Clear all entities")) {
+				g_Coordinator.ResetEntities();
+				g_SceneManager.ClearSceneList();
+			}
 		}
 
 		ImGui::Spacing(); ImGui::Spacing(); // to insert a gap so it looks visually nicer
@@ -229,12 +229,6 @@ void ImGuiEditor::WorldHierarchy()
 
 void ImGuiEditor::InspectorWindow()
 {
-	static char fileNameBuffer[256] = "unnamed_scene"; // Default filename
-	static bool showSavePopup = false;
-	static bool showTransitionPopup = false;
-	static float transitionDuration = 1.0f; // Default transition duration
-	static bool showSceneSelectionWarning = false; // Flag to show the warning
-
 	ImGui::Begin("Inspector");
 	{
 		if (g_SelectedEntity < MAX_ENTITIES && g_SelectedEntity >= 0 && g_Coordinator.GetTotalEntities() != 0)
@@ -382,205 +376,7 @@ void ImGuiEditor::InspectorWindow()
 				}
 			}
 		}
-
-		ImGui::Spacing();
-
-		// Load button with file dialog
-		if (ImGui::Button("Load"))
-		{
-			ImGuiFileDialog::Instance()->OpenDialog("ChooseFileDlgKey", "Choose File", ".json", "../BoofWoof/Assets/Scenes/");
-		}
-
-		if (ImGuiFileDialog::Instance()->Display("ChooseFileDlgKey"))
-		{
-			if (ImGuiFileDialog::Instance()->IsOk())
-			{
-				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
-				size_t lastSlash = filePathName.find_last_of("/\\");
-				m_LastOpenedFile = filePathName.substr(lastSlash + 1);
-
-				g_SceneManager.LoadScene(filePathName);
-			}
-			ImGuiFileDialog::Instance()->Close();
-		}
-
-		ImGui::SameLine();
-
-		// Save Current World button functionality
-		if (ImGui::Button("Save Current World")) {
-			showSavePopup = true;  // Show the popup when the button is pressed
-		}
-
-		// Create a popup for file naming and saving
-		if (showSavePopup) {
-			ImGui::OpenPopup("Save Scene As");
-		}
-
-		if (ImGui::BeginPopupModal("Save Scene As", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
-			ImGui::Text("Enter the name of the scene:");
-			ImGui::InputText("##FileName", fileNameBuffer, IM_ARRAYSIZE(fileNameBuffer));
-
-			if (ImGui::Button("Save")) {
-				std::string fileName = fileNameBuffer;
-				if (fileName.empty()) {
-					fileName = "unnamed_scene";
-				}
-
-				std::string finalFileName = fileName;
-				std::string filePath = GetScenesDir() + "/" + finalFileName + ".json";
-				int counter = 1;
-
-				while (std::filesystem::exists(filePath)) {
-					finalFileName = fileName + "_" + std::to_string(counter);
-					filePath = GetScenesDir() + "/" + finalFileName + ".json";
-					counter++;
-				}
-
-				if (g_SceneManager.SaveScene(finalFileName + ".json")) {
-					ImGui::OpenPopup("Saved");
-				}
-				else {
-					ImGui::OpenPopup("Failed");
-				}
-
-				showSavePopup = false;
-				ImGui::CloseCurrentPopup();
-			}
-
-			ImGui::SameLine();
-
-			if (ImGui::Button("Cancel")) {
-				showSavePopup = false;
-				ImGui::CloseCurrentPopup();
-			}
-
-			ImGui::EndPopup();
-		}
-
-		// Confirmation popup when the scene is saved
-		if (ImGui::BeginPopupModal("Saved", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
-			ImGui::Text("\nYour world has been saved!\n\n");
-			ImGui::Separator();
-			if (ImGui::Button("OK", ImVec2(50, 0))) {
-				ImGui::CloseCurrentPopup();
-			}
-			ImGui::EndPopup();
-		}
-
-		if (ImGui::BeginPopupModal("Failed", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
-			ImGui::Text("\nSaving failed! Try again.\n\n");
-			ImGui::Separator();
-			if (ImGui::Button("OK", ImVec2(50, 0))) {
-				ImGui::CloseCurrentPopup();
-			}
-			ImGui::EndPopup();
-		}
-		ImGui::SameLine();
-
-		if (ImGui::Button("Clear all entities")) {
-			g_Coordinator.ResetEntities();
-			g_SceneManager.ClearSceneList();
-		}
-
-		ImGui::Spacing();
-		ImGui::Separator();
-		ImGui::Text("Currently Loaded Scenes:");
-		ImGui::Separator();
-
-		// Loaded scenes display
-		const auto& scenes = g_SceneManager.GetAllScenes();
-		if (scenes.empty()) {
-			ImGui::Text("No scenes loaded");
-		}
-		else {
-			for (const auto& [sceneGUID, scenePath] : scenes)
-			{
-				// Extract the file name from the full path
-				std::filesystem::path path(scenePath);
-				std::string sceneName = path.filename().string();  // Get the file name
-				ImGui::Text("Scene: %s", sceneName.c_str());
-				ImGui::NewLine();
-				ImGui::Text("GUID: %s", sceneGUID.c_str());
-				ImGui::Separator();
-			}
-		}
-		// Add Transition button
-		if (ImGui::Button("Transition to Scene"))
-		{
-			showTransitionPopup = true;  // Show the transition popup when button is pressed
-		}
-
-		// Open popup for scene transition
-		if (showTransitionPopup)
-		{
-			ImGui::OpenPopup("Transition Scene");
-		}
-
-		// Transition scene popup
-		if (ImGui::BeginPopupModal("Transition Scene", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-		{
-			ImGui::Text("Select a scene to transition to:");
-			ImGui::SameLine();
-			if (ImGui::Button("Open Scene Browser"))
-			{
-				ImGuiFileDialog::Instance()->OpenDialog("ChooseTransitionSceneDlgKey", "Choose Scene", ".json", "../BoofWoof/Assets/Scenes/");
-			}
-
-			// Display file dialog for selecting transition scene
-			static std::string selectedTransitionScene;
-			if (ImGuiFileDialog::Instance()->Display("ChooseTransitionSceneDlgKey"))
-			{
-				if (ImGuiFileDialog::Instance()->IsOk())
-				{
-					selectedTransitionScene = ImGuiFileDialog::Instance()->GetFilePathName();
-				}
-				ImGuiFileDialog::Instance()->Close();
-			}
-
-			// Show selected scene
-			if (!selectedTransitionScene.empty())
-			{
-				std::filesystem::path transitionPath(selectedTransitionScene);
-				ImGui::Text("Selected Scene: %s", transitionPath.filename().string().c_str());
-			}
-
-			// Input for transition duration
-			ImGui::Text("Transition Duration (seconds):");
-			ImGui::InputFloat("##TransitionDuration", &transitionDuration, 0.1f, 1.0f, "%.2f");
-
-			// Start transition
-			if (ImGui::Button("Start Transition"))
-			{
-				if (!selectedTransitionScene.empty())
-				{
-					g_SceneManager.TransitionToScene(selectedTransitionScene, transitionDuration);
-					showTransitionPopup = false;
-					ImGui::CloseCurrentPopup();
-				}
-				else
-				{
-					showSceneSelectionWarning = true;  // Set flag to true when no scene is selected
-				}
-			}
-
-			ImGui::SameLine();
-
-			// Cancel button
-			if (ImGui::Button("Cancel"))
-			{
-				showTransitionPopup = false;
-				ImGui::CloseCurrentPopup();
-			}
-
-			// Show the warning message if no scene was selected
-			if (showSceneSelectionWarning)
-			{
-				ImGui::TextColored(ImVec4(1, 0, 0, 1), "Please select a scene.");
-			}
-
-
-			ImGui::EndPopup();
-		}
+			
 		ImGui::End();
 	}
 }
@@ -716,6 +512,28 @@ void ImGuiEditor::AssetWindow()
 	}
 }
 
+void ImGuiEditor::PlotSystemDT(const char* name, float dt, float totalDT)
+{
+	static_cast<void>(totalDT);
+
+	// keep track of values array and offset for each system based on their names
+	static std::map<std::string, std::pair<int, float[90]>> data;
+
+	// Get the values and offset for this system
+	auto& [values_offset, values] = data[name];
+
+	// Append the current dt to the values array
+	values[values_offset] = dt;
+	values_offset = (values_offset + 1) % IM_ARRAYSIZE(values);
+
+	// Create overlay string
+	char overlay[32];
+
+	sprintf_s(overlay, "%f", dt);
+	// Plot lines	
+	ImGui::PlotLines(name, values, IM_ARRAYSIZE(values), values_offset, overlay, FLT_MAX, FLT_MAX, ImVec2(0, 40.0f));
+}
+
 void ImGuiEditor::Settings()
 {
 	ImGui::Begin("Settings");
@@ -738,24 +556,223 @@ void ImGuiEditor::Settings()
 	ImGui::End();
 }
 
-void ImGuiEditor::PlotSystemDT(const char* name, float dt, float totalDT)
+void ImGuiEditor::Scenes()
 {
-	static_cast<void>(totalDT);
+	static char fileNameBuffer[256] = "unnamed_scene"; // Default filename
+	static bool showSavePopup = false;
+	static bool showTransitionPopup = false;
+	static float transitionDuration = 1.0f; // Default transition duration
+	static bool showSceneSelectionWarning = false; // Flag to show the warning
 
-	// keep track of values array and offset for each system based on their names
-	static std::map<std::string, std::pair<int, float[90]>> data;
+	ImGui::Begin("Scenes");
+	{
+		// Load button with file dialog
+		if (ImGui::Button("Load"))
+		{
+			ImGuiFileDialog::Instance()->OpenDialog("ChooseFileDlgKey", "Choose File", ".json", "../BoofWoof/Assets/Scenes/");
+		}
 
-	// Get the values and offset for this system
-	auto& [values_offset, values] = data[name];
+		if (ImGuiFileDialog::Instance()->Display("ChooseFileDlgKey"))
+		{
+			if (ImGuiFileDialog::Instance()->IsOk())
+			{
+				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+				g_SceneManager.LoadScene(filePathName);
+			}
+			ImGuiFileDialog::Instance()->Close();
+		}
 
-	// Append the current dt to the values array
-	values[values_offset] = dt;
-	values_offset = (values_offset + 1) % IM_ARRAYSIZE(values);
+		ImGui::SameLine();
 
-	// Create overlay string
-	char overlay[32];
+		// Save Current World button functionality
+		if (ImGui::Button("Save Current World"))
+		{
+			showSavePopup = true;  // Show the popup when the button is pressed
+		}
 
-	sprintf_s(overlay, "%f", dt);
-	// Plot lines	
-	ImGui::PlotLines(name, values, IM_ARRAYSIZE(values), values_offset, overlay, FLT_MAX, FLT_MAX, ImVec2(0, 40.0f));
+		// Create a popup for file naming and saving
+		if (showSavePopup) 
+		{
+			ImGui::OpenPopup("Save Scene As");
+		}
+
+		if (ImGui::BeginPopupModal("Save Scene As", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::Text("Enter the name of the scene:");
+			ImGui::InputText("##FileName", fileNameBuffer, IM_ARRAYSIZE(fileNameBuffer));
+
+			if (ImGui::Button("Save"))
+			{
+				std::string fileName = fileNameBuffer;
+				if (fileName.empty())
+				{
+					fileName = "unnamed_scene";
+				}
+
+				std::string finalFileName = fileName;
+				std::string filePath = GetScenesDir() + "/" + finalFileName + ".json";
+				int counter = 1;
+
+				while (fs::exists(filePath)) {
+					finalFileName = fileName + "_" + std::to_string(counter);
+					filePath = GetScenesDir() + "/" + finalFileName + ".json";
+					counter++;
+				}
+
+				if (g_SceneManager.SaveScene(finalFileName + ".json")) {
+					ImGui::OpenPopup("Saved");
+				}
+				else {
+					ImGui::OpenPopup("Failed");
+				}
+
+				showSavePopup = false;
+				ImGui::CloseCurrentPopup();
+			}
+
+			ImGui::SameLine();
+
+			if (ImGui::Button("Cancel")) {
+				showSavePopup = false;
+				ImGui::CloseCurrentPopup();
+			}
+
+			ImGui::EndPopup();
+		}
+
+		// Confirmation popup when the scene is saved
+		if (ImGui::BeginPopupModal("Saved", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::Text("\nYour world has been saved!\n\n");
+			ImGui::Separator();
+
+			if (ImGui::Button("OK", ImVec2(50, 0)))
+			{
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+
+		if (ImGui::BeginPopupModal("Failed", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::Text("\nSaving failed! Try again.\n\n");
+			ImGui::Separator();
+
+			if (ImGui::Button("OK", ImVec2(50, 0)))
+			{
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+
+		ImGui::SeparatorText("Currently Loaded Scenes");
+
+		// Loaded scenes display
+		const auto& scenes = g_SceneManager.GetAllScenes();
+		if (scenes.empty())
+		{
+			ImGui::Text("No scenes loaded");
+			ImGui::NewLine();
+		}
+		else
+		{
+			for (const auto& [sceneGUID, scenePath] : scenes)
+			{
+				// Extract the file name from the full path
+				fs::path path(scenePath);
+				std::string sceneName = path.filename().string();  // Get the file name
+				ImGui::Text("Scene: %s", sceneName.c_str());
+				ImGui::Text("GUID: %s", sceneGUID.c_str());
+				ImGui::SeparatorText("");
+			}
+		}
+		// Add Transition button
+		if (ImGui::Button("Transition to Scene"))
+		{
+			showTransitionPopup = true;  // Show the transition popup when button is pressed
+		}
+
+		// Open popup for scene transition
+		if (showTransitionPopup)
+		{
+			ImGui::OpenPopup("Transition Scene");
+		}
+
+		// Transition scene popup
+		if (ImGui::BeginPopupModal("Transition Scene", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::Text("Select a scene to transition to:");
+			ImGui::SameLine();
+			if (ImGui::Button("Open Scene Browser"))
+			{
+				ImGuiFileDialog::Instance()->OpenDialog("ChooseTransitionSceneDlgKey", "Choose Scene", ".json", "../BoofWoof/Assets/Scenes/");
+			}
+
+			ImGui::NewLine();
+
+			// Display file dialog for selecting transition scene
+			static std::string selectedTransitionScene;
+			if (ImGuiFileDialog::Instance()->Display("ChooseTransitionSceneDlgKey"))
+			{
+				if (ImGuiFileDialog::Instance()->IsOk())
+				{
+					selectedTransitionScene = ImGuiFileDialog::Instance()->GetFilePathName();
+				}
+				ImGuiFileDialog::Instance()->Close();
+			}
+
+			// Show selected scene
+			if (!selectedTransitionScene.empty())
+			{
+				fs::path transitionPath(selectedTransitionScene);
+				ImGui::Text("Selected Scene: %s", transitionPath.filename().string().c_str());
+				ImGui::NewLine();
+			}
+
+			// Input for transition duration
+			ImGui::Text("Transition Duration (seconds):"); ImGui::SameLine();
+			ImGui::PushItemWidth(150);  // Set the width to 50 pixels
+			ImGui::InputFloat("##TransitionDuration", &transitionDuration, 0.1f, 1.0f, "%.2f");
+			ImGui::PopItemWidth();     // Reset to default width after the widget
+			ImGui::NewLine();
+
+			// Start transition
+			if (ImGui::Button("Start Transition"))
+			{
+				if (!selectedTransitionScene.empty())
+				{
+					g_SceneManager.TransitionToScene(selectedTransitionScene, transitionDuration);
+					showTransitionPopup = false;
+					ImGui::CloseCurrentPopup();
+					selectedTransitionScene = "";
+				}
+				else
+				{
+					showSceneSelectionWarning = true;  // Set flag to true when no scene is selected
+				}
+			}
+
+			ImGui::SameLine();
+
+			// Cancel button
+			if (ImGui::Button("Cancel"))
+			{
+				showTransitionPopup = false;
+				selectedTransitionScene = "";
+				ImGui::CloseCurrentPopup();
+			}
+
+			// Show the warning message if no scene was selected
+			if (showSceneSelectionWarning)
+			{
+				ImGui::TextColored(ImVec4(1, 0, 0, 1), "Please select a scene.");
+			}
+
+			ImGui::EndPopup();			
+		}
+
+		ImGui::End();
+	}
 }
+
+

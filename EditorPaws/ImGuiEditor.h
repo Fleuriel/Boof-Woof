@@ -30,6 +30,7 @@ public:
 	void InspectorWindow();
 	void AssetWindow();
 	void Settings();
+	void Scenes();
 
 	// For fun
 	void PlotSystemDT(const char* name, float dt, float totalDT);
@@ -37,9 +38,7 @@ public:
 	// Variables
 	Entity g_SelectedEntity = 0;
 	Entity g_GettingDeletedEntity = static_cast<Entity>(-1);		// will be deleted from the back
-	
-	std::string m_LastOpenedFile{};									// Saving & Loading new files
-	
+		
 	std::filesystem::path m_BaseDir = "../BoofWoof/Assets";			// Asset Panel
 	std::filesystem::path m_CurrDir = m_BaseDir;
 

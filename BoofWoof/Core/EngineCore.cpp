@@ -74,7 +74,7 @@ void EngineCore::OnUpdate()
 	g_Input.UpdateStatesForNextFrame();
 
 	//Transition
-	g_SceneManager.Update(m_DeltaTime);
+	g_SceneManager.Update((float)m_DeltaTime);
 
 	// system updates
 	{
