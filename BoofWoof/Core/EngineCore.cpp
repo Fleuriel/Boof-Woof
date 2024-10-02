@@ -2,7 +2,6 @@
 
 std::shared_ptr<GraphicsSystem> mGraphicsSys;
 std::shared_ptr<AudioSystem> mAudioSys;
-std::shared_ptr<LogicSystem> mLogicSys;
 
 void EngineCore::OnInit()
 {
@@ -25,8 +24,6 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<GraphicsComponent>();
 	g_Coordinator.RegisterComponent<AudioComponent>();
 
-	g_Coordinator.RegisterComponent<BehaviourComponent>();
-
 	// setting global pointer
 	g_Core = this;
 
@@ -34,15 +31,6 @@ void EngineCore::OnInit()
 	g_SceneManager;
 
 	// register system & signatures
-
-	mLogicSys = g_Coordinator.RegisterSystem<LogicSystem>();
-	{
-		Signature signature;
-		signature.set(g_Coordinator.GetComponentType<BehaviourComponent>());
-		g_Coordinator.SetSystemSignature<LogicSystem>(signature);
-	}
-
-
 	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
 	{
 		Signature signature;
@@ -57,23 +45,12 @@ void EngineCore::OnInit()
 		signature.set(g_Coordinator.GetComponentType<AudioComponent>());
 		g_Coordinator.SetSystemSignature<AudioSystem>(signature);
 	}
-	// Create entities
-	{
-		Entity entity = g_Coordinator.CreateEntity();
-		g_Coordinator.AddComponent(entity, TransformComponent());
-		g_Coordinator.AddComponent(entity, GraphicsComponent());
-		g_Coordinator.AddComponent(entity, BehaviourComponent("Movement", entity));
-		g_Coordinator.AddComponent(entity, MetadataComponent("Player", entity));
-	}
-	
 
 	// init system
-	mLogicSys->Init();
 	mGraphicsSys->initGraphicsPipeline();
-	
-	
 
-	
+
+
 
 	// Just leave this part at the most bottom
 	m_AccumulatedTime = 0.0;		// elapsed time
@@ -108,21 +85,14 @@ void EngineCore::OnUpdate()
 	g_Input.UpdateStatesForNextFrame();
 
 	//Transition
-	g_SceneManager.Update((float)m_DeltaTime);
+	g_SceneManager.Update(m_DeltaTime);
 
 	// system updates
-	{
-		// Logic
-		mLogicSys->Update();
-		m_LogicDT = g_Timer.GetElapsedTime();
-	}
-
 	{
 		// Graphics
 		mGraphicsSys->UpdateLoop();
 		m_GraphicsDT = g_Timer.GetElapsedTime();
 		mAudioSys->Update();
-		
 	}
 
 
@@ -153,7 +123,7 @@ void EngineCore::OnUpdate()
 
 
 	// keep this at the end
-	m_ElapsedDT = m_GraphicsDT + m_LogicDT; // to add more DT when more systems comes up
+	m_ElapsedDT = m_GraphicsDT; // to add more DT when more systems comes up
 	m_EndTime = g_Timer.GetCurrentTime();
 }
 

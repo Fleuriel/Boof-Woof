@@ -16,14 +16,7 @@
     <ClCompile Include="Core\Serialization\Serialization.cpp" />
     <ClCompile Include="Core\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Core\SceneManager\SceneManager.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="Core\Audio\AudioSystem.cpp" />
-=======
-    <ClCompile Include="Core\Logic\LogicSystem.cpp" />
-    <ClCompile Include="Utilities\Components\BehaviourComponent.hpp" />
-    <ClCompile Include="Core\Logic\Behaviour.cpp" />
-    <ClCompile Include="Scripts\Movement.cpp" />
->>>>>>> main
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
@@ -52,13 +45,8 @@
     <ClInclude Include="Core\Timer\Timer.hpp" />
     <ClInclude Include="Core\Physics\PhysicsSystem.h" />
     <ClInclude Include="Core\SceneManager\SceneManager.h" />
-<<<<<<< HEAD
     <ClInclude Include="Core\Audio\AudioSystem.h" />
     <ClInclude Include="Utilities\Components\AudioComponent.hpp" />
-=======
-    <ClInclude Include="Core\Logic\LogicSystem.h" />
-    <ClInclude Include="Core\Logic\Behaviour.h" />
->>>>>>> main
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />
