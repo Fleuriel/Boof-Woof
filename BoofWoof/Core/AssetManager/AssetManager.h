@@ -42,9 +42,13 @@ class AssetManager
 
 public:
 
-	AssetManager();																			// Default Constructor
-	~AssetManager();																		// Default DeConstructor
+	// General functions
+	AssetManager();																					//Constructor for AssetManager class
+	~AssetManager();																				//Destructor for AssetManager class
 
+	void LoadAll();																					//Function to load all assets
+	void FreeAll();																					//Function to free all assets
+	//void ReloadAll();																				//Function to reload all assets
 
 	// Texture functions
 	bool LoadTextures();																			//Function to load textures

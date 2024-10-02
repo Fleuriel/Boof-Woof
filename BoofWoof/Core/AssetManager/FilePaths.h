@@ -12,10 +12,10 @@
 #define FILEPATHS_H
 
  // TEXTURES //
-#define FILEPATH_TEXTURES					std::string("assets\\textures")
+#define FILEPATH_TEXTURES					std::string("Assets\\Textures")
 
 // SPRITES //
-#define FILEPATH_SPRITES					std::string("assets\\sprites")
+#define FILEPATH_SPRITES					std::string("Assets\\Sprites")
 
  // SHADERS //
 #define FILEPATH_SHADERS					std::string("Assets\\Shaders")

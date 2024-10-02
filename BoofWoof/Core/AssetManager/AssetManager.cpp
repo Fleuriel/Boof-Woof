@@ -60,18 +60,126 @@ AssetManager::~AssetManager()
 
 }
 
-///**************************************************************************
-// * @brief Load All Assets (Unimplemented)
-// *************************************************************************/
-//void AssetManager::LoadAll()
-//{
+/**************************************************************************
+ * @brief Loads all assets, including textures, sounds, fonts, and scenes.
+ *
+ * This function loads all the assets used in the project, including
+ * textures, sounds, fonts, and scenes. It provides feedback about the
+ * success or failure of each asset type load.
+ *
+ * @param None.
+ * @return None.
+ *************************************************************************/
+void AssetManager::LoadAll() {
+
+
+
+#ifdef _DEBUG
+    bool loadTextures = AssetManager::LoadTextures(),
+        loadSprites = AssetManager::LoadSprites(),
+        //loadSounds = AssetManager::LoadSounds(),
+        //loadFonts = AssetManager::LoadFonts(),
+        //loadScenes = AssetManager::LoadScenes(),
+        //loadPrefabs = AssetManager::LoadPrefabs(),
+        loadShaders = AssetManager::LoadShaders();
+
+
+    std::cout
+        << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
+        << ((loadSprites) ? "Sprites loaded successfully" : "Failed to load sprites") << std::endl
+        //<< ((loadSounds) ? "Sounds loaded successfully" : "Failed to load sounds") << std::endl
+        //<< ((loadFonts) ? "Fonts loaded successfully" : "Failed to load fonts") << std::endl
+        //<< ((loadScenes) ? "Scenes loaded successfully" : "Failed to load scenes") << std::endl
+        //<< ((loadPrefabs) ? "Prefabs loaded successfully" : "Failed to load prefabs") << std::endl
+        << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl;
+#else
+    AssetManager::LoadTextures(),
+        AssetManager::LoadSprites(),
+        AssetManager::LoadSounds(),
+        AssetManager::LoadFonts(),
+        AssetManager::LoadScenes(),
+        AssetManager::LoadPrefabs(),
+        AssetManager::LoadShaders();
+#endif
+}
+
+/**************************************************************************
+ * @brief Frees all loaded assets, including textures, sounds, fonts, and scenes.
+ *
+ * This function frees all the previously loaded assets to release resources.
+ * It provides feedback about the success or failure of each asset type release.
+ *
+ * @param None.
+ * @return None.
+ *************************************************************************/
+void AssetManager::FreeAll() {
+#ifdef _DEBUG
+    bool freeTextures = AssetManager::FreeTextures(),
+        freeSprites = AssetManager::FreeSprites(),
+        //freeSounds = AssetManager::FreeSounds(),
+        //freeFonts = AssetManager::FreeFonts(),
+        //freeScenes = AssetManager::FreeScenes(),
+        //freePrefabs = AssetManager::FreePrefabs(),
+        freeShaders = AssetManager::FreeShaders();
+
+
+    std::cout
+        << ((freeTextures) ? "Textures freed successfully" : "Failed to free textures") << std::endl
+        << ((freeSprites) ? "Sprites freed successfully" : "Failed to free sprites") << std::endl
+        //<< ((freeSounds) ? "Sounds freed successfully" : "Failed to free sounds") << std::endl
+        //<< ((freeFonts) ? "Fonts freed successfully" : "Failed to free fonts") << std::endl
+        //<< ((freeScenes) ? "Scenes freed successfully" : "Failed to free scenes") << std::endl
+        //<< ((freePrefabs) ? "Prefabs freed successfully" : "Failed to free prefabs") << std::endl
+        << ((freeShaders) ? "Shaders freed successfully" : "Failed to free shaders") << std::endl;
+#else
+    AssetManager::FreeTextures(),
+        AssetManager::FreeSprites(),
+        AssetManager::FreeSounds(),
+        AssetManager::FreeFonts(),
+        AssetManager::FreeScenes(),
+        AssetManager::FreePrefabs(),
+        AssetManager::FreeShaders();
+#endif
+}
+
+/**************************************************************************
+ * @brief Reloads all assets, including textures, sounds, fonts, and scenes.
+ *
+ * This function reloads all the assets, effectively refreshing the assets.
+ * It provides feedback about the success or failure of each asset type reload.
+ *
+ * @param None.
+ * @return None.
+ *************************************************************************/
+//void AssetManager::ReloadAll() {
 //
-//}
-///**************************************************************************
-// * @brief Free Assets (Unimplemented)
-// *************************************************************************/
-//void AssetManager::Free()
-//{
+//
+//#ifdef _DEBUG
+//    bool reloadTextures = AssetManager::ReloadTextures(),
+//        reloadSprites = AssetManager::ReloadSprites(),
+//        //reloadSounds = AssetManager::ReloadSounds(),
+//        //reloadFonts = AssetManager::ReloadFonts(),
+//        //reloadScenes = AssetManager::ReloadScenes(),
+//        //reloadPrefabs = AssetManager::ReloadPrefabs(),
+//        //reloadShaders = AssetManager::ReloadShaders();
+//
+//    //std::cout
+//    //    << ((reloadTextures) ? "Textures reloaded successfully" : "Failed to reload textures") << std::endl
+//    //    << ((reloadSprites) ? "Sprites reloaded successfully" : "Failed to reload Sprites") << std::endl
+//    //    << ((reloadSounds) ? "Sounds reloaded successfully" : "Failed to reload sounds") << std::endl
+//    //    << ((reloadFonts) ? "Fonts reloaded successfully" : "Failed to reload fonts") << std::endl
+//    //    << ((reloadScenes) ? "Scenes reloaded successfully" : "Failed to reload scenes") << std::endl
+//    //    << ((reloadPrefabs) ? "Prefabs reloaded successfully" : "Failed to reload prefabs") << std::endl
+//    //    << ((reloadShaders) ? "Shaders reloaded successfully" : "Failed to reload shaders") << std::endl;
+//#else
+//    AssetManager::ReloadTextures();
+//    AssetManager::ReloadSprites();
+//    AssetManager::ReloadSounds();
+//    AssetManager::ReloadFonts();
+//    AssetManager::ReloadScenes();
+//    AssetManager::ReloadPrefabs();
+//    AssetManager::ReloadShaders();
+//#endif // DEBUG
 //}
 
 /**************************************************************************
@@ -221,6 +329,40 @@ int AssetManager::SetUpTexture(std::string filePath) {
 
     // Return the OpenGL texture object handler
     return textureObj_Handler;
+}
+
+/**************************************************************************
+ * @brief Frees all loaded textures.
+ *
+ * This function removes all textures that have been previously loaded using
+ * the 'LoadTextures' function. It clears the 'textures' map, effectively
+ * releasing the memory used for storing the textures. After calling this
+ * function, the 'textures' map will be empty.
+ *
+ * @return bool - Returns true if textures are freed successfully, and the
+ *               'textures' map is empty. Returns false if there is an error or
+ *               if the map is not empty after the operation.
+ *************************************************************************/
+bool AssetManager::FreeTextures() {
+    textures.clear();
+    // Return true if the container size is 0, false otherwise.
+    return textures.empty();
+}
+
+/**************************************************************************
+ * @brief Reloads all textures.
+ *
+ * This function is used to reload all textures by first freeing the existing
+ * textures and then loading them again using the 'LoadTextures' function. It
+ * is a convenient way to refresh the textures in your application without
+ * restarting the entire program.
+ *
+ * @return True if the scenes are both successfully freed and reloaded,
+ *         false otherwise.
+ *************************************************************************/
+bool AssetManager::ReloadTextures() {
+    // Return true if free and load successfully
+    return (AssetManager::FreeTextures() && AssetManager::LoadTextures());
 }
 
 /**************************************************************************

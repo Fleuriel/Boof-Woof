@@ -61,7 +61,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	// load shaders and models
-	g_AssetManager.LoadShaders();
+	g_AssetManager.LoadAll();
 	AddModel_3D("../BoofWoof/sphere.obj");
 	AddModel_2D();
 
