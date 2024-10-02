@@ -110,6 +110,17 @@ public:
 
 	size_t GetSystemAlive() { return mSystems.size(); }
 
+	template<typename T>
+	std::shared_ptr<T> GetSystem()
+	{
+		const char* typeName = typeid(T).name();
+
+		assert(mSystems.find(typeName) != mSystems.end() && "System not registered.");
+
+		return std::static_pointer_cast<T>(mSystems[typeName]);
+	}
+
+
 private:
 	// Map from system type string pointer to a signature
 	std::unordered_map<const char*, Signature> mSignatures{};

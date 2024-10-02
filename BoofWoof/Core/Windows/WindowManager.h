@@ -52,8 +52,9 @@ public:
 	static void OpenGLWindowResizeCallback(GLFWwindow* window, int width, int height);
 
 private:
-    static void KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods);  // Example callback
-    static void MouseCallBack(GLFWwindow* window, int button, int action, int mods);           // Example callback
+    static void KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods);
+	static void MouseCallBack(GLFWwindow* window, int button, int action, int mods);
+	static void ScrollCallBack(GLFWwindow* window5, double xOffset, double yOffset);
 
 	void OnUpdateFPS(double interval);
 

@@ -20,7 +20,7 @@ class GraphicsComponent;
 
 class GraphicsSystem : public System
 {
-public:;
+public:
     void initGraphicsPipeline();
     void UpdateLoop();
     void Draw(std::vector<GraphicsComponent>& components);
@@ -28,7 +28,7 @@ public:;
     
     static bool glewInitialized;
     
-    
+    GLuint GetFramebufferTexture() const { return textureColorbuffer; }  // Getter function
     void Update(float deltaTime);
 
     void AddModel_3D(std::string const& path);
@@ -37,10 +37,14 @@ public:;
     void AddModel_2D();
 
     void AddObject_2D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model2D model);
-
-
+    void UpdateViewportSize(int width, int height);  // Method to handle viewport resizing
+    inline void SetEditorMode(bool EditorMode) { editorMode = EditorMode; };
 
 private:
+    unsigned int fbo;
+    unsigned int textureColorbuffer;  // Store the framebuffer texture ID here
+    unsigned int rbo;
+    bool editorMode = false;
     static GLFWwindow* newWindow;  // OpenGL window
 
 };

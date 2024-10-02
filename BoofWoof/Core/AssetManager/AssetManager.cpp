@@ -64,17 +64,24 @@ bool AssetManager::LoadShaders() {
 	
 	std::cout << "Load Shaders\n";
 
+	std::cout << "We are currently working on : " << std::filesystem::current_path().string() << '\n';
+
+	//VectorPairString SHADER3D
+	//{
+	//	std::make_pair<std::string, std::string>
+	//	("Assets\\Shaders\\Shader3D.vert", "Assets\\Shaders\\Shader3D.frag")
+	//};
 	VectorPairString SHADER3D
 	{
 		std::make_pair<std::string, std::string>
-		("Assets\\Shaders\\Shader3D.vert", "Assets\\Shaders\\Shader3D.frag")
+		("../BoofWoof/Assets/Shaders/Shader3D.vert", "../BoofWoof/Assets/Shaders/Shader3D.frag")
 	};
 
 
 	VectorPairString SHADER2D
 	{
 		std::make_pair<std::string, std::string>
-		("Assets\\Shaders\\Shader2D.vert", "Assets\\Shaders\\Shader2D.frag")
+		("../BoofWoof/Assets/Shaders/Shader2D.vert", "../BoofWoof/Assets/Shaders/Shader2D.frag")
 	};
 
 	InitShdrpgms(SHADER3D);

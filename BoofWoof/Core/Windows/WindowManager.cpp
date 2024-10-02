@@ -7,6 +7,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "Input/Input.h"
+
 Window* g_Window = nullptr;
 int g_WindowX, g_WindowY;
 int g_DesktopWidth, g_DesktopHeight;
@@ -33,17 +35,6 @@ void WindowFocusCallback(GLFWwindow* window, int focused)
     }
     else {
         SetResolution(g_WindowX, g_WindowY); // Set your game resolution here
-    }
-}
-
-// Function for key callback
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) 
-{
-    static_cast<void>(scancode);
-    if (key == GLFW_KEY_TAB && mods == GLFW_MOD_ALT && action == GLFW_PRESS) 
-    {
-        // Alt + Tab is pressed, minimize the window
-        glfwIconifyWindow(window);
     }
 }
 
@@ -92,6 +83,7 @@ void Window::OnInitialize()
     // Set callbacks
     glfwSetKeyCallback(m_Window, KeyCallBack);
     glfwSetMouseButtonCallback(m_Window, MouseCallBack);
+    glfwSetScrollCallback(m_Window, ScrollCallBack);
     glfwSetWindowSizeCallback(m_Window, OpenGLWindowResizeCallback);
 
     glfwSwapInterval(1); // Enable V-Sync
@@ -190,10 +182,168 @@ float Window::GetAspectRatio()
     return static_cast<float>(m_Width) / static_cast<float>(m_Height);
 }
 
+/**************************************************************************
+ * @brief Callback function for handling keyboard input in a GLFW window.
+ *
+ * This function is a callback used with the GLFW library to handle keyboard input events.
+ *
+ * @param window The GLFW window that received the input.
+ * @param key The keyboard key code that was pressed or released.
+ * @param scancode The system-specific scancode of the key.
+ * @param action The action taken (GLFW_PRESS, GLFW_RELEASE, GLFW_REPEAT).
+ * @param mod Bitfield describing which modifier keys (e.g., Shift, Ctrl, Alt) were held down.
+ *
+ * This function updates various input states based on the keyboard input events.
+ * - When a key is pressed (action == GLFW_PRESS), it updates the keyStates array
+ *   to record the state of alphabets, numbers, special keys, and keyboard commands.
+ * - Additionally, it can set or clear certain input states based on the key pressed,
+ *   such as Caps Lock, Tab, and Escape.
+ *
+ * @note The UNREFERENCED_PARAMETER macro is used to suppress unused parameter warnings.
+ * @note This function is typically registered with GLFW using glfwSetKeyCallback().
+ *
+ * @see keyStates - The array used to store the state of various keyboard keys.
+ * @see glfwSetKeyCallback() - Function to register this callback with GLFW.
+ *************************************************************************/
 void Window::KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods) {
     // Handle key input
+    (void)window;
+    (void)mods;
+    (void)action;
+    (void)scancode;
+
+
+
+    // Return if unknown key pressed (e.g. multimedia keys)
+    if (key == GLFW_KEY_UNKNOWN)
+        return;
+
+    if (!g_Input.typePW) {
+
+        /*
+        Update the state of the pressed key
+         - If the key is pressed (action == GLFW_PRESS) and its state was not previously pressed,
+           set its state to 1 (pressed).
+         - If the key is released (action == GLFW_RELEASE), set its state to 0 (not pressed).
+         - If the key is held down (action == GLFW_REPEAT), set its state to 2 (held down).
+        */
+        g_Input.SetKeyState(key, (action == GLFW_PRESS && g_Input.GetKeyState(key) == 0) ? 1 : (action == GLFW_RELEASE) ? 0 : 2);
+
+
+#ifdef _DEBUG
+        // Print debug information based on the key action (press, hold, release)
+        std::cout << ((action == GLFW_PRESS) ? "Pressed Keys\n" : (action == GLFW_REPEAT) ? "Held Keys\n" : "Released Keys\n");
+#endif
+
+        if (key == GLFW_KEY_CAPS_LOCK) g_Input.capsLockReleased = (action == GLFW_RELEASE) ? true : false;
+
+    }
+
+
+    if (key == GLFW_KEY_F1 && action == GLFW_PRESS) {
+        std::cout << std::endl;
+        g_Input.typePW = !g_Input.typePW;
+        g_Input.hiddenconsole = "";
+
+       
+    }
+
+
+    if (g_Input.typePW) {
+        if (action == GLFW_PRESS) {
+            if (key >= GLFW_KEY_A && key <= GLFW_KEY_Z) {
+                char newchar{ 'a' + static_cast<char>(key - GLFW_KEY_A) };
+                g_Input.hiddenconsole += newchar;
+#ifdef _DEBUG
+                std::cout << g_Input.hiddenconsole << std::endl;
+#endif
+            }
+            if (key == GLFW_KEY_ENTER) {
+                if (g_Input.hiddenconsole == "helloworld") {
+                    std::cout << "Good Bye World\n";
+                }
+                g_Input.hiddenconsole = "";
+            }
+        }
+        if (action == GLFW_RELEASE) {
+            if (key == GLFW_KEY_ENTER) {
+                g_Input.typePW = false;
+                std::cout << "Hidden Console Turned Off\n";
+            }
+        }
+    }
+
+    g_Input.buttonPressed = action;
 }
 
+/**************************************************************************
+ * @brief Callback function for handling mouse button input in a GLFW window.
+ *
+ * This function is a callback used with the GLFW library to handle mouse button input events.
+ *
+ * @param window The GLFW window that received the input.
+ * @param button The mouse button that was pressed or released.
+ * @param action The action taken (GLFW_PRESS or GLFW_RELEASE).
+ * @param mod Bitfield describing which modifier keys (e.g., Shift, Ctrl, Alt) were held down.
+ *
+ * This function updates the mouseButtonStates array based on mouse button input events. It specifically
+ * records the state of the mouse buttons based on whether they are pressed or released.
+ *
+ * @note The UNREFERENCED_PARAMETER macro is used to suppress unused parameter warnings.
+ * @note This function is typically registered with GLFW using glfwSetMouseButtonCallback().
+ *
+ * @see mouseButtonStates - The array used to store the state of various input events.
+ * @see glfwSetMouseButtonCallback() - Function to register this callback with GLFW.
+ *************************************************************************/
 void Window::MouseCallBack(GLFWwindow* window, int button, int action, int mods) {
-    // Handle mouse input
+    (void)window;
+    (void)mods;
+    //UNREFERENCED_PARAMETER(window);
+    //UNREFERENCED_PARAMETER(mod);
+
+    g_Input.SetMouseState(button, action);
+
+    //std::cout << g_Input.GetMouseState(button);
+
+    g_Input.buttonPressed = action;
+
+}
+
+/**************************************************************************
+ * @brief Callback function for handling mouse scroll wheel input in a GLFW window.
+ *
+ * This function is a callback used with the GLFW library to handle mouse scroll wheel input events.
+ *
+ * @param window The GLFW window that received the input.
+ * @param xOffset The horizontal scroll offset (not used in this function).
+ * @param yOffset The vertical scroll offset, indicating the amount of scrolling.
+ *
+ * This function updates the `mouse_scroll_total_Y_offset` variable to keep track of the total vertical
+ * scrolling that has occurred. It also sets the mouseScrollState variable to indicate whether scrolling
+ * is in the upward (INPUT_SCROLLUP) or downward (INPUT_SCROLLDOWN) direction based on the `yOffset` value.
+ *
+ * @param mouse_scroll_total_Y_offset A global variable that tracks the total vertical scrolling.
+ * @param mouseScrollState The array used to store the state of various input events.
+ *
+ * @note The UNREFERENCED_PARAMETER macro is not used in this function.
+ * @note This function is typically registered with GLFW using glfwSetScrollCallback().
+ *
+ * @see mouse_scroll_total_Y_offset - Global variable to track total vertical scrolling.
+ * @see mouseScrollState - The array used to store the state of various input events.
+ * @see glfwSetScrollCallback() - Function to register this callback with GLFW.
+ *************************************************************************/
+void Window::ScrollCallBack(GLFWwindow* window, double xOffset, double yOffset) {
+    (void)xOffset;
+    (void)window;
+    //UNREFERENCED_PARAMETER(window);
+    //UNREFERENCED_PARAMETER(xOffset);
+
+    //Update variable to track total vertical scrolling
+    g_Input.UpdateScrollTotalYOffset(static_cast<float>(yOffset));
+
+    //Change the scroll states based on y offset value
+    g_Input.SetScrollState((yOffset > 0) ? 1 : (yOffset == 0) ? 0 : -1);
+
+    //std::cout << g_Input.GetScrollState() << std::endl;
+    //std::cout << g_Input.GetScrollTotalYOffset() << std::endl;
 }

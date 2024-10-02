@@ -41,13 +41,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -74,16 +74,21 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(SolutionDir)lib\JoltPhysics-master\Build\Debug;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnabled>false</VcpkgEnabled>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -117,9 +122,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;JPH_DEBUG_RENDERER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Core;$(SolutionDir)lib\FMOD Studio API Windows\api\studio;$(SolutionDir)lib\FMOD Studio API Windows\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Core;$(SolutionDir)lib\FMOD Studio API Windows\api\studio;$(SolutionDir)lib\FMOD Studio API Windows\api\core\inc;$(SolutionDir)lib\JoltPhysics-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -130,7 +135,9 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64\*.dll" "$(OutDir)"
-</Command>
+xcopy /y /d "$(SolutionDir)lib\assimp\lib\*.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,7 +161,9 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64\*.dll" "$(OutDir)"
-</Command>
+xcopy /y /d "$(SolutionDir)lib\assimp\lib\*.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -170,8 +179,14 @@
     <ClCompile Include="Core\Graphics\Shader.cpp" />
     <ClCompile Include="Core\GSM\GameStateMachine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
+    <ClCompile Include="Core\Physics\PhysicsSystem.cpp" />
+    <ClCompile Include="Core\SceneManager\SceneManager.cpp" />
+    <ClCompile Include="Core\Logic\Behaviour.cpp" />
+    <ClCompile Include="Core\Logic\LogicSystem.cpp" />
+    <ClCompile Include="Core\Serialization\Serialization.cpp" />
     <ClCompile Include="Core\Windows\WindowManager.cpp" />
-    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="Scripts\Movement.cpp" />
+    <ClCompile Include="Utilities\Components\BehaviourComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
@@ -193,15 +208,24 @@
     <ClInclude Include="Core\Graphics\Shader.h" />
     <ClInclude Include="Core\GSM\GameStateMachine.h" />
     <ClInclude Include="Core\Input\Input.h" />
+    <ClInclude Include="Core\Physics\PhysicsSystem.h" />
+    <ClInclude Include="Core\SceneManager\SceneManager.h" />
+    <ClInclude Include="Core\Logic\Behaviour.h" />
+    <ClInclude Include="Core\Logic\LogicSystem.h" />
+    <ClInclude Include="Core\Serialization\Serialization.h" />
+    <ClInclude Include="Core\Timer\Timer.hpp" />
     <ClInclude Include="Core\Windows\WindowManager.h" />
     <ClInclude Include="Utilities\Components\GraphicsComponent.hpp" />
+    <ClInclude Include="Utilities\Components\MetaData.hpp" />
     <ClInclude Include="Utilities\Components\TransformComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Scenes\engine_state.json" />
     <None Include="Assets\Shaders\Shader2D.frag" />
     <None Include="Assets\Shaders\Shader2D.vert" />
     <None Include="Assets\Shaders\Shader3D.frag" />
     <None Include="Assets\Shaders\Shader3D.vert" />
+    <None Include="Saves\engine_state.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

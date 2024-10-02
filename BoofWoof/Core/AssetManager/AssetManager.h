@@ -48,7 +48,6 @@ public:
 
 	bool LoadShaders();																		// Load Shaders
 	void InitShdrpgms(VectorPairString const& vpss);										//Function to initialize shaders
-
 	bool FreeShaders();																		//Function to free shaders
 
 
@@ -58,7 +57,7 @@ public:
 	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
 
 	
-	std::vector <Model>	Models;
+	std::map <std::string, Model> ModelMap;
 	std::vector <Object> Objects;
 
 	std::vector <Model2D> Model2D;

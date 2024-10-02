@@ -22,12 +22,19 @@
 #include <array>
 #include <iostream>
 
+#define g_Input InputSystem::GetInstance()
+
 /**************************************************************************
  * @brief InputSystem Class
  *************************************************************************/
 class InputSystem
 {
 public:
+	static InputSystem& GetInstance() {
+		static InputSystem instance;
+		return instance;
+	}
+
 	int GetKeyState(int index);										// Get KeyStates
 
 	void SetKeyState(int index, int value);							// Setting KeyStates
@@ -73,6 +80,10 @@ public:
 	 *************************************************************************/
 	void UpdateStatesForNextFrame();
 
+	// true for on, false for off
+	bool capsLockReleased{ true };
+	bool capsLockOn{ false };
+
 	bool typePW{ false };
 	std::string hiddenconsole{};
 	bool buttonPressed{ false };
@@ -82,7 +93,7 @@ private:
 	std::array<int, GLFW_KEY_LAST + 1> keyStates{};
 
 	// Define an array to keep track of mouse button states
-	std::array<bool, GLFW_MOUSE_BUTTON_LAST + 1> mouseButtonStates{};
+	std::array<int, GLFW_MOUSE_BUTTON_LAST + 1> mouseButtonStates{};
 
 	// 1 for scrolling up, 0 for not scrolling, -1 for scrolling down
 	int mouseScrollState{ 0 };
@@ -91,56 +102,5 @@ private:
 	float mouse_scroll_total_Y_offset{ 0 };
 
 };
-
-
-extern InputSystem inputSystem;
-
-/**************************************************************************
- * @brief Callback function for handling keyboard input in a GLFW window.
- *
- * This function is a callback used with the GLFW library to handle keyboard input events.
- *
- * @param window The GLFW window that received the input.
- * @param key The keyboard key code that was pressed or released.
- * @param scancode The system-specific scancode of the key.
- * @param action The action taken (GLFW_PRESS, GLFW_RELEASE, GLFW_REPEAT).
- * @param mod Bitfield describing which modifier keys (e.g., Shift, Ctrl, Alt) were held down.
- *
- * This function updates various input states based on the keyboard input events.
- * - When a key is pressed (action == GLFW_PRESS), it updates the keyStates array
- *   to record the state of alphabets, numbers, special keys, and keyboard commands.
- * - It also responds to specific key combinations like Ctrl+C, Ctrl+V, Ctrl+X, and Ctrl+Z
- *   for copy, paste, cut, and undo commands, respectively.
- * - Additionally, it can set or clear certain input states based on the key pressed,
- *   such as Caps Lock, Tab, and Escape.
- *
- * @note The UNREFERENCED_PARAMETER macro is used to suppress unused parameter warnings.
- * @note This function is typically registered with GLFW using glfwSetKeyCallback().
- *
- * @see keyStates - The array used to store the state of various keyboard keys.
- * @see glfwSetKeyCallback() - Function to register this callback with GLFW.
- *************************************************************************/
-void KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mod);
-
-/**************************************************************************
- * @brief Callback function for handling mouse button input in a GLFW window.
- *
- * This function is a callback used with the GLFW library to handle mouse button input events.
- *
- * @param window The GLFW window that received the input.
- * @param button The mouse button that was pressed or released.
- * @param action The action taken (GLFW_PRESS or GLFW_RELEASE).
- * @param mod Bitfield describing which modifier keys (e.g., Shift, Ctrl, Alt) were held down.
- *
- * This function updates the mouseButtonStates array based on mouse button input events. It specifically
- * records the state of the mouse buttons based on whether they are pressed or released.
- *
- * @note The UNREFERENCED_PARAMETER macro is used to suppress unused parameter warnings.
- * @note This function is typically registered with GLFW using glfwSetMouseButtonCallback().
- *
- * @see mouseButtonStates - The array used to store the state of various input events.
- * @see glfwSetMouseButtonCallback() - Function to register this callback with GLFW.
- *************************************************************************/
-void MouseCallBack(GLFWwindow* window, int button, int action, int mod);
 
 #endif
