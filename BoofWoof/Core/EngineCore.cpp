@@ -55,6 +55,7 @@ void EngineCore::OnInit()
 		g_Coordinator.AddComponent(entity, TransformComponent());
 		g_Coordinator.AddComponent(entity, GraphicsComponent());
 		g_Coordinator.AddComponent(entity, BehaviourComponent("Movement", entity));
+		g_Coordinator.AddComponent(entity, MetadataComponent("Player", entity));
 	}
 	
 

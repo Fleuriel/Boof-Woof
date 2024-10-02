@@ -10,6 +10,7 @@ namespace Movement
 	}
 
 	void Update(Entity entity) {
+		/*
 		if (g_Input.GetKeyState(GLFW_KEY_W) == GLFW_PRESS | g_Input.GetKeyState(GLFW_REPEAT)) {
 			std::cout << "W key pressed" << std::endl;
 		}
@@ -22,6 +23,7 @@ namespace Movement
 		if (g_Input.GetKeyState(GLFW_KEY_D) <= 1) {
 			std::cout << "D key pressed" << std::endl;
 		}
+		*/
 		
 	}
 
