@@ -17,7 +17,7 @@ bool GraphicsSystem::glewInitialized = false;
 //std::vector<Model2D> models;
 
 Camera		camera;
-
+ShaderParams shdrParam;
 
 void GraphicsSystem::initGraphicsPipeline() {
 	// Implement graphics pipeline initialization
@@ -63,6 +63,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	// load shaders and models
 	g_AssetManager.LoadAll();
 	AddModel_3D("../BoofWoof/sphere.obj");
+	AddModel_3D("../BoofWoof/cube.obj");
 	AddModel_2D();
 
 	// Initialize camera
@@ -87,9 +88,12 @@ void GraphicsSystem::UpdateLoop() {
 
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 
+	shdrParam.View = camera.GetViewMatrix();
+	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
+
 	// Setup camera and projection matrix
-	glm::mat4 view_ = camera.GetViewMatrix();
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
+	//glm::mat4 view_ = camera.GetViewMatrix();
+	//glm::mat4 projection = 
 	
 	//g_AssetManager.GetShader("Shader3D").Use();
 
@@ -102,6 +106,8 @@ void GraphicsSystem::UpdateLoop() {
 		{
 			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
 
+			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
+
 			g_AssetManager.GetShader("Shader3D").Use();
 			if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
 			{
@@ -109,17 +115,18 @@ void GraphicsSystem::UpdateLoop() {
 				if (graphicsComp.getModel() == nullptr)
 				{
 					std::cout << "Model is null" << std::endl;
-					graphicsComp.SetModel(&g_AssetManager.ModelMap["sphere"]);
+					graphicsComp.SetModel(&g_AssetManager.ModelMap["cube"]);
 					//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
 					continue;
 				}
 
-				g_AssetManager.GetShader("Shader3D").SetUniform("vertexTransform", transformComp.GetWorldMatrix());
-				g_AssetManager.GetShader("Shader3D").SetUniform("view", view_);
-				g_AssetManager.GetShader("Shader3D").SetUniform("projection", projection);
-				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", glm::vec3{ 1.0f });
-		
-				//graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
+				
+				
+				g_AssetManager.GetShader("Shader3D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+				g_AssetManager.GetShader("Shader3D").SetUniform("view", shdrParam.View);
+				g_AssetManager.GetShader("Shader3D").SetUniform("projection", shdrParam.Projection);
+				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
+				
 		
 				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
 
@@ -137,13 +144,17 @@ void GraphicsSystem::UpdateLoop() {
 					std::cout << "Model is null" << std::endl;
 					continue;
 				}
-				g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", transformComp.GetWorldMatrix());
-				g_AssetManager.GetShader("Shader2D").SetUniform("view", view_);
-				g_AssetManager.GetShader("Shader2D").SetUniform("projection", projection);
+				g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+				g_AssetManager.GetShader("Shader2D").SetUniform("view", shdrParam.View);
+				g_AssetManager.GetShader("Shader2D").SetUniform("projection", shdrParam.Projection);
 				
-//				graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
-				graphicsComp.getModel()->DrawCollisionBox(transformComp.GetPosition());
+				graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
+
+				Model squareOutline = SquareModelOutline(glm::vec3(1.0f)); // Outline square (green)
 				
+
+				graphicsComp.getModel()->DrawCollisionBox2D(squareOutline);
+//				std::cout << transformComp.GetPosition().x << transformComp.GetPosition().y << transformComp.GetPosition().z << '\n';
 			}
 			g_AssetManager.GetShader("Shader2D").UnUse();
 		}

@@ -29,6 +29,8 @@ public:
 	glm::vec3& GetPosition() { return m_Position; }
 	glm::vec3& GetScale() { return m_Scale; }
 	glm::vec3& GetRotation() { return m_Rotation; }
+
+
 	glm::mat4 GetWorldMatrix(){
 		glm::mat4 worldMatrix = glm::mat4(1.0f);
 

@@ -46,7 +46,7 @@ public:
 
 
 //extern std::vector<Model2D> models;
-
+struct ShaderParams;  // Forward declaration of ShaderParams
 
 class Model
 {
@@ -68,7 +68,7 @@ public:
 
     void Draw2D(OpenGLShader& shader);
 
-    void DrawCollisionBox(glm::vec3 position);
+    void DrawCollisionBox2D(Model outlineModel);
 
     // draws the model, and thus all its meshes
     void Draw(OpenGLShader& shader)
@@ -318,5 +318,7 @@ public:
 
 
 Model SquareModel(glm::vec3 color);
+Model SquareModelOutline(glm::vec3 color);
+
 
 #endif // !MODEL_H

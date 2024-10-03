@@ -22,8 +22,7 @@ Model SquareModel(glm::vec3 color)
 
 	// Create Model.
 	Model mdl;
-
-
+	
 	// Create and bind a buffer for vertex data
 	GLuint vbo_hdl;
 	GLuint vaoid;
@@ -73,7 +72,51 @@ Model SquareModel(glm::vec3 color)
 	return mdl;
 }
 
+Model SquareModelOutline(glm::vec3 color)
+{
+	struct Vertex {
+		glm::vec2 position;
+		glm::vec3 color;
+	};
 
+	std::vector<Vertex> vertices{
+		{ glm::vec2(0.5f,  -0.5f), color }, // Bottom-right
+		{ glm::vec2(0.5f,   0.5f), color }, // Top-right
+		{ glm::vec2(-0.5f,  0.5f), color }, // Top-left
+		{ glm::vec2(-0.5f, -0.5f), color }  // Bottom-left
+	};
+
+	Model mdl;
+	GLuint vbo_hdl;
+	GLuint vaoid;
+	GLuint ebo_hdl;
+
+	glCreateBuffers(1, &vbo_hdl);
+	glNamedBufferStorage(vbo_hdl, sizeof(Vertex) * vertices.size(), vertices.data(), GL_DYNAMIC_STORAGE_BIT);
+
+	glCreateVertexArrays(1, &vaoid);
+	glEnableVertexArrayAttrib(vaoid, 0);
+	glVertexArrayVertexBuffer(vaoid, 0, vbo_hdl, offsetof(Vertex, position), sizeof(Vertex));
+	glVertexArrayAttribFormat(vaoid, 0, 2, GL_FLOAT, GL_FALSE, 0);
+	glVertexArrayAttribBinding(vaoid, 0, 0);
+
+	glEnableVertexArrayAttrib(vaoid, 1);
+	glVertexArrayVertexBuffer(vaoid, 1, vbo_hdl, offsetof(Vertex, color), sizeof(Vertex));
+	glVertexArrayAttribFormat(vaoid, 1, 3, GL_FLOAT, GL_FALSE, 0);
+	glVertexArrayAttribBinding(vaoid, 1, 1);
+
+	std::array<GLushort, 4> idx_vtx = { 0, 1, 2, 3 };
+	glCreateBuffers(1, &ebo_hdl);
+	glNamedBufferStorage(ebo_hdl, sizeof(GLushort) * idx_vtx.size(), idx_vtx.data(), GL_DYNAMIC_STORAGE_BIT);
+	glVertexArrayElementBuffer(vaoid, ebo_hdl);
+
+	mdl.vaoid = vaoid;
+	mdl.primitive_type = GL_LINE_LOOP;  // Use GL_LINE_LOOP for outline
+	mdl.draw_cnt = static_cast<GLsizei>(idx_vtx.size());
+	mdl.primitive_cnt = vertices.size();
+
+	return mdl;
+}
 
 
 
@@ -99,47 +142,14 @@ void Model::Draw2D(OpenGLShader& shader)
 }
 
 
-void Model::DrawCollisionBox(glm::vec3 position)
+void Model::DrawCollisionBox2D(Model outlineModel)
 {
-	glm::vec3 min, max;
+	// Bind the VAO for the outline model
+	glBindVertexArray(outlineModel.vaoid);
+	std::cout << outlineModel.vaoid << '\n';
+	// Draw the square outline
+	glDrawElements(outlineModel.primitive_type, outlineModel.draw_cnt, GL_UNSIGNED_SHORT, 0);
 
-	glm::vec3 half_extents = glm::vec3(0.6f);
-
-	min = position - half_extents;
-	max = position + half_extents;
-
-
-
-	// Compute the 8 vertices of the AABB
-	glm::vec3 v1 = glm::vec3(min.x, min.y, min.z);
-	glm::vec3 v2 = glm::vec3(min.x, min.y, max.z);
-	glm::vec3 v3 = glm::vec3(min.x, max.y, min.z);
-	glm::vec3 v4 = glm::vec3(min.x, max.y, max.z);
-	glm::vec3 v5 = glm::vec3(max.x, min.y, min.z);
-	glm::vec3 v6 = glm::vec3(max.x, min.y, max.z);
-	glm::vec3 v7 = glm::vec3(max.x, max.y, min.z);
-	glm::vec3 v8 = glm::vec3(max.x, max.y, max.z);
-
-	// Use OpenGL to draw the edges of the AABB
-	glBegin(GL_LINES);
-
-	// Bottom square (v1, v5, v6, v2)
-	glVertex3f(v1.x, v1.y, v1.z); glVertex3f(v5.x, v5.y, v5.z); // Edge v1 -> v5
-	glVertex3f(v5.x, v5.y, v5.z); glVertex3f(v6.x, v6.y, v6.z); // Edge v5 -> v6
-	glVertex3f(v6.x, v6.y, v6.z); glVertex3f(v2.x, v2.y, v2.z); // Edge v6 -> v2
-	glVertex3f(v2.x, v2.y, v2.z); glVertex3f(v1.x, v1.y, v1.z); // Edge v2 -> v1
-
-	// Top square (v3, v7, v8, v4)
-	glVertex3f(v3.x, v3.y, v3.z); glVertex3f(v7.x, v7.y, v7.z); // Edge v3 -> v7
-	glVertex3f(v7.x, v7.y, v7.z); glVertex3f(v8.x, v8.y, v8.z); // Edge v7 -> v8
-	glVertex3f(v8.x, v8.y, v8.z); glVertex3f(v4.x, v4.y, v4.z); // Edge v8 -> v4
-	glVertex3f(v4.x, v4.y, v4.z); glVertex3f(v3.x, v3.y, v3.z); // Edge v4 -> v3
-
-	// Vertical edges (v1 -> v3, v2 -> v4, v5 -> v7, v6 -> v8)
-	glVertex3f(v1.x, v1.y, v1.z); glVertex3f(v3.x, v3.y, v3.z); // Edge v1 -> v3
-	glVertex3f(v2.x, v2.y, v2.z); glVertex3f(v4.x, v4.y, v4.z); // Edge v2 -> v4
-	glVertex3f(v5.x, v5.y, v5.z); glVertex3f(v7.x, v7.y, v7.z); // Edge v5 -> v7
-	glVertex3f(v6.x, v6.y, v6.z); glVertex3f(v8.x, v8.y, v8.z); // Edge v6 -> v8
-
-	glEnd();
+	// Unbind the VAO
+	glBindVertexArray(0);
 }
