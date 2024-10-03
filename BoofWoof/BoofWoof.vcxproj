@@ -76,7 +76,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\freetype\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(SolutionDir)lib\JoltPhysics-master\Build\Debug;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
@@ -172,6 +172,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\EngineCore.cpp" />
     <ClCompile Include="Core\Graphics\BoundingVolume.cpp" />
     <ClCompile Include="Core\Graphics\Camera.cpp" />
+    <ClCompile Include="Core\Graphics\FontSystem.cpp" />
     <ClCompile Include="Core\Graphics\GraphicsSystem.cpp" />
     <ClCompile Include="Core\Graphics\Mesh.cpp" />
     <ClCompile Include="Core\Graphics\Model.cpp" />
@@ -197,6 +198,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\EngineCore.h" />
     <ClInclude Include="Core\Graphics\BoundingVolume.h" />
     <ClInclude Include="Core\Graphics\Camera.h" />
+    <ClInclude Include="Core\Graphics\FontSystem.h" />
     <ClInclude Include="Core\Graphics\GraphicsSystem.h" />
     <ClInclude Include="Core\Graphics\Mesh.h" />
     <ClInclude Include="Core\Graphics\Model.h" />

@@ -17,6 +17,7 @@
     <ClCompile Include="Core\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Core\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Core\AssetManager\Sprite.cpp" />
+    <ClCompile Include="Core\Graphics\FontSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="Core\SceneManager\SceneManager.h" />
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
     <ClInclude Include="Core\AssetManager\Sprite.h" />
+    <ClInclude Include="Core\Graphics\FontSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />
