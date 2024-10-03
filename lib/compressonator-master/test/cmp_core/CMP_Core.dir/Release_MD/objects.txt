@@ -1,0 +1,13 @@
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMP_Core.dir/Release_MD/bc1_encode_kernel.obj
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMP_Core.dir/Release_MD/bc2_encode_kernel.obj
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMP_Core.dir/Release_MD/bc3_encode_kernel.obj
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMP_Core.dir/Release_MD/bc4_encode_kernel.obj
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMP_Core.dir/Release_MD/bc5_encode_kernel.obj
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMP_Core.dir/Release_MD/bc6_encode_kernel.obj
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMP_Core.dir/Release_MD/bc7_encode_kernel.obj
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMP_Core.dir/Release_MD/cmp_core.obj
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMP_Core.dir/Release_MD/cpu_extensions.obj
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMP_Core.dir/Release_MD/cmp_math_common.obj
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMP_Core_SSE.dir/Release_MD/core_simd_sse.obj
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMP_Core_AVX.dir/Release_MD/core_simd_avx.obj
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMP_Core_AVX512.dir/Release_MD/core_simd_avx512.obj

@@ -1,0 +1,10 @@
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/CMakeFiles/ALL_BUILD.dir
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/CMakeFiles/ZERO_CHECK.dir
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMakeFiles/CMP_Core.dir
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMakeFiles/CMP_Core_SSE.dir
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMakeFiles/CMP_Core_AVX.dir
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMakeFiles/CMP_Core_AVX512.dir
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_compressonatorlib/CMakeFiles/CMP_Compressonator.dir
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_framework/CMakeFiles/CMP_Framework.dir
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/CMakeFiles/EncodeWith_DXC.dir
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/opencl/CMakeFiles/EncodeWith_OCL.dir

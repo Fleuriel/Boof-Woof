@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_plugins\cmp_gpu\opencl\compute_opencl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_plugins\cmp_gpu\opencl\copencl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_plugins\cmp_gpu\opencl\compute_opencl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_plugins\cmp_gpu\opencl\copencl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\opencl\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{ED818FB3-7403-3AB5-88B5-0DD4C8CA4FBF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{912E0167-6202-33F9-B820-2F734BF80B20}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

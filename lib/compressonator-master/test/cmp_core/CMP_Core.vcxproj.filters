@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc1_encode_kernel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc2_encode_kernel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc3_encode_kernel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc4_encode_kernel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc5_encode_kernel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc6_encode_kernel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc7_encode_kernel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\source\cmp_core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_libs\cmp_math\cpu_extensions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_libs\cmp_math\cmp_math_common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc1_encode_kernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc1_common_kernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc2_encode_kernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc3_encode_kernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc4_encode_kernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc5_encode_kernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc6_encode_kernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc7_encode_kernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bc7_common_encoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bcn_common_kernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\bcn_common_api.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\shaders\common_def.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\source\cmp_core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\source\cmp_math_vec4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\source\cmp_math_func.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\cmp_core\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_core\CMP_Core_SSE.dir\$(Configuration)\core_simd_sse.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_core\CMP_Core_AVX.dir\$(Configuration)\core_simd_avx.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_core\CMP_Core_AVX512.dir\$(Configuration)\core_simd_avx512.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{ED818FB3-7403-3AB5-88B5-0DD4C8CA4FBF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object Libraries">
+      <UniqueIdentifier>{C5C4394B-C425-3BFA-8CEE-C4C0EBA80E2D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{912E0167-6202-33F9-B820-2F734BF80B20}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

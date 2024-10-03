@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_DLL|x64">
+      <Configuration>Debug_DLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_MD|x64">
+      <Configuration>Debug_MD</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_MD_DLL|x64">
+      <Configuration>Debug_MD_DLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_DLL|x64">
+      <Configuration>Release_DLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_MD|x64">
+      <Configuration>Release_MD</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_MD_DLL|x64">
+      <Configuration>Release_MD_DLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E31681FD-2031-3795-BD3A-B5B0C55D7F19}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>CMP_Core_AVX</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CMP_Core_AVX.dir\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CMP_Core_AVX.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CMP_Core_AVX</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CMP_Core_AVX.dir\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CMP_Core_AVX.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CMP_Core_AVX</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">CMP_Core_AVX.dir\Debug_DLL\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">CMP_Core_AVX.dir\Debug_DLL\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">CMP_Core_AVX</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">CMP_Core_AVX.dir\Debug_MD\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">CMP_Core_AVX.dir\Debug_MD\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">CMP_Core_AVX</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">CMP_Core_AVX.dir\Debug_MD_DLL\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">CMP_Core_AVX.dir\Debug_MD_DLL\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">CMP_Core_AVX</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">CMP_Core_AVX.dir\Release_DLL\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">CMP_Core_AVX.dir\Release_DLL\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">CMP_Core_AVX</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">CMP_Core_AVX.dir\Release_MD\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">CMP_Core_AVX.dir\Release_MD\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">CMP_Core_AVX</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">CMP_Core_AVX.dir\Release_MD_DLL\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">CMP_Core_AVX.dir\Release_MD_DLL\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">CMP_Core_AVX</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR="Debug_DLL"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR=\"Debug_DLL\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR="Debug_MD"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR=\"Debug_MD\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR="Debug_MD_DLL"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR=\"Debug_MD_DLL\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR="Release_DLL"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR=\"Release_DLL\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR="Release_MD"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR=\"Release_MD\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR="Release_MD_DLL"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMAKE_INTDIR=\"Release_MD_DLL\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\cmp_core\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/cmp_core/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/cmp_core/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/cmp_core/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/cmp_core/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/cmp_core/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/cmp_core/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/cmp_core/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/cmp_core/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/cmp_core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_core\source\core_simd_avx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\ZERO_CHECK.vcxproj">
+      <Project>{C9E489B3-F419-39F0-81C6-47DC8D8DD0D9}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

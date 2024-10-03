@@ -1,0 +1,798 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_DLL|x64">
+      <Configuration>Debug_DLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_MD|x64">
+      <Configuration>Debug_MD</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_MD_DLL|x64">
+      <Configuration>Debug_MD_DLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_DLL|x64">
+      <Configuration>Release_DLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_MD|x64">
+      <Configuration>Release_MD</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_MD_DLL|x64">
+      <Configuration>Release_MD_DLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9F409DFE-F62D-3CB2-A228-C8038C3A4BDE}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>EncodeWith_DXC</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\bin\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">EncodeWith_DXC.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">EncodeWith_DXC</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\bin\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">EncodeWith_DXC.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">EncodeWith_DXC</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\bin\Debug_DLL\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">EncodeWith_DXC.dir\Debug_DLL\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">EncodeWith_DXC</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\bin\Debug_MD\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">EncodeWith_DXC.dir\Debug_MD\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">EncodeWith_DXC</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\bin\Debug_MD_DLL\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">EncodeWith_DXC.dir\Debug_MD_DLL\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">EncodeWith_DXC</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\bin\Release_DLL\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">EncodeWith_DXC.dir\Release_DLL\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">EncodeWith_DXC</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\bin\Release_MD\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">EncodeWith_DXC.dir\Release_MD\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">EncodeWith_DXC</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\bin\Release_MD_DLL\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">EncodeWith_DXC.dir\Release_MD_DLL\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">EncodeWith_DXC</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR="Debug";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR=\"Debug\";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreLinkEvent>
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message>Auto build dll exports</Message>
+      <Command>setlocal
+cd C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E __create_def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Debug/exports.def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Debug//objects.txt
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\Debug\CMP_Compressonator.lib;..\bin\Debug\CMP_Framework.lib;..\bin\Debug\CMP_Core.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release/$(Configuration);C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Debug/EncodeWith_DXC.lib</ImportLibrary>
+      <ModuleDefinitionFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Debug/exports.def</ModuleDefinitionFile>
+      <ProgramDataBaseFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Debug/EncodeWith_DXC.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR="Release";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR=\"Release\";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreLinkEvent>
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message>Auto build dll exports</Message>
+      <Command>setlocal
+cd C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E __create_def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release/exports.def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release//objects.txt
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\Release\CMP_Compressonator.lib;..\bin\Release\CMP_Framework.lib;..\bin\Release\CMP_Core.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release/$(Configuration);C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Release/EncodeWith_DXC.lib</ImportLibrary>
+      <ModuleDefinitionFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release/exports.def</ModuleDefinitionFile>
+      <ProgramDataBaseFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Release/EncodeWith_DXC.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR="Debug_DLL";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR=\"Debug_DLL\";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreLinkEvent>
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message>Auto build dll exports</Message>
+      <Command>setlocal
+cd C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E __create_def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Debug_DLL/exports.def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Debug_DLL//objects.txt
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\Debug_DLL\CMP_Compressonator.lib;..\bin\Debug_DLL\CMP_Framework.lib;..\bin\Debug_DLL\CMP_Core.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release/$(Configuration);C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Debug_DLL/EncodeWith_DXC.lib</ImportLibrary>
+      <ModuleDefinitionFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Debug_DLL/exports.def</ModuleDefinitionFile>
+      <ProgramDataBaseFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Debug_DLL/EncodeWith_DXC.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR="Debug_MD";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR=\"Debug_MD\";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreLinkEvent>
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message>Auto build dll exports</Message>
+      <Command>setlocal
+cd C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E __create_def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Debug_MD/exports.def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Debug_MD//objects.txt
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\Debug_MD\CMP_Compressonator.lib;..\bin\Debug_MD\CMP_Framework.lib;..\bin\Debug_MD\CMP_Core.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release/$(Configuration);C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Debug_MD/EncodeWith_DXC.lib</ImportLibrary>
+      <ModuleDefinitionFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Debug_MD/exports.def</ModuleDefinitionFile>
+      <ProgramDataBaseFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Debug_MD/EncodeWith_DXC.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR="Debug_MD_DLL";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR=\"Debug_MD_DLL\";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreLinkEvent>
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message>Auto build dll exports</Message>
+      <Command>setlocal
+cd C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E __create_def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Debug_MD_DLL/exports.def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Debug_MD_DLL//objects.txt
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\Debug_MD_DLL\CMP_Compressonator.lib;..\bin\Debug_MD_DLL\CMP_Framework.lib;..\bin\Debug_MD_DLL\CMP_Core.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release/$(Configuration);C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Debug_MD_DLL/EncodeWith_DXC.lib</ImportLibrary>
+      <ModuleDefinitionFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Debug_MD_DLL/exports.def</ModuleDefinitionFile>
+      <ProgramDataBaseFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Debug_MD_DLL/EncodeWith_DXC.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR="Release_DLL";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR=\"Release_DLL\";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreLinkEvent>
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message>Auto build dll exports</Message>
+      <Command>setlocal
+cd C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E __create_def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release_DLL/exports.def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release_DLL//objects.txt
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\Release_DLL\CMP_Compressonator.lib;..\bin\Release_DLL\CMP_Framework.lib;..\bin\Release_DLL\CMP_Core.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release/$(Configuration);C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Release_DLL/EncodeWith_DXC.lib</ImportLibrary>
+      <ModuleDefinitionFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release_DLL/exports.def</ModuleDefinitionFile>
+      <ProgramDataBaseFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Release_DLL/EncodeWith_DXC.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR="Release_MD";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR=\"Release_MD\";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreLinkEvent>
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message>Auto build dll exports</Message>
+      <Command>setlocal
+cd C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E __create_def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release_MD/exports.def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release_MD//objects.txt
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\Release_MD\CMP_Compressonator.lib;..\bin\Release_MD\CMP_Framework.lib;..\bin\Release_MD\CMP_Core.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release/$(Configuration);C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Release_MD/EncodeWith_DXC.lib</ImportLibrary>
+      <ModuleDefinitionFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release_MD/exports.def</ModuleDefinitionFile>
+      <ProgramDataBaseFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Release_MD/EncodeWith_DXC.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR="Release_MD_DLL";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_CMP_CPP17_=1;_WIN32;OPTION_BUILD_BROTLIG=0;OPTION_CMP_GTC=0;OPTION_BUILD_ASTC=0;OPTION_CMP_APC=0;CMP_USE_XMMINTRIN;CMAKE_INTDIR=\"Release_MD_DLL\";EncodeWith_DXC_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_compressonatorlib;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_framework\common\half;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\source;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\cmp_core\shaders\compiled;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_libs\cmp_math;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\applications\_plugins\common;C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\..\..\..\common\lib\ext\directxtex\DirectXTex-jun2020b\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreLinkEvent>
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message>Auto build dll exports</Message>
+      <Command>setlocal
+cd C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E __create_def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release_MD_DLL/exports.def C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release_MD_DLL//objects.txt
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\Release_MD_DLL\CMP_Compressonator.lib;..\bin\Release_MD_DLL\CMP_Framework.lib;..\bin\Release_MD_DLL\CMP_Core.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Release/$(Configuration);C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug;C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/../../../common/lib/ext/directxtex/DirectXTex-jun2020b/DirectXTex/Bin/Desktop_2019/x64/Debug/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Release_MD_DLL/EncodeWith_DXC.lib</ImportLibrary>
+      <ModuleDefinitionFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release_MD_DLL/exports.def</ModuleDefinitionFile>
+      <ProgramDataBaseFile>C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/bin/Release_MD_DLL/EncodeWith_DXC.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\directx\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/directx/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/directx/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/directx/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/directx/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug_MD|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/directx/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug_MD_DLL|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/directx/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/directx/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release_MD|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">Building Custom Rule C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk/directx/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/build/sdk -BC:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test --check-stamp-file C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\directx\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release_MD_DLL|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_plugins\cmp_gpu\directx\cdirectx.cpp" />
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_plugins\cmp_gpu\directx\cdirectx.h" />
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_plugins\cmp_gpu\directx\compute_directx.cpp" />
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_plugins\cmp_gpu\directx\compute_directx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\ZERO_CHECK.vcxproj">
+      <Project>{C9E489B3-F419-39F0-81C6-47DC8D8DD0D9}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_compressonatorlib\CMP_Compressonator.vcxproj">
+      <Project>{5DADF401-C087-3D6A-829B-0442B50291CD}</Project>
+      <Name>CMP_Compressonator</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_core\CMP_Core.vcxproj">
+      <Project>{C904F8D0-2141-326F-8CD4-C8F26F7AB9E8}</Project>
+      <Name>CMP_Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\test\cmp_framework\CMP_Framework.vcxproj">
+      <Project>{EFEE98D4-5C03-370A-A740-47B9E39FE7FC}</Project>
+      <Name>CMP_Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,2 @@
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release_MD/cdirectx.obj
+C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/directx/EncodeWith_DXC.dir/Release_MD/compute_directx.obj

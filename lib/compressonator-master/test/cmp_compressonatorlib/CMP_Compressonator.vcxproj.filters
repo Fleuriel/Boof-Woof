@@ -1,0 +1,621 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\compress.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\compressonator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_plugins\common\atiformats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_plugins\common\format_conversion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\apc\apc_decode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\apc\apc_encode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\apc\codec_apc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\atc\codec_atc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\atc\codec_atc_rgb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\atc\codec_atc_rgba_explicit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\atc\codec_atc_rgba_interpolated.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\ati\codec_ati1n.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\ati\codec_ati2n.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\ati\codec_ati2n_dxt5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\ati\codec_ati_tc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\ati\compressonatori_tc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\ati\compressonatorxcodec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\basis\codec_basis.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc6h\bc6h_decode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc6h\bc6h_definitions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc6h\bc6h_encode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc6h\bc6h_library.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc6h\bc6h_utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc6h\codec_bc6h.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\3dquant_vpc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\bc7_decode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\bc7_definitions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\bc7_encode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\bc7_library.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\bc7_partitions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\bc7_utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\codec_bc7.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\reconstruct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\shake.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\block\codec_block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\block\codec_block_4x4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\block\codec_block_8x8.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_r16.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_r16f.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_r32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_r32f.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_r8.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_r8s.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rg16.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rg16f.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rg32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rg32f.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rg8.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rg8s.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgb888.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgb888s.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgb9995ef.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba1010102.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba16.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba16f.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba2101010.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba32f.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba8888.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba8888s.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\common\codec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_rbxg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_rgxb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_rxbg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_swizzled.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_xgbr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_xgxr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_xrbg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxtc\codec_dxtc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxtc\codec_dxtc_alpha.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxtc\codec_dxtc_rgba.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxtc\dxtc_v11_compress.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxtc\dxtc_v11_compress_asm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc2_rgb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc2_rgba.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc2_rgba1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc_rgb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc_rgba_explicit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc_rgba_interpolated.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\etcpack\etcdec.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\etcpack\etcimage.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\etcpack\etcpack.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\gt\codec_gt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\gt\gt_decode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\gt\gt_encode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\cmp_boxfilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\cmp_mips.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\half\half.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\hdr_encode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\compressonator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_plugins\common\atiformats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\applications\_plugins\common\format_conversion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\apc\apc_decode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\apc\apc_definitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\apc\apc_encode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\apc\codec_apc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\atc\codec_atc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\atc\codec_atc_rgb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\atc\codec_atc_rgba_explicit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\atc\codec_atc_rgba_interpolated.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\ati\codec_ati1n.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\ati\codec_ati2n.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\ati\codec_ati2n_dxt5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\ati\compressonator_tc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\ati\compressonatorxcodec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\basis\codec_basis.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc6h\bc6h_decode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc6h\bc6h_definitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc6h\bc6h_encode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc6h\bc6h_library.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc6h\bc6h_utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc6h\codec_bc6h.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\3dquant_constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\3dquant_vpc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\bc7_decode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\bc7_definitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\bc7_encode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\bc7_library.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\bc7_partitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\bc7_utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\codec_bc7.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\reconstruct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\bc7\shake.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\block\codec_block.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\block\codec_block_4x4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\block\codec_block_8x8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_block.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_r16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_r16f.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_r32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_r32f.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_r8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_r8s.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rg16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rg16f.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rg32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rg32f.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rg8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rg8s.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgb888.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgb888s.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgb9995ef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba1010102.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba16f.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba2101010.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba32f.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba8888.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\buffer\codecbuffer_rgba8888s.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\common\codec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\common\compclient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\common\compress.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\common\debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_rbxg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_rgxb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_rxbg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_swizzled.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_xgbr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_xgxr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxt\codec_dxt5_xrbg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxtc\codec_dxtc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\dxtc\dxtc_v11_compress.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc2_rgb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc2_rgba.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc2_rgba1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc_rgb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc_rgba_explicit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\codec_etc_rgba_interpolated.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\etcpack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\etcpack\etcimage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\etc\etcpack\etcpack_lib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\gt\codec_gt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\gt\gt_decode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\gt\gt_definitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_compressonatorlib\gt\gt_encode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\cmp_boxfilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\cmp_mips.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\half\elut.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\half\half.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\half\halfexport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\half\halffunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\half\halflimits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\half\tofloat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\hdr_encode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\cmp_framework\common\mathmacros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\angus\OneDrive\Documents\GitHub\Boof-Woof\lib\compressonator-master\build\sdk\cmp_compressonatorlib\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{ED818FB3-7403-3AB5-88B5-0DD4C8CA4FBF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{912E0167-6202-33F9-B820-2F734BF80B20}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
