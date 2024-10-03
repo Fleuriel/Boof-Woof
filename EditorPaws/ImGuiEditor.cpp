@@ -955,11 +955,6 @@ void ImGuiEditor::Audio()
 		}
 	}
 
-	if (!m_ShowAudio)
-	{
-		g_Audio.~AudioSystem();
-	}
-
 	ImGui::End();
 
 	ImGui::PopStyleColor(3);
