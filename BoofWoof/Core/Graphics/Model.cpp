@@ -145,11 +145,21 @@ void Model::Draw2D(OpenGLShader& shader)
 void Model::DrawCollisionBox2D(Model outlineModel)
 {
 	// Bind the VAO for the outline model
+
+
+
 	glBindVertexArray(outlineModel.vaoid);
-	std::cout << outlineModel.vaoid << '\n';
-	// Draw the square outline
+//	std::cout << outlineModel.vaoid << '\n';
+	
+	glLineWidth(15.0f);
+
+// Draw the square outline
 	glDrawElements(outlineModel.primitive_type, outlineModel.draw_cnt, GL_UNSIGNED_SHORT, 0);
 
 	// Unbind the VAO
 	glBindVertexArray(0);
+
+
+	g_AssetManager.GetShader("OutlineAndFont").UnUse();
+	g_AssetManager.GetShader("Shader2D").Use();
 }

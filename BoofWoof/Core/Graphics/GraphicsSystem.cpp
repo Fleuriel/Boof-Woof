@@ -122,41 +122,47 @@ void GraphicsSystem::UpdateLoop() {
 
 				
 				
-				g_AssetManager.GetShader("Shader3D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
-				g_AssetManager.GetShader("Shader3D").SetUniform("view", shdrParam.View);
-				g_AssetManager.GetShader("Shader3D").SetUniform("projection", shdrParam.Projection);
-				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
+
 				
+
+				// START OF 3D
+
+				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
+				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 		
 				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
 
 
-			}
-			g_AssetManager.GetShader("Shader3D").UnUse();
+				g_AssetManager.GetShader("Shader3D").UnUse();
+
+				// END OF 3D
 
 
-			g_AssetManager.GetShader("Shader2D").Use();
-			if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
-			{
-				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-				if (graphicsComp.getModel() == nullptr)
-				{
-					std::cout << "Model is null" << std::endl;
-					continue;
-				}
-				g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
-				g_AssetManager.GetShader("Shader2D").SetUniform("view", shdrParam.View);
-				g_AssetManager.GetShader("Shader2D").SetUniform("projection", shdrParam.Projection);
-				
+				g_AssetManager.GetShader("Shader2D").Use();
+
+				SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
+
 				graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
 
-				Model squareOutline = SquareModelOutline(glm::vec3(1.0f)); // Outline square (green)
+				g_AssetManager.GetShader("Shader2D").UnUse();
 				
+				// END OF 2D TEXTURE
+				// START OF 2D OUTLINE AND FONTS
+
+				Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
+
+				g_AssetManager.GetShader("OutlineAndFont").Use();
+
+				SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
 
 				graphicsComp.getModel()->DrawCollisionBox2D(squareOutline);
-//				std::cout << transformComp.GetPosition().x << transformComp.GetPosition().y << transformComp.GetPosition().z << '\n';
+
+				g_AssetManager.GetShader("OutlineAndFont").UnUse();
+
+				// END OF 2D OUTLINE AND FONTS
+				
 			}
-			g_AssetManager.GetShader("Shader2D").UnUse();
+			g_AssetManager.GetShader("Shader3D").UnUse();
 		}
 	}
 
@@ -178,6 +184,15 @@ void GraphicsSystem::Draw(std::vector<GraphicsComponent>& components) {
 void GraphicsSystem::DrawObject(GraphicsComponent& component) {
     // Draw logic using component data
 }
+
+void GraphicsSystem::SetShaderUniforms(OpenGLShader& shader, const ShaderParams& shdrParam)
+{
+	shader.SetUniform("vertexTransform", shdrParam.WorldMatrix);
+	shader.SetUniform("view", shdrParam.View);
+	shader.SetUniform("projection", shdrParam.Projection);
+}
+
+
 
 
 void GraphicsSystem::AddModel_3D(std::string const& path)

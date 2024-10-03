@@ -28,10 +28,7 @@ void main () {
 	//setColor = setColor * vec4(1.0f,1.0f,1.0f, opacity);
 
 
-		// For Textures
-		fFragColor = setColor;
-	
-	// For Font Color [Out]
+	fFragColor = setColor;
 	//fontColor = vec4(textColor,1.0) * setColor;
 
 }

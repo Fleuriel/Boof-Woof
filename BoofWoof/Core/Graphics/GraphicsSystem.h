@@ -42,6 +42,13 @@ public:;
     
     static bool glewInitialized;
     
+    void SetShaderUniforms(OpenGLShader& shader, const ShaderParams& shdrParam);
+
+    void Use_UnuseShader(OpenGLShader& shader, OpenGLShader& shader2);
+
+    void UnUse_UseShader(OpenGLShader& shader, OpenGLShader& shader2);
+
+
     GLuint GetFramebufferTexture() const { return textureColorbuffer; }  // Getter function
     void Update(float deltaTime);
 
@@ -50,7 +57,6 @@ public:;
 
     void AddModel_2D();
 
-    void AddObject_2D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model2D model);
     void UpdateViewportSize(int width, int height);  // Method to handle viewport resizing
     inline void SetEditorMode(bool EditorMode) { editorMode = EditorMode; };
 

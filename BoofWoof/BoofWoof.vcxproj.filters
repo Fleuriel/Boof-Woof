@@ -54,5 +54,7 @@
     <None Include="Assets\Shaders\Shader3D.vert" />
     <None Include="Assets\Scenes\engine_state.json" />
     <None Include="Saves\engine_state.json" />
+    <None Include="Assets\Shaders\OutlineAndFont.frag" />
+    <None Include="Assets\Shaders\OutlineAndFont.vert" />
   </ItemGroup>
 </Project>
