@@ -1,5 +1,6 @@
 #include "AudioSystem.h"
 #include <chrono>
+#include <thread>
 
 const char* FMODErrorToString(FMOD_RESULT result) {
     switch (result) {
