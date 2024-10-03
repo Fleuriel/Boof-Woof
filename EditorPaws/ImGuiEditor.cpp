@@ -267,6 +267,14 @@ void ImGuiEditor::InspectorWindow()
 					}
 				}
 
+				if (ImGui::Selectable("Behaviour Component"))
+				{
+					if (!g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<BehaviourComponent>(g_SelectedEntity, BehaviourComponent());
+					}
+				}
+
 				ImGui::EndPopup();
 			}
 
@@ -302,6 +310,14 @@ void ImGuiEditor::InspectorWindow()
 					if (ImGui::Selectable("Audio Component"))
 					{
 						g_Coordinator.RemoveComponent<AudioComponent>(g_SelectedEntity);
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity)) 
+				{
+					if (ImGui::Selectable("Behaviour Component"))
+					{
+						g_Coordinator.RemoveComponent<BehaviourComponent>(g_SelectedEntity);
 					}
 				}
 
@@ -496,6 +512,44 @@ void ImGuiEditor::InspectorWindow()
 				if (ImGui::Checkbox("##Loops", &isLooping)) 
 				{
 					g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetLoop(isLooping);
+				}
+			}
+		}
+
+		// Behavior
+		if (g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
+		{
+			if (ImGui::CollapsingHeader("Behaviour", ImGuiTreeNodeFlags_None))
+			{
+				auto name = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).GetBehaviourName();
+				//std::cout << "Name: " << name << " desu" << std::endl;
+
+
+				std::vector<std::string> behaviourNames = { "Movement", "Jump" };
+				static int currentItem = 0;
+
+				for (int i = 0; i < behaviourNames.size(); ++i) {
+
+					if (std::strcmp(name, behaviourNames[i].c_str()) == 0) {
+						currentItem = i;
+					}
+				}
+
+				std::string inputModelName;
+				for (const auto& names : behaviourNames) {
+					inputModelName += names;
+					inputModelName += '\0';  // Null-terminate each entry
+				}
+
+				ImGui::PushItemWidth(123.0f);
+				ImGui::Text("Name    "); ImGui::SameLine();
+
+				// Add in the slots to get the value.
+				if (ImGui::Combo("##ModelCombo", &currentItem, inputModelName.c_str(), static_cast<int>(behaviourNames.size()))) 
+				{
+					name = behaviourNames[currentItem].c_str();
+					std::cout << "name = " << name << std::endl;
+					// g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).SetBehaviourName(name); // Setting have issues
 				}
 			}
 		}
