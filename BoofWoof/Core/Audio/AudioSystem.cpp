@@ -25,17 +25,21 @@ AudioSystem::AudioSystem() {
 AudioSystem::~AudioSystem() {
     // Stop all channels first
     for (auto& [entity, channels] : channelMap) {
-        for (auto* channel : channels) {
-            if (channel) {
-                channel->stop();  // Stop playing sounds
+        if (!channels.empty()) {  // Check if the vector is not empty
+            for (auto* channel : channels) {
+                if (channel) {
+                    channel->stop();  // Stop playing sounds
+                }
             }
         }
     }
+    channelMap.clear();  // Clear the channel map
 
     // Release all cached sounds
     for (auto& [filePath, sound] : soundCache) {
         sound.reset();  // Reset the shared_ptr to release FMOD::Sound
     }
+    soundCache.clear();  // Clear the sound cache to avoid dangling references
 
     // Close and release FMOD system
     if (system) {
@@ -43,6 +47,7 @@ AudioSystem::~AudioSystem() {
         system->release();
     }
 }
+
 
 
 // Add an audio component to an entity and load its sound (or reuse an already loaded sound)
