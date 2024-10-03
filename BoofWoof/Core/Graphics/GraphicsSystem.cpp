@@ -66,6 +66,9 @@ void GraphicsSystem::initGraphicsPipeline() {
 	AddModel_3D("../BoofWoof/cube.obj");
 	AddModel_2D();
 
+
+	shdrParam.Color = glm::vec3(1.0f, 0.5f, 0.25f);
+
 	// Initialize camera
 	camera = Camera(glm::vec3(0.f, 0.f, 3.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
 
@@ -130,10 +133,20 @@ void GraphicsSystem::UpdateLoop() {
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 		
-				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
+//				g_AssetManager.GetShader("OutlineAndFont").SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
 
+				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
+				graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
 
 				g_AssetManager.GetShader("Shader3D").UnUse();
+
+
+
+
+//				Model outline = CubeModelOutline(glm::vec3(0.0f, 1.0f, 0.0f));
+				// START OF 3D BOX WIREFRAME MODE
+				
+
 
 				// END OF 3D
 
@@ -148,6 +161,8 @@ void GraphicsSystem::UpdateLoop() {
 				
 				// END OF 2D TEXTURE
 				// START OF 2D OUTLINE AND FONTS
+
+				// DO A CHECK SO THAT IT WILL BE SOMETHING... ETC ETC.
 
 				Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
 

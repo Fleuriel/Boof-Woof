@@ -119,6 +119,37 @@ Model SquareModelOutline(glm::vec3 color)
 }
 
 
+//void Model::ModelOutline3D(Mesh inputMesh)
+//{
+//	// Create vertex and index buffers for the outline
+//	std::vector<glm::vec3> outlineVertices;
+//	std::vector<unsigned int> outlineIndices;
+//
+//	for (const auto& edge : inputMesh.edges) {
+//		outlineVertices.push_back(inputMesh.vertices[edge.first]);
+//		outlineVertices.push_back(inputMesh.vertices[edge.second]);
+//	}
+//
+//	// Create outline model and buffer
+//	Model outlineModel;
+//
+//	GLuint vbo, vao;
+//	glCreateBuffers(1, &vbo);
+//	glNamedBufferStorage(vbo, outlineVertices.size() * sizeof(glm::vec3), outlineVertices.data(), GL_DYNAMIC_STORAGE_BIT);
+//
+//	glCreateVertexArrays(1, &vao);
+//	glEnableVertexArrayAttrib(vao, 0);
+//	glVertexArrayVertexBuffer(vao, 0, vbo, 0, sizeof(glm::vec3));
+//	glVertexArrayAttribFormat(vao, 0, 3, GL_FLOAT, GL_FALSE, 0);
+//	glVertexArrayAttribBinding(vao, 0, 0);
+//
+//	outlineModel.vaoid = vao;
+//	outlineModel.draw_cnt = static_cast<GLsizei>(outlineVertices.size() * 2); // Each edge has two vertices
+//	outlineModel.primitive_type = GL_LINES; // Set to GL_LINES for outline drawing
+//
+//	return outlineModel;
+//}
+
 
 void Model::Draw2D(OpenGLShader& shader)
 {
@@ -160,6 +191,27 @@ void Model::DrawCollisionBox2D(Model outlineModel)
 	glBindVertexArray(0);
 
 
-	g_AssetManager.GetShader("OutlineAndFont").UnUse();
-	g_AssetManager.GetShader("Shader2D").Use();
+
+}
+
+
+void Model::DrawCollisionBox3D(Model outlineModel)
+{
+	// Bind the VAO for the outline model
+
+
+
+	glBindVertexArray(outlineModel.vaoid);
+	//	std::cout << outlineModel.vaoid << '\n';
+
+	glLineWidth(15.0f);
+
+	// Draw the square outline
+	glDrawElements(outlineModel.primitive_type, outlineModel.draw_cnt, GL_UNSIGNED_SHORT, 0);
+
+	// Unbind the VAO
+	glBindVertexArray(0);
+
+
+
 }

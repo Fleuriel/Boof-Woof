@@ -70,7 +70,11 @@ public:
 
     void DrawCollisionBox2D(Model outlineModel);
 
-    // draws the model, and thus all its meshes
+    void DrawCollisionBox3D(Model outlineModel);
+
+    void ModelOutline3D(Mesh inputMesh);
+
+        // draws the model, and thus all its meshes
     void Draw(OpenGLShader& shader)
     {
         //std::cout << "Mesh Size: " << meshes.size() << '\n';
