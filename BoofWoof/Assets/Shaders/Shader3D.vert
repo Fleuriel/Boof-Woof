@@ -26,9 +26,11 @@ out layout(location = 0)vec3 vertColor;
 out layout(location = 1)vec3 vertNormal;
 out layout(location = 2)vec3 FragPos;
 
+
 void main()
 {
     
+	
    
     gl_Position =  projection* view * vertexTransform * vec4( modelPosition, 1.0f );
     vertColor = objectColor;

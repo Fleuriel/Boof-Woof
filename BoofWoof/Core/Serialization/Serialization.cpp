@@ -3,14 +3,68 @@
 #include <cstdio>
 #include <iostream>
 #include <filesystem>
+#include <random>
+#include <sstream>
+#include <iomanip>
 
-void Serialization::SaveEngineState(const std::string& filepath) {
-    // Ensure the Saves directory exists
-    std::filesystem::create_directory("Saves");
+#include "Serialization.h"
+
+// Initialize the static member variable
+std::string Serialization::currentSceneGUID = "";
+
+
+std::string GetScenesPath() {
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    std::filesystem::path projectRoot = currentPath.parent_path();
+    std::filesystem::path scenesPath = projectRoot / "BoofWoof" / "Assets" / "Scenes";
+
+    return scenesPath.string();
+}
+
+
+
+// Helper function to generate a new GUID
+std::string Serialization::GenerateGUID() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dis(0, 15);
+
+    std::stringstream ss;
+    ss << std::hex;
+
+    for (int i = 0; i < 8; ++i) ss << dis(gen);
+    ss << "-";
+    for (int i = 0; i < 4; ++i) ss << dis(gen);
+    ss << "-4"; // Version 4 UUID
+    for (int i = 0; i < 3; ++i) ss << dis(gen);
+    ss << "-";
+    ss << ((dis(gen) & 0x3) | 0x8); // variant
+    for (int i = 0; i < 3; ++i) ss << dis(gen);
+    ss << "-";
+    for (int i = 0; i < 12; ++i) ss << dis(gen);
+
+    return ss.str();
+}
+
+// Retrieve the GUID of the currently loaded scene
+std::string Serialization::GetSceneGUID() {
+    return currentSceneGUID;
+}
+
+bool Serialization::SaveScene(const std::string& filepath) {
+    currentSceneGUID = GenerateGUID();
+
+    std::string fullSavePath = GetScenesPath() + "/" + filepath;
+    std::filesystem::create_directories(GetScenesPath());
 
     rapidjson::Document doc;
     doc.SetObject();
     rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
+
+    // Add the GUID to the scene data
+    rapidjson::Value guidValue;
+    guidValue.SetString(currentSceneGUID.c_str(), allocator);
+    doc.AddMember("SceneGUID", guidValue, allocator);
 
     // Serialize entities with components
     rapidjson::Value entities(rapidjson::kArrayType);
@@ -18,8 +72,7 @@ void Serialization::SaveEngineState(const std::string& filepath) {
         rapidjson::Value entityData(rapidjson::kObjectType);
 
         // Serialize MetadataComponent
-        if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) 
-        {
+        if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) {
             auto& name = g_Coordinator.GetComponent<MetadataComponent>(entity);
             rapidjson::Value entityName;
             entityName.SetString(name.GetName().c_str(), allocator);
@@ -30,21 +83,18 @@ void Serialization::SaveEngineState(const std::string& filepath) {
         if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
             auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
 
-            // Serialize Position
             rapidjson::Value position(rapidjson::kObjectType);
             position.AddMember("x", transformComp.GetPosition().x, allocator);
             position.AddMember("y", transformComp.GetPosition().y, allocator);
             position.AddMember("z", transformComp.GetPosition().z, allocator);
             entityData.AddMember("Position", position, allocator);
 
-            // Serialize Scale
             rapidjson::Value scale(rapidjson::kObjectType);
             scale.AddMember("x", transformComp.GetScale().x, allocator);
             scale.AddMember("y", transformComp.GetScale().y, allocator);
             scale.AddMember("z", transformComp.GetScale().z, allocator);
             entityData.AddMember("Scale", scale, allocator);
 
-            // Serialize Rotation
             rapidjson::Value rotation(rapidjson::kObjectType);
             rotation.AddMember("x", transformComp.GetRotation().x, allocator);
             rotation.AddMember("y", transformComp.GetRotation().y, allocator);
@@ -55,12 +105,24 @@ void Serialization::SaveEngineState(const std::string& filepath) {
         // Serialize GraphicsComponent
         if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
             auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-
-            // Serialize Model ID
             entityData.AddMember("ModelID", graphicsComp.getModelID(), allocator);
-
-            // Serialize Entity ID
             entityData.AddMember("EntityID", static_cast<int>(entity), allocator);
+        }
+
+        // Serialize AudioComponent
+        if (g_Coordinator.HaveComponent<AudioComponent>(entity)) {
+            auto& audioComp = g_Coordinator.GetComponent<AudioComponent>(entity);
+
+            // Add audio file path
+            rapidjson::Value audioFilePath;
+            audioFilePath.SetString(audioComp.GetFilePath().c_str(), allocator);
+            entityData.AddMember("AudioFilePath", audioFilePath, allocator);
+
+            // Add volume
+            entityData.AddMember("Volume", audioComp.GetVolume(), allocator);
+
+            // Add loop status
+            entityData.AddMember("ShouldLoop", audioComp.ShouldLoop(), allocator);
         }
 
         entities.PushBack(entityData, allocator);
@@ -68,22 +130,24 @@ void Serialization::SaveEngineState(const std::string& filepath) {
 
     doc.AddMember("Entities", entities, allocator);
 
-    // Write the document to a file in the "Saves" folder
-    FILE* fp = fopen("Saves/engine_state.json", "wb");
+    FILE* fp = fopen(fullSavePath.c_str(), "wb");
     if (fp) {
         char writeBuffer[65536];
         rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
         rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
         doc.Accept(writer);
         fclose(fp);
+        return true;
     }
+    return false;
 }
 
-void Serialization::LoadEngineState(const std::string& filepath) {
+
+bool Serialization::LoadScene(const std::string& filepath) {
     FILE* fp = fopen(filepath.c_str(), "rb");
     if (!fp) {
         std::cerr << "Failed to open file for loading: " << filepath << std::endl;
-        return;
+        return false;
     }
 
     char readBuffer[65536];
@@ -95,10 +159,19 @@ void Serialization::LoadEngineState(const std::string& filepath) {
 
     if (!doc.IsObject()) {
         std::cerr << "Invalid JSON format in: " << filepath << std::endl;
-        return;
+        return false;
     }
 
-    // Deserialize entities with components
+    // Deserialize the scene GUID
+    if (doc.HasMember("SceneGUID")) {
+        currentSceneGUID = doc["SceneGUID"].GetString();
+        std::cout << "Loaded scene with GUID: " << currentSceneGUID << std::endl;
+    }
+    else {
+        std::cerr << "No GUID found in scene file" << std::endl;
+    }
+
+    // Deserialize entities
     if (doc.HasMember("Entities") && doc["Entities"].IsArray()) {
         const auto& entities = doc["Entities"];
         for (const auto& entityData : entities.GetArray()) {
@@ -107,7 +180,6 @@ void Serialization::LoadEngineState(const std::string& filepath) {
             // Deserialize MetadataComponent
             if (entityData.HasMember("EntityName")) {
                 std::string name = entityData["EntityName"].GetString();
-
                 MetadataComponent metadataComponent(name, entity);
                 g_Coordinator.AddComponent(entity, metadataComponent);
             }
@@ -139,17 +211,24 @@ void Serialization::LoadEngineState(const std::string& filepath) {
             // Deserialize GraphicsComponent
             if (entityData.HasMember("ModelID")) {
                 int modelID = entityData["ModelID"].GetInt();
-
-                // Create GraphicsComponent with the deserialized model ID
                 GraphicsComponent graphicsComponent(&g_AssetManager.ModelMap["sphere"], entity);
                 graphicsComponent.SetModelID(modelID);
                 g_Coordinator.AddComponent(entity, graphicsComponent);
             }
 
-            // Set the Entity ID
-            int entityID = entityData["EntityID"].GetInt();
+            // Deserialize AudioComponent
+            if (entityData.HasMember("AudioFilePath")) {
+                std::string filePath = entityData["AudioFilePath"].GetString();
+                float volume = entityData["Volume"].GetFloat();
+                bool shouldLoop = entityData["ShouldLoop"].GetBool();
+
+                AudioComponent audioComponent(filePath, volume, shouldLoop, entity);
+                g_Coordinator.AddComponent(entity, audioComponent);
+            }
         }
     }
 
-    std::cout << "Engine state loaded from " << filepath << std::endl;
+    return true;
 }
+
+

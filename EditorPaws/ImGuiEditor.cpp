@@ -1,4 +1,5 @@
 #define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
+#include <Windows.h>
 #include "ImGuiEditor.h"
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -14,6 +15,22 @@
 #include <iostream>
 
 namespace fs = std::filesystem;
+
+//Helper function to locate save file directory
+std::string GetScenesDir() 
+{
+	// Get current working directory (should be EditorPaws when running)
+	fs::path currentPath = fs::current_path();
+
+	// Go up one level (to reach BoofWoof)
+	fs::path projectRoot = currentPath.parent_path();
+
+	// Append "BoofWoof/Assets/Scenes" to the project root
+	fs::path scenesPath = projectRoot / "BoofWoof" / "Assets" / "Scenes";
+
+	return scenesPath.string();
+}
+
 
 ImGuiEditor& ImGuiEditor::GetInstance() {
 	static ImGuiEditor instance{};
@@ -58,10 +75,13 @@ void ImGuiEditor::ImGuiUpdate()
 	InspectorWindow();
 	AssetWindow();
 	Settings();
+	Scenes();
 
-	//// End the frame and render - this is in ImGuiRender()
-	//ImGui::Render();
-	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	if (m_ShowAudio)
+	{
+		Audio();
+	}
+
 }
 
 
@@ -115,9 +135,6 @@ void ImGuiEditor::WorldHierarchy()
 {
 	ImGui::Begin("World Hierarchy");
 	{
-		ImGui::Text(m_LastOpenedFile.c_str());
-		ImGui::Spacing(); ImGui::Separator(); ImGui::Spacing();
-
 		if (g_Coordinator.GetTotalEntities() != MAX_ENTITIES)
 		{
 			if (ImGui::BeginPopupContextItem("GameObj"))
@@ -185,6 +202,11 @@ void ImGuiEditor::WorldHierarchy()
 			{
 				ImGui::OpenPopup("Deletion");
 			}
+
+			if (ImGui::Button("Clear all entities")) {
+				g_Coordinator.ResetEntities();
+				g_SceneManager.ClearSceneList();
+			}
 		}
 
 		ImGui::Spacing(); ImGui::Spacing(); // to insert a gap so it looks visually nicer
@@ -214,14 +236,14 @@ void ImGuiEditor::WorldHierarchy()
 
 void ImGuiEditor::InspectorWindow()
 {
-	ImGui::Begin("Inspector"); 
+	ImGui::Begin("Inspector");
 	{
-		if (g_SelectedEntity < MAX_ENTITIES && g_SelectedEntity >= 0 && g_Coordinator.GetTotalEntities() != 0) 
-		{			
+		if (g_SelectedEntity < MAX_ENTITIES && g_SelectedEntity >= 0 && g_Coordinator.GetTotalEntities() != 0)
+		{
 			// Adding Components
 			if (ImGui::BeginPopupContextItem("AComponents"))
 			{
-				if (ImGui::Selectable("TransformComponent"))
+				if (ImGui::Selectable("Transform Component"))
 				{
 					if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
 					{
@@ -229,11 +251,19 @@ void ImGuiEditor::InspectorWindow()
 					}
 				}
 
-				if (ImGui::Selectable("GraphicsComponent"))
+				if (ImGui::Selectable("Graphics Component"))
 				{
 					if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 					{
 						g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, GraphicsComponent());
+					}
+				}
+
+				if (ImGui::Selectable("Audio Component"))
+				{
+					if (!g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<AudioComponent>(g_SelectedEntity, AudioComponent());
 					}
 				}
 
@@ -253,7 +283,7 @@ void ImGuiEditor::InspectorWindow()
 				if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
 				{
 					// in the future, when deleting transform component, physics component should also be deleted
-					if (ImGui::Selectable("TransformComponent"))
+					if (ImGui::Selectable("Transform Component"))
 					{
 						g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
 					}
@@ -261,9 +291,17 @@ void ImGuiEditor::InspectorWindow()
 
 				if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 				{
-					if (ImGui::Selectable("GraphicsComponent"))
+					if (ImGui::Selectable("Graphics Component"))
 					{
 						g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+				{
+					if (ImGui::Selectable("Audio Component"))
+					{
+						g_Coordinator.RemoveComponent<AudioComponent>(g_SelectedEntity);
 					}
 				}
 
@@ -281,7 +319,6 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Identifier", ImGuiTreeNodeFlags_None))
 			{
-				// Name
 				auto& ObjName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
 
 				char entityNameBuffer[256];
@@ -302,7 +339,6 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_None))
 			{
-				//position
 				auto& Position = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetPosition();
 				ImGui::PushItemWidth(250.0f);
 				ImGui::Text("Position"); ImGui::SameLine();
@@ -312,7 +348,6 @@ void ImGuiEditor::InspectorWindow()
 					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetPosition(Position);
 				}
 
-				//scale
 				auto& Scale = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetScale();
 				ImGui::Text("Scale   "); ImGui::SameLine();
 
@@ -321,10 +356,9 @@ void ImGuiEditor::InspectorWindow()
 					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetScale(Scale);
 				}
 
-				//rotation
 				auto& rotation = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetRotation();
 				ImGui::Text("Rotation"); ImGui::SameLine();
-				
+
 				if (ImGui::DragFloat3("##Rotation", static_cast<float*>(&rotation.x), 0.5f))
 				{
 					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetRotation(rotation);
@@ -332,119 +366,145 @@ void ImGuiEditor::InspectorWindow()
 			}
 		}
 
-		if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity)) 
+		if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 		{
 			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
 			{
-				//	modelName - tempo
 				auto modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModel();
 				const char* source = "";
+
 
 				if (modelName == &g_AssetManager.ModelMap["sphere"])
 				{
 					source = "Sphere";
 				}
+				if (modelName == &g_AssetManager.ModelMap["Square"])
+				{
+					source = "Square";
+				}
 
-				const char* modelNames[] = { "Sphere" };
+				std::vector<std::string> modelNames = { "Sphere", "Square"};
 				static int currentModel = 0;
 
-				for (int i = 0; i < 6; ++i) {
-					if (modelNames[i] == source) {
+				for (int i = 0; i < modelNames.size(); ++i) {
+
+					if (modelNames[i].c_str()  == source) {
 						currentModel = i;
 					}
 				}
+
+				std::string inputModelName;
+
+				for (const auto& name : modelNames)
+				{
+					inputModelName += name + '\0';
+				}
+
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Model   "); ImGui::SameLine();
-				if (ImGui::Combo("##ModelCombo", &currentModel, modelNames, 1))
+				
+				// Add in the slots to get the value.
+				if (ImGui::Combo("##ModelCombo", &currentModel, inputModelName.c_str(), static_cast<int>(modelNames.size())))
 				{
 					if (currentModel == 0) modelName = &g_AssetManager.ModelMap["sphere"];
+					if (currentModel == 1) modelName = &g_AssetManager.ModelMap["Square"];
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModel(modelName);
 				}
+
+
 
 				// modelID
 				auto modelID = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelID();
 				ImGui::Text("ModelID "); ImGui::SameLine();
-				/*ImGui::InputInt*/
-				if (ImGui::DragInt("##ModelID", &modelID, 1)) 
+				if (ImGui::DragInt("##ModelID", &modelID, 1))
 				{
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModelID(modelID);
 				}
 			}
 		}
-
-
-		// Components add above this line
-
-		// Save & Load file portion	
-		ImGui::Spacing();
-
-		// open Dialog
-		if (ImGui::Button("Load"))
-			ImGuiFileDialog::Instance()->OpenDialog("ChooseFileDlgKey", "Choose File", ".json", "../BoofWoof/Saves/");
-
-		// display
-		if (ImGuiFileDialog::Instance()->Display("ChooseFileDlgKey"))
+			
+		// Audio
+		if (g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
 		{
-			// action if OK
-			if (ImGuiFileDialog::Instance()->IsOk())
+			if (ImGui::CollapsingHeader("Audio", ImGuiTreeNodeFlags_None))
 			{
-				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+				auto filePathName = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).GetFilePath();
+				ImGui::PushItemWidth(250.0f);
+				ImGui::Text("Filename"); ImGui::SameLine();
 
-				// find last / to get file name only
-				size_t lastSlash = filePathName.find_last_of("/\\");
-				m_LastOpenedFile = filePathName.substr(lastSlash + 1);
+				static char fileNameBuffer[256]; // Default filename
+				memset(fileNameBuffer, 0, sizeof(fileNameBuffer));
+				strcpy_s(fileNameBuffer, sizeof(fileNameBuffer), filePathName.c_str());
 
-				// reset world first den deserialize
-				g_Coordinator.ResetEntities();
+				if (ImGui::InputText("##FileName", fileNameBuffer, IM_ARRAYSIZE(fileNameBuffer), ImGuiInputTextFlags_ReadOnly))
+				{
+					g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetFilePath(fileNameBuffer);
+				}
 
-				// json deserialize file path
-				g_Json.LoadEngineState(filePathName);
+				// Check if the text box can accept drag-and-drop payloads - drop from assets
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Ass"))
+					{
+						// Need use wchar_t cause of windows
+						const wchar_t* droppedPath = (const wchar_t*)payload->Data;
+
+						// Convert wchar_t* to std::wstring and to std::string
+						std::wstring ws(droppedPath);
+
+						int count = WideCharToMultiByte(CP_UTF8, 0, ws.c_str(), static_cast<int>(ws.length()), NULL, 0, NULL, NULL);
+						std::string newFilePath(count, 0);
+						WideCharToMultiByte(CP_UTF8, 0, ws.c_str(), -1, &newFilePath[0], count, NULL, NULL);
+
+						// getting file ext only
+						size_t lastDot = newFilePath.find_last_of(".");
+						std::string fileExt = newFilePath.substr(lastDot + 1);
+
+						if (fileExt != "wav")
+						{
+							ImGui::OpenPopup("INCORRECT EXTENSION");
+						}
+						else
+						{
+							g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetFilePath(newFilePath);
+						}
+					}
+					ImGui::EndDragDropTarget();
+				}
+
+				if (ImGui::BeginPopupModal("INCORRECT EXTENSION", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+				{
+					ImGui::Text("\n Only accept WAV files \n\n");
+					ImGui::Separator();
+
+					if (ImGui::Button("OK", ImVec2(50, 0))) { ImGui::CloseCurrentPopup(); }
+					ImGui::EndPopup();
+				}
+
+
+				// Volume
+				auto volume = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).GetVolume();
+				ImGui::Text("Volume  "); ImGui::SameLine();
+				if (ImGui::DragFloat("##Volume", &volume, 0.01f))
+				{
+					g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetVolume(volume);
+				}
+
+				// Loop
+				bool isLooping = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).ShouldLoop();
+				ImGui::Text("Loops   "); ImGui::SameLine();
+				if (ImGui::Checkbox("##Loops", &isLooping)) 
+				{
+					g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetLoop(isLooping);
+				}
 			}
-
-			// close
-			ImGuiFileDialog::Instance()->Close();
 		}
-
-		ImGui::SameLine();
-
-		if (ImGui::Button("Save Current World"))
-		{
-			std::string filename = "../BoofWoof/Saves/" + m_LastOpenedFile;
-			// std::cout << "saving? " << m_LastOpenedFile << std::endl;
-			g_Json.SaveEngineState(filename);
-
-			ImGui::OpenPopup("Saved");
-		}
-
-		// Always center this window when appearing
-		ImVec2 center = ImGui::GetMainViewport()->GetCenter();
-		ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-
-		if (ImGui::BeginPopupModal("Saved", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-		{
-			ImGui::Text("\nYour world has been saved!\n\n");
-			ImGui::Separator();
-
-			if (ImGui::Button("OK", ImVec2(50, 0))) { ImGui::CloseCurrentPopup(); }
-			ImGui::EndPopup();
-		}
-
-		ImGui::SameLine();
-
-		/*if (ImGui::Button("Save New World"))
-		{
-			g_Json.m_SaveCounter++;
-			std::stringstream ss;
-			ss << "../BoofWoof/Saves/SaveWorld" << g_Json.m_SaveCounter << ".json";
-
-			g_Json.JsonSerializeNew(ss.str());
-
-			ImGui::OpenPopup("Saved");
-		}*/
 
 		ImGui::End();
 	}
 }
+
+
 
 // Asset Window is incomplete cause no Asset Manager yet
 void ImGuiEditor::AssetWindow()
@@ -539,16 +599,16 @@ void ImGuiEditor::AssetWindow()
 			std::string fileExtension = fileNameExt.substr(lastDot + 1);
 			std::string icon = entry.is_directory() ? "FolderIcon" : (fileExtension == "png" ? fileName : "TextIcon");
 
-			//ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture(icon), { 60,60 }, { 0,1 }, { 1,0 });
+			ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture(icon), { 60,60 }, { 0,1 }, { 1,0 });
 
 			// drag from assets to components
-			/*if (ImGui::BeginDragDropSource())
+			if (ImGui::BeginDragDropSource())
 			{
 				fs::path outerRelativePath = path.c_str();
 				const wchar_t* itemPath = outerRelativePath.c_str();
 				ImGui::SetDragDropPayload("Ass", itemPath, (wcslen(itemPath) + 1) * sizeof(wchar_t));
 				ImGui::EndDragDropSource();
-			}*/
+			}
 
 			ImGui::PopStyleColor();
 
@@ -561,6 +621,29 @@ void ImGuiEditor::AssetWindow()
 					m_CurrDir /= path.filename();
 				}
 
+				// if in the audio folder
+				if (m_CurrDir == "../BoofWoof/Assets\\Audio")
+				{
+					if (fileExtension == "wav")
+					{
+						m_ShowAudio = true;
+						m_AudioName = fileName;
+					}
+					else
+					{
+						m_ShowAudio = false;
+						ImGui::OpenPopup("INCORRECT EXTENSION");
+					}
+				}
+			}
+
+			if (ImGui::BeginPopupModal("INCORRECT EXTENSION", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+			{
+				ImGui::Text("\n Only wav files are playable\n\n");
+				ImGui::Separator();
+
+				if (ImGui::Button("OK", ImVec2(50, 0))) { ImGui::CloseCurrentPopup(); }
+				ImGui::EndPopup();
 			}
 
 			ImGui::TextWrapped(fileName.c_str());
@@ -573,28 +656,6 @@ void ImGuiEditor::AssetWindow()
 		ImGui::Columns(1);
 		ImGui::End();
 	}
-}
-
-void ImGuiEditor::Settings()
-{
-	ImGui::Begin("Settings");
-	{
-		ImGui::SeparatorText("Configurations");
-
-		// Window Size, Frame Rate, Frame Count, Camera Position (future)
-		ImGui::Text("Window Size: %d x %d", g_Window->GetWindowWidth(), g_Window->GetWindowHeight());
-		ImGui::Text("Frame Rate: %f", g_Window->GetFPS());
-		ImGui::Text("Frame Count: %d", g_Core->m_CurrNumSteps);
-
-		ImGui::Spacing();
-
-		ImGui::SeparatorText("System DT (% of Total Game Loop)");
-
-		//ImGui::Text("Graphics DT: %f", ((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100));
-		PlotSystemDT("Graphics DT", static_cast<float>((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
-	}
-
-	ImGui::End();
 }
 
 void ImGuiEditor::PlotSystemDT(const char* name, float dt, float totalDT)
@@ -618,3 +679,290 @@ void ImGuiEditor::PlotSystemDT(const char* name, float dt, float totalDT)
 	// Plot lines	
 	ImGui::PlotLines(name, values, IM_ARRAYSIZE(values), values_offset, overlay, FLT_MAX, FLT_MAX, ImVec2(0, 40.0f));
 }
+
+void ImGuiEditor::Settings()
+{
+	ImGui::Begin("Settings");
+	{
+		ImGui::SeparatorText("Configurations");
+
+		// Window Size, Frame Rate, Frame Count, Camera Position (future)
+		ImGui::Text("Window Size: %d x %d", g_Window->GetWindowWidth(), g_Window->GetWindowHeight());
+		ImGui::Text("Frame Rate: %f", g_Window->GetFPS());
+		ImGui::Text("Frame Count: %d", g_Core->m_CurrNumSteps);
+
+		ImGui::Spacing();
+
+		ImGui::SeparatorText("System DT (% of Total Game Loop)");
+
+		//ImGui::Text("Graphics DT: %f", ((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100));
+		PlotSystemDT("GameLogic DT", static_cast<float>((g_Core->m_LogicDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
+		PlotSystemDT("Graphics DT", static_cast<float>((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
+	}
+
+	ImGui::End();
+}
+
+void ImGuiEditor::Scenes()
+{
+	static char fileNameBuffer[256] = "unnamed_scene"; // Default filename
+	static bool showSavePopup = false;
+	static bool showTransitionPopup = false;
+	static float transitionDuration = 1.0f; // Default transition duration
+	static bool showSceneSelectionWarning = false; // Flag to show the warning
+
+	ImGui::Begin("Scenes");
+	{
+		// Load button with file dialog
+		if (ImGui::Button("Load"))
+		{
+			ImGuiFileDialog::Instance()->OpenDialog("ChooseFileDlgKey", "Choose File", ".json", "../BoofWoof/Assets/Scenes/");
+		}
+
+		if (ImGuiFileDialog::Instance()->Display("ChooseFileDlgKey"))
+		{
+			if (ImGuiFileDialog::Instance()->IsOk())
+			{
+				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+				g_SceneManager.LoadScene(filePathName);
+			}
+			ImGuiFileDialog::Instance()->Close();
+		}
+
+		ImGui::SameLine();
+
+		// Save Current World button functionality
+		if (ImGui::Button("Save Current World"))
+		{
+			showSavePopup = true;  // Show the popup when the button is pressed
+		}
+
+		// Create a popup for file naming and saving
+		if (showSavePopup) 
+		{
+			ImGui::OpenPopup("Save Scene As");
+		}
+
+		if (ImGui::BeginPopupModal("Save Scene As", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::Text("Enter the name of the scene:");
+			ImGui::InputText("##FileName", fileNameBuffer, IM_ARRAYSIZE(fileNameBuffer));
+
+			if (ImGui::Button("Save"))
+			{
+				std::string fileName = fileNameBuffer;
+				if (fileName.empty())
+				{
+					fileName = "unnamed_scene";
+				}
+
+				std::string finalFileName = fileName;
+				std::string filePath = GetScenesDir() + "/" + finalFileName + ".json";
+				int counter = 1;
+
+				while (fs::exists(filePath)) {
+					finalFileName = fileName + "_" + std::to_string(counter);
+					filePath = GetScenesDir() + "/" + finalFileName + ".json";
+					counter++;
+				}
+
+				if (g_SceneManager.SaveScene(finalFileName + ".json")) {
+					ImGui::OpenPopup("Saved");
+				}
+				else {
+					ImGui::OpenPopup("Failed");
+				}
+
+				showSavePopup = false;
+				ImGui::CloseCurrentPopup();
+			}
+
+			ImGui::SameLine();
+
+			if (ImGui::Button("Cancel")) {
+				showSavePopup = false;
+				ImGui::CloseCurrentPopup();
+			}
+
+			ImGui::EndPopup();
+		}
+
+		// Confirmation popup when the scene is saved
+		if (ImGui::BeginPopupModal("Saved", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::Text("\nYour world has been saved!\n\n");
+			ImGui::Separator();
+
+			if (ImGui::Button("OK", ImVec2(50, 0)))
+			{
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+
+		if (ImGui::BeginPopupModal("Failed", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::Text("\nSaving failed! Try again.\n\n");
+			ImGui::Separator();
+
+			if (ImGui::Button("OK", ImVec2(50, 0)))
+			{
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+
+		ImGui::SeparatorText("Currently Loaded Scenes");
+
+		// Loaded scenes display
+		const auto& scenes = g_SceneManager.GetAllScenes();
+		if (scenes.empty())
+		{
+			ImGui::Text("No scenes loaded");
+			ImGui::NewLine();
+		}
+		else
+		{
+			for (const auto& [sceneGUID, scenePath] : scenes)
+			{
+				// Extract the file name from the full path
+				fs::path path(scenePath);
+				std::string sceneName = path.filename().string();  // Get the file name
+				ImGui::Text("Scene: %s", sceneName.c_str());
+				ImGui::Text("GUID: %s", sceneGUID.c_str());
+				ImGui::SeparatorText("");
+			}
+		}
+		// Add Transition button
+		if (ImGui::Button("Transition to Scene"))
+		{
+			showTransitionPopup = true;  // Show the transition popup when button is pressed
+		}
+
+		// Open popup for scene transition
+		if (showTransitionPopup)
+		{
+			ImGui::OpenPopup("Transition Scene");
+		}
+
+		// Transition scene popup
+		if (ImGui::BeginPopupModal("Transition Scene", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::Text("Select a scene to transition to:");
+			ImGui::SameLine();
+			if (ImGui::Button("Open Scene Browser"))
+			{
+				ImGuiFileDialog::Instance()->OpenDialog("ChooseTransitionSceneDlgKey", "Choose Scene", ".json", "../BoofWoof/Assets/Scenes/");
+			}
+
+			ImGui::NewLine();
+
+			// Display file dialog for selecting transition scene
+			static std::string selectedTransitionScene;
+			if (ImGuiFileDialog::Instance()->Display("ChooseTransitionSceneDlgKey"))
+			{
+				if (ImGuiFileDialog::Instance()->IsOk())
+				{
+					selectedTransitionScene = ImGuiFileDialog::Instance()->GetFilePathName();
+				}
+				ImGuiFileDialog::Instance()->Close();
+			}
+
+			// Show selected scene
+			if (!selectedTransitionScene.empty())
+			{
+				fs::path transitionPath(selectedTransitionScene);
+				ImGui::Text("Selected Scene: %s", transitionPath.filename().string().c_str());
+				ImGui::NewLine();
+			}
+
+			// Input for transition duration
+			ImGui::Text("Transition Duration (seconds):"); ImGui::SameLine();
+			ImGui::PushItemWidth(150);  // Set the width to 50 pixels
+			ImGui::InputFloat("##TransitionDuration", &transitionDuration, 0.1f, 1.0f, "%.2f");
+			ImGui::PopItemWidth();     // Reset to default width after the widget
+			ImGui::NewLine();
+
+			// Start transition
+			if (ImGui::Button("Start Transition"))
+			{
+				if (!selectedTransitionScene.empty())
+				{
+					g_SceneManager.TransitionToScene(selectedTransitionScene, transitionDuration);
+					showTransitionPopup = false;
+					ImGui::CloseCurrentPopup();
+					selectedTransitionScene = "";
+				}
+				else
+				{
+					showSceneSelectionWarning = true;  // Set flag to true when no scene is selected
+				}
+			}
+
+			ImGui::SameLine();
+
+			// Cancel button
+			if (ImGui::Button("Cancel"))
+			{
+				showTransitionPopup = false;
+				selectedTransitionScene = "";
+				ImGui::CloseCurrentPopup();
+			}
+
+			// Show the warning message if no scene was selected
+			if (showSceneSelectionWarning)
+			{
+				ImGui::TextColored(ImVec4(1, 0, 0, 1), "Please select a scene.");
+			}
+
+			ImGui::EndPopup();			
+		}
+
+		ImGui::End();
+	}
+}
+
+void ImGuiEditor::Audio()
+{
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));							// make button transparent
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.305f, 0.31f, 0.5f));	// same as original imgui colors but just lighter opacity
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.3f, 0.305f, 0.31f, 0.5f));
+
+	if (ImGui::Begin("Audio", &m_ShowAudio, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse))
+	{
+		ImGui::Text(m_AudioName.c_str());
+		ImGui::Spacing();  ImGui::Separator(); ImGui::Spacing();
+
+		float size = ImGui::GetWindowHeight() * 0.3f;
+
+		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PlayButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		{
+			//g_Audio.Play(g_SelectedEntity);
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PauseButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		{
+			// pause ?
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("StopButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		{
+			//g_Audio.Stop(g_SelectedEntity);
+		}
+	}
+
+	if (!m_ShowAudio)
+	{
+		g_Audio.~AudioSystem();
+	}
+
+	ImGui::End();
+
+	ImGui::PopStyleColor(3);
+}
+
+

@@ -8,8 +8,11 @@
 #include "../BoofWoof/Core/Windows/WindowManager.h"
 #include "../BoofWoof/Utilities/Components/TransformComponent.hpp"
 #include "../BoofWoof/Utilities/Components/MetaData.hpp"
-#include "Serialization/Serialization.h"
+#include "../BoofWoof/Core/SceneManager/SceneManager.h"
 #include "EngineCore.h"
+#include "../BoofWoof/Utilities/Components/AudioComponent.hpp"
+
+#include <filesystem>
 
 class ImGuiEditor 
 {
@@ -28,6 +31,12 @@ public:
 	void InspectorWindow();
 	void AssetWindow();
 	void Settings();
+	void Scenes();
+	void Audio();
+
+	// Audio Panel
+	std::string m_AudioName{};
+	bool m_ShowAudio = false;
 
 	// For fun
 	void PlotSystemDT(const char* name, float dt, float totalDT);
@@ -35,9 +44,7 @@ public:
 	// Variables
 	Entity g_SelectedEntity = 0;
 	Entity g_GettingDeletedEntity = static_cast<Entity>(-1);		// will be deleted from the back
-	
-	std::string m_LastOpenedFile{};									// Saving & Loading new files
-	
+		
 	std::filesystem::path m_BaseDir = "../BoofWoof/Assets";			// Asset Panel
 	std::filesystem::path m_CurrDir = m_BaseDir;
 

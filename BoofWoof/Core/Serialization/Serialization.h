@@ -5,7 +5,8 @@
 #include <fstream>
 #include <string>
 #include <filesystem>  // C++17 and later
-
+#include <random>
+#include <sstream>
 
 // Disable warnings for MSVC
 #ifdef _MSC_VER
@@ -24,18 +25,20 @@
 #pragma warning(pop)
 #endif
 
-#define g_Json Serialization::GetInstance()
 
 class Serialization {
 public:
+    static bool SaveScene(const std::string& filepath);
+    static bool LoadScene(const std::string& filepath);
 
-	static Serialization& GetInstance() {
-		static Serialization instance;
-		return instance;
-	}
+    // Generate a new GUID for a scene
+    static std::string GenerateGUID();
 
-    static void SaveEngineState(const std::string& filepath);
-    static void LoadEngineState(const std::string& filepath);
+    // Retrieve the GUID of a loaded scene
+    static std::string GetSceneGUID();
+
+private:
+    static std::string currentSceneGUID;  // To store the GUID for the current scene
 };
 
 #endif // SERIALIZATION_H
