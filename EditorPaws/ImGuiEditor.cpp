@@ -13,6 +13,10 @@
 #include <glm/glm.hpp>
 #include <iostream>
 
+bool GraphicsSystem::D2 = false;
+bool GraphicsSystem::D3 = false;
+
+bool GraphicsSystem::debug = false;
 namespace fs = std::filesystem;
 
 //Helper function to locate save file directory
@@ -407,6 +411,27 @@ void ImGuiEditor::InspectorWindow()
 				{
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModelID(modelID);
 				}
+
+
+				ImGui::Text("Debug Mode ");
+				ImGui::Checkbox("Debug Mode", &GraphicsSystem::debug);
+
+				if (GraphicsSystem::debug) // Only show mode selection when Debug Mode is active
+				{
+					
+					if (ImGui::Button("2D"))
+					{
+						GraphicsSystem::D3 = false;
+						GraphicsSystem::D2 = true;
+					}
+					if (ImGui::Button("3D"))
+					{
+
+						GraphicsSystem::D3 = true;
+						GraphicsSystem::D2 = false;
+					}
+				}
+
 			}
 		}
 

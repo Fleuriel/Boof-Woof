@@ -1,5 +1,7 @@
 #include "Model.h"
 #include <array>
+#include <set>
+#include <vector>
 //
 //
 //
@@ -119,36 +121,70 @@ Model SquareModelOutline(glm::vec3 color)
 }
 
 
-//void Model::ModelOutline3D(Mesh inputMesh)
-//{
-//	// Create vertex and index buffers for the outline
-//	std::vector<glm::vec3> outlineVertices;
-//	std::vector<unsigned int> outlineIndices;
-//
-//	for (const auto& edge : inputMesh.edges) {
-//		outlineVertices.push_back(inputMesh.vertices[edge.first]);
-//		outlineVertices.push_back(inputMesh.vertices[edge.second]);
-//	}
-//
-//	// Create outline model and buffer
-//	Model outlineModel;
-//
-//	GLuint vbo, vao;
-//	glCreateBuffers(1, &vbo);
-//	glNamedBufferStorage(vbo, outlineVertices.size() * sizeof(glm::vec3), outlineVertices.data(), GL_DYNAMIC_STORAGE_BIT);
-//
-//	glCreateVertexArrays(1, &vao);
-//	glEnableVertexArrayAttrib(vao, 0);
-//	glVertexArrayVertexBuffer(vao, 0, vbo, 0, sizeof(glm::vec3));
-//	glVertexArrayAttribFormat(vao, 0, 3, GL_FLOAT, GL_FALSE, 0);
-//	glVertexArrayAttribBinding(vao, 0, 0);
-//
-//	outlineModel.vaoid = vao;
-//	outlineModel.draw_cnt = static_cast<GLsizei>(outlineVertices.size() * 2); // Each edge has two vertices
-//	outlineModel.primitive_type = GL_LINES; // Set to GL_LINES for outline drawing
-//
-//	return outlineModel;
-//}
+// Function to create an AABB cube
+Model AABB(glm::vec3 color)
+{
+	struct Vertex {
+		glm::vec3 position;  // 3D position
+		glm::vec3 color;     // Color
+	};
+
+
+	// Cube vertices with positions and a uniform color
+	std::vector<Vertex> vertices{
+		// Front face
+		{ glm::vec3(1.f,  1.f,  1.f), color },  // Top-right front
+		{ glm::vec3(-1.f,  1.f,  1.f), color },  // Top-left front
+		{ glm::vec3(-1.f, -1.f,  1.f), color },  // Bottom-left front
+		{ glm::vec3(1.f, -1.f,  1.f), color },  // Bottom-right front
+
+		// Back face
+		{ glm::vec3(1.f,  1.f, -1.f), color },  // Top-right back
+		{ glm::vec3(-1.f,  1.f, -1.f), color },  // Top-left back
+		{ glm::vec3(-1.f, -1.f, -1.f), color },  // Bottom-left back
+		{ glm::vec3(1.f, -1.f, -1.f), color },  // Bottom-right back
+	};
+
+	// Indices for drawing cube edges (outline)
+	std::vector<GLushort> indices{
+		// Front face
+		0, 1, 2, 3, 0,
+
+		// Back face
+		4, 5, 6, 7, 4,
+
+		// Connect front and back
+		0, 4, 1, 5, 2, 6, 3, 7
+	};
+
+	// Create and set up VAO, VBO, EBO
+	GLuint vbo_hdl, ebo_hdl, vaoid;
+	glCreateBuffers(1, &vbo_hdl);
+	glNamedBufferStorage(vbo_hdl, sizeof(Vertex) * vertices.size(), vertices.data(), GL_DYNAMIC_STORAGE_BIT);
+
+	glCreateVertexArrays(1, &vaoid);
+	glEnableVertexArrayAttrib(vaoid, 0);
+	glVertexArrayVertexBuffer(vaoid, 0, vbo_hdl, offsetof(Vertex, position), sizeof(Vertex));
+	glVertexArrayAttribFormat(vaoid, 0, 3, GL_FLOAT, GL_FALSE, 0);
+	glVertexArrayAttribBinding(vaoid, 0, 0);
+
+	glEnableVertexArrayAttrib(vaoid, 1);
+	glVertexArrayVertexBuffer(vaoid, 1, vbo_hdl, offsetof(Vertex, color), sizeof(Vertex));
+	glVertexArrayAttribFormat(vaoid, 1, 3, GL_FLOAT, GL_FALSE, 0);
+	glVertexArrayAttribBinding(vaoid, 1, 1);
+
+	glCreateBuffers(1, &ebo_hdl);
+	glNamedBufferStorage(ebo_hdl, sizeof(GLushort) * indices.size(), indices.data(), GL_DYNAMIC_STORAGE_BIT);
+	glVertexArrayElementBuffer(vaoid, ebo_hdl);
+
+	// Model structure to return
+	Model mdl;
+	mdl.vaoid = vaoid;
+	mdl.primitive_type = GL_LINE_LOOP;  // Use GL_LINE_LOOP for the cube's outline
+	mdl.draw_cnt = static_cast<GLsizei>(indices.size());
+
+	return mdl;
+}
 
 
 void Model::Draw2D(OpenGLShader& shader)

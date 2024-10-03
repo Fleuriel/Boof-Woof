@@ -41,12 +41,11 @@ public:;
     void DrawObject(GraphicsComponent& component);
     
     static bool glewInitialized;
+    static bool debug;
+    static bool D2; // 0 is 2D, 1 is 3D
+    static bool D3; // 0 is 2D, 1 is 3D
     
     void SetShaderUniforms(OpenGLShader& shader, const ShaderParams& shdrParam);
-
-    void Use_UnuseShader(OpenGLShader& shader, OpenGLShader& shader2);
-
-    void UnUse_UseShader(OpenGLShader& shader, OpenGLShader& shader2);
 
 
     GLuint GetFramebufferTexture() const { return textureColorbuffer; }  // Getter function

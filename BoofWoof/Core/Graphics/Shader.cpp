@@ -23,11 +23,11 @@
  *************************************************************************/
 GLboolean OpenGLShader::Link() {
     if (GL_TRUE == is_linked) {
-        //std::cout << "link fail\n";
+        std::cout << "link fail\n";
         return GL_TRUE;
     }
     if (pgm_handle <= 0) {
-        //std::cout << "pgm handle not >0\n";
+        std::cout << "pgm handle not >0\n";
         return GL_FALSE;
     }
 
@@ -38,6 +38,7 @@ GLboolean OpenGLShader::Link() {
     glGetProgramiv(pgm_handle, GL_LINK_STATUS, &lnk_status);
     if (GL_FALSE == lnk_status) {
         log_string = "Failed to link shader program\n";
+        std::cout << log_string << '\n';
         GLint log_len;
         glGetProgramiv(pgm_handle, GL_INFO_LOG_LENGTH, &log_len);
         if (log_len > 0) {
@@ -120,8 +121,8 @@ GLboolean OpenGLShader::CompileLinkValidate(std::vector<std::pair<GLenum, std::s
     
 
     for (auto& elem : vec) {
-        std::cout << "Element First and Second elements: " << elem.first << '\t';
-        std::cout << elem.second.c_str() << '\n';
+      //  std::cout << "Element First and Second elements: " << elem.first << '\t';
+      //  std::cout << elem.second.c_str() << '\n';
 
         if (GL_FALSE == CompileShaderFromFile(elem.first, elem.second.c_str())) {
             std::cout << "Failed to Compile Shader from File\n";

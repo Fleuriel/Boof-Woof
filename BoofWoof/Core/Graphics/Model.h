@@ -72,7 +72,6 @@ public:
 
     void DrawCollisionBox3D(Model outlineModel);
 
-    void ModelOutline3D(Mesh inputMesh);
 
         // draws the model, and thus all its meshes
     void Draw(OpenGLShader& shader)
@@ -239,7 +238,7 @@ public:
 
         // return a mesh object created from the extracted mesh data
         //return Mesh(vertices, indices, textures);
-        Mesh out(vertices, indices);
+        Mesh out(vertices, indices);//, glm::vec3(1.0f,1.0f,1.0f));
         out.drawMode = draw_mode;
         return out;
     }
@@ -323,6 +322,7 @@ public:
 
 Model SquareModel(glm::vec3 color);
 Model SquareModelOutline(glm::vec3 color);
+Model AABB(glm::vec3 color);
 
 
 #endif // !MODEL_H
