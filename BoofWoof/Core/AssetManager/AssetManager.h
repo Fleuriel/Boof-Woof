@@ -56,6 +56,9 @@ public:
 	bool FreeTextures();																	//Function to free textures
 	bool ReloadTextures();																	//Function to reload textures
 
+
+	unsigned int TextureFromFile(const char* path, const std::string& directory);
+
 	// Sprite functions
 	bool LoadSprites();																		//Function to load sprites
 	bool FreeSprites();																		//Function to free sprites

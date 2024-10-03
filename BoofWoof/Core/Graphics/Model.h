@@ -165,7 +165,7 @@ public:
             glm::vec3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
             // positions
             vector.x = mesh->mVertices[i].x;
-            vector.y = mesh->mVertices[i].y;
+            vector.y = mesh->mVertices[i].y; 
             vector.z = mesh->mVertices[i].z;
             vertex.Position = vector;
             // normals
@@ -261,7 +261,7 @@ public:
             if (!skip)
             {   // if texture hasn't been loaded already, load it
                 Texture texture;
-                texture.id = 3;// TextureFromFile(str.C_Str(), this->directory);
+                texture.id = g_AssetManager.TextureFromFile(str.C_Str(), this->directory);
                 texture.type = typeName;
                 texture.path = str.C_Str();
                 textures.push_back(texture);
