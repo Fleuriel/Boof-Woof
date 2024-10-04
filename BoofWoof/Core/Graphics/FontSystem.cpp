@@ -1,5 +1,8 @@
 #include "FontSystem.h"
 
+
+FontSystem fontSystem;
+
 void FontSystem::init()
 {
     FT_Library ft;
@@ -11,7 +14,7 @@ void FontSystem::init()
     }
 
     // find path to font
-    std::string font_name = "../Assets/Font/arial.ttf";
+    std::string font_name = "../BoofWoof/Assets/Font/arial.ttf";
     if (font_name.empty())
     {
         std::cout << "ERROR::FREETYPE: Failed to load font_name" << std::endl;
@@ -68,6 +71,7 @@ void FontSystem::init()
                 static_cast<unsigned int>(face->glyph->advance.x)
             };
             Characters.insert(std::pair<char, Character>(c, character));
+            //std::cout << "Loaded Glyph: " << c << ", Size: " << face->glyph->bitmap.width << "x" << face->glyph->bitmap.rows << std::endl;
         }
         glBindTexture(GL_TEXTURE_2D, 0);
     }
@@ -133,4 +137,5 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
     }
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
+    shader.UnUse();
 }
