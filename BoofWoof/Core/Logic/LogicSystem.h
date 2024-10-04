@@ -21,4 +21,5 @@ private:
 	 std::map<const char*, Behaviour*> mBehaviours;
 };
 
+extern Entity g_Player;
 #endif  // LOGIC_SYSTEM_H

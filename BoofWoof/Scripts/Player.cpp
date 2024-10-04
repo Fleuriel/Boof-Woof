@@ -2,15 +2,12 @@
 #include "../Core/ECS/Coordinator.hpp"
 #include "../Core/Input/Input.h"
 
-
-namespace Movement
-{
+namespace Player {
 	void Start(Entity entity) {
-		std::cout << "Movement Behaviour Started" << std::endl;
+		std::cout << "Player Behaviour Started" << std::endl;
 	}
 
 	void Update(Entity entity) {
-		
 		if (g_Input.GetKeyState(GLFW_KEY_W) >= 1) {
 			g_Coordinator.GetComponent<TransformComponent>(entity).SetPosition(g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition() + glm::vec3(0.0f, 0.0f, -0.1f));
 		}
@@ -23,11 +20,10 @@ namespace Movement
 		if (g_Input.GetKeyState(GLFW_KEY_D) >= 1) {
 			g_Coordinator.GetComponent<TransformComponent>(entity).SetPosition(g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition() + glm::vec3(0.1f, 0.0f, 0.0f));
 		}
-		
 	}
 
 	void Destroy(Entity entity) {
-		std::cout << "Test Behaviour Destroyed" << std::endl;
+		std::cout << "Player Behaviour Destroyed" << std::endl;
 	}
 
 }
