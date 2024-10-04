@@ -190,8 +190,8 @@ Model AABB(glm::vec3 color)
 void Model::Draw2D(OpenGLShader& shader)
 {
 	//shader.Use();
-	int tex;
-	tex = g_AssetManager.GetTexture("Sadge");
+	int tex=0;
+	//tex = g_AssetManager.GetTexture("Sadge");
 
 
 	shader.SetUniform("uTex2d", 6);

@@ -76,8 +76,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\freetype\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(SolutionDir)lib\JoltPhysics-master\Build\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(SolutionDir)lib\JoltPhysics-master\Build\Debug;$(SolutionDir)lib\compressonator-master\cmp_compressonatorlib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
@@ -124,7 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;JPH_DEBUG_RENDERER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Core;$(SolutionDir)lib\FMOD Studio API Windows\api\studio;$(SolutionDir)lib\FMOD Studio API Windows\api\core\inc;$(SolutionDir)lib\JoltPhysics-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Core;$(SolutionDir)lib\FMOD Studio API Windows\api\studio;$(SolutionDir)lib\FMOD Studio API Windows\api\core\inc;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)lib\compressonator-master\cmp_compressonatorlib;$(SolutionDir)lib\compressonator-master\cmp_core\source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -168,6 +168,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
+    <ClCompile Include="Core\AssetManager\Compressonator.cpp" />
     <ClCompile Include="Core\AssetManager\Sprite.cpp" />
     <ClCompile Include="Core\EngineCore.cpp" />
     <ClCompile Include="Core\Graphics\BoundingVolume.cpp" />
@@ -181,12 +182,15 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\GSM\GameStateMachine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
     <ClCompile Include="Core\Physics\PhysicsSystem.cpp" />
+    <ClCompile Include="Core\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Core\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Core\Serialization\Serialization.cpp" />
     <ClCompile Include="Core\Windows\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
+    <ClInclude Include="Core\AssetManager\Compressonator.h" />
+    <ClInclude Include="Core\AssetManager\FilePaths.h" />
     <ClInclude Include="Core\AssetManager\Sprite.h" />
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
     <ClInclude Include="Core\ECS\ComponentManager.hpp" />
@@ -207,6 +211,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\GSM\GameStateMachine.h" />
     <ClInclude Include="Core\Input\Input.h" />
     <ClInclude Include="Core\Physics\PhysicsSystem.h" />
+    <ClInclude Include="Core\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Core\SceneManager\SceneManager.h" />
     <ClInclude Include="Core\Serialization\Serialization.h" />
     <ClInclude Include="Core\Timer\Timer.hpp" />
