@@ -22,6 +22,8 @@
     <ClCompile Include="Core\Logic\Behaviour.cpp" />
     <ClCompile Include="Scripts\Movement.cpp" />
     <ClCompile Include="Core\AssetManager\Sprite.cpp" />
+    <ClCompile Include="Scripts\Collectables.cpp" />
+    <ClCompile Include="Scripts\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
