@@ -62,7 +62,8 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 	// load shaders and models
 	g_AssetManager.LoadAll();
-	AddModel_3D("../BoofWoof/sphere.obj");
+	AddModel_3D("../BoofWoof/Assets/Object/backpack/backpack.obj");
+	//AddModel_3D("../BoofWoof/sphere.obj");
 	AddModel_2D();
 
 	// Initialize camera

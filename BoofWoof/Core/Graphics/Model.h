@@ -242,7 +242,9 @@ public:
     // the required info is returned as a Texture struct.
     std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
     {
-        std::vector<Texture> textures;
+        std::vector<Texture> textures; 
+        
+		std::cout << "Texture Count: " << mat->GetTextureCount(type)<<" for "<< typeName << '\n';
         for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
         {
             aiString str;
