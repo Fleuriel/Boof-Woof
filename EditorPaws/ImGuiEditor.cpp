@@ -521,35 +521,32 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Behaviour", ImGuiTreeNodeFlags_None))
 			{
-				auto name = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).GetBehaviourName();
-				//std::cout << "Name: " << name << " desu" << std::endl;
-
-
-				std::vector<std::string> behaviourNames = { "Movement", "Jump" };
-				static int currentItem = 0;
-
-				for (int i = 0; i < behaviourNames.size(); ++i) {
-
-					if (std::strcmp(name, behaviourNames[i].c_str()) == 0) {
-						currentItem = i;
-					}
+				const char* name = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).GetBehaviourName();
+				if (name == nullptr)
+				{
+					std::cerr << "Error: Behaviour name is null!" << std::endl;
+					return;
 				}
 
-				std::string inputModelName;
-				for (const auto& names : behaviourNames) {
-					inputModelName += names;
-					inputModelName += '\0';  // Null-terminate each entry
+				// Just add onto the BehaviourNames if got new script
+				const char* behaviourNames[] = { "Player", "Movement" };		
+				static int currentItem = 0;
+
+				for (int i = 0; i < IM_ARRAYSIZE(behaviourNames); ++i)
+				{
+					if (strcmp(behaviourNames[i], name) == 0) 
+					{
+						currentItem = i;
+					}
 				}
 
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Name    "); ImGui::SameLine();
 
-				// Add in the slots to get the value.
-				if (ImGui::Combo("##ModelCombo", &currentItem, inputModelName.c_str(), static_cast<int>(behaviourNames.size()))) 
+				if (ImGui::Combo("##ModelCombo", &currentItem, behaviourNames, IM_ARRAYSIZE(behaviourNames)))
 				{
-					name = behaviourNames[currentItem].c_str();
-					std::cout << "name = " << name << std::endl;
-					// g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).SetBehaviourName(name); // Setting have issues
+					name = behaviourNames[currentItem];
+					g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).SetBehaviourName(name);
 				}
 			}
 		}
