@@ -24,6 +24,7 @@
     <ClCompile Include="Core\AssetManager\Sprite.cpp" />
     <ClCompile Include="Scripts\Collectables.cpp" />
     <ClCompile Include="Scripts\Player.cpp" />
+    <ClCompile Include="Scripts\Null.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />

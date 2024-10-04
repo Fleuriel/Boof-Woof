@@ -1,6 +1,7 @@
 #include "LogicSystem.h"
 #include "../ECS/Coordinator.hpp"
 #include "../Utilities/Components/BehaviourComponent.hpp"
+#include "../Scripts/Null.cpp"
 #include "../Scripts/Player.cpp"
 #include "../Scripts/Movement.cpp"
 
@@ -10,6 +11,7 @@ void LogicSystem::Init()
 	std::cout << "Logic System Initialized" << std::endl;
 
 	// Add behaviours here
+	AddBehaviour(new Behaviour("Null", Null::Start, Null::Update, Null::Destroy));
 	AddBehaviour(new Behaviour("Movement", Movement::Start, Movement::Update, Movement::Destroy));
 	AddBehaviour(new Behaviour("Player", Player::Start, Player::Update, Player::Destroy));
 

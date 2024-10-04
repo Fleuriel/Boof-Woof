@@ -242,7 +242,7 @@ bool Serialization::LoadScene(const std::string& filepath) {
             if (entityData.HasMember("BehaviourName")) {
                 std::string name = entityData["BehaviourName"].GetString();
                 BehaviourComponent behaviourComponent(name.c_str(), entity);
-                behaviourComponent.SetBehaviourName(name.c_str());
+                //behaviourComponent.SetBehaviourName(name.c_str());
                 g_Coordinator.AddComponent(entity, behaviourComponent);
             }
         }
