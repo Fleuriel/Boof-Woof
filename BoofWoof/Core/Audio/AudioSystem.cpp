@@ -71,7 +71,7 @@ void AudioSystem::AddAudioComponent(Entity entity, const AudioComponent& audioCo
         }
 
         // Wrap the raw FMOD::Sound* in a shared_ptr with a custom deleter
-        std::shared_ptr<FMOD::Sound> sound(rawSound, [](FMOD::Sound* s) {});
+        std::shared_ptr<FMOD::Sound> sound(rawSound, [](FMOD::Sound* s) { (void)s; });
 
         // Store the sound in both the entity's audio map and the cache
         audioMap[entity] = sound;

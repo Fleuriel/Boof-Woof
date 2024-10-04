@@ -27,7 +27,9 @@ void PhysicsManager::InitializeJolt() {
 // Object-vs-broad-phase-layer filter
 class MyObjectVsBroadPhaseLayerFilter : public JPH::ObjectVsBroadPhaseLayerFilter {
 public:
-    virtual bool ShouldCollide(JPH::ObjectLayer inLayer1, JPH::BroadPhaseLayer inLayer2) const override {
+    virtual bool ShouldCollide(JPH::ObjectLayer inLayer1, JPH::BroadPhaseLayer inLayer2) const override 
+    {
+        (void)inLayer1, inLayer2;
         return true; // Allow all collisions between broad phase layers and object layers for now
     }
 };
@@ -35,7 +37,9 @@ public:
 // Object-layer-pair filter
 class MyObjectLayerPairFilter : public JPH::ObjectLayerPairFilter {
 public:
-    virtual bool ShouldCollide(JPH::ObjectLayer inObjectLayer1, JPH::ObjectLayer inObjectLayer2) const override {
+    virtual bool ShouldCollide(JPH::ObjectLayer inObjectLayer1, JPH::ObjectLayer inObjectLayer2) const override 
+    {
+        (void)inObjectLayer1, inObjectLayer2;
         return true; // Allow all object layers to collide for now
     }
 };

@@ -163,5 +163,6 @@ void EngineCore::OnUpdate()
 void EngineCore::OnShutdown()
 {
 	// Shutdown window and other systems
+	mLogicSys->Shutdown();
 	g_Window->OnShutdown();
 }

@@ -5,11 +5,13 @@
 
 namespace Movement
 {
-	void Start(Entity entity) {
+	inline void Start(Entity entity) 
+	{
+		(void)entity;
 		std::cout << "Movement Behaviour Started" << std::endl;
 	}
 
-	void Update(Entity entity) {
+	inline void Update(Entity entity) {
 		
 		if (g_Input.GetKeyState(GLFW_KEY_W) >= 1) {
 			g_Coordinator.GetComponent<TransformComponent>(entity).SetPosition(g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition() + glm::vec3(0.0f, 0.0f, -0.1f));
@@ -26,7 +28,9 @@ namespace Movement
 		
 	}
 
-	void Destroy(Entity entity) {
+	inline void Destroy(Entity entity) 
+	{
+		(void)entity;
 		std::cout << "Test Behaviour Destroyed" << std::endl;
 	}
 

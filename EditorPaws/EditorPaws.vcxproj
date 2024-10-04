@@ -157,6 +157,7 @@ copy "$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\lib-vc2022\glfw3.dll" "$(TargetDir)
       <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\bin\Release\x64;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)bin\Debug-x64\BoofWoof;$(SolutionDir)lib\JoltPhysics-master\Build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp-vc143-mtd.lib;opengl32.lib;glew32.lib;glfw3.lib;freetype.lib;fmod_vc.lib;BoofWoof.lib;Jolt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>/NODEFAULTLIB:[libcmt.lib;msvcrt.lib;libcmtd.lib]</IgnoreSpecificDefaultLibraries>
+      <AdditionalOptions>/IGNORE:4217 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64\*.dll" "$(OutDir)"
@@ -186,6 +187,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
       <AdditionalDependencies>assimp-vc143-mtd.lib;opengl32.lib;glew32.lib;glfw3.lib;freetype.lib;fmod_vc.lib;BoofWoof.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
+      <AdditionalOptions>/IGNORE:4217 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64\*.dll" "$(OutDir)"

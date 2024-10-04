@@ -111,9 +111,9 @@ void SceneManager::ResetScene()
     std::cout << "Scene reset: Cleared all entities\n";
 }
 
-void SceneManager::TransitionToScene(const std::string& sceneName, float transitionDuration)
+void SceneManager::TransitionToScene(const std::string& sceneName, float duration)
 {
-    BeginTransition(sceneName, transitionDuration);
+    BeginTransition(sceneName, duration);
 }
 
 void SceneManager::BeginTransition(const std::string& sceneName, float duration)

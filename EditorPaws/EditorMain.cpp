@@ -17,7 +17,7 @@ int main()
 
 	//for use with debugging, change the value to the location of the mem leak per the crt debug info from the console
 	// refer to stack frame and see where it all went wrong
-	//_crtBreakAlloc = 372;
+	//_crtBreakAlloc = 10610;
 
 	g_Core = new EngineCore();
 	g_Core->OnInit();
