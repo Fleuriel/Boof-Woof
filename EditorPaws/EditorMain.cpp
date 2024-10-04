@@ -35,7 +35,5 @@ int main()
 
 	delete g_Core;
 
-	_CrtDumpMemoryLeaks();  // This will output any remaining memory leaks
-
 	return 0;
 }
