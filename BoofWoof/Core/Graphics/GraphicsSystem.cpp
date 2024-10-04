@@ -164,7 +164,9 @@ void GraphicsSystem::Draw(std::vector<GraphicsComponent>& components) {
     }
 }
 
-void GraphicsSystem::DrawObject(GraphicsComponent& component) {
+void GraphicsSystem::DrawObject(GraphicsComponent& component) 
+{
+	(void)component;
     // Draw logic using component data
 }
 

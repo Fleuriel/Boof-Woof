@@ -17,11 +17,17 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
+#pragma warning(push)
+#pragma warning(disable: 4244)
+#pragma warning(disable: 4005)  // Disable macro redefinition warning
+
 #include <filesystem>
 #include <iostream>
 #include "AssetManager.h"
 #include "windows.h"
 #include "FilePaths.h"
+
+#pragma warning(pop)
 
 AssetManager g_AssetManager;
 
@@ -1075,11 +1081,12 @@ OpenGLShader& AssetManager::GetShader(std::string shaderName) {
         size_t index = std::distance(shdrpgmOrder.begin(), it);
 
         // Check if the index is valid
-        if (index < shdrpgms.size()) {
+        if (index < shdrpgms.size()) 
+        {
+            // std::cout << shdrpgms[index].Validate();
+            
             // Return the shader program at the corresponding index
             return shdrpgms[index];
-
-            std::cout << shdrpgms[index].Validate();
         }
         else {
             // Handle an invalid index (out of bounds)

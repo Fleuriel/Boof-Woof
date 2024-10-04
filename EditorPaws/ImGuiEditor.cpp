@@ -9,7 +9,6 @@
 
 // this part must be included last. Want to add anything new, add before this line
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #define GLM_FORCE_SILENT_WARNINGS
 #include <glm/glm.hpp>
 #include <iostream>

@@ -1,12 +1,6 @@
 
 #define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
-#include <windows.h>
 #include "WindowManager.h"
-
-#define GLM_FORCE_SILENT_WARNINGS
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include "Input/Input.h"
 
 Window* g_Window = nullptr;
@@ -85,6 +79,7 @@ void Window::OnInitialize()
     glfwSetMouseButtonCallback(m_Window, MouseCallBack);
     glfwSetScrollCallback(m_Window, ScrollCallBack);
     glfwSetWindowSizeCallback(m_Window, OpenGLWindowResizeCallback);
+    glfwSetErrorCallback(error_callback);
 
     glfwSwapInterval(1); // Enable V-Sync
 
@@ -94,7 +89,9 @@ void Window::OnInitialize()
     std::cout << "Window successfully created." << std::endl;
 }
 
-void Window::OpenGLWindowResizeCallback(GLFWwindow* window, int width, int height) {
+void Window::OpenGLWindowResizeCallback(GLFWwindow* window, int width, int height) 
+{
+    (void)window;
     // Retrieve the WindowComponent associated with this GLFWwindow (optional if using multiple windows)
     // You'd typically store a mapping between GLFWwindow* and WindowComponent if needed.
 

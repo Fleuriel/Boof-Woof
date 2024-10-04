@@ -5,21 +5,25 @@
 
 namespace Collectables
 {
-	void Start(Entity entity) {
+	inline void Start(Entity entity) 
+	{
+		(void)entity;
 		std::cout << "Collectables Behaviour Started" << std::endl;
 	}
 
-	void Update(Entity entity) {
+	inline void Update(Entity entity) {
 		// Check if player is colliding with collectable
 
 		// If player is colliding with collectable, destroy collectable
 
 		// Add score to player
 
-
+		(void)entity;
 	}
 
-	void Destroy(Entity entity) {
+	inline void Destroy(Entity entity) 
+	{
+		(void)entity;
 		std::cout << "Collectables Behaviour Destroyed" << std::endl;
 	}
 

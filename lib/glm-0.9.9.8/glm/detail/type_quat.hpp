@@ -39,6 +39,9 @@ namespace glm
 #			endif
 #		endif
 
+#pragma warning(push)
+#pragma warning(disable: 4201) // Disable warning for nameless struct/union
+
 #		if GLM_LANG & GLM_LANG_CXXMS_FLAG
 			union
 			{
@@ -57,6 +60,7 @@ namespace glm
 				T x, y, z, w;
 #			endif
 #		endif
+#pragma warning(pop)
 
 #		if GLM_SILENT_WARNINGS == GLM_ENABLE
 #			if GLM_COMPILER & GLM_COMPILER_CLANG

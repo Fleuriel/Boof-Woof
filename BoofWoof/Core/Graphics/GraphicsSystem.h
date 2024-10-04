@@ -13,9 +13,10 @@ class GraphicsComponent;
 #include "../ECS/System.hpp"
 
 #include <vector>
+
+#define GLM_FORCE_SILENT_WARNINGS
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
 
 
 class GraphicsSystem : public System

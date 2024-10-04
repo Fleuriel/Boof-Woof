@@ -2,12 +2,16 @@
 #include "../Core/ECS/Coordinator.hpp"
 #include "../Core/Input/Input.h"
 
-namespace Player {
-	void Start(Entity entity) {
+namespace Player 
+{
+	inline void Start(Entity entity) 
+	{
+		(void)entity;
 		std::cout << "Player Behaviour Started" << std::endl;
 	}
 
-	void Update(Entity entity) {
+	inline void Update(Entity entity) 
+	{
 		if (g_Input.GetKeyState(GLFW_KEY_W) >= 1) {
 			g_Coordinator.GetComponent<TransformComponent>(entity).SetPosition(g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition() + glm::vec3(0.0f, 0.0f, -0.1f));
 		}
@@ -22,7 +26,9 @@ namespace Player {
 		}
 	}
 
-	void Destroy(Entity entity) {
+	inline void Destroy(Entity entity) 
+	{
+		(void)entity;
 		std::cout << "Player Behaviour Destroyed" << std::endl;
 	}
 
