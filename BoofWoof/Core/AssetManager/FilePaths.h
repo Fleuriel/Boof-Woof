@@ -11,17 +11,20 @@
 #ifndef FILEPATHS_H
 #define FILEPATHS_H
 
- // TEXTURES //
-#define FILEPATH_TEXTURES					std::string("..\\BoofWoof\\Assets\\Art Assets\\Textures")
+// TEXTURES //
+#define FILEPATH_TEXTURES					std::string("..\\BoofWoof\\Assets\\Art\\Textures")
 
 // SPRITES //
-#define FILEPATH_SPRITES					std::string("..\\BoofWoof\\Assets\\Art Assets\\Sprites")
+#define FILEPATH_SPRITES					std::string("..\\BoofWoof\\Assets\\Art\\Sprites")
 
 // SCENES //
 #define FILEPATH_SCENES						std::string("..\\BoofWoof\\Assets\\Scenes")
 
- // SHADERS //
+// SHADERS //
 #define FILEPATH_SHADERS					std::string("..\\BoofWoof\\Assets\\Shaders")
+
+// FILE DESCRIPTORS //
+#define FILEPATH_DESCRIPTORS				std::string("..\\BoofWoof\\Assets\\Descriptors")
 
 // TRASH //
 #define FILEPATH_TRASHBIN					std::string("..\\BoofWoof\\Assets\\Trashbin")

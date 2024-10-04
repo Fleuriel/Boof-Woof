@@ -17,6 +17,8 @@
     <ClCompile Include="Core\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Core\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Core\AssetManager\Sprite.cpp" />
+    <ClCompile Include="Core\ResourceManager\ResourceManager.cpp" />
+    <ClCompile Include="Core\AssetManager\Compressonator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -46,6 +48,9 @@
     <ClInclude Include="Core\SceneManager\SceneManager.h" />
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
     <ClInclude Include="Core\AssetManager\Sprite.h" />
+    <ClInclude Include="Core\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="Core\AssetManager\FilePaths.h" />
+    <ClInclude Include="Core\AssetManager\Compressonator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

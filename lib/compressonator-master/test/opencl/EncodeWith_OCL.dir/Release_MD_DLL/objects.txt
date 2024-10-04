@@ -1,2 +1,0 @@
-C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/opencl/EncodeWith_OCL.dir/Release_MD_DLL/compute_opencl.obj
-C:/Users/angus/OneDrive/Documents/GitHub/Boof-Woof/lib/compressonator-master/test/opencl/EncodeWith_OCL.dir/Release_MD_DLL/copencl.obj
