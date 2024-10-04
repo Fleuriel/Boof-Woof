@@ -5,7 +5,7 @@
 class BehaviourComponent
 {
 public:
-	BehaviourComponent() {};
+	BehaviourComponent(): m_BehaviourName("Null") {};
 	BehaviourComponent(const char* behaviourname, Entity& entity) 
 		: m_BehaviourName(behaviourname), m_EntityID(g_Coordinator.GetEntityId(entity)) {}
 

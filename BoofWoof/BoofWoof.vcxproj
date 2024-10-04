@@ -188,6 +188,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\Windows\WindowManager.cpp" />
     <ClCompile Include="Scripts\Collectables.cpp" />
     <ClCompile Include="Scripts\Movement.cpp" />
+    <ClCompile Include="Scripts\Null.cpp" />
     <ClCompile Include="Scripts\Player.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.hpp" />
   </ItemGroup>
