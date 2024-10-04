@@ -231,7 +231,7 @@ void AudioSystem::FadeIn(Entity entity, float targetVolume, float duration) {
                     currentVolume += step * 0.1f;
                     channel->setVolume(currentVolume);
                     system->update();
-                    std::this_thread::sleep_for(std::chrono::milliseconds(100));  // Delay for smooth fading
+                    //std::this_thread::sleep_for(std::chrono::milliseconds(100));  // Delay for smooth fading
                 }
                 channel->setVolume(targetVolume);  // Ensure we reach the exact target volume
             }
@@ -254,7 +254,7 @@ void AudioSystem::FadeOut(Entity entity, float duration) {
                     currentVolume -= step * 0.1f;
                     channel->setVolume(std::max(currentVolume, 0.0f));  // Ensure volume doesn't go negative
                     system->update();
-                    std::this_thread::sleep_for(std::chrono::milliseconds(100));  // Delay for smooth fading
+                    //std::this_thread::sleep_for(std::chrono::milliseconds(100));  // Delay for smooth fading
                 }
                 channel->setVolume(0.0f);  // Ensure the volume reaches 0
             }
