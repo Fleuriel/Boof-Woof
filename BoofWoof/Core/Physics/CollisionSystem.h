@@ -11,6 +11,10 @@
 #include "Jolt/Jolt.h"
 #include "Jolt/Physics/PhysicsSystem.h"
 
+//// Include JoltPhysics headers directly
+//#include "Jolt.h"
+//#include "Physics/PhysicsSystem.h"
+
 // Other includes
 #include "ECS/Coordinator.hpp"
 // Remove or comment out the CustomPhysicsSystem.h include
@@ -20,7 +24,7 @@
 class CollisionComponent;
 class TransformComponent;
 
-class CollisionSystem {
+class CollisionSystem : public System{
 public:
     // Initialize the collision system and any necessary resources
     void InitCollisionSystem(JPH::PhysicsSystem* physicsSystem);

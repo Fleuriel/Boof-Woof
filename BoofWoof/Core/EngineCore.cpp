@@ -1,13 +1,19 @@
 #include "EngineCore.h"
 
-PhysicsManager m_PhysicsManager; // Your custom physics manager
-JPH::PhysicsSystem* m_PhysicsSystem = nullptr; // Pointer to JoltPhysics system
+PhysicsManager physicsManager; // Your custom physics manager
+//JPH::PhysicsSystem* m_PhysicsSystem = nullptr; // Pointer to JoltPhysics system
 
 std::shared_ptr<GraphicsSystem> mGraphicsSys;
 std::shared_ptr<CollisionSystem> mCollisionSys;
 
 void EngineCore::OnInit()
 {
+
+	//// Initialize the physics system
+	//physicsManager.InitializeJolt();
+	//physicsManager.AddStaticFloor();
+	//physicsManager.AddDynamicBody(JPH::Vec3(0, 5, 0), 1.0f); // Add a sphere above the floor
+
 	// if need to deserialize anything
 	
 	// initialize window stuff, set window height n width n wtv
@@ -46,14 +52,14 @@ void EngineCore::OnInit()
 	//m_PhysicsManager.InitializeJolt();
 	//m_PhysicsSystem = m_PhysicsManager.CreatePhysicsSystem();
 
-	//// Register the CollisionSystem and set the system signature
-	//mCollisionSys = g_Coordinator.RegisterSystem<CollisionSystem>();
-	//{
-	//	Signature signature;
-	//	signature.set(g_Coordinator.GetComponentType<CollisionComponent>());
-	//	signature.set(g_Coordinator.GetComponentType<TransformComponent>()); // If needed
-	//	g_Coordinator.SetSystemSignature<CollisionSystem>(signature);
-	//}
+	// Register the CollisionSystem and set the system signature
+	mCollisionSys = g_Coordinator.RegisterSystem<CollisionSystem>();
+	{
+		Signature signature;
+		signature.set(g_Coordinator.GetComponentType<CollisionComponent>());
+		signature.set(g_Coordinator.GetComponentType<TransformComponent>()); // If needed
+		g_Coordinator.SetSystemSignature<CollisionSystem>(signature);
+	}
 
 	// init system
 	mGraphicsSys->initGraphicsPipeline();
@@ -137,4 +143,7 @@ void EngineCore::OnShutdown()
 {
 	// Shutdown window and other systems
 	g_Window->OnShutdown();
+
+	//// Cleanup Physics System
+	//physicsManager.Cleanup();
 }

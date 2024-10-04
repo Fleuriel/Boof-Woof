@@ -11,6 +11,11 @@
 #include "Jolt/Physics/Body/BodyLockInterface.h"
 #include "Jolt/Physics/Body/BodyLock.h"
 #include "Jolt/Geometry/AABox.h"
+//#include "Physics/Body/Body.h"
+//#include "Physics/Body/BodyInterface.h"
+//#include "Physics/Body/BodyLockInterface.h"
+//#include "Physics/Body/BodyLock.h"
+//#include "Geometry/AABox.h"
 
 void CollisionSystem::InitCollisionSystem(JPH::PhysicsSystem* physicsSystem) {
     m_PhysicsSystem = physicsSystem;

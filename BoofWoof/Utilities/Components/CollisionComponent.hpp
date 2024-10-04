@@ -14,6 +14,12 @@
 #include "Jolt/Physics/Body/BodyInterface.h"
 #include "Jolt/Physics/Body/BodyCreationSettings.h"
 #include "Jolt/Physics/Collision/Shape/BoxShape.h"
+//#include "Jolt.h"
+//#include "Physics/PhysicsSystem.h"
+//#include "Physics/Body/Body.h"
+//#include "Physics/Body/BodyInterface.h"
+//#include "Physics/Body/BodyCreationSettings.h"
+//#include "Physics/Collision/Shape/BoxShape.h"
 #include "TransformComponent.hpp"
 #include "GraphicsComponent.hpp"
 
