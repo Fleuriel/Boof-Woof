@@ -1,4 +1,5 @@
 #include "FontSystem.h"
+#include <iomanip>
 
 
 FontSystem fontSystem;
@@ -76,7 +77,7 @@ void FontSystem::init()
         glBindTexture(GL_TEXTURE_2D, 0);
     }
     // destroy FreeType once we're finished
-    FT_Done_Face(face);
+   FT_Done_Face(face);
     FT_Done_FreeType(ft);
 
 
@@ -96,6 +97,7 @@ void FontSystem::init()
 
 void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color)
 {
+	static bool init = true;
     // activate corresponding render state	
     shader.Use();
     shader.SetUniform("textColor", color.x, color.y, color.z);
@@ -104,6 +106,7 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
 
     // iterate through all characters
     std::string::const_iterator c;
+    
     for (c = text.begin(); c != text.end(); c++)
     {
         Character ch = Characters[*c];
@@ -134,7 +137,18 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
         glDrawArrays(GL_TRIANGLES, 0, 6);
         // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
         x += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+
+		//// print the vetices
+		//if (init)
+		//{
+		//	for (int i = 0; i < 6; i++)
+		//	{
+  //              // keep 2 dp
+		//		std::cout << "Vertex: " << i << " x: " << std::fixed << std::setprecision(2) << vertices[i][0] << " y: " << std::fixed << std::setprecision(2) << vertices[i][1] << " s: " << std::fixed << std::setprecision(2) << vertices[i][2] << " t: " << std::fixed << std::setprecision(2) << vertices[i][3] << std::endl;
+		//	}
+		//}
     }
+    init = false;
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     shader.UnUse();

@@ -5,6 +5,7 @@
 #include <map>
 #include "../Input/Input.h"
 #include "Camera.h"
+#include "FontSystem.h"
 
 #include "AssetManager/AssetManager.h"
 #include "Windows/WindowManager.h"
@@ -66,7 +67,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	AddModel_3D("../BoofWoof/cube.obj");
 	AddModel_2D();
 
-	
+	fontSystem.init();
 
 	shdrParam.Color = glm::vec3(1.0f, 0.5f, 0.25f);
 
@@ -76,6 +77,8 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 
@@ -92,110 +95,117 @@ void GraphicsSystem::UpdateLoop() {
 
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 
-	shdrParam.View = camera.GetViewMatrix();
-	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
-
-	// Setup camera and projection matrix
-	//glm::mat4 view_ = camera.GetViewMatrix();
-	//glm::mat4 projection = 
-	
-	//g_AssetManager.GetShader("Shader3D").Use();
-
-
-	// Loop through all entities and render them
-	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
-	for (auto& entity : allEntities)
-	{
-		if (g_Coordinator.HaveComponent<TransformComponent>(entity))
-		{
-			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
-
-			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
-
-			g_AssetManager.GetShader("Shader3D").Use();
-			if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
-			{
-				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-				if (graphicsComp.getModel() == nullptr)
-				{
-					std::cout << "Model is null" << std::endl;
-					graphicsComp.SetModel(&g_AssetManager.ModelMap["cube"]);
-					//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
-					continue;
-				}
-				int tex1 = g_AssetManager.GetTexture("Sadge");
-				int tex2 = g_AssetManager.GetTexture("Pepega");
-				
-				
-				// Bind the textures before the draw call
-				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, tex1);
-				
-				glActiveTexture(GL_TEXTURE1);
-				glBindTexture(GL_TEXTURE_2D, tex2);
-				
-
-				// START OF 3D
-
-				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
-				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
-
-
-				
-				g_AssetManager.GetShader("Shader3D").SetUniform("texture1", tex1);
-				g_AssetManager.GetShader("Shader3D").SetUniform("texture2", tex2);
-//				g_AssetManager.GetShader("OutlineAndFont").SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
-
-				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
-				//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
-
-				g_AssetManager.GetShader("Shader3D").UnUse();
-
-
-
-
-				//Model outline = ModelOutline3D(,glm::vec3(0.0f, 1.0f, 0.0f));
-				// START OF 3D BOX WIREFRAME MODE
-				
+//	shdrParam.View = camera.GetViewMatrix();
+//	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
+//
+//	// Setup camera and projection matrix
+//	//glm::mat4 view_ = camera.GetViewMatrix();
+//	//glm::mat4 projection = 
+//	
+//	//g_AssetManager.GetShader("Shader3D").Use();
+//
+//
+//	// Loop through all entities and render them
+//	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+//	for (auto& entity : allEntities)
+//	{
+//		if (g_Coordinator.HaveComponent<TransformComponent>(entity))
+//		{
+//			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+//
+//			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
+//
+//			g_AssetManager.GetShader("Shader3D").Use();
+//			if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+//			{
+//				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+//				if (graphicsComp.getModel() == nullptr)
+//				{
+//					std::cout << "Model is null" << std::endl;
+//					graphicsComp.SetModel(&g_AssetManager.ModelMap["cube"]);
+//					//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
+//					continue;
+//				}
+//				int tex1 = g_AssetManager.GetTexture("Sadge");
+//				int tex2 = g_AssetManager.GetTexture("Pepega");
+//				
+//				
+//				// Bind the textures before the draw call
+//				glActiveTexture(GL_TEXTURE0);
+//				glBindTexture(GL_TEXTURE_2D, tex1);
+//				
+//				glActiveTexture(GL_TEXTURE1);
+//				glBindTexture(GL_TEXTURE_2D, tex2);
+//				
+//
+//				// START OF 3D
+//
+//				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
+//				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
+//
+//
+//				
+//				g_AssetManager.GetShader("Shader3D").SetUniform("texture1", tex1);
+//				g_AssetManager.GetShader("Shader3D").SetUniform("texture2", tex2);
+////				g_AssetManager.GetShader("OutlineAndFont").SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
+//
+//				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
+//				//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
+//
+//				g_AssetManager.GetShader("Shader3D").UnUse();
+//
+//
+//
+//
+//				//Model outline = ModelOutline3D(,glm::vec3(0.0f, 1.0f, 0.0f));
+//				// START OF 3D BOX WIREFRAME MODE
+//				
+////				g_AssetManager.GetShader("OutlineAndFont").Use();
+//
+//				// END OF 3D
+//
+//
+//				g_AssetManager.GetShader("Shader2D").Use();
+//
+//				SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
+//
+//				graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
+//
+//				g_AssetManager.GetShader("Shader2D").UnUse();
+//				
+//				// END OF 2D TEXTURE
+//				// START OF 2D OUTLINE AND FONTS
+//
+//				// DO A CHECK SO THAT IT WILL BE SOMETHING... ETC ETC.
+//				Model AABBOutline = AABB(glm::vec3(0.0f, 1.0f, 1.0f));
+//				Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
+//
 //				g_AssetManager.GetShader("OutlineAndFont").Use();
+//
+//				SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
+//
+//
+//				if (D3)
+//					graphicsComp.getModel()->DrawCollisionBox3D(AABBOutline);
+//				if (D2)
+//					graphicsComp.getModel()->DrawCollisionBox2D(squareOutline);
+//				
+//				g_AssetManager.GetShader("OutlineAndFont").UnUse();
+//
+//				// END OF 2D OUTLINE AND FONTS
+//				
+//			}
+//			g_AssetManager.GetShader("Shader3D").UnUse();
+//		}
+//	}
 
-				// END OF 3D
+//	
 
-
-				g_AssetManager.GetShader("Shader2D").Use();
-
-				SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
-
-				graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
-
-				g_AssetManager.GetShader("Shader2D").UnUse();
-				
-				// END OF 2D TEXTURE
-				// START OF 2D OUTLINE AND FONTS
-
-				// DO A CHECK SO THAT IT WILL BE SOMETHING... ETC ETC.
-				Model AABBOutline = AABB(glm::vec3(0.0f, 1.0f, 1.0f));
-				Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
-
-				g_AssetManager.GetShader("OutlineAndFont").Use();
-
-				SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
-
-
-				if (D3)
-					graphicsComp.getModel()->DrawCollisionBox3D(AABBOutline);
-				if (D2)
-					graphicsComp.getModel()->DrawCollisionBox2D(squareOutline);
-				
-				g_AssetManager.GetShader("OutlineAndFont").UnUse();
-
-				// END OF 2D OUTLINE AND FONTS
-				
-			}
-			g_AssetManager.GetShader("Shader3D").UnUse();
-		}
-	}
-
+	//glm::mat4 fontprojection = glm::ortho(0.0f, static_cast<float>(g_WindowX), 0.0f, static_cast<float>(g_WindowY));
+	//g_AssetManager.GetShader("Font").SetUniform("projection", fontprojection);
+	
+	fontSystem.RenderText(g_AssetManager.GetShader("Font"), "Hello, World!", 0.0f, 0.0f, 0.001f, glm::vec3(1.f, 0.8f, 0.2f));
+	
 
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
