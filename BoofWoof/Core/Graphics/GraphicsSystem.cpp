@@ -7,6 +7,7 @@
 #include "Camera.h"
 
 #include "AssetManager/AssetManager.h"
+#include "ResourceManager/ResourceManager.h"
 #include "Windows/WindowManager.h"
 
 // Assignment 1
@@ -62,6 +63,8 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 	// load shaders and models
 	g_AssetManager.LoadAll();
+	g_ResourceManager.LoadAll();
+
 	AddModel_3D("../BoofWoof/sphere.obj");
 	AddModel_3D("../BoofWoof/cube.obj");
 	AddModel_2D();
@@ -123,8 +126,8 @@ void GraphicsSystem::UpdateLoop() {
 					//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
 					continue;
 				}
-				int tex1 = g_AssetManager.GetTexture("Sadge");
-				int tex2 = g_AssetManager.GetTexture("Pepega");
+				int tex1 = g_ResourceManager.GetTextureDDS("Sadge.dds");
+				int tex2 = g_ResourceManager.GetTextureDDS("Pepega.dds");
 				
 				
 				// Bind the textures before the draw call
