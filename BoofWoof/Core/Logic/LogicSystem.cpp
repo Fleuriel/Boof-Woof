@@ -47,6 +47,17 @@ void LogicSystem::Update()
 	}
 }
 
+void LogicSystem::Shutdown()
+{
+	for (auto& behaviourPair : mBehaviours)
+	{
+		delete behaviourPair.second;  // Free dynamically allocated Behaviour objects
+	}
+
+	// Clear the map to remove all entries
+	mBehaviours.clear();
+}
+
 void LogicSystem::AddBehaviour(Behaviour* behaviour)
 {
 	mBehaviours[behaviour->getBehaviourName()] = behaviour;

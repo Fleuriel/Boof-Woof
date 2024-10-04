@@ -14,6 +14,7 @@ class LogicSystem : public System
 public:
 	void Init();
 	void Update();
+	void Shutdown();
 
 	void AddBehaviour(Behaviour* behaviour);
 private:
