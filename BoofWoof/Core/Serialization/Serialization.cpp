@@ -125,6 +125,18 @@ bool Serialization::SaveScene(const std::string& filepath) {
             entityData.AddMember("ShouldLoop", audioComp.ShouldLoop(), allocator);
         }
 
+        // Serialize BehaviorComponent
+        if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) 
+        {
+            auto& behaviorComp = g_Coordinator.GetComponent<BehaviourComponent>(entity);
+            rapidjson::Value behaviorNameKey("BehaviourName", allocator); 
+
+            rapidjson::Value behaviorNameValue;
+            behaviorNameValue.SetString(behaviorComp.GetBehaviourName(), allocator); 
+
+            entityData.AddMember(behaviorNameKey, behaviorNameValue, allocator);
+        }
+
         entities.PushBack(entityData, allocator);
     }
 
@@ -224,6 +236,14 @@ bool Serialization::LoadScene(const std::string& filepath) {
 
                 AudioComponent audioComponent(filePath, volume, shouldLoop, entity);
                 g_Coordinator.AddComponent(entity, audioComponent);
+            }
+
+            // Deserialize BehaviourComponent
+            if (entityData.HasMember("BehaviourName")) {
+                std::string name = entityData["BehaviourName"].GetString();
+                BehaviourComponent behaviourComponent(name.c_str(), entity);
+                behaviourComponent.SetBehaviourName(name.c_str());
+                g_Coordinator.AddComponent(entity, behaviourComponent);
             }
         }
     }

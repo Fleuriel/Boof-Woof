@@ -1,7 +1,7 @@
 #include "LogicSystem.h"
 #include "../ECS/Coordinator.hpp"
 #include "../Utilities/Components/BehaviourComponent.hpp"
-
+#include "../Scripts/Player.cpp"
 #include "../Scripts/Movement.cpp"
 
 
@@ -11,6 +11,7 @@ void LogicSystem::Init()
 
 	// Add behaviours here
 	AddBehaviour(new Behaviour("Movement", Movement::Start, Movement::Update, Movement::Destroy));
+	AddBehaviour(new Behaviour("Player", Player::Start, Player::Update, Player::Destroy));
 
 
 	for (auto const& entity : mEntities)
@@ -21,7 +22,7 @@ void LogicSystem::Init()
 		// Check if behaviour exists
 		if (mBehaviours.find(behaviourComponent.GetBehaviourName()) == mBehaviours.end())
 		{
-			std::cout << "Behaviour not found" << std::endl;
+			//std::cout << "Behaviour not found" << std::endl;
 			continue;
 		}
 		mBehaviours[behaviourComponent.GetBehaviourName()]->Init(entity);
@@ -38,7 +39,7 @@ void LogicSystem::Update()
 		BehaviourComponent behaviourComponent = g_Coordinator.GetComponent<BehaviourComponent>(entity);
 		if (mBehaviours.find(behaviourComponent.GetBehaviourName()) == mBehaviours.end())
 		{
-			std::cout << "Behaviour not found" << std::endl;
+			//std::cout << "Behaviour not found" << std::endl;
 			continue;
 		}
 		// Find which behaviour the entity has and run
