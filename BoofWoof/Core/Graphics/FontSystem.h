@@ -1,70 +1,41 @@
 
 #pragma once
-#define GLM_FORCE_SILENT_WARNINGS
+#ifndef FONTSYSTEM_H
+#define FONTSYSTEM_H
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <ft2build.h>
 #include <string>
+#include "Shader.h"
 #include <vector>
 #include <map>
+#include "../ECS/System.hpp"
 #include FT_FREETYPE_H
 
 
-//rgb values range: 0 to 1
-bool DrawText(std::string const& text, float posX, float posY, float scale, float red = 1, float green = 1, float blue = 1);
-
-//calculate the width of text string in pixels, default scale, 1
-int find_width(std::string const& str, std::string font, float scale = 1.0f);
-
-int find_height(std::string const& str, std::string font, float scale = 1.0f);
-
-//fonts:
-//AldrichRegular
-void SetFont(std::string font = "Aldrich-Regular");
-
-
-
-
-void setup_font_vao(GLuint vaoid, GLuint vboid);
-
-
+/// Holds all state information relevant to a character as loaded using FreeType
 struct Character {
-    unsigned int TextureID;  // ID handle of the glyph texture
-    glm::ivec2   Size;       // Size of glyph
-    glm::ivec2   Bearing;    // Offset from baseline to left/top of glyph
-    unsigned int Advance;    // Offset to advance to next glyph
+    unsigned int TextureID; // ID handle of the glyph texture
+    glm::ivec2   Size;      // Size of glyph
+    glm::ivec2   Bearing;   // Offset from baseline to left/top of glyph
+    unsigned int Advance;   // Horizontal offset to advance to next glyph
 };
 
-//the entire set of data needed to draw a string of text in a particular font
-struct outline
-{
-    //container of ascii chars map to character alignments
-    std::map<char, Character> Characters;
 
-    //metrics for the font
-    FT_Face face{};
-
-    //member function to set a mormalised size in pixels
-    void set_pixel_size(int size);
-
-    //to initialise the map of chars 
-    void load_ascii_chars();
-};
 
 
 //font system
-class Font : public ISystems
-{
+class FontSystem : public System {
 public:
-    Font();
-    virtual void Initialize();
-    virtual void Update();
-    virtual std::string SystemName() { return "Font"; }
-    ~Font();
+    void init();
+    void RenderText(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color);
 
-    int const pixel_height = 48;
+private:
+    std::map<GLchar, Character> Characters;
+    unsigned int VAO, VBO;
+
 };
-extern Font* FontSystem;
-
+extern FontSystem fontSystem;
+#endif
