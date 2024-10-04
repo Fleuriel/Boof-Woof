@@ -140,6 +140,8 @@ void Window::OnShutdown()
         glfwDestroyWindow(m_Window);
         glfwTerminate();
         g_WindowClosed = true;
+        delete g_Window;
+        g_Window = nullptr;
     }
 }
 
