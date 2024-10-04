@@ -26,6 +26,9 @@
 // FILE DESCRIPTORS //
 #define FILEPATH_DESCRIPTORS				std::string("..\\BoofWoof\\Assets\\Descriptors")
 
+// FILE DDS //
+#define FILEPATH_DDS						std::string("..\\BoofWoof\\Assets\\DDS")
+
 // TRASH //
 #define FILEPATH_TRASHBIN					std::string("..\\BoofWoof\\Assets\\Trashbin")
 

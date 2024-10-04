@@ -27,6 +27,7 @@
 #include "windows.h"
 #include "FilePaths.h"
 #include "Compressonator.h"
+#include "ResourceManager/ResourceManager.h"
 
 AssetManager g_AssetManager;
 
@@ -306,7 +307,8 @@ bool AssetManager::LoadTextures() {
                     // std::cout << fileInfo[1] << std::endl;
 
                     // Run compression command
-                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[0] + " " + FILEPATH_TEXTURES + "\\" + fileInfo[1] + " " + FILEPATH_DESCRIPTORS + "\\" + nameWithoutExtension + ".dds");
+                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[0] + " " + FILEPATH_TEXTURES + "\\" + fileInfo[1] + " " + FILEPATH_DDS+ "\\" + nameWithoutExtension + ".dds");
+                    g_ResourceManager.AddTextureDDS(nameWithoutExtension);
                 }
 
 
