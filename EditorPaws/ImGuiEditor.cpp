@@ -528,12 +528,12 @@ void ImGuiEditor::InspectorWindow()
 				}
 
 				// Just add onto the BehaviourNames if got new script
-				std::string behaviourNames[] = { "Player", "Movement" };		
+				std::string behaviourNames[] = { "Null", "Player", "Movement" };		
 				static int currentItem = 0;
 
 				for (int i = 0; i < IM_ARRAYSIZE(behaviourNames); ++i)
 				{
-					if (strcmp(behaviourNames[i].c_str(), name.c_str()) == 0)
+					if (behaviourNames[i] == name)
 					{
 						currentItem = i;
 					}
@@ -542,7 +542,10 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Name    "); ImGui::SameLine();
 
-				if (ImGui::Combo("##ModelCombo", &currentItem, behaviourNames->c_str(), IM_ARRAYSIZE(behaviourNames)))
+				if (ImGui::Combo("##ModelCombo", &currentItem, [](void* data, int idx, const char** out_text) {
+					*out_text = ((std::string*)data)[idx].c_str();
+				return true;
+					}, (void*)behaviourNames, IM_ARRAYSIZE(behaviourNames)))
 				{
 					name = behaviourNames[currentItem];
 					g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).SetBehaviourName(name);

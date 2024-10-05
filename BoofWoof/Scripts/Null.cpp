@@ -2,16 +2,22 @@
 #include "../Core/ECS/Coordinator.hpp"
 
 namespace Null {
-	void Start(Entity entity) {
+	inline void Start(Entity entity) 
+	{
+		(void)entity;
 		//std::cout << "Null Behaviour Started" << std::endl;
 
 	}
 
-	void Update(Entity entity) {
+	inline void Update(Entity entity) 
+	{
+		(void)entity;
 		//std::cout << "Null Behaviour Updated" << std::endl;
 	}
 
-	void Destroy(Entity entity) {
+	inline void Destroy(Entity entity) 
+	{
+		(void)entity;
 		//std::cout << "Null Behaviour Destroyed" << std::endl;
 	}
 }
