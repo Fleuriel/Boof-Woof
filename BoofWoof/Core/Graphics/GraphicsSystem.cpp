@@ -16,6 +16,9 @@
 
 bool GraphicsSystem::glewInitialized = false;
 
+bool GraphicsSystem::D2;
+bool GraphicsSystem::D3;
+
 //std::vector<Model2D> models;
 
 Camera		camera;
