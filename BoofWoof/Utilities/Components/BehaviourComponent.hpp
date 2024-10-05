@@ -9,6 +9,7 @@ public:
 	BehaviourComponent(const char* behaviourname, Entity& entity) 
 		: m_BehaviourName(behaviourname), m_EntityID(g_Coordinator.GetEntityId(entity)) {}
 
+	~BehaviourComponent() = default;
 	void SetComponentEntityID(Entity& entity) { m_EntityID = entity; }
 
 	const char* GetBehaviourName() { return m_BehaviourName; }
@@ -16,5 +17,5 @@ public:
 
 private:
 	Entity m_EntityID{};
-	const char* m_BehaviourName{};
+	const char* m_BehaviourName;
 };

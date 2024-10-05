@@ -241,10 +241,14 @@ bool Serialization::LoadScene(const std::string& filepath) {
             // Deserialize BehaviourComponent
             if (entityData.HasMember("BehaviourName")) {
                 std::string name = entityData["BehaviourName"].GetString();
-                BehaviourComponent behaviourComponent(name.c_str(), entity);
+                //BehaviourComponent behaviourComponent(name.c_str(), entity);
                 //behaviourComponent.SetBehaviourName(name.c_str());
-                g_Coordinator.AddComponent(entity, behaviourComponent);
+                g_Coordinator.AddComponent(entity, BehaviourComponent(name.c_str(), entity));
+				//std::cout << "Serialization: " << g_Coordinator.GetEntityId(entity) << ". | " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << "." << std::endl;
             }
+            // I FOUND THE PROBLEM
+            std::cout << "Serialization: " << g_Coordinator.GetEntityId(entity) << ". | " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << "." << std::endl;
+
         }
     }
 
