@@ -233,7 +233,7 @@ void Model::Draw2D(OpenGLShader& shader)
 	int tex = 0;
 	tex = g_ResourceManager.GetTextureDDS("Sadge");
 
-	std::cout << "Tex : ||" << tex << '\n';
+	//std::cout << "Tex : ||" << tex << '\n';
 
 	shader.SetUniform("uTex2d", 6);
 	//shader.SetUniform("")
