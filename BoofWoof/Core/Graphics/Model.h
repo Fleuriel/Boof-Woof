@@ -21,7 +21,7 @@
 
 #include "AssetManager/AssetManager.h"
 
-
+unsigned int TextureFromFile(const char* path, const std::string& directory);
 
 class Model2D
 {
@@ -261,7 +261,7 @@ public:
             if (!skip)
             {   // if texture hasn't been loaded already, load it
                 Texture texture;
-                texture.id = 3;// TextureFromFile(str.C_Str(), this->directory);
+                texture.id = TextureFromFile(str.C_Str(), this->directory);
                 texture.type = typeName;
                 texture.path = str.C_Str();
                 textures.push_back(texture);
@@ -273,7 +273,7 @@ public:
 };
 
 
-//unsigned int TextureFromFile(const char* path, const std::string& directory)
+
 //{
 //    std::string filename = std::string(path);
 //    filename = directory + '/' + filename;

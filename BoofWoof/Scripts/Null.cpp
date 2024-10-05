@@ -4,6 +4,7 @@
 namespace Null {
 	void Start(Entity entity) {
 		//std::cout << "Null Behaviour Started" << std::endl;
+
 	}
 
 	void Update(Entity entity) {

@@ -1,0 +1,29 @@
+{
+    "SceneGUID": "7cccec40-eef5-46e9-a40a-8d8081d5ba88",
+    "Entities": [
+        {
+            "EntityName": "Player",
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 1.0000001192092896
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 0,
+            "AudioFilePath": "../BoofWoof/Assets/Audio/explode2.wav",
+            "Volume": 1.0,
+            "ShouldLoop": false,
+            "BehaviourName": "Movement"
+        }
+    ]
+}

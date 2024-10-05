@@ -37,15 +37,17 @@ void LogicSystem::Update()
 	//std::cout << "Logic System Updated" << std::endl;
 	for (auto const& entity : mEntities)
 	{
-		// Get the logic component of the entity
-		BehaviourComponent behaviourComponent = g_Coordinator.GetComponent<BehaviourComponent>(entity);
-		if (mBehaviours.find(behaviourComponent.GetBehaviourName()) == mBehaviours.end())
-		{
-			//std::cout << "Behaviour not found" << std::endl;
-			continue;
+		if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) {
+			// Get the logic component of the entity
+			BehaviourComponent behaviourComponent = g_Coordinator.GetComponent<BehaviourComponent>(entity);
+			if (mBehaviours.find(behaviourComponent.GetBehaviourName()) == mBehaviours.end())
+			{
+				//std::cout << behaviourComponent.GetBehaviourName() << std::endl;
+				continue;
+			}
+			// Find which behaviour the entity has and run
+			mBehaviours[behaviourComponent.GetBehaviourName()]->Update(entity);
 		}
-		// Find which behaviour the entity has and run
-		mBehaviours[behaviourComponent.GetBehaviourName()]->Update(entity);
 	}
 }
 
