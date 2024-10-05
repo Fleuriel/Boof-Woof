@@ -294,7 +294,7 @@ bool AssetManager::LoadTextures() {
 
                     // Write "Hello World" to the file
                     outFile << "File Name : " << entry.path().filename().string() << std::endl;
-                    outFile << "Compression Format : "<< "-fd BC5";
+                    outFile << "Compression Format : "<< "-fd BC3";
 
                     // Close the file
                     outFile.close();

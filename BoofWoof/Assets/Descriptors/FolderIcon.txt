@@ -1,2 +1,2 @@
 File Name : FolderIcon.png
-Compression Format : -fd BC5
+Compression Format : -fd BC3

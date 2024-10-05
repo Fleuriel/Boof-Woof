@@ -164,13 +164,13 @@ bool ResourceManager::AddTextureDDS(std::string textureName) {
 int ResourceManager::GetTextureDDS(std::string textureName) {
     // Check if the texture exists in the map
     if (texturesDDS.find(textureName) != texturesDDS.end()) {
-        std::cout << "Texture is Found!" << textureName << '\n';
+        //std::cout << "Texture is Found!" << textureName << '\n';
         // Return the texture ID if found
         return texturesDDS[textureName];
     }
     else {
         // Return -1 or some error value if texture not found
-        std::cerr << "Texture not found: " << textureName << std::endl;
+        //std::cerr << "Texture not found: " << textureName << std::endl;
         return -1;
     }
 }
