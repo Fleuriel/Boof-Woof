@@ -33,6 +33,14 @@ public:
     // Fade out the volume for a sound
     void FadeOut(Entity entity, float duration);
 
+    void PlayFile(const std::string& filePath);
+
+    void StopBGM();
+
+    void PauseBGM();   // Function to pause the current audio
+    void ResumeBGM();  // Function to resume the current audio
+    bool IsPaused() const;  // Check if the audio is currently paused
+    bool IsPlaying() const; // Check if audio is playing
 private:
     FMOD::System* system;  // FMOD system object
     std::unordered_map<Entity, std::vector<FMOD::Channel*>> channelMap;  // Channels per entity
