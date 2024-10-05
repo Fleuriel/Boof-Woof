@@ -1,10 +1,9 @@
 #include "LogicSystem.h"
 #include "../ECS/Coordinator.hpp"
 #include "../Utilities/Components/BehaviourComponent.hpp"
-#include "../Scripts/Null.cpp"
-#include "../Scripts/Player.cpp"
-#include "../Scripts/Movement.cpp"
-
+#include "Scripts/Null.cpp"
+#include "Scripts/Player.cpp"
+#include "Scripts/Movement.cpp"
 
 void LogicSystem::Init()
 {

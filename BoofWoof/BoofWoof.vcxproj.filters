@@ -20,11 +20,11 @@
     <ClCompile Include="Core\Logic\LogicSystem.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.hpp" />
     <ClCompile Include="Core\Logic\Behaviour.cpp" />
-    <ClCompile Include="Scripts\Movement.cpp" />
+    <ClCompile Include="Core\Scripts\Movement.cpp" />
     <ClCompile Include="Core\AssetManager\Sprite.cpp" />
-    <ClCompile Include="Scripts\Collectables.cpp" />
-    <ClCompile Include="Scripts\Player.cpp" />
-    <ClCompile Include="Scripts\Null.cpp" />
+    <ClCompile Include="Core\Scripts\Collectables.cpp" />
+    <ClCompile Include="Core\Scripts\Player.cpp" />
+    <ClCompile Include="Core\Scripts\Null.cpp" />
     <ClCompile Include="Core\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Core\Graphics\FontSystem.cpp" />
     <ClCompile Include="Core\AssetManager\Compressonator.cpp" />
