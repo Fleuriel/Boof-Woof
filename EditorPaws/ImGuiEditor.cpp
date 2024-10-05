@@ -977,40 +977,58 @@ void ImGuiEditor::Scenes()
 
 void ImGuiEditor::Audio()
 {
-	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));							// make button transparent
-	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.305f, 0.31f, 0.5f));	// same as original imgui colors but just lighter opacity
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));                            // make button transparent
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.305f, 0.31f, 0.5f));    // same as original imgui colors but just lighter opacity
 	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.3f, 0.305f, 0.31f, 0.5f));
 
-	if (ImGui::Begin("Audio", &m_ShowAudio, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse))
-	{
-		ImGui::Text(m_AudioName.c_str());
-		ImGui::Spacing();  ImGui::Separator(); ImGui::Spacing();
+	// Check if the window is open, and assign it to a flag variable.
+	bool audioWindowOpen = ImGui::Begin("Audio", &m_ShowAudio, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
+	if (audioWindowOpen)
+	{
+		// The window is open, proceed with audio controls.
+		ImGui::Text(m_AudioName.c_str());
+		ImGui::Spacing(); ImGui::Separator(); ImGui::Spacing();
+		std::string audioFileName = "../BoofWoof/Assets/Audio/";
 		float size = ImGui::GetWindowHeight() * 0.3f;
 
-		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PlayButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		// Play Button
+		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PlayButton"), { size, size }, ImVec2(0, 0), ImVec2(1, 1), 0))
 		{
-			//g_Audio.Play(g_SelectedEntity);
+			g_Audio.PlayFile(audioFileName + m_AudioName + ".wav");  // Play the audio file
+			if (g_Audio.IsPaused()) {
+				g_Audio.ResumeBGM();  // Resume the audio if it is paused
+			}
 		}
 
 		ImGui::SameLine();
 
-		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PauseButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
-		{
-			// pause ?
+		// Pause Button - Toggle Pause/Resume based on current state
+		if (g_Audio.IsPaused() == false) {
+			if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PauseButton"), { size, size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+			{
+				g_Audio.PauseBGM();  // Pause the audio if it is playing
+			}
 		}
+
 
 		ImGui::SameLine();
 
-		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("StopButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		// Stop Button
+		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("StopButton"), { size, size }, ImVec2(0, 0), ImVec2(1, 1), 0))
 		{
-			//g_Audio.Stop(g_SelectedEntity);
+			g_Audio.StopBGM();
 		}
 	}
 
 	ImGui::End();
 
+	// Invert m_ShowAudio if the window was closed
+	if (!m_ShowAudio)
+	{
+		// If the window was closed, stop the audio
+		g_Audio.StopBGM();
+	}
+
 	ImGui::PopStyleColor(3);
 }
-
-

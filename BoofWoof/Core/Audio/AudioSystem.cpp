@@ -267,3 +267,96 @@ void AudioSystem::FadeOut(Entity entity, float duration) {
         }
     }
 }
+
+FMOD::Channel* currentChannel = nullptr; // Store the current playing channel
+
+void AudioSystem::PlayFile(const std::string& filePath) {
+    if (currentChannel) {
+        bool isPlaying = false;
+        currentChannel->isPlaying(&isPlaying);
+        if (isPlaying) {
+            // Audio is already playing, so don't trigger PlayFile again
+            return;
+        }
+    }
+
+    // Check if the sound is already cached
+    if (soundCache.find(filePath) == soundCache.end()) {
+        // Load the sound as it’s not already in the cache
+        FMOD::Sound* sound = nullptr;
+        FMOD_RESULT result = system->createSound(filePath.c_str(), FMOD_DEFAULT, nullptr, &sound);
+
+        if (result != FMOD_OK) {
+            std::cerr << "Error loading sound from file: " << filePath << std::endl;
+            return;
+        }
+
+        // Cache the sound
+        soundCache[filePath] = std::shared_ptr<FMOD::Sound>(sound, [](FMOD::Sound* s) {
+            s->release();  // Release the sound when shared_ptr is destroyed
+            });
+    }
+
+    // Play the cached sound
+    FMOD_RESULT result = system->playSound(soundCache[filePath].get(), nullptr, false, &currentChannel);
+    if (result != FMOD_OK || !currentChannel) {
+        std::cerr << "Error playing sound: " << FMODErrorToString(result) << std::endl;
+        return;
+    }
+
+    // Set volume and other settings for the channel
+    currentChannel->setVolume(1.0f);  // Set to full volume
+
+    // Update the FMOD system to process audio
+    system->update();
+}
+
+void AudioSystem::PauseBGM() {
+    if (currentChannel) {
+        bool isPaused = false;
+        currentChannel->getPaused(&isPaused);  // Check if already paused
+
+        if (!isPaused) {
+            currentChannel->setPaused(true);  // Pause the audio
+        }
+    }
+}
+
+void AudioSystem::ResumeBGM() {
+    if (currentChannel) {
+        bool isPaused = false;
+        currentChannel->getPaused(&isPaused);  // Check if paused
+
+        if (isPaused) {
+            currentChannel->setPaused(false);  // Resume the audio
+        }
+    }
+}
+
+bool AudioSystem::IsPaused() const {
+    if (currentChannel) {
+        bool isPaused = false;
+        currentChannel->getPaused(&isPaused);
+        return isPaused;
+    }
+    return false;
+}
+
+
+bool AudioSystem::IsPlaying() const {
+    if (currentChannel) {
+        bool isPlaying = false;
+        currentChannel->isPlaying(&isPlaying);
+        return isPlaying;
+    }
+    return false;
+}
+
+void AudioSystem::StopBGM() {
+    // Stop the current channel if it's playing
+    if (currentChannel) {
+        currentChannel->stop();
+        currentChannel = nullptr;  // Reset the current channel after stopping
+    }
+    system->update();
+}
