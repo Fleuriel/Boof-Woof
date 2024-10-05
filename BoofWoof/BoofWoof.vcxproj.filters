@@ -25,6 +25,9 @@
     <ClCompile Include="Scripts\Collectables.cpp" />
     <ClCompile Include="Scripts\Player.cpp" />
     <ClCompile Include="Scripts\Null.cpp" />
+    <ClCompile Include="Core\ResourceManager\ResourceManager.cpp" />
+    <ClCompile Include="Core\Graphics\FontSystem.cpp" />
+    <ClCompile Include="Core\AssetManager\Compressonator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -58,6 +61,9 @@
     <ClInclude Include="Core\Logic\Behaviour.h" />
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
     <ClInclude Include="Core\AssetManager\Sprite.h" />
+    <ClInclude Include="Core\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="Core\Graphics\FontSystem.h" />
+    <ClInclude Include="Core\AssetManager\Compressonator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

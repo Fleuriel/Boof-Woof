@@ -22,25 +22,8 @@
 
 #include "AssetManager/AssetManager.h"
 
-unsigned int TextureFromFile(const char* path, const std::string& directory);
-
-class Model2D
-{
-public:
-
-    GLenum primitive_type;		// Primitive Type
-    size_t primitive_cnt;		// Primitive Count
-    GLuint vaoid;				// Vaoid of the Model
-    GLsizei draw_cnt;			// Draw Count of the model
-    size_t idx_elem_cnt;		// Index Element Count of the Model
 
 
-    Model2D() : primitive_type(0), primitive_cnt(0), vaoid(0), draw_cnt(0), idx_elem_cnt(0) {}
-
-
-    void Draw(OpenGLShader& Shader);
-
-};
 
 
 
@@ -183,22 +166,22 @@ public:
             // texture coordinates
             if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
             {
-                glm::vec2 vec;
-                // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
-                // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
-                vec.x = mesh->mTextureCoords[0][i].x;
-                vec.y = mesh->mTextureCoords[0][i].y;
-                vertex.TexCoords = vec;
-                // tangent
-                vector.x = mesh->mTangents[i].x;
-                vector.y = mesh->mTangents[i].y;
-                vector.z = mesh->mTangents[i].z;
-                vertex.Tangent = vector;
-                // bitangent
-                vector.x = mesh->mBitangents[i].x;
-                vector.y = mesh->mBitangents[i].y;
-                vector.z = mesh->mBitangents[i].z;
-                vertex.Bitangent = vector;
+              // glm::vec2 vec;
+              // // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
+              // // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
+              // vec.x = mesh->mTextureCoords[0][i].x;
+              // vec.y = mesh->mTextureCoords[0][i].y;
+              // vertex.TexCoords = vec;
+              // // tangent
+              // vector.x = mesh->mTangents[i].x;
+              // vector.y = mesh->mTangents[i].y;
+              // vector.z = mesh->mTangents[i].z;
+              // vertex.Tangent = vector;
+              // // bitangent
+              // vector.x = mesh->mBitangents[i].x;
+              // vector.y = mesh->mBitangents[i].y;
+              // vector.z = mesh->mBitangents[i].z;
+              // vertex.Bitangent = vector;
             }
             else
                 vertex.TexCoords = glm::vec2(0.0f, 0.0f);
@@ -223,17 +206,17 @@ public:
         // normal: texture_normalN
 
         // 1. diffuse maps
-        std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-        textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-        // 2. specular maps
-        std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-        textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-        // 3. normal maps
-        std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
-        textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-        // 4. height maps
-        std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
-        textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+       // std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+       // textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+       // // 2. specular maps
+       // std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+       // textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+       // // 3. normal maps
+       // std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+       // textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+       // // 4. height maps
+       // std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+       // textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
         // return a mesh object created from the extracted mesh data
         //return Mesh(vertices, indices, textures);
@@ -244,36 +227,36 @@ public:
 
     // checks all material textures of a given type and loads the textures if they're not loaded yet.
     // the required info is returned as a Texture struct.
-    std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
-    {
-        std::vector<Texture> textures;
-        for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
-        {
-            aiString str;
-            mat->GetTexture(type, i, &str);
-            // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
-            bool skip = false;
-            for (unsigned int j = 0; j < textures_loaded.size(); j++)
-            {
-                if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
-                {
-                    textures.push_back(textures_loaded[j]);
-                    skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
-                    break;
-                }
-            }
-            if (!skip)
-            {   // if texture hasn't been loaded already, load it
-                Texture texture;
-                texture.id = TextureFromFile(str.C_Str(), this->directory);
-                texture.type = typeName;
-                texture.path = str.C_Str();
-                textures.push_back(texture);
-                textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecessary load duplicate textures.
-            }
-        }
-        return textures;
-    }
+   //std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
+   //{
+   //    std::vector<Texture> textures;
+   //    for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+   //    {
+   //        aiString str;
+   //        mat->GetTexture(type, i, &str);
+   //        // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
+   //        bool skip = false;
+   //        for (unsigned int j = 0; j < textures_loaded.size(); j++)
+   //        {
+   //            if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
+   //            {
+   //                textures.push_back(textures_loaded[j]);
+   //                skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
+   //                break;
+   //            }
+   //        }
+   //        if (!skip)
+   //        {   // if texture hasn't been loaded already, load it
+   //            Texture texture;
+   //            texture.id = TextureFromFile(str.C_Str(), this->directory);
+   //            texture.type = typeName;
+   //            texture.path = str.C_Str();
+   //            textures.push_back(texture);
+   //            textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecessary load duplicate textures.
+   //        }
+   //    }
+   //    return textures;
+   //}
 };
 
 

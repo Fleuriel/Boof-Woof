@@ -678,7 +678,7 @@ void ImGuiEditor::AssetWindow()
 			std::string fileExtension = fileNameExt.substr(lastDot + 1);
 			std::string icon = entry.is_directory() ? "FolderIcon" : (fileExtension == "png" ? fileName : "TextIcon");
 
-			ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture(icon), { 60,60 }, { 0,1 }, { 1,0 });
+			//ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture(icon), { 60,60 }, { 0,1 }, { 1,0 });
 
 			// drag from assets to components
 			if (ImGui::BeginDragDropSource())
@@ -1014,24 +1014,24 @@ void ImGuiEditor::Audio()
 
 		float size = ImGui::GetWindowHeight() * 0.3f;
 
-		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PlayButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
-		{
-			//g_Audio.Play(g_SelectedEntity);
-		}
-
-		ImGui::SameLine();
-
-		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PauseButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
-		{
-			// pause ?
-		}
-
-		ImGui::SameLine();
-
-		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("StopButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
-		{
-			//g_Audio.Stop(g_SelectedEntity);
-		}
+		//if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PlayButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		//{
+		//	//g_Audio.Play(g_SelectedEntity);
+		//}
+		//
+		//ImGui::SameLine();
+		//
+		//if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PauseButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		//{
+		//	// pause ?
+		//}
+		//
+		//ImGui::SameLine();
+		//
+		//if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("StopButton"), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		//{
+		//	//g_Audio.Stop(g_SelectedEntity);
+		//}
 	}
 
 	ImGui::End();

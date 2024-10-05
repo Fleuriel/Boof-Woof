@@ -30,7 +30,7 @@ bool ResourceManager::LoadAll() {
 }
 
 
-GLuint LoadDDSTexture(const char* filePath) {
+bool ResourceManager::LoadDDSTexture(const char* filePath) {
     // Load the DDS file
     gli::texture Texture = gli::load(filePath);
     if (Texture.empty()) {
@@ -84,79 +84,10 @@ GLuint LoadDDSTexture(const char* filePath) {
     return TextureName; // Return the OpenGL texture ID
 }
 
-int SetUpTexture(const char* filename)
-{
-    int width, height, nrChannels;
-    unsigned char* data = stbi_load(filename, &width, &height, &nrChannels, 0);
-    std::cout << "attempting to load from: " << filename << '\n';
-    std::cout << "Image load success: " << (data ? "true" : "false") << '\n';
 
-    if (data)
-    {
-        GLuint textureID;
-        glGenTextures(1, &textureID);
-        glBindTexture(GL_TEXTURE_2D, textureID);
-
-        // Set texture wrapping/filtering options (on the currently bound texture)
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        // Load the texture into OpenGL
-        GLenum format = (nrChannels == 4) ? GL_RGBA : GL_RGB; // Detect format
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        // Free the image memory after uploading it to GPU
-        stbi_image_free(data);
-
-        return textureID;
-    }
-    else
-    {
-        std::cerr << "Failed to load texture: " << filename << std::endl;
-        std::cerr << "Reason: " << stbi_failure_reason() << '\n';
-        return -1;
-    }
-}
-
-// Function to load textures (simulating DDS texture loading here)
-bool ResourceManager::LoadTexturesDDS() {
-
-    for (int i = 0; i < textureDDSFileNames.size(); i++) {
-        //
-        // std::cout << "names:" << textureDDSFileNames[i].c_str() << "\n";
-
-        //add DDS processing here
-        int result = LoadDDSTexture ((FILEPATH_DDS + "\\" + textureDDSFileNames[i] + ".dds").c_str());
-
-
-
-        if (result != -1) {
-            texturesDDS[textureDDSFileNames[i]] = result;
-            std::cout << "Texture DDS File Added : " << textureDDSFileNames[i] << std::endl;
-        }
-        else
-        {
-            std::cout << "ji pai siao liao\n";
-        }
-
-    }
-    // For now, returning true to indicate successful loading
-    return true;
-}
 
 bool ResourceManager::AddTextureDDS(std::string textureName) {
     textureDDSFileNames.push_back(textureName);
-
-
-
-    for (int i = 0; i < textureDDSFileNames.size(); ++i)
-    {
-        std::cout << "Contains: " << i << '\t' << textureDDSFileNames[i].c_str() << '\n';
-    }
-
     return true;
 }
 
