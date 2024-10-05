@@ -93,6 +93,8 @@ void FontSystem::init()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
+	std::cout << "Font System Initialized" << std::endl;    
+
 }
 
 void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color)

@@ -34,7 +34,7 @@ public:
 
 private:
     std::map<GLchar, Character> Characters;
-    unsigned int VAO, VBO;
+    unsigned int VAO{}, VBO{};
 
 };
 extern FontSystem fontSystem;

@@ -3,6 +3,7 @@
 std::shared_ptr<GraphicsSystem> mGraphicsSys;
 std::shared_ptr<AudioSystem> mAudioSys;
 std::shared_ptr<LogicSystem> mLogicSys;
+std::shared_ptr<FontSystem> mFontSys;
 
 void EngineCore::OnInit()
 {
@@ -58,6 +59,14 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<AudioSystem>(signature);
 	}
 
+	mFontSys = g_Coordinator.RegisterSystem<FontSystem>();
+	{
+		Signature signature;
+		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
+		g_Coordinator.SetSystemSignature<FontSystem>(signature);
+	}
+
 
 	// Create entities
 	{
@@ -73,7 +82,7 @@ void EngineCore::OnInit()
 	// init system
 	mLogicSys->Init();
 	mGraphicsSys->initGraphicsPipeline();
-	
+	//mFontSys->init();
 	
 
 	

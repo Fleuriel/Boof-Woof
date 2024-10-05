@@ -14,6 +14,7 @@
 #include "AssetManager/AssetManager.h"
 
 #include "Graphics/GraphicsSystem.h"
+#include "Graphics/FontSystem.h"
 #include "Logic/LogicSystem.h"
 
 #include "Serialization/Serialization.h"
