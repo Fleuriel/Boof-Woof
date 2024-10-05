@@ -69,8 +69,8 @@ void GraphicsSystem::initGraphicsPipeline() {
 	g_AssetManager.LoadAll();
 	g_ResourceManager.LoadAll();
 
-	AddModel_3D("../BoofWoof/sphere.obj");
-	AddModel_3D("../BoofWoof/cube.obj");
+	AddModel_3D("../BoofWoof/Assets/Object/sphere.obj");
+	AddModel_3D("../BoofWoof/Assets/Object/cube.obj");
 	AddModel_2D();
 
 	//fontSystem.init();
