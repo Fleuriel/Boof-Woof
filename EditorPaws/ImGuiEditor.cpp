@@ -6,6 +6,8 @@
 #include <imgui_impl_opengl3.h>
 #include <imgui_internal.h>
 #include <ImGuiFileDialog.h>
+#include "ResourceManager/ResourceManager.h"
+
 
 // this part must be included last. Want to add anything new, add before this line
 #include <GL/glew.h>
@@ -1019,7 +1021,7 @@ void ImGuiEditor::Audio()
 		float size = ImGui::GetWindowHeight() * 0.3f;
 
 		// Play Button
-		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PlayButton"), { size, size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_ResourceManager.GetTextureDDS("PlayButton"), { size, size }, ImVec2(0, 0), ImVec2(1, 1), 0))
 		{
 			g_Audio.PlayFile(audioFileName + m_AudioName + ".wav");  // Play the audio file
 			if (g_Audio.IsPaused()) {
@@ -1031,7 +1033,7 @@ void ImGuiEditor::Audio()
 
 		// Pause Button - Toggle Pause/Resume based on current state
 		if (g_Audio.IsPaused() == false) {
-			if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("PauseButton"), { size, size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+			if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_ResourceManager.GetTextureDDS("PauseButton"), { size, size }, ImVec2(0, 0), ImVec2(1, 1), 0))
 			{
 				g_Audio.PauseBGM();  // Pause the audio if it is playing
 			}
@@ -1041,7 +1043,7 @@ void ImGuiEditor::Audio()
 		ImGui::SameLine();
 
 		// Stop Button
-		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_AssetManager.GetTexture("StopButton"), { size, size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_ResourceManager.GetTextureDDS("StopButton"), { size, size }, ImVec2(0, 0), ImVec2(1, 1), 0))
 		{
 			g_Audio.StopBGM();
 		}
