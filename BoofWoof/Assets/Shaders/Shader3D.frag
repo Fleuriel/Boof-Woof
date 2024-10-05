@@ -13,25 +13,23 @@
 
 
 #version 450 core
-
 layout(location = 0) in vec3 vertColor;
 layout(location = 1) in vec3 vertNormal;
 layout(location = 2) in vec3 FragPos;
 
-
 out vec4 FragColor;
 
-in vec2 TexCoord;
-
-uniform sampler2D texture1;
-uniform sampler2D texture2;
-
-
 void main()
-{   
-   //FragColor = texture(texture1, TexCoord);  // Use only the first texture
+{
+
+    //FragColor = texture(texture1, TexCoord);  // Use only the first texture
     //FragColor = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), 0.2);
-    FragColor = vec4(vertColor, 1.0f) * vec4(0.5f,0.5f,0.5f,1.f);
+    //FragColor = vec4(vertColor, 1.0f) * vec4(0.5f,0.5f,0.5f,1.f);
     //FragColor = vec4(TexCoord, 0.0f ,1.0f) * vec4(0.5f,0.5f,0.5f,1.f);
 
+    //FragColor = vec4(vertColor, 1.0f) * vec4(0.5f, 0.5f, 0.5f, 1.f);
+
+    vec3 lightVector = vec3(-2567, 44448, 91008) - FragPos;
+    float N_dot_L = max(dot(normalize(vertNormal), normalize(lightVector)), 0.0f);
+    FragColor = vec4(vertColor * N_dot_L, 1.0f);
 }
