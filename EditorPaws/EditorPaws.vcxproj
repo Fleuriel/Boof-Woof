@@ -172,10 +172,10 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;JPH_DEBUG_RENDERER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include\;$(SolutionDir)lib\glew-2.2.0\include\;$(SolutionDir)lib\glm-0.9.9.8\glm;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)BoofWoof\Core</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include\;$(SolutionDir)lib\glew-2.2.0\include\;$(SolutionDir)lib\glm-0.9.9.8\glm;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)lib\gli-master\gli-master\gli</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -193,7 +193,8 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
       <Command>xcopy /y /d "$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64\*.dll" "$(OutDir)"
 xcopy /y /d "$(SolutionDir)lib\assimp\lib\*.dll" "$(OutDir)"
 xcopy /y /d "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(OutDir)"
-xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"</Command>
+xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64\freetype.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

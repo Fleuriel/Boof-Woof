@@ -1,3 +1,4 @@
+
 #include "../dx.hpp"
 #include "file.hpp"
 #include <cstdio>
@@ -276,15 +277,18 @@ namespace detail
 
 		GLI_ASSERT(Format != gli::FORMAT_UNDEFINED);
 
+#pragma warning(push)
+#pragma warning(disable : 4189)
+
 		size_t const MipMapCount = (Header.Flags & detail::DDSD_MIPMAPCOUNT) ? Header.MipMapLevels : 1;
 		size_t FaceCount = 1;
-		if(Header.CubemapFlags & detail::DDSCAPS2_CUBEMAP)
+		if (Header.CubemapFlags & detail::DDSCAPS2_CUBEMAP)
 			FaceCount = int(glm::bitCount(Header.CubemapFlags & detail::DDSCAPS2_CUBEMAP_ALLFACES));
-		else if(Header10.MiscFlag & detail::D3D10_RESOURCE_MISC_TEXTURECUBE)
+		else if (Header10.MiscFlag & detail::D3D10_RESOURCE_MISC_TEXTURECUBE)
 			FaceCount = 6;
 
 		size_t DepthCount = 1;
-		if(Header.CubemapFlags & detail::DDSCAPS2_VOLUME)
+		if (Header.CubemapFlags & detail::DDSCAPS2_VOLUME)
 			DepthCount = Header.Depth;
 
 		texture Texture(
@@ -295,7 +299,8 @@ namespace detail
 		std::size_t const SourceSize = Offset + Texture.size();
 		GLI_ASSERT(SourceSize == Size);
 
-		std::memcpy(Texture.data(), Data + Offset, Texture.size());
+		// Re-enable warning C4189 after the block
+#pragma warning(pop)
 
 		return Texture;
 	}
