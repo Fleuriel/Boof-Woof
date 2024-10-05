@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\dummy.cpp">
+      <Filter>Core Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\clear.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\comparison.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\convert.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\copy.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\duplicate.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\dx.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\format.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\generate_mipmaps.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\gl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\gli.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\image.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\levels.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\load.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\load_dds.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\load_kmg.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\load_ktx.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\make_texture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\reduce.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\sampler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\sampler1d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\sampler1d_array.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\sampler2d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\sampler2d_array.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\sampler3d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\sampler_cube.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\sampler_cube_array.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\save.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\save_dds.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\save_kmg.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\save_ktx.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\target.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\texture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\texture1d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\texture1d_array.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\texture2d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\texture2d_array.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\texture3d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\texture_cube.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\texture_cube_array.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\transform.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\type.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\view.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\bc.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\clear.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\comparison.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\convert.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\copy.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\duplicate.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\dx.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\file.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\filter.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\flip.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\format.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\generate_mipmaps.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\gl.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\image.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\levels.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\load.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\load_dds.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\load_kmg.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\load_ktx.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\make_texture.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\reduce.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\s3tc.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\sampler.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\sampler1d.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\sampler1d_array.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\sampler2d.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\sampler2d_array.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\sampler3d.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\sampler_cube.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\sampler_cube_array.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\save.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\save_dds.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\save_kmg.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\save_ktx.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\storage_linear.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\texture.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\texture1d.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\texture1d_array.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\texture2d.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\texture2d_array.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\texture3d.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\texture_cube.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\texture_cube_array.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\transform.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\view.inl">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\bc.hpp">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\clear.hpp">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\convert_func.hpp">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\coord.hpp">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\file.hpp">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\filter.hpp">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\filter_compute.hpp">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\flip.hpp">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\mipmaps_compute.hpp">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\s3tc.hpp">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\core\storage_linear.hpp">
+      <Filter>Core Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\gli\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\CMakeLists.txt">
+      <Filter>Text Files</Filter>
+    </None>
+    <None Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\manual.md">
+      <Filter>Text Files</Filter>
+    </None>
+    <None Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\readme.md">
+      <Filter>Text Files</Filter>
+    </None>
+    <None Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\gli-master\doc\spec\index.html">
+      <Filter>KMG Spec</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Core Files">
+      <UniqueIdentifier>{1A953518-C167-3A34-BEDC-D9024744AE49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{D63E6ADC-60FC-360B-A917-2CA7AE791500}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KMG Spec">
+      <UniqueIdentifier>{2FD0B819-F02B-3932-A52D-FDAC86AD7A39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Text Files">
+      <UniqueIdentifier>{0A730284-9F0E-3595-A6F6-758CB645B470}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

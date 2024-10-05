@@ -2,6 +2,7 @@
 #include <iostream>
 #include <GL/glew.h>
 #include "AssetManager/FilePaths.h"
+#include <gli/gli.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -28,10 +29,67 @@ bool ResourceManager::LoadAll() {
     return true;
 }
 
+
+GLuint LoadDDSTexture(const char* filePath) {
+    // Load the DDS file
+    gli::texture Texture = gli::load(filePath);
+    if (Texture.empty()) {
+        std::cerr << "Failed to load DDS file: " << filePath << std::endl;
+        return 0; // Return 0 on failure
+    }
+
+    // Check if the format is compressed
+    if (!gli::is_compressed(Texture.format())) {
+        std::cerr << "Loaded DDS is not a compressed format!" << std::endl;
+        return 0;
+    }
+
+    // Get OpenGL texture parameters
+    gli::gl GL(gli::gl::PROFILE_GL33);
+    gli::gl::format const Format = GL.translate(Texture.format(), Texture.swizzles());
+    GLenum Target = GL.translate(Texture.target());
+    //assert(Target == gli::TARGET_2D); // Ensure the target is 2D
+
+    GLuint TextureName = 0;
+    glGenTextures(1, &TextureName);
+    glBindTexture(Target, TextureName);
+
+    // Set texture parameters
+    glTexParameteri(Target, GL_TEXTURE_BASE_LEVEL, 0);
+    glTexParameteri(Target, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(Texture.levels() - 1));
+    glTexParameteriv(Target, GL_TEXTURE_SWIZZLE_RGBA, &Format.Swizzles[0]);
+
+    // Allocate storage for the texture
+    glTexStorage2D(Target, static_cast<GLint>(Texture.levels()), Format.Internal,
+        Texture.extent(0).x, Texture.extent(0).y);
+
+    // Upload the texture data for each mipmap level
+    for (std::size_t Level = 0; Level < Texture.levels(); ++Level) {
+        glm::tvec3<GLsizei> Extent(Texture.extent(Level)); // Get the extent for the current level
+        glCompressedTexSubImage2D(
+            Target, static_cast<GLint>(Level), 0, 0, Extent.x, Extent.y,
+            Format.Internal, static_cast<GLsizei>(Texture.size(Level)), Texture.data(0, 0, Level)
+        );
+    }
+
+    // Optionally set additional texture parameters
+    glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(Target, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(Target, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    // Unbind the texture
+    glBindTexture(Target, 0);
+
+    return TextureName; // Return the OpenGL texture ID
+}
+
 int SetUpTexture(const char* filename)
 {
     int width, height, nrChannels;
     unsigned char* data = stbi_load(filename, &width, &height, &nrChannels, 0);
+    std::cout << "attempting to load from: " << filename << '\n';
+    std::cout << "Image load success: " << (data ? "true" : "false") << '\n';
 
     if (data)
     {
@@ -58,6 +116,7 @@ int SetUpTexture(const char* filename)
     else
     {
         std::cerr << "Failed to load texture: " << filename << std::endl;
+        std::cerr << "Reason: " << stbi_failure_reason() << '\n';
         return -1;
     }
 }
@@ -66,15 +125,23 @@ int SetUpTexture(const char* filename)
 bool ResourceManager::LoadTexturesDDS() {
 
     for (int i = 0; i < textureDDSFileNames.size(); i++) {
+        
+        std::cout << "names:" << textureDDSFileNames[i].c_str() << "\n";
 
         //add DDS processing here
+        int result = LoadDDSTexture ((FILEPATH_DDS + "\\" + textureDDSFileNames[i] + ".dds").c_str());
 
-        int result = SetUpTexture((FILEPATH_DDS + textureDDSFileNames[i] + ".dds").c_str());
+
 
         if (result != -1) {
             texturesDDS[textureDDSFileNames[i]] = result;
             std::cout << "Texture DDS File Added : " << textureDDSFileNames[i] << std::endl;
         }
+        else
+        {
+            std::cout << "ji pai siao liao\n";
+        }
+
     }
     // For now, returning true to indicate successful loading
     return true;
@@ -82,6 +149,14 @@ bool ResourceManager::LoadTexturesDDS() {
 
 bool ResourceManager::AddTextureDDS(std::string textureName) {
     textureDDSFileNames.push_back(textureName);
+
+
+
+    for (int i = 0; i < textureDDSFileNames.size(); ++i)
+    {
+        std::cout << "Contains: " << i << '\t' << textureDDSFileNames[i].c_str() << '\n';
+    }
+
     return true;
 }
 
@@ -89,6 +164,7 @@ bool ResourceManager::AddTextureDDS(std::string textureName) {
 int ResourceManager::GetTextureDDS(std::string textureName) {
     // Check if the texture exists in the map
     if (texturesDDS.find(textureName) != texturesDDS.end()) {
+        std::cout << "Texture is Found!" << textureName << '\n';
         // Return the texture ID if found
         return texturesDDS[textureName];
     }
@@ -98,3 +174,5 @@ int ResourceManager::GetTextureDDS(std::string textureName) {
         return -1;
     }
 }
+
+

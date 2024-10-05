@@ -1,2 +1,2 @@
 File Name : Sadge.png
-Compression Format : -fd BC3
+Compression Format : -fd BC5

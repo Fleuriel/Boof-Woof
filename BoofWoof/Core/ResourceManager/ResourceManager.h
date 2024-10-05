@@ -19,9 +19,13 @@ public:
 	bool AddTextureDDS(std::string);
 	int GetTextureDDS(std::string);																		//Function to access textures
 
+
+
+
 private:
 	std::map<std::string, int> texturesDDS{};															//Container to store textures
 	std::vector<std::string> textureDDSFileNames{};														//Container to store texture DDS file names
+	std::vector<std::string> textureFile{};
 };
 
 extern ResourceManager g_ResourceManager;																// Allow usage of class outside of resourceManager.cpp

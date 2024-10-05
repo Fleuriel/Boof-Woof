@@ -294,7 +294,7 @@ bool AssetManager::LoadTextures() {
 
                     // Write "Hello World" to the file
                     outFile << "File Name : " << entry.path().filename().string() << std::endl;
-                    outFile << "Compression Format : "<< "-fd BC3";
+                    outFile << "Compression Format : "<< "-fd BC5";
 
                     // Close the file
                     outFile.close();
@@ -307,7 +307,8 @@ bool AssetManager::LoadTextures() {
                     // std::cout << fileInfo[1] << std::endl;
 
                     // Run compression command
-                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[0] + " " + FILEPATH_TEXTURES + "\\" + fileInfo[1] + " " + FILEPATH_DDS+ "\\" + nameWithoutExtension + ".dds");
+                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[0] + " " + FILEPATH_TEXTURES + "\\" + fileInfo[1] + " " + FILEPATH_DDS + "\\" + nameWithoutExtension + ".dds");
+                    std::cout << "eleiggle\t " << nameWithoutExtension << '\n';
                     g_ResourceManager.AddTextureDDS(nameWithoutExtension);
                 }
 

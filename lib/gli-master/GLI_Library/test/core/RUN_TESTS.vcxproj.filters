@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\GLI_Library\CMakeFiles\047dad39b43b6be35c6cd7f619af1f52\RUN_TESTS_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{B833F3DC-6720-3CC8-951F-73778E959532}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
