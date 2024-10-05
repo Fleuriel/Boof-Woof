@@ -19,7 +19,7 @@ public:
 	void AddBehaviour(Behaviour* behaviour);
 private:
 	// Keep track of all the behaviours
-	 std::map<const char*, Behaviour*> mBehaviours;
+	 std::map<std::string, Behaviour*> mBehaviours;
 };
 
 extern Entity g_Player;
