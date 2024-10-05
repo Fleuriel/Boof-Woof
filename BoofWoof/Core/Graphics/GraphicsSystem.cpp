@@ -224,11 +224,11 @@ void GraphicsSystem::DrawObject(GraphicsComponent& component)
     // Draw logic using component data
 }
 
-void GraphicsSystem::SetShaderUniforms(OpenGLShader& shader, const ShaderParams& shdrParam)
+void GraphicsSystem::SetShaderUniforms(OpenGLShader& shader, const ShaderParams& shdrParams)
 {
-	shader.SetUniform("vertexTransform", shdrParam.WorldMatrix);
-	shader.SetUniform("view", shdrParam.View);
-	shader.SetUniform("projection", shdrParam.Projection);
+	shader.SetUniform("vertexTransform", shdrParams.WorldMatrix);
+	shader.SetUniform("view", shdrParams.View);
+	shader.SetUniform("projection", shdrParams.Projection);
 }
 
 
