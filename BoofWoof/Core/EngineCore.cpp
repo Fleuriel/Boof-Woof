@@ -63,7 +63,6 @@ void EngineCore::OnInit()
 	{
 		Signature signature;
 		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
-		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
 		g_Coordinator.SetSystemSignature<FontSystem>(signature);
 	}
 

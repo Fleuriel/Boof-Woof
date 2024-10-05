@@ -15,8 +15,7 @@
 #include <glm/glm.hpp>
 #include <iostream>
 
-bool GraphicsSystem::D2 = false;
-bool GraphicsSystem::D3 = false;
+
 
 bool GraphicsSystem::debug = false;
 namespace fs = std::filesystem;

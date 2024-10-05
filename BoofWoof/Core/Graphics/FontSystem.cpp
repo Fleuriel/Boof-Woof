@@ -83,10 +83,10 @@ void FontSystem::init()
 
     // configure VAO/VBO for texture quads
     // -----------------------------------
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glGenVertexArrays(1, &VAO_FONT);
+    glGenBuffers(1, &VBO_FONT);
+    glBindVertexArray(VAO_FONT);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO_FONT);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
@@ -104,7 +104,7 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
     shader.Use();
     shader.SetUniform("textColor", color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
-    glBindVertexArray(VAO);
+    glBindVertexArray(VAO_FONT);
 
     // iterate through all characters
     std::string::const_iterator c;
@@ -131,7 +131,7 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
         // render glyph texture over quad
         glBindTexture(GL_TEXTURE_2D, ch.TextureID);
         // update content of VBO memory
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO_FONT);
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // be sure to use glBufferSubData and not glBufferData
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);

@@ -16,8 +16,8 @@
 
 bool GraphicsSystem::glewInitialized = false;
 
-//bool GraphicsSystem::D2 = false;
-//bool GraphicsSystem::D3 = false;
+bool GraphicsSystem::D2 = false;
+bool GraphicsSystem::D3 = false;
 
 //std::vector<Model2D> models;
 
