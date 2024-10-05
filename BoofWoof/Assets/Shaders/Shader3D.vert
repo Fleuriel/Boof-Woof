@@ -16,24 +16,19 @@ uniform mat4 view;
 uniform mat4 vertexTransform;
 uniform vec3 objectColor;
 
-in layout(location = 0) vec3 modelPosition;
-in layout(location = 1) vec3 vertexNormal;
-//in layout(location = 2) vec3 diffuseColor;
+layout(location = 0) in vec3 modelPosition;
+layout(location = 1) in vec3 vertexNormal;
+layout(location = 2) in vec2 aTexCoord;  // Texture coordinate input
 
-vec3 diffuseColor = vec3( 0.8f, 0.8f, 0.8f );
+out layout(location = 0) vec3 vertColor;
+out layout(location = 2) vec3 FragPos;
 
-out layout(location = 0)vec3 vertColor;
-out layout(location = 1)vec3 vertNormal;
-out layout(location = 2)vec3 FragPos;
-
+out vec2 TexCoord;  // Pass texture coordinates to the fragment shader
 
 void main()
 {
-    
-	
-   
-    gl_Position =  projection* view * vertexTransform * vec4( modelPosition, 1.0f );
+    gl_Position = projection * view * vertexTransform * vec4(modelPosition, 1.0f);
     vertColor = objectColor;
-    vertNormal = vertexNormal;
-    FragPos = vec3( vertexTransform * vec4( modelPosition, 1.0f ) );
+    TexCoord = aTexCoord;  // Pass actual texture coordinates
+    FragPos = vec3(vertexTransform * vec4(modelPosition, 1.0f));
 }

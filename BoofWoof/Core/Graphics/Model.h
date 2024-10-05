@@ -10,6 +10,7 @@
 #include "Mesh.h"
 
 
+
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -44,7 +45,7 @@ public:
 
 
 //extern std::vector<Model2D> models;
-
+struct ShaderParams;  // Forward declaration of ShaderParams
 
 class Model
 {
@@ -62,13 +63,16 @@ public:
     GLsizei draw_cnt;			// Draw Count of the model
     size_t idx_elem_cnt;		// Index Element Count of the Model
 
-    // constructor, expects a filepath to a 3D model.
-    
+
 
     void Draw2D(OpenGLShader& shader);
-   
 
-    // draws the model, and thus all its meshes
+    void DrawCollisionBox2D(Model outlineModel);
+
+    void DrawCollisionBox3D(Model outlineModel);
+
+
+        // draws the model, and thus all its meshes
     void Draw(OpenGLShader& shader)
     {
         //std::cout << "Mesh Size: " << meshes.size() << '\n';
@@ -233,7 +237,7 @@ public:
 
         // return a mesh object created from the extracted mesh data
         //return Mesh(vertices, indices, textures);
-        Mesh out(vertices, indices, textures);
+        Mesh out(vertices, indices);//, glm::vec3(1.0f,1.0f,1.0f));
         out.drawMode = draw_mode;
         return out;
     }
@@ -316,5 +320,8 @@ public:
 
 
 Model SquareModel(glm::vec3 color);
+Model SquareModelOutline(glm::vec3 color);
+Model AABB(glm::vec3 color);
+
 
 #endif // !MODEL_H

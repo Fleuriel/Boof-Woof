@@ -14,18 +14,25 @@
  *************************************************************************/
 #define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
 
 #pragma warning(push)
 #pragma warning(disable: 4244)
 #pragma warning(disable: 4005)  // Disable macro redefinition warning
 
 #include <filesystem>
+#include <fstream>
+#include <sstream>
 #include <iostream>
+#include <string>
+#include <filesystem>
+#include <cstdlib>      // for system command
+#include <random>       // For GUID generation
+
 #include "AssetManager.h"
 #include "windows.h"
 #include "FilePaths.h"
+#include "Compressonator.h"
+#include "ResourceManager/ResourceManager.h"
 
 #pragma warning(pop)
 
@@ -81,7 +88,7 @@ void AssetManager::LoadAll() {
 
 #ifdef _DEBUG
     bool loadTextures = AssetManager::LoadTextures(),
-        loadSprites = AssetManager::LoadSprites(),
+        //loadSprites = AssetManager::LoadSprites(),
         //loadSounds = AssetManager::LoadSounds(),
         //loadFonts = AssetManager::LoadFonts(),
         loadScenes = AssetManager::LoadScenes(),
@@ -91,7 +98,7 @@ void AssetManager::LoadAll() {
 
     std::cout
         << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
-        << ((loadSprites) ? "Sprites loaded successfully" : "Failed to load sprites") << std::endl
+        //<< ((loadSprites) ? "Sprites loaded successfully" : "Failed to load sprites") << std::endl
         //<< ((loadSounds) ? "Sounds loaded successfully" : "Failed to load sounds") << std::endl
         //<< ((loadFonts) ? "Fonts loaded successfully" : "Failed to load fonts") << std::endl
         << ((loadScenes) ? "Scenes loaded successfully" : "Failed to load scenes") << std::endl
@@ -120,7 +127,7 @@ void AssetManager::LoadAll() {
 void AssetManager::FreeAll() {
 #ifdef _DEBUG
     bool freeTextures = AssetManager::FreeTextures(),
-        freeSprites = AssetManager::FreeSprites(),
+        //freeSprites = AssetManager::FreeSprites(),
         //freeSounds = AssetManager::FreeSounds(),
         //freeFonts = AssetManager::FreeFonts(),
         //freeScenes = AssetManager::FreeScenes(),
@@ -130,7 +137,7 @@ void AssetManager::FreeAll() {
 
     std::cout
         << ((freeTextures) ? "Textures freed successfully" : "Failed to free textures") << std::endl
-        << ((freeSprites) ? "Sprites freed successfully" : "Failed to free sprites") << std::endl
+        //<< ((freeSprites) ? "Sprites freed successfully" : "Failed to free sprites") << std::endl
         //<< ((freeSounds) ? "Sounds freed successfully" : "Failed to free sounds") << std::endl
         //<< ((freeFonts) ? "Fonts freed successfully" : "Failed to free fonts") << std::endl
         //<< ((freeScenes) ? "Scenes freed successfully" : "Failed to free scenes") << std::endl
@@ -201,8 +208,6 @@ void AssetManager::FreeAll() {
 
 
 
-
-
  /**************************************************************************
   * @brief Loads textures from the specified directory.
   *
@@ -221,13 +226,11 @@ void AssetManager::FreeAll() {
   *************************************************************************/
 bool AssetManager::LoadTextures() {
 
-
-
     Currentlyloading = true;
 
     if (fs::is_directory(FILEPATH_TEXTURES)) {
         for (const auto& entry : fs::directory_iterator(FILEPATH_TEXTURES)) {
-            std::string texFilePath = FILEPATH_TEXTURES + "/" + entry.path().filename().string();
+            std::string texFilePath = FILEPATH_TEXTURES + "\\" + entry.path().filename().string();
             //std::cout << "Texture file " << texFilePath << " Found." << std::endl;
 
             size_t pos = entry.path().filename().string().find_last_of('.');
@@ -285,10 +288,39 @@ bool AssetManager::LoadTextures() {
                 }
 
 
-                textures[nameWithoutExtension] = AssetManager::SetUpTexture(texFilePath);
 #ifdef _DEBUG
-                std::cout << nameWithoutExtension << " success!\n";
+                std::cout << "\n**************************************************************************************\n";
+                std::cout << nameWithoutExtension << " detected successfully!\n";
 #endif // DEBUG
+
+                // Create an output file stream (ofstream) object
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTORS + "/" + nameWithoutExtension + ".txt" };
+                std::ofstream outFile(descriptorFilePath);
+
+                // Check if the file opened successfully
+                if (outFile.is_open()) {
+
+                    // Write "Hello World" to the file
+                    outFile << "File Name : " << entry.path().filename().string() << std::endl;
+                    outFile << "Compression Format : "<< "-fd BC3";
+
+                    // Close the file
+                    outFile.close();
+                }
+
+                // Process the descriptor file and print details
+                std::vector<std::string> fileInfo = processDescriptorFile(descriptorFilePath);
+                if (!fileInfo.empty()) {
+                    // std::cout << fileInfo[0] << std::endl;
+                    // std::cout << fileInfo[1] << std::endl;
+
+                    // Run compression command
+                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[0] + " " + FILEPATH_TEXTURES + "\\" + fileInfo[1] + " " + FILEPATH_DDS + "\\" + nameWithoutExtension + ".dds");
+                    std::cout << "eleiggle\t " << nameWithoutExtension << '\n';
+                    g_ResourceManager.AddTextureDDS(nameWithoutExtension);
+                }
+
+
             }
             else
             {
@@ -311,46 +343,6 @@ bool AssetManager::LoadTextures() {
     }
 }
 
-/**************************************************************************
- * @brief Sets up a texture and returns its handler.
- *
- * This function takes a file path to an image, loads it as an OpenGL texture,
- * and returns the texture handler. It's used internally for loading textures.
- *
- * @param std::string filePath - The path to the texture image file.
- * @return int - The OpenGL texture handler.
- *************************************************************************/
-int AssetManager::SetUpTexture(std::string filePath) {
-    GLuint textureObj_Handler; // OpenGL texture object handler
-
-    int width, height, channels;
-
-    // Load the image from the file using stb_image
-    unsigned char* image = stbi_load(filePath.c_str(), &width, &height, &channels, STBI_rgb_alpha);
-
-    if (!image) {
-        // If the image loading fails, print an error message and return 0 (failure)
-#ifdef _DEBUG
-        std::cout << "Failed to load texture: " << filePath << std::endl;
-#endif // DEBUG
-        return 0; // Return 0 to indicate failure
-    }
-
-    // Create an OpenGL texture object
-    glCreateTextures(GL_TEXTURE_2D, 1, &textureObj_Handler);
-
-    // Allocate storage for the texture with RGBA8 format
-    glTextureStorage2D(textureObj_Handler, 1, GL_RGBA8, width, height);
-
-    // Upload the image data to the texture object
-    glTextureSubImage2D(textureObj_Handler, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, image);
-
-    // Free the image data after it's uploaded to OpenGL
-    stbi_image_free(image);
-
-    // Return the OpenGL texture object handler
-    return textureObj_Handler;
-}
 
 /**************************************************************************
  * @brief Frees all loaded textures.
@@ -365,9 +357,9 @@ int AssetManager::SetUpTexture(std::string filePath) {
  *               if the map is not empty after the operation.
  *************************************************************************/
 bool AssetManager::FreeTextures() {
-    textures.clear();
+    TextureDescriptionFiles.clear();
     // Return true if the container size is 0, false otherwise.
-    return textures.empty();
+    return TextureDescriptionFiles.empty();
 }
 
 /**************************************************************************
@@ -386,23 +378,6 @@ bool AssetManager::ReloadTextures() {
     return (AssetManager::FreeTextures() && AssetManager::LoadTextures());
 }
 
-/**************************************************************************
- * @brief Get a texture by its name.
- *
- * This function allows you to retrieve an OpenGL texture handler by providing
- * the name of the texture. The name should correspond to the filename of the
- * texture image (without the file extension) that was previously loaded using
- * the 'LoadTextures' function. If a texture with the specified name is found,
- * its handler is returned.
- *
- * @param std::string name - The name of the texture to retrieve.
- *
- * @return int - The OpenGL texture handler for the specified texture. If the
- *               texture with the given name is not found, it returns 0.
- *************************************************************************/
-int AssetManager::GetTexture(std::string name) {
-    return textures[name];
-}
 
 
 
@@ -417,251 +392,6 @@ int AssetManager::GetTexture(std::string name) {
 
 
 
-
-
-
-
-
-
-
-
-
-/**************************************************************************
- * @brief Loads sprite data from the specified directory and populates the 'sprites' container.
- *
- * This method scans the directory specified by FILEPATH_SPRITES for sprite files, creates Sprite
- * instances for each sprite file found, and stores them in the 'sprites' container.
- * Each sprite file is expected to follow the naming convention, including the number of rows
- * and columns in the sprite sheet, e.g., "example_sprite(2x3).png".
- *
- * @return True if the sprite data is loaded successfully, false if there was an error or the directory does not exist.
- *************************************************************************/
-bool AssetManager::LoadSprites() {
-
-    Currentlyloading = true;
-
-    // if file path for sprites exist
-    if (fs::is_directory(FILEPATH_SPRITES)) {
-        // for every sprite in the file path
-        for (const auto& entry : fs::directory_iterator(FILEPATH_SPRITES)) {
-            // get the file path for the sprite
-            std::string spriteFilePath = FILEPATH_SPRITES + "/" + entry.path().filename().string();
-            //std::cout << "Sprite file " << spriteFilePath << " Found." << std::endl;
-
-            // find the file extension 
-            size_t extensionPos = entry.path().filename().string().find_last_of('.');
-            // if file extension found
-            if (extensionPos != std::string::npos) {
-
-                std::string Extension = entry.path().filename().string().substr(extensionPos);
-                //std::cout << Extension;
-                std::string allowedExtensions = ".png";
-
-                // Check if the substring exists in the full string
-                size_t found = allowedExtensions.find(toLowerCase(Extension));
-
-                if (found == std::string::npos) {
-                    std::string file(entry.path().filename().string());
-                    std::wstring widefile(file.begin(), file.end());
-                    HWND hwnd = GetActiveWindow();
-                    std::string filepath(FILEPATH_SPRITES);
-                    // Convert std::string to std::wstring
-                    std::wstring widefilepath(filepath.begin(), filepath.end());
-
-                    std::wstring message = L"Incompatible file \"" + widefile + L"\" detected in \"" + widefilepath + L"\" folder!\n\nFile moved to trash bin!";
-                    LPCWSTR boxMessage = message.c_str();
-
-                    MessageBox(hwnd, boxMessage, L"Load Failure", MB_OK | MB_ICONERROR);
-
-                    // Construct the full destination path including the file name
-                    fs::path destinationPath = FILEPATH_TRASHBIN / entry.path().filename();
-                    fs::path trashbin = FILEPATH_TRASHBIN;
-
-                    if (!fs::exists(trashbin))
-                        fs::create_directory(trashbin);
-
-                    if (fs::exists(destinationPath)) {
-                        int counter = 1;
-                        std::string nameWithoutExtension = entry.path().stem().string();
-
-                        std::string addstr = nameWithoutExtension + "(" + std::to_string(counter) + ")" + Extension;
-
-                        fs::path finalDestination = trashbin / addstr;
-
-                        while (fs::exists(finalDestination)) {
-                            counter++;
-                            addstr = nameWithoutExtension + "(" + std::to_string(counter) + ")" + Extension;
-                            finalDestination = trashbin / addstr;
-                        }
-
-                        fs::rename(entry.path(), finalDestination);
-                    }
-                    else {
-                        fs::rename(entry.path(), destinationPath);
-                    }
-
-                    continue;
-                }
-
-                bool correctnamingconvention{ true };
-
-                // find '(' in the name
-                size_t lBracketPos = entry.path().filename().string().find_last_of('(');
-
-                // find ')' in the name
-                size_t rBracketPos = entry.path().filename().string().find_last_of(')');
-
-                int rows{}, columns{};
-
-                // Check if both '(' and ')' are present and in the correct order
-                if (lBracketPos != std::string::npos && rBracketPos != std::string::npos && lBracketPos < rBracketPos) {
-                    // Get the string containing rows and columns from the name
-                    std::string spriteRowsAndColumns = entry.path().filename().string().substr(lBracketPos + 1, rBracketPos - lBracketPos - 1);
-
-                    // Find the 'x' in the string that separates the rows and columns
-                    size_t xPos = spriteRowsAndColumns.find_last_of('x');
-
-                    // Check if 'x' is present
-                    if (xPos != std::string::npos) {
-                        try {
-                            // Get the rows
-                            rows = std::stoi(spriteRowsAndColumns.substr(0, xPos));
-
-                            // Get the columns
-                            columns = std::stoi(spriteRowsAndColumns.substr(xPos + 1));
-                        }
-                        catch (const std::invalid_argument& e) {
-                            e;
-                            correctnamingconvention = false;
-                        }
-                        catch (const std::out_of_range& e) {
-                            e;
-                            correctnamingconvention = false;
-                        }
-                    }
-                    else
-                        correctnamingconvention = false;
-                }
-                else {
-                    correctnamingconvention = false;
-                }
-
-                if (!correctnamingconvention) {
-                    std::string file(entry.path().filename().string());
-                    std::wstring widefile(file.begin(), file.end());
-                    HWND hwnd = GetActiveWindow();
-                    std::string filepath(FILEPATH_SPRITES);
-                    // Convert std::string to std::wstring
-                    std::wstring widefilepath(filepath.begin(), filepath.end());
-
-                    std::wstring message = L"File with incompatible naming convention (\"" + widefile + L"\") detected in \"" + widefilepath + L"\" folder!\n\nFile not loaded!";
-                    LPCWSTR boxMessage = message.c_str();
-
-                    MessageBox(hwnd, boxMessage, L"Load Failure", MB_OK | MB_ICONERROR);
-                    continue;
-                }
-
-                // create new sprite class
-                Sprite newsprite;
-
-                // set the texture
-                newsprite.SetTexture(AssetManager::SetUpTexture(spriteFilePath));
-                //std::cout << textures[nameWithoutExtension] << " success!\n";
-
-                // set the rows and columns of the sprite
-                newsprite.SetRowsAndColumns(rows, columns);
-
-                // Bind the texture
-                glBindTexture(GL_TEXTURE_2D, newsprite.GetTexture());
-
-                // Get the width and height of the texture
-                int texWidth, texHeight;
-                glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &texWidth);
-                glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &texHeight);
-
-                // Unbind the texture
-                glBindTexture(GL_TEXTURE_2D, 0);
-
-                // Store width and height of texture
-                newsprite.SetTextureWidthAndHeight(texWidth, texHeight);
-                //std::cout << "Texture Width : " << texWidth << std::endl << "Texture Height : " << texHeight << std::endl;
-
-                // Store width and height of each "image" in texture
-                newsprite.SetWidthAndHeight(newsprite.GetTextureWidth() / newsprite.GetColumns(), newsprite.GetTextureHeight() / newsprite.GetRows());
-                //std::cout << "Width : " << newsprite.GetWidth() << std::endl << " Height : " << newsprite.GetHeight() << std::endl;
-
-                // get the name of the sprite sheet
-                std::string nameWithoutExtension = entry.path().filename().string().substr(0, lBracketPos);
-                //std::cout << nameWithoutExtension << std::endl;
-
-                // store the sprite in the sprite container
-                sprites[nameWithoutExtension] = newsprite;
-            }
-            else
-            {
-#ifdef _DEBUG
-                std::cout << "File " << entry.path().filename().string() << " is missing file extension.\n";
-#endif // DEBUG
-            }
-
-        }
-        Currentlyloading = false;
-        return true;
-    }
-    else {
-        // Print error
-#ifdef _DEBUG
-        std::cout << "The specified path is not a directory." << std::endl;
-#endif // DEBUG
-        Currentlyloading = false;
-        return false;
-    }
-
-}
-
-
-/**************************************************************************
- * @brief Retrieves the texture ID associated with a sprite by its name.
- *
- * This function searches for a sprite with the specified name and returns
- * the associated texture ID. If the sprite does not exist, it returns 0.
- *
- * @param name The name of the sprite to retrieve the texture for.
- * @return The texture ID of the sprite or 0 if the sprite is not found.
- *************************************************************************/
-Sprite AssetManager::GetSprite(std::string name) {
-    return sprites[name];
-}
-
-int AssetManager::GetSpriteTexture(std::string name) {
-    return GetSprite(name).GetTexture();
-}
-
-/**************************************************************************
- * @brief Clears the sprite container and frees associated resources.
- *
- * This function clears the sprite container, releasing any associated
- * resources, and returns true if the container is empty afterward.
- *
- * @return True if the sprite container is empty after clearing, false otherwise.
- *************************************************************************/
-bool AssetManager::FreeSprites() {
-    sprites.clear();
-    return sprites.empty();
-}
-
-/**************************************************************************
- * @brief Reloads sprites by clearing the container and loading new ones.
- *
- * This function first clears the sprite container, releasing any associated
- * resources. Then, it loads new sprite assets. It returns true if both
- * clearing and loading are successful.
- *
- * @return True if sprites are successfully reloaded, false otherwise.
- *************************************************************************/
-bool AssetManager::ReloadSprites() {
-    return (AssetManager::FreeSprites() && AssetManager::LoadSprites());
-}
 
 
 
@@ -1009,6 +739,9 @@ bool AssetManager::LoadShaders() {
             InitShdrpgms(pairing);
         }
 
+
+        std::cout << "\n\n\n\n";
+
         // Copy the names in order to the shdrpgmOrder container. Needed as the shader programs stored in shdrpgms is stored in the same sequence
         shdrpgmOrder = vertfiles;
 #ifdef _DEBUG
@@ -1016,6 +749,7 @@ bool AssetManager::LoadShaders() {
             std::cout << "Shader Program Order: " << tmp << "\n";
 #endif
 
+        std::cout << "\n\n\n\n";
         Currentlyloading = false;
         return true;
     }

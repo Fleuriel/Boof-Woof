@@ -1,7 +1,7 @@
 /**************************************************************************
  * @file AssetManager.cpp
- * @author 	TAN Angus Yit Hoe
- * @param DP email: tan.a@digipen.edu [0067684]
+ * @author 	Aaron Chan Jun Xiang
+ * @param DP email: aaronjunxiang.chan@digipen.edu [2200880]
  * @param Course: CS 350
  * @param Course: Advanced Computer Graphics II
  * @date  06/14/2024 (14 JUNE 2024)
@@ -52,14 +52,9 @@ public:
 
 	// Texture functions
 	bool LoadTextures();																	//Function to load textures
-	int SetUpTexture(std::string filePath);													//Function to set up textures
 	bool FreeTextures();																	//Function to free textures
 	bool ReloadTextures();																	//Function to reload textures
 
-	// Sprite functions
-	bool LoadSprites();																		//Function to load sprites
-	bool FreeSprites();																		//Function to free sprites
-	bool ReloadSprites();																	//Function to reload sprites
 
 	// Scene functions
 	bool LoadScenes();																		//Function to load scenes
@@ -75,7 +70,6 @@ public:
 
 
 	//Getters
-	int GetTexture(std::string);															//Function to access textures
 	Sprite GetSprite(std::string);															//Function to access sprite
 	int GetSpriteTexture(std::string);														//Function to access sprite texture
 	OpenGLShader& GetShader(std::string);													//Function to access shaders
@@ -94,7 +88,7 @@ public:
 private:
 
 	//Containers
-	std::map<std::string, int> textures{};													//Container to store textures
+	std::vector<std::string> TextureDescriptionFiles;										//Container to store texture description files
 	std::map<std::string, Sprite> sprites{};												//Container to store sprites
 	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
 	std::vector<std::string>shdrpgmOrder{};													//Container to store the order of shader programs

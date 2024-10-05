@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\User\Documents\GitHub\Boof-Woof\lib\gli-master\GLI_Library\CMakeFiles\651e99b98d3a25746af4e3a57c153812\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{B833F3DC-6720-3CC8-951F-73778E959532}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Text Files">
+      <UniqueIdentifier>{0A730284-9F0E-3595-A6F6-758CB645B470}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

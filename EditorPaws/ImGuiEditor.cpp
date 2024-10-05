@@ -13,6 +13,10 @@
 #include <glm/glm.hpp>
 #include <iostream>
 
+bool GraphicsSystem::D2 = false;
+bool GraphicsSystem::D3 = false;
+
+bool GraphicsSystem::debug = false;
 namespace fs = std::filesystem;
 
 //Helper function to locate save file directory
@@ -388,7 +392,10 @@ void ImGuiEditor::InspectorWindow()
 				auto modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModel();
 				const char* source = "";
 
-
+				if (modelName == &g_AssetManager.ModelMap["cube"])
+				{
+					source = "Cube";
+				}
 				if (modelName == &g_AssetManager.ModelMap["sphere"])
 				{
 					source = "Sphere";
@@ -398,7 +405,7 @@ void ImGuiEditor::InspectorWindow()
 					source = "Square";
 				}
 
-				std::vector<std::string> modelNames = { "Sphere", "Square"};
+				std::vector<std::string> modelNames = { "Cube", "Sphere", "Square"};
 				static int currentModel = 0;
 
 				for (int i = 0; i < modelNames.size(); ++i) {
@@ -421,8 +428,9 @@ void ImGuiEditor::InspectorWindow()
 				// Add in the slots to get the value.
 				if (ImGui::Combo("##ModelCombo", &currentModel, inputModelName.c_str(), static_cast<int>(modelNames.size())))
 				{
-					if (currentModel == 0) modelName = &g_AssetManager.ModelMap["sphere"];
-					if (currentModel == 1) modelName = &g_AssetManager.ModelMap["Square"];
+					if (currentModel == 0) modelName = &g_AssetManager.ModelMap["cube"];
+					if (currentModel == 1) modelName = &g_AssetManager.ModelMap["sphere"];
+					if (currentModel == 2) modelName = &g_AssetManager.ModelMap["Square"];
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModel(modelName);
 				}
 
@@ -435,6 +443,27 @@ void ImGuiEditor::InspectorWindow()
 				{
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModelID(modelID);
 				}
+
+
+				ImGui::Text("Debug Mode ");
+				ImGui::Checkbox("Debug Mode", &GraphicsSystem::debug);
+
+				if (GraphicsSystem::debug) // Only show mode selection when Debug Mode is active
+				{
+					
+					if (ImGui::Button("2D"))
+					{
+						GraphicsSystem::D3 = false;
+						GraphicsSystem::D2 = true;
+					}
+					if (ImGui::Button("3D"))
+					{
+
+						GraphicsSystem::D3 = true;
+						GraphicsSystem::D2 = false;
+					}
+				}
+
 			}
 		}
 			

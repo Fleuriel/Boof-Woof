@@ -27,7 +27,6 @@ public:
 		:m_Model(model), m_EntityID(entity)  {/*Empty by design*/
 	}
 
-
     ~GraphicsComponent() = default;
 
 private:
