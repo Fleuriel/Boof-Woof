@@ -117,7 +117,7 @@ GLboolean OpenGLShader::IsLinked() const {
 * @return void
 *************************************************************************/
 GLboolean OpenGLShader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>> vec) {
-#ifdef _DEBUG
+//#ifdef _DEBUG
     
 
     for (auto& elem : vec) {
@@ -143,7 +143,7 @@ GLboolean OpenGLShader::CompileLinkValidate(std::vector<std::pair<GLenum, std::s
     PrintActiveUniforms();
     return GL_TRUE;
 
-#endif
+//#endif
 }
 
 /**************************************************************************

@@ -106,11 +106,11 @@ void AssetManager::LoadAll() {
         << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl;
 #else
     AssetManager::LoadTextures(),
-        AssetManager::LoadSprites(),
-        AssetManager::LoadSounds(),
-        AssetManager::LoadFonts(),
+        //AssetManager::LoadSprites(),
+        //AssetManager::LoadSounds(),
+        //AssetManager::LoadFonts(),
         AssetManager::LoadScenes(),
-        AssetManager::LoadPrefabs(),
+        //AssetManager::LoadPrefabs(),
         AssetManager::LoadShaders();
 #endif
 }
@@ -145,11 +145,11 @@ void AssetManager::FreeAll() {
         << ((freeShaders) ? "Shaders freed successfully" : "Failed to free shaders") << std::endl;
 #else
     AssetManager::FreeTextures(),
-        AssetManager::FreeSprites(),
-        AssetManager::FreeSounds(),
-        AssetManager::FreeFonts(),
-        AssetManager::FreeScenes(),
-        AssetManager::FreePrefabs(),
+        //AssetManager::FreeSprites(),
+        //AssetManager::FreeSounds(),
+        //AssetManager::FreeFonts(),
+        //AssetManager::FreeScenes(),
+        //AssetManager::FreePrefabs(),
         AssetManager::FreeShaders();
 #endif
 }
