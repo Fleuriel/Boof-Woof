@@ -1,7 +1,7 @@
 #include "Model.h"
 #include <array>
 #include <stb_image.h>
-
+#define STB_IMAGE_IMPLEMENTATION
 //
 //
 //
@@ -15,6 +15,7 @@ unsigned int TextureFromFile(const char* path, const std::string& directory)
 
       unsigned int textureID;
     glGenTextures(1, &textureID);
+	std::cout << filename << "loading with textureID: " << textureID << "\n";
 
     int width, height, nrComponents;
     unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
