@@ -9,10 +9,10 @@ std::shared_ptr<CollisionSystem> mCollisionSys;
 void EngineCore::OnInit()
 {
 
-	//// Initialize the physics system
-	//physicsManager.InitializeJolt();
-	//physicsManager.AddStaticFloor();
-	//physicsManager.AddDynamicBody(JPH::Vec3(0, 5, 0), 1.0f); // Add a sphere above the floor
+	// Initialize the physics system
+	physicsManager.InitializeJolt();
+	physicsManager.AddStaticFloor();
+	physicsManager.AddDynamicBody(JPH::Vec3(0, 5, 0), 1.0f); // Add a sphere above the floor
 
 	// if need to deserialize anything
 	

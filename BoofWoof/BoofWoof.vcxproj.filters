@@ -19,6 +19,12 @@
     <ClCompile Include="Core\Physics\CustomPhysicsSystem.cpp" />
     <ClCompile Include="Core\Physics\IssueReportingCustom.cpp" />
     <ClCompile Include="Core\Physics\MemoryAllocatorCustom.cpp" />
+    <ClCompile Include="Core\Physics\IslandBuilder.cpp" />
+    <ClCompile Include="Core\Physics\LargeIslandSplitter.cpp" />
+    <ClCompile Include="Core\Physics\PhysicsLock.cpp" />
+    <ClCompile Include="Core\Physics\PhysicsMaterial.cpp" />
+    <ClCompile Include="Core\Physics\Factory.cpp" />
+    <ClCompile Include="Core\Physics\Color.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
@@ -52,6 +58,12 @@
     <ClInclude Include="Utilities\Components\PhysicsComponent.hpp" />
     <ClInclude Include="Core\Physics\IssueReportingCustom.h" />
     <ClInclude Include="Core\Physics\MemoryAllocatorCustom.h" />
+    <ClInclude Include="Core\Physics\IslandBuilder.h" />
+    <ClInclude Include="Core\Physics\LargeIslandSplitter.h" />
+    <ClInclude Include="Core\Physics\PhysicsLock.h" />
+    <ClInclude Include="Core\Physics\PhysicsMaterial.h" />
+    <ClInclude Include="Core\Physics\Factory.h" />
+    <ClInclude Include="Core\Physics\Color.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

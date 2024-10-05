@@ -122,6 +122,7 @@
 //}
 
 #include "CustomPhysicsSystem.h"
+#include "IssueReportingCustom.h"
 #include <iostream>
 #include <cstdlib>
 #include <cstdarg>
@@ -144,6 +145,11 @@ void PhysicsManager::InitializeJolt() {
         printf("%s(%u): Assert failed: %s - %s\n", file, line, expr, msg ? msg : "");
         return true;
     };
+   
+
+    //// Install custom trace and assert handlers from IssueReportingCustom.cpp
+    //JPH::Trace = JPH::MyTrace; // Install custom trace function
+    //JPH_IF_ENABLE_ASSERTS(JPH::AssertFailed = JPH::MyAssertFailed;) // Install custom assert failed function
 
     // Register default allocator
     JPH::RegisterDefaultAllocator();
