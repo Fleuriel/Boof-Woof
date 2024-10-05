@@ -16,8 +16,8 @@
 
 bool GraphicsSystem::glewInitialized = false;
 
-bool GraphicsSystem::D2;
-bool GraphicsSystem::D3;
+//bool GraphicsSystem::D2 = false;
+//bool GraphicsSystem::D3 = false;
 
 //std::vector<Model2D> models;
 
@@ -73,7 +73,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	AddModel_3D("../BoofWoof/cube.obj");
 	AddModel_2D();
 
-	fontSystem.init();
+	//fontSystem.init();
 
 	shdrParam.Color = glm::vec3(98.f/255.f, 2.f/255.f, 232.f/255.f);
 
@@ -85,6 +85,8 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glCullFace(GL_BACK);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	fontSystem.init();
 }
 
 
