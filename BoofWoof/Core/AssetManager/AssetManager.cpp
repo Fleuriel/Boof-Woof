@@ -282,6 +282,7 @@ bool AssetManager::LoadTextures() {
 
 
 #ifdef _DEBUG
+                std::cout << "\n**************************************************************************************\n";
                 std::cout << nameWithoutExtension << " detected successfully!\n";
 #endif // DEBUG
 
@@ -731,6 +732,9 @@ bool AssetManager::LoadShaders() {
             InitShdrpgms(pairing);
         }
 
+
+        std::cout << "\n\n\n\n";
+
         // Copy the names in order to the shdrpgmOrder container. Needed as the shader programs stored in shdrpgms is stored in the same sequence
         shdrpgmOrder = vertfiles;
 #ifdef _DEBUG
@@ -738,6 +742,7 @@ bool AssetManager::LoadShaders() {
             std::cout << "Shader Program Order: " << tmp << "\n";
 #endif
 
+        std::cout << "\n\n\n\n";
         Currentlyloading = false;
         return true;
     }

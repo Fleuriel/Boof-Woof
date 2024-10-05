@@ -125,8 +125,8 @@ int SetUpTexture(const char* filename)
 bool ResourceManager::LoadTexturesDDS() {
 
     for (int i = 0; i < textureDDSFileNames.size(); i++) {
-        
-        std::cout << "names:" << textureDDSFileNames[i].c_str() << "\n";
+        //
+        // std::cout << "names:" << textureDDSFileNames[i].c_str() << "\n";
 
         //add DDS processing here
         int result = LoadDDSTexture ((FILEPATH_DDS + "\\" + textureDDSFileNames[i] + ".dds").c_str());

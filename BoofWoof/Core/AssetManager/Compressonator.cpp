@@ -36,9 +36,11 @@ std::vector<std::string> processDescriptorFile(const std::string& descriptorFile
         }
     }
 
+    std::cout << "\n**************************************************************************************\n";
     // Print out the details from the descriptor file
     std::cout << "File Name: " << fileName << std::endl;
     std::cout << "Compression Format: " << compressionFormat << std::endl;
+    std::cout << "\n**************************************************************************************\n";
 
     file.close();
 
@@ -47,8 +49,10 @@ std::vector<std::string> processDescriptorFile(const std::string& descriptorFile
 
 // Function to run a command line command
 int runCommand(const std::string& command) {
-    std::cout << "Executing command: " << command << std::endl;
 
+    std::cout << "\n**************************************************************************************\n";
+    std::cout << "Executing command: " << command << "\n";
+    std::cout << "****************************************************************************************\n";
     // Execute the command and return the result (exit status)
     int result = std::system(command.c_str());
 
