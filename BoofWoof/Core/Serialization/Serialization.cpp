@@ -132,7 +132,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
             rapidjson::Value behaviorNameKey("BehaviourName", allocator); 
 
             rapidjson::Value behaviorNameValue;
-            behaviorNameValue.SetString(behaviorComp.GetBehaviourName(), allocator); 
+            behaviorNameValue.SetString(behaviorComp.GetBehaviourName().c_str(), allocator);
 
             entityData.AddMember(behaviorNameKey, behaviorNameValue, allocator);
         }
@@ -241,14 +241,36 @@ bool Serialization::LoadScene(const std::string& filepath) {
             // Deserialize BehaviourComponent
             if (entityData.HasMember("BehaviourName")) {
                 std::string name = entityData["BehaviourName"].GetString();
+                g_Coordinator.AddComponent(entity, BehaviourComponent(name, entity));
+                //g_Coordinator.GetComponent<BehaviourComponent>(entity).SetBehaviourName(name);
                 //BehaviourComponent behaviourComponent(name.c_str(), entity);
                 //behaviourComponent.SetBehaviourName(name.c_str());
-                g_Coordinator.AddComponent(entity, BehaviourComponent(name.c_str(), entity));
+                
 				//std::cout << "Serialization: " << g_Coordinator.GetEntityId(entity) << ". | " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << "." << std::endl;
             }
-            // I FOUND THE PROBLEM
-            std::cout << "Serialization: " << g_Coordinator.GetEntityId(entity) << ". | " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << "." << std::endl;
 
+
+            // Print out all entity components
+			std::cout << "Entity: " << g_Coordinator.GetEntityId(entity) << std::endl;
+			if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) {
+				std::cout << "MetadataComponent: " << g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() << std::endl;
+			}
+            if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+                std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().x << std::endl;
+                std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().y << std::endl;
+                std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().z << std::endl;
+            }
+            if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
+                std::cout << "GraphicsComponent: " << g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelID() << std::endl;
+            }
+			if (g_Coordinator.HaveComponent<AudioComponent>(entity)) {
+				std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetFilePath().c_str() << std::endl;
+				std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetVolume() << std::endl;
+                std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).ShouldLoop() << std::endl;
+			}
+			if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) {
+				std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << std::endl;
+			}
         }
     }
 

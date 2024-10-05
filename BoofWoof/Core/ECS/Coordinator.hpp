@@ -157,6 +157,7 @@ public:
 		return mComponentManager->HaveComponent<T>(entity);
 	}
 
+
 	const ComponentType GetTotalRegisteredComponents() {
 		return mComponentManager->GetTotalRegisteredComponents();
 	}
