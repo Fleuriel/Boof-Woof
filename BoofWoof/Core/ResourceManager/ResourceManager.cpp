@@ -1,3 +1,6 @@
+#pragma warning(push)
+#pragma warning(disable : 4244 4458 4100 5054)
+
 #include "ResourceManager.h"
 #include <iostream>
 #include <GL/glew.h>
@@ -7,6 +10,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #define STBI_ONLY_DDS // Enable support for DDS only, if you don't want other formats
+
+#pragma warning(pop)
 
 ResourceManager g_ResourceManager;
 
