@@ -16,6 +16,8 @@
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/FontSystem.h"
 #include "Logic/LogicSystem.h"
+#include "Physics/PhysicsSystem.h"
+
 
 #include "Serialization/Serialization.h"
 #include "Input/Input.h"

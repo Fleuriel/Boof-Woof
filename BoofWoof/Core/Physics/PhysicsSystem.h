@@ -7,6 +7,10 @@
 #include <Jolt/Physics/PhysicsSettings.h>
 #include <Jolt/RegisterTypes.h>
 
+
+
+#include "../ECS/System.hpp"
+
 // Forward declarations
 namespace JPH {
     class JobSystemThreadPool;
@@ -15,7 +19,7 @@ namespace JPH {
 }
 
 // Class to interface with JoltPhysics
-class PhysicsManager {
+class PhysicsSystem : public System {
 public:
     // Initialize JoltPhysics engine
     void InitializeJolt();

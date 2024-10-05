@@ -6,7 +6,7 @@
 #include <Jolt/Physics/Body/BodyInterface.h>          // For BodyInterface
 #include <cstdint>  // For uint32_t or standard integer types
 
-void PhysicsManager::InitializeJolt() {
+void PhysicsSystem::InitializeJolt() {
     // Initialize JobSystem with multiple threads
     mJobSystem = new JPH::JobSystemThreadPool();
 
@@ -44,7 +44,7 @@ public:
     }
 };
 
-JPH::PhysicsSystem* PhysicsManager::CreatePhysicsSystem() {
+JPH::PhysicsSystem* PhysicsSystem::CreatePhysicsSystem() {
     const unsigned int cMaxBodies = 1024;       // Max number of bodies
     const unsigned int cNumBodyMutexes = 16;    // Choose a power of 2 in the range [1, 64]
     const unsigned int cMaxBodyPairs = 1024;    // Max number of body pairs for collision detection
@@ -75,7 +75,7 @@ JPH::PhysicsSystem* PhysicsManager::CreatePhysicsSystem() {
     return mPhysicsSystem;
 }
 
-void PhysicsManager::AddBody(JPH::PhysicsSystem* physicsSystem, JPH::Vec3 position, float mass) {
+void PhysicsSystem::AddBody(JPH::PhysicsSystem* physicsSystem, JPH::Vec3 position, float mass) {
     // Create a dynamic sphere body (for example)
     JPH::SphereShape* sphereShape = new JPH::SphereShape(1.0f); // 1-meter radius sphere
 
@@ -99,13 +99,13 @@ void PhysicsManager::AddBody(JPH::PhysicsSystem* physicsSystem, JPH::Vec3 positi
 }
 
 
-void PhysicsManager::SimulatePhysics(JPH::PhysicsSystem* physicsSystem, float deltaTime, JPH::JobSystem* jobSystem) {
+void PhysicsSystem::SimulatePhysics(JPH::PhysicsSystem* physicsSystem, float deltaTime, JPH::JobSystem* jobSystem) {
     int collisionSteps = 1; // Adjust this as needed based on your simulation requirements
 
     physicsSystem->Update(deltaTime, collisionSteps, mTempAllocator, jobSystem);
 }
 
-void PhysicsManager::Cleanup() {
+void PhysicsSystem::Cleanup() {
     delete mPhysicsSystem;
     delete mJobSystem;
     delete mTempAllocator;

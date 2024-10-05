@@ -38,7 +38,7 @@ std::string GetScenesDir()
 
 ImGuiEditor& ImGuiEditor::GetInstance() {
 	static ImGuiEditor instance{};
-	return instance;
+ 	return instance;
 }
 
 // parameter should have windows
