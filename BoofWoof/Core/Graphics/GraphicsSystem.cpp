@@ -127,10 +127,10 @@ void GraphicsSystem::UpdateLoop() {
 			if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
 			{
 				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-				if (graphicsComp.getModel() == nullptr)
+				if (g_AssetManager.ModelMap.find(graphicsComp.getModelName()) == g_AssetManager.ModelMap.end())
 				{
 					std::cout << "Model is null" << std::endl;
-					graphicsComp.SetModel(&g_AssetManager.ModelMap["cube"]);
+					graphicsComp.setModelName("cube");
 					//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
 					continue;
 				}
@@ -149,7 +149,8 @@ void GraphicsSystem::UpdateLoop() {
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture2", tex2);
 //				g_AssetManager.GetShader("OutlineAndFont").SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
 
-				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
+				//graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
+				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
 				//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
 
 				g_AssetManager.GetShader("Shader3D").UnUse();
@@ -171,7 +172,8 @@ void GraphicsSystem::UpdateLoop() {
 				//shader.Use();
 
 
-				graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
+				//graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
+				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
 
 				g_AssetManager.GetShader("Shader2D").UnUse();
 				
@@ -188,9 +190,11 @@ void GraphicsSystem::UpdateLoop() {
 
 
 				if (D3)
-					graphicsComp.getModel()->DrawCollisionBox3D(AABBOutline);
+					//graphicsComp.getModel()->DrawCollisionBox3D(AABBOutline);
+					g_AssetManager.ModelMap[graphicsComp.getModelName()].DrawCollisionBox3D(AABBOutline);
 				if (D2)
-					graphicsComp.getModel()->DrawCollisionBox2D(squareOutline);
+					//graphicsComp.getModel()->DrawCollisionBox2D(squareOutline);
+					g_AssetManager.ModelMap[graphicsComp.getModelName()].DrawCollisionBox2D(squareOutline);
 				
 				g_AssetManager.GetShader("OutlineAndFont").UnUse();
 

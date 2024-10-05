@@ -223,7 +223,7 @@ bool Serialization::LoadScene(const std::string& filepath) {
             // Deserialize GraphicsComponent
             if (entityData.HasMember("ModelID")) {
                 int modelID = entityData["ModelID"].GetInt();
-                GraphicsComponent graphicsComponent(&g_AssetManager.ModelMap["sphere"], entity);
+                GraphicsComponent graphicsComponent("sphere", entity);
                 graphicsComponent.SetModelID(modelID);
                 g_Coordinator.AddComponent(entity, graphicsComponent);
             }

@@ -13,25 +13,27 @@ public:
 	void SetComponentEntityID(Entity& entity) { m_EntityID = entity; }
 
 	//setter
-	void SetModel(Model* model) { m_Model = model; }
-	inline void SetModelID(int modelid) { m_ModelID = modelid; };
+	
+	void setModelName(std::string modelName) { 
+		m_ModelName = modelName; }
+	void SetModelID(int modelID) { m_ModelID = modelID; }
 
 	//getter
-	Model* getModel() const { return m_Model; }
-	inline int getModelID() const { return m_ModelID; };
+	std::string getModelName() { return m_ModelName; }
+	int getModelID() { return m_ModelID; }
 
     // Constructor and destructor
 	GraphicsComponent() {};
-
-	GraphicsComponent(Model* model, Entity entity)
-		:m_Model(model), m_EntityID(entity)  {/*Empty by design*/
+	
+	GraphicsComponent(std::string modelName, Entity& entity) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity))
+	{/*Empty by design*/
 	}
 
     ~GraphicsComponent() = default;
 
 private:
 	Entity m_EntityID{};
-	Model* m_Model{};
+	std::string m_ModelName{};
 	int m_ModelID{};
 };
 
