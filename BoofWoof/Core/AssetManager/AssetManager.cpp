@@ -198,8 +198,27 @@ void AssetManager::FreeAll() {
 
 
 
+// Function to generate a 64-bit GUID with the first bit set to 1 and next 5 bits set by the parameter
+uint64_t generateGUID64(int valueFor5Bits) {
+    // Ensure the provided value fits in 5 bits (0-31)
+    valueFor5Bits &= 0x1F;  // 0x1F is 11111 in binary, which masks the value to 5 bits
 
+    // Use random device and mt19937_64 for high-quality random number generation
+    std::random_device rd;  // Seed for random number engine
+    std::mt19937_64 generator(rd());  // 64-bit Mersenne Twister engine
+    uint64_t guid = generator();
 
+    // Force the first bit (MSB) to be 1
+    guid |= (1ULL << 63);
+
+    // Clear the next 5 bits after the MSB
+    guid &= ~(0x1FULL << 58);  // 0x1F is 5 bits of 1's, shifted to the 58th position
+
+    // Set the next 5 bits to the value of the parameter
+    guid |= (static_cast<uint64_t>(valueFor5Bits) << 58);
+
+    return guid;
+}
 
  /**************************************************************************
   * @brief Loads textures from the specified directory.
