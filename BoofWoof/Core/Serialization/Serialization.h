@@ -1,3 +1,15 @@
+/**************************************************************************
+ * @file Serialization.h
+ * @author 	Liu Xujie
+ * @param DP email: l.xujie@digipen.edu [2203183]
+ * @param Course: CS 3401
+ * @param Course: Game Project 3
+ * @date  09/22/2024 (22 SEPT 2024)
+ * @brief
+ *
+ * This file contains the Declaration of member functions of Serialization
+ * Class
+ *************************************************************************/
 #ifndef SERIALIZATION_H
 #define SERIALIZATION_H
 

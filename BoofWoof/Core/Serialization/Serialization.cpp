@@ -1,3 +1,15 @@
+/**************************************************************************
+ * @file Serialization.cpp
+ * @author 	Liu Xujie
+ * @param DP email: l.xujie@digipen.edu [2203183]
+ * @param Course: CS 3401
+ * @param Course: Game Project 3
+ * @date  09/22/2024 (22 SEPT 2024)
+ * @brief
+ *
+ * This file contains the definitions of member functions of Serialization
+ * Class
+ *************************************************************************/
 #include "Serialization.h"
 #include "../EngineCore.h"
 #include <cstdio>
@@ -13,6 +25,17 @@
 std::string Serialization::currentSceneGUID = "";
 
 
+/**************************************************************************
+ * @brief Retrieves the file path to the Scenes directory.
+ *
+ * This function constructs and returns the file path to the Scenes directory
+ * located within the "BoofWoof/Assets/Scenes" folder relative to the project
+ * root. It starts from the current working directory and navigates to the
+ * project's root before appending the Scenes directory path.
+ *
+ * @return std::string The path to the Scenes directory as a string.
+ *************************************************************************/
+
 std::string GetScenesPath() {
     std::filesystem::path currentPath = std::filesystem::current_path();
     std::filesystem::path projectRoot = currentPath.parent_path();
@@ -23,7 +46,17 @@ std::string GetScenesPath() {
 
 
 
-// Helper function to generate a new GUID
+/**************************************************************************
+ * @brief Generates a random GUID (Globally Unique Identifier).
+ *
+ * This function generates a random GUID following the UUID version 4 format.
+ * It uses a random number generator to create a hexadecimal string formatted
+ * in the standard GUID format: 8-4-4-4-12. The version 4 UUID is specified
+ * by inserting the "4" at the appropriate position, and the variant is set
+ * according to the UUID standard.
+ *
+ * @return std::string A randomly generated GUID as a string.
+ *************************************************************************/
 std::string Serialization::GenerateGUID() {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -46,10 +79,37 @@ std::string Serialization::GenerateGUID() {
     return ss.str();
 }
 
-// Retrieve the GUID of the currently loaded scene
+/**************************************************************************
+ * @brief Retrieves the GUID of the current scene.
+ *
+ * This function returns the GUID of the current scene, which is typically
+ * generated during the save process.
+ *
+ * @return std::string The GUID of the current scene.
+ *************************************************************************/
 std::string Serialization::GetSceneGUID() {
     return currentSceneGUID;
 }
+
+/**************************************************************************
+ * @brief Saves the current scene to a specified file path.
+ *
+ * This function saves the current scene's data, including entities and
+ * their components, to a file in JSON format using the RapidJSON library.
+ * The scene's GUID is generated and stored as part of the saved data.
+ * It serializes components like `MetadataComponent`, `TransformComponent`,
+ * `GraphicsComponent`, `AudioComponent`, and `BehaviorComponent` for
+ * all active entities. If the save is successful, it returns `true`.
+ *
+ * @param filepath The file path where the scene should be saved.
+ *
+ * @return bool Returns `true` if the scene was successfully saved,
+ *         `false` otherwise.
+ *
+ * @note The function creates necessary directories for the save path if
+ * they do not already exist. It also uses a pretty writer to format the
+ * output JSON file.
+ *************************************************************************/
 
 bool Serialization::SaveScene(const std::string& filepath) {
     currentSceneGUID = GenerateGUID();
@@ -144,16 +204,35 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
     FILE* fp = fopen(fullSavePath.c_str(), "wb");
     if (fp) {
-        char writeBuffer[65536];
-        rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
+        std::vector<char> writeBuffer(65536); 
+        rapidjson::FileWriteStream os(fp, writeBuffer.data(), writeBuffer.size());
         rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
         doc.Accept(writer);
         fclose(fp);
         return true;
     }
+
     return false;
 }
 
+/**************************************************************************
+ * @brief Loads a scene from the specified file path.
+ *
+ * This function loads a scene from a file using the RapidJSON library. It
+ * parses the scene data and deserializes the entities and their components,
+ * such as `MetadataComponent`, `TransformComponent`, `GraphicsComponent`,
+ * `AudioComponent`, and `BehaviourComponent`. Each entity is created and
+ * populated with its corresponding components. The scene's GUID is also
+ * retrieved and set as the current scene GUID.
+ *
+ * @param filepath The path to the scene file to be loaded.
+ *
+ * @return bool Returns `true` if the scene was successfully loaded,
+ *         `false` otherwise.
+ *
+ * @note The function logs errors if the file cannot be opened or if the
+ * scene data is not in valid JSON format.
+ *************************************************************************/
 
 bool Serialization::LoadScene(const std::string& filepath) {
     FILE* fp = fopen(filepath.c_str(), "rb");
@@ -162,8 +241,8 @@ bool Serialization::LoadScene(const std::string& filepath) {
         return false;
     }
 
-    char readBuffer[65536];
-    rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+    std::vector<char> readBuffer(65536);
+    rapidjson::FileReadStream is(fp, readBuffer.data(), readBuffer.size());
 
     rapidjson::Document doc;
     doc.ParseStream(is);

@@ -589,6 +589,9 @@ public:
         \param type Type of the value.
         \note Default content for number is zero.
     */
+#pragma warning(push)
+#pragma warning(disable : 33010)
+
     explicit GenericValue(Type type) RAPIDJSON_NOEXCEPT : data_() {
         static const uint16_t defaultFlags[7] = {
             kNullFlag, kFalseFlag, kTrueFlag, kObjectFlag, kArrayFlag, kShortStringFlag,
@@ -601,6 +604,8 @@ public:
         if (type == kStringType)
             data_.ss.SetLength(0);
     }
+
+#pragma warning(pop)
 
     //! Explicit copy constructor (with allocator)
     /*! Creates a copy of a Value by using the given Allocator
