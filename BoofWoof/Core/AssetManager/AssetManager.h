@@ -1,17 +1,16 @@
 /**************************************************************************
- * @file AssetManager.cpp
+ * @file AssetManager.h
  * @author 	Aaron Chan Jun Xiang
  * @param DP email: aaronjunxiang.chan@digipen.edu [2200880]
- * @param Course: CS 350
- * @param Course: Advanced Computer Graphics II
- * @date  06/14/2024 (14 JUNE 2024)
+ * @param Course: CS 3401
+ * @param Course: Game Project 3
+ * @date  10/06/2024 (06 OCTOBER 2024)
  * @brief
  *
- * This file allows assets to be loaded into containers to be used by
- * the application.
- *
+ * This file loads assets to be used
  *
  *************************************************************************/
+
 #pragma once
 
 #ifndef ASSETMANAGER_H

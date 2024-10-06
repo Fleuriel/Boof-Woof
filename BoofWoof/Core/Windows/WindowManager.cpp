@@ -1,3 +1,17 @@
+/**************************************************************************
+ * @file Filepaths.h
+ * @author 	TAN Angus Yit Hoe
+ * @param DP email: tan.a@digipen.edu [0067684]
+ * @co-author Aaron Chan Jun Xiang
+ * @par DP email: aaronjunxiang.chan@digipen.edu [2200880]
+ * @par Course: CSD 3401
+ * @par Game Project 3
+ * @date 02-10-2024
+ * @brief This header file contains all the filepaths to the respective assets
+ *************************************************************************/
+
+
+
 
 #define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
 #include <windows.h>

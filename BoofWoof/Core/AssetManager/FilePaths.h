@@ -1,13 +1,13 @@
-
 /**************************************************************************
  * @file Filepaths.h
  * @author Aaron Chan Jun Xiang
- * @par DP email: aaronjunxiang.chan@digipen.edu
+ * @par DP email: aaronjunxiang.chan@digipen.edu [2200880]
  * @par Course: CSD 3401
- * @par Software Engineering Project
+ * @par Game Project 3
  * @date 02-10-2024
  * @brief This header file contains all the filepaths to the respective assets
  *************************************************************************/
+
 #ifndef FILEPATHS_H
 #define FILEPATHS_H
 
