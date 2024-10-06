@@ -1,3 +1,17 @@
+/**************************************************************************
+ * @file Model.h
+ * @author 	Guo Chen
+ * @param DP email: g.chen@digipen.edu [2200518]
+ * @param Course: CS 3401
+ * @param Course: Game Project 3
+ * @date  10/06/2024 (06 OCTOBER 2024)
+ * @brief
+ *
+ * This file contains the definition of the Model class, which is used to
+ * store the meshes of a model. It also provides functions to load and render
+ * the model.
+ *************************************************************************/
+
 #pragma once
 
 #ifndef MODEL_H
@@ -40,11 +54,11 @@ public:
     
     
     // 2D
-    GLenum primitive_type;		// Primitive Type
-    size_t primitive_cnt;		// Primitive Count
-    GLuint vaoid;				// Vaoid of the Model
-    GLsizei draw_cnt;			// Draw Count of the model
-    size_t idx_elem_cnt;		// Index Element Count of the Model
+    GLenum primitive_type{};		// Primitive Type
+    size_t primitive_cnt{};		// Primitive Count
+    GLuint vaoid{};				// Vaoid of the Model
+    GLsizei draw_cnt{};			// Draw Count of the model
+    size_t idx_elem_cnt{};		// Index Element Count of the Model
 
 
 

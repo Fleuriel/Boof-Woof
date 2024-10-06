@@ -1,3 +1,18 @@
+/**************************************************************************
+ * @file Mesh.h
+ * @author 	Guo Chen
+ * @param DP email: g.chen@digipen.edu [2200518]
+ * @param Course: CS 3401
+ * @param Course: Game Project 3
+ * @date  10/06/2024 (06 OCTOBER 2024)
+ * @brief
+ *
+ * This file contains the definition of the Mesh class, which is used to
+ * store the vertices, indices, and textures of a mesh. It also provides
+ * functions to render the mesh.
+ *
+ *************************************************************************/
+
 #pragma once
 #ifndef MESH_H
 #define MESH_H

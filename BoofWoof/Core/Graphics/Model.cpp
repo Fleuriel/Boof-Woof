@@ -1,3 +1,16 @@
+/**************************************************************************
+ * @file Model.cpp
+ * @author 	Guo Chen
+ * @param DP email: g.chen@digipen.edu [2200518]
+ * @param Course: CS 3401
+ * @param Course: Game Project 3
+ * @date  10/06/2024 (06 OCTOBER 2024)
+ * @brief
+ *
+ * This file contains the definition of the Model class, which is used to
+ * store the vertices, indices, and textures of a model. It also provides
+ * functions to render the model.
+ *************************************************************************/
 #include "Model.h"
 #include <array>
 #include <set>
