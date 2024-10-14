@@ -1,3 +1,15 @@
+/**************************************************************************
+ * @file TransformComponent.hpp
+ * @author 	Guo Chen
+ * @param DP email: g.chen@digipen.edu [2200518]
+ * @param Course: CS 3401
+ * @param Course: Game Project 3
+ * @date  10/06/2024 (06 OCTOBER 2024)
+ * @brief
+ *
+ * This file contains the definition of the TransformComponent class, which is used to
+ * store the position, scale, and rotation of an entity.
+ *************************************************************************/
 #pragma once
 #ifndef TRANSFORM_COMPONENT_HPP
 #define TRANSFORM_COMPONENT_HPP

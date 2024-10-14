@@ -1,6 +1,34 @@
+/**************************************************************************
+ * @file AudioSystem.cpp
+ * @author 	Liu Xujie
+ * @param DP email: l.xujie@digipen.edu [2203183]
+ * @param Course: CS 3401
+ * @param Course: Game Project 3
+ * @date  09/25/2024 (25 SEPT 2024)
+ * @brief
+ *
+ * This file contains the definitions of member functions of AudioSystem 
+ * Class
+ *************************************************************************/
 #include "AudioSystem.h"
 #include <chrono>
 #include <thread>
+
+
+FMOD::Channel* currentChannel = nullptr; // Store the current playing channel
+
+
+ /**************************************************************************
+  * @brief Converts an FMOD result code to a human-readable string.
+  *
+  * This function takes an FMOD result code (FMOD_RESULT) and returns
+  * a human-readable string that describes the corresponding FMOD error.
+  * It covers common FMOD errors, but will return "Unknown FMOD error" for
+  * any unspecified result codes.
+  *
+  * @param result The FMOD_RESULT code to be converted to a string.
+  * @return const char* The human-readable string corresponding to the FMOD error.
+  *************************************************************************/
 
 const char* FMODErrorToString(FMOD_RESULT result) {
     switch (result) {
@@ -16,13 +44,38 @@ const char* FMODErrorToString(FMOD_RESULT result) {
     }
 }
 
-// Constructor
+/**************************************************************************
+ * @brief Constructor for the AudioSystem class.
+ *
+ * This constructor initializes the FMOD system by creating an instance
+ * of the FMOD system and setting it up with 512 audio channels.
+ * It configures the system with normal initialization settings.
+ *
+ * @note Make sure to handle any errors that may occur during system
+ * creation or initialization.
+ *
+ * @param None
+ * @return None
+ *************************************************************************/
 AudioSystem::AudioSystem() {
     FMOD::System_Create(&system);  // Initialize FMOD system
     system->init(512, FMOD_INIT_NORMAL, nullptr);  // Initialize system with 512 channels
 }
 
-// Destructor
+/**************************************************************************
+ * @brief Destructor for the AudioSystem class.
+ *
+ * This destructor stops all active audio channels, clears the channel map,
+ * releases all cached sounds, and properly shuts down the FMOD system.
+ * It ensures that all FMOD resources, such as sounds and channels,
+ * are released before closing and releasing the FMOD system.
+ *
+ * @note Make sure that all sounds and channels are properly stopped and
+ * released to prevent memory leaks.
+ *
+ * @param None
+ * @return None
+ *************************************************************************/
 AudioSystem::~AudioSystem() {
     // Stop all channels first
     for (auto& [entity, channels] : channelMap) {
@@ -51,7 +104,24 @@ AudioSystem::~AudioSystem() {
 
 
 
-// Add an audio component to an entity and load its sound (or reuse an already loaded sound)
+/**************************************************************************
+ * @brief Adds an AudioComponent to an entity and manages sound loading.
+ *
+ * This function adds an audio component to the specified entity, loading
+ * the associated sound from a file if it hasn't been cached yet. If the
+ * sound has already been cached, it reuses the existing sound to avoid
+ * redundant loading. It also sets the loop mode and volume based on
+ * the properties of the AudioComponent.
+ *
+ * @param entity The entity to which the audio component is being added.
+ * @param audioComp The AudioComponent containing the audio settings and file path.
+ *
+ * @note This function ensures that sounds are cached and reloaded efficiently
+ * to avoid excessive file I/O operations. It also checks and sets the loop
+ * mode only if needed, optimizing performance.
+ *
+ * @return None
+ *************************************************************************/
 void AudioSystem::AddAudioComponent(Entity entity, const AudioComponent& audioComp) {
     const std::string& filePath = audioComp.GetFilePath();
 
@@ -97,7 +167,22 @@ void AudioSystem::AddAudioComponent(Entity entity, const AudioComponent& audioCo
 
 
 
-// Play the audio for the entity with adjustable volume
+/**************************************************************************
+ * @brief Plays the audio associated with an entity at a specified volume.
+ *
+ * This function plays the sound linked to the specified entity by retrieving
+ * it from the audio map. If the sound is successfully played, the volume
+ * is set to the provided value, and the FMOD channel is stored in the
+ * channel map for future control (e.g., adjusting volume or stopping).
+ *
+ * @param entity The entity for which the sound should be played.
+ * @param volume The initial volume level to set for the sound (range: 0.0 to 1.0).
+ *
+ * @note If the audio component is not found for the entity or if there is an
+ * error while playing the sound, an error message will be logged.
+ *
+ * @return None
+ *************************************************************************/
 void AudioSystem::Play(Entity entity, float volume) {
     auto it = audioMap.find(entity);
     if (it != audioMap.end()) {
@@ -122,7 +207,22 @@ void AudioSystem::Play(Entity entity, float volume) {
     }
 }
 
-// Adjust volume for an entity's active sound channels
+/**************************************************************************
+ * @brief Sets the volume for the audio associated with an entity.
+ *
+ * This function dynamically adjusts the volume for all active channels
+ * associated with the specified entity. It iterates through all the
+ * channels currently playing for the entity and updates their volume
+ * to the provided level.
+ *
+ * @param entity The entity for which the volume should be adjusted.
+ * @param volume The new volume level to set (range: 0.0 to 1.0).
+ *
+ * @note If no active channels are found for the entity, an error message
+ * will be logged.
+ *
+ * @return None
+ *************************************************************************/
 void AudioSystem::SetVolume(Entity entity, float volume) {
     auto it = channelMap.find(entity);
     if (it != channelMap.end()) {
@@ -139,7 +239,21 @@ void AudioSystem::SetVolume(Entity entity, float volume) {
 }
 
 
-// Stop the audio for the entity
+/**************************************************************************
+ * @brief Stops all sounds associated with an entity.
+ *
+ * This function stops all active channels that are currently playing
+ * sounds for the specified entity. It iterates through the list of
+ * channels for the entity, stopping each one. After all channels
+ * are stopped, the channel vector for the entity is cleared.
+ *
+ * @param entity The entity for which all sounds should be stopped.
+ *
+ * @note This function ensures that no sounds continue to play after
+ * being stopped, and it clears the associated channels for the entity.
+ *
+ * @return None
+ *************************************************************************/
 void AudioSystem::Stop(Entity entity) {
     auto it = channelMap.find(entity);
     if (it != channelMap.end()) {
@@ -157,7 +271,20 @@ void AudioSystem::Stop(Entity entity) {
 }
 
 
-// Update the audio system
+/**************************************************************************
+ * @brief Updates the AudioSystem by managing audio components and channels.
+ *
+ * This function is responsible for updating the AudioSystem by checking
+ * for entities with or without AudioComponents, adding or removing
+ * sounds accordingly. It also removes channels that are no longer playing
+ * sounds. Finally, it updates the FMOD system to ensure audio is processed
+ * correctly.
+ *
+ * @note This function ensures that entities are synchronized with their
+ * audio components and that channels are cleaned up if their sounds stop playing.
+ *
+ * @return None
+ *************************************************************************/
 void AudioSystem::Update() {
     // Loop through all entities that have an AudioComponent
     for (auto const& entity : mEntities) {
@@ -189,7 +316,21 @@ void AudioSystem::Update() {
 }
 
 
-// Play background music (BGM)
+/**************************************************************************
+ * @brief Plays background music (BGM) from a specified file.
+ *
+ * This function plays the background music (BGM) from the provided file path.
+ * If the BGM sound is not already cached, it loads the sound as a looping
+ * sound and caches it for future use. The cached sound is then played
+ * on a new channel, with the volume set to 1.0 and loop mode enabled.
+ *
+ * @param filePath The path to the BGM file to be played.
+ *
+ * @note If the BGM file cannot be loaded, an error message is logged,
+ * and the function returns without playing any sound.
+ *
+ * @return None
+ *************************************************************************/
 void AudioSystem::PlayBGM(const std::string& filePath) {
     // Check if the BGM sound is already cached
     if (soundCache.find(filePath) == soundCache.end()) {
@@ -222,7 +363,23 @@ void AudioSystem::PlayBGM(const std::string& filePath) {
     system->update();
 }
 
-// Fade in the volume for a sound
+/**************************************************************************
+ * @brief Gradually fades in the audio for a specific entity to a target volume.
+ *
+ * This function gradually increases the volume of the sound playing on
+ * the channels associated with the specified entity, reaching a target
+ * volume over a specified duration. The fade-in effect is achieved by
+ * incrementally adjusting the volume in small steps over time.
+ *
+ * @param entity The entity whose audio should be faded in.
+ * @param targetVolume The target volume to reach by the end of the fade-in (range: 0.0 to 1.0).
+ * @param duration The duration of the fade-in effect in seconds.
+ *
+ * @note This function assumes that audio is already playing on the entity's channels.
+ * It uses a loop to incrementally change the volume, ensuring a smooth fade-in effect.
+ *
+ * @return None
+ *************************************************************************/
 void AudioSystem::FadeIn(Entity entity, float targetVolume, float duration) {
     auto it = channelMap.find(entity);
     if (it != channelMap.end()) {
@@ -245,7 +402,23 @@ void AudioSystem::FadeIn(Entity entity, float targetVolume, float duration) {
     }
 }
 
-// Fade out the volume for a sound
+/**************************************************************************
+ * @brief Gradually fades out the audio for a specific entity to silence.
+ *
+ * This function gradually decreases the volume of the sound playing on
+ * the channels associated with the specified entity, reducing the volume
+ * to zero over a specified duration. The fade-out effect is achieved by
+ * incrementally reducing the volume in small steps over time.
+ *
+ * @param entity The entity whose audio should be faded out.
+ * @param duration The duration of the fade-out effect in seconds.
+ *
+ * @note This function ensures that the volume never goes below zero during
+ * the fade-out. It uses a loop to decrement the volume gradually, ensuring
+ * a smooth fade-out effect.
+ *
+ * @return None
+ *************************************************************************/
 void AudioSystem::FadeOut(Entity entity, float duration) {
     auto it = channelMap.find(entity);
     if (it != channelMap.end()) {
@@ -268,7 +441,23 @@ void AudioSystem::FadeOut(Entity entity, float duration) {
     }
 }
 
-FMOD::Channel* currentChannel = nullptr; // Store the current playing channel
+/**************************************************************************
+ * @brief Plays a sound file from the given file path, ensuring no overlap.
+ *
+ * This function plays an audio file from the provided file path. If the
+ * audio is already playing on the current channel, it does not trigger
+ * the playback again. If the sound is not cached, it loads the sound and
+ * caches it for future use. The function also sets the volume for the
+ * sound and updates the FMOD system.
+ *
+ * @param filePath The path to the audio file to be played.
+ *
+ * @note This function ensures that audio playback does not overlap. It
+ * will only trigger playback if the current channel is not already playing.
+ * If the sound fails to load or play, an error message is logged.
+ *
+ * @return None
+ *************************************************************************/
 
 void AudioSystem::PlayFile(const std::string& filePath) {
     if (currentChannel) {
@@ -311,6 +500,19 @@ void AudioSystem::PlayFile(const std::string& filePath) {
     system->update();
 }
 
+/**************************************************************************
+ * @brief Pauses the currently playing background music (BGM).
+ *
+ * This function pauses the background music (BGM) if it is currently
+ * playing. It checks if the current channel is not already paused
+ * before pausing the audio.
+ *
+ * @note This function assumes that a BGM is already playing on the
+ * current channel. If the audio is already paused, no action is taken.
+ *
+ * @return None
+ *************************************************************************/
+
 void AudioSystem::PauseBGM() {
     if (currentChannel) {
         bool isPaused = false;
@@ -321,6 +523,19 @@ void AudioSystem::PauseBGM() {
         }
     }
 }
+
+/**************************************************************************
+ * @brief Resumes the paused background music (BGM).
+ *
+ * This function resumes the background music (BGM) if it is currently
+ * paused. It checks if the current channel is paused before resuming
+ * the audio playback.
+ *
+ * @note This function assumes that a BGM has been previously paused
+ * and can be resumed on the current channel.
+ *
+ * @return None
+ *************************************************************************/
 
 void AudioSystem::ResumeBGM() {
     if (currentChannel) {
@@ -333,6 +548,19 @@ void AudioSystem::ResumeBGM() {
     }
 }
 
+/**************************************************************************
+ * @brief Checks if the background music (BGM) is currently paused.
+ *
+ * This function checks whether the background music (BGM) is paused
+ * by querying the state of the current audio channel. It returns `true`
+ * if the BGM is paused, otherwise returns `false`.
+ *
+ * @note This function assumes that there is an active channel playing
+ * or paused BGM. If no channel is available, it returns `false`.
+ *
+ * @return bool `true` if the BGM is paused, `false` otherwise.
+ *************************************************************************/
+
 bool AudioSystem::IsPaused() const {
     if (currentChannel) {
         bool isPaused = false;
@@ -342,7 +570,18 @@ bool AudioSystem::IsPaused() const {
     return false;
 }
 
-
+/**************************************************************************
+ * @brief Checks if the background music (BGM) is currently playing.
+ *
+ * This function checks whether the background music (BGM) is actively
+ * playing by querying the state of the current audio channel. It returns
+ * `true` if the BGM is playing, otherwise returns `false`.
+ *
+ * @note This function assumes that there is an active channel for the BGM.
+ * If no channel is available, it returns `false`.
+ *
+ * @return bool `true` if the BGM is playing, `false` otherwise.
+ *************************************************************************/
 bool AudioSystem::IsPlaying() const {
     if (currentChannel) {
         bool isPlaying = false;
@@ -351,6 +590,19 @@ bool AudioSystem::IsPlaying() const {
     }
     return false;
 }
+
+/**************************************************************************
+ * @brief Stops the currently playing background music (BGM).
+ *
+ * This function stops the background music (BGM) if it is currently playing.
+ * It stops the current audio channel and resets the channel pointer to `nullptr`.
+ * The FMOD system is then updated to process the stop event.
+ *
+ * @note This function assumes that there is an active channel playing BGM.
+ * If no channel is playing, the function takes no action.
+ *
+ * @return None
+ *************************************************************************/
 
 void AudioSystem::StopBGM() {
     // Stop the current channel if it's playing

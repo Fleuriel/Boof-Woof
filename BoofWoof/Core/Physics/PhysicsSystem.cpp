@@ -1,3 +1,17 @@
+/**************************************************************************
+ * @file PhysicsSystem.cpp
+ * @author 	Ang Jun Sheng Aloysius
+ * @param DP email: a.junshengaloysius@digipen.edu [2201807]
+ * @param Course: CS 3401
+ * @param Course: Game Project 3
+ * @date  23/09/2024 (23 SEPT 2024)
+ * @brief
+ *
+ * This file contains the definitions to initialize the JoltPhysics System
+ *
+ *
+ *************************************************************************/
+
 #include "PhysicsSystem.h"
 #include <Jolt/Physics/Body/Body.h>                   // For Body
 #include <Jolt/Physics/Body/BodyCreationSettings.h>   // For BodyCreationSettings

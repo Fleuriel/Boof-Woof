@@ -390,18 +390,18 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
 			{
-				auto modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModel();
+				auto modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
 				const char* source = "";
 
-				if (modelName == &g_AssetManager.ModelMap["cube"])
+				if (modelName == "cube")
 				{
 					source = "Cube";
 				}
-				if (modelName == &g_AssetManager.ModelMap["sphere"])
+				if (modelName == "sphere")
 				{
 					source = "Sphere";
 				}
-				if (modelName == &g_AssetManager.ModelMap["Square"])
+				if (modelName == "Square")
 				{
 					source = "Square";
 				}
@@ -429,10 +429,10 @@ void ImGuiEditor::InspectorWindow()
 				// Add in the slots to get the value.
 				if (ImGui::Combo("##ModelCombo", &currentModel, inputModelName.c_str(), static_cast<int>(modelNames.size())))
 				{
-					if (currentModel == 0) modelName = &g_AssetManager.ModelMap["cube"];
-					if (currentModel == 1) modelName = &g_AssetManager.ModelMap["sphere"];
-					if (currentModel == 2) modelName = &g_AssetManager.ModelMap["Square"];
-					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModel(modelName);
+					if (currentModel == 0) modelName = "cube";
+					if (currentModel == 1) modelName = "sphere";
+					if (currentModel == 2) modelName ="Square";
+					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setModelName(modelName);
 				}
 
 

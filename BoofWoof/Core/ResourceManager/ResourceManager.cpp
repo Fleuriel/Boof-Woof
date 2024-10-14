@@ -1,3 +1,16 @@
+/**************************************************************************
+ * @file ResourceManager.cpp
+ * @author 	Aaron Chan Jun Xiang
+ * @param DP email: aaronjunxiang.chan@digipen.edu [2200880]
+ * @param Course: CS 3401
+ * @param Course: Game Project 3
+ * @date  10/06/2024 (06 OCTOBER 2024)
+ * @brief
+ *
+ * This file loads resources to be used
+ *
+ *************************************************************************/
+ 
 #pragma warning(push)
 #pragma warning(disable : 4244 4458 4100 5054)
 
@@ -87,43 +100,6 @@ GLuint LoadDDSTexture(const char* filePath) {
     glBindTexture(Target, 0);
 
     return TextureName; // Return the OpenGL texture ID
-}
-
-int SetUpTexture(const char* filename)
-{
-    int width, height, nrChannels;
-    unsigned char* data = stbi_load(filename, &width, &height, &nrChannels, 0);
-    std::cout << "attempting to load from: " << filename << '\n';
-    std::cout << "Image load success: " << (data ? "true" : "false") << '\n';
-
-    if (data)
-    {
-        GLuint textureID;
-        glGenTextures(1, &textureID);
-        glBindTexture(GL_TEXTURE_2D, textureID);
-
-        // Set texture wrapping/filtering options (on the currently bound texture)
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        // Load the texture into OpenGL
-        GLenum format = (nrChannels == 4) ? GL_RGBA : GL_RGB; // Detect format
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        // Free the image memory after uploading it to GPU
-        stbi_image_free(data);
-
-        return textureID;
-    }
-    else
-    {
-        std::cerr << "Failed to load texture: " << filename << std::endl;
-        std::cerr << "Reason: " << stbi_failure_reason() << '\n';
-        return -1;
-    }
 }
 
 // Function to load textures (simulating DDS texture loading here)

@@ -275,6 +275,7 @@ namespace detail
 		else if(Header.Format.fourCC == dx::D3DFMT_DX10 || Header.Format.fourCC == dx::D3DFMT_GLI1)
 			Format = DX.find(Header.Format.fourCC, Header10.Format);
 
+
 		GLI_ASSERT(Format != gli::FORMAT_UNDEFINED);
 
 #pragma warning(push)
@@ -298,6 +299,8 @@ namespace detail
 
 		std::size_t const SourceSize = Offset + Texture.size();
 		GLI_ASSERT(SourceSize == Size);
+		std::memcpy(Texture.data(), Data + Offset, Texture.size());
+
 
 		// Re-enable warning C4189 after the block
 #pragma warning(pop)

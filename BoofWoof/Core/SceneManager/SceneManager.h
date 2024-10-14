@@ -1,3 +1,15 @@
+/**************************************************************************
+ * @file SceneManager.cpp
+ * @author 	Liu Xujie
+ * @param DP email: l.xujie@digipen.edu [2203183]
+ * @param Course: CS 3401
+ * @param Course: Game Project 3
+ * @date  09/25/2024 (25 SEPT 2024)
+ * @brief
+ *
+ * This file contains the declaration of member functions of SceneManager
+ * Class
+ *************************************************************************/
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
 
