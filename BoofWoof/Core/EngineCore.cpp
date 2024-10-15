@@ -90,7 +90,7 @@ void EngineCore::OnInit()
 	// init system
 	mLogicSys->Init();
 	mGraphicsSys->initGraphicsPipeline();
-	//mPhysicSys->InitializeJolt();
+	mPhysicSys->InitializeJolt();
 	//mFontSys->init();
 	
 
@@ -183,4 +183,5 @@ void EngineCore::OnShutdown()
 	// Shutdown window and other systems
 	mLogicSys->Shutdown();
 	g_Window->OnShutdown();
+	mPhysicSys->Cleanup();
 }

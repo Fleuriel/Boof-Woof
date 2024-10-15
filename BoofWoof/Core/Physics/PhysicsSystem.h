@@ -16,7 +16,9 @@
 #define PHYSICSSYSTEM_H
 
 #include <Jolt/Jolt.h>
+#include <Jolt/Core/Factory.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
+#include <Jolt/Core/TempAllocator.h>
 #include <Jolt/Physics/PhysicsSystem.h>
 #include <Jolt/Physics/PhysicsSettings.h>
 #include <Jolt/RegisterTypes.h>
@@ -98,31 +100,18 @@ private:
     JPH::PhysicsSystem* mPhysicsSystem = nullptr;
 };
 
+
 // Custom BroadPhaseLayerInterface
 class MyBroadPhaseLayerInterface : public JPH::BroadPhaseLayerInterface {
 public:
-    /**************************************************************************/
-    /*!
-    \brief Gets the number of broad phase layers.
-
-    \return
-    The number of broad phase layers.
-    */
-    /**************************************************************************/
+    // Gets the number of broad phase layers
     virtual unsigned int GetNumBroadPhaseLayers() const override;
 
-    /**************************************************************************/
-    /*!
-    \brief Gets the broad phase layer for a given object layer.
-
-    \param layer
-    The object layer for which to retrieve the broad phase layer.
-
-    \return
-    The corresponding broad phase layer.
-    */
-    /**************************************************************************/
+    // Gets the broad phase layer for a given object layer
     virtual JPH::BroadPhaseLayer GetBroadPhaseLayer(JPH::ObjectLayer layer) const override;
+
+    // Implement the missing method that was causing the error
+    virtual const char* GetBroadPhaseLayerName(JPH::BroadPhaseLayer layer) const override;
 };
 
 #endif // PHYSICSSYSTEM_H
