@@ -4,7 +4,7 @@ std::shared_ptr<GraphicsSystem> mGraphicsSys;
 std::shared_ptr<AudioSystem> mAudioSys;
 std::shared_ptr<LogicSystem> mLogicSys;
 std::shared_ptr<FontSystem> mFontSys;
-std::shared_ptr<PhysicsSystem> m_PhysicSys;
+std::shared_ptr<PhysicsSystem> mPhysicSys;
 
 
 void EngineCore::OnInit()
@@ -68,7 +68,7 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<FontSystem>(signature);
 	}
 
-	m_PhysicSys = g_Coordinator.RegisterSystem<PhysicsSystem>();
+	mPhysicSys = g_Coordinator.RegisterSystem<PhysicsSystem>();
 	{
 		Signature signature;
 		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
@@ -90,6 +90,7 @@ void EngineCore::OnInit()
 	// init system
 	mLogicSys->Init();
 	mGraphicsSys->initGraphicsPipeline();
+	//mPhysicSys->InitializeJolt();
 	//mFontSys->init();
 	
 
