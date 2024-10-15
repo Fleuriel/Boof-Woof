@@ -8,6 +8,7 @@
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/BehaviourComponent.hpp"
+#include "../Utilities/Components/CollisionComponent.hpp"
 #include "../Utilities/Components/MetaData.hpp"
 
 #include "Windows/WindowManager.h"
@@ -17,6 +18,7 @@
 #include "Graphics/FontSystem.h"
 #include "Logic/LogicSystem.h"
 #include "Physics/PhysicsSystem.h"
+#include "Physics/CollisionSystem.h"
 
 
 #include "Serialization/Serialization.h"

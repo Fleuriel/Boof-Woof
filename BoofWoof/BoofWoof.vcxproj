@@ -194,6 +194,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\Graphics\Shader.cpp" />
     <ClCompile Include="Core\GSM\GameStateMachine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
+    <ClCompile Include="Core\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Core\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Core\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Core\SceneManager\SceneManager.cpp" />
@@ -230,6 +231,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Graphics\Shader.h" />
     <ClInclude Include="Core\GSM\GameStateMachine.h" />
     <ClInclude Include="Core\Input\Input.h" />
+    <ClInclude Include="Core\Physics\CollisionSystem.h" />
     <ClInclude Include="Core\Physics\PhysicsSystem.h" />
     <ClInclude Include="Core\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Core\SceneManager\SceneManager.h" />
@@ -239,6 +241,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Timer\Timer.hpp" />
     <ClInclude Include="Core\Windows\WindowManager.h" />
     <ClInclude Include="Utilities\Components\AudioComponent.hpp" />
+    <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
     <ClInclude Include="Utilities\Components\GraphicsComponent.hpp" />
     <ClInclude Include="Utilities\Components\MetaData.hpp" />
     <ClInclude Include="Utilities\Components\TransformComponent.hpp" />

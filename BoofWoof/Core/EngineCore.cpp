@@ -5,6 +5,7 @@ std::shared_ptr<AudioSystem> mAudioSys;
 std::shared_ptr<LogicSystem> mLogicSys;
 std::shared_ptr<FontSystem> mFontSys;
 std::shared_ptr<PhysicsSystem> mPhysicSys;
+std::shared_ptr<CollisionSystem> mCollisionSys;
 
 
 void EngineCore::OnInit()
@@ -27,6 +28,7 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<TransformComponent>();
 	g_Coordinator.RegisterComponent<GraphicsComponent>();
 	g_Coordinator.RegisterComponent<AudioComponent>();
+	g_Coordinator.RegisterComponent<CollisionComponent>();
 
 	g_Coordinator.RegisterComponent<BehaviourComponent>();
 
@@ -75,6 +77,14 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<PhysicsSystem>(signature);
 	}
 
+	mCollisionSys = g_Coordinator.RegisterSystem<CollisionSystem>();
+	{
+		Signature signature;
+		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		signature.set(g_Coordinator.GetComponentType<CollisionComponent>());
+		g_Coordinator.SetSystemSignature<CollisionSystem>(signature);
+	}
+
 
 	// Create entities
 	{
@@ -84,6 +94,7 @@ void EngineCore::OnInit()
 		g_Coordinator.AddComponent(entity, BehaviourComponent("Movement", entity));
 		g_Coordinator.AddComponent(entity, MetadataComponent("Player", entity));
 		g_Coordinator.AddComponent(entity, AudioComponent("../BoofWoof/Assets/Audio/explode2.wav", 1.0f, false, entity));
+		g_Coordinator.AddComponent(entity, CollisionComponent());
 	}
 	
 
@@ -91,6 +102,7 @@ void EngineCore::OnInit()
 	mLogicSys->Init();
 	mGraphicsSys->initGraphicsPipeline();
 	mPhysicSys->InitializeJolt();
+	mCollisionSys->Init();
 	//mFontSys->init();
 	
 
@@ -166,6 +178,9 @@ void EngineCore::OnUpdate()
 	}
 	{
 		mAudioSys->Update();
+	}
+	{
+		mCollisionSys->Update(m_DeltaTime);
 	}
 
 
