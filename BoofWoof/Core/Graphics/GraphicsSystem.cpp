@@ -130,7 +130,7 @@ void GraphicsSystem::UpdateLoop() {
 				if (g_AssetManager.ModelMap.find(graphicsComp.getModelName()) == g_AssetManager.ModelMap.end())
 				{
 					std::cout << "Model is null" << std::endl;
-					graphicsComp.setModelName("cube");
+					graphicsComp.setModelName("cubeModel");
 					//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
 					continue;
 				}
@@ -258,6 +258,7 @@ void GraphicsSystem::AddModel_3D(std::string const& path)
 
 
 	std::cout << "Loaded: " << path<<" with name: "<<name << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
+
 }
 
 void GraphicsSystem::AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model)
@@ -278,8 +279,9 @@ void GraphicsSystem::AddModel_2D()
 	Model model;
 
 	model = SquareModel(glm::vec3(0.0f));
-
-	g_AssetManager.ModelMap.insert(std::pair<std::string,Model> ("Square", model));
+	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>("Square", model));
+	model = CubeModel(glm::vec3(1.0f));
+	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>("cubeModel", model));
 	std::cout << "Loaded: " << "Square" << " with name: "  << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
 }
 

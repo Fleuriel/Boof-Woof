@@ -393,6 +393,8 @@ void ImGuiEditor::InspectorWindow()
 				auto modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
 				const char* source = "";
 
+				std::cout << modelName << '\n';
+
 				if (modelName == "cube")
 				{
 					source = "Cube";
@@ -405,8 +407,12 @@ void ImGuiEditor::InspectorWindow()
 				{
 					source = "Square";
 				}
+				if (modelName == "cubeModel")
+				{
+					source = "CubeModel";
+				}
 
-				std::vector<std::string> modelNames = { "Cube", "Sphere", "Square"};
+				std::vector<std::string> modelNames = { "Cube", "Sphere", "Square", "CubeModel"};
 				static int currentModel = 0;
 
 				for (int i = 0; i < modelNames.size(); ++i) {
@@ -431,7 +437,8 @@ void ImGuiEditor::InspectorWindow()
 				{
 					if (currentModel == 0) modelName = "cube";
 					if (currentModel == 1) modelName = "sphere";
-					if (currentModel == 2) modelName ="Square";
+					if (currentModel == 2) modelName = "Square";
+					if (currentModel == 3) modelName = "CubeModel";
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setModelName(modelName);
 				}
 
@@ -451,7 +458,7 @@ void ImGuiEditor::InspectorWindow()
 
 				if (GraphicsSystem::debug) // Only show mode selection when Debug Mode is active
 				{
-					
+					// Eventually need to make it so that if u debug, ONLY that wireframe is drawn.
 					if (ImGui::Button("2D"))
 					{
 						GraphicsSystem::D3 = false;

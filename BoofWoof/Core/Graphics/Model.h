@@ -317,6 +317,8 @@ public:
 
 
 Model SquareModel(glm::vec3 color);
+Model CubeModel(glm::vec3 color);
+
 Model SquareModelOutline(glm::vec3 color);
 Model AABB(glm::vec3 color);
 
