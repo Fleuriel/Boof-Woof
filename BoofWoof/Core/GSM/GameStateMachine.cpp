@@ -14,50 +14,54 @@
  *************************************************************************/
 
 #include "GameStateMachine.h"
+#include "Windows/WindowManager.h"
+#include "Level Manager/LevelManager.h"
+#include "EngineCore.h"
 
+extern bool g_WindowClosed;
 GameStates g_CurrentState{}, g_PreviousState{}, g_NextState{};
 
 void UpdateGSM()
 {
-	//while (g_CurrentState != GameStates::QUIT)
-	//{
-	//	if (g_CurrentState != GameStates::RESTART)
-	//	{
-	//		g_LevelManager.LoadLevel();
-	//	}
-	//	else
-	//	{
-	//		// When restart level is triggered
-	//		g_LevelManager.SetNextLevel(g_LevelManager.GetPreviousLevel());
-	//		g_LevelManager.SetCurrentLevel(g_LevelManager.GetPreviousLevel());
-	//	}
+	while (g_CurrentState != GameStates::QUIT)
+	{
+		if (g_CurrentState != GameStates::RESTART)
+		{
+			g_LevelManager.LoadLevel();
+		}
+		else
+		{
+			// When restart level is triggered
+			g_LevelManager.SetNextLevel(g_LevelManager.GetPreviousLevel());
+			g_LevelManager.SetCurrentLevel(g_LevelManager.GetPreviousLevel());
+		}
 
-	//	g_LevelManager.InitLevel();
+		g_LevelManager.InitLevel();
 
-	//	// Game loop
-	//	while (g_LevelManager.GetNextLevel() == g_LevelManager.GetCurrentLevel())
-	//	{
-	//		//g_Core->OnUpdate();	// outside of the above loop to render once per frame for efficiency
+		// Game loop
+		while (g_LevelManager.GetNextLevel() == g_LevelManager.GetCurrentLevel())
+		{
+			g_Core->OnUpdate();	// outside of the above loop to render once per frame for efficiency
 
-	//		//g_LevelManager.UpdateLevel(g_Core->m_DeltaTime);
+			g_LevelManager.UpdateLevel(g_Core->m_DeltaTime);
 
-	//		//if (glfwWindowShouldClose(g_Window->GetGLFWWindow()) || g_LevelManager.GetNextLevel() == nullptr)
-	//		//{
-	//		//	g_CurrentState = GameStates::QUIT;
-	//		//	break;
-	//		//}
-	//	}
+			if (g_WindowClosed || glfwWindowShouldClose(g_Window->GetGLFWWindow()) || g_LevelManager.GetNextLevel() == nullptr)
+			{
+				g_CurrentState = GameStates::QUIT;
+				break;
+			}
+		}
 
-	//	g_LevelManager.FreeLevel();
+		g_LevelManager.FreeLevel();
 
-	//	if (g_NextState != GameStates::RESTART)
-	//	{
-	//		g_LevelManager.UnloadLevel();
-	//	}
+		if (g_NextState != GameStates::RESTART)
+		{
+			g_LevelManager.UnloadLevel();
+		}
 
-	//	g_LevelManager.SetPreviousLevel(g_LevelManager.GetCurrentLevel());
-	//	g_LevelManager.SetCurrentLevel(g_LevelManager.GetNextLevel());
-	//}
+		g_LevelManager.SetPreviousLevel(g_LevelManager.GetCurrentLevel());
+		g_LevelManager.SetCurrentLevel(g_LevelManager.GetNextLevel());
+	}
 }
 
 //std::chrono::high_resolution_clock::time_point currentTime;

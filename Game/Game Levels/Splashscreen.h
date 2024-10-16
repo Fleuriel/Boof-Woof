@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Level Manager/Level.h"
 #include "ECS/Coordinator.hpp"
 

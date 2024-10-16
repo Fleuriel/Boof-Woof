@@ -17,9 +17,6 @@
 #ifndef GAME_STATE_MACHINE_H
 #define GAME_STATE_MACHINE_H
 
-#include "Level Manager/LevelManager.h"
-#include "EngineCore.h"
-
 enum class GameStates
 {
 	SPLASHSCREEN,

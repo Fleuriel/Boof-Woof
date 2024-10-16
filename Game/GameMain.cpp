@@ -1,9 +1,10 @@
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
-//#include "../BoofWoof/Core/EngineCore.h"
-#include "GSM/GameStateMachine.h"
+#include "../BoofWoof/Core/EngineCore.h"
+#include "Level Manager/LevelManager.h"
 #include "Game Levels/Splashscreen.h"
+#include "GSM/GameStateMachine.h"
 
 EngineCore* g_Core = nullptr;
 
@@ -35,11 +36,12 @@ int main()
 	g_Core->OnInit();
 
 	InitializeLevels();
-	//UpdateGSM();
+	UpdateGSM();
 
+	// idk why if i comment out line 41, it crashes .-.
 	while (!glfwWindowShouldClose(g_Window->GetGLFWWindow()))
 	{
-		g_Core->OnUpdate();
+		//g_Core->OnUpdate();
 	}
 
 	g_Core->OnShutdown();
