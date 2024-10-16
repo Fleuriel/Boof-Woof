@@ -1,12 +1,12 @@
 {
-    "SceneGUID": "c5ef7bc3-6583-42a2-9a5d-c998c3dfba48",
+    "SceneGUID": "5e226853-206f-4e47-a624-40f1e2717e15",
     "Entities": [
         {
             "EntityName": "Player",
             "Position": {
-                "x": 0.0,
+                "x": -1.5000001192092896,
                 "y": 0.0,
-                "z": 0.0
+                "z": -1.3000000715255738
             },
             "Scale": {
                 "x": 1.0,

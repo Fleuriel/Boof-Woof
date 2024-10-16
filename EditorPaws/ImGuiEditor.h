@@ -60,6 +60,11 @@ public:
 	std::filesystem::path m_CurrDir = m_BaseDir;
 	std::string m_LastOpenedFile{};
 
+	// For saving files
+	std::string m_FileName{};
+	std::string m_FinalFileName{};
+	std::string m_FilePath{};
+
 	bool m_IsSelected{ false };
 	bool m_PlayerExist{ false };
 

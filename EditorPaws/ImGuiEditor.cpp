@@ -782,6 +782,9 @@ void ImGuiEditor::Scenes()
 	static bool showTransitionPopup = false;
 	static float transitionDuration = 1.0f; // Default transition duration
 	static bool showSceneSelectionWarning = false; // Flag to show the warning
+	static bool showOverwritePopup = false;
+	static bool showSavedPopup = false;
+	static bool showFailedPopup = false;
 
 	ImGui::Begin("Scenes");
 	{
@@ -823,31 +826,32 @@ void ImGuiEditor::Scenes()
 
 			if (ImGui::Button("Save"))
 			{
-				std::string fileName = fileNameBuffer;
-				if (fileName.empty())
+				m_FileName = fileNameBuffer;
+				if (m_FileName.empty())
 				{
-					fileName = "unnamed_scene";
+					m_FileName = "unnamed_scene";
 				}
 
-				std::string finalFileName = fileName;
-				std::string filePath = GetScenesDir() + "/" + finalFileName + ".json";
-				int counter = 1;
+				m_FinalFileName = m_FileName;
+				m_FilePath = GetScenesDir() + "/" + m_FinalFileName + ".json";
 
-				while (fs::exists(filePath)) {
-					finalFileName = fileName + "_" + std::to_string(counter);
-					filePath = GetScenesDir() + "/" + finalFileName + ".json";
-					counter++;
+				if (fs::exists(m_FilePath))
+				{
+					showSavePopup = false;
+					showOverwritePopup = true;
 				}
+				else 
+				{
+					showSavePopup = false;
 
-				if (g_SceneManager.SaveScene(finalFileName + ".json")) {
-					ImGui::OpenPopup("Saved");
+					if (g_SceneManager.SaveScene(m_FinalFileName + ".json")) 
+					{
+						showSavedPopup = true;
+					}
+					else {
+						showFailedPopup = true;
+					}
 				}
-				else {
-					ImGui::OpenPopup("Failed");
-				}
-
-				showSavePopup = false;
-				ImGui::CloseCurrentPopup();
 			}
 
 			ImGui::SameLine();
@@ -860,26 +864,85 @@ void ImGuiEditor::Scenes()
 			ImGui::EndPopup();
 		}
 
+		if (showOverwritePopup)
+		{
+			ImGui::OpenPopup("Overwrite Confirmation");			
+		}
+
+		if (ImGui::BeginPopupModal("Overwrite Confirmation", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			showOverwritePopup = false;
+			ImGui::Text("\nFile already exists. Do you want to overwrite?\n\n");
+
+			if (ImGui::Button("Yes"))
+			{
+				// Overwrite the file
+				if (g_SceneManager.SaveScene(m_FinalFileName + ".json"))
+				{
+					showSavedPopup = true;
+				}
+				else {
+					showFailedPopup = true;
+				}
+				ImGui::CloseCurrentPopup();  // Close the overwrite popup
+			}
+
+			ImGui::SameLine();
+
+			if (ImGui::Button("No"))
+			{
+				int counter = 1;
+
+				while (fs::exists(m_FilePath)) 
+				{
+					m_FinalFileName = m_FileName + "_" + std::to_string(counter);
+					m_FilePath = GetScenesDir() + "/" + m_FinalFileName + ".json";
+					counter++;
+				}
+
+				if (g_SceneManager.SaveScene(m_FinalFileName + ".json")) 
+				{
+					showSavedPopup = true;
+				}
+				else {
+					showFailedPopup = true;
+				}
+				ImGui::CloseCurrentPopup();  // Close the overwrite popup
+			}
+
+			ImGui::EndPopup();
+		}
+
+		if (showSavedPopup) 
+		{
+			ImGui::OpenPopup("Saved");
+		}
+
 		// Confirmation popup when the scene is saved
 		if (ImGui::BeginPopupModal("Saved", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 		{
 			ImGui::Text("\nYour world has been saved!\n\n");
-			ImGui::Separator();
 
 			if (ImGui::Button("OK", ImVec2(50, 0)))
 			{
+				showSavedPopup = false;
 				ImGui::CloseCurrentPopup();
 			}
 			ImGui::EndPopup();
 		}
 
+		if (showFailedPopup)
+		{
+			ImGui::OpenPopup("Failed");
+		}
+
 		if (ImGui::BeginPopupModal("Failed", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 		{
 			ImGui::Text("\nSaving failed! Try again.\n\n");
-			ImGui::Separator();
 
 			if (ImGui::Button("OK", ImVec2(50, 0)))
 			{
+				showFailedPopup = false;
 				ImGui::CloseCurrentPopup();
 			}
 			ImGui::EndPopup();
