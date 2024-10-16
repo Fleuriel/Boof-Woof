@@ -1,9 +1,12 @@
+#pragma once
+
 #include <string>
 #include <memory>
 #include <unordered_map>
 #include "Level.h"
 
-#pragma once
+#define g_LevelManager LevelManager::GetInstance()
+
 class LevelManager 
 {
 public:
@@ -17,6 +20,7 @@ public:
     void UpdateLevel(double deltaTime);                                 // Update current level
     void FreeLevel();                                                   // Free current Level
     void UnloadLevel();                                                 // Unload current level
+    ~LevelManager();                                                    // Destructor
 
     // Setting the levels
     void SetCurrentLevel(const std::string& levelName);
