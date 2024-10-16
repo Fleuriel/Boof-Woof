@@ -19,6 +19,7 @@ bool GraphicsSystem::glewInitialized = false;
 bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
 
+//int GraphicsSystem::set_Texture_ = 0;
 //std::vector<Model2D> models;
 
 Camera		camera;
@@ -129,14 +130,15 @@ void GraphicsSystem::UpdateLoop() {
 				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 				if (g_AssetManager.ModelMap.find(graphicsComp.getModelName()) == g_AssetManager.ModelMap.end())
 				{
-					std::cout << "Model is null" << std::endl;
-					graphicsComp.setModelName("cubeModel");
+					/* We do not need these anymore */
+					 
+					// std::cout << "Model is null" << std::endl;
+					//graphicsComp.setModelName("cubeModel");
 					//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
 					continue;
 				}
-				//int tex1 = g_ResourceManager.GetTextureDDS("Sadge");
-//				int tex2 = g_AssetManager.GetTexture("Pepega");
-								
+
+
 
 				// START OF 3D
 
@@ -279,10 +281,11 @@ void GraphicsSystem::AddModel_2D()
 	Model model;
 
 	model = SquareModel(glm::vec3(0.0f));
-	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>("Square", model));
+	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>(model.name, model));
+	std::cout << "Loaded: " << model.name << " with name: " << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
 	model = CubeModel(glm::vec3(1.0f));
-	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>("cubeModel", model));
-	std::cout << "Loaded: " << "Square" << " with name: "  << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
+	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>(model.name, model));
+	std::cout << "Loaded: " << model.name << " with name: " << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
 }
 
 

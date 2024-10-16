@@ -16,6 +16,10 @@
 #include <set>
 #include <vector>
 #include "ResourceManager/ResourceManager.h"
+
+
+int GraphicsSystem::set_Texture_ = 0;
+
 //
 //
 //
@@ -118,6 +122,7 @@ Model SquareModel(glm::vec3 color)
 	glVertexArrayElementBuffer(vaoid, ebo_hdl);
 
 	// Store information in the model structure
+	mdl.name = "Square";
 	mdl.vaoid = vaoid;
 	mdl.primitive_type = GL_TRIANGLE_FAN; // Use GL_TRIANGLE_FAN for a square
 	mdl.draw_cnt = static_cast<GLsizei>(idx_vtx.size());
@@ -147,10 +152,10 @@ Model CubeModel(glm::vec3 color)
 		{ glm::vec3(-0.5f,  0.5f,  0.5f), color, glm::vec2(0.0f, 0.0f) }, // Top-left
 
 		// Back face
-		{ glm::vec3(0.5f,  0.5f, -0.5f), color, glm::vec2(0.0f, 0.0f) }, // Top-right
-		{ glm::vec3(0.5f, -0.5f, -0.5f), color, glm::vec2(0.0f, 1.0f) }, // Bottom-right
-		{ glm::vec3(-0.5f, -0.5f, -0.5f), color, glm::vec2(1.0f, 1.0f) }, // Bottom-left
-		{ glm::vec3(-0.5f,  0.5f, -0.5f), color, glm::vec2(1.0f, 0.0f) }, // Top-left
+		{ glm::vec3(0.5f,  0.5f, -0.5f), color, glm::vec2(1.0f, 0.0f) }, // Top-right
+		{ glm::vec3(0.5f, -0.5f, -0.5f), color, glm::vec2(1.0f, 1.0f) }, // Bottom-right
+		{ glm::vec3(-0.5f, -0.5f, -0.5f), color, glm::vec2(0.0f, 1.0f) }, // Bottom-left
+		{ glm::vec3(-0.5f,  0.5f, -0.5f), color, glm::vec2(0.0f, 0.0f) }, // Top-left
 
 		// Left face
 		{ glm::vec3(-0.5f,  0.5f,  0.5f), color, glm::vec2(1.0f, 0.0f) }, // Top-right
@@ -159,10 +164,10 @@ Model CubeModel(glm::vec3 color)
 		{ glm::vec3(-0.5f,  0.5f, -0.5f), color, glm::vec2(0.0f, 0.0f) }, // Top-left
 
 		// Right face
-		{ glm::vec3(0.5f,  0.5f,  0.5f), color, glm::vec2(0.0f, 0.0f) }, // Top-right
-		{ glm::vec3(0.5f, -0.5f,  0.5f), color, glm::vec2(0.0f, 1.0f) }, // Bottom-right
-		{ glm::vec3(0.5f, -0.5f, -0.5f), color, glm::vec2(1.0f, 1.0f) }, // Bottom-left
-		{ glm::vec3(0.5f,  0.5f, -0.5f), color, glm::vec2(1.0f, 0.0f) }, // Top-left
+		{ glm::vec3(0.5f,  0.5f,  0.5f), color, glm::vec2(1.0f, 0.0f) }, // Top-right
+		{ glm::vec3(0.5f, -0.5f,  0.5f), color, glm::vec2(1.0f, 1.0f) }, // Bottom-right
+		{ glm::vec3(0.5f, -0.5f, -0.5f), color, glm::vec2(0.0f, 1.0f) }, // Bottom-left
+		{ glm::vec3(0.5f,  0.5f, -0.5f), color, glm::vec2(0.0f, 0.0f) }, // Top-left
 
 		// Top face
 		{ glm::vec3(0.5f,  0.5f, -0.5f), color, glm::vec2(1.0f, 0.0f) }, // Top-right
@@ -233,6 +238,8 @@ Model CubeModel(glm::vec3 color)
 	glVertexArrayElementBuffer(vaoid, ebo_hdl);
 
 	// Store information in the model structure
+
+	mdl.name = "cubeModel";
 	mdl.vaoid = vaoid;
 	mdl.primitive_type = GL_TRIANGLES; // Use GL_TRIANGLES for rendering the cube
 	mdl.draw_cnt = static_cast<GLsizei>(indices.size());
@@ -241,7 +248,6 @@ Model CubeModel(glm::vec3 color)
 	// Return model
 	return mdl;
 }
-
 
 
 
@@ -371,12 +377,17 @@ Model AABB(glm::vec3 color)
 void Model::Draw2D(OpenGLShader& shader)
 {
 	int tex = 0;
-	tex = g_ResourceManager.GetTextureDDS("Sadge");
+	
+	
+	//tex = g_ResourceManager.GetTextureDDS("Sadge");
+	tex = GraphicsSystem::set_Texture_;
 
-	//std::cout << "Tex : ||" << tex << '\n';
+	//std::cout << tex << '\n';
 
 	shader.SetUniform("uTex2d", 6);
 	//shader.SetUniform("")
+
+
 
 	glBindTextureUnit(6, tex);
 

@@ -18,6 +18,8 @@
 
 
 bool GraphicsSystem::debug = false;
+
+
 namespace fs = std::filesystem;
 
 //Helper function to locate save file directory
@@ -390,29 +392,29 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
 			{
-				auto modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
+				auto modelGetter = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
 				const char* source = "";
 
-				std::cout << modelName << '\n';
+				//std::cout << modelName << '\n';
 
-				if (modelName == "cube")
+				if (modelGetter == "cube")
 				{
 					source = "Cube";
 				}
-				if (modelName == "sphere")
+				if (modelGetter == "sphere")
 				{
 					source = "Sphere";
 				}
-				if (modelName == "Square")
+				if (modelGetter == "Square")
 				{
 					source = "Square";
 				}
-				if (modelName == "cubeModel")
+				if (modelGetter == "cubeModel")
 				{
-					source = "CubeModel";
+					source = "cubeModel";
 				}
 
-				std::vector<std::string> modelNames = { "Cube", "Sphere", "Square", "CubeModel"};
+				std::vector<std::string> modelNames = { "Select Texture",  "Cube", "Sphere", "Square", "cubeModel"};
 				static int currentModel = 0;
 
 				for (int i = 0; i < modelNames.size(); ++i) {
@@ -421,6 +423,7 @@ void ImGuiEditor::InspectorWindow()
 						currentModel = i;
 					}
 				}
+				
 
 				std::string inputModelName;
 
@@ -435,11 +438,14 @@ void ImGuiEditor::InspectorWindow()
 				// Add in the slots to get the value.
 				if (ImGui::Combo("##ModelCombo", &currentModel, inputModelName.c_str(), static_cast<int>(modelNames.size())))
 				{
-					if (currentModel == 0) modelName = "cube";
-					if (currentModel == 1) modelName = "sphere";
-					if (currentModel == 2) modelName = "Square";
-					if (currentModel == 3) modelName = "CubeModel";
-					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setModelName(modelName);
+					if (currentModel == 0) modelGetter = " ";
+					if (currentModel == 1) modelGetter = "cube";
+					if (currentModel == 2) modelGetter = "sphere";
+					if (currentModel == 3) modelGetter = "Square";
+					if (currentModel == 4) modelGetter = "cubeModel";
+					
+					
+					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setModelName(modelGetter);
 				}
 
 
@@ -450,6 +456,39 @@ void ImGuiEditor::InspectorWindow()
 				if (ImGui::DragInt("##ModelID", &modelID, 1))
 				{
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModelID(modelID);
+				}
+
+
+				if (ImGui::Button("Set Texture"))
+				{
+					std::cout << "ButtoN clicked\n";
+					ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png", "../BoofWoof/Assets/DDS/");
+	//				ImGuiFileDialog::Instance()->OpenDialog("SelectTexture", "Choose File", ".dds, .png", "../BoofWoof/Assets");
+				}
+
+				if (ImGuiFileDialog::Instance()->Display("AddAsset"))
+				{
+					// If the user pressed "Ok"
+					if (ImGuiFileDialog::Instance()->IsOk())
+					{
+						// Get the selected file path
+						std::string selected_file = ImGuiFileDialog::Instance()->GetCurrentFileName();
+
+						// Find the last occurrence of the dot (.) to identify the file extension
+						size_t last_dot_position = selected_file.find_last_of(".");
+
+						// Truncate the file extension (only if a dot is found)
+						if (last_dot_position != std::string::npos)
+						{
+							// Keep the part of the string before the last dot
+							selected_file = selected_file.substr(0, last_dot_position);
+						}
+						
+
+						// Use the file path (e.g., set a texture, load a model, etc.)
+						GraphicsSystem::set_Texture_ = g_ResourceManager.GetTextureDDS(selected_file);
+					}
+					ImGuiFileDialog::Instance()->Close();
 				}
 
 
