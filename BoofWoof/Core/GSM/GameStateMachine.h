@@ -17,8 +17,8 @@
 #ifndef GAME_STATE_MACHINE_H
 #define GAME_STATE_MACHINE_H
 
-#include "Windows/WindowManager.h"
-#include "Level Manager/LevelManager.h"
+//#include "Level Manager/LevelManager.h"
+//#include "EngineCore.h"
 
 enum class GameStates
 {
