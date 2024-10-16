@@ -395,52 +395,36 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
 			{
-				auto modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
-				const char* source = "";
-
-				if (modelName == "cube")
+				std::string modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
+				if (modelName.empty())
 				{
-					source = "Cube";
-				}
-				if (modelName == "sphere")
-				{
-					source = "Sphere";
-				}
-				if (modelName == "Square")
-				{
-					source = "Square";
+					std::cerr << "Error: modelName is null!" << std::endl;
+					return;
 				}
 
-				std::vector<std::string> modelNames = { "Cube", "Sphere", "Square"};
-				static int currentModel = 0;
+				// Just add onto the mNames if got new models
+				std::string mNames[] = { "cube", "sphere", "Square" };
+				static int currentItem = 0;
 
-				for (int i = 0; i < modelNames.size(); ++i) {
-
-					if (modelNames[i].c_str()  == source) {
-						currentModel = i;
+				for (int i = 0; i < IM_ARRAYSIZE(mNames); ++i)
+				{
+					if (mNames[i] == modelName)
+					{
+						currentItem = i;
 					}
-				}
-
-				std::string inputModelName;
-
-				for (const auto& name : modelNames)
-				{
-					inputModelName += name + '\0';
 				}
 
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Model   "); ImGui::SameLine();
-				
-				// Add in the slots to get the value.
-				if (ImGui::Combo("##ModelCombo", &currentModel, inputModelName.c_str(), static_cast<int>(modelNames.size())))
+
+				if (ImGui::Combo("##ModelCombo", &currentItem, [](void* data, int idx, const char** out_text) {
+					*out_text = ((std::string*)data)[idx].c_str();
+				return true;
+					}, (void*)mNames, IM_ARRAYSIZE(mNames)))
 				{
-					if (currentModel == 0) modelName = "cube";
-					if (currentModel == 1) modelName = "sphere";
-					if (currentModel == 2) modelName ="Square";
+					modelName = mNames[currentItem];
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setModelName(modelName);
 				}
-
-
 
 				// modelID
 				auto modelID = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelID();
