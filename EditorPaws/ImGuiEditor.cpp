@@ -80,6 +80,7 @@ void ImGuiEditor::ImGuiUpdate()
 	AssetWindow();
 	Settings();
 	Scenes();
+	PlayStopRunBtn();
 
 	if (m_ShowAudio)
 	{
@@ -217,11 +218,15 @@ void ImGuiEditor::WorldHierarchy()
 
 		// Displaying hierarchy game objects - have to check for player next time
 		const std::vector<Entity>& allEntities = g_Coordinator.GetAliveEntitiesSet();
+		m_PlayerExist = false;
 
 		for (const auto& entity : allEntities)
 		{
 			// looping through to get EntityID, use the entityID to get the name of object		
 			auto& name = g_Coordinator.GetComponent<MetadataComponent>(entity).GetName();
+
+			// checking based on whether game object has a name called "Player"
+			if (name == "Player") m_PlayerExist = true;
 
 			ImGuiTreeNodeFlags nodeFlags = ((g_SelectedEntity == entity) ? ImGuiTreeNodeFlags_Selected : 0) | (ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen);
 			ImGui::TreeNodeEx(reinterpret_cast<void*>(static_cast<intptr_t>(entity)), nodeFlags, name.c_str());
@@ -807,6 +812,7 @@ void ImGuiEditor::Scenes()
 			if (ImGuiFileDialog::Instance()->IsOk())
 			{
 				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+				m_LastOpenedFile = filePathName;
 				g_SceneManager.LoadScene(filePathName);
 			}
 			ImGuiFileDialog::Instance()->Close();
@@ -1061,4 +1067,92 @@ void ImGuiEditor::Audio()
 	}
 
 	ImGui::PopStyleColor(3);
+}
+
+void ImGuiEditor::PlayStopRunBtn()
+{
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 2));						// so that there's a padding at the bottom of the button
+
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));							// make button transparent
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.305f, 0.31f, 0.5f));	// same as original imgui colors but just lighter opacity
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.3f, 0.305f, 0.31f, 0.5f));
+
+	ImGui::Begin("##PlayStopButtons", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	{
+		float size = ImGui::GetWindowHeight() - 4.0f;
+		std::string icon = (m_State == States::Stop) ? "PlayButton" : "StopButton";
+		// half the button, offset -> centered
+		ImGui::SameLine((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
+
+		// If player doesn't exist, don't allow it to run.
+		if (!m_PlayerExist)
+		{
+			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+			ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f); // Optional: reduce the button's alpha to make it look disabled
+		}
+
+		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_ResourceManager.GetTextureDDS(icon), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
+		{
+			switch (m_State)
+			{
+			case States::Play:
+				if (m_State != States::Stop) 
+				{
+					// Hide this part first, will uncomment later on when basic scene is ready.
+					/*g_Coordinator.ResetEntities();
+					g_SceneManager.LoadScene(m_LastOpenedFile);*/
+					m_State = States::Stop;
+				}
+				break;
+
+			case States::Stop:
+				if (m_State != States::Play) 
+				{
+					// Maybe check whether editor active ? 
+					m_State = States::Play;
+				}
+				break;
+			}
+		}
+
+		if (m_State == States::Play && ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::Text("Stop");
+			ImGui::EndTooltip();
+
+		}
+		if (m_State == States::Stop && ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::Text("Play");
+			ImGui::EndTooltip();
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_ResourceManager.GetTextureDDS("RunScene"), {size,size}, ImVec2(0, 0), ImVec2(1, 1), 0))
+		{
+			// Go to full screen & Run actual game
+		}
+
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::Text("Run Scene");
+			ImGui::EndTooltip();
+		}
+
+		ImGui::PopStyleVar();
+		ImGui::PopStyleColor(3);
+
+		if (!m_PlayerExist)
+		{
+			// Re-enable future items
+			ImGui::PopItemFlag();
+			ImGui::PopStyleVar(); // Only if you pushed the style var
+		}
+
+		ImGui::End();
+	}
 }
