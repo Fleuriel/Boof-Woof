@@ -5,28 +5,28 @@
 
 class Splashscreen : public Level 
 {
-	//void LoadLevel() 
-	//{
-	//	g_SceneManager.LoadScene("");
-	//}
+	void LoadLevel() 
+	{
+		g_SceneManager.LoadScene("");
+	}
 
-	//void InitLevel() { /* Empty by design */ }
+	void InitLevel() { /* Empty by design */ }
 
-	//void UpdateLevel(double deltaTime) 
-	//{
-	//	(void)deltaTime;
+	void UpdateLevel(double deltaTime) 
+	{
+		(void)deltaTime;
 
-	//	// Press space to skip Splashscreen
-	//	if (g_Input.GetKeyState(GLFW_KEY_SPACE) == 1) 
-	//	{
-	//		g_LevelManager.SetNextLevel("");
-	//	}
-	//}
+		// Press space to skip Splashscreen
+		if (g_Input.GetKeyState(GLFW_KEY_SPACE) == 1) 
+		{
+			g_LevelManager.SetNextLevel("");
+		}
+	}
 
-	//void FreeLevel() { /*Empty by design*/ }
+	void FreeLevel() { /*Empty by design*/ }
 
-	//void UnloadLevel() 
-	//{
-	//	g_Coordinator.ResetEntities();
-	//}
+	void UnloadLevel() 
+	{
+		g_Coordinator.ResetEntities();
+	}
 };
