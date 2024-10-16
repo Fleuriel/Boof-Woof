@@ -31,7 +31,7 @@ using GetScripts_cpp_t = std::vector<std::unique_ptr<Behaviour_i>>* (*)(engine_i
 
 // This class should only be visible to the engine
 #include  "Common.h"
-class Engine : public engine_interface
+class Script_to_Engine : public engine_interface
 {
 	virtual void AddComponent(Entity entity, ComponentType type) {}
 };
