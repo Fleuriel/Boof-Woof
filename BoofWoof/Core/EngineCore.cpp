@@ -67,30 +67,15 @@ void EngineCore::OnInit()
 	}
 
 
-	// Create entities
-	{
-		Entity entity = g_Coordinator.CreateEntity();
-		g_Coordinator.AddComponent(entity, TransformComponent());
-		g_Coordinator.AddComponent(entity, GraphicsComponent());
-		g_Coordinator.AddComponent(entity, BehaviourComponent("Movement", entity));
-		g_Coordinator.AddComponent(entity, MetadataComponent("Player", entity));
-		g_Coordinator.AddComponent(entity, AudioComponent("../BoofWoof/Assets/Audio/explode2.wav", 1.0f, false, entity));
-	}
-	
-
 	// init system
 	mLogicSys->Init();
 	mGraphicsSys->initGraphicsPipeline();
 	//mFontSys->init();
-	
-
-	
+		
 
 	// Just leave this part at the most bottom
 	m_AccumulatedTime = 0.0;		// elapsed time
 	m_CurrNumSteps = 0;
-
-	//mAudioSys->PlayBGM("../BoofWoof/Assets/Audio/Test.wav");
 }
 
 void EngineCore::OnUpdate()
