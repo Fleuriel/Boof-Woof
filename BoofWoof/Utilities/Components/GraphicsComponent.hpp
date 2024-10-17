@@ -36,6 +36,12 @@ public:
 	std::string getModelName() { return m_ModelName; }
 	int getModelID() { return m_ModelID; }
 
+
+	void setTexture(std::string texture) { textureName = texture; }
+	std::string getTexture() { return textureName; }
+
+
+
     // Constructor and destructor
 	GraphicsComponent() {};
 	
@@ -49,6 +55,7 @@ private:
 	Entity m_EntityID{};
 	std::string m_ModelName{};
 	int m_ModelID{};
+	std::string textureName;
 };
 
 #endif  // GRAPHICS_COMPONENT_H

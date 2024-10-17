@@ -374,13 +374,19 @@ Model AABB(glm::vec3 color)
 }
 
 
+
+
+/* Draw */
+
+
 void Model::Draw2D(OpenGLShader& shader)
 {
 	int tex = 0;
 	
-	
+
 	//tex = g_ResourceManager.GetTextureDDS("Sadge");
 	tex = GraphicsSystem::set_Texture_;
+	
 
 	//std::cout << tex << '\n';
 
