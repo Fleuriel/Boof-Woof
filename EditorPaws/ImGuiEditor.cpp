@@ -488,7 +488,7 @@ void ImGuiEditor::InspectorWindow()
 						// Use the file path (e.g., set a texture, load a model, etc.)
 						GraphicsSystem::set_Texture_ = g_ResourceManager.GetTextureDDS(selected_file);
 
-						g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setTexture(selected_file);
+						g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setTexture(GraphicsSystem::set_Texture_);
 					}
 					ImGuiFileDialog::Instance()->Close();
 				}

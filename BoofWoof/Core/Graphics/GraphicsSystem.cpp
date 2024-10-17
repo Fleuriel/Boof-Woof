@@ -172,6 +172,21 @@ void GraphicsSystem::UpdateLoop() {
 
 				SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
 				//shader.Use();
+			
+
+
+				//tex = g_ResourceManager.GetTextureDDS("Sadge");
+				
+
+				set_Texture_T = GraphicsSystem::set_Texture_;
+
+
+				g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
+				//shader.SetUniform("")
+
+
+
+				glBindTextureUnit(6, set_Texture_T);
 
 
 				//graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));

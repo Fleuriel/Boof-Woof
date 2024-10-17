@@ -322,17 +322,17 @@ bool Serialization::LoadScene(const std::string& filepath) {
                     graphicsComponent.SetModelID(modelID);
                     g_Coordinator.AddComponent(entity, graphicsComponent);
 
+
                     if (entityData.HasMember("Texture"))
                     {
                         std::string TextureName = entityData["Texture"].GetString();
 
                         GraphicsSystem::set_Texture_ = g_ResourceManager.GetTextureDDS(TextureName);
-                       
+
+                        graphicsComponent.setTexture(g_ResourceManager.GetTextureDDS(TextureName));
                     }
 
                 }
-
-   
 
                 
             }

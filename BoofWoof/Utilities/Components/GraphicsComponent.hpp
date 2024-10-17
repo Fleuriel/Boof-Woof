@@ -37,8 +37,8 @@ public:
 	int getModelID() { return m_ModelID; }
 
 
-	void setTexture(std::string texture) { textureName = texture; }
-	std::string getTexture() { return textureName; }
+	void setTexture(int texture) { textureName = texture; }
+	int getTexture() { return textureName; }
 
 
 
@@ -55,7 +55,7 @@ private:
 	Entity m_EntityID{};
 	std::string m_ModelName{};
 	int m_ModelID{};
-	std::string textureName;
+	int textureName;
 };
 
 #endif  // GRAPHICS_COMPONENT_H

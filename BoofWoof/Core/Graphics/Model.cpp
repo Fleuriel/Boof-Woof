@@ -381,24 +381,8 @@ Model AABB(glm::vec3 color)
 
 void Model::Draw2D(OpenGLShader& shader)
 {
-	int tex = 0;
-	
-
-	//tex = g_ResourceManager.GetTextureDDS("Sadge");
-	tex = GraphicsSystem::set_Texture_;
-	
-
-	//std::cout << tex << '\n';
-
-	shader.SetUniform("uTex2d", 6);
-	//shader.SetUniform("")
-
-
-
-	glBindTextureUnit(6, tex);
 
 	glBindVertexArray(vaoid);
-
 	//std::cout << vaoid << '\n';
 	glDrawElements(primitive_type, draw_cnt, GL_UNSIGNED_SHORT, nullptr);
 
