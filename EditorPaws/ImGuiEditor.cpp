@@ -353,39 +353,43 @@ void ImGuiEditor::InspectorWindow()
 				}
 			}
 		}
-
-		// Transform
+		//Transform
 		if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
 		{
 			if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_None))
 			{
-				auto& Position = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetPosition();
+				auto& transformComponent = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+
+				// Use getter for Position
+				auto Position = transformComponent.GetPosition();
 				ImGui::PushItemWidth(250.0f);
 				ImGui::Text("Position"); ImGui::SameLine();
 
 				if (ImGui::DragFloat3("##Position", static_cast<float*>(&Position.x), 0.5f))
 				{
-					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetPosition(Position);
+					transformComponent.SetPosition(Position);
 				}
 
-				auto& Scale = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetScale();
+				// Use getter for Scale
+				auto Scale = transformComponent.GetScale();
 				ImGui::Text("Scale   "); ImGui::SameLine();
 
 				if (ImGui::DragFloat3("##Scale", static_cast<float*>(&Scale.x), 0.5f, 0.0f, FLT_MAX))
 				{
-					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetScale(Scale);
+					transformComponent.SetScale(Scale);
 				}
 
-				auto& rotation = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetRotation();
+				// Use getter for Rotation
+				auto Rotation = transformComponent.GetRotation();
 				ImGui::Text("Rotation"); ImGui::SameLine();
 
-				if (ImGui::DragFloat3("##Rotation", static_cast<float*>(&rotation.x), 0.5f))
+				if (ImGui::DragFloat3("##Rotation", static_cast<float*>(&Rotation.x), 0.5f))
 				{
-					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetRotation(rotation);
+					transformComponent.SetRotation(Rotation);
 				}
 			}
 		}
-
+		//Graphics
 		if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 		{
 			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))

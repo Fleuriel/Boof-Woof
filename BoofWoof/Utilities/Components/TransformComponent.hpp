@@ -1,15 +1,3 @@
-/**************************************************************************
- * @file TransformComponent.hpp
- * @author 	Guo Chen
- * @param DP email: g.chen@digipen.edu [2200518]
- * @param Course: CS 3401
- * @param Course: Game Project 3
- * @date  10/06/2024 (06 OCTOBER 2024)
- * @brief
- *
- * This file contains the definition of the TransformComponent class, which is used to
- * store the position, scale, and rotation of an entity.
- *************************************************************************/
 #pragma once
 #ifndef TRANSFORM_COMPONENT_HPP
 #define TRANSFORM_COMPONENT_HPP
@@ -17,66 +5,85 @@
 #include "ECS/Coordinator.hpp"
 #include "../Core/Graphics/Model.h"   // Make sure Model is included
 #include "../Core/Graphics/Object.h"  // Full definition of Object is needed here
+#include "../Core/Property/MyProperty.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
-class TransformComponent 
+class TransformComponent
 {
 public:
-    
-	// Constructor and destructor
-	TransformComponent() {};
-	TransformComponent(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, Entity& entity)
-		: m_Position(position), m_Scale(scale), m_Rotation(rotation), m_EntityID(g_Coordinator.GetEntityId(entity)) {/*Empty by design*/
-	}
+    // Constructor and destructor
+    TransformComponent() {};
+    TransformComponent(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, Entity& entity)
+        : m_Position(position), m_Scale(scale), m_Rotation(rotation),
+        m_EntityID(g_Coordinator.GetEntityId(entity)) {}
 
-	~TransformComponent() = default;
+    ~TransformComponent() = default;
 
-	void SetComponentEntityID(Entity& entity) { m_EntityID = entity; }
-    
-	// setter
-	void SetPosition(glm::vec3 position) { this->m_Position = position; }
-	void SetScale(glm::vec3 scale) { this->m_Scale = scale; }
-	void SetRotation(glm::vec3 rotation) { this->m_Rotation = rotation; }
+    void SetComponentEntityID(Entity& entity) { m_EntityID = entity; }
 
-	// getter
-	glm::vec3& GetPosition() { return m_Position; }
-	glm::vec3& GetScale() { return m_Scale; }
-	glm::vec3& GetRotation() { return m_Rotation; }
+    // Setters
+    void SetPosition(const glm::vec3& position) { m_Position = position; }
+    void SetScale(const glm::vec3& scale) { m_Scale = scale; }
+    void SetRotation(const glm::vec3& rotation) { m_Rotation = rotation; }
 
+    // Getters
+    const glm::vec3& GetPosition() const { return m_Position; }
+    const glm::vec3& GetScale() const { return m_Scale; }
+    const glm::vec3& GetRotation() const { return m_Rotation; }
 
-	glm::mat4 GetWorldMatrix(){
-		glm::mat4 worldMatrix = glm::mat4(1.0f);
+    // Compute the world matrix
+    glm::mat4 GetWorldMatrix() {
+        glm::mat4 worldMatrix = glm::mat4(1.0f);
 
+        worldMatrix = glm::rotate(worldMatrix, m_Rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+        worldMatrix = glm::rotate(worldMatrix, m_Rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+        worldMatrix = glm::rotate(worldMatrix, m_Rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 
-		worldMatrix = glm::rotate(worldMatrix, m_Rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-		worldMatrix = glm::rotate(worldMatrix, m_Rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-		worldMatrix = glm::rotate(worldMatrix, m_Rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+        glm::mat4 scaleMat = glm::mat4(1.0f);
+        scaleMat = glm::scale(scaleMat, m_Scale);
 
-		glm::mat4 scaleMat = glm::mat4(1.0f);
-		scaleMat = glm::scale(scaleMat, m_Scale);
+        glm::mat4 translateMat = glm::mat4(1.0f);
+        translateMat = glm::translate(translateMat, m_Position);
 
-		glm::mat4 translateMat = glm::mat4(1.0f);
+        worldMatrix = translateMat * worldMatrix * scaleMat;
 
-		translateMat = glm::translate(translateMat, m_Position);
+        return worldMatrix;
+    }
 
-		worldMatrix = translateMat * worldMatrix * scaleMat;
+    // Set default values
+    void setValues()
+    {
+        m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
+        m_Scale = glm::vec3(1.0f, 1.0f, 1.0f);
+        m_Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+    }
 
-		/*worldMatrix = glm::mat4{
-			worldMatrix[0][0], worldMatrix[1][0], worldMatrix[2][0], 0.0f,
-			worldMatrix[0][1], worldMatrix[1][1], worldMatrix[2][1], 0.0f,
-			worldMatrix[0][2], worldMatrix[1][2], worldMatrix[2][2], 0.0f,
-			position[0], position[1], position[2], 1.0f
+    void CheckValues() const
+    {
+        assert(m_Position == glm::vec3(0.0f, 0.0f, 0.0f));
+        assert(m_Scale == glm::vec3(1.0f, 1.0f, 1.0f));
+        assert(m_Rotation == glm::vec3(0.0f, 0.0f, 0.0f));
+    }
 
-	};*/
-
-	return worldMatrix;
-	}
+    // Define the properties using XPROPERTY_DEF
+    XPROPERTY_DEF(
+        "TransformComponent", TransformComponent,
+        obj_member<"Position", &TransformComponent::m_Position>,
+        obj_member<"Scale", &TransformComponent::m_Scale>,
+        obj_member<"Rotation", &TransformComponent::m_Rotation>,
+        obj_member<"setValues", &TransformComponent::setValues>,
+        obj_member<"CheckValues", &TransformComponent::CheckValues>
+    );
 
 private:
-	Entity m_EntityID{};
-	glm::vec3 m_Position{};
-	glm::vec3 m_Scale{1.f,1.f,1.f};
-	glm::vec3 m_Rotation{};
-
+    Entity m_EntityID{};
+    glm::vec3 m_Position{};
+    glm::vec3 m_Scale{ 1.f, 1.f, 1.f };
+    glm::vec3 m_Rotation{};
 };
 
-#endif  // GRAPHICS_COMPONENT_H
+// Register the properties using XPROPERTY_REG
+XPROPERTY_REG(TransformComponent)
+
+#endif  // TRANSFORM_COMPONENT_HPP
