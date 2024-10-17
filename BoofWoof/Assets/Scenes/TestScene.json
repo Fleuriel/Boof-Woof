@@ -1,12 +1,12 @@
 {
-    "SceneGUID": "f550a8e7-776b-44c4-8214-be4145669882",
+    "SceneGUID": "e777f688-6502-4cc7-858b-bfb5aae275cf",
     "Entities": [
         {
-            "EntityName": "GameObject",
+            "EntityName": "Player",
             "Position": {
-                "x": -1.8000003099441529,
+                "x": -1.7000004053115845,
                 "y": 0.0,
-                "z": -6.499996185302734
+                "z": -3.299999237060547
             },
             "Scale": {
                 "x": 1.0,
@@ -19,14 +19,18 @@
                 "z": 0.0
             },
             "ModelID": 0,
-            "EntityID": 0
+            "EntityID": 0,
+            "AudioFilePath": "../BoofWoof/Assets\\Audio\\explode2.wav",
+            "Volume": 1.0,
+            "ShouldLoop": false,
+            "BehaviourName": "Player"
         },
         {
-            "EntityName": "GameObject",
+            "EntityName": "Cube",
             "Position": {
-                "x": 2.1000001430511476,
+                "x": 1.5,
                 "y": 0.0,
-                "z": -2.3999998569488527
+                "z": -2.0
             },
             "Scale": {
                 "x": 1.0,
@@ -40,7 +44,9 @@
             },
             "ModelID": 0,
             "EntityID": 1,
-            "BehaviourName": "Player"
+            "AudioFilePath": "../BoofWoof/Assets\\Audio\\Test.wav",
+            "Volume": 1.0,
+            "ShouldLoop": false
         }
     ]
 }

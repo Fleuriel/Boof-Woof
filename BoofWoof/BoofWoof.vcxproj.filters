@@ -28,6 +28,7 @@
     <ClCompile Include="Core\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Core\Graphics\FontSystem.cpp" />
     <ClCompile Include="Core\AssetManager\Compressonator.cpp" />
+    <ClCompile Include="Core\Level Manager\LevelManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -64,6 +65,8 @@
     <ClInclude Include="Core\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Core\Graphics\FontSystem.h" />
     <ClInclude Include="Core\AssetManager\Compressonator.h" />
+    <ClInclude Include="Core\Level Manager\Level.h" />
+    <ClInclude Include="Core\Level Manager\LevelManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />
