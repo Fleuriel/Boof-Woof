@@ -55,6 +55,67 @@ std::string toLowerCase(const std::string& input) {
     return result;
 }
 
+
+void DiscardToTrashBin(const std::string& filepath, const std::string& folderName) {
+    // Convert the file path from std::string to std::wstring
+    std::wstring widefile(filepath.begin(), filepath.end());
+    HWND hwnd = GetActiveWindow();
+
+    // Convert paths to wstring for MessageBox
+    std::wstring widefolder(folderName.begin(), folderName.end());
+    std::wstring message = L"Incompatible file \"" + widefile + L"\" detected in \"" + widefolder + L"\" folder!\n\nFile moved to trash bin!";
+    LPCWSTR boxMessage = message.c_str();
+
+    // Show message box to inform the user
+    MessageBox(hwnd, boxMessage, L"Load Failure", MB_OK | MB_ICONERROR);
+
+    // Define the paths using std::filesystem
+    fs::path entryPath(filepath);
+    fs::path trashbin = FILEPATH_TRASHBIN;
+    fs::path destinationPath = trashbin / entryPath.filename();
+
+    // Ensure the trash bin directory exists
+    try {
+        if (!fs::exists(trashbin)) {
+            fs::create_directory(trashbin);
+        }
+
+        // If the destination file already exists, rename it with a counter
+        if (fs::exists(destinationPath)) {
+            int counter = 1;
+            std::string nameWithoutExtension = entryPath.stem().string();  // File name without extension
+            std::string extension = entryPath.extension().string();        // File extension
+
+            std::string newFileName = nameWithoutExtension + "(" + std::to_string(counter) + ")" + extension;
+            fs::path finalDestination = trashbin / newFileName;
+
+            // Find an available name
+            while (fs::exists(finalDestination)) {
+                counter++;
+                newFileName = nameWithoutExtension + "(" + std::to_string(counter) + ")" + extension;
+                finalDestination = trashbin / newFileName;
+            }
+
+            // Move the file to the final destination
+            fs::rename(entryPath, finalDestination);
+        }
+        else {
+            // If no file with the same name exists, move it directly
+            fs::rename(entryPath, destinationPath);
+        }
+
+        std::cout << "File moved to trash bin: " << destinationPath << std::endl;
+
+    }
+    catch (const fs::filesystem_error& e) {
+        std::cerr << "Filesystem error: " << e.what() << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "General error: " << e.what() << std::endl;
+    }
+}
+
+
 /**************************************************************************
  * @brief Default Constructor
  *************************************************************************/
@@ -82,17 +143,19 @@ AssetManager::~AssetManager()
  *************************************************************************/
 void AssetManager::LoadAll() {
 
-
+    if (!fs::exists(FILEPATH_RESOURCES))
+        fs::create_directory(FILEPATH_RESOURCES);
 
 #ifdef _DEBUG
-    bool loadTextures = AssetManager::LoadTextures(),
-        //loadSprites = AssetManager::LoadSprites(),
-        //loadSounds = AssetManager::LoadSounds(),
-        //loadFonts = AssetManager::LoadFonts(),
-        loadScenes = AssetManager::LoadScenes(),
-        //loadPrefabs = AssetManager::LoadPrefabs(),
-        loadShaders = AssetManager::LoadShaders();
-
+    bool loadTextures   = AssetManager::LoadTextures(),
+        loadObjects     = LoadObjects(),
+        //loadSprites   = AssetManager::LoadSprites(),
+        //loadSounds    = AssetManager::LoadSounds(),
+        //loadFonts     = AssetManager::LoadFonts(),
+        loadScenes      = AssetManager::LoadScenes(),
+        //loadPrefabs   = AssetManager::LoadPrefabs(),
+        loadShaders     = AssetManager::LoadShaders();
+        LoadObjects();
 
     std::cout
         << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
@@ -244,10 +307,11 @@ uint64_t generateGUID64(int valueFor5Bits) {
 bool AssetManager::LoadTextures() {
 
     Currentlyloading = true;
+    std::string filepath(FILEPATH_TEXTURES);
 
-    if (fs::is_directory(FILEPATH_TEXTURES)) {
-        for (const auto& entry : fs::directory_iterator(FILEPATH_TEXTURES)) {
-            std::string texFilePath = FILEPATH_TEXTURES + "\\" + entry.path().filename().string();
+    if (fs::is_directory(filepath)) {
+        for (const auto& entry : fs::directory_iterator(filepath)) {
+            std::string texFilePath = filepath + "\\" + entry.path().filename().string();
             //std::cout << "Texture file " << texFilePath << " Found." << std::endl;
 
             size_t pos = entry.path().filename().string().find_last_of('.');
@@ -263,44 +327,7 @@ bool AssetManager::LoadTextures() {
                 size_t found = allowedExtensions.find(toLowerCase(Extension));
 
                 if (found == std::string::npos) {
-                    std::string file(entry.path().filename().string());
-                    std::wstring widefile(file.begin(), file.end());
-                    HWND hwnd = GetActiveWindow();
-                    std::string filepath(FILEPATH_TEXTURES);
-                    // Convert std::string to std::wstring
-                    std::wstring widefilepath(filepath.begin(), filepath.end());
-
-                    std::wstring message = L"Incompatible file \"" + widefile + L"\" detected in \"" + widefilepath + L"\" folder!\n\nFile moved to trash bin!";
-                    LPCWSTR boxMessage = message.c_str();
-
-                    MessageBox(hwnd, boxMessage, L"Load Failure", MB_OK | MB_ICONERROR);
-
-                    // Construct the full destination path including the file name
-                    fs::path destinationPath = FILEPATH_TRASHBIN / entry.path().filename();
-                    fs::path trashbin = FILEPATH_TRASHBIN;
-
-                    if (!fs::exists(trashbin))
-                        fs::create_directory(trashbin);
-
-                    if (fs::exists(destinationPath)) {
-                        int counter = 1;
-
-                        std::string addstr = nameWithoutExtension + "(" + std::to_string(counter) + ")" + Extension;
-
-                        fs::path finalDestination = trashbin / addstr;
-
-                        while (fs::exists(finalDestination)) {
-                            counter++;
-                            addstr = nameWithoutExtension + "(" + std::to_string(counter) + ")" + Extension;
-                            finalDestination = trashbin / addstr;
-                        }
-
-                        fs::rename(entry.path(), finalDestination);
-                    }
-                    else {
-                        fs::rename(entry.path(), destinationPath);
-                    }
-
+                    DiscardToTrashBin(entry.path().string(), FILEPATH_TEXTURES);
                     continue;
                 }
 
@@ -311,7 +338,7 @@ bool AssetManager::LoadTextures() {
 #endif // DEBUG
 
                 // Create an output file stream (ofstream) object
-                std::string descriptorFilePath{ FILEPATH_DESCRIPTORS + "/" + nameWithoutExtension + ".txt" };
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTORS + "/" + "Texture_" + nameWithoutExtension + ".txt"};
                 std::ofstream outFile(descriptorFilePath);
 
                 // Check if the file opened successfully
@@ -325,6 +352,9 @@ bool AssetManager::LoadTextures() {
                     outFile.close();
                 }
 
+                if (!fs::exists(FILEPATH_TEXTURES_RESOURCE))
+                    fs::create_directory(FILEPATH_TEXTURES_RESOURCE);
+
                 // Process the descriptor file and print details
                 std::vector<std::string> fileInfo = processDescriptorFile(descriptorFilePath);
                 if (!fileInfo.empty()) {
@@ -332,7 +362,7 @@ bool AssetManager::LoadTextures() {
                     // std::cout << fileInfo[1] << std::endl;
 
                     // Run compression command
-                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[0] + " " + FILEPATH_TEXTURES + "\\" + fileInfo[1] + " " + FILEPATH_DDS + "\\" + nameWithoutExtension + ".dds");
+                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[0] + " " + FILEPATH_TEXTURES + "\\" + fileInfo[1] + " " + FILEPATH_TEXTURES_RESOURCE + "\\" + nameWithoutExtension + ".dds");
                     std::cout << "eleiggle\t " << nameWithoutExtension << '\n';
                     g_ResourceManager.AddTextureDDS(nameWithoutExtension);
                 }
@@ -455,45 +485,7 @@ bool AssetManager::LoadScenes() {
             size_t found = allowedExtensions.find(toLowerCase(Extension));
 
             if (found == std::string::npos) {
-                std::string file(entry.path().filename().string());
-                std::wstring widefile(file.begin(), file.end());
-                HWND hwnd = GetActiveWindow();
-                std::string filepath(FILEPATH_SCENES);
-                // Convert std::string to std::wstring
-                std::wstring widefilepath(filepath.begin(), filepath.end());
-
-                std::wstring message = L"Incompatible file \"" + widefile + L"\" detected in \"" + widefilepath + L"\" folder!\n\nFile moved to trash bin!";
-                LPCWSTR boxMessage = message.c_str();
-
-                MessageBox(hwnd, boxMessage, L"Load Failure", MB_OK | MB_ICONERROR);
-
-                // Construct the full destination path including the file name
-                fs::path destinationPath = FILEPATH_TRASHBIN / entry.path().filename();
-                fs::path trashbin = FILEPATH_TRASHBIN;
-
-                if (!fs::exists(trashbin))
-                    fs::create_directory(trashbin);
-
-                if (fs::exists(destinationPath)) {
-                    int counter = 1;
-                    std::string nameWithoutExtension = entry.path().stem().string();
-
-                    std::string addstr = nameWithoutExtension + "(" + std::to_string(counter) + ")" + Extension;
-
-                    fs::path finalDestination = trashbin / addstr;
-
-                    while (fs::exists(finalDestination)) {
-                        counter++;
-                        addstr = nameWithoutExtension + "(" + std::to_string(counter) + ")" + Extension;
-                        finalDestination = trashbin / addstr;
-                    }
-
-                    fs::rename(entry.path(), finalDestination);
-                }
-                else {
-                    fs::rename(entry.path(), destinationPath);
-                }
-
+                DiscardToTrashBin(entry.path().string(), FILEPATH_SCENES);
                 continue;
             }
         }
@@ -524,6 +516,101 @@ bool AssetManager::ReloadScenes() {
     return AssetManager::LoadScenes();
 }
 
+
+
+
+
+
+
+
+
+
+bool AssetManager::LoadObjects() {
+    Currentlyloading = true;
+    std::string filepath(FILEPATH_OBJECTS);
+
+    if (fs::is_directory(filepath)) {
+        for (const auto& entry : fs::directory_iterator(filepath)) {
+            std::string texFilePath = filepath + "\\" + entry.path().filename().string();
+            //std::cout << "Texture file " << texFilePath << " Found." << std::endl;
+
+            size_t pos = entry.path().filename().string().find_last_of('.');
+            if (pos != std::string::npos) {
+                std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
+                //std::cout << nameWithoutExtension << std::endl;
+
+                std::string Extension = entry.path().filename().string().substr(pos);
+                //std::cout << Extension;
+                std::string allowedExtensions = ".obj";
+
+                // Check if the substring exists in the full string
+                size_t found = allowedExtensions.find(toLowerCase(Extension));
+
+                if (found == std::string::npos) {
+                    DiscardToTrashBin(entry.path().string(), FILEPATH_OBJECTS);
+                    continue;
+                }
+
+
+#ifdef _DEBUG
+                std::cout << "\n**************************************************************************************\n";
+                std::cout << nameWithoutExtension << " detected successfully!\n";
+#endif // DEBUG
+
+                if (!fs::exists(FILEPATH_OBJECTS_RESOURCE))
+                    fs::create_directory(FILEPATH_OBJECTS_RESOURCE);
+
+
+
+
+                // Construct the path for the .bin file
+                std::string binFilePath = FILEPATH_OBJECTS_RESOURCE + "\\" + nameWithoutExtension + ".bin";
+
+                // Open the file in binary mode and create it
+                std::ofstream binFile(binFilePath, std::ios::binary);
+
+                // Check if the file was created successfully
+                if (binFile.is_open()) {
+                    // Here you can write data to the .bin file
+                    // For example, you could write a simple message or any necessary binary data
+                    std::string data = "This is binary data for " + nameWithoutExtension;
+                    binFile.write(data.c_str(), data.size());
+
+                    // Close the file
+                    binFile.close();
+
+#ifdef _DEBUG
+                    std::cout << "Binary file created: " << binFilePath << std::endl;
+#endif // DEBUG
+                }
+                else {
+#ifdef _DEBUG
+                    std::cerr << "Failed to create binary file: " << binFilePath << std::endl;
+#endif // DEBUG
+                }
+
+
+            }
+            else
+            {
+#ifdef _DEBUG
+                std::cout << "File " << entry.path().filename().string() << " is missing file extension.\n";
+#endif // DEBUG
+            }
+
+        }
+        Currentlyloading = false;
+        return true;
+    }
+    else {
+        // Print error
+#ifdef _DEBUG
+        std::cout << "The specified path is not a directory." << std::endl;
+#endif // DEBUG
+        Currentlyloading = false;
+        return false;
+    }
+}
 
 
 

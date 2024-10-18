@@ -59,6 +59,8 @@ public:
 	bool LoadScenes();																		//Function to load scenes
 	bool ReloadScenes();																	//Function to reload scenes
 
+	bool LoadObjects();																		//Function to load objects
+
 
 
 	using VectorPairString = std::vector <std::pair<std::string, std::string>>;				// Using a vector-->pair string for shaders
