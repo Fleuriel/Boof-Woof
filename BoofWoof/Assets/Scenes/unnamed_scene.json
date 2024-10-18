@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "3c29820d-5eea-4196-9521-6fd469438b79",
+    "SceneGUID": "43e3ce9e-05be-4626-883e-91a442e8ce9c",
     "Entities": [
         {
             "EntityName": "Player",
@@ -21,7 +21,7 @@
             "ModelID": 0,
             "EntityID": 0,
             "ModelName": "Square",
-            "Texture": "Sadge",
+            "Texture": "",
             "AudioFilePath": "../BoofWoof/Assets/Audio/explode2.wav",
             "Volume": 1.0,
             "ShouldLoop": false,

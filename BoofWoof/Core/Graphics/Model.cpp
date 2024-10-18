@@ -381,7 +381,7 @@ Model AABB(glm::vec3 color)
 
 void Model::Draw2D(OpenGLShader& shader)
 {
-
+	(void)shader;
 	glBindVertexArray(vaoid);
 	//std::cout << vaoid << '\n';
 	glDrawElements(primitive_type, draw_cnt, GL_UNSIGNED_SHORT, nullptr);

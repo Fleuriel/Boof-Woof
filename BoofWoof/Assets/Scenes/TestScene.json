@@ -1,12 +1,12 @@
 {
-    "SceneGUID": "e777f688-6502-4cc7-858b-bfb5aae275cf",
+    "SceneGUID": "7a585d10-3a86-4a55-8ba4-9afb2f845c6f",
     "Entities": [
         {
             "EntityName": "Player",
             "Position": {
                 "x": -1.7000004053115845,
                 "y": 0.0,
-                "z": -3.299999237060547
+                "z": -1.5000003576278687
             },
             "Scale": {
                 "x": 1.0,
@@ -20,6 +20,8 @@
             },
             "ModelID": 0,
             "EntityID": 0,
+            "ModelName": "sphere",
+            "Texture": "",
             "AudioFilePath": "../BoofWoof/Assets\\Audio\\explode2.wav",
             "Volume": 1.0,
             "ShouldLoop": false,
@@ -44,6 +46,8 @@
             },
             "ModelID": 0,
             "EntityID": 1,
+            "ModelName": "cube",
+            "Texture": "",
             "AudioFilePath": "../BoofWoof/Assets\\Audio\\Test.wav",
             "Volume": 1.0,
             "ShouldLoop": false
