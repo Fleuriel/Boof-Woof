@@ -173,7 +173,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
             entityData.AddMember("ModelName", rapidjson::Value(graphicsComp.getModelName().c_str(), allocator), allocator);
 
             // Texture Name
-            entityData.AddMember("Texture", rapidjson::Value("Sadge" , allocator), allocator);
+            entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getTexture().c_str(), allocator), allocator);
 
 
 
@@ -329,7 +329,7 @@ bool Serialization::LoadScene(const std::string& filepath) {
 
                         GraphicsSystem::set_Texture_ = g_ResourceManager.GetTextureDDS(TextureName);
 
-                        graphicsComponent.setTexture(g_ResourceManager.GetTextureDDS(TextureName));
+                        //graphicsComponent.setTexture(TextureName);
                     }
 
                 }
