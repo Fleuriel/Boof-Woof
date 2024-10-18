@@ -46,7 +46,10 @@ public:
     static bool debug;
     static bool D2; // 0 is 2D, 1 is 3D
     static bool D3; // 0 is 2D, 1 is 3D
-    
+    int set_Texture_T;
+    static int set_Texture_;
+
+
     void SetShaderUniforms(OpenGLShader& shader, const ShaderParams& shdrParam);
 
 

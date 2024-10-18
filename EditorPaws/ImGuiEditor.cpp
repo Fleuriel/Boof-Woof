@@ -18,6 +18,8 @@
 
 
 bool GraphicsSystem::debug = false;
+
+
 namespace fs = std::filesystem;
 
 //Helper function to locate save file directory
@@ -403,7 +405,11 @@ void ImGuiEditor::InspectorWindow()
 				}
 
 				// Just add onto the mNames if got new models
+<<<<<<< HEAD
 				std::string mNames[] = { "cube", "sphere", "Square" };
+=======
+				std::string mNames[] = { "cube", "sphere", "Square" , "cubeModel"};
+>>>>>>> main
 				static int currentItem = 0;
 
 				for (int i = 0; i < IM_ARRAYSIZE(mNames); ++i)
@@ -413,6 +419,10 @@ void ImGuiEditor::InspectorWindow()
 						currentItem = i;
 					}
 				}
+<<<<<<< HEAD
+=======
+				
+>>>>>>> main
 
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Model   "); ImGui::SameLine();
@@ -435,12 +445,47 @@ void ImGuiEditor::InspectorWindow()
 				}
 
 
+				if (ImGui::Button("Set Texture"))
+				{
+					std::cout << "ButtoN clicked\n";
+					ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png", "../BoofWoof/Assets/DDS/");
+	//				ImGuiFileDialog::Instance()->OpenDialog("SelectTexture", "Choose File", ".dds, .png", "../BoofWoof/Assets");
+				}
+
+				if (ImGuiFileDialog::Instance()->Display("AddAsset"))
+				{
+					// If the user pressed "Ok"
+					if (ImGuiFileDialog::Instance()->IsOk())
+					{
+						// Get the selected file path
+						std::string selected_file = ImGuiFileDialog::Instance()->GetCurrentFileName();
+
+						// Find the last occurrence of the dot (.) to identify the file extension
+						size_t last_dot_position = selected_file.find_last_of(".");
+
+						// Truncate the file extension (only if a dot is found)
+						if (last_dot_position != std::string::npos)
+						{
+							// Keep the part of the string before the last dot
+							selected_file = selected_file.substr(0, last_dot_position);
+						}
+						
+
+						// Use the file path (e.g., set a texture, load a model, etc.)
+						GraphicsSystem::set_Texture_ = g_ResourceManager.GetTextureDDS(selected_file);
+
+						//g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setTexture(GraphicsSystem::set_Texture_);
+					}
+					ImGuiFileDialog::Instance()->Close();
+				}
+
+
 				ImGui::Text("Debug   "); ImGui::SameLine();
 				ImGui::Checkbox("##DebugMode", &GraphicsSystem::debug);
 
 				if (GraphicsSystem::debug) // Only show mode selection when Debug Mode is active
 				{
-					
+					// Eventually need to make it so that if u debug, ONLY that wireframe is drawn.
 					if (ImGui::Button("2D"))
 					{
 						GraphicsSystem::D3 = false;
