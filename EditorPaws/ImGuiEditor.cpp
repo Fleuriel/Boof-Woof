@@ -399,6 +399,9 @@ void ImGuiEditor::InspectorWindow()
 			{
 				std::cout << "hehe\n";
 				std::string modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
+				
+				// This screws with the entire code.
+
 				//if (modelName.empty())
 				//{
 				//	std::cerr << "Error: modelName is null!" << std::endl;
@@ -411,7 +414,7 @@ void ImGuiEditor::InspectorWindow()
 				}*/
 
 				// Just add onto the mNames if got new models
-				std::string mNames[] = { "cube", "sphere", "Square" , "cubeModel"};
+				std::string mNames[] = { "cube", "sphere", "Square" , "cubeModel", "Wall"};
 				static int currentItem = 0;
 
 				for (int i = 0; i < IM_ARRAYSIZE(mNames); ++i)

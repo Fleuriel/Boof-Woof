@@ -72,6 +72,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 	AddModel_3D("../BoofWoof/Assets/Object/sphere.obj");
 	AddModel_3D("../BoofWoof/Assets/Object/cube.obj");
+	AddModel_3D("../BoofWoof/Assets/Object/Wall.obj");
 	AddModel_2D();
 
 	//fontSystem.init();
