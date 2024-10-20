@@ -629,7 +629,7 @@ bool AssetManager::LoadObjects() {
                 if (!fs::exists(FILEPATH_OBJECTS_RESOURCE))
                     fs::create_directory(FILEPATH_OBJECTS_RESOURCE);
 
-                std::string objFilePath = entry.path().string();
+                std::string objFilePath = FILEPATH_OBJECT + "\\" + nameWithoutExtension + ".obj";
                 std::string binFilePath = FILEPATH_OBJECTS_RESOURCE + "\\" + nameWithoutExtension + ".bin";
 
 
