@@ -524,6 +524,79 @@ bool AssetManager::ReloadScenes() {
 
 
 
+void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+    std::vector<glm::vec3> positions;
+    std::vector<glm::vec3> normals;
+    std::vector<glm::vec2> texCoords;
+
+    std::ifstream objFile(filename);
+    if (!objFile.is_open()) {
+        std::cerr << "Could not open OBJ file: " << filename << std::endl;
+        return;
+    }
+
+    std::string line;
+    while (std::getline(objFile, line)) {
+        std::stringstream ss(line);
+        std::string type;
+        ss >> type;
+
+        if (type == "v") {
+            glm::vec3 position;
+            ss >> position.x >> position.y >> position.z;
+            positions.push_back(position);
+        }
+        else if (type == "vt") {
+            glm::vec2 texCoord;
+            ss >> texCoord.x >> texCoord.y;
+            texCoords.push_back(texCoord);
+        }
+        else if (type == "vn") {
+            glm::vec3 normal;
+            ss >> normal.x >> normal.y >> normal.z;
+            normals.push_back(normal);
+        }
+        else if (type == "f") {
+            unsigned int vertexIndex[3], texCoordIndex[3], normalIndex[3];
+            char slash;
+            for (int i = 0; i < 3; i++) {
+                ss >> vertexIndex[i] >> slash >> texCoordIndex[i] >> slash >> normalIndex[i];
+                vertexIndex[i]--; texCoordIndex[i]--; normalIndex[i]--;
+
+                Vertex vertex;
+                vertex.Position = positions[vertexIndex[i]];
+                vertex.TexCoords = texCoords[texCoordIndex[i]];
+                vertex.Normal = normals[normalIndex[i]];
+                vertices.push_back(vertex);
+
+                indices.push_back(static_cast<unsigned int>(vertices.size() - 1));
+            }
+        }
+    }
+    objFile.close();
+}
+
+
+void saveMeshToBin(const Mesh& mesh, const std::string& binFilePath) {
+    std::ofstream binFile(binFilePath, std::ios::binary);
+    if (!binFile.is_open()) {
+        std::cerr << "Failed to create binary file: " << binFilePath << std::endl;
+        return;
+    }
+
+    // Save vertex data
+    size_t vertexCount = mesh.vertices.size();
+    binFile.write(reinterpret_cast<const char*>(&vertexCount), sizeof(size_t));
+    binFile.write(reinterpret_cast<const char*>(mesh.vertices.data()), vertexCount * sizeof(Vertex));
+
+    // Save index data
+    size_t indexCount = mesh.indices.size();
+    binFile.write(reinterpret_cast<const char*>(&indexCount), sizeof(size_t));
+    binFile.write(reinterpret_cast<const char*>(mesh.indices.data()), indexCount * sizeof(unsigned int));
+
+    binFile.close();
+}
+
 
 bool AssetManager::LoadObjects() {
     Currentlyloading = true;
@@ -532,18 +605,13 @@ bool AssetManager::LoadObjects() {
     if (fs::is_directory(filepath)) {
         for (const auto& entry : fs::directory_iterator(filepath)) {
             std::string texFilePath = filepath + "\\" + entry.path().filename().string();
-            //std::cout << "Texture file " << texFilePath << " Found." << std::endl;
 
             size_t pos = entry.path().filename().string().find_last_of('.');
             if (pos != std::string::npos) {
                 std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
-                //std::cout << nameWithoutExtension << std::endl;
-
                 std::string Extension = entry.path().filename().string().substr(pos);
-                //std::cout << Extension;
                 std::string allowedExtensions = ".obj";
 
-                // Check if the substring exists in the full string
                 size_t found = allowedExtensions.find(toLowerCase(Extension));
 
                 if (found == std::string::npos) {
@@ -551,62 +619,48 @@ bool AssetManager::LoadObjects() {
                     continue;
                 }
 
-
 #ifdef _DEBUG
                 std::cout << "\n**************************************************************************************\n";
                 std::cout << nameWithoutExtension << " detected successfully!\n";
-#endif // DEBUG
+#endif
 
                 if (!fs::exists(FILEPATH_OBJECTS_RESOURCE))
                     fs::create_directory(FILEPATH_OBJECTS_RESOURCE);
 
-
-
-
-                // Construct the path for the .bin file
+                std::string objFilePath = entry.path().string();
                 std::string binFilePath = FILEPATH_OBJECTS_RESOURCE + "\\" + nameWithoutExtension + ".bin";
 
-                // Open the file in binary mode and create it
-                std::ofstream binFile(binFilePath, std::ios::binary);
+                // Parse the .obj file into vertices and indices
+                std::vector<Vertex> vertices;
+                std::vector<unsigned int> indices;
+                parseOBJ(objFilePath, vertices, indices);
 
-                // Check if the file was created successfully
-                if (binFile.is_open()) {
-                    // Here you can write data to the .bin file
-                    // For example, you could write a simple message or any necessary binary data
-                    std::string data = "This is binary data for " + nameWithoutExtension;
-                    binFile.write(data.c_str(), data.size());
+                // Create Mesh object and populate it with the vertices and indices
+                Mesh mesh(vertices, indices);
 
-                    // Close the file
-                    binFile.close();
+                // Now save the mesh to the .bin file
+                saveMeshToBin(mesh, binFilePath);
 
 #ifdef _DEBUG
-                    std::cout << "Binary file created: " << binFilePath << std::endl;
-#endif // DEBUG
-                }
-                else {
-#ifdef _DEBUG
-                    std::cerr << "Failed to create binary file: " << binFilePath << std::endl;
-#endif // DEBUG
-                }
-
-
+                std::cout << "Binary file created: " << binFilePath << std::endl;
+#endif
+                // Clear data for next object
+                vertices.clear();
+                indices.clear();
             }
-            else
-            {
+            else {
 #ifdef _DEBUG
                 std::cout << "File " << entry.path().filename().string() << " is missing file extension.\n";
-#endif // DEBUG
+#endif
             }
-
         }
         Currentlyloading = false;
         return true;
     }
     else {
-        // Print error
 #ifdef _DEBUG
         std::cout << "The specified path is not a directory." << std::endl;
-#endif // DEBUG
+#endif
         Currentlyloading = false;
         return false;
     }
