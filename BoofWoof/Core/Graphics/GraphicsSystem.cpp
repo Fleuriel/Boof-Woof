@@ -70,9 +70,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	g_AssetManager.LoadAll();
 	g_ResourceManager.LoadAll();
 
-	AddModel_3D("../BoofWoof/Assets/Object/sphere.obj");
-	AddModel_3D("../BoofWoof/Assets/Object/cube.obj");
-	AddModel_3D("../BoofWoof/Assets/Object/Wall.obj");
+	
 	AddModel_2D();
 
 	//fontSystem.init();
@@ -261,23 +259,7 @@ void GraphicsSystem::SetShaderUniforms(OpenGLShader& shader, const ShaderParams&
 
 
 
-void GraphicsSystem::AddModel_3D(std::string const& path)
-{
-	Model model;
-	std::cout << "Loading: " << path << '\n';
-	
-	model.loadModel(path, GL_TRIANGLES);
 
-	std::string name = path.substr(path.find_last_of('/') + 1);
-	//remove .obj from name
-	name = name.substr(0, name.find_last_of('.'));
-
-	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>(name, model));
-
-
-	std::cout << "Loaded: " << path<<" with name: "<<name << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
-
-}
 
 void GraphicsSystem::AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model)
 {

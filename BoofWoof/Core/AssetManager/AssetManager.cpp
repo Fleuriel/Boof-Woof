@@ -32,6 +32,8 @@
 #include "Compressonator.h"
 #include "ResourceManager/ResourceManager.h"
 
+#include "Graphics/GraphicsSystem.h" //temporary
+
 #pragma warning(pop)
 
 AssetManager g_AssetManager;
@@ -629,6 +631,18 @@ bool AssetManager::LoadObjects() {
 
                 std::string objFilePath = entry.path().string();
                 std::string binFilePath = FILEPATH_OBJECTS_RESOURCE + "\\" + nameWithoutExtension + ".bin";
+
+
+                Model model;
+                std::cout << "Loading: " << objFilePath << '\n';
+
+                model.loadModel(objFilePath, GL_TRIANGLES);
+
+                ModelMap.insert(std::pair<std::string, Model>(nameWithoutExtension, model));
+
+                std::cout << "Loaded: " << objFilePath << " with name: " << nameWithoutExtension << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
+
+                
 
                 // Parse the .obj file into vertices and indices
                 std::vector<Vertex> vertices;
