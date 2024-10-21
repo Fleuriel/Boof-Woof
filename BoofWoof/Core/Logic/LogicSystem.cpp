@@ -4,6 +4,8 @@
 #include "Scripts/Null.cpp"
 #include "Scripts/Player.cpp"
 #include "Scripts/Movement.cpp"
+#include "../../../Scripts/Compile.cpp"
+#include "Script_to_Engine.h"
 
 void LogicSystem::Init()
 {
@@ -15,6 +17,8 @@ void LogicSystem::Init()
 	AddBehaviour(new Behaviour("Movement", Movement::Start, Movement::Update, Movement::Destroy));
 	AddBehaviour(new Behaviour("Player", Player::Start, Player::Update, Player::Destroy));
 	*/
+
+	
 
 	for (auto const& entity : mEntities)
 	{
