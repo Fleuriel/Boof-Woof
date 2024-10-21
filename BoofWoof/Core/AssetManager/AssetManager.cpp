@@ -157,7 +157,7 @@ void AssetManager::LoadAll() {
         loadScenes      = AssetManager::LoadScenes(),
         //loadPrefabs   = AssetManager::LoadPrefabs(),
         loadShaders     = AssetManager::LoadShaders();
-        LoadObjects();
+       // LoadObjects();
 
     std::cout
         << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
@@ -166,7 +166,8 @@ void AssetManager::LoadAll() {
         //<< ((loadFonts) ? "Fonts loaded successfully" : "Failed to load fonts") << std::endl
         << ((loadScenes) ? "Scenes loaded successfully" : "Failed to load scenes") << std::endl
         //<< ((loadPrefabs) ? "Prefabs loaded successfully" : "Failed to load prefabs") << std::endl
-        << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl;
+        << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl 
+        << ((loadObjects) ? "Object loaded Successfully" : "failed to load object") << '\n';
 #else
     AssetManager::LoadTextures(),
         //AssetManager::LoadSprites(),
@@ -602,7 +603,7 @@ void saveMeshToBin(const Mesh& mesh, const std::string& binFilePath) {
 
 bool AssetManager::LoadObjects() {
     Currentlyloading = true;
-    std::string filepath(FILEPATH_OBJECTS);
+    std::string filepath(FILEPATH_OBJECTS_RESOURCE);
 
     if (fs::is_directory(filepath)) {
         for (const auto& entry : fs::directory_iterator(filepath)) {
@@ -621,9 +622,11 @@ bool AssetManager::LoadObjects() {
                     continue;
                 }
 
+                std::cout << "\n**************************************************************************************\n";
 #ifdef _DEBUG
                 std::cout << "\n**************************************************************************************\n";
-                std::cout << nameWithoutExtension << " detected successfully!\n";
+                std::cout << "ASDF: " << nameWithoutExtension << " detected successfully!\n";
+                std::cout << "\n**************************************************************************************\n";
 #endif
 
                 if (!fs::exists(FILEPATH_OBJECTS_RESOURCE))
@@ -633,14 +636,15 @@ bool AssetManager::LoadObjects() {
                 std::string binFilePath = FILEPATH_OBJECTS_RESOURCE + "\\" + nameWithoutExtension + ".bin";
 
 
-                Model model;
-                std::cout << "Loading: " << objFilePath << '\n';
 
-                model.loadModel(objFilePath, GL_TRIANGLES);
-
-                ModelMap.insert(std::pair<std::string, Model>(nameWithoutExtension, model));
-
-                std::cout << "Loaded: " << objFilePath << " with name: " << nameWithoutExtension << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
+               // Model model;
+               // std::cout << "Loading: " << binFilePath << '\n';
+               //
+               // model.loadModel(objFilePath, GL_TRIANGLES);
+               //
+               // ModelMap.insert(std::pair<std::string, Model>(nameWithoutExtension, model));
+               //
+               // std::cout << "Loaded: " << binFilePath << " with name: " << nameWithoutExtension << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
 
                 
 

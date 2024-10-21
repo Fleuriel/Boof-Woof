@@ -269,7 +269,7 @@ void GraphicsSystem::AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3
 	object.scale = scale;
 	object.rotation = rotation;
 	object.color = color;
-	g_AssetManager.Objects.push_back(object);
+//	g_AssetManager.Objects.push_back(object);
 }
 
 

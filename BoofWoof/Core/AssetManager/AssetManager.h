@@ -80,8 +80,6 @@ public:
 
 
 	std::map <std::string, Model> ModelMap;
-	std::vector <Model>	Models;
-	std::vector <Object> Objects;
 
 
 	bool Currentlyloading{ false };

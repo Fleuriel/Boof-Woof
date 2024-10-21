@@ -102,6 +102,17 @@ GLuint LoadDDSTexture(const char* filePath) {
     return TextureName; // Return the OpenGL texture ID
 }
 
+
+
+/* Resource Manager Functions */
+
+
+
+
+
+
+
+
 // Function to load textures (simulating DDS texture loading here)
 bool ResourceManager::LoadTexturesDDS() {
 

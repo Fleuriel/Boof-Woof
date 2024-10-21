@@ -27,6 +27,11 @@ public:
 	~ResourceManager();
 
 	bool LoadAll();
+
+
+	bool LoadModelBinary();
+	bool AddModelBinary(std::string);
+
 	bool LoadTexturesDDS();
 	bool AddTextureDDS(std::string);
 	int GetTextureDDS(std::string);																		//Function to access textures
@@ -35,6 +40,9 @@ public:
 
 
 private:
+
+
+
 	std::map<std::string, int> texturesDDS{};															//Container to store textures
 	std::vector<std::string> textureDDSFileNames{};														//Container to store texture DDS file names
 	std::vector<std::string> textureFile{};
