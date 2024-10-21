@@ -1,4 +1,4 @@
-
+#include "../BoofWoof/Core/Logic/Behaviour.h"
 
 class myBehavior final : public Behaviour
 {

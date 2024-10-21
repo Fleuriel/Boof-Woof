@@ -1,3 +1,10 @@
+#include "../BoofWoof/Core/Logic/BehaviourInterface.h"
+#include <vector>
+#include <memory>
+#include "Player.hpp"
+
+
+
 extern "C"
 {
 	__declspec(dllexport) void* GetScripts(void* pEI_tmp)
@@ -12,3 +19,4 @@ extern "C"
 		return pBehaviours;
 	}
 }
+

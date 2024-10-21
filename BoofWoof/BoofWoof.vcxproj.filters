@@ -64,6 +64,8 @@
     <ClInclude Include="Core\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Core\Graphics\FontSystem.h" />
     <ClInclude Include="Core\AssetManager\Compressonator.h" />
+    <ClInclude Include="Core\Logic\BehaviourInterface.h" />
+    <ClInclude Include="Core\Logic\Script_to_Engine.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

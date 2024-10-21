@@ -218,6 +218,8 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Graphics\Shader.h" />
     <ClInclude Include="Core\GSM\GameStateMachine.h" />
     <ClInclude Include="Core\Input\Input.h" />
+    <ClInclude Include="Core\Logic\BehaviourInterface.h" />
+    <ClInclude Include="Core\Logic\Script_to_Engine.h" />
     <ClInclude Include="Core\Physics\PhysicsSystem.h" />
     <ClInclude Include="Core\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Core\SceneManager\SceneManager.h" />

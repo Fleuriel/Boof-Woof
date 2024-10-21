@@ -8,12 +8,13 @@
 void LogicSystem::Init()
 {
 	std::cout << "Logic System Initialized" << std::endl;
-
+	
+	/*
 	// Add behaviours here
 	AddBehaviour(new Behaviour("Null", Null::Start, Null::Update, Null::Destroy));
 	AddBehaviour(new Behaviour("Movement", Movement::Start, Movement::Update, Movement::Destroy));
 	AddBehaviour(new Behaviour("Player", Player::Start, Player::Update, Player::Destroy));
-
+	*/
 
 	for (auto const& entity : mEntities)
 	{
@@ -23,7 +24,7 @@ void LogicSystem::Init()
 		// Check if behaviour exists
 		if (mBehaviours.find(behaviourComponent.GetBehaviourName()) == mBehaviours.end())
 		{
-			//std::cout << "Behaviour not found" << std::endl;
+			std::cout << "Behaviour not found" << std::endl;
 			continue;
 		}
 		mBehaviours[behaviourComponent.GetBehaviourName()]->Init(entity);

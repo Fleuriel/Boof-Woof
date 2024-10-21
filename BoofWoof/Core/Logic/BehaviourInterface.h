@@ -20,4 +20,5 @@ struct engine_interface
 	virtual void AddComponent(Entity entity, ComponentType type) = 0;
 };
 
+using GetScripts_cpp_t = std::vector<std::unique_ptr<Behaviour_i>>* (*)(engine_interface* pEI);
 #endif // !BEHAVIOURINTERFACE_H
