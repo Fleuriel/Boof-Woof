@@ -4,8 +4,8 @@ std::shared_ptr<GraphicsSystem> mGraphicsSys;
 std::shared_ptr<AudioSystem> mAudioSys;
 std::shared_ptr<LogicSystem> mLogicSys;
 std::shared_ptr<FontSystem> mFontSys;
-std::shared_ptr<PhysicsSystem> mPhysicSys;
-std::shared_ptr<CollisionSystem> mCollisionSys;
+std::shared_ptr<MyPhysicsSystem> mPhysicSys;
+//std::shared_ptr<CollisionSystem> mCollisionSys;
 
 
 void EngineCore::OnInit()
@@ -70,20 +70,20 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<FontSystem>(signature);
 	}
 
-	mPhysicSys = g_Coordinator.RegisterSystem<PhysicsSystem>();
+	mPhysicSys = g_Coordinator.RegisterSystem<MyPhysicsSystem>();
 	{
 		Signature signature;
 		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
-		g_Coordinator.SetSystemSignature<PhysicsSystem>(signature);
+		g_Coordinator.SetSystemSignature<MyPhysicsSystem>(signature);
 	}
 
-	mCollisionSys = g_Coordinator.RegisterSystem<CollisionSystem>();
-	{
-		Signature signature;
-		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
-		signature.set(g_Coordinator.GetComponentType<CollisionComponent>());
-		g_Coordinator.SetSystemSignature<CollisionSystem>(signature);
-	}
+	//mCollisionSys = g_Coordinator.RegisterSystem<CollisionSystem>();
+	//{
+	//	Signature signature;
+	//	signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+	//	signature.set(g_Coordinator.GetComponentType<CollisionComponent>());
+	//	g_Coordinator.SetSystemSignature<CollisionSystem>(signature);
+	//}
 
 
 	// Create entities
@@ -102,7 +102,7 @@ void EngineCore::OnInit()
 	mLogicSys->Init();
 	mGraphicsSys->initGraphicsPipeline();
 	mPhysicSys->InitializeJolt();
-	mCollisionSys->Init();
+	//mCollisionSys->Init();
 	//mFontSys->init();
 	
 
@@ -180,7 +180,8 @@ void EngineCore::OnUpdate()
 		mAudioSys->Update();
 	}
 	{
-		mCollisionSys->Update(m_DeltaTime);
+		// Physics
+		mPhysicSys->OnUpdate(m_DeltaTime);  // Update physics
 	}
 
 
