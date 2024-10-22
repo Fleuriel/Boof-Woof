@@ -19,6 +19,7 @@ bool GraphicsSystem::glewInitialized = false;
 bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
 
+//int GraphicsSystem::set_Texture_ = 0;
 //std::vector<Model2D> models;
 
 Camera		camera;
@@ -129,14 +130,15 @@ void GraphicsSystem::UpdateLoop() {
 				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 				if (g_AssetManager.ModelMap.find(graphicsComp.getModelName()) == g_AssetManager.ModelMap.end())
 				{
-					std::cout << "Model is null" << std::endl;
-					graphicsComp.setModelName("cube");
+					/* We do not need these anymore */
+					 
+					// std::cout << "Model is null" << std::endl;
+					//graphicsComp.setModelName("cubeModel");
 					//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
 					continue;
 				}
-				//int tex1 = g_ResourceManager.GetTextureDDS("Sadge");
-//				int tex2 = g_AssetManager.GetTexture("Pepega");
-								
+
+
 
 				// START OF 3D
 
@@ -170,6 +172,21 @@ void GraphicsSystem::UpdateLoop() {
 
 				SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
 				//shader.Use();
+			
+
+
+				//tex = g_ResourceManager.GetTextureDDS("Sadge");
+				
+
+				set_Texture_T = GraphicsSystem::set_Texture_;
+
+
+				g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
+				//shader.SetUniform("")
+
+
+
+				glBindTextureUnit(6, set_Texture_T);
 
 
 				//graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
@@ -258,6 +275,7 @@ void GraphicsSystem::AddModel_3D(std::string const& path)
 
 
 	std::cout << "Loaded: " << path<<" with name: "<<name << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
+
 }
 
 void GraphicsSystem::AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model)
@@ -278,9 +296,11 @@ void GraphicsSystem::AddModel_2D()
 	Model model;
 
 	model = SquareModel(glm::vec3(0.0f));
-
-	g_AssetManager.ModelMap.insert(std::pair<std::string,Model> ("Square", model));
-	std::cout << "Loaded: " << "Square" << " with name: "  << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
+	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>(model.name, model));
+	std::cout << "Loaded: " << model.name << " with name: " << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
+	model = CubeModel(glm::vec3(1.0f));
+	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>(model.name, model));
+	std::cout << "Loaded: " << model.name << " with name: " << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
 }
 
 
