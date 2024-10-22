@@ -583,7 +583,7 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
 void saveMeshToBin(const Mesh& mesh, const std::string& binFilePath) {
     std::ofstream binFile(binFilePath, std::ios::binary);
     if (!binFile.is_open()) {
-        std::cerr << "Failed to create binary file: " << binFilePath << std::endl;
+        std::cerr << "Failed to create binary file at saveMeshToBin (AssetManager.cpp): " << binFilePath << std::endl;
         return;
     }
 
@@ -603,12 +603,14 @@ void saveMeshToBin(const Mesh& mesh, const std::string& binFilePath) {
 
 bool AssetManager::LoadObjects() {
     Currentlyloading = true;
-    std::string filepath(FILEPATH_OBJECTS_RESOURCE);
+    std::string filepath(FILEPATH_OBJECTS);
 
     if (fs::is_directory(filepath)) {
+        std::cout << "lemao\n";
         for (const auto& entry : fs::directory_iterator(filepath)) {
             std::string texFilePath = filepath + "\\" + entry.path().filename().string();
 
+            std::cout << "lemao\n";
             size_t pos = entry.path().filename().string().find_last_of('.');
             if (pos != std::string::npos) {
                 std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
@@ -632,7 +634,7 @@ bool AssetManager::LoadObjects() {
                 if (!fs::exists(FILEPATH_OBJECTS_RESOURCE))
                     fs::create_directory(FILEPATH_OBJECTS_RESOURCE);
 
-                std::string objFilePath = FILEPATH_OBJECT + "\\" + nameWithoutExtension + ".obj";
+                std::string objFilePath = FILEPATH_OBJECTS + "\\" + nameWithoutExtension + ".obj";
                 std::string binFilePath = FILEPATH_OBJECTS_RESOURCE + "\\" + nameWithoutExtension + ".bin";
 
 
@@ -658,6 +660,10 @@ bool AssetManager::LoadObjects() {
 
                 // Now save the mesh to the .bin file
                 saveMeshToBin(mesh, binFilePath);
+
+                std::cout << "addmodel\n";
+
+                g_ResourceManager.AddModelBinary(nameWithoutExtension);
 
 #ifdef _DEBUG
                 std::cout << "Binary file created: " << binFilePath << std::endl;

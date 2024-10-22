@@ -19,6 +19,8 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <filesystem>
+#include "../Core/Graphics/Model.h"
 
 class ResourceManager {
 
@@ -27,6 +29,22 @@ public:
 	~ResourceManager();
 
 	bool LoadAll();
+
+	const std::map<std::string, Model>& GetModelMap() const;
+
+	bool SetModelMap(const std::string& name, const Model& model);
+
+	Model* getModel(const std::string& modelName);
+
+	// Setter for ModelMap (add a new model or update existing one)
+	void setModel(const std::string& modelName, const Model& model);
+
+	std::vector<std::string> getModelNames() const;
+
+	void addModelNames(std::string);
+
+	// Optional: Check if a model exists in the map
+	bool hasModel(const std::string& modelName);
 
 
 	bool LoadModelBinary();
@@ -39,9 +57,14 @@ public:
 
 
 
+
+	
 private:
+	
 
+	std::map <std::string, Model> ModelMap;
 
+	std::vector<std::string> ModelNames;
 
 	std::map<std::string, int> texturesDDS{};															//Container to store textures
 	std::vector<std::string> textureDDSFileNames{};														//Container to store texture DDS file names

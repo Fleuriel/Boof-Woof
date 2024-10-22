@@ -127,7 +127,7 @@ void GraphicsSystem::UpdateLoop() {
 			if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
 			{
 				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-				if (g_AssetManager.ModelMap.find(graphicsComp.getModelName()) == g_AssetManager.ModelMap.end())
+				if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
 				{
 					/* We do not need these anymore */
 					 
@@ -151,7 +151,8 @@ void GraphicsSystem::UpdateLoop() {
 //				g_AssetManager.GetShader("OutlineAndFont").SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
 
 				//graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
-				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
+				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("Shader3D"));
+//				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
 				//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
 
 				g_AssetManager.GetShader("Shader3D").UnUse();
@@ -189,7 +190,10 @@ void GraphicsSystem::UpdateLoop() {
 
 
 				//graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
-				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
+				//g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
+//				g_ResourceManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
+
+				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader("Shader2D"));
 
 				g_AssetManager.GetShader("Shader2D").UnUse();
 				
@@ -207,10 +211,10 @@ void GraphicsSystem::UpdateLoop() {
 
 				if (D3)
 					//graphicsComp.getModel()->DrawCollisionBox3D(AABBOutline);
-					g_AssetManager.ModelMap[graphicsComp.getModelName()].DrawCollisionBox3D(AABBOutline);
+					g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(AABBOutline);
 				if (D2)
 					//graphicsComp.getModel()->DrawCollisionBox2D(squareOutline);
-					g_AssetManager.ModelMap[graphicsComp.getModelName()].DrawCollisionBox2D(squareOutline);
+					g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
 				
 				g_AssetManager.GetShader("OutlineAndFont").UnUse();
 
@@ -279,11 +283,15 @@ void GraphicsSystem::AddModel_2D()
 	Model model;
 
 	model = SquareModel(glm::vec3(0.0f));
-	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>(model.name, model));
-	std::cout << "Loaded: " << model.name << " with name: " << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
+	g_ResourceManager.SetModelMap(model.name, model);
+	std::cout << "Loaded: " << model.name << " [Models Reference: "
+		<< g_ResourceManager.GetModelMap().size() - 1 << "]" << '\n';
+
+	// Create CubeModel and add it to ModelMap
 	model = CubeModel(glm::vec3(1.0f));
-	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>(model.name, model));
-	std::cout << "Loaded: " << model.name << " with name: " << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
+	g_ResourceManager.SetModelMap(model.name, model);
+	std::cout << "Loaded: " << model.name << " [Models Reference: "
+		<< g_ResourceManager.GetModelMap().size() - 1 << "]" << '\n';
 }
 
 

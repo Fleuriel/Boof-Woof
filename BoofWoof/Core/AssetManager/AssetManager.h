@@ -79,7 +79,7 @@ public:
 
 
 
-	std::map <std::string, Model> ModelMap;
+//	std::map <std::string, Model> ModelMap;
 
 
 	bool Currentlyloading{ false };

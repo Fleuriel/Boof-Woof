@@ -397,7 +397,7 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
 			{
-				std::cout << "hehe\n";
+			//	std::cout << "hehe\n";
 				std::string modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
 				
 				// This screws with the entire code.
@@ -414,27 +414,34 @@ void ImGuiEditor::InspectorWindow()
 				}*/
 
 				// Just add onto the mNames if got new models
-				std::string mNames[] = { "cube", "sphere", "Square" , "cubeModel", "Wall"};
+				std::vector<std::string> modelNames = g_ResourceManager.getModelNames();
+
 				static int currentItem = 0;
 
-				for (int i = 0; i < IM_ARRAYSIZE(mNames); ++i)
-				{
-					if (mNames[i] == modelName)
-					{
-						currentItem = i;
-					}
-				}
+				// for (const auto& name : modelNames) {
+				// 	std::cout << name << std::endl; // Print each model name
+				// }
+
+				//for (int i = 0; i < IM_ARRAYSIZE(mNames); ++i)
+				//{
+				//	if (mNames[i] == modelName)
+				//	{
+				//		currentItem = i;
+				//	}
+				//}
 				
 
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Model   "); ImGui::SameLine();
 
 				if (ImGui::Combo("##ModelCombo", &currentItem, [](void* data, int idx, const char** out_text) {
-					*out_text = ((std::string*)data)[idx].c_str();
-				return true;
-					}, (void*)mNames, IM_ARRAYSIZE(mNames)))
+					// Cast the void pointer back to the vector pointer and retrieve the name
+					const auto& names = *(static_cast<std::vector<std::string>*>(data));
+					*out_text = names[idx].c_str(); // Set the output text
+					return true; // Indicate that the callback is successful
+					}, (void*)&modelNames, modelNames.size())) // Use modelNames.size() instead of IM_ARRAYSIZE
 				{
-					modelName = mNames[currentItem];
+					modelName = modelNames[currentItem];
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setModelName(modelName);
 				}
 

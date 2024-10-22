@@ -26,9 +26,6 @@
 // OBJECTS //
 #define FILEPATH_OBJECTS					std::string("..\\BoofWoof\\Assets\\Objects")
 
-// OBJECT //
-#define FILEPATH_OBJECT						std::string("..\\BoofWoof\\Assets\\Object")
-
 // SHADERS //
 #define FILEPATH_SHADERS					std::string("..\\BoofWoof\\Assets\\Shaders")
 
