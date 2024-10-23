@@ -132,43 +132,44 @@ GLuint LoadDDSTexture(const char* filePath) {
 
 bool LoadBinFile(std::string filePath)
 {
-    // Open the binary file for reading
     std::ifstream binFile(filePath, std::ios::binary);
     if (!binFile.is_open()) {
         std::cerr << "Failed to open binary file: " << filePath << std::endl;
-        return false;
+        return {};
     }
 
-    Mesh mesh;
+    // Step 1: Read the number of meshes
+    size_t meshCount;
+    binFile.read(reinterpret_cast<char*>(&meshCount), sizeof(size_t));
 
-    // Read the vertex count
-    size_t vertexCount;
-    binFile.read(reinterpret_cast<char*>(&vertexCount), sizeof(vertexCount));
+    std::vector<Mesh> meshes;
+    meshes.reserve(meshCount);
 
-    // Resize the vertices vector to hold all the vertices
-    mesh.vertices.resize(vertexCount);
+    // Step 2: For each mesh, read vertex and index data
+    for (size_t i = 0; i < meshCount; ++i) {
+        // Read vertex data
+        size_t vertexCount;
+        binFile.read(reinterpret_cast<char*>(&vertexCount), sizeof(size_t));
+        std::vector<Vertex> vertices(vertexCount);
+        binFile.read(reinterpret_cast<char*>(vertices.data()), vertexCount * sizeof(Vertex));
 
-    // Read the vertex data
-    binFile.read(reinterpret_cast<char*>(mesh.vertices.data()), vertexCount * sizeof(Vertex));
+        // Read index data
+        size_t indexCount;
+        binFile.read(reinterpret_cast<char*>(&indexCount), sizeof(size_t));
+        std::vector<unsigned int> indices(indexCount);
+        binFile.read(reinterpret_cast<char*>(indices.data()), indexCount * sizeof(unsigned int));
 
-    // Read the index count
-    size_t indexCount;
-    binFile.read(reinterpret_cast<char*>(&indexCount), sizeof(indexCount));
+        // Create the Mesh object and add it to the vector
+        meshes.emplace_back(vertices, indices);
+    }
 
-    // Resize the indices vector to hold all the indices
-    mesh.indices.resize(indexCount);
-
-    // Read the index data
-    binFile.read(reinterpret_cast<char*>(mesh.indices.data()), indexCount * sizeof(unsigned int));
-
-    // Close the binary file
     binFile.close();
 
     std::cout << "Loaded mesh from " << filePath << " successfully!" << std::endl;
 
     
     std::cout << "********************************************\n";
-    std::cout << "Mesh contains: " << mesh.vertices.size() << '\t' << mesh.indices.size() << '\n';
+    std::cout << "Mesh contains: " << meshes.size() << '\t' << meshes.size() << '\n';
     
     std::cout << "Attempting to load into Model Map\n";
     std::cout << "********************************************\n";
@@ -182,8 +183,8 @@ bool LoadBinFile(std::string filePath)
     Model model;
     
     model.name = fileName;
-    model.addMesh(mesh);
-    mesh.setupMesh();
+    model.meshes = meshes;
+//    meshes[0].setupMesh();
 
     g_ResourceManager.SetModelMap(model.name, model);
 

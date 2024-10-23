@@ -178,6 +178,8 @@ public:
     void setupMesh()
     {
         
+        std::cout << "this happened'\n";
+
         // create buffers/arrays
         glGenVertexArrays(1, &VAO);
         glGenBuffers(1, &VBO);

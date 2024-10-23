@@ -580,22 +580,29 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
 }
 
 
-void saveMeshToBin(const Mesh& mesh, const std::string& binFilePath) {
+void saveMeshToBin(std::vector<Mesh> meshes, const std::string& binFilePath) {
     std::ofstream binFile(binFilePath, std::ios::binary);
     if (!binFile.is_open()) {
-        std::cerr << "Failed to create binary file at saveMeshToBin (AssetManager.cpp): " << binFilePath << std::endl;
+        std::cerr << "Failed to create binary file at saveAllMeshesToBin: " << binFilePath << std::endl;
         return;
     }
 
-    // Save vertex data
-    size_t vertexCount = mesh.vertices.size();
-    binFile.write(reinterpret_cast<const char*>(&vertexCount), sizeof(size_t));
-    binFile.write(reinterpret_cast<const char*>(mesh.vertices.data()), vertexCount * sizeof(Vertex));
+    // Step 1: Write the number of meshes
+    size_t meshCount = meshes.size();
+    binFile.write(reinterpret_cast<const char*>(&meshCount), sizeof(size_t));
 
-    // Save index data
-    size_t indexCount = mesh.indices.size();
-    binFile.write(reinterpret_cast<const char*>(&indexCount), sizeof(size_t));
-    binFile.write(reinterpret_cast<const char*>(mesh.indices.data()), indexCount * sizeof(unsigned int));
+    // Step 2: For each mesh, write vertex and index data
+    for (const auto& mesh : meshes) {
+        // Write vertex data
+        size_t vertexCount = mesh.vertices.size();
+        binFile.write(reinterpret_cast<const char*>(&vertexCount), sizeof(size_t));
+        binFile.write(reinterpret_cast<const char*>(mesh.vertices.data()), vertexCount * sizeof(Vertex));
+
+        // Write index data
+        size_t indexCount = mesh.indices.size();
+        binFile.write(reinterpret_cast<const char*>(&indexCount), sizeof(size_t));
+        binFile.write(reinterpret_cast<const char*>(mesh.indices.data()), indexCount * sizeof(unsigned int));
+    }
 
     binFile.close();
 }
@@ -639,29 +646,31 @@ bool AssetManager::LoadObjects() {
 
 
 
-               // Model model;
+                Model model;
                // std::cout << "Loading: " << binFilePath << '\n';
                //
-               // model.loadModel(objFilePath, GL_TRIANGLES);
+                model.loadModel(objFilePath, GL_TRIANGLES);
+
                //
                // ModelMap.insert(std::pair<std::string, Model>(nameWithoutExtension, model));
                //
                // std::cout << "Loaded: " << binFilePath << " with name: " << nameWithoutExtension << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
 
-                
-
                 // Parse the .obj file into vertices and indices
                 std::vector<Vertex> vertices;
                 std::vector<unsigned int> indices;
                 parseOBJ(objFilePath, vertices, indices);
+                std::cout << vertices.size() << '\t' << indices.size() << "\t This Vertices ASize\n";
 
+                
                 // Create Mesh object and populate it with the vertices and indices
-                Mesh mesh(vertices, indices);
+               // Mesh mesh;//(vertices, indices);
+
+                //mesh.processMesh();
 
                 // Now save the mesh to the .bin file
-                saveMeshToBin(mesh, binFilePath);
+                saveMeshToBin(model.meshes, binFilePath);
 
-                std::cout << "addmodel\n";
 
                 g_ResourceManager.AddModelBinary(nameWithoutExtension);
 
