@@ -34,7 +34,7 @@ struct Vertex {
     // normal
     glm::vec3 Normal;
     // texCoords
-    glm::vec2 TexCoords;
+	glm::vec2 TexCoords{ -1.1f, -1.1f };
     //// tangent
     //glm::vec3 Tangent;
     //// bitangent
@@ -56,7 +56,7 @@ public:
     // mesh Data
     std::vector<Vertex>       vertices{};
     std::vector<unsigned int> indices{};
-    std::vector<Texture>      textures;
+	std::vector<Texture>      textures{};
     unsigned int VAO{};
     unsigned int drawMode{};
 
@@ -204,9 +204,18 @@ public:
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
 
-        // vertex texture coords (location = 2 in vertex shader)
-        glEnableVertexAttribArray(2);
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+		//check if the TexCoords are empty
+        if (vertices[0].TexCoords.x != 1.1f && vertices[0].TexCoords.y != 1.1f) {
+            // vertex texture coords (location = 2 in vertex shader)
+            glEnableVertexAttribArray(2);
+            glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+        }
+        else {
+			// vertex texture coords (location = 2 in vertex shader)
+			glEnableVertexAttribArray(2);
+			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),(void*)0);
+
+        }
 
         glBindVertexArray(0);
         //glEnableVertexAttribArray(2);
