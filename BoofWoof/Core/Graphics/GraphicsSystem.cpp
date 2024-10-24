@@ -110,7 +110,7 @@ void GraphicsSystem::UpdateLoop() {
 				if (graphicsComp.getModel() == nullptr)
 				{
 					std::cout << "Model is null" << std::endl;
-					graphicsComp.SetModel(&g_AssetManager.ModelMap["sphere"]);
+					graphicsComp.SetModel(&g_AssetManager.ModelMap["backpack"]);
 					//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
 					continue;
 				}
