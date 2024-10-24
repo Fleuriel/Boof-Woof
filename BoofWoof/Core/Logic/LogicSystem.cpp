@@ -10,19 +10,37 @@ void LogicSystem::Init()
 	std::cout << "Logic System Initialized" << std::endl;
 
 	HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\Scripts\\Scripts.dll");
-	
-	if (hGetProcIDDLL == NULL) {
+
+	if (hGetProcIDDLL == NULL)
+	{
 		std::cerr << "Could not load the dynamic library" << std::endl;
+		return;
 	}
-	if (hGetProcIDDLL) {
+
+	if (hGetProcIDDLL)
+	{
 		auto pGetScripts = (GetScripts_cpp_t)GetProcAddress(hGetProcIDDLL, "GetScripts");
-		if (!pGetScripts) 
+		if (!pGetScripts)
+		{
 			std::cout << "Its not working" << std::endl;
+		}
 		else
-		// Get the scripts from the script engine
-		// Add scripts from script engine to logic system
-		AddBehaviours(pGetScripts(new Script_to_Engine()));
+		{
+			// Create Script_to_Engine object dynamically
+			auto* scriptEngine = new Script_to_Engine();
+
+			// Get the scripts from the script engine
+			AddBehaviours(GetScripts(scriptEngine));
+
+			// Clean up Script_to_Engine object to prevent memory leak
+			delete scriptEngine;  // Ensure that the dynamically allocated object is deleted
+			
+			// Get the scripts from the script engine
+			// Add scripts from script engine to logic system
+			// AddBehaviours(pGetScripts(new Script_to_Engine()));
+		}
 	}
+
 	for (auto const& entity : mEntities)
 	{
 		// Get the logic component of the entity
@@ -68,18 +86,42 @@ void LogicSystem::Update()
 
 void LogicSystem::Shutdown()
 {
-	
 	// Clear the map to remove all entries
-	//mBehaviours.clear();
+	mBehaviours.clear();
 }
 
-void LogicSystem::AddBehaviours(std::vector<std::unique_ptr<Behaviour_i>>* B_Vec)
+void LogicSystem::AddBehaviours(void* scriptBehavioursPtr)
 {
-	for (int i = 0; B_Vec->begin() + i != B_Vec->end(); i++)
+	// Take in the void* from GetScripts and cast back to the correct type
+	auto* B_Vec = static_cast<std::vector<std::unique_ptr<Behaviour_i>>*>(scriptBehavioursPtr);
+
+	if (B_Vec == nullptr || B_Vec->empty())
 	{
-		std::cout << "Behaviour Added : " << B_Vec->begin()[i]->getBehaviourName() << std::endl;
-		mBehaviours[B_Vec->begin()[i]->getBehaviourName()] = std::move(B_Vec->begin()[i]);
-		
+		std::cerr << "B_Vec is null or empty!" << std::endl;
+		return;
 	}
-	
+
+	// Move behaviours to mBehaviours
+	for (auto& behaviourPtr : *B_Vec)
+	{
+		if (behaviourPtr)
+		{
+			// ensuring unique pointers are properly moved so no mem leaks
+			std::cout << "Behaviour Added : " << behaviourPtr->getBehaviourName() << std::endl;
+			mBehaviours[behaviourPtr->getBehaviourName()] = std::move(behaviourPtr);
+		}
+	}
+
+	// Clean up B_Vec to free the allocated memory
+	delete B_Vec;
 }
+
+//void LogicSystem::AddBehaviours(std::vector<std::unique_ptr<Behaviour_i>>* B_Vec)
+//{
+//	/*for (int i = 0; B_Vec->begin() + i != B_Vec->end(); i++)
+//	{
+//		std::cout << "Behaviour Added : " << B_Vec->begin()[i]->getBehaviourName() << std::endl;
+//		mBehaviours[B_Vec->begin()[i]->getBehaviourName()] = std::move(B_Vec->begin()[i]);
+//		
+//	}*/
+//}

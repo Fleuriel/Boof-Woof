@@ -6,6 +6,7 @@ struct Player final : public Behaviour
 
 	virtual void Update(Entity entity) override
 	{
+		(void)entity;
 		std::cout << "Player Update" << std::endl;
 	}
 
