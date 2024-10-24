@@ -1,16 +1,16 @@
 #include "../BoofWoof/Core/Logic/Behaviour.h"
 
-struct myBehavior final : public Behaviour
+struct Player final : public Behaviour
 {
 	using Behaviour::Behaviour;
 
 	virtual void Update(Entity entity) override
 	{
-		std::cout << "myBehavior Update" << std::endl;
+		std::cout << "Player Update" << std::endl;
 	}
 
 	virtual const char* getBehaviourName() override
 	{
-		return "myBehavior";
+		return "Player";
 	}
 };

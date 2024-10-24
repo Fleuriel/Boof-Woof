@@ -1,9 +1,6 @@
 #include "LogicSystem.h"
 #include "../ECS/Coordinator.hpp"
 #include "../Utilities/Components/BehaviourComponent.hpp"
-#include "Scripts/Null.cpp"
-#include "Scripts/Player.cpp"
-#include "Scripts/Movement.cpp"
 #include "../../../Scripts/Compile.cpp"
 #include "Script_to_Engine.h"
 #include <wtypes.h>
@@ -11,18 +8,11 @@
 void LogicSystem::Init()
 {
 	std::cout << "Logic System Initialized" << std::endl;
-	
-	/*
-	// Add behaviours here
-	AddBehaviour(new Behaviour("Null", Null::Start, Null::Update, Null::Destroy));
-	AddBehaviour(new Behaviour("Movement", Movement::Start, Movement::Update, Movement::Destroy));
-	AddBehaviour(new Behaviour("Player", Player::Start, Player::Update, Player::Destroy));
-	*/
 
 	HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\Scripts\\Scripts.dll");
 	
 	if (hGetProcIDDLL == NULL) {
-		std::cerr << "could not load the dynamic library" << std::endl;
+		std::cerr << "Could not load the dynamic library" << std::endl;
 	}
 	if (hGetProcIDDLL) {
 		auto pGetScripts = (GetScripts_cpp_t)GetProcAddress(hGetProcIDDLL, "GetScripts");
@@ -78,14 +68,9 @@ void LogicSystem::Update()
 
 void LogicSystem::Shutdown()
 {
-	/*
-	for (auto& behaviourPair : mBehaviours)
-	{
-		delete behaviourPair.second;  // Free dynamically allocated Behaviour objects
-	}
-	*/
+	
 	// Clear the map to remove all entries
-	mBehaviours.clear();
+	//mBehaviours.clear();
 }
 
 void LogicSystem::AddBehaviours(std::vector<std::unique_ptr<Behaviour_i>>* B_Vec)

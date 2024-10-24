@@ -11,7 +11,7 @@ extern "C"
 		std::vector<std::unique_ptr<Behaviour_i>>* pBehaviours = new std::vector<std::unique_ptr<Behaviour_i>>();
 
 		// Add all the scripts here
-		pBehaviours->emplace_back(new myBehavior(EP));
+		pBehaviours->emplace_back(new Player(EP));
 
 
 		return pBehaviours;
