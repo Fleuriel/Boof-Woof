@@ -1,6 +1,6 @@
 #include "../BoofWoof/Core/Logic/Behaviour.h"
 
-class myBehavior final : public Behaviour
+struct myBehavior final : public Behaviour
 {
 	using Behaviour::Behaviour;
 
@@ -9,7 +9,7 @@ class myBehavior final : public Behaviour
 		std::cout << "myBehavior Update" << std::endl;
 	}
 
-	virtual  const char* getBehaviourName() override
+	virtual const char* getBehaviourName() override
 	{
 		return "myBehavior";
 	}

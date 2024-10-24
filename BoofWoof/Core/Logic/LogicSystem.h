@@ -7,6 +7,7 @@ struct Behaviour;
 
 #include "../ECS/System.hpp"
 #include "Behaviour.h"
+#include "BehaviourInterface.h"
 #include <map>
 
 class LogicSystem : public System
@@ -16,10 +17,10 @@ public:
 	void Update();
 	void Shutdown();
 
-	void AddBehaviour(Behaviour* behaviour);
+	void AddBehaviours(std::vector<std::unique_ptr<Behaviour_i>>* B_Vec);
 private:
 	// Keep track of all the behaviours
-	 std::map<std::string, Behaviour*> mBehaviours;
+	 std::map<std::string, std::unique_ptr<Behaviour_i>> mBehaviours;
 };
 
 extern Entity g_Player;

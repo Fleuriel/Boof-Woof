@@ -14,7 +14,9 @@ struct Behaviour : public Behaviour_i
 	virtual void Init(Entity entity) override { (void)entity; }
 	virtual void Update(Entity entity) override { (void)entity; }
 	virtual void Destroy(Entity entity) override { (void)entity; }
+	virtual const char* getBehaviourName() override { return "Not Initialized"; };
 	engine_interface&	m_Engine;
+
 };
 
 

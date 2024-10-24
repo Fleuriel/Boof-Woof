@@ -7,12 +7,11 @@
 
 class Script_to_Engine : public engine_interface
 {
-	/*
+	
 	virtual void AddComponent(Entity entity, ComponentType type) {
 		// Add component to entity
-		g_Coordinator.AddComponent(entity, type);
+		//g_Coordinator.AddComponent(entity, type);
 	}
-	*/
 };
 
 #endif // !SCRIPT_TO_ENGINE_H
