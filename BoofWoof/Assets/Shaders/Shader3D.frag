@@ -20,6 +20,8 @@ layout(location = 3) in vec2 TexCoord;
 
 out vec4 FragColor;
 
+uniform int textureCount;
+
 void main()
 {
 
@@ -29,8 +31,11 @@ void main()
     //FragColor = vec4(TexCoord, 0.0f ,1.0f) * vec4(0.5f,0.5f,0.5f,1.f);
 
     //FragColor = vec4(vertColor, 1.0f) * vec4(0.5f, 0.5f, 0.5f, 1.f);
-
-    vec3 lightVector = vec3(-2567, 44448, 91008) - FragPos;
-    float N_dot_L = max(dot(normalize(vertNormal), normalize(lightVector)), 0.0f);
-    FragColor = vec4(vertColor * N_dot_L, 1.0f);
+    if(textureCount == 0)
+	{
+		vec3 lightVector = vec3(-2567, 44448, 91008) - FragPos;
+        float N_dot_L = max(dot(normalize(vertNormal), normalize(lightVector)), 0.0f);
+        FragColor = vec4(vertColor * N_dot_L, 1.0f);
+	}
+   
 }

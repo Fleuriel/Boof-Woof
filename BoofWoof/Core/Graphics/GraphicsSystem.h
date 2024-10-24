@@ -27,7 +27,7 @@ struct ShaderParams {
     glm::mat4 View;
     glm::mat4 Projection;
     glm::vec3 Color;
-
+    
 
     ShaderParams() : WorldMatrix(glm::mat4(0.0f)), View(glm::mat4(0.0f)), Projection(glm::mat4(0.0f)), Color(glm::vec3(0.1f, 0.2f, 0.3f)) {}
 

@@ -144,7 +144,13 @@ void GraphicsSystem::UpdateLoop() {
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 
+				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
 
+				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
+				{
+					/*g_AssetManager.GetShader("Shader3D").SetUniform("uTex2d[" + std::to_string(i) + "]", i);
+					glBindTextureUnit(i, graphicsComp.getTexture(i).id);*/
+				}
 				
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture1", tex1);
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture2", tex2);
@@ -230,7 +236,7 @@ void GraphicsSystem::UpdateLoop() {
 	//glm::mat4 fontprojection = glm::ortho(0.0f, static_cast<float>(g_WindowX), 0.0f, static_cast<float>(g_WindowY));
 	//g_AssetManager.GetShader("Font").SetUniform("projection", fontprojection);
 	
-	fontSystem.RenderText(g_AssetManager.GetShader("Font"), "Hello, World!", 0.0f, 0.0f, 0.001f, glm::vec3(1.f, 0.8f, 0.2f));
+	//fontSystem.RenderText(g_AssetManager.GetShader("Font"), "Hello, World!", 0.0f, 0.0f, 0.001f, glm::vec3(1.f, 0.8f, 0.2f));
 	
 
 
