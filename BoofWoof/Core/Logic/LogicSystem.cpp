@@ -6,6 +6,7 @@
 #include "Scripts/Movement.cpp"
 #include "../../../Scripts/Compile.cpp"
 #include "Script_to_Engine.h"
+#include <wtypes.h>
 
 void LogicSystem::Init()
 {
@@ -18,7 +19,13 @@ void LogicSystem::Init()
 	AddBehaviour(new Behaviour("Player", Player::Start, Player::Update, Player::Destroy));
 	*/
 
+	HINSTANCE hGetProcIDDLL = LoadLibrary(L"Scripts.dll");
 	
+	if (!hGetProcIDDLL) {
+		std::cout << "could not load the dynamic library" << std::endl;
+	}
+	auto pGetScripts = (GetScripts_cpp_t)GetProcAddress(hGetProcIDDLL, "GetScripts");
+	if (!pGetScripts) std::cout << "Its not working" << std::endl;
 
 	for (auto const& entity : mEntities)
 	{
@@ -30,6 +37,14 @@ void LogicSystem::Init()
 		{
 			std::cout << "Behaviour not found" << std::endl;
 			continue;
+		}
+		else
+		{
+			//print all the behaviours
+			for (auto const& behaviour : mBehaviours)
+			{
+				std::cout << behaviour.first << std::endl;
+			}
 		}
 		mBehaviours[behaviourComponent.GetBehaviourName()]->Init(entity);
 

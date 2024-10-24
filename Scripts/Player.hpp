@@ -6,7 +6,7 @@ class myBehavior final : public Behaviour
 
 	virtual void Update(Entity entity) override
 	{
-
+		std::cout << "myBehavior Update" << std::endl;
 	}
 
 	virtual  const char* getBehaviourName() override

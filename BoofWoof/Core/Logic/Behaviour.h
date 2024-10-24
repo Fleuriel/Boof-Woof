@@ -11,9 +11,9 @@
 struct Behaviour : public Behaviour_i
 {
 	Behaviour(engine_interface& Engine) : m_Engine(Engine) {}
-	virtual void Init(Entity entity) override {}
-	virtual void Update(Entity entity) override {}
-	virtual void Destroy(Entity entity) override {}
+	virtual void Init(Entity entity) override { (void)entity; }
+	virtual void Update(Entity entity) override { (void)entity; }
+	virtual void Destroy(Entity entity) override { (void)entity; }
 	engine_interface&	m_Engine;
 };
 

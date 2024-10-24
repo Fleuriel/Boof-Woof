@@ -3,7 +3,7 @@
 #ifndef LOGIC_SYSTEM_H
 #define LOGIC_SYSTEM_H
 
-class Behaviour;
+struct Behaviour;
 
 #include "../ECS/System.hpp"
 #include "Behaviour.h"
