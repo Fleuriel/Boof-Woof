@@ -83,7 +83,7 @@
     </IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\gli-master\gli-master;$(SolutionDir)lib\freetype\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\gli-master\gli-master;$(SolutionDir)lib\freetype\include;$(SolutionDir)lib\xproperty-master\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(SolutionDir)lib\JoltPhysics-master\Build\Debug;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
@@ -223,6 +223,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Level Manager\Level.h" />
     <ClInclude Include="Core\Level Manager\LevelManager.h" />
     <ClInclude Include="Core\Physics\PhysicsSystem.h" />
+    <ClInclude Include="Core\Property\MyProperty.h" />
     <ClInclude Include="Core\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Core\SceneManager\SceneManager.h" />
     <ClInclude Include="Core\Logic\Behaviour.h" />

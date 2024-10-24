@@ -67,6 +67,7 @@
     <ClInclude Include="Core\AssetManager\Compressonator.h" />
     <ClInclude Include="Core\Level Manager\Level.h" />
     <ClInclude Include="Core\Level Manager\LevelManager.h" />
+    <ClInclude Include="Core\Property\MyProperty.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />
