@@ -11,20 +11,12 @@
  *
  *************************************************************************/
 
-#define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
+#include "pch.h"
 
 #pragma warning(push)
-#pragma warning(disable: 4244)
-#pragma warning(disable: 4005)  // Disable macro redefinition warning
+#pragma warning(disable: 4244 4005)
 
-#include <filesystem>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <string>
-#include <filesystem>
 #include <cstdlib>      // for system command
-#include <random>       // For GUID generation
 
 #include "AssetManager.h"
 #include "windows.h"
@@ -1033,3 +1025,30 @@ bool AssetManager::FreeShaders()
 {
     return false;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma warning(pop)

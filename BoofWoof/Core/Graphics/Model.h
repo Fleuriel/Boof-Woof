@@ -23,22 +23,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 
-
-
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <map>
-#include <vector>
-//
-
-
 #include "AssetManager/AssetManager.h"
-
-
-
-
 
 
 //extern std::vector<Model2D> models;

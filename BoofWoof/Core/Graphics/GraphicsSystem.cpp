@@ -1,12 +1,9 @@
+#include "pch.h"
 #include "GraphicsSystem.h"
 #include <utility>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <map>
 #include "../Input/Input.h"
 #include "Camera.h"
 #include "FontSystem.h"
-
 #include "AssetManager/AssetManager.h"
 #include "ResourceManager/ResourceManager.h"
 #include "Windows/WindowManager.h"

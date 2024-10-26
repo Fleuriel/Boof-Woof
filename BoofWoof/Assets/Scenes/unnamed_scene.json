@@ -1,12 +1,12 @@
 {
-    "SceneGUID": "5f05c85b-01cd-465e-a008-36c8c39d8726",
+    "SceneGUID": "43e3ce9e-05be-4626-883e-91a442e8ce9c",
     "Entities": [
         {
-            "EntityName": "GameObject",
+            "EntityName": "Player",
             "Position": {
                 "x": 0.0,
                 "y": 0.0,
-                "z": -2.0
+                "z": 0.0
             },
             "Scale": {
                 "x": 1.0,
@@ -21,7 +21,11 @@
             "ModelID": 0,
             "EntityID": 0,
             "ModelName": "Square",
-            "Texture": ""
+            "Texture": "",
+            "AudioFilePath": "../BoofWoof/Assets/Audio/explode2.wav",
+            "Volume": 1.0,
+            "ShouldLoop": false,
+            "BehaviourName": "Movement"
         }
     ]
 }
