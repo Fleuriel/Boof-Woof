@@ -72,7 +72,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 	//fontSystem.init();
 
-	shdrParam.Color = glm::vec3(98.f/255.f, 2.f/255.f, 232.f/255.f);
+	shdrParam.Color = glm::vec3(1.0f, 1.0f,1.0f);
 
 	// Initialize camera
 	camera = Camera(glm::vec3(0.f, 0.f, 3.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);

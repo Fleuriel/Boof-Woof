@@ -431,7 +431,7 @@ void ImGuiEditor::InspectorWindow()
 					const auto& names = *(static_cast<std::vector<std::string>*>(data));
 					*out_text = names[idx].c_str(); // Set the output text
 					return true; // Indicate that the callback is successful
-					}, (void*)&modelNames, modelNames.size())) // Use modelNames.size() instead of IM_ARRAYSIZE
+					}, (void*)&modelNames, static_cast<int>(modelNames.size()))) // Use modelNames.size() instead of IM_ARRAYSIZE
 				{
 					modelName = modelNames[currentItem];
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setModelName(modelName);
@@ -449,8 +449,8 @@ void ImGuiEditor::InspectorWindow()
 				if (ImGui::Button("Set Texture"))
 				{
 					std::cout << "ButtoN clicked\n";
-					ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png, .jpg", "../BoofWoof/Assets/Art/Texture");
-	//				ImGuiFileDialog::Instance()->OpenDialog("SelectTexture", "Choose File", ".dds, .png", "../BoofWoof/Assets");
+					//ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png, .jpg", "../BoofWoof/Assets/Art/Texture");
+					ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png", "../BoofWoof/Assets");
 				}
 
 				if (ImGuiFileDialog::Instance()->Display("AddAsset"))

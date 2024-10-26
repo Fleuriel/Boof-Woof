@@ -46,7 +46,7 @@ public:
 
 	void setTexture(std::string texture) { textureName = texture; }
 	std::string getTexture() { return textureName; }
-	int getTextureNumber() { return textures.size(); }
+	int getTextureNumber() { return static_cast<int>(textures.size()); }
 	int getTexture(int i) { return textures[i]; }
 
 
