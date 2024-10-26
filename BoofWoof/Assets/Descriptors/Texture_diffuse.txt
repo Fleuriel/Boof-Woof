@@ -1,2 +1,2 @@
-File Name : diffuse.jpg
+File Name : diffuse.png
 Compression Format : -fd BC3

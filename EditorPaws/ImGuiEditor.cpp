@@ -483,7 +483,7 @@ void ImGuiEditor::InspectorWindow()
 						// Use the file path (e.g., set a texture, load a model, etc.)
 						//get the texture id
 						int textureid = g_ResourceManager.GetTextureDDS(selected_file);
-						std::cout << "Texture add with texture ID: " << textureid << std::endl;
+						std::cout << "Texture add with texture ID: " << textureid << " with sleleted file "<< selected_file << std::endl;
 						
 						g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).AddTexture(textureid);
 					}

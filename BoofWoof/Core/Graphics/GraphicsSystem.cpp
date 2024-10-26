@@ -149,13 +149,14 @@ void GraphicsSystem::UpdateLoop() {
 
 				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
 				{
+					glActiveTexture(GL_TEXTURE0 + i);
 					static bool show = true;
 					if (show) {
 						std::cout << "Texture Count: " << graphicsComp.getTextureNumber() <<" with 1st texture number " << graphicsComp.getTexture(i) << std::endl;
 						show = false;
 					}
-					g_AssetManager.GetShader("Shader3D").SetUniform("texture1", graphicsComp.getTexture(i));
-					glBindTextureUnit(6, graphicsComp.getTexture(i));
+					g_AssetManager.GetShader("Shader3D").SetUniform("texture1", i);
+					glBindTexture(GL_TEXTURE_2D, graphicsComp.getTexture(i));
 				}
 				
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture1", tex1);
