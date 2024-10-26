@@ -10,7 +10,8 @@
  * @brief This header file contains all the filepaths to the respective assets
  *************************************************************************/
 
-#define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
+#include "pch.h"
+
 #include "WindowManager.h"
 #include "Input/Input.h"
 

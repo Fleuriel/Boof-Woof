@@ -17,14 +17,7 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
-#include <GL/glew.h> // for access to OpenGL API declarations
 #include "Shader.h"
-#include <string>
-#include <vector>
-
 
 #define MAX_BONE_INFLUENCE 4
 

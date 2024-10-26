@@ -11,10 +11,8 @@
  * store the vertices, indices, and textures of a model. It also provides
  * functions to render the model.
  *************************************************************************/
+#include "pch.h"
 #include "Model.h"
-#include <array>
-#include <set>
-#include <vector>
 #include "ResourceManager/ResourceManager.h"
 
 

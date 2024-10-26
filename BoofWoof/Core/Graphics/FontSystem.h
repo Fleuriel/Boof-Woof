@@ -14,15 +14,9 @@
 #pragma once
 #ifndef FONTSYSTEM_H
 #define FONTSYSTEM_H
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+
 #include <ft2build.h>
-#include <string>
 #include "Shader.h"
-#include <vector>
-#include <map>
 #include "../ECS/System.hpp"
 #include FT_FREETYPE_H
 

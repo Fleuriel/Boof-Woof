@@ -9,14 +9,6 @@
 #include "ResourceManager/ResourceManager.h"
 
 
-// this part must be included last. Want to add anything new, add before this line
-#include <GL/glew.h>
-#define GLM_FORCE_SILENT_WARNINGS
-#include <glm/glm.hpp>
-#include <iostream>
-
-
-
 bool GraphicsSystem::debug = false;
 
 
@@ -398,11 +390,6 @@ void ImGuiEditor::InspectorWindow()
 			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
 			{
 				std::string modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
-				if (modelName.empty())
-				{
-					std::cerr << "Error: modelName is null!" << std::endl;
-					return;
-				}
 
 				// Just add onto the mNames if got new models
 				std::string mNames[] = { "cube", "sphere", "Square" , "cubeModel"};
@@ -415,7 +402,6 @@ void ImGuiEditor::InspectorWindow()
 						currentItem = i;
 					}
 				}
-				
 
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Model   "); ImGui::SameLine();
@@ -578,11 +564,11 @@ void ImGuiEditor::InspectorWindow()
 			if (ImGui::CollapsingHeader("Behaviour", ImGuiTreeNodeFlags_None))
 			{
 				std::string name = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).GetBehaviourName();
-				if (name.empty())
-				{
-					std::cerr << "Error: Behaviour name is null!" << std::endl;
-					return;
-				}
+				//if (name.empty())
+				//{
+				//	std::cerr << "Error: Behaviour name is null!" << std::endl;
+				//	return;
+				//}
 
 				// Just add onto the BehaviourNames if got new script
 				std::string behaviourNames[] = { "Null", "Player", "Movement" };		

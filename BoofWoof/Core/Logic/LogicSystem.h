@@ -7,7 +7,6 @@ class Behaviour;
 
 #include "../ECS/System.hpp"
 #include "Behaviour.h"
-#include <map>
 
 class LogicSystem : public System
 {

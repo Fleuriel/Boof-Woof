@@ -1,8 +1,5 @@
 #pragma once
 
-#include <string>
-#include <memory>
-#include <unordered_map>
 #include "Level.h"
 
 #define g_LevelManager LevelManager::GetInstance()

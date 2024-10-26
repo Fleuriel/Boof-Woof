@@ -2,7 +2,7 @@
 #ifndef COORDINATOR_H
 #define COORDINATOR_H
 
-#include "pch.hpp"
+#include "pch.h"
 #include "ComponentManager.hpp"
 #include "EntityManager.hpp"
 #include "SystemManager.hpp"
