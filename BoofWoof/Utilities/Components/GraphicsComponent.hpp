@@ -32,9 +32,10 @@ public:
 		m_ModelName = modelName; }
 	void SetModelID(int modelID) { m_ModelID = modelID; }
 	void AddTexture(int textureid) { 
-		Texture texture;
+		/*Texture texture;
 		texture.id = textureid;
-		textures.push_back(texture);
+		textures.push_back(texture);*/
+		textures.push_back(textureid);
 	}
 
 
@@ -46,7 +47,7 @@ public:
 	void setTexture(std::string texture) { textureName = texture; }
 	std::string getTexture() { return textureName; }
 	int getTextureNumber() { return textures.size(); }
-	Texture getTexture(int i) { return textures[i]; }
+	int getTexture(int i) { return textures[i]; }
 
 
     // Constructor and destructor
@@ -63,7 +64,7 @@ private:
 	std::string m_ModelName{};
 	int m_ModelID{};
 	std::string textureName;
-	std::vector<Texture> textures{};
+	std::vector<int> textures{};
 };
 
 #endif  // GRAPHICS_COMPONENT_H

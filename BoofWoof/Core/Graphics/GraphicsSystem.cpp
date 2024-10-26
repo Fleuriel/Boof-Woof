@@ -145,11 +145,17 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 
 				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
+				
 
 				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
 				{
-					g_AssetManager.GetShader("Shader3D").SetUniform("texture1", i);
-					glBindTextureUnit(6, graphicsComp.getTexture(i).id);
+					static bool show = true;
+					if (show) {
+						std::cout << "Texture Count: " << graphicsComp.getTextureNumber() <<" with 1st texture number " << graphicsComp.getTexture(i) << std::endl;
+						show = false;
+					}
+					g_AssetManager.GetShader("Shader3D").SetUniform("texture1", graphicsComp.getTexture(i));
+					glBindTextureUnit(6, graphicsComp.getTexture(i));
 				}
 				
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture1", tex1);
