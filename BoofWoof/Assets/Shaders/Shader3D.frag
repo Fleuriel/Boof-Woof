@@ -16,11 +16,15 @@
 layout(location = 0) in vec3 vertColor;
 layout(location = 1) in vec3 vertNormal;
 layout(location = 2) in vec3 FragPos;
-layout(location = 3) in vec2 TexCoord;
+layout(location = 3) in vec2 TexCoords;
 
-out vec4 FragColor;
 
-uniform int textureCount;
+uniform sampler2D texture_diffuse1;
+//uniform int textureCount;
+
+
+
+out vec4 fragColor;
 
 void main()
 {
@@ -31,11 +35,13 @@ void main()
     //FragColor = vec4(TexCoord, 0.0f ,1.0f) * vec4(0.5f,0.5f,0.5f,1.f);
 
     //FragColor = vec4(vertColor, 1.0f) * vec4(0.5f, 0.5f, 0.5f, 1.f);
-    if(textureCount == 0)
-	{
-		vec3 lightVector = vec3(-2567, 44448, 91008) - FragPos;
-        float N_dot_L = max(dot(normalize(vertNormal), normalize(lightVector)), 0.0f);
-        FragColor = vec4(vertColor * N_dot_L, 1.0f);
-	}
+    //if(textureCount !=0 )
+	//{
+		 fragColor = texture(texture_diffuse1, TexCoords);
+	//}else{
+       // vec3 lightVector = vec3(-2567, 44448, 91008)-FragPos;
+        //float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
+        //fragColor = vec4(vertColor*N_dot_L, 1.0f);
+	//}
    
 }

@@ -148,8 +148,8 @@ void GraphicsSystem::UpdateLoop() {
 
 				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
 				{
-					/*g_AssetManager.GetShader("Shader3D").SetUniform("uTex2d[" + std::to_string(i) + "]", i);
-					glBindTextureUnit(i, graphicsComp.getTexture(i).id);*/
+					g_AssetManager.GetShader("Shader3D").SetUniform("texture1", i);
+					glBindTextureUnit(6, graphicsComp.getTexture(i).id);
 				}
 				
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture1", tex1);
