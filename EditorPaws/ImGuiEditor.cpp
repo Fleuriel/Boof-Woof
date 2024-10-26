@@ -9,12 +9,7 @@
 #include "ResourceManager/ResourceManager.h"
 
 
-// this part must be included last. Want to add anything new, add before this line
-#include <GL/glew.h>
-#define GLM_FORCE_SILENT_WARNINGS
-#include <glm/glm.hpp>
-#include <iostream>
-
+#include "ECS/pch.h"
 
 
 bool GraphicsSystem::debug = false;
@@ -405,11 +400,7 @@ void ImGuiEditor::InspectorWindow()
 				}
 
 				// Just add onto the mNames if got new models
-<<<<<<< HEAD
-				std::string mNames[] = { "cube", "sphere", "Square" };
-=======
 				std::string mNames[] = { "cube", "sphere", "Square" , "cubeModel"};
->>>>>>> main
 				static int currentItem = 0;
 
 				for (int i = 0; i < IM_ARRAYSIZE(mNames); ++i)
@@ -419,10 +410,6 @@ void ImGuiEditor::InspectorWindow()
 						currentItem = i;
 					}
 				}
-<<<<<<< HEAD
-=======
-				
->>>>>>> main
 
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Model   "); ImGui::SameLine();

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "EngineCore.h"
 
 std::shared_ptr<GraphicsSystem> mGraphicsSys;

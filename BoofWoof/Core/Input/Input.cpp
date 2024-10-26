@@ -10,7 +10,7 @@
  * This file defines the input system
  *
  *************************************************************************/
-
+#include "pch.h"
 #include "Input.h"
 
 int InputSystem::GetKeyState(int index) {

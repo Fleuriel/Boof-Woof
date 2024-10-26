@@ -15,12 +15,10 @@
 
 #ifndef ASSETMANAGER_H
 #define ASSETMANAGER_H
-#include <vector>
-#include <string>
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include <iostream>
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/Shader.h"
 #include "Graphics/Model.h"

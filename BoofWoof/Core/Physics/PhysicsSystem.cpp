@@ -11,14 +11,13 @@
  *
  *
  *************************************************************************/
-
+#include "pch.h"
 #include "PhysicsSystem.h"
 #include <Jolt/Physics/Body/Body.h>                   // For Body
 #include <Jolt/Physics/Body/BodyCreationSettings.h>   // For BodyCreationSettings
 #include <Jolt/Physics/Collision/Shape/SphereShape.h> // For SphereShape
 #include <Jolt/Physics/Collision/Shape/ConvexShape.h> // For SphereShape
 #include <Jolt/Physics/Body/BodyInterface.h>          // For BodyInterface
-#include <cstdint>  // For uint32_t or standard integer types
 
 void PhysicsManager::InitializeJolt() {
     // Initialize JobSystem with multiple threads
