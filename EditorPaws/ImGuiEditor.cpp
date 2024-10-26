@@ -9,9 +9,6 @@
 #include "ResourceManager/ResourceManager.h"
 
 
-#include "ECS/pch.h"
-
-
 bool GraphicsSystem::debug = false;
 
 
