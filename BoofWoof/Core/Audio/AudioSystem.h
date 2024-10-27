@@ -10,9 +10,13 @@
  * This file contains the declaration of member functions of AudioSystem
  * Class
  *************************************************************************/
+#include <unordered_map>
+#include <vector>
+#include <string>
 #include <fmod.hpp>
 #include "../Utilities/Components/AudioComponent.hpp"
-#include "ECS/Coordinator.hpp"
+#include "../ECS/Coordinator.hpp"
+#include <memory>  // For std::shared_ptr
 
 #define g_Audio AudioSystem::GetInstance()
 

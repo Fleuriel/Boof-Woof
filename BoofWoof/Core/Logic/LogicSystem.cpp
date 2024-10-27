@@ -1,5 +1,3 @@
-#include "pch.h"
-
 #include "LogicSystem.h"
 #include "../ECS/Coordinator.hpp"
 #include "../Utilities/Components/BehaviourComponent.hpp"

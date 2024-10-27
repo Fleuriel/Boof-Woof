@@ -10,13 +10,16 @@
  * This file contains the definitions of member functions of Serialization
  * Class
  *************************************************************************/
-#include "pch.h"
-
 #include "Serialization.h"
 #include "../EngineCore.h"
 #include <cstdio>
+#include <iostream>
+#include <filesystem>
+#include <random>
+#include <sstream>
+#include <iomanip>
 
-#include "ResourceManager/ResourceManager.h"
+#include "Serialization.h"
 
 // Initialize the static member variable
 std::string Serialization::currentSceneGUID = "";
@@ -164,16 +167,6 @@ bool Serialization::SaveScene(const std::string& filepath) {
             auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
             entityData.AddMember("ModelID", graphicsComp.getModelID(), allocator);
             entityData.AddMember("EntityID", static_cast<int>(entity), allocator);
-            
-            // Model Name
-            entityData.AddMember("ModelName", rapidjson::Value(graphicsComp.getModelName().c_str(), allocator), allocator);
-
-            // Texture Name
-            entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getTexture().c_str(), allocator), allocator);
-
-
-
-            //entityData.AddMember("", S)
         }
 
         // Serialize AudioComponent
@@ -309,28 +302,9 @@ bool Serialization::LoadScene(const std::string& filepath) {
             // Deserialize GraphicsComponent
             if (entityData.HasMember("ModelID")) {
                 int modelID = entityData["ModelID"].GetInt();
-                
-                if (entityData.HasMember("ModelName"))
-                {
-                    std::string modelName = entityData["ModelName"].GetString();
-
-                    GraphicsComponent graphicsComponent(modelName, entity);
-                    graphicsComponent.SetModelID(modelID);
-                    g_Coordinator.AddComponent(entity, graphicsComponent);
-
-
-                    if (entityData.HasMember("Texture"))
-                    {
-                        std::string TextureName = entityData["Texture"].GetString();
-
-                        GraphicsSystem::set_Texture_ = g_ResourceManager.GetTextureDDS(TextureName);
-
-                        //graphicsComponent.setTexture(TextureName);
-                    }
-
-                }
-
-                
+                GraphicsComponent graphicsComponent("sphere", entity);
+                graphicsComponent.SetModelID(modelID);
+                g_Coordinator.AddComponent(entity, graphicsComponent);
             }
 
             // Deserialize AudioComponent

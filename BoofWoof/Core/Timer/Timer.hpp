@@ -1,5 +1,6 @@
 #pragma once
 
+#include <chrono>
 #define g_Timer Timer::GetInstance()
 
 class Timer 

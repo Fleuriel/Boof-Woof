@@ -34,16 +34,6 @@ public:
 	void Settings();
 	void Scenes();
 	void Audio();
-	void PlayStopRunBtn();
-
-	// PlayStopRun Panel
-	enum class States
-	{
-		Play,
-		Stop,
-		Pause
-	};
-	States m_State = States::Stop;
 
 	// Audio Panel
 	std::string m_AudioName{};
@@ -58,15 +48,8 @@ public:
 		
 	std::filesystem::path m_BaseDir = "../BoofWoof/Assets";			// Asset Panel
 	std::filesystem::path m_CurrDir = m_BaseDir;
-	std::string m_LastOpenedFile{};
-
-	// For saving files
-	std::string m_FileName{};
-	std::string m_FinalFileName{};
-	std::string m_FilePath{};
 
 	bool m_IsSelected{ false };
-	bool m_PlayerExist{ false };
 
 	static ImGuiEditor& GetInstance();
 

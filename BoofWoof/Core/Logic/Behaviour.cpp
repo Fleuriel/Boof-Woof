@@ -1,8 +1,7 @@
-#include "pch.h"
-
 #include "Behaviour.h"
 #include "../ECS/Coordinator.hpp"
 #include "LogicSystem.h"
+
 
 Behaviour::Behaviour(const char* behaviourName, const InitBehaviour& init, const UpdateBehaviour& update, const DestroyBehaviour& destroy)
 	: mBehaviourName(behaviourName), InitFunction(init), UpdateFunction(update), DestroyFunction(destroy)

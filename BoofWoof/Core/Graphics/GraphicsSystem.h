@@ -12,6 +12,14 @@ class GraphicsComponent;
 
 #include "../ECS/System.hpp"
 
+#include <vector>
+
+#define GLM_FORCE_SILENT_WARNINGS
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+
+
 
 struct ShaderParams {
 
@@ -19,7 +27,7 @@ struct ShaderParams {
     glm::mat4 View;
     glm::mat4 Projection;
     glm::vec3 Color;
-    
+
 
     ShaderParams() : WorldMatrix(glm::mat4(0.0f)), View(glm::mat4(0.0f)), Projection(glm::mat4(0.0f)), Color(glm::vec3(0.1f, 0.2f, 0.3f)) {}
 
@@ -39,12 +47,6 @@ public:
     static bool D2; // 0 is 2D, 1 is 3D
     static bool D3; // 0 is 2D, 1 is 3D
     
-    
-    int set_Texture_T;
-    static int set_Texture_;
-
-    std::string textureNameInput;
-
     void SetShaderUniforms(OpenGLShader& shader, const ShaderParams& shdrParam);
 
 

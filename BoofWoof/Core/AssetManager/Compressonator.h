@@ -15,6 +15,9 @@
 #ifndef TEXTURE_COMPRESSONATOR_H
 #define TEXTURE_COMPRESSONATOR_H
 
+#include <string>
+#include <vector>
+
 // Function to trim leading and trailing whitespaces from a string
 std::string trim(const std::string& str);
 

@@ -154,7 +154,7 @@ JPH_OBJECT_STREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include\;$(SolutionDir)lib\glew-2.2.0\include\;$(SolutionDir)lib\glm-0.9.9.8\glm;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)lib\gli-master\gli-master\gli</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard_C>Default</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -168,8 +168,7 @@ JPH_OBJECT_STREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Command>xcopy /y /d "$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64\*.dll" "$(OutDir)"
 xcopy /y /d "$(SolutionDir)lib\assimp\lib\*.dll" "$(OutDir)"
 xcopy /y /d "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(OutDir)"
-xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"
-xcopy /y /d "$(SolutionDir)lib\freetype" "$(OutDir)"</Command>
+xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

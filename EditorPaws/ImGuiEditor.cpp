@@ -9,9 +9,15 @@
 #include "ResourceManager/ResourceManager.h"
 
 
+// this part must be included last. Want to add anything new, add before this line
+#include <GL/glew.h>
+#define GLM_FORCE_SILENT_WARNINGS
+#include <glm/glm.hpp>
+#include <iostream>
+
+
+
 bool GraphicsSystem::debug = false;
-
-
 namespace fs = std::filesystem;
 
 //Helper function to locate save file directory
@@ -74,7 +80,6 @@ void ImGuiEditor::ImGuiUpdate()
 	AssetWindow();
 	Settings();
 	Scenes();
-	PlayStopRunBtn();
 
 	if (m_ShowAudio)
 	{
@@ -212,15 +217,11 @@ void ImGuiEditor::WorldHierarchy()
 
 		// Displaying hierarchy game objects - have to check for player next time
 		const std::vector<Entity>& allEntities = g_Coordinator.GetAliveEntitiesSet();
-		m_PlayerExist = false;
 
 		for (const auto& entity : allEntities)
 		{
 			// looping through to get EntityID, use the entityID to get the name of object		
 			auto& name = g_Coordinator.GetComponent<MetadataComponent>(entity).GetName();
-
-			// checking based on whether game object has a name called "Player"
-			if (name == "Player") m_PlayerExist = true;
 
 			ImGuiTreeNodeFlags nodeFlags = ((g_SelectedEntity == entity) ? ImGuiTreeNodeFlags_Selected : 0) | (ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen);
 			ImGui::TreeNodeEx(reinterpret_cast<void*>(static_cast<intptr_t>(entity)), nodeFlags, name.c_str());
@@ -389,53 +390,52 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
 			{
-			//	std::cout << "hehe\n";
-				std::string modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
-				
-				// This screws with the entire code.
+				auto modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
+				const char* source = "";
 
-				//if (modelName.empty())
-				//{
-				//	std::cerr << "Error: modelName is null!" << std::endl;
-				//	ImGui::End();
-				//	return;
-				//}
-				/*if (modelGetter == "cubeModel")
+				if (modelName == "cube")
 				{
-					source = "cubeModel";
-				}*/
+					source = "Cube";
+				}
+				if (modelName == "sphere")
+				{
+					source = "Sphere";
+				}
+				if (modelName == "Square")
+				{
+					source = "Square";
+				}
 
-				// Just add onto the mNames if got new models
-				std::vector<std::string> modelNames = g_ResourceManager.getModelNames();
+				std::vector<std::string> modelNames = { "Cube", "Sphere", "Square"};
+				static int currentModel = 0;
 
-				static int currentItem = 0;
+				for (int i = 0; i < modelNames.size(); ++i) {
 
-				// for (const auto& name : modelNames) {
-				// 	std::cout << name << std::endl; // Print each model name
-				// }
+					if (modelNames[i].c_str()  == source) {
+						currentModel = i;
+					}
+				}
 
-				//for (int i = 0; i < IM_ARRAYSIZE(mNames); ++i)
-				//{
-				//	if (mNames[i] == modelName)
-				//	{
-				//		currentItem = i;
-				//	}
-				//}
-				
+				std::string inputModelName;
+
+				for (const auto& name : modelNames)
+				{
+					inputModelName += name + '\0';
+				}
 
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Model   "); ImGui::SameLine();
-
-				if (ImGui::Combo("##ModelCombo", &currentItem, [](void* data, int idx, const char** out_text) {
-					// Cast the void pointer back to the vector pointer and retrieve the name
-					const auto& names = *(static_cast<std::vector<std::string>*>(data));
-					*out_text = names[idx].c_str(); // Set the output text
-					return true; // Indicate that the callback is successful
-					}, (void*)&modelNames, static_cast<int>(modelNames.size()))) // Use modelNames.size() instead of IM_ARRAYSIZE
+				
+				// Add in the slots to get the value.
+				if (ImGui::Combo("##ModelCombo", &currentModel, inputModelName.c_str(), static_cast<int>(modelNames.size())))
 				{
-					modelName = modelNames[currentItem];
+					if (currentModel == 0) modelName = "cube";
+					if (currentModel == 1) modelName = "sphere";
+					if (currentModel == 2) modelName ="Square";
 					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setModelName(modelName);
 				}
+
+
 
 				// modelID
 				auto modelID = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelID();
@@ -446,50 +446,12 @@ void ImGuiEditor::InspectorWindow()
 				}
 
 
-				if (ImGui::Button("Set Texture"))
-				{
-					std::cout << "ButtoN clicked\n";
-					//ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png, .jpg", "../BoofWoof/Assets/Art/Texture");
-					ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png", "../BoofWoof/Assets");
-				}
-
-				if (ImGuiFileDialog::Instance()->Display("AddAsset"))
-				{
-					// If the user pressed "Ok"
-					if (ImGuiFileDialog::Instance()->IsOk())
-					{
-						// Get the selected file path
-						std::string selected_file = ImGuiFileDialog::Instance()->GetCurrentFileName();
-
-						// Find the last occurrence of the dot (.) to identify the file extension
-						size_t last_dot_position = selected_file.find_last_of(".");
-
-						// Truncate the file extension (only if a dot is found)
-						if (last_dot_position != std::string::npos)
-						{
-							// Keep the part of the string before the last dot
-							selected_file = selected_file.substr(0, last_dot_position);
-						}
-						
-						GraphicsSystem::set_Texture_ = g_ResourceManager.GetTextureDDS(selected_file);
-
-						// Use the file path (e.g., set a texture, load a model, etc.)
-						//get the texture id
-						int textureid = g_ResourceManager.GetTextureDDS(selected_file);
-						std::cout << "Texture add with texture ID: " << textureid << " with sleleted file "<< selected_file << std::endl;
-						
-						g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).AddTexture(textureid);
-					}
-					ImGuiFileDialog::Instance()->Close();
-				}
-
-
 				ImGui::Text("Debug   "); ImGui::SameLine();
 				ImGui::Checkbox("##DebugMode", &GraphicsSystem::debug);
 
 				if (GraphicsSystem::debug) // Only show mode selection when Debug Mode is active
 				{
-					// Eventually need to make it so that if u debug, ONLY that wireframe is drawn.
+					
 					if (ImGui::Button("2D"))
 					{
 						GraphicsSystem::D3 = false;
@@ -589,11 +551,11 @@ void ImGuiEditor::InspectorWindow()
 			if (ImGui::CollapsingHeader("Behaviour", ImGuiTreeNodeFlags_None))
 			{
 				std::string name = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).GetBehaviourName();
-				//if (name.empty())
-				//{
-				//	std::cerr << "Error: Behaviour name is null!" << std::endl;
-				//	return;
-				//}
+				if (name.empty())
+				{
+					std::cerr << "Error: Behaviour name is null!" << std::endl;
+					return;
+				}
 
 				// Just add onto the BehaviourNames if got new script
 				std::string behaviourNames[] = { "Null", "Player", "Movement" };		
@@ -831,9 +793,6 @@ void ImGuiEditor::Scenes()
 	static bool showTransitionPopup = false;
 	static float transitionDuration = 1.0f; // Default transition duration
 	static bool showSceneSelectionWarning = false; // Flag to show the warning
-	static bool showOverwritePopup = false;
-	static bool showSavedPopup = false;
-	static bool showFailedPopup = false;
 
 	ImGui::Begin("Scenes");
 	{
@@ -848,7 +807,6 @@ void ImGuiEditor::Scenes()
 			if (ImGuiFileDialog::Instance()->IsOk())
 			{
 				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
-				m_LastOpenedFile = filePathName;
 				g_SceneManager.LoadScene(filePathName);
 			}
 			ImGuiFileDialog::Instance()->Close();
@@ -875,32 +833,31 @@ void ImGuiEditor::Scenes()
 
 			if (ImGui::Button("Save"))
 			{
-				m_FileName = fileNameBuffer;
-				if (m_FileName.empty())
+				std::string fileName = fileNameBuffer;
+				if (fileName.empty())
 				{
-					m_FileName = "unnamed_scene";
+					fileName = "unnamed_scene";
 				}
 
-				m_FinalFileName = m_FileName;
-				m_FilePath = GetScenesDir() + "/" + m_FinalFileName + ".json";
+				std::string finalFileName = fileName;
+				std::string filePath = GetScenesDir() + "/" + finalFileName + ".json";
+				int counter = 1;
 
-				if (fs::exists(m_FilePath))
-				{
-					showSavePopup = false;
-					showOverwritePopup = true;
+				while (fs::exists(filePath)) {
+					finalFileName = fileName + "_" + std::to_string(counter);
+					filePath = GetScenesDir() + "/" + finalFileName + ".json";
+					counter++;
 				}
-				else 
-				{
-					showSavePopup = false;
 
-					if (g_SceneManager.SaveScene(m_FinalFileName + ".json")) 
-					{
-						showSavedPopup = true;
-					}
-					else {
-						showFailedPopup = true;
-					}
+				if (g_SceneManager.SaveScene(finalFileName + ".json")) {
+					ImGui::OpenPopup("Saved");
 				}
+				else {
+					ImGui::OpenPopup("Failed");
+				}
+
+				showSavePopup = false;
+				ImGui::CloseCurrentPopup();
 			}
 
 			ImGui::SameLine();
@@ -913,85 +870,26 @@ void ImGuiEditor::Scenes()
 			ImGui::EndPopup();
 		}
 
-		if (showOverwritePopup)
-		{
-			ImGui::OpenPopup("Overwrite Confirmation");			
-		}
-
-		if (ImGui::BeginPopupModal("Overwrite Confirmation", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-		{
-			showOverwritePopup = false;
-			ImGui::Text("\nFile already exists. Do you want to overwrite?\n\n");
-
-			if (ImGui::Button("Yes"))
-			{
-				// Overwrite the file
-				if (g_SceneManager.SaveScene(m_FinalFileName + ".json"))
-				{
-					showSavedPopup = true;
-				}
-				else {
-					showFailedPopup = true;
-				}
-				ImGui::CloseCurrentPopup();  // Close the overwrite popup
-			}
-
-			ImGui::SameLine();
-
-			if (ImGui::Button("No"))
-			{
-				int counter = 1;
-
-				while (fs::exists(m_FilePath)) 
-				{
-					m_FinalFileName = m_FileName + "_" + std::to_string(counter);
-					m_FilePath = GetScenesDir() + "/" + m_FinalFileName + ".json";
-					counter++;
-				}
-
-				if (g_SceneManager.SaveScene(m_FinalFileName + ".json")) 
-				{
-					showSavedPopup = true;
-				}
-				else {
-					showFailedPopup = true;
-				}
-				ImGui::CloseCurrentPopup();  // Close the overwrite popup
-			}
-
-			ImGui::EndPopup();
-		}
-
-		if (showSavedPopup) 
-		{
-			ImGui::OpenPopup("Saved");
-		}
-
 		// Confirmation popup when the scene is saved
 		if (ImGui::BeginPopupModal("Saved", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 		{
 			ImGui::Text("\nYour world has been saved!\n\n");
+			ImGui::Separator();
 
 			if (ImGui::Button("OK", ImVec2(50, 0)))
 			{
-				showSavedPopup = false;
 				ImGui::CloseCurrentPopup();
 			}
 			ImGui::EndPopup();
 		}
 
-		if (showFailedPopup)
-		{
-			ImGui::OpenPopup("Failed");
-		}
-
 		if (ImGui::BeginPopupModal("Failed", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 		{
 			ImGui::Text("\nSaving failed! Try again.\n\n");
+			ImGui::Separator();
 
 			if (ImGui::Button("OK", ImVec2(50, 0)))
 			{
-				showFailedPopup = false;
 				ImGui::CloseCurrentPopup();
 			}
 			ImGui::EndPopup();
@@ -1163,92 +1061,4 @@ void ImGuiEditor::Audio()
 	}
 
 	ImGui::PopStyleColor(3);
-}
-
-void ImGuiEditor::PlayStopRunBtn()
-{
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 2));						// so that there's a padding at the bottom of the button
-
-	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));							// make button transparent
-	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.305f, 0.31f, 0.5f));	// same as original imgui colors but just lighter opacity
-	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.3f, 0.305f, 0.31f, 0.5f));
-
-	ImGui::Begin("##PlayStopButtons", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-	{
-		float size = ImGui::GetWindowHeight() - 4.0f;
-		std::string icon = (m_State == States::Stop) ? "PlayButton" : "StopButton";
-		// half the button, offset -> centered
-		ImGui::SameLine((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
-
-		// If player doesn't exist, don't allow it to run.
-		if (!m_PlayerExist)
-		{
-			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-			ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f); // Optional: reduce the button's alpha to make it look disabled
-		}
-
-		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_ResourceManager.GetTextureDDS(icon), { size,size }, ImVec2(0, 0), ImVec2(1, 1), 0))
-		{
-			switch (m_State)
-			{
-			case States::Play:
-				if (m_State != States::Stop) 
-				{
-					// Hide this part first, will uncomment later on when basic scene is ready.
-					/*g_Coordinator.ResetEntities();
-					g_SceneManager.LoadScene(m_LastOpenedFile);*/
-					m_State = States::Stop;
-				}
-				break;
-
-			case States::Stop:
-				if (m_State != States::Play) 
-				{
-					// Maybe check whether editor active ? 
-					m_State = States::Play;
-				}
-				break;
-			}
-		}
-
-		if (m_State == States::Play && ImGui::IsItemHovered())
-		{
-			ImGui::BeginTooltip();
-			ImGui::Text("Stop");
-			ImGui::EndTooltip();
-
-		}
-		if (m_State == States::Stop && ImGui::IsItemHovered())
-		{
-			ImGui::BeginTooltip();
-			ImGui::Text("Play");
-			ImGui::EndTooltip();
-		}
-
-		ImGui::SameLine();
-
-		if (ImGui::ImageButton((ImTextureID)(uintptr_t)g_ResourceManager.GetTextureDDS("RunScene"), {size,size}, ImVec2(0, 0), ImVec2(1, 1), 0))
-		{
-			// Go to full screen & Run actual game
-		}
-
-		if (ImGui::IsItemHovered())
-		{
-			ImGui::BeginTooltip();
-			ImGui::Text("Run Scene");
-			ImGui::EndTooltip();
-		}
-
-		ImGui::PopStyleVar();
-		ImGui::PopStyleColor(3);
-
-		if (!m_PlayerExist)
-		{
-			// Re-enable future items
-			ImGui::PopItemFlag();
-			ImGui::PopStyleVar(); // Only if you pushed the style var
-		}
-
-		ImGui::End();
-	}
 }

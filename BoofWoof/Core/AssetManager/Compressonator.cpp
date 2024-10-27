@@ -10,8 +10,10 @@
  * This file defines functions that uses compressonator
  *
  *************************************************************************/
-#include "pch.h"
+
 #include "Compressonator.h"
+#include <iostream>
+#include <fstream>
 #include "FilePaths.h"
 
 

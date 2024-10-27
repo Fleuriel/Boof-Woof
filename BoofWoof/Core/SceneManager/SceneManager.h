@@ -13,6 +13,12 @@
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
 
+#include <vector>
+#include <string>
+#include <unordered_map> // To map GUIDs to scene file paths
+#include <functional> // For callbacks
+#include <chrono>     // For timing transitions
+
 #define g_SceneManager SceneManager::GetInstance()
 
 class SceneManager

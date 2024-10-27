@@ -1,2 +1,0 @@
-File Name : RunScene.png
-Compression Format : -fd BC3

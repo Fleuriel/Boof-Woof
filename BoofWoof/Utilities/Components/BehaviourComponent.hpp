@@ -1,6 +1,5 @@
 #pragma once
 
-#include "pch.h"
 #include "ECS/Coordinator.hpp"
 
 class BehaviourComponent

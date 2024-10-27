@@ -1,2 +1,0 @@
-File Name : Digipen_Logo.png
-Compression Format : -fd BC3

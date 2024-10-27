@@ -11,9 +11,6 @@
 #ifndef FILEPATHS_H
 #define FILEPATHS_H
 
-// ASSETS //
-#define FILEPATH_ASSETS						std::string("..\\BoofWoof\\Assets")
-
 // TEXTURES //
 #define FILEPATH_TEXTURES					std::string("..\\BoofWoof\\Assets\\Art\\Textures")
 
@@ -23,25 +20,16 @@
 // SCENES //
 #define FILEPATH_SCENES						std::string("..\\BoofWoof\\Assets\\Scenes")
 
-// OBJECTS //
-#define FILEPATH_OBJECTS					std::string("..\\BoofWoof\\Assets\\Objects")
-
 // SHADERS //
 #define FILEPATH_SHADERS					std::string("..\\BoofWoof\\Assets\\Shaders")
 
 // FILE DESCRIPTORS //
 #define FILEPATH_DESCRIPTORS				std::string("..\\BoofWoof\\Assets\\Descriptors")
 
+// FILE DDS //
+#define FILEPATH_DDS						std::string("..\\BoofWoof\\Assets\\DDS")
+
 // TRASH //
 #define FILEPATH_TRASHBIN					std::string("..\\BoofWoof\\Assets\\Trashbin")
-
-
-#define FILEPATH_RESOURCES					std::string("..\\BoofWoof\\Resources")
-
-// TEXTURE RESOURCES //
-#define FILEPATH_TEXTURES_RESOURCE			std::string("..\\BoofWoof\\Resources\\Textures")
-
-// OBJECT RESOURCES //
-#define FILEPATH_OBJECTS_RESOURCE			std::string("..\\BoofWoof\\Resources\\Objects")
 
 #endif

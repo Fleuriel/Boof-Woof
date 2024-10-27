@@ -10,9 +10,10 @@
  * This file contains the definitions of member functions of AudioSystem 
  * Class
  *************************************************************************/
-#include "pch.h"
 #include "AudioSystem.h"
+#include <chrono>
 #include <thread>
+
 
 FMOD::Channel* currentChannel = nullptr; // Store the current playing channel
 

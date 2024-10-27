@@ -3,8 +3,8 @@
 #ifndef ENGINE_CORE_H
 #define ENGINE_CORE_H
 
-
 #include "../Core/ECS/Coordinator.hpp"
+#include <iostream>
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/BehaviourComponent.hpp"
@@ -27,6 +27,8 @@
 #include "Timer/Timer.hpp"
 #include "SceneManager/SceneManager.h"
 #include "Audio/AudioSystem.h"
+
+#include "fmod.hpp"
 
 class EngineCore 
 {

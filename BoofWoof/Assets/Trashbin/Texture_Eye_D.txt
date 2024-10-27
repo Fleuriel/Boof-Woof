@@ -1,2 +1,0 @@
-File Name : Eye_D.jpg
-Compression Format : -fd BC3
