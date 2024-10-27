@@ -196,6 +196,7 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
+				//glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(textureNameInput));
 				glBindTextureUnit(6, set_Texture_T);
 
 
