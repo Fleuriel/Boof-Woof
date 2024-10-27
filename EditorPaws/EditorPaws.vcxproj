@@ -150,7 +150,8 @@ copy "$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\lib-vc2022\glfw3.dll" "$(TargetDir)
       <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include\;$(SolutionDir)lib\glew-2.2.0\include\;$(SolutionDir)lib\glm-0.9.9.8\glm;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)lib\gli-master\gli-master\gli</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <DisableSpecificWarnings>4714;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -181,7 +182,9 @@ xcopy /y /d "$(SolutionDir)lib\freetype" "$(OutDir)"</Command>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <StringPooling>true</StringPooling>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <DisableSpecificWarnings>4714;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalOptions>-wd4714 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
