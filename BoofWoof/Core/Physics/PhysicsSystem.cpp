@@ -198,7 +198,7 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         std::cout << "x: " << position.GetX() << " y: " << position.GetY() << " z: " << position.GetZ() << std::endl;
 
         // Create and add the body to the physics system
-        JPH::Body* body = mPhysicsSystem->GetBodyInterface().CreateBody(bodySettings);
+        /*JPH::Body* body = mPhysicsSystem->GetBodyInterface().CreateBody(bodySettings);
 
         if (body == nullptr) {
             std::cerr << "Failed to create a new body!" << std::endl;
@@ -208,7 +208,7 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             mPhysicsSystem->GetBodyInterface().AddBody(body->GetID(), JPH::EActivation::Activate);
         }
 
-        g_Coordinator.AddComponent(entity, CollisionComponent(body, entity, 1));
+        g_Coordinator.AddComponent(entity, CollisionComponent(body, entity, 1));*/
     }
 }
 

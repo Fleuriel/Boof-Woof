@@ -160,7 +160,7 @@ JPH_OBJECT_STREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\glew-2.2.0\bin\Release\x64;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\JoltPhysics-master\LinkLib;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-static-ucrt;$(SolutionDir)Boof-Woof\bin\Debug-x64\BoofWoof;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc143-mtd.lib;opengl32.lib;glew32.lib;freetype.lib;fmod_vc.lib;BoofWoof.lib;Jolt.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc143-mtd.lib;opengl32.lib;glew32.lib;glfw3dll.lib;freetype.lib;fmod_vc.lib;BoofWoof.lib;Jolt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>/NODEFAULTLIB:[libcmt.lib;msvcrt.lib;libcmtd.lib]</IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>/IGNORE:4217 %(AdditionalOptions)</AdditionalOptions>
     </Link>
@@ -194,7 +194,7 @@ JPH_OBJECT_STREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\bin\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc143-mtd.lib;opengl32.lib;glew32.lib;glfw3.lib;freetype.lib;fmod_vc.lib;BoofWoof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc143-mtd.lib;opengl32.lib;glew32.lib;glfw3dll.lib;freetype.lib;fmod_vc.lib;BoofWoof.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>/IGNORE:4217 %(AdditionalOptions)</AdditionalOptions>

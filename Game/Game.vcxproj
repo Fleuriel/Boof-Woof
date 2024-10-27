@@ -72,11 +72,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\include;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\glm-0.9.9.8;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)lib\stb-image\inc;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\JoltPhysics-master;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\include;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\glm-0.9.9.8;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)lib\stb-image\inc;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\rapidjson-1.1.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -120,7 +120,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\bin\Release\x64;$(SolutionDir)bin\Debug-x64\BoofWoof;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc143-mtd.lib;opengl32.lib;glew32.lib;glfw3.lib;freetype.lib;fmod_vc.lib;BoofWoof.lib;Jolt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc143-mtd.lib;opengl32.lib;glew32.lib;glfw3dll.lib;freetype.lib;fmod_vc.lib;BoofWoof.lib;Jolt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>/NODEFAULTLIB:[libcmt.lib;msvcrt.lib;libcmtd.lib]</IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>/IGNORE:4217 %(AdditionalOptions)</AdditionalOptions>
     </Link>
@@ -149,7 +149,7 @@ xcopy /y /d "$(SolutionDir)lib\freetype\freetype.dll" "$(OutDir)"</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\bin\Release\x64;$(SolutionDir)bin\Release-x64\BoofWoof;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc143-mtd.lib;opengl32.lib;glew32.lib;glfw3.lib;freetype.lib;fmod_vc.lib;BoofWoof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc143-mtd.lib;opengl32.lib;glew32.lib;glfw3dll.lib;freetype.lib;fmod_vc.lib;BoofWoof.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/IGNORE:4217 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>

@@ -128,7 +128,9 @@ public:
     virtual JPH::BroadPhaseLayer GetBroadPhaseLayer(JPH::ObjectLayer layer) const override;
 
     // Implement the missing method that was causing the error
-    virtual const char* GetBroadPhaseLayerName(JPH::BroadPhaseLayer layer) const override;
+    virtual const char* GetBroadPhaseLayerName(JPH::BroadPhaseLayer layer) const;
+
+
 };
 
 //class MyBroadPhaseLayerInterface : public JPH::BroadPhaseLayerInterface {
@@ -160,29 +162,30 @@ public:
 class MyContactListener : public JPH::ContactListener {
 public:
     // This method gets called whenever a new contact is detected between two bodies
-    virtual void OnContactAdded(
-        const JPH::Body& inBody1,  // First body in contact
-        const JPH::Body& inBody2,  // Second body in contact
-        const JPH::ContactManifold& inManifold,  // Contains collision details
-        JPH::ContactSettings& ioSettings  // Modify settings if necessary
-    ) override {
-        // Log the IDs of the colliding bodies
-        std::cout << "Collision detected between Body1 (ID: " << inBody1.GetID().GetIndex()
-            << ") and Body2 (ID: " << inBody2.GetID().GetIndex() << ")" << std::endl;
+    //virtual void OnContactAdded(
+    //    const JPH::Body& inBody1,  // First body in contact
+    //    const JPH::Body& inBody2,  // Second body in contact
+    //    const JPH::ContactManifold& inManifold,  // Contains collision details
+    //    JPH::ContactSettings& ioSettings  // Modify settings if necessary
+    //) override {
+    //            
+    //    // Log the IDs of the colliding bodies
+    //    std::cout << "Collision detected between Body1 (ID: " << inBody1.GetID().GetIndex()
+    //        << ") and Body2 (ID: " << inBody2.GetID().GetIndex() << ")" << std::endl;
 
-        // Access entity information if stored in bodies
-        Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
-        Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
+    //    // Access entity information if stored in bodies
+    //    Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
+    //    Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
 
-        std::cout << "Collision detected between entities: " << entity1 << " and " << entity2 << std::endl;
+    //    std::cout << "Collision detected between entities: " << entity1 << " and " << entity2 << std::endl;
 
-        // Optionally, implement game-specific logic here based on the collision
-    }
+    //    // Optionally, implement game-specific logic here based on the collision
+    //}
 
-    // This method gets called when contact between two bodies is removed
-    virtual void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) override {
-        std::cout << "Collision contact removed!" << std::endl;
-    }
+    //// This method gets called when contact between two bodies is removed
+    //virtual void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) override {
+    //    std::cout << "Collision contact removed!" << std::endl;
+    //}
 };
 
 

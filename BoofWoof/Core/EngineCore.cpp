@@ -181,7 +181,7 @@ void EngineCore::OnUpdate()
 	}
 	{
 		// Physics
-		mPhysicSys->OnUpdate(m_DeltaTime);  // Update physics
+		mPhysicSys->OnUpdate(static_cast<float>(m_DeltaTime));  // Update physics
 	}
 
 
