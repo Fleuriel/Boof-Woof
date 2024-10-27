@@ -17,54 +17,60 @@
 #ifndef GAME_STATE_MACHINE_H
 #define GAME_STATE_MACHINE_H
 
-#include <chrono>
-#include <iostream>
-
-/**************************************************************************
-* @brief STATE Enumeration Class
-*************************************************************************/
-enum class STATE
+enum class GameStates
 {
-	START = 0,
-	RUNNING,
-	END,
-	
+	SPLASHSCREEN,
+	MAINMENU,
+	LEVEL1,
 
-	STARTUPPREVIOUS = 2147483647
+	RESTART,
+	QUIT
 };
 
-// FPS
-extern std::chrono::high_resolution_clock::time_point currentTime;
-extern std::chrono::high_resolution_clock::time_point previousTime;
-extern std::chrono::duration<double> deltaTime;
+void UpdateGSM();
 
-// States
-extern STATE currentState, previousState, nextState;
-
-
-/**************************************************************************
-* @brief Initialize Startup Variable
-*************************************************************************/
-void StartUp();
-
-/**************************************************************************
-* @brief Changing States
-*************************************************************************/
-void ChangeState(STATE Current, STATE Upcoming);
-
-
-
-// FPS
-double FPS();
-
-// DeltaTime
-double DeltaTime();
-
-// Is Time Elapsed in Seconds
-bool IsTimeElapsed(unsigned int time);
-
-
-
+///**************************************************************************
+//* @brief STATE Enumeration Class
+//*************************************************************************/
+//enum class STATE
+//{
+//	START = 0,
+//	RUNNING,
+//	END,
+//	
+//
+//	STARTUPPREVIOUS = 2147483647
+//};
+//
+//// FPS
+//extern std::chrono::high_resolution_clock::time_point currentTime;
+//extern std::chrono::high_resolution_clock::time_point previousTime;
+//extern std::chrono::duration<double> deltaTime;
+//
+//// States
+//extern STATE currentState, previousState, nextState;
+//
+//
+///**************************************************************************
+//* @brief Initialize Startup Variable
+//*************************************************************************/
+//void StartUp();
+//
+///**************************************************************************
+//* @brief Changing States
+//*************************************************************************/
+//void ChangeState(STATE Current, STATE Upcoming);
+//
+//
+//
+//// FPS
+//double FPS();
+//
+//// DeltaTime
+//double DeltaTime();
+//
+//// Is Time Elapsed in Seconds
+//bool IsTimeElapsed(unsigned int time);
 
 #endif
 

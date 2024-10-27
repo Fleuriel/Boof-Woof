@@ -1,0 +1,49 @@
+{
+    "SceneGUID": "e49d1279-6849-44f6-84dd-079660227703",
+    "Entities": [
+        {
+            "EntityName": "Player",
+            "Position": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 0,
+            "ModelName": "Square",
+            "Texture": ""
+        },
+        {
+            "EntityName": "Sphere",
+            "Position": {
+                "x": 1.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 1,
+            "ModelName": "sphere",
+            "Texture": ""
+        }
+    ]
+}

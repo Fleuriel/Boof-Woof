@@ -80,14 +80,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Debug;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-static-ucrt;$(SolutionDir)bin\Debug-x64\BoofWoof;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)lib\gli-master\gli-master\gli;$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\include;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\glm-0.9.9.8;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)lib\stb-image\inc;$(SolutionDir)lib\imgui\inc;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\JoltPhysics-master;$(IncludePath)</IncludePath>
-    <IntDir>
-    </IntDir>
+    <IncludePath>$(SolutionDir)lib\gli-master\gli-master\gli;$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\include;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\glm-0.9.9.8;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)lib\stb-image\inc;$(SolutionDir)lib\imgui\inc;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)BoofWoof\Core\ECS;$(IncludePath)</IncludePath>
+    <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Release;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\include;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\glm-0.9.9.8;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)lib\stb-image\inc;$(SolutionDir)lib\imgui\inc;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\JoltPhysics-master\Jolt\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Release;$(SolutionDir)bin\Release-x64\BoofWoof;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\include;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\glm-0.9.9.8;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)lib\stb-image\inc;$(SolutionDir)lib\imgui\inc;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\JoltPhysics-master\Jolt\;$(SolutionDir)BoofWoof\Core\ECS;$(IncludePath)</IncludePath>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
   </PropertyGroup>
@@ -154,7 +153,7 @@ JPH_OBJECT_STREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include\;$(SolutionDir)lib\glew-2.2.0\include\;$(SolutionDir)lib\glm-0.9.9.8\glm;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)lib\gli-master\gli-master\gli</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard_C>Default</LanguageStandard_C>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -168,7 +167,8 @@ JPH_OBJECT_STREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Command>xcopy /y /d "$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64\*.dll" "$(OutDir)"
 xcopy /y /d "$(SolutionDir)lib\assimp\lib\*.dll" "$(OutDir)"
 xcopy /y /d "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(OutDir)"
-xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"</Command>
+xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)lib\freetype" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -187,6 +187,7 @@ JPH_OBJECT_STREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <StringPooling>true</StringPooling>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

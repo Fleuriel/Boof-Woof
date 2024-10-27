@@ -29,13 +29,15 @@
     <ClCompile Include="Core\Graphics\FontSystem.cpp" />
     <ClCompile Include="Core\AssetManager\Compressonator.cpp" />
     <ClCompile Include="Core\Physics\CollisionSystem.cpp" />
+    <ClCompile Include="Core\Level Manager\LevelManager.cpp" />
+    <ClCompile Include="Core\ECS\pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
     <ClInclude Include="Core\ECS\ComponentManager.hpp" />
     <ClInclude Include="Core\ECS\Coordinator.hpp" />
     <ClInclude Include="Core\ECS\EntityManager.hpp" />
-    <ClInclude Include="Core\ECS\pch.hpp" />
+    <ClInclude Include="Core\ECS\pch.h" />
     <ClInclude Include="Core\ECS\System.hpp" />
     <ClInclude Include="Core\ECS\SystemManager.hpp" />
     <ClInclude Include="Core\EngineCore.h" />
@@ -65,6 +67,9 @@
     <ClInclude Include="Core\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Core\Graphics\FontSystem.h" />
     <ClInclude Include="Core\AssetManager\Compressonator.h" />
+    <ClInclude Include="Core\Level Manager\Level.h" />
+    <ClInclude Include="Core\Level Manager\LevelManager.h" />
+    <ClInclude Include="Core\AssetManager\FilePaths.h" />
     <ClInclude Include="Core\Physics\CollisionSystem.h" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
   </ItemGroup>

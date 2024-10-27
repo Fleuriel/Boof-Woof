@@ -1,17 +1,11 @@
 #pragma once
 #ifndef OBJECT_H
 #define OBJECT_H
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include "GraphicsSystem.h"
-//#include "../Utilities/Components/GraphicsComponent.h"
-//#include "Windows/WindowSystem.h"
 
 class Model;
 class Model2D;
 
 #include "../Core/Graphics/Model.h"
-#include <memory>
 
 
 //enum class ObjectType

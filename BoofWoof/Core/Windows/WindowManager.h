@@ -3,13 +3,6 @@
 #ifndef WINDOW_MANAGER_H
 #define WINDOW_MANAGER_H
 
-#include "../ECS/pch.hpp"
-#include "../ECS/System.hpp"
-#include <iostream>
-#include <cstdio>
-#include <stdlib.h>
-#include <sstream>
-
 // Forward declare the GLFWwindow type so that everytime you spawn window, 
 // it won't have the entire GLFW lib in the space
 struct GLFWwindow;
@@ -48,7 +41,6 @@ public:
 	double GetDeltaTime() { return m_DeltaTime; }
 	bool GetAltStat() { return m_AltTab; };
 
-	// void initWindow(WindowComponent& windowComponent);
 	static void OpenGLWindowResizeCallback(GLFWwindow* window, int width, int height);
 
 private:

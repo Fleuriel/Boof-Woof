@@ -2,7 +2,7 @@
 #ifndef COMPONENT_MANAGER_H
 #define COMPONENT_MANAGER_H
 
-#include "pch.hpp"
+#include "pch.h"
 #include "ComponentArray.hpp"
 
 class ComponentManager

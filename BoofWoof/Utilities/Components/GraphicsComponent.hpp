@@ -31,10 +31,24 @@ public:
 	void setModelName(std::string modelName) { 
 		m_ModelName = modelName; }
 	void SetModelID(int modelID) { m_ModelID = modelID; }
+	void AddTexture(int textureid) { 
+		/*Texture texture;
+		texture.id = textureid;
+		textures.push_back(texture);*/
+		textures.push_back(textureid);
+	}
+
 
 	//getter
 	std::string getModelName() { return m_ModelName; }
 	int getModelID() { return m_ModelID; }
+
+
+	void setTexture(std::string texture) { textureName = texture; }
+	std::string getTexture() { return textureName; }
+	int getTextureNumber() { return static_cast<int>(textures.size()); }
+	int getTexture(int i) { return textures[i]; }
+
 
     // Constructor and destructor
 	GraphicsComponent() {};
@@ -49,6 +63,8 @@ private:
 	Entity m_EntityID{};
 	std::string m_ModelName{};
 	int m_ModelID{};
+	std::string textureName;
+	std::vector<int> textures{};
 };
 
 #endif  // GRAPHICS_COMPONENT_H
