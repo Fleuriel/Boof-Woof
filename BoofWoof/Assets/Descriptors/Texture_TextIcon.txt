@@ -1,0 +1,2 @@
+File Name : TextIcon.png
+Compression Format : -fd BC3

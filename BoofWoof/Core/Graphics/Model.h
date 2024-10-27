@@ -23,22 +23,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 
-
-
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <map>
-#include <vector>
-//
-
-
 #include "AssetManager/AssetManager.h"
-
-
-
-
 
 
 //extern std::vector<Model2D> models;
@@ -51,7 +36,8 @@ public:
     std::vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
     std::vector<Mesh>    meshes;
     std::string directory;
-    
+    std::string name;
+
     
     // 2D
     GLenum primitive_type{};		// Primitive Type
@@ -92,6 +78,18 @@ public:
 
    
 
+    void addMesh(const Mesh& mesh)
+    {
+        meshes.push_back(mesh);
+    }
+
+    void setMesh()
+    {
+        for (int i = 0; i < meshes.size(); ++i)
+        {
+            meshes[i].setupMesh();
+        }
+    }
 
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
     void loadModel(std::string const& path, unsigned int draw_mode)
@@ -317,6 +315,8 @@ public:
 
 
 Model SquareModel(glm::vec3 color);
+Model CubeModel(glm::vec3 color);
+
 Model SquareModelOutline(glm::vec3 color);
 Model AABB(glm::vec3 color);
 

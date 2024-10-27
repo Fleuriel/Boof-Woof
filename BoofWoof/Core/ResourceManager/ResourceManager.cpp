@@ -11,12 +11,11 @@
  *
  *************************************************************************/
  
+#include "pch.h"
 #pragma warning(push)
 #pragma warning(disable : 4244 4458 4100 5054)
 
 #include "ResourceManager.h"
-#include <iostream>
-#include <GL/glew.h>
 #include "AssetManager/FilePaths.h"
 #include <gli/gli.hpp>
 
@@ -25,6 +24,7 @@
 #define STBI_ONLY_DDS // Enable support for DDS only, if you don't want other formats
 
 #pragma warning(pop)
+
 
 ResourceManager g_ResourceManager;
 
@@ -38,8 +38,34 @@ ResourceManager::~ResourceManager() {
     // Cleanup resources if necessary
 }
 
+
+void AddModelFromOwnCreation()
+{
+    Model model;
+
+    model = SquareModel(glm::vec3(0.0f));
+    g_ResourceManager.SetModelMap(model.name, model);
+    std::cout << "Loaded: " << model.name << " [Models Reference: "
+        << g_ResourceManager.GetModelMap().size() - 1 << "]" << '\n';
+
+    g_ResourceManager.addModelNames(model.name);
+
+
+    // Create CubeModel and add it to ModelMap
+    model = CubeModel(glm::vec3(1.0f));
+    g_ResourceManager.SetModelMap(model.name, model);
+    std::cout << "Loaded: " << model.name << " [Models Reference: "
+        << g_ResourceManager.GetModelMap().size() - 1 << "]" << '\n';
+
+    g_ResourceManager.addModelNames(model.name);
+}
+
+
+
 bool ResourceManager::LoadAll() {
     LoadTexturesDDS();
+    AddModelFromOwnCreation();
+    LoadModelBinary();
     //std::cout << "load 1 : " << GetTextureDDS("texture1.dds");
     //std::cout << "load 2 : " << GetTextureDDS("texture2.dds");
     //std::cout << "load 3 : " << GetTextureDDS("texture3.dds");
@@ -102,6 +128,164 @@ GLuint LoadDDSTexture(const char* filePath) {
     return TextureName; // Return the OpenGL texture ID
 }
 
+
+
+bool LoadBinFile(std::string filePath)
+{
+    std::ifstream binFile(filePath, std::ios::binary);
+    if (!binFile.is_open()) {
+        std::cerr << "Failed to open binary file: " << filePath << std::endl;
+        return {};
+    }
+
+    // Step 1: Read the number of meshes
+    size_t meshCount;
+    binFile.read(reinterpret_cast<char*>(&meshCount), sizeof(size_t));
+
+    std::vector<Mesh> meshes;
+    meshes.reserve(meshCount);
+
+    // Step 2: For each mesh, read vertex and index data
+    for (size_t i = 0; i < meshCount; ++i) {
+        // Read vertex data
+        size_t vertexCount;
+        binFile.read(reinterpret_cast<char*>(&vertexCount), sizeof(size_t));
+        std::vector<Vertex> vertices(vertexCount);
+        binFile.read(reinterpret_cast<char*>(vertices.data()), vertexCount * sizeof(Vertex));
+
+        // Read index data
+        size_t indexCount;
+        binFile.read(reinterpret_cast<char*>(&indexCount), sizeof(size_t));
+        std::vector<unsigned int> indices(indexCount);
+        binFile.read(reinterpret_cast<char*>(indices.data()), indexCount * sizeof(unsigned int));
+
+        // Create the Mesh object and add it to the vector
+        meshes.emplace_back(vertices, indices);
+    }
+
+    binFile.close();
+
+    std::cout << "Loaded mesh from " << filePath << " successfully!" << std::endl;
+
+    
+    std::cout << "********************************************\n";
+    std::cout << "Mesh contains: " << meshes.size() << '\t' << meshes.size() << '\n';
+    
+    std::cout << "Attempting to load into Model Map\n";
+    std::cout << "********************************************\n";
+
+
+
+    std::filesystem::path p(filePath);
+
+    std::string fileName = p.stem().string();
+    
+    Model model;
+    
+    model.name = fileName;
+    model.meshes = meshes;
+//    meshes[0].setupMesh();
+
+    g_ResourceManager.SetModelMap(model.name, model);
+
+
+    //g_ResourceManager.addModelNames(model.name);
+
+
+    return true;
+}
+
+
+
+std::vector<std::string> ResourceManager::getModelNames() const {
+    return ModelNames; // Return a copy of the vector
+}
+
+void ResourceManager::addModelNames(std::string modelName)
+{
+    ModelNames.push_back(modelName);
+}
+
+const std::map<std::string, Model>& ResourceManager::GetModelMap() const {
+    return ModelMap;
+}
+
+bool ResourceManager::SetModelMap(const std::string& name, const Model& model) {
+    if (name.size() == 0)
+        return false;
+
+
+    
+    ModelMap.insert(std::make_pair(name, model));
+
+//    ModelNames.push_back(name);
+}
+
+Model* ResourceManager::getModel(const std::string& modelName) {
+    auto it = ModelMap.find(modelName);
+    if (it != ModelMap.end()) {
+        return &(it->second);  // Return pointer to the model
+    }
+    return nullptr;  // Return nullptr if not found
+}
+
+// Setter for ModelMap (add a new model or update existing one)
+void ResourceManager::setModel(const std::string& modelName, const Model& model) {
+    ModelMap[modelName] = model;  // Insert or update the model
+}
+
+// Optional: Check if a model exists in the map
+bool ResourceManager::hasModel(const std::string& modelName) {
+    return ModelMap.find(modelName) != ModelMap.end();
+}
+
+
+
+
+
+
+/* Resource Manager Functions */
+
+
+bool ResourceManager::LoadModelBinary()
+{
+    for (int i = 0; i < ModelNames.size(); ++i)
+    {
+        if (ModelNames[i] == "Square" || ModelNames[i] == "cubeModel")
+            continue;
+
+        std::cout << ModelNames[i] << '\n';
+        LoadBinFile(FILEPATH_OBJECTS_RESOURCE + "\\" + ModelNames[i] + ".bin");
+    }
+
+    return true;
+}
+
+
+bool ResourceManager::AddModelBinary(std::string fileName)
+{
+    if (fileName.size() == 0)
+    {
+        std::cerr << "Filename does not contain anything " << fileName << '\n';
+        return false;
+    }
+ 
+
+    ModelNames.push_back(fileName);
+
+    //for (int i = 0; i < ModelNames.size(); ++i)
+    //{
+    //    std::cout << ModelNames[i] << '\t';
+    //}
+
+
+    std::cout << "\nInput this shited! " << fileName << '\n';
+
+    return true;
+}
+
+
+
 // Function to load textures (simulating DDS texture loading here)
 bool ResourceManager::LoadTexturesDDS() {
 
@@ -110,7 +294,7 @@ bool ResourceManager::LoadTexturesDDS() {
         // std::cout << "names:" << textureDDSFileNames[i].c_str() << "\n";
 
         //add DDS processing here
-        int result = LoadDDSTexture((FILEPATH_DDS + "\\" + textureDDSFileNames[i] + ".dds").c_str());
+        int result = LoadDDSTexture((FILEPATH_TEXTURES_RESOURCE + "\\" + textureDDSFileNames[i] + ".dds").c_str());
 
 
 

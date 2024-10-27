@@ -1,2 +1,0 @@
-File Name : StopButton.png
-Compression Format : -fd BC3

@@ -1,2 +1,0 @@
-File Name : PlayButton.png
-Compression Format : -fd BC3

@@ -22,13 +22,15 @@ layout(location = 2) in vec2 aTexCoord;  // Texture coordinate input
 
 out layout(location = 0) vec3 vertColor;
 out layout(location = 2) vec3 FragPos;
-out layout(location = 1) vec3 vertNormal; // Missing output for the normal
+out layout(location = 1) vec3 vertNormal; 
+out layout(location = 3) vec2 TexCoord; 
 
 void main()
 {
     gl_Position = projection * view * vertexTransform * vec4(modelPosition, 1.0f);
     vertColor = objectColor;
     vertNormal = vertexNormal;
-    // Missing output for normal (vertexNormal)
+    TexCoord = aTexCoord;
     FragPos = vec3(vertexTransform * vec4(modelPosition, 1.0f));
+
 }

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "../Core/Logic/Behaviour.h"
 #include "../Core/ECS/Coordinator.hpp"
 #include "../Core/Input/Input.h"

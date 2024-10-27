@@ -17,9 +17,6 @@
 #define INPUT_H
 
 #include "../Graphics/GraphicsSystem.h"
-#include <vector>
-#include <array>
-#include <iostream>
 
 #define g_Input InputSystem::GetInstance()
 

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "Windows/WindowManager.h"
 

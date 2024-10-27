@@ -15,12 +15,10 @@
 
 #ifndef ASSETMANAGER_H
 #define ASSETMANAGER_H
-#include <vector>
-#include <string>
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include <iostream>
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/Shader.h"
 #include "Graphics/Model.h"
@@ -59,6 +57,8 @@ public:
 	bool LoadScenes();																		//Function to load scenes
 	bool ReloadScenes();																	//Function to reload scenes
 
+	bool LoadObjects();																		//Function to load objects
+
 
 
 	using VectorPairString = std::vector <std::pair<std::string, std::string>>;				// Using a vector-->pair string for shaders
@@ -77,9 +77,7 @@ public:
 
 
 
-	std::map <std::string, Model> ModelMap;
-	std::vector <Model>	Models;
-	std::vector <Object> Objects;
+//	std::map <std::string, Model> ModelMap;
 
 
 	bool Currentlyloading{ false };

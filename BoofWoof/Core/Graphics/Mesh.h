@@ -17,14 +17,7 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
-#include <GL/glew.h> // for access to OpenGL API declarations
 #include "Shader.h"
-#include <string>
-#include <vector>
-
 
 #define MAX_BONE_INFLUENCE 4
 
@@ -34,7 +27,7 @@ struct Vertex {
     // normal
     glm::vec3 Normal;
     // texCoords
-    glm::vec2 TexCoords;
+	glm::vec2 TexCoords{ -1.1f, -1.1f };
     //// tangent
     //glm::vec3 Tangent;
     //// bitangent
@@ -56,7 +49,7 @@ public:
     // mesh Data
     std::vector<Vertex>       vertices{};
     std::vector<unsigned int> indices{};
-    std::vector<Texture>      textures;
+	std::vector<Texture>      textures{};
     unsigned int VAO{};
     unsigned int drawMode{};
 
@@ -105,7 +98,7 @@ public:
         }
 
         // draw mesh
-        glPolygonMode(GL_FRONT_AND_BACK, drawMode);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_TRIANGLES);
 
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
@@ -178,6 +171,7 @@ public:
     void setupMesh()
     {
         
+      
         // create buffers/arrays
         glGenVertexArrays(1, &VAO);
         glGenBuffers(1, &VBO);
@@ -202,9 +196,18 @@ public:
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
 
-        // vertex texture coords (location = 2 in vertex shader)
-        glEnableVertexAttribArray(2);
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+		//check if the TexCoords are empty
+        if (vertices[0].TexCoords.x != 1.1f && vertices[0].TexCoords.y != 1.1f) {
+            // vertex texture coords (location = 2 in vertex shader)
+            glEnableVertexAttribArray(2);
+            glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+        }
+        else {
+			// vertex texture coords (location = 2 in vertex shader)
+			glEnableVertexAttribArray(2);
+			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),(void*)0);
+
+        }
 
         glBindVertexArray(0);
         //glEnableVertexAttribArray(2);
