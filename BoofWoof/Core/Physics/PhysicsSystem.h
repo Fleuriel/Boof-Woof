@@ -23,6 +23,8 @@
 #include <Jolt/Physics/PhysicsSettings.h>
 #include <Jolt/RegisterTypes.h>
 #include <Jolt/Physics/Collision/ContactListener.h>
+#include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayerInterfaceMask.h>
+#include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
 #include <../Utilities/Components/TransformComponent.hpp>
 
 
@@ -73,8 +75,6 @@ public:
     The mass of the body.
     */
     /**************************************************************************/
-    void AddBody(JPH::PhysicsSystem* physicsSystem, JPH::Vec3 position, float mass);
-
     // Modify AddEntityBody to use the CollisionComponent
     void AddEntityBody(Entity entity);  // Add a default layer
 
@@ -94,7 +94,6 @@ public:
     Pointer to the JobSystem used for multithreading.
     */
     /**************************************************************************/
-    void SimulatePhysics(JPH::PhysicsSystem* physicsSystem, float deltaTime, JPH::JobSystem* jobSystem);
     void OnUpdate(float deltaTime);
 
     void UpdateEntityTransforms();  // This function will be called after simulation to update entity transforms
@@ -111,8 +110,8 @@ private:
     JPH::TempAllocatorImpl* mTempAllocator = nullptr;
     JPH::PhysicsSystem* mPhysicsSystem = nullptr;
 
-    //// Add a pointer to the contact listener
-    //std::unique_ptr<MyContactListener> mContactListener;
+    //// Define broadPhaseLayerInterface here
+    //MyBroadPhaseLayerInterface* broadPhaseLayerInterface = nullptr;
 
     // Add a pointer to the contact listener
     MyContactListener* mContactListener = nullptr;
@@ -132,46 +131,31 @@ public:
     virtual const char* GetBroadPhaseLayerName(JPH::BroadPhaseLayer layer) const override;
 };
 
-//// An example contact listener
-//class MyContactListener : public JPH::ContactListener
-//{
+//class MyBroadPhaseLayerInterface : public JPH::BroadPhaseLayerInterface {
 //public:
-//    // See: ContactListener
-//    JPH::ValidateResult OnContactValidate(
-//        const JPH::Body& /* inBody1 */,
-//        const JPH::Body& /* inBody2 */,
-//        JPH::RVec3Arg /* inBaseOffset */,
-//        const JPH::CollideShapeResult& /* inCollisionResult */) override
-//    {
-//        std::cout << "Contact validate callback" << std::endl;
-//
-//        // Allows you to ignore a contact before it is created (using layers to not
-//        // make objects collide is cheaper!)
-//        return JPH::ValidateResult::AcceptAllContactsForThisBodyPair;
+//    // Gets the number of broad phase layers
+//    virtual unsigned int GetNumBroadPhaseLayers() const override {
+//        return 2;  // For example, 2 broad phase layers (Static and Dynamic)
 //    }
 //
-//    void OnContactAdded(const JPH::Body& /* inBody1 */,
-//        const JPH::Body& /* inBody2 */,
-//        const JPH::ContactManifold& /* inManifold */,
-//        JPH::ContactSettings& /* ioSettings */) override
-//    {
-//        std::cout << "A contact was added" << std::endl;
+//    // Gets the broad phase layer for a given object layer
+//    virtual JPH::BroadPhaseLayer GetBroadPhaseLayer(JPH::ObjectLayer layer) const override {
+//        switch (layer) {
+//        case 0: return JPH::BroadPhaseLayer(0);  // Static objects
+//        case 1: return JPH::BroadPhaseLayer(1);  // Dynamic objects
+//        default: return JPH::BroadPhaseLayer(0);
+//        }
 //    }
 //
-//    void OnContactPersisted(const JPH::Body& /* inBody1 */,
-//        const JPH::Body& /* inBody2 */,
-//        const JPH::ContactManifold& /* inManifold */,
-//        JPH::ContactSettings& /* ioSettings */) override
-//    {
-//        std::cout << "A contact was persisted" << std::endl;
-//    }
-//
-//    void OnContactRemoved(
-//        const JPH::SubShapeIDPair& /* inSubShapePair */) override
-//    {
-//        std::cout << "A contact was removed" << std::endl;
+//    virtual const char* GetBroadPhaseLayerName(JPH::BroadPhaseLayer layer) const override {
+//        switch (layer.GetValue()) {
+//        case 0: return "Static";
+//        case 1: return "Dynamic";
+//        default: return "Unknown";
+//        }
 //    }
 //};
+
 
 class MyContactListener : public JPH::ContactListener {
 public:
@@ -182,21 +166,24 @@ public:
         const JPH::ContactManifold& inManifold,  // Contains collision details
         JPH::ContactSettings& ioSettings  // Modify settings if necessary
     ) override {
-        // You can access the bodies and do custom collision logic here
-        std::cout << "Collision detected between Body1 and Body2!\n";
+        // Log the IDs of the colliding bodies
+        std::cout << "Collision detected between Body1 (ID: " << inBody1.GetID().GetIndex()
+            << ") and Body2 (ID: " << inBody2.GetID().GetIndex() << ")" << std::endl;
 
-        // Access entity information from bodies (if you store entity information in bodies)
-        // Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
-        // Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
+        // Access entity information if stored in bodies
+        Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
+        Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
+
+        std::cout << "Collision detected between entities: " << entity1 << " and " << entity2 << std::endl;
+
+        // Optionally, implement game-specific logic here based on the collision
     }
 
     // This method gets called when contact between two bodies is removed
-    virtual void OnContactRemoved(
-        const JPH::SubShapeIDPair& inSubShapePair
-    ) override {
-        // Handle contact removal (if needed)
-        std::cout << "Collision contact removed!\n";
+    virtual void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) override {
+        std::cout << "Collision contact removed!" << std::endl;
     }
 };
+
 
 #endif // PHYSICSSYSTEM_H
