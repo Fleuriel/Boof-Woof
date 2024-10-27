@@ -26,8 +26,6 @@
 
 #include "Graphics/GraphicsSystem.h" //temporary
 
-#pragma warning(pop)
-
 AssetManager g_AssetManager;
 
 namespace fs = std::filesystem;

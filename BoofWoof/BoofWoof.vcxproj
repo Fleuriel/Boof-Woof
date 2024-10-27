@@ -74,14 +74,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\freetype\include;$(SolutionDir)lib\gli-master\gli-master;$(SolutionDir)lib\JoltPhysics-master;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Debug\;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-static-ucrt;$(SolutionDir)Boof-Woof\bin\Debug-x64\BoofWoof;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\freetype\include;$(SolutionDir)lib\gli-master\gli-master;$(SolutionDir)lib\JoltPhysics-master;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Debug\;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-static-ucrt;$(SolutionDir)Boof-Woof\bin\Debug-x64\BoofWoof;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\gli-master\gli-master;$(SolutionDir)lib\freetype\include;$(SolutionDir)BoofWoof\Core\ECS;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Release;$(SolutionDir)BoofWoof\Core\ECS;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\gli-master\gli-master;$(SolutionDir)lib\freetype\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Release;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
@@ -200,6 +200,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\Level Manager\LevelManager.cpp" />
     <ClCompile Include="Core\GSM\GameStateMachine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
+    <ClCompile Include="Core\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Core\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Core\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Core\SceneManager\SceneManager.cpp" />

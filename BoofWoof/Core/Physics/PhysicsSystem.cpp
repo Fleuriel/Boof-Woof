@@ -20,10 +20,9 @@
 #include <Jolt/Physics/Collision/Shape/ConvexShape.h> // For SphereShape
 #include <Jolt/Physics/Body/BodyInterface.h>          // For BodyInterface
 #include <../Utilities/Components/CollisionComponent.hpp>
-#include <glm/glm.hpp>
+
 #include <glm/gtc/quaternion.hpp>   // For glm::quat
 #include <glm/gtx/euler_angles.hpp> // For Euler angles
-#include <cstdint>  // For uint32_t or standard integer types
 #include <cstdlib>
 #include <cstdarg>
 #include <cstdio>
