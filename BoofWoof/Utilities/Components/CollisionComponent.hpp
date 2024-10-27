@@ -63,10 +63,11 @@
 #ifndef COLLISION_COMPONENT_HPP
 #define COLLISION_COMPONENT_HPP
 
-#include "ECS/Coordinator.hpp"
 #include <Jolt/Jolt.h>
 #include <Jolt/Physics/Body/Body.h>                   // For Body
 #include <Jolt/Physics/Body/BodyCreationSettings.h>   // For BodyCreationSettings
+
+#include "ECS/Coordinator.hpp"
 
 class CollisionComponent
 {
