@@ -169,7 +169,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
             entityData.AddMember("ModelName", rapidjson::Value(graphicsComp.getModelName().c_str(), allocator), allocator);
 
             // Texture Name
-            entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getTexture().c_str(), allocator), allocator);
+            entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
 
 
 
