@@ -23,6 +23,7 @@
 #include <Jolt/Physics/PhysicsSettings.h>
 #include <Jolt/RegisterTypes.h>
 #include <Jolt/Physics/Collision/ContactListener.h>
+#include <Jolt/Physics/Body/BodyActivationListener.h>
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayerInterfaceMask.h>
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
 #include <../Utilities/Components/TransformComponent.hpp>
@@ -39,6 +40,117 @@ namespace JPH {
 
 // Forward declaration of MyContactListener
 class MyContactListener;
+
+namespace Layers
+{
+    static constexpr JPH::ObjectLayer NON_MOVING{ 0 };
+    static constexpr JPH::ObjectLayer MOVING{ 1 };
+    static constexpr JPH::ObjectLayer NUM_LAYERS{ 2 };
+}; // namespace Layers
+
+/// Class that determines if two object layers can collide
+class ObjectLayerPairFilterImpl : public JPH::ObjectLayerPairFilter
+{
+public:
+    [[nodiscard]] bool ShouldCollide(JPH::ObjectLayer inObject1,
+        JPH::ObjectLayer inObject2) const override
+    {
+        switch (inObject1)
+        {
+        case Layers::NON_MOVING:
+            return inObject2 ==
+                Layers::MOVING; // Non moving only collides with moving
+        case Layers::MOVING:
+            return true; // Moving collides with everything
+        default:
+            JPH_ASSERT(false);
+            return false;
+        }
+    }
+};
+
+// Each broadphase layer results in a separate bounding volume tree in the broad
+// phase. You at least want to have a layer for non-moving and moving objects to
+// avoid having to update a tree full of static objects every frame. You can
+// have a 1-on-1 mapping between object layers and broadphase layers (like in
+// this case) but if you have many object layers you'll be creating many broad
+// phase trees, which is not efficient. If you want to fine tune your broadphase
+// layers define JPH_TRACK_BROADPHASE_STATS and look at the stats reported on
+// the TTY.
+namespace BroadPhaseLayers
+{
+    static constexpr JPH::BroadPhaseLayer NON_MOVING(0);
+    static constexpr JPH::BroadPhaseLayer MOVING(1);
+    static constexpr JPH::uint NUM_LAYERS(2);
+}; // namespace BroadPhaseLayers
+
+// BroadPhaseLayerInterface implementation
+// This defines a mapping between object and broadphase layers.
+class BPLayerInterfaceImpl final : public JPH::BroadPhaseLayerInterface
+{
+public:
+    BPLayerInterfaceImpl()
+    {
+        // Create a mapping table from object to broad phase layer
+        mObjectToBroadPhase[Layers::NON_MOVING] = BroadPhaseLayers::NON_MOVING;
+        mObjectToBroadPhase[Layers::MOVING] = BroadPhaseLayers::MOVING;
+    }
+
+    [[nodiscard]] JPH::uint GetNumBroadPhaseLayers() const override
+    {
+        return BroadPhaseLayers::NUM_LAYERS;
+    }
+
+    [[nodiscard]] JPH::BroadPhaseLayer GetBroadPhaseLayer(
+        JPH::ObjectLayer inLayer) const override
+    {
+        JPH_ASSERT(inLayer < Layers::NUM_LAYERS);
+        return mObjectToBroadPhase[inLayer];
+    }
+
+#if defined(JPH_EXTERNAL_PROFILE) || defined(JPH_PROFILE_ENABLED)
+    virtual const char* GetBroadPhaseLayerName(
+        JPH::BroadPhaseLayer inLayer) const override
+    {
+        switch ((JPH::BroadPhaseLayer::Type)inLayer)
+        {
+        case (JPH::BroadPhaseLayer::Type)BroadPhaseLayers::NON_MOVING:
+            return "NON_MOVING";
+        case (JPH::BroadPhaseLayer::Type)BroadPhaseLayers::MOVING:
+            return "MOVING";
+        default:
+            JPH_ASSERT(false);
+            return "INVALID";
+        }
+    }
+#endif // JPH_EXTERNAL_PROFILE || JPH_PROFILE_ENABLED
+
+private:
+    JPH::BroadPhaseLayer mObjectToBroadPhase[Layers::NUM_LAYERS];
+    //std::array<JPH::BroadPhaseLayer, Layers::NUM_LAYERS> mObjectToBroadPhase;
+};
+
+/// Class that determines if an object layer can collide with a broadphase layer
+class ObjectVsBroadPhaseLayerFilterImpl
+    : public JPH::ObjectVsBroadPhaseLayerFilter
+{
+public:
+    [[nodiscard]] bool ShouldCollide(
+        JPH::ObjectLayer inLayer1,
+        JPH::BroadPhaseLayer inLayer2) const override
+    {
+        switch (inLayer1)
+        {
+        case Layers::NON_MOVING:
+            return inLayer2 == BroadPhaseLayers::MOVING;
+        case Layers::MOVING:
+            return true;
+        default:
+            JPH_ASSERT(false);
+            return false;
+        }
+    }
+};
 
 // Class to interface with JoltPhysics
 class MyPhysicsSystem : public System {
@@ -109,29 +221,34 @@ private:
     JPH::JobSystemThreadPool* mJobSystem = nullptr;
     JPH::TempAllocatorImpl* mTempAllocator = nullptr;
     JPH::PhysicsSystem* mPhysicsSystem = nullptr;
-
+    
     //// Define broadPhaseLayerInterface here
     //MyBroadPhaseLayerInterface* broadPhaseLayerInterface = nullptr;
 
+    BPLayerInterfaceImpl* m_broad_phase_layer_interface = nullptr;
+    ObjectVsBroadPhaseLayerFilterImpl* m_object_vs_broadphase_layer_filter = nullptr;
+    ObjectLayerPairFilterImpl* m_object_vs_object_layer_filter = nullptr;
+
     // Add a pointer to the contact listener
     MyContactListener* mContactListener = nullptr;
-};
-
-
-// Custom BroadPhaseLayerInterface
-class MyBroadPhaseLayerInterface : public JPH::BroadPhaseLayerInterface {
-public:
-    // Gets the number of broad phase layers
-    virtual unsigned int GetNumBroadPhaseLayers() const override;
-
-    // Gets the broad phase layer for a given object layer
-    virtual JPH::BroadPhaseLayer GetBroadPhaseLayer(JPH::ObjectLayer layer) const override;
-
-    // Implement the missing method that was causing the error
-    virtual const char* GetBroadPhaseLayerName(JPH::BroadPhaseLayer layer) const;
-
 
 };
+
+
+//// Custom BroadPhaseLayerInterface
+//class MyBroadPhaseLayerInterface : public JPH::BroadPhaseLayerInterface {
+//public:
+//    // Gets the number of broad phase layers
+//    virtual unsigned int GetNumBroadPhaseLayers() const override;
+//
+//    // Gets the broad phase layer for a given object layer
+//    virtual JPH::BroadPhaseLayer GetBroadPhaseLayer(JPH::ObjectLayer layer) const override;
+//
+//    // Implement the missing method that was causing the error
+//    virtual const char* GetBroadPhaseLayerName(JPH::BroadPhaseLayer layer) const;
+//
+//
+//};
 
 //class MyBroadPhaseLayerInterface : public JPH::BroadPhaseLayerInterface {
 //public:
@@ -158,35 +275,92 @@ public:
 //    }
 //};
 
-
-class MyContactListener : public JPH::ContactListener {
+// An example contact listener
+class MyContactListener : public JPH::ContactListener
+{
 public:
-    // This method gets called whenever a new contact is detected between two bodies
-    //virtual void OnContactAdded(
-    //    const JPH::Body& inBody1,  // First body in contact
-    //    const JPH::Body& inBody2,  // Second body in contact
-    //    const JPH::ContactManifold& inManifold,  // Contains collision details
-    //    JPH::ContactSettings& ioSettings  // Modify settings if necessary
-    //) override {
-    //            
-    //    // Log the IDs of the colliding bodies
-    //    std::cout << "Collision detected between Body1 (ID: " << inBody1.GetID().GetIndex()
-    //        << ") and Body2 (ID: " << inBody2.GetID().GetIndex() << ")" << std::endl;
+    // See: ContactListener
+    JPH::ValidateResult OnContactValidate(
+        const JPH::Body& /* inBody1 */,
+        const JPH::Body& /* inBody2 */,
+        JPH::RVec3Arg /* inBaseOffset */,
+        const JPH::CollideShapeResult& /* inCollisionResult */) override
+    {
+        std::cout << "Contact validate callback" << std::endl;
 
-    //    // Access entity information if stored in bodies
-    //    Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
-    //    Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
+        // Allows you to ignore a contact before it is created (using layers to not
+        // make objects collide is cheaper!)
+        return JPH::ValidateResult::AcceptAllContactsForThisBodyPair;
+    }
 
-    //    std::cout << "Collision detected between entities: " << entity1 << " and " << entity2 << std::endl;
+    void OnContactAdded(const JPH::Body& /* inBody1 */,
+        const JPH::Body& /* inBody2 */,
+        const JPH::ContactManifold& /* inManifold */,
+        JPH::ContactSettings& /* ioSettings */) override
+    {
+        std::cout << "A contact was added" << std::endl;
+    }
 
-    //    // Optionally, implement game-specific logic here based on the collision
-    //}
+    void OnContactPersisted(const JPH::Body& /* inBody1 */,
+        const JPH::Body& /* inBody2 */,
+        const JPH::ContactManifold& /* inManifold */,
+        JPH::ContactSettings& /* ioSettings */) override
+    {
+        std::cout << "A contact was persisted" << std::endl;
+    }
 
-    //// This method gets called when contact between two bodies is removed
-    //virtual void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) override {
-    //    std::cout << "Collision contact removed!" << std::endl;
-    //}
+    void OnContactRemoved(
+        const JPH::SubShapeIDPair& /* inSubShapePair */) override
+    {
+        std::cout << "A contact was removed" << std::endl;
+    }
 };
+
+// An example activation listener
+class MyBodyActivationListener : public JPH::BodyActivationListener
+{
+public:
+    void OnBodyActivated(const JPH::BodyID& /* inBodyID */,
+        JPH::uint64 /* inBodyUserData */) override
+    {
+        std::cout << "A body got activated" << std::endl;
+    }
+
+    void OnBodyDeactivated(const JPH::BodyID& /* &inBodyID */,
+        JPH::uint64 /* inBodyUserData */) override
+    {
+        std::cout << "A body went to sleep" << std::endl;
+    }
+};
+
+//class MyContactListener : public JPH::ContactListener {
+//public:
+//    // This method gets called whenever a new contact is detected between two bodies
+//    //virtual void OnContactAdded(
+//    //    const JPH::Body& inBody1,  // First body in contact
+//    //    const JPH::Body& inBody2,  // Second body in contact
+//    //    const JPH::ContactManifold& inManifold,  // Contains collision details
+//    //    JPH::ContactSettings& ioSettings  // Modify settings if necessary
+//    //) override {
+//    //            
+//    //    // Log the IDs of the colliding bodies
+//    //    std::cout << "Collision detected between Body1 (ID: " << inBody1.GetID().GetIndex()
+//    //        << ") and Body2 (ID: " << inBody2.GetID().GetIndex() << ")" << std::endl;
+//
+//    //    // Access entity information if stored in bodies
+//    //    Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
+//    //    Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
+//
+//    //    std::cout << "Collision detected between entities: " << entity1 << " and " << entity2 << std::endl;
+//
+//    //    // Optionally, implement game-specific logic here based on the collision
+//    //}
+//
+//    //// This method gets called when contact between two bodies is removed
+//    //virtual void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) override {
+//    //    std::cout << "Collision contact removed!" << std::endl;
+//    //}
+//};
 
 
 #endif // PHYSICSSYSTEM_H

@@ -19,6 +19,7 @@
 #include <Jolt/Physics/Collision/Shape/BoxShape.h>    // For BoxShape
 #include <Jolt/Physics/Collision/Shape/ConvexShape.h> // For SphereShape
 #include <Jolt/Physics/Body/BodyInterface.h>          // For BodyInterface
+#include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
 #include <../Utilities/Components/CollisionComponent.hpp>
 
 #include <glm/gtc/quaternion.hpp>   // For glm::quat
@@ -26,6 +27,8 @@
 #include <cstdlib>
 #include <cstdarg>
 #include <cstdio>
+
+using namespace JPH::literals;
 
 static void MyTrace(const char* inFMT, ...)
 {
@@ -42,49 +45,49 @@ static bool MyAssertFailed(const char* inExpression, const char* inMessage, cons
     return true; // Trigger a breakpoint if running under a debugger.
 }
 
-// Object-vs-broad-phase-layer filter
-class MyObjectVsBroadPhaseLayerFilter : public JPH::ObjectVsBroadPhaseLayerFilter {
-public:
-    virtual bool ShouldCollide(JPH::ObjectLayer inLayer1, JPH::BroadPhaseLayer inLayer2) const override
-    {
-        (void)inLayer1, inLayer2;
-        return true; // Allow all collisions between broad phase layers and object layers for now
-    }
-};
-
-// Object-layer-pair filter
-class MyObjectLayerPairFilter : public JPH::ObjectLayerPairFilter {
-public:
-    virtual bool ShouldCollide(JPH::ObjectLayer inObjectLayer1, JPH::ObjectLayer inObjectLayer2) const override
-    {
-        (void)inObjectLayer1, inObjectLayer2;
-        return true; // Allow all object layers to collide for now
-    }
-};
-
-// Custom BroadPhaseLayerInterface implementation
-unsigned int MyBroadPhaseLayerInterface::GetNumBroadPhaseLayers() const {
-    return 2; // Two layers: Static and Dynamic
-}
-
-JPH::BroadPhaseLayer MyBroadPhaseLayerInterface::GetBroadPhaseLayer(JPH::ObjectLayer layer) const {
-    switch (layer) {
-    case 0: return JPH::BroadPhaseLayer(0);  // Static objects
-    case 1: return JPH::BroadPhaseLayer(1);  // Dynamic objects
-    default:
-        std::cerr << "Invalid ObjectLayer passed: " << layer << std::endl;
-        return JPH::BroadPhaseLayer(0);  // Fallback to a default layer
-    }
-}
-
-const char* MyBroadPhaseLayerInterface::GetBroadPhaseLayerName(JPH::BroadPhaseLayer layer) const {
-    // Use the GetValue() method to retrieve the underlying uint8 value for the switch case
-    switch (layer.GetValue()) {
-    case 0: return "Static";
-    case 1: return "Dynamic";
-    default: return "Unknown";
-    }
-}
+//// Object-vs-broad-phase-layer filter
+//class MyObjectVsBroadPhaseLayerFilter : public JPH::ObjectVsBroadPhaseLayerFilter {
+//public:
+//    virtual bool ShouldCollide(JPH::ObjectLayer inLayer1, JPH::BroadPhaseLayer inLayer2) const override
+//    {
+//        (void)inLayer1, inLayer2;
+//        return true; // Allow all collisions between broad phase layers and object layers for now
+//    }
+//};
+//
+//// Object-layer-pair filter
+//class MyObjectLayerPairFilter : public JPH::ObjectLayerPairFilter {
+//public:
+//    virtual bool ShouldCollide(JPH::ObjectLayer inObjectLayer1, JPH::ObjectLayer inObjectLayer2) const override
+//    {
+//        (void)inObjectLayer1, inObjectLayer2;
+//        return true; // Allow all object layers to collide for now
+//    }
+//};
+//
+//// Custom BroadPhaseLayerInterface implementation
+//unsigned int MyBroadPhaseLayerInterface::GetNumBroadPhaseLayers() const {
+//    return 2; // Two layers: Static and Dynamic
+//}
+//
+//JPH::BroadPhaseLayer MyBroadPhaseLayerInterface::GetBroadPhaseLayer(JPH::ObjectLayer layer) const {
+//    switch (layer) {
+//    case 0: return JPH::BroadPhaseLayer(0);  // Static objects
+//    case 1: return JPH::BroadPhaseLayer(1);  // Dynamic objects
+//    default:
+//        std::cerr << "Invalid ObjectLayer passed: " << layer << std::endl;
+//        return JPH::BroadPhaseLayer(0);  // Fallback to a default layer
+//    }
+//}
+//
+//const char* MyBroadPhaseLayerInterface::GetBroadPhaseLayerName(JPH::BroadPhaseLayer layer) const {
+//    // Use the GetValue() method to retrieve the underlying uint8 value for the switch case
+//    switch (layer.GetValue()) {
+//    case 0: return "Static";
+//    case 1: return "Dynamic";
+//    default: return "Unknown";
+//    }
+//}
 
 void MyPhysicsSystem::InitializeJolt() {
 
@@ -120,25 +123,45 @@ JPH::PhysicsSystem* MyPhysicsSystem::CreatePhysicsSystem() {
     mPhysicsSystem = new JPH::PhysicsSystem();
     //mPhysicsSystem = std::make_unique<JPH::PhysicsSystem>();
 
-    // Initialize filters
-    MyBroadPhaseLayerInterface broadPhaseLayerInterface;
-    MyObjectVsBroadPhaseLayerFilter objectVsBroadPhaseLayerFilter;
-    MyObjectLayerPairFilter objectLayerPairFilter;
-
-    //// Initialize the broadphase layer interface and filters
-    //broadPhaseLayerInterface = new MyBroadPhaseLayerInterface();
+    //// Initialize filters
+    //MyBroadPhaseLayerInterface broadPhaseLayerInterface;
     //MyObjectVsBroadPhaseLayerFilter objectVsBroadPhaseLayerFilter;
     //MyObjectLayerPairFilter objectLayerPairFilter;
 
-    // Initialize the PhysicsSystem with the filters
+    m_broad_phase_layer_interface = new BPLayerInterfaceImpl();
+    m_object_vs_broadphase_layer_filter = new ObjectVsBroadPhaseLayerFilterImpl();
+    m_object_vs_object_layer_filter = new ObjectLayerPairFilterImpl();
+
+    // Initialize mTempAllocator with a fixed amount of memory (10 MB here)
+    mTempAllocator = new JPH::TempAllocatorImpl(10 * 1024 * 1024);
+
+    // Create the JobSystemThreadPool
+    mJobSystem = new JPH::JobSystemThreadPool(
+        JPH::cMaxPhysicsJobs,
+        JPH::cMaxPhysicsBarriers,
+        static_cast<int>(std::thread::hardware_concurrency()) - 1
+    );
+
+    //// Initialize the PhysicsSystem with the filters
+    //mPhysicsSystem->Init(
+    //    cMaxBodies,
+    //    cNumBodyMutexes,
+    //    cMaxBodyPairs,
+    //    cMaxContactConstraints,
+    //    broadPhaseLayerInterface,
+    //    objectVsBroadPhaseLayerFilter,
+    //    objectLayerPairFilter
+    //);
+
+    // Initialize the PhysicsSystem with the filters and interfaces
     mPhysicsSystem->Init(
         cMaxBodies,
         cNumBodyMutexes,
         cMaxBodyPairs,
         cMaxContactConstraints,
-        broadPhaseLayerInterface,
-        objectVsBroadPhaseLayerFilter,
-        objectLayerPairFilter
+        *m_broad_phase_layer_interface,
+        *m_object_vs_broadphase_layer_filter,
+        *m_object_vs_object_layer_filter
     );
 
     // Set gravity
@@ -170,7 +193,7 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
 
         // Debug output to check Position
-        std::cout << "x: " << transform.GetPosition().x << " y: " << transform.GetPosition().y << " z: " << transform.GetPosition().z << std::endl;
+        //std::cout << "x: " << transform.GetPosition().x << " y: " << transform.GetPosition().y << " z: " << transform.GetPosition().z << std::endl;
 
         JPH::Vec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
         glm::vec3 scale = transform.GetScale();
@@ -181,9 +204,6 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         // Create the box shape
         JPH::BoxShape* boxShape = new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.5f, scale.z * 0.5f));
 
-        // Debug output to check Position
-        //std::cout << "x: " << position.GetX() << " y: " << position.GetY() << " z: " << position.GetZ() << std::endl;
-
         // Define body creation settings
         JPH::BodyCreationSettings bodySettings(
             boxShape,
@@ -193,11 +213,22 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             1  // ObjectLayer, ensure this is valid
         );
 
+        JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
+        if (&bodyInterface == nullptr) {
+            std::cerr << "BodyInterface is not available!" << std::endl;
+            return;
+        }
+
+        if (mPhysicsSystem == nullptr) {
+            std::cerr << "mPhysicsSystem is not initialized!" << std::endl;
+            return;
+        }
+
         // Debug output to check Position
         std::cout << "x: " << position.GetX() << " y: " << position.GetY() << " z: " << position.GetZ() << std::endl;
 
         // Create and add the body to the physics system
-        /*JPH::Body* body = mPhysicsSystem->GetBodyInterface().CreateBody(bodySettings);
+        JPH::Body* body = mPhysicsSystem->GetBodyInterface().CreateBody(bodySettings);
 
         if (body == nullptr) {
             std::cerr << "Failed to create a new body!" << std::endl;
@@ -207,7 +238,7 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             mPhysicsSystem->GetBodyInterface().AddBody(body->GetID(), JPH::EActivation::Activate);
         }
 
-        g_Coordinator.AddComponent(entity, CollisionComponent(body, entity, 1));*/
+        //g_Coordinator.AddComponent(entity, CollisionComponent(body, entity, 1));
     }
 }
 
@@ -297,17 +328,13 @@ void MyPhysicsSystem::UpdateEntityTransforms() {
 
 void MyPhysicsSystem::Cleanup() {
 
-    //// Iterate over all entities with a CollisionComponent and remove their bodies
-    //auto allEntities = g_Coordinator.GetAliveEntitiesSet();
-    //for (auto& entity : allEntities) {
-    //    if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-    //        RemoveEntityBody(entity);  // Remove the entity's body from physics system
-    //    }
-    //}
 
     delete mPhysicsSystem;
     delete mJobSystem;
     delete mTempAllocator;
+    delete m_broad_phase_layer_interface;
+    delete m_object_vs_broadphase_layer_filter;
+    delete m_object_vs_object_layer_filter;
 
     // Clean up the contact listener
     delete mContactListener;
