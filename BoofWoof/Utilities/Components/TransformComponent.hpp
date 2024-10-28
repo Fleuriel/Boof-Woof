@@ -66,9 +66,9 @@ public:
 			worldMatrix[0][2], worldMatrix[1][2], worldMatrix[2][2], 0.0f,
 			position[0], position[1], position[2], 1.0f
 
-	};*/
+		};*/
 
-	return worldMatrix;
+		return worldMatrix;
 	}
 
 private:

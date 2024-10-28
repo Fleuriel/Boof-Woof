@@ -181,7 +181,8 @@ void AssetManager::LoadAll() {
  * @return None.
  *************************************************************************/
 void AssetManager::FreeAll() {
-#ifdef _DEBUG
+
+
     bool freeTextures = AssetManager::FreeTextures(),
         //freeSprites = AssetManager::FreeSprites(),
         //freeSounds = AssetManager::FreeSounds(),
@@ -199,7 +200,7 @@ void AssetManager::FreeAll() {
         //<< ((freeScenes) ? "Scenes freed successfully" : "Failed to free scenes") << std::endl
         //<< ((freePrefabs) ? "Prefabs freed successfully" : "Failed to free prefabs") << std::endl
         << ((freeShaders) ? "Shaders freed successfully" : "Failed to free shaders") << std::endl;
-#else
+
     AssetManager::FreeTextures(),
         //AssetManager::FreeSprites(),
         //AssetManager::FreeSounds(),
@@ -207,7 +208,7 @@ void AssetManager::FreeAll() {
         //AssetManager::FreeScenes(),
         //AssetManager::FreePrefabs(),
         AssetManager::FreeShaders();
-#endif
+
 }
 
 /**************************************************************************
@@ -421,39 +422,6 @@ bool AssetManager::ReloadTextures() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**************************************************************************
  * @brief Loads the scene filenames from the specified directory.
  *
@@ -637,41 +605,66 @@ bool AssetManager::LoadObjects() {
                 std::string binFilePath = FILEPATH_OBJECTS_RESOURCE + "\\" + nameWithoutExtension + ".bin";
 
 
-
-                Model model;
-               // std::cout << "Loading: " << binFilePath << '\n';
-               //
-                model.loadModel(objFilePath, GL_TRIANGLES);
-
-               //
-               // ModelMap.insert(std::pair<std::string, Model>(nameWithoutExtension, model));
-               //
-               // std::cout << "Loaded: " << binFilePath << " with name: " << nameWithoutExtension << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
-
-                // Parse the .obj file into vertices and indices
-                std::vector<Vertex> vertices;
-                std::vector<unsigned int> indices;
-                parseOBJ(objFilePath, vertices, indices);
-                std::cout << vertices.size() << '\t' << indices.size() << "\t This Vertices ASize\n";
-
-                
-                // Create Mesh object and populate it with the vertices and indices
-               // Mesh mesh;//(vertices, indices);
-
-                //mesh.processMesh();
-
-                // Now save the mesh to the .bin file
-                saveMeshToBin(model.meshes, binFilePath);
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTORS + "/Model_" + nameWithoutExtension + ".txt" };
+                std::ofstream outFile(descriptorFilePath);
 
 
-                g_ResourceManager.AddModelBinary(nameWithoutExtension);
+                if (outFile.is_open())
+                {
+                    outFile << "File Name: " << nameWithoutExtension << '\n';
+                    outFile << "Source File Path: " << objFilePath << '\n';
+                    outFile << "Output File Path: " << binFilePath << '\n';
+                    outFile << "Expected Attributes: \n";
+                    outFile << " -  Vertices\n";
+                    outFile << " -  Indices\n";
+                    outFile << " -  Normals\n";
+                    outFile << "Transform Defauls: \n";
+                    outFile << " -  Scale: 1.0\n";
+                    outFile.close();
+                }
+
+
+                //  Model model;
+                // // std::cout << "Loading: " << binFilePath << '\n';
+                // //
+                //  model.loadModel(objFilePath, GL_TRIANGLES);
+                //
+                // //
+                // // ModelMap.insert(std::pair<std::string, Model>(nameWithoutExtension, model));
+                // //
+                // // std::cout << "Loaded: " << binFilePath << " with name: " << nameWithoutExtension << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
+                //
+                //  // Parse the .obj file into vertices and indices
+                //  std::vector<Vertex> vertices;
+                //  std::vector<unsigned int> indices;
+                //  parseOBJ(objFilePath, vertices, indices);
+                //  std::cout << vertices.size() << '\t' << indices.size() << "\t This Vertices ASize\n";
+                //
+                //  
+                //  // Create Mesh object and populate it with the vertices and indices
+                //
+                //
+                //  // Now save the mesh to the .bin file
+                //  saveMeshToBin(model.meshes, binFilePath);
+
+
+
+                std::vector<std::string> fileInfo = processDescriptorFile(descriptorFilePath);
+
+                if (!fileInfo.empty())
+                {
+                    runCommand("..\\lib\\MeshCompiler\\Release\\MeshCompiler.exe " + fileInfo[0] + " " + FILEPATH_OBJECTS + "\\" + fileInfo[1] + " " +  FILEPATH_OBJECTS_RESOURCE + "\\" + nameWithoutExtension + ".bin");
+                    g_ResourceManager.AddModelBinary(nameWithoutExtension);
+                    std::cout << "it entered here\n";
+                }
+
 
 #ifdef _DEBUG
                 std::cout << "Binary file created: " << binFilePath << std::endl;
 #endif
                 // Clear data for next object
-                vertices.clear();
-                indices.clear();
+              //  vertices.clear();
+              //  indices.clear();
             }
             else {
 #ifdef _DEBUG
