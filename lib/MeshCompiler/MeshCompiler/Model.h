@@ -52,6 +52,7 @@ public:
         // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
         for (unsigned int i = 0; i < node->mNumChildren; i++)
         {
+            std::cout << "it spams here as well!\n";
             processNode(node->mChildren[i], scene, draw_mode);
         }
 

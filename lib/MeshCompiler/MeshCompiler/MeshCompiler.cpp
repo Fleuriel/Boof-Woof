@@ -10,6 +10,8 @@
 bool fileExistsInDirectory(const std::string& directoryPath, const std::string& fileName);
 std::vector<std::string> processDescriptorFile(const std::string& descriptorFilePath);
 void saveMeshToBin(std::vector<Mesh> meshes, const std::string& binFilePath);
+void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
+
 
 namespace fs = std::filesystem;
 
@@ -85,6 +87,15 @@ int main(int argc, char** argv) {
             }
         }
     }
+
+
+
+
+    std::cout << "it eventually lead here\n";
+
+
+
+
     return 0;
 }
 
@@ -169,3 +180,57 @@ bool fileExistsInDirectory(const std::string& directoryPath, const std::string& 
 
     return false; // The file does not exist in the directory
 }
+
+
+void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+    std::vector<glm::vec3> positions;
+    std::vector<glm::vec3> normals;
+    std::vector<glm::vec2> texCoords;
+
+    std::ifstream objFile(filename);
+    if (!objFile.is_open()) {
+        std::cerr << "Could not open OBJ file: " << filename << std::endl;
+        return;
+    }
+
+    std::string line;
+    while (std::getline(objFile, line)) {
+        std::stringstream ss(line);
+        std::string type;
+        ss >> type;
+
+        if (type == "v") {
+            glm::vec3 position;
+            ss >> position.x >> position.y >> position.z;
+            positions.push_back(position);
+        }
+        else if (type == "vt") {
+            glm::vec2 texCoord;
+            ss >> texCoord.x >> texCoord.y;
+            texCoords.push_back(texCoord);
+        }
+        else if (type == "vn") {
+            glm::vec3 normal;
+            ss >> normal.x >> normal.y >> normal.z;
+            normals.push_back(normal);
+        }
+        else if (type == "f") {
+            unsigned int vertexIndex[3], texCoordIndex[3], normalIndex[3];
+            char slash;
+            for (int i = 0; i < 3; i++) {
+                ss >> vertexIndex[i] >> slash >> texCoordIndex[i] >> slash >> normalIndex[i];
+                vertexIndex[i]--; texCoordIndex[i]--; normalIndex[i]--;
+
+                Vertex vertex;
+                vertex.Position = positions[vertexIndex[i]];
+                vertex.TexCoords = texCoords[texCoordIndex[i]];
+                vertex.Normal = normals[normalIndex[i]];
+                vertices.push_back(vertex);
+
+                indices.push_back(static_cast<unsigned int>(vertices.size() - 1));
+            }
+        }
+    }
+    objFile.close();
+}
+
