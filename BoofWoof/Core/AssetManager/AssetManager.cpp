@@ -630,6 +630,8 @@ bool AssetManager::LoadObjects() {
 //                    runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe " + fileInfo[1] + " " +  fileInfo[2]);
                  runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe /Model_" + nameWithoutExtension + ".txt " + FILEPATH_DESCRIPTORS + " " + descriptorFilePath);
                  
+
+
                  g_ResourceManager.AddModelBinary(nameWithoutExtension);
                  std::cout << "it entered here\n";
                 

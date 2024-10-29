@@ -6,7 +6,7 @@
 
 
 
-
+GLFWwindow* createHiddenWindow();
 bool fileExistsInDirectory(const std::string& directoryPath, const std::string& fileName);
 std::vector<std::string> processDescriptorFile(const std::string& descriptorFilePath);
 void saveMeshToBin(std::vector<Mesh> meshes, const std::string& binFilePath);
@@ -16,6 +16,16 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
 namespace fs = std::filesystem;
 
 int main(int argc, char** argv) {
+    
+    
+    GLFWwindow* window = createHiddenWindow();
+    if (!window) {
+        std::cerr << "Failed to create a hidden window!" << std::endl;
+        return -1;
+    }
+
+
+
 
     std::cout << "MeshCompiler executed\n";
     
@@ -60,14 +70,15 @@ int main(int argc, char** argv) {
     objFilePath = descriptorFileInformation[1] + "\\" + descriptorFileInformation[0];
     binFilePath = descriptorFileInformation[2];
 
-    // Iterate over all descriptor files in the directory
-    for (const auto& entry : fs::directory_iterator(directoryPath)) {
-        std::cout << "it entered first loop\n";
+    while (!glfwWindowShouldClose(window))
+    {
 
+        // Iterate over all descriptor files in the directory
+     
         if (fileExistsInDirectory(argv[2], argv[1])) {
             std::cout << "it entered second loop\n";
             // Read paths from descriptor file
-           
+
 
             // Load and convert the .obj file
             Model model;
@@ -76,6 +87,20 @@ int main(int argc, char** argv) {
             std::cout << "it parsed finished\n";
 
             std::cout << model.meshes.size() << "\tsize\n";
+            std::vector<Vertex> vertices;
+            std::vector<unsigned int> indices;
+            parseOBJ(objFilePath, vertices, indices);
+            std::cout << vertices.size() << '\t' << indices.size() << "\t This Vertices ASize\n";
+
+
+            // Create Mesh object and populate it with the vertices and indices
+           // Mesh mesh;//(vertices, indices);
+
+            //mesh.processMesh();
+
+            // Now save the mesh to the .bin file
+            saveMeshToBin(model.meshes, binFilePath);
+
 
             // Save the mesh data into a single .bin file
             if (!model.meshes.empty()) {
@@ -86,19 +111,39 @@ int main(int argc, char** argv) {
                 std::cerr << "No mesh data found in " << objFilePath << std::endl;
             }
         }
+        
+
+        break;
     }
-
-
-
 
     std::cout << "it eventually lead here\n";
 
 
-
+    glfwDestroyWindow(window);
+    glfwTerminate();
 
     return 0;
 }
 
+
+GLFWwindow* createHiddenWindow() {
+    if (!glfwInit()) {
+        return nullptr;
+    }
+
+    // Create a hidden window
+    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+    GLFWwindow* window = glfwCreateWindow(1, 1, "Hidden Window", nullptr, nullptr);
+    if (!window) {
+        glfwTerminate();
+        return nullptr;
+    }
+
+    glfwMakeContextCurrent(window);
+    glewInit();
+
+    return window;
+}
 
 
 void saveMeshToBin(std::vector<Mesh> meshes, const std::string& binFilePath) {

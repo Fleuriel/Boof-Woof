@@ -38,6 +38,8 @@ struct Vertex {
     //float m_Weights[MAX_BONE_INFLUENCE];
 };
 
+
+
 class Mesh {
 public:
     // mesh Data
@@ -70,29 +72,48 @@ public:
     {
         std::cout << "this happened here then\n";
 
+
+        std::cout << "-3\n";
         // create buffers/arrays
         glGenVertexArrays(1, &VAO);
+
+        std::cout << "-2\n";
         glGenBuffers(1, &VBO);
+
+        std::cout << "-1\n";
         glGenBuffers(1, &EBO);
 
+        std::cout << "kek\n";
         glBindVertexArray(VAO);
+
+
+        std::cout << "0\n";
 
         // load data into vertex buffers
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+
+
+        std::cout << "1\n";
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
         // set the vertex attribute pointers
 
+        std::cout << "2\n";
+
         // vertex Positions (location = 0 in vertex shader)
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
+        std::cout << "3\n";
+
         // vertex normals (location = 1 in vertex shader)
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+
+        std::cout << "4\n";
 
         //check if the TexCoords are empty
         if (vertices[0].TexCoords.x != 1.1f && vertices[0].TexCoords.y != 1.1f) {
@@ -106,6 +127,8 @@ public:
             glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
         }
+
+        std::cout << "5\n";
 
         glBindVertexArray(0);
         //glEnableVertexAttribArray(2);

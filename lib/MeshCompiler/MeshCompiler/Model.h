@@ -1,8 +1,10 @@
 #pragma once
 #include "Header.h"
+#include <set>
+#include <unordered_set>
 
 
-
+std::unordered_set<aiNode*> visitedNodes;
 
 class Model {
 
@@ -38,6 +40,13 @@ public:
     void processNode(aiNode* node, const aiScene* scene, unsigned int draw_mode)
     {
         std::cout << node->mNumMeshes <<'\t' << node->mNumChildren << '\n';
+
+        if (visitedNodes.find(node) != visitedNodes.end())
+        {
+            std::cout << "Node already processed: " << node->mName.C_Str() << std::endl;
+            return; // Prevent infinite recursion
+        }
+        visitedNodes.insert(node); // Mark this node as visited
 
         // process each mesh located at the current node
         for (unsigned int i = 0; i < node->mNumMeshes; i++)
