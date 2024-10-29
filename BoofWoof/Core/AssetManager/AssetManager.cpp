@@ -359,7 +359,7 @@ bool AssetManager::LoadTextures() {
 
                     // Run compression command
                     runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[0] + " " + FILEPATH_TEXTURES + "\\" + fileInfo[1] + " " + FILEPATH_TEXTURES_RESOURCE + "\\" + nameWithoutExtension + ".dds");
-                    std::cout << "eleiggle\t " << nameWithoutExtension << '\n';
+                    //std::cout << "eleiggle\t " << nameWithoutExtension << '\n';
                     g_ResourceManager.AddTextureDDS(nameWithoutExtension);
                 }
 
@@ -624,43 +624,19 @@ bool AssetManager::LoadObjects() {
                 }
 
 
-                //  Model model;
-                // // std::cout << "Loading: " << binFilePath << '\n';
-                // //
-                //  model.loadModel(objFilePath, GL_TRIANGLES);
-                //
-                // //
-                // // ModelMap.insert(std::pair<std::string, Model>(nameWithoutExtension, model));
-                // //
-                // // std::cout << "Loaded: " << binFilePath << " with name: " << nameWithoutExtension << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
-                //
-                //  // Parse the .obj file into vertices and indices
-                //  std::vector<Vertex> vertices;
-                //  std::vector<unsigned int> indices;
-                //  parseOBJ(objFilePath, vertices, indices);
-                //  std::cout << vertices.size() << '\t' << indices.size() << "\t This Vertices ASize\n";
-                //
-                //  
-                //  // Create Mesh object and populate it with the vertices and indices
-                //
-                //
-                //  // Now save the mesh to the .bin file
-                //  saveMeshToBin(model.meshes, binFilePath);
+//                std::vector<std::string> fileInfo = processDescriptorFile(descriptorFilePath);
 
-
-
-                std::vector<std::string> fileInfo = processDescriptorFile(descriptorFilePath);
-
-                if (!fileInfo.empty())
-                {
-                    runCommand("..\\lib\\MeshCompiler\\Release\\MeshCompiler.exe " + fileInfo[0] + " " + FILEPATH_OBJECTS + "\\" + fileInfo[1] + " " +  FILEPATH_OBJECTS_RESOURCE + "\\" + nameWithoutExtension + ".bin");
-                    g_ResourceManager.AddModelBinary(nameWithoutExtension);
-                    std::cout << "it entered here\n";
-                }
+              
+//                    runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe " + fileInfo[1] + " " +  fileInfo[2]);
+                 runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe /Model_" + nameWithoutExtension + ".txt " + FILEPATH_DESCRIPTORS + " " + descriptorFilePath);
+                 
+                 g_ResourceManager.AddModelBinary(nameWithoutExtension);
+                 std::cout << "it entered here\n";
+                
 
 
 #ifdef _DEBUG
-                std::cout << "Binary file created: " << binFilePath << std::endl;
+//                std::cout << "Binary file created: " << binFilePath << std::endl;
 #endif
                 // Clear data for next object
               //  vertices.clear();

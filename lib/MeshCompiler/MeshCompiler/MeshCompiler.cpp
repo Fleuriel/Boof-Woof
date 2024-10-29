@@ -7,41 +7,73 @@
 
 
 
-
-void processDescriptorFile(const std::string& descriptorFilePath, std::string& objFilePath, std::string& binFilePath);
+bool fileExistsInDirectory(const std::string& directoryPath, const std::string& fileName);
+std::vector<std::string> processDescriptorFile(const std::string& descriptorFilePath);
 void saveMeshToBin(std::vector<Mesh> meshes, const std::string& binFilePath);
 
 namespace fs = std::filesystem;
 
 int main(int argc, char** argv) {
+
+    std::cout << "MeshCompiler executed\n";
+    
+    for (int i = 0; i < argc; ++i)
+    {
+        std::cout << argv[i] << '\n';
+    }
+
+    // [1] Descriptor File [TXT]
+    // [2] Filepath of Descriptor
+    // [3] [1][2] combined
+
+
+
     if (argc < 2) {
         std::cerr << "Usage: MeshCompiler <path_to_directory_with_descriptors>" << std::endl;
         return -1;
     }
 
-    std::string directoryPath = argv[1];
+    std::string directoryPath = argv[2];
     if (!fs::is_directory(directoryPath)) {
         std::cerr << "Provided path is not a directory: " << directoryPath << std::endl;
         return -1;
     }
 
+    std::vector<std::string> descriptorFileInformation;
+
+
+
+    descriptorFileInformation = processDescriptorFile(argv[3]);
+
+
+    for (int i = 0; i < descriptorFileInformation.size(); ++i)
+    {
+        std::cout << i << '\t' << descriptorFileInformation[i] << '\n';
+    }
+
+
+
+    std::string objFilePath, binFilePath;
+
+    objFilePath = descriptorFileInformation[1] + "\\" + descriptorFileInformation[0];
+    binFilePath = descriptorFileInformation[2];
+
     // Iterate over all descriptor files in the directory
     for (const auto& entry : fs::directory_iterator(directoryPath)) {
-        if (entry.path().extension() == ".txt") {
-            std::string descriptorFilePath = entry.path().string();
-            std::string objFilePath, binFilePath;
+        std::cout << "it entered first loop\n";
 
+        if (fileExistsInDirectory(argv[2], argv[1])) {
+            std::cout << "it entered second loop\n";
             // Read paths from descriptor file
-            processDescriptorFile(descriptorFilePath, objFilePath, binFilePath);
-
-            if (objFilePath.empty() || binFilePath.empty()) {
-                std::cerr << "Error: Missing file paths in descriptor " << descriptorFilePath << std::endl;
-                continue;
-            }
+           
 
             // Load and convert the .obj file
             Model model;
             model.loadModel(objFilePath, GL_TRIANGLES);
+
+            std::cout << "it parsed finished\n";
+
+            std::cout << model.meshes.size() << "\tsize\n";
 
             // Save the mesh data into a single .bin file
             if (!model.meshes.empty()) {
@@ -87,23 +119,53 @@ void saveMeshToBin(std::vector<Mesh> meshes, const std::string& binFilePath) {
 
 
 
-void processDescriptorFile(const std::string& descriptorFilePath, std::string& objFilePath, std::string& binFilePath) {
-    std::ifstream descriptorFile(descriptorFilePath);
-    std::string line;
-    if (!descriptorFile.is_open()) {
-        std::cerr << "Error opening descriptor file: " << descriptorFilePath << std::endl;
-        return;
+std::vector<std::string> processDescriptorFile(const std::string& descriptorFilePath) {
+    std::ifstream file(descriptorFilePath);
+
+    // Check if the file opened successfully
+    if (!file.is_open()) {
+        std::cerr << "Unable to open descriptor file: " << descriptorFilePath << std::endl;
+        return {};
     }
 
-    while (getline(descriptorFile, line)) {
-        std::istringstream iss(line);
-        std::string key;
-        if (line.find("Source File Path:") != std::string::npos) {
-            objFilePath = line.substr(line.find(":") + 2);  // Extract path after ": "
+    std::string line;
+    std::string fileName;
+    std::string objFilePath;
+    std::string binFilePath;
+
+    // Read the file line by line
+    while (std::getline(file, line)) {
+        // Check for "File Name" and extract the value
+        if (line.find("File Name") != std::string::npos) {
+            fileName = line.substr(line.find(":") + 2); // Extract name after ": "
+            fileName += ".obj"; // Append .obj extension
         }
-        else if (line.find("Output File Path:") != std::string::npos) {
-            binFilePath = line.substr(line.find(":") + 2);
+        // Check for "Source File Path" and extract the value
+        else if (line.find("Source File Path") != std::string::npos) {
+            objFilePath = line.substr(line.find(":") + 2); // Extract path after ": "
+            objFilePath = objFilePath.substr(0, objFilePath.find_last_of("\\/")); // Get directory path
+        }
+        // Check for "Output File Path" and extract the value
+        else if (line.find("Output File Path") != std::string::npos) {
+            binFilePath = line.substr(line.find(":") + 2); // Extract path after ": "
         }
     }
-    descriptorFile.close();
+
+    file.close(); // Close the file
+    return { fileName, objFilePath, binFilePath }; // Return the extracted information
+}
+
+
+bool fileExistsInDirectory(const std::string& directoryPath, const std::string& fileName) {
+    fs::path dirPath(directoryPath);
+    fs::path filePath(fileName);
+
+    // Iterate over the directory to check for the exact file
+    for (const auto& entry : fs::directory_iterator(dirPath)) {
+        if (entry.path().filename() == filePath.filename()) {
+            return true; // The file exists in the directory
+        }
+    }
+
+    return false; // The file does not exist in the directory
 }
