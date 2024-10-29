@@ -1,0 +1,4 @@
+Boof-Woof/lib/JoltPhysics-master/LinkLib/Debug/Jolt.lib filter=lfs diff=lfs merge=lfs -text
+Boof-Woof/lib/JoltPhysics-master/LinkLib/Debug/Jolt.pdb filter=lfs diff=lfs merge=lfs -text
+Boof-Woof/lib/JoltPhysics-master/LinkLib/Release/Jolt.pdb filter=lfs diff=lfs merge=lfs -text
+Boof-Woof/lib/JoltPhysics-master/LinkLib/Release/Jolt.lib filter=lfs diff=lfs merge=lfs -text
