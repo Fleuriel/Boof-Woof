@@ -27,14 +27,12 @@ void LogicSystem::Init()
 		else
 		{
 			// Create Script_to_Engine object dynamically
-			auto* scriptEngine = new Script_to_Engine();
+			mScriptEngine = new Script_to_Engine();
 
 			// Get the scripts from the script engine
-			AddBehaviours(GetScripts(scriptEngine));
+			AddBehaviours(GetScripts(mScriptEngine));
 
-			// Clean up Script_to_Engine object to prevent memory leak
-			delete scriptEngine;  // Ensure that the dynamically allocated object is deleted
-			
+
 			// Get the scripts from the script engine
 			// Add scripts from script engine to logic system
 			// AddBehaviours(pGetScripts(new Script_to_Engine()));
@@ -86,6 +84,9 @@ void LogicSystem::Update()
 
 void LogicSystem::Shutdown()
 {
+	// Clean up Script_to_Engine object to prevent memory leak
+	delete mScriptEngine;  // Ensure that the dynamically allocated object is deleted
+
 	// Clear the map to remove all entries
 	mBehaviours.clear();
 }

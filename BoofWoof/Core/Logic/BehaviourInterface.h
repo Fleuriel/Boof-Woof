@@ -17,7 +17,8 @@ struct Behaviour_i
 struct engine_interface
 {
 	virtual ~engine_interface() = default;
-	virtual void AddComponent(Entity entity, ComponentType type) = 0;
+	//virtual void AddComponent(Entity entity, ComponentType type) = 0;
+	virtual void Movement(Entity entity) = 0;
 };
 
 using GetScripts_cpp_t = std::vector<std::unique_ptr<Behaviour_i>>* (*)(engine_interface* pEI);

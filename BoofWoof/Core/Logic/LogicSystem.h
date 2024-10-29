@@ -4,6 +4,7 @@
 #define LOGIC_SYSTEM_H
 
 struct Behaviour;
+class Script_to_Engine;
 
 #include "../ECS/System.hpp"
 #include "Behaviour.h"
@@ -23,6 +24,7 @@ public:
 private:
 	// Keep track of all the behaviours
 	 std::map<std::string, std::unique_ptr<Behaviour_i>> mBehaviours;
+	 Script_to_Engine* mScriptEngine;
 };
 
 extern Entity g_Player;
