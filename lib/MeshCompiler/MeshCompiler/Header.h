@@ -68,7 +68,7 @@ public:
     // initializes all the buffer objects/arrays
     void setupMesh()
     {
-
+        std::cout << "this happened here then\n";
 
         // create buffers/arrays
         glGenVertexArrays(1, &VAO);
