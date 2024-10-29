@@ -164,11 +164,22 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
     for (auto& entity : allEntities) {
         if (g_Coordinator.HaveComponent<TransformComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
             auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+            auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+
+            JPH::RVec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
+            glm::vec3 scale = transform.GetScale();
+
+            // Debug output to check Position
+            std::cout << "Entity ID: " << entity << " Engine x: " << transform.GetPosition().x << " Engine y: " << transform.GetPosition().y << " Engine z: " << transform.GetPosition().z << std::endl;
+
             // Only add a new body if it hasn't already been added
             if (!collisionComponent.HasBodyAdded()) {
                 AddEntityBody(entity);
                 collisionComponent.SetHasBodyAdded(true); // Mark as added
             }
+
+            // Debug output to check Position
+            std::cout << "Entity ID: " << entity << " Jolt x: " << position.GetX() << " Jolt y: " << position.GetY() << " Jolt z: " << position.GetZ() << std::endl;
         }
     }
 
@@ -183,39 +194,20 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
     if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
         auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
 
-        // Debug output to check Position
-        //std::cout << "x: " << transform.GetPosition().x << " y: " << transform.GetPosition().y << " z: " << transform.GetPosition().z << std::endl;
-
-        //JPH::Vec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
-        //glm::vec3 scale = transform.GetScale();
-
-        // Setting initial transform when creating a physics body
+        JPH::Vec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
         glm::vec3 scale = transform.GetScale();
-        glm::vec3 position = transform.GetPosition();
-        glm::quat rotation = transform.GetRotation();
 
-        // Debug output to check the ObjectLayer and MotionType
-        std::cout << "Creating a new body with ObjectLayer = 1 (dynamic), MotionType = Dynamic." << std::endl;
 
         // Create the box shape
         JPH::BoxShape* boxShape = new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.5f, scale.z * 0.5f));
 
-        //// Define body creation settings
-        //JPH::BodyCreationSettings bodySettings(
-        //    boxShape,
-        //    position,
-        //    JPH::Quat::sIdentity(),  // Assuming no initial rotation
-        //    JPH::EMotionType::Dynamic,  // Use dynamic motion type for now
-        //    1  // ObjectLayer, ensure this is valid
-        //);
-
-        // Define the body creation settings
+        // Define body creation settings
         JPH::BodyCreationSettings bodySettings(
             boxShape,
-            JPH::RVec3(position.x, position.y, position.z),
-            JPH::Quat(rotation.w, rotation.x, rotation.y, rotation.z),
-            JPH::EMotionType::Dynamic,
-            1  // Assuming ObjectLayer 1 (dynamic)
+            position,
+            JPH::Quat::sIdentity(),  // Assuming no initial rotation
+            JPH::EMotionType::Dynamic,  // Use dynamic motion type for now
+            1  // ObjectLayer, ensure this is valid
         );
 
         JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
@@ -229,8 +221,7 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             return;
         }
 
-        // Debug output to check Position
-        std::cout << "x: " << position.x << " y: " << position.y << " z: " << position.z << std::endl;
+
 
         // Create and add the body to the physics system
         JPH::Body* body = mPhysicsSystem->GetBodyInterface().CreateBody(bodySettings);
