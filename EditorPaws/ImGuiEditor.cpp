@@ -278,6 +278,14 @@ void ImGuiEditor::InspectorWindow()
 					}
 				}
 
+				if (ImGui::Selectable("Collision Component"))
+				{
+					if (!g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<CollisionComponent>(g_SelectedEntity, CollisionComponent());
+					}
+				}
+
 				ImGui::EndPopup();
 			}
 
@@ -321,6 +329,14 @@ void ImGuiEditor::InspectorWindow()
 					if (ImGui::Selectable("Behaviour Component"))
 					{
 						g_Coordinator.RemoveComponent<BehaviourComponent>(g_SelectedEntity);
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
+				{
+					if (ImGui::Selectable("Collision Component"))
+					{
+						g_Coordinator.RemoveComponent<CollisionComponent>(g_SelectedEntity);
 					}
 				}
 
@@ -618,6 +634,15 @@ void ImGuiEditor::InspectorWindow()
 					name = behaviourNames[currentItem];
 					g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).SetBehaviourName(name);
 				}
+			}
+		}
+
+		// Collision
+		if (g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
+		{
+			if (ImGui::CollapsingHeader("Collision", ImGuiTreeNodeFlags_None))
+			{
+
 			}
 		}
 

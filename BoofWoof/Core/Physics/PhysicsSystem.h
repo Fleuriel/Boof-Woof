@@ -41,6 +41,9 @@ namespace JPH {
 // Forward declaration of MyContactListener
 class MyContactListener;
 
+// Forward declaration of MyBodyActivationListener
+class MyBodyActivationListener;
+
 namespace Layers
 {
     static constexpr JPH::ObjectLayer NON_MOVING{ 0 };
@@ -231,6 +234,7 @@ private:
 
     // Add a pointer to the contact listener
     MyContactListener* mContactListener = nullptr;
+    MyBodyActivationListener* mBodyActivationListener = nullptr;
 
 };
 

@@ -111,6 +111,10 @@ void MyPhysicsSystem::InitializeJolt() {
     mContactListener = new MyContactListener();  // Instantiate the listener
     mPhysicsSystem->SetContactListener(mContactListener);  // Register the listener
 
+    // Register the body activation listener to handle collision events
+    mBodyActivationListener = new MyBodyActivationListener();  // Instantiate the listener
+    mPhysicsSystem->SetBodyActivationListener(mBodyActivationListener);  // Register the listener
+
 }
 
 JPH::PhysicsSystem* MyPhysicsSystem::CreatePhysicsSystem() {
@@ -121,12 +125,6 @@ JPH::PhysicsSystem* MyPhysicsSystem::CreatePhysicsSystem() {
 
     // Create the PhysicsSystem instance
     mPhysicsSystem = new JPH::PhysicsSystem();
-    //mPhysicsSystem = std::make_unique<JPH::PhysicsSystem>();
-
-    //// Initialize filters
-    //MyBroadPhaseLayerInterface broadPhaseLayerInterface;
-    //MyObjectVsBroadPhaseLayerFilter objectVsBroadPhaseLayerFilter;
-    //MyObjectLayerPairFilter objectLayerPairFilter;
 
     m_broad_phase_layer_interface = new BPLayerInterfaceImpl();
     m_object_vs_broadphase_layer_filter = new ObjectVsBroadPhaseLayerFilterImpl();
@@ -141,17 +139,6 @@ JPH::PhysicsSystem* MyPhysicsSystem::CreatePhysicsSystem() {
         JPH::cMaxPhysicsBarriers,
         static_cast<int>(std::thread::hardware_concurrency()) - 1
     );
-
-    //// Initialize the PhysicsSystem with the filters
-    //mPhysicsSystem->Init(
-    //    cMaxBodies,
-    //    cNumBodyMutexes,
-    //    cMaxBodyPairs,
-    //    cMaxContactConstraints,
-    //    broadPhaseLayerInterface,
-    //    objectVsBroadPhaseLayerFilter,
-    //    objectLayerPairFilter
-    //);
 
     // Initialize the PhysicsSystem with the filters and interfaces
     mPhysicsSystem->Init(
@@ -176,8 +163,12 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
     auto allEntities = g_Coordinator.GetAliveEntitiesSet();
     for (auto& entity : allEntities) {
         if (g_Coordinator.HaveComponent<TransformComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-            // std::cout << "Inside Onupdate Physics" << std::endl;
-            AddEntityBody(entity);
+            auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+            // Only add a new body if it hasn't already been added
+            if (!collisionComponent.HasBodyAdded()) {
+                AddEntityBody(entity);
+                collisionComponent.SetHasBodyAdded(true); // Mark as added
+            }
         }
     }
 
@@ -195,8 +186,13 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         // Debug output to check Position
         //std::cout << "x: " << transform.GetPosition().x << " y: " << transform.GetPosition().y << " z: " << transform.GetPosition().z << std::endl;
 
-        JPH::Vec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
+        //JPH::Vec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
+        //glm::vec3 scale = transform.GetScale();
+
+        // Setting initial transform when creating a physics body
         glm::vec3 scale = transform.GetScale();
+        glm::vec3 position = transform.GetPosition();
+        glm::quat rotation = transform.GetRotation();
 
         // Debug output to check the ObjectLayer and MotionType
         std::cout << "Creating a new body with ObjectLayer = 1 (dynamic), MotionType = Dynamic." << std::endl;
@@ -204,13 +200,22 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         // Create the box shape
         JPH::BoxShape* boxShape = new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.5f, scale.z * 0.5f));
 
-        // Define body creation settings
+        //// Define body creation settings
+        //JPH::BodyCreationSettings bodySettings(
+        //    boxShape,
+        //    position,
+        //    JPH::Quat::sIdentity(),  // Assuming no initial rotation
+        //    JPH::EMotionType::Dynamic,  // Use dynamic motion type for now
+        //    1  // ObjectLayer, ensure this is valid
+        //);
+
+        // Define the body creation settings
         JPH::BodyCreationSettings bodySettings(
             boxShape,
-            position,
-            JPH::Quat::sIdentity(),  // Assuming no initial rotation
-            JPH::EMotionType::Dynamic,  // Use dynamic motion type for now
-            1  // ObjectLayer, ensure this is valid
+            JPH::RVec3(position.x, position.y, position.z),
+            JPH::Quat(rotation.w, rotation.x, rotation.y, rotation.z),
+            JPH::EMotionType::Dynamic,
+            1  // Assuming ObjectLayer 1 (dynamic)
         );
 
         JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
@@ -225,7 +230,7 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         }
 
         // Debug output to check Position
-        std::cout << "x: " << position.GetX() << " y: " << position.GetY() << " z: " << position.GetZ() << std::endl;
+        std::cout << "x: " << position.x << " y: " << position.y << " z: " << position.z << std::endl;
 
         // Create and add the body to the physics system
         JPH::Body* body = mPhysicsSystem->GetBodyInterface().CreateBody(bodySettings);
@@ -237,8 +242,6 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             std::cout << "Body successfully created with ID: " << body->GetID().GetIndex() << std::endl;
             mPhysicsSystem->GetBodyInterface().AddBody(body->GetID(), JPH::EActivation::Activate);
         }
-
-        //g_Coordinator.AddComponent(entity, CollisionComponent(body, entity, 1));
     }
 }
 
