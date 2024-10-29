@@ -147,8 +147,11 @@ public:
     }
 
     // processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
+      // processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
     void processNode(aiNode* node, const aiScene* scene, unsigned int draw_mode)
     {
+        std::cout << node->mNumMeshes << '\t' << node->mNumChildren << '\n';
+
         // process each mesh located at the current node
         for (unsigned int i = 0; i < node->mNumMeshes; i++)
         {
@@ -156,10 +159,13 @@ public:
             // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
             meshes.push_back(processMesh(mesh, scene, draw_mode));
+            std::cout << "it spams here\n";
+
         }
         // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
         for (unsigned int i = 0; i < node->mNumChildren; i++)
         {
+            std::cout << "it spams here as well!\n";
             processNode(node->mChildren[i], scene, draw_mode);
         }
 
