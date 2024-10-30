@@ -52,7 +52,7 @@ public:
 
     void DrawCollisionBox2D(Model outlineModel);
 
-    void DrawCollisionBox3D(Model outlineModel);
+    void DrawCollisionBox3D(Model outlineModel) const;
 
 
         // draws the model, and thus all its meshes

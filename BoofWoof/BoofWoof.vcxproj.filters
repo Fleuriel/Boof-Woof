@@ -30,6 +30,7 @@
     <ClCompile Include="Core\AssetManager\Compressonator.cpp" />
     <ClCompile Include="Core\Level Manager\LevelManager.cpp" />
     <ClCompile Include="Core\ECS\pch.cpp" />
+    <ClCompile Include="Core\Physics\CollisionSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -69,6 +70,8 @@
     <ClInclude Include="Core\Level Manager\Level.h" />
     <ClInclude Include="Core\Level Manager\LevelManager.h" />
     <ClInclude Include="Core\AssetManager\FilePaths.h" />
+    <ClInclude Include="Core\Physics\CollisionSystem.h" />
+    <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

@@ -5,6 +5,9 @@ std::shared_ptr<GraphicsSystem> mGraphicsSys;
 std::shared_ptr<AudioSystem> mAudioSys;
 std::shared_ptr<LogicSystem> mLogicSys;
 std::shared_ptr<FontSystem> mFontSys;
+std::shared_ptr<MyPhysicsSystem> mPhysicSys;
+//std::shared_ptr<CollisionSystem> mCollisionSys;
+
 
 void EngineCore::OnInit()
 {
@@ -26,6 +29,7 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<TransformComponent>();
 	g_Coordinator.RegisterComponent<GraphicsComponent>();
 	g_Coordinator.RegisterComponent<AudioComponent>();
+	g_Coordinator.RegisterComponent<CollisionComponent>();
 
 	g_Coordinator.RegisterComponent<BehaviourComponent>();
 
@@ -67,10 +71,39 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<FontSystem>(signature);
 	}
 
+	mPhysicSys = g_Coordinator.RegisterSystem<MyPhysicsSystem>();
+	{
+		Signature signature;
+		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		g_Coordinator.SetSystemSignature<MyPhysicsSystem>(signature);
+	}
+
+	//mCollisionSys = g_Coordinator.RegisterSystem<CollisionSystem>();
+	//{
+	//	Signature signature;
+	//	signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+	//	signature.set(g_Coordinator.GetComponentType<CollisionComponent>());
+	//	g_Coordinator.SetSystemSignature<CollisionSystem>(signature);
+	//}
+
+
+	// Create entities
+	//{
+	//	Entity entity = g_Coordinator.CreateEntity();
+	//	g_Coordinator.AddComponent(entity, TransformComponent());
+	//	g_Coordinator.AddComponent(entity, GraphicsComponent());
+	//	g_Coordinator.AddComponent(entity, BehaviourComponent("Movement", entity));
+	//	g_Coordinator.AddComponent(entity, MetadataComponent("Player", entity));
+	//	g_Coordinator.AddComponent(entity, AudioComponent("../BoofWoof/Assets/Audio/explode2.wav", 1.0f, false, entity));
+	//	g_Coordinator.AddComponent(entity, CollisionComponent());
+	//}
+	
 
 	// init system
 	mLogicSys->Init();
 	mGraphicsSys->initGraphicsPipeline();
+	mPhysicSys->InitializeJolt();
+	//mCollisionSys->Init();
 	//mFontSys->init();
 		
 
@@ -143,6 +176,10 @@ void EngineCore::OnUpdate()
 	{
 		mAudioSys->Update();
 	}
+	{
+		// Physics
+		mPhysicSys->OnUpdate(static_cast<float>(m_DeltaTime));  // Update physics
+	}
 
 
 
@@ -158,5 +195,6 @@ void EngineCore::OnShutdown()
 {
 	// Shutdown window and other systems
 	mLogicSys->Shutdown();
+	mPhysicSys->Cleanup();
 	g_Window->OnShutdown();
 }

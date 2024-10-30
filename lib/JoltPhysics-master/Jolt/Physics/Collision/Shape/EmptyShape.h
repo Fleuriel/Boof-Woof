@@ -24,11 +24,19 @@ public:
 };
 
 /// An empty shape that has no volume and collides with nothing.
+///
+/// Possible use cases:
+/// - As a placeholder for a shape that will be created later. E.g. if you first need to create a body and only then know what shape it will have.
+/// - If you need a kinematic body to attach a constraint to, but you don't want the body to collide with anything.
+///
+/// Note that, if possible, you should also put your body in an ObjectLayer that doesn't collide with anything.
+/// This ensures that collisions will be filtered out at broad phase level instead of at narrow phase level, this is more efficient.
 class JPH_EXPORT EmptyShape final : public Shape
 {
 public:
 	// Constructor
 							EmptyShape() : Shape(EShapeType::Empty, EShapeSubType::Empty) { }
+	explicit				EmptyShape(Vec3Arg inCenterOfMass) : Shape(EShapeType::Empty, EShapeSubType::Empty), mCenterOfMass(inCenterOfMass) { }
 							EmptyShape(const EmptyShapeSettings &inSettings, ShapeResult &outResult) : Shape(EShapeType::Empty, EShapeSubType::Empty, inSettings, outResult), mCenterOfMass(inSettings.mCenterOfMass) { outResult.Set(this); }
 
 	// See: Shape
@@ -50,7 +58,7 @@ public:
 	virtual bool			CastRay([[maybe_unused]] const RayCast &inRay, [[maybe_unused]] const SubShapeIDCreator &inSubShapeIDCreator, [[maybe_unused]] RayCastResult &ioHit) const override { return false; }
 	virtual void			CastRay([[maybe_unused]] const RayCast &inRay, [[maybe_unused]] const RayCastSettings &inRayCastSettings, [[maybe_unused]] const SubShapeIDCreator &inSubShapeIDCreator, [[maybe_unused]] CastRayCollector &ioCollector, [[maybe_unused]] const ShapeFilter &inShapeFilter = { }) const override { /* Do nothing */ }
 	virtual void			CollidePoint([[maybe_unused]] Vec3Arg inPoint, [[maybe_unused]] const SubShapeIDCreator &inSubShapeIDCreator, [[maybe_unused]] CollidePointCollector &ioCollector, [[maybe_unused]] const ShapeFilter &inShapeFilter = { }) const override { /* Do nothing */ }
-	virtual void			CollideSoftBodyVertices([[maybe_unused]] Mat44Arg inCenterOfMassTransform, [[maybe_unused]] Vec3Arg inScale, [[maybe_unused]] SoftBodyVertex *ioVertices, [[maybe_unused]] uint inNumVertices, [[maybe_unused]] float inDeltaTime, [[maybe_unused]] Vec3Arg inDisplacementDueToGravity, [[maybe_unused]] int inCollidingShapeIndex) const override { /* Do nothing */ }
+	virtual void			CollideSoftBodyVertices([[maybe_unused]] Mat44Arg inCenterOfMassTransform, [[maybe_unused]] Vec3Arg inScale, [[maybe_unused]] const CollideSoftBodyVertexIterator &inVertices, [[maybe_unused]] uint inNumVertices, [[maybe_unused]] int inCollidingShapeIndex) const override { /* Do nothing */ }
 	virtual void			GetTrianglesStart([[maybe_unused]] GetTrianglesContext &ioContext, [[maybe_unused]] const AABox &inBox, [[maybe_unused]] Vec3Arg inPositionCOM, [[maybe_unused]] QuatArg inRotation, [[maybe_unused]] Vec3Arg inScale) const override { /* Do nothing */ }
 	virtual int				GetTrianglesNext([[maybe_unused]] GetTrianglesContext &ioContext, [[maybe_unused]] int inMaxTrianglesRequested, [[maybe_unused]] Float3 *outTriangleVertices, [[maybe_unused]] const PhysicsMaterial **outMaterials = nullptr) const override { return 0; }
 	Stats					GetStats() const override										{ return { sizeof(*this), 0 }; }

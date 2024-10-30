@@ -411,7 +411,7 @@ void Model::DrawCollisionBox2D(Model outlineModel)
 }
 
 
-void Model::DrawCollisionBox3D(Model outlineModel)
+void Model::DrawCollisionBox3D(Model outlineModel) const
 {
 	// Bind the VAO for the outline model
 

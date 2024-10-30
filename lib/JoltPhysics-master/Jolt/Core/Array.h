@@ -6,7 +6,6 @@
 
 #include <Jolt/Core/STLAllocator.h>
 #include <Jolt/Core/HashCombine.h>
-
 #ifdef JPH_USE_STD_VECTOR
 
 JPH_SUPPRESS_WARNINGS_STD_BEGIN
