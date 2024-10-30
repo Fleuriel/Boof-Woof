@@ -273,14 +273,6 @@ bool ResourceManager::AddModelBinary(std::string fileName)
 
     ModelNames.push_back(fileName);
 
-    //for (int i = 0; i < ModelNames.size(); ++i)
-    //{
-    //    std::cout << ModelNames[i] << '\t';
-    //}
-
-
-    std::cout << "\nInput this shited! " << fileName << '\n';
-
     return true;
 }
 
