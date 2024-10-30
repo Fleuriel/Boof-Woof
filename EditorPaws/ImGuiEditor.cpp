@@ -471,7 +471,8 @@ void ImGuiEditor::InspectorWindow()
 							selected_file = selected_file.substr(0, last_dot_position);
 						}
 						
-						GraphicsSystem::set_Texture_ = g_ResourceManager.GetTextureDDS(selected_file);
+						//GraphicsSystem::set_Texture_ = g_ResourceManager.GetTextureDDS(selected_file);
+						g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setTexture(selected_file);
 
 						// Use the file path (e.g., set a texture, load a model, etc.)
 						//get the texture id

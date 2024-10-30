@@ -45,7 +45,7 @@ public:
 
 
 	void setTexture(std::string texture) { textureName = texture; }
-	std::string getTexture() { return textureName; }
+	std::string getTextureName() { return textureName; }
 	int getTextureNumber() { return static_cast<int>(textures.size()); }
 	int getTexture(int i) { return textures[i]; }
 
@@ -53,7 +53,7 @@ public:
     // Constructor and destructor
 	GraphicsComponent() {};
 	
-	GraphicsComponent(std::string modelName, Entity& entity) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity))
+	GraphicsComponent(std::string modelName, Entity& entity) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity)), textureName(" ")
 	{/*Empty by design*/
 	}
 

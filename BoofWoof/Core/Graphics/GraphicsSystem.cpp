@@ -186,9 +186,11 @@ void GraphicsSystem::UpdateLoop() {
 
 
 				//tex = g_ResourceManager.GetTextureDDS("Sadge");
-				
 
-				set_Texture_T = GraphicsSystem::set_Texture_;
+
+				// SET ALL SAME TEX...
+//				set_Texture_T = GraphicsSystem::set_Texture_;
+
 
 
 				g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
@@ -196,8 +198,13 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-				//glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(textureNameInput));
-				glBindTextureUnit(6, set_Texture_T);
+				if (graphicsComp.getTextureName() == " ")
+				{
+					std::cout << "its blank\n";
+				}
+				else
+					glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName()));
+				//glBindTextureUnit(6, set_Texture_T);
 
 
 				//graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
