@@ -1,0 +1,9 @@
+File Name: mycube
+Source File Path: ..\BoofWoof\Assets\Objects\mycube.obj
+Output File Path: ..\BoofWoof\Resources\Objects\mycube.bin
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0

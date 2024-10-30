@@ -101,6 +101,7 @@ public:
 			glActiveTexture(GL_TEXTURE0 + i);
 			glUniform1d(glGetUniformLocation(shader.GetHandle(), "texture1"), i);
 			glBindTexture(GL_TEXTURE_2D, texturesid[i]);
+			//std::cout <<"size "<< texturesid.size() << "texture id: " << texturesid[i] << std::endl;
 		}
 
         // draw mesh

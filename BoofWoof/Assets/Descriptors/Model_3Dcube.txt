@@ -1,0 +1,9 @@
+File Name: 3Dcube
+Source File Path: ..\BoofWoof\Assets\Objects\3Dcube.obj
+Output File Path: ..\BoofWoof\Resources\Objects\3Dcube.bin
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0

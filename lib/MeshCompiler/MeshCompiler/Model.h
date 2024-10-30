@@ -83,12 +83,12 @@ public:
             // texture coordinates
             if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
             {
-                // glm::vec2 vec;
-                // // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
-                // // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
-                // vec.x = mesh->mTextureCoords[0][i].x;
-                // vec.y = mesh->mTextureCoords[0][i].y;
-                // vertex.TexCoords = vec;
+                 glm::vec2 vec;
+                 // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
+                 // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
+                 vec.x = mesh->mTextureCoords[0][i].x;
+                 vec.y = mesh->mTextureCoords[0][i].y;
+                 vertex.TexCoords = vec;
                 // // tangent
                 // vector.x = mesh->mTangents[i].x;
                 // vector.y = mesh->mTangents[i].y;

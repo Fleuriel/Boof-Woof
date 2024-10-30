@@ -162,7 +162,6 @@ void GraphicsSystem::UpdateLoop() {
 
 				//graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
 				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("Shader3D"), graphicsComp.getTextures());
-				std::cout << "size: " << graphicsComp.getTextures().size() << std::endl;
 //				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
 				//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
 

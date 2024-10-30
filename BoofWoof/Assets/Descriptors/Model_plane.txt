@@ -1,0 +1,9 @@
+File Name: plane
+Source File Path: ..\BoofWoof\Assets\Objects\plane.obj
+Output File Path: ..\BoofWoof\Resources\Objects\plane.bin
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0
