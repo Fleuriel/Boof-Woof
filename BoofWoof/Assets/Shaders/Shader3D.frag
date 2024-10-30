@@ -18,6 +18,14 @@ layout(location = 1) in vec3 vertNormal;
 layout(location = 2) in vec3 FragPos;
 layout(location = 3) in vec2 TexCoords;
 
+struct Material {
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+    float shininess;
+}; 
+  
+uniform Material material;
 
 uniform sampler2D texture1;
 uniform int textureCount;
@@ -29,15 +37,13 @@ out vec4 fragColor;
 void main()
 {
 
-    //FragColor = texture(texture1, TexCoord);  // Use only the first texture
-    //FragColor = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), 0.2);
-    //FragColor = vec4(vertColor, 1.0f) * vec4(0.5f,0.5f,0.5f,1.f);
-    //FragColor = vec4(TexCoord, 0.0f ,1.0f) * vec4(0.5f,0.5f,0.5f,1.f);
-
-    //fragColor = vec4(vertColor, 1.0f) * vec4(0.5f, 0.5f, 0.5f, 1.f);
     if(textureCount !=0 )
 	{
-		 fragColor = texture(texture1, TexCoords);
+		vec4 texColor = texture(texture1, TexCoords);
+        vec3 lightVector = vec3(-2567, 44448, 91008) - FragPos;
+        float N_dot_L = max(dot(normalize(vertNormal), normalize(lightVector)), 0.0f);
+    
+        fragColor = vec4(texColor.rgb * N_dot_L, texColor.a);
 	}else{
         vec3 lightVector = vec3(-2567, 44448, 91008)-FragPos;
         float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
