@@ -571,11 +571,9 @@ bool AssetManager::LoadObjects() {
     std::string filepath(FILEPATH_OBJECTS);
 
     if (fs::is_directory(filepath)) {
-        std::cout << "lemao\n";
         for (const auto& entry : fs::directory_iterator(filepath)) {
             std::string texFilePath = filepath + "\\" + entry.path().filename().string();
 
-            std::cout << "lemao\n";
             size_t pos = entry.path().filename().string().find_last_of('.');
             if (pos != std::string::npos) {
                 std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
@@ -626,12 +624,17 @@ bool AssetManager::LoadObjects() {
 
               
 //                    runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe " + fileInfo[1] + " " +  fileInfo[2]);
-                 runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe /Model_" + nameWithoutExtension + ".txt " + FILEPATH_DESCRIPTORS + " " + descriptorFilePath);
-                 
+#ifdef _DEBUG
+                runCommand("..\\lib\\MeshCompiler\\x64\\Debug\\MeshCompiler.exe /Model_" + nameWithoutExtension + ".txt " + FILEPATH_DESCRIPTORS + " " + descriptorFilePath);
+#else
+                runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe /Model_" + nameWithoutExtension + ".txt " + FILEPATH_DESCRIPTORS + " " + descriptorFilePath);
+#endif
+
+
+
 
 
                  g_ResourceManager.AddModelBinary(nameWithoutExtension);
-                 std::cout << "it entered here\n";
                 
 
 

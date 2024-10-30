@@ -73,47 +73,61 @@ public:
         std::cout << "this happened here then\n";
 
 
-        std::cout << "-3\n";
+#ifdef _DEBUG
+        std::cout << "Generating Vertex Arrays\n";
+#endif
         // create buffers/arrays
         glGenVertexArrays(1, &VAO);
 
-        std::cout << "-2\n";
+#ifdef _DEBUG
+        std::cout << "Generating Buffers for VBO and EBO\n";
+#endif
         glGenBuffers(1, &VBO);
 
-        std::cout << "-1\n";
         glGenBuffers(1, &EBO);
 
-        std::cout << "kek\n";
+#ifdef _DEBUG
+        std::cout << "Binding Vertex Arrays for VAO\n";
+#endif
         glBindVertexArray(VAO);
 
 
-        std::cout << "0\n";
-
+#ifdef _DEBUG
+        std::cout << "Binding Buffer to VBO\n";
+#endif
         // load data into vertex buffers
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
 
-        std::cout << "1\n";
+#ifdef _DEBUG
+        std::cout << "Binding Buffer to EBO\n";
+#endif
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
         // set the vertex attribute pointers
 
-        std::cout << "2\n";
+#ifdef _DEBUG
+        std::cout << "Enabling Attributes for Location 0 in Vertex Shader\n";
+#endif
 
         // vertex Positions (location = 0 in vertex shader)
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
-        std::cout << "3\n";
-
+#ifdef _DEBUG
+        std::cout << "Enabling Attributes for Location 1 in Vertex Shader\n";
+#endif
         // vertex normals (location = 1 in vertex shader)
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
 
-        std::cout << "4\n";
+
+#ifdef _DEBUG
+        std::cout << "Texture Coords\n";
+#endif
 
         //check if the TexCoords are empty
         if (vertices[0].TexCoords.x != 1.1f && vertices[0].TexCoords.y != 1.1f) {
@@ -128,8 +142,9 @@ public:
 
         }
 
-        std::cout << "5\n";
-
+#ifdef _DEBUG
+        std::cout << "Binding Vertex Array to 0\n";
+#endif
         glBindVertexArray(0);
         //glEnableVertexAttribArray(2);
         //glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));

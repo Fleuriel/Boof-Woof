@@ -1,6 +1,6 @@
+// This person is not up to Pollos Standard - Gustavo Fring
 
 #include "Header.h"
-
 #include "Model.h"
 #include <fstream>
 
@@ -27,7 +27,10 @@ int main(int argc, char** argv) {
 
 
 
-    std::cout << "MeshCompiler executed\n";
+    std::cout << "##################################################################################################\n";
+    std::cout << "##################################################################################################\n";
+    std::cout << "##################################################################################################\n";
+    std::cout << "                                  MeshCompiler executed\n";
     
     for (int i = 0; i < argc; ++i)
     {
@@ -57,12 +60,19 @@ int main(int argc, char** argv) {
 
     descriptorFileInformation = processDescriptorFile(argv[3]);
 
+#ifdef _DEBUG
+    
+    std::cout << "#######################################################\n";
+    std::cout << "#######################################################\n";
+    std::cout << "Input Data:\n";
 
     for (int i = 0; i < descriptorFileInformation.size(); ++i)
     {
         std::cout << i << '\t' << descriptorFileInformation[i] << '\n';
     }
-
+    std::cout << "#######################################################\n";
+    std::cout << "#######################################################\n\n";
+#endif
 
 
     std::string objFilePath, binFilePath;
@@ -76,22 +86,19 @@ int main(int argc, char** argv) {
         // Iterate over all descriptor files in the directory
      
         if (fileExistsInDirectory(argv[2], argv[1])) {
-            std::cout << "it entered second loop\n";
-            // Read paths from descriptor file
-
 
             // Load and convert the .obj file
             Model model;
             model.loadModel(objFilePath, GL_TRIANGLES);
 
-            std::cout << "it parsed finished\n";
 
-            std::cout << model.meshes.size() << "\tsize\n";
             std::vector<Vertex> vertices;
             std::vector<unsigned int> indices;
             parseOBJ(objFilePath, vertices, indices);
-            std::cout << vertices.size() << '\t' << indices.size() << "\t This Vertices ASize\n";
 
+#ifdef _DEBUG
+            std::cout << vertices.size() << '\t' << indices.size() << "\t This Vertices ASize\n";
+#endif
 
             // Create Mesh object and populate it with the vertices and indices
            // Mesh mesh;//(vertices, indices);
@@ -116,7 +123,9 @@ int main(int argc, char** argv) {
         break;
     }
 
-    std::cout << "it eventually lead here\n";
+    std::cout << "##################################################################################################\n";
+    std::cout << "##################################################################################################\n";
+    std::cout << "##################################################################################################\n";
 
 
     glfwDestroyWindow(window);
@@ -276,6 +285,8 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
             }
         }
     }
+
+    std::cout << "Object has been parsed\n";
     objFile.close();
 }
 
