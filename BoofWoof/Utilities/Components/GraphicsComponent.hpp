@@ -48,6 +48,7 @@ public:
 	std::string getTextureName() { return textureName; }
 	int getTextureNumber() { return static_cast<int>(textures.size()); }
 	int getTexture(int i) { return textures[i]; }
+	std::vector<int> getTextures() { return textures; }
 
 
     // Constructor and destructor

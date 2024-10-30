@@ -144,7 +144,7 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
 				
 
-				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
+				/*for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
 				{
 					glActiveTexture(GL_TEXTURE0 + i);
 					static bool show = true;
@@ -154,14 +154,15 @@ void GraphicsSystem::UpdateLoop() {
 					}
 					g_AssetManager.GetShader("Shader3D").SetUniform("texture1", i);
 					glBindTexture(GL_TEXTURE_2D, graphicsComp.getTexture(i));
-				}
+				}*/
 				
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture1", tex1);
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture2", tex2);
 //				g_AssetManager.GetShader("OutlineAndFont").SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
 
 				//graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
-				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("Shader3D"));
+				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("Shader3D"), graphicsComp.getTextures());
+				std::cout << "size: " << graphicsComp.getTextures().size() << std::endl;
 //				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
 				//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
 

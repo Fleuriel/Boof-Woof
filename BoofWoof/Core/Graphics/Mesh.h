@@ -68,7 +68,7 @@ public:
     }
 
     // render the mesh
-    void Draw(OpenGLShader& shader)
+	void Draw(OpenGLShader& shader, const const std::vector<int>& texturesid)
     {
         (void)shader;
         //// bind appropriate textures
@@ -96,6 +96,12 @@ public:
         //    // and finally bind the texture
         //    glBindTexture(GL_TEXTURE_2D, textures[i].id);
         //}
+		for (int i = 0; i < texturesid.size(); i++)
+		{
+			glActiveTexture(GL_TEXTURE0 + i);
+			glUniform1d(glGetUniformLocation(shader.GetHandle(), "texture1"), i);
+			glBindTexture(GL_TEXTURE_2D, texturesid[i]);
+		}
 
         // draw mesh
         glPolygonMode(GL_FRONT_AND_BACK, GL_TRIANGLES);
