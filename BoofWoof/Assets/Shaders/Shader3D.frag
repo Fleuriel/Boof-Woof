@@ -34,8 +34,9 @@ void main()
         //fragColor = vertColor;
         
     //}else{
-        //vec3 lightVector = vec3(-2567, 44448, 91008)-FragPos;
-        //float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
-        fragColor = texture(texture_diffuse1, TexCoords);
+        vec3 lightVector = vec3(-2567, 44448, 91008)-FragPos;
+        float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
+        vec4 textureColor = texture(texture_diffuse1, TexCoords);
+        fragColor = vec4(textureColor.rgb * N_dot_L, textureColor.a);
     //}
 }
