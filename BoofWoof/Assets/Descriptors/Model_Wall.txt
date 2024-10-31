@@ -1,9 +1,0 @@
-File Name: Wall
-Source File Path: ..\BoofWoof\Assets\Objects\Wall.obj
-Output File Path: ..\BoofWoof\Resources\Objects\Wall.bin
-Expected Attributes: 
- -  Vertices
- -  Indices
- -  Normals
-Transform Defauls: 
- -  Scale: 1.0

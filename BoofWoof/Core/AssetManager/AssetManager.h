@@ -15,10 +15,12 @@
 
 #ifndef ASSETMANAGER_H
 #define ASSETMANAGER_H
-
+#include <vector>
+#include <string>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <iostream>
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/Shader.h"
 #include "Graphics/Model.h"
@@ -59,6 +61,7 @@ public:
 
 	bool LoadObjects();																		//Function to load objects
 
+	bool LoadFonts();																		//Function to load fonts
 
 
 	using VectorPairString = std::vector <std::pair<std::string, std::string>>;				// Using a vector-->pair string for shaders

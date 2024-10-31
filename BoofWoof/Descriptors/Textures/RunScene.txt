@@ -1,0 +1,5 @@
+Texture Name : RunScene
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\RunScene.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\RunScene.dds
+Compression Format : -fd BC3

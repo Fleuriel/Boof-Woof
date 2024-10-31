@@ -1,0 +1,5 @@
+Texture Name : TextIcon
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\TextIcon.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\TextIcon.dds
+Compression Format : -fd BC3
