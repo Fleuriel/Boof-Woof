@@ -217,6 +217,7 @@ bool ResourceManager::SetModelMap(const std::string& name, const Model& model) {
 
     
     ModelMap.insert(std::make_pair(name, model));
+	return true;
 
 //    ModelNames.push_back(name);
 }
