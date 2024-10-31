@@ -1,11 +1,16 @@
 #include "pch.h"
 
+#pragma warning(push)
+#pragma warning(disable: 4005)
+
 #include "LogicSystem.h"
 #include "../ECS/Coordinator.hpp"
 #include "../Utilities/Components/BehaviourComponent.hpp"
 #include "../../../Scripts/Compile.cpp"
 #include "Script_to_Engine.h"
 #include <wtypes.h>
+
+#pragma warning(pop)
 
 void LogicSystem::Init()
 {
