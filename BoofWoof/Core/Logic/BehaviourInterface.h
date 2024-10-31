@@ -2,8 +2,7 @@
 #ifndef BEHAVIOURINTERFACE_H
 #define BEHAVIOURINTERFACE_H
 
-#include "../ECS/pch.hpp"
-
+#include "../ECS/Coordinator.hpp"
 
 struct Behaviour_i
 {
