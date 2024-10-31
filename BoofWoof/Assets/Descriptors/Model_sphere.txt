@@ -1,0 +1,9 @@
+File Name: sphere
+Source File Path: ..\BoofWoof\Assets\Objects\sphere.obj
+Output File Path: ..\BoofWoof\Resources\Objects\sphere.bin
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0

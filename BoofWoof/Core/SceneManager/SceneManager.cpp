@@ -10,12 +10,11 @@
  * This file contains the definitions of member functions of SceneManager
  * Class
  *************************************************************************/
+#include "pch.h"
+
 #include "SceneManager.h"
-#include <iostream>
 #include "ECS/Coordinator.hpp"  // Assuming the coordinator handles entities
 #include "Serialization/Serialization.h"
-#include <algorithm>
-
 
  /**************************************************************************
   * @brief Constructor for the SceneManager class.

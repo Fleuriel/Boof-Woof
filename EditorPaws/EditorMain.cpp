@@ -1,9 +1,9 @@
 #define _CRTDBG_MAP_ALLOC
+#include "ECS/pch.h"
 #include <stdlib.h>
 #include <crtdbg.h>
 #include "ImGuiEditor.h"
 #include "../BoofWoof/Core/EngineCore.h"
-#include <iostream>
 
 EngineCore* g_Core = nullptr;
 

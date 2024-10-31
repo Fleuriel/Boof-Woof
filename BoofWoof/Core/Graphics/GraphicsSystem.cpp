@@ -1,12 +1,9 @@
+#include "pch.h"
 #include "GraphicsSystem.h"
 #include <utility>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <map>
 #include "../Input/Input.h"
 #include "Camera.h"
 #include "FontSystem.h"
-
 #include "AssetManager/AssetManager.h"
 #include "ResourceManager/ResourceManager.h"
 #include "Windows/WindowManager.h"
@@ -70,13 +67,12 @@ void GraphicsSystem::initGraphicsPipeline() {
 	g_AssetManager.LoadAll();
 	g_ResourceManager.LoadAll();
 
-	AddModel_3D("../BoofWoof/Assets/Object/sphere.obj");
-	AddModel_3D("../BoofWoof/Assets/Object/cube.obj");
+	
 	AddModel_2D();
 
 	//fontSystem.init();
 
-	shdrParam.Color = glm::vec3(98.f/255.f, 2.f/255.f, 232.f/255.f);
+	shdrParam.Color = glm::vec3(1.0f, 1.0f,1.0f);
 
 	// Initialize camera
 	camera = Camera(glm::vec3(0.f, 0.f, 3.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
@@ -128,7 +124,7 @@ void GraphicsSystem::UpdateLoop() {
 			if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
 			{
 				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-				if (g_AssetManager.ModelMap.find(graphicsComp.getModelName()) == g_AssetManager.ModelMap.end())
+				if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
 				{
 					/* We do not need these anymore */
 					 
@@ -145,14 +141,28 @@ void GraphicsSystem::UpdateLoop() {
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 
+				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
+				
 
+				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
+				{
+					glActiveTexture(GL_TEXTURE0 + i);
+					static bool show = true;
+					if (show) {
+						std::cout << "Texture Count: " << graphicsComp.getTextureNumber() <<" with 1st texture number " << graphicsComp.getTexture(i) << std::endl;
+						show = false;
+					}
+					g_AssetManager.GetShader("Shader3D").SetUniform("texture1", i);
+					glBindTexture(GL_TEXTURE_2D, graphicsComp.getTexture(i));
+				}
 				
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture1", tex1);
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture2", tex2);
 //				g_AssetManager.GetShader("OutlineAndFont").SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
 
 				//graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
-				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
+				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("Shader3D"));
+//				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
 				//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
 
 				g_AssetManager.GetShader("Shader3D").UnUse();
@@ -176,9 +186,11 @@ void GraphicsSystem::UpdateLoop() {
 
 
 				//tex = g_ResourceManager.GetTextureDDS("Sadge");
-				
 
-				set_Texture_T = GraphicsSystem::set_Texture_;
+
+				// SET ALL SAME TEX...
+//				set_Texture_T = GraphicsSystem::set_Texture_;
+
 
 
 				g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
@@ -186,11 +198,20 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-				glBindTextureUnit(6, set_Texture_T);
+				if (graphicsComp.getTextureName() == " ")
+				{
+					std::cout << "its blank\n";
+				}
+				else
+					glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName()));
+				//glBindTextureUnit(6, set_Texture_T);
 
 
 				//graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
-				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
+				//g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
+//				g_ResourceManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
+
+				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader("Shader2D"));
 
 				g_AssetManager.GetShader("Shader2D").UnUse();
 				
@@ -208,10 +229,10 @@ void GraphicsSystem::UpdateLoop() {
 
 				if (D3)
 					//graphicsComp.getModel()->DrawCollisionBox3D(AABBOutline);
-					g_AssetManager.ModelMap[graphicsComp.getModelName()].DrawCollisionBox3D(AABBOutline);
+					g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(AABBOutline);
 				if (D2)
 					//graphicsComp.getModel()->DrawCollisionBox2D(squareOutline);
-					g_AssetManager.ModelMap[graphicsComp.getModelName()].DrawCollisionBox2D(squareOutline);
+					g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
 				
 				g_AssetManager.GetShader("OutlineAndFont").UnUse();
 
@@ -227,7 +248,7 @@ void GraphicsSystem::UpdateLoop() {
 	//glm::mat4 fontprojection = glm::ortho(0.0f, static_cast<float>(g_WindowX), 0.0f, static_cast<float>(g_WindowY));
 	//g_AssetManager.GetShader("Font").SetUniform("projection", fontprojection);
 	
-	fontSystem.RenderText(g_AssetManager.GetShader("Font"), "Hello, World!", 0.0f, 0.0f, 0.001f, glm::vec3(1.f, 0.8f, 0.2f));
+	//fontSystem.RenderText(g_AssetManager.GetShader("Font"), "Hello, World!", 0.0f, 0.0f, 0.001f, glm::vec3(1.f, 0.8f, 0.2f));
 	
 
 
@@ -260,23 +281,7 @@ void GraphicsSystem::SetShaderUniforms(OpenGLShader& shader, const ShaderParams&
 
 
 
-void GraphicsSystem::AddModel_3D(std::string const& path)
-{
-	Model model;
-	std::cout << "Loading: " << path << '\n';
-	
-	model.loadModel(path, GL_TRIANGLES);
 
-	std::string name = path.substr(path.find_last_of('/') + 1);
-	//remove .obj from name
-	name = name.substr(0, name.find_last_of('.'));
-
-	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>(name, model));
-
-
-	std::cout << "Loaded: " << path<<" with name: "<<name << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
-
-}
 
 void GraphicsSystem::AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model)
 {
@@ -286,7 +291,7 @@ void GraphicsSystem::AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3
 	object.scale = scale;
 	object.rotation = rotation;
 	object.color = color;
-	g_AssetManager.Objects.push_back(object);
+//	g_AssetManager.Objects.push_back(object);
 }
 
 
@@ -296,11 +301,15 @@ void GraphicsSystem::AddModel_2D()
 	Model model;
 
 	model = SquareModel(glm::vec3(0.0f));
-	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>(model.name, model));
-	std::cout << "Loaded: " << model.name << " with name: " << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
+	g_ResourceManager.SetModelMap(model.name, model);
+	std::cout << "Loaded: " << model.name << " [Models Reference: "
+		<< g_ResourceManager.GetModelMap().size() - 1 << "]" << '\n';
+
+	// Create CubeModel and add it to ModelMap
 	model = CubeModel(glm::vec3(1.0f));
-	g_AssetManager.ModelMap.insert(std::pair<std::string, Model>(model.name, model));
-	std::cout << "Loaded: " << model.name << " with name: " << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
+	g_ResourceManager.SetModelMap(model.name, model);
+	std::cout << "Loaded: " << model.name << " [Models Reference: "
+		<< g_ResourceManager.GetModelMap().size() - 1 << "]" << '\n';
 }
 
 

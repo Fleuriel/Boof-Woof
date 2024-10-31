@@ -10,16 +10,12 @@
  * This file contains the definitions of member functions of Serialization
  * Class
  *************************************************************************/
+#include "pch.h"
+
 #include "Serialization.h"
 #include "../EngineCore.h"
 #include <cstdio>
-#include <iostream>
-#include <filesystem>
-#include <random>
-#include <sstream>
-#include <iomanip>
 
-#include "Serialization.h"
 #include "ResourceManager/ResourceManager.h"
 
 // Initialize the static member variable
@@ -173,7 +169,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
             entityData.AddMember("ModelName", rapidjson::Value(graphicsComp.getModelName().c_str(), allocator), allocator);
 
             // Texture Name
-            entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getTexture().c_str(), allocator), allocator);
+            entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
 
 
 

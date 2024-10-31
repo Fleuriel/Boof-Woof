@@ -1,0 +1,9 @@
+File Name: cube
+Source File Path: ..\BoofWoof\Assets\Objects\cube.obj
+Output File Path: ..\BoofWoof\Resources\Objects\cube.bin
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0

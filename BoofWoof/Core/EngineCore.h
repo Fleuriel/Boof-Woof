@@ -3,11 +3,12 @@
 #ifndef ENGINE_CORE_H
 #define ENGINE_CORE_H
 
+
 #include "../Core/ECS/Coordinator.hpp"
-#include <iostream>
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/BehaviourComponent.hpp"
+#include "../Utilities/Components/CollisionComponent.hpp"
 #include "../Utilities/Components/MetaData.hpp"
 
 #include "Windows/WindowManager.h"
@@ -16,6 +17,9 @@
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/FontSystem.h"
 #include "Logic/LogicSystem.h"
+#include "Physics/PhysicsSystem.h"
+#include "Physics/CollisionSystem.h"
+
 
 #include "Serialization/Serialization.h"
 #include "Input/Input.h"
@@ -23,8 +27,6 @@
 #include "Timer/Timer.hpp"
 #include "SceneManager/SceneManager.h"
 #include "Audio/AudioSystem.h"
-
-#include "fmod.hpp"
 
 class EngineCore 
 {

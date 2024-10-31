@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "FontSystem.h"
-#include <iomanip>
-
 
 FontSystem fontSystem;
 

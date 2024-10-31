@@ -11,10 +11,8 @@
  * store the vertices, indices, and textures of a model. It also provides
  * functions to render the model.
  *************************************************************************/
+#include "pch.h"
 #include "Model.h"
-#include <array>
-#include <set>
-#include <vector>
 #include "ResourceManager/ResourceManager.h"
 
 
@@ -185,15 +183,15 @@ Model CubeModel(glm::vec3 color)
 	// Indices for the cube (each face consists of two triangles)
 	std::vector<GLushort> indices = {
 		// Front face
-		0, 1, 3, 1, 2, 3,
+		0, 3, 1, 3, 2, 1,
 		// Back face
 		4, 5, 7, 5, 6, 7,
 		// Left face
-		8, 9, 11, 9, 10, 11,
+		8, 11, 9, 11, 10, 9,
 		// Right face
 		12, 13, 15, 13, 14, 15,
 		// Top face
-		16, 17, 19, 17, 18, 19,
+		16, 19, 17, 19, 18, 17,
 		// Bottom face
 		20, 21, 23, 21, 22, 23
 	};
@@ -413,7 +411,7 @@ void Model::DrawCollisionBox2D(Model outlineModel)
 }
 
 
-void Model::DrawCollisionBox3D(Model outlineModel)
+void Model::DrawCollisionBox3D(Model outlineModel) const
 {
 	// Bind the VAO for the outline model
 

@@ -23,22 +23,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 
-
-
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <map>
-#include <vector>
-//
-
-
 #include "AssetManager/AssetManager.h"
-
-
-
-
 
 
 //extern std::vector<Model2D> models;
@@ -67,7 +52,7 @@ public:
 
     void DrawCollisionBox2D(Model outlineModel);
 
-    void DrawCollisionBox3D(Model outlineModel);
+    void DrawCollisionBox3D(Model outlineModel) const;
 
 
         // draws the model, and thus all its meshes
@@ -93,6 +78,18 @@ public:
 
    
 
+    void addMesh(const Mesh& mesh)
+    {
+        meshes.push_back(mesh);
+    }
+
+    void setMesh()
+    {
+        for (int i = 0; i < meshes.size(); ++i)
+        {
+            meshes[i].setupMesh();
+        }
+    }
 
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
     void loadModel(std::string const& path, unsigned int draw_mode)

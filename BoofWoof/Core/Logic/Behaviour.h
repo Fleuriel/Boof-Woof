@@ -2,8 +2,6 @@
 #ifndef BEHAVIOUR_H
 #define BEHAVIOUR_H
 
-
-#include "../ECS/pch.hpp"
 #include "../ECS/Coordinator.hpp"
 #include "LogicSystem.h"
 #include "BehaviourInterface.h"
