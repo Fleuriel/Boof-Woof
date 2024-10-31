@@ -27,7 +27,7 @@ struct Vertex {
     // normal
     glm::vec3 Normal;
     // texCoords
-	glm::vec2 TexCoords{ -1.1f, -1.1f };
+	glm::vec2 TexCoords;
     //// tangent
     //glm::vec3 Tangent;
     //// bitangent
@@ -204,17 +204,11 @@ public:
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
 
 		//check if the TexCoords are empty
-        if (vertices[0].TexCoords.x != 1.1f && vertices[0].TexCoords.y != 1.1f) {
+       
             // vertex texture coords (location = 2 in vertex shader)
-            glEnableVertexAttribArray(2);
-            glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-        }
-        else {
-			// vertex texture coords (location = 2 in vertex shader)
-			glEnableVertexAttribArray(2);
-			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),(void*)0);
-
-        }
+       glEnableVertexAttribArray(2);
+       glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+        
 
         glBindVertexArray(0);
         //glEnableVertexAttribArray(2);

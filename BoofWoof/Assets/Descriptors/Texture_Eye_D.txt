@@ -1,2 +1,2 @@
-File Name : Eye_D.jpg
+File Name : Eye_D.png
 Compression Format : -fd BC3

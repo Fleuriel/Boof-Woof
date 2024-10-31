@@ -165,6 +165,8 @@ void GraphicsSystem::UpdateLoop() {
 //				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
 				//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
 
+				// if key l is pressed
+
 				g_AssetManager.GetShader("Shader3D").UnUse();
 
 

@@ -1,0 +1,9 @@
+File Name: backpack2
+Source File Path: ..\BoofWoof\Assets\Objects\backpack2.obj
+Output File Path: ..\BoofWoof\Resources\Objects\backpack2.bin
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0
