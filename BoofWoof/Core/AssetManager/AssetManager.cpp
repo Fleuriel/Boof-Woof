@@ -10,15 +10,10 @@
  * This file loads assets to be used
  *
  *************************************************************************/
-
-#define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
-
-#pragma warning(push)
-#pragma warning(disable: 4244)
-#pragma warning(disable: 4005)  // Disable macro redefinition warning
-
 #include "pch.h"
 
+#pragma warning(push)
+#pragma warning(disable: 4244 4005)
 
 #include "AssetManager.h"
 #include "windows.h"
@@ -27,8 +22,6 @@
 #include "ResourceManager/ResourceManager.h"
 
 #include "Graphics/GraphicsSystem.h" //temporary
-
-#pragma warning(pop)
 
 AssetManager g_AssetManager;
 
@@ -1203,3 +1196,6 @@ bool AssetManager::LoadFonts() {
         return false;
     }
 }
+
+
+#pragma warning(pop)
