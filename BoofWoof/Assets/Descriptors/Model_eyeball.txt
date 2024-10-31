@@ -1,9 +1,0 @@
-File Name: eyeball
-Source File Path: ..\BoofWoof\Assets\Objects\eyeball.obj
-Output File Path: ..\BoofWoof\Resources\Objects\eyeball.bin
-Expected Attributes: 
- -  Vertices
- -  Indices
- -  Normals
-Transform Defauls: 
- -  Scale: 1.0

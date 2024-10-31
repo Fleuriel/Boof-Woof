@@ -1,0 +1,5 @@
+Texture Name : Sadge
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\Sadge.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\Sadge.dds
+Compression Format : -fd BC3
