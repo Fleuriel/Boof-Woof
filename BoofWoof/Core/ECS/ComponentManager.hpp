@@ -45,6 +45,14 @@ public:
 		return mComponentTypes[typeName];
 	}
 
+	ComponentType GetComponentType(const char* typeName)
+	{
+		assert(mComponentTypes.find(typeName) != mComponentTypes.end() && "Component not registered before use.");
+
+		// Return this component's type - used for creating signatures
+		return mComponentTypes[typeName];
+	}
+
 	template<typename T>
 	void AddComponent(Entity entity, T component)
 	{

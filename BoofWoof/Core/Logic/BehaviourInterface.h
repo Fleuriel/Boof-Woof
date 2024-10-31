@@ -15,7 +15,6 @@ struct Behaviour_i
 };
 
 
-
 struct input_interface
 {
 	virtual bool isButtonPressed(std::uint32_t Key) = 0;
@@ -24,10 +23,8 @@ struct input_interface
 struct engine_interface
 {
 	virtual ~engine_interface() = default;
-	//virtual void GetComponent(Entity entity, ComponentType type) = 0;
-	//virtual void AddComponent(Entity entity, ComponentType type) = 0;
-	//virtual void Movement(Entity entity) = 0;
 	virtual input_interface& getInputSystem() = 0;
+	virtual void ChangePosition(Entity entity, float x, float y, float z) = 0;
 };
 
 using GetScripts_cpp_t = std::vector<std::unique_ptr<Behaviour_i>>* (*)(engine_interface* pEI);

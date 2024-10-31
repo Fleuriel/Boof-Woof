@@ -9,20 +9,9 @@
 class Script_to_Engine : public engine_interface, public input_interface
 {
 public:
-	/*
-	virtual void AddComponent(Entity entity, ComponentType type) {
-		(void)entity, type;
-		// Add component to entity
-		//g_Coordinator.AddComponent(entity, type);
-	}
-	*/
-	/*
-	template <typename T>
-	virtual T GetComponent(Entity entity, T type) {
-		g_Coordinator.GetComponent<type>(entity);
-		
-	}*/
-	virtual bool isButtonPressed(std::uint32_t Key)
+
+
+	virtual bool isButtonPressed(std::uint32_t Key) override
 	{
 		return g_Input.GetKeyState(Key);
 	}
@@ -30,6 +19,13 @@ public:
 	virtual input_interface& getInputSystem() override
 	{
 		return *this;
+	}
+
+	// Exposing Engine functions to scripts
+	virtual void ChangePosition(Entity entity, float x, float y, float z) override
+	{
+		auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+		transform.SetPosition(transform.GetPosition() + glm::vec3(x, y, z));
 	}
 
 };
