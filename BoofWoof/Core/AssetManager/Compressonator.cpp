@@ -10,11 +10,9 @@
  * This file defines functions that uses compressonator
  *
  *************************************************************************/
-
+#include "pch.h"
 #include "Compressonator.h"
 #include "FilePaths.h"
-#include "pch.h"
-
 
 // Function to trim leading and trailing whitespaces from a string
 std::string trim(const std::string& str) {
