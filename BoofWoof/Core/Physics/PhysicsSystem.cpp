@@ -45,50 +45,6 @@ static bool MyAssertFailed(const char* inExpression, const char* inMessage, cons
     return true; // Trigger a breakpoint if running under a debugger.
 }
 
-//// Object-vs-broad-phase-layer filter
-//class MyObjectVsBroadPhaseLayerFilter : public JPH::ObjectVsBroadPhaseLayerFilter {
-//public:
-//    virtual bool ShouldCollide(JPH::ObjectLayer inLayer1, JPH::BroadPhaseLayer inLayer2) const override
-//    {
-//        (void)inLayer1, inLayer2;
-//        return true; // Allow all collisions between broad phase layers and object layers for now
-//    }
-//};
-//
-//// Object-layer-pair filter
-//class MyObjectLayerPairFilter : public JPH::ObjectLayerPairFilter {
-//public:
-//    virtual bool ShouldCollide(JPH::ObjectLayer inObjectLayer1, JPH::ObjectLayer inObjectLayer2) const override
-//    {
-//        (void)inObjectLayer1, inObjectLayer2;
-//        return true; // Allow all object layers to collide for now
-//    }
-//};
-//
-//// Custom BroadPhaseLayerInterface implementation
-//unsigned int MyBroadPhaseLayerInterface::GetNumBroadPhaseLayers() const {
-//    return 2; // Two layers: Static and Dynamic
-//}
-//
-//JPH::BroadPhaseLayer MyBroadPhaseLayerInterface::GetBroadPhaseLayer(JPH::ObjectLayer layer) const {
-//    switch (layer) {
-//    case 0: return JPH::BroadPhaseLayer(0);  // Static objects
-//    case 1: return JPH::BroadPhaseLayer(1);  // Dynamic objects
-//    default:
-//        std::cerr << "Invalid ObjectLayer passed: " << layer << std::endl;
-//        return JPH::BroadPhaseLayer(0);  // Fallback to a default layer
-//    }
-//}
-//
-//const char* MyBroadPhaseLayerInterface::GetBroadPhaseLayerName(JPH::BroadPhaseLayer layer) const {
-//    // Use the GetValue() method to retrieve the underlying uint8 value for the switch case
-//    switch (layer.GetValue()) {
-//    case 0: return "Static";
-//    case 1: return "Dynamic";
-//    default: return "Unknown";
-//    }
-//}
-
 void MyPhysicsSystem::InitializeJolt() {
 
     // Register default allocator
@@ -152,15 +108,21 @@ JPH::PhysicsSystem* MyPhysicsSystem::CreatePhysicsSystem() {
     );
 
     // Set gravity
-    mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, -9.81f, 0.0f));
+    //mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, -9.81f, 0.0f));
+    mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, 0.0f, 0.0f));
 
     std::cout << "Jolt physics system created" << std::endl;
     return mPhysicsSystem;
 }
 
 void MyPhysicsSystem::OnUpdate(float deltaTime) {
+    ++_step;
+
+    JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
+
     // Iterate through all entities that match the PhysicsSystem signature
     auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+
     for (auto& entity : allEntities) {
         if (g_Coordinator.HaveComponent<TransformComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
             auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
@@ -170,7 +132,7 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
             glm::vec3 scale = transform.GetScale();
 
             // Debug output to check Position
-            std::cout << "Entity ID: " << entity << " Engine x: " << transform.GetPosition().x << " Engine y: " << transform.GetPosition().y << " Engine z: " << transform.GetPosition().z << std::endl;
+            std::cout << "Entity ID: " << entity << " Position = (" << transform.GetPosition().x << ", " << transform.GetPosition().y << ", " << transform.GetPosition().z << ")" << std::endl;
 
             // Only add a new body if it hasn't already been added
             if (!collisionComponent.HasBodyAdded()) {
@@ -178,8 +140,16 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
                 collisionComponent.SetHasBodyAdded(true); // Mark as added
             }
 
+            JPH::Vec3 velocity = bodyInterface.GetLinearVelocity(bodyID);
+
             // Debug output to check Position
-            std::cout << "Entity ID: " << entity << " Jolt x: " << position.GetX() << " Jolt y: " << position.GetY() << " Jolt z: " << position.GetZ() << std::endl;
+            //std::cout << "Entity ID: " << entity << " Jolt x: " << position.GetX() << " Jolt y: " << position.GetY() << " Jolt z: " << position.GetZ() << std::endl;
+            std::cout << "Step " << _step << ": Position = (" << position.GetX() << ", " << position.GetY() << ", " << position.GetZ() 
+                << "), Velocity = (" << velocity.GetX() << ", " << velocity.GetY() << ", " << velocity.GetZ() << ")" << std::endl;
+
+            // Simulate physics
+            //mPhysicsSystem->Update(deltaTime, 1, mTempAllocator, mJobSystem);
+
         }
     }
 
@@ -193,13 +163,15 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
 void MyPhysicsSystem::AddEntityBody(Entity entity) {
     if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
         auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+        auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
 
-        JPH::Vec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
+        JPH::RVec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
         glm::vec3 scale = transform.GetScale();
 
 
         // Create the box shape
         JPH::BoxShape* boxShape = new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.5f, scale.z * 0.5f));
+        //JPH::BoxShape* boxShape = new JPH::BoxShape(JPH::Vec3(scale.x * 1.f, scale.y * 1.f, scale.z * 1.f));
 
         // Define body creation settings
         JPH::BodyCreationSettings bodySettings(
@@ -207,7 +179,7 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             position,
             JPH::Quat::sIdentity(),  // Assuming no initial rotation
             JPH::EMotionType::Dynamic,  // Use dynamic motion type for now
-            1  // ObjectLayer, ensure this is valid
+            Layers::MOVING  // ObjectLayer, ensure this is valid
         );
 
         JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
@@ -221,8 +193,6 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             return;
         }
 
-
-
         // Create and add the body to the physics system
         JPH::Body* body = mPhysicsSystem->GetBodyInterface().CreateBody(bodySettings);
 
@@ -231,11 +201,80 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         }
         else {
             std::cout << "Body successfully created with ID: " << body->GetID().GetIndex() << std::endl;
+            bodyID = body->GetID();
+            //body->SetUserData(static_cast<JPH::uint64>(entity)); // Set the entity ID as user data
             mPhysicsSystem->GetBodyInterface().AddBody(body->GetID(), JPH::EActivation::Activate);
+            body->SetAllowSleeping(false); // Prevent body from sleeping for debug
+
+            // Assign the body to the CollisionComponent
+            collisionComponent.SetPhysicsBody(body);
         }
     }
 }
 
+void MyPhysicsSystem::UpdateEntityTransforms() {
+    auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+    for (auto& entity : allEntities) {
+        if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+            auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+            JPH::Body* body = collisionComp.GetPhysicsBody();
+
+            if (body != nullptr && !body->GetID().IsInvalid()) {
+                // Physics position
+                JPH::Vec3 updatedPosition = body->GetPosition();
+                std::cout << "Physics Position for Entity " << entity << ": ("
+                    << updatedPosition.GetX() << ", " << updatedPosition.GetY()
+                    << ", " << updatedPosition.GetZ() << ")" << std::endl;
+
+                // Transform component position
+                auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+                glm::vec3 enginePosition = transform.GetPosition();
+                std::cout << "Engine Position for Entity " << entity << ": ("
+                    << enginePosition.x << ", " << enginePosition.y << ", "
+                    << enginePosition.z << ")" << std::endl;
+
+                // Update the engine transform to match Jolt
+                transform.SetPosition(glm::vec3(updatedPosition.GetX(), updatedPosition.GetY(), updatedPosition.GetZ()));
+            }
+        }
+    }
+}
+
+
+//void MyPhysicsSystem::UpdateEntityTransforms() {
+//    auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+//    for (auto& entity : allEntities) {
+//        if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+//            // std::cout << "is inside updateEntityTransform" << std::endl;
+//            auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+//            JPH::Body* body = collisionComp.GetPhysicsBody();
+//
+//            // Ensure the body ID is valid before accessing it
+//            if (body != nullptr && !body->GetID().IsInvalid()) {
+//                // Debug statement to print the updated body position
+//                std::cout << "Updating transform for entity: " << entity << std::endl;
+//
+//                // Get the updated position and rotation from the JoltPhysics body
+//                JPH::Vec3 updatedPosition = body->GetPosition();
+//                JPH::Quat updatedRotation = body->GetRotation();
+//
+//                // Update the entity's TransformComponent
+//                auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+//                transform.SetPosition(glm::vec3(updatedPosition.GetX(), updatedPosition.GetY(), updatedPosition.GetZ()));
+//
+//                glm::quat newRotation(updatedRotation.GetW(), updatedRotation.GetX(), updatedRotation.GetY(), updatedRotation.GetZ());
+//                glm::vec3 eulerRotation = glm::eulerAngles(newRotation);  // Convert quaternion to Euler angles
+//                transform.SetRotation(eulerRotation);
+//
+//                // Debug output of the updated position
+//                std::cout << "Updated entity position: (" << updatedPosition.GetX() << ", "
+//                    << updatedPosition.GetY() << ", " << updatedPosition.GetZ() << ")"
+//                    << "\nUpdated entity rotation: (" << eulerRotation.x << ", "
+//                    << eulerRotation.y << ", " << eulerRotation.z << ")" << std::endl;
+//            }
+//        }
+//    }
+//}
 
 void MyPhysicsSystem::RemoveEntityBody(Entity entity) {
     if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
@@ -255,70 +294,6 @@ void MyPhysicsSystem::RemoveEntityBody(Entity entity) {
         g_Coordinator.RemoveComponent<CollisionComponent>(entity);
     }
 }
-
-void MyPhysicsSystem::UpdateEntityTransforms() {
-    auto allEntities = g_Coordinator.GetAliveEntitiesSet();
-    for (auto& entity : allEntities) {
-        if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-            // std::cout << "is inside updateEntityTransform" << std::endl;
-            auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
-            JPH::Body* body = collisionComp.GetPhysicsBody();
-
-            // Ensure the body ID is valid before accessing it
-            if (body != nullptr && !body->GetID().IsInvalid()) {
-                // Debug statement to print the updated body position
-                std::cout << "Updating transform for entity: " << entity << std::endl;
-
-                // Get the updated position and rotation from the JoltPhysics body
-                JPH::Vec3 updatedPosition = body->GetPosition();
-                JPH::Quat updatedRotation = body->GetRotation();
-
-                // Update the entity's TransformComponent
-                auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
-                transform.SetPosition(glm::vec3(updatedPosition.GetX(), updatedPosition.GetY(), updatedPosition.GetZ()));
-
-                glm::quat newRotation(updatedRotation.GetW(), updatedRotation.GetX(), updatedRotation.GetY(), updatedRotation.GetZ());
-                glm::vec3 eulerRotation = glm::eulerAngles(newRotation);  // Convert quaternion to Euler angles
-                transform.SetRotation(eulerRotation);
-
-                // Debug output of the updated position
-                std::cout << "Updated entity position: (" << updatedPosition.GetX() << ", "
-                    << updatedPosition.GetY() << ", " << updatedPosition.GetZ() << ")"
-                    << "\nUpdated entity rotation: (" << eulerRotation.x << ", "
-                    << eulerRotation.y << ", " << eulerRotation.z << ")" << std::endl;
-            }
-        }
-    }
-}
-
-
-//void MyPhysicsSystem::UpdateEntityTransforms() {
-//    // std::cout << "inside UpdateEntityTransform" << std::endl;
-//    auto allEntities = g_Coordinator.GetAliveEntitiesSet();
-//    for (auto& entity : allEntities) {
-//        if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-//            auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
-//            JPH::Body* body = collisionComp.GetPhysicsBody();
-//
-//            // Ensure the body ID is valid before accessing it
-//            if (body != nullptr && !body->GetID().IsInvalid()) {
-//                std::cout << "updating transform of entity" << std::endl;
-//                // Get the updated position and rotation from the JoltPhysics body
-//                JPH::Vec3 updatedPosition = body->GetPosition();
-//                JPH::Quat updatedRotation = body->GetRotation();
-//
-//                // Update the entity's TransformComponent
-//                auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
-//                transform.SetPosition(glm::vec3(updatedPosition.GetX(), updatedPosition.GetY(), updatedPosition.GetZ()));
-//
-//                glm::quat newRotation(updatedRotation.GetW(), updatedRotation.GetX(), updatedRotation.GetY(), updatedRotation.GetZ());
-//                glm::vec3 eulerRotation = glm::eulerAngles(newRotation);  // Convert quaternion to Euler angles
-//                transform.SetRotation(eulerRotation);
-//            }
-//        }
-//    }
-//}
-
 
 void MyPhysicsSystem::Cleanup() {
 
