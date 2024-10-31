@@ -1,0 +1,9 @@
+File Name: Corgi
+Source File Path: ..\BoofWoof\Assets\Objects\Corgi.obj
+Output File Path: ..\BoofWoof\Resources\Objects\Corgi.bin
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0

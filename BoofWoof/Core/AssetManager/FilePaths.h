@@ -14,28 +14,41 @@
 // ASSETS //
 #define FILEPATH_ASSETS						std::string("..\\BoofWoof\\Assets")
 
-// TEXTURES //
+// TEXTURE ASSETS //
 #define FILEPATH_TEXTURES					std::string("..\\BoofWoof\\Assets\\Art\\Textures")
 
-// SPRITES //
+// SPRITE ASSETS //
 #define FILEPATH_SPRITES					std::string("..\\BoofWoof\\Assets\\Art\\Sprites")
 
-// SCENES //
+// SCENE ASSETS //
 #define FILEPATH_SCENES						std::string("..\\BoofWoof\\Assets\\Scenes")
 
-// OBJECTS //
+// OBJECT ASSETS //
 #define FILEPATH_OBJECTS					std::string("..\\BoofWoof\\Assets\\Objects")
 
-// SHADERS //
+// SHADER ASSETS //
 #define FILEPATH_SHADERS					std::string("..\\BoofWoof\\Assets\\Shaders")
 
-// FILE DESCRIPTORS //
-#define FILEPATH_DESCRIPTORS				std::string("..\\BoofWoof\\Assets\\Descriptors")
+// FONT ASSETS //
+#define FILEPATH_FONTS						std::string("..\\BoofWoof\\Assets\\Fonts")
 
-// TRASH //
+// ASSET TRASHBIN //
 #define FILEPATH_TRASHBIN					std::string("..\\BoofWoof\\Assets\\Trashbin")
 
 
+
+
+// DESCRIPTOR FILES //
+#define FILEPATH_DESCRIPTORS				std::string("..\\BoofWoof\\Descriptors")
+
+// TEXTURE DESCRIPTOR FILES //
+#define FILEPATH_TEXTURES_DESCRIPTOR		std::string("..\\BoofWoof\\Descriptors\\Textures")
+
+// TEXTURE DESCRIPTOR FILES //
+#define FILEPATH_FONTS_DESCRIPTOR			std::string("..\\BoofWoof\\Descriptors\\Fonts")
+
+
+// RESOURCES //
 #define FILEPATH_RESOURCES					std::string("..\\BoofWoof\\Resources")
 
 // TEXTURE RESOURCES //
@@ -43,5 +56,8 @@
 
 // OBJECT RESOURCES //
 #define FILEPATH_OBJECTS_RESOURCE			std::string("..\\BoofWoof\\Resources\\Objects")
+
+// FONT RESOURCES //
+#define FILEPATH_FONTS_RESOURCE				std::string("..\\BoofWoof\\Resources\\Fonts")
 
 #endif

@@ -1,2 +1,0 @@
-File Name : test_red_png.png
-Compression Format : -fd BC3

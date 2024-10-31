@@ -1,0 +1,5 @@
+Texture Name : Eye_D
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\Eye_D.jpg
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\Eye_D.dds
+Compression Format : -fd BC3
