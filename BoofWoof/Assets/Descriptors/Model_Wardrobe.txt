@@ -1,0 +1,9 @@
+File Name: Wardrobe
+Source File Path: ..\BoofWoof\Assets\Objects\Wardrobe.obj
+Output File Path: ..\BoofWoof\Resources\Objects\Wardrobe.bin
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0

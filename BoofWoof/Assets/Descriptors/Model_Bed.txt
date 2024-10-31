@@ -1,0 +1,9 @@
+File Name: Bed
+Source File Path: ..\BoofWoof\Assets\Objects\Bed.obj
+Output File Path: ..\BoofWoof\Resources\Objects\Bed.bin
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0
