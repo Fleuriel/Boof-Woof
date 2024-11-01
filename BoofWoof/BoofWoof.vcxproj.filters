@@ -31,6 +31,8 @@
     <ClCompile Include="Core\Level Manager\LevelManager.cpp" />
     <ClCompile Include="Core\ECS\pch.cpp" />
     <ClCompile Include="Core\Physics\CollisionSystem.cpp" />
+    <ClCompile Include="Core\Reflection\ReflectionManager.cpp" />
+    <ClCompile Include="Utilities\Components\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -72,6 +74,7 @@
     <ClInclude Include="Core\AssetManager\FilePaths.h" />
     <ClInclude Include="Core\Physics\CollisionSystem.h" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
+    <ClInclude Include="Core\Reflection\ReflectionManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

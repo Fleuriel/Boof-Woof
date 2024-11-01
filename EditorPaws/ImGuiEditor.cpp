@@ -237,6 +237,43 @@ void ImGuiEditor::WorldHierarchy()
 	ImGui::End();
 }
 
+void DrawComponentWithReflection(const std::string& className, void* component)
+{
+	const auto& properties = ReflectionManager::Instance().GetProperties(className);
+
+	for (const auto& property : properties)
+	{
+		// Display property name
+		ImGui::Text("%s", property->GetName().c_str());
+		ImGui::SameLine();
+
+		// Use property name as ImGui identifier
+		std::string widgetID = "##" + property->GetName();
+
+		// Use the property's type to determine which ImGui widget to use
+		if (property->GetValue(component).find(",") != std::string::npos) // Check for vector-like value
+		{
+			// Assuming it's a glm::vec3 serialized as "x,y,z"
+			glm::vec3 vecValue = SerializationHelpers::DeserializeVec3(property->GetValue(component));
+			if (ImGui::DragFloat3(widgetID.c_str(), &vecValue.x, 0.5f))
+			{
+				// Serialize and set the new value
+				property->SetValue(component, SerializationHelpers::SerializeVec3(vecValue));
+			}
+		}
+		else
+		{
+			// For other types, use a basic text or drag widget (expand as needed)
+			float floatValue = std::stof(property->GetValue(component));
+			if (ImGui::DragFloat(widgetID.c_str(), &floatValue, 0.5f))
+			{
+				// Convert float back to string and set the new value
+				property->SetValue(component, std::to_string(floatValue));
+			}
+		}
+	}
+}
+
 void ImGuiEditor::InspectorWindow()
 {
 	ImGui::Begin("Inspector");
@@ -353,35 +390,19 @@ void ImGuiEditor::InspectorWindow()
 			}
 		}
 
-		// Transform
+		// Check if the selected entity has a TransformComponent
 		if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
 		{
 			if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_None))
 			{
-				auto& Position = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetPosition();
-				ImGui::PushItemWidth(250.0f);
-				ImGui::Text("Position"); ImGui::SameLine();
+				// Get the TransformComponent and pass it to the reflection function
+				auto& transformComponent = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
 
-				if (ImGui::DragFloat3("##Position", static_cast<float*>(&Position.x), 0.5f))
-				{
-					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetPosition(Position);
-				}
+				// Make sure to register properties before using reflection
+				transformComponent.RegisterProperties();
 
-				auto& Scale = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetScale();
-				ImGui::Text("Scale   "); ImGui::SameLine();
-
-				if (ImGui::DragFloat3("##Scale", static_cast<float*>(&Scale.x), 0.5f, 0.0f, FLT_MAX))
-				{
-					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetScale(Scale);
-				}
-
-				auto& rotation = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetRotation();
-				ImGui::Text("Rotation"); ImGui::SameLine();
-
-				if (ImGui::DragFloat3("##Rotation", static_cast<float*>(&rotation.x), 0.5f))
-				{
-					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetRotation(rotation);
-				}
+				// Use reflection to draw and modify properties
+				DrawComponentWithReflection("TransformComponent", &transformComponent);
 			}
 		}
 
