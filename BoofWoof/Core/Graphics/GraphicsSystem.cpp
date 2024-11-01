@@ -200,7 +200,7 @@ void GraphicsSystem::UpdateLoop() {
 
 				if (graphicsComp.getTextureName() == " ")
 				{
-					std::cout << "its blank\n";
+					//std::cout << "its blank\n";
 				}
 				else
 					glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName()));

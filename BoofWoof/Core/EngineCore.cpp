@@ -87,7 +87,7 @@ void EngineCore::OnInit()
 	//}
 
 
-	// Create entities
+	//// Create entities
 	//{
 	//	Entity entity = g_Coordinator.CreateEntity();
 	//	g_Coordinator.AddComponent(entity, TransformComponent());
@@ -97,7 +97,7 @@ void EngineCore::OnInit()
 	//	g_Coordinator.AddComponent(entity, AudioComponent("../BoofWoof/Assets/Audio/explode2.wav", 1.0f, false, entity));
 	//	g_Coordinator.AddComponent(entity, CollisionComponent());
 	//}
-	
+	//
 
 	// init system
 	mLogicSys->Init();

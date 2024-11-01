@@ -63,6 +63,9 @@
 #ifndef COLLISION_COMPONENT_HPP
 #define COLLISION_COMPONENT_HPP
 
+#pragma warning(push)
+#pragma warning(disable: 6385 6386)
+
 #include <Jolt/Jolt.h>
 #include <Jolt/Physics/Body/Body.h>                   // For Body
 #include <Jolt/Physics/Body/BodyCreationSettings.h>   // For BodyCreationSettings
@@ -85,16 +88,21 @@ public:
     void SetComponentEntityID(Entity& entity) { m_EntityID = entity; }
     void SetPhysicsBody(JPH::Body* body) { m_PhysicsBody = body; }
     void SetCollisionLayer(int layer) { m_CollisionLayer = layer; }
+    void SetHasBodyAdded(bool hasBodyAdded) { m_HasBodyAdded = hasBodyAdded; }
 
     // Getters
     JPH::Body* GetPhysicsBody() const { return m_PhysicsBody; }
     int GetCollisionLayer() const { return m_CollisionLayer; }
+    bool HasBodyAdded() const { return m_HasBodyAdded; }
 
 private:
     Entity m_EntityID{};
     JPH::Body* m_PhysicsBody = nullptr;  // Reference to the JoltPhysics body
     int m_CollisionLayer = 0;  // Layer used for collision filtering
+    bool m_HasBodyAdded = false; // Flag to check if the body is already added
 };
 
 #endif  // COLLISION_COMPONENT_HPP
+
+#pragma warning(pop)
 
