@@ -63,6 +63,9 @@
 #ifndef COLLISION_COMPONENT_HPP
 #define COLLISION_COMPONENT_HPP
 
+#pragma warning(push)
+#pragma warning(disable: 6385 6386)
+
 #include <Jolt/Jolt.h>
 #include <Jolt/Physics/Body/Body.h>                   // For Body
 #include <Jolt/Physics/Body/BodyCreationSettings.h>   // For BodyCreationSettings
@@ -100,4 +103,6 @@ private:
 };
 
 #endif  // COLLISION_COMPONENT_HPP
+
+#pragma warning(pop)
 

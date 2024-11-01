@@ -15,6 +15,8 @@
 #ifndef PHYSICSSYSTEM_H
 #define PHYSICSSYSTEM_H
 
+#pragma warning(push)
+#pragma warning(disable: 4100)
 #include <Jolt/Jolt.h>
 #include <Jolt/Core/Factory.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
@@ -27,6 +29,7 @@
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayerInterfaceMask.h>
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
 #include <../Utilities/Components/TransformComponent.hpp>
+
 
 
 #include "../ECS/System.hpp"
@@ -360,3 +363,5 @@ public:
 
 
 #endif // PHYSICSSYSTEM_H
+
+#pragma warning(pop)

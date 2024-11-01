@@ -3,6 +3,9 @@
 #include "../Core/ECS/Coordinator.hpp"
 #include "../Core/Input/Input.h"
 #include "../Utilities/Components/CollisionComponent.hpp"
+
+#pragma warning(push)
+#pragma warning(disable: 6385 6386)
 #include <Jolt/Physics/Body/Body.h>
 
 
@@ -76,3 +79,5 @@ namespace Movement
 	}
 
 }
+
+#pragma warning(pop)
