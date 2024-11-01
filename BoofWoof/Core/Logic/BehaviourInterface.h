@@ -25,8 +25,12 @@ struct engine_interface
 	virtual ~engine_interface() = default;
 	virtual input_interface& getInputSystem() = 0;
 
+	virtual bool HaveTransformComponent(Entity entity) = 0;
 	virtual glm::vec3 GetPosition(Entity entity) = 0;
 	virtual void SetPosition(Entity entity, glm::vec3 position) = 0;
+	
+	virtual bool HaveVelocityComponent(Entity entity) = 0;
+	virtual void SetVelocity(Entity entity, glm::vec3 velocity) = 0;
 	//virtual void ChangePosition(Entity entity, float x, float y, float z) = 0;
 };
 
