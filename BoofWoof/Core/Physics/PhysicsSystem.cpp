@@ -133,7 +133,7 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
             glm::vec3 scale = transform.GetScale();
 
             // Debug output to check Position
-            std::cout << "Entity ID: " << entity << " Position = (" << transform.GetPosition().x << ", " << transform.GetPosition().y << ", " << transform.GetPosition().z << ")" << std::endl;
+            //std::cout << "Entity ID: " << entity << " Position = (" << transform.GetPosition().x << ", " << transform.GetPosition().y << ", " << transform.GetPosition().z << ")" << std::endl;
 
             // Only add a new body if it hasn't already been added
             if (!collisionComponent.HasBodyAdded()) {
@@ -145,8 +145,8 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
 
             // Debug output to check Position
             //std::cout << "Entity ID: " << entity << " Jolt x: " << position.GetX() << " Jolt y: " << position.GetY() << " Jolt z: " << position.GetZ() << std::endl;
-            std::cout << "Step " << _step << ": Position = (" << position.GetX() << ", " << position.GetY() << ", " << position.GetZ() 
-                << "), Velocity = (" << velocity.GetX() << ", " << velocity.GetY() << ", " << velocity.GetZ() << ")" << std::endl;
+            //std::cout << "Step " << _step << ": Position = (" << position.GetX() << ", " << position.GetY() << ", " << position.GetZ() 
+            //    << "), Velocity = (" << velocity.GetX() << ", " << velocity.GetY() << ", " << velocity.GetZ() << ")" << std::endl;
 
             // Simulate physics
             //mPhysicsSystem->Update(deltaTime, 1, mTempAllocator, mJobSystem);
@@ -207,10 +207,10 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         JPH::Body* body = mPhysicsSystem->GetBodyInterface().CreateBody(bodySettings);
 
         if (body == nullptr) {
-            std::cerr << "Failed to create a new body!" << std::endl;
+            //std::cerr << "Failed to create a new body!" << std::endl;
         }
         else {
-            std::cout << "Body successfully created with ID: " << body->GetID().GetIndex() << std::endl;
+            //std::cout << "Body successfully created with ID: " << body->GetID().GetIndex() << std::endl;
             bodyID = body->GetID();
             //body->SetUserData(static_cast<JPH::uint64>(entity)); // Set the entity ID as user data
             mPhysicsSystem->GetBodyInterface().AddBody(body->GetID(), JPH::EActivation::Activate);
@@ -234,16 +234,16 @@ void MyPhysicsSystem::UpdateEntityTransforms() {
             if (body != nullptr && !body->GetID().IsInvalid()) {
                 // Physics position
                 JPH::Vec3 updatedPosition = body->GetPosition();
-                std::cout << "Physics Position for Entity " << entity << ": ("
-                    << updatedPosition.GetX() << ", " << updatedPosition.GetY()
-                    << ", " << updatedPosition.GetZ() << ")" << std::endl;
+                //std::cout << "Physics Position for Entity " << entity << ": ("
+                //    << updatedPosition.GetX() << ", " << updatedPosition.GetY()
+                //    << ", " << updatedPosition.GetZ() << ")" << std::endl;
 
                 // Transform component position
                 auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
                 glm::vec3 enginePosition = transform.GetPosition();
-                std::cout << "Engine Position for Entity " << entity << ": ("
-                    << enginePosition.x << ", " << enginePosition.y << ", "
-                    << enginePosition.z << ")" << std::endl;
+                //std::cout << "Engine Position for Entity " << entity << ": ("
+                //    << enginePosition.x << ", " << enginePosition.y << ", "
+                //    << enginePosition.z << ")" << std::endl;
 
                 // Update the engine transform to match Jolt
                 transform.SetPosition(glm::vec3(updatedPosition.GetX(), updatedPosition.GetY(), updatedPosition.GetZ()));

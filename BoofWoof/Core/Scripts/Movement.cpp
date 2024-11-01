@@ -37,12 +37,12 @@ namespace Movement
 	inline void Update(Entity entity) {
 		// Check if the entity has the necessary components
 		if (!g_Coordinator.HaveComponent<TransformComponent>(entity)) {
-			std::cerr << "Entity " << entity << " does not have a TransformComponent." << std::endl;
+			//std::cerr << "Entity " << entity << " does not have a TransformComponent." << std::endl;
 			return;
 		}
 
 		if (!g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-			std::cerr << "Entity " << entity << " does not have a CollisionComponent." << std::endl;
+			//std::cerr << "Entity " << entity << " does not have a CollisionComponent." << std::endl;
 			return;
 		}
 
