@@ -601,35 +601,60 @@ bool AssetManager::LoadObjects() {
                 std::string binFilePath = FILEPATH_OBJECTS_RESOURCE + "\\" + nameWithoutExtension + ".bin";
 
 
-                std::string descriptorFilePath{ FILEPATH_DESCRIPTORS + "/Model_" + nameWithoutExtension + ".txt" };
-                std::ofstream outFile(descriptorFilePath);
 
 
-                if (outFile.is_open())
-                {
-                    outFile << "File Name: " << nameWithoutExtension << '\n';
-                    outFile << "Source File Path: " << objFilePath << '\n';
-                    outFile << "Output File Path: " << binFilePath << '\n';
-                    outFile << "Expected Attributes: \n";
-                    outFile << " -  Vertices\n";
-                    outFile << " -  Indices\n";
-                    outFile << " -  Normals\n";
-                    outFile << "Transform Defauls: \n";
-                    outFile << " -  Scale: 1.0\n";
-                    outFile.close();
-                }
+//                std::string descriptorFilePath{ FILEPATH_DESCRIPTORS + "/Model_" + nameWithoutExtension + ".txt" };
+//                std::ofstream outFile(descriptorFilePath);
+//
+//
+//                if (outFile.is_open())
+//                {
+//                    outFile << "File Name: " << nameWithoutExtension << '\n';
+//                    outFile << "Source File Path: " << objFilePath << '\n';
+//                    outFile << "Output File Path: " << binFilePath << '\n';
+//                    outFile << "Expected Attributes: \n";
+//                    outFile << " -  Vertices\n";
+//                    outFile << " -  Indices\n";
+//                    outFile << " -  Normals\n";
+//                    outFile << "Transform Defauls: \n";
+//                    outFile << " -  Scale: 1.0\n";
+//                    outFile.close();
+//                }
+//
+//
+////                std::vector<std::string> fileInfo = processDescriptorFile(descriptorFilePath);
+//
+//              
+////                    runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe " + fileInfo[1] + " " +  fileInfo[2]);
+//#ifdef _DEBUG
+//                runCommand("..\\lib\\MeshCompiler\\x64\\Debug\\MeshCompiler.exe /Model_" + nameWithoutExtension + ".txt " + FILEPATH_DESCRIPTORS + " " + descriptorFilePath);
+//#else
+//                runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe /Model_" + nameWithoutExtension + ".txt " + FILEPATH_DESCRIPTORS + " " + descriptorFilePath);
+//#endif
+                Model model;
+                // std::cout << "Loading: " << binFilePath << '\n';
+                //
+                model.loadModel(objFilePath, GL_TRIANGLES);
+
+                //
+                // ModelMap.insert(std::pair<std::string, Model>(nameWithoutExtension, model));
+                //
+                // std::cout << "Loaded: " << binFilePath << " with name: " << nameWithoutExtension << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
+
+                 // Parse the .obj file into vertices and indices
+                std::vector<Vertex> vertices;
+                std::vector<unsigned int> indices;
+                parseOBJ(objFilePath, vertices, indices);
+                std::cout << vertices.size() << '\t' << indices.size() << "\t This Vertices ASize\n";
 
 
-//                std::vector<std::string> fileInfo = processDescriptorFile(descriptorFilePath);
+                // Create Mesh object and populate it with the vertices and indices
+               // Mesh mesh;//(vertices, indices);
 
-              
-//                    runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe " + fileInfo[1] + " " +  fileInfo[2]);
-#ifdef _DEBUG
-                runCommand("..\\lib\\MeshCompiler\\x64\\Debug\\MeshCompiler.exe /Model_" + nameWithoutExtension + ".txt " + FILEPATH_DESCRIPTORS + " " + descriptorFilePath);
-#else
-                runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe /Model_" + nameWithoutExtension + ".txt " + FILEPATH_DESCRIPTORS + " " + descriptorFilePath);
-#endif
+                //mesh.processMesh();
 
+                // Now save the mesh to the .bin file
+                saveMeshToBin(model.meshes, binFilePath);
 
 
 

@@ -449,8 +449,8 @@ void ImGuiEditor::InspectorWindow()
 				if (ImGui::Button("Set Texture"))
 				{
 					std::cout << "ButtoN clicked\n";
-					//ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png, .jpg", "../BoofWoof/Assets/Art/Texture");
-					ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png", "../BoofWoof/Assets");
+					ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png, .jpg", "../BoofWoof/Assets/Art/Texture");
+					//ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png", "../BoofWoof/Assets");
 				}
 
 				if (ImGuiFileDialog::Instance()->Display("AddAsset"))
