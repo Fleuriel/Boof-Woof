@@ -319,6 +319,7 @@ void MyPhysicsSystem::Cleanup() {
 
     // Clean up the contact listener
     delete mContactListener;
+    delete mBodyActivationListener;
 
     // Unregisters all types with the factory and cleans up the default material
     JPH::UnregisterTypes();
