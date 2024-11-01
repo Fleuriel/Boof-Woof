@@ -457,8 +457,8 @@ void ImGuiEditor::InspectorWindow()
 				if (ImGui::Button("Set Texture"))
 				{
 					std::cout << "ButtoN clicked\n";
-					ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png", "../BoofWoof/Assets/DDS/");
-	//				ImGuiFileDialog::Instance()->OpenDialog("SelectTexture", "Choose File", ".dds, .png", "../BoofWoof/Assets");
+					ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png, .jpg", "../BoofWoof/Assets/Art/Texture");
+					//ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png", "../BoofWoof/Assets");
 				}
 
 				if (ImGuiFileDialog::Instance()->Display("AddAsset"))
@@ -478,12 +478,16 @@ void ImGuiEditor::InspectorWindow()
 							// Keep the part of the string before the last dot
 							selected_file = selected_file.substr(0, last_dot_position);
 						}
-						
+
+						//GraphicsSystem::set_Texture_ = g_ResourceManager.GetTextureDDS(selected_file);
+						g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setTexture(selected_file);
 
 						// Use the file path (e.g., set a texture, load a model, etc.)
-						
-						
-						//g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).AddTexture(textureid);
+						//get the texture id
+						int textureid = g_ResourceManager.GetTextureDDS(selected_file);
+						std::cout << "Texture add with texture ID: " << textureid << " with sleleted file " << selected_file << std::endl;
+
+						g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).AddTexture(textureid);
 					}
 					ImGuiFileDialog::Instance()->Close();
 				}
