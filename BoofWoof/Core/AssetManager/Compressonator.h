@@ -19,7 +19,7 @@
 std::string trim(const std::string& str);
 
 // Function to process the descriptor file and print details
-std::vector<std::string> processDescriptorFile(const std::string& descriptorFilePath);
+std::vector<std::string> processTextureDescriptorFile(const std::string& descriptorFilePath);
 
 int runCommand(const std::string& command);
 

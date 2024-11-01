@@ -14,7 +14,6 @@
 #include "Compressonator.h"
 #include "FilePaths.h"
 
-
 // Function to trim leading and trailing whitespaces from a string
 std::string trim(const std::string& str) {
     size_t first = str.find_first_not_of(" \t\n\r");
@@ -23,7 +22,7 @@ std::string trim(const std::string& str) {
 }
 
 // Function to process the descriptor file
-std::vector<std::string> processDescriptorFile(const std::string& descriptorFilePath) {
+std::vector<std::string> processTextureDescriptorFile(const std::string& descriptorFilePath) {
     std::ifstream file(descriptorFilePath);
 
     if (!file.is_open()) {
@@ -32,30 +31,64 @@ std::vector<std::string> processDescriptorFile(const std::string& descriptorFile
     }
 
     std::string line;
-    std::string fileName;
-    std::string filePath;
+    std::string textureName;
+    std::string textureFilePath;
+    std::string resourceGuid;
+    std::string resourceFilePath;
     std::string compressionFormat;
 
+    std::vector<std::string> fileInfo{};
+
     while (std::getline(file, line)) {
-        // Find the "File Name" line
-        if (line.find("File Name") != std::string::npos) {
-            fileName = trim(line.substr(line.find(":") + 1));
+        // Find the "Texture Name" line
+        if (line.find("Texture Name") != std::string::npos) {
+            textureName = trim(line.substr(line.find(":") + 1));
+            fileInfo.push_back(textureName);
+        }
+        // Find the "Texture File Path" line
+        if (line.find("Texture File Path") != std::string::npos) {
+            textureFilePath = trim(line.substr(line.find(":") + 1));
+            fileInfo.push_back(textureFilePath);
+        }
+        // Find the "Resource GUID" line
+        if (line.find("Resource GUID") != std::string::npos) {
+            resourceGuid = trim(line.substr(line.find(":") + 1));
+            fileInfo.push_back(resourceGuid);
+        }
+        // Find the "Resource File Path" line
+        else if (line.find("Resource File Path") != std::string::npos) {
+            resourceFilePath = trim(line.substr(line.find(":") + 1));
+            fileInfo.push_back(resourceFilePath);
         }
         // Find the "Compression Format" line
         else if (line.find("Compression Format") != std::string::npos) {
             compressionFormat = trim(line.substr(line.find(":") + 1));
+            fileInfo.push_back(compressionFormat);
         }
     }
 
-    std::cout << "\n**************************************************************************************\n";
+
+    /*
+    outFile << "Texture Name : " << nameWithoutExtension << std::endl;
+                    outFile << "Texture File Path : " << FILEPATH_TEXTURES + "\\" + entry.path().filename().string() << std::endl;
+                    outFile << "Resource GUID : " << std::endl;
+                    outFile << "Resource File Path : " << FILEPATH_TEXTURES_RESOURCE + "\\" + nameWithoutExtension + ".dds" << std::endl;
+                    outFile << "Compression Format : "<< "-fd BC3";
+
+    */
+
+    std::cout << "\n**************************************************************************************\nCompressonator Print Out\n";
     // Print out the details from the descriptor file
-    std::cout << "File Name: " << fileName << std::endl;
-    std::cout << "Compression Format: " << compressionFormat << std::endl;
+    std::cout << "Texture Name: " << fileInfo[0] << std::endl;
+    std::cout << "Texture File Path: " << fileInfo[1] << std::endl;
+    std::cout << "Resource GUID: " << fileInfo[2] << std::endl;
+    std::cout << "Resource File Path: " << fileInfo[3] << std::endl;
+    std::cout << "Compression Format: " << fileInfo[4] << std::endl;
     std::cout << "\n**************************************************************************************\n";
 
     file.close();
 
-    return { compressionFormat , fileName };
+    return fileInfo;
 }
 
 // Function to run a command line command
@@ -78,24 +111,3 @@ int runCommand(const std::string& command) {
     return result;  // Return the command's exit status
 }
 
-int test() {
-    // Example path to the descriptor file
-    std::string descriptorFilePath = "..\\BoofWoof\\Assets\\Descriptors\\Sadge.txt";
-
-    // Process the descriptor file and print details
-    std::vector<std::string> fileInfo = processDescriptorFile(descriptorFilePath);
-    if (!fileInfo.empty()) {
-        std::cout << fileInfo[0] << std::endl;
-        std::cout << fileInfo[1] << std::endl;
-
-        // Run compression command
-        runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[0] + " ..\\" + fileInfo[1] + " " + FILEPATH_DESCRIPTORS);
-
-        // Open the folder containing the file in Windows Explorer
-        std::string folderPath = fileInfo[1].substr(0, fileInfo[1].find_last_of("\\/")); // Extract folder path from file path
-        std::string openExplorerCommand = "explorer \"" + folderPath + "\"";
-        runCommand(openExplorerCommand);  // Open the folder in Windows Explorer
-    }
-
-    return 0;
-}

@@ -1,0 +1,9 @@
+File Name: Couch
+Source File Path: ..\BoofWoof\Assets\Objects\Couch.obj
+Output File Path: ..\BoofWoof\Resources\Objects\Couch.bin
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0

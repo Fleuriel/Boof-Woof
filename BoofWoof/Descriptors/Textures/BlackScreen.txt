@@ -1,0 +1,5 @@
+Texture Name : BlackScreen
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\BlackScreen.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\BlackScreen.dds
+Compression Format : -fd BC3

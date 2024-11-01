@@ -10,13 +10,10 @@
  * This file loads assets to be used
  *
  *************************************************************************/
-
 #include "pch.h"
 
 #pragma warning(push)
 #pragma warning(disable: 4244 4005)
-
-#include <cstdlib>      // for system command
 
 #include "AssetManager.h"
 #include "windows.h"
@@ -108,6 +105,16 @@ void DiscardToTrashBin(const std::string& filepath, const std::string& folderNam
 }
 
 
+
+
+
+
+
+
+
+
+
+
 /**************************************************************************
  * @brief Default Constructor
  *************************************************************************/
@@ -135,6 +142,10 @@ AssetManager::~AssetManager()
  *************************************************************************/
 void AssetManager::LoadAll() {
 
+
+    if (!fs::exists(FILEPATH_DESCRIPTORS))
+        fs::create_directory(FILEPATH_DESCRIPTORS);
+
     if (!fs::exists(FILEPATH_RESOURCES))
         fs::create_directory(FILEPATH_RESOURCES);
 
@@ -143,7 +154,7 @@ void AssetManager::LoadAll() {
         loadObjects     = LoadObjects(),
         //loadSprites   = AssetManager::LoadSprites(),
         //loadSounds    = AssetManager::LoadSounds(),
-        //loadFonts     = AssetManager::LoadFonts(),
+        loadFonts     = AssetManager::LoadFonts(),
         loadScenes      = AssetManager::LoadScenes(),
         //loadPrefabs   = AssetManager::LoadPrefabs(),
         loadShaders     = AssetManager::LoadShaders();
@@ -153,7 +164,7 @@ void AssetManager::LoadAll() {
         << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
         //<< ((loadSprites) ? "Sprites loaded successfully" : "Failed to load sprites") << std::endl
         //<< ((loadSounds) ? "Sounds loaded successfully" : "Failed to load sounds") << std::endl
-        //<< ((loadFonts) ? "Fonts loaded successfully" : "Failed to load fonts") << std::endl
+        << ((loadFonts) ? "Fonts loaded successfully" : "Failed to load fonts") << std::endl
         << ((loadScenes) ? "Scenes loaded successfully" : "Failed to load scenes") << std::endl
         //<< ((loadPrefabs) ? "Prefabs loaded successfully" : "Failed to load prefabs") << std::endl
         << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl 
@@ -162,7 +173,7 @@ void AssetManager::LoadAll() {
     AssetManager::LoadTextures(),
         //AssetManager::LoadSprites(),
         //AssetManager::LoadSounds(),
-        //AssetManager::LoadFonts(),
+        AssetManager::LoadFonts(),
         AssetManager::LoadScenes(),
         //AssetManager::LoadPrefabs(),
         AssetManager::LoadShaders();
@@ -259,27 +270,7 @@ void AssetManager::FreeAll() {
 
 
 
-// Function to generate a 64-bit GUID with the first bit set to 1 and next 5 bits set by the parameter
-uint64_t generateGUID64(int valueFor5Bits) {
-    // Ensure the provided value fits in 5 bits (0-31)
-    valueFor5Bits &= 0x1F;  // 0x1F is 11111 in binary, which masks the value to 5 bits
 
-    // Use random device and mt19937_64 for high-quality random number generation
-    std::random_device rd;  // Seed for random number engine
-    std::mt19937_64 generator(rd());  // 64-bit Mersenne Twister engine
-    uint64_t guid = generator();
-
-    // Force the first bit (MSB) to be 1
-    guid |= (1ULL << 63);
-
-    // Clear the next 5 bits after the MSB
-    guid &= ~(0x1FULL << 58);  // 0x1F is 5 bits of 1's, shifted to the 58th position
-
-    // Set the next 5 bits to the value of the parameter
-    guid |= (static_cast<uint64_t>(valueFor5Bits) << 58);
-
-    return guid;
-}
 
  /**************************************************************************
   * @brief Loads textures from the specified directory.
@@ -330,15 +321,20 @@ bool AssetManager::LoadTextures() {
                 std::cout << nameWithoutExtension << " detected successfully!\n";
 #endif // DEBUG
 
+                if (!fs::exists(FILEPATH_TEXTURES_DESCRIPTOR))
+                    fs::create_directory(FILEPATH_TEXTURES_DESCRIPTOR);
+
                 // Create an output file stream (ofstream) object
-                std::string descriptorFilePath{ FILEPATH_DESCRIPTORS + "/" + "Texture_" + nameWithoutExtension + ".txt"};
+                std::string descriptorFilePath{ FILEPATH_TEXTURES_DESCRIPTOR + "/" + nameWithoutExtension + ".txt"};
                 std::ofstream outFile(descriptorFilePath);
 
                 // Check if the file opened successfully
                 if (outFile.is_open()) {
-
-                    // Write "Hello World" to the file
-                    outFile << "File Name : " << entry.path().filename().string() << std::endl;
+                    
+                    outFile << "Texture Name : " << nameWithoutExtension << std::endl;
+                    outFile << "Texture File Path : " << FILEPATH_TEXTURES + "\\" + entry.path().filename().string() << std::endl;
+                    outFile << "Resource GUID : " << std::endl;
+                    outFile << "Resource File Path : " << FILEPATH_TEXTURES_RESOURCE + "\\" + nameWithoutExtension + ".dds" << std::endl;
                     outFile << "Compression Format : "<< "-fd BC3";
 
                     // Close the file
@@ -347,16 +343,22 @@ bool AssetManager::LoadTextures() {
 
                 if (!fs::exists(FILEPATH_TEXTURES_RESOURCE))
                     fs::create_directory(FILEPATH_TEXTURES_RESOURCE);
+                
 
                 // Process the descriptor file and print details
-                std::vector<std::string> fileInfo = processDescriptorFile(descriptorFilePath);
+                std::vector<std::string> fileInfo;
+                fileInfo.reserve(5);
+                fileInfo = processTextureDescriptorFile(descriptorFilePath);
                 if (!fileInfo.empty()) {
-                    // std::cout << fileInfo[0] << std::endl;
-                    // std::cout << fileInfo[1] << std::endl;
+
+                     std::cout << fileInfo[0] << std::endl;
+                     std::cout << fileInfo[1] << std::endl;
+                     std::cout << fileInfo[2] << std::endl;
+                     std::cout << fileInfo[3] << std::endl;
+                     std::cout << fileInfo[4] << std::endl;
 
                     // Run compression command
-                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[0] + " " + FILEPATH_TEXTURES + "\\" + fileInfo[1] + " " + FILEPATH_TEXTURES_RESOURCE + "\\" + nameWithoutExtension + ".dds");
-                    std::cout << "eleiggle\t " << nameWithoutExtension << '\n';
+                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[4] + " " + fileInfo[1] + " " + fileInfo[3]);
                     g_ResourceManager.AddTextureDDS(nameWithoutExtension);
                 }
 
@@ -603,11 +605,9 @@ bool AssetManager::LoadObjects() {
     std::string filepath(FILEPATH_OBJECTS);
 
     if (fs::is_directory(filepath)) {
-        std::cout << "lemao\n";
         for (const auto& entry : fs::directory_iterator(filepath)) {
             std::string texFilePath = filepath + "\\" + entry.path().filename().string();
 
-            std::cout << "lemao\n";
             size_t pos = entry.path().filename().string().find_last_of('.');
             if (pos != std::string::npos) {
                 std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
@@ -1047,6 +1047,155 @@ bool AssetManager::FreeShaders()
 
 
 
+// Function to process the descriptor file
+std::vector<std::string> processFontDescriptorFile(const std::string& descriptorFilePath) {
+    std::ifstream file(descriptorFilePath);
+
+    if (!file.is_open()) {
+        std::cerr << "Unable to open descriptor file: " << descriptorFilePath << std::endl;
+        return {};
+    }
+
+    std::string line;
+    std::string fontName;
+    std::string fontFilePath;
+    std::string resourceGuid;
+    std::string resourceFilePath;
+    std::string resourceDataFilePath;
+
+    std::vector<std::string> fileInfo{};
+
+    while (std::getline(file, line)) {
+        // Find the "Texture Name" line
+        if (line.find("Font Name") != std::string::npos) {
+            fontName = trim(line.substr(line.find(":") + 1));
+            fileInfo.push_back(fontName);
+        }
+        // Find the "Texture File Path" line
+        if (line.find("Font File Path") != std::string::npos) {
+            fontFilePath = trim(line.substr(line.find(":") + 1));
+            fileInfo.push_back(fontFilePath);
+        }
+        // Find the "Resource GUID" line
+        if (line.find("Resource GUID") != std::string::npos) {
+            resourceGuid = trim(line.substr(line.find(":") + 1));
+            fileInfo.push_back(resourceGuid);
+        }
+        // Find the "Resource File Path" line
+        else if (line.find("Resource File Path") != std::string::npos) {
+            resourceFilePath = trim(line.substr(line.find(":") + 1));
+            fileInfo.push_back(resourceFilePath);
+        }
+        // Find the "Compression Format" line
+        else if (line.find("Resource Data File Path") != std::string::npos) {
+            resourceDataFilePath = trim(line.substr(line.find(":") + 1));
+            fileInfo.push_back(resourceDataFilePath);
+        }
+    }
+
+    std::cout << "\n**************************************************************************************\nFont Converter Print Out\n";
+    // Print out the details from the descriptor file
+    std::cout << "Texture Name: " << fileInfo[0] << std::endl;
+    std::cout << "Texture File Path: " << fileInfo[1] << std::endl;
+    std::cout << "Resource GUID: " << fileInfo[2] << std::endl;
+    std::cout << "Resource File Path: " << fileInfo[3] << std::endl;
+    std::cout << "Compression Format: " << fileInfo[4] << std::endl;
+    std::cout << "\n**************************************************************************************\n";
+
+    file.close();
+
+    return fileInfo;
+}
+
+
+
+bool AssetManager::LoadFonts() {
+
+    Currentlyloading = true;
+    std::string filepath(FILEPATH_FONTS);
+
+    if (fs::is_directory(filepath)) {
+        for (const auto& entry : fs::directory_iterator(filepath)) {
+            std::string texFilePath = filepath + "\\" + entry.path().filename().string();
+            //std::cout << "Font file " << texFilePath << " Found." << std::endl;
+
+            size_t pos = entry.path().filename().string().find_last_of('.');
+            if (pos != std::string::npos) {
+                std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
+                //std::cout << nameWithoutExtension << std::endl;
+
+                std::string Extension = entry.path().filename().string().substr(pos);
+                //std::cout << Extension;
+                std::string allowedExtensions = ".ttf";
+
+                // Check if the substring exists in the full string
+                size_t found = allowedExtensions.find(toLowerCase(Extension));
+
+                if (found == std::string::npos) {
+                    DiscardToTrashBin(entry.path().string(), FILEPATH_FONTS);
+                    continue;
+                }
+
+
+#ifdef _DEBUG
+                std::cout << "\n**************************************************************************************\n";
+                std::cout << nameWithoutExtension << " detected successfully!\n";
+#endif // DEBUG
+
+                if (!fs::exists(FILEPATH_FONTS_DESCRIPTOR))
+                    fs::create_directory(FILEPATH_FONTS_DESCRIPTOR);
+
+                // Create an output file stream (ofstream) object
+                std::string descriptorFilePath{ FILEPATH_FONTS_DESCRIPTOR + "/" + nameWithoutExtension + ".txt" };
+                std::ofstream outFile(descriptorFilePath);
+
+                // Check if the file opened successfully
+                if (outFile.is_open()) {
+
+                    outFile << "Font Name : " << nameWithoutExtension << std::endl;
+                    outFile << "Font File Path : " << FILEPATH_FONTS + "\\" + entry.path().filename().string() << std::endl;
+                    outFile << "Resource GUID : " << std::endl;
+                    outFile << "Resource File Path : " << FILEPATH_FONTS_RESOURCE + "\\" + nameWithoutExtension + ".png" << std::endl;
+                    outFile << "Resource Data File Path : " << FILEPATH_FONTS_RESOURCE + "\\" + nameWithoutExtension + ".json" << std::endl;
+                    
+
+                    // Close the file
+                    outFile.close();
+                }
+
+                if (!fs::exists(FILEPATH_FONTS_RESOURCE))
+                    fs::create_directory(FILEPATH_FONTS_RESOURCE);
+
+                // Process the descriptor file and print details
+                std::vector<std::string> fileInfo = processFontDescriptorFile(descriptorFilePath);
+                if (!fileInfo.empty()) {
+
+                    // Run command
+                    runCommand("..\\lib\\msdf-atlas-gen\\msdf-atlas-gen.exe -font " + fileInfo[1] + " -allglyphs -size 32 -imageout " + fileInfo[3] + " -json " + fileInfo[4]);
+                
+                }
+
+            }
+            else
+            {
+#ifdef _DEBUG
+                std::cout << "File " << entry.path().filename().string() << " is missing file extension.\n";
+#endif // DEBUG
+            }
+
+        }
+        Currentlyloading = false;
+        return true;
+    }
+    else {
+        // Print error
+#ifdef _DEBUG
+        std::cout << "The specified path is not a directory." << std::endl;
+#endif // DEBUG
+        Currentlyloading = false;
+        return false;
+    }
+}
 
 
 #pragma warning(pop)
