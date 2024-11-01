@@ -21,6 +21,7 @@
 #include <Jolt/Physics/Body/BodyInterface.h>          // For BodyInterface
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
 #include <../Utilities/Components/CollisionComponent.hpp>
+#include <../Utilities/Components/MetaData.hpp> // To get name of entity
 
 #include <glm/gtc/quaternion.hpp>   // For glm::quat
 #include <glm/gtx/euler_angles.hpp> // For Euler angles
@@ -165,6 +166,10 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
         auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
 
+        // Use GetName() to check if this entity is the player
+        std::string name = g_Coordinator.GetComponent<MetadataComponent>(entity).GetName();
+        bool isPlayer = (name == "Player");
+
         JPH::RVec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
         glm::vec3 scale = transform.GetScale();
 
@@ -173,13 +178,18 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         JPH::BoxShape* boxShape = new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.5f, scale.z * 0.5f));
         //JPH::BoxShape* boxShape = new JPH::BoxShape(JPH::Vec3(scale.x * 1.f, scale.y * 1.f, scale.z * 1.f));
 
+        // Set motion type based on whether the entity is the player
+        JPH::EMotionType motionType = isPlayer ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
+
         // Define body creation settings
         JPH::BodyCreationSettings bodySettings(
             boxShape,
             position,
             JPH::Quat::sIdentity(),  // Assuming no initial rotation
-            JPH::EMotionType::Dynamic,  // Use dynamic motion type for now
-            Layers::MOVING  // ObjectLayer, ensure this is valid
+            //JPH::EMotionType::Dynamic,  // Use dynamic motion type for now
+            motionType, // Set Motion Type for entity
+            //Layers::MOVING  // ObjectLayer, ensure this is valid
+            motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING  // Layer based on motion type
         );
 
         JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
@@ -204,7 +214,9 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             bodyID = body->GetID();
             //body->SetUserData(static_cast<JPH::uint64>(entity)); // Set the entity ID as user data
             mPhysicsSystem->GetBodyInterface().AddBody(body->GetID(), JPH::EActivation::Activate);
-            body->SetAllowSleeping(false); // Prevent body from sleeping for debug
+            if (isPlayer) {
+                body->SetAllowSleeping(false); // Prevent player body from sleeping
+            }
 
             // Assign the body to the CollisionComponent
             collisionComponent.SetPhysicsBody(body);
