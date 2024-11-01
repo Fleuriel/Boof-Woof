@@ -2,7 +2,8 @@
 #ifndef BEHAVIOURINTERFACE_H
 #define BEHAVIOURINTERFACE_H
 
-#include "../ECS/Coordinator.hpp"
+#include "../ECS/pch.h"
+
 
 struct Behaviour_i
 {
@@ -23,7 +24,10 @@ struct engine_interface
 {
 	virtual ~engine_interface() = default;
 	virtual input_interface& getInputSystem() = 0;
-	virtual void ChangePosition(Entity entity, float x, float y, float z) = 0;
+
+	virtual glm::vec3 GetPosition(Entity entity) = 0;
+	virtual void SetPosition(Entity entity, glm::vec3 position) = 0;
+	//virtual void ChangePosition(Entity entity, float x, float y, float z) = 0;
 };
 
 using GetScripts_cpp_t = std::vector<std::unique_ptr<Behaviour_i>>* (*)(engine_interface* pEI);

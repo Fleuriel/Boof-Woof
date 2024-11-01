@@ -19,7 +19,6 @@
     <ClCompile Include="Core\Audio\AudioSystem.cpp" />
     <ClCompile Include="Core\Logic\LogicSystem.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.hpp" />
-    <ClCompile Include="Core\Logic\Behaviour.cpp" />
     <ClCompile Include="Core\AssetManager\Sprite.cpp" />
     <ClCompile Include="Core\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Core\Graphics\FontSystem.cpp" />

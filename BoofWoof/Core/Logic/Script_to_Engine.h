@@ -20,12 +20,15 @@ public:
 	{
 		return *this;
 	}
-
-	// Exposing Engine functions to scripts
-	virtual void ChangePosition(Entity entity, float x, float y, float z) override
+	
+	virtual glm::vec3 GetPosition(Entity entity) override
 	{
-		auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
-		transform.SetPosition(transform.GetPosition() + glm::vec3(x, y, z));
+		return g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition();
+	}
+
+	virtual void SetPosition(Entity entity, glm::vec3 position) override
+	{
+		g_Coordinator.GetComponent<TransformComponent>(entity).SetPosition(position);
 	}
 
 };
