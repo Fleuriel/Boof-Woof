@@ -51,18 +51,18 @@ namespace Movement
 
 		glm::vec3 velocity(0.0f);
 
-		if (g_Input.GetKeyState(GLFW_KEY_W) >= 1) {
-			velocity.z -= 1.f;
-		}
-		if (g_Input.GetKeyState(GLFW_KEY_S) >= 1) {
-			velocity.z += 1.f;
-		}
-		if (g_Input.GetKeyState(GLFW_KEY_A) >= 1) {
-			velocity.x -= 1.f;
-		}
-		if (g_Input.GetKeyState(GLFW_KEY_D) >= 1) {
-			velocity.x += 1.f;
-		}
+		//if (g_Input.GetKeyState(GLFW_KEY_W) >= 1) {
+		//	velocity.z -= 1.f;
+		//}
+		//if (g_Input.GetKeyState(GLFW_KEY_S) >= 1) {
+		//	velocity.z += 1.f;
+		//}
+		//if (g_Input.GetKeyState(GLFW_KEY_A) >= 1) {
+		//	velocity.x -= 1.f;
+		//}
+		//if (g_Input.GetKeyState(GLFW_KEY_D) >= 1) {
+		//	velocity.x += 1.f;
+		//}
 
 		// Update the physics body's velocity
 		if (collisionComponent.GetPhysicsBody()) {

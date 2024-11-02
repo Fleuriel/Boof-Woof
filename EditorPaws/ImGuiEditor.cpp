@@ -405,40 +405,13 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
 			{
-			//	std::cout << "hehe\n";
 				std::string modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
 				
-				// This screws with the entire code.
-
-				//if (modelName.empty())
-				//{
-				//	std::cerr << "Error: modelName is null!" << std::endl;
-				//	ImGui::End();
-				//	return;
-				//}
-				/*if (modelGetter == "cubeModel")
-				{
-					source = "cubeModel";
-				}*/
-
 				// Just add onto the mNames if got new models
 				std::vector<std::string> modelNames = g_ResourceManager.getModelNames();
 
 				static int currentItem = 0;
-
-				// for (const auto& name : modelNames) {
-				// 	std::cout << name << std::endl; // Print each model name
-				// }
-
-				//for (int i = 0; i < IM_ARRAYSIZE(mNames); ++i)
-				//{
-				//	if (mNames[i] == modelName)
-				//	{
-				//		currentItem = i;
-				//	}
-				//}
-				
-
+		
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Model   "); ImGui::SameLine();
 
