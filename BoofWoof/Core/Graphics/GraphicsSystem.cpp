@@ -2,7 +2,7 @@
 #include "GraphicsSystem.h"
 #include <utility>
 #include "../Input/Input.h"
-#include "Camera.h"
+
 #include "FontSystem.h"
 #include "AssetManager/AssetManager.h"
 #include "ResourceManager/ResourceManager.h"
@@ -16,10 +16,10 @@ bool GraphicsSystem::glewInitialized = false;
 bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
 
+Camera GraphicsSystem::camera;
+
 //int GraphicsSystem::set_Texture_ = 0;
 //std::vector<Model2D> models;
-
-Camera		camera;
 ShaderParams shdrParam;
 
 void GraphicsSystem::initGraphicsPipeline() {

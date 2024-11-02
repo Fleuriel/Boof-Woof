@@ -817,6 +817,25 @@ void ImGuiEditor::Settings()
 	}
 
 	ImGui::End();
+
+
+	/// camera control
+	if (g_Input.GetKeyState(GLFW_KEY_UP))
+	{
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::FORWARD, g_Core->m_DeltaTime);
+	}
+	if (g_Input.GetKeyState(GLFW_KEY_DOWN))
+	{
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::BACKWARD, g_Core->m_DeltaTime);
+	}
+	if (g_Input.GetKeyState(GLFW_KEY_LEFT))
+	{
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::LEFT, g_Core->m_DeltaTime);
+	}
+	if (g_Input.GetKeyState(GLFW_KEY_RIGHT))
+	{
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::RIGHT, g_Core->m_DeltaTime);
+	}
 }
 
 void ImGuiEditor::Scenes()

@@ -5,6 +5,7 @@
 
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
+#include "Camera.h"
 
 class Model;
 class Model2D;
@@ -50,13 +51,14 @@ public:
 
     GLuint GetFramebufferTexture() const { return textureColorbuffer; }  // Getter function
 
-    void AddModel_3D(std::string const& path);
+    //void AddModel_3D(std::string const& path);
     void AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model);
 
     void AddModel_2D();
 
     void UpdateViewportSize(int width, int height);  // Method to handle viewport resizing
     inline void SetEditorMode(bool EditorMode) { editorMode = EditorMode; };
+	Camera& GetCamera() { return camera; };
 
 private:
     unsigned int fbo;
@@ -64,6 +66,7 @@ private:
     unsigned int rbo;
     bool editorMode = false;
     static GLFWwindow* newWindow;  // OpenGL window
+	static Camera camera;
 
 };
 
