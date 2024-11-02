@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "7330ba43-95ba-41ed-bba3-fcf81b2118b2",
+    "SceneGUID": "0fffbdcc-678e-4072-bfdb-41ae13f44999",
     "Entities": [
         {
             "EntityName": "Player",
@@ -21,11 +21,11 @@
             "ModelID": 0,
             "EntityID": 0,
             "ModelName": "cubeModel",
-            "Texture": "",
+            "Texture": " ",
             "AudioFilePath": "../BoofWoof/Assets/Audio/explode2.wav",
             "Volume": 1.0,
             "ShouldLoop": false,
-            "BehaviourName": "Movement"
+            "BehaviourName": "Player"
         },
         {
             "EntityName": "GameObject",
@@ -47,7 +47,7 @@
             "ModelID": 0,
             "EntityID": 1,
             "ModelName": "cubeModel",
-            "Texture": "",
+            "Texture": " ",
             "BehaviourName": "Null"
         }
     ]
