@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EngineCore.h"
+#include "../Core/Reflection/ReflectionManager.hpp"
 
 std::shared_ptr<GraphicsSystem> mGraphicsSys;
 std::shared_ptr<AudioSystem> mAudioSys;
@@ -110,6 +111,12 @@ void EngineCore::OnInit()
 	// Just leave this part at the most bottom
 	m_AccumulatedTime = 0.0;		// elapsed time
 	m_CurrNumSteps = 0;
+
+	ReflectionManager::Instance().RegisterComponentType<TransformComponent>("TransformComponent");
+	ReflectionManager::Instance().RegisterComponentType<GraphicsComponent>("GraphicsComponent");
+	ReflectionManager::Instance().RegisterComponentType<AudioComponent>("AudioComponent");
+	ReflectionManager::Instance().RegisterComponentType<BehaviourComponent>("BehaviourComponent");
+	ReflectionManager::Instance().RegisterComponentType<CollisionComponent>("CollisionComponent");
 }
 
 void EngineCore::OnUpdate()

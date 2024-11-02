@@ -1,10 +1,10 @@
-//TransformComponent.cpp
+//GraphicsComponent.cpp
 #include <pch.h>
-#include "TransformComponent.hpp"
+#include "AudioComponent.hpp"
 #include "../Core/Reflection/ReflectionManager.hpp"  // Include the ReflectionManager
 
 // Implement the RegisterProperties function
-void TransformComponent::RegisterProperties()
+void AudioComponent::RegisterProperties()
 {
     static bool registered = false;
     if (!registered)

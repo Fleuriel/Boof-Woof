@@ -1,3 +1,4 @@
+//ReflectionManager.hpp
 #pragma once
 #include <string>
 #include <unordered_map>
@@ -7,6 +8,7 @@
 #include <type_traits>
 #include <glm/glm.hpp>
 #include <sstream>
+#include <typeindex>
 
 // Base class for ReflectionProperty to enable polymorphism
 class ReflectionPropertyBase
@@ -47,6 +49,12 @@ public:
         {
             m_Setter(static_cast<T*>(instance), value);
         }
+        else if constexpr (std::is_same<FieldType, bool>::value)
+        {
+            // Special handling for boolean values
+            bool convertedValue = (value == "true");
+            m_Setter(static_cast<T*>(instance), convertedValue);
+        }
         else if constexpr (std::is_arithmetic<FieldType>::value)
         {
             FieldType convertedValue = static_cast<FieldType>(std::stod(value));
@@ -68,6 +76,11 @@ public:
         if constexpr (std::is_same<FieldType, std::string>::value)
         {
             return m_Getter(static_cast<T*>(instance));
+        }
+        else if constexpr (std::is_same<FieldType, bool>::value)
+        {
+            // Special handling for boolean values
+            return m_Getter(static_cast<T*>(instance)) ? "true" : "false";
         }
         else if constexpr (std::is_arithmetic<FieldType>::value)
         {
@@ -92,6 +105,7 @@ private:
     GetterFunc m_Getter;
 };
 
+
 // ReflectionManager class
 class ReflectionManager
 {
@@ -106,16 +120,32 @@ public:
 
     const std::vector<ReflectionPropertyBase*>& GetProperties(const std::string& className) const;
 
+    // Register component type
     template <typename T>
-    std::string SerializeComponent(T* component, const std::string& className);
+    void RegisterComponentType(const std::string& className)
+    {
+        m_ComponentTypes.emplace(className, []() -> void* { return new T(); });
+        m_TypeNames[typeid(T)] = className;
+    }
 
+    // Get all registered component types
+    const std::unordered_map<std::string, std::function<void* ()>>& GetComponentTypes() const
+    {
+        return m_ComponentTypes;
+    }
+
+    // Get the name of a type
     template <typename T>
-    void DeserializeComponent(T* component, const std::string& className, const std::string& serializedData);
+    std::string GetTypeName()
+    {
+        return m_TypeNames[typeid(T)];
+    }
 
 private:
     std::unordered_map<std::string, std::vector<ReflectionPropertyBase*>> m_Properties;
+    std::unordered_map<std::string, std::function<void* ()>> m_ComponentTypes; // Registered component types
+    std::unordered_map<std::type_index, std::string> m_TypeNames;            // Mapping from type to class name
 };
-
 
 #define REGISTER_PROPERTY(ClassType, PropertyName, FieldType, Setter, Getter)          \
     ReflectionManager::Instance().RegisterProperty<ClassType>(                         \
