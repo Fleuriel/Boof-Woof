@@ -612,11 +612,22 @@ bool AssetManager::LoadObjects() {
             if (pos != std::string::npos) {
                 std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
                 std::string Extension = entry.path().filename().string().substr(pos);
-                std::string allowedExtensions = ".obj";
+                std::string allowedExtensions = ".obj, .mtl, .jpg, .png";
 
-                size_t found = allowedExtensions.find(toLowerCase(Extension));
+                std::string ignoreExtensions = ".mtl, .jpg, .png";
 
-                if (found == std::string::npos) {
+
+                size_t allowedFound = allowedExtensions.find(toLowerCase(Extension));
+                size_t ignoreFound = ignoreExtensions.find(toLowerCase(Extension));
+
+
+
+
+                if (allowedFound == std::string::npos) {
+                    if (ignoreFound == std::string::npos)
+                    {
+                        continue;
+                    }
                     DiscardToTrashBin(entry.path().string(), FILEPATH_OBJECTS);
                     continue;
                 }
