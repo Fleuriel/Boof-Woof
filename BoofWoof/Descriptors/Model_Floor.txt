@@ -1,0 +1,9 @@
+File Name: Floor
+Source File Path: ..\BoofWoof\Assets\Objects\Floor.obj
+Output File Path: ..\BoofWoof\Resources\Objects\Floor.bin
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0

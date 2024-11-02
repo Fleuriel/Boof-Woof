@@ -1,0 +1,9 @@
+File Name: Chair
+Source File Path: ..\BoofWoof\Assets\Objects\Chair.obj
+Output File Path: ..\BoofWoof\Resources\Objects\Chair.bin
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0

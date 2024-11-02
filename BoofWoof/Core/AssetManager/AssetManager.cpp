@@ -612,7 +612,7 @@ bool AssetManager::LoadObjects() {
             if (pos != std::string::npos) {
                 std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
                 std::string Extension = entry.path().filename().string().substr(pos);
-                std::string allowedExtensions = ".obj, .mtl, .jpg, .png";
+                std::string allowedExtensions = ".obj";
 
                 std::string ignoreExtensions = ".mtl, .jpg, .png";
 
@@ -620,17 +620,34 @@ bool AssetManager::LoadObjects() {
                 size_t allowedFound = allowedExtensions.find(toLowerCase(Extension));
                 size_t ignoreFound = ignoreExtensions.find(toLowerCase(Extension));
 
-
-
-
-                if (allowedFound == std::string::npos) {
-                    if (ignoreFound == std::string::npos)
-                    {
-                        continue;
-                    }
-                    DiscardToTrashBin(entry.path().string(), FILEPATH_OBJECTS);
-                    continue;
+                // Skip file if it is in the ignore list
+                if (ignoreExtensions.find(Extension) != std::string::npos) {
+                    continue; // Ignore this file
                 }
+
+                // Only proceed if the extension matches the allowed extension
+                if (Extension == allowedExtensions) {
+                    // Process the .obj file
+                    std::cout << "Processing: " << texFilePath << std::endl;
+                }
+                else {
+                    // Discard unrecognized files
+                    DiscardToTrashBin(entry.path().string(), "FILEPATH_OBJECTS");
+                }
+
+
+               // if (allowedFound == std::string::npos) {
+               //     if (ignoreFound == std::string::npos)
+               //     {
+               //         continue;
+               //     }
+               //     DiscardToTrashBin(entry.path().string(), FILEPATH_OBJECTS);
+               //     continue;
+               // }
+               // else
+               // {
+               //     continue;
+               // }
 
                 std::cout << "\n**************************************************************************************\n";
 #ifdef _DEBUG
@@ -647,30 +664,35 @@ bool AssetManager::LoadObjects() {
 
 
 
-                Model model;
-               // std::cout << "Loading: " << binFilePath << '\n';
-               //
-                model.loadModel(objFilePath, GL_TRIANGLES);
-
-               //
-               // ModelMap.insert(std::pair<std::string, Model>(nameWithoutExtension, model));
-               //
-               // std::cout << "Loaded: " << binFilePath << " with name: " << nameWithoutExtension << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
-
-                // Parse the .obj file into vertices and indices
-                std::vector<Vertex> vertices;
-                std::vector<unsigned int> indices;
-                parseOBJ(objFilePath, vertices, indices);
-                std::cout << vertices.size() << '\t' << indices.size() << "\t This Vertices ASize\n";
-
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTORS + "/Model_" + nameWithoutExtension + ".txt" };
+                std::ofstream outFile(descriptorFilePath);
                 
-                // Create Mesh object and populate it with the vertices and indices
-               // Mesh mesh;//(vertices, indices);
+               
+ 
+                if (outFile.is_open())
+                {
+                    outFile << "File Name: " << nameWithoutExtension << '\n';
+                    outFile << "Source File Path: " << objFilePath << '\n';
+                    outFile << "Output File Path: " << binFilePath << '\n';
+                    outFile << "Expected Attributes: \n";
+                    outFile << " -  Vertices\n";
+                    outFile << " -  Indices\n";
+                    outFile << " -  Normals\n";
+                    outFile << "Transform Defauls: \n";
+                    outFile << " -  Scale: 1.0\n";
+                    outFile.close();
+                }
+ 
 
-                //mesh.processMesh();
-
-                // Now save the mesh to the .bin file
-                saveMeshToBin(model.meshes, binFilePath);
+ //                std::vector<std::string> fileInfo = processDescriptorFile(descriptorFilePath);
+ 
+               
+ //                    runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe " + fileInfo[1] + " " +  fileInfo[2]);
+ #ifdef _DEBUG
+                runCommand("..\\lib\\MeshCompiler\\x64\\Debug\\MeshCompiler.exe /Model_" + nameWithoutExtension + ".txt " + FILEPATH_DESCRIPTORS + " " + descriptorFilePath);
+ #else
+                runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe /Model_" + nameWithoutExtension + ".txt " + FILEPATH_DESCRIPTORS + " " + descriptorFilePath);
+ #endif
 
 
                 g_ResourceManager.AddModelBinary(nameWithoutExtension);
@@ -678,9 +700,7 @@ bool AssetManager::LoadObjects() {
 #ifdef _DEBUG
                 std::cout << "Binary file created: " << binFilePath << std::endl;
 #endif
-                // Clear data for next object
-                vertices.clear();
-                indices.clear();
+
             }
             else {
 #ifdef _DEBUG
