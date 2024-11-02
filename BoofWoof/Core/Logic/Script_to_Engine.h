@@ -54,3 +54,5 @@ public:
 };
 
 #endif // !SCRIPT_TO_ENGINE_H
+
+#pragma warning(pop)
