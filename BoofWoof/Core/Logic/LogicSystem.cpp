@@ -38,11 +38,6 @@ void LogicSystem::Init()
 
 			// Get the scripts from the script engine
 			AddBehaviours(GetScripts(mScriptEngine));
-
-
-			// Get the scripts from the script engine
-			// Add scripts from script engine to logic system
-			// AddBehaviours(pGetScripts(new Script_to_Engine()));
 		}
 	}
 
@@ -123,13 +118,3 @@ void LogicSystem::AddBehaviours(void* scriptBehavioursPtr)
 	// Clean up B_Vec to free the allocated memory
 	delete B_Vec;
 }
-
-//void LogicSystem::AddBehaviours(std::vector<std::unique_ptr<Behaviour_i>>* B_Vec)
-//{
-//	/*for (int i = 0; B_Vec->begin() + i != B_Vec->end(); i++)
-//	{
-//		std::cout << "Behaviour Added : " << B_Vec->begin()[i]->getBehaviourName() << std::endl;
-//		mBehaviours[B_Vec->begin()[i]->getBehaviourName()] = std::move(B_Vec->begin()[i]);
-//		
-//	}*/
-//}

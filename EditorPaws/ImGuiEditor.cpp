@@ -405,9 +405,7 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
 			{
-				std::string modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
-				
-				// Just add onto the mNames if got new models
+				std::string modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();			
 				std::vector<std::string> modelNames = g_ResourceManager.getModelNames();
 
 				static int currentItem = 0;
@@ -427,22 +425,20 @@ void ImGuiEditor::InspectorWindow()
 				}
 
 				// modelID
-				auto modelID = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelID();
-				ImGui::Text("ModelID "); ImGui::SameLine();
-				if (ImGui::DragInt("##ModelID", &modelID, 1))
-				{
-					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModelID(modelID);
-				}
+				//auto modelID = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelID();
+				//ImGui::Text("ModelID "); ImGui::SameLine();
+				//if (ImGui::DragInt("##ModelID", &modelID, 1))
+				//{
+				//	g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModelID(modelID);
+				//}
 
 
 				if (ImGui::Button("Set Texture"))
 				{
-					std::cout << "ButtoN clicked\n";
-					//ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png, .jpg", "../BoofWoof/Assets/Art/Texture");
-					ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".dds, .png", "../BoofWoof/Assets");
+					ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png, .dds", "../BoofWoof/Assets");
 				}
 
-				if (ImGuiFileDialog::Instance()->Display("AddAsset"))
+				if (ImGuiFileDialog::Instance()->Display("SetTexture"))
 				{
 					// If the user pressed "Ok"
 					if (ImGuiFileDialog::Instance()->IsOk())
@@ -578,20 +574,20 @@ void ImGuiEditor::InspectorWindow()
 		{
 			if (ImGui::CollapsingHeader("Behaviour", ImGuiTreeNodeFlags_None))
 			{
-				std::string name = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).GetBehaviourName();
-				//if (name.empty())
-				//{
-				//	std::cerr << "Error: Behaviour name is null!" << std::endl;
-				//	return;
-				//}
+				std::string bName = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).GetBehaviourName();
+				if (bName.empty())
+				{
+					std::cerr << "Error: Behaviour name is null!" << std::endl;
+					return;
+				}
 
 				// Just add onto the BehaviourNames if got new script
-				std::string behaviourNames[] = { "Null", "Player", "Movement" };		
+				std::string behaviourNames[] = { "Null", "Player" };		
 				static int currentItem = 0;
 
 				for (int i = 0; i < IM_ARRAYSIZE(behaviourNames); ++i)
 				{
-					if (behaviourNames[i] == name)
+					if (behaviourNames[i] == bName)
 					{
 						currentItem = i;
 					}
@@ -600,13 +596,13 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Name    "); ImGui::SameLine();
 
-				if (ImGui::Combo("##ModelCombo", &currentItem, [](void* data, int idx, const char** out_text) {
+				if (ImGui::Combo("##NameCombo", &currentItem, [](void* data, int idx, const char** out_text) {
 					*out_text = ((std::string*)data)[idx].c_str();
 				return true;
 					}, (void*)behaviourNames, IM_ARRAYSIZE(behaviourNames)))
 				{
-					name = behaviourNames[currentItem];
-					g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).SetBehaviourName(name);
+					bName = behaviourNames[currentItem];
+					g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).SetBehaviourName(bName);
 				}
 			}
 		}
@@ -652,50 +648,50 @@ void ImGuiEditor::AssetWindow()
 
 		// subtract the width of the buttons and spacing from the available space to align to the right
 		ImGui::SameLine(availableSpace);
-		if (ImGui::Button("Add Asset"))
-		{
-			ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag", "../BoofWoof/Assets/");
-		}
+		//if (ImGui::Button("Add Asset"))
+		//{
+		//	ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag", "../BoofWoof/Assets/");
+		//}
 
-		ImGui::SameLine();
-		if (ImGui::Button("Delete Asset"))
-		{
-			ImGuiFileDialog::Instance()->OpenDialog("DeleteAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag", "../BoofWoof/Assets/");
-		}
+		//ImGui::SameLine();
+		//if (ImGui::Button("Delete Asset"))
+		//{
+		//	ImGuiFileDialog::Instance()->OpenDialog("DeleteAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag", "../BoofWoof/Assets/");
+		//}
 
-		if (ImGuiFileDialog::Instance()->Display("AddAsset"))
-		{
-			// Check if the user made a selection
-			if (ImGuiFileDialog::Instance()->IsOk())
-			{
-				// Get the selected file path
-				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+		//if (ImGuiFileDialog::Instance()->Display("AddAsset"))
+		//{
+		//	// Check if the user made a selection
+		//	if (ImGuiFileDialog::Instance()->IsOk())
+		//	{
+		//		// Get the selected file path
+		//		std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
 
-				// Asset manager to add in the assets e.g. g_AssetManager.AddAssets(filePathName);
-			}
+		//		// Asset manager to add in the assets e.g. g_AssetManager.AddAssets(filePathName);
+		//	}
 
-			// close
-			ImGuiFileDialog::Instance()->Close();
-		}
+		//	// close
+		//	ImGuiFileDialog::Instance()->Close();
+		//}
 
-		if (ImGuiFileDialog::Instance()->Display("DeleteAsset"))
-		{
-			// Check if the user made a selection
-			if (ImGuiFileDialog::Instance()->IsOk())
-			{
-				// Get the selected file path
-				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+		//if (ImGuiFileDialog::Instance()->Display("DeleteAsset"))
+		//{
+		//	// Check if the user made a selection
+		//	if (ImGuiFileDialog::Instance()->IsOk())
+		//	{
+		//		// Get the selected file path
+		//		std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
 
-				// find last / to get file name only
-				size_t lastSlash = filePathName.find_last_of("/\\");
-				std::string deleteFileName = filePathName.substr(lastSlash + 1);
+		//		// find last / to get file name only
+		//		size_t lastSlash = filePathName.find_last_of("/\\");
+		//		std::string deleteFileName = filePathName.substr(lastSlash + 1);
 
-				// Asset manager to delete the assets e.g. g_AssetManager.DeleteAssets(deleteFileName);
-			}
+		//		// Asset manager to delete the assets e.g. g_AssetManager.DeleteAssets(deleteFileName);
+		//	}
 
-			// close
-			ImGuiFileDialog::Instance()->Close();
-		}
+		//	// close
+		//	ImGuiFileDialog::Instance()->Close();
+		//}
 
 		ImGui::Spacing();  ImGui::Separator(); ImGui::Spacing();
 
