@@ -15,17 +15,22 @@ class Script_to_Engine : public engine_interface, public input_interface
 {
 public:
 
+	// INPUT INTERFACE
+	virtual input_interface& getInputSystem() override
+	{
+		return *this;
+	}
 
 	virtual bool isButtonPressed(std::uint32_t Key) override
 	{
 		return g_Input.GetKeyState(Key);
 	}
 
-	virtual input_interface& getInputSystem() override
-	{
-		return *this;
-	}
+	// END OF INPUT INTERFACE
+
+	// ENGINE INTERFACE
 	
+	//Transform Component
 	virtual glm::vec3 GetPosition(Entity entity) override
 	{
 		return g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition();
@@ -41,9 +46,16 @@ public:
 		return g_Coordinator.HaveComponent<TransformComponent>(entity);
 	}
 
-	virtual bool HaveVelocityComponent(Entity entity) override
+
+	//Collision Component
+	virtual bool HaveCollisionComponent(Entity entity) override
 	{
 		return g_Coordinator.HaveComponent<CollisionComponent>(entity);
+	}
+
+	virtual bool HavePhysicsBody(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody() != nullptr;
 	}
 
 	virtual void SetVelocity(Entity entity, glm::vec3 velocity) override
