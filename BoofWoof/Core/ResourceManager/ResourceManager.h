@@ -15,10 +15,6 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
-
-#include <map>
-#include <string>
-#include <vector>
 #include <filesystem>
 #include "../Core/Graphics/Model.h"
 

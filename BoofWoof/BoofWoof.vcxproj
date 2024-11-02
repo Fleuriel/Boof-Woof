@@ -203,14 +203,13 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\Reflection\ReflectionManager.cpp" />
     <ClCompile Include="Core\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Core\SceneManager\SceneManager.cpp" />
-    <ClCompile Include="Core\Logic\Behaviour.cpp" />
     <ClCompile Include="Core\Logic\LogicSystem.cpp" />
-    <ClCompile Include="Core\Serialization\Serialization.cpp" />
-    <ClCompile Include="Core\Windows\WindowManager.cpp" />
     <ClCompile Include="Core\Scripts\Collectables.cpp" />
     <ClCompile Include="Core\Scripts\Movement.cpp" />
     <ClCompile Include="Core\Scripts\Null.cpp" />
     <ClCompile Include="Core\Scripts\Player.cpp" />
+    <ClCompile Include="Core\Serialization\Serialization.cpp" />
+    <ClCompile Include="Core\Windows\WindowManager.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.hpp" />
     <ClCompile Include="Utilities\Components\TransformComponent.cpp" />
   </ItemGroup>
@@ -238,6 +237,8 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Graphics\Shader.h" />
     <ClInclude Include="Core\GSM\GameStateMachine.h" />
     <ClInclude Include="Core\Input\Input.h" />
+    <ClInclude Include="Core\Logic\BehaviourInterface.h" />
+    <ClInclude Include="Core\Logic\Script_to_Engine.h" />
     <ClInclude Include="Core\Level Manager\Level.h" />
     <ClInclude Include="Core\Level Manager\LevelManager.h" />
     <ClInclude Include="Core\Physics\CollisionSystem.h" />

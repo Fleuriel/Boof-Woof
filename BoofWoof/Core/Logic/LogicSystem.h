@@ -3,10 +3,13 @@
 #ifndef LOGIC_SYSTEM_H
 #define LOGIC_SYSTEM_H
 
-class Behaviour;
+struct Behaviour;
+class Script_to_Engine;
 
 #include "../ECS/System.hpp"
 #include "Behaviour.h"
+#include "BehaviourInterface.h"
+#include <map>
 
 class LogicSystem : public System
 {
@@ -15,10 +18,13 @@ public:
 	void Update();
 	void Shutdown();
 
-	void AddBehaviour(Behaviour* behaviour);
+	void AddBehaviours(void* scriptBehavioursPtr);
+	//void AddBehaviours(std::vector<std::unique_ptr<Behaviour_i>>* B_Vec);
+
 private:
 	// Keep track of all the behaviours
-	 std::map<std::string, Behaviour*> mBehaviours;
+	 std::map<std::string, std::unique_ptr<Behaviour_i>> mBehaviours;
+	 Script_to_Engine* mScriptEngine;
 };
 
 extern Entity g_Player;

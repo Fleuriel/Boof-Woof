@@ -4,28 +4,18 @@
 
 #include "../ECS/Coordinator.hpp"
 #include "LogicSystem.h"
+#include "BehaviourInterface.h"
 
-
-typedef void(*InitBehaviour)(Entity);
-typedef void(*UpdateBehaviour)(Entity);
-typedef void(*DestroyBehaviour)(Entity);
-
-class Behaviour
+struct Behaviour : public Behaviour_i
 {
-public:
-	Behaviour(const char* mBehaviourName,const InitBehaviour& init, const UpdateBehaviour& update, const DestroyBehaviour& destroy);
+	Behaviour(engine_interface& Engine) : m_Engine(Engine) {}
+	virtual void Init(Entity entity) override { (void)entity; }
+	virtual void Update(Entity entity) override { (void)entity; }
+	virtual void Destroy(Entity entity) override { (void)entity; }
+	virtual const char* getBehaviourName() override { return "Not Initialized"; };
+	engine_interface&	m_Engine;
 
-	void Init(Entity entity);
-	void Update(Entity entity);
-	void Destroy(Entity entity);
-
-	const char* getBehaviourName() { return mBehaviourName; }
-
-private:
-	const char* mBehaviourName;
-	InitBehaviour InitFunction;
-	UpdateBehaviour UpdateFunction;
-	DestroyBehaviour DestroyFunction;
 };
+
 
 #endif  // BEHAVIOUR_H

@@ -1,5 +1,7 @@
 #include "pch.h"
 
+/*
+
 #include "Behaviour.h"
 #include "../ECS/Coordinator.hpp"
 #include "LogicSystem.h"
@@ -24,3 +26,4 @@ void Behaviour::Destroy(Entity entity)
 {
 	DestroyFunction(entity);
 }
+*/
