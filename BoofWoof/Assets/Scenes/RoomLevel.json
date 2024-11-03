@@ -1,0 +1,159 @@
+{
+    "SceneGUID": "efebdb69-e4fe-4ab1-b544-cac98ffcc5cb",
+    "Entities": [
+        {
+            "EntityName": "Floor1",
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 0,
+            "ModelName": "Floor",
+            "Texture": ""
+        },
+        {
+            "EntityName": "Floor2",
+            "Position": {
+                "x": 8.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 1,
+            "ModelName": "Floor",
+            "Texture": ""
+        },
+        {
+            "EntityName": "Floor3",
+            "Position": {
+                "x": 8.0,
+                "y": 0.0,
+                "z": -8.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 2,
+            "ModelName": "Floor",
+            "Texture": ""
+        },
+        {
+            "EntityName": "Floor4",
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -8.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 3,
+            "ModelName": "Floor",
+            "Texture": ""
+        },
+        {
+            "EntityName": "Wall1",
+            "Position": {
+                "x": -0.5,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 4,
+            "ModelName": "Wall",
+            "Texture": ""
+        },
+        {
+            "EntityName": "Wall2",
+            "Position": {
+                "x": 5.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 5,
+            "ModelName": "Wall",
+            "Texture": ""
+        },
+        {
+            "EntityName": "Wall3",
+            "Position": {
+                "x": 10.5,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 6,
+            "ModelName": "Wall",
+            "Texture": ""
+        }
+    ]
+}
