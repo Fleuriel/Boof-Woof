@@ -99,7 +99,7 @@ public:
 		for (int i = 0; i < texturesid.size(); i++)
 		{
 			glActiveTexture(GL_TEXTURE0 + i);
-			glUniform1d(glGetUniformLocation(shader.GetHandle(), "texture1"), i);
+			glUniform1d(glGetUniformLocation(shader.GetHandle(), ("texture"+std::to_string(i + 1)).c_str()), i);
 			glBindTexture(GL_TEXTURE_2D, texturesid[i]);
 			//std::cout <<"size "<< texturesid.size() << "texture id: " << texturesid[i] << std::endl;
 		}

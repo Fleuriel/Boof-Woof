@@ -18,31 +18,50 @@ layout(location = 1) in vec3 vertNormal;
 layout(location = 2) in vec3 FragPos;
 layout(location = 3) in vec2 TexCoords;
 
-struct Material {
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
-    float shininess;
-}; 
-  
-uniform Material material;
 
-uniform sampler2D texture1;
+uniform sampler2D texture1; // diffuse map
+uniform sampler2D texture2; // normal map
 uniform int textureCount;
 
-
+uniform vec3 lightPos;
+uniform vec3 viewPos;
 
 out vec4 fragColor;
+
+in VS_OUT {
+	vec3 FragPos;
+    vec2 TexCoords;
+    vec3 TangentLightPos;
+    vec3 TangentViewPos;
+    vec3 TangentFragPos;
+} fs_in;
 
 void main()
 {
 
-    if(textureCount !=0 )
-	{
+    if(textureCount ==2 ){
+        vec3 normal = texture(texture1, TexCoords).rgb;
+
+        normal = normalize(normal * 2.0 - 1.0);
+
+        vec3 color = texture(texture2, TexCoords).rgb;
+        vec3 ambient = 0.1 * color;
+        vec3 lightDir = normalize(fs_in.TangentLightPos - fs_in.TangentFragPos);
+
+        float diff = max(dot(normal, lightDir), 0.0);
+        vec3 diffuse = diff * color;
+
+        vec3 viewDir = normalize(fs_in.TangentViewPos - fs_in.TangentFragPos);
+        vec3 reflectDir = reflect(-lightDir, normal);
+        vec3 halfwayDir = normalize(lightDir + viewDir);
+        float spec = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
+        vec3 specular = vec3(0.2) * spec;
+        fragColor = vec4(ambient + diffuse + specular, 1.0);
+
+    }else if(textureCount == 1){
 		vec4 texColor = texture(texture1, TexCoords);
         vec3 lightVector = vec3(-2567, 44448, 91008) - FragPos;
         float N_dot_L = max(dot(normalize(vertNormal), normalize(lightVector)), 0.0f);
-    
         fragColor = vec4(texColor.rgb * N_dot_L, texColor.a);
 	}else{
         vec3 lightVector = vec3(-2567, 44448, 91008)-FragPos;

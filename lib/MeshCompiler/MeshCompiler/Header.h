@@ -28,10 +28,10 @@ struct Vertex {
     glm::vec3 Normal;
     // texCoords
     glm::vec2 TexCoords;
-    //// tangent
-    //glm::vec3 Tangent;
-    //// bitangent
-    //glm::vec3 Bitangent;
+    // tangent
+    glm::vec3 Tangent;
+    // bitangent
+    glm::vec3 Bitangent;
     ////bone indexes which will influence this vertex
     //int m_BoneIDs[MAX_BONE_INFLUENCE];
     ////weights from each bone
@@ -139,15 +139,13 @@ public:
 #ifdef _DEBUG
         std::cout << "Binding Vertex Array to 0\n";
 #endif
-        glBindVertexArray(0);
-        //glEnableVertexAttribArray(2);
-        //glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-        //// vertex tangent
-        //glEnableVertexAttribArray(3);
-        //glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
-        //// vertex bitangent
-        //glEnableVertexAttribArray(4);
-        //glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
+       
+        // vertex tangent
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
+        // vertex bitangent
+        glEnableVertexAttribArray(4);
+        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
         //// ids
         //glEnableVertexAttribArray(5);
         //glVertexAttribIPointer(5, 4, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, m_BoneIDs));
@@ -155,7 +153,7 @@ public:
         //// weights
         //glEnableVertexAttribArray(6);
         //glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, m_Weights));
-       // glBindVertexArray(0);
+        glBindVertexArray(0);
     }
 
 };

@@ -142,6 +142,8 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 
 				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
+				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", glm::vec3{-10.f,10.f,10.f});
+				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
 				
 
 				/*for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
@@ -162,6 +164,7 @@ void GraphicsSystem::UpdateLoop() {
 
 				//graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
 				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("Shader3D"), graphicsComp.getTextures());
+
 //				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
 				//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
 
