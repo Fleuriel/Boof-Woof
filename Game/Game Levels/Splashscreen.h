@@ -6,7 +6,7 @@ class Splashscreen : public Level
 {
 	void LoadLevel() 
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/TestScene.json");
+		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/RoomLevel.json");
 	}
 
 	void InitLevel() { /* Empty by design */ }
