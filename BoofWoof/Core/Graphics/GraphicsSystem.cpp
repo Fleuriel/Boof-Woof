@@ -200,6 +200,7 @@ void GraphicsSystem::UpdateLoop() {
 
 				if (graphicsComp.getTextureName() == " ")
 				{
+					glBindTextureUnit(6, 0);
 					//std::cout << "its blank\n";
 				}
 				else
