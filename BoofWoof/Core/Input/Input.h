@@ -38,6 +38,10 @@ public:
 	bool GetMouseState(int index);									// Get MouseStates
 
 	void SetMouseState(int index, int value);						// Setting MouseStates
+
+	glm::vec2 GetMousePosition() {
+		return mouse_position;
+	};									// Get Mouse Position
 	
 	/**************************************************************************
 	 * @brief Retrieves the state of the mouse scroll wheel.
@@ -96,6 +100,9 @@ private:
 
 	// keeps track of total vertical scrolling
 	float mouse_scroll_total_Y_offset{ 0 };
+
+
+	glm::vec2 mouse_position{ 0, 0 };
 
 };
 
