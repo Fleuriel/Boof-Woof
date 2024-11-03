@@ -847,13 +847,9 @@ void ImGuiEditor::Settings()
 
 
 	static glm::vec2 lastMousePos = glm::vec2(0.0f);
-	static bool cameraRotated = false;
-	if (g_Input.GetKeyState(GLFW_KEY_C)) 
+	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT))
 	{ 
-		/*cameraRotated = !cameraRotated; 
-		std::cout << " cameraRotated: " << cameraRotated << "\n";
-	}
-	if (cameraRotated){*/
+		
 		glm::vec2 offset = g_Input.GetMousePosition() - lastMousePos;
 		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessMouseMovement(static_cast<float>(offset.x), static_cast<float>(-offset.y),1);
 	}
