@@ -26,21 +26,21 @@ int main(int argc, char** argv) {
 
 
 
-
     std::cout << "##################################################################################################\n";
     std::cout << "##################################################################################################\n";
     std::cout << "##################################################################################################\n";
     std::cout << "                                  MeshCompiler executed\n";
     
+
+#ifdef _DEBUG
     for (int i = 0; i < argc; ++i)
     {
-        std::cout << argv[i] << '\n';
+        std::cout << i << '\t' << argv[i] << '\n';
     }
 
     // [1] Descriptor File [TXT]
     // [2] Filepath of Descriptor
-    // [3] [1][2] combined
-
+#endif
 
 
     if (argc < 2) {
@@ -48,21 +48,36 @@ int main(int argc, char** argv) {
         return -1;
     }
 
-    std::string directoryPath = argv[2];
-    if (!fs::is_directory(directoryPath)) {
+    
+    std::string directoryPath = argv[1];
+    size_t pos = directoryPath.find_last_of("\\/");
+
+    // Extract the path up to that position
+    std::string pathUpToObjects = (pos != std::string::npos) ? directoryPath.substr(0, pos) : directoryPath;
+
+
+
+    if (!fs::is_directory(pathUpToObjects)) {
         std::cerr << "Provided path is not a directory: " << directoryPath << std::endl;
+
+        std::cout << "##################################################################################################\n";
+        std::cout << "##################################################################################################\n";
+        std::cout << "##################################################################################################\n";
         return -1;
     }
 
     std::vector<std::string> descriptorFileInformation;
 
 
+    std::string argumentFilepath;
+    argumentFilepath = argv[1];
+
 
 #ifdef _DEBUG
-    std::cout << "Processing File: " << argv[3] << '\n';
+    std::cout << "Processing File: " << argumentFilepath << '\n';
 #endif
 
-    descriptorFileInformation = processDescriptorFile(argv[3]);
+    descriptorFileInformation = processDescriptorFile(argumentFilepath);
 
 #ifdef _DEBUG
     
@@ -87,14 +102,14 @@ int main(int argc, char** argv) {
     while (!glfwWindowShouldClose(window))
     {
 #ifdef _DEBUG
-        std::cout << "Loop has entered\n";
+        std::cout << "Loop has entered\n";       
+        std::cout << pathUpToObjects << '\n';
 #endif;
         // Iterate over all descriptor files in the directory
 
-        std::wcout << argv[2] << '\n';
-        std::wcout << argv[1] << '\n';
 
-        if (fileExistsInDirectory(argv[2], argv[1])) {
+
+        if (fileExistsInDirectory(descriptorFileInformation[1], descriptorFileInformation[0])) {
 
             // Load and convert the .obj file
             Model model;
@@ -109,14 +124,6 @@ int main(int argc, char** argv) {
             std::cout << vertices.size() << '\t' << indices.size() << "\t This Vertices ASize\n";
 #endif
 
-            // Create Mesh object and populate it with the vertices and indices
-           // Mesh mesh;//(vertices, indices);
-
-            //mesh.processMesh();
-
-            // Now save the mesh to the .bin file
-            saveMeshToBin(model.meshes, binFilePath);
-
 
             // Save the mesh data into a single .bin file
             if (!model.meshes.empty()) {
@@ -127,8 +134,11 @@ int main(int argc, char** argv) {
                 std::cerr << "No mesh data found in " << objFilePath << std::endl;
             }
         }
-        
+        else
+        {
+            std::cout << "filepath does not exist: " << pathUpToObjects << '\t' << " is: " << fileExistsInDirectory(descriptorFileInformation[1], descriptorFileInformation[0]) << '\n';
 
+        }
         break;
     }
 
@@ -202,37 +212,99 @@ std::vector<std::string> processDescriptorFile(const std::string& descriptorFile
         return {};
     }
 
+    std::vector<std::string> outputVector;
+
     std::string line;
-    std::string fileName;
-    std::string objFilePath;
-    std::string binFilePath;
+    //std::string line;
+    //std::string fileName;
+    //std::string objFilePath;
+    //std::string binFilePath;
+    //std::string MTLFile;
+    //std::string PNGFile;
+    //std::string JPGFile;
+
+    // Read the file line by line
+    //while (std::getline(file, line)) {
+    //    // Check for "File Name" and extract the value
+    //    if (line.find("File Name") != std::string::npos) {
+    //        fileName = line.substr(line.find(":") + 2); // Extract name after ": "
+    //        fileName += ".obj"; // Append .obj extension
+    //    }
+    //    // Check for "Source File Path" and extract the value
+    //    else if (line.find("Source File Path") != std::string::npos) {
+    //        objFilePath = line.substr(line.find(":") + 2); // Extract path after ": "
+    //        objFilePath = objFilePath.substr(0, objFilePath.find_last_of("\\/")); // Get directory path
+    //    }
+    //    // Check for "Output File Path" and extract the value
+    //    else if (line.find("Output File Path") != std::string::npos) {
+    //        binFilePath = line.substr(line.find(":") + 2); // Extract path after ": "
+    //    }
+    //    else if (line.find("MTL File Exist") != std::string::npos)
+    //    {
+    //        MTLFile = line.substr(line.find(":") + 2);
+    //    }
+    //    else if (line.find("PNG File Exist") != std::string::npos)
+    //    {
+    //        PNGFile = line.substr(line.find(":") + 2);
+    //    }
+    //    else if (line.find("JPG File Exist") != std::string::npos)
+    //    {
+    //        JPGFile = line.substr(line.find(":") + 2);
+    //    }
+    //
+    //
+    //}
+
 
     // Read the file line by line
     while (std::getline(file, line)) {
         // Check for "File Name" and extract the value
         if (line.find("File Name") != std::string::npos) {
-            fileName = line.substr(line.find(":") + 2); // Extract name after ": "
+            std::string fileName = line.substr(line.find(":") + 2); // Extract name after ": "
             fileName += ".obj"; // Append .obj extension
+            outputVector.push_back(fileName); // Add to vector
         }
         // Check for "Source File Path" and extract the value
         else if (line.find("Source File Path") != std::string::npos) {
-            objFilePath = line.substr(line.find(":") + 2); // Extract path after ": "
+            std::string objFilePath = line.substr(line.find(":") + 2); // Extract path after ": "
             objFilePath = objFilePath.substr(0, objFilePath.find_last_of("\\/")); // Get directory path
+            outputVector.push_back(objFilePath); // Add to vector
         }
         // Check for "Output File Path" and extract the value
         else if (line.find("Output File Path") != std::string::npos) {
-            binFilePath = line.substr(line.find(":") + 2); // Extract path after ": "
+            std::string binFilePath = line.substr(line.find(":") + 2); // Extract path after ": "
+            outputVector.push_back(binFilePath); // Add to vector
+        }
+        // Check for "MTL File Exist" and extract the value
+        else if (line.find("MTL File Exist") != std::string::npos) {
+            std::string MTLFile = line.substr(line.find(":") + 2); // Extract MTL file existence
+            outputVector.push_back(MTLFile); // Add to vector
+        }
+        // Check for "PNG File Exist" and extract the value
+        else if (line.find("PNG File Exist") != std::string::npos) {
+            std::string PNGFile = line.substr(line.find(":") + 2); // Extract PNG file existence
+            outputVector.push_back(PNGFile); // Add to vector
+        }
+        // Check for "JPG File Exist" and extract the value
+        else if (line.find("JPG File Exist") != std::string::npos) {
+            std::string JPGFile = line.substr(line.find(":") + 2); // Extract JPG file existence
+            outputVector.push_back(JPGFile); // Add to vector
         }
     }
 
     file.close(); // Close the file
-    return { fileName, objFilePath, binFilePath }; // Return the extracted information
+    return outputVector; // Return the vector with all information
+
+   //file.close(); // Close the file
+   //return { fileName, objFilePath, binFilePath }; // Return the extracted information
 }
 
 
 bool fileExistsInDirectory(const std::string& directoryPath, const std::string& fileName) {
     fs::path dirPath(directoryPath);
     fs::path filePath(fileName);
+
+    std::cout << "checking " << dirPath << " against " << fileName << '\n';
 
     // Iterate over the directory to check for the exact file
     for (const auto& entry : fs::directory_iterator(dirPath)) {

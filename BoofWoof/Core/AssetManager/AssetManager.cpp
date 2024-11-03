@@ -644,14 +644,12 @@ bool AssetManager::LoadObjects() {
                     {
                         continue;
                     }
-                    std::cout << Extension << '\n';
                     // Discard unrecognized files
                     DiscardToTrashBin(entry.path().string(), "FILEPATH_OBJECTS");
                 }
 
                 for (int i = 0; i < ignoredExtensions.size(); ++i)
                 {
-                    std::cout << Extension << '\n';
                     if (Extension == ignoredExtensions[0])
                     {
                         MTLCheck = true;
@@ -666,8 +664,9 @@ bool AssetManager::LoadObjects() {
                     }
                 }
 
+#ifdef _DEBUG
                 std::cout << MTLCheck << '\t' << PNGCheck << '\t' << JPGCheck << '\n';
-
+#endif
 
 
                 std::cout << "\n**************************************************************************************\n";
@@ -688,7 +687,7 @@ bool AssetManager::LoadObjects() {
                     fs::create_directory(FILEPATH_DESCRIPTOR_OBJECTS);
 
 
-                std::string descriptorFilePath{ FILEPATH_DESCRIPTORS + "/Model_" + nameWithoutExtension + ".txt" };
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_OBJECTS + "/Model_" + nameWithoutExtension + ".txt" };
                 std::ofstream outFile(descriptorFilePath);
                 
                
@@ -711,12 +710,6 @@ bool AssetManager::LoadObjects() {
                 }
  
 
- //                std::vector<std::string> fileInfo = processDescriptorFile(descriptorFilePath);
- 
-               
- //                    runCommand("..\\lib\\MeshCompiler\\x64\\Release\\MeshCompiler.exe " + fileInfo[1] + " " +  fileInfo[2]);
-
-
                 bool firstCheck = false;
 
                 if (MTLCheck && JPGCheck || PNGCheck)
@@ -729,9 +722,9 @@ bool AssetManager::LoadObjects() {
 
 
 #ifdef _DEBUG
-                runCommand("..\\MeshCompiler\\x64\\Debug\\MeshCompiler.exe /Model_" + nameWithoutExtension + ".txt " + FILEPATH_DESCRIPTORS + " " + descriptorFilePath);
+                runCommand("..\\MeshCompiler\\x64\\Debug\\MeshCompiler.exe " + descriptorFilePath);
 #else
-                runCommand("..\\MeshCompiler\\x64\\Release\\MeshCompiler.exe /Model_" + nameWithoutExtension + ".txt " + FILEPATH_DESCRIPTORS + " " + descriptorFilePath);
+                runCommand("..\\MeshCompiler\\x64\\Release\\MeshCompiler.exe " + descriptorFilePath);
 #endif
                 g_ResourceManager.AddModelBinary(nameWithoutExtension);
 
