@@ -836,14 +836,14 @@ void ImGuiEditor::Settings()
 	{
 		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::RIGHT, static_cast<float>(g_Core->m_DeltaTime));
 	}
-	/*if (g_Input.GetKeyState(GLFW_KEY_RIGHT_SHIFT))
+	if (g_Input.GetKeyState(GLFW_KEY_RIGHT_SHIFT))
 	{
-		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::FORWARD, static_cast<float>(g_Core->m_DeltaTime));
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::UP, static_cast<float>(g_Core->m_DeltaTime));
 	}
 	if (g_Input.GetKeyState(GLFW_KEY_RIGHT_CONTROL))
 	{
-		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::BACKWARD, static_cast<float>(g_Core->m_DeltaTime));
-	}*/
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::DOWN, static_cast<float>(g_Core->m_DeltaTime));
+	}
 
 
 	static glm::vec2 lastMousePos = glm::vec2(0.0f);
