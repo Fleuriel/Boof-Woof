@@ -58,6 +58,10 @@ int main(int argc, char** argv) {
 
 
 
+#ifdef _DEBUG
+    std::cout << "Processing File: " << argv[3] << '\n';
+#endif
+
     descriptorFileInformation = processDescriptorFile(argv[3]);
 
 #ifdef _DEBUG
@@ -82,9 +86,14 @@ int main(int argc, char** argv) {
 
     while (!glfwWindowShouldClose(window))
     {
-
+#ifdef _DEBUG
+        std::cout << "Loop has entered\n";
+#endif;
         // Iterate over all descriptor files in the directory
-     
+
+        std::wcout << argv[2] << '\n';
+        std::wcout << argv[1] << '\n';
+
         if (fileExistsInDirectory(argv[2], argv[1])) {
 
             // Load and convert the .obj file

@@ -256,7 +256,7 @@ bool ResourceManager::LoadModelBinary()
             continue;
 
         std::cout << ModelNames[i] << '\n';
-        LoadBinFile(FILEPATH_OBJECTS_RESOURCE + "\\" + ModelNames[i] + ".bin");
+        LoadBinFile(FILEPATH_RESOURCE_OBJECTS + "\\" + ModelNames[i] + ".bin");
     }
 
     return true;
@@ -287,7 +287,7 @@ bool ResourceManager::LoadTexturesDDS() {
         // std::cout << "names:" << textureDDSFileNames[i].c_str() << "\n";
 
         //add DDS processing here
-        int result = LoadDDSTexture((FILEPATH_TEXTURES_RESOURCE + "\\" + textureDDSFileNames[i] + ".dds").c_str());
+        int result = LoadDDSTexture((FILEPATH_RESOURCE_TEXTURES + "\\" + textureDDSFileNames[i] + ".dds").c_str());
 
 
 

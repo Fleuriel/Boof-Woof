@@ -1,6 +1,9 @@
 File Name: Bed
 Source File Path: ..\BoofWoof\Assets\Objects\Bed.obj
 Output File Path: ..\BoofWoof\Resources\Objects\Bed.bin
+MTL File Exist: 1
+PNG File Exist: 1
+JPG File Exist: 0
 Expected Attributes: 
  -  Vertices
  -  Indices

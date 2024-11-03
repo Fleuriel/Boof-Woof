@@ -1,0 +1,12 @@
+File Name: Table
+Source File Path: ..\BoofWoof\Assets\Objects\Table.obj
+Output File Path: ..\BoofWoof\Resources\Objects\Table.bin
+MTL File Exist: 1
+PNG File Exist: 1
+JPG File Exist: 0
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0
