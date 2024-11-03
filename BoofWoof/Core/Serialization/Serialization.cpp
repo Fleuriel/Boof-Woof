@@ -171,6 +171,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
             // Texture Name
             entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
 
+            std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.getTextureName() << '\n';
 
 
             //entityData.AddMember("", S)
@@ -310,27 +311,24 @@ bool Serialization::LoadScene(const std::string& filepath) {
             if (entityData.HasMember("ModelID")) {
                 int modelID = entityData["ModelID"].GetInt();
                 
+
                 if (entityData.HasMember("ModelName"))
                 {
-                    std::string modelName = entityData["ModelName"].GetString();
 
-                    GraphicsComponent graphicsComponent(modelName, entity);
-                    graphicsComponent.SetModelID(modelID);
-                    g_Coordinator.AddComponent(entity, graphicsComponent);
+                    std::string modelName = entityData["ModelName"].GetString();
+                    std::string TextureName;
+                    
 
 
                     if (entityData.HasMember("Texture"))
                     {
-                        std::string TextureName = entityData["Texture"].GetString();
-
-                        GraphicsSystem::set_Texture_ = g_ResourceManager.GetTextureDDS(TextureName);
-
-                        //graphicsComponent.setTexture(TextureName);
+                        TextureName = entityData["Texture"].GetString();
                     }
-
+                    
+                    GraphicsComponent graphicsComponent(modelName, entity, TextureName);
+                    graphicsComponent.SetModelID(modelID);
+                    g_Coordinator.AddComponent(entity, graphicsComponent);
                 }
-
-                
             }
 
             // Deserialize AudioComponent
