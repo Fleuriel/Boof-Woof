@@ -408,7 +408,14 @@ void ImGuiEditor::InspectorWindow()
 				std::string modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();			
 				std::vector<std::string> modelNames = g_ResourceManager.getModelNames();
 
-				static int currentItem = 0;
+				// Find the index of the current model name in the modelNames vector
+				int currentItem = 0;
+				for (size_t i = 0; i < modelNames.size(); ++i) {
+					if (modelNames[i] == modelName) {
+						currentItem = static_cast<int>(i);
+						break;
+					}
+				}
 		
 				ImGui::PushItemWidth(123.0f);
 				ImGui::Text("Model   "); ImGui::SameLine();
