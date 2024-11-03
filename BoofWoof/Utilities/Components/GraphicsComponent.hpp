@@ -51,9 +51,9 @@ public:
 
 
     // Constructor and destructor
-	GraphicsComponent() : textureName(" ") {};
-
-	GraphicsComponent(std::string modelName, Entity& entity) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity)), textureName(" ")
+	GraphicsComponent() : textureName (" "){};
+	
+	GraphicsComponent(std::string modelName, Entity& entity, std::string texName) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity)), textureName(texName)
 	{/*Empty by design*/
 
 		std::cout << "Model Name of Graphics Component: " << m_ModelName << '\n';

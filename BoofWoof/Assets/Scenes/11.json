@@ -1,0 +1,49 @@
+{
+    "SceneGUID": "9533f554-d70a-4895-85e3-6dd04914aba6",
+    "Entities": [
+        {
+            "EntityName": "GameObject",
+            "Position": {
+                "x": 1.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 0,
+            "ModelName": "Square",
+            "Texture": "Digipen_Logo"
+        },
+        {
+            "EntityName": "GameObject",
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 1,
+            "ModelName": "cubeModel",
+            "Texture": "PauseButton"
+        }
+    ]
+}
