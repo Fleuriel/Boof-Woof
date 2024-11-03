@@ -81,6 +81,7 @@ public:
         : m_PhysicsBody(body), m_CollisionLayer(layer), m_EntityID(g_Coordinator.GetEntityId(entity))
     {/*Empty by design*/
     }
+    CollisionComponent(int layer) : m_CollisionLayer(layer) {}
 
     ~CollisionComponent() = default;
 

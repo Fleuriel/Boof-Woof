@@ -133,7 +133,7 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
             glm::vec3 scale = transform.GetScale();
 
             // Debug output to check Position
-            //std::cout << "Entity ID: " << entity << " Position = (" << transform.GetPosition().x << ", " << transform.GetPosition().y << ", " << transform.GetPosition().z << ")" << std::endl;
+            std::cout << "Entity ID: " << entity << " Position = (" << transform.GetPosition().x << ", " << transform.GetPosition().y << ", " << transform.GetPosition().z << ")" << std::endl;
 
             // Only add a new body if it hasn't already been added
             if (!collisionComponent.HasBodyAdded()) {
@@ -144,9 +144,9 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
             JPH::Vec3 velocity = bodyInterface.GetLinearVelocity(bodyID);
 
             // Debug output to check Position
-            //std::cout << "Entity ID: " << entity << " Jolt x: " << position.GetX() << " Jolt y: " << position.GetY() << " Jolt z: " << position.GetZ() << std::endl;
-            //std::cout << "Step " << _step << ": Position = (" << position.GetX() << ", " << position.GetY() << ", " << position.GetZ() 
-            //    << "), Velocity = (" << velocity.GetX() << ", " << velocity.GetY() << ", " << velocity.GetZ() << ")" << std::endl;
+            std::cout << "Entity ID: " << entity << " Jolt x: " << position.GetX() << " Jolt y: " << position.GetY() << " Jolt z: " << position.GetZ() << std::endl;
+            std::cout << "Step " << _step << ": Position = (" << position.GetX() << ", " << position.GetY() << ", " << position.GetZ() 
+                << "), Velocity = (" << velocity.GetX() << ", " << velocity.GetY() << ", " << velocity.GetZ() << ")" << std::endl;
 
             // Simulate physics
             //mPhysicsSystem->Update(deltaTime, 1, mTempAllocator, mJobSystem);
