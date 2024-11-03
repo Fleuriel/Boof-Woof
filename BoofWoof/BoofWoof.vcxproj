@@ -178,6 +178,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Animation\Animation.cpp" />
     <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
     <ClCompile Include="Core\AssetManager\Compressonator.cpp" />
     <ClCompile Include="Core\Audio\AudioSystem.cpp" />
@@ -212,6 +213,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Utilities\Components\BehaviourComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Animation\Animation.h" />
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
     <ClInclude Include="Core\AssetManager\Compressonator.h" />
     <ClInclude Include="Core\AssetManager\FilePaths.h" />
