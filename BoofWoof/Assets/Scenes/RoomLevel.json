@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "efebdb69-e4fe-4ab1-b544-cac98ffcc5cb",
+    "SceneGUID": "6ac459ed-c910-4dd7-a140-ad61b4c730d8",
     "Entities": [
         {
             "EntityName": "Floor1",
@@ -21,7 +21,7 @@
             "ModelID": 0,
             "EntityID": 0,
             "ModelName": "Floor",
-            "Texture": ""
+            "Texture": " "
         },
         {
             "EntityName": "Floor2",
@@ -43,7 +43,7 @@
             "ModelID": 0,
             "EntityID": 1,
             "ModelName": "Floor",
-            "Texture": ""
+            "Texture": " "
         },
         {
             "EntityName": "Floor3",
@@ -65,7 +65,7 @@
             "ModelID": 0,
             "EntityID": 2,
             "ModelName": "Floor",
-            "Texture": ""
+            "Texture": " "
         },
         {
             "EntityName": "Floor4",
@@ -87,14 +87,14 @@
             "ModelID": 0,
             "EntityID": 3,
             "ModelName": "Floor",
-            "Texture": ""
+            "Texture": " "
         },
         {
             "EntityName": "Wall1",
             "Position": {
                 "x": -0.5,
                 "y": 0.0,
-                "z": 0.0
+                "z": 0.5
             },
             "Scale": {
                 "x": 1.0,
@@ -109,14 +109,14 @@
             "ModelID": 0,
             "EntityID": 4,
             "ModelName": "Wall",
-            "Texture": ""
+            "Texture": " "
         },
         {
             "EntityName": "Wall2",
             "Position": {
                 "x": 5.0,
                 "y": 0.0,
-                "z": 0.0
+                "z": 0.5
             },
             "Scale": {
                 "x": 1.0,
@@ -131,14 +131,14 @@
             "ModelID": 0,
             "EntityID": 5,
             "ModelName": "Wall",
-            "Texture": ""
+            "Texture": " "
         },
         {
             "EntityName": "Wall3",
             "Position": {
                 "x": 10.5,
                 "y": 0.0,
-                "z": 0.0
+                "z": 0.5
             },
             "Scale": {
                 "x": 1.0,
@@ -153,7 +153,315 @@
             "ModelID": 0,
             "EntityID": 6,
             "ModelName": "Wall",
-            "Texture": ""
+            "Texture": " "
+        },
+        {
+            "EntityName": "Wall4",
+            "Position": {
+                "x": -4.300000190734863,
+                "y": 0.0,
+                "z": -0.5
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": -1.5499999523162842,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 7,
+            "ModelName": "Wall",
+            "Texture": " "
+        },
+        {
+            "EntityName": "Wall5",
+            "Position": {
+                "x": -4.300000190734863,
+                "y": 0.0,
+                "z": 5.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": -1.559999942779541,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 8,
+            "ModelName": "Wall",
+            "Texture": " "
+        },
+        {
+            "EntityName": "Wall6",
+            "Position": {
+                "x": -4.300000190734863,
+                "y": 0.0,
+                "z": 10.399999618530274
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": -1.565000057220459,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 9,
+            "ModelName": "Wall",
+            "Texture": " "
+        },
+        {
+            "EntityName": "Wall7",
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -14.649999618530274
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 1.5499999523162842,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 10,
+            "ModelName": "Wall",
+            "Texture": " "
+        },
+        {
+            "EntityName": "Wall8",
+            "Position": {
+                "x": -0.1550000011920929,
+                "y": 0.0,
+                "z": -9.149999618530274
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 1.559999942779541,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 11,
+            "ModelName": "Wall",
+            "Texture": " "
+        },
+        {
+            "EntityName": "Wall9",
+            "Position": {
+                "x": -0.21299999952316285,
+                "y": 0.0,
+                "z": -3.75
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 1.559999942779541,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 12,
+            "ModelName": "Wall",
+            "Texture": " "
+        },
+        {
+            "EntityName": "Bed",
+            "Position": {
+                "x": -3.0,
+                "y": 0.0,
+                "z": -7.099999904632568
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 13,
+            "ModelName": "Bed2",
+            "Texture": " "
+        },
+        {
+            "EntityName": "Table",
+            "Position": {
+                "x": -3.5,
+                "y": 0.0,
+                "z": 3.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 14,
+            "ModelName": "Table",
+            "Texture": " "
+        },
+        {
+            "EntityName": "Chair2",
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 15,
+            "ModelName": "Chair2",
+            "Texture": " "
+        },
+        {
+            "EntityName": "Wardrobe",
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 16,
+            "ModelName": "Wardrobe2",
+            "Texture": " "
+        },
+        {
+            "EntityName": "Table2",
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 17,
+            "ModelName": "Table2",
+            "Texture": " "
+        },
+        {
+            "EntityName": "Chair",
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 18,
+            "ModelName": "Chair",
+            "Texture": " "
+        },
+        {
+            "EntityName": "Player",
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 19,
+            "ModelName": "Corgi2",
+            "Texture": " "
+        },
+        {
+            "EntityName": "CorgiOther",
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 20,
+            "ModelName": "Corgi",
+            "Texture": " "
         }
     ]
 }
