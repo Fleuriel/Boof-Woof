@@ -31,7 +31,6 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<GraphicsComponent>();
 	g_Coordinator.RegisterComponent<AudioComponent>();
 	g_Coordinator.RegisterComponent<CollisionComponent>();
-
 	g_Coordinator.RegisterComponent<BehaviourComponent>();
 
 	// setting global pointer
@@ -112,6 +111,7 @@ void EngineCore::OnInit()
 	m_AccumulatedTime = 0.0;		// elapsed time
 	m_CurrNumSteps = 0;
 
+	ReflectionManager::Instance().RegisterComponentType<MetadataComponent>("MetadataComponent");
 	ReflectionManager::Instance().RegisterComponentType<TransformComponent>("TransformComponent");
 	ReflectionManager::Instance().RegisterComponentType<GraphicsComponent>("GraphicsComponent");
 	ReflectionManager::Instance().RegisterComponentType<AudioComponent>("AudioComponent");

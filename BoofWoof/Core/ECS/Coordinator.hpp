@@ -207,6 +207,105 @@ public:
 		return mSystemManager->GetSystem<T>();
 	}
 
+	// Check if an entity has a component by name
+	bool HaveComponentByName(const std::string& className, Entity entity)
+	{
+		auto componentTypeMap = mComponentManager->GetComponentTypes();
+		auto it = componentTypeMap.find(className.c_str());
+
+		if (it != componentTypeMap.end())
+		{
+			ComponentType type = it->second;
+			auto componentArray = mComponentManager->GetComponentArrayFromType(type);
+
+			// Perform a dynamic cast to ComponentArray<void*> and then check for the component
+			auto componentArrayT = dynamic_cast<ComponentArray<void*>*>(componentArray.get());
+			if (componentArrayT)
+			{
+				return componentArrayT->HaveComponent(entity);
+			}
+		}
+
+		return false;
+	}
+
+
+	// Add a component to an entity using the class name and a component pointer
+	template <typename T>
+	void AddComponentByName(const std::string& className, Entity entity, T* component)
+	{
+		auto componentTypeMap = mComponentManager->GetComponentTypes();
+		auto it = componentTypeMap.find(className.c_str());
+
+		if (it != componentTypeMap.end())
+		{
+			ComponentType type = it->second;
+			auto componentArray = mComponentManager->GetComponentArrayFromType(type);
+
+			// Perform a dynamic cast to the correct ComponentArray<T> type
+			auto componentArrayT = dynamic_cast<ComponentArray<T>*>(componentArray.get());
+			if (componentArrayT)
+			{
+				componentArrayT->InsertData(entity, *component);
+			}
+			else
+			{
+				std::cerr << "Failed to cast component array to ComponentArray for type: " << className << std::endl;
+				return;
+			}
+
+			auto signature = mEntityManager->GetSignature(entity);
+			signature.set(type, true);
+			mEntityManager->SetSignature(entity, signature);
+
+			mSystemManager->EntitySignatureChanged(entity, signature);
+		}
+		else
+		{
+			std::cerr << "Component type not registered: " << className << std::endl;
+		}
+	}
+
+
+
+	// Remove a component from an entity using the class name
+	void RemoveComponentByName(const std::string& className, Entity entity)
+	{
+		auto componentTypeMap = mComponentManager->GetComponentTypes();
+		auto it = componentTypeMap.find(className.c_str());
+
+		if (it != componentTypeMap.end())
+		{
+			ComponentType type = it->second;
+			auto componentArray = mComponentManager->GetComponentArrayFromType(type);
+
+			// Perform a dynamic cast to access the correct ComponentArray<T> type
+			auto componentArrayT = dynamic_cast<ComponentArray<void*>*>(componentArray.get());
+			if (componentArrayT)
+			{
+				componentArrayT->RemoveData(entity);
+			}
+			else
+			{
+				std::cerr << "Failed to cast component array for type: " << className << std::endl;
+				return;
+			}
+
+			auto signature = mEntityManager->GetSignature(entity);
+			signature.set(type, false);
+			mEntityManager->SetSignature(entity, signature);
+
+			mSystemManager->EntitySignatureChanged(entity, signature);
+		}
+		else
+		{
+			std::cerr << "Component type not registered: " << className << std::endl;
+		}
+	}
+
+
+
+
 private:
 	std::unique_ptr<ComponentManager> mComponentManager;
 	std::unique_ptr<EntityManager> mEntityManager;
