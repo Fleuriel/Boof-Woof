@@ -53,6 +53,7 @@ private:
     GLuint font_textureid;
 	std::unordered_map<GLchar, Glyph> glyphs;
     unsigned int VAO_FONT{}, VBO_FONT{};
+	float altasWidth, altasHeight;
 
 };
 extern FontSystem fontSystem;

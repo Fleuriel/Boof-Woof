@@ -206,6 +206,12 @@ std::unordered_map<GLchar, Glyph> FontSystem::loadFontMetadata(const std::string
         std::cerr << "Invalid JSON format: 'glyphs' array missing." << std::endl;
         return glyphs;
     }
+    else {
+		altasWidth = document["atlas"]["width"].GetFloat();
+		altasHeight = document["atlas"]["height"].GetFloat();
+
+    }
+	std::cout << "Atlas Width: " << altasWidth << " Atlas Height: " << altasHeight << std::endl;
 
 	static int count = 0;
     // Iterate over each glyph in the JSON "glyphs" array
@@ -259,6 +265,7 @@ void FontSystem::render_text(OpenGLShader& shader, std::string text, float x, fl
     // Iterate through all characters in the string
     for (const char& character : text)
     {
+		std::cout << "Character: " << character << std::endl;
         if (glyphs.find(character) == glyphs.end()) continue; // Skip if glyph not found
 
         const Glyph& glyph = glyphs[character];
@@ -270,10 +277,10 @@ void FontSystem::render_text(OpenGLShader& shader, std::string text, float x, fl
         float h = (glyph.planeBounds[3] - glyph.planeBounds[1]) * scale;
 
         // Texture coordinates in the atlas
-        float tx = glyph.atlasBounds[0] / 1436.0f;  // Adjust based on your atlas width
-        float ty = glyph.atlasBounds[1] / 1436.0f;  // Adjust based on your atlas height
-        float tw = (glyph.atlasBounds[2] - glyph.atlasBounds[0]) / 1436.0f;
-        float th = (glyph.atlasBounds[3] - glyph.atlasBounds[1]) / 1436.0f;
+        float tx = glyph.atlasBounds[0] / altasWidth;  // Adjust based on your atlas width
+        float ty = glyph.atlasBounds[1] / altasHeight;  // Adjust based on your atlas height
+        float tw = (glyph.atlasBounds[2] - glyph.atlasBounds[0]) / altasWidth;
+        float th = (glyph.atlasBounds[3] - glyph.atlasBounds[1]) / altasHeight;
 
         // Update VBO with the character quad data
         float vertices[6][4] = {
