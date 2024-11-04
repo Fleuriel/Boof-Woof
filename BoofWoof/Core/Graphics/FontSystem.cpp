@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <unordered_map>
+#include "ResourceManager/ResourceManager.h"
 
 
 FontSystem fontSystem;
@@ -167,10 +168,21 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
 void FontSystem::init_font()
 {
 	// Load font metadata from JSON file
-	glyphs = loadFontMetadata("../BoofWoof/Assets/Font/arial.json");
+	glyphs = loadFontMetadata("../BoofWoof/Resources/Fonts/arial.json");
 
     // get texture id
-	font_textureid = loadTexture("../BoofWoof/Assets/Font/arial.png");
+	font_textureid = g_ResourceManager.GetTextureDDS("arial");
+
+	// Configure VAO/VBO for texture quads
+	glGenVertexArrays(1, &VAO_FONT);
+	glGenBuffers(1, &VBO_FONT);
+	glBindVertexArray(VAO_FONT);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_FONT);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 
 }
 
@@ -233,46 +245,44 @@ std::unordered_map<GLchar, Glyph> FontSystem::loadFontMetadata(const std::string
 
 void FontSystem::render_text(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color)
 {
-    // Activate shader and set text color
     shader.Use();
     shader.SetUniform("textColor", color.x, color.y, color.z);
+    shader.SetUniform("text", 0);  // Ensure sampler is bound to texture unit 0
     glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, font_textureid);  // Bind the font texture
     glBindVertexArray(VAO_FONT);
 
-    // Iterate through all characters
-    std::string::const_iterator c;
-    for (c = text.begin(); c != text.end(); ++c)
+    // Iterate through all characters in the string
+    for (const char& character : text)
     {
-        char character = *c;
-
-        // Retrieve the Glyph for the current character
         if (glyphs.find(character) == glyphs.end()) continue; // Skip if glyph not found
-        Glyph glyph = glyphs[character];
 
-        // Calculate the position and size of the character quad
+        const Glyph& glyph = glyphs[character];
+
+        // Calculate position and size of character quad
         float xpos = x + glyph.planeBounds[0] * scale;
         float ypos = y - (glyph.planeBounds[3] - glyph.planeBounds[1]) * scale;
         float w = (glyph.planeBounds[2] - glyph.planeBounds[0]) * scale;
         float h = (glyph.planeBounds[3] - glyph.planeBounds[1]) * scale;
 
         // Texture coordinates in the atlas
-        float tx = glyph.atlasBounds[0] / 1436.0f;  // Assuming atlas width
-        float ty = glyph.atlasBounds[1] / 1436.0f;  // Assuming atlas height
+        float tx = glyph.atlasBounds[0] / 1436.0f;  // Adjust based on your atlas width
+        float ty = glyph.atlasBounds[1] / 1436.0f;  // Adjust based on your atlas height
         float tw = (glyph.atlasBounds[2] - glyph.atlasBounds[0]) / 1436.0f;
         float th = (glyph.atlasBounds[3] - glyph.atlasBounds[1]) / 1436.0f;
 
         // Update VBO with the character quad data
         float vertices[6][4] = {
-            { xpos,     ypos + h,   tx,        ty        }, // Top-left
-            { xpos,     ypos,       tx,        ty + th   }, // Bottom-left
-            { xpos + w, ypos,       tx + tw,   ty + th   }, // Bottom-right
+            { xpos,     ypos + h,   tx,        ty        },
+            { xpos,     ypos,       tx,        ty + th   },
+            { xpos + w, ypos,       tx + tw,   ty + th   },
 
-            { xpos,     ypos + h,   tx,        ty        }, // Top-left
-            { xpos + w, ypos,       tx + tw,   ty + th   }, // Bottom-right
-            { xpos + w, ypos + h,   tx + tw,   ty        }  // Top-right
+            { xpos,     ypos + h,   tx,        ty        },
+            { xpos + w, ypos,       tx + tw,   ty + th   },
+            { xpos + w, ypos + h,   tx + tw,   ty        }
         };
 
-        // Update content of VBO memory
+        // Bind the VBO and update data
         glBindBuffer(GL_ARRAY_BUFFER, VBO_FONT);
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 
@@ -283,11 +293,11 @@ void FontSystem::render_text(OpenGLShader& shader, std::string text, float x, fl
         x += glyph.advance * scale;
     }
 
-    // Clean up
+    // Clean up state
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     shader.UnUse();
-
 }
+
 
 
