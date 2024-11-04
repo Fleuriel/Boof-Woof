@@ -47,6 +47,18 @@ class MyContactListener;
 // Forward declaration of MyBodyActivationListener
 class MyBodyActivationListener;
 
+enum class ObjectType {
+    Chair,
+    Bed,
+    Table,
+    Couch,
+    Corgi,
+    Floor,
+    Wall,
+    Wardrobe,
+    Default
+};
+
 namespace Layers
 {
     static constexpr JPH::ObjectLayer NON_MOVING{ 0 };
@@ -215,6 +227,10 @@ public:
     */
     /**************************************************************************/
     JPH::PhysicsSystem* CreatePhysicsSystem();
+
+    // Shape creation utility methods
+    ObjectType GetObjectTypeFromModel(const std::string& modelName);
+    JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& scale);
 
     /**************************************************************************/
     /*!
