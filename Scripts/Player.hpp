@@ -10,33 +10,34 @@ struct Player final : public Behaviour
 
 		if (m_Engine.getInputSystem().isButtonPressed(GLFW_KEY_W))
 		{
-			m_Engine.SetPosition(entity, m_Engine.GetPosition(entity) + glm::vec3(0.0f, 0.0f, -0.1f));
-			velocity.z -= 1.f;
+			//std::cout << "movingW" << std::endl;
+			velocity.z -= 2.f;
 		}
 
 		if (m_Engine.getInputSystem().isButtonPressed(GLFW_KEY_A))
 		{
-			m_Engine.SetPosition(entity, m_Engine.GetPosition(entity) + glm::vec3(-0.1f, 0.0f, 0.0f));
-			velocity.x -= 1.f;
+			//std::cout << "movingA" << std::endl;
+			velocity.x -= 2.f;
 		}
 
 		if (m_Engine.getInputSystem().isButtonPressed(GLFW_KEY_S))
 		{
-			m_Engine.SetPosition(entity, m_Engine.GetPosition(entity) + glm::vec3(0.0f, 0.0f, 0.1f));
-			velocity.z += 1.f;
+			//std::cout << "movingS" << std::endl;
+			velocity.z += 2.f;
 		}
 
 		if (m_Engine.getInputSystem().isButtonPressed(GLFW_KEY_D))
 		{
-			m_Engine.SetPosition(entity, m_Engine.GetPosition(entity) + glm::vec3(0.1f, 0.0f, 0.0f));
-			velocity.x += 1.f;
+			//std::cout << "movingD" << std::endl;
+			velocity.x += 2.f;
 		}
-		/*
-		if (m_Engine.HavePhysicsBody(entity))
+
+		// Check if the entity has a collision component and physics body before setting velocity
+		if (m_Engine.HaveCollisionComponent(entity) && m_Engine.HavePhysicsBody(entity))
 		{
 			m_Engine.SetVelocity(entity, velocity);
 		}
-		*/
+		
 		
 	}
 

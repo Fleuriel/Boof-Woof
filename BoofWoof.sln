@@ -6,13 +6,19 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoofWoof", "BoofWoof\BoofWoof.vcxproj", "{D46D576D-AE16-4BAF-AED7-A7224A120107}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EditorPaws", "EditorPaws\EditorPaws.vcxproj", "{515AD52E-37B2-4945-8A57-249591CD3FAA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{58EAC2F4-0DDE-4A91-B216-53C6AC87BE08} = {58EAC2F4-0DDE-4A91-B216-53C6AC87BE08}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{901D14C2-FDE7-4BBD-92CB-14B644E518A1}"
 	ProjectSection(ProjectDependencies) = postProject
+		{58EAC2F4-0DDE-4A91-B216-53C6AC87BE08} = {58EAC2F4-0DDE-4A91-B216-53C6AC87BE08}
 		{D46D576D-AE16-4BAF-AED7-A7224A120107} = {D46D576D-AE16-4BAF-AED7-A7224A120107}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Scripts", "Scripts\Scripts.vcxproj", "{58EAC2F4-0DDE-4A91-B216-53C6AC87BE08}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MeshCompiler", "MeshCompiler\MeshCompiler.vcxproj", "{CB525F24-3067-450D-AD27-A973E573721C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +60,14 @@ Global
 		{58EAC2F4-0DDE-4A91-B216-53C6AC87BE08}.Release|x64.Build.0 = Release|x64
 		{58EAC2F4-0DDE-4A91-B216-53C6AC87BE08}.Release|x86.ActiveCfg = Release|Win32
 		{58EAC2F4-0DDE-4A91-B216-53C6AC87BE08}.Release|x86.Build.0 = Release|Win32
+		{CB525F24-3067-450D-AD27-A973E573721C}.Debug|x64.ActiveCfg = Debug|x64
+		{CB525F24-3067-450D-AD27-A973E573721C}.Debug|x64.Build.0 = Debug|x64
+		{CB525F24-3067-450D-AD27-A973E573721C}.Debug|x86.ActiveCfg = Debug|Win32
+		{CB525F24-3067-450D-AD27-A973E573721C}.Debug|x86.Build.0 = Debug|Win32
+		{CB525F24-3067-450D-AD27-A973E573721C}.Release|x64.ActiveCfg = Release|x64
+		{CB525F24-3067-450D-AD27-A973E573721C}.Release|x64.Build.0 = Release|x64
+		{CB525F24-3067-450D-AD27-A973E573721C}.Release|x86.ActiveCfg = Release|Win32
+		{CB525F24-3067-450D-AD27-A973E573721C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

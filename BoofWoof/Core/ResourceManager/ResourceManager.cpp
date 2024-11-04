@@ -130,70 +130,187 @@ GLuint LoadDDSTexture(const char* filePath) {
 
 
 
-bool LoadBinFile(std::string filePath)
-{
+bool LoadBinFile(const std::string& filePath) {
     std::ifstream binFile(filePath, std::ios::binary);
     if (!binFile.is_open()) {
         std::cerr << "Failed to open binary file: " << filePath << std::endl;
-        return {};
+        return false;
     }
 
-    // Step 1: Read the number of meshes
-    size_t meshCount;
-    binFile.read(reinterpret_cast<char*>(&meshCount), sizeof(size_t));
+    try {
+        // Step 1: Read the number of meshes
+        size_t meshCount;
+        if (!binFile.read(reinterpret_cast<char*>(&meshCount), sizeof(size_t))) {
+            throw std::runtime_error("Failed to read mesh count.");
+        }
 
-    std::vector<Mesh> meshes;
-    meshes.reserve(meshCount);
+        std::vector<Mesh> meshes;
+        meshes.reserve(meshCount);
 
-    // Step 2: For each mesh, read vertex and index data
-    for (size_t i = 0; i < meshCount; ++i) {
-        // Read vertex data
-        size_t vertexCount;
-        binFile.read(reinterpret_cast<char*>(&vertexCount), sizeof(size_t));
-        std::vector<Vertex> vertices(vertexCount);
-        binFile.read(reinterpret_cast<char*>(vertices.data()), vertexCount * sizeof(Vertex));
+        // Step 2: For each mesh, read vertex, index, and texture data
+        for (size_t i = 0; i < meshCount; ++i) {
+            // Read vertices
+            size_t vertexCount;
+            if (!binFile.read(reinterpret_cast<char*>(&vertexCount), sizeof(size_t))) {
+                throw std::runtime_error("Failed to read vertex count for mesh.");
+            }
+            std::vector<Vertex> vertices(vertexCount);
+            if (!binFile.read(reinterpret_cast<char*>(vertices.data()), vertexCount * sizeof(Vertex))) {
+                throw std::runtime_error("Failed to read vertex data for mesh.");
+            }
 
-        // Read index data
-        size_t indexCount;
-        binFile.read(reinterpret_cast<char*>(&indexCount), sizeof(size_t));
-        std::vector<unsigned int> indices(indexCount);
-        binFile.read(reinterpret_cast<char*>(indices.data()), indexCount * sizeof(unsigned int));
+            // Read indices
+            size_t indexCount;
+            if (!binFile.read(reinterpret_cast<char*>(&indexCount), sizeof(size_t))) {
+                throw std::runtime_error("Failed to read index count for mesh.");
+            }
+            std::vector<unsigned int> indices(indexCount);
+            if (!binFile.read(reinterpret_cast<char*>(indices.data()), indexCount * sizeof(unsigned int))) {
+                throw std::runtime_error("Failed to read index data for mesh.");
+            }
 
-        // Create the Mesh object and add it to the vector
-        meshes.emplace_back(vertices, indices);
+            // Read textures
+            size_t textureCount;
+            if (!binFile.read(reinterpret_cast<char*>(&textureCount), sizeof(size_t))) {
+                throw std::runtime_error("Failed to read texture count for mesh.");
+            }
+            std::vector<Texture> textures;
+#ifdef _DEBUG
+            std::cout << textureCount << '\n';
+#endif
+            textures.reserve(textureCount);
+            for (size_t j = 0; j < textureCount; ++j) {
+                Texture texture;
+
+                // Read the path length
+                size_t pathLength;
+                if (!binFile.read(reinterpret_cast<char*>(&pathLength), sizeof(size_t))) {
+                    throw std::runtime_error("Failed to read texture path length.");
+                }
+
+                // Read the path
+                texture.path.resize(pathLength);
+                if (!binFile.read(&texture.path[0], pathLength)) {
+                    throw std::runtime_error("Failed to read texture path.");
+                }
+#ifdef _DEBUG
+                std::cout << texture.path << '\n';
+#endif
+                size_t dotPos = texture.path.find_last_of(".");
+                if (dotPos != std::string::npos) {
+                    texture.path = texture.path.substr(0, dotPos);
+                }
+#ifdef _DEBUG
+                std::cout << texture.path << '\n';
+#endif
+                texture.id = g_ResourceManager.GetTextureDDS(texture.path);
+
+#ifdef _DEBUG
+                std::cout << texture.id << '\n';
+#endif
+                texture.type = "texture_diffuse"; // Assign type if known
+                textures.push_back(texture);
+            }
+
+#ifdef _DEBUG
+            std::cout  << "tEX SIZE Inside Loadin \t" << textures.size() << '\n';
+#endif
+
+            // Create the Mesh object and add it to the vector
+            meshes.emplace_back(vertices, indices, textures);
+        }
+
+        binFile.close();
+        std::cout << "Loaded mesh from " << filePath << " successfully!" << std::endl;
+
+        std::filesystem::path p(filePath);
+        std::string fileName = p.stem().string();
+
+        Model model;
+        model.name = fileName;
+        model.meshes = meshes;
+        g_ResourceManager.SetModelMap(model.name, model);
     }
-
-    binFile.close();
-
-    std::cout << "Loaded mesh from " << filePath << " successfully!" << std::endl;
-
-    
-    std::cout << "********************************************\n";
-    std::cout << "Mesh contains: " << meshes.size() << '\t' << meshes.size() << '\n';
-    
-    std::cout << "Attempting to load into Model Map\n";
-    std::cout << "********************************************\n";
-
-
-
-    std::filesystem::path p(filePath);
-
-    std::string fileName = p.stem().string();
-    
-    Model model;
-    
-    model.name = fileName;
-    model.meshes = meshes;
-//    meshes[0].setupMesh();
-
-    g_ResourceManager.SetModelMap(model.name, model);
-
-
-    //g_ResourceManager.addModelNames(model.name);
-
+    catch (const std::exception& e) {
+        std::cerr << "Error occurred: " << e.what() << std::endl;
+        return false;
+    }
 
     return true;
 }
+
+
+//bool LoadBinFile(std::string filePath)
+//{
+//    std::ifstream binFile(filePath, std::ios::binary);
+//    if (!binFile.is_open()) {
+//        std::cerr << "Failed to open binary file: " << filePath << std::endl;
+//        return {};
+//    }
+//
+//    // Step 1: Read the number of meshes
+//    size_t meshCount;
+//    binFile.read(reinterpret_cast<char*>(&meshCount), sizeof(size_t));
+//
+//    std::vector<Mesh> meshes;
+//    meshes.reserve(meshCount);
+//
+//    // Step 2: For each mesh, read vertex and index data
+//    for (size_t i = 0; i < meshCount; ++i) {
+//        // Read vertex data
+//        size_t vertexCount;
+//        binFile.read(reinterpret_cast<char*>(&vertexCount), sizeof(size_t));
+//        std::vector<Vertex> vertices(vertexCount);
+//        binFile.read(reinterpret_cast<char*>(vertices.data()), vertexCount * sizeof(Vertex));
+//
+//        // Read index data
+//        size_t indexCount;
+//        binFile.read(reinterpret_cast<char*>(&indexCount), sizeof(size_t));
+//        std::vector<unsigned int> indices(indexCount);
+//        binFile.read(reinterpret_cast<char*>(indices.data()), indexCount * sizeof(unsigned int));
+//
+//
+//        size_t texCount;
+//        std::vector<Texture> texture;
+//        binFile.read(reinterpret_cast<char*>(&texCount), sizeof(size_t));
+//
+//        std::cout << "textrure count: \t\t\t" << texCount << "\n\n\n\n\n";
+//
+//        // Create the Mesh object and add it to the vector
+//        meshes.emplace_back(vertices, indices, texture);
+//    }
+//
+//    binFile.close();
+//
+//    std::cout << "Loaded mesh from " << filePath << " successfully!" << std::endl;
+//
+//
+//    std::cout << "********************************************\n";
+//    std::cout << "Mesh contains: " << meshes.size() << '\t' << meshes.size() << '\n';
+//
+//    std::cout << "Attempting to load into Model Map\n";
+//    std::cout << "********************************************\n";
+//
+//
+//
+//    std::filesystem::path p(filePath);
+//
+//    std::string fileName = p.stem().string();
+//
+//    Model model;
+//
+//    model.name = fileName;
+//    model.meshes = meshes;
+//    //    meshes[0].setupMesh();
+//
+//    g_ResourceManager.SetModelMap(model.name, model);
+//
+//
+//    //g_ResourceManager.addModelNames(model.name);
+//
+//
+//    return true;
+//}
 
 
 
@@ -217,6 +334,12 @@ bool ResourceManager::SetModelMap(const std::string& name, const Model& model) {
 
     
     ModelMap.insert(std::make_pair(name, model));
+
+#ifdef _DEBUG
+
+    std::cout << "Loaded name: " << name << " [Models Reference: " << ModelMap.size() - 1 << "]" << '\n';
+
+#endif
 	return true;
 
 //    ModelNames.push_back(name);
@@ -255,8 +378,10 @@ bool ResourceManager::LoadModelBinary()
         if (ModelNames[i] == "Square" || ModelNames[i] == "cubeModel")
             continue;
 
+#ifdef _DEBUG
         std::cout << ModelNames[i] << '\n';
-        LoadBinFile(FILEPATH_OBJECTS_RESOURCE + "\\" + ModelNames[i] + ".bin");
+#endif
+        LoadBinFile(FILEPATH_RESOURCE_OBJECTS + "\\" + ModelNames[i] + ".bin");
     }
 
     return true;
@@ -287,7 +412,7 @@ bool ResourceManager::LoadTexturesDDS() {
         // std::cout << "names:" << textureDDSFileNames[i].c_str() << "\n";
 
         //add DDS processing here
-        int result = LoadDDSTexture((FILEPATH_TEXTURES_RESOURCE + "\\" + textureDDSFileNames[i] + ".dds").c_str());
+        int result = LoadDDSTexture((FILEPATH_RESOURCE_TEXTURES + "\\" + textureDDSFileNames[i] + ".dds").c_str());
 
 
 
@@ -308,13 +433,13 @@ bool ResourceManager::LoadTexturesDDS() {
 bool ResourceManager::AddTextureDDS(std::string textureName) {
     textureDDSFileNames.push_back(textureName);
 
-
-
+#ifdef _DEBUG
     for (int i = 0; i < textureDDSFileNames.size(); ++i)
     {
         std::cout << "Contains: " << i << '\t' << textureDDSFileNames[i].c_str() << '\n';
     }
 
+#endif
     return true;
 }
 
