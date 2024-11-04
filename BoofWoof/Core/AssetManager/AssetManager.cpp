@@ -630,6 +630,11 @@ bool AssetManager::LoadObjects() {
                 
                 size_t found2 = ignExt.find(toLowerCase(Extension));
 
+                if (!(found == std::string::npos && found2 == std::string::npos)) {
+                    ObjectFiles.insert(entry.path().wstring());
+                }
+
+
                 // Only proceed if the extension matches the allowed extension
                 if (found == std::string::npos) {
                     // Process the .obj file
@@ -645,6 +650,8 @@ bool AssetManager::LoadObjects() {
                     // Discard unrecognized files
                     DiscardToTrashBin(entry.path().string(), "FILEPATH_OBJECTS");
                 }
+
+                
 
                 for (int i = 0; i < ignoredExtensions.size(); ++i)
                 {
@@ -662,7 +669,7 @@ bool AssetManager::LoadObjects() {
                     }
                 }
 
-                ObjectFiles.insert(entry.path().wstring());
+                
 
 #ifdef _DEBUG
                 std::cout << MTLCheck << '\t' << PNGCheck << '\t' << JPGCheck << '\n';
@@ -1411,7 +1418,7 @@ void AssetManager::MonitorFiles(const std::wstring& path) {
         }
         else if (path == L"..\\BoofWoof\\Assets\\Objects") {
             //std::wcout << L"Changes detected." << std::endl;
-            ReloadObjects();
+            //ReloadObjects();
         }
         else if (path == L"..\\BoofWoof\\Assets\\Shaders") {
             //std::wcout << L"Changes detected." << std::endl;
