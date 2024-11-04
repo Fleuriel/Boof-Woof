@@ -297,7 +297,7 @@ bool ResourceManager::LoadTexturesDDS() {
         }
         else
         {
-            std::cout << "ji pai siao liao\n";
+            std::cout << "Failed to load Textures DDS\n";
         }
 
     }

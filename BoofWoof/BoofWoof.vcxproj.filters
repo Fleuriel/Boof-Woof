@@ -36,6 +36,7 @@
     <ClCompile Include="Utilities\Components\MetaData.cpp" />
     <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
+    <ClCompile Include="Core\Animation\Animation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -80,6 +81,7 @@
     <ClInclude Include="Core\Physics\CollisionSystem.h" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
     <ClInclude Include="Core\Reflection\ReflectionManager.hpp" />
+    <ClInclude Include="Core\Animation\Animation.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />
