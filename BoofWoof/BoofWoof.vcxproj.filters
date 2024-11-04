@@ -30,6 +30,7 @@
     <ClCompile Include="Core\Scripts\Movement.cpp" />
     <ClCompile Include="Core\Scripts\Null.cpp" />
     <ClCompile Include="Core\Scripts\Player.cpp" />
+    <ClCompile Include="Core\Animation\Animation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -73,6 +74,7 @@
     <ClInclude Include="Core\AssetManager\FilePaths.h" />
     <ClInclude Include="Core\Physics\CollisionSystem.h" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
+    <ClInclude Include="Core\Animation\Animation.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />
