@@ -98,5 +98,8 @@
     <ClInclude Include="..\lib\imgui\inc\dirent.h">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="UndoRedoManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -75,8 +75,6 @@ void ImGuiEditor::ImGuiUpdate()
 	Settings();
 	Scenes();
 	PlayStopRunBtn();
-	ReflectionWindow();
-
 	if (m_ShowAudio)
 	{
 		Audio();
@@ -238,174 +236,219 @@ void ImGuiEditor::WorldHierarchy()
 	ImGui::End();
 }
 
-void ImGuiEditor::ReflectionWindow()
-{
-	ImGui::Begin("Reflection");
-	{
-		if (g_SelectedEntity < MAX_ENTITIES && g_SelectedEntity >= 0 && g_Coordinator.GetTotalEntities() != 0)
-		{
-			// Display all registered components for the selected entity
-			ImGui::Text("Entity ID: %d", g_SelectedEntity);
-
-			const auto& componentTypes = g_Coordinator.GetTotalRegisteredComponents();
-
-			// Iterate over all component types and check if the entity has the component
-			for (ComponentType type = 0; type < componentTypes; ++type)
-			{
-				if (g_Coordinator.GetEntitySignature(g_SelectedEntity).test(type))
-				{
-					// Retrieve the component type's name
-					std::string className = ReflectionManager::Instance().GetTypeNameFromTypeIndex(type);
-					ImGui::Text("Component: %s", className.c_str());
-
-					// Get the component array from the type and cast to IComponentArray
-					auto componentArray = g_Coordinator.GetComponentArrayFromType(type);
-					if (componentArray)
-					{
-						// Get the instance of the component for the selected entity
-						auto componentArrayT = dynamic_cast<ComponentArray<void*>*>(componentArray.get());
-
-						if (componentArrayT)
-						{
-							// Retrieve the component instance
-							void* componentInstance = &componentArrayT->GetData(g_SelectedEntity);
-
-							// Retrieve the properties of the component using the reflection system
-							const auto& properties = ReflectionManager::Instance().GetProperties(className);
-							for (const auto& property : properties)
-							{
-								ImGui::Text("%s", property->GetName().c_str());
-								ImGui::SameLine();
-
-								// Use the property name as ImGui identifier
-								std::string widgetID = "##" + property->GetName();
-
-								// Check the type of property and create appropriate ImGui widgets
-								if (property->GetValue(componentInstance).find(",") != std::string::npos) // For glm::vec3
-								{
-									// Deserialize glm::vec3 from the property value
-									glm::vec3 vecValue = SerializationHelpers::DeserializeVec3(property->GetValue(componentInstance));
-									if (ImGui::DragFloat3(widgetID.c_str(), &vecValue.x, 0.1f))
-									{
-										// Serialize and set the updated glm::vec3 value
-										property->SetValue(componentInstance, SerializationHelpers::SerializeVec3(vecValue));
-									}
-								}
-								else if (property->GetValue(componentInstance) == "true" || property->GetValue(componentInstance) == "false")
-								{
-									// For boolean properties
-									bool boolValue = property->GetValue(componentInstance) == "true";
-									if (ImGui::Checkbox(widgetID.c_str(), &boolValue))
-									{
-										property->SetValue(componentInstance, boolValue ? "true" : "false");
-									}
-								}
-								else
-								{
-									// For float properties
-									float floatValue = std::stof(property->GetValue(componentInstance));
-									if (ImGui::DragFloat(widgetID.c_str(), &floatValue, 0.1f))
-									{
-										property->SetValue(componentInstance, std::to_string(floatValue));
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		else
-		{
-			ImGui::Text("No entity selected or invalid entity ID.");
-		}
-	}
-	ImGui::End();
-}
-
 void ImGuiEditor::InspectorWindow()
 {
 	ImGui::Begin("Inspector");
 	{
 		if (g_SelectedEntity < MAX_ENTITIES && g_SelectedEntity >= 0 && g_Coordinator.GetTotalEntities() != 0)
 		{
-			// Adding Components
-			if (ImGui::BeginPopupContextItem("AComponents"))
-			{
-				if (ImGui::Selectable("Transform Component"))
-				{
-					if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
-					{
-						g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
-					}
+
+			bool colorPushed = false;
+
+			// Change color if the undo stack is empty
+			if (!g_UndoRedoManager.CanUndo()) {
+				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.5f, 0.5f, 0.5f, 1.0f)); // Greyed-out color
+				colorPushed = true;
+			}
+			if (ImGui::Button("Undo")) {
+				if (g_UndoRedoManager.CanUndo()) {
+					g_UndoRedoManager.Undo();
 				}
-				if (ImGui::Selectable("Graphics Component"))
-				{
-					if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
-					{
-						g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, GraphicsComponent());
-					}
-				}
-				if (ImGui::Selectable("Audio Component"))
-				{
-					if (!g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
-					{
-						g_Coordinator.AddComponent<AudioComponent>(g_SelectedEntity, AudioComponent());
-					}
-				}
-				if (ImGui::Selectable("Behaviour Component"))
-				{
-					if (!g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
-					{
-						g_Coordinator.AddComponent<BehaviourComponent>(g_SelectedEntity, BehaviourComponent());
-					}
-				}
-				if (ImGui::Selectable("Collision Component"))
-				{
-					if (!g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
-					{
-						g_Coordinator.AddComponent<CollisionComponent>(g_SelectedEntity, CollisionComponent());
-					}
-				}
-				ImGui::EndPopup();
+			}
+			if (colorPushed) {
+				ImGui::PopStyleColor();
+				colorPushed = false;
 			}
 
-			if (ImGui::Button("Add Components"))
-			{
-				ImGui::OpenPopup("AComponents");
-			}
 			ImGui::SameLine();
 
-			// Deleting Components
-			if (ImGui::BeginPopupContextItem("DComponents"))
-			{
-				if (ImGui::Selectable("Transform Component"))
-				{
-					g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+			// Change color if the redo stack is empty
+			if (!g_UndoRedoManager.CanRedo()) {
+				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.5f, 0.5f, 0.5f, 1.0f)); // Greyed-out color
+				colorPushed = true;
+			}
+			if (ImGui::Button("Redo")) {
+				if (g_UndoRedoManager.CanRedo()) {
+					g_UndoRedoManager.Redo();
 				}
-				if (ImGui::Selectable("Graphics Component"))
-				{
-					g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
-				}
-				if (ImGui::Selectable("Audio Component"))
-				{
-					g_Coordinator.RemoveComponent<AudioComponent>(g_SelectedEntity);
-				}
-				if (ImGui::Selectable("Behaviour Component"))
-				{
-					g_Coordinator.RemoveComponent<BehaviourComponent>(g_SelectedEntity);
-				}
-				if (ImGui::Selectable("Collision Component"))
-				{
-					g_Coordinator.RemoveComponent<CollisionComponent>(g_SelectedEntity);
-				}
-				ImGui::EndPopup();
+			}
+			if (colorPushed) {
+				ImGui::PopStyleColor();
 			}
 
-			if (ImGui::Button("Delete Component"))
-			{
-				ImGui::OpenPopup("DComponents");
-			}
+
+			// Adding Components
+            if (ImGui::BeginPopupContextItem("AComponents"))
+            {
+                if (ImGui::Selectable("Transform Component"))
+                {
+                    if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+                    {
+                        g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
+							},
+							[this]() {
+								if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+							}
+						);
+
+                    }
+                }
+                if (ImGui::Selectable("Graphics Component"))
+                {
+                    if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+                    {
+                        g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, GraphicsComponent());
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, GraphicsComponent());
+							},
+							[this]() {
+								if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
+							}
+						);
+
+                    }
+                }
+                if (ImGui::Selectable("Audio Component"))
+                {
+                    if (!g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+                    {
+                        g_Coordinator.AddComponent<AudioComponent>(g_SelectedEntity, AudioComponent());
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (!g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<AudioComponent>(g_SelectedEntity, AudioComponent());
+							},
+							[this]() {
+								if (g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<AudioComponent>(g_SelectedEntity);
+							}
+						);
+
+                    }
+                }
+                if (ImGui::Selectable("Behaviour Component"))
+                {
+                    if (!g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
+                    {
+                        g_Coordinator.AddComponent<BehaviourComponent>(g_SelectedEntity, BehaviourComponent());
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (!g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<BehaviourComponent>(g_SelectedEntity, BehaviourComponent());
+							},
+							[this]() {
+								if (g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<BehaviourComponent>(g_SelectedEntity);
+							}
+						);
+
+                    }
+                }
+                if (ImGui::Selectable("Collision Component"))
+                {
+                    if (!g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
+                    {
+                        g_Coordinator.AddComponent<CollisionComponent>(g_SelectedEntity, CollisionComponent());
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (!g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<CollisionComponent>(g_SelectedEntity, CollisionComponent());
+							},
+							[this]() {
+								if (g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<CollisionComponent>(g_SelectedEntity);
+							}
+						);
+
+                    }
+                }
+                ImGui::EndPopup();
+            }
+
+            if (ImGui::Button("Add Components"))
+            {
+                ImGui::OpenPopup("AComponents");
+            }
+            ImGui::SameLine();
+
+            // Deleting Components
+            if (ImGui::BeginPopupContextItem("DComponents"))
+            {
+                if (ImGui::Selectable("Transform Component"))
+                {
+                    if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+                    {
+                        auto originalComponent = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+                        g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+                        g_UndoRedoManager.ExecuteCommand(
+                            [this, originalComponent]() { g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, originalComponent); },
+                            [this]() { g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity); }
+                        );
+                    }
+                }
+                if (ImGui::Selectable("Graphics Component"))
+                {
+                    if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+                    {
+                        auto originalComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+                        g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
+                        g_UndoRedoManager.ExecuteCommand(
+                            [this, originalComponent]() { g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, originalComponent); },
+                            [this]() { g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity); }
+                        );
+                    }
+                }
+                if (ImGui::Selectable("Audio Component"))
+                {
+                    if (g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+                    {
+                        auto originalComponent = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity);
+                        g_Coordinator.RemoveComponent<AudioComponent>(g_SelectedEntity);
+                        g_UndoRedoManager.ExecuteCommand(
+                            [this, originalComponent]() { g_Coordinator.AddComponent<AudioComponent>(g_SelectedEntity, originalComponent); },
+                            [this]() { g_Coordinator.RemoveComponent<AudioComponent>(g_SelectedEntity); }
+                        );
+                    }
+                }
+                if (ImGui::Selectable("Behaviour Component"))
+                {
+                    if (g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
+                    {
+                        auto originalComponent = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity);
+                        g_Coordinator.RemoveComponent<BehaviourComponent>(g_SelectedEntity);
+                        g_UndoRedoManager.ExecuteCommand(
+                            [this, originalComponent]() { g_Coordinator.AddComponent<BehaviourComponent>(g_SelectedEntity, originalComponent); },
+                            [this]() { g_Coordinator.RemoveComponent<BehaviourComponent>(g_SelectedEntity); }
+                        );
+                    }
+                }
+                if (ImGui::Selectable("Collision Component"))
+                {
+                    if (g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
+                    {
+                        auto originalComponent = g_Coordinator.GetComponent<CollisionComponent>(g_SelectedEntity);
+                        g_Coordinator.RemoveComponent<CollisionComponent>(g_SelectedEntity);
+                        g_UndoRedoManager.ExecuteCommand(
+                            [this, originalComponent]() { g_Coordinator.AddComponent<CollisionComponent>(g_SelectedEntity, originalComponent); },
+                            [this]() { g_Coordinator.RemoveComponent<CollisionComponent>(g_SelectedEntity); }
+                        );
+                    }
+                }
+                ImGui::EndPopup();
+            }
+
+            if (ImGui::Button("Delete Component"))
+            {
+                ImGui::OpenPopup("DComponents");
+            }
 
 			// Use Reflection to Iterate Over All Components
 			const auto& componentTypes = g_Coordinator.GetTotalRegisteredComponents();

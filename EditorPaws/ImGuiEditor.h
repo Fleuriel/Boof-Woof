@@ -12,6 +12,7 @@
 #include "EngineCore.h"
 #include "../BoofWoof/Utilities/Components/AudioComponent.hpp"
 #include "../BoofWoof/Utilities/Components/BehaviourComponent.hpp"
+#include "UndoRedoManager.hpp"
 
 #include <filesystem>
 
@@ -35,7 +36,6 @@ public:
 	void Scenes();
 	void Audio();
 	void PlayStopRunBtn();
-	void ReflectionWindow();
 
 	// PlayStopRun Panel
 	enum class States
