@@ -332,21 +332,41 @@ void ImGuiEditor::InspectorWindow()
 			// Adding Components
 			if (ImGui::BeginPopupContextItem("AComponents"))
 			{
-				const auto& componentTypes = ReflectionManager::Instance().GetComponentTypes();
-
-				for (const auto& [className, createFunc] : componentTypes)
+				if (ImGui::Selectable("Transform Component"))
 				{
-					if (ImGui::Selectable((className + " Component").c_str()))
+					if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
 					{
-						// Use the reflection system to add the component if it doesn't exist
-						if (!g_Coordinator.HaveComponentByName(className, g_SelectedEntity))
-						{
-							auto component = createFunc();
-							g_Coordinator.AddComponentByName(className, g_SelectedEntity, component);
-						}
+						g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
 					}
 				}
-
+				if (ImGui::Selectable("Graphics Component"))
+				{
+					if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, GraphicsComponent());
+					}
+				}
+				if (ImGui::Selectable("Audio Component"))
+				{
+					if (!g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<AudioComponent>(g_SelectedEntity, AudioComponent());
+					}
+				}
+				if (ImGui::Selectable("Behaviour Component"))
+				{
+					if (!g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<BehaviourComponent>(g_SelectedEntity, BehaviourComponent());
+					}
+				}
+				if (ImGui::Selectable("Collision Component"))
+				{
+					if (!g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<CollisionComponent>(g_SelectedEntity, CollisionComponent());
+					}
+				}
 				ImGui::EndPopup();
 			}
 
@@ -359,20 +379,26 @@ void ImGuiEditor::InspectorWindow()
 			// Deleting Components
 			if (ImGui::BeginPopupContextItem("DComponents"))
 			{
-				const auto& componentTypes = ReflectionManager::Instance().GetComponentTypes();
-
-				for (const auto& [className, _] : componentTypes)
+				if (ImGui::Selectable("Transform Component"))
 				{
-					if (g_Coordinator.HaveComponentByName(className, g_SelectedEntity))
-					{
-						if (ImGui::Selectable((className + " Component").c_str()))
-						{
-							// Use the reflection system to remove the component
-							g_Coordinator.RemoveComponentByName(className, g_SelectedEntity);
-						}
-					}
+					g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
 				}
-
+				if (ImGui::Selectable("Graphics Component"))
+				{
+					g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
+				}
+				if (ImGui::Selectable("Audio Component"))
+				{
+					g_Coordinator.RemoveComponent<AudioComponent>(g_SelectedEntity);
+				}
+				if (ImGui::Selectable("Behaviour Component"))
+				{
+					g_Coordinator.RemoveComponent<BehaviourComponent>(g_SelectedEntity);
+				}
+				if (ImGui::Selectable("Collision Component"))
+				{
+					g_Coordinator.RemoveComponent<CollisionComponent>(g_SelectedEntity);
+				}
 				ImGui::EndPopup();
 			}
 
