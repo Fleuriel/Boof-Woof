@@ -848,21 +848,19 @@ void ImGuiEditor::InspectorWindow()
 								GraphicsSystem::D3 = false;
 								GraphicsSystem::D2 = false;
 							}
-						}
-						
-						/////////// light position
-						ImGui::Text("Light Position");
 
-						// Fetch the current light position from the Graphics System
-						glm::vec3 lightPos = g_Coordinator.GetSystem<GraphicsSystem>()->GetLightPos();
+							// light position
+							ImGui::PushItemWidth(250.0f);
+							ImGui::Text("LightPos"); ImGui::SameLine();
 
-						// Create sliders for each component of the light position vector
-						ImGui::SliderFloat("X", &lightPos.x, -100.0f, 100.0f, "%.1f");
-						ImGui::SliderFloat("Y", &lightPos.y, -100.0f, 100.0f, "%.1f");
-						ImGui::SliderFloat("Z", &lightPos.z, -100.0f, 100.0f, "%.1f");
+							// Fetch the current light position from the Graphics System
+							glm::vec3 lightPos = g_Coordinator.GetSystem<GraphicsSystem>()->GetLightPos();
 
-						g_Coordinator.GetSystem<GraphicsSystem>()->SetLightPos(lightPos);
-
+							if (ImGui::DragFloat3("##Light Pos", &lightPos.x, 0.1f))
+							{
+								g_Coordinator.GetSystem<GraphicsSystem>()->SetLightPos(lightPos);
+							}
+						}												
 					}
 					else if (className == "AudioComponent")
 					{
