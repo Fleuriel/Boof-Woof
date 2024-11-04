@@ -1,13 +1,6 @@
 //ReflectionManager.hpp
 #pragma once
-#include <string>
-#include <unordered_map>
-#include <functional>
-#include <iostream>
-#include <vector>
 #include <type_traits>
-#include <glm/glm.hpp>
-#include <sstream>
 #include <typeindex>
 #include "ECS/Coordinator.hpp"
 
