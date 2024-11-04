@@ -1192,8 +1192,8 @@ bool AssetManager::LoadFonts() {
                     outFile << "Font Name : " << nameWithoutExtension << std::endl;
                     outFile << "Font File Path : " << FILEPATH_ASSET_FONTS + "\\" + entry.path().filename().string() << std::endl;
                     outFile << "Resource GUID : " << std::endl;
-                    outFile << "Resource File Path : " << FILEPATH_FONTS_RESOURCE + "\\" + nameWithoutExtension + ".dds" << std::endl;
-                    outFile << "Resource Data File Path : " << FILEPATH_FONTS_RESOURCE + "\\" + nameWithoutExtension + ".json" << std::endl;
+                    outFile << "Resource File Path : " << FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".dds" << std::endl;
+                    outFile << "Resource Data File Path : " << FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".json" << std::endl;
                     outFile << "Compression Format : " << "-fd BC3";
 
                     // Close the file
@@ -1208,9 +1208,9 @@ bool AssetManager::LoadFonts() {
                 if (!fileInfo.empty()) {
 
                     // Run command
-                    runCommand("..\\lib\\msdf-atlas-gen\\msdf-atlas-gen.exe -font " + fileInfo[1] + " -allglyphs -size 32 -imageout " + FILEPATH_FONTS_RESOURCE + "\\" + nameWithoutExtension + ".png" + " -json " + fileInfo[4]);
-                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[5] + " " + FILEPATH_FONTS_RESOURCE + "\\" + nameWithoutExtension + ".png " + fileInfo[3]);
-                    if (std::remove((FILEPATH_FONTS_RESOURCE + "\\" + nameWithoutExtension + ".png").c_str()) == 0) {
+                    runCommand("..\\lib\\msdf-atlas-gen\\msdf-atlas-gen.exe -font " + fileInfo[1] + " -allglyphs -size 32 -imageout " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png" + " -json " + fileInfo[4]);
+                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[5] + " " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png " + fileInfo[3]);
+                    if (std::remove((FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png").c_str()) == 0) {
                         std::cout << "File deleted successfully.\n";
                     }
                     else {
