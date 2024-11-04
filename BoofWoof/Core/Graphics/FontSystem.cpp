@@ -14,7 +14,7 @@ void FontSystem::init()
     }
 
     // find path to font
-    std::string font_name = "../BoofWoof/Assets/Font/arial.ttf";
+    std::string font_name = "../BoofWoof/Assets/Fonts/arial.ttf";
     if (font_name.empty())
     {
         std::cout << "ERROR::FREETYPE: Failed to load font_name" << std::endl;

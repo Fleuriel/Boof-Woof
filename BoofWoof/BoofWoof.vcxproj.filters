@@ -26,10 +26,16 @@
     <ClCompile Include="Core\Level Manager\LevelManager.cpp" />
     <ClCompile Include="Core\ECS\pch.cpp" />
     <ClCompile Include="Core\Physics\CollisionSystem.cpp" />
+    <ClCompile Include="Core\Reflection\ReflectionManager.cpp" />
+    <ClCompile Include="Utilities\Components\TransformComponent.cpp" />
     <ClCompile Include="Core\Scripts\Collectables.cpp" />
     <ClCompile Include="Core\Scripts\Movement.cpp" />
     <ClCompile Include="Core\Scripts\Null.cpp" />
     <ClCompile Include="Core\Scripts\Player.cpp" />
+    <ClCompile Include="Utilities\Components\GraphicsComponent.cpp" />
+    <ClCompile Include="Utilities\Components\MetaData.cpp" />
+    <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
+    <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
     <ClCompile Include="Core\Animation\Animation.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +80,7 @@
     <ClInclude Include="Core\AssetManager\FilePaths.h" />
     <ClInclude Include="Core\Physics\CollisionSystem.h" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
+    <ClInclude Include="Core\Reflection\ReflectionManager.hpp" />
     <ClInclude Include="Core\Animation\Animation.h" />
   </ItemGroup>
   <ItemGroup>
