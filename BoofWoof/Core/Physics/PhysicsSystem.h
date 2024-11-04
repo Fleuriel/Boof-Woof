@@ -251,6 +251,8 @@ public:
 
     void RemoveEntityBody(Entity entity);
 
+    void ClearAllBodies();
+
     /**************************************************************************/
     /*!
     \brief Steps the physics simulation.

@@ -1,0 +1,59 @@
+{
+    "SceneGUID": "45883674-6cd8-4142-b265-8824aeb37803",
+    "Entities": [
+        {
+            "EntityName": "Player",
+            "Position": {
+                "x": 0.48700907826423647,
+                "y": -0.00016872996638994664,
+                "z": -2.628933906555176
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 0,
+            "ModelName": "cubeModel",
+            "Texture": " ",
+            "AudioFilePath": "../BoofWoof/Assets/Audio/explode2.wav",
+            "Volume": 1.0,
+            "ShouldLoop": false,
+            "BehaviourName": "Player",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "GameObject",
+            "Position": {
+                "x": 2.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 1,
+            "ModelName": "Bed2",
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        }
+    ]
+}

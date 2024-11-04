@@ -128,7 +128,7 @@ JPH::Shape* MyPhysicsSystem::CreateShapeForObjectType(ObjectType type, const glm
         return new JPH::BoxShape(JPH::Vec3(scale.x * 1.5f, scale.y * 0.6f, scale.z * 1.0f)); // Dimensions for couch
 
     case ObjectType::Corgi:
-        return new JPH::SphereShape(scale.x * 0.3f); // Approximate the Corgi with a small sphere shape
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.0f, scale.y * 0.5f, scale.z * 0.6f)); // Dimensions for corgi
 
     case ObjectType::Floor:
         return new JPH::BoxShape(JPH::Vec3(scale.x * 5.0f, scale.y * 0.1f, scale.z * 5.0f)); // Large, flat shape for the floor
@@ -471,26 +471,67 @@ void MyPhysicsSystem::UpdateEntityTransforms() {
 //}
 
 void MyPhysicsSystem::RemoveEntityBody(Entity entity) {
+    // Check if the entity has a CollisionComponent
     if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-        auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+        auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+        JPH::Body* body = collisionComponent.GetPhysicsBody();
 
-        // Ensure the body exists and is valid
-        JPH::BodyID bodyID = collisionComp.GetPhysicsBody()->GetID();
-        if (!bodyID.IsInvalid()) {
-            // Remove the body from the physics system
-            mPhysicsSystem->GetBodyInterface().RemoveBody(bodyID);
+        if (body != nullptr && !body->GetID().IsInvalid()) {
+            // Get the BodyInterface to manage the physics body
+            JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
+
+            // Remove and destroy the body
+            bodyInterface.RemoveBody(body->GetID());      // Remove the body from the simulation
+            bodyInterface.DestroyBody(body->GetID());     // Destroy the body to free resources
+
+            // Set the CollisionComponent's physics body pointer to nullptr
+            collisionComponent.SetPhysicsBody(nullptr);
+            std::cout << "Body for entity " << entity << " removed and destroyed." << std::endl;
         }
 
-        // Optionally, delete the body if necessary
-        // delete collisionComp.GetPhysicsBody();
-
-        // Remove the CollisionComponent from the entity
+        // Finally, remove the CollisionComponent from the entity
         g_Coordinator.RemoveComponent<CollisionComponent>(entity);
     }
 }
 
+
+void MyPhysicsSystem::ClearAllBodies() {
+    if (mPhysicsSystem == nullptr) return;
+
+    JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
+
+    // Iterate through all entities in the ECS
+    auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+    for (auto& entity : allEntities) {
+        // Check if the entity has a CollisionComponent with a physics body
+        if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+            auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+            JPH::Body* body = collisionComponent.GetPhysicsBody();
+
+            if (body != nullptr && !body->GetID().IsInvalid()) {
+                // First, remove the body from the physics system
+                bodyInterface.RemoveBody(body->GetID());
+
+                // Then, destroy the body using the BodyInterface to fully remove it
+                bodyInterface.DestroyBody(body->GetID());
+
+                // Set the CollisionComponent's physics body to nullptr
+                collisionComponent.SetPhysicsBody(nullptr);
+            }
+
+            // Remove CollisionComponent from the entity
+            g_Coordinator.RemoveComponent<CollisionComponent>(entity);
+        }
+    }
+
+    std::cout << "All bodies removed from the physics system and components cleared." << std::endl;
+}
+
+
+
 void MyPhysicsSystem::Cleanup() {
 
+    ClearAllBodies(); // Ensure all bodies are removed before other cleanup
 
     delete mPhysicsSystem;
     delete mJobSystem;

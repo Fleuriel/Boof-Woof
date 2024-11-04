@@ -189,6 +189,7 @@ void ImGuiEditor::WorldHierarchy()
 					{
 						if (g_SelectedEntity != MAX_ENTITIES)
 						{
+							g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(g_SelectedEntity);
 							g_Coordinator.DestroyEntity(g_SelectedEntity);
 							m_IsSelected = false;
 						}
@@ -203,8 +204,10 @@ void ImGuiEditor::WorldHierarchy()
 			}
 
 			if (ImGui::Button("Clear all entities")) {
+				g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 				g_Coordinator.ResetEntities();
 				g_SceneManager.ClearSceneList();
+
 			}
 		}
 
