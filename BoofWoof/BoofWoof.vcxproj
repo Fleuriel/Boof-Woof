@@ -184,6 +184,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Animation\Animation.cpp" />
     <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
     <ClCompile Include="Core\AssetManager\Compressonator.cpp" />
     <ClCompile Include="Core\Audio\AudioSystem.cpp" />
@@ -206,6 +207,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\Input\Input.cpp" />
     <ClCompile Include="Core\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Core\Physics\PhysicsSystem.cpp" />
+    <ClCompile Include="Core\Reflection\ReflectionManager.cpp" />
     <ClCompile Include="Core\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Core\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Core\Logic\LogicSystem.cpp" />
@@ -215,9 +217,14 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\Scripts\Player.cpp" />
     <ClCompile Include="Core\Serialization\Serialization.cpp" />
     <ClCompile Include="Core\Windows\WindowManager.cpp" />
-    <ClCompile Include="Utilities\Components\BehaviourComponent.hpp" />
+    <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
+    <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
+    <ClCompile Include="Utilities\Components\GraphicsComponent.cpp" />
+    <ClCompile Include="Utilities\Components\MetaData.cpp" />
+    <ClCompile Include="Utilities\Components\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Animation\Animation.h" />
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
     <ClInclude Include="Core\AssetManager\Compressonator.h" />
     <ClInclude Include="Core\AssetManager\FilePaths.h" />
@@ -247,6 +254,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Level Manager\LevelManager.h" />
     <ClInclude Include="Core\Physics\CollisionSystem.h" />
     <ClInclude Include="Core\Physics\PhysicsSystem.h" />
+    <ClInclude Include="Core\Reflection\ReflectionManager.hpp" />
     <ClInclude Include="Core\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Core\SceneManager\SceneManager.h" />
     <ClInclude Include="Core\Logic\Behaviour.h" />
@@ -255,6 +263,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Timer\Timer.hpp" />
     <ClInclude Include="Core\Windows\WindowManager.h" />
     <ClInclude Include="Utilities\Components\AudioComponent.hpp" />
+    <ClInclude Include="Utilities\Components\BehaviourComponent.hpp" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
     <ClInclude Include="Utilities\Components\GraphicsComponent.hpp" />
     <ClInclude Include="Utilities\Components\MetaData.hpp" />

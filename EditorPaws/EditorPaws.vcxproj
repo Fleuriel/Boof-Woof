@@ -233,6 +233,7 @@ xcopy /y /d "$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win6
     <ClInclude Include="..\lib\imgui\inc\imstb_textedit.h" />
     <ClInclude Include="..\lib\imgui\inc\imstb_truetype.h" />
     <ClInclude Include="ImGuiEditor.h" />
+    <ClInclude Include="UndoRedoManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BoofWoof\BoofWoof.vcxproj">

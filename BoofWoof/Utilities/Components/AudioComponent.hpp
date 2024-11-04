@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "ECS/Coordinator.hpp"
+#include "../Core/Reflection/ReflectionManager.hpp" 
 
 class AudioComponent {
 public:
@@ -23,6 +24,14 @@ public:
     void SetFilePath(const std::string& filePath) { m_FilePath = filePath; }
     void SetVolume(float volume) { m_Volume = volume; }
     void SetLoop(bool loop) { m_ShouldLoop = loop; }
+
+    // Reflection integration
+    REFLECT_COMPONENT(AudioComponent)
+    {
+        REGISTER_PROPERTY(AudioComponent, FilePath, std::string, SetFilePath, GetFilePath);
+        REGISTER_PROPERTY(AudioComponent, Volume, float, SetVolume, GetVolume);
+        REGISTER_PROPERTY(AudioComponent, ShouldLoop, bool, SetLoop, ShouldLoop);
+    }
 
 private:
     std::string m_FilePath;  // Path to the audio file

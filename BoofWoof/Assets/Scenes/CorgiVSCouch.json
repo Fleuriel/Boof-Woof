@@ -1,0 +1,60 @@
+{
+    "SceneGUID": "8a7591fe-e3d0-4fee-bd6b-8f2543e2dd78",
+    "Entities": [
+        {
+            "EntityName": "Player",
+            "Position": {
+                "x": -0.8999993801116943,
+                "y": 0.0,
+                "z": -0.9957075715065002
+            },
+            "Scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 0,
+            "ModelName": "Corgi2",
+            "Texture": " ",
+            "AudioFilePath": "../BoofWoof/Assets/Audio/explode2.wav",
+            "Volume": 1.0,
+            "ShouldLoop": false,
+            "BehaviourName": "Player",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "GameObject",
+            "Position": {
+                "x": 2.700000047683716,
+                "y": 0.0,
+                "z": -1.100000023841858
+            },
+            "Scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 1,
+            "ModelName": "Couch",
+            "Texture": " ",
+            "BehaviourName": "Null",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        }
+    ]
+}

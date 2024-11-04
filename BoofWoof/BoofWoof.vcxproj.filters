@@ -18,7 +18,6 @@
     <ClCompile Include="Core\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Core\Audio\AudioSystem.cpp" />
     <ClCompile Include="Core\Logic\LogicSystem.cpp" />
-    <ClCompile Include="Utilities\Components\BehaviourComponent.hpp" />
     <ClCompile Include="Core\AssetManager\Sprite.cpp" />
     <ClCompile Include="Core\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Core\Graphics\FontSystem.cpp" />
@@ -26,10 +25,17 @@
     <ClCompile Include="Core\Level Manager\LevelManager.cpp" />
     <ClCompile Include="Core\ECS\pch.cpp" />
     <ClCompile Include="Core\Physics\CollisionSystem.cpp" />
+    <ClCompile Include="Core\Reflection\ReflectionManager.cpp" />
+    <ClCompile Include="Utilities\Components\TransformComponent.cpp" />
     <ClCompile Include="Core\Scripts\Collectables.cpp" />
     <ClCompile Include="Core\Scripts\Movement.cpp" />
     <ClCompile Include="Core\Scripts\Null.cpp" />
     <ClCompile Include="Core\Scripts\Player.cpp" />
+    <ClCompile Include="Utilities\Components\GraphicsComponent.cpp" />
+    <ClCompile Include="Utilities\Components\MetaData.cpp" />
+    <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
+    <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
+    <ClCompile Include="Core\Animation\Animation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -73,6 +79,9 @@
     <ClInclude Include="Core\AssetManager\FilePaths.h" />
     <ClInclude Include="Core\Physics\CollisionSystem.h" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
+    <ClInclude Include="Core\Reflection\ReflectionManager.hpp" />
+    <ClInclude Include="Core\Animation\Animation.h" />
+    <ClInclude Include="Utilities\Components\BehaviourComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

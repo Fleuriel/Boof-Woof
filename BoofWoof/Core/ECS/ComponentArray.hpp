@@ -81,24 +81,47 @@ public:
 	}
 
 	// Check if entity has component
-	bool HaveComponent(Entity entity) 
+	bool HaveComponent(Entity entity)
 	{
-		if (mEntityToIndexMap.find(entity) != mEntityToIndexMap.end()) 
+		if (mEntityToIndexMap.find(entity) != mEntityToIndexMap.end())
 		{
 			return true;
 		}
 		return false;
 	}
 
-	// For cloning function - copy component from one entity to another
-	void CopyComponent(Entity entity, Entity entityToCopy) override 
+// Helper struct to check if T has SetComponentEntityID method
+	template <typename U>
+	class HasSetComponentEntityID
+	{
+	private:
+		// Check if U has a method named SetComponentEntityID that takes an Entity as argument
+		template <typename V>
+		static auto Check(V*) -> decltype(std::declval<V>().SetComponentEntityID(std::declval<Entity>()), std::true_type());
+
+		template <typename>
+		static std::false_type Check(...);
+
+	public:
+		static constexpr bool value = decltype(Check<U>(nullptr))::value;
+	};
+
+	// Modified CopyComponent function
+	void CopyComponent(Entity entity, Entity entityToCopy) override
 	{
 		T* copy_component = &mComponentArray[mEntityToIndexMap[entity]];
 		T* clone_component = new T(*copy_component);
-		clone_component->SetComponentEntityID(entityToCopy);
+
+		// Conditionally call SetComponentEntityID if it exists
+		if constexpr (HasSetComponentEntityID<T>::value)
+		{
+			clone_component->SetComponentEntityID(entityToCopy);
+		}
+
 		InsertData(entityToCopy, *clone_component);
 		delete clone_component;
 	}
+
 
 	// getter functions
 	std::array<size_t, MAX_ENTITIES>& GetEntityToIndexMap() {

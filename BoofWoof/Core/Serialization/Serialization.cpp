@@ -205,6 +205,16 @@ bool Serialization::SaveScene(const std::string& filepath) {
             entityData.AddMember(behaviorNameKey, behaviorNameValue, allocator);
         }
 
+        // Serialize CollisionComponent
+        if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+            auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+
+            rapidjson::Value collisionData(rapidjson::kObjectType);
+            collisionData.AddMember("CollisionLayer", collisionComp.GetCollisionLayer(), allocator);
+
+            entityData.AddMember("CollisionComponent", collisionData, allocator);
+        }
+
         entities.PushBack(entityData, allocator);
     }
 
@@ -350,6 +360,16 @@ bool Serialization::LoadScene(const std::string& filepath) {
                 //behaviourComponent.SetBehaviourName(name.c_str());
                 
 				//std::cout << "Serialization: " << g_Coordinator.GetEntityId(entity) << ". | " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << "." << std::endl;
+            }
+
+            // Deserialize CollisionComponent
+            if (entityData.HasMember("CollisionComponent")) {
+                const auto& collisionData = entityData["CollisionComponent"];
+
+                int layer = collisionData["CollisionLayer"].GetInt();
+
+                CollisionComponent collisionComponent(layer);
+                g_Coordinator.AddComponent(entity, collisionComponent);
             }
 
 
