@@ -1,5 +1,5 @@
-Texture Name : Corgi_small
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\Corgi_small.png
+Texture Name : Corgi_Small
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\Corgi_Small.png
 Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\Corgi_small.dds
+Resource File Path : ..\BoofWoof\Resources\Textures\Corgi_Small.dds
 Compression Format : -fd BC3

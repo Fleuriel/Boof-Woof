@@ -693,9 +693,9 @@ bool AssetManager::LoadObjects() {
 
 
 #ifdef _DEBUG
-                runCommand("..\\MeshCompiler\\x64\\Debug\\MeshCompiler.exe " + descriptorFilePath);
+                runCommand("..\\bin\\Debug-x64\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
 #else
-                runCommand("..\\MeshCompiler\\x64\\Release\\MeshCompiler.exe " + descriptorFilePath);
+                runCommand("..\\bin\\Release-x64\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
 #endif
                 g_ResourceManager.AddModelBinary(nameWithoutExtension);
 
