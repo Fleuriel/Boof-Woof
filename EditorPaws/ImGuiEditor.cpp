@@ -75,6 +75,7 @@ void ImGuiEditor::ImGuiUpdate()
 	Settings();
 	Scenes();
 	PlayStopRunBtn();
+	ReflectionWindow();
 
 	if (m_ShowAudio)
 	{
@@ -237,6 +238,91 @@ void ImGuiEditor::WorldHierarchy()
 	ImGui::End();
 }
 
+void ImGuiEditor::ReflectionWindow()
+{
+	ImGui::Begin("Reflection");
+	{
+		if (g_SelectedEntity < MAX_ENTITIES && g_SelectedEntity >= 0 && g_Coordinator.GetTotalEntities() != 0)
+		{
+			// Display all registered components for the selected entity
+			ImGui::Text("Entity ID: %d", g_SelectedEntity);
+
+			const auto& componentTypes = g_Coordinator.GetTotalRegisteredComponents();
+
+			// Iterate over all component types and check if the entity has the component
+			for (ComponentType type = 0; type < componentTypes; ++type)
+			{
+				if (g_Coordinator.GetEntitySignature(g_SelectedEntity).test(type))
+				{
+					// Retrieve the component type's name
+					std::string className = ReflectionManager::Instance().GetTypeNameFromTypeIndex(type);
+					ImGui::Text("Component: %s", className.c_str());
+
+					// Get the component array from the type and cast to IComponentArray
+					auto componentArray = g_Coordinator.GetComponentArrayFromType(type);
+					if (componentArray)
+					{
+						// Get the instance of the component for the selected entity
+						auto componentArrayT = dynamic_cast<ComponentArray<void*>*>(componentArray.get());
+
+						if (componentArrayT)
+						{
+							// Retrieve the component instance
+							void* componentInstance = &componentArrayT->GetData(g_SelectedEntity);
+
+							// Retrieve the properties of the component using the reflection system
+							const auto& properties = ReflectionManager::Instance().GetProperties(className);
+							for (const auto& property : properties)
+							{
+								ImGui::Text("%s", property->GetName().c_str());
+								ImGui::SameLine();
+
+								// Use the property name as ImGui identifier
+								std::string widgetID = "##" + property->GetName();
+
+								// Check the type of property and create appropriate ImGui widgets
+								if (property->GetValue(componentInstance).find(",") != std::string::npos) // For glm::vec3
+								{
+									// Deserialize glm::vec3 from the property value
+									glm::vec3 vecValue = SerializationHelpers::DeserializeVec3(property->GetValue(componentInstance));
+									if (ImGui::DragFloat3(widgetID.c_str(), &vecValue.x, 0.1f))
+									{
+										// Serialize and set the updated glm::vec3 value
+										property->SetValue(componentInstance, SerializationHelpers::SerializeVec3(vecValue));
+									}
+								}
+								else if (property->GetValue(componentInstance) == "true" || property->GetValue(componentInstance) == "false")
+								{
+									// For boolean properties
+									bool boolValue = property->GetValue(componentInstance) == "true";
+									if (ImGui::Checkbox(widgetID.c_str(), &boolValue))
+									{
+										property->SetValue(componentInstance, boolValue ? "true" : "false");
+									}
+								}
+								else
+								{
+									// For float properties
+									float floatValue = std::stof(property->GetValue(componentInstance));
+									if (ImGui::DragFloat(widgetID.c_str(), &floatValue, 0.1f))
+									{
+										property->SetValue(componentInstance, std::to_string(floatValue));
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			ImGui::Text("No entity selected or invalid entity ID.");
+		}
+	}
+	ImGui::End();
+}
+
 void ImGuiEditor::InspectorWindow()
 {
 	ImGui::Begin("Inspector");
@@ -354,6 +440,9 @@ void ImGuiEditor::InspectorWindow()
 			if (ImGui::CollapsingHeader("Identifier", ImGuiTreeNodeFlags_None))
 			{
 				auto& ObjName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
+				auto& metadataComponent = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity);
+				metadataComponent.RegisterProperties();
+
 
 				char entityNameBuffer[256];
 				memset(entityNameBuffer, 0, sizeof(entityNameBuffer));
@@ -425,6 +514,10 @@ void ImGuiEditor::InspectorWindow()
 				// Retrieve properties using the reflection system
 				const auto& properties = ReflectionManager::Instance().GetProperties("GraphicsComponent");
 				// Find the index of the current model name in the modelNames vector
+				std::string modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
+				std::vector<std::string> modelNames = g_ResourceManager.getModelNames();
+
+				// Find the index of the current model name in the modelNames vector
 				int currentItem = 0;
 				for (size_t i = 0; i < modelNames.size(); ++i) {
 					if (modelNames[i] == modelName) {
@@ -442,18 +535,6 @@ void ImGuiEditor::InspectorWindow()
 
 				if (modelNameProperty != properties.end())
 				{
-					std::string modelName = (*modelNameProperty)->GetValue(&graphicsComponent);
-					std::vector<std::string> modelNames = g_ResourceManager.getModelNames();
-
-					static int currentItem = 0;
-					for (size_t i = 0; i < modelNames.size(); ++i)
-					{
-						if (modelNames[i] == modelName)
-						{
-							currentItem = static_cast<int>(i);
-							break;
-						}
-					}
 
 					ImGui::PushItemWidth(123.0f);
 					ImGui::Text("Model   ");

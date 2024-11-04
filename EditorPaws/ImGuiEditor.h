@@ -35,6 +35,7 @@ public:
 	void Scenes();
 	void Audio();
 	void PlayStopRunBtn();
+	void ReflectionWindow();
 
 	// PlayStopRun Panel
 	enum class States

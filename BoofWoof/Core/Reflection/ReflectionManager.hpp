@@ -9,6 +9,8 @@
 #include <glm/glm.hpp>
 #include <sstream>
 #include <typeindex>
+#include "ECS/Coordinator.hpp"
+
 
 // Base class for ReflectionProperty to enable polymorphism
 class ReflectionPropertyBase
@@ -124,9 +126,15 @@ public:
     template <typename T>
     void RegisterComponentType(const std::string& className)
     {
+        ComponentType type = g_Coordinator.GetComponentType<T>();
+
+        // Register the type creation function
         m_ComponentTypes.emplace(className, []() -> void* { return new T(); });
-        m_TypeNames[typeid(T)] = className;
+
+        // Map the type index to the class name
+        m_TypeIndexToName[type] = className;
     }
+
 
     // Get all registered component types
     const std::unordered_map<std::string, std::function<void* ()>>& GetComponentTypes() const
@@ -141,11 +149,75 @@ public:
         return m_TypeNames[typeid(T)];
     }
 
+    void ReflectComponentsOfEntity(Entity entity)
+    {
+        // Get all component types registered
+        const auto& componentTypes = g_Coordinator.GetTotalRegisteredComponents();
+
+        std::cout << "Reflecting components for entity ID: " << entity << "\n";
+
+        // Iterate over all component types and check if the entity has the component
+        for (ComponentType type = 0; type < componentTypes; ++type)
+        {
+            // Check if the entity has the component of this type
+            if (g_Coordinator.GetEntitySignature(entity).test(type))
+            {
+                // Retrieve the component type's name and properties
+                auto componentArray = g_Coordinator.GetComponentArrayFromType(type);
+                std::string className = GetTypeNameFromTypeIndex(type);
+
+                std::cout << "Component: " << className << "\n";
+
+                // Use dynamic_cast to access ComponentArray<T>
+                auto componentArrayT = dynamic_cast<ComponentArray<void*>*>(componentArray.get());
+
+                if (componentArrayT)
+                {
+                    // Retrieve the component instance
+                    void* componentInstance = &componentArrayT->GetData(entity);
+
+                    // Get properties associated with the class name
+                    const auto& properties = GetProperties(className);
+                    for (const auto& property : properties)
+                    {
+                        std::string propertyName = property->GetName();
+                        std::string value = property->GetValue(componentInstance);
+
+                        std::cout << "  Property: " << propertyName << " = " << value << "\n";
+                    }
+                }
+                else
+                {
+                    std::cerr << "Failed to cast component array to ComponentArray for type: " << className << "\n";
+                }
+            }
+        }
+    }
+
+    // Helper method to get class name from type index
+    std::string GetTypeNameFromTypeIndex(ComponentType type)
+    {
+        auto it = m_TypeIndexToName.find(type);
+        if (it != m_TypeIndexToName.end())
+        {
+            return it->second;
+        }
+        return "Unknown";
+    }
+
+
 private:
     std::unordered_map<std::string, std::vector<ReflectionPropertyBase*>> m_Properties;
     std::unordered_map<std::string, std::function<void* ()>> m_ComponentTypes; // Registered component types
     std::unordered_map<std::type_index, std::string> m_TypeNames;            // Mapping from type to class name
+    std::unordered_map<ComponentType, std::string> m_TypeIndexToName;
+
+
+
+
+
 };
+
 
 #define REGISTER_PROPERTY(ClassType, PropertyName, FieldType, Setter, Getter)          \
     ReflectionManager::Instance().RegisterProperty<ClassType>(                         \
