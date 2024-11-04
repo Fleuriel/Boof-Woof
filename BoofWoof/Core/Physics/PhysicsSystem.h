@@ -313,7 +313,7 @@ public:
         JPH::RVec3Arg /* inBaseOffset */,
         const JPH::CollideShapeResult& /* inCollisionResult */) override
     {
-        std::cout << "Contact validate callback" << std::endl;
+        // std::cout << "Contact validate callback" << std::endl;
 
         // Allows you to ignore a contact before it is created (using layers to not
         // make objects collide is cheaper!)
@@ -349,13 +349,13 @@ public:
     void OnContactPersisted(const JPH::Body& inBody1, const JPH::Body& inBody2,
         const JPH::ContactManifold& inManifold,
         JPH::ContactSettings& ioSettings) override {
-        std::cout << "Persisting contact between Body IDs: " << inBody1.GetID().GetIndex()
-            << " and " << inBody2.GetID().GetIndex() << std::endl;
-        std::cout << "Positions: Body1(" << inBody1.GetPosition().GetX() << ", "
-            << inBody1.GetPosition().GetY() << ", " << inBody1.GetPosition().GetZ()
-            << ") and Body2(" << inBody2.GetPosition().GetX() << ", "
-            << inBody2.GetPosition().GetY() << ", " << inBody2.GetPosition().GetZ()
-            << ")" << std::endl;
+        //std::cout << "Persisting contact between Body IDs: " << inBody1.GetID().GetIndex()
+        //    << " and " << inBody2.GetID().GetIndex() << std::endl;
+        //std::cout << "Positions: Body1(" << inBody1.GetPosition().GetX() << ", "
+        //    << inBody1.GetPosition().GetY() << ", " << inBody1.GetPosition().GetZ()
+        //    << ") and Body2(" << inBody2.GetPosition().GetX() << ", "
+        //    << inBody2.GetPosition().GetY() << ", " << inBody2.GetPosition().GetZ()
+        //    << ")" << std::endl;
     }
 
     void OnContactRemoved(
