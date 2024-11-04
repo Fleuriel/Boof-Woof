@@ -2,7 +2,7 @@
 #include "FontSystem.h"
 #include <stb_image.h>
 #include <rapidjson/document.h>
-#include <rapidjson/filereadstream.h>
+#include <rapidjson/istreamwrapper.h>
 #include <fstream>
 #include <iostream>
 #include <unordered_map>
@@ -166,65 +166,127 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
 
 void FontSystem::init_font()
 {
+	// Load font metadata from JSON file
+	glyphs = loadFontMetadata("../BoofWoof/Assets/Font/arial.json");
+
+    // get texture id
+	font_textureid = loadTexture("../BoofWoof/Assets/Font/arial.png");
 
 }
 
-std::unordered_map<int, Glyph> FontSystem::loadFontMetadata(const std::string& jsonPath)
+std::unordered_map<GLchar, Glyph> FontSystem::loadFontMetadata(const std::string& jsonPath)
 {
-    std::unordered_map<int, Glyph> glyphs;
+    std::unordered_map<GLchar, Glyph> glyphs;
 
-    // Open the JSON file
-    FILE* fp = fopen(jsonPath.c_str(), "r");
-    if (!fp) {
-        std::cerr << "Failed to open JSON file: " << jsonPath << std::endl;
+    // Open and parse the JSON file
+    std::ifstream ifs(jsonPath);
+    if (!ifs.is_open()) {
+        std::cerr << "Failed to open JSON file." << std::endl;
         return glyphs;
     }
 
-    // Create a file read buffer
-    char readBuffer[65536];
-    rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+    rapidjson::IStreamWrapper isw(ifs);
+    rapidjson::Document document;
+    document.ParseStream(isw);
 
-    // Parse the JSON document
-    rapidjson::Document doc;
-    doc.ParseStream(is);
-    fclose(fp);
-
-    // Check if parsing succeeded
-    if (!doc.IsObject() || !doc.HasMember("glyphs") || !doc["glyphs"].IsArray()) {
-        std::cerr << "Invalid JSON format in file: " << jsonPath << std::endl;
+    if (!document.HasMember("glyphs") || !document["glyphs"].IsArray()) {
+        std::cerr << "Invalid JSON format: 'glyphs' array missing." << std::endl;
         return glyphs;
     }
 
-    // Iterate through glyphs
-    for (const auto& glyph : doc["glyphs"].GetArray()) {
-        if (!glyph.IsObject()) continue;
-
+    // Iterate over each glyph in the JSON "glyphs" array
+    for (const auto& glyph : document["glyphs"].GetArray()) {
         Glyph g;
-        g.advance = glyph["advance"].GetFloat();
 
-        // Get planeBounds
-        const auto& planeBounds = glyph["planeBounds"].GetObject();
-        g.planeBounds[0] = planeBounds["left"].GetFloat();
-        g.planeBounds[1] = planeBounds["bottom"].GetFloat();
-        g.planeBounds[2] = planeBounds["right"].GetFloat();
-        g.planeBounds[3] = planeBounds["top"].GetFloat();
+        // Load advance
+        if (glyph.HasMember("advance") && glyph["advance"].IsNumber()) {
+            g.advance = glyph["advance"].GetFloat();
+        }
 
-        // Get atlasBounds
-        const auto& atlasBounds = glyph["atlasBounds"].GetObject();
-        g.atlasBounds[0] = atlasBounds["left"].GetFloat();
-        g.atlasBounds[1] = atlasBounds["bottom"].GetFloat();
-        g.atlasBounds[2] = atlasBounds["right"].GetFloat();
-        g.atlasBounds[3] = atlasBounds["top"].GetFloat();
+        // Load planeBounds (left, bottom, right, top)
+        if (glyph.HasMember("planeBounds")) {
+            const auto& pb = glyph["planeBounds"];
+            g.planeBounds[0] = pb["left"].GetFloat();
+            g.planeBounds[1] = pb["bottom"].GetFloat();
+            g.planeBounds[2] = pb["right"].GetFloat();
+            g.planeBounds[3] = pb["top"].GetFloat();
+        }
 
-        // Add glyph to map
-        int index = glyph["index"].GetInt();
-        glyphs[index] = g;
+        // Load atlasBounds (left, bottom, right, top)
+        if (glyph.HasMember("atlasBounds")) {
+            const auto& ab = glyph["atlasBounds"];
+            g.atlasBounds[0] = ab["left"].GetFloat();
+            g.atlasBounds[1] = ab["bottom"].GetFloat();
+            g.atlasBounds[2] = ab["right"].GetFloat();
+            g.atlasBounds[3] = ab["top"].GetFloat();
+        }
+
+        // Load glyph index and store it in the map
+        if (glyph.HasMember("index") && glyph["index"].IsInt()) {
+			char character = static_cast<char>(glyph["index"].GetInt());
+            glyphs[character] = g;
+        }
     }
+
     return glyphs;
 }
 
 void FontSystem::render_text(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color)
 {
+    // Activate shader and set text color
+    shader.Use();
+    shader.SetUniform("textColor", color.x, color.y, color.z);
+    glActiveTexture(GL_TEXTURE0);
+    glBindVertexArray(VAO_FONT);
+
+    // Iterate through all characters
+    std::string::const_iterator c;
+    for (c = text.begin(); c != text.end(); ++c)
+    {
+        char character = *c;
+
+        // Retrieve the Glyph for the current character
+        if (glyphs.find(character) == glyphs.end()) continue; // Skip if glyph not found
+        Glyph glyph = glyphs[character];
+
+        // Calculate the position and size of the character quad
+        float xpos = x + glyph.planeBounds[0] * scale;
+        float ypos = y - (glyph.planeBounds[3] - glyph.planeBounds[1]) * scale;
+        float w = (glyph.planeBounds[2] - glyph.planeBounds[0]) * scale;
+        float h = (glyph.planeBounds[3] - glyph.planeBounds[1]) * scale;
+
+        // Texture coordinates in the atlas
+        float tx = glyph.atlasBounds[0] / 1436.0f;  // Assuming atlas width
+        float ty = glyph.atlasBounds[1] / 1436.0f;  // Assuming atlas height
+        float tw = (glyph.atlasBounds[2] - glyph.atlasBounds[0]) / 1436.0f;
+        float th = (glyph.atlasBounds[3] - glyph.atlasBounds[1]) / 1436.0f;
+
+        // Update VBO with the character quad data
+        float vertices[6][4] = {
+            { xpos,     ypos + h,   tx,        ty        }, // Top-left
+            { xpos,     ypos,       tx,        ty + th   }, // Bottom-left
+            { xpos + w, ypos,       tx + tw,   ty + th   }, // Bottom-right
+
+            { xpos,     ypos + h,   tx,        ty        }, // Top-left
+            { xpos + w, ypos,       tx + tw,   ty + th   }, // Bottom-right
+            { xpos + w, ypos + h,   tx + tw,   ty        }  // Top-right
+        };
+
+        // Update content of VBO memory
+        glBindBuffer(GL_ARRAY_BUFFER, VBO_FONT);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+
+        // Render the character quad
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        // Advance the cursor to the start of the next character
+        x += glyph.advance * scale;
+    }
+
+    // Clean up
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    shader.UnUse();
 
 }
 

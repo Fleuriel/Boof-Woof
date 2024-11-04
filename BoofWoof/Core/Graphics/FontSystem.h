@@ -45,13 +45,13 @@ public:
     void RenderText(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color);
 
     void init_font();
-    std::unordered_map<int, Glyph> loadFontMetadata(const std::string& jsonPath);
+    std::unordered_map<GLchar, Glyph> loadFontMetadata(const std::string& jsonPath);
 	void render_text(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color);
 
 private:
     std::map<GLchar, Character> Characters;
-    GLuint textureid;
-	std::unordered_map<int, Glyph> glyphs;
+    GLuint font_textureid;
+	std::unordered_map<GLchar, Glyph> glyphs;
     unsigned int VAO_FONT{}, VBO_FONT{};
 
 };
