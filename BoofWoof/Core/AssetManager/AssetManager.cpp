@@ -15,6 +15,7 @@
 #pragma warning(push)
 #pragma warning(disable: 4244 4005)
 
+#include <thread>
 #include "AssetManager.h"
 #include "windows.h"
 #include "FilePaths.h"
@@ -295,6 +296,8 @@ bool AssetManager::LoadTextures() {
 
     if (fs::is_directory(filepath)) {
         for (const auto& entry : fs::directory_iterator(filepath)) {
+
+
             std::string texFilePath = filepath + "\\" + entry.path().filename().string();
             //std::cout << "Texture file " << texFilePath << " Found." << std::endl;
 
@@ -305,7 +308,7 @@ bool AssetManager::LoadTextures() {
 
                 std::string Extension = entry.path().filename().string().substr(pos);
                 //std::cout << Extension;
-                std::string allowedExtensions = ".jpg,.jpeg,.png,.gif";
+                std::string allowedExtensions = ".png";
 
                 // Check if the substring exists in the full string
                 size_t found = allowedExtensions.find(toLowerCase(Extension));
@@ -315,11 +318,14 @@ bool AssetManager::LoadTextures() {
                     continue;
                 }
 
+                TextureFiles.insert(entry.path().wstring());
 
 #ifdef _DEBUG
                 std::cout << "\n**************************************************************************************\n";
                 std::cout << nameWithoutExtension << " detected successfully!\n";
 #endif // DEBUG
+
+
 
                 if (!fs::exists(FILEPATH_TEXTURES_DESCRIPTOR))
                     fs::create_directory(FILEPATH_TEXTURES_DESCRIPTOR);
@@ -399,9 +405,12 @@ bool AssetManager::LoadTextures() {
  *               if the map is not empty after the operation.
  *************************************************************************/
 bool AssetManager::FreeTextures() {
+    DeleteAllFilesInDirectory(FILEPATH_TEXTURES_RESOURCE);
+    DeleteAllFilesInDirectory(FILEPATH_TEXTURES_DESCRIPTOR);
+    TextureFiles.clear();
     TextureDescriptionFiles.clear();
     // Return true if the container size is 0, false otherwise.
-    return TextureDescriptionFiles.empty();
+    return (TextureDescriptionFiles.empty() && TextureFiles.empty());
 }
 
 /**************************************************************************
@@ -417,27 +426,8 @@ bool AssetManager::FreeTextures() {
  *************************************************************************/
 bool AssetManager::ReloadTextures() {
     // Return true if free and load successfully
-    return (AssetManager::FreeTextures() && AssetManager::LoadTextures());
+    return (FreeTextures() && LoadTextures());
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -483,6 +473,8 @@ bool AssetManager::LoadScenes() {
                 DiscardToTrashBin(entry.path().string(), FILEPATH_SCENES);
                 continue;
             }
+
+            SceneFiles.insert(entry.path().wstring());
         }
     }
     else {
@@ -497,6 +489,11 @@ bool AssetManager::LoadScenes() {
     return result;
 }
 
+bool AssetManager::FreeScenes() {
+    SceneFiles.clear();
+    return SceneFiles.empty();
+}
+
 /**************************************************************************
  * @brief Reloads the available scene filenames.
  *
@@ -508,7 +505,7 @@ bool AssetManager::LoadScenes() {
  *         false otherwise.
  *************************************************************************/
 bool AssetManager::ReloadScenes() {
-    return AssetManager::LoadScenes();
+    return (FreeScenes() && LoadScenes());
 }
 
 
@@ -606,10 +603,12 @@ bool AssetManager::LoadObjects() {
 
     if (fs::is_directory(filepath)) {
         for (const auto& entry : fs::directory_iterator(filepath)) {
+
             std::string texFilePath = filepath + "\\" + entry.path().filename().string();
 
             size_t pos = entry.path().filename().string().find_last_of('.');
             if (pos != std::string::npos) {
+
                 std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
                 std::string Extension = entry.path().filename().string().substr(pos);
                 std::string allowedExtensions = ".obj";
@@ -620,6 +619,8 @@ bool AssetManager::LoadObjects() {
                     DiscardToTrashBin(entry.path().string(), FILEPATH_OBJECTS);
                     continue;
                 }
+
+                ObjectFiles.insert(entry.path().wstring());
 
                 std::cout << "\n**************************************************************************************\n";
 #ifdef _DEBUG
@@ -689,7 +690,15 @@ bool AssetManager::LoadObjects() {
     }
 }
 
+bool AssetManager::FreeObjects() {
+    ObjectFiles.clear();
+    DeleteAllFilesInDirectory(FILEPATH_OBJECTS_RESOURCE);
+    return ObjectFiles.empty();
+}
 
+bool AssetManager::ReloadObjects() {
+    return (FreeObjects() && LoadObjects());
+}
 
 
 
@@ -727,11 +736,15 @@ bool AssetManager::LoadShaders() {
 
         // For every file within the directory
         for (const auto& entry : fs::directory_iterator(FILEPATH_SHADERS)) {
+
+
             std::string texFilePath = FILEPATH_SHADERS + "/" + entry.path().filename().string();
             //std::cout << "Texture file " << texFilePath << " Found." << std::endl;
 
             size_t pos = entry.path().filename().string().find_last_of('.');
             if (pos != std::string::npos) {
+                
+                
                 std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
                 //std::cout << nameWithoutExtension << std::endl;
 
@@ -743,6 +756,7 @@ bool AssetManager::LoadShaders() {
                 size_t found = allowedExtensions.find(toLowerCase(Extension));
 
                 if (found == std::string::npos) {
+
                     std::string file(entry.path().filename().string());
                     std::wstring widefile(file.begin(), file.end());
                     HWND hwnd = GetActiveWindow();
@@ -789,11 +803,15 @@ bool AssetManager::LoadShaders() {
                 }
 
                 // If the file is detected to be a frag file
-                if (found == 0)
+                if (found == 0) {
                     fragfiles.push_back(nameWithoutExtension);
+                    ShaderFiles.insert(entry.path().wstring());
+                }
                 // If the file is detected to be a vert file
-                else if (found == 6)
+                else if (found == 6) {
                     vertfiles.push_back(nameWithoutExtension);
+                    ShaderFiles.insert(entry.path().wstring());
+                }
 #ifdef _DEBUG
                 std::cout << nameWithoutExtension << " success!\n";
 #endif // DEBUG
@@ -1017,14 +1035,20 @@ OpenGLShader& AssetManager::GetShader(std::string shaderName) {
 }
 
 /**************************************************************************
- * @brief Free Shaders (Unimplemented)
+ * @brief Free Shaders 
  *************************************************************************/
 bool AssetManager::FreeShaders()
 {
-    return false;
+    shdrpgms.clear();
+    shdrpgmOrder.clear();
+    ShaderFiles.clear();
+    return (shdrpgms.empty() && shdrpgmOrder.empty() && ShaderFiles.empty());
 }
 
-
+bool AssetManager::ReloadShaders()
+{
+    return (FreeShaders() && LoadShaders());
+}
 
 
 
@@ -1123,11 +1147,14 @@ bool AssetManager::LoadFonts() {
 
     if (fs::is_directory(filepath)) {
         for (const auto& entry : fs::directory_iterator(filepath)) {
+
+
             std::string texFilePath = filepath + "\\" + entry.path().filename().string();
             //std::cout << "Font file " << texFilePath << " Found." << std::endl;
 
             size_t pos = entry.path().filename().string().find_last_of('.');
             if (pos != std::string::npos) {
+
                 std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
                 //std::cout << nameWithoutExtension << std::endl;
 
@@ -1143,6 +1170,7 @@ bool AssetManager::LoadFonts() {
                     continue;
                 }
 
+                FontFiles.insert(entry.path().wstring());
 
 #ifdef _DEBUG
                 std::cout << "\n**************************************************************************************\n";
@@ -1209,6 +1237,153 @@ bool AssetManager::LoadFonts() {
         return false;
     }
 }
+
+bool AssetManager::FreeFonts() {
+    FontFiles.clear();
+    DeleteAllFilesInDirectory(FILEPATH_FONTS_RESOURCE);
+    DeleteAllFilesInDirectory(FILEPATH_FONTS_DESCRIPTOR);
+    return FontFiles.empty();
+}
+
+bool AssetManager::ReloadFonts() {
+    return (FreeFonts() && LoadFonts());
+}
+
+
+
+
+
+
+
+
+
+
+// Check for added and deleted texture files
+bool AssetManager::CheckFiles(const std::wstring& path) {
+    // Create a set to hold the current detected files
+    std::set<std::wstring> currentFiles;
+
+    // Iterate through the directory and add the file names to the set
+    for (const auto& entry : fs::directory_iterator(path)) {
+        if (entry.is_regular_file()) {
+            currentFiles.insert(entry.path().wstring());
+        }
+    }
+
+
+    bool hasChanges = false;
+
+    if (path == L"..\\BoofWoof\\Assets\\Art\\Textures") {
+        // Compare currentFiles with the existing TextureFiles
+        hasChanges = (currentFiles != TextureFiles);
+
+        // Update TextureFiles with currentFiles
+        TextureFiles = std::move(currentFiles); // Efficiently swap the content
+    }
+    else if (path == L"..\\BoofWoof\\Assets\\Art\\Sprites") {
+        // Compare currentFiles with the existing SpriteFiles
+        hasChanges = (currentFiles != SpriteFiles);
+
+        // Update SpriteFiles with currentFiles
+        SpriteFiles = std::move(currentFiles); // Efficiently swap the content
+    }
+    else if (path == L"..\\BoofWoof\\Assets\\Scenes") {
+        // Compare currentFiles with the existing SceneFiles
+        hasChanges = (currentFiles != SceneFiles);
+
+        // Update SceneFiles with currentFiles
+        SceneFiles = std::move(currentFiles); // Efficiently swap the content
+    }
+    else if (path == L"..\\BoofWoof\\Assets\\Objects") {
+        // Compare currentFiles with the existing ObjectFiles
+        hasChanges = (currentFiles != ObjectFiles);
+
+        if (hasChanges) {
+            std::wcout << L"Change detected in directory: " << path << L"\n";
+            std::wcout << L"New state of files:\n";
+            for (const auto& file : currentFiles) {
+                std::wcout << file << L"\n";
+            }
+            std::wcout << L"Previous state of files:\n";
+            for (const auto& file : ObjectFiles) {
+                std::wcout << file << L"\n";
+            }
+        }
+
+
+        // Update ObjectFiles with currentFiles
+        ObjectFiles = std::move(currentFiles); // Efficiently swap the content
+    }
+    else if (path == L"..\\BoofWoof\\Assets\\Shaders") {
+        // Compare currentFiles with the existing ShaderFiles
+        hasChanges = (currentFiles != ShaderFiles);
+
+        // Update ShaderFiles with currentFiles
+        ShaderFiles = std::move(currentFiles); // Efficiently swap the content
+    }
+    else if (path == L"..\\BoofWoof\\Assets\\Fonts") {
+        // Compare currentFiles with the existing FontFiles
+        hasChanges = (currentFiles != FontFiles);
+
+        // Update FontFiles with currentFiles
+        FontFiles = std::move(currentFiles); // Efficiently swap the content
+    }
+
+    // Return true if changes were detected, otherwise false
+    return hasChanges;
+}
+
+// Function to monitor texture files in a polling loop
+void AssetManager::MonitorFiles(const std::wstring& path) {
+    if (CheckFiles(path) && !Currentlyloading) {
+        if (path == L"..\\BoofWoof\\Assets\\Art\\Textures") {
+            //std::wcout << L"Changes detected." << std::endl;
+            ReloadTextures();
+        }
+        /*else if (path == L"..\\BoofWoof\\Assets\\Art\\Sprites") {
+            
+        }*/
+        else if (path == L"..\\BoofWoof\\Assets\\Scenes") {
+            //std::wcout << L"Changes detected." << std::endl;
+            ReloadScenes();
+        }
+        else if (path == L"..\\BoofWoof\\Assets\\Objects") {
+            //std::wcout << L"Changes detected." << std::endl;
+            ReloadObjects();
+        }
+        else if (path == L"..\\BoofWoof\\Assets\\Shaders") {
+            //std::wcout << L"Changes detected." << std::endl;
+            ReloadShaders();
+        }
+        else if (path == L"..\\BoofWoof\\Assets\\Fonts") {
+            //std::wcout << L"Changes detected." << std::endl;
+            ReloadFonts();
+        }
+    }
+    else {
+        //std::wcout << L"No changes detected." << std::endl;
+    }
+}
+
+void AssetManager::DeleteAllFilesInDirectory(const std::string& directoryPath) {
+    try {
+        // Iterate over each item in the directory
+        for (const auto& entry : fs::directory_iterator(directoryPath)) {
+            if (fs::is_regular_file(entry.path())) {
+                fs::remove(entry.path()); // Delete the file
+            }
+            // If you want to delete directories as well, you can use:
+            // fs::remove_all(entry.path());
+        }
+        std::cout << "All files in the directory have been deleted." << std::endl;
+    }
+    catch (const std::filesystem::filesystem_error& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+}
+
+
+
 
 
 #pragma warning(pop)

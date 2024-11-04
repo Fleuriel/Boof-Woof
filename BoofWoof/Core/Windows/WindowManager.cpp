@@ -20,6 +20,7 @@ int g_WindowX, g_WindowY;
 int g_DesktopWidth, g_DesktopHeight;
 bool g_WindowClosed;
 
+
 static void error_callback(int error, const char* description)
 {
     static_cast<void>(error);
@@ -119,11 +120,9 @@ GLFWwindow* Window::GetGLFWWindow()
     return m_Window;
 }
 
-
 void Window::OnUpdate()
 {
     // Update 
-
     OnUpdateFPS(1.0);
 
     // no of frames if u ever need it
@@ -143,6 +142,23 @@ void Window::OnUpdate()
     glfwPollEvents();
 
     // full screen ?
+
+
+
+
+
+    m_AssetManagerMonitoringTimer += m_DeltaTime;
+
+    if (g_AssetManager.Currentlyloading == false && m_AssetManagerMonitoringTimer > 1.f){
+        g_AssetManager.MonitorFiles(L"..\\BoofWoof\\Assets\\Art\\Textures");
+        //g_AssetManager.MonitorFiles(L"..\\BoofWoof\\Assets\\Art\\Sprites");
+        g_AssetManager.MonitorFiles(L"..\\BoofWoof\\Assets\\Scenes");
+        g_AssetManager.MonitorFiles(L"..\\BoofWoof\\Assets\\Objects");
+        g_AssetManager.MonitorFiles(L"..\\BoofWoof\\Assets\\Shaders");
+        g_AssetManager.MonitorFiles(L"..\\BoofWoof\\Assets\\Fonts");
+        m_AssetManagerMonitoringTimer = 0.f;
+    }
+
 }
 
 void Window::OnShutdown()

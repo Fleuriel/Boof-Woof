@@ -48,7 +48,6 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<LogicSystem>(signature);
 	}
 
-
 	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
 	{
 		Signature signature;

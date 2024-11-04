@@ -8,7 +8,7 @@
 #include "ResourceManager/ResourceManager.h"
 #include "Windows/WindowManager.h"
 
-// Assignment 1
+
 
 
 bool GraphicsSystem::glewInitialized = false;
@@ -21,6 +21,9 @@ Camera GraphicsSystem::camera;
 //int GraphicsSystem::set_Texture_ = 0;
 //std::vector<Model2D> models;
 ShaderParams shdrParam;
+
+float deltaTime = 0.0f;  // Time between current frame and previous frame
+auto previousTime = std::chrono::high_resolution_clock::now();  // Initialize previous time
 
 void GraphicsSystem::initGraphicsPipeline() {
 	// Implement graphics pipeline initialization
@@ -84,6 +87,8 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	fontSystem.init();
+
+	LoadAnimation("walk", "..\\BoofWoof\\Resources\\Animations\\corgi.fbx");
 }
 
 
@@ -91,6 +96,20 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 
 void GraphicsSystem::UpdateLoop() {
+
+	// Get the current time
+	auto currentTime = std::chrono::high_resolution_clock::now();
+
+	// Calculate delta time in seconds
+	deltaTime = std::chrono::duration<float>(currentTime - previousTime).count();
+
+	// Update previous time to the current time
+	previousTime = currentTime;
+
+	UpdateAnimations(deltaTime);
+
+	animationManager.PrintAnimationNames();
+
 	// Bind the framebuffer for rendering
 	if(editorMode == true)
 		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -341,4 +360,22 @@ void GraphicsSystem::UpdateViewportSize(int width, int height) {
 
 	// Unbind the framebuffer
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+
+
+
+
+
+void GraphicsSystem::LoadAnimation(const std::string& animationName, const std::string& filePath) {
+	Animation animation(filePath);
+	animationManager.AddAnimation(animationName, animation);
+}
+
+void GraphicsSystem::UpdateAnimations(float deltaTime) {
+	animationManager.UpdateAnimations(deltaTime);
+}
+
+std::unordered_map<std::string, glm::mat4> GraphicsSystem::GetBoneTransforms(const std::string& animationName) const {
+	return animationManager.GetBoneTransforms(animationName);
 }

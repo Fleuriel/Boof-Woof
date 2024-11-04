@@ -55,35 +55,45 @@ public:
 
 	// Scene functions
 	bool LoadScenes();																		//Function to load scenes
+	bool FreeScenes();																		//Function to free scenes
 	bool ReloadScenes();																	//Function to reload scenes
 
 	bool LoadObjects();																		//Function to load objects
+	bool FreeObjects();																		//Function to free objects
+	bool ReloadObjects();																	//Function to reload objects
 
 	bool LoadFonts();																		//Function to load fonts
-
+	bool FreeFonts();																		//Function to free fonts
+	bool ReloadFonts();																		//Function to reload fonts
 
 	using VectorPairString = std::vector <std::pair<std::string, std::string>>;				// Using a vector-->pair string for shaders
 
-	bool LoadShaders();																		// Load Shaders
+	bool LoadShaders();																		//Function to load shaders
 	void InitShdrpgms(VectorPairString const& vpss);										//Function to initialize shaders
 	bool FreeShaders();																		//Function to free shaders
+	bool ReloadShaders();																	//Function to reload shaders
 
 
 	//Getters
-	Sprite GetSprite(std::string);															//Function to access sprite
-	int GetSpriteTexture(std::string);														//Function to access sprite texture
 	OpenGLShader& GetShader(std::string);													//Function to access shaders
 
 
-
-
-
-//	std::map <std::string, Model> ModelMap;
-
+	bool CheckFiles(const std::wstring& path); // Function to check for added and deleted texture files
+	void MonitorFiles(const std::wstring& path);
+	void DeleteAllFilesInDirectory(const std::string& directoryPath);
 
 	bool Currentlyloading{ false };
 
 private:
+
+	//Monitoring purposes
+	std::set<std::wstring> TextureFiles;													//Container to store texture file names
+	std::set<std::wstring> SpriteFiles;														//Container to store sprite file names
+	std::set<std::wstring> SceneFiles;														//Container to store scene file names
+	std::set<std::wstring> ObjectFiles;														//Container to store object file names
+	std::set<std::wstring> ShaderFiles;														//Container to store shader file names
+	std::set<std::wstring> FontFiles;														//Container to store font file names
+
 
 	//Containers
 	std::vector<std::string> TextureDescriptionFiles;										//Container to store texture description files
