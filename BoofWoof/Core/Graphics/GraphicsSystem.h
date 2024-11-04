@@ -48,7 +48,6 @@ public:
 
     void SetShaderUniforms(OpenGLShader& shader, const ShaderParams& shdrParam);
 
-
     GLuint GetFramebufferTexture() const { return textureColorbuffer; }  // Getter function
 
     //void AddModel_3D(std::string const& path);
