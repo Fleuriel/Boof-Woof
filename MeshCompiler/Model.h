@@ -148,7 +148,9 @@ public:
     {
         std::vector<Texture> textures;
 
+#ifdef _DEBUG
         std::cout << "Texture Count: " << mat->GetTextureCount(type) << " for " << typeName << '\n';
+#endif
         for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
         {
             aiString str;
@@ -180,10 +182,10 @@ public:
 
                 texture.type = typeName;
                 texture.path = newString;
-
+#ifdef _DEBUG
                 std::cout << "Texture Loaded from Resource Manager:\n";
                 std::cout << "ID: " << texture.id << "\nType: " << texture.type << "\nPath: " << texture.path << '\n';
-
+#endif
                 textures.push_back(texture);
                 textures_loaded.push_back(texture);  // Store in textures_loaded to prevent re-loading
             }

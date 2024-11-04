@@ -63,13 +63,16 @@ public:
         this->textures = textures;
 
 
+#ifdef _DEBUG
         for (int i = 0; i < textures.size(); ++i)
         {
             std::cout << textures[i].id << '\t' << textures[i].path << '\t' << textures[i].type << '\n';
         }
 
+
         std::cout << "Vertices Size " << vertices.size() << " Indices Size " << indices.size() << " Tex Size " << textures.size() << '\n';
 
+#endif
        // AddTexture("Bed");
         // now that we have all the required data, set the vertex buffers and its attribute pointers.
         setupMesh();       
@@ -117,8 +120,9 @@ public:
             glUniform1i(glGetUniformLocation(shader.GetHandle(), (name + number).c_str()), i);
             // and finally bind the texture
             glBindTexture(GL_TEXTURE_2D, textures[i].id);
-
+#ifdef _DEBUG
             std::cout << "Uniform name: " << (name + number).c_str() << " withn value: " << i << " texture id: " << textures[i].id << std::endl;
+#endif
         }
 
         // draw mesh
@@ -206,9 +210,9 @@ public:
    // // initializes all the buffer objects/arrays
    void setupMesh()
    {
-
+#ifdef _DEBUG
        std::cout << "settin up mesh Engine\n";
-       
+#endif
      
        // create buffers/arrays
        glGenVertexArrays(1, &VAO);

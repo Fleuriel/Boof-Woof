@@ -175,8 +175,9 @@ bool LoadBinFile(const std::string& filePath) {
                 throw std::runtime_error("Failed to read texture count for mesh.");
             }
             std::vector<Texture> textures;
-
+#ifdef _DEBUG
             std::cout << textureCount << '\n';
+#endif
             textures.reserve(textureCount);
             for (size_t j = 0; j < textureCount; ++j) {
                 Texture texture;
@@ -192,30 +193,34 @@ bool LoadBinFile(const std::string& filePath) {
                 if (!binFile.read(&texture.path[0], pathLength)) {
                     throw std::runtime_error("Failed to read texture path.");
                 }
+#ifdef _DEBUG
                 std::cout << texture.path << '\n';
-
+#endif
                 size_t dotPos = texture.path.find_last_of(".");
                 if (dotPos != std::string::npos) {
                     texture.path = texture.path.substr(0, dotPos);
                 }
-
+#ifdef _DEBUG
                 std::cout << texture.path << '\n';
+#endif
                 texture.id = g_ResourceManager.GetTextureDDS(texture.path);
 
+#ifdef _DEBUG
                 std::cout << texture.id << '\n';
+#endif
                 texture.type = "texture_diffuse"; // Assign type if known
                 textures.push_back(texture);
             }
 
+#ifdef _DEBUG
             std::cout  << "tEX SIZE Inside Loadin \t" << textures.size() << '\n';
-
+#endif
 
             // Create the Mesh object and add it to the vector
             meshes.emplace_back(vertices, indices, textures);
         }
 
         binFile.close();
-
         std::cout << "Loaded mesh from " << filePath << " successfully!" << std::endl;
 
         std::filesystem::path p(filePath);
@@ -330,8 +335,11 @@ bool ResourceManager::SetModelMap(const std::string& name, const Model& model) {
     
     ModelMap.insert(std::make_pair(name, model));
 
+#ifdef _DEBUG
+
     std::cout << "Loaded name: " << name << " [Models Reference: " << ModelMap.size() - 1 << "]" << '\n';
 
+#endif
 	return true;
 
 //    ModelNames.push_back(name);
@@ -370,7 +378,9 @@ bool ResourceManager::LoadModelBinary()
         if (ModelNames[i] == "Square" || ModelNames[i] == "cubeModel")
             continue;
 
+#ifdef _DEBUG
         std::cout << ModelNames[i] << '\n';
+#endif
         LoadBinFile(FILEPATH_RESOURCE_OBJECTS + "\\" + ModelNames[i] + ".bin");
     }
 
@@ -423,13 +433,13 @@ bool ResourceManager::LoadTexturesDDS() {
 bool ResourceManager::AddTextureDDS(std::string textureName) {
     textureDDSFileNames.push_back(textureName);
 
-
-
+#ifdef _DEBUG
     for (int i = 0; i < textureDDSFileNames.size(); ++i)
     {
         std::cout << "Contains: " << i << '\t' << textureDDSFileNames[i].c_str() << '\n';
     }
 
+#endif
     return true;
 }
 

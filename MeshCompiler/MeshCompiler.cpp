@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
     std::cout << "##################################################################################################\n";
     std::cout << "##################################################################################################\n";
     std::cout << "##################################################################################################\n";
-    std::cout << "                                  MeshCompiler executed\n";
+    std::cout << "                                      MeshCompiler executed\n";
     
 
 #ifdef _DEBUG
@@ -120,9 +120,9 @@ int main(int argc, char** argv) {
             Model model;
             model.loadModel(objFilePath, GL_TRIANGLES);
 
+#ifdef _DEBUG
             std::cout << model.textures_loaded.size() << '\n';
-
-
+#endif
             std::vector<Vertex> vertices;
             std::vector<unsigned int> indices;
             std::vector<Texture> textures;
@@ -151,7 +151,7 @@ int main(int argc, char** argv) {
         }
         break;
     }
-
+    std::cout << "##################################### < EXECUTING FINISH > #######################################\n";
     std::cout << "##################################################################################################\n";
     std::cout << "##################################################################################################\n";
     std::cout << "##################################################################################################\n";
@@ -211,19 +211,23 @@ void saveMeshToBin(Model model, const std::string& binFilePath) {
         binFile.write(reinterpret_cast<const char*>(&indexCount), sizeof(size_t));
         binFile.write(reinterpret_cast<const char*>(mesh.indices.data()), indexCount * sizeof(unsigned int));
 
+#ifdef _DEBUG
         std::cout << "texture size : mesh compiler: " << mesh.textures.size() << '\n';
-
+#endif
         // Write textures
         size_t textureCount = model.textures_loaded.size();
         binFile.write(reinterpret_cast<const char*>(&textureCount), sizeof(size_t));
         for (int i = 0; i < model.textures_loaded.size(); ++i)
         {
+#ifdef _DEBUG
             std::cout << "final\n";
             std::cout << model.textures_loaded[i].id << '\t' << model.textures_loaded[i].path << '\t' << model.textures_loaded[i].type << '\n';
-
+#endif
             size_t pathLength = model.textures_loaded[i].path.size();
+      
+#ifdef _DEBUG
             std::cout << "path " << pathLength << '\n';
-
+#endif
 
             binFile.write(reinterpret_cast<const char*>(&pathLength), sizeof(size_t));
             binFile.write(model.textures_loaded[i].path.c_str(), pathLength); // Texture path as a string
@@ -338,8 +342,9 @@ bool fileExistsInDirectory(const std::string& directoryPath, const std::string& 
     fs::path dirPath(directoryPath);
     fs::path filePath(fileName);
 
+#ifdef _DEBUG
     std::cout << "checking " << dirPath << " against " << fileName << '\n';
-
+#endif
     // Iterate over the directory to check for the exact file
     for (const auto& entry : fs::directory_iterator(dirPath)) {
         if (entry.path().filename() == filePath.filename()) {
@@ -390,7 +395,6 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
         else if (type == "usemtl") {
             std::string materialName;
             ss >> materialName; // Get the name of the material being used
-            std::cout << materialName << '\n';;
         }
         else if (type == "f") {
             unsigned int vertexIndex[3], texCoordIndex[3], normalIndex[3];
@@ -411,12 +415,13 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
     }
 
     objFile.close();
-
+#ifdef _DEBUG
     std::cout << "\n\n Opening Mtl File Now\n\n";
-
     std::filesystem::path currentPath = std::filesystem::current_path();
+
     std::cout << "Current directory: " << currentPath << std::endl;
 
+#endif
     // Now read the MTL file to extract texture files
     if (!mtlFileName.empty()) {
         // Get the directory of the .obj file
@@ -444,7 +449,6 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
                     textureFile.replace(textureFile.find_last_of("."), std::string::npos, ".dds");
                 }
 
-                std::cout << textureFile << '\n';
 
                // std::string prefix = "..\\BoofWoof\\Resources\\Textures\\";
                 // Create a Texture object for each texture file
@@ -454,9 +458,9 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
                //     // Assuming map_Kd is diffuse
                // //texture.path = prefix + textureFile;
                // texture.path = model.textures_loaded[0].path;
-
+#ifdef _DEBUG
                 std::cout << "path to texture: inside diffision mesh: " << texture.path << '\n';
-                std::cout << texture.id << '\n';
+#endif
                 // You would typically load the texture here and set the `texture.id`
                 // For example, texture.id = loadTextureFromFile(textureFile);
 
@@ -466,8 +470,14 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
 
         mtlFile.close();
     }
+
+#ifdef _DEBUG
     std::cout << "Object has been parsed with " << vertices.size() << " vertices and " << indices.size() << " indices.\n";
     std::cout << "Textures found: " << textures.size() << std::endl;
+#else
+ //   std::cout << "Object has been compiled\n";
+#endif
+
 }
 
 std::string GetMtlFileName(const std::string& objFilePath) {

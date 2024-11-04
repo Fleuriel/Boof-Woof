@@ -136,10 +136,12 @@ GLboolean OpenGLShader::CompileLinkValidate(std::vector<std::pair<GLenum, std::s
         std::cout << "Validate\n";
         return GL_FALSE;
     }
+#ifdef _DEBUG
     std::cout << "Shader has been loaded\n";
     std::cout << "\nShader Parameters are as shown:\n";
     PrintActiveAttribs();
     PrintActiveUniforms();
+#endif
     return GL_TRUE;
 
 //#endif
@@ -163,11 +165,14 @@ GLboolean OpenGLShader::CompileShaderFromFile(GLenum shader_type, const std::str
     }
 
     if (pgm_handle <= 0) {
+#ifdef _DEBUG
         std::cout << "Create Program\n";
-
+#endif
         pgm_handle = glCreateProgram();
         if (0 == pgm_handle) {
+#ifdef _DEBUG
             std::cout << "program handle failed\n";
+#endif
             log_string = "Cannot create program handle";
             return GL_FALSE;
         }

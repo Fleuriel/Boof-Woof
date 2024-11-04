@@ -77,6 +77,7 @@ std::vector<std::string> processTextureDescriptorFile(const std::string& descrip
 
     */
 
+#ifdef _DEBUG
     std::cout << "\n**************************************************************************************\nCompressonator Print Out\n";
     // Print out the details from the descriptor file
     std::cout << "Texture Name: " << fileInfo[0] << std::endl;
@@ -86,6 +87,7 @@ std::vector<std::string> processTextureDescriptorFile(const std::string& descrip
     std::cout << "Compression Format: " << fileInfo[4] << std::endl;
     std::cout << "\n**************************************************************************************\n";
 
+#endif
     file.close();
 
     return fileInfo;
@@ -94,9 +96,11 @@ std::vector<std::string> processTextureDescriptorFile(const std::string& descrip
 // Function to run a command line command
 int runCommand(const std::string& command) {
 
+#ifdef _DEBUG
     std::cout << "\n**************************************************************************************\n";
     std::cout << "Executing command: " << command << "\n";
     std::cout << "****************************************************************************************\n";
+#endif
     // Execute the command and return the result (exit status)
     int result = std::system(command.c_str());
 
@@ -105,7 +109,9 @@ int runCommand(const std::string& command) {
         std::cerr << "Command execution failed with exit code: " << result << std::endl;
     }
     else {
+#ifdef _DEBUG
         std::cout << "Command executed successfully." << std::endl;
+#endif
     }
 
     return result;  // Return the command's exit status

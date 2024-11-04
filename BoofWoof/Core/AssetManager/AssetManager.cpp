@@ -170,7 +170,8 @@ void AssetManager::LoadAll() {
         << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl 
         << ((loadObjects) ? "Object loaded Successfully" : "failed to load object") << '\n';
 #else
-    AssetManager::LoadTextures(),
+        AssetManager::LoadTextures(),
+        AssetManager::LoadObjects(),
         //AssetManager::LoadSprites(),
         //AssetManager::LoadSounds(),
         AssetManager::LoadFonts(),
@@ -593,9 +594,9 @@ bool AssetManager::LoadObjects() {
                 std::string mtlFileName = nameWithoutExtension + ".mtl";
                 std::string pngFileName = nameWithoutExtension + ".png";
                 std::string jpgFileName = nameWithoutExtension + ".jpg";
-
+#ifdef _DEBUG
                 std::cout << mtlFileName << '\t' << pngFileName << '\t' << jpgFileName << '\t';
-
+#endif
 
                 // Check if the substring exists in the full string
                 size_t found = allowedExtensions.find(toLowerCase(Extension));
@@ -605,7 +606,9 @@ bool AssetManager::LoadObjects() {
                 // Only proceed if the extension matches the allowed extension
                 if (found == std::string::npos) {
                     // Process the .obj file
+#ifdef _DEBUG
                     std::cout << "Processing: " << texFilePath << std::endl;
+#endif
                 }
                 else {
                     if (found2 == std::string::npos)
@@ -636,9 +639,9 @@ bool AssetManager::LoadObjects() {
                 std::cout << MTLCheck << '\t' << PNGCheck << '\t' << JPGCheck << '\n';
 #endif
 
-
-                std::cout << "\n**************************************************************************************\n";
 #ifdef _DEBUG
+                std::cout << "\n**************************************************************************************\n";
+
                 std::cout << "\n**************************************************************************************\n";
                 std::cout << "ASDF: " << nameWithoutExtension << " detected successfully!\n";
                 std::cout << "\n**************************************************************************************\n";
@@ -984,10 +987,11 @@ void AssetManager::InitShdrpgms(VectorPairString const& vpss)
 
 
     for (auto const& x : vpss) {
+#ifdef _DEBUG
         std::cout << "Files to be added: \t";
         std::cout << x.first << '\t';
         std::cout << x.second << '\t' << '\n';
-
+#endif
 
         // Create Vector for pair of Enum and String
         std::vector<std::pair<GLenum, std::string>> shdr_files;
@@ -1129,6 +1133,7 @@ std::vector<std::string> processFontDescriptorFile(const std::string& descriptor
         }
     }
 
+#ifdef _DEBUG
     std::cout << "\n**************************************************************************************\nFont Converter Print Out\n";
     // Print out the details from the descriptor file
     std::cout << "Texture Name: " << fileInfo[0] << std::endl;
@@ -1138,6 +1143,7 @@ std::vector<std::string> processFontDescriptorFile(const std::string& descriptor
     std::cout << "Resource Data File Path: " << fileInfo[4] << std::endl;
     std::cout << "Compression Format: " << fileInfo[5] << std::endl;
     std::cout << "\n**************************************************************************************\n";
+#endif
 
     file.close();
 
