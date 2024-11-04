@@ -22,7 +22,7 @@ void FontSystem::init()
     }
 
     // find path to font
-    std::string font_name = "../BoofWoof/Assets/Font/arial.ttf";
+    std::string font_name = "../BoofWoof/Assets/Fonts/arial.ttf";
     if (font_name.empty())
     {
         std::cout << "ERROR::FREETYPE: Failed to load font_name" << std::endl;
@@ -172,6 +172,7 @@ void FontSystem::init_font()
 
     // get texture id
 	font_textureid = g_ResourceManager.GetTextureDDS("arial");
+	std::cout << "Font Texture ID: " << font_textureid << std::endl;
 
 	// Configure VAO/VBO for texture quads
 	glGenVertexArrays(1, &VAO_FONT);
@@ -206,6 +207,7 @@ std::unordered_map<GLchar, Glyph> FontSystem::loadFontMetadata(const std::string
         return glyphs;
     }
 
+	static int count = 0;
     // Iterate over each glyph in the JSON "glyphs" array
     for (const auto& glyph : document["glyphs"].GetArray()) {
         Glyph g;
@@ -237,7 +239,9 @@ std::unordered_map<GLchar, Glyph> FontSystem::loadFontMetadata(const std::string
         if (glyph.HasMember("index") && glyph["index"].IsInt()) {
 			char character = static_cast<char>(glyph["index"].GetInt());
             glyphs[character] = g;
+			//std::cout << "Glyphs: " << character << std::endl;
         }
+		
     }
 
     return glyphs;
@@ -247,7 +251,7 @@ void FontSystem::render_text(OpenGLShader& shader, std::string text, float x, fl
 {
     shader.Use();
     shader.SetUniform("textColor", color.x, color.y, color.z);
-    shader.SetUniform("text", 0);  // Ensure sampler is bound to texture unit 0
+    
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, font_textureid);  // Bind the font texture
     glBindVertexArray(VAO_FONT);
