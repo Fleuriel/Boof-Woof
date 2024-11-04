@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "074c87a6-7f78-4793-8c5d-86c9e3a83187",
+    "SceneGUID": "fbc65fff-1781-453e-854f-d290a91a6101",
     "Entities": [
         {
             "EntityName": "Floor1",
@@ -109,7 +109,10 @@
             "ModelID": 0,
             "EntityID": 4,
             "ModelName": "Wall",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Wall2",
@@ -131,7 +134,10 @@
             "ModelID": 0,
             "EntityID": 5,
             "ModelName": "Wall",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Wall3",
@@ -153,7 +159,10 @@
             "ModelID": 0,
             "EntityID": 6,
             "ModelName": "Wall",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Wall4",
@@ -175,7 +184,10 @@
             "ModelID": 0,
             "EntityID": 7,
             "ModelName": "Wall",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Wall5",
@@ -197,7 +209,10 @@
             "ModelID": 0,
             "EntityID": 8,
             "ModelName": "Wall",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Wall6",
@@ -219,7 +234,10 @@
             "ModelID": 0,
             "EntityID": 9,
             "ModelName": "Wall",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Wall7",
@@ -241,7 +259,10 @@
             "ModelID": 0,
             "EntityID": 10,
             "ModelName": "Wall",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Wall8",
@@ -263,7 +284,10 @@
             "ModelID": 0,
             "EntityID": 11,
             "ModelName": "Wall",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Wall9",
@@ -285,7 +309,10 @@
             "ModelID": 0,
             "EntityID": 12,
             "ModelName": "Wall",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Bed",
@@ -307,7 +334,10 @@
             "ModelID": 0,
             "EntityID": 13,
             "ModelName": "Bed2",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Table",
@@ -422,9 +452,9 @@
         {
             "EntityName": "Player",
             "Position": {
-                "x": -6.199999809265137,
-                "y": 0.0,
-                "z": -5.300000190734863
+                "x": -5.444157123565674,
+                "y": 0.00834368821233511,
+                "z": -4.543970584869385
             },
             "Scale": {
                 "x": 0.5,
@@ -439,7 +469,11 @@
             "ModelID": 0,
             "EntityID": 19,
             "ModelName": "Corgi2",
-            "Texture": " "
+            "Texture": " ",
+            "BehaviourName": "Player",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "CorgiOther",

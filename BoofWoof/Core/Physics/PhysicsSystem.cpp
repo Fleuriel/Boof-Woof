@@ -128,13 +128,13 @@ JPH::Shape* MyPhysicsSystem::CreateShapeForObjectType(ObjectType type, const glm
         return new JPH::BoxShape(JPH::Vec3(scale.x * 1.5f, scale.y * 0.6f, scale.z * 1.0f)); // Dimensions for couch
 
     case ObjectType::Corgi:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.0f, scale.y * 0.5f, scale.z * 0.6f)); // Dimensions for corgi
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.8f, scale.y * 0.5f, scale.z * 1.3f)); // Dimensions for corgi x = length of dog, y = height, z = thickness
 
     case ObjectType::Floor:
         return new JPH::BoxShape(JPH::Vec3(scale.x * 5.0f, scale.y * 0.1f, scale.z * 5.0f)); // Large, flat shape for the floor
 
     case ObjectType::Wall:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 0.1f, scale.y * 2.5f, scale.z * 5.0f)); // Thin, tall shape for walls
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.5f, scale.y * 3.0f, scale.z * 0.8f)); // Thin, tall shape for walls x = width, y = height, z = thickness
 
     case ObjectType::Wardrobe:
         return new JPH::BoxShape(JPH::Vec3(scale.x * 1.0f, scale.y * 2.0f, scale.z * 0.8f)); // Tall and narrow for wardrobe
@@ -307,29 +307,29 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
                     // Debug output to verify rotation change
                     glm::vec3 eulerRotation = glm::eulerAngles(newRotation);
                     eulerRotation = glm::degrees(eulerRotation);
-                    std::cout << "Entity ID: " << entity
-                        << " Rotation Updated to (" << eulerRotation.x << "°, "
-                        << eulerRotation.y << "°, "
-                        << eulerRotation.z << "°)" << std::endl;
+                    //std::cout << "Entity ID: " << entity
+                    //    << " Rotation Updated to (" << eulerRotation.x << "°, "
+                    //    << eulerRotation.y << "°, "
+                    //    << eulerRotation.z << "°)" << std::endl;
                 }
 
                 // Debug output to check Position and Velocity for Dynamic Bodies
                 if (body->GetMotionType() == JPH::EMotionType::Dynamic) {
                     JPH::Vec3 velocity = bodyInterface.GetLinearVelocity(body->GetID());
-                    std::cout << "Entity ID: " << entity << " Position = ("
-                        << position.GetX() << ", "
-                        << position.GetY() << ", "
-                        << position.GetZ() << "), Velocity = ("
-                        << velocity.GetX() << ", "
-                        << velocity.GetY() << ", "
-                        << velocity.GetZ() << ")" << std::endl;
+                    //std::cout << "Entity ID: " << entity << " Position = ("
+                    //    << position.GetX() << ", "
+                    //    << position.GetY() << ", "
+                    //    << position.GetZ() << "), Velocity = ("
+                    //    << velocity.GetX() << ", "
+                    //    << velocity.GetY() << ", "
+                    //    << velocity.GetZ() << ")" << std::endl;
                 }
                 else 
                 {
-                    std::cout << "Entity ID: " << entity << " Position = ("
-                        << position.GetX() << ", "
-                        << position.GetY() << ", "
-                        << position.GetZ() << ")" << std::endl;
+                    //std::cout << "Entity ID: " << entity << " Position = ("
+                    //    << position.GetX() << ", "
+                    //    << position.GetY() << ", "
+                    //    << position.GetZ() << ")" << std::endl;
 
                 }
             }

@@ -10,22 +10,26 @@ struct Player final : public Behaviour
 
 		if (m_Engine.getInputSystem().isButtonPressed(GLFW_KEY_W))
 		{
-			velocity.z -= 1.f;
+			std::cout << "movingW" << std::endl;
+			velocity.z -= 2.f;
 		}
 
 		if (m_Engine.getInputSystem().isButtonPressed(GLFW_KEY_A))
 		{
-			velocity.x -= 1.f;
+			std::cout << "movingA" << std::endl;
+			velocity.x -= 2.f;
 		}
 
 		if (m_Engine.getInputSystem().isButtonPressed(GLFW_KEY_S))
 		{
-			velocity.z += 1.f;
+			std::cout << "movingS" << std::endl;
+			velocity.z += 2.f;
 		}
 
 		if (m_Engine.getInputSystem().isButtonPressed(GLFW_KEY_D))
 		{
-			velocity.x += 1.f;
+			std::cout << "movingD" << std::endl;
+			velocity.x += 2.f;
 		}
 
 		// Check if the entity has a collision component and physics body before setting velocity
