@@ -1,6 +1,5 @@
-#include <vector>
+#include <deque>
 #include <functional>
-#include <stack>
 
 // Singleton access to UndoRedoManager
 #define g_UndoRedoManager UndoRedoManager::GetInstance()
@@ -22,37 +21,50 @@ public:
         doAction();
 
         // Save both actions to the undo stack
-        undoStack.push({ doAction, undoAction });
+        undoStack.push_back({ doAction, undoAction });
+
+        // If the size exceeds the limit, remove the oldest command
+        if (undoStack.size() > maxStackSize) {
+            undoStack.pop_front();
+        }
 
         // Clear redo stack when a new command is executed
-        while (!redoStack.empty()) {
-            redoStack.pop();
-        }
+        redoStack.clear();
     }
 
     void Undo() {
         if (!undoStack.empty()) {
-            auto command = undoStack.top();
-            undoStack.pop();
+            auto command = undoStack.back();
+            undoStack.pop_back();
 
             // Execute the undo action
             command.undoAction();
 
             // Push the command to the redo stack
-            redoStack.push(command);
+            redoStack.push_back(command);
+
+            // If the redo stack exceeds the limit, remove the oldest command
+            if (redoStack.size() > maxStackSize) {
+                redoStack.pop_front();
+            }
         }
     }
 
     void Redo() {
         if (!redoStack.empty()) {
-            auto command = redoStack.top();
-            redoStack.pop();
+            auto command = redoStack.back();
+            redoStack.pop_back();
 
             // Execute the do action
             command.doAction();
 
             // Push the command back to the undo stack
-            undoStack.push(command);
+            undoStack.push_back(command);
+
+            // If the undo stack exceeds the limit, remove the oldest command
+            if (undoStack.size() > maxStackSize) {
+                undoStack.pop_front();
+            }
         }
     }
 
@@ -65,6 +77,7 @@ public:
     }
 
 private:
-    std::stack<Command> undoStack;
-    std::stack<Command> redoStack;
+    std::deque<Command> undoStack;
+    std::deque<Command> redoStack;
+    static constexpr size_t maxStackSize = 20; // Limit to 20 actions
 };

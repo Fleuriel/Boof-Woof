@@ -206,6 +206,24 @@ public:
     }
 
 
+    ReflectionPropertyBase* GetProperty(const std::string& className, const std::string& propertyName) const
+    {
+        auto it = m_Properties.find(className);
+        if (it != m_Properties.end())
+        {
+            const auto& properties = it->second;
+            auto propIt = std::find_if(properties.begin(), properties.end(),
+                [&propertyName](const ReflectionPropertyBase* prop) {
+                    return prop->GetName() == propertyName;
+                });
+            if (propIt != properties.end())
+            {
+                return *propIt;
+            }
+        }
+        return nullptr;
+    }
+
 
 
 private:
