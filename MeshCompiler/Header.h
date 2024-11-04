@@ -7,12 +7,17 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include <../../../lib/stb-master/stb_image.h>
 
 
 struct Texture {
@@ -57,7 +62,7 @@ public:
     {
         this->vertices = vertices;
         this->indices = indices;
-        //this->textures = textures;
+        this->textures = textures;
 
         // now that we have all the required data, set the vertex buffers and its attribute pointers.
         setupMesh();

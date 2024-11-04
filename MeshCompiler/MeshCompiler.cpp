@@ -9,9 +9,11 @@
 GLFWwindow* createHiddenWindow();
 bool fileExistsInDirectory(const std::string& directoryPath, const std::string& fileName);
 std::vector<std::string> processDescriptorFile(const std::string& descriptorFilePath);
-void saveMeshToBin(std::vector<Mesh> meshes, const std::string& binFilePath);
-void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
+void saveMeshToBin(Model model, const std::string& binFilePath);
+void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textureFiles);
 
+std::string GetMtlFileName(const std::string& objFilePath);
+std::vector<std::string> GetTextureFiles(const std::string& mtlFilePath);
 
 namespace fs = std::filesystem;
 
@@ -45,6 +47,9 @@ int main(int argc, char** argv) {
 
     if (argc < 2) {
         std::cerr << "Usage: MeshCompiler <path_to_directory_with_descriptors>" << std::endl;
+        std::cout << "##################################################################################################\n";
+        std::cout << "##################################################################################################\n";
+        std::cout << "##################################################################################################\n";
         return -1;
     }
 
@@ -118,16 +123,19 @@ int main(int argc, char** argv) {
 
             std::vector<Vertex> vertices;
             std::vector<unsigned int> indices;
-            parseOBJ(objFilePath, vertices, indices);
+            std::vector<Texture> textures;
+            parseOBJ(objFilePath, vertices, indices, textures);
 
 #ifdef _DEBUG
-            std::cout << vertices.size() << '\t' << indices.size() << "\t This Vertices ASize\n";
+            std::cout << vertices.size() << '\t' << indices.size() << "\t" <<  textures.size() << '\t' << "This Vertices ASize\n";
+            std::cout << model.textures_loaded.size() << '\n';
 #endif
 
+            
 
             // Save the mesh data into a single .bin file
             if (!model.meshes.empty()) {
-                saveMeshToBin(model.meshes, binFilePath);
+                saveMeshToBin(model, binFilePath);
                 std::cout << "Converted " << objFilePath << " to " << binFilePath << std::endl;
             }
             else {
@@ -174,12 +182,16 @@ GLFWwindow* createHiddenWindow() {
 }
 
 
-void saveMeshToBin(std::vector<Mesh> meshes, const std::string& binFilePath) {
+void saveMeshToBin(Model model, const std::string& binFilePath) {
     std::ofstream binFile(binFilePath, std::ios::binary);
     if (!binFile.is_open()) {
         std::cerr << "Failed to create binary file at saveAllMeshesToBin: " << binFilePath << std::endl;
         return;
     }
+
+    std::vector<Mesh> meshes = model.meshes;
+    
+    
 
     // Step 1: Write the number of meshes
     size_t meshCount = meshes.size();
@@ -196,7 +208,22 @@ void saveMeshToBin(std::vector<Mesh> meshes, const std::string& binFilePath) {
         size_t indexCount = mesh.indices.size();
         binFile.write(reinterpret_cast<const char*>(&indexCount), sizeof(size_t));
         binFile.write(reinterpret_cast<const char*>(mesh.indices.data()), indexCount * sizeof(unsigned int));
+
+        std::cout << "texture size : mesh compiler: " << mesh.textures.size() << '\n';
+
+        // Write textures
+        size_t textureCount = model.textures_loaded.size();
+        binFile.write(reinterpret_cast<const char*>(&textureCount), sizeof(size_t));
+        for (const auto& texture : model.textures_loaded) {
+            size_t pathLength = texture.path.size();
+            std::cout << pathLength << '\n';
+
+            binFile.write(reinterpret_cast<const char*>(&pathLength), sizeof(size_t));
+            binFile.write(texture.path.c_str(), pathLength); // Texture path as a string
+        }
+
     }
+
 
     binFile.close();
 }
@@ -317,10 +344,11 @@ bool fileExistsInDirectory(const std::string& directoryPath, const std::string& 
 }
 
 
-void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures) {
     std::vector<glm::vec3> positions;
     std::vector<glm::vec3> normals;
     std::vector<glm::vec2> texCoords;
+    std::string mtlFileName;
 
     std::ifstream objFile(filename);
     if (!objFile.is_open()) {
@@ -349,6 +377,13 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
             ss >> normal.x >> normal.y >> normal.z;
             normals.push_back(normal);
         }
+        else if (type == "mtllib") {
+            ss >> mtlFileName; // Get the name of the material file
+        }
+        else if (type == "usemtl") {
+            std::string materialName;
+            ss >> materialName; // Get the name of the material being used
+        }
         else if (type == "f") {
             unsigned int vertexIndex[3], texCoordIndex[3], normalIndex[3];
             char slash;
@@ -367,7 +402,98 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
         }
     }
 
-    std::cout << "Object has been parsed\n";
     objFile.close();
+
+    std::cout << "\n\n Opening Mtl File Now\n\n";
+
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    std::cout << "Current directory: " << currentPath << std::endl;
+
+    // Now read the MTL file to extract texture files
+    if (!mtlFileName.empty()) {
+        // Get the directory of the .obj file
+        std::filesystem::path objPath(filename);
+        std::filesystem::path mtlPath = objPath.parent_path() / mtlFileName; // Append mtl file name to directory
+
+        std::ifstream mtlFile(mtlPath); // Use the full path to the MTL file
+        if (!mtlFile.is_open()) {
+            std::cerr << "Could not open MTL file: " << mtlPath << std::endl;
+            return;
+        }
+
+        while (std::getline(mtlFile, line)) {
+            std::stringstream ss(line);
+            std::string materialType;
+            ss >> materialType;
+
+            // If this line specifies a texture (diffuse)
+            if (materialType == "map_Kd") {
+                std::string textureFile;
+                ss >> textureFile;
+
+                // Change the extension to .dds
+                if (textureFile.find_last_of(".") != std::string::npos) {
+                    textureFile.replace(textureFile.find_last_of("."), std::string::npos, ".dds");
+                }
+
+               // std::string prefix = "..\\BoofWoof\\Resources\\Textures\\";
+
+                // Create a Texture object for each texture file
+                Texture texture;
+                texture.type = "diffuse_texture";  // Assuming map_Kd is diffuse
+                //texture.path = prefix + textureFile;
+                texture.path = textureFile;
+
+                std::cout << "path to texture: inside diffision mesh: " << texture.path << '\n';
+
+                // You would typically load the texture here and set the `texture.id`
+                // For example, texture.id = loadTextureFromFile(textureFile);
+
+                textures.push_back(texture);
+            }
+        }
+
+        mtlFile.close();
+    }
+    std::cout << "Object has been parsed with " << vertices.size() << " vertices and " << indices.size() << " indices.\n";
+    std::cout << "Textures found: " << textures.size() << std::endl;
 }
 
+std::string GetMtlFileName(const std::string& objFilePath) {
+    std::ifstream objFile(objFilePath);
+    std::string line;
+    std::string mtlFileName;
+
+    while (std::getline(objFile, line)) {
+        // Look for the mtllib line
+        if (line.substr(0, 7) == "mtllib ") {
+            mtlFileName = line.substr(7); // Get the filename after "mtllib "
+            break;
+        }
+    }
+
+    objFile.close();
+    return mtlFileName;
+}
+
+std::vector<std::string> GetTextureFiles(const std::string& mtlFilePath) {
+    std::ifstream mtlFile(mtlFilePath);
+    std::string line;
+    std::vector<std::string> textureFiles;
+
+    while (std::getline(mtlFile, line)) {
+        // Look for the map_Kd line for diffuse textures
+        if (line.substr(0, 6) == "map_Kd") {
+            // Get the texture file path after "map_Kd "
+            std::string textureFile = line.substr(7);
+            // Change the extension to .dds
+            if (textureFile.find_last_of(".") != std::string::npos) {
+                textureFile.replace(textureFile.find_last_of("."), std::string::npos, ".dds");
+            }
+            textureFiles.push_back(textureFile);
+        }
+    }
+
+    mtlFile.close();
+    return textureFiles;
+}
