@@ -59,6 +59,9 @@ public:
     inline void SetEditorMode(bool EditorMode) { editorMode = EditorMode; };
 	Camera& GetCamera() { return camera; };
 
+	glm::vec3 GetLightPos() { return lightPos; };
+	void SetLightPos(glm::vec3 pos) { lightPos = pos; };
+
 private:
     unsigned int fbo;
     unsigned int textureColorbuffer;  // Store the framebuffer texture ID here
@@ -66,6 +69,7 @@ private:
     bool editorMode = false;
     static GLFWwindow* newWindow;  // OpenGL window
 	static Camera camera;
+    static glm::vec3 lightPos;
 
 };
 

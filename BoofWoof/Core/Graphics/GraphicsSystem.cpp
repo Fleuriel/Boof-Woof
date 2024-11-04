@@ -17,6 +17,7 @@ bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
 
 Camera GraphicsSystem::camera;
+glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 
 //int GraphicsSystem::set_Texture_ = 0;
 //std::vector<Model2D> models;
@@ -76,6 +77,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 	// Initialize camera
 	camera = Camera(glm::vec3(0.f, 2.f, 10.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
+	
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -140,7 +142,7 @@ void GraphicsSystem::UpdateLoop() {
 
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
-
+				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
 //				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
 				
 
