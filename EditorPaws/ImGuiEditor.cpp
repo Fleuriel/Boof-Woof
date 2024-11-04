@@ -570,6 +570,11 @@ void ImGuiEditor::InspectorWindow()
 							for (const auto& property : properties)
 							{
 								std::string propertyName = property->GetName();
+								if (propertyName == "Scale") {
+									propertyName += "   "; // Add extra spaces for alignment if the name is "Scale"
+								}
+
+								ImGui::PushItemWidth(250.0f);
 								ImGui::Text("%s", propertyName.c_str());
 								ImGui::SameLine();
 								std::string widgetID = "##" + propertyName;
