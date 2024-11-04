@@ -402,8 +402,8 @@ bool AssetManager::LoadTextures() {
  *               if the map is not empty after the operation.
  *************************************************************************/
 bool AssetManager::FreeTextures() {
-    DeleteAllFilesInDirectory(FILEPATH_TEXTURES_RESOURCE);
-    DeleteAllFilesInDirectory(FILEPATH_TEXTURES_DESCRIPTOR);
+    DeleteAllFilesInDirectory(FILEPATH_RESOURCE_TEXTURES);
+    DeleteAllFilesInDirectory(FILEPATH_DESCRIPTOR_TEXTURES);
     TextureFiles.clear();
     TextureDescriptionFiles.clear();
     // Return true if the container size is 0, false otherwise.
@@ -753,7 +753,7 @@ bool AssetManager::LoadObjects() {
 
 bool AssetManager::FreeObjects() {
     ObjectFiles.clear();
-    DeleteAllFilesInDirectory(FILEPATH_OBJECTS_RESOURCE);
+    DeleteAllFilesInDirectory(FILEPATH_RESOURCE_OBJECTS);
     return ObjectFiles.empty();
 }
 
@@ -1302,8 +1302,8 @@ bool AssetManager::LoadFonts() {
 
 bool AssetManager::FreeFonts() {
     FontFiles.clear();
-    DeleteAllFilesInDirectory(FILEPATH_FONTS_RESOURCE);
-    DeleteAllFilesInDirectory(FILEPATH_FONTS_DESCRIPTOR);
+    DeleteAllFilesInDirectory(FILEPATH_RESOURCE_FONTS);
+    DeleteAllFilesInDirectory(FILEPATH_DESCRIPTOR_FONTS);
     return FontFiles.empty();
 }
 
