@@ -1,6 +1,4 @@
 #pragma once
-
-#include "pch.h"
 #include "ECS/Coordinator.hpp"
 #include "../Core/Reflection/ReflectionManager.hpp" // Include the reflection manager
 
@@ -28,15 +26,7 @@ public:
     {
         REGISTER_PROPERTY(BehaviourComponent, BehaviourName, std::string, SetBehaviourName, GetBehaviourName);
     }
-    void RegisterPropertiesBehaviour() {
-            static bool registered = false;
-            if (!registered)
-            {
-                RegisterAllProperties();  // Call the generated RegisterAllProperties function
-                registered = true;
-            }
-        
-    }
+
 
 private:
     Entity m_EntityID;

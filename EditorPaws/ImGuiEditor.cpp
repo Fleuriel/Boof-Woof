@@ -728,9 +728,6 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::Text("Model   ");
 								ImGui::SameLine();
 								ImGui::PushID(propertyName.c_str());
-
-								// Store old value before the widget
-								int oldItem = currentItem;
 								std::string oldModelName = currentModelName;
 
 								if (ImGui::Combo("##ModelCombo", &currentItem, [](void* data, int idx, const char** out_text) {
@@ -1019,7 +1016,7 @@ void ImGuiEditor::InspectorWindow()
 					   if (ImGui::CollapsingHeader("Behaviour", ImGuiTreeNodeFlags_None))
 					   {
 						   auto& behaviourComponent = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity);
-						   behaviourComponent.RegisterPropertiesBehaviour();
+						   behaviourComponent.RegisterProperties();
 
 						   const auto& properties = ReflectionManager::Instance().GetProperties("BehaviourComponent");
 
@@ -1049,8 +1046,6 @@ void ImGuiEditor::InspectorWindow()
 							   ImGui::SameLine();
 							   ImGui::PushID(propertyName.c_str());
 
-							   // Store old value before the widget
-							   int oldItem = currentItem;
 							   std::string oldBehaviourName = currentBehaviourName;
 
 							   if (ImGui::Combo("##NameCombo", &currentItem, behaviourNames, IM_ARRAYSIZE(behaviourNames)))
