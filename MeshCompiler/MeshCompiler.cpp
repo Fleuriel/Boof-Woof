@@ -120,6 +120,8 @@ int main(int argc, char** argv) {
             Model model;
             model.loadModel(objFilePath, GL_TRIANGLES);
 
+            std::cout << model.textures_loaded.size() << '\n';
+
 
             std::vector<Vertex> vertices;
             std::vector<unsigned int> indices;
@@ -214,12 +216,17 @@ void saveMeshToBin(Model model, const std::string& binFilePath) {
         // Write textures
         size_t textureCount = model.textures_loaded.size();
         binFile.write(reinterpret_cast<const char*>(&textureCount), sizeof(size_t));
-        for (const auto& texture : model.textures_loaded) {
-            size_t pathLength = texture.path.size();
-            std::cout << pathLength << '\n';
+        for (int i = 0; i < model.textures_loaded.size(); ++i)
+        {
+            std::cout << "final\n";
+            std::cout << model.textures_loaded[i].id << '\t' << model.textures_loaded[i].path << '\t' << model.textures_loaded[i].type << '\n';
+
+            size_t pathLength = model.textures_loaded[i].path.size();
+            std::cout << "path " << pathLength << '\n';
+
 
             binFile.write(reinterpret_cast<const char*>(&pathLength), sizeof(size_t));
-            binFile.write(texture.path.c_str(), pathLength); // Texture path as a string
+            binFile.write(model.textures_loaded[i].path.c_str(), pathLength); // Texture path as a string
         }
 
     }
@@ -383,6 +390,7 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
         else if (type == "usemtl") {
             std::string materialName;
             ss >> materialName; // Get the name of the material being used
+            std::cout << materialName << '\n';;
         }
         else if (type == "f") {
             unsigned int vertexIndex[3], texCoordIndex[3], normalIndex[3];
@@ -436,16 +444,19 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
                     textureFile.replace(textureFile.find_last_of("."), std::string::npos, ".dds");
                 }
 
-               // std::string prefix = "..\\BoofWoof\\Resources\\Textures\\";
+                std::cout << textureFile << '\n';
 
+               // std::string prefix = "..\\BoofWoof\\Resources\\Textures\\";
                 // Create a Texture object for each texture file
                 Texture texture;
-                texture.type = "diffuse_texture";  // Assuming map_Kd is diffuse
-                //texture.path = prefix + textureFile;
-                texture.path = textureFile;
+               // texture.id = model.textures_loaded[0].id;
+               // texture.type = model.textures_loaded[0].type;
+               //     // Assuming map_Kd is diffuse
+               // //texture.path = prefix + textureFile;
+               // texture.path = model.textures_loaded[0].path;
 
                 std::cout << "path to texture: inside diffision mesh: " << texture.path << '\n';
-
+                std::cout << texture.id << '\n';
                 // You would typically load the texture here and set the `texture.id`
                 // For example, texture.id = loadTextureFromFile(textureFile);
 

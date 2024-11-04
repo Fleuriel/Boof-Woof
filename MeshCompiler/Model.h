@@ -26,7 +26,7 @@ public:
             return;
         }
         // retrieve the directory path of the filepath
-        //directory = path.substr(0, path.find_last_of('/'));
+        directory = path.substr(0, path.find_last_of('/'));
 
         // process ASSIMP's root node recursively
         processNode(scene->mRootNode, scene, draw_mode);
@@ -84,12 +84,12 @@ public:
             // texture coordinates
             if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
             {
-                // glm::vec2 vec;
-                // // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
-                // // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
-                // vec.x = mesh->mTextureCoords[0][i].x;
-                // vec.y = mesh->mTextureCoords[0][i].y;
-                // vertex.TexCoords = vec;
+                 glm::vec2 vec;
+                 // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
+                 // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
+                 vec.x = mesh->mTextureCoords[0][i].x;
+                 vec.y = mesh->mTextureCoords[0][i].y;
+                 vertex.TexCoords = vec;
                 // // tangent
                 // vector.x = mesh->mTangents[i].x;
                 // vector.y = mesh->mTangents[i].y;
@@ -115,7 +115,7 @@ public:
                 indices.push_back(face.mIndices[j]);
         }
         //// process materials
-         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+        aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
         // we assume a convention for sampler names in the shaders. Each diffuse texture should be named
         // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER. 
         // Same applies to other texture as the following list summarizes:
@@ -126,19 +126,19 @@ public:
         // 1. diffuse maps
         std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-       // // 2. specular maps
-       // std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-       // textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-       // // 3. normal maps
-       // std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
-       // textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-       // // 4. height maps
-       // std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
-       // textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+        // // 2. specular maps
+        std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+        textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+        // 3. normal maps
+        std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+        textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+        // 4. height maps
+        std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+        textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
         // return a mesh object created from the extracted mesh data
         //return Mesh(vertices, indices, textures);
-        Mesh out(vertices, indices);//, glm::vec3(1.0f,1.0f,1.0f));
+        Mesh out(vertices, indices, textures);//, glm::vec3(1.0f,1.0f,1.0f));
         out.drawMode = draw_mode;
         return out;
     }
@@ -164,60 +164,34 @@ public:
                     break;
                 }
             }
-            if (!skip)
-            {   // if texture hasn't been loaded already, load it
+
+            if (!skip) {
                 Texture texture;
-                texture.id = TextureFromFile(str.C_Str(), this->directory);
+
+                // Get the texture ID from the resource manager
+                std::string texturePath = this->directory + '/' + str.C_Str();
+
+                std::cout << texturePath << '\n';
+
+                std::string newString = str.C_Str();
+
+                newString = newString.substr(0, newString.find_last_of("."));
+                                
+
                 texture.type = typeName;
-                texture.path = str.C_Str();
+                texture.path = newString;
+
+                std::cout << "Texture Loaded from Resource Manager:\n";
+                std::cout << "ID: " << texture.id << "\nType: " << texture.type << "\nPath: " << texture.path << '\n';
+
                 textures.push_back(texture);
-                textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecessary load duplicate textures.
+                textures_loaded.push_back(texture);  // Store in textures_loaded to prevent re-loading
             }
+            return textures;
         }
-        return textures;
-    }
+
+    };
+
+
 
 };
-
-unsigned int TextureFromFile(const char* path, const std::string& directory)
-{
-    stbi_set_flip_vertically_on_load(true);
-
-    std::string filename = std::string(path);
-    filename = directory + '/' + filename;
-
-    unsigned int textureID;
-    glGenTextures(1, &textureID);
-    std::cout << filename << "loading with textureID: " << textureID << "\n";
-
-    int width, height, nrComponents;
-    unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
-    if (data)
-    {
-        GLenum format{};
-        if (nrComponents == 1)
-            format = GL_RED;
-        else if (nrComponents == 3)
-            format = GL_RGB;
-        else if (nrComponents == 4)
-            format = GL_RGBA;
-
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        stbi_image_free(data);
-    }
-    else
-    {
-        std::cout << "Texture failed to load at path: " << path << std::endl;
-        stbi_image_free(data);
-    }
-
-    return textureID;
-}

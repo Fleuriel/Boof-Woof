@@ -422,38 +422,6 @@ bool AssetManager::ReloadTextures() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**************************************************************************
  * @brief Loads the scene filenames from the specified directory.
  *

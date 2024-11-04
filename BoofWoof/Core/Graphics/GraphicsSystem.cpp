@@ -141,7 +141,7 @@ void GraphicsSystem::UpdateLoop() {
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 
-				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
+//				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
 				
 
 				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)

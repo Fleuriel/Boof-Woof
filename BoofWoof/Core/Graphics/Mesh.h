@@ -39,7 +39,7 @@ struct Vertex {
 };
 
 struct Texture {
-    unsigned int id{};
+    int id{};
     std::string type;
     std::string path;
 };
@@ -63,6 +63,11 @@ public:
         this->textures = textures;
 
 
+        for (int i = 0; i < textures.size(); ++i)
+        {
+            std::cout << textures[i].id << '\t' << textures[i].path << '\t' << textures[i].type << '\n';
+        }
+
         std::cout << "Vertices Size " << vertices.size() << " Indices Size " << indices.size() << " Tex Size " << textures.size() << '\n';
 
        // AddTexture("Bed");
@@ -82,7 +87,7 @@ public:
         unsigned int normalNr = 1;
         unsigned int heightNr = 1;
 
-        std::cout << textures.size() << '\n';
+       // std::cout << textures.size() << '\n';
 
         
 
@@ -92,7 +97,7 @@ public:
             // retrieve texture number (the N in diffuse_textureN)
             std::string number;
             std::string name = textures[i].type;
-            std::cout << name << '\n';
+            //std::cout << name << '\n';
 
             if (name == "texture_diffuse")
                 number = std::to_string(diffuseNr++);
@@ -105,6 +110,8 @@ public:
 
     
 
+
+//            std::cout << number << '\n';
 
             // now set the sampler to the correct texture unit
             glUniform1i(glGetUniformLocation(shader.GetHandle(), (name + number).c_str()), i);

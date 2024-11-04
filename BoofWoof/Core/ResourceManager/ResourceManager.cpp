@@ -203,7 +203,7 @@ bool LoadBinFile(const std::string& filePath) {
                 texture.id = g_ResourceManager.GetTextureDDS(texture.path);
 
                 std::cout << texture.id << '\n';
-                texture.type = "diffuse_texture"; // Assign type if known
+                texture.type = "texture_diffuse"; // Assign type if known
                 textures.push_back(texture);
             }
 
@@ -329,6 +329,9 @@ bool ResourceManager::SetModelMap(const std::string& name, const Model& model) {
 
     
     ModelMap.insert(std::make_pair(name, model));
+
+    std::cout << "Loaded name: " << name << " [Models Reference: " << ModelMap.size() - 1 << "]" << '\n';
+
 	return true;
 
 //    ModelNames.push_back(name);
