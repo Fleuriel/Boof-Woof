@@ -114,6 +114,18 @@ class ReflectionManager
 public:
     static ReflectionManager& Instance();
 
+    ~ReflectionManager()
+    {
+        for (auto& [className, properties] : m_Properties)
+        {
+            for (auto* property : properties)
+            {
+                delete property;
+            }
+        }
+    }
+
+
     template <typename T>
     void RegisterProperty(const std::string& className, ReflectionPropertyBase* property)
     {

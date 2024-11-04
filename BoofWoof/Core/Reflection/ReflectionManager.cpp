@@ -35,3 +35,4 @@ const std::vector<ReflectionPropertyBase*>& ReflectionManager::GetProperties(con
     auto it = m_Properties.find(className);
     return it != m_Properties.end() ? it->second : empty;
 }
+
