@@ -1418,7 +1418,7 @@ void AssetManager::MonitorFiles(const std::wstring& path) {
         }
         else if (path == L"..\\BoofWoof\\Assets\\Objects") {
             //std::wcout << L"Changes detected." << std::endl;
-            //ReloadObjects();
+            ReloadObjects();
         }
         else if (path == L"..\\BoofWoof\\Assets\\Shaders") {
             //std::wcout << L"Changes detected." << std::endl;
