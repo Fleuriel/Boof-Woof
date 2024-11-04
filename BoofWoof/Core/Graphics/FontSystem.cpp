@@ -1,5 +1,12 @@
 #include "pch.h"
 #include "FontSystem.h"
+#include <stb_image.h>
+#include <rapidjson/document.h>
+#include <rapidjson/filereadstream.h>
+#include <fstream>
+#include <iostream>
+#include <unordered_map>
+
 
 FontSystem fontSystem;
 
@@ -154,3 +161,71 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
     glBindTexture(GL_TEXTURE_2D, 0);
     shader.UnUse();
 }
+
+
+
+void FontSystem::init_font()
+{
+
+}
+
+std::unordered_map<int, Glyph> FontSystem::loadFontMetadata(const std::string& jsonPath)
+{
+    std::unordered_map<int, Glyph> glyphs;
+
+    // Open the JSON file
+    FILE* fp = fopen(jsonPath.c_str(), "r");
+    if (!fp) {
+        std::cerr << "Failed to open JSON file: " << jsonPath << std::endl;
+        return glyphs;
+    }
+
+    // Create a file read buffer
+    char readBuffer[65536];
+    rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+
+    // Parse the JSON document
+    rapidjson::Document doc;
+    doc.ParseStream(is);
+    fclose(fp);
+
+    // Check if parsing succeeded
+    if (!doc.IsObject() || !doc.HasMember("glyphs") || !doc["glyphs"].IsArray()) {
+        std::cerr << "Invalid JSON format in file: " << jsonPath << std::endl;
+        return glyphs;
+    }
+
+    // Iterate through glyphs
+    for (const auto& glyph : doc["glyphs"].GetArray()) {
+        if (!glyph.IsObject()) continue;
+
+        Glyph g;
+        g.advance = glyph["advance"].GetFloat();
+
+        // Get planeBounds
+        const auto& planeBounds = glyph["planeBounds"].GetObject();
+        g.planeBounds[0] = planeBounds["left"].GetFloat();
+        g.planeBounds[1] = planeBounds["bottom"].GetFloat();
+        g.planeBounds[2] = planeBounds["right"].GetFloat();
+        g.planeBounds[3] = planeBounds["top"].GetFloat();
+
+        // Get atlasBounds
+        const auto& atlasBounds = glyph["atlasBounds"].GetObject();
+        g.atlasBounds[0] = atlasBounds["left"].GetFloat();
+        g.atlasBounds[1] = atlasBounds["bottom"].GetFloat();
+        g.atlasBounds[2] = atlasBounds["right"].GetFloat();
+        g.atlasBounds[3] = atlasBounds["top"].GetFloat();
+
+        // Add glyph to map
+        int index = glyph["index"].GetInt();
+        glyphs[index] = g;
+    }
+    return glyphs;
+}
+
+void FontSystem::render_text(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color)
+{
+
+}
+
+

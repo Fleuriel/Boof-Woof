@@ -21,6 +21,12 @@
 #include FT_FREETYPE_H
 
 
+struct Glyph {
+    float advance;
+    float planeBounds[4];
+    float atlasBounds[4];
+};
+
 /// Holds all state information relevant to a character as loaded using FreeType
 struct Character {
     unsigned int TextureID; // ID handle of the glyph texture
@@ -38,8 +44,14 @@ public:
     void init();
     void RenderText(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color);
 
+    void init_font();
+    std::unordered_map<int, Glyph> loadFontMetadata(const std::string& jsonPath);
+	void render_text(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color);
+
 private:
     std::map<GLchar, Character> Characters;
+    GLuint textureid;
+	std::unordered_map<int, Glyph> glyphs;
     unsigned int VAO_FONT{}, VBO_FONT{};
 
 };
