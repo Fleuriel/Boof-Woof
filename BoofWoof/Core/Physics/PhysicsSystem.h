@@ -51,11 +51,14 @@ enum class ObjectType {
     Chair,
     Bed,
     Table,
+    Table2,
     Couch,
     Corgi,
+    Corgi_small,
     Floor,
     Wall,
     Wardrobe,
+    Wardrobe2,
     Default
 };
 

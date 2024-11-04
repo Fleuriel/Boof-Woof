@@ -1,12 +1,12 @@
 {
-    "SceneGUID": "eb7f15fc-7681-4a14-bb5c-d405766b65d9",
+    "SceneGUID": "131d3ef9-c1ba-4e31-aa36-de788d4fe3f5",
     "Entities": [
         {
             "EntityName": "Player",
             "Position": {
-                "x": -0.8999993801116943,
+                "x": -0.852983295917511,
                 "y": 0.0,
-                "z": -1.100000023841858
+                "z": -1.1132773160934449
             },
             "Scale": {
                 "x": 0.5,
@@ -25,12 +25,15 @@
             "AudioFilePath": "../BoofWoof/Assets/Audio/explode2.wav",
             "Volume": 1.0,
             "ShouldLoop": false,
-            "BehaviourName": "Player"
+            "BehaviourName": "Player",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "GameObject",
             "Position": {
-                "x": 2.0,
+                "x": 3.0999999046325685,
                 "y": 0.0,
                 "z": -1.100000023841858
             },
@@ -41,14 +44,17 @@
             },
             "Rotation": {
                 "x": 0.0,
-                "y": 0.0,
+                "y": -1.5700000524520875,
                 "z": 0.0
             },
             "ModelID": 0,
             "EntityID": 1,
-            "ModelName": "Chair2",
+            "ModelName": "Wardrobe2",
             "Texture": " ",
-            "BehaviourName": "Null"
+            "BehaviourName": "Null",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         }
     ]
 }

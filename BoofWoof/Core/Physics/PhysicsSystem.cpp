@@ -51,8 +51,11 @@ static bool MyAssertFailed(const char* inExpression, const char* inMessage, cons
 ObjectType MyPhysicsSystem::GetObjectTypeFromModel(const std::string& modelName) {
     ObjectType type = ObjectType::Default;
 
-    if (modelName.find("Table") != std::string::npos) {
+    if (modelName == "Table") {
         type = ObjectType::Table;
+    }
+    else if (modelName == "Table2") {
+        type = ObjectType::Table2;
     }
     else if (modelName.find("Chair") != std::string::npos) {
         type = ObjectType::Chair;
@@ -63,8 +66,11 @@ ObjectType MyPhysicsSystem::GetObjectTypeFromModel(const std::string& modelName)
     else if (modelName.find("Couch") != std::string::npos) {
         type = ObjectType::Couch;
     }
-    else if (modelName.find("Corgi") != std::string::npos) {
+    else if (modelName == "Corgi2") {
         type = ObjectType::Corgi;
+    }
+    else if (modelName == "Corgi_small") {
+        type = ObjectType::Corgi_small;
     }
     else if (modelName.find("Floor") != std::string::npos) {
         type = ObjectType::Floor;
@@ -72,8 +78,11 @@ ObjectType MyPhysicsSystem::GetObjectTypeFromModel(const std::string& modelName)
     else if (modelName.find("Wall") != std::string::npos) {
         type = ObjectType::Wall;
     }
-    else if (modelName.find("Wardrobe") != std::string::npos) {
+    else if (modelName == "Wardrobe") {
         type = ObjectType::Wardrobe;
+    }
+    else if (modelName == "Wardrobe2") {
+        type = ObjectType::Wardrobe2;
     }
 
     // Debug statement to check which ObjectType is set
@@ -81,6 +90,9 @@ ObjectType MyPhysicsSystem::GetObjectTypeFromModel(const std::string& modelName)
     switch (type) {
     case ObjectType::Table:
         std::cout << "Table";
+        break;
+    case ObjectType::Table2:
+        std::cout << "Table2";
         break;
     case ObjectType::Chair:
         std::cout << "Chair";
@@ -92,7 +104,10 @@ ObjectType MyPhysicsSystem::GetObjectTypeFromModel(const std::string& modelName)
         std::cout << "Couch";
         break;
     case ObjectType::Corgi:
-        std::cout << "Corgi";
+        std::cout << "Corgi2";
+        break;
+    case ObjectType::Corgi_small:
+        std::cout << "Corgi_small";
         break;
     case ObjectType::Floor:
         std::cout << "Floor";
@@ -102,6 +117,9 @@ ObjectType MyPhysicsSystem::GetObjectTypeFromModel(const std::string& modelName)
         break;
     case ObjectType::Wardrobe:
         std::cout << "Wardrobe";
+        break;
+    case ObjectType::Wardrobe2:
+        std::cout << "Wardrobe2";
         break;
     default:
         std::cout << "Default";
@@ -122,13 +140,19 @@ JPH::Shape* MyPhysicsSystem::CreateShapeForObjectType(ObjectType type, const glm
         return new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.8f, scale.z * 0.5f)); // Dimensions for chair
 
     case ObjectType::Table:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 1.0f, scale.y * 0.4f, scale.z * 1.0f)); // Dimensions for table
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.0f, scale.y * 0.4f, scale.z * 2.0f)); // Dimensions for table x = sideways, y = height, z = forwards
+
+    case ObjectType::Table2:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 0.8f, scale.y * 0.4f, scale.z * 2.0f)); // Dimensions for table x = sideways, y = height, z = forwards
 
     case ObjectType::Couch:
         return new JPH::BoxShape(JPH::Vec3(scale.x * 1.5f, scale.y * 0.6f, scale.z * 1.0f)); // Dimensions for couch
 
     case ObjectType::Corgi:
         return new JPH::BoxShape(JPH::Vec3(scale.x * 2.8f, scale.y * 0.5f, scale.z * 1.3f)); // Dimensions for corgi x = length of dog, y = height, z = thickness
+
+    case ObjectType::Corgi_small:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 1.4f, scale.y * 0.5f, scale.z * 0.6f)); // Dimensions for corgi x = length of dog, y = height, z = thickness
 
     case ObjectType::Floor:
         return new JPH::BoxShape(JPH::Vec3(scale.x * 5.0f, scale.y * 0.1f, scale.z * 5.0f)); // Large, flat shape for the floor
@@ -137,7 +161,10 @@ JPH::Shape* MyPhysicsSystem::CreateShapeForObjectType(ObjectType type, const glm
         return new JPH::BoxShape(JPH::Vec3(scale.x * 2.5f, scale.y * 3.0f, scale.z * 0.8f)); // Thin, tall shape for walls x = width, y = height, z = thickness
 
     case ObjectType::Wardrobe:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 1.0f, scale.y * 2.0f, scale.z * 0.8f)); // Tall and narrow for wardrobe
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.0f, scale.y * 2.0f, scale.z * 1.0f)); // Tall and narrow for wardrobe x = width, y = height, z = thickness
+
+    case ObjectType::Wardrobe2:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.8f, scale.y * 2.0f, scale.z * 1.0f)); // Tall and narrow for wardrobe x = width, y = height, z = thickness
 
     default:
         return new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.5f, scale.z * 0.5f)); // Default dimensions

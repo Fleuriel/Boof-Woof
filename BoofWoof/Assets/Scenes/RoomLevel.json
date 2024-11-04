@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "fbc65fff-1781-453e-854f-d290a91a6101",
+    "SceneGUID": "c80d08f4-ee99-4d23-9d88-935052876b67",
     "Entities": [
         {
             "EntityName": "Floor1",
@@ -359,7 +359,10 @@
             "ModelID": 0,
             "EntityID": 14,
             "ModelName": "Table",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Chair2",
@@ -381,7 +384,10 @@
             "ModelID": 0,
             "EntityID": 15,
             "ModelName": "Chair2",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Wardrobe2",
@@ -403,7 +409,10 @@
             "ModelID": 0,
             "EntityID": 16,
             "ModelName": "Wardrobe2",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Table2",
@@ -425,7 +434,10 @@
             "ModelID": 0,
             "EntityID": 17,
             "ModelName": "Table2",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Chair1",
@@ -447,14 +459,17 @@
             "ModelID": 0,
             "EntityID": 18,
             "ModelName": "Chair",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Player",
             "Position": {
-                "x": -5.444157123565674,
-                "y": 0.00834368821233511,
-                "z": -4.543970584869385
+                "x": -5.390946865081787,
+                "y": 0.08609484881162644,
+                "z": -5.760461330413818
             },
             "Scale": {
                 "x": 0.5,
@@ -495,7 +510,10 @@
             "ModelID": 0,
             "EntityID": 20,
             "ModelName": "Corgi_small",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Chair3",
@@ -517,7 +535,10 @@
             "ModelID": 0,
             "EntityID": 21,
             "ModelName": "Chair2",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Chair4",
@@ -539,7 +560,10 @@
             "ModelID": 0,
             "EntityID": 22,
             "ModelName": "Chair2",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Chair5",
@@ -561,7 +585,10 @@
             "ModelID": 0,
             "EntityID": 23,
             "ModelName": "Chair2",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Wardrobe",
@@ -583,7 +610,10 @@
             "ModelID": 0,
             "EntityID": 24,
             "ModelName": "Wardrobe",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         },
         {
             "EntityName": "Couch",
@@ -605,7 +635,10 @@
             "ModelID": 0,
             "EntityID": 25,
             "ModelName": "Couch",
-            "Texture": " "
+            "Texture": " ",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
         }
     ]
 }
