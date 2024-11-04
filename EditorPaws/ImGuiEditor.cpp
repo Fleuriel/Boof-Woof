@@ -843,6 +843,11 @@ void ImGuiEditor::InspectorWindow()
 									GraphicsSystem::D2 = false;
 								}
 							}
+							else 
+							{
+								GraphicsSystem::D3 = false;
+								GraphicsSystem::D2 = false;
+							}
 						}
 					}
 					else if (className == "AudioComponent")
