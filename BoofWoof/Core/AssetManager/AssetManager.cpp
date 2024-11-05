@@ -425,8 +425,9 @@ bool AssetManager::FreeTextures() {
  *         false otherwise.
  *************************************************************************/
 bool AssetManager::ReloadTextures() {
-    // Return true if free and load successfully
-    return (FreeTextures() && LoadTextures());
+    FreeTextures();
+    LoadTextures();
+    return g_ResourceManager.ReloadTextureDDS();
 }
 
 

@@ -1,0 +1,5 @@
+Texture Name : Shop
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\Shop.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\Shop.dds
+Compression Format : -fd BC3
