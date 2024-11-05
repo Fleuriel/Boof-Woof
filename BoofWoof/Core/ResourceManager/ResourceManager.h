@@ -47,6 +47,9 @@ public:
 	bool AddModelBinary(std::string);
 
 	bool LoadTexturesDDS();
+	bool FreeTextureDDS();
+	bool ReloadTextureDDS();
+
 	bool AddTextureDDS(std::string);
 	int GetTextureDDS(std::string);																		//Function to access textures
 

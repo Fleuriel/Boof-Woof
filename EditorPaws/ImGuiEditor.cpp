@@ -1202,7 +1202,12 @@ void ImGuiEditor::AssetWindow()
 			std::string fileExtension = fileNameExt.substr(lastDot + 1);
 			std::string icon = entry.is_directory() ? "FolderIcon" : (fileExtension == "png" ? fileName : "TextIcon");
 
-			ImGui::ImageButton((ImTextureID)(uintptr_t)g_ResourceManager.GetTextureDDS(icon), { 60,60 }, { 0,0 }, { 1,1 });
+			if (g_ResourceManager.GetTextureDDS(icon) == -1) {
+				ImGui::ImageButton((ImTextureID)(uintptr_t)g_ResourceManager.GetTextureDDS("BlackScreen"), { 60,60 }, { 0,0 }, { 1,1 });
+			}
+			else {
+				ImGui::ImageButton((ImTextureID)(uintptr_t)g_ResourceManager.GetTextureDDS(icon), { 60,60 }, { 0,0 }, { 1,1 });
+			}
 
 			// drag from assets to components
 			if (ImGui::BeginDragDropSource())
