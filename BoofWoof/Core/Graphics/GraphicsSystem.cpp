@@ -143,9 +143,9 @@ void GraphicsSystem::UpdateLoop() {
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
-//				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
+			
 				
-
+				//skip
 				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
 				{
 					glActiveTexture(GL_TEXTURE0 + i);

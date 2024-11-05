@@ -111,7 +111,8 @@ public:
             else if (name == "texture_height")
                 number = std::to_string(heightNr++); // transfer unsigned int to string
 
-    
+			//////for now
+			shader.SetUniform("textureCount", static_cast<int>(textures.size()));
 
 
 //            std::cout << number << '\n';
@@ -121,7 +122,7 @@ public:
             // and finally bind the texture
             glBindTexture(GL_TEXTURE_2D, textures[i].id);
 #ifdef _DEBUG
-            std::cout << "Uniform name: " << (name + number).c_str() << " withn value: " << i << " texture id: " << textures[i].id << std::endl;
+            //std::cout << "Uniform name: " << (name + number).c_str() << " withn value: " << i << " texture id: " << textures[i].id << std::endl;
 #endif
         }
 
