@@ -412,7 +412,7 @@ bool ResourceManager::LoadTexturesDDS() {
         // std::cout << "names:" << textureDDSFileNames[i].c_str() << "\n";
 
         //add DDS processing here
-        GLuint result = LoadDDSTexture((FILEPATH_TEXTURES_RESOURCE + "\\" + textureDDSFileNames[i] + ".dds").c_str());
+        GLuint result = LoadDDSTexture((FILEPATH_RESOURCE_TEXTURES + "\\" + textureDDSFileNames[i] + ".dds").c_str());
 
         std::cout << result <<std::endl;
 
@@ -452,7 +452,7 @@ bool ResourceManager::ReloadTextureDDS() {
     textureDDSFileNames.clear();
 
     // Re-populate the list by scanning the directory
-    for (const auto& entry : std::filesystem::directory_iterator(FILEPATH_TEXTURES_RESOURCE)) {
+    for (const auto& entry : std::filesystem::directory_iterator(FILEPATH_RESOURCE_TEXTURES)) {
         if (entry.path().extension() == ".dds") {
             std::string textureName = entry.path().stem().string();
             textureDDSFileNames.push_back(textureName);
@@ -469,7 +469,7 @@ bool ResourceManager::AddTextureDDS(std::string textureName) {
     textureDDSFileNames.push_back(textureName);
 
     // Attempt to load the DDS texture immediately
-    GLuint result = LoadDDSTexture((FILEPATH_TEXTURES_RESOURCE + "\\" + textureName + ".dds").c_str());
+    GLuint result = LoadDDSTexture((FILEPATH_RESOURCE_TEXTURES + "\\" + textureName + ".dds").c_str());
 
     if (result != 0) { // If loading is successful, result will be a valid texture ID
         texturesDDS[textureName] = result; // Store the loaded texture ID in the map
