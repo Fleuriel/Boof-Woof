@@ -78,7 +78,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	shdrParam.Color = glm::vec3(1.0f, 1.0f,1.0f);
 
 	// Initialize camera
-	camera = Camera(glm::vec3(0.f, 0.f, 3.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
+	camera = Camera(glm::vec3(0.f, 2.f, 10.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -160,7 +160,7 @@ void GraphicsSystem::UpdateLoop() {
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 
-				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
+//				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
 				
 
 				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
@@ -219,6 +219,7 @@ void GraphicsSystem::UpdateLoop() {
 
 				if (graphicsComp.getTextureName() == " ")
 				{
+					glBindTextureUnit(6, 0);
 					//std::cout << "its blank\n";
 				}
 				else

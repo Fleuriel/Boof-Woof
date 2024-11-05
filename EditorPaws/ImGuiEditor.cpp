@@ -75,7 +75,6 @@ void ImGuiEditor::ImGuiUpdate()
 	Settings();
 	Scenes();
 	PlayStopRunBtn();
-
 	if (m_ShowAudio)
 	{
 		Audio();
@@ -189,6 +188,7 @@ void ImGuiEditor::WorldHierarchy()
 					{
 						if (g_SelectedEntity != MAX_ENTITIES)
 						{
+							g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(g_SelectedEntity);
 							g_Coordinator.DestroyEntity(g_SelectedEntity);
 							m_IsSelected = false;
 						}
@@ -203,8 +203,10 @@ void ImGuiEditor::WorldHierarchy()
 			}
 
 			if (ImGui::Button("Clear all entities")) {
+				g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 				g_Coordinator.ResetEntities();
 				g_SceneManager.ClearSceneList();
+
 			}
 		}
 
@@ -239,10 +241,50 @@ void ImGuiEditor::WorldHierarchy()
 
 void ImGuiEditor::InspectorWindow()
 {
+	static std::unordered_map<std::string, glm::vec3> oldVec3Values;
+	static std::unordered_map<std::string, float> oldFloatValues;
+	static std::unordered_map<std::string, std::string> oldStringValues;
+	static std::unordered_map<std::string, bool> oldBoolValues;
+
 	ImGui::Begin("Inspector");
 	{
 		if (g_SelectedEntity < MAX_ENTITIES && g_SelectedEntity >= 0 && g_Coordinator.GetTotalEntities() != 0)
 		{
+
+			bool colorPushed = false;
+
+			// Change color if the undo stack is empty
+			if (!g_UndoRedoManager.CanUndo()) {
+				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.5f, 0.5f, 0.5f, 1.0f)); // Greyed-out color
+				colorPushed = true;
+			}
+			if (ImGui::Button("Undo")) {
+				if (g_UndoRedoManager.CanUndo()) {
+					g_UndoRedoManager.Undo();
+				}
+			}
+			if (colorPushed) {
+				ImGui::PopStyleColor();
+				colorPushed = false;
+			}
+
+			ImGui::SameLine();
+
+			// Change color if the redo stack is empty
+			if (!g_UndoRedoManager.CanRedo()) {
+				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.5f, 0.5f, 0.5f, 1.0f)); // Greyed-out color
+				colorPushed = true;
+			}
+			if (ImGui::Button("Redo")) {
+				if (g_UndoRedoManager.CanRedo()) {
+					g_UndoRedoManager.Redo();
+				}
+			}
+			if (colorPushed) {
+				ImGui::PopStyleColor();
+			}
+
+
 			// Adding Components
 			if (ImGui::BeginPopupContextItem("AComponents"))
 			{
@@ -251,41 +293,91 @@ void ImGuiEditor::InspectorWindow()
 					if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
 					{
 						g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
+							},
+							[this]() {
+								if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+							}
+						);
+
 					}
 				}
-
 				if (ImGui::Selectable("Graphics Component"))
 				{
 					if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 					{
 						g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, GraphicsComponent());
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, GraphicsComponent());
+							},
+							[this]() {
+								if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
+							}
+						);
+
 					}
 				}
-
 				if (ImGui::Selectable("Audio Component"))
 				{
 					if (!g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
 					{
 						g_Coordinator.AddComponent<AudioComponent>(g_SelectedEntity, AudioComponent());
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (!g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<AudioComponent>(g_SelectedEntity, AudioComponent());
+							},
+							[this]() {
+								if (g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<AudioComponent>(g_SelectedEntity);
+							}
+						);
+
 					}
 				}
-
 				if (ImGui::Selectable("Behaviour Component"))
 				{
 					if (!g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
 					{
 						g_Coordinator.AddComponent<BehaviourComponent>(g_SelectedEntity, BehaviourComponent());
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (!g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<BehaviourComponent>(g_SelectedEntity, BehaviourComponent());
+							},
+							[this]() {
+								if (g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<BehaviourComponent>(g_SelectedEntity);
+							}
+						);
+
 					}
 				}
-
 				if (ImGui::Selectable("Collision Component"))
 				{
 					if (!g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
 					{
 						g_Coordinator.AddComponent<CollisionComponent>(g_SelectedEntity, CollisionComponent());
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (!g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<CollisionComponent>(g_SelectedEntity, CollisionComponent());
+							},
+							[this]() {
+								if (g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<CollisionComponent>(g_SelectedEntity);
+							}
+						);
+
 					}
 				}
-
 				ImGui::EndPopup();
 			}
 
@@ -293,7 +385,6 @@ void ImGuiEditor::InspectorWindow()
 			{
 				ImGui::OpenPopup("AComponents");
 			}
-
 			ImGui::SameLine();
 
 			// Deleting Components
@@ -301,10 +392,23 @@ void ImGuiEditor::InspectorWindow()
 			{
 				if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
 				{
-					// in the future, when deleting transform component, physics component should also be deleted
 					if (ImGui::Selectable("Transform Component"))
 					{
-						g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+						// Capture the component data before deletion
+						auto componentData = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								// Do action: Remove the component
+								if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+							},
+							[this, componentData]() {
+								// Undo action: Add the component back with the captured data
+								if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, componentData);
+							}
+						);
 					}
 				}
 
@@ -312,7 +416,18 @@ void ImGuiEditor::InspectorWindow()
 				{
 					if (ImGui::Selectable("Graphics Component"))
 					{
-						g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
+						auto componentData = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
+							},
+							[this, componentData]() {
+								if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, componentData);
+							}
+						);
 					}
 				}
 
@@ -320,15 +435,37 @@ void ImGuiEditor::InspectorWindow()
 				{
 					if (ImGui::Selectable("Audio Component"))
 					{
-						g_Coordinator.RemoveComponent<AudioComponent>(g_SelectedEntity);
+						auto componentData = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity);
+
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<AudioComponent>(g_SelectedEntity);
+							},
+							[this, componentData]() {
+								if (!g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<AudioComponent>(g_SelectedEntity, componentData);
+							}
+						);
 					}
 				}
 
-				if (g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity)) 
+				if (g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
 				{
 					if (ImGui::Selectable("Behaviour Component"))
 					{
-						g_Coordinator.RemoveComponent<BehaviourComponent>(g_SelectedEntity);
+						auto componentData = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity);
+
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<BehaviourComponent>(g_SelectedEntity);
+							},
+							[this, componentData]() {
+								if (!g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<BehaviourComponent>(g_SelectedEntity, componentData);
+							}
+						);
 					}
 				}
 
@@ -336,7 +473,18 @@ void ImGuiEditor::InspectorWindow()
 				{
 					if (ImGui::Selectable("Collision Component"))
 					{
-						g_Coordinator.RemoveComponent<CollisionComponent>(g_SelectedEntity);
+						auto componentData = g_Coordinator.GetComponent<CollisionComponent>(g_SelectedEntity);
+
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<CollisionComponent>(g_SelectedEntity);
+							},
+							[this, componentData]() {
+								if (!g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<CollisionComponent>(g_SelectedEntity, componentData);
+							}
+						);
 					}
 				}
 
@@ -347,277 +495,604 @@ void ImGuiEditor::InspectorWindow()
 			{
 				ImGui::OpenPopup("DComponents");
 			}
-		}
 
-		// Metadata
-		if (g_Coordinator.HaveComponent<MetadataComponent>(g_SelectedEntity))
-		{
-			if (ImGui::CollapsingHeader("Identifier", ImGuiTreeNodeFlags_None))
+
+			// Use Reflection to Iterate Over All Components
+			const auto& componentTypes = g_Coordinator.GetTotalRegisteredComponents();
+
+			for (ComponentType type = 0; type < componentTypes; ++type)
 			{
-				auto& ObjName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
-
-				char entityNameBuffer[256];
-				memset(entityNameBuffer, 0, sizeof(entityNameBuffer));
-				strcpy_s(entityNameBuffer, sizeof(entityNameBuffer), ObjName.c_str());
-
-				ImGui::Text("Name    "); ImGui::SameLine();
-				ImGui::PushItemWidth(125.0f);
-				if (ImGui::InputText("##ObjectName", entityNameBuffer, sizeof(entityNameBuffer)))
+				if (g_Coordinator.GetEntitySignature(g_SelectedEntity).test(type))
 				{
-					g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).SetName(std::string(entityNameBuffer));
-				}
-			}
-		}
-
-		// Transform
-		if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
-		{
-			if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_None))
-			{
-				auto& Position = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetPosition();
-				ImGui::PushItemWidth(250.0f);
-				ImGui::Text("Position"); ImGui::SameLine();
-
-				if (ImGui::DragFloat3("##Position", static_cast<float*>(&Position.x), 0.5f))
-				{
-					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetPosition(Position);
-				}
-
-				auto& Scale = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetScale();
-				ImGui::Text("Scale   "); ImGui::SameLine();
-
-				if (ImGui::DragFloat3("##Scale", static_cast<float*>(&Scale.x), 0.5f, 0.0f, FLT_MAX))
-				{
-					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetScale(Scale);
-				}
-
-				auto& rotation = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).GetRotation();
-				ImGui::Text("Rotation"); ImGui::SameLine();
-
-				if (ImGui::DragFloat3("##Rotation", static_cast<float*>(&rotation.x), 0.5f))
-				{
-					g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity).SetRotation(rotation);
-				}
-			}
-		}
-
-		if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
-		{
-			if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
-			{
-				std::string modelName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();			
-				std::vector<std::string> modelNames = g_ResourceManager.getModelNames();
-
-				static int currentItem = 0;
-		
-				ImGui::PushItemWidth(123.0f);
-				ImGui::Text("Model   "); ImGui::SameLine();
-
-				if (ImGui::Combo("##ModelCombo", &currentItem, [](void* data, int idx, const char** out_text) {
-					// Cast the void pointer back to the vector pointer and retrieve the name
-					const auto& names = *(static_cast<std::vector<std::string>*>(data));
-					*out_text = names[idx].c_str(); // Set the output text
-					return true; // Indicate that the callback is successful
-					}, (void*)&modelNames, static_cast<int>(modelNames.size()))) // Use modelNames.size() instead of IM_ARRAYSIZE
-				{
-					modelName = modelNames[currentItem];
-					g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setModelName(modelName);
-				}
-
-				// modelID
-				//auto modelID = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelID();
-				//ImGui::Text("ModelID "); ImGui::SameLine();
-				//if (ImGui::DragInt("##ModelID", &modelID, 1))
-				//{
-				//	g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).SetModelID(modelID);
-				//}
-
-
-				if (ImGui::Button("Set Texture"))
-				{
-					ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png, .dds", "../BoofWoof/Assets");
-				}
-
-				if (ImGuiFileDialog::Instance()->Display("SetTexture"))
-				{
-					// If the user pressed "Ok"
-					if (ImGuiFileDialog::Instance()->IsOk())
+					// Retrieve the component type's name
+					std::string className = ReflectionManager::Instance().GetTypeNameFromTypeIndex(type);
+					// Custom UI for MetadataComponent
+					if (className == "MetadataComponent")
 					{
-						// Get the selected file path
-						std::string selected_file = ImGuiFileDialog::Instance()->GetCurrentFileName();
-
-						// Find the last occurrence of the dot (.) to identify the file extension
-						size_t last_dot_position = selected_file.find_last_of(".");
-
-						// Truncate the file extension (only if a dot is found)
-						if (last_dot_position != std::string::npos)
+						// Custom UI for MetadataComponent
+						if (ImGui::CollapsingHeader("Identifier", ImGuiTreeNodeFlags_None))
 						{
-							// Keep the part of the string before the last dot
-							selected_file = selected_file.substr(0, last_dot_position);
+							auto& metadataComponent = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity);
+							metadataComponent.RegisterProperties();
+
+							std::string propertyName = "Name";
+							std::string oldValue = metadataComponent.GetName();
+							std::string newValue = oldValue;
+
+							ImGui::Text("Name    ");
+							ImGui::SameLine();
+							ImGui::PushItemWidth(125.0f);
+							ImGui::PushID(propertyName.c_str());
+
+							char buffer[256];
+							memset(buffer, 0, sizeof(buffer));
+							strcpy_s(buffer, sizeof(buffer), oldValue.c_str());
+
+							if (ImGui::InputText("##ObjectName", buffer, sizeof(buffer)))
+							{
+								newValue = std::string(buffer);
+								metadataComponent.SetName(newValue);
+							}
+
+							if (ImGui::IsItemActivated())
+							{
+								oldStringValues[propertyName] = oldValue;
+							}
+
+							if (ImGui::IsItemDeactivatedAfterEdit())
+							{
+								std::string oldVal = oldStringValues[propertyName];
+								Entity entity = g_SelectedEntity;
+								oldStringValues.erase(propertyName);
+
+								g_UndoRedoManager.ExecuteCommand(
+									[entity, newValue]() {
+										auto& component = g_Coordinator.GetComponent<MetadataComponent>(entity);
+										component.SetName(newValue);
+									},
+									[entity, oldVal]() {
+										auto& component = g_Coordinator.GetComponent<MetadataComponent>(entity);
+										component.SetName(oldVal);
+									}
+								);
+							}
+
+							ImGui::PopID();
 						}
-						
-						//GraphicsSystem::set_Texture_ = g_ResourceManager.GetTextureDDS(selected_file);
-						g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).setTexture(selected_file);
-
-						// Use the file path (e.g., set a texture, load a model, etc.)
-						//get the texture id
-						int textureid = g_ResourceManager.GetTextureDDS(selected_file);
-						std::cout << "Texture add with texture ID: " << textureid << " with sleleted file "<< selected_file << std::endl;
-						
-						g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).AddTexture(textureid);
 					}
-					ImGuiFileDialog::Instance()->Close();
-				}
 
-
-				ImGui::Text("Debug   "); ImGui::SameLine();
-				ImGui::Checkbox("##DebugMode", &GraphicsSystem::debug);
-
-				if (GraphicsSystem::debug) // Only show mode selection when Debug Mode is active
-				{
-					// Eventually need to make it so that if u debug, ONLY that wireframe is drawn.
-					if (ImGui::Button("2D"))
+					if (className == "TransformComponent")
 					{
-						GraphicsSystem::D3 = false;
-						GraphicsSystem::D2 = true;
+						// Custom UI for TransformComponent
+						if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_None))
+						{
+							auto& transformComponent = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+							transformComponent.RegisterProperties();
+
+							const auto& properties = ReflectionManager::Instance().GetProperties("TransformComponent");
+							for (const auto& property : properties)
+							{
+								std::string propertyName = property->GetName();
+								if (propertyName == "Scale") {
+									propertyName += "   "; // Add extra spaces for alignment if the name is "Scale"
+								}
+
+								ImGui::PushItemWidth(250.0f);
+								ImGui::Text("%s", propertyName.c_str());
+								ImGui::SameLine();
+								std::string widgetID = "##" + propertyName;
+
+								ImGui::PushID(widgetID.c_str());
+
+								// For glm::vec3 properties
+								if (property->GetValue(&transformComponent).find(",") != std::string::npos)
+								{
+									glm::vec3 vecValue = SerializationHelpers::DeserializeVec3(property->GetValue(&transformComponent));
+
+									if (ImGui::DragFloat3("##Drag", &vecValue.x, 0.1f))
+									{
+										property->SetValue(&transformComponent, SerializationHelpers::SerializeVec3(vecValue));
+									}
+
+									if (ImGui::IsItemActivated())
+									{
+										// Store old value
+										oldVec3Values[propertyName] = vecValue;
+									}
+
+									if (ImGui::IsItemDeactivatedAfterEdit())
+									{
+										glm::vec3 newValue = vecValue;
+										glm::vec3 oldValue = oldVec3Values[propertyName];
+										Entity entity = g_SelectedEntity;
+
+										// Clean up the stored old value
+										oldVec3Values.erase(propertyName);
+
+										g_UndoRedoManager.ExecuteCommand(
+											[entity, propertyName, newValue]() {
+												auto& component = g_Coordinator.GetComponent<TransformComponent>(entity);
+												const auto& properties = ReflectionManager::Instance().GetProperties("TransformComponent");
+												auto propIt = std::find_if(properties.begin(), properties.end(),
+													[&propertyName](const ReflectionPropertyBase* prop) {
+														return prop->GetName() == propertyName;
+													});
+												if (propIt != properties.end())
+												{
+													(*propIt)->SetValue(&component, SerializationHelpers::SerializeVec3(newValue));
+												}
+											},
+											[entity, propertyName, oldValue]() {
+												auto& component = g_Coordinator.GetComponent<TransformComponent>(entity);
+												const auto& properties = ReflectionManager::Instance().GetProperties("TransformComponent");
+												auto propIt = std::find_if(properties.begin(), properties.end(),
+													[&propertyName](const ReflectionPropertyBase* prop) {
+														return prop->GetName() == propertyName;
+													});
+												if (propIt != properties.end())
+												{
+													(*propIt)->SetValue(&component, SerializationHelpers::SerializeVec3(oldValue));
+												}
+											}
+										);
+									}
+								}
+								else
+								{
+									// For scalar properties (float)
+									float floatValue = std::stof(property->GetValue(&transformComponent));
+
+									if (ImGui::DragFloat("##Drag", &floatValue, 0.1f))
+									{
+										property->SetValue(&transformComponent, std::to_string(floatValue));
+									}
+
+									if (ImGui::IsItemActivated())
+									{
+										// Store old value
+										oldFloatValues[propertyName] = floatValue;
+									}
+
+									if (ImGui::IsItemDeactivatedAfterEdit())
+									{
+										float newValue = floatValue;
+										float oldValue = oldFloatValues[propertyName];
+										Entity entity = g_SelectedEntity;
+
+										// Clean up the stored old value
+										oldFloatValues.erase(propertyName);
+
+										g_UndoRedoManager.ExecuteCommand(
+											[entity, propertyName, newValue]() {
+												auto& component = g_Coordinator.GetComponent<TransformComponent>(entity);
+												const auto& properties = ReflectionManager::Instance().GetProperties("TransformComponent");
+												auto propIt = std::find_if(properties.begin(), properties.end(),
+													[&propertyName](const ReflectionPropertyBase* prop) {
+														return prop->GetName() == propertyName;
+													});
+												if (propIt != properties.end())
+												{
+													(*propIt)->SetValue(&component, std::to_string(newValue));
+												}
+											},
+											[entity, propertyName, oldValue]() {
+												auto& component = g_Coordinator.GetComponent<TransformComponent>(entity);
+												const auto& properties = ReflectionManager::Instance().GetProperties("TransformComponent");
+												auto propIt = std::find_if(properties.begin(), properties.end(),
+													[&propertyName](const ReflectionPropertyBase* prop) {
+														return prop->GetName() == propertyName;
+													});
+												if (propIt != properties.end())
+												{
+													(*propIt)->SetValue(&component, std::to_string(oldValue));
+												}
+											}
+										);
+									}
+								}
+
+								ImGui::PopID();
+							}
+						}
 					}
-					if (ImGui::Button("3D"))
+					else if (className == "GraphicsComponent")
 					{
+						// Custom UI for GraphicsComponent
+						if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
+						{
+							auto& graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+							graphicsComponent.RegisterProperties();
 
-						GraphicsSystem::D3 = true;
-						GraphicsSystem::D2 = false;
+							const auto& properties = ReflectionManager::Instance().GetProperties("GraphicsComponent");
+
+							// Handle ModelName Property
+							auto modelNameProperty = std::find_if(properties.begin(), properties.end(),
+								[](const ReflectionPropertyBase* prop) { return prop->GetName() == "ModelName"; });
+
+							if (modelNameProperty != properties.end())
+							{
+								std::string propertyName = "ModelName";
+								std::string currentModelName = (*modelNameProperty)->GetValue(&graphicsComponent);
+								std::vector<std::string> modelNames = g_ResourceManager.getModelNames();
+								int currentItem = 0;
+								for (size_t i = 0; i < modelNames.size(); ++i)
+								{
+									if (modelNames[i] == currentModelName)
+									{
+										currentItem = static_cast<int>(i);
+										break;
+									}
+								}
+
+								ImGui::PushItemWidth(123.0f);
+								ImGui::Text("Model   ");
+								ImGui::SameLine();
+								ImGui::PushID(propertyName.c_str());
+								std::string oldModelName = currentModelName;
+
+								if (ImGui::Combo("##ModelCombo", &currentItem, [](void* data, int idx, const char** out_text) {
+									const auto& names = *(static_cast<std::vector<std::string>*>(data));
+									*out_text = names[idx].c_str();
+									return true;
+									}, (void*)&modelNames, static_cast<int>(modelNames.size())))
+								{
+									// Selection changed
+									std::string newModelName = modelNames[currentItem];
+									(*modelNameProperty)->SetValue(&graphicsComponent, newModelName);
+
+									Entity entity = g_SelectedEntity;
+
+									g_UndoRedoManager.ExecuteCommand(
+										[entity, newModelName]() {
+											auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+											component.setModelName(newModelName);
+										},
+										[entity, oldModelName]() {
+											auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+											component.setModelName(oldModelName);
+										}
+									);
+								}
+
+								ImGui::PopID();
+							}
+
+							// Handle TextureName Property
+							auto textureNameProperty = std::find_if(properties.begin(), properties.end(),
+								[](const ReflectionPropertyBase* prop) { return prop->GetName() == "TextureName"; });
+
+							if (textureNameProperty != properties.end())
+							{
+								std::string propertyName = "TextureName";
+								std::string currentTextureName = (*textureNameProperty)->GetValue(&graphicsComponent);
+								std::string newTextureName = currentTextureName;
+
+								ImGui::Text("Texture ");
+								ImGui::SameLine();
+								ImGui::PushID(propertyName.c_str());
+
+								char buffer[256];
+								memset(buffer, 0, sizeof(buffer));
+								strcpy_s(buffer, sizeof(buffer), currentTextureName.c_str());
+
+								ImGui::InputText("##TextureName", buffer, sizeof(buffer), ImGuiInputTextFlags_ReadOnly);
+
+								ImGui::SameLine();
+
+								// Store old value before opening the file dialog
+								static std::string oldTextureName = "";
+								if (ImGui::Button("Set Texture"))
+								{
+									oldTextureName = currentTextureName; // Capture the old value
+									ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+								}
+
+								if (ImGuiFileDialog::Instance()->Display("SetTexture"))
+								{
+									if (ImGuiFileDialog::Instance()->IsOk())
+									{
+										// User selected a file
+										std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+										size_t lastDotPos = selectedFile.find_last_of(".");
+										if (lastDotPos != std::string::npos)
+										{
+											selectedFile = selectedFile.substr(0, lastDotPos);
+										}
+
+										newTextureName = selectedFile;
+										(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
+										int textureId = g_ResourceManager.GetTextureDDS(newTextureName);
+										graphicsComponent.AddTexture(textureId);
+
+										// Execute undo/redo command
+										std::string oldValue = oldTextureName;
+										Entity entity = g_SelectedEntity;
+
+										g_UndoRedoManager.ExecuteCommand(
+											[entity, newTextureName]() {
+												auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+												component.setTexture(newTextureName);
+											},
+											[entity, oldValue]() {
+												auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+												component.setTexture(oldValue);
+											}
+										);
+									}
+									ImGuiFileDialog::Instance()->Close();
+								}
+
+								ImGui::PopID();
+							}
+
+
+							ImGui::Text("Debug   ");
+							ImGui::SameLine();
+							ImGui::Checkbox("##DebugMode", &GraphicsSystem::debug);
+
+							if (GraphicsSystem::debug)
+							{
+								if (ImGui::Button("2D"))
+								{
+									GraphicsSystem::D3 = false;
+									GraphicsSystem::D2 = true;
+								}
+								if (ImGui::Button("3D"))
+								{
+									GraphicsSystem::D3 = true;
+									GraphicsSystem::D2 = false;
+								}
+							}
+							else 
+							{
+								GraphicsSystem::D3 = false;
+								GraphicsSystem::D2 = false;
+							}
+						}
 					}
-				}
+					else if (className == "AudioComponent")
+					{
+						// Custom UI for AudioComponent
+						if (ImGui::CollapsingHeader("Audio", ImGuiTreeNodeFlags_None))
+						{
+							auto& audioComponent = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity);
+							audioComponent.RegisterProperties();
 
-			}
-		}
+							const auto& properties = ReflectionManager::Instance().GetProperties("AudioComponent");
+
+							// Handle FilePath Property
+							auto filePathProperty = std::find_if(properties.begin(), properties.end(),
+								[](const ReflectionPropertyBase* prop) { return prop->GetName() == "FilePath"; });
+
+							if (filePathProperty != properties.end())
+							{
+								std::string propertyName = "FilePath";
+								std::string currentFilePath = (*filePathProperty)->GetValue(&audioComponent);
+								std::string newFilePath = currentFilePath;
+
+								ImGui::PushItemWidth(150.0f);
+								ImGui::Text("Filename");
+								ImGui::SameLine();
+								ImGui::PushID(propertyName.c_str());
+
+								char buffer[256];
+								memset(buffer, 0, sizeof(buffer));
+								strcpy_s(buffer, sizeof(buffer), currentFilePath.c_str());
+
+								ImGui::InputText("##FileName", buffer, IM_ARRAYSIZE(buffer), ImGuiInputTextFlags_ReadOnly);
+								ImGui::SameLine();
+
+								// Declare a static variable to store the old value
+								static std::string oldFilePath = "";
+
+								if (ImGui::Button("Browse"))
+								{
+									oldFilePath = currentFilePath; // Capture the old value before opening the dialog
+									ImGuiFileDialog::Instance()->OpenDialog("SelectWavFile", "Choose WAV File", ".wav", "../BoofWoof/Assets/Audio");
+								}
+
+								if (ImGuiFileDialog::Instance()->Display("SelectWavFile"))
+								{
+									if (ImGuiFileDialog::Instance()->IsOk())
+									{
+										std::string selectedFilePath = ImGuiFileDialog::Instance()->GetFilePathName();
+										std::string fileName = selectedFilePath.substr(selectedFilePath.find_last_of("/\\") + 1);
+										std::string formattedPath = "../BoofWoof/Assets/Audio/" + fileName;
+
+										newFilePath = formattedPath;
+										(*filePathProperty)->SetValue(&audioComponent, newFilePath);
+
+										// Execute undo/redo command
+										std::string oldValue = oldFilePath;
+										Entity entity = g_SelectedEntity;
+
+										g_UndoRedoManager.ExecuteCommand(
+											[entity, newFilePath]() {
+												auto& component = g_Coordinator.GetComponent<AudioComponent>(entity);
+												component.SetFilePath(newFilePath);
+											},
+											[entity, oldValue]() {
+												auto& component = g_Coordinator.GetComponent<AudioComponent>(entity);
+												component.SetFilePath(oldValue);
+											}
+										);
+									}
+									ImGuiFileDialog::Instance()->Close();
+								}
+
+								ImGui::PopID();
+							}
+
+							// Handle Volume Property
+							auto volumeProperty = std::find_if(properties.begin(), properties.end(),
+								[](const ReflectionPropertyBase* prop) { return prop->GetName() == "Volume"; });
+
+							if (volumeProperty != properties.end())
+							{
+								std::string propertyName = "Volume";
+								float volume = std::stof((*volumeProperty)->GetValue(&audioComponent));
+
+								ImGui::Text("Volume  ");
+								ImGui::SameLine();
+								ImGui::PushID(propertyName.c_str());
+
+								if (ImGui::DragFloat("##Volume", &volume, 0.01f))
+								{
+									(*volumeProperty)->SetValue(&audioComponent, std::to_string(volume));
+								}
+
+								if (ImGui::IsItemActivated())
+								{
+									oldFloatValues[propertyName] = volume;
+								}
+
+								if (ImGui::IsItemDeactivatedAfterEdit())
+								{
+									float newValue = volume;
+									float oldValue = oldFloatValues[propertyName];
+									Entity entity = g_SelectedEntity;
+									oldFloatValues.erase(propertyName);
+
+									g_UndoRedoManager.ExecuteCommand(
+										[entity, newValue]() {
+											auto& component = g_Coordinator.GetComponent<AudioComponent>(entity);
+											component.SetVolume(newValue);
+										},
+										[entity, oldValue]() {
+											auto& component = g_Coordinator.GetComponent<AudioComponent>(entity);
+											component.SetVolume(oldValue);
+										}
+									);
+								}
+
+								ImGui::PopID();
+							}
+
+							// Handle ShouldLoop Property
+							auto shouldLoopProperty = std::find_if(properties.begin(), properties.end(),
+								[](const ReflectionPropertyBase* prop) { return prop->GetName() == "ShouldLoop"; });
+
+							if (shouldLoopProperty != properties.end())
+							{
+								std::string propertyName = "ShouldLoop";
+								bool isLooping = (*shouldLoopProperty)->GetValue(&audioComponent) == "true";
+
+								ImGui::Text("Loops   ");
+								ImGui::SameLine();
+								ImGui::PushID(propertyName.c_str());
+
+								if (ImGui::Checkbox("##Loops", &isLooping))
+								{
+									(*shouldLoopProperty)->SetValue(&audioComponent, isLooping ? "true" : "false");
+								}
+
+								if (ImGui::IsItemActivated())
+								{
+									oldBoolValues[propertyName] = isLooping;
+								}
+
+								if (ImGui::IsItemDeactivatedAfterEdit())
+								{
+									bool newValue = isLooping;
+									bool oldValue = oldBoolValues[propertyName];
+									Entity entity = g_SelectedEntity;
+									oldBoolValues.erase(propertyName);
+
+									g_UndoRedoManager.ExecuteCommand(
+										[entity, newValue]() {
+											auto& component = g_Coordinator.GetComponent<AudioComponent>(entity);
+											component.SetLoop(newValue);
+										},
+										[entity, oldValue]() {
+											auto& component = g_Coordinator.GetComponent<AudioComponent>(entity);
+											component.SetLoop(oldValue);
+										}
+									);
+								}
+
+								ImGui::PopID();
+							}
+						}
+					}
 			
-		// Audio
-		if (g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
-		{
-			if (ImGui::CollapsingHeader("Audio", ImGuiTreeNodeFlags_None))
-			{
-				auto filePathName = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).GetFilePath();
-				ImGui::PushItemWidth(250.0f);
-				ImGui::Text("Filename"); ImGui::SameLine();
+				   else if (className == "BehaviourComponent")
+				   {
+					   // Custom UI for BehaviourComponent
+					   if (ImGui::CollapsingHeader("Behaviour", ImGuiTreeNodeFlags_None))
+					   {
+						   auto& behaviourComponent = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity);
+						   behaviourComponent.RegisterProperties();
 
-				static char fileNameBuffer[256]; // Default filename
-				memset(fileNameBuffer, 0, sizeof(fileNameBuffer));
-				strcpy_s(fileNameBuffer, sizeof(fileNameBuffer), filePathName.c_str());
+						   const auto& properties = ReflectionManager::Instance().GetProperties("BehaviourComponent");
 
-				if (ImGui::InputText("##FileName", fileNameBuffer, IM_ARRAYSIZE(fileNameBuffer), ImGuiInputTextFlags_ReadOnly))
-				{
-					g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetFilePath(fileNameBuffer);
-				}
+						   auto behaviourNameProperty = std::find_if(properties.begin(), properties.end(),
+							   [](const ReflectionPropertyBase* prop) { return prop->GetName() == "BehaviourName"; });
 
-				// Check if the text box can accept drag-and-drop payloads - drop from assets
-				if (ImGui::BeginDragDropTarget())
-				{
-					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Ass"))
+						   if (behaviourNameProperty != properties.end())
+						   {
+							   std::string propertyName = "BehaviourName";
+							   std::string currentBehaviourName = (*behaviourNameProperty)->GetValue(&behaviourComponent);
+							   std::string newBehaviourName = currentBehaviourName;
+
+							   const char* behaviourNames[] = { "Null", "Player" };
+							   int currentItem = 0;
+
+							   for (int i = 0; i < IM_ARRAYSIZE(behaviourNames); ++i)
+							   {
+								   if (behaviourNames[i] == currentBehaviourName)
+								   {
+									   currentItem = i;
+									   break;
+								   }
+							   }
+
+							   ImGui::PushItemWidth(123.0f);
+							   ImGui::Text("Name    ");
+							   ImGui::SameLine();
+							   ImGui::PushID(propertyName.c_str());
+
+							   std::string oldBehaviourName = currentBehaviourName;
+
+							   if (ImGui::Combo("##NameCombo", &currentItem, behaviourNames, IM_ARRAYSIZE(behaviourNames)))
+							   {
+								   newBehaviourName = behaviourNames[currentItem];
+								   (*behaviourNameProperty)->SetValue(&behaviourComponent, newBehaviourName);
+
+								   Entity entity = g_SelectedEntity;
+
+								   g_UndoRedoManager.ExecuteCommand(
+									   [entity, newBehaviourName]() {
+										   auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
+										   component.SetBehaviourName(newBehaviourName);
+									   },
+									   [entity, oldBehaviourName]() {
+										   auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
+										   component.SetBehaviourName(oldBehaviourName);
+									   }
+								   );
+							   }
+
+							   ImGui::PopID();
+						   }
+					   }
+					}
+					else if (className == "CollisionComponent")
 					{
-						// Need use wchar_t cause of windows
-						const wchar_t* droppedPath = (const wchar_t*)payload->Data;
-
-						// Convert wchar_t* to std::wstring and to std::string
-						std::wstring ws(droppedPath);
-
-						int count = WideCharToMultiByte(CP_UTF8, 0, ws.c_str(), static_cast<int>(ws.length()), NULL, 0, NULL, NULL);
-						std::string newFilePath(count, 0);
-						WideCharToMultiByte(CP_UTF8, 0, ws.c_str(), -1, &newFilePath[0], count, NULL, NULL);
-
-						// getting file ext only
-						size_t lastDot = newFilePath.find_last_of(".");
-						std::string fileExt = newFilePath.substr(lastDot + 1);
-
-						if (fileExt != "wav")
+						// Custom UI for CollisionComponent
+						if (ImGui::CollapsingHeader("Collision", ImGuiTreeNodeFlags_None))
 						{
-							ImGui::OpenPopup("INCORRECT EXTENSION");
-						}
-						else
-						{
-							g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetFilePath(newFilePath);
+							// Add custom collision component UI here
 						}
 					}
-					ImGui::EndDragDropTarget();
-				}
-
-				if (ImGui::BeginPopupModal("INCORRECT EXTENSION", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-				{
-					ImGui::Text("\n Only accept WAV files \n\n");
-					ImGui::Separator();
-
-					if (ImGui::Button("OK", ImVec2(50, 0))) { ImGui::CloseCurrentPopup(); }
-					ImGui::EndPopup();
-				}
-
-
-				// Volume
-				auto volume = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).GetVolume();
-				ImGui::Text("Volume  "); ImGui::SameLine();
-				if (ImGui::DragFloat("##Volume", &volume, 0.01f))
-				{
-					g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetVolume(volume);
-				}
-
-				// Loop
-				bool isLooping = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).ShouldLoop();
-				ImGui::Text("Loops   "); ImGui::SameLine();
-				if (ImGui::Checkbox("##Loops", &isLooping)) 
-				{
-					g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity).SetLoop(isLooping);
 				}
 			}
 		}
-
-		// Behavior
-		if (g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
+		else
 		{
-			if (ImGui::CollapsingHeader("Behaviour", ImGuiTreeNodeFlags_None))
-			{
-				std::string bName = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).GetBehaviourName();
-				if (bName.empty())
-				{
-					std::cerr << "Error: Behaviour name is null!" << std::endl;
-					return;
-				}
-
-				// Just add onto the BehaviourNames if got new script
-				std::string behaviourNames[] = { "Null", "Player" };		
-				static int currentItem = 0;
-
-				for (int i = 0; i < IM_ARRAYSIZE(behaviourNames); ++i)
-				{
-					if (behaviourNames[i] == bName)
-					{
-						currentItem = i;
-					}
-				}
-
-				ImGui::PushItemWidth(123.0f);
-				ImGui::Text("Name    "); ImGui::SameLine();
-
-				if (ImGui::Combo("##NameCombo", &currentItem, [](void* data, int idx, const char** out_text) {
-					*out_text = ((std::string*)data)[idx].c_str();
-				return true;
-					}, (void*)behaviourNames, IM_ARRAYSIZE(behaviourNames)))
-				{
-					bName = behaviourNames[currentItem];
-					g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity).SetBehaviourName(bName);
-				}
-			}
+			ImGui::Text("No entity selected or invalid entity ID.");
 		}
-
-		// Collision
-		if (g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
-		{
-			if (ImGui::CollapsingHeader("Collision", ImGuiTreeNodeFlags_None))
-			{
-
-			}
-		}
-
-		ImGui::End();
 	}
+	ImGui::End();
 }
 
 
@@ -827,11 +1302,11 @@ void ImGuiEditor::Settings()
 	/// camera control
 	if (g_Input.GetKeyState(GLFW_KEY_UP))
 	{
-		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::UP, static_cast<float>(g_Core->m_DeltaTime));
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::FORWARD, static_cast<float>(g_Core->m_DeltaTime));
 	}
 	if (g_Input.GetKeyState(GLFW_KEY_DOWN))
 	{
-		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::DOWN, static_cast<float>(g_Core->m_DeltaTime));
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::BACKWARD, static_cast<float>(g_Core->m_DeltaTime));
 	}
 	if (g_Input.GetKeyState(GLFW_KEY_LEFT))
 	{
@@ -843,12 +1318,22 @@ void ImGuiEditor::Settings()
 	}
 	if (g_Input.GetKeyState(GLFW_KEY_RIGHT_SHIFT))
 	{
-		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::FORWARD, static_cast<float>(g_Core->m_DeltaTime));
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::UP, static_cast<float>(g_Core->m_DeltaTime));
 	}
 	if (g_Input.GetKeyState(GLFW_KEY_RIGHT_CONTROL))
 	{
-		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::BACKWARD, static_cast<float>(g_Core->m_DeltaTime));
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::DOWN, static_cast<float>(g_Core->m_DeltaTime));
 	}
+
+
+	static glm::vec2 lastMousePos = glm::vec2(0.0f);
+	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT))
+	{ 
+		
+		glm::vec2 offset = g_Input.GetMousePosition() - lastMousePos;
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessMouseMovement(static_cast<float>(offset.x), static_cast<float>(-offset.y),1);
+	}
+	lastMousePos = g_Input.GetMousePosition();
 }
 
 void ImGuiEditor::Scenes()

@@ -171,6 +171,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
             // Texture Name
             entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
 
+            std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.getTextureName() << '\n';
 
 
             //entityData.AddMember("", S)
@@ -202,6 +203,16 @@ bool Serialization::SaveScene(const std::string& filepath) {
             behaviorNameValue.SetString(behaviorComp.GetBehaviourName().c_str(), allocator);
 
             entityData.AddMember(behaviorNameKey, behaviorNameValue, allocator);
+        }
+
+        // Serialize CollisionComponent
+        if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+            auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+
+            rapidjson::Value collisionData(rapidjson::kObjectType);
+            collisionData.AddMember("CollisionLayer", collisionComp.GetCollisionLayer(), allocator);
+
+            entityData.AddMember("CollisionComponent", collisionData, allocator);
         }
 
         entities.PushBack(entityData, allocator);
@@ -310,27 +321,24 @@ bool Serialization::LoadScene(const std::string& filepath) {
             if (entityData.HasMember("ModelID")) {
                 int modelID = entityData["ModelID"].GetInt();
                 
+
                 if (entityData.HasMember("ModelName"))
                 {
-                    std::string modelName = entityData["ModelName"].GetString();
 
-                    GraphicsComponent graphicsComponent(modelName, entity);
-                    graphicsComponent.SetModelID(modelID);
-                    g_Coordinator.AddComponent(entity, graphicsComponent);
+                    std::string modelName = entityData["ModelName"].GetString();
+                    std::string TextureName;
+                    
 
 
                     if (entityData.HasMember("Texture"))
                     {
-                        std::string TextureName = entityData["Texture"].GetString();
-
-                        GraphicsSystem::set_Texture_ = g_ResourceManager.GetTextureDDS(TextureName);
-
-                        //graphicsComponent.setTexture(TextureName);
+                        TextureName = entityData["Texture"].GetString();
                     }
-
+                    
+                    GraphicsComponent graphicsComponent(modelName, entity, TextureName);
+                    graphicsComponent.SetModelID(modelID);
+                    g_Coordinator.AddComponent(entity, graphicsComponent);
                 }
-
-                
             }
 
             // Deserialize AudioComponent
@@ -352,6 +360,16 @@ bool Serialization::LoadScene(const std::string& filepath) {
                 //behaviourComponent.SetBehaviourName(name.c_str());
                 
 				//std::cout << "Serialization: " << g_Coordinator.GetEntityId(entity) << ". | " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << "." << std::endl;
+            }
+
+            // Deserialize CollisionComponent
+            if (entityData.HasMember("CollisionComponent")) {
+                const auto& collisionData = entityData["CollisionComponent"];
+
+                int layer = collisionData["CollisionLayer"].GetInt();
+
+                CollisionComponent collisionComponent(layer);
+                g_Coordinator.AddComponent(entity, collisionComponent);
             }
 
 

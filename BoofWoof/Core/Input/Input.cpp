@@ -12,7 +12,7 @@
  *************************************************************************/
 #include "pch.h"
 #include "Input.h"
-
+#include "Windows/WindowManager.h"
 int InputSystem::GetKeyState(int index) {
 	return keyStates[index];
 }
@@ -82,4 +82,9 @@ void InputSystem::UpdateStatesForNextFrame() {
 
 	// Reset the mouse scroll state to 0 for the next frame
 	mouseScrollState = 0;
+
+	//get mouse position
+	double x, y;
+	glfwGetCursorPos(g_Window->GetGLFWWindow(), &x, &y);
+	mouse_position = glm::vec2(x, y);
 }
