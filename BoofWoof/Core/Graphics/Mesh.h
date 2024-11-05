@@ -27,11 +27,11 @@ struct Vertex {
     // normal
     glm::vec3 Normal;
     // texCoords
-	glm::vec2 TexCoords{ -1.1f, -1.1f };
-    //// tangent
-    //glm::vec3 Tangent;
-    //// bitangent
-    //glm::vec3 Bitangent;
+	glm::vec2 TexCoords;
+    // tangent
+    glm::vec3 Tangent;
+    // bitangent
+    glm::vec3 Bitangent;
     ////bone indexes which will influence this vertex
     //int m_BoneIDs[MAX_BONE_INFLUENCE];
     ////weights from each bone
@@ -111,7 +111,8 @@ public:
             else if (name == "texture_height")
                 number = std::to_string(heightNr++); // transfer unsigned int to string
 
-    
+			//////for now
+			shader.SetUniform("textureCount", static_cast<int>(textures.size()));
 
 
 //            std::cout << number << '\n';
@@ -121,7 +122,7 @@ public:
             // and finally bind the texture
             glBindTexture(GL_TEXTURE_2D, textures[i].id);
 #ifdef _DEBUG
-            std::cout << "Uniform name: " << (name + number).c_str() << " withn value: " << i << " texture id: " << textures[i].id << std::endl;
+            //std::cout << "Uniform name: " << (name + number).c_str() << " withn value: " << i << " texture id: " << textures[i].id << std::endl;
 #endif
         }
 
@@ -239,27 +240,18 @@ public:
        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
   
 		//check if the TexCoords are empty
-      if (vertices[0].TexCoords.x != 1.1f && vertices[0].TexCoords.y != 1.1f) {
-          // vertex texture coords (location = 2 in vertex shader)
-          glEnableVertexAttribArray(2);
-          glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-      }
-      else {
-			// vertex texture coords (location = 2 in vertex shader)
-			glEnableVertexAttribArray(2);
-			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),(void*)0);
+     
+        // vertex texture coords (location = 2 in vertex shader)
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+      
   
-       }
-  
-       glBindVertexArray(0);
-       //glEnableVertexAttribArray(2);
-       //glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-       //// vertex tangent
-       //glEnableVertexAttribArray(3);
-       //glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
-       //// vertex bitangent
-       //glEnableVertexAttribArray(4);
-       //glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
+       // vertex tangent
+       glEnableVertexAttribArray(3);
+       glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
+       // vertex bitangent
+       glEnableVertexAttribArray(4);
+       glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
        //// ids
        //glEnableVertexAttribArray(5);
        //glVertexAttribIPointer(5, 4, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, m_BoneIDs));
@@ -267,7 +259,7 @@ public:
        //// weights
        //glEnableVertexAttribArray(6);
        //glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, m_Weights));
-      // glBindVertexArray(0);
+        glBindVertexArray(0);
    }
 
    

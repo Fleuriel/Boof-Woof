@@ -38,7 +38,10 @@ public:
     std::string directory;
     std::string name;
 
-    
+    //// for now 
+    // store number of texture
+    int texture_cnt = 0;
+
     // 2D
     GLenum primitive_type{};		// Primitive Type
     size_t primitive_cnt{};		// Primitive Count

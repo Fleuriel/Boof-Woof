@@ -143,9 +143,26 @@ void GraphicsSystem::UpdateLoop() {
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
-//				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
-				
+				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
+			
+				if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()){
 
+					// add texture to mesh
+					Texture texture_add;
+					texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
+					if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 0)
+						texture_add.type = "texture_diffuse";
+					else if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 1)
+						texture_add.type = "texture_normal";
+					
+					for (auto mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes)
+						mesh.textures.push_back(texture_add);
+
+					g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
+
+				}
+
+				/*//skip for now
 				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
 				{
 					glActiveTexture(GL_TEXTURE0 + i);
@@ -156,7 +173,7 @@ void GraphicsSystem::UpdateLoop() {
 					}
 					g_AssetManager.GetShader("Shader3D").SetUniform("texture1", i);
 					glBindTexture(GL_TEXTURE_2D, graphicsComp.getTexture(i));
-				}
+				}*/
 				
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture1", tex1);
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture2", tex2);

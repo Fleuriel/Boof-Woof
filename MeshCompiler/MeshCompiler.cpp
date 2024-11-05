@@ -399,16 +399,48 @@ void parseOBJ(const std::string& filename, std::vector<Vertex>& vertices, std::v
         else if (type == "f") {
             unsigned int vertexIndex[3], texCoordIndex[3], normalIndex[3];
             char slash;
+
             for (int i = 0; i < 3; i++) {
                 ss >> vertexIndex[i] >> slash >> texCoordIndex[i] >> slash >> normalIndex[i];
                 vertexIndex[i]--; texCoordIndex[i]--; normalIndex[i]--;
 
+                /*Vertex vertex;
+                vertex.Position = positions[vertexIndex[i]];
+                vertex.TexCoords = texCoords[texCoordIndex[i]];
+                vertex.Normal = normals[normalIndex[i]];
+
+                vertices.push_back(vertex);
+
+                indices.push_back(static_cast<unsigned int>(vertices.size() - 1));*/
+            }
+            // calculate tangent and bitangent
+            glm::vec3 edge1 = positions[vertexIndex[1]] - positions[vertexIndex[0]];
+            glm::vec3 edge2 = positions[vertexIndex[2]] - positions[vertexIndex[0]];
+            glm::vec2 deltaUV1 = texCoords[texCoordIndex[1]] - texCoords[texCoordIndex[0]];
+            glm::vec2 deltaUV2 = texCoords[texCoordIndex[2]] - texCoords[texCoordIndex[0]];
+
+            float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
+
+            glm::vec3 tangent;
+            tangent.x = f * (deltaUV2.y * edge1.x - deltaUV1.y * edge2.x);
+            tangent.y = f * (deltaUV2.y * edge1.y - deltaUV1.y * edge2.y);
+            tangent.z = f * (deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
+            tangent = glm::normalize(tangent);
+
+            glm::vec3 bitangent;
+            bitangent.x = f * (-deltaUV2.x * edge1.x + deltaUV1.x * edge2.x);
+            bitangent.y = f * (-deltaUV2.x * edge1.y + deltaUV1.x * edge2.y);
+            bitangent.z = f * (-deltaUV2.x * edge1.z + deltaUV1.x * edge2.z);
+            bitangent = glm::normalize(bitangent);
+
+            for (int i = 0; i < 3; i++) {
                 Vertex vertex;
                 vertex.Position = positions[vertexIndex[i]];
                 vertex.TexCoords = texCoords[texCoordIndex[i]];
                 vertex.Normal = normals[normalIndex[i]];
+                vertex.Tangent = tangent;
+                vertex.Bitangent = bitangent;
                 vertices.push_back(vertex);
-
                 indices.push_back(static_cast<unsigned int>(vertices.size() - 1));
             }
         }
