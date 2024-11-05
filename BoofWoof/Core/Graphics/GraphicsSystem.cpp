@@ -144,7 +144,8 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
 				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
-			
+				
+				//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
 				if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()){
 
 					// add texture to mesh
@@ -154,9 +155,13 @@ void GraphicsSystem::UpdateLoop() {
 						texture_add.type = "texture_diffuse";
 					else if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 1)
 						texture_add.type = "texture_normal";
+
+					//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
 					
-					for (auto mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes)
+					for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
 						mesh.textures.push_back(texture_add);
+						
+					}
 
 					g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
 
