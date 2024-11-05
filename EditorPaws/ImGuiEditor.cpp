@@ -803,6 +803,9 @@ void ImGuiEditor::InspectorWindow()
 										(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
 										int textureId = g_ResourceManager.GetTextureDDS(newTextureName);
 										graphicsComponent.AddTexture(textureId);
+										
+										
+
 
 										// Execute undo/redo command
 										std::string oldValue = oldTextureName;

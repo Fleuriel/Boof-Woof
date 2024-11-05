@@ -164,14 +164,14 @@ public:
 
 	}
 
-   // void AddTexture(const std::string& textureName)
-   // {
-   //     Texture texture;
-   //     texture.id = 1; // Assuming you have a function to load the texture
-   //     texture.type = "texture_diffuse";
-   //     //texture.path = path;
-   //     textures.push_back(texture); // Add the texture to the vector
-   // }
+    void AddTexture(const std::string& textureName)
+    {
+        Texture texture;
+        texture.id = g_ResourceManager.GetTextureDDS(textureName); // Assuming you have a function to load the texture
+        texture.type = "texture_diffuse";
+        //texture.path = path;
+        textures.push_back(texture); // Add the texture to the vector
+    }
 
 
 
