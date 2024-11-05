@@ -31,6 +31,7 @@
 
 using namespace JPH::literals;
 
+
 static void MyTrace(const char* inFMT, ...)
 {
     va_list args;
@@ -45,6 +46,131 @@ static bool MyAssertFailed(const char* inExpression, const char* inMessage, cons
     printf("Assert failed: %s, Message: %s, File: %s, Line: %d\n", inExpression, inMessage ? inMessage : "", inFile, inLine);
     return true; // Trigger a breakpoint if running under a debugger.
 }
+
+// Define mappings between texture names and ObjectType
+ObjectType MyPhysicsSystem::GetObjectTypeFromModel(const std::string& modelName) {
+    ObjectType type = ObjectType::Default;
+
+    if (modelName == "Table") {
+        type = ObjectType::Table;
+    }
+    else if (modelName == "Table2") {
+        type = ObjectType::Table2;
+    }
+    else if (modelName.find("Chair") != std::string::npos) {
+        type = ObjectType::Chair;
+    }
+    else if (modelName.find("Bed") != std::string::npos) {
+        type = ObjectType::Bed;
+    }
+    else if (modelName.find("Couch") != std::string::npos) {
+        type = ObjectType::Couch;
+    }
+    else if (modelName == "Corgi2") {
+        type = ObjectType::Corgi;
+    }
+    else if (modelName == "Corgi_small") {
+        type = ObjectType::Corgi_small;
+    }
+    else if (modelName.find("Floor") != std::string::npos) {
+        type = ObjectType::Floor;
+    }
+    else if (modelName.find("Wall") != std::string::npos) {
+        type = ObjectType::Wall;
+    }
+    else if (modelName == "Wardrobe") {
+        type = ObjectType::Wardrobe;
+    }
+    else if (modelName == "Wardrobe2") {
+        type = ObjectType::Wardrobe2;
+    }
+
+    // Debug statement to check which ObjectType is set
+    std::cout << "Model Name: " << modelName << " | Set ObjectType: ";
+    switch (type) {
+    case ObjectType::Table:
+        std::cout << "Table";
+        break;
+    case ObjectType::Table2:
+        std::cout << "Table2";
+        break;
+    case ObjectType::Chair:
+        std::cout << "Chair";
+        break;
+    case ObjectType::Bed:
+        std::cout << "Bed";
+        break;
+    case ObjectType::Couch:
+        std::cout << "Couch";
+        break;
+    case ObjectType::Corgi:
+        std::cout << "Corgi2";
+        break;
+    case ObjectType::Corgi_small:
+        std::cout << "Corgi_small";
+        break;
+    case ObjectType::Floor:
+        std::cout << "Floor";
+        break;
+    case ObjectType::Wall:
+        std::cout << "Wall";
+        break;
+    case ObjectType::Wardrobe:
+        std::cout << "Wardrobe";
+        break;
+    case ObjectType::Wardrobe2:
+        std::cout << "Wardrobe2";
+        break;
+    default:
+        std::cout << "Default";
+        break;
+    }
+    std::cout << std::endl;
+
+    return type;
+}
+
+// Define different shapes based on ObjectType
+JPH::Shape* MyPhysicsSystem::CreateShapeForObjectType(ObjectType type, const glm::vec3& scale) {
+    switch (type) {
+    case ObjectType::Bed:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 1.5f, scale.y * 0.5f, scale.z * 2.0f)); // Dimensions for bed
+
+    case ObjectType::Chair:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.8f, scale.z * 0.5f)); // Dimensions for chair
+
+    case ObjectType::Table:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.0f, scale.y * 0.4f, scale.z * 2.0f)); // Dimensions for table x = sideways, y = height, z = forwards
+
+    case ObjectType::Table2:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 0.8f, scale.y * 0.4f, scale.z * 2.0f)); // Dimensions for table x = sideways, y = height, z = forwards
+
+    case ObjectType::Couch:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 1.5f, scale.y * 0.6f, scale.z * 1.0f)); // Dimensions for couch
+
+    case ObjectType::Corgi:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.8f, scale.y * 0.5f, scale.z * 1.3f)); // Dimensions for corgi x = length of dog, y = height, z = thickness
+
+    case ObjectType::Corgi_small:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 1.4f, scale.y * 0.5f, scale.z * 0.6f)); // Dimensions for corgi x = length of dog, y = height, z = thickness
+
+    case ObjectType::Floor:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 5.0f, scale.y * 0.1f, scale.z * 5.0f)); // Large, flat shape for the floor
+
+    case ObjectType::Wall:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.5f, scale.y * 3.0f, scale.z * 0.8f)); // Thin, tall shape for walls x = width, y = height, z = thickness
+
+    case ObjectType::Wardrobe:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.0f, scale.y * 2.0f, scale.z * 1.0f)); // Tall and narrow for wardrobe x = width, y = height, z = thickness
+
+    case ObjectType::Wardrobe2:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.8f, scale.y * 2.0f, scale.z * 1.0f)); // Tall and narrow for wardrobe x = width, y = height, z = thickness
+
+    default:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.5f, scale.z * 0.5f)); // Default dimensions
+    }
+}
+
 
 void MyPhysicsSystem::InitializeJolt() {
 
@@ -116,6 +242,51 @@ JPH::PhysicsSystem* MyPhysicsSystem::CreatePhysicsSystem() {
     return mPhysicsSystem;
 }
 
+//void MyPhysicsSystem::OnUpdate(float deltaTime) {
+//    ++_step;
+//
+//    JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
+//
+//    // Iterate through all entities that match the PhysicsSystem signature
+//    auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+//
+//    for (auto& entity : allEntities) {
+//        if (g_Coordinator.HaveComponent<TransformComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+//            auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+//            auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+//
+//            JPH::RVec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
+//            glm::vec3 scale = transform.GetScale();
+//
+//            // Debug output to check Position
+//            std::cout << "Entity ID: " << entity << " Position = (" << transform.GetPosition().x << ", " << transform.GetPosition().y << ", " << transform.GetPosition().z << ")" << std::endl;
+//
+//            // Only add a new body if it hasn't already been added
+//            if (!collisionComponent.HasBodyAdded()) {
+//                AddEntityBody(entity);
+//                collisionComponent.SetHasBodyAdded(true); // Mark as added
+//            }
+//
+//            JPH::Vec3 velocity = bodyInterface.GetLinearVelocity(bodyID);
+//
+//            // Debug output to check Position
+//            std::cout << "Entity ID: " << entity << " Jolt x: " << position.GetX() << " Jolt y: " << position.GetY() << " Jolt z: " << position.GetZ() << std::endl;
+//            std::cout << "Step " << _step << ": Position = (" << position.GetX() << ", " << position.GetY() << ", " << position.GetZ() 
+//                << "), Velocity = (" << velocity.GetX() << ", " << velocity.GetY() << ", " << velocity.GetZ() << ")" << std::endl;
+//
+//            // Simulate physics
+//            //mPhysicsSystem->Update(deltaTime, 1, mTempAllocator, mJobSystem);
+//
+//        }
+//    }
+//
+//    // Simulate physics
+//    mPhysicsSystem->Update(deltaTime, 1, mTempAllocator, mJobSystem);
+//
+//    // Update the entities' transforms after simulation
+//    UpdateEntityTransforms();
+//}
+
 void MyPhysicsSystem::OnUpdate(float deltaTime) {
     ++_step;
 
@@ -125,15 +296,13 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
     auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 
     for (auto& entity : allEntities) {
-        if (g_Coordinator.HaveComponent<TransformComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+        if (g_Coordinator.HaveComponent<TransformComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(entity) 
+            && g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
             auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
             auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
 
             JPH::RVec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
             glm::vec3 scale = transform.GetScale();
-
-            // Debug output to check Position
-            //std::cout << "Entity ID: " << entity << " Position = (" << transform.GetPosition().x << ", " << transform.GetPosition().y << ", " << transform.GetPosition().z << ")" << std::endl;
 
             // Only add a new body if it hasn't already been added
             if (!collisionComponent.HasBodyAdded()) {
@@ -141,16 +310,56 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
                 collisionComponent.SetHasBodyAdded(true); // Mark as added
             }
 
-            JPH::Vec3 velocity = bodyInterface.GetLinearVelocity(bodyID);
+            // Retrieve the physics body
+            JPH::Body* body = collisionComponent.GetPhysicsBody();
+            if (body != nullptr && !body->GetID().IsInvalid()) {
+                // Get the new rotation from the TransformComponent
+                glm::quat newRotation = transform.GetRotation();
 
-            // Debug output to check Position
-            //std::cout << "Entity ID: " << entity << " Jolt x: " << position.GetX() << " Jolt y: " << position.GetY() << " Jolt z: " << position.GetZ() << std::endl;
-            //std::cout << "Step " << _step << ": Position = (" << position.GetX() << ", " << position.GetY() << ", " << position.GetZ() 
-            //    << "), Velocity = (" << velocity.GetX() << ", " << velocity.GetY() << ", " << velocity.GetZ() << ")" << std::endl;
+                // Convert the current Jolt rotation to glm for comparison
+                JPH::Quat currentPhysicsRotation = body->GetRotation();
+                glm::quat currentRotation(
+                    currentPhysicsRotation.GetW(),
+                    currentPhysicsRotation.GetX(),
+                    currentPhysicsRotation.GetY(),
+                    currentPhysicsRotation.GetZ()
+                );
 
-            // Simulate physics
-            //mPhysicsSystem->Update(deltaTime, 1, mTempAllocator, mJobSystem);
+                // Check if the rotation has changed
+                if (currentRotation != newRotation) {
+                    // Update the physics body with the new rotation
+                    JPH::Quat joltRotation(newRotation.w, newRotation.x, newRotation.y, newRotation.z);
+                    bodyInterface.SetRotation(body->GetID(), joltRotation, JPH::EActivation::Activate);
 
+                    // Debug output to verify rotation change
+                    glm::vec3 eulerRotation = glm::eulerAngles(newRotation);
+                    eulerRotation = glm::degrees(eulerRotation);
+                    //std::cout << "Entity ID: " << entity
+                    //    << " Rotation Updated to (" << eulerRotation.x << "°, "
+                    //    << eulerRotation.y << "°, "
+                    //    << eulerRotation.z << "°)" << std::endl;
+                }
+
+                // Debug output to check Position and Velocity for Dynamic Bodies
+                if (body->GetMotionType() == JPH::EMotionType::Dynamic) {
+                    JPH::Vec3 velocity = bodyInterface.GetLinearVelocity(body->GetID());
+                    //std::cout << "Entity ID: " << entity << " Position = ("
+                    //    << position.GetX() << ", "
+                    //    << position.GetY() << ", "
+                    //    << position.GetZ() << "), Velocity = ("
+                    //    << velocity.GetX() << ", "
+                    //    << velocity.GetY() << ", "
+                    //    << velocity.GetZ() << ")" << std::endl;
+                }
+                else 
+                {
+                    //std::cout << "Entity ID: " << entity << " Position = ("
+                    //    << position.GetX() << ", "
+                    //    << position.GetY() << ", "
+                    //    << position.GetZ() << ")" << std::endl;
+
+                }
+            }
         }
     }
 
@@ -164,7 +373,13 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
 void MyPhysicsSystem::AddEntityBody(Entity entity) {
     if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
         auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+        auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
         auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+
+        // Get the texture name from GraphicsComponent to determine the object type
+        std::string modelName = graphicsComp.getModelName();
+        std::cout << "Model Name: " << modelName << std::endl;
+        ObjectType objectType = GetObjectTypeFromModel(modelName);
 
         // Use GetName() to check if this entity is the player
         std::string name = g_Coordinator.GetComponent<MetadataComponent>(entity).GetName();
@@ -172,23 +387,21 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
 
         JPH::RVec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
         glm::vec3 scale = transform.GetScale();
+        glm::quat rotation = transform.GetRotation();
 
-
-        // Create the box shape
-        JPH::BoxShape* boxShape = new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.5f, scale.z * 0.5f));
-        //JPH::BoxShape* boxShape = new JPH::BoxShape(JPH::Vec3(scale.x * 1.f, scale.y * 1.f, scale.z * 1.f));
+        // Create shape based on object type
+        JPH::Shape* shape = CreateShapeForObjectType(objectType, scale);
 
         // Set motion type based on whether the entity is the player
         JPH::EMotionType motionType = isPlayer ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
 
         // Define body creation settings
         JPH::BodyCreationSettings bodySettings(
-            boxShape,
+            //boxShape,
+            shape,
             position,
-            JPH::Quat::sIdentity(),  // Assuming no initial rotation
-            //JPH::EMotionType::Dynamic,  // Use dynamic motion type for now
+            JPH::Quat(rotation.w, rotation.x, rotation.y, rotation.z),  // Apply initial rotation
             motionType, // Set Motion Type for entity
-            //Layers::MOVING  // ObjectLayer, ensure this is valid
             motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING  // Layer based on motion type
         );
 
@@ -198,24 +411,19 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             return;
         }
 
-        if (mPhysicsSystem == nullptr) {
-            std::cerr << "mPhysicsSystem is not initialized!" << std::endl;
-            return;
-        }
-
         // Create and add the body to the physics system
-        JPH::Body* body = mPhysicsSystem->GetBodyInterface().CreateBody(bodySettings);
-
+        JPH::Body* body = bodyInterface.CreateBody(bodySettings);
         if (body == nullptr) {
-            //std::cerr << "Failed to create a new body!" << std::endl;
+            std::cerr << "Failed to create a new body!" << std::endl;
         }
         else {
-            //std::cout << "Body successfully created with ID: " << body->GetID().GetIndex() << std::endl;
+            std::cout << "Body successfully created with ID: " << body->GetID().GetIndex() << std::endl;
             bodyID = body->GetID();
-            //body->SetUserData(static_cast<JPH::uint64>(entity)); // Set the entity ID as user data
-            mPhysicsSystem->GetBodyInterface().AddBody(body->GetID(), JPH::EActivation::Activate);
+            bodyInterface.AddBody(body->GetID(), JPH::EActivation::Activate);
+
+            // Prevent player body from sleeping
             if (isPlayer) {
-                body->SetAllowSleeping(false); // Prevent player body from sleeping
+                body->SetAllowSleeping(false);
             }
 
             // Assign the body to the CollisionComponent
@@ -223,6 +431,7 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         }
     }
 }
+
 
 void MyPhysicsSystem::UpdateEntityTransforms() {
     auto allEntities = g_Coordinator.GetAliveEntitiesSet();
@@ -289,26 +498,67 @@ void MyPhysicsSystem::UpdateEntityTransforms() {
 //}
 
 void MyPhysicsSystem::RemoveEntityBody(Entity entity) {
+    // Check if the entity has a CollisionComponent
     if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-        auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+        auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+        JPH::Body* body = collisionComponent.GetPhysicsBody();
 
-        // Ensure the body exists and is valid
-        JPH::BodyID bodyID = collisionComp.GetPhysicsBody()->GetID();
-        if (!bodyID.IsInvalid()) {
-            // Remove the body from the physics system
-            mPhysicsSystem->GetBodyInterface().RemoveBody(bodyID);
+        if (body != nullptr && !body->GetID().IsInvalid()) {
+            // Get the BodyInterface to manage the physics body
+            JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
+
+            // Remove and destroy the body
+            bodyInterface.RemoveBody(body->GetID());      // Remove the body from the simulation
+            bodyInterface.DestroyBody(body->GetID());     // Destroy the body to free resources
+
+            // Set the CollisionComponent's physics body pointer to nullptr
+            collisionComponent.SetPhysicsBody(nullptr);
+            std::cout << "Body for entity " << entity << " removed and destroyed." << std::endl;
         }
 
-        // Optionally, delete the body if necessary
-        // delete collisionComp.GetPhysicsBody();
-
-        // Remove the CollisionComponent from the entity
+        // Finally, remove the CollisionComponent from the entity
         g_Coordinator.RemoveComponent<CollisionComponent>(entity);
     }
 }
 
+
+void MyPhysicsSystem::ClearAllBodies() {
+    if (mPhysicsSystem == nullptr) return;
+
+    JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
+
+    // Iterate through all entities in the ECS
+    auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+    for (auto& entity : allEntities) {
+        // Check if the entity has a CollisionComponent with a physics body
+        if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+            auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+            JPH::Body* body = collisionComponent.GetPhysicsBody();
+
+            if (body != nullptr && !body->GetID().IsInvalid()) {
+                // First, remove the body from the physics system
+                bodyInterface.RemoveBody(body->GetID());
+
+                // Then, destroy the body using the BodyInterface to fully remove it
+                bodyInterface.DestroyBody(body->GetID());
+
+                // Set the CollisionComponent's physics body to nullptr
+                collisionComponent.SetPhysicsBody(nullptr);
+            }
+
+            // Remove CollisionComponent from the entity
+            g_Coordinator.RemoveComponent<CollisionComponent>(entity);
+        }
+    }
+
+    std::cout << "All bodies removed from the physics system and components cleared." << std::endl;
+}
+
+
+
 void MyPhysicsSystem::Cleanup() {
 
+    ClearAllBodies(); // Ensure all bodies are removed before other cleanup
 
     delete mPhysicsSystem;
     delete mJobSystem;

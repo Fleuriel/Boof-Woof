@@ -1,0 +1,5 @@
+Texture Name : Corgi2
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\Corgi2.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\Corgi2.dds
+Compression Format : -fd BC3

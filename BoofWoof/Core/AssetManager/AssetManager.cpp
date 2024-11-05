@@ -60,7 +60,7 @@ void DiscardToTrashBin(const std::string& filepath, const std::string& folderNam
 
     // Define the paths using std::filesystem
     fs::path entryPath(filepath);
-    fs::path trashbin = FILEPATH_TRASHBIN;
+    fs::path trashbin = FILEPATH_ASSET_TRASHBIN;
     fs::path destinationPath = trashbin / entryPath.filename();
 
     // Ensure the trash bin directory exists
@@ -170,7 +170,8 @@ void AssetManager::LoadAll() {
         << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl 
         << ((loadObjects) ? "Object loaded Successfully" : "failed to load object") << '\n';
 #else
-    AssetManager::LoadTextures(),
+        AssetManager::LoadTextures(),
+        AssetManager::LoadObjects(),
         //AssetManager::LoadSprites(),
         //AssetManager::LoadSounds(),
         AssetManager::LoadFonts(),
@@ -291,7 +292,7 @@ void AssetManager::FreeAll() {
 bool AssetManager::LoadTextures() {
 
     Currentlyloading = true;
-    std::string filepath(FILEPATH_TEXTURES);
+    std::string filepath(FILEPATH_ASSET_TEXTURES);
 
     if (fs::is_directory(filepath)) {
         for (const auto& entry : fs::directory_iterator(filepath)) {
@@ -311,7 +312,7 @@ bool AssetManager::LoadTextures() {
                 size_t found = allowedExtensions.find(toLowerCase(Extension));
 
                 if (found == std::string::npos) {
-                    DiscardToTrashBin(entry.path().string(), FILEPATH_TEXTURES);
+                    DiscardToTrashBin(entry.path().string(), FILEPATH_ASSET_TEXTURES);
                     continue;
                 }
 
@@ -321,28 +322,28 @@ bool AssetManager::LoadTextures() {
                 std::cout << nameWithoutExtension << " detected successfully!\n";
 #endif // DEBUG
 
-                if (!fs::exists(FILEPATH_TEXTURES_DESCRIPTOR))
-                    fs::create_directory(FILEPATH_TEXTURES_DESCRIPTOR);
+                if (!fs::exists(FILEPATH_DESCRIPTOR_TEXTURES))
+                    fs::create_directory(FILEPATH_DESCRIPTOR_TEXTURES);
 
                 // Create an output file stream (ofstream) object
-                std::string descriptorFilePath{ FILEPATH_TEXTURES_DESCRIPTOR + "/" + nameWithoutExtension + ".txt"};
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_TEXTURES + "/" + nameWithoutExtension + ".txt"};
                 std::ofstream outFile(descriptorFilePath);
 
                 // Check if the file opened successfully
                 if (outFile.is_open()) {
                     
                     outFile << "Texture Name : " << nameWithoutExtension << std::endl;
-                    outFile << "Texture File Path : " << FILEPATH_TEXTURES + "\\" + entry.path().filename().string() << std::endl;
+                    outFile << "Texture File Path : " << FILEPATH_ASSET_TEXTURES + "\\" + entry.path().filename().string() << std::endl;
                     outFile << "Resource GUID : " << std::endl;
-                    outFile << "Resource File Path : " << FILEPATH_TEXTURES_RESOURCE + "\\" + nameWithoutExtension + ".dds" << std::endl;
+                    outFile << "Resource File Path : " << FILEPATH_RESOURCE_TEXTURES + "\\" + nameWithoutExtension + ".dds" << std::endl;
                     outFile << "Compression Format : "<< "-fd BC3";
 
                     // Close the file
                     outFile.close();
                 }
 
-                if (!fs::exists(FILEPATH_TEXTURES_RESOURCE))
-                    fs::create_directory(FILEPATH_TEXTURES_RESOURCE);
+                if (!fs::exists(FILEPATH_RESOURCE_TEXTURES))
+                    fs::create_directory(FILEPATH_RESOURCE_TEXTURES);
                 
 
                 // Process the descriptor file and print details
@@ -422,38 +423,6 @@ bool AssetManager::ReloadTextures() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**************************************************************************
  * @brief Loads the scene filenames from the specified directory.
  *
@@ -466,8 +435,8 @@ bool AssetManager::ReloadTextures() {
 bool AssetManager::LoadScenes() {
     Currentlyloading = true;
     bool result{ true };
-    if (fs::is_directory(FILEPATH_SCENES)) {
-        for (const auto& entry : fs::directory_iterator(FILEPATH_SCENES)) {
+    if (fs::is_directory(FILEPATH_ASSET_SCENES)) {
+        for (const auto& entry : fs::directory_iterator(FILEPATH_ASSET_SCENES)) {
 
             // find the file extension 
             size_t extensionPos = entry.path().filename().string().find_last_of('.');
@@ -480,7 +449,7 @@ bool AssetManager::LoadScenes() {
             size_t found = allowedExtensions.find(toLowerCase(Extension));
 
             if (found == std::string::npos) {
-                DiscardToTrashBin(entry.path().string(), FILEPATH_SCENES);
+                DiscardToTrashBin(entry.path().string(), FILEPATH_ASSET_SCENES);
                 continue;
             }
         }
@@ -600,9 +569,13 @@ void saveMeshToBin(std::vector<Mesh> meshes, const std::string& binFilePath) {
 }
 
 
+static bool MTLCheck = false;
+static bool PNGCheck = false;
+static bool JPGCheck = false;
+
 bool AssetManager::LoadObjects() {
     Currentlyloading = true;
-    std::string filepath(FILEPATH_OBJECTS);
+    std::string filepath(FILEPATH_ASSET_OBJECTS);
 
     if (fs::is_directory(filepath)) {
         for (const auto& entry : fs::directory_iterator(filepath)) {
@@ -613,63 +586,123 @@ bool AssetManager::LoadObjects() {
                 std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
                 std::string Extension = entry.path().filename().string().substr(pos);
                 std::string allowedExtensions = ".obj";
+                std::string ignExt = ".mtl, .jpg, .png";
 
+                std::vector<std::string> ignoredExtensions = { ".mtl", ".png", ".jpg" };
+
+
+                std::string mtlFileName = nameWithoutExtension + ".mtl";
+                std::string pngFileName = nameWithoutExtension + ".png";
+                std::string jpgFileName = nameWithoutExtension + ".jpg";
+#ifdef _DEBUG
+                std::cout << mtlFileName << '\t' << pngFileName << '\t' << jpgFileName << '\t';
+#endif
+
+                // Check if the substring exists in the full string
                 size_t found = allowedExtensions.find(toLowerCase(Extension));
+                
+                size_t found2 = ignExt.find(toLowerCase(Extension));
 
+                // Only proceed if the extension matches the allowed extension
                 if (found == std::string::npos) {
-                    DiscardToTrashBin(entry.path().string(), FILEPATH_OBJECTS);
-                    continue;
+                    // Process the .obj file
+#ifdef _DEBUG
+                    std::cout << "Processing: " << texFilePath << std::endl;
+#endif
+                }
+                else {
+                    if (found2 == std::string::npos)
+                    {
+                        continue;
+                    }
+                    // Discard unrecognized files
+                    DiscardToTrashBin(entry.path().string(), "FILEPATH_OBJECTS");
                 }
 
-                std::cout << "\n**************************************************************************************\n";
+                for (int i = 0; i < ignoredExtensions.size(); ++i)
+                {
+                    if (Extension == ignoredExtensions[0])
+                    {
+                        MTLCheck = true;
+                    }
+                    if (Extension == ignoredExtensions[1])
+                    {
+                        PNGCheck = true;
+                    }
+                    if (Extension == ignoredExtensions[2])
+                    {
+                        JPGCheck = true;
+                    }
+                }
+
 #ifdef _DEBUG
+                std::cout << MTLCheck << '\t' << PNGCheck << '\t' << JPGCheck << '\n';
+#endif
+
+#ifdef _DEBUG
+                std::cout << "\n**************************************************************************************\n";
+
                 std::cout << "\n**************************************************************************************\n";
                 std::cout << "ASDF: " << nameWithoutExtension << " detected successfully!\n";
                 std::cout << "\n**************************************************************************************\n";
 #endif
 
-                if (!fs::exists(FILEPATH_OBJECTS_RESOURCE))
-                    fs::create_directory(FILEPATH_OBJECTS_RESOURCE);
+                if (!fs::exists(FILEPATH_RESOURCE_OBJECTS))
+                    fs::create_directory(FILEPATH_RESOURCE_OBJECTS);
 
-                std::string objFilePath = FILEPATH_OBJECTS + "\\" + nameWithoutExtension + ".obj";
-                std::string binFilePath = FILEPATH_OBJECTS_RESOURCE + "\\" + nameWithoutExtension + ".bin";
+                std::string objFilePath = FILEPATH_ASSET_OBJECTS + "\\" + nameWithoutExtension + ".obj";
+                std::string binFilePath = FILEPATH_RESOURCE_OBJECTS + "\\" + nameWithoutExtension + ".bin";
 
 
+                if (!fs::exists(FILEPATH_DESCRIPTOR_OBJECTS))
+                    fs::create_directory(FILEPATH_DESCRIPTOR_OBJECTS);
 
-                Model model;
-               // std::cout << "Loading: " << binFilePath << '\n';
-               //
-                model.loadModel(objFilePath, GL_TRIANGLES);
 
-               //
-               // ModelMap.insert(std::pair<std::string, Model>(nameWithoutExtension, model));
-               //
-               // std::cout << "Loaded: " << binFilePath << " with name: " << nameWithoutExtension << " [Models Reference: " << g_AssetManager.ModelMap.size() - 1 << "]" << '\n';
-
-                // Parse the .obj file into vertices and indices
-                std::vector<Vertex> vertices;
-                std::vector<unsigned int> indices;
-                parseOBJ(objFilePath, vertices, indices);
-                std::cout << vertices.size() << '\t' << indices.size() << "\t This Vertices ASize\n";
-
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_OBJECTS + "/Model_" + nameWithoutExtension + ".txt" };
+                std::ofstream outFile(descriptorFilePath);
                 
-                // Create Mesh object and populate it with the vertices and indices
-               // Mesh mesh;//(vertices, indices);
+               
+ 
+                if (outFile.is_open())
+                {
+                    outFile << "File Name: " << nameWithoutExtension << '\n';
+                    outFile << "Source File Path: " << objFilePath << '\n';
+                    outFile << "Output File Path: " << binFilePath << '\n';
+                    outFile << "MTL File Exist: " << MTLCheck << '\n';
+                    outFile << "PNG File Exist: " << PNGCheck << '\n';
+                    outFile << "JPG File Exist: " << JPGCheck << '\n';
+                    outFile << "Expected Attributes: \n";
+                    outFile << " -  Vertices\n";
+                    outFile << " -  Indices\n";
+                    outFile << " -  Normals\n";
+                    outFile << "Transform Defauls: \n";
+                    outFile << " -  Scale: 1.0\n";
+                    outFile.close();
+                }
+ 
 
-                //mesh.processMesh();
+                bool firstCheck = false;
 
-                // Now save the mesh to the .bin file
-                saveMeshToBin(model.meshes, binFilePath);
+                if (MTLCheck && JPGCheck || PNGCheck)
+                {
+
+                    MTLCheck = JPGCheck = PNGCheck = false;
+                    continue;
+
+                }
 
 
+#ifdef _DEBUG
+                runCommand("..\\bin\\Debug-x64\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
+#else
+                runCommand("..\\bin\\Release-x64\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
+#endif
                 g_ResourceManager.AddModelBinary(nameWithoutExtension);
 
 #ifdef _DEBUG
                 std::cout << "Binary file created: " << binFilePath << std::endl;
 #endif
-                // Clear data for next object
-                vertices.clear();
-                indices.clear();
+
             }
             else {
 #ifdef _DEBUG
@@ -720,14 +753,14 @@ bool AssetManager::LoadShaders() {
     Currentlyloading = true;
 
     // Check if the Shaders filepath is an existing directory
-    if (fs::is_directory(FILEPATH_SHADERS)) {
+    if (fs::is_directory(FILEPATH_ASSET_SHADERS)) {
 
         // Create temporary containers for the shader files
         std::vector<std::string> fragfiles, vertfiles;
 
         // For every file within the directory
-        for (const auto& entry : fs::directory_iterator(FILEPATH_SHADERS)) {
-            std::string texFilePath = FILEPATH_SHADERS + "/" + entry.path().filename().string();
+        for (const auto& entry : fs::directory_iterator(FILEPATH_ASSET_SHADERS)) {
+            std::string texFilePath = FILEPATH_ASSET_SHADERS + "/" + entry.path().filename().string();
             //std::cout << "Texture file " << texFilePath << " Found." << std::endl;
 
             size_t pos = entry.path().filename().string().find_last_of('.');
@@ -746,7 +779,7 @@ bool AssetManager::LoadShaders() {
                     std::string file(entry.path().filename().string());
                     std::wstring widefile(file.begin(), file.end());
                     HWND hwnd = GetActiveWindow();
-                    std::string filepath(FILEPATH_SHADERS);
+                    std::string filepath(FILEPATH_ASSET_SHADERS);
                     // Convert std::string to std::wstring
                     std::wstring widefilepath(filepath.begin(), filepath.end());
 
@@ -756,8 +789,8 @@ bool AssetManager::LoadShaders() {
                     MessageBox(hwnd, boxMessage, L"Load Failure", MB_OK | MB_ICONERROR);
 
                     // Construct the full destination path including the file name
-                    fs::path destinationPath = FILEPATH_TRASHBIN / entry.path().filename();
-                    fs::path trashbin = FILEPATH_TRASHBIN;
+                    fs::path destinationPath = FILEPATH_ASSET_TRASHBIN / entry.path().filename();
+                    fs::path trashbin = FILEPATH_ASSET_TRASHBIN;
 
                     // If the trashbin file doesn't exist, create it
                     if (!fs::exists(trashbin))
@@ -816,7 +849,7 @@ bool AssetManager::LoadShaders() {
         std::set_symmetric_difference(fragfiles.begin(), fragfiles.end(), vertfiles.begin(), vertfiles.end(), std::back_inserter(differingStrings));
 
         // Move files with missing partners to the trash bin
-        fs::path trashbin = FILEPATH_TRASHBIN;
+        fs::path trashbin = FILEPATH_ASSET_TRASHBIN;
 
         // If trashbin doesn't exist
         if (!fs::exists(trashbin))
@@ -829,7 +862,7 @@ bool AssetManager::LoadShaders() {
 
             if (fragIndex != fragfiles.size() && vertIndex == vertfiles.size()) {
                 std::string fileName = file + ".frag";  // Assuming .frag extension, modify based on your naming convention
-                fs::path sourceFilePath = FILEPATH_SHADERS + "/" + fileName;
+                fs::path sourceFilePath = FILEPATH_ASSET_SHADERS + "/" + fileName;
                 fs::path destinationPath = trashbin / fileName;
 
                 if (fs::exists(sourceFilePath)) {
@@ -865,7 +898,7 @@ bool AssetManager::LoadShaders() {
             }
             else if (fragIndex == fragfiles.size() && vertIndex != vertfiles.size()) {
                 std::string fileName = file + ".vert";  // Assuming .vert extension, modify based on your naming convention
-                fs::path sourceFilePath = FILEPATH_SHADERS + "/" + fileName;
+                fs::path sourceFilePath = FILEPATH_ASSET_SHADERS + "/" + fileName;
                 fs::path destinationPath = trashbin / fileName;
 
                 if (fs::exists(sourceFilePath)) {
@@ -916,7 +949,7 @@ bool AssetManager::LoadShaders() {
 
         // For every fragfile, pair it with a vert file
         for (int i = 0; i < fragfiles.size(); i++) {
-            VectorPairString pairing{ std::make_pair<std::string, std::string>(FILEPATH_SHADERS + "\\" + vertfiles[i] + ".vert", FILEPATH_SHADERS + "\\" + fragfiles[i] + ".frag") };
+            VectorPairString pairing{ std::make_pair<std::string, std::string>(FILEPATH_ASSET_SHADERS + "\\" + vertfiles[i] + ".vert", FILEPATH_ASSET_SHADERS + "\\" + fragfiles[i] + ".frag") };
             InitShdrpgms(pairing);
         }
 
@@ -954,10 +987,11 @@ void AssetManager::InitShdrpgms(VectorPairString const& vpss)
 
 
     for (auto const& x : vpss) {
+#ifdef _DEBUG
         std::cout << "Files to be added: \t";
         std::cout << x.first << '\t';
         std::cout << x.second << '\t' << '\n';
-
+#endif
 
         // Create Vector for pair of Enum and String
         std::vector<std::pair<GLenum, std::string>> shdr_files;
@@ -1099,6 +1133,7 @@ std::vector<std::string> processFontDescriptorFile(const std::string& descriptor
         }
     }
 
+#ifdef _DEBUG
     std::cout << "\n**************************************************************************************\nFont Converter Print Out\n";
     // Print out the details from the descriptor file
     std::cout << "Texture Name: " << fileInfo[0] << std::endl;
@@ -1108,6 +1143,7 @@ std::vector<std::string> processFontDescriptorFile(const std::string& descriptor
     std::cout << "Resource Data File Path: " << fileInfo[4] << std::endl;
     std::cout << "Compression Format: " << fileInfo[5] << std::endl;
     std::cout << "\n**************************************************************************************\n";
+#endif
 
     file.close();
 
@@ -1119,7 +1155,7 @@ std::vector<std::string> processFontDescriptorFile(const std::string& descriptor
 bool AssetManager::LoadFonts() {
 
     Currentlyloading = true;
-    std::string filepath(FILEPATH_FONTS);
+    std::string filepath(FILEPATH_ASSET_FONTS);
 
     if (fs::is_directory(filepath)) {
         for (const auto& entry : fs::directory_iterator(filepath)) {
@@ -1139,7 +1175,7 @@ bool AssetManager::LoadFonts() {
                 size_t found = allowedExtensions.find(toLowerCase(Extension));
 
                 if (found == std::string::npos) {
-                    DiscardToTrashBin(entry.path().string(), FILEPATH_FONTS);
+                    DiscardToTrashBin(entry.path().string(), FILEPATH_ASSET_FONTS);
                     continue;
                 }
 
@@ -1149,38 +1185,38 @@ bool AssetManager::LoadFonts() {
                 std::cout << nameWithoutExtension << " detected successfully!\n";
 #endif // DEBUG
 
-                if (!fs::exists(FILEPATH_FONTS_DESCRIPTOR))
-                    fs::create_directory(FILEPATH_FONTS_DESCRIPTOR);
+                if (!fs::exists(FILEPATH_DESCRIPTOR_FONTS))
+                    fs::create_directory(FILEPATH_DESCRIPTOR_FONTS);
 
                 // Create an output file stream (ofstream) object
-                std::string descriptorFilePath{ FILEPATH_FONTS_DESCRIPTOR + "/" + nameWithoutExtension + ".txt" };
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_FONTS + "/" + nameWithoutExtension + ".txt" };
                 std::ofstream outFile(descriptorFilePath);
 
                 // Check if the file opened successfully
                 if (outFile.is_open()) {
 
                     outFile << "Font Name : " << nameWithoutExtension << std::endl;
-                    outFile << "Font File Path : " << FILEPATH_FONTS + "\\" + entry.path().filename().string() << std::endl;
+                    outFile << "Font File Path : " << FILEPATH_ASSET_FONTS + "\\" + entry.path().filename().string() << std::endl;
                     outFile << "Resource GUID : " << std::endl;
-                    outFile << "Resource File Path : " << FILEPATH_FONTS_RESOURCE + "\\" + nameWithoutExtension + ".dds" << std::endl;
-                    outFile << "Resource Data File Path : " << FILEPATH_FONTS_RESOURCE + "\\" + nameWithoutExtension + ".json" << std::endl;
+                    outFile << "Resource File Path : " << FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".dds" << std::endl;
+                    outFile << "Resource Data File Path : " << FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".json" << std::endl;
                     outFile << "Compression Format : " << "-fd BC3";
 
                     // Close the file
                     outFile.close();
                 }
 
-                if (!fs::exists(FILEPATH_FONTS_RESOURCE))
-                    fs::create_directory(FILEPATH_FONTS_RESOURCE);
+                if (!fs::exists(FILEPATH_RESOURCE_FONTS))
+                    fs::create_directory(FILEPATH_RESOURCE_FONTS);
 
                 // Process the descriptor file and print details
                 std::vector<std::string> fileInfo = processFontDescriptorFile(descriptorFilePath);
                 if (!fileInfo.empty()) {
 
                     // Run command
-                    runCommand("..\\lib\\msdf-atlas-gen\\msdf-atlas-gen.exe -font " + fileInfo[1] + " -allglyphs -size 32 -imageout " + FILEPATH_FONTS_RESOURCE + "\\" + nameWithoutExtension + ".png" + " -json " + fileInfo[4]);
-                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[5] + " " + FILEPATH_FONTS_RESOURCE + "\\" + nameWithoutExtension + ".png " + fileInfo[3]);
-                    if (std::remove((FILEPATH_FONTS_RESOURCE + "\\" + nameWithoutExtension + ".png").c_str()) == 0) {
+                    runCommand("..\\lib\\msdf-atlas-gen\\msdf-atlas-gen.exe -font " + fileInfo[1] + " -allglyphs -size 32 -imageout " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png" + " -json " + fileInfo[4]);
+                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[5] + " " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png " + fileInfo[3]);
+                    if (std::remove((FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png").c_str()) == 0) {
                         std::cout << "File deleted successfully.\n";
                     }
                     else {

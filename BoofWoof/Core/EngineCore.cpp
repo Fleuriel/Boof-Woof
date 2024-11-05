@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EngineCore.h"
+#include "../Core/Reflection/ReflectionManager.hpp"
 
 std::shared_ptr<GraphicsSystem> mGraphicsSys;
 std::shared_ptr<AudioSystem> mAudioSys;
@@ -30,7 +31,6 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<GraphicsComponent>();
 	g_Coordinator.RegisterComponent<AudioComponent>();
 	g_Coordinator.RegisterComponent<CollisionComponent>();
-
 	g_Coordinator.RegisterComponent<BehaviourComponent>();
 
 	// setting global pointer
@@ -110,6 +110,13 @@ void EngineCore::OnInit()
 	// Just leave this part at the most bottom
 	m_AccumulatedTime = 0.0;		// elapsed time
 	m_CurrNumSteps = 0;
+
+	ReflectionManager::Instance().RegisterComponentType<MetadataComponent>("MetadataComponent");
+	ReflectionManager::Instance().RegisterComponentType<TransformComponent>("TransformComponent");
+	ReflectionManager::Instance().RegisterComponentType<GraphicsComponent>("GraphicsComponent");
+	ReflectionManager::Instance().RegisterComponentType<AudioComponent>("AudioComponent");
+	ReflectionManager::Instance().RegisterComponentType<BehaviourComponent>("BehaviourComponent");
+	ReflectionManager::Instance().RegisterComponentType<CollisionComponent>("CollisionComponent");
 }
 
 void EngineCore::OnUpdate()

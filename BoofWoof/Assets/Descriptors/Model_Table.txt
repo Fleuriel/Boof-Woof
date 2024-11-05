@@ -1,9 +1,0 @@
-File Name: Table
-Source File Path: ..\BoofWoof\Assets\Objects\Table.obj
-Output File Path: ..\BoofWoof\Resources\Objects\Table.bin
-Expected Attributes: 
- -  Vertices
- -  Indices
- -  Normals
-Transform Defauls: 
- -  Scale: 1.0

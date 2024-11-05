@@ -207,6 +207,7 @@ public:
 		return mSystemManager->GetSystem<T>();
 	}
 
+
 private:
 	std::unique_ptr<ComponentManager> mComponentManager;
 	std::unique_ptr<EntityManager> mEntityManager;

@@ -1,0 +1,5 @@
+Texture Name : Wardrobe2
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\Wardrobe2.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\Wardrobe2.dds
+Compression Format : -fd BC3

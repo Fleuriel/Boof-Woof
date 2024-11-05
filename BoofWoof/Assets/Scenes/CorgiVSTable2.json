@@ -1,0 +1,60 @@
+{
+    "SceneGUID": "8ec536d1-8576-4f1f-9f83-8c2a3bfce672",
+    "Entities": [
+        {
+            "EntityName": "Player",
+            "Position": {
+                "x": -1.5394301414489747,
+                "y": -0.000005898887593502877,
+                "z": -0.9381924867630005
+            },
+            "Scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 0,
+            "ModelName": "Corgi2",
+            "Texture": " ",
+            "AudioFilePath": "../BoofWoof/Assets/Audio/explode2.wav",
+            "Volume": 1.0,
+            "ShouldLoop": false,
+            "BehaviourName": "Player",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "GameObject",
+            "Position": {
+                "x": 2.0,
+                "y": 0.0,
+                "z": -1.100000023841858
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 1,
+            "ModelName": "Table2",
+            "Texture": " ",
+            "BehaviourName": "Null",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        }
+    ]
+}

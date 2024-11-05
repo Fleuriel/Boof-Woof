@@ -103,6 +103,11 @@ public:
 		return mComponentArrayFromType[type];
 	}
 
+	const std::unordered_map<const char*, ComponentType>& GetComponentTypes() const
+	{
+		return mComponentTypes;
+	}
+
 private:
 	// Static counter for number of components registered
 	inline static ComponentType mComponentsRegistered{};
