@@ -143,6 +143,7 @@ void GraphicsSystem::UpdateLoop() {
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
+				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
 			
 				
 				//skip

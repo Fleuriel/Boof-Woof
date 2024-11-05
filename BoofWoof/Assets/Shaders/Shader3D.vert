@@ -22,6 +22,9 @@ layout(location = 2) in vec2 aTexCoord;  // Texture coordinate input
 layout(location = 3) in vec3 aTangent;
 layout(location = 4) in vec3 aBitangent;
 
+uniform vec3 lightPos;
+uniform vec3 viewPos;
+
 out layout(location = 0) vec3 vertColor;
 out layout(location = 2) vec3 FragPos;
 out layout(location = 1) vec3 vertNormal; 
@@ -42,6 +45,8 @@ void main()
     vs_out.FragPos = vec3(vertexTransform * vec4(modelPosition, 1.0f));
     vs_out.TexCoords = aTexCoord;
 
+    mat3 normalMatrix = transpose(inverse(mat3(vertexTransform)));
+
     vec3 T = normalize(normalMatrix * aTangent);
     vec3 N = normalize(normalMatrix * vertexNormal);
     T = normalize(T - dot(T, N) * N);
@@ -52,7 +57,7 @@ void main()
     vs_out.TangentViewPos = TBN * viewPos;
     vs_out.TangentFragPos = TBN * vs_out.FragPos;
 
-    mat3 normalMatrix = transpose(inverse(mat3(vertexTransform)));
+   
 
     vertColor = objectColor;
     
