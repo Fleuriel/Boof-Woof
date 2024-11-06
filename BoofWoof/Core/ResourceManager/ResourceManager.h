@@ -47,14 +47,19 @@ public:
 	bool AddModelBinary(std::string);
 
 	bool LoadTexturesDDS();
-	bool FreeTextureDDS();
-	bool ReloadTextureDDS();
+	bool FreeTexturesDDS();
+	bool ReloadTexturesDDS();
 
 	bool AddTextureDDS(std::string);
 	int GetTextureDDS(std::string);																		//Function to access textures
 
 
+	bool LoadFontsDDS();
+	bool FreeFontsDDS();
+	bool ReloadFontsDDS();
 
+	bool AddFontDDS(std::string);
+	int GetFontDDS(std::string);
 
 
 	
@@ -65,8 +70,11 @@ private:
 
 	std::vector<std::string> ModelNames;
 
-	std::map<std::string, int> texturesDDS{};															//Container to store textures
+	std::map<std::string, int> textureDDS{};															//Container to store textures
 	std::vector<std::string> textureDDSFileNames{};														//Container to store texture DDS file names
+
+	std::map<std::string, int> fontDDS{};																//Container to store textures
+	std::vector<std::string> fontDDSFileNames{};														//Container to store texture DDS file names
 
 
 };

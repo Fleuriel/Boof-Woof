@@ -1,0 +1,6 @@
+Font Name : Atop-R99O3
+Font File Path : ..\BoofWoof\Assets\Fonts\Atop-R99O3.ttf
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Fonts\Atop-R99O3.dds
+Resource Data File Path : ..\BoofWoof\Resources\Fonts\Atop-R99O3.json
+Compression Format : -fd BC3

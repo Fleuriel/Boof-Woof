@@ -424,7 +424,7 @@ bool AssetManager::FreeTextures() {
 bool AssetManager::ReloadTextures() {
     FreeTextures();
     LoadTextures();
-    return g_ResourceManager.ReloadTextureDDS();
+    return g_ResourceManager.ReloadTexturesDDS();
 }
 
 
@@ -1284,6 +1284,8 @@ bool AssetManager::LoadFonts() {
                     else {
                         std::perror("Error deleting file");
                     }
+
+                    g_ResourceManager.AddFontDDS(nameWithoutExtension);
                 }
 
             }
@@ -1316,7 +1318,9 @@ bool AssetManager::FreeFonts() {
 }
 
 bool AssetManager::ReloadFonts() {
-    return (FreeFonts() && LoadFonts());
+    FreeFonts();
+    LoadFonts();
+    return g_ResourceManager.ReloadFontsDDS();
 }
 
 
@@ -1350,13 +1354,13 @@ bool AssetManager::CheckFiles(const std::wstring& path) {
         // Update TextureFiles with currentFiles
         TextureFiles = std::move(currentFiles); // Efficiently swap the content
     }
-    else if (path == L"..\\BoofWoof\\Assets\\Art\\Sprites") {
-        // Compare currentFiles with the existing SpriteFiles
-        hasChanges = (currentFiles != SpriteFiles);
+    //else if (path == L"..\\BoofWoof\\Assets\\Art\\Sprites") {
+    //    // Compare currentFiles with the existing SpriteFiles
+    //    hasChanges = (currentFiles != SpriteFiles);
 
-        // Update SpriteFiles with currentFiles
-        SpriteFiles = std::move(currentFiles); // Efficiently swap the content
-    }
+    //    // Update SpriteFiles with currentFiles
+    //    SpriteFiles = std::move(currentFiles); // Efficiently swap the content
+    //}
     else if (path == L"..\\BoofWoof\\Assets\\Scenes") {
         // Compare currentFiles with the existing SceneFiles
         hasChanges = (currentFiles != SceneFiles);
