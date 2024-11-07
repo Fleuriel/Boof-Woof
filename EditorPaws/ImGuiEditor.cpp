@@ -7,6 +7,7 @@
 #include <imgui_internal.h>
 #include <ImGuiFileDialog.h>
 #include "ResourceManager/ResourceManager.h"
+#include "AssetManager/FilePaths.h"
 
 
 bool GraphicsSystem::debug = false;
@@ -1131,54 +1132,57 @@ void ImGuiEditor::AssetWindow()
 		// Calculate the space needed for the buttons
 		float windowWidth = ImGui::GetWindowWidth();
 		float buttonWidth = ImGui::CalcTextSize("Delete Asset").x + ImGui::GetStyle().FramePadding.x * 2;
+
 		float availableSpace = windowWidth - ImGui::CalcTextSize(entireFilePath.c_str()).x - buttonWidth * 2 - ImGui::GetStyle().ItemSpacing.x * 3;
 
 		// subtract the width of the buttons and spacing from the available space to align to the right
 		ImGui::SameLine(availableSpace);
-		//if (ImGui::Button("Add Asset"))
-		//{
-		//	ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag", "../BoofWoof/Assets/");
-		//}
+		if (ImGui::Button("Add Asset"))
+		{
+			ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag,.fbx,.obj,.mtl", "../BoofWoof/Assets/");
+		}
 
-		//ImGui::SameLine();
-		//if (ImGui::Button("Delete Asset"))
-		//{
-		//	ImGuiFileDialog::Instance()->OpenDialog("DeleteAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag", "../BoofWoof/Assets/");
-		//}
+		ImGui::SameLine();
+		if (ImGui::Button("Delete Asset"))
+		{
+			ImGuiFileDialog::Instance()->OpenDialog("DeleteAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag,.fbx,.obj,.mtl", "../BoofWoof/Assets/");
+		}
 
-		//if (ImGuiFileDialog::Instance()->Display("AddAsset"))
-		//{
-		//	// Check if the user made a selection
-		//	if (ImGuiFileDialog::Instance()->IsOk())
-		//	{
-		//		// Get the selected file path
-		//		std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+		if (ImGuiFileDialog::Instance()->Display("AddAsset"))
+		{
+			// Check if the user made a selection
+			if (ImGuiFileDialog::Instance()->IsOk())
+			{
+				// Get the selected file path
+				//std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
 
-		//		// Asset manager to add in the assets e.g. g_AssetManager.AddAssets(filePathName);
-		//	}
+				// Asset manager to add in the assets e.g. g_AssetManager.AddAssets(filePathName);
+				fs::rename(ImGuiFileDialog::Instance()->GetFilePathName(), m_CurrDir.string() + "\\" + ImGuiFileDialog::Instance()->GetCurrentFileName());
+			}
 
-		//	// close
-		//	ImGuiFileDialog::Instance()->Close();
-		//}
+			// close
+			ImGuiFileDialog::Instance()->Close();
+		}
 
-		//if (ImGuiFileDialog::Instance()->Display("DeleteAsset"))
-		//{
-		//	// Check if the user made a selection
-		//	if (ImGuiFileDialog::Instance()->IsOk())
-		//	{
-		//		// Get the selected file path
-		//		std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+		if (ImGuiFileDialog::Instance()->Display("DeleteAsset"))
+		{
+			// Check if the user made a selection
+			if (ImGuiFileDialog::Instance()->IsOk())
+			{
+				//// Get the selected file path
+				//std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
 
-		//		// find last / to get file name only
-		//		size_t lastSlash = filePathName.find_last_of("/\\");
-		//		std::string deleteFileName = filePathName.substr(lastSlash + 1);
+				//// find last / to get file name only
+				//size_t lastSlash = filePathName.find_last_of("/\\");
+				//std::string deleteFileName = filePathName.substr(lastSlash + 1);
 
-		//		// Asset manager to delete the assets e.g. g_AssetManager.DeleteAssets(deleteFileName);
-		//	}
+				// Asset manager to delete the assets e.g. g_AssetManager.DeleteAssets(deleteFileName);
+				g_AssetManager.DiscardToTrashBin(ImGuiFileDialog::Instance()->GetFilePathName(), FILEPATH_ASSET_TRASHBIN, false);
+			}
 
-		//	// close
-		//	ImGuiFileDialog::Instance()->Close();
-		//}
+			// close
+			ImGuiFileDialog::Instance()->Close();
+		}
 
 		ImGui::Spacing();  ImGui::Separator(); ImGui::Spacing();
 
