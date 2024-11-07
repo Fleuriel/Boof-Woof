@@ -8,7 +8,7 @@
 #include "ResourceManager/ResourceManager.h"
 #include "Windows/WindowManager.h"
 
-// Assignment 1
+
 
 
 bool GraphicsSystem::glewInitialized = false;
@@ -22,6 +22,9 @@ glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 //int GraphicsSystem::set_Texture_ = 0;
 //std::vector<Model2D> models;
 ShaderParams shdrParam;
+
+float deltaTime = 0.0f;  // Time between current frame and previous frame
+auto previousTime = std::chrono::high_resolution_clock::now();  // Initialize previous time
 
 void GraphicsSystem::initGraphicsPipeline() {
 	// Implement graphics pipeline initialization
@@ -85,7 +88,9 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	fontSystem.init_font();
+	fontSystem.init();
+
+	LoadAnimation("walk", "..\\BoofWoof\\Resources\\Animations\\corgi.fbx");
 }
 
 
@@ -93,6 +98,20 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 
 void GraphicsSystem::UpdateLoop() {
+
+	// Get the current time
+	auto currentTime = std::chrono::high_resolution_clock::now();
+
+	// Calculate delta time in seconds
+	deltaTime = std::chrono::duration<float>(currentTime - previousTime).count();
+
+	// Update previous time to the current time
+	previousTime = currentTime;
+
+	UpdateAnimations(deltaTime);
+
+	animationManager.PrintAnimationNames();
+
 	// Bind the framebuffer for rendering
 	if(editorMode == true)
 		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -143,9 +162,31 @@ void GraphicsSystem::UpdateLoop() {
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
-//				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
+				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
 				
+				//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
+				if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()){
 
+					// add texture to mesh
+					Texture texture_add;
+					texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
+					if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 0)
+						texture_add.type = "texture_diffuse";
+					else if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 1)
+						texture_add.type = "texture_normal";
+
+					//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
+					
+					for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+						mesh.textures.push_back(texture_add);
+						
+					}
+
+					g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
+
+				}
+
+				/*//skip for now
 				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
 				{
 					glActiveTexture(GL_TEXTURE0 + i);
@@ -156,7 +197,7 @@ void GraphicsSystem::UpdateLoop() {
 					}
 					g_AssetManager.GetShader("Shader3D").SetUniform("texture1", i);
 					glBindTexture(GL_TEXTURE_2D, graphicsComp.getTexture(i));
-				}
+				}*/
 				
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture1", tex1);
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture2", tex2);
@@ -252,7 +293,7 @@ void GraphicsSystem::UpdateLoop() {
 	//g_AssetManager.GetShader("Font").SetUniform("projection", fontprojection);
 	
 	//fontSystem.RenderText(g_AssetManager.GetShader("Font"), "Hello, World!", 0.0f, 0.0f, 0.001f, glm::vec3(1.f, 0.8f, 0.2f));
-	fontSystem.render_text(g_AssetManager.GetShader("Font"), "Hello, World!", 0.0f, 0.0f, 0.001f, glm::vec3(1.f, 0.8f, 0.2f));
+	
 
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
@@ -344,4 +385,22 @@ void GraphicsSystem::UpdateViewportSize(int width, int height) {
 
 	// Unbind the framebuffer
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+
+
+
+
+
+void GraphicsSystem::LoadAnimation(const std::string& animationName, const std::string& filePath) {
+	Animation animation(filePath);
+	animationManager.AddAnimation(animationName, animation);
+}
+
+void GraphicsSystem::UpdateAnimations(float deltaTime) {
+	animationManager.UpdateAnimations(deltaTime);
+}
+
+std::unordered_map<std::string, glm::mat4> GraphicsSystem::GetBoneTransforms(const std::string& animationName) const {
+	return animationManager.GetBoneTransforms(animationName);
 }

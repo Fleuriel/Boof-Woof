@@ -12,9 +12,11 @@
 
 #pragma warning(pop)
 
+Entity g_Player = NULL;
+
 void LogicSystem::Init()
 {
-	std::cout << "Logic System Initialized" << std::endl;
+	std::cout << std::endl << "Logic System Initialized" << std::endl;
 
 	HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\Scripts\\Scripts.dll");
 
@@ -45,21 +47,35 @@ void LogicSystem::Init()
 	{
 		// Get the logic component of the entity
 		BehaviourComponent behaviourComponent = g_Coordinator.GetComponent<BehaviourComponent>(entity);
+		std::string behaviourName = behaviourComponent.GetBehaviourName();
 
 		// Check if behaviour exists
-		if (mBehaviours.find(behaviourComponent.GetBehaviourName()) == mBehaviours.end())
+		if (mBehaviours.find(behaviourName) == mBehaviours.end())
 		{
 			std::cout << "Behaviour not found" << std::endl;
 			continue;
 		}
-		else
+		else if(behaviourName == "Player" && g_Player == NULL)
 		{
-			//print all the behaviours
-			for (auto const& behaviour : mBehaviours)
-			{
-				std::cout << behaviour.first << std::endl;
-			}
+			g_Player = entity;
 		}
+		else if (behaviourName == "Player" && g_Player != NULL)
+		{
+			std::cerr << "Multiple Player entities found!" << std::endl;
+			continue;
+		}
+		else {
+			std::cout << "Behaviour Name: "<< behaviourName << "exist" << std::endl;
+		}
+		//print all the behaviours
+		std::cout << "All Behaviours: " << std::endl;
+		for (auto const& behaviour : mBehaviours)
+		{
+			std::cout << behaviour.first << std::endl;
+		}
+		std::cout << std::endl;
+
+		//Init the behaviour
 		mBehaviours[behaviourComponent.GetBehaviourName()]->Init(entity);
 
 	}

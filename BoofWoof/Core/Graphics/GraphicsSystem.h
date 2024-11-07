@@ -6,6 +6,7 @@
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "Camera.h"
+#include "Animation/AnimationManager.h"
 
 class Model;
 class Model2D;
@@ -62,6 +63,13 @@ public:
 	glm::vec3 GetLightPos() { return lightPos; };
 	void SetLightPos(glm::vec3 pos) { lightPos = pos; };
 
+
+    void LoadAnimation(const std::string& animationName, const std::string& filePath);
+    void UpdateAnimations(float deltaTime);
+    std::unordered_map<std::string, glm::mat4> GetBoneTransforms(const std::string& animationName) const;
+
+
+
 private:
     unsigned int fbo;
     unsigned int textureColorbuffer;  // Store the framebuffer texture ID here
@@ -71,6 +79,7 @@ private:
 	static Camera camera;
     static glm::vec3 lightPos;
 
+    AnimationManager animationManager;
 };
 
 #endif

@@ -1,6 +1,8 @@
-
 #include "pch.h"
 #include "Animation.h"
+#include "AnimationManager.h"
+#include <glm/gtx/quaternion.hpp>
+
 
 Animation::Animation(const std::string& filePath)
     : filePath(filePath), duration(0.0f), currentTime(0.0f) {}
@@ -9,20 +11,20 @@ bool Animation::LoadAnimationData() {
     // Initialize Assimp Importer
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_LimitBoneWeights);
-    
+
     if (!scene || !scene->mRootNode || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) {
         std::cerr << "Error loading FBX file: " << importer.GetErrorString() << std::endl;
         return false;
     }
-    
-    // Process the animations
-    if (scene->mNumAnimations > 0) {
-        ProcessAnimation(scene->mAnimations[0]);
+
+    // Process each animation in the file
+    for (unsigned int i = 0; i < scene->mNumAnimations; ++i) {
+        ProcessAnimation(scene->mAnimations[i]);
     }
 
     // Process the node hierarchy
     ProcessNode(scene->mRootNode, scene);
-    
+
     std::cout << "Loaded animation with duration " << duration << " seconds.\n";
     return true;
 }
@@ -41,7 +43,10 @@ void Animation::ProcessNode(const aiNode* node, const aiScene* scene) {
 }
 
 void Animation::ProcessAnimation(const aiAnimation* animation) {
-    duration = static_cast<float>(animation->mDuration / animation->mTicksPerSecond);
+    float animationDuration = static_cast<float>(animation->mDuration / animation->mTicksPerSecond);
+    if (animationDuration > duration) {
+        duration = animationDuration;
+    }
 
     for (unsigned int i = 0; i < animation->mNumChannels; ++i) {
         aiNodeAnim* channel = animation->mChannels[i];
@@ -52,9 +57,9 @@ void Animation::ProcessAnimation(const aiAnimation* animation) {
         for (unsigned int j = 0; j < channel->mNumPositionKeys; ++j) {
             Keyframe keyframe;
             keyframe.time = static_cast<float>(channel->mPositionKeys[j].mTime / animation->mTicksPerSecond);
-            keyframe.position = glm::vec3(channel->mPositionKeys[j].mValue.x, 
-                                          channel->mPositionKeys[j].mValue.y, 
-                                          channel->mPositionKeys[j].mValue.z);
+            keyframe.position = glm::vec3(channel->mPositionKeys[j].mValue.x,
+                channel->mPositionKeys[j].mValue.y,
+                channel->mPositionKeys[j].mValue.z);
             boneTransform.keyframes.push_back(keyframe);
         }
 
@@ -80,8 +85,7 @@ void Animation::ProcessAnimation(const aiAnimation* animation) {
 
 void Animation::Update(float deltaTime) {
     if (duration <= 0) return;
-    
-    // Loop animation
+
     currentTime += deltaTime;
     if (currentTime > duration) {
         currentTime = fmod(currentTime, duration);
@@ -106,8 +110,12 @@ void Animation::Update(float deltaTime) {
             boneTransforms[boneName].keyframes[0].position = kf1.position * (1.0f - t) + kf2.position * t;
             boneTransforms[boneName].keyframes[0].rotation = glm::slerp(kf1.rotation, kf2.rotation, t);
         }
+        else {
+            std::cout << "No keyframes found for bone: " << boneName << " at time: " << currentTime << std::endl;
+        }
     }
 }
+
 
 std::unordered_map<std::string, glm::mat4> Animation::GetBoneTransforms() const {
     std::unordered_map<std::string, glm::mat4> transforms;

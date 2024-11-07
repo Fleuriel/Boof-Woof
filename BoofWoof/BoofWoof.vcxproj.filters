@@ -36,6 +36,7 @@
     <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
     <ClCompile Include="Core\Animation\Animation.cpp" />
+    <ClCompile Include="Core\Animation\AnimationManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -81,6 +82,7 @@
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
     <ClInclude Include="Core\Reflection\ReflectionManager.hpp" />
     <ClInclude Include="Core\Animation\Animation.h" />
+    <ClInclude Include="Core\Animation\AnimationManager.h" />
     <ClInclude Include="Utilities\Components\BehaviourComponent.hpp" />
   </ItemGroup>
   <ItemGroup>

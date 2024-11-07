@@ -1,5 +1,0 @@
-Texture Name : diffuse
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\diffuse.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\diffuse.dds
-Compression Format : -fd BC3

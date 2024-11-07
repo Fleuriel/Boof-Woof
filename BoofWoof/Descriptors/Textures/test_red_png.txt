@@ -1,5 +1,0 @@
-Texture Name : test_red_png
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\test_red_png.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\test_red_png.dds
-Compression Format : -fd BC3
