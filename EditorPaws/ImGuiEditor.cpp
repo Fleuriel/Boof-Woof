@@ -1787,8 +1787,10 @@ void ImGuiEditor::ArchetypeTest()
 	ImGui::Begin("Archetype Manager");
 	{
 		// Input for new archetype name
+
+		ImGui::Text("Archetype Name"); ImGui::SameLine();
 		static char archetypeName[128] = "";
-		ImGui::InputText("Archetype Name", archetypeName, IM_ARRAYSIZE(archetypeName));
+		ImGui::InputText("##ArchetypeName", archetypeName, IM_ARRAYSIZE(archetypeName));
 
 		// Checkbox list for available component types
 		static bool transformComponentSelected = false; // Toggle state for Transform Component
@@ -1796,7 +1798,7 @@ void ImGuiEditor::ArchetypeTest()
 		static bool collisionComponentSelected = false; // Toggle state for Collision Component
 		static bool audioComponentSelected = false; // Toggle state for Collision Component
 
-		ImGui::Text("Available Components:");
+		ImGui::SeparatorText("Available Components");
 
 		if (ImGui::Checkbox("Transform Component", &transformComponentSelected)) {
 			if (transformComponentSelected) {
@@ -1834,27 +1836,38 @@ void ImGuiEditor::ArchetypeTest()
 			}
 		}
 
-		// Button to create a new archetype
-		if (ImGui::Button("Create Archetype"))
-		{
-			if (strlen(archetypeName) > 0 && !compTypes.empty())
-			{
-				// Always have MetadataComponent
-				compTypes.push_back(typeid(MetadataComponent));
-				std::vector<std::type_index> selectedComponents = compTypes; // Copy selected components
-				g_Arch.createArchetype(archetypeName, selectedComponents); // Pass the archetype name
+		// Flags for messages
+		static bool showWarning = false;
+		static std::string warningMessage;
 
-				// Reset the input and selections
-				memset(archetypeName, 0, sizeof(archetypeName)); // Clear the archetype name input
-				compTypes.clear(); // Clear selected component types
-				transformComponentSelected = false; // Reset component selection states
-				graphicsComponentSelected = false;
-				collisionComponentSelected = false;
-				audioComponentSelected = false;
+		if (ImGui::Button("Create Archetype")) 
+		{
+			bool noName = strlen(archetypeName) == 0;
+			bool noComp = compTypes.empty();
+
+			if (!noName && !noComp) {
+				// Create archetype
+				compTypes.push_back(typeid(MetadataComponent)); // Always include MetadataComponent
+				std::vector<std::type_index> selectedComponents = compTypes;
+				g_Arch.createArchetype(archetypeName, selectedComponents);
+
+				// Reset inputs and selections
+				memset(archetypeName, 0, sizeof(archetypeName));
+				compTypes.clear();
+				transformComponentSelected = graphicsComponentSelected = collisionComponentSelected = audioComponentSelected = false;
+
+				showWarning = false; // Clear warning
 			}
-			else if (compTypes.empty()) {
-				ImGui::Text("Please select at least one component."); // Alert if no components are selected
+			else {
+				// Set warning message based on input
+				warningMessage = noName ? "Please add a name." : "Please select at least one component.";
+				showWarning = true;
 			}
+		}
+
+		if (showWarning) 
+		{
+			ImGui::Text("%s", warningMessage.c_str());
 		}
 
 		// Dropdown to select existing archetypes for updating
@@ -1867,20 +1880,20 @@ void ImGuiEditor::ArchetypeTest()
 			archetypeNames.push_back(archetype->name.c_str()); // Assuming Archetype has a name property
 		}
 
-		ImGui::Combo("Select Archetype to Update", &selectedArchetypeIndex, archetypeNames.data(), archetypeNames.size());
+
+		ImGui::NewLine();
+		ImGui::SeparatorText("Select Archetype to Update");
+		ImGui::Text("Names"); ImGui::SameLine();
+		ImGui::Combo("##UpdateArch", &selectedArchetypeIndex, archetypeNames.data(), archetypeNames.size());
+
+		if (selectedArchetypeIndex != -1) {
+			ImGui::Text("Tick the above checkboxes to update!");
+		}
 
 		// Button to update the selected archetype
 		if (ImGui::Button("Update Archetype") && selectedArchetypeIndex != -1)
 		{
 			Archetype* selectedArchetype = archetypes[selectedArchetypeIndex]; // Get selected archetype
-			std::cout << "Updating archetype: " << selectedArchetype->name << std::endl; // Debug print
-
-			// Print current component types for verification
-			std::cout << "Current component types:";
-			for (const auto& type : compTypes) {
-				std::cout << " " << type.name();
-			}
-			std::cout << std::endl;
 
 			// Ensure always got metadatacomp
 			compTypes.push_back(typeid(MetadataComponent));
@@ -1891,16 +1904,32 @@ void ImGuiEditor::ArchetypeTest()
 			graphicsComponentSelected = false;
 			collisionComponentSelected = false;
 			audioComponentSelected = false;
+			selectedArchetypeIndex = -1;
 		}
 
-		// List existing archetypes (optional)
-		ImGui::Text("Existing Archetypes:");
-		for (auto& archetype : g_Arch.getArchetypes()) {
-			ImGui::Text("%s", archetype->name.c_str()); // Assuming you have a way to get the archetype name
+		ImGui::NewLine();
 
-			// Button to create an entity from this archetype
-			if (ImGui::Button(("Create Entity from " + archetype->name).c_str())) {
-				g_Arch.createEntity(archetype); // Create an entity using the selected archetype
+		// List existing archetypes 
+		ImGui::SeparatorText("Existing Archetypes");
+		for (auto& archetype : g_Arch.getArchetypes()) 
+		{
+			// Create a tree node for components
+			if (ImGui::TreeNode("%s", archetype->name.c_str()))
+			{			
+				for (const auto& componentType : archetype->componentTypes)
+				{
+					// Display the component type as a bullet point
+					if (componentType == typeid(TransformComponent)) ImGui::BulletText("TransformComponent");					
+					if (componentType == typeid(GraphicsComponent)) ImGui::BulletText("GraphicsComponent");
+					if (componentType == typeid(CollisionComponent)) ImGui::BulletText("CollisionComponent");					
+					if (componentType == typeid(AudioComponent)) ImGui::BulletText("AudioComponent");
+				}
+				ImGui::TreePop(); // Close the tree node
+			}
+
+			// Create an entity using the selected archetype
+			if (ImGui::Button(("Create " + archetype->name + " Entity").c_str())) {
+				g_Arch.createEntity(archetype); 
 			}
 		}
 	}
