@@ -232,6 +232,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\AssetManager\FilePaths.h" />
     <ClInclude Include="Core\Audio\AudioSystem.h" />
     <ClInclude Include="Core\AssetManager\Sprite.h" />
+    <ClInclude Include="Core\ECS\ArchetypeManager.hpp" />
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
     <ClInclude Include="Core\ECS\ComponentManager.hpp" />
     <ClInclude Include="Core\ECS\Coordinator.hpp" />

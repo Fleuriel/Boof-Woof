@@ -53,6 +53,14 @@ public:
 		return mComponentTypes[typeName];
 	}
 
+	// Overload for std::type_index
+	ComponentType GetComponentType(const std::type_index& type) {
+		const char* typeName = type.name();
+		assert(mComponentTypes.find(typeName) != mComponentTypes.end() && "Component type not registered before use.");
+
+		return mComponentTypes[typeName];
+	}
+
 	template<typename T>
 	void AddComponent(Entity entity, T component)
 	{

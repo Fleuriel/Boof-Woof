@@ -76,6 +76,9 @@ void ImGuiEditor::ImGuiUpdate()
 	Settings();
 	Scenes();
 	PlayStopRunBtn();
+
+	ArchetypeTest();
+
 	if (m_ShowAudio)
 	{
 		Audio();
@@ -1777,4 +1780,57 @@ void ImGuiEditor::PlayStopRunBtn()
 
 		ImGui::End();
 	}
+}
+
+void ImGuiEditor::ArchetypeTest()
+{
+	ImGui::Begin("Archetype Manager");
+	{
+		// Input for new archetype name
+		static char archetypeName[128] = "";
+		ImGui::InputText("Archetype Name", archetypeName, IM_ARRAYSIZE(archetypeName));
+
+		// Checkbox list for available component types
+		static bool transformComponentSelected = false; // Toggle state for Transform Component
+		ImGui::Text("Available Components:");
+
+		if (ImGui::Checkbox("Transform Component", &transformComponentSelected)) {
+			// Toggle component selection
+			if (transformComponentSelected) {
+				compTypes.push_back(typeid(TransformComponent)); // Add component type
+			}
+			else {
+				// Remove component type if unchecked
+				compTypes.erase(std::remove(compTypes.begin(), compTypes.end(), typeid(TransformComponent)), compTypes.end());
+			}
+		}
+
+		// Button to create a new archetype
+		if (ImGui::Button("Create Archetype")) 
+		{
+			if (strlen(archetypeName) > 0 && !compTypes.empty())
+			{
+				std::vector<std::type_index> selectedComponents = compTypes; // Copy selected components
+				g_Arch.createArchetype(archetypeName, selectedComponents); // Pass the archetype name
+				// Optionally reset the input and selections
+				memset(archetypeName, 0, sizeof(archetypeName)); // Clear the archetype name input
+				compTypes.clear(); // Clear selected component types
+			}
+			else if (compTypes.empty()) {
+				ImGui::Text("Please select at least one component."); // Alert if no components are selected
+			}
+		}
+
+		// List existing archetypes (optional)
+		ImGui::Text("Existing Archetypes:");
+		for (auto& archetype : g_Arch.getArchetypes()) {
+			ImGui::Text("%s", archetype->name.c_str()); // Assuming you have a way to get the archetype name
+
+			// Button to create an entity from this archetype
+			if (ImGui::Button(("Create Entity from " + archetype->name).c_str())) {
+				g_Arch.createEntity(archetype); // Create an entity using the selected archetype
+			}
+		}
+	}
+	ImGui::End();
 }
