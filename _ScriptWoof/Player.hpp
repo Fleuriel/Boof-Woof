@@ -6,28 +6,28 @@ struct Player final : public Behaviour
 	using Behaviour::Behaviour;
 
 	virtual void Update(Entity entity) override
-	{	
+	{
 		glm::vec3 velocity(0.0f);
 
-		if (m_Engine.getInputSystem().isActionPressed(ActionType::Jump))
+		if (m_Engine.getInputSystem().isActionPressed(ActionType::MoveForward))
 		{
 			//std::cout << "movingW" << std::endl;
 			velocity.z -= 2.f;
 		}
 
-		if (m_Engine.getInputSystem().isButtonPressed(GLFW_KEY_A))
+		if (m_Engine.getInputSystem().isActionPressed(ActionType::MoveLeft))
 		{
 			//std::cout << "movingA" << std::endl;
 			velocity.x -= 2.f;
 		}
 
-		if (m_Engine.getInputSystem().isButtonPressed(GLFW_KEY_S))
+		if (m_Engine.getInputSystem().isActionPressed(ActionType::MoveBackward))
 		{
 			//std::cout << "movingS" << std::endl;
-			velocity.z += 2.f;
+			//velocity.z += 2.f;
 		}
 
-		if (m_Engine.getInputSystem().isButtonPressed(GLFW_KEY_D))
+		if (m_Engine.getInputSystem().isActionPressed(ActionType::MoveRight))
 		{
 			//std::cout << "movingD" << std::endl;
 			velocity.x += 2.f;
@@ -38,8 +38,8 @@ struct Player final : public Behaviour
 		{
 			m_Engine.SetVelocity(entity, velocity);
 		}
-		
-		
+
+
 	}
 
 	virtual const char* getBehaviourName() override

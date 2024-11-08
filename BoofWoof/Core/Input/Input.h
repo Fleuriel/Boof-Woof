@@ -47,8 +47,8 @@ public:
     InputSystem();
 
     // Action Mapping Methods
-    void SetActionMapping(ActionType action, int key);               // Set key for action
-    bool IsActionPressed(ActionType action);                         // Check if action is pressed
+    void SetActionMapping(const char *, int key);               // Set key for action
+    bool IsActionPressed(const char * action);                         // Check if action is pressed
 
     // Key and Mouse State Methods
     int GetKeyState(int index);                                      // Get KeyStates
@@ -94,7 +94,7 @@ public:
     bool buttonPressed{ false };
 
 private:
-    std::unordered_map<ActionType, int> actionMappings;              // Maps actions to keys
+    std::unordered_map<const char*, int> actionMappings;              // Maps actions to keys
     std::array<int, GLFW_KEY_LAST + 1> keyStates{};                  // Array to keep track of key states
     std::array<int, GLFW_MOUSE_BUTTON_LAST + 1> mouseButtonStates{}; // Array to keep track of mouse button states
 

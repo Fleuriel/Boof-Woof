@@ -15,12 +15,12 @@
  // Constructor to initialize default action mappings
 InputSystem::InputSystem() {
     // Set up default action mappings
-    SetActionMapping(ActionType::MoveForward, GLFW_KEY_W);
-    SetActionMapping(ActionType::MoveBackward, GLFW_KEY_S);
-    SetActionMapping(ActionType::MoveLeft, GLFW_KEY_A);
-    SetActionMapping(ActionType::MoveRight, GLFW_KEY_D);
-    SetActionMapping(ActionType::Jump, GLFW_KEY_SPACE);
-    SetActionMapping(ActionType::Shoot, GLFW_MOUSE_BUTTON_LEFT);
+    SetActionMapping("MoveForward", GLFW_KEY_W);
+    SetActionMapping("MoveBackward", GLFW_KEY_S);
+    SetActionMapping("MoveLeft", GLFW_KEY_A);
+    SetActionMapping("MoveRight", GLFW_KEY_D);
+    SetActionMapping("Jump", GLFW_KEY_SPACE);
+    SetActionMapping("Shoot", GLFW_MOUSE_BUTTON_LEFT);
 }
 
 /**************************************************************************
@@ -111,7 +111,7 @@ void InputSystem::UpdateStatesForNextFrame() {
  * @param action The action to be mapped.
  * @param key The key code to map the action to.
  *************************************************************************/
-void InputSystem::SetActionMapping(ActionType action, int key) {
+void InputSystem::SetActionMapping(const char * action, int key) {
     actionMappings[action] = key;
 }
 
@@ -120,7 +120,7 @@ void InputSystem::SetActionMapping(ActionType action, int key) {
  * @param action The action to check.
  * @return True if the action is pressed, false otherwise.
  *************************************************************************/
-bool InputSystem::IsActionPressed(ActionType action) {
+bool InputSystem::IsActionPressed(const char * action) {
     auto it = actionMappings.find(action);
     if (it != actionMappings.end()) {
         int key = it->second;
