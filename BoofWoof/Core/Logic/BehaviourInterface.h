@@ -2,8 +2,9 @@
 #ifndef BEHAVIOURINTERFACE_H
 #define BEHAVIOURINTERFACE_H
 
-#include "../ECS/pch.h"
-
+#ifndef GAME_ENGINE
+using Entity = std::uint32_t;
+#endif
 
 struct Behaviour_i
 {
@@ -14,10 +15,10 @@ struct Behaviour_i
 	virtual const char* getBehaviourName() = 0;
 };
 
-
 struct input_interface
 {
 	virtual bool isButtonPressed(std::uint32_t Key) = 0;
+	virtual bool isActionPressed(const char* pAction) = 0;
 };
 
 struct engine_interface
@@ -34,6 +35,8 @@ struct engine_interface
 	virtual void SetVelocity(Entity entity, glm::vec3 velocity) = 0;
 };
 
+#ifdef GAME_ENGINE
 using GetScripts_cpp_t = std::vector<std::unique_ptr<Behaviour_i>>* (*)(engine_interface* pEI);
+#endif
 
 #endif // !BEHAVIOURINTERFACE_H

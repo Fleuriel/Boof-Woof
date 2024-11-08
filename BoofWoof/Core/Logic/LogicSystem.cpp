@@ -6,7 +6,7 @@
 #include "LogicSystem.h"
 #include "../ECS/Coordinator.hpp"
 #include "../Utilities/Components/BehaviourComponent.hpp"
-#include "../../../Scripts/Compile.cpp"
+#include "../../../ScriptWoof/Compile.cpp"	
 #include "Script_to_Engine.h"
 #include <wtypes.h>
 
@@ -18,7 +18,7 @@ void LogicSystem::Init()
 {
 	std::cout << std::endl << "Logic System Initialized" << std::endl;
 
-	HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\Scripts\\Scripts.dll");
+	HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll");
 
 	if (hGetProcIDDLL == NULL)
 	{

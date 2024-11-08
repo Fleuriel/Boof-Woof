@@ -26,6 +26,11 @@ public:
 		return g_Input.GetKeyState(Key);
 	}
 
+	virtual bool isActionPressed(const char * action) override
+	{
+		return g_Input.IsActionPressed(action);
+	}
+
 	// END OF INPUT INTERFACE
 
 	// ENGINE INTERFACE

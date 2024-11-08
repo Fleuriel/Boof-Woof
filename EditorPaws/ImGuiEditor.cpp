@@ -1153,14 +1153,45 @@ void ImGuiEditor::AssetWindow()
 
 		if (ImGuiFileDialog::Instance()->Display("AddAsset"))
 		{
-			// Check if the user made a selection
 			if (ImGuiFileDialog::Instance()->IsOk())
 			{
 				// Get the selected file path
-				//std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+				fs::path previousPath(ImGuiFileDialog::Instance()->GetFilePathName());
+				fs::path destinationPath = m_CurrDir / previousPath.filename();
 
-				// Asset manager to add in the assets e.g. g_AssetManager.AddAssets(filePathName);
-				fs::rename(ImGuiFileDialog::Instance()->GetFilePathName(), m_CurrDir.string() + "\\" + ImGuiFileDialog::Instance()->GetCurrentFileName());
+				// If the destination file already exists, rename it with a counter
+				if (fs::exists(destinationPath)) {
+					int counter = 1;
+					std::string nameWithoutExtension = previousPath.stem().string();  // File name without extension
+					std::string extension = previousPath.extension().string();        // File extension
+
+					std::string newFileName = nameWithoutExtension + "(" + std::to_string(counter) + ")" + extension;
+					fs::path newDestinationPath = m_CurrDir / newFileName;
+
+					// Find an available name
+					while (fs::exists(newDestinationPath)) {
+						counter++;
+						newFileName = nameWithoutExtension + "(" + std::to_string(counter) + ")" + extension;
+						newDestinationPath = m_CurrDir / newFileName;
+					}
+
+					// Move the file to the final destination with the new name
+					try {
+						fs::copy(previousPath, newDestinationPath);
+					}
+					catch (const fs::filesystem_error& e) {
+						std::cerr << "Error copying file: " << e.what() << std::endl;
+					}
+				}
+				else {
+					// If no file with the same name exists, move it directly
+					try {
+						fs::copy(previousPath, destinationPath);
+					}
+					catch (const fs::filesystem_error& e) {
+						std::cerr << "Error copying file: " << e.what() << std::endl;
+					}
+				}
 			}
 
 			// close
