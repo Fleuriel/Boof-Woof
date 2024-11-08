@@ -3,7 +3,6 @@
 #include "pch.h"
 #include "EntityManager.hpp"
 #include "ComponentManager.hpp"
-#include "../../Utilities/Components/TransformComponent.hpp"
 
 #define g_Arch ArchetypeManager::GetInstance()
 
@@ -12,6 +11,7 @@ class Archetype
 public:
     std::string name; // Name of the archetype
     std::vector<std::type_index> componentTypes; // Store component types
+    std::vector<Entity> archEntities; // Keep track of entities created from this archetype
 
     Archetype(const std::string& archetypeName, const std::vector<std::type_index>& types) : name(archetypeName), componentTypes(types) {}
 };
@@ -32,65 +32,75 @@ public:
         return &archetypes.back(); // Return the newly created archetype
     }
 
+    // Function to add a component
+    template<typename T>
+    void addComponents(Entity entity, ComponentManager& componentManager) 
+    {
+        if (!componentManager.HaveComponent<T>(entity)) {
+            auto component = createComponent<T>();
+            if (component) {
+                componentManager.AddComponent(entity, std::move(*component));
+            }
+        }
+    }
+
     Entity createEntity(Archetype* archetype)
     {
-        // Access the EntityManager and ComponentManager
-        EntityManager& entityManager = g_Coordinator.GetEntityManager();
-        ComponentManager& componentManager = g_Coordinator.GetComponentManager();
-
         Entity entity = entityManager.CreateEntity();
+
+        // Add the entity to the archetype's entity list
+        archetype->archEntities.push_back(entity);
 
         // Set the entity's signature based on the archetype
         Signature signature = createSignature(archetype);
         entityManager.SetSignature(entity, signature);
 
+        // Always have MetadataComponent and set object name to Archetype name
+        addComponents<MetadataComponent>(entity, componentManager);
+        componentManager.GetComponent<MetadataComponent>(entity).SetName(archetype->name);
+
         // Initialize components for the new entity based on the archetype
         for (const auto& type : archetype->componentTypes) 
         {
-            if (type == typeid(TransformComponent))
-            {
-                // Check if the entity has the component of this type
-                if (!componentManager.HaveComponent<TransformComponent>(entity)) {
-                    auto component = createComponent<TransformComponent>();
-                    if (component) {
-                        componentManager.AddComponent(entity, std::move(*component));
-                    }
-                }
-            }
+            //std::cout << "Processing component type: " << type.name() << std::endl;
+
+            if (type == typeid(TransformComponent)) addComponents<TransformComponent>(entity, componentManager);
+            if (type == typeid(GraphicsComponent)) addComponents<GraphicsComponent>(entity, componentManager);           
+            if (type == typeid(CollisionComponent)) addComponents<CollisionComponent>(entity, componentManager);  
+            if (type == typeid(AudioComponent)) addComponents<AudioComponent>(entity, componentManager);
         }
 
         return entity;
     }
 
-    void updateEntity(Entity entity, const Archetype& archetype) 
+    void updateArchetype(Archetype* archetype, const std::vector<std::type_index>& newComponentTypes) 
     {
-        // Access the EntityManager and ComponentManager
-        EntityManager& entityManager = g_Coordinator.GetEntityManager();
-        ComponentManager& componentManager = g_Coordinator.GetComponentManager();
+        archetype->componentTypes = newComponentTypes; // Update the archetype
 
-        // Logic to update the entity's components based on the new archetype
-        Signature newSignature = createSignature(&archetype);
-        entityManager.SetSignature(entity, newSignature);
+        // Check if the entity's signature matches the updated archetype
+        Signature newSignature = createSignature(archetype);
 
-        // Add new components if necessary
-        for (const auto& type : archetype.componentTypes) 
+        // Iterate through all entities to update their components based on the new archetype
+        for (const auto& entity : archetype->archEntities)
         {
-            if (type == typeid(TransformComponent)) 
+            // Update the entity's signature
+            entityManager.SetSignature(entity, newSignature);
+
+            // Always ensure the MetadataComponent is present
+            if (!componentManager.HaveComponent<MetadataComponent>(entity)) {
+                addComponents<MetadataComponent>(entity, componentManager);
+            }
+            componentManager.GetComponent<MetadataComponent>(entity).SetName(archetype->name); // Update name
+
+            // Initialize or update components for the entity based on the new archetype
+            for (const auto& type : archetype->componentTypes) 
             {
-                // Check if the entity has the component of this type
-                if (!componentManager.HaveComponent<TransformComponent>(entity)) {
-                    auto component = createComponent<TransformComponent>();
-                    if (component) {
-                        componentManager.AddComponent(entity, std::move(*component));
-                    }
-                }
+                if (type == typeid(TransformComponent)) addComponents<TransformComponent>(entity, componentManager);
+                if (type == typeid(GraphicsComponent)) addComponents<GraphicsComponent>(entity, componentManager);
+                if (type == typeid(CollisionComponent)) addComponents<CollisionComponent>(entity, componentManager);
+                if (type == typeid(AudioComponent)) addComponents<AudioComponent>(entity, componentManager);
             }
         }
-    }
-
-    void updateArchetype(Archetype* archetype, const std::vector<std::type_index>& newComponentTypes) {
-        archetype->componentTypes = newComponentTypes; // Update the archetype
-        // Optionally update all entities linked to this archetype if needed
     }
 
     // Method to retrieve all existing archetypes
@@ -107,21 +117,25 @@ public:
 private:
     std::vector<Archetype> archetypes; // Store all archetypes
 
+    // Access the EntityManager and ComponentManager
+    EntityManager& entityManager = g_Coordinator.GetEntityManager();
+    ComponentManager& componentManager = g_Coordinator.GetComponentManager();
+
     Signature createSignature(const Archetype* archetype) 
     {
         ComponentManager& componentManager = g_Coordinator.GetComponentManager();
 
         Signature signature = 0; // Assuming Signature is a bitset or a similar type
-        for (const auto& type : archetype->componentTypes) {
+        for (const auto& type : archetype->componentTypes) 
+        {
             // Set the corresponding bit in the signature based on component type
             signature.set(componentManager.GetComponentType(type)); 
-            std::cout << "Requested component type: " << type.name() << std::endl;
         }
         return signature;
     }
 
     template<typename T>
-    std::unique_ptr<T> createComponent() 
+    std::unique_ptr<T> createComponent()
     {
         return std::make_unique<T>(); // Create and return a unique_ptr to the component
     }

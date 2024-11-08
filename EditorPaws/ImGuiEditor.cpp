@@ -1792,33 +1792,105 @@ void ImGuiEditor::ArchetypeTest()
 
 		// Checkbox list for available component types
 		static bool transformComponentSelected = false; // Toggle state for Transform Component
+		static bool graphicsComponentSelected = false; // Toggle state for Graphics Component
+		static bool collisionComponentSelected = false; // Toggle state for Collision Component
+		static bool audioComponentSelected = false; // Toggle state for Collision Component
+
 		ImGui::Text("Available Components:");
 
 		if (ImGui::Checkbox("Transform Component", &transformComponentSelected)) {
-			// Toggle component selection
 			if (transformComponentSelected) {
 				compTypes.push_back(typeid(TransformComponent)); // Add component type
 			}
 			else {
-				// Remove component type if unchecked
 				compTypes.erase(std::remove(compTypes.begin(), compTypes.end(), typeid(TransformComponent)), compTypes.end());
 			}
 		}
 
+		if (ImGui::Checkbox("Graphics Component", &graphicsComponentSelected)) {
+			if (graphicsComponentSelected) {
+				compTypes.push_back(typeid(GraphicsComponent)); // Add component type
+			}
+			else {
+				compTypes.erase(std::remove(compTypes.begin(), compTypes.end(), typeid(GraphicsComponent)), compTypes.end());
+			}
+		}
+
+		if (ImGui::Checkbox("Collision Component", &collisionComponentSelected)) {
+			if (collisionComponentSelected) {
+				compTypes.push_back(typeid(CollisionComponent)); // Add component type
+			}
+			else {
+				compTypes.erase(std::remove(compTypes.begin(), compTypes.end(), typeid(CollisionComponent)), compTypes.end());
+			}
+		}
+
+		if (ImGui::Checkbox("Audio Component", &audioComponentSelected)) {
+			if (audioComponentSelected) {
+				compTypes.push_back(typeid(AudioComponent)); // Add component type
+			}
+			else {
+				compTypes.erase(std::remove(compTypes.begin(), compTypes.end(), typeid(AudioComponent)), compTypes.end());
+			}
+		}
+
 		// Button to create a new archetype
-		if (ImGui::Button("Create Archetype")) 
+		if (ImGui::Button("Create Archetype"))
 		{
 			if (strlen(archetypeName) > 0 && !compTypes.empty())
 			{
+				// Always have MetadataComponent
+				compTypes.push_back(typeid(MetadataComponent));
 				std::vector<std::type_index> selectedComponents = compTypes; // Copy selected components
 				g_Arch.createArchetype(archetypeName, selectedComponents); // Pass the archetype name
-				// Optionally reset the input and selections
+
+				// Reset the input and selections
 				memset(archetypeName, 0, sizeof(archetypeName)); // Clear the archetype name input
 				compTypes.clear(); // Clear selected component types
+				transformComponentSelected = false; // Reset component selection states
+				graphicsComponentSelected = false;
+				collisionComponentSelected = false;
+				audioComponentSelected = false;
 			}
 			else if (compTypes.empty()) {
 				ImGui::Text("Please select at least one component."); // Alert if no components are selected
 			}
+		}
+
+		// Dropdown to select existing archetypes for updating
+		static int selectedArchetypeIndex = -1;
+		auto archetypes = g_Arch.getArchetypes(); // Assuming this returns a vector of Archetype pointers
+		std::vector<const char*> archetypeNames; // Vector to hold archetype names
+
+		// Populate archetype names
+		for (auto& archetype : archetypes) {
+			archetypeNames.push_back(archetype->name.c_str()); // Assuming Archetype has a name property
+		}
+
+		ImGui::Combo("Select Archetype to Update", &selectedArchetypeIndex, archetypeNames.data(), archetypeNames.size());
+
+		// Button to update the selected archetype
+		if (ImGui::Button("Update Archetype") && selectedArchetypeIndex != -1)
+		{
+			Archetype* selectedArchetype = archetypes[selectedArchetypeIndex]; // Get selected archetype
+			std::cout << "Updating archetype: " << selectedArchetype->name << std::endl; // Debug print
+
+			// Print current component types for verification
+			std::cout << "Current component types:";
+			for (const auto& type : compTypes) {
+				std::cout << " " << type.name();
+			}
+			std::cout << std::endl;
+
+			// Ensure always got metadatacomp
+			compTypes.push_back(typeid(MetadataComponent));
+			g_Arch.updateArchetype(selectedArchetype, compTypes); // Update the archetype with selected component types
+
+			compTypes.clear(); // Clear selected component types for the next update
+			transformComponentSelected = false; // Reset component selection states
+			graphicsComponentSelected = false;
+			collisionComponentSelected = false;
+			audioComponentSelected = false;
 		}
 
 		// List existing archetypes (optional)
