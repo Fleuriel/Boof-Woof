@@ -8,7 +8,7 @@
 #include "ResourceManager/ResourceManager.h"
 #include "Windows/WindowManager.h"
 
-
+#include "Input/Input.h"
 
 
 bool GraphicsSystem::glewInitialized = false;
@@ -98,6 +98,10 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 
 void GraphicsSystem::UpdateLoop() {
+
+	//if (g_Input.IsActionPressed(ActionType::Jump)) {
+	//	std::cout << "Jump\n";
+	//}
 
 	// Get the current time
 	auto currentTime = std::chrono::high_resolution_clock::now();
