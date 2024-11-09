@@ -13,6 +13,10 @@
  *************************************************************************/
 #include "pch.h"
 #include "PhysicsSystem.h"
+
+#pragma warning(push)
+#pragma warning(disable: 4505)
+
 #include <Jolt/Physics/Body/Body.h>                   // For Body
 #include <Jolt/Physics/Body/BodyCreationSettings.h>   // For BodyCreationSettings
 #include <Jolt/Physics/Collision/Shape/SphereShape.h> // For SphereShape
@@ -580,3 +584,6 @@ void MyPhysicsSystem::Cleanup() {
 
     std::cout << "Physics system cleanup done" << std::endl;
 }
+
+
+#pragma warning(pop)

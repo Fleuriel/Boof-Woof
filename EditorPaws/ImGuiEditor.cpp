@@ -10,7 +10,6 @@
 #include "AssetManager/FilePaths.h"
 
 
-bool GraphicsSystem::debug = false;
 
 
 namespace fs = std::filesystem;
@@ -186,6 +185,7 @@ void ImGuiEditor::WorldHierarchy()
 				{
 					if (g_GettingDeletedEntity != MAX_ENTITIES)
 					{
+						g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(g_GettingDeletedEntity);
 						g_Coordinator.DestroyEntity(g_GettingDeletedEntity);
 
 					}
@@ -1925,7 +1925,7 @@ void ImGuiEditor::ArchetypeTest()
 		ImGui::NewLine();
 		ImGui::SeparatorText("Select Archetype to Update");
 		ImGui::Text("Names"); ImGui::SameLine();
-		ImGui::Combo("##UpdateArch", &selectedArchetypeIndex, archetypeNames.data(), archetypeNames.size());
+		ImGui::Combo("##UpdateArch", &selectedArchetypeIndex, archetypeNames.data(), static_cast<int>(archetypeNames.size()));
 
 		if (selectedArchetypeIndex != -1) {
 			ImGui::Text("Tick the above checkboxes to update!");

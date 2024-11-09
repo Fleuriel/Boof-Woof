@@ -147,7 +147,7 @@ void Window::OnUpdate()
 
 
 
-    m_AssetManagerMonitoringTimer += m_DeltaTime;
+    m_AssetManagerMonitoringTimer += static_cast<float>(m_DeltaTime);
 
     if (g_AssetManager.Currentlyloading == false && m_AssetManagerMonitoringTimer > 1.f){
         g_AssetManager.MonitorFiles(L"..\\BoofWoof\\Assets\\Art\\Textures");

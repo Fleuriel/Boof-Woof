@@ -92,7 +92,7 @@ void Animation::Update(float deltaTime) {
     }
 
     for (auto& [boneName, boneTransform] : boneTransforms) {
-        Keyframe kf1, kf2;
+        Keyframe kf1{}, kf2{};
         bool foundFrames = false;
 
         for (size_t i = 0; i < boneTransform.keyframes.size() - 1; ++i) {

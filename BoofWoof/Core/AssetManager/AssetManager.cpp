@@ -46,9 +46,9 @@ std::string toLowerCase(const std::string& input) {
 }
 
 
-void AssetManager::DiscardToTrashBin(const std::string& filepath, const std::string& folderName, bool message) {
+void AssetManager::DiscardToTrashBin(const std::string& filepath, const std::string& folderName, bool msg) {
 
-    if (message) {
+    if (msg) {
         // Convert the file path from std::string to std::wstring
         std::wstring widefile(filepath.begin(), filepath.end());
         HWND hwnd = GetActiveWindow();
@@ -721,7 +721,7 @@ bool AssetManager::LoadObjects() {
                 }
  
 
-                bool firstCheck = false;
+                // bool firstCheck = false;
 
                 if (MTLCheck && JPGCheck || PNGCheck)
                 {

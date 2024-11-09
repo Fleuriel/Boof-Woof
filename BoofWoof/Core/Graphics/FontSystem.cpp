@@ -1,11 +1,12 @@
 #include "pch.h"
 #include "FontSystem.h"
 #include <stb_image.h>
+
+#pragma warning(push)
+#pragma warning(disable: 5054)
+
 #include <rapidjson/document.h>
 #include <rapidjson/istreamwrapper.h>
-#include <fstream>
-#include <iostream>
-#include <unordered_map>
 #include "ResourceManager/ResourceManager.h"
 
 
@@ -189,13 +190,13 @@ void FontSystem::init_font()
 
 std::unordered_map<GLchar, Glyph> FontSystem::loadFontMetadata(const std::string& jsonPath)
 {
-    std::unordered_map<GLchar, Glyph> glyphs;
+    std::unordered_map<GLchar, Glyph> glyphs_load;
 
     // Open and parse the JSON file
     std::ifstream ifs(jsonPath);
     if (!ifs.is_open()) {
         std::cerr << "Failed to open JSON file." << std::endl;
-        return glyphs;
+        return glyphs_load;
     }
 
     rapidjson::IStreamWrapper isw(ifs);
@@ -204,7 +205,7 @@ std::unordered_map<GLchar, Glyph> FontSystem::loadFontMetadata(const std::string
 
     if (!document.HasMember("glyphs") || !document["glyphs"].IsArray()) {
         std::cerr << "Invalid JSON format: 'glyphs' array missing." << std::endl;
-        return glyphs;
+        return glyphs_load;
     }
     else {
 		altasWidth = document["atlas"]["width"].GetFloat();
@@ -216,7 +217,7 @@ std::unordered_map<GLchar, Glyph> FontSystem::loadFontMetadata(const std::string
 	static int count = 0;
     // Iterate over each glyph in the JSON "glyphs" array
     for (const auto& glyph : document["glyphs"].GetArray()) {
-        Glyph g;
+        Glyph g{};
 
         // Load advance
         if (glyph.HasMember("advance") && glyph["advance"].IsNumber()) {
@@ -244,13 +245,13 @@ std::unordered_map<GLchar, Glyph> FontSystem::loadFontMetadata(const std::string
         // Load glyph index and store it in the map
         if (glyph.HasMember("index") && glyph["index"].IsInt()) {
 			char character = static_cast<char>(glyph["index"].GetInt());
-            glyphs[character] = g;
+            glyphs_load[character] = g;
 			//std::cout << "Glyphs: " << character << std::endl;
         }
 		
     }
 
-    return glyphs;
+    return glyphs_load;
 }
 
 void FontSystem::render_text(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color)
@@ -312,3 +313,8 @@ void FontSystem::render_text(OpenGLShader& shader, std::string text, float x, fl
 
 
 
+
+
+
+
+#pragma warning(pop)

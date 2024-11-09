@@ -10,6 +10,7 @@ void AnimationManager::AddAnimation(const std::string& name, const Animation& an
 void AnimationManager::PrintAnimationNames() const {
     //std::cout << "Available Animations:\n";
     for (const auto& pair : animations) {
+        (void)pair;
       //  std::cout << " - " << pair.first << std::endl;  // pair.first is the animation name
     }
 }

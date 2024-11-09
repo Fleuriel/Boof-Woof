@@ -11,6 +11,8 @@
 #include "Input/Input.h"
 
 
+bool GraphicsSystem::debug = false;
+
 bool GraphicsSystem::glewInitialized = false;
 
 bool GraphicsSystem::D2 = false;
@@ -88,7 +90,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	fontSystem.init();
+	//fontSystem.init_font();
 
 	LoadAnimation("walk", "..\\BoofWoof\\Resources\\Animations\\corgi.fbx");
 
@@ -318,7 +320,7 @@ void GraphicsSystem::UpdateLoop() {
 	//g_AssetManager.GetShader("Font").SetUniform("projection", fontprojection);
 	
 	//fontSystem.RenderText(g_AssetManager.GetShader("Font"), "Hello, World!", 0.0f, 0.0f, 0.001f, glm::vec3(1.f, 0.8f, 0.2f));
-	
+	//fontSystem.render_text(g_AssetManager.GetShader("Font"), "Hello, World!", 0.0f, 0.0f, 0.001f, glm::vec3(1.f, 0.8f, 0.2f));
 
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
@@ -422,8 +424,8 @@ void GraphicsSystem::LoadAnimation(const std::string& animationName, const std::
 	animationManager.AddAnimation(animationName, animation);
 }
 
-void GraphicsSystem::UpdateAnimations(float deltaTime) {
-	animationManager.UpdateAnimations(deltaTime);
+void GraphicsSystem::UpdateAnimations(float dt) {
+	animationManager.UpdateAnimations(dt);
 }
 
 std::unordered_map<std::string, glm::mat4> GraphicsSystem::GetBoneTransforms(const std::string& animationName) const {
