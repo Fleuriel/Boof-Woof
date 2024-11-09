@@ -63,8 +63,19 @@ void main()
 		vec3 lightVector = lightPos - FragPos;
         float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
         vec4 textureColor = texture(texture_diffuse1, TexCoords);
+        textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
         //fragColor = vec4(textureColor.rgb, textureColor.a);
-        fragColor = vec4(textureColor.rgb * N_dot_L, textureColor.a);
+        
+        vec3 ambientColor = vec3(0.0f,0.0f,0.0f);
+        vec3 diffuseColor = textureColor.rgb;
+
+
+        vec3 ambient = ambientColor  * 0.1f;
+        vec3 diffuse = diffuseColor  * N_dot_L;
+
+        vec3 finalColor = ambient + diffuse; // Combine ambient and diffuse components
+
+        fragColor = vec4(finalColor, 1.0);
 	}else{
         vec3 lightVector = lightPos - FragPos;
         float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );

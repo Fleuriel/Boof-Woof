@@ -18,6 +18,7 @@
 #define MESH_H
 
 #include "Shader.h"
+//#include "ResourceManager/ResourceManager.h"
 
 #define MAX_BONE_INFLUENCE 4
 
@@ -138,9 +139,8 @@ public:
     }
 
     // render the mesh with lines
-    void DrawLines(OpenGLShader& shader)
+    void DrawLines()
     {
-        (void)shader;
         //glPolygonMode(GL_FRONT_AND_BACK, drawMode);
 
 		glBindVertexArray(VAO);
@@ -165,14 +165,14 @@ public:
 
 	}
 
-    void AddTexture(const std::string& textureName)
-    {
-        Texture texture;
-        texture.id = g_ResourceManager.GetTextureDDS(textureName); // Assuming you have a function to load the texture
-        texture.type = "texture_diffuse";
-        //texture.path = path;
-        textures.push_back(texture); // Add the texture to the vector
-    }
+  // void AddTexture(const std::string& textureName)
+  // {
+  //     Texture texture;
+  //     texture.id = g_ResourceManager.GetTextureDDS(textureName); // Assuming you have a function to load the texture
+  //     texture.type = "texture_diffuse";
+  //     //texture.path = path;
+  //     textures.push_back(texture); // Add the texture to the vector
+  // }
 
 
 
@@ -242,8 +242,8 @@ public:
 		//check if the TexCoords are empty
      
         // vertex texture coords (location = 2 in vertex shader)
-        glEnableVertexAttribArray(2);
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+       glEnableVertexAttribArray(2);
+       glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
       
   
        // vertex tangent

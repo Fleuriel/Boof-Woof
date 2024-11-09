@@ -67,10 +67,10 @@ public:
     }
 
     // draw with line
-    void DrawLine(OpenGLShader& shader)
+    void DrawLine()
     {
         for (unsigned int i = 0; i < meshes.size(); i++)
-            meshes[i].DrawLines(shader);
+            meshes[i].DrawLines();
 	}
 
     void DrawPoint(OpenGLShader& shader)

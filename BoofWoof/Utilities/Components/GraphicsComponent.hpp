@@ -43,15 +43,15 @@ public:
     // Set texture name
     void setTexture(std::string texture) { textureName = texture; }
 
-    void setMesh(Mesh* mesh) { m_Mesh = mesh; }
-    Mesh* getMesh() const { return m_Mesh; }
+   // void setMesh(Mesh* mesh) { m_Mesh = mesh; }
+   // Mesh* getMesh() const { return m_Mesh; }
 
     
-    void setMeshTexture(std::string inputString)
-    {
-        m_Mesh->textures.push_back(g_ResourceManager.GetTextureDDS(inputString));
-
-    }
+   //void setMeshTexture(std::string inputString)
+   //{
+   //    m_Mesh->textures.push_back(g_ResourceManager.GetTextureDDS(inputString));
+   //
+   //}
     
 
 
@@ -85,8 +85,6 @@ private:
     int m_ModelID{};
     std::string textureName;
     std::vector<int> textures{};
-    Mesh* m_Mesh = nullptr;
-    Model* m_Model = nullptr;
 
 };
 

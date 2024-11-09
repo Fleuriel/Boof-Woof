@@ -164,7 +164,7 @@ void GraphicsSystem::UpdateLoop() {
 				// START OF 3D
 
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
-				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
+//				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
 				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
 				
@@ -190,6 +190,11 @@ void GraphicsSystem::UpdateLoop() {
 
 				}
 
+
+
+				if(debug)
+					if(D3)
+						g_ResourceManager.getModel(graphicsComp.getModelName())->DrawLine();
 				/*//skip for now
 				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
 				{
@@ -254,6 +259,18 @@ void GraphicsSystem::UpdateLoop() {
 					glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName()));
 				//glBindTextureUnit(6, set_Texture_T);
 
+				if (debug)
+				{
+					if (D2)
+					{
+						Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
+						g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
+						g_AssetManager.GetShader("OutlineAndFont").Use();
+						SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
+
+						g_AssetManager.GetShader("OutlineAndFont").UnUse();
+					}
+				}
 
 				//graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
 				//g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
@@ -263,26 +280,8 @@ void GraphicsSystem::UpdateLoop() {
 
 				g_AssetManager.GetShader("Shader2D").UnUse();
 				
-				// END OF 2D TEXTURE
-				// START OF 2D OUTLINE AND FONTS
-
-				// DO A CHECK SO THAT IT WILL BE SOMETHING... ETC ETC.
-				Model AABBOutline = AABB(glm::vec3(0.0f, 1.0f, 1.0f));
-				Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
-
-				g_AssetManager.GetShader("OutlineAndFont").Use();
-
-				SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
 
 
-				if (D3)
-					//graphicsComp.getModel()->DrawCollisionBox3D(AABBOutline);
-					g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(AABBOutline);
-				if (D2)
-					//graphicsComp.getModel()->DrawCollisionBox2D(squareOutline);
-					g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
-				
-				g_AssetManager.GetShader("OutlineAndFont").UnUse();
 
 				// END OF 2D OUTLINE AND FONTS
 				
