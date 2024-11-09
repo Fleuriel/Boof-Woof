@@ -265,7 +265,7 @@ void FontSystem::render_text(OpenGLShader& shader, std::string text, float x, fl
     // Iterate through all characters in the string
     for (const char& character : text)
     {
-		std::cout << "Character: " << character << std::endl;
+		//std::cout << "Character: " << character << std::endl;
         if (glyphs.find(character) == glyphs.end()) continue; // Skip if glyph not found
 
         const Glyph& glyph = glyphs[character];

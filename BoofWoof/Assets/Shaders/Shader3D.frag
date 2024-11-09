@@ -40,11 +40,11 @@ void main()
 {
 
     if(textureCount ==2 ){
-        vec3 normal = texture(texture_diffuse1, TexCoords).rgb;
+        vec3 normal = texture(texture_normal1, TexCoords).rgb;
 
         normal = normalize(normal * 2.0 - 1.0);
 
-        vec3 color = texture(texture_normal1, TexCoords).rgb;
+        vec3 color = texture(texture_diffuse1, TexCoords).rgb;
         vec3 ambient = 0.1 * color;
         vec3 lightDir = normalize(fs_in.TangentLightPos - fs_in.TangentFragPos);
 
