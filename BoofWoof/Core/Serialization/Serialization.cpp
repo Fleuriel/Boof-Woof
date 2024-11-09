@@ -339,9 +339,11 @@ bool Serialization::LoadScene(const std::string& filepath) {
                     GraphicsComponent graphicsComponent(modelName, entity, TextureName);
                     graphicsComponent.SetModelID(modelID);
                     
-                    if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt < graphicsComponent.getTextureNumber()) {
+                    std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
+
+ //                   if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt < graphicsComponent.getTextureNumber()) {
                         Texture texture_add;
-                        texture_add.id = graphicsComponent.getTexture(g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt);
+                        texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComponent.getModelName());
                         if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 0)
                             texture_add.type = "texture_diffuse";
                         else if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 1)
@@ -366,7 +368,7 @@ bool Serialization::LoadScene(const std::string& filepath) {
                         }
 
                         g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt++;
-                    }
+   //                 }
 
 
                     g_Coordinator.AddComponent(entity, graphicsComponent);
