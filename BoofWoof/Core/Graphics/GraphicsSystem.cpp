@@ -168,26 +168,26 @@ void GraphicsSystem::UpdateLoop() {
 				// START OF 3D
 
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
-//				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
+				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
 				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
 
-				std::cout << "entity "<< entity << "\n";
-				std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
-				std::cout << "comp tetx cnt "<<graphicsComp.getTextureNumber() << "\n";
+				//std::cout << "entity "<< entity << "\n";
+				//std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
+				//std::cout << "comp tetx cnt "<<graphicsComp.getTextureNumber() << "\n";
 
 
-				if (graphicsComp.getTextureNumber() == 0) {
+				//if (graphicsComp.getTextureNumber() == 0) {
 					for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
 						mesh.textures.clear();
 					}
-
+					
 					g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt = 0;
-				}
+				//}
 				
 
 
-				while (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()){
+				while(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()){
 
 
 #ifdef _DEBUG
@@ -200,9 +200,11 @@ void GraphicsSystem::UpdateLoop() {
 					
 					// add texture to mesh
 					Texture texture_add;
-					texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
+//					texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
 
-					//std::cout << texture_add.id << "\n";
+					texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComp.getModelName());
+
+					std::cout << "TEXTURE ID: " << texture_add.id << "\n";
 
 					if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 0)
 						texture_add.type = "texture_diffuse";
@@ -211,6 +213,8 @@ void GraphicsSystem::UpdateLoop() {
 					else
 						texture_add.type = "texture_specular";
 
+
+					std::cout<< "GraphicsSystem: Path : " << texture_add.path << '\n';
 					//std::cout << texture_add.type << '\n';
 
 					//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
@@ -222,15 +226,17 @@ void GraphicsSystem::UpdateLoop() {
 						std::cout << "entered\n";
 					}
 
-					g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
+					 g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
 
 				}
 				//clear all textures
 				for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
 					std::cout << "texture size after clearing: " << mesh.textures.size() << "\n";
 				}
-				std::cout << "out model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
-				std::cout << "out comp tetx cnt " << graphicsComp.getTextureNumber() << "\n";
+				std::cout << "Model: " << graphicsComp.getModelName() << '\t' << graphicsComp.getTextureName() << '\n';
+
+				//std::cout << "out model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
+				//std::cout << "out comp tetx cnt " << graphicsComp.getTextureNumber() << "\n";
 
 
 

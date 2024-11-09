@@ -337,6 +337,7 @@ bool Serialization::LoadScene(const std::string& filepath) {
 
                     }
 
+
                     GraphicsComponent graphicsComponent(modelName, entity, TextureName);
                     graphicsComponent.SetModelID(modelID);
                     
@@ -346,47 +347,64 @@ bool Serialization::LoadScene(const std::string& filepath) {
                     std::cout << g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
                     std::cout << graphicsComponent.getTextureNumber() << '\n';
 
-                   
+                    while (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt < graphicsComponent.getTextureNumber()) {
                         Texture texture_add;
-                        texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComponent.getModelName()); 
+
+                        std::cout << "inside while loop serialization\n";
+                        //std::cout << graphicsComponent.getTexture(g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt) << '\n';
+                        std::cout << g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
+                        std::cout << graphicsComponent.getModelName() << '\n';
+                        std::cout << g_ResourceManager.GetTextureDDS(graphicsComponent.getModelName()) << '\n';
+
+                        //texture_add.id = graphicsComponent.getTexture(g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt);
+                       
+                        
+                        //texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComponent.getModelName());
+                        std::cout << "Texture ID : " << texture_add.id << '\n';
+
                         texture_add.type = "texture_diffuse";
                         if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 0)
                         {
-//                            std::cout << "etner\n";
+                            //                            std::cout << "etner\n";
                             texture_add.type = "texture_diffuse";
                         }
                         else if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 1)
                         {
 
                             texture_add.type = "texture_normal";
-                           // std::cout << "v2.o";
+                            // std::cout << "v2.o";
                         }
                         else
                             texture_add.type = "texture_specular";
 
                         texture_add.path = graphicsComponent.getModelName();
 
+                        std::cout<< "Serialization texture name : " << graphicsComponent.getTextureName() << '\n';
 
+                   
 #ifdef _DEBUG
                         //std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
                      //  std::cout << "\n\n\n\n\n";
                      //  std::cout << graphicsComponent.getModelName() << '\n';
 
 
-                      //  std::cout << "id type path " << texture_add.id << '\t' << texture_add.type << '\t' << texture_add.path << '\n';
+                        std::cout << "id type path " << texture_add.id << '\t' << texture_add.type << '\t' << texture_add.path << '\n';
 #endif
                         for (auto& mesh : g_ResourceManager.getModel(graphicsComponent.getModelName())->meshes) {
-                       //     std::cout << "asd\n";
+                            std::cout << "asd\n";
+                            std::cout << "asd\n";
+                            std::cout << "asd\n";
 
                             mesh.textures.clear();
+                       
 
                             mesh.textures.push_back(texture_add);
-                       //     std::cout << mesh.textures.size() << '\n';
+                            std::cout << mesh.textures.size() << '\n';
                         }
 
                         g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt++;
 
-
+                    }
 
                     
 

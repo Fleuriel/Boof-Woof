@@ -219,7 +219,7 @@ bool LoadBinFile(const std::string& filePath) {
 #ifdef _DEBUG
                 std::cout << texture.id << '\n';
 #endif
-               texture.type = "texture_diffuse"; // Assign type if known
+              // texture.type = "texture_diffuse"; // Assign type if known
                 textures.push_back(texture);
 
                 std::cout << textures.size() << '\n';

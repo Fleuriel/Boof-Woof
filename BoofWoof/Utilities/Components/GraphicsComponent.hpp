@@ -37,6 +37,7 @@ public:
     
     std::string getTextureName() const { return textureName; }
 
+    bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
     int getTextureNumber() const { return static_cast<int>(textures.size()); }
     int getTexture(int i) const { return textures[i]; }
 
