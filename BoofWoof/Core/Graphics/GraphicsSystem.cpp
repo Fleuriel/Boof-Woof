@@ -11,6 +11,8 @@
 #include "Input/Input.h"
 
 
+bool GraphicsSystem::debug = false;
+
 bool GraphicsSystem::glewInitialized = false;
 
 bool GraphicsSystem::D2 = false;

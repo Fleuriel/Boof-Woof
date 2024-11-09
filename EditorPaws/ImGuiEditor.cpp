@@ -10,7 +10,6 @@
 #include "AssetManager/FilePaths.h"
 
 
-bool GraphicsSystem::debug = false;
 
 
 namespace fs = std::filesystem;
