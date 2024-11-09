@@ -410,8 +410,8 @@ void GraphicsSystem::LoadAnimation(const std::string& animationName, const std::
 	animationManager.AddAnimation(animationName, animation);
 }
 
-void GraphicsSystem::UpdateAnimations(float deltaTime) {
-	animationManager.UpdateAnimations(deltaTime);
+void GraphicsSystem::UpdateAnimations(float dt) {
+	animationManager.UpdateAnimations(dt);
 }
 
 std::unordered_map<std::string, glm::mat4> GraphicsSystem::GetBoneTransforms(const std::string& animationName) const {

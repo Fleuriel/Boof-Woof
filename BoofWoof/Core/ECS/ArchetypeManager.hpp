@@ -123,8 +123,6 @@ private:
 
     Signature createSignature(const Archetype* archetype) 
     {
-        ComponentManager& componentManager = g_Coordinator.GetComponentManager();
-
         Signature signature = 0; // Assuming Signature is a bitset or a similar type
         for (const auto& type : archetype->componentTypes) 
         {

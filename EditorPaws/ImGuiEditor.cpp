@@ -1920,7 +1920,7 @@ void ImGuiEditor::ArchetypeTest()
 		ImGui::NewLine();
 		ImGui::SeparatorText("Select Archetype to Update");
 		ImGui::Text("Names"); ImGui::SameLine();
-		ImGui::Combo("##UpdateArch", &selectedArchetypeIndex, archetypeNames.data(), archetypeNames.size());
+		ImGui::Combo("##UpdateArch", &selectedArchetypeIndex, archetypeNames.data(), static_cast<int>(archetypeNames.size()));
 
 		if (selectedArchetypeIndex != -1) {
 			ImGui::Text("Tick the above checkboxes to update!");

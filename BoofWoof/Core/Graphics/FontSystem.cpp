@@ -1,11 +1,12 @@
 #include "pch.h"
 #include "FontSystem.h"
 #include <stb_image.h>
+
+#pragma warning(push)
+#pragma warning(disable: 5054)
+
 #include <rapidjson/document.h>
 #include <rapidjson/istreamwrapper.h>
-#include <fstream>
-#include <iostream>
-#include <unordered_map>
 #include "ResourceManager/ResourceManager.h"
 
 
@@ -216,7 +217,7 @@ std::unordered_map<GLchar, Glyph> FontSystem::loadFontMetadata(const std::string
 	static int count = 0;
     // Iterate over each glyph in the JSON "glyphs" array
     for (const auto& glyph : document["glyphs"].GetArray()) {
-        Glyph g;
+        Glyph g{};
 
         // Load advance
         if (glyph.HasMember("advance") && glyph["advance"].IsNumber()) {
@@ -312,3 +313,8 @@ void FontSystem::render_text(OpenGLShader& shader, std::string text, float x, fl
 
 
 
+
+
+
+
+#pragma warning(pop)
