@@ -4,7 +4,7 @@
 o 
 
 # material
-mtllib Corgi_Small.mtl
+mtllib Corgi_small.mtl
 usemtl palette
 
 # normals

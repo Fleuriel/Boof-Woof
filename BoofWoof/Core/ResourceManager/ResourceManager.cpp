@@ -74,7 +74,7 @@ bool ResourceManager::LoadAll() {
 }
 
 
-GLuint LoadDDS(const char* filePath) {
+GLuint LoadDDS(const char* filePath, GLuint existingTexture = 0) {
     // Load the DDS file
     gli::texture Texture = gli::load(filePath);
     if (Texture.empty()) {
@@ -92,16 +92,26 @@ GLuint LoadDDS(const char* filePath) {
     gli::gl GL(gli::gl::PROFILE_GL33);
     gli::gl::format const Format = GL.translate(Texture.format(), Texture.swizzles());
     GLenum Target = GL.translate(Texture.target());
+    glm::tvec3<GLsizei> extent(Texture.extent());
     //assert(Target == gli::TARGET_2D); // Ensure the target is 2D
 
-    GLuint TextureName = 0;
-    glGenTextures(1, &TextureName);
+    GLuint TextureName = existingTexture;
+    if (TextureName == 0)
+    {
+
+        glGenTextures(1, &TextureName);
+    }
+    else
+    {
+        glDeleteTextures(1, &TextureName);
+    }
     glBindTexture(Target, TextureName);
 
     // Set texture parameters
     glTexParameteri(Target, GL_TEXTURE_BASE_LEVEL, 0);
     glTexParameteri(Target, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(Texture.levels() - 1));
     glTexParameteriv(Target, GL_TEXTURE_SWIZZLE_RGBA, &Format.Swizzles[0]);
+    //glTexParameteri(Target, GL_TEXTURE_RB, GL_TRUE);
 
     // Allocate storage for the texture
     glTexStorage2D(Target, static_cast<GLint>(Texture.levels()), Format.Internal,
@@ -208,8 +218,8 @@ bool LoadBinFile(const std::string& filePath) {
 #ifdef _DEBUG
                 std::cout << texture.id << '\n';
 #endif
-                texture.type = "texture_diffuse"; // Assign type if known
-                textures.push_back(texture);
+               texture.type = "texture_diffuse"; // Assign type if known
+               textures.push_back(texture);
             }
 
 #ifdef _DEBUG
@@ -412,6 +422,8 @@ bool ResourceManager::LoadTexturesDDS() {
 
         //add DDS processing here
         GLuint result = LoadDDS((FILEPATH_RESOURCE_TEXTURES + "\\" + textureDDSFileNames[i] + ".dds").c_str());
+
+//        result = LoadDDS((FILEPATH_RESOURCE_TEXTURES + "\\" + textureDDSFileNames[i] + ".dds").c_str())
 
         std::cout << result <<std::endl;
 

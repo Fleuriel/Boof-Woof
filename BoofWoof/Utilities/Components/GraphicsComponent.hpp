@@ -34,18 +34,36 @@ public:
     // Getters
     std::string getModelName() const { return m_ModelName; }
     int getModelID() const { return m_ModelID; }
+    
     std::string getTextureName() const { return textureName; }
+
     int getTextureNumber() const { return static_cast<int>(textures.size()); }
     int getTexture(int i) const { return textures[i]; }
 
     // Set texture name
     void setTexture(std::string texture) { textureName = texture; }
 
+   // void setMesh(Mesh* mesh) { m_Mesh = mesh; }
+   // Mesh* getMesh() const { return m_Mesh; }
+
+    
+   //void setMeshTexture(std::string inputString)
+   //{
+   //    m_Mesh->textures.push_back(g_ResourceManager.GetTextureDDS(inputString));
+   //
+   //}
+    
+
+
+
+
     // Constructor and destructor
 	GraphicsComponent() : textureName (" "){};
 	
 	GraphicsComponent(std::string modelName, Entity& entity, std::string texName) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity)), textureName(texName)
 	{/*Empty by design*/
+
+        
 
 		std::cout << "Model Name of Graphics Component: " << m_ModelName << '\n';
 		std::cout << "Texture Name of Graphics Component: " << textureName << '\n';
@@ -67,6 +85,7 @@ private:
     int m_ModelID{};
     std::string textureName;
     std::vector<int> textures{};
+
 };
 
 #endif  // GRAPHICS_COMPONENT_H

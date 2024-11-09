@@ -398,8 +398,7 @@ void Model::DrawCollisionBox2D(Model outlineModel)
 	glBindVertexArray(outlineModel.vaoid);
 //	std::cout << outlineModel.vaoid << '\n';
 	
-	glLineWidth(15.0f);
-
+	glLineWidth(1.0f);
 // Draw the square outline
 	glDrawElements(outlineModel.primitive_type, outlineModel.draw_cnt, GL_UNSIGNED_SHORT, 0);
 
@@ -420,7 +419,7 @@ void Model::DrawCollisionBox3D(Model outlineModel) const
 	glBindVertexArray(outlineModel.vaoid);
 	//	std::cout << outlineModel.vaoid << '\n';
 
-	glLineWidth(15.0f);
+	glLineWidth(1.0f);
 
 	// Draw the square outline
 	glDrawElements(outlineModel.primitive_type, outlineModel.draw_cnt, GL_UNSIGNED_SHORT, 0);
