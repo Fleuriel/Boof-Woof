@@ -378,7 +378,6 @@ bool Serialization::LoadScene(const std::string& filepath) {
                         for (auto& mesh : g_ResourceManager.getModel(graphicsComponent.getModelName())->meshes) {
                        //     std::cout << "asd\n";
 
-                            mesh.Draw()
                             mesh.textures.clear();
 
                             mesh.textures.push_back(texture_add);
