@@ -122,7 +122,7 @@ void EngineCore::OnUpdate()
 {
 	m_CurrNumSteps = 0;
 	m_DeltaTime = m_EndTime - m_StartTime;	// start at 0
-	m_StartTime = g_Timer.GetCurrentTime();
+	m_StartTime = GetCurrentTime();
 	m_AccumulatedTime += m_DeltaTime;
 
 	while (m_AccumulatedTime >= m_FixedDT)
@@ -140,28 +140,9 @@ void EngineCore::OnUpdate()
 	// window update
 	g_Window->OnUpdate();
 
-	//sound test
-	/*
-	if (g_Input.GetKeyState(GLFW_KEY_P) == 1 && g_Coordinator.HaveComponent<AudioComponent>(g_Coordinator.GetEntityId(0))) {
-
-		std::cout << "P key pressed, playing explosion sound..." << std::endl;
-		mAudioSys->Play(g_Coordinator.GetEntityId(0));  // Play the sound associated with the player entity
-	}
-	*/
-	
-
-
 
 	// input update
 	g_Input.UpdateStatesForNextFrame();
-	if (g_Input.GetKeyState(GLFW_KEY_H) == 1) {
-		std::cout << "Press\n";
-	}
-	if (g_Input.GetKeyState(GLFW_KEY_H) == 2) {
-		std::cout << "Hold\n";
-	}
-
-
 
 	//Transition
 	g_SceneManager.Update((float)m_DeltaTime);
@@ -169,29 +150,34 @@ void EngineCore::OnUpdate()
 	// system updates
 	{
 		// Logic
+		Timer gamelogicTimer;
 		mLogicSys->Update();
-		m_LogicDT = g_Timer.GetElapsedTime();
+		m_LogicDT = gamelogicTimer.GetElapsedTime();
+	}
+
+	{
+		// Physics
+		Timer physicsTimer;
+		mPhysicSys->OnUpdate(static_cast<float>(m_DeltaTime));  // Update physics
+		m_PhysicsDT = physicsTimer.GetElapsedTime();
+	}
+
+	{
+		mAudioSys->Update();
 	}
 
 	{
 		// Graphics
+		Timer graphicsTimer;
 		mGraphicsSys->UpdateLoop();
-		m_GraphicsDT = g_Timer.GetElapsedTime();
-		
-	}
-	{
-		mAudioSys->Update();
-	}
-	{
-		// Physics
-		mPhysicSys->OnUpdate(static_cast<float>(m_DeltaTime));  // Update physics
+		m_GraphicsDT = graphicsTimer.GetElapsedTime();
 	}
 
 
 
 	// keep this at the end
-	m_ElapsedDT = m_GraphicsDT + m_LogicDT; // to add more DT when more systems comes up
-	m_EndTime = g_Timer.GetCurrentTime();
+	m_ElapsedDT = m_LogicDT + m_PhysicsDT + m_GraphicsDT; // to add more DT when more systems comes up
+	m_EndTime = GetCurrentTime();
 
 	// input update
 	g_Input.UpdateStatesForNextFrame();

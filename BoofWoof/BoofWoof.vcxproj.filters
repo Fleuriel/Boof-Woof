@@ -61,7 +61,6 @@
     <ClInclude Include="Utilities\Components\MetaData.hpp" />
     <ClInclude Include="Utilities\Components\TransformComponent.hpp" />
     <ClInclude Include="Core\Serialization\Serialization.h" />
-    <ClInclude Include="Core\Timer\Timer.hpp" />
     <ClInclude Include="Core\Physics\PhysicsSystem.h" />
     <ClInclude Include="Core\SceneManager\SceneManager.h" />
     <ClInclude Include="Core\Audio\AudioSystem.h" />
