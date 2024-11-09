@@ -7,6 +7,7 @@
 #include <imgui_internal.h>
 #include <ImGuiFileDialog.h>
 #include "ResourceManager/ResourceManager.h"
+#include "AssetManager/FilePaths.h"
 
 
 bool GraphicsSystem::debug = false;
@@ -75,6 +76,9 @@ void ImGuiEditor::ImGuiUpdate()
 	Settings();
 	Scenes();
 	PlayStopRunBtn();
+
+	ArchetypeTest();
+
 	if (m_ShowAudio)
 	{
 		Audio();
@@ -1131,54 +1135,88 @@ void ImGuiEditor::AssetWindow()
 		// Calculate the space needed for the buttons
 		float windowWidth = ImGui::GetWindowWidth();
 		float buttonWidth = ImGui::CalcTextSize("Delete Asset").x + ImGui::GetStyle().FramePadding.x * 2;
+
 		float availableSpace = windowWidth - ImGui::CalcTextSize(entireFilePath.c_str()).x - buttonWidth * 2 - ImGui::GetStyle().ItemSpacing.x * 3;
 
 		// subtract the width of the buttons and spacing from the available space to align to the right
 		ImGui::SameLine(availableSpace);
-		//if (ImGui::Button("Add Asset"))
-		//{
-		//	ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag", "../BoofWoof/Assets/");
-		//}
+		if (ImGui::Button("Add Asset"))
+		{
+			ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag,.fbx,.obj,.mtl", "../BoofWoof/Assets/");
+		}
 
-		//ImGui::SameLine();
-		//if (ImGui::Button("Delete Asset"))
-		//{
-		//	ImGuiFileDialog::Instance()->OpenDialog("DeleteAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag", "../BoofWoof/Assets/");
-		//}
+		ImGui::SameLine();
+		if (ImGui::Button("Delete Asset"))
+		{
+			ImGuiFileDialog::Instance()->OpenDialog("DeleteAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag,.fbx,.obj,.mtl", "../BoofWoof/Assets/");
+		}
 
-		//if (ImGuiFileDialog::Instance()->Display("AddAsset"))
-		//{
-		//	// Check if the user made a selection
-		//	if (ImGuiFileDialog::Instance()->IsOk())
-		//	{
-		//		// Get the selected file path
-		//		std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+		if (ImGuiFileDialog::Instance()->Display("AddAsset"))
+		{
+			if (ImGuiFileDialog::Instance()->IsOk())
+			{
+				// Get the selected file path
+				fs::path previousPath(ImGuiFileDialog::Instance()->GetFilePathName());
+				fs::path destinationPath = m_CurrDir / previousPath.filename();
 
-		//		// Asset manager to add in the assets e.g. g_AssetManager.AddAssets(filePathName);
-		//	}
+				// If the destination file already exists, rename it with a counter
+				if (fs::exists(destinationPath)) {
+					int counter = 1;
+					std::string nameWithoutExtension = previousPath.stem().string();  // File name without extension
+					std::string extension = previousPath.extension().string();        // File extension
 
-		//	// close
-		//	ImGuiFileDialog::Instance()->Close();
-		//}
+					std::string newFileName = nameWithoutExtension + "(" + std::to_string(counter) + ")" + extension;
+					fs::path newDestinationPath = m_CurrDir / newFileName;
 
-		//if (ImGuiFileDialog::Instance()->Display("DeleteAsset"))
-		//{
-		//	// Check if the user made a selection
-		//	if (ImGuiFileDialog::Instance()->IsOk())
-		//	{
-		//		// Get the selected file path
-		//		std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+					// Find an available name
+					while (fs::exists(newDestinationPath)) {
+						counter++;
+						newFileName = nameWithoutExtension + "(" + std::to_string(counter) + ")" + extension;
+						newDestinationPath = m_CurrDir / newFileName;
+					}
 
-		//		// find last / to get file name only
-		//		size_t lastSlash = filePathName.find_last_of("/\\");
-		//		std::string deleteFileName = filePathName.substr(lastSlash + 1);
+					// Move the file to the final destination with the new name
+					try {
+						fs::copy(previousPath, newDestinationPath);
+					}
+					catch (const fs::filesystem_error& e) {
+						std::cerr << "Error copying file: " << e.what() << std::endl;
+					}
+				}
+				else {
+					// If no file with the same name exists, move it directly
+					try {
+						fs::copy(previousPath, destinationPath);
+					}
+					catch (const fs::filesystem_error& e) {
+						std::cerr << "Error copying file: " << e.what() << std::endl;
+					}
+				}
+			}
 
-		//		// Asset manager to delete the assets e.g. g_AssetManager.DeleteAssets(deleteFileName);
-		//	}
+			// close
+			ImGuiFileDialog::Instance()->Close();
+		}
 
-		//	// close
-		//	ImGuiFileDialog::Instance()->Close();
-		//}
+		if (ImGuiFileDialog::Instance()->Display("DeleteAsset"))
+		{
+			// Check if the user made a selection
+			if (ImGuiFileDialog::Instance()->IsOk())
+			{
+				//// Get the selected file path
+				//std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+
+				//// find last / to get file name only
+				//size_t lastSlash = filePathName.find_last_of("/\\");
+				//std::string deleteFileName = filePathName.substr(lastSlash + 1);
+
+				// Asset manager to delete the assets e.g. g_AssetManager.DeleteAssets(deleteFileName);
+				g_AssetManager.DiscardToTrashBin(ImGuiFileDialog::Instance()->GetFilePathName(), FILEPATH_ASSET_TRASHBIN, false);
+			}
+
+			// close
+			ImGuiFileDialog::Instance()->Close();
+		}
 
 		ImGui::Spacing();  ImGui::Separator(); ImGui::Spacing();
 
@@ -1773,4 +1811,158 @@ void ImGuiEditor::PlayStopRunBtn()
 
 		ImGui::End();
 	}
+}
+
+void ImGuiEditor::ArchetypeTest()
+{
+	ImGui::Begin("Archetype Manager");
+	{
+		// Input for new archetype name
+
+		ImGui::Text("Archetype Name"); ImGui::SameLine();
+		static char archetypeName[128] = "";
+		ImGui::InputText("##ArchetypeName", archetypeName, IM_ARRAYSIZE(archetypeName));
+
+		// Checkbox list for available component types
+		static bool transformComponentSelected = false; // Toggle state for Transform Component
+		static bool graphicsComponentSelected = false; // Toggle state for Graphics Component
+		static bool collisionComponentSelected = false; // Toggle state for Collision Component
+		static bool audioComponentSelected = false; // Toggle state for Collision Component
+
+		ImGui::SeparatorText("Available Components");
+
+		if (ImGui::Checkbox("Transform Component", &transformComponentSelected)) {
+			if (transformComponentSelected) {
+				compTypes.push_back(typeid(TransformComponent)); // Add component type
+			}
+			else {
+				compTypes.erase(std::remove(compTypes.begin(), compTypes.end(), typeid(TransformComponent)), compTypes.end());
+			}
+		}
+
+		if (ImGui::Checkbox("Graphics Component", &graphicsComponentSelected)) {
+			if (graphicsComponentSelected) {
+				compTypes.push_back(typeid(GraphicsComponent)); // Add component type
+			}
+			else {
+				compTypes.erase(std::remove(compTypes.begin(), compTypes.end(), typeid(GraphicsComponent)), compTypes.end());
+			}
+		}
+
+		if (ImGui::Checkbox("Collision Component", &collisionComponentSelected)) {
+			if (collisionComponentSelected) {
+				compTypes.push_back(typeid(CollisionComponent)); // Add component type
+			}
+			else {
+				compTypes.erase(std::remove(compTypes.begin(), compTypes.end(), typeid(CollisionComponent)), compTypes.end());
+			}
+		}
+
+		if (ImGui::Checkbox("Audio Component", &audioComponentSelected)) {
+			if (audioComponentSelected) {
+				compTypes.push_back(typeid(AudioComponent)); // Add component type
+			}
+			else {
+				compTypes.erase(std::remove(compTypes.begin(), compTypes.end(), typeid(AudioComponent)), compTypes.end());
+			}
+		}
+
+		// Flags for messages
+		static bool showWarning = false;
+		static std::string warningMessage;
+
+		if (ImGui::Button("Create Archetype")) 
+		{
+			bool noName = strlen(archetypeName) == 0;
+			bool noComp = compTypes.empty();
+
+			if (!noName && !noComp) {
+				// Create archetype
+				compTypes.push_back(typeid(MetadataComponent)); // Always include MetadataComponent
+				std::vector<std::type_index> selectedComponents = compTypes;
+				g_Arch.createArchetype(archetypeName, selectedComponents);
+
+				// Reset inputs and selections
+				memset(archetypeName, 0, sizeof(archetypeName));
+				compTypes.clear();
+				transformComponentSelected = graphicsComponentSelected = collisionComponentSelected = audioComponentSelected = false;
+
+				showWarning = false; // Clear warning
+			}
+			else {
+				// Set warning message based on input
+				warningMessage = noName ? "Please add a name." : "Please select at least one component.";
+				showWarning = true;
+			}
+		}
+
+		if (showWarning) 
+		{
+			ImGui::Text("%s", warningMessage.c_str());
+		}
+
+		// Dropdown to select existing archetypes for updating
+		static int selectedArchetypeIndex = -1;
+		auto archetypes = g_Arch.getArchetypes(); // Assuming this returns a vector of Archetype pointers
+		std::vector<const char*> archetypeNames; // Vector to hold archetype names
+
+		// Populate archetype names
+		for (auto& archetype : archetypes) {
+			archetypeNames.push_back(archetype->name.c_str()); // Assuming Archetype has a name property
+		}
+
+
+		ImGui::NewLine();
+		ImGui::SeparatorText("Select Archetype to Update");
+		ImGui::Text("Names"); ImGui::SameLine();
+		ImGui::Combo("##UpdateArch", &selectedArchetypeIndex, archetypeNames.data(), archetypeNames.size());
+
+		if (selectedArchetypeIndex != -1) {
+			ImGui::Text("Tick the above checkboxes to update!");
+		}
+
+		// Button to update the selected archetype
+		if (ImGui::Button("Update Archetype") && selectedArchetypeIndex != -1)
+		{
+			Archetype* selectedArchetype = archetypes[selectedArchetypeIndex]; // Get selected archetype
+
+			// Ensure always got metadatacomp
+			compTypes.push_back(typeid(MetadataComponent));
+			g_Arch.updateArchetype(selectedArchetype, compTypes); // Update the archetype with selected component types
+
+			compTypes.clear(); // Clear selected component types for the next update
+			transformComponentSelected = false; // Reset component selection states
+			graphicsComponentSelected = false;
+			collisionComponentSelected = false;
+			audioComponentSelected = false;
+			selectedArchetypeIndex = -1;
+		}
+
+		ImGui::NewLine();
+
+		// List existing archetypes 
+		ImGui::SeparatorText("Existing Archetypes");
+		for (auto& archetype : g_Arch.getArchetypes()) 
+		{
+			// Create a tree node for components
+			if (ImGui::TreeNode("%s", archetype->name.c_str()))
+			{			
+				for (const auto& componentType : archetype->componentTypes)
+				{
+					// Display the component type as a bullet point
+					if (componentType == typeid(TransformComponent)) ImGui::BulletText("TransformComponent");					
+					if (componentType == typeid(GraphicsComponent)) ImGui::BulletText("GraphicsComponent");
+					if (componentType == typeid(CollisionComponent)) ImGui::BulletText("CollisionComponent");					
+					if (componentType == typeid(AudioComponent)) ImGui::BulletText("AudioComponent");
+				}
+				ImGui::TreePop(); // Close the tree node
+			}
+
+			// Create an entity using the selected archetype
+			if (ImGui::Button(("Create " + archetype->name + " Entity").c_str())) {
+				g_Arch.createEntity(archetype); 
+			}
+		}
+	}
+	ImGui::End();
 }

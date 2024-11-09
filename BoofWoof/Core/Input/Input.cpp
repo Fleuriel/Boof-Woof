@@ -5,31 +5,49 @@
  * @param Course: CS 3401
  * @param Course: Game Project 3
  * @date  10/06/2024 (06 OCTOBER 2024)
- * @brief
- *
- * This file defines the input system
- *
+ * @brief This file defines the input system, including action mappings.
  *************************************************************************/
+
 #include "pch.h"
 #include "Input.h"
 #include "Windows/WindowManager.h"
+
+ // Constructor to initialize default action mappings
+InputSystem::InputSystem() {
+    // Set up default action mappings
+    SetActionMapping("MoveForward", GLFW_KEY_W);
+    SetActionMapping("MoveBackward", GLFW_KEY_S);
+    SetActionMapping("MoveLeft", GLFW_KEY_A);
+    SetActionMapping("MoveRight", GLFW_KEY_D);
+    SetActionMapping("Jump", GLFW_KEY_SPACE);
+    SetActionMapping("Shoot", GLFW_MOUSE_BUTTON_LEFT);
+}
+
+/**************************************************************************
+ * @brief Gets the current state of a specific key.
+ * @param index The index of the keyboard key.
+ * @return Integer representing the state of the key.
+ *************************************************************************/
 int InputSystem::GetKeyState(int index) {
-	return keyStates[index];
+    return keyStates[index];
 }
 
 /**************************************************************************
  * @brief Sets the state of a specific keyboard key.
- * @param index The index of the keyboard key to set the state for.
- * @param value An integer representing the state to set: 0 for released, 1 for pressed, 2 for held.
- * @return None
+ * @param index The index of the keyboard key.
+ * @param value State to set: 0 for released, 1 for pressed, 2 for held.
  *************************************************************************/
 void InputSystem::SetKeyState(int index, int value) {
-	keyStates[index] = value;
+    keyStates[index] = value;
 }
 
-
+/**************************************************************************
+ * @brief Gets the state of a specific mouse button.
+ * @param index The index of the mouse button.
+ * @return Boolean representing the mouse button's state.
+ *************************************************************************/
 bool InputSystem::GetMouseState(int index) {
-	return mouseButtonStates[index];
+    return mouseButtonStates[index];
 }
 
 /**************************************************************************
@@ -38,27 +56,31 @@ bool InputSystem::GetMouseState(int index) {
  * @param value The new state to assign: 1 for pressed, 0 for released.
  *************************************************************************/
 void InputSystem::SetMouseState(int index, int value) {
-	mouseButtonStates[index] = value;
-}
-
-int InputSystem::GetScrollState() {
-	return mouseScrollState;
+    mouseButtonStates[index] = value;
 }
 
 /**************************************************************************
- * @brief Sets the state of the mouse scroll wheel.
- * @param value An integer representing the scroll state: 1 for scrolling up, 0 for no scrolling, -1 for scrolling down.
+ * @brief Retrieves the scroll state of the mouse wheel.
+ * @return Integer representing the scroll state.
+ *************************************************************************/
+int InputSystem::GetScrollState() {
+    return mouseScrollState;
+}
+
+/**************************************************************************
+ * @brief Sets the scroll state of the mouse wheel.
+ * @param value Scroll state: 1 for scrolling up, 0 for no scrolling, -1 for scrolling down.
  *************************************************************************/
 void InputSystem::SetScrollState(int value) {
-	mouseScrollState = value;
+    mouseScrollState = value;
 }
 
 /**************************************************************************
  * @brief Updates the total Y offset of the mouse scroll wheel.
- * @param val The value to add to the total Y offset.
+ * @param val Value to add to the total Y offset.
  *************************************************************************/
 void InputSystem::UpdateScrollTotalYOffset(float val) {
-	mouse_scroll_total_Y_offset += val;
+    mouse_scroll_total_Y_offset += val;
 }
 
 /**************************************************************************
@@ -66,25 +88,43 @@ void InputSystem::UpdateScrollTotalYOffset(float val) {
  * @return The total Y offset value.
  *************************************************************************/
 float InputSystem::GetScrollTotalYOffset() {
-	return mouse_scroll_total_Y_offset;
+    return mouse_scroll_total_Y_offset;
 }
 
+/**************************************************************************
+ * @brief Updates the states of keyboard keys and mouse scroll for the next frame.
+ *************************************************************************/
 void InputSystem::UpdateStatesForNextFrame() {
+    for (size_t i = 0; i < GLFW_KEY_LAST + 1; ++i) {
+        keyStates[i] = (keyStates[i] == 1) ? 2 : keyStates[i];
+    }
+    mouseScrollState = 0;
 
-	// Loop through all keyboard keys (represented by indices)
-	for (size_t i = 0; i < GLFW_KEY_LAST + 1; ++i) {
+    // Get mouse position
+    double x, y;
+    glfwGetCursorPos(g_Window->GetGLFWWindow(), &x, &y);
+    mouse_position = glm::vec2(x, y);
+}
 
-		// Update the state of each key
-		// If the key state is 1 (pressed in the current frame), change it to 2 (held down)
-		// If the key state is 0 (not pressed), it remains 0
-		keyStates[i] = ((keyStates[i] == 1) ? 2 : keyStates[i]);
-	}
+/**************************************************************************
+ * @brief Sets an action mapping to a specific key.
+ * @param action The action to be mapped.
+ * @param key The key code to map the action to.
+ *************************************************************************/
+void InputSystem::SetActionMapping(const char * action, int key) {
+    actionMappings[action] = key;
+}
 
-	// Reset the mouse scroll state to 0 for the next frame
-	mouseScrollState = 0;
-
-	//get mouse position
-	double x, y;
-	glfwGetCursorPos(g_Window->GetGLFWWindow(), &x, &y);
-	mouse_position = glm::vec2(x, y);
+/**************************************************************************
+ * @brief Checks if a specific action is currently pressed.
+ * @param action The action to check.
+ * @return True if the action is pressed, false otherwise.
+ *************************************************************************/
+bool InputSystem::IsActionPressed(const char * action) {
+    auto it = actionMappings.find(action);
+    if (it != actionMappings.end()) {
+        int key = it->second;
+        return (GetKeyState(key) == 1 || GetKeyState(key) == 2); // 1 = pressed, 2 = held
+    }
+    return false;
 }

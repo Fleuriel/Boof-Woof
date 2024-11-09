@@ -84,6 +84,7 @@
     <ClInclude Include="Core\Animation\Animation.h" />
     <ClInclude Include="Core\Animation\AnimationManager.h" />
     <ClInclude Include="Utilities\Components\BehaviourComponent.hpp" />
+    <ClInclude Include="Core\ECS\ArchetypeManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

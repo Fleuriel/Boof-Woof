@@ -46,18 +46,21 @@ std::string toLowerCase(const std::string& input) {
 }
 
 
-void DiscardToTrashBin(const std::string& filepath, const std::string& folderName) {
-    // Convert the file path from std::string to std::wstring
-    std::wstring widefile(filepath.begin(), filepath.end());
-    HWND hwnd = GetActiveWindow();
+void AssetManager::DiscardToTrashBin(const std::string& filepath, const std::string& folderName, bool message) {
 
-    // Convert paths to wstring for MessageBox
-    std::wstring widefolder(folderName.begin(), folderName.end());
-    std::wstring message = L"Incompatible file \"" + widefile + L"\" detected in \"" + widefolder + L"\" folder!\n\nFile moved to trash bin!";
-    LPCWSTR boxMessage = message.c_str();
+    if (message) {
+        // Convert the file path from std::string to std::wstring
+        std::wstring widefile(filepath.begin(), filepath.end());
+        HWND hwnd = GetActiveWindow();
 
-    // Show message box to inform the user
-    MessageBox(hwnd, boxMessage, L"Load Failure", MB_OK | MB_ICONERROR);
+        // Convert paths to wstring for MessageBox
+        std::wstring widefolder(folderName.begin(), folderName.end());
+        std::wstring message = L"Incompatible file \"" + widefile + L"\" detected in \"" + widefolder + L"\" folder!\n\nFile moved to trash bin!";
+        LPCWSTR boxMessage = message.c_str();
+
+        // Show message box to inform the user
+        MessageBox(hwnd, boxMessage, L"Load Failure", MB_OK | MB_ICONERROR);
+    }
 
     // Define the paths using std::filesystem
     fs::path entryPath(filepath);

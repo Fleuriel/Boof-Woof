@@ -30,6 +30,13 @@ public:
 		std::cout << "Coordinator Initialized!\n";
 	}
 
+	EntityManager& GetEntityManager() {
+		return *mEntityManager;
+	}
+
+	ComponentManager& GetComponentManager() {
+		return *mComponentManager;
+	}
 
 	// Entity methods
 	Entity CreateEntity()

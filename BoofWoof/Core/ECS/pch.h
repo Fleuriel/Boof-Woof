@@ -31,6 +31,7 @@
 #include <filesystem>
 #include <random>
 #include <chrono>
+#include <typeindex>
 
 // OPENGL & GLM
 #include <GL/glew.h>

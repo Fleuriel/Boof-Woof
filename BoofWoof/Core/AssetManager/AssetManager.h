@@ -82,6 +82,8 @@ public:
 	void MonitorFiles(const std::wstring& path);
 	void DeleteAllFilesInDirectory(const std::string& directoryPath);
 
+	void DiscardToTrashBin(const std::string& filepath, const std::string& folderName, bool message = true);
+
 	bool Currentlyloading{ false };
 
 private:
