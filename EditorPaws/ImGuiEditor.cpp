@@ -7,6 +7,7 @@
 #include <imgui_internal.h>
 #include <ImGuiFileDialog.h>
 #include "ResourceManager/ResourceManager.h"
+#include "AssetManager/FilePaths.h"
 
 
 bool GraphicsSystem::debug = false;
@@ -851,7 +852,19 @@ void ImGuiEditor::InspectorWindow()
 								GraphicsSystem::D3 = false;
 								GraphicsSystem::D2 = false;
 							}
-						}
+
+							// light position
+							ImGui::PushItemWidth(250.0f);
+							ImGui::Text("LightPos"); ImGui::SameLine();
+
+							// Fetch the current light position from the Graphics System
+							glm::vec3 lightPos = g_Coordinator.GetSystem<GraphicsSystem>()->GetLightPos();
+
+							if (ImGui::DragFloat3("##Light Pos", &lightPos.x, 0.1f))
+							{
+								g_Coordinator.GetSystem<GraphicsSystem>()->SetLightPos(lightPos);
+							}
+						}												
 					}
 					else if (className == "AudioComponent")
 					{
@@ -1122,54 +1135,88 @@ void ImGuiEditor::AssetWindow()
 		// Calculate the space needed for the buttons
 		float windowWidth = ImGui::GetWindowWidth();
 		float buttonWidth = ImGui::CalcTextSize("Delete Asset").x + ImGui::GetStyle().FramePadding.x * 2;
+
 		float availableSpace = windowWidth - ImGui::CalcTextSize(entireFilePath.c_str()).x - buttonWidth * 2 - ImGui::GetStyle().ItemSpacing.x * 3;
 
 		// subtract the width of the buttons and spacing from the available space to align to the right
 		ImGui::SameLine(availableSpace);
-		//if (ImGui::Button("Add Asset"))
-		//{
-		//	ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag", "../BoofWoof/Assets/");
-		//}
+		if (ImGui::Button("Add Asset"))
+		{
+			ImGuiFileDialog::Instance()->OpenDialog("AddAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag,.fbx,.obj,.mtl", "../BoofWoof/Assets/");
+		}
 
-		//ImGui::SameLine();
-		//if (ImGui::Button("Delete Asset"))
-		//{
-		//	ImGuiFileDialog::Instance()->OpenDialog("DeleteAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag", "../BoofWoof/Assets/");
-		//}
+		ImGui::SameLine();
+		if (ImGui::Button("Delete Asset"))
+		{
+			ImGuiFileDialog::Instance()->OpenDialog("DeleteAsset", "Choose File", ".png,.mp3,.wav,.csv,.json,.ttf,.vert,.frag,.fbx,.obj,.mtl", "../BoofWoof/Assets/");
+		}
 
-		//if (ImGuiFileDialog::Instance()->Display("AddAsset"))
-		//{
-		//	// Check if the user made a selection
-		//	if (ImGuiFileDialog::Instance()->IsOk())
-		//	{
-		//		// Get the selected file path
-		//		std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+		if (ImGuiFileDialog::Instance()->Display("AddAsset"))
+		{
+			if (ImGuiFileDialog::Instance()->IsOk())
+			{
+				// Get the selected file path
+				fs::path previousPath(ImGuiFileDialog::Instance()->GetFilePathName());
+				fs::path destinationPath = m_CurrDir / previousPath.filename();
 
-		//		// Asset manager to add in the assets e.g. g_AssetManager.AddAssets(filePathName);
-		//	}
+				// If the destination file already exists, rename it with a counter
+				if (fs::exists(destinationPath)) {
+					int counter = 1;
+					std::string nameWithoutExtension = previousPath.stem().string();  // File name without extension
+					std::string extension = previousPath.extension().string();        // File extension
 
-		//	// close
-		//	ImGuiFileDialog::Instance()->Close();
-		//}
+					std::string newFileName = nameWithoutExtension + "(" + std::to_string(counter) + ")" + extension;
+					fs::path newDestinationPath = m_CurrDir / newFileName;
 
-		//if (ImGuiFileDialog::Instance()->Display("DeleteAsset"))
-		//{
-		//	// Check if the user made a selection
-		//	if (ImGuiFileDialog::Instance()->IsOk())
-		//	{
-		//		// Get the selected file path
-		//		std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+					// Find an available name
+					while (fs::exists(newDestinationPath)) {
+						counter++;
+						newFileName = nameWithoutExtension + "(" + std::to_string(counter) + ")" + extension;
+						newDestinationPath = m_CurrDir / newFileName;
+					}
 
-		//		// find last / to get file name only
-		//		size_t lastSlash = filePathName.find_last_of("/\\");
-		//		std::string deleteFileName = filePathName.substr(lastSlash + 1);
+					// Move the file to the final destination with the new name
+					try {
+						fs::copy(previousPath, newDestinationPath);
+					}
+					catch (const fs::filesystem_error& e) {
+						std::cerr << "Error copying file: " << e.what() << std::endl;
+					}
+				}
+				else {
+					// If no file with the same name exists, move it directly
+					try {
+						fs::copy(previousPath, destinationPath);
+					}
+					catch (const fs::filesystem_error& e) {
+						std::cerr << "Error copying file: " << e.what() << std::endl;
+					}
+				}
+			}
 
-		//		// Asset manager to delete the assets e.g. g_AssetManager.DeleteAssets(deleteFileName);
-		//	}
+			// close
+			ImGuiFileDialog::Instance()->Close();
+		}
 
-		//	// close
-		//	ImGuiFileDialog::Instance()->Close();
-		//}
+		if (ImGuiFileDialog::Instance()->Display("DeleteAsset"))
+		{
+			// Check if the user made a selection
+			if (ImGuiFileDialog::Instance()->IsOk())
+			{
+				//// Get the selected file path
+				//std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+
+				//// find last / to get file name only
+				//size_t lastSlash = filePathName.find_last_of("/\\");
+				//std::string deleteFileName = filePathName.substr(lastSlash + 1);
+
+				// Asset manager to delete the assets e.g. g_AssetManager.DeleteAssets(deleteFileName);
+				g_AssetManager.DiscardToTrashBin(ImGuiFileDialog::Instance()->GetFilePathName(), FILEPATH_ASSET_TRASHBIN, false);
+			}
+
+			// close
+			ImGuiFileDialog::Instance()->Close();
+		}
 
 		ImGui::Spacing();  ImGui::Separator(); ImGui::Spacing();
 
@@ -1192,8 +1239,11 @@ void ImGuiEditor::AssetWindow()
 			std::string fileName = fileNameExt.substr(0, lastDot);
 			std::string fileExtension = fileNameExt.substr(lastDot + 1);
 			std::string icon = entry.is_directory() ? "FolderIcon" : (fileExtension == "png" ? fileName : "TextIcon");
+			int iconDDS = g_ResourceManager.GetTextureDDS(icon);
 
-			ImGui::ImageButton((ImTextureID)(uintptr_t)g_ResourceManager.GetTextureDDS(icon), { 60,60 }, { 0,0 }, { 1,1 });
+			ImGui::ImageButton((ImTextureID)(uintptr_t)(iconDDS != -1 ? iconDDS : g_ResourceManager.GetTextureDDS("BlackScreen")),
+				{ 60, 60 }, { 0, 0 }, { 1, 1 });
+
 
 			// drag from assets to components
 			if (ImGui::BeginDragDropSource())

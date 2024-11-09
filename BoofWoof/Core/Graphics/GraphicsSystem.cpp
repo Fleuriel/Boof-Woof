@@ -8,7 +8,7 @@
 #include "ResourceManager/ResourceManager.h"
 #include "Windows/WindowManager.h"
 
-// Assignment 1
+#include "Input/Input.h"
 
 
 bool GraphicsSystem::glewInitialized = false;
@@ -17,10 +17,14 @@ bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
 
 Camera GraphicsSystem::camera;
+glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 
 //int GraphicsSystem::set_Texture_ = 0;
 //std::vector<Model2D> models;
 ShaderParams shdrParam;
+
+float deltaTime = 0.0f;  // Time between current frame and previous frame
+auto previousTime = std::chrono::high_resolution_clock::now();  // Initialize previous time
 
 void GraphicsSystem::initGraphicsPipeline() {
 	// Implement graphics pipeline initialization
@@ -76,6 +80,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 	// Initialize camera
 	camera = Camera(glm::vec3(0.f, 2.f, 10.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
+	
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -84,6 +89,8 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	fontSystem.init();
+
+	LoadAnimation("walk", "..\\BoofWoof\\Resources\\Animations\\corgi.fbx");
 }
 
 
@@ -91,6 +98,24 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 
 void GraphicsSystem::UpdateLoop() {
+
+	//if (g_Input.IsActionPressed(ActionType::Jump)) {
+	//	std::cout << "Jump\n";
+	//}
+
+	// Get the current time
+	auto currentTime = std::chrono::high_resolution_clock::now();
+
+	// Calculate delta time in seconds
+	deltaTime = std::chrono::duration<float>(currentTime - previousTime).count();
+
+	// Update previous time to the current time
+	previousTime = currentTime;
+
+	UpdateAnimations(deltaTime);
+
+	animationManager.PrintAnimationNames();
+
 	// Bind the framebuffer for rendering
 	if(editorMode == true)
 		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -140,10 +165,32 @@ void GraphicsSystem::UpdateLoop() {
 
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
-
-//				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", graphicsComp.getTextureNumber());
+				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
+				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
 				
+				//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
+				if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()){
 
+					// add texture to mesh
+					Texture texture_add;
+					texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
+					if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 0)
+						texture_add.type = "texture_diffuse";
+					else if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 1)
+						texture_add.type = "texture_normal";
+
+					//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
+					
+					for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+						mesh.textures.push_back(texture_add);
+						
+					}
+
+					g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
+
+				}
+
+				/*//skip for now
 				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
 				{
 					glActiveTexture(GL_TEXTURE0 + i);
@@ -154,7 +201,7 @@ void GraphicsSystem::UpdateLoop() {
 					}
 					g_AssetManager.GetShader("Shader3D").SetUniform("texture1", i);
 					glBindTexture(GL_TEXTURE_2D, graphicsComp.getTexture(i));
-				}
+				}*/
 				
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture1", tex1);
 			//	g_AssetManager.GetShader("Shader3D").SetUniform("texture2", tex2);
@@ -342,4 +389,22 @@ void GraphicsSystem::UpdateViewportSize(int width, int height) {
 
 	// Unbind the framebuffer
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+
+
+
+
+
+void GraphicsSystem::LoadAnimation(const std::string& animationName, const std::string& filePath) {
+	Animation animation(filePath);
+	animationManager.AddAnimation(animationName, animation);
+}
+
+void GraphicsSystem::UpdateAnimations(float deltaTime) {
+	animationManager.UpdateAnimations(deltaTime);
+}
+
+std::unordered_map<std::string, glm::mat4> GraphicsSystem::GetBoneTransforms(const std::string& animationName) const {
+	return animationManager.GetBoneTransforms(animationName);
 }

@@ -1,15 +1,11 @@
+#ifndef ANIMATION_H
+#define ANIMATION_H
 
-#pragma once
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include <glm/glm.hpp>      // For matrix math
-#include <glm/gtx/quaternion.hpp> // For quaternions
+#include "pch.h"
+#include <assimp/scene.h>      // For aiScene, aiNode, aiAnimation, etc.
+#include <assimp/Importer.hpp> // For Assimp::Importer
+#include <assimp/postprocess.h> // For aiProcess flags (e.g., aiProcess_Triangulate)
 
-// Assimp library
-#include <assimp/scene.h>
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
 
 // Structure for each keyframe in the animation
 struct Keyframe {
@@ -28,19 +24,23 @@ struct BoneTransform {
 // Animation class to load and handle animation
 class Animation {
 public:
+    Animation() : filePath(""), duration(0.0f), currentTime(0.0f) {} // Default constructor
     Animation(const std::string& filePath);
-    bool LoadAnimationData();            // Loads the animation from an .fbx file
-    void Update(float deltaTime);        // Updates animation state
-    std::unordered_map<std::string, glm::mat4> GetBoneTransforms() const; // Gets interpolated bone transforms
+
+    bool LoadAnimationData();            // Loads all animations from the file
+    void Update(float deltaTime);        // Updates the animation state
+    std::unordered_map<std::string, glm::mat4> GetBoneTransforms() const; // Retrieves the interpolated bone transforms
 
 private:
     std::string filePath;
-    float duration;
-    float currentTime;
-    std::unordered_map<std::string, BoneTransform> boneTransforms;
+    float duration;                      // Duration of the longest animation
+    float currentTime;                   // Current time in the animation
+    std::unordered_map<std::string, BoneTransform> boneTransforms; // Stores bone transformations
 
     void ProcessNode(const aiNode* node, const aiScene* scene);
     void ProcessAnimation(const aiAnimation* animation);
 
     glm::mat4 InterpolateKeyframes(const Keyframe& kf1, const Keyframe& kf2, float t);
 };
+
+#endif // ANIMATION_H

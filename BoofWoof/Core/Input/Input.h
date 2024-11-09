@@ -5,10 +5,7 @@
  * @param Course: CS 3401
  * @param Course: Game Project 3
  * @date  10/06/2024 (06 OCTOBER 2024)
- * @brief
- *
- * This file declares the input system
- *
+ * @brief This file declares the input system with action mapping functionality.
  *************************************************************************/
 
 #pragma once
@@ -17,8 +14,24 @@
 #define INPUT_H
 
 #include "../Graphics/GraphicsSystem.h"
+#include <unordered_map>
+#include <string>
+#include <glm/vec2.hpp>
 
 #define g_Input InputSystem::GetInstance()
+
+ /**************************************************************************
+  * @brief Enum for different action types
+  *************************************************************************/
+enum class ActionType {
+    MoveForward,
+    MoveBackward,
+    MoveLeft,
+    MoveRight,
+    Jump,
+    Shoot,
+    // Add more actions as needed
+};
 
 /**************************************************************************
  * @brief InputSystem Class
@@ -26,84 +39,70 @@
 class InputSystem
 {
 public:
-	static InputSystem& GetInstance() {
-		static InputSystem instance;
-		return instance;
-	}
+    static InputSystem& GetInstance() {
+        static InputSystem instance;
+        return instance;
+    }
 
-	int GetKeyState(int index);										// Get KeyStates
+    InputSystem();
 
-	void SetKeyState(int index, int value);							// Setting KeyStates
-	
-	bool GetMouseState(int index);									// Get MouseStates
+    // Action Mapping Methods
+    void SetActionMapping(ActionType action, int key);               // Set key for action
+    bool IsActionPressed(ActionType action);                         // Check if action is pressed
 
-	void SetMouseState(int index, int value);						// Setting MouseStates
+    // Key and Mouse State Methods
+    int GetKeyState(int index);                                      // Get KeyStates
+    void SetKeyState(int index, int value);                          // Set KeyStates
+    bool GetMouseState(int index);                                   // Get MouseStates
+    void SetMouseState(int index, int value);                        // Set MouseStates
+    glm::vec2 GetMousePosition() { return mouse_position; };         // Get Mouse Position
 
-	glm::vec2 GetMousePosition() {
-		return mouse_position;
-	};									// Get Mouse Position
-	
-	/**************************************************************************
-	 * @brief Retrieves the state of the mouse scroll wheel.
-	 * @return An integer representing the scroll state: 1 for scrolling up, 0 for no scrolling, -1 for scrolling down.
-	 *************************************************************************/
-	int GetScrollState();
+    /**************************************************************************
+     * @brief Retrieves the state of the mouse scroll wheel.
+     * @return An integer representing the scroll state: 1 for scrolling up, 0 for no scrolling, -1 for scrolling down.
+     *************************************************************************/
+    int GetScrollState();
 
-	/**************************************************************************
-	 * @brief Sets the state of the mouse scroll wheel.
-	 * @param value An integer representing the scroll state: 1 for scrolling up, 0 for no scrolling, -1 for scrolling down.
-	 *************************************************************************/
-	void SetScrollState(int);
+    /**************************************************************************
+     * @brief Sets the state of the mouse scroll wheel.
+     * @param value An integer representing the scroll state: 1 for scrolling up, 0 for no scrolling, -1 for scrolling down.
+     *************************************************************************/
+    void SetScrollState(int);
 
+    /**************************************************************************
+     * @brief Updates the total Y offset of the mouse scroll wheel.
+     * @param val The value to add to the total Y offset.
+     *************************************************************************/
+    void UpdateScrollTotalYOffset(float);
 
-	/**************************************************************************
-	 * @brief Updates the total Y offset of the mouse scroll wheel.
-	 * @param val The value to add to the total Y offset.
-	 *************************************************************************/
-	void UpdateScrollTotalYOffset(float);
+    /**************************************************************************
+     * @brief Retrieves the total Y offset of the mouse scroll wheel.
+     * @return The total Y offset value.
+     *************************************************************************/
+    float GetScrollTotalYOffset();
 
-	/**************************************************************************
-	 * @brief Retrieves the total Y offset of the mouse scroll wheel.
-	 * @return The total Y offset value.
-	 *************************************************************************/
-	float GetScrollTotalYOffset();
+    /**************************************************************************
+     * @brief Updates the states of keyboard keys and mouse scroll for the next frame.
+     *************************************************************************/
+    void UpdateStatesForNextFrame();
 
-	/**************************************************************************
-	 * @brief Updates the states of keyboard keys and mouse scroll for the next frame.
-	 *
-	 * This function is typically called once per frame to update the state of keyboard
-	 * keys and reset the mouse scroll state for the next frame.
-	 *
-	 * @note It assumes that the `keyStates` array has been previously initialized to store
-	 *       the state of each keyboard key, and `mouseScrollState` has been initialized
-	 *       to store the state of the mouse scroll wheel.
-	 *************************************************************************/
-	void UpdateStatesForNextFrame();
-
-	// true for on, false for off
-	bool capsLockReleased{ true };
-	bool capsLockOn{ false };
-
-	bool typePW{ false };
-	std::string hiddenconsole{};
-	bool buttonPressed{ false };
+    // Other Variables
+    bool capsLockReleased{ true };
+    bool capsLockOn{ false };
+    bool typePW{ false };
+    std::string hiddenconsole{};
+    bool buttonPressed{ false };
 
 private:
-	// Define an array to keep track of key states
-	std::array<int, GLFW_KEY_LAST + 1> keyStates{};
+    std::unordered_map<ActionType, int> actionMappings;              // Maps actions to keys
+    std::array<int, GLFW_KEY_LAST + 1> keyStates{};                  // Array to keep track of key states
+    std::array<int, GLFW_MOUSE_BUTTON_LAST + 1> mouseButtonStates{}; // Array to keep track of mouse button states
 
-	// Define an array to keep track of mouse button states
-	std::array<int, GLFW_MOUSE_BUTTON_LAST + 1> mouseButtonStates{};
-
-	// 1 for scrolling up, 0 for not scrolling, -1 for scrolling down
-	int mouseScrollState{ 0 };
-
-	// keeps track of total vertical scrolling
-	float mouse_scroll_total_Y_offset{ 0 };
-
-
-	glm::vec2 mouse_position{ 0, 0 };
-
+    // Mouse and Scroll State Variables
+    int mouseScrollState{ 0 };                                       // 1 for scrolling up, 0 for not scrolling, -1 for scrolling down
+    float mouse_scroll_total_Y_offset{ 0 };                          // Keeps track of total vertical scrolling
+    glm::vec2 mouse_position{ 0, 0 };                                // Stores mouse position
+    
 };
 
 #endif

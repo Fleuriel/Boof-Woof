@@ -62,6 +62,7 @@ private:
 	bool m_IsInitialized{};
 	bool m_FullScreen{};
 	bool m_AltTab{};
+	float m_AssetManagerMonitoringTimer{};
 };
 
 extern Window* g_Window;
