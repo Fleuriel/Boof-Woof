@@ -189,13 +189,13 @@ void FontSystem::init_font()
 
 std::unordered_map<GLchar, Glyph> FontSystem::loadFontMetadata(const std::string& jsonPath)
 {
-    std::unordered_map<GLchar, Glyph> glyphs;
+    std::unordered_map<GLchar, Glyph> glyphs_load;
 
     // Open and parse the JSON file
     std::ifstream ifs(jsonPath);
     if (!ifs.is_open()) {
         std::cerr << "Failed to open JSON file." << std::endl;
-        return glyphs;
+        return glyphs_load;
     }
 
     rapidjson::IStreamWrapper isw(ifs);
@@ -204,7 +204,7 @@ std::unordered_map<GLchar, Glyph> FontSystem::loadFontMetadata(const std::string
 
     if (!document.HasMember("glyphs") || !document["glyphs"].IsArray()) {
         std::cerr << "Invalid JSON format: 'glyphs' array missing." << std::endl;
-        return glyphs;
+        return glyphs_load;
     }
     else {
 		altasWidth = document["atlas"]["width"].GetFloat();
@@ -244,13 +244,13 @@ std::unordered_map<GLchar, Glyph> FontSystem::loadFontMetadata(const std::string
         // Load glyph index and store it in the map
         if (glyph.HasMember("index") && glyph["index"].IsInt()) {
 			char character = static_cast<char>(glyph["index"].GetInt());
-            glyphs[character] = g;
+            glyphs_load[character] = g;
 			//std::cout << "Glyphs: " << character << std::endl;
         }
 		
     }
 
-    return glyphs;
+    return glyphs_load;
 }
 
 void FontSystem::render_text(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color)
