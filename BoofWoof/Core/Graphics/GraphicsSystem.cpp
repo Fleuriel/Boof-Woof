@@ -171,6 +171,13 @@ void GraphicsSystem::UpdateLoop() {
 				//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
 				if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()){
 
+					std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->name << '\n';
+
+					std::cout << graphicsComp.getModelName() << '\n';
+
+					std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << '\t' << g_ResourceManager.getModel(graphicsComp.getModelName())->textures_loaded.size() << '\n';
+
+
 					// add texture to mesh
 					Texture texture_add;
 					texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
@@ -178,6 +185,9 @@ void GraphicsSystem::UpdateLoop() {
 						texture_add.type = "texture_diffuse";
 					else if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 1)
 						texture_add.type = "texture_normal";
+					else
+						texture_add.type = "texture_specular";
+
 
 					//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
 					

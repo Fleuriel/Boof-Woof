@@ -333,10 +333,42 @@ bool Serialization::LoadScene(const std::string& filepath) {
                     if (entityData.HasMember("Texture"))
                     {
                         TextureName = entityData["Texture"].GetString();
+                        std::cout << TextureName << '\n';
+
                     }
-                    
                     GraphicsComponent graphicsComponent(modelName, entity, TextureName);
                     graphicsComponent.SetModelID(modelID);
+                    
+                    if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt < graphicsComponent.getTextureNumber()) {
+                        Texture texture_add;
+                        texture_add.id = graphicsComponent.getTexture(g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt);
+                        if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 0)
+                            texture_add.type = "texture_diffuse";
+                        else if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 1)
+                            texture_add.type = "texture_normal";
+                        else
+                            texture_add.type = "texture_specular";
+
+                        texture_add.path = graphicsComponent.getModelName();
+
+                        //std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
+                        std::cout << "\n\n\n\n\n";
+                        std::cout << graphicsComponent.getModelName() << '\n';
+
+
+                        std::cout << "id type path " << texture_add.id << '\t' << texture_add.type << '\t' << texture_add.path << '\n';
+
+                        for (auto& mesh : g_ResourceManager.getModel(graphicsComponent.getModelName())->meshes) {
+                            std::cout << "asd\n";
+
+                            mesh.textures.push_back(texture_add);
+
+                        }
+
+                        g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt++;
+                    }
+
+
                     g_Coordinator.AddComponent(entity, graphicsComponent);
                 }
             }

@@ -21,7 +21,7 @@
             "ModelID": 0,
             "EntityID": 0,
             "ModelName": "Floor",
-            "Texture": " "
+            "Texture": "Floor"
         },
         {
             "EntityName": "Floor2",
@@ -43,7 +43,7 @@
             "ModelID": 0,
             "EntityID": 1,
             "ModelName": "Floor",
-            "Texture": " "
+            "Texture": "Floor"
         },
         {
             "EntityName": "Floor3",
@@ -65,7 +65,7 @@
             "ModelID": 0,
             "EntityID": 2,
             "ModelName": "Floor",
-            "Texture": " "
+            "Texture": "Floor"
         },
         {
             "EntityName": "Floor4",
@@ -87,7 +87,7 @@
             "ModelID": 0,
             "EntityID": 3,
             "ModelName": "Floor",
-            "Texture": " "
+            "Texture": "Floor"
         },
         {
             "EntityName": "Wall1",
@@ -109,7 +109,7 @@
             "ModelID": 0,
             "EntityID": 4,
             "ModelName": "Wall",
-            "Texture": " ",
+            "Texture": "Wall",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -134,7 +134,7 @@
             "ModelID": 0,
             "EntityID": 5,
             "ModelName": "Wall",
-            "Texture": " ",
+            "Texture": "Wall",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -159,7 +159,7 @@
             "ModelID": 0,
             "EntityID": 6,
             "ModelName": "Wall",
-            "Texture": " ",
+            "Texture": "Wall",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -184,7 +184,7 @@
             "ModelID": 0,
             "EntityID": 7,
             "ModelName": "Wall",
-            "Texture": " ",
+            "Texture": "Wall",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -209,7 +209,7 @@
             "ModelID": 0,
             "EntityID": 8,
             "ModelName": "Wall",
-            "Texture": " ",
+            "Texture": "Wall",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -234,7 +234,7 @@
             "ModelID": 0,
             "EntityID": 9,
             "ModelName": "Wall",
-            "Texture": " ",
+            "Texture": "Wall",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -259,7 +259,7 @@
             "ModelID": 0,
             "EntityID": 10,
             "ModelName": "Wall",
-            "Texture": " ",
+            "Texture": "Wall",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -284,7 +284,7 @@
             "ModelID": 0,
             "EntityID": 11,
             "ModelName": "Wall",
-            "Texture": " ",
+            "Texture": "Wall",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -309,7 +309,7 @@
             "ModelID": 0,
             "EntityID": 12,
             "ModelName": "Wall",
-            "Texture": " ",
+            "Texture": "Wall",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -334,7 +334,7 @@
             "ModelID": 0,
             "EntityID": 13,
             "ModelName": "Bed2",
-            "Texture": " ",
+            "Texture": "Bed2",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -359,7 +359,7 @@
             "ModelID": 0,
             "EntityID": 14,
             "ModelName": "Table",
-            "Texture": " ",
+            "Texture": "Table",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -384,7 +384,7 @@
             "ModelID": 0,
             "EntityID": 15,
             "ModelName": "Chair2",
-            "Texture": " ",
+            "Texture": "Chair2",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -409,7 +409,7 @@
             "ModelID": 0,
             "EntityID": 16,
             "ModelName": "Wardrobe2",
-            "Texture": " ",
+            "Texture": "Wardrobe2",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -434,7 +434,7 @@
             "ModelID": 0,
             "EntityID": 17,
             "ModelName": "Table2",
-            "Texture": " ",
+            "Texture": "Table2",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -459,7 +459,7 @@
             "ModelID": 0,
             "EntityID": 18,
             "ModelName": "Chair",
-            "Texture": " ",
+            "Texture": "Chair",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -484,7 +484,7 @@
             "ModelID": 0,
             "EntityID": 19,
             "ModelName": "Corgi2",
-            "Texture": " ",
+            "Texture": "Corgi2",
             "BehaviourName": "Player",
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -510,7 +510,7 @@
             "ModelID": 0,
             "EntityID": 20,
             "ModelName": "Corgi_small",
-            "Texture": " ",
+            "Texture": "Corgi_small",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -535,7 +535,7 @@
             "ModelID": 0,
             "EntityID": 21,
             "ModelName": "Chair2",
-            "Texture": " ",
+            "Texture": "Chair2",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -560,7 +560,7 @@
             "ModelID": 0,
             "EntityID": 22,
             "ModelName": "Chair2",
-            "Texture": " ",
+            "Texture": "Chair2",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -585,7 +585,7 @@
             "ModelID": 0,
             "EntityID": 23,
             "ModelName": "Chair2",
-            "Texture": " ",
+            "Texture": "Chair2",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -610,7 +610,7 @@
             "ModelID": 0,
             "EntityID": 24,
             "ModelName": "Wardrobe",
-            "Texture": " ",
+            "Texture": "Wardrobe",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
@@ -635,7 +635,7 @@
             "ModelID": 0,
             "EntityID": 25,
             "ModelName": "Couch",
-            "Texture": " ",
+            "Texture": "Couch",
             "CollisionComponent": {
                 "CollisionLayer": 0
             }
