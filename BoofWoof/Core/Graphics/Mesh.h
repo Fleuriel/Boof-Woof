@@ -92,7 +92,7 @@ public:
         unsigned int normalNr = 1;
         unsigned int heightNr = 1;
 
-       // std::cout << textures.size() << '\n';
+        std::cout <<"drawing with texture size" << textures.size() << '\n';
 
         
 
@@ -135,8 +135,14 @@ public:
         glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
-        // always good practice to set everything back to defaults once configured.
-        glActiveTexture(GL_TEXTURE0);
+		// unbind textures, so we won't accidentily mess up our textures.
+        
+		for (unsigned int i = 0; i < textures.size(); i++)
+		{
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+        
     }
 
     // render the mesh with lines

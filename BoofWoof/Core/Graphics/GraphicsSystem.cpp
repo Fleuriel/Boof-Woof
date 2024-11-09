@@ -172,26 +172,37 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
 				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
 
-				std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
-				std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
-				std::cout << graphicsComp.getTextureNumber() << "\n";
-				if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()){
+				std::cout << "entity "<< entity << "\n";
+				std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
+				std::cout << "comp tetx cnt "<<graphicsComp.getTextureNumber() << "\n";
 
-					std::cout << "entered\n";
+
+				if (graphicsComp.getTextureNumber() == 0) {
+					for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+						mesh.textures.clear();
+					}
+
+					g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt = 0;
+				}
+				
+
+
+				while (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()){
+
 
 #ifdef _DEBUG
-					std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->name << '\n';
+					//std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->name << '\n';
 
-					std::cout << graphicsComp.getModelName() << '\n';
+					//std::cout << graphicsComp.getModelName() << '\n';
 
-					std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << '\t' << g_ResourceManager.getModel(graphicsComp.getModelName())->textures_loaded.size() << '\n';
+					//std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << '\t' << g_ResourceManager.getModel(graphicsComp.getModelName())->textures_loaded.size() << '\n';
 #endif
-
+					
 					// add texture to mesh
 					Texture texture_add;
 					texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
 
-					std::cout << texture_add.id << "\n";
+					//std::cout << texture_add.id << "\n";
 
 					if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 0)
 						texture_add.type = "texture_diffuse";
@@ -200,11 +211,12 @@ void GraphicsSystem::UpdateLoop() {
 					else
 						texture_add.type = "texture_specular";
 
-					std::cout << texture_add.type << '\n';
+					//std::cout << texture_add.type << '\n';
 
 					//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
 					
 					for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+						std::cout << "texture size before adding: " << mesh.textures.size() << "\n";
 						mesh.textures.clear();
 						mesh.textures.push_back(texture_add);
 						std::cout << "entered\n";
@@ -213,6 +225,13 @@ void GraphicsSystem::UpdateLoop() {
 					g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
 
 				}
+				//clear all textures
+				for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+					std::cout << "texture size after clearing: " << mesh.textures.size() << "\n";
+				}
+				std::cout << "out model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
+				std::cout << "out comp tetx cnt " << graphicsComp.getTextureNumber() << "\n";
+
 
 
 
@@ -237,6 +256,7 @@ void GraphicsSystem::UpdateLoop() {
 //				g_AssetManager.GetShader("OutlineAndFont").SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
 
 				//graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
+				std::cout << "Drawing entity: " << entity << '\n';
 				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("Shader3D"));
 //				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
 				//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
