@@ -183,6 +183,7 @@ void ImGuiEditor::WorldHierarchy()
 				{
 					if (g_GettingDeletedEntity != MAX_ENTITIES)
 					{
+						g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(g_GettingDeletedEntity);
 						g_Coordinator.DestroyEntity(g_GettingDeletedEntity);
 					}
 				}
