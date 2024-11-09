@@ -221,7 +221,7 @@ void GraphicsSystem::UpdateLoop() {
 					
 					for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
 						std::cout << "texture size before adding: " << mesh.textures.size() << "\n";
-						mesh.textures.clear();
+						//mesh.textures.clear();
 						mesh.textures.push_back(texture_add);
 						std::cout << "entered\n";
 					}
