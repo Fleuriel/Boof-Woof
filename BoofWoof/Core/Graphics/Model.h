@@ -37,6 +37,7 @@ public:
     std::vector<Mesh>    meshes;
     std::string directory;
     std::string name;
+    int count = 0;
 
     //// for now 
     // store number of texture

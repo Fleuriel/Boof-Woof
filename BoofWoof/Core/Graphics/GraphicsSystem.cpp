@@ -91,6 +91,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	fontSystem.init();
 
 	LoadAnimation("walk", "..\\BoofWoof\\Resources\\Animations\\corgi.fbx");
+
 }
 
 
@@ -98,6 +99,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 
 void GraphicsSystem::UpdateLoop() {
+
 
 	//if (g_Input.IsActionPressed(ActionType::Jump)) {
 	//	std::cout << "Jump\n";
@@ -167,20 +169,28 @@ void GraphicsSystem::UpdateLoop() {
 //				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
 				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
-				
-				//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
+
+				std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
+				std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
+				std::cout << graphicsComp.getTextureNumber() << "\n";
 				if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()){
 
+					std::cout << "entered\n";
+
+#ifdef _DEBUG
 					std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->name << '\n';
 
 					std::cout << graphicsComp.getModelName() << '\n';
 
 					std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << '\t' << g_ResourceManager.getModel(graphicsComp.getModelName())->textures_loaded.size() << '\n';
-
+#endif
 
 					// add texture to mesh
 					Texture texture_add;
 					texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
+
+					std::cout << texture_add.id << "\n";
+
 					if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 0)
 						texture_add.type = "texture_diffuse";
 					else if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 1)
@@ -188,12 +198,14 @@ void GraphicsSystem::UpdateLoop() {
 					else
 						texture_add.type = "texture_specular";
 
+					std::cout << texture_add.type << '\n';
 
 					//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
 					
 					for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+						mesh.textures.clear();
 						mesh.textures.push_back(texture_add);
-						
+						std::cout << "entered\n";
 					}
 
 					g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
@@ -417,3 +429,29 @@ void GraphicsSystem::UpdateAnimations(float deltaTime) {
 std::unordered_map<std::string, glm::mat4> GraphicsSystem::GetBoneTransforms(const std::string& animationName) const {
 	return animationManager.GetBoneTransforms(animationName);
 }
+
+
+
+void GraphicsSystem::clearAllEntityTextures()
+{
+	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+	for (auto& entity : allEntities)
+	{
+
+		if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+		{
+			auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+			for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+				g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt = 0;
+				mesh.textures.clear();
+
+
+				Texture tex;
+				mesh.textures.push_back(tex);
+
+			}
+		}
+	}
+
+	std::cout << "Cleared all entities Textures\n";
+};

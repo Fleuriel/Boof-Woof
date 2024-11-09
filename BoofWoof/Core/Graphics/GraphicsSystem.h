@@ -68,6 +68,11 @@ public:
     void UpdateAnimations(float deltaTime);
     std::unordered_map<std::string, glm::mat4> GetBoneTransforms(const std::string& animationName) const;
 
+    void clearAllEntityTextures();
+
+
+
+    // GraphicsSystem() : fbo(0), textureColorbuffer(0), rbo(0){}
 
 
 private:

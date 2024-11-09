@@ -211,21 +211,24 @@ bool LoadBinFile(const std::string& filePath) {
                     texture.path = texture.path.substr(0, dotPos);
                 }
 #ifdef _DEBUG
-                //std::cout << texture.path << '\n';
+                std::cout << texture.path << '\n';
 #endif
-                // texture.id = 0;
-                //texture.id = g_ResourceManager.GetTextureDDS(texture.path);
+                 //texture.id = 0;
+                // texture.id = g_ResourceManager.GetTextureDDS(texture.path);
 
 #ifdef _DEBUG
-               // std::cout << texture.id << '\n';
+                std::cout << texture.id << '\n';
 #endif
-               //texture.type = "texture_diffuse"; // Assign type if known
-               //textures.push_back(texture);
+               texture.type = "texture_diffuse"; // Assign type if known
+                textures.push_back(texture);
+
+                std::cout << textures.size() << '\n';
             }
 
 #ifdef _DEBUG
             std::cout  << "tEX SIZE Inside Loadin \t" << textures.size() << '\n';
 #endif
+
 
             // Create the Mesh object and add it to the vector
             meshes.emplace_back(vertices, indices, textures);

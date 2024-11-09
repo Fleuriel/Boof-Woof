@@ -55,6 +55,9 @@ void ImGuiEditor::ImGuiInit(Window* window)
 
 	ImGui_ImplGlfw_InitForOpenGL(window->GetGLFWWindow(), true);
 	ImGui_ImplOpenGL3_Init("#version 450");
+
+
+	g_Coordinator.GetSystem<GraphicsSystem>()->clearAllEntityTextures();
 }
 
 void ImGuiEditor::ImGuiUpdate()
@@ -184,6 +187,7 @@ void ImGuiEditor::WorldHierarchy()
 					if (g_GettingDeletedEntity != MAX_ENTITIES)
 					{
 						g_Coordinator.DestroyEntity(g_GettingDeletedEntity);
+
 					}
 				}
 				if (m_IsSelected)
@@ -208,8 +212,10 @@ void ImGuiEditor::WorldHierarchy()
 
 			if (ImGui::Button("Clear all entities")) {
 				g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
+				g_Coordinator.GetSystem<GraphicsSystem>()->clearAllEntityTextures();
 				g_Coordinator.ResetEntities();
 				g_SceneManager.ClearSceneList();
+
 
 			}
 		}

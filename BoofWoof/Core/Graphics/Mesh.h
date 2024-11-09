@@ -53,6 +53,7 @@ public:
 	std::vector<Texture>      textures{};
     unsigned int VAO{};
     unsigned int drawMode{};
+    int count = 0;
 
     // constructor
     Mesh() {}
