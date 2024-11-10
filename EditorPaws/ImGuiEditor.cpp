@@ -212,7 +212,7 @@ void ImGuiEditor::WorldHierarchy()
 
 			if (ImGui::Button("Clear all entities")) {
 				g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
-				g_Coordinator.GetSystem<GraphicsSystem>()->clearAllEntityTextures();
+				//g_Coordinator.GetSystem<GraphicsSystem>()->clearAllEntityTextures();
 				g_Coordinator.ResetEntities();
 				g_SceneManager.ClearSceneList();
 
