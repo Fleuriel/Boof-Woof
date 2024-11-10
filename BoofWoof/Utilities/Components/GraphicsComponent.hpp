@@ -53,7 +53,7 @@ public:
    //    m_Mesh->textures.push_back(g_ResourceManager.GetTextureDDS(inputString));
    //
    //}
-    
+    bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
 
 
 
