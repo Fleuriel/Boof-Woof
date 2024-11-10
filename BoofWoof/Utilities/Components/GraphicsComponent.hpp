@@ -44,16 +44,6 @@ public:
     // Set texture name
     void setTexture(std::string texture) { textureName = texture; }
 
-   // void setMesh(Mesh* mesh) { m_Mesh = mesh; }
-   // Mesh* getMesh() const { return m_Mesh; }
-
-    
-   //void setMeshTexture(std::string inputString)
-   //{
-   //    m_Mesh->textures.push_back(g_ResourceManager.GetTextureDDS(inputString));
-   //
-   //}
-    bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
 
 
 

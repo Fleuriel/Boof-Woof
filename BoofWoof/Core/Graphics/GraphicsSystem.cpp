@@ -232,9 +232,9 @@ void GraphicsSystem::UpdateLoop() {
 
 
 				//clear all textures
-				for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
-				//	std::cout << "texture size after clearing: " << mesh.textures.size() << "\n";
-				}
+				//for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+				////	std::cout << "texture size after clearing: " << mesh.textures.size() << "\n";
+				//}
 				//std::cout << "out model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
 				//std::cout << "out comp tetx cnt " << graphicsComp.getTextureNumber() << "\n";
 
