@@ -92,7 +92,7 @@ public:
         unsigned int normalNr = 1;
         unsigned int heightNr = 1;
 
-        std::cout <<"drawing with texture size" << textures.size() << '\n';
+       // std::cout <<"drawing with texture size" << textures.size() << '\n';
 
         
         shader.SetUniform("textureCount", static_cast<int>(textures.size()));
