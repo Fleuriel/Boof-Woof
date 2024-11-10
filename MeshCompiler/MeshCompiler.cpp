@@ -107,7 +107,7 @@ int main(int argc, char** argv) {
     while (!glfwWindowShouldClose(window))
     {
 #ifdef _DEBUG
-        std::cout << "Loop has entered\n";       
+//        std::cout << "Loop has entered\n";       
         std::cout << pathUpToObjects << '\n';
 #endif;
         // Iterate over all descriptor files in the directory
@@ -121,7 +121,7 @@ int main(int argc, char** argv) {
             model.loadModel(objFilePath, GL_TRIANGLES);
 
 #ifdef _DEBUG
-            std::cout << model.textures_loaded.size() << '\n';
+       //    std::cout << model.textures_loaded.size() << '\n';
 #endif
             std::vector<Vertex> vertices;
             std::vector<unsigned int> indices;
@@ -129,8 +129,8 @@ int main(int argc, char** argv) {
             parseOBJ(objFilePath, vertices, indices, textures);
 
 #ifdef _DEBUG
-            std::cout << vertices.size() << '\t' << indices.size() << "\t" <<  textures.size() << '\t' << "This Vertices ASize\n";
-            std::cout << model.textures_loaded.size() << '\n';
+       //     std::cout << vertices.size() << '\t' << indices.size() << "\t" <<  textures.size() << '\t' << "This Vertices ASize\n";
+       //     std::cout << model.textures_loaded.size() << '\n';
 #endif
 
             
@@ -212,7 +212,7 @@ void saveMeshToBin(Model model, const std::string& binFilePath) {
         binFile.write(reinterpret_cast<const char*>(mesh.indices.data()), indexCount * sizeof(unsigned int));
 
 #ifdef _DEBUG
-        std::cout << "texture size : mesh compiler: " << mesh.textures.size() << '\n';
+       // std::cout << "texture size : mesh compiler: " << mesh.textures.size() << '\n';
 #endif
         // Write textures
         size_t textureCount = model.textures_loaded.size();
@@ -220,13 +220,13 @@ void saveMeshToBin(Model model, const std::string& binFilePath) {
         for (int i = 0; i < model.textures_loaded.size(); ++i)
         {
 #ifdef _DEBUG
-            std::cout << "final\n";
-            std::cout << model.textures_loaded[i].id << '\t' << model.textures_loaded[i].path << '\t' << model.textures_loaded[i].type << '\n';
+        //    std::cout << "final\n";
+        //    std::cout << model.textures_loaded[i].id << '\t' << model.textures_loaded[i].path << '\t' << model.textures_loaded[i].type << '\n';
 #endif
             size_t pathLength = model.textures_loaded[i].path.size();
       
 #ifdef _DEBUG
-            std::cout << "path " << pathLength << '\n';
+          //  std::cout << "path " << pathLength << '\n';
 #endif
 
             binFile.write(reinterpret_cast<const char*>(&pathLength), sizeof(size_t));
