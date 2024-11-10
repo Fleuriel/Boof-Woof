@@ -873,6 +873,17 @@ void ImGuiEditor::InspectorWindow()
 							{
 								g_Coordinator.GetSystem<GraphicsSystem>()->SetLightPos(lightPos);
 							}
+
+							ImGui::Checkbox("Light On", &GraphicsSystem::lightOn);
+							if (GraphicsSystem::lightOn)
+							{
+								GraphicsSystem::lightOn = true;
+							}
+							else
+							{
+								GraphicsSystem::lightOn = false;
+							}
+
 						}												
 					}
 					else if (className == "AudioComponent")
