@@ -337,12 +337,16 @@ bool Serialization::LoadScene(const std::string& filepath) {
 
                     }
 
+                   
 
                     GraphicsComponent graphicsComponent(modelName, entity, TextureName);
                     graphicsComponent.SetModelID(modelID);
-                    
-                    std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
+                   
+                    bool a = graphicsComponent.incrementTextureNumber();
 
+#ifdef _DEBUG
+                    std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
+#endif
 
                     std::cout << g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
                     std::cout << graphicsComponent.getTextureNumber() << '\n';
@@ -350,6 +354,7 @@ bool Serialization::LoadScene(const std::string& filepath) {
                     while (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt < graphicsComponent.getTextureNumber()) {
                         Texture texture_add;
 
+#ifdef _DEBUG
                         std::cout << "inside while loop serialization\n";
                         //std::cout << graphicsComponent.getTexture(g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt) << '\n';
                         std::cout << g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
@@ -361,6 +366,7 @@ bool Serialization::LoadScene(const std::string& filepath) {
                         
                         //texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComponent.getModelName());
                         std::cout << "Texture ID : " << texture_add.id << '\n';
+#endif
 
                         texture_add.type = "texture_diffuse";
                         if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 0)
@@ -379,8 +385,9 @@ bool Serialization::LoadScene(const std::string& filepath) {
 
                         texture_add.path = graphicsComponent.getModelName();
 
+#ifdef _DEBUG
                         std::cout<< "Serialization texture name : " << graphicsComponent.getTextureName() << '\n';
-
+#endif
                    
 #ifdef _DEBUG
                         //std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
