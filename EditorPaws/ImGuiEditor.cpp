@@ -1203,345 +1203,301 @@ void ImGuiEditor::InspectorWindow()
 			}
 		}
 
-		else
-		{
-			/*
-				TEXTURE TYPE
-			*/
-
-			ImGui::Text("Texture Type ");
-			ImGui::SameLine(225);
-
-			const char* imG_TexType[] = { "Default", "Option B", "Option C" };
-			static int TexType_current_idx = 0; // Index for the selected item
-			//ImGui::Set
-			ImGui::SetNextItemWidth(200.0f);
-			ImGui::Combo("##Combo1", &TexType_current_idx, imG_TexType, IM_ARRAYSIZE(imG_TexType));
-
-
-			/*
-				TEXTURE SHAPE
-			*/
-
-
-			ImGui::Text("Texture Shape ");
-			ImGui::SameLine(225);
-
-			const char* imG_TexShape[] = { "2D", "3D" };
-			static int TexShape_current_idx = 0;
-
-			ImGui::SetNextItemWidth(200.0f);
-			ImGui::Combo("##Combo2", &TexShape_current_idx, imG_TexShape, IM_ARRAYSIZE(imG_TexShape));
-
-
-
-			/*
-				sRGB Color Texture
-			*/
-
-
-			static bool sRGBCheck = false;
-
-			ImGui::Spacing();
-			ImGui::Text("sRGB (Color Texture) ");
-			ImGui::SameLine(225);
-
-			ImGui::Checkbox("##Button1 ", &sRGBCheck);
-
-
-
-			/*
-				Alpha Source
-			*/
-
-			ImGui::Text("Alpha Source ");
-			ImGui::SameLine(225);
-
-			const char* imG_TexAlpha[] = { "Input Texture Alpha" };
-			static int TexAlpha_current_idx = 0; // Index for the selected item
-			//ImGui::Set
-			ImGui::SetNextItemWidth(200.0f);
-			ImGui::Combo("##Combo3", &TexAlpha_current_idx, imG_TexAlpha, IM_ARRAYSIZE(imG_TexAlpha));
-
-			/*
-				Alpha is Transparency?
-			*/
-
-
-			static bool a_Transparency = false;
-
-			ImGui::Text("Alpha is Transparency ");
-			ImGui::SameLine(225);
-
-			ImGui::Checkbox("##Button2 ", &a_Transparency);
-
-
-
-
-			/*
-				Advanced
-			*/
-
-
-			if (ImGui::TreeNode("Advanced")) {
-
-
-				ImGui::Text("Non-Power of 2");
-				ImGui::SameLine(225);
-
-				const char* imG_NonPowTwo[] = { "None", "ToNearest", "ToLargest", "ToSmallest"};
-				static int NonPowTwo_current_idx = 0; // Index for the selected item
-				ImGui::SetNextItemWidth(150.0f);
-				ImGui::Combo("##Combo13", &NonPowTwo_current_idx, imG_NonPowTwo, IM_ARRAYSIZE(imG_NonPowTwo));
-
-
-
-				static bool readWrite = false;
-
-				ImGui::Text("Read/Write");
-				ImGui::SameLine(225);
-
-				ImGui::Checkbox("##Button3 ", &readWrite);
-
-
-				static bool GenmipMaps = true;
-
-				ImGui::Text("Generate MipMaps");
-				ImGui::SameLine(225);
-
-				ImGui::Checkbox(" ", &GenmipMaps);
-
-				if (GenmipMaps)
-				{
-					std::cout << "MipMaps are enabled!" << std::endl;
-					ImGui::Indent(20);
-
-
-					static bool mipMapsLimit = false;
-
-					ImGui::Text("Use Mipmap limits");
-					ImGui::SameLine(225);
-
-					ImGui::Checkbox("##Button4 ", &mipMapsLimit);
-
-
-
-
-
-					ImGui::Indent(20);
-
-					ImGui::Text("Mipmap Limit Groups");
-					ImGui::SameLine(225);
-
-					const char* imG_MipMapLimit[] = { "None (Use Global Mipmap Limit)" };
-					static int MipMapLim_current_idx = 0; // Index for the selected item
-					ImGui::SetNextItemWidth(150.0f);
-					ImGui::Combo("##Combo14", &MipMapLim_current_idx, imG_MipMapLimit, IM_ARRAYSIZE(imG_MipMapLimit));
-
-
-					ImGui::Unindent(20);
-
-					static bool mipStream = false;
-					ImGui::Text("Mip Streaming");
-					ImGui::SameLine(225);
-
-					ImGui::Checkbox("##Button5 ", &mipStream);
-
-
-
-
-
-
-					ImGui::Text("Mipmap Filtering");
-					ImGui::SameLine(225);
-
-					const char* imG_MipMapFilter[] = { "Box", "Kaiser"};
-					static int MipFilter_current_idx = 0; // Index for the selected item
-					ImGui::SetNextItemWidth(150.0f);
-					ImGui::Combo("##Combo15", &MipFilter_current_idx, imG_MipMapFilter, IM_ARRAYSIZE(imG_MipMapFilter));
-
-
-
-
-
-
-
-
-					static bool PreserveCoverage = false;
-					ImGui::Text("Preserve Coverage");
-					ImGui::SameLine(225);
-
-					ImGui::Checkbox("##Button6 ", &PreserveCoverage);
-
-
-
-
-					static bool ReplicaBorder = false;
-					ImGui::Text("Replicate Border");
-					ImGui::SameLine(225);
-
-					ImGui::Checkbox("##Button7 ", &ReplicaBorder);
-
-
-
-
-
-					static bool FadeoutGray = false;
-					ImGui::Text("Fadeout to Gray");
-					ImGui::SameLine(225);
-
-					ImGui::Checkbox("##Button8 ", &FadeoutGray);
-
-
-
-
-
-					static bool pngGamma = false;
-					ImGui::Text("Ignore PNG Gamma");
-					ImGui::SameLine(225);
-
-					ImGui::Checkbox("##Button9 ", &pngGamma);
-
-
-
-				}
-
-
-
-
-
-				
-
-
-
-
-
-
-
-				ImGui::TreePop(); // Ends the child node
-			}
-
-
-
-
-			/*
-				Wrap Mode
-			*/
-
-
-			ImGui::Text("Wrap Mode ");
-			ImGui::SameLine(225);
-
-			const char* imG_Wrap[] = { "Repeat Mode" };
-			static int Wrap_current_idx = 0; // Index for the selected item
-			//ImGui::Set
-			ImGui::SetNextItemWidth(200.0f);
-			ImGui::Combo("##Combo4", &Wrap_current_idx, imG_Wrap, IM_ARRAYSIZE(imG_Wrap));
-
-
-			/*
-				Filter Mode
-			*/
-
-
-			ImGui::Text("Filter Mode ");
-			ImGui::SameLine(225);
-
-			const char* imG_Filter[] = { "Bilinear" };
-			static int Filter_current_idx = 0; // Index for the selected item
-			ImGui::SetNextItemWidth(150.0f);
-			ImGui::Combo("##Combo5", &Filter_current_idx, imG_Filter, IM_ARRAYSIZE(imG_Filter));
-
-
-			/*
-				Aniso Level
-			*/
-
-			ImGui::Text("Aniso Level ");
-
-			static float sliderValue = 0.0f;
-			
-
-
-			// Create a drag float that increments by 0.1 within a range of 0 to 10
-			ImGui::SliderFloat("Slider (0.1 Steps)", &sliderValue, 0.0f, 10.0f, "%.1f");
-
-
-			/*
-				Compression Format
-			*/
-
-			if (ImGui::BeginTabBar("InspectorTabs"))
+		else {
+			// Convert paths to strings for comparison
+			std::string selectedFilePath = m_SelectedFile.string();
+			std::replace(selectedFilePath.begin(), selectedFilePath.end(), '/', '\\');
+			std::cout << selectedFilePath << std::endl;
+
+			if (selectedFilePath == FILEPATH_ASSET_TEXTURES) { ImGui::Text("Textures (Default Asset)\n\n\nContains texture files.\n\nAccepted file extensions are: .png"); }
+			else if (selectedFilePath == FILEPATH_ASSET_ART) { ImGui::Text("Art (Default Asset)\n\n\nContains all art-related files."); }
+			else if (selectedFilePath == FILEPATH_ASSET_SCENES) { ImGui::Text("Scenes (Default Asset)\n\n\nContains audio files.\n\nAccepted file extensions are: .json"); }
+			else if (selectedFilePath == FILEPATH_ASSET_OBJECTS) { ImGui::Text("Objects (Default Asset)\n\n\nContains object files.\n\nAccepted file extensions are: .obj, .mtl, .png"); }
+			else if (selectedFilePath == FILEPATH_ASSET_SHADERS) { ImGui::Text("Shaders (Default Asset)\n\n\nContains shader files.\n\nAccepted file extensions are: .frag, .vert"); }
+			else if (selectedFilePath == FILEPATH_ASSET_FONTS) { ImGui::Text("Fonts (Default Asset)\n\n\nContains font files.\n\nAccepted file extensions are: .ttf"); }
+			else if (selectedFilePath == FILEPATH_ASSET_AUDIO) { ImGui::Text("Audio (Default Asset)\n\n\nContains audio files.\n\nAccepted file extensions are: "); }
+			else if (selectedFilePath == FILEPATH_ASSET_TRASHBIN) { ImGui::Text("Trash Bin (Default Asset)\n\n\nAssets placed in the wrong folder will be moved here."); }
+
+			else if (selectedFilePath.find(".png") != std::string::npos)
 			{
-				// First Tab: Default
-				if (ImGui::BeginTabItem("Default"))
-				{
-					ImGui::Text("Max Size");
+				/*
+					TEXTURE TYPE
+				*/
+
+				ImGui::Text("Texture Type ");
+				ImGui::SameLine(225);
+
+				const char* imG_TexType[] = { "Default", "Option B", "Option C" };
+				static int TexType_current_idx = 0; // Index for the selected item
+				//ImGui::Set
+				ImGui::SetNextItemWidth(200.0f);
+				ImGui::Combo("##Combo1", &TexType_current_idx, imG_TexType, IM_ARRAYSIZE(imG_TexType));
+
+
+				/*
+					TEXTURE SHAPE
+				*/
+
+
+				ImGui::Text("Texture Shape ");
+				ImGui::SameLine(225);
+
+				const char* imG_TexShape[] = { "2D", "3D" };
+				static int TexShape_current_idx = 0;
+
+				ImGui::SetNextItemWidth(200.0f);
+				ImGui::Combo("##Combo2", &TexShape_current_idx, imG_TexShape, IM_ARRAYSIZE(imG_TexShape));
+
+
+
+				/*
+					sRGB Color Texture
+				*/
+
+
+				static bool sRGBCheck = false;
+
+				ImGui::Spacing();
+				ImGui::Text("sRGB (Color Texture) ");
+				ImGui::SameLine(225);
+
+				ImGui::Checkbox("##Button1 ", &sRGBCheck);
+
+
+
+				/*
+					Alpha Source
+				*/
+
+				ImGui::Text("Alpha Source ");
+				ImGui::SameLine(225);
+
+				const char* imG_TexAlpha[] = { "Input Texture Alpha" };
+				static int TexAlpha_current_idx = 0; // Index for the selected item
+				//ImGui::Set
+				ImGui::SetNextItemWidth(200.0f);
+				ImGui::Combo("##Combo3", &TexAlpha_current_idx, imG_TexAlpha, IM_ARRAYSIZE(imG_TexAlpha));
+
+				/*
+					Alpha is Transparency?
+				*/
+
+
+				static bool a_Transparency = false;
+
+				ImGui::Text("Alpha is Transparency ");
+				ImGui::SameLine(225);
+
+				ImGui::Checkbox("##Button2 ", &a_Transparency);
+
+
+
+
+				/*
+					Advanced
+				*/
+
+
+				if (ImGui::TreeNode("Advanced")) {
+
+
+					ImGui::Text("Non-Power of 2");
 					ImGui::SameLine(225);
 
-					const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384"};
-					static int MaxSize_current_idx = 0; // Index for the selected item
+					const char* imG_NonPowTwo[] = { "None", "ToNearest", "ToLargest", "ToSmallest" };
+					static int NonPowTwo_current_idx = 0; // Index for the selected item
 					ImGui::SetNextItemWidth(150.0f);
-					ImGui::Combo("##Combo6", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
+					ImGui::Combo("##Combo13", &NonPowTwo_current_idx, imG_NonPowTwo, IM_ARRAYSIZE(imG_NonPowTwo));
 
 
 
-					ImGui::Text("Resize Algorithm");
+					static bool readWrite = false;
+
+					ImGui::Text("Read/Write");
 					ImGui::SameLine(225);
 
-					const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear"};
-					static int ResizeAlg_current_idx = 0; // Index for the selected item
-					ImGui::SetNextItemWidth(150.0f);
-					ImGui::Combo("##Combo7", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
+					ImGui::Checkbox("##Button3 ", &readWrite);
 
 
-					ImGui::Text("Format");
+					static bool GenmipMaps = true;
+
+					ImGui::Text("Generate MipMaps");
 					ImGui::SameLine(225);
 
-					const char* imG_OperatingSystemFormat[] = { "RGBA Compressed DXT5|BC3" };
-					static int OS_current_idx = 0; // Index for the selected item
-					ImGui::SetNextItemWidth(150.0f);
-					ImGui::Combo("##Combo8", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
+					ImGui::Checkbox(" ", &GenmipMaps);
+
+					if (GenmipMaps)
+					{
+						std::cout << "MipMaps are enabled!" << std::endl;
+						ImGui::Indent(20);
+
+
+						static bool mipMapsLimit = false;
+
+						ImGui::Text("Use Mipmap limits");
+						ImGui::SameLine(225);
+
+						ImGui::Checkbox("##Button4 ", &mipMapsLimit);
 
 
 
-					ImGui::Text("Compression");
-					ImGui::SameLine(225);
-
-					const char* imG_CompressionQuality[] = { "None", "Low Quality", "Normal Quality", "High Quality"};
-					static int Compression_current_idx = 0; // Index for the selected item
-					ImGui::SetNextItemWidth(150.0f);
-					ImGui::Combo("##Combo9", &Compression_current_idx, imG_CompressionQuality, IM_ARRAYSIZE(imG_CompressionQuality));
 
 
-					static bool crunchCompress = false;
+						ImGui::Indent(20);
 
-					ImGui::Text("Use Crunch Compression");
-					ImGui::SameLine(225);
+						ImGui::Text("Mipmap Limit Groups");
+						ImGui::SameLine(225);
 
-					ImGui::Checkbox("##Button10 ", &crunchCompress);
+						const char* imG_MipMapLimit[] = { "None (Use Global Mipmap Limit)" };
+						static int MipMapLim_current_idx = 0; // Index for the selected item
+						ImGui::SetNextItemWidth(150.0f);
+						ImGui::Combo("##Combo14", &MipMapLim_current_idx, imG_MipMapLimit, IM_ARRAYSIZE(imG_MipMapLimit));
 
-					// More controls as needed...
-					ImGui::EndTabItem();
+
+						ImGui::Unindent(20);
+
+						static bool mipStream = false;
+						ImGui::Text("Mip Streaming");
+						ImGui::SameLine(225);
+
+						ImGui::Checkbox("##Button5 ", &mipStream);
+
+
+
+
+
+
+						ImGui::Text("Mipmap Filtering");
+						ImGui::SameLine(225);
+
+						const char* imG_MipMapFilter[] = { "Box", "Kaiser" };
+						static int MipFilter_current_idx = 0; // Index for the selected item
+						ImGui::SetNextItemWidth(150.0f);
+						ImGui::Combo("##Combo15", &MipFilter_current_idx, imG_MipMapFilter, IM_ARRAYSIZE(imG_MipMapFilter));
+
+
+
+
+
+
+
+
+						static bool PreserveCoverage = false;
+						ImGui::Text("Preserve Coverage");
+						ImGui::SameLine(225);
+
+						ImGui::Checkbox("##Button6 ", &PreserveCoverage);
+
+
+
+
+						static bool ReplicaBorder = false;
+						ImGui::Text("Replicate Border");
+						ImGui::SameLine(225);
+
+						ImGui::Checkbox("##Button7 ", &ReplicaBorder);
+
+
+
+
+
+						static bool FadeoutGray = false;
+						ImGui::Text("Fadeout to Gray");
+						ImGui::SameLine(225);
+
+						ImGui::Checkbox("##Button8 ", &FadeoutGray);
+
+
+
+
+
+						static bool pngGamma = false;
+						ImGui::Text("Ignore PNG Gamma");
+						ImGui::SameLine(225);
+
+						ImGui::Checkbox("##Button9 ", &pngGamma);
+
+
+
+					}
+
+
+
+
+
+
+
+
+
+
+
+
+
+					ImGui::TreePop(); // Ends the child node
 				}
 
-				// Second Tab: Another settings tab
-				if (ImGui::BeginTabItem("Advanced"))
+
+
+
+				/*
+					Wrap Mode
+				*/
+
+
+				ImGui::Text("Wrap Mode ");
+				ImGui::SameLine(225);
+
+				const char* imG_Wrap[] = { "Repeat Mode" };
+				static int Wrap_current_idx = 0; // Index for the selected item
+				//ImGui::Set
+				ImGui::SetNextItemWidth(200.0f);
+				ImGui::Combo("##Combo4", &Wrap_current_idx, imG_Wrap, IM_ARRAYSIZE(imG_Wrap));
+
+
+				/*
+					Filter Mode
+				*/
+
+
+				ImGui::Text("Filter Mode ");
+				ImGui::SameLine(225);
+
+				const char* imG_Filter[] = { "Bilinear" };
+				static int Filter_current_idx = 0; // Index for the selected item
+				ImGui::SetNextItemWidth(150.0f);
+				ImGui::Combo("##Combo5", &Filter_current_idx, imG_Filter, IM_ARRAYSIZE(imG_Filter));
+
+
+				/*
+					Aniso Level
+				*/
+
+				ImGui::Text("Aniso Level ");
+
+				static float sliderValue = 0.0f;
+
+
+
+				// Create a drag float that increments by 0.1 within a range of 0 to 10
+				ImGui::SliderFloat("Slider (0.1 Steps)", &sliderValue, 0.0f, 10.0f, "%.1f");
+
+
+				/*
+					Compression Format
+				*/
+
+				if (ImGui::BeginTabBar("InspectorTabs"))
 				{
-					static bool overrite = false;
-
-					ImGui::Text("Override For Windows, Mac, Linux");
-					ImGui::SameLine(225);
-
-					ImGui::Checkbox(" ", &overrite);
-
-					if (overrite)
+					// First Tab: Default
+					if (ImGui::BeginTabItem("Default"))
 					{
+						ImGui::Text("Max Size");
+						ImGui::SameLine(225);
 
 						const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384" };
 						static int MaxSize_current_idx = 0; // Index for the selected item
 						ImGui::SetNextItemWidth(150.0f);
-						ImGui::Combo("##Combo10", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
+						ImGui::Combo("##Combo6", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
 
 
 
@@ -1551,7 +1507,7 @@ void ImGuiEditor::InspectorWindow()
 						const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear" };
 						static int ResizeAlg_current_idx = 0; // Index for the selected item
 						ImGui::SetNextItemWidth(150.0f);
-						ImGui::Combo("##Combo11", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
+						ImGui::Combo("##Combo7", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
 
 
 						ImGui::Text("Format");
@@ -1560,41 +1516,100 @@ void ImGuiEditor::InspectorWindow()
 						const char* imG_OperatingSystemFormat[] = { "RGBA Compressed DXT5|BC3" };
 						static int OS_current_idx = 0; // Index for the selected item
 						ImGui::SetNextItemWidth(150.0f);
-						ImGui::Combo("##Combo12", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
+						ImGui::Combo("##Combo8", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
 
+
+
+						ImGui::Text("Compression");
+						ImGui::SameLine(225);
+
+						const char* imG_CompressionQuality[] = { "None", "Low Quality", "Normal Quality", "High Quality" };
+						static int Compression_current_idx = 0; // Index for the selected item
+						ImGui::SetNextItemWidth(150.0f);
+						ImGui::Combo("##Combo9", &Compression_current_idx, imG_CompressionQuality, IM_ARRAYSIZE(imG_CompressionQuality));
+
+
+						static bool crunchCompress = false;
+
+						ImGui::Text("Use Crunch Compression");
+						ImGui::SameLine(225);
+
+						ImGui::Checkbox("##Button10 ", &crunchCompress);
+
+						// More controls as needed...
+						ImGui::EndTabItem();
 					}
 
+					// Second Tab: Another settings tab
+					if (ImGui::BeginTabItem("Advanced"))
+					{
+						static bool overrite = false;
 
-					// Additional widgets can go here
-					ImGui::EndTabItem();
+						ImGui::Text("Override For Windows, Mac, Linux");
+						ImGui::SameLine(225);
+
+						ImGui::Checkbox(" ", &overrite);
+
+						if (overrite)
+						{
+
+							const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384" };
+							static int MaxSize_current_idx = 0; // Index for the selected item
+							ImGui::SetNextItemWidth(150.0f);
+							ImGui::Combo("##Combo10", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
+
+
+
+							ImGui::Text("Resize Algorithm");
+							ImGui::SameLine(225);
+
+							const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear" };
+							static int ResizeAlg_current_idx = 0; // Index for the selected item
+							ImGui::SetNextItemWidth(150.0f);
+							ImGui::Combo("##Combo11", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
+
+
+							ImGui::Text("Format");
+							ImGui::SameLine(225);
+
+							const char* imG_OperatingSystemFormat[] = { "RGBA Compressed DXT5|BC3" };
+							static int OS_current_idx = 0; // Index for the selected item
+							ImGui::SetNextItemWidth(150.0f);
+							ImGui::Combo("##Combo12", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
+
+						}
+
+
+						// Additional widgets can go here
+						ImGui::EndTabItem();
+					}
+
+					ImGui::EndTabBar();  // End the tab bar
 				}
 
-				ImGui::EndTabBar();  // End the tab bar
+
+
+				ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();
+
+
+				ImGui::Indent(300);
+
+				if (ImGui::Button("Apply"))
+				{
+
+					//Save
+
+				}
+
+				ImGui::SameLine();
+				if (ImGui::Button("Revert"))
+				{
+
+					//Go back to original shit
+
+				}
+
 			}
-
-
-
-			ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();
-	
-
-			ImGui::Indent(300);
-
-			if (ImGui::Button("Apply"))
-			{
-
-				//Save
-
-			}
-
-			ImGui::SameLine();
-			if (ImGui::Button("Revert"))
-			{
-
-				//Go back to original shit
-
-			}
-			
-
 
 		}
 	}
@@ -1811,6 +1826,20 @@ void ImGuiEditor::AssetWindow()
 				else {
 					m_SelectedFile = path; // Set the selected file
 				}
+			}
+
+			fs::path currentDirectory = fs::canonical(m_CurrDir);
+			fs::path selectedFilePath = fs::canonical(m_SelectedFile);
+			// Check if the selected file is within the current directory
+			if ((selectedFilePath.parent_path() == currentDirectory) && fs::exists(selectedFilePath)) {
+				// The selected file is in the current directory or its subdirectory
+				//std::cout << "Selected file is within the current directory." << std::endl;
+			}
+			else {
+				// The selected file is not in the current directory or its subdirectory
+				//std::cout << "Selected file is NOT within the current directory." << std::endl;
+
+				m_SelectedFile.clear();
 			}
 
 			// must double click to go next directory

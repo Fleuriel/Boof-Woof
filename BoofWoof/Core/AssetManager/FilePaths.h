@@ -14,6 +14,9 @@
 // ASSETS //
 #define FILEPATH_ASSETS							std::string("..\\BoofWoof\\Assets")
 
+// ART ASSETS //
+#define FILEPATH_ASSET_ART						std::string("..\\BoofWoof\\Assets\\Art")
+
 // TEXTURE ASSETS //
 #define FILEPATH_ASSET_TEXTURES					std::string("..\\BoofWoof\\Assets\\Art\\Textures")
 
@@ -31,6 +34,9 @@
 
 // FONT ASSETS //
 #define FILEPATH_ASSET_FONTS					std::string("..\\BoofWoof\\Assets\\Fonts")
+
+// AUDIO ASSETS //
+#define FILEPATH_ASSET_AUDIO					std::string("..\\BoofWoof\\Assets\\Audio")
 
 // ASSET TRASHBIN //
 #define FILEPATH_ASSET_TRASHBIN					std::string("..\\BoofWoof\\Assets\\Trashbin")

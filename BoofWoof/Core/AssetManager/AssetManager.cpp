@@ -421,7 +421,7 @@ bool AssetManager::FreeTextures() {
  * is a convenient way to refresh the textures in your application without
  * restarting the entire program.
  *
- * @return True if the scenes are both successfully freed and reloaded,
+ * @return True if the textures are both successfully freed and reloaded,
  *         false otherwise.
  *************************************************************************/
 bool AssetManager::ReloadTextures() {
