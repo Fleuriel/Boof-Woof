@@ -908,10 +908,10 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::SameLine(225);
 
 									const char* imG_Material[] = { "Shader3D", "Shader2D", " " };
-									static int item_current_idx = 0; // Index for the selected item
+									static int Material_current_idx = 0; // Index for the selected item
 									//ImGui::Set
 									ImGui::SetNextItemWidth(200.0f);
-									ImGui::Combo("##Combo1", &item_current_idx, imG_Material, IM_ARRAYSIZE(imG_Material));
+									ImGui::Combo("##Combo1", &Material_current_idx, imG_Material, IM_ARRAYSIZE(imG_Material));
 
 
 									/*
@@ -1213,10 +1213,10 @@ void ImGuiEditor::InspectorWindow()
 			ImGui::SameLine(225);
 
 			const char* imG_TexType[] = { "Default", "Option B", "Option C" };
-			static int item_current_idx = 0; // Index for the selected item
+			static int TexType_current_idx = 0; // Index for the selected item
 			//ImGui::Set
 			ImGui::SetNextItemWidth(200.0f);
-			ImGui::Combo("##Combo1", &item_current_idx, imG_TexType, IM_ARRAYSIZE(imG_TexType));
+			ImGui::Combo("##Combo1", &TexType_current_idx, imG_TexType, IM_ARRAYSIZE(imG_TexType));
 
 
 			/*
@@ -1228,10 +1228,10 @@ void ImGuiEditor::InspectorWindow()
 			ImGui::SameLine(225);
 
 			const char* imG_TexShape[] = { "2D", "3D" };
-			item_current_idx = 0;
+			static int TexShape_current_idx = 0;
 
 			ImGui::SetNextItemWidth(200.0f);
-			ImGui::Combo("##Combo2", &item_current_idx, imG_TexShape, IM_ARRAYSIZE(imG_TexShape));
+			ImGui::Combo("##Combo2", &TexShape_current_idx, imG_TexShape, IM_ARRAYSIZE(imG_TexShape));
 
 
 
@@ -1246,7 +1246,7 @@ void ImGuiEditor::InspectorWindow()
 			ImGui::Text("sRGB (Color Texture) ");
 			ImGui::SameLine(225);
 
-			ImGui::Checkbox(" ", &sRGBCheck);
+			ImGui::Checkbox("##Button1 ", &sRGBCheck);
 
 
 
@@ -1258,22 +1258,22 @@ void ImGuiEditor::InspectorWindow()
 			ImGui::SameLine(225);
 
 			const char* imG_TexAlpha[] = { "Input Texture Alpha" };
-			item_current_idx = 0; // Index for the selected item
+			static int TexAlpha_current_idx = 0; // Index for the selected item
 			//ImGui::Set
 			ImGui::SetNextItemWidth(200.0f);
-			ImGui::Combo("##Combo3", &item_current_idx, imG_TexAlpha, IM_ARRAYSIZE(imG_TexAlpha));
+			ImGui::Combo("##Combo3", &TexAlpha_current_idx, imG_TexAlpha, IM_ARRAYSIZE(imG_TexAlpha));
 
 			/*
 				Alpha is Transparency?
 			*/
 
 
-			static bool alpha_Transparency = false;
+			static bool a_Transparency = false;
 
 			ImGui::Text("Alpha is Transparency ");
 			ImGui::SameLine(225);
 
-			ImGui::Checkbox(" ", &alpha_Transparency);
+			ImGui::Checkbox("##Button2 ", &a_Transparency);
 
 
 
@@ -1284,8 +1284,140 @@ void ImGuiEditor::InspectorWindow()
 
 
 			if (ImGui::TreeNode("Advanced")) {
-				ImGui::Text("Child Item 1");
-				ImGui::Text("Child Item 2");
+
+
+				ImGui::Text("Non-Power of 2");
+				ImGui::SameLine(225);
+
+				const char* imG_NonPowTwo[] = { "None", "ToNearest", "ToLargest", "ToSmallest"};
+				static int NonPowTwo_current_idx = 0; // Index for the selected item
+				ImGui::SetNextItemWidth(150.0f);
+				ImGui::Combo("##Combo13", &NonPowTwo_current_idx, imG_NonPowTwo, IM_ARRAYSIZE(imG_NonPowTwo));
+
+
+
+				static bool readWrite = false;
+
+				ImGui::Text("Read/Write");
+				ImGui::SameLine(225);
+
+				ImGui::Checkbox("##Button3 ", &readWrite);
+
+
+				static bool GenmipMaps = true;
+
+				ImGui::Text("Generate MipMaps");
+				ImGui::SameLine(225);
+
+				ImGui::Checkbox(" ", &GenmipMaps);
+
+				if (GenmipMaps)
+				{
+					std::cout << "MipMaps are enabled!" << std::endl;
+					ImGui::Indent(20);
+
+
+					static bool mipMapsLimit = false;
+
+					ImGui::Text("Use Mipmap limits");
+					ImGui::SameLine(225);
+
+					ImGui::Checkbox("##Button4 ", &mipMapsLimit);
+
+
+
+
+
+					ImGui::Indent(20);
+
+					ImGui::Text("Mipmap Limit Groups");
+					ImGui::SameLine(225);
+
+					const char* imG_MipMapLimit[] = { "None (Use Global Mipmap Limit)" };
+					static int MipMapLim_current_idx = 0; // Index for the selected item
+					ImGui::SetNextItemWidth(150.0f);
+					ImGui::Combo("##Combo14", &MipMapLim_current_idx, imG_MipMapLimit, IM_ARRAYSIZE(imG_MipMapLimit));
+
+
+					ImGui::Unindent(20);
+
+					static bool mipStream = false;
+					ImGui::Text("Mip Streaming");
+					ImGui::SameLine(225);
+
+					ImGui::Checkbox("##Button5 ", &mipStream);
+
+
+
+
+
+
+					ImGui::Text("Mipmap Filtering");
+					ImGui::SameLine(225);
+
+					const char* imG_MipMapFilter[] = { "Box", "Kaiser"};
+					static int MipFilter_current_idx = 0; // Index for the selected item
+					ImGui::SetNextItemWidth(150.0f);
+					ImGui::Combo("##Combo15", &MipFilter_current_idx, imG_MipMapFilter, IM_ARRAYSIZE(imG_MipMapFilter));
+
+
+
+
+
+
+
+
+					static bool PreserveCoverage = false;
+					ImGui::Text("Preserve Coverage");
+					ImGui::SameLine(225);
+
+					ImGui::Checkbox("##Button6 ", &PreserveCoverage);
+
+
+
+
+					static bool ReplicaBorder = false;
+					ImGui::Text("Replicate Border");
+					ImGui::SameLine(225);
+
+					ImGui::Checkbox("##Button7 ", &ReplicaBorder);
+
+
+
+
+
+					static bool FadeoutGray = false;
+					ImGui::Text("Fadeout to Gray");
+					ImGui::SameLine(225);
+
+					ImGui::Checkbox("##Button8 ", &FadeoutGray);
+
+
+
+
+
+					static bool pngGamma = false;
+					ImGui::Text("Ignore PNG Gamma");
+					ImGui::SameLine(225);
+
+					ImGui::Checkbox("##Button9 ", &pngGamma);
+
+
+
+				}
+
+
+
+
+
+				
+
+
+
+
+
+
+
 				ImGui::TreePop(); // Ends the child node
 			}
 
@@ -1301,10 +1433,10 @@ void ImGuiEditor::InspectorWindow()
 			ImGui::SameLine(225);
 
 			const char* imG_Wrap[] = { "Repeat Mode" };
-			item_current_idx = 0; // Index for the selected item
+			static int Wrap_current_idx = 0; // Index for the selected item
 			//ImGui::Set
 			ImGui::SetNextItemWidth(200.0f);
-			ImGui::Combo("##Combo4", &item_current_idx, imG_Wrap, IM_ARRAYSIZE(imG_Wrap));
+			ImGui::Combo("##Combo4", &Wrap_current_idx, imG_Wrap, IM_ARRAYSIZE(imG_Wrap));
 
 
 			/*
@@ -1316,9 +1448,9 @@ void ImGuiEditor::InspectorWindow()
 			ImGui::SameLine(225);
 
 			const char* imG_Filter[] = { "Bilinear" };
-			item_current_idx = 0; // Index for the selected item
+			static int Filter_current_idx = 0; // Index for the selected item
 			ImGui::SetNextItemWidth(150.0f);
-			ImGui::Combo("##Combo5", &item_current_idx, imG_Filter, IM_ARRAYSIZE(imG_Filter));
+			ImGui::Combo("##Combo5", &Filter_current_idx, imG_Filter, IM_ARRAYSIZE(imG_Filter));
 
 
 			/*
@@ -1348,9 +1480,9 @@ void ImGuiEditor::InspectorWindow()
 					ImGui::SameLine(225);
 
 					const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384"};
-					item_current_idx = 0; // Index for the selected item
+					static int MaxSize_current_idx = 0; // Index for the selected item
 					ImGui::SetNextItemWidth(150.0f);
-					ImGui::Combo("##Combo6", &item_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
+					ImGui::Combo("##Combo6", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
 
 
 
@@ -1358,18 +1490,18 @@ void ImGuiEditor::InspectorWindow()
 					ImGui::SameLine(225);
 
 					const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear"};
-					item_current_idx = 0; // Index for the selected item
+					static int ResizeAlg_current_idx = 0; // Index for the selected item
 					ImGui::SetNextItemWidth(150.0f);
-					ImGui::Combo("##Combo7", &item_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
+					ImGui::Combo("##Combo7", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
 
 
 					ImGui::Text("Format");
 					ImGui::SameLine(225);
 
 					const char* imG_OperatingSystemFormat[] = { "RGBA Compressed DXT5|BC3" };
-					item_current_idx = 0; // Index for the selected item
+					static int OS_current_idx = 0; // Index for the selected item
 					ImGui::SetNextItemWidth(150.0f);
-					ImGui::Combo("##Combo8", &item_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
+					ImGui::Combo("##Combo8", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
 
 
 
@@ -1377,9 +1509,9 @@ void ImGuiEditor::InspectorWindow()
 					ImGui::SameLine(225);
 
 					const char* imG_CompressionQuality[] = { "None", "Low Quality", "Normal Quality", "High Quality"};
-					item_current_idx = 0; // Index for the selected item
+					static int Compression_current_idx = 0; // Index for the selected item
 					ImGui::SetNextItemWidth(150.0f);
-					ImGui::Combo("##Combo9", &item_current_idx, imG_CompressionQuality, IM_ARRAYSIZE(imG_CompressionQuality));
+					ImGui::Combo("##Combo9", &Compression_current_idx, imG_CompressionQuality, IM_ARRAYSIZE(imG_CompressionQuality));
 
 
 					static bool crunchCompress = false;
@@ -1387,7 +1519,7 @@ void ImGuiEditor::InspectorWindow()
 					ImGui::Text("Use Crunch Compression");
 					ImGui::SameLine(225);
 
-					ImGui::Checkbox(" ", &crunchCompress);
+					ImGui::Checkbox("##Button10 ", &crunchCompress);
 
 					// More controls as needed...
 					ImGui::EndTabItem();
@@ -1407,9 +1539,9 @@ void ImGuiEditor::InspectorWindow()
 					{
 
 						const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384" };
-						item_current_idx = 0; // Index for the selected item
+						static int MaxSize_current_idx = 0; // Index for the selected item
 						ImGui::SetNextItemWidth(150.0f);
-						ImGui::Combo("##Combo10", &item_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
+						ImGui::Combo("##Combo10", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
 
 
 
@@ -1417,18 +1549,18 @@ void ImGuiEditor::InspectorWindow()
 						ImGui::SameLine(225);
 
 						const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear" };
-						item_current_idx = 0; // Index for the selected item
+						static int ResizeAlg_current_idx = 0; // Index for the selected item
 						ImGui::SetNextItemWidth(150.0f);
-						ImGui::Combo("##Combo11", &item_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
+						ImGui::Combo("##Combo11", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
 
 
 						ImGui::Text("Format");
 						ImGui::SameLine(225);
 
 						const char* imG_OperatingSystemFormat[] = { "RGBA Compressed DXT5|BC3" };
-						item_current_idx = 0; // Index for the selected item
+						static int OS_current_idx = 0; // Index for the selected item
 						ImGui::SetNextItemWidth(150.0f);
-						ImGui::Combo("##Combo12", &item_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
+						ImGui::Combo("##Combo12", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
 
 					}
 
