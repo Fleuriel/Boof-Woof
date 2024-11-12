@@ -1360,7 +1360,7 @@ void ImGuiEditor::InspectorWindow()
 					const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear"};
 					item_current_idx = 0; // Index for the selected item
 					ImGui::SetNextItemWidth(150.0f);
-					ImGui::Combo("##Combo11", &item_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
+					ImGui::Combo("##Combo7", &item_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
 
 
 					ImGui::Text("Format");
@@ -1369,7 +1369,7 @@ void ImGuiEditor::InspectorWindow()
 					const char* imG_OperatingSystemFormat[] = { "RGBA Compressed DXT5|BC3" };
 					item_current_idx = 0; // Index for the selected item
 					ImGui::SetNextItemWidth(150.0f);
-					ImGui::Combo("##Combo12", &item_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
+					ImGui::Combo("##Combo8", &item_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
 
 
 
@@ -1406,19 +1406,17 @@ void ImGuiEditor::InspectorWindow()
 					if (overrite)
 					{
 
-						ImGui::Text("Max Size ");
-						ImGui::SameLine(225);
-
-						const char* imG_MaxSize[] = {"256", "512" ,"1024", "2048", "4096", "8192", "16384"};
+						const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384" };
 						item_current_idx = 0; // Index for the selected item
 						ImGui::SetNextItemWidth(150.0f);
 						ImGui::Combo("##Combo10", &item_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
 
 
+
 						ImGui::Text("Resize Algorithm");
 						ImGui::SameLine(225);
 
-						const char* imG_ResizeAlgo[] = { "Mitchell" };
+						const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear" };
 						item_current_idx = 0; // Index for the selected item
 						ImGui::SetNextItemWidth(150.0f);
 						ImGui::Combo("##Combo11", &item_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
