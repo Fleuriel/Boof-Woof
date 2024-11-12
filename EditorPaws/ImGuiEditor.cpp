@@ -719,6 +719,9 @@ void ImGuiEditor::InspectorWindow()
 							auto modelNameProperty = std::find_if(properties.begin(), properties.end(),
 								[](const ReflectionPropertyBase* prop) { return prop->GetName() == "ModelName"; });
 
+							
+
+
 							if (modelNameProperty != properties.end())
 							{
 								std::string propertyName = "ModelName";
@@ -873,6 +876,157 @@ void ImGuiEditor::InspectorWindow()
 							{
 								g_Coordinator.GetSystem<GraphicsSystem>()->SetLightPos(lightPos);
 							}
+
+							if (ImGui::TreeNode("Texture Properties")) {
+								/*
+									TEXTURE TYPE
+								*/
+								
+								ImGui::Text("Texture Type ");
+								ImGui::SameLine(225);
+
+								const char* imG_TexType[] = { "Default", "Option B", "Option C" };
+								static int item_current_idx = 0; // Index for the selected item
+								//ImGui::Set
+								ImGui::SetNextItemWidth(150.0f);
+								ImGui::Combo("##Combo1", &item_current_idx, imG_TexType, IM_ARRAYSIZE(imG_TexType));
+
+
+								/*
+									TEXTURE SHAPE
+								*/
+
+
+								ImGui::Text("Texture Shape ");
+								ImGui::SameLine(225);
+
+								const char* imG_TexShape[] = {"2D", "3D"};
+								item_current_idx = 0;
+
+								ImGui::SetNextItemWidth(150.0f);
+								ImGui::Combo("##Combo2", &item_current_idx, imG_TexShape , IM_ARRAYSIZE(imG_TexShape));
+
+
+
+								/*
+									sRGB Color Texture
+								*/
+
+
+								static bool sRGBCheck = false;
+
+								ImGui::Spacing();
+								ImGui::Text("sRGB (Color Texture) ");
+								ImGui::SameLine(225);
+
+								ImGui::Checkbox("", &sRGBCheck);
+
+
+
+								/*
+									Alpha Source
+								*/
+
+								ImGui::Text("Alpha Source ");
+								ImGui::SameLine(225);
+
+								const char* imG_TexAlpha[] = { "Input Texture Alpha" };
+								item_current_idx = 0; // Index for the selected item
+								//ImGui::Set
+								ImGui::SetNextItemWidth(150.0f);
+								ImGui::Combo("##Combo3", &item_current_idx, imG_TexAlpha, IM_ARRAYSIZE(imG_TexAlpha));
+
+								/*
+									Alpha is Transparency?
+								*/
+
+
+								static bool alpha_Transparency = false;
+
+								ImGui::Text("Alpha is Transparency ");
+								ImGui::SameLine(225);
+
+								ImGui::Checkbox("", &alpha_Transparency);
+								
+
+
+
+								/*
+									Advanced
+								*/
+
+
+								if (ImGui::TreeNode("Advanced")) {
+									ImGui::Text("Child Item 1");
+									ImGui::Text("Child Item 2");
+									ImGui::TreePop(); // Ends the child node
+								}
+
+								
+								
+
+								/*
+									Wrap Mode
+								*/
+
+
+								ImGui::Text("Wrap Mode ");
+								ImGui::SameLine(225);
+
+								const char* imG_Wrap[] = { "Repeat Mode" };
+								item_current_idx = 0; // Index for the selected item
+								//ImGui::Set
+								ImGui::SetNextItemWidth(150.0f);
+								ImGui::Combo("##Combo4", &item_current_idx, imG_Wrap, IM_ARRAYSIZE(imG_Wrap));
+
+
+								/*
+									Filter Mode
+								*/
+								
+
+								ImGui::Text("Filter Mode ");
+								ImGui::SameLine(225);
+
+								const char* imG_Filter[] = { "Bilinear" };
+								item_current_idx = 0; // Index for the selected item
+								ImGui::SetNextItemWidth(150.0f);
+								ImGui::Combo("##Combo5", &item_current_idx, imG_Filter, IM_ARRAYSIZE(imG_Filter));
+
+
+								/*
+									Aniso Level
+								*/
+								
+								ImGui::Text("Aniso Level ");
+//								ImGui::SameLine(150);
+
+								
+								// Variable to hold the current slider value
+								static float sliderValue = 0.0f;
+								// Create a slider bar with a label, min, and max range
+								ImGui::SliderFloat("", &sliderValue, 0.0f, 100.0f, "%.1f");
+
+
+
+
+								//THIS ALWAYS AT END
+								ImGui::TreePop(); // Ends the parent node
+							}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 						}												
 					}
 					else if (className == "AudioComponent")
