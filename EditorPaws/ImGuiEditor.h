@@ -76,7 +76,7 @@ public:
 private:
 	Window* m_Window = nullptr;
 	std::vector<std::type_index> compTypes; // Member variable to hold selected component types
-
+	std::filesystem::path m_SelectedFile;
 };
 
 #endif  // IMGUIEDITOR_H
