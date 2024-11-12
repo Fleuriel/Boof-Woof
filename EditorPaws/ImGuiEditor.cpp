@@ -1404,6 +1404,36 @@ void ImGuiEditor::InspectorWindow()
 
 
 
+
+					ImGui::SetNextItemWidth(80);
+
+					// First Combo Box
+					const char* items1[] = { "R", "G", "B", "A", "1R", "1G", "1B", "1A", "0", "1"};
+					static int selected_idx1 = 0;
+					ImGui::Combo("##Swizzle1", &selected_idx1, items1, IM_ARRAYSIZE(items1));
+					ImGui::SetNextItemWidth(80);
+					ImGui::SameLine();
+
+					// Second Combo Box
+					const char* items2[] = { "R", "G", "B", "A", "1R", "1G", "1B", "1A", "0", "1" };
+					static int selected_idx2 = 1;
+					ImGui::Combo("##Swizzle2", &selected_idx2, items2, IM_ARRAYSIZE(items2));
+					ImGui::SetNextItemWidth(80);
+					ImGui::SameLine();
+
+					// Third Combo Box
+					const char* items3[] = { "R", "G", "B", "A", "1R", "1G", "1B", "1A", "0", "1" };
+					static int selected_idx3 = 2;
+					ImGui::Combo("##Swizzle3", &selected_idx3, items3, IM_ARRAYSIZE(items3));
+					ImGui::SetNextItemWidth(80);
+					ImGui::SameLine();
+
+					// Fourth Combo Box
+					const char* items4[] = { "R", "G", "B", "A", "1R", "1G", "1B", "1A", "0", "1" };
+					static int selected_idx4 = 3;
+					ImGui::Combo("##Swizzle4", &selected_idx4, items4, IM_ARRAYSIZE(items4));
+
+
 				}
 
 
@@ -1537,7 +1567,8 @@ void ImGuiEditor::InspectorWindow()
 
 					if (overrite)
 					{
-
+						ImGui::Text("Max Size");
+						ImGui::SameLine(225);
 						const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384" };
 						static int MaxSize_current_idx = 0; // Index for the selected item
 						ImGui::SetNextItemWidth(150.0f);
