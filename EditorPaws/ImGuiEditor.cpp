@@ -1396,7 +1396,7 @@ void ImGuiEditor::AssetWindow()
 			std::string fileNameExt = relativePath.filename().string();
 
 			ImGui::PushID(fileNameExt.c_str()); // using filename as the ID so all are unique, the drag drop won't open same source
-			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0)); // for button background opacity to go 0
+			ImGui::PushStyleColor(ImGuiCol_Button, ((path == m_SelectedFile) ? ImVec4(0.3f, 0.6f, 1.0f, 0.5f) : ImVec4(0, 0, 0, 0))); // for button background opacity to go 0
 
 			size_t lastDot = fileNameExt.find_last_of(".");
 			std::string fileName = fileNameExt.substr(0, lastDot);
@@ -1405,7 +1405,7 @@ void ImGuiEditor::AssetWindow()
 			int iconDDS = g_ResourceManager.GetTextureDDS(icon);
 
 			ImGui::ImageButton((ImTextureID)(uintptr_t)(iconDDS != -1 ? iconDDS : g_ResourceManager.GetTextureDDS("BlackScreen")),
-				{ 60, 60 }, { 0, 0 }, { 1, 1 });
+				{ 70, 70 }, { 0, 0 }, { 1, 1 }, 8);
 
 
 			// drag from assets to components
@@ -1418,6 +1418,11 @@ void ImGuiEditor::AssetWindow()
 			}
 
 			ImGui::PopStyleColor();
+
+			// Detect selection on click
+			if (ImGui::IsItemClicked(ImGuiMouseButton_Left)) {
+				m_SelectedFile = path; // Set selected file
+			}
 
 			// must double click to go next directory
 			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
