@@ -92,7 +92,6 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 	//fontSystem.init_font();
 
-	LoadAnimation("walk", "..\\BoofWoof\\Resources\\Animations\\corgi.fbx");
 
 }
 
@@ -116,9 +115,6 @@ void GraphicsSystem::UpdateLoop() {
 	// Update previous time to the current time
 	previousTime = currentTime;
 
-	UpdateAnimations(deltaTime);
-
-	animationManager.PrintAnimationNames();
 
 	// Bind the framebuffer for rendering
 	if(editorMode == true)
@@ -445,18 +441,7 @@ void GraphicsSystem::UpdateViewportSize(int width, int height) {
 
 
 
-void GraphicsSystem::LoadAnimation(const std::string& animationName, const std::string& filePath) {
-	Animation animation(filePath);
-	animationManager.AddAnimation(animationName, animation);
-}
 
-void GraphicsSystem::UpdateAnimations(float dt) {
-	animationManager.UpdateAnimations(dt);
-}
-
-std::unordered_map<std::string, glm::mat4> GraphicsSystem::GetBoneTransforms(const std::string& animationName) const {
-	return animationManager.GetBoneTransforms(animationName);
-}
 
 
 

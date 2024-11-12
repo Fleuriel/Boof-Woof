@@ -64,9 +64,7 @@ public:
 	void SetLightPos(glm::vec3 pos) { lightPos = pos; };
 
 
-    void LoadAnimation(const std::string& animationName, const std::string& filePath);
-    void UpdateAnimations(float deltaTime);
-    std::unordered_map<std::string, glm::mat4> GetBoneTransforms(const std::string& animationName) const;
+
 
     void clearAllEntityTextures();
 
@@ -84,7 +82,6 @@ private:
 	static Camera camera;
     static glm::vec3 lightPos;
 
-    AnimationManager animationManager;
 };
 
 #endif
