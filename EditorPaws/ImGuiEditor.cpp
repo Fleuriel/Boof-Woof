@@ -1335,6 +1335,120 @@ void ImGuiEditor::InspectorWindow()
 			ImGui::SliderFloat("Slider (0.1 Steps)", &sliderValue, 0.0f, 10.0f, "%.1f");
 
 
+			/*
+				Compression Format
+			*/
+
+			if (ImGui::BeginTabBar("InspectorTabs"))
+			{
+				// First Tab: Default
+				if (ImGui::BeginTabItem("Default"))
+				{
+					ImGui::Text("Max Size");
+					ImGui::SameLine(225);
+
+					const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384"};
+					item_current_idx = 0; // Index for the selected item
+					ImGui::SetNextItemWidth(150.0f);
+					ImGui::Combo("##Combo6", &item_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
+
+
+
+					ImGui::Text("Resize Algorithm");
+					ImGui::SameLine(225);
+
+					const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear"};
+					item_current_idx = 0; // Index for the selected item
+					ImGui::SetNextItemWidth(150.0f);
+					ImGui::Combo("##Combo11", &item_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
+
+
+					ImGui::Text("Format");
+					ImGui::SameLine(225);
+
+					const char* imG_OperatingSystemFormat[] = { "RGBA Compressed DXT5|BC3" };
+					item_current_idx = 0; // Index for the selected item
+					ImGui::SetNextItemWidth(150.0f);
+					ImGui::Combo("##Combo12", &item_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
+
+
+
+					ImGui::Text("Compression");
+					ImGui::SameLine(225);
+
+					const char* imG_CompressionQuality[] = { "None", "Low Quality", "Normal Quality", "High Quality"};
+					item_current_idx = 0; // Index for the selected item
+					ImGui::SetNextItemWidth(150.0f);
+					ImGui::Combo("##Combo9", &item_current_idx, imG_CompressionQuality, IM_ARRAYSIZE(imG_CompressionQuality));
+
+
+					static bool crunchCompress = false;
+
+					ImGui::Text("Use Crunch Compression");
+					ImGui::SameLine(225);
+
+					ImGui::Checkbox(" ", &crunchCompress);
+
+					// More controls as needed...
+					ImGui::EndTabItem();
+				}
+
+				// Second Tab: Another settings tab
+				if (ImGui::BeginTabItem("Advanced"))
+				{
+					static bool overrite = false;
+
+					ImGui::Text("Override For Windows, Mac, Linux");
+					ImGui::SameLine(225);
+
+					ImGui::Checkbox(" ", &overrite);
+
+					if (overrite)
+					{
+
+						ImGui::Text("Max Size ");
+						ImGui::SameLine(225);
+
+						const char* imG_MaxSize[] = {"256", "512" ,"1024", "2048", "4096", "8192", "16384"};
+						item_current_idx = 0; // Index for the selected item
+						ImGui::SetNextItemWidth(150.0f);
+						ImGui::Combo("##Combo10", &item_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
+
+
+						ImGui::Text("Resize Algorithm");
+						ImGui::SameLine(225);
+
+						const char* imG_ResizeAlgo[] = { "Mitchell" };
+						item_current_idx = 0; // Index for the selected item
+						ImGui::SetNextItemWidth(150.0f);
+						ImGui::Combo("##Combo11", &item_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
+
+
+						ImGui::Text("Format");
+						ImGui::SameLine(225);
+
+						const char* imG_OperatingSystemFormat[] = { "RGBA Compressed DXT5|BC3" };
+						item_current_idx = 0; // Index for the selected item
+						ImGui::SetNextItemWidth(150.0f);
+						ImGui::Combo("##Combo12", &item_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
+
+					}
+
+
+					// Additional widgets can go here
+					ImGui::EndTabItem();
+				}
+
+				ImGui::EndTabBar();  // End the tab bar
+			}
+
+
+
+			ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();
+	
+
+			ImGui::Indent(300);
+
 			if (ImGui::Button("Apply"))
 			{
 
@@ -1474,12 +1588,65 @@ void ImGuiEditor::AssetWindow()
 
 		ImGui::Columns(colCount, 0, false);	// for resizing purposes
 
+
+		// CREATE WINDOW WITH RIGHT CLICK HERE RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHTCLICKRIGHTCLICK
+		// Alternatively, use ImGui::BeginPopupContextWindow() for right-click anywhere in the window
+		if (ImGui::BeginPopupContextWindow("WindowContextMenu", ImGuiMouseButton_Right)) {
+			if (ImGui::MenuItem("Create Material Instances")) {
+				// Handle action for "Window Option 1"
+
+				rapidjson::Document document;
+				document.SetObject();
+				rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+
+				// Add name and type
+				document.AddMember("name", rapidjson::Value("Material_1", allocator), allocator);
+				document.AddMember("type", rapidjson::Value("Example", allocator), allocator);
+
+				// Add properties (as an object)
+				rapidjson::Value properties(rapidjson::kObjectType);
+				properties.AddMember("color", rapidjson::Value("red", allocator), allocator);
+				properties.AddMember("shininess", 0.5, allocator);
+				properties.AddMember("reflectivity", 0.8, allocator);
+				document.AddMember("properties", properties, allocator);
+
+				// Serialize the JSON document to a string
+				rapidjson::StringBuffer buffer;
+				rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+				document.Accept(writer);
+
+				// Write the JSON string to a file
+				// Edit the filePath, append a new file name (e.g., "Material_1.json")
+				std::string filePath = entireFilePath.c_str(); // Convert path to string
+				filePath += "/Material_1.json"; // Append the new file name (you can customize this as needed)
+
+				// Write the JSON string to the file
+				std::ofstream file(filePath);
+				if (file.is_open()) {
+					file << buffer.GetString(); // Write the serialized JSON
+					file.close();
+					std::cout << "File created: " << filePath << std::endl;
+				}
+				else {
+					std::cerr << "Error: Could not create the file." << std::endl;
+				}
+
+			}
+			if (ImGui::MenuItem("DOES NOT CREATE MATERIAL INSTANCES")) {
+				// Handle action for "Window Option 2"
+			}
+			ImGui::EndPopup();
+		}
+
+
 		for (auto& entry : fs::directory_iterator(m_CurrDir))
 		{
+
 			const auto& path = entry.path();
 			auto relativePath = fs::relative(path, m_BaseDir);
 			std::string fileNameExt = relativePath.filename().string();
 
+			// std::cout << path.string() << '\n';
 			ImGui::PushID(fileNameExt.c_str()); // using filename as the ID so all are unique, the drag drop won't open same source
 			ImGui::PushStyleColor(ImGuiCol_Button, ((path == m_SelectedFile) ? ImVec4(0.3f, 0.6f, 1.0f, 0.5f) : ImVec4(0, 0, 0, 0))); // for button background opacity to go 0
 
@@ -1492,55 +1659,6 @@ void ImGuiEditor::AssetWindow()
 			ImGui::ImageButton((ImTextureID)(uintptr_t)(iconDDS != -1 ? iconDDS : g_ResourceManager.GetTextureDDS("BlackScreen")),
 				{ 70, 70 }, { 0, 0 }, { 1, 1 }, 8);
 
-
-
-			// Alternatively, use ImGui::BeginPopupContextWindow() for right-click anywhere in the window
-			if (ImGui::BeginPopupContextWindow("WindowContextMenu", ImGuiMouseButton_Right)) {
-				if (ImGui::MenuItem("Create Material Instances")) {
-					// Handle action for "Window Option 1"
-
-					rapidjson::Document document;
-					document.SetObject();
-					rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
-
-					// Add name and type
-					document.AddMember("name", rapidjson::Value("Material_1", allocator), allocator);
-					document.AddMember("type", rapidjson::Value("Example", allocator), allocator);
-
-					// Add properties (as an object)
-					rapidjson::Value properties(rapidjson::kObjectType);
-					properties.AddMember("color", rapidjson::Value("red", allocator), allocator);
-					properties.AddMember("shininess", 0.5, allocator);
-					properties.AddMember("reflectivity", 0.8, allocator);
-					document.AddMember("properties", properties, allocator);
-
-					// Serialize the JSON document to a string
-					rapidjson::StringBuffer buffer;
-					rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-					document.Accept(writer);
-
-					// Write the JSON string to a file
-					// Edit the filePath, append a new file name (e.g., "Material_1.json")
-					std::string filePath = path.string(); // Convert path to string
-					filePath += "/Material_1.json"; // Append the new file name (you can customize this as needed)
-
-					// Write the JSON string to the file
-					std::ofstream file(filePath);
-					if (file.is_open()) {
-						file << buffer.GetString(); // Write the serialized JSON
-						file.close();
-						std::cout << "File created: " << filePath << std::endl;
-					}
-					else {
-						std::cerr << "Error: Could not create the file." << std::endl;
-					}
-
-				}
-				if (ImGui::MenuItem("DOES NOT CREATE MATERIAL INSTANCES")) {
-					// Handle action for "Window Option 2"
-				}
-				ImGui::EndPopup();
-			}
 
 
 			// drag from assets to components
