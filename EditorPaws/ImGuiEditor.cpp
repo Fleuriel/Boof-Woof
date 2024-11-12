@@ -944,7 +944,7 @@ void ImGuiEditor::InspectorWindow()
 									}
 
 
-
+									ImGui::TreePop();
 
 								}
 
@@ -1246,7 +1246,7 @@ void ImGuiEditor::InspectorWindow()
 			ImGui::Text("sRGB (Color Texture) ");
 			ImGui::SameLine(225);
 
-			ImGui::Checkbox("", &sRGBCheck);
+			ImGui::Checkbox(" ", &sRGBCheck);
 
 
 
@@ -1273,7 +1273,7 @@ void ImGuiEditor::InspectorWindow()
 			ImGui::Text("Alpha is Transparency ");
 			ImGui::SameLine(225);
 
-			ImGui::Checkbox("", &alpha_Transparency);
+			ImGui::Checkbox(" ", &alpha_Transparency);
 
 
 
@@ -1493,6 +1493,56 @@ void ImGuiEditor::AssetWindow()
 				{ 70, 70 }, { 0, 0 }, { 1, 1 }, 8);
 
 
+
+			// Alternatively, use ImGui::BeginPopupContextWindow() for right-click anywhere in the window
+			if (ImGui::BeginPopupContextWindow("WindowContextMenu", ImGuiMouseButton_Right)) {
+				if (ImGui::MenuItem("Create Material Instances")) {
+					// Handle action for "Window Option 1"
+
+					rapidjson::Document document;
+					document.SetObject();
+					rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+
+					// Add name and type
+					document.AddMember("name", rapidjson::Value("Material_1", allocator), allocator);
+					document.AddMember("type", rapidjson::Value("Example", allocator), allocator);
+
+					// Add properties (as an object)
+					rapidjson::Value properties(rapidjson::kObjectType);
+					properties.AddMember("color", rapidjson::Value("red", allocator), allocator);
+					properties.AddMember("shininess", 0.5, allocator);
+					properties.AddMember("reflectivity", 0.8, allocator);
+					document.AddMember("properties", properties, allocator);
+
+					// Serialize the JSON document to a string
+					rapidjson::StringBuffer buffer;
+					rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+					document.Accept(writer);
+
+					// Write the JSON string to a file
+					// Edit the filePath, append a new file name (e.g., "Material_1.json")
+					std::string filePath = path.string(); // Convert path to string
+					filePath += "/Material_1.json"; // Append the new file name (you can customize this as needed)
+
+					// Write the JSON string to the file
+					std::ofstream file(filePath);
+					if (file.is_open()) {
+						file << buffer.GetString(); // Write the serialized JSON
+						file.close();
+						std::cout << "File created: " << filePath << std::endl;
+					}
+					else {
+						std::cerr << "Error: Could not create the file." << std::endl;
+					}
+
+				}
+				if (ImGui::MenuItem("DOES NOT CREATE MATERIAL INSTANCES")) {
+					// Handle action for "Window Option 2"
+				}
+				ImGui::EndPopup();
+			}
+
+
 			// drag from assets to components
 			if (ImGui::BeginDragDropSource())
 			{
@@ -1555,6 +1605,9 @@ void ImGuiEditor::AssetWindow()
 
 			ImGui::PopID();
 		}
+
+		
+
 
 		ImGui::Columns(1);
 		ImGui::End();
