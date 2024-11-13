@@ -18,7 +18,8 @@ void LogicSystem::Init()
 {
 	std::cout << std::endl << "Logic System Initialized" << std::endl;
 
-	HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll");
+	//HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll");
+	HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\ScriptWoof.dll");
 
 	if (hGetProcIDDLL == NULL)
 	{

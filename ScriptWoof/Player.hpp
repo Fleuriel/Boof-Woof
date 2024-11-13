@@ -1,3 +1,4 @@
+#include <iostream>
 
 
 struct Player final : public Behaviour
@@ -37,7 +38,7 @@ struct Player final : public Behaviour
 		{
 			m_Engine.SetVelocity(entity, velocity);
 		}
-
+		//std::cout << "Player Update" << std::endl;
 
 	}
 
