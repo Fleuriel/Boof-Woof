@@ -8,6 +8,7 @@ std::shared_ptr<LogicSystem> mLogicSys;
 std::shared_ptr<FontSystem> mFontSys;
 std::shared_ptr<MyPhysicsSystem> mPhysicSys;
 //std::shared_ptr<CollisionSystem> mCollisionSys;
+std::shared_ptr<ParticleComponent> mParticleSys;
 
 
 void EngineCore::OnInit()
@@ -32,6 +33,7 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<AudioComponent>();
 	g_Coordinator.RegisterComponent<CollisionComponent>();
 	g_Coordinator.RegisterComponent<BehaviourComponent>();
+	g_Coordinator.RegisterComponent<ParticleComponent>();
 
 	// setting global pointer
 	g_Core = this;
@@ -53,6 +55,7 @@ void EngineCore::OnInit()
 		Signature signature;
 		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
 		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
+		signature.set(g_Coordinator.GetComponentType<ParticleComponent>());
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
@@ -76,6 +79,8 @@ void EngineCore::OnInit()
 		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
 		g_Coordinator.SetSystemSignature<MyPhysicsSystem>(signature);
 	}
+
+
 
 	//mCollisionSys = g_Coordinator.RegisterSystem<CollisionSystem>();
 	//{

@@ -31,6 +31,15 @@ public:
     void SetModelID(int modelID) { m_ModelID = modelID; }
     void AddTexture(int textureid) { textures.push_back(textureid); }
 	void clearTextures() { textures.clear(); }
+	bool RemoveTexture(int textureid) {
+		for (int i = 0; i < textures.size(); i++) {
+			if (textures[i] == textureid) {
+				textures.erase(textures.begin() + i);
+				return true;
+			}
+		}
+		return false;
+	}
 
     // Getters
     std::string getModelName() const { return m_ModelName; }

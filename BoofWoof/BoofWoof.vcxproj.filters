@@ -33,6 +33,7 @@
     <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
     <ClCompile Include="Core\Animation\Animation.cpp" />
     <ClCompile Include="Core\Animation\AnimationManager.cpp" />
+    <ClCompile Include="Utilities\Components\ParticleComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -80,6 +81,7 @@
     <ClInclude Include="Core\Animation\AnimationManager.h" />
     <ClInclude Include="Utilities\Components\BehaviourComponent.hpp" />
     <ClInclude Include="Core\ECS\ArchetypeManager.hpp" />
+    <ClInclude Include="Utilities\Components\ParticleComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />
