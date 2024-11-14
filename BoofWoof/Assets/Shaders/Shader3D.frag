@@ -22,6 +22,7 @@ layout(location = 3) in vec2 TexCoords;
 uniform sampler2D texture_diffuse1;
 uniform sampler2D texture_normal1;
 uniform int textureCount;
+uniform bool lightOn;
 
 uniform vec3 lightPos;
 uniform vec3 viewPos;
@@ -74,8 +75,12 @@ void main()
         vec3 diffuse = diffuseColor  * N_dot_L;
 
         vec3 finalColor = ambient + diffuse; // Combine ambient and diffuse components
-
-        fragColor = vec4(finalColor, 1.0);
+        if(lightOn){
+            fragColor = vec4(finalColor, 1.0);
+        }else{
+			fragColor = vec4(textureColor);
+		}
+        
 	}else{
         vec3 lightVector = lightPos - FragPos;
         float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );

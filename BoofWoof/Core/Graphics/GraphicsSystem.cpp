@@ -17,6 +17,7 @@ bool GraphicsSystem::glewInitialized = false;
 
 bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
+bool GraphicsSystem::lightOn = true;
 
 Camera GraphicsSystem::camera;
 glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
@@ -167,6 +168,7 @@ void GraphicsSystem::UpdateLoop() {
 //				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
 				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
+				g_AssetManager.GetShader("Shader3D").SetUniform("lightOn", lightOn);
 
 				//std::cout << "entity "<< entity << "\n";
 				//std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
