@@ -10,6 +10,7 @@
 #include "../Utilities/Components/BehaviourComponent.hpp"
 #include "../Utilities/Components/CollisionComponent.hpp"
 #include "../Utilities/Components/MetaData.hpp"
+#include "../Utilities/Components/ParticleComponent.hpp"
 
 #include "Windows/WindowManager.h"
 #include "AssetManager/AssetManager.h"

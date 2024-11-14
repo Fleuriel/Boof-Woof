@@ -832,7 +832,7 @@ void ImGuiEditor::InspectorWindow()
 												std::string oldValue = oldTextureName;
 												Entity entity = g_SelectedEntity;
 
-												g_UndoRedoManager.ExecuteCommand(
+												/*g_UndoRedoManager.ExecuteCommand(
 													[entity, newTextureName]() {
 														auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 														component.setTexture(newTextureName);
@@ -841,7 +841,7 @@ void ImGuiEditor::InspectorWindow()
 														auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 														component.setTexture(oldValue);
 													}
-												);
+												);*/
 											}
 											ImGuiFileDialog::Instance()->Close();
 										}

@@ -30,34 +30,44 @@ public:
     void setModelName(std::string modelName) { m_ModelName = modelName; }
     void SetModelID(int modelID) { m_ModelID = modelID; }
     void AddTexture(int textureid) { textures.push_back(textureid); }
+	void clearTextures() { textures.clear(); }
+	bool RemoveTexture(int textureid) {
+		for (int i = 0; i < textures.size(); i++) {
+			if (textures[i] == textureid) {
+				textures.erase(textures.begin() + i);
+				return true;
+			}
+		}
+		return false;
+	}
 
     // Getters
     std::string getModelName() const { return m_ModelName; }
     int getModelID() const { return m_ModelID; }
     
-    std::string getTextureName() const { return textureName; }
+   // std::string getTextureName() const { return textureName; }
 
-    bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
+    //bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
     int getTextureNumber() const { return static_cast<int>(textures.size()); }
     int getTexture(int i) const { return textures[i]; }
 
     // Set texture name
-    void setTexture(std::string texture) { textureName = texture; }
+   // void setTexture(std::string texture) { textureName = texture; }
 
 
 
 
 
     // Constructor and destructor
-	GraphicsComponent() : textureName (" "){};
+	GraphicsComponent() {};
 	
-	GraphicsComponent(std::string modelName, Entity& entity, std::string texName) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity)), textureName(texName)
+	GraphicsComponent(std::string modelName, Entity& entity) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity))
 	{/*Empty by design*/
 
         
 
 		std::cout << "Model Name of Graphics Component: " << m_ModelName << '\n';
-		std::cout << "Texture Name of Graphics Component: " << textureName << '\n';
+		//std::cout << "Texture Name of Graphics Component: " << textureName << '\n';
 	}
 
     ~GraphicsComponent() = default;
@@ -67,14 +77,14 @@ public:
     {
         REGISTER_PROPERTY(GraphicsComponent, ModelName, std::string, setModelName, getModelName);
         REGISTER_PROPERTY(GraphicsComponent, ModelID, int, SetModelID, getModelID);
-        REGISTER_PROPERTY(GraphicsComponent, TextureName, std::string, setTexture, getTextureName);
+        //REGISTER_PROPERTY(GraphicsComponent, TextureName, std::string, setTexture, getTextureName);
     }
 
 private:
     Entity m_EntityID{};
     std::string m_ModelName{};
     int m_ModelID{};
-    std::string textureName;
+    //std::string textureName;
     std::vector<int> textures{};
 
 };

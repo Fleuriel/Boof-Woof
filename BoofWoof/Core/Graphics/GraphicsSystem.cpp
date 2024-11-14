@@ -164,13 +164,13 @@ void GraphicsSystem::UpdateLoop() {
 				// START OF 3D
 
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
-//				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
+				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
 				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
 
-				//std::cout << "entity "<< entity << "\n";
-				//std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
-				//std::cout << "comp tetx cnt "<<graphicsComp.getTextureNumber() << "\n";
+				/*std::cout << "entity "<< entity << "\n";
+				std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
+				std::cout << "comp tetx cnt "<<graphicsComp.getTextureNumber() << "\n";*/
 
 
 				//if (graphicsComp.getTextureNumber() == 0) {
@@ -181,7 +181,6 @@ void GraphicsSystem::UpdateLoop() {
 					g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt = 0;
 				//}
 				
-
 
 				while (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()){
 
@@ -197,10 +196,10 @@ void GraphicsSystem::UpdateLoop() {
 					// add texture to mesh
 					Texture texture_add;
 					
-					if(graphicsComp.getModelName() == "sphere")
+					//if(graphicsComp.getModelName() == "sphere")
 						texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
-					else
-						texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName());
+					//else
+						//texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName());
 
 					//std::cout << texture_add.id << "\n";
 
@@ -231,6 +230,7 @@ void GraphicsSystem::UpdateLoop() {
 				//for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
 				////	std::cout << "texture size after clearing: " << mesh.textures.size() << "\n";
 				//}
+				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
 				//std::cout << "out model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
 				//std::cout << "out comp tetx cnt " << graphicsComp.getTextureNumber() << "\n";
 
@@ -296,13 +296,13 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-				if (graphicsComp.getTextureName() == " ")
+				if (graphicsComp.getTextureNumber() == 0)
 				{
 					glBindTextureUnit(6, 0);
 					//std::cout << "its blank\n";
 				}
 				else
-					glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName()));
+					glBindTextureUnit(6, graphicsComp.getTexture(0));
 				//glBindTextureUnit(6, set_Texture_T);
 
 				if (debug)
@@ -458,9 +458,8 @@ void GraphicsSystem::clearAllEntityTextures()
 				g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt = 0;
 				mesh.textures.clear();
 
-
-				Texture tex;
-				mesh.textures.push_back(tex);
+				/*Texture tex;
+				mesh.textures.push_back(tex);*/
 
 			}
 		}
