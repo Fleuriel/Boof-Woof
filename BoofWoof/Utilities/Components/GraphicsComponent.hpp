@@ -30,6 +30,7 @@ public:
     void setModelName(std::string modelName) { m_ModelName = modelName; }
     void SetModelID(int modelID) { m_ModelID = modelID; }
     void AddTexture(int textureid) { textures.push_back(textureid); }
+	void clearTextures() { textures.clear(); }
 
     // Getters
     std::string getModelName() const { return m_ModelName; }
@@ -37,7 +38,7 @@ public:
     
    // std::string getTextureName() const { return textureName; }
 
-    bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
+    //bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
     int getTextureNumber() const { return static_cast<int>(textures.size()); }
     int getTexture(int i) const { return textures[i]; }
 

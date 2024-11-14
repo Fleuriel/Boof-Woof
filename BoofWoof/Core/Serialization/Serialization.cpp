@@ -330,6 +330,7 @@ bool Serialization::LoadScene(const std::string& filepath) {
                     
                     GraphicsComponent graphicsComponent(modelName, entity);
                     graphicsComponent.SetModelID(modelID);
+					graphicsComponent.clearTextures();
 
                     if (entityData.HasMember("Texture"))
                     {
@@ -339,57 +340,57 @@ bool Serialization::LoadScene(const std::string& filepath) {
 						graphicsComponent.AddTexture(textureID);
 
                     }
-                    graphicsComponent.incrementTextureNumber();
+                    //graphicsComponent.incrementTextureNumber();
 
                     std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
 
 
-                    std::cout << g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
-                    std::cout << graphicsComponent.getTextureNumber() << '\n';
+                    std::cout << "model text number: "<<g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
+                    std::cout << "comp  text number: "<<graphicsComponent.getTextureNumber() << '\n';
 
-                    while (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt < graphicsComponent.getTextureNumber()) {
-                        Texture texture_add;
-                        texture_add.id = graphicsComponent.getTexture(g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt);
-                        texture_add.type = "texture_diffuse";
-                        if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 0)
-                        {
-                            //                            std::cout << "etner\n";
-                            texture_add.type = "texture_diffuse";
-                        }
-                        else if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 1)
-                        {
-
-                            texture_add.type = "texture_normal";
-                            // std::cout << "v2.o";
-                        }
-                        else
-                            texture_add.type = "texture_specular";
-
-                        texture_add.path = graphicsComponent.getModelName();
-
-
-#ifdef _DEBUG
-                        //std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
-                     //  std::cout << "\n\n\n\n\n";
-                     //  std::cout << graphicsComponent.getModelName() << '\n';
-
-
-                      //  std::cout << "id type path " << texture_add.id << '\t' << texture_add.type << '\t' << texture_add.path << '\n';
-#endif
-                        for (auto& mesh : g_ResourceManager.getModel(graphicsComponent.getModelName())->meshes) {
-                            //     std::cout << "asd\n";
-
-                            mesh.textures.clear();
-
-                            mesh.textures.push_back(texture_add);
-                            //     std::cout << mesh.textures.size() << '\n';
-                        }
-
-                        g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt++;
-
-
-
-                    }
+//                    while (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt < graphicsComponent.getTextureNumber()) {
+//                        Texture texture_add;
+//                        texture_add.id = graphicsComponent.getTexture(g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt);
+//                        texture_add.type = "texture_diffuse";
+//                        if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 0)
+//                        {
+//                            //                            std::cout << "etner\n";
+//                            texture_add.type = "texture_diffuse";
+//                        }
+//                        else if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 1)
+//                        {
+//
+//                            texture_add.type = "texture_normal";
+//                            // std::cout << "v2.o";
+//                        }
+//                        else
+//                            texture_add.type = "texture_specular";
+//
+//                        texture_add.path = graphicsComponent.getModelName();
+//
+//
+//#ifdef _DEBUG
+//                        //std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
+//                     //  std::cout << "\n\n\n\n\n";
+//                     //  std::cout << graphicsComponent.getModelName() << '\n';
+//
+//
+//                      //  std::cout << "id type path " << texture_add.id << '\t' << texture_add.type << '\t' << texture_add.path << '\n';
+//#endif
+//                        for (auto& mesh : g_ResourceManager.getModel(graphicsComponent.getModelName())->meshes) {
+//                            //     std::cout << "asd\n";
+//
+//                            mesh.textures.clear();
+//
+//                            mesh.textures.push_back(texture_add);
+//                            //     std::cout << mesh.textures.size() << '\n';
+//                        }
+//
+//                        g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt++;
+//
+//
+//
+//                    }
 
 
                     g_Coordinator.AddComponent(entity, graphicsComponent);
