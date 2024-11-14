@@ -182,7 +182,6 @@ void GraphicsSystem::UpdateLoop() {
 				//}
 				
 
-
 				while (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()){
 
 
@@ -197,10 +196,10 @@ void GraphicsSystem::UpdateLoop() {
 					// add texture to mesh
 					Texture texture_add;
 					
-					if(graphicsComp.getModelName() == "sphere")
+					//if(graphicsComp.getModelName() == "sphere")
 						texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
-					else
-						texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName());
+					//else
+						//texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName());
 
 					//std::cout << texture_add.id << "\n";
 
@@ -296,13 +295,13 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-				if (graphicsComp.getTextureName() == " ")
+				if (graphicsComp.getTextureNumber() == 0)
 				{
 					glBindTextureUnit(6, 0);
 					//std::cout << "its blank\n";
 				}
 				else
-					glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName()));
+					glBindTextureUnit(6, graphicsComp.getTexture(0));
 				//glBindTextureUnit(6, set_Texture_T);
 
 				if (debug)

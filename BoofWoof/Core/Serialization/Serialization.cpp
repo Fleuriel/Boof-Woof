@@ -169,9 +169,9 @@ bool Serialization::SaveScene(const std::string& filepath) {
             entityData.AddMember("ModelName", rapidjson::Value(graphicsComp.getModelName().c_str(), allocator), allocator);
 
             // Texture Name
-            entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
+            //entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
 
-            std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.getTextureName() << '\n';
+            //std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.getTextureName() << '\n';
 
 
             //entityData.AddMember("", S)
@@ -328,18 +328,17 @@ bool Serialization::LoadScene(const std::string& filepath) {
                     std::string modelName = entityData["ModelName"].GetString();
                     std::string TextureName;
                     
-
+                    GraphicsComponent graphicsComponent(modelName, entity);
+                    graphicsComponent.SetModelID(modelID);
 
                     if (entityData.HasMember("Texture"))
                     {
                         TextureName = entityData["Texture"].GetString();
                         std::cout << TextureName << '\n';
+                        int textureID = g_ResourceManager.GetTextureDDS(TextureName);
+						graphicsComponent.AddTexture(textureID);
 
                     }
-
-                    GraphicsComponent graphicsComponent(modelName, entity, TextureName);
-                    graphicsComponent.SetModelID(modelID);
-                    
                     graphicsComponent.incrementTextureNumber();
 
                     std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
