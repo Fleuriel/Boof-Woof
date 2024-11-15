@@ -145,6 +145,7 @@ void GraphicsSystem::UpdateLoop() {
 			auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
 			if (cameraComp.GetCameraActive()) {
 				camera_render = cameraComp;
+				break;
 			}
 		}
 
