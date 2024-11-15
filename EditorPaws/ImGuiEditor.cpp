@@ -896,15 +896,7 @@ void ImGuiEditor::InspectorWindow()
 
 
 
-								if (ImGui::TreeNode("Material Properties"))
-								{
-
-
-
-									ImGui::TreePop();
-
-								}
-
+					
 
 
 
@@ -1877,21 +1869,44 @@ void ImGuiEditor::InspectorWindow()
 
 					ImGui::Unindent(300);
 
+					std::string selectedFileName = m_SelectedFile.stem().string();
+					GLuint pictureIcon = g_ResourceManager.GetTextureDDS(selectedFileName);
+					GLuint pictureWidth = g_ResourceManager.GetTextureDDSWidth(selectedFileName);
+					GLuint pictureHeight = g_ResourceManager.GetTextureDDSHeight(selectedFileName);
 
-					GLuint pictureIcon = g_ResourceManager.GetTextureDDS(m_SelectedFile.stem().string());
-					
+					// 256 x 256 is our max picture size to show.
+					int maxWidth = 256;
 
-//					std::string icon = entry.is_directory();
-					
-					std::cout << m_SelectedFile.filename().string() << '\n';
+
+					//std::cout << selectedFileName << '\t' << g_ResourceManager.GetTextureDDSWidth(selectedFileName) << '\t' << std::to_string(g_ResourceManager.GetTextureDDSHeight(selectedFileName))  << '\t' << '\n';
+
+					std::string inputTextToDisplay = "Image Preview: " + m_SelectedFile.filename().string() +
+						" Width: " + std::to_string(pictureWidth) +
+						" Height: " + std::to_string(pictureHeight);
+
+					// Fix such that the picture does not appear too big.
+					GLuint newWidth = pictureWidth;
+					GLuint newHeight = pictureHeight;
+
+
+
+					float aspectRatio = static_cast<float>(pictureWidth) / static_cast<float>(pictureHeight);
+
+					if (pictureWidth > maxWidth) {
+						newWidth = maxWidth;
+						newHeight = static_cast<int>(newWidth / aspectRatio);
+					}
+
 					ImGui::Separator();
-					ImGui::Text("Image Preview:");
-					ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(200, 200));
+					ImGui::Text(inputTextToDisplay.c_str());
+					ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(newWidth, newHeight));
 
 
 
 
 
+
+					ImGui::EndTabBar();  // End the tab bar
 
 
 				}
@@ -2326,7 +2341,7 @@ void ImGuiEditor::AssetWindow()
 
 		ImGui::Columns(colCount, 0, false);	// for resizing purposes
 
-		std::cout << m_SelectedFile << '\n';
+//		std::cout << m_SelectedFile << '\n';
 
 
 		// CREATE WINDOW WITH RIGHT CLICK HERE RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHTCLICKRIGHTCLICK
