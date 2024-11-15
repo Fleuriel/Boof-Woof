@@ -1164,7 +1164,7 @@ void ImGuiEditor::InspectorWindow()
 			// Convert paths to strings for comparison
 			std::string selectedFilePath = m_SelectedFile.string();
 			std::replace(selectedFilePath.begin(), selectedFilePath.end(), '/', '\\');
-			std::cout << selectedFilePath << std::endl;
+			//std::cout << selectedFilePath << std::endl;
 
 			if (selectedFilePath == FILEPATH_ASSET_TEXTURES) { ImGui::Text("Textures (Default Asset)\n\n\nContains texture files.\n\nAccepted file extensions are: .png"); }
 			else if (selectedFilePath == FILEPATH_ASSET_ART) { ImGui::Text("Art (Default Asset)\n\n\nContains all art-related files."); }
@@ -1875,6 +1875,25 @@ void ImGuiEditor::InspectorWindow()
 
 					}
 
+					ImGui::Unindent(300);
+
+
+					GLuint pictureIcon = g_ResourceManager.GetTextureDDS(m_SelectedFile.stem().string());
+					
+
+//					std::string icon = entry.is_directory();
+					
+					std::cout << m_SelectedFile.filename().string() << '\n';
+					ImGui::Separator();
+					ImGui::Text("Image Preview:");
+					ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(200, 200));
+
+
+
+
+
+
+
 				}
 
 			}
@@ -2195,6 +2214,8 @@ void ImGuiEditor::InspectorWindow()
 // Asset Window is incomplete cause no Asset Manager yet
 void ImGuiEditor::AssetWindow()
 {
+	std::string assetName;
+
 	ImGui::Begin("Asset Browser");
 	{
 		std::string entireFilePath = m_BaseDir.relative_path().string();
@@ -2304,6 +2325,8 @@ void ImGuiEditor::AssetWindow()
 		if (colCount < 1) colCount = 1;	// to ensure that it will not go down to 0 when u push the column smaller than 1 size
 
 		ImGui::Columns(colCount, 0, false);	// for resizing purposes
+
+		std::cout << m_SelectedFile << '\n';
 
 
 		// CREATE WINDOW WITH RIGHT CLICK HERE RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHTCLICKRIGHTCLICK
