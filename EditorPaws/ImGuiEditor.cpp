@@ -315,7 +315,7 @@ void ImGuiEditor::InspectorWindow()
 									if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
 										g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
 								}
-								);
+							);
 
 						}
 					}
@@ -333,7 +333,7 @@ void ImGuiEditor::InspectorWindow()
 									if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 										g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
 								}
-								);
+							);
 
 						}
 					}
@@ -351,7 +351,7 @@ void ImGuiEditor::InspectorWindow()
 									if (g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
 										g_Coordinator.RemoveComponent<AudioComponent>(g_SelectedEntity);
 								}
-								);
+							);
 
 						}
 					}
@@ -369,7 +369,7 @@ void ImGuiEditor::InspectorWindow()
 									if (g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
 										g_Coordinator.RemoveComponent<BehaviourComponent>(g_SelectedEntity);
 								}
-								);
+							);
 
 						}
 					}
@@ -387,7 +387,7 @@ void ImGuiEditor::InspectorWindow()
 									if (g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
 										g_Coordinator.RemoveComponent<CollisionComponent>(g_SelectedEntity);
 								}
-								);
+							);
 
 						}
 					}
@@ -421,7 +421,7 @@ void ImGuiEditor::InspectorWindow()
 									if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
 										g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, componentData);
 								}
-								);
+							);
 						}
 					}
 
@@ -440,7 +440,7 @@ void ImGuiEditor::InspectorWindow()
 									if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 										g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, componentData);
 								}
-								);
+							);
 						}
 					}
 
@@ -459,7 +459,7 @@ void ImGuiEditor::InspectorWindow()
 									if (!g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
 										g_Coordinator.AddComponent<AudioComponent>(g_SelectedEntity, componentData);
 								}
-								);
+							);
 						}
 					}
 
@@ -478,7 +478,7 @@ void ImGuiEditor::InspectorWindow()
 									if (!g_Coordinator.HaveComponent<BehaviourComponent>(g_SelectedEntity))
 										g_Coordinator.AddComponent<BehaviourComponent>(g_SelectedEntity, componentData);
 								}
-								);
+							);
 						}
 					}
 
@@ -497,7 +497,7 @@ void ImGuiEditor::InspectorWindow()
 									if (!g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
 										g_Coordinator.AddComponent<CollisionComponent>(g_SelectedEntity, componentData);
 								}
-								);
+							);
 						}
 					}
 
@@ -567,7 +567,7 @@ void ImGuiEditor::InspectorWindow()
 											auto& component = g_Coordinator.GetComponent<MetadataComponent>(entity);
 											component.SetName(oldVal);
 										}
-										);
+									);
 								}
 
 								ImGui::PopID();
@@ -647,7 +647,7 @@ void ImGuiEditor::InspectorWindow()
 														(*propIt)->SetValue(&component, SerializationHelpers::SerializeVec3(oldValue));
 													}
 												}
-												);
+											);
 										}
 									}
 									else
@@ -700,7 +700,7 @@ void ImGuiEditor::InspectorWindow()
 														(*propIt)->SetValue(&component, std::to_string(oldValue));
 													}
 												}
-												);
+											);
 										}
 									}
 
@@ -767,10 +767,10 @@ void ImGuiEditor::InspectorWindow()
 													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 													component.setModelName(oldModelName);
 												}
-												);
+											);
 										}
 
-											ImGui::PopID();
+										ImGui::PopID();
 									}
 
 									ImGui::TreePop();
@@ -896,7 +896,7 @@ void ImGuiEditor::InspectorWindow()
 
 
 
-					
+
 
 
 
@@ -974,7 +974,7 @@ void ImGuiEditor::InspectorWindow()
 													auto& component = g_Coordinator.GetComponent<AudioComponent>(entity);
 													component.SetFilePath(oldValue);
 												}
-												);
+											);
 										}
 										ImGuiFileDialog::Instance()->Close();
 									}
@@ -1021,7 +1021,7 @@ void ImGuiEditor::InspectorWindow()
 												auto& component = g_Coordinator.GetComponent<AudioComponent>(entity);
 												component.SetVolume(oldValue);
 											}
-											);
+										);
 									}
 
 									ImGui::PopID();
@@ -1066,7 +1066,7 @@ void ImGuiEditor::InspectorWindow()
 												auto& component = g_Coordinator.GetComponent<AudioComponent>(entity);
 												component.SetLoop(oldValue);
 											}
-											);
+										);
 									}
 
 									ImGui::PopID();
@@ -1128,7 +1128,7 @@ void ImGuiEditor::InspectorWindow()
 												auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
 												component.SetBehaviourName(oldBehaviourName);
 											}
-											);
+										);
 									}
 
 									ImGui::PopID();
@@ -1462,285 +1462,9 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::SliderFloat("Slider (0.1 Steps)", &sliderValue, 0.0f, 10.0f, "%.1f");
 
 
-				/*
-					Compression Format
-				*/
 
-				if (ImGui::BeginTabBar("InspectorTabs"))
-				{
-					/*
-						TEXTURE TYPE
-					*/
 
-					ImGui::Text("Texture Type ");
-					ImGui::SameLine(225);
-
-					const char* imG_TexType[] = { "Default", "Option B", "Option C" };
-					static int TexType_current_idx = 0; // Index for the selected item
-					//ImGui::Set
-					ImGui::SetNextItemWidth(200.0f);
-					ImGui::Combo("##Combo1", &TexType_current_idx, imG_TexType, IM_ARRAYSIZE(imG_TexType));
-
-
-					/*
-						TEXTURE SHAPE
-					*/
-
-
-					ImGui::Text("Texture Shape ");
-					ImGui::SameLine(225);
-
-					const char* imG_TexShape[] = { "2D", "3D" };
-					static int TexShape_current_idx = 0;
-
-					ImGui::SetNextItemWidth(200.0f);
-					ImGui::Combo("##Combo2", &TexShape_current_idx, imG_TexShape, IM_ARRAYSIZE(imG_TexShape));
-
-
-
-					/*
-						sRGB Color Texture
-					*/
-
-
-					static bool sRGBCheck = false;
-
-					ImGui::Spacing();
-					ImGui::Text("sRGB (Color Texture) ");
-					ImGui::SameLine(225);
-
-					ImGui::Checkbox("##Button1 ", &sRGBCheck);
-
-
-
-					/*
-						Alpha Source
-					*/
-
-					ImGui::Text("Alpha Source ");
-					ImGui::SameLine(225);
-
-					const char* imG_TexAlpha[] = { "Input Texture Alpha" };
-					static int TexAlpha_current_idx = 0; // Index for the selected item
-					//ImGui::Set
-					ImGui::SetNextItemWidth(200.0f);
-					ImGui::Combo("##Combo3", &TexAlpha_current_idx, imG_TexAlpha, IM_ARRAYSIZE(imG_TexAlpha));
-
-					/*
-						Alpha is Transparency?
-					*/
-
-
-					static bool a_Transparency = false;
-
-					ImGui::Text("Alpha is Transparency ");
-					ImGui::SameLine(225);
-
-					ImGui::Checkbox("##Button2 ", &a_Transparency);
-
-
-
-
-					/*
-						Advanced
-					*/
-
-
-					if (ImGui::TreeNode("Advanced")) {
-
-
-						ImGui::Text("Non-Power of 2");
-						ImGui::SameLine(225);
-
-						const char* imG_NonPowTwo[] = { "None", "ToNearest", "ToLargest", "ToSmallest" };
-						static int NonPowTwo_current_idx = 0; // Index for the selected item
-						ImGui::SetNextItemWidth(150.0f);
-						ImGui::Combo("##Combo13", &NonPowTwo_current_idx, imG_NonPowTwo, IM_ARRAYSIZE(imG_NonPowTwo));
-
-
-
-						static bool readWrite = false;
-
-						ImGui::Text("Read/Write");
-						ImGui::SameLine(225);
-
-						ImGui::Checkbox("##Button3 ", &readWrite);
-
-
-						static bool GenmipMaps = true;
-
-						ImGui::Text("Generate MipMaps");
-						ImGui::SameLine(225);
-
-						ImGui::Checkbox(" ", &GenmipMaps);
-
-						if (GenmipMaps)
-						{
-							std::cout << "MipMaps are enabled!" << std::endl;
-							ImGui::Indent(20);
-
-
-							static bool mipMapsLimit = false;
-
-							ImGui::Text("Use Mipmap limits");
-							ImGui::SameLine(225);
-
-							ImGui::Checkbox("##Button4 ", &mipMapsLimit);
-
-							ImGui::Text("Format");
-							ImGui::SameLine(225);
-
-							const char* imG_OperatingSystemFormat[] = { "RGBA 32 bit", "RGB 16 bit", "RGB 24 bit", "R 8", "R 16 bit", "Alpha 8", "RGBA Float", "RGBA Half", "RG Float", "R Float", "RGB HDR Compressed BC6H", "RGB9e5 32 bit Shared Exponent Float" };
-							static int OS_current_idx = 0; // Index for the selected item
-							ImGui::SetNextItemWidth(150.0f);
-							ImGui::Combo("##Combo8", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
-
-
-
-
-
-							ImGui::Indent(20);
-
-							ImGui::Text("Mipmap Limit Groups");
-							ImGui::SameLine(225);
-
-							const char* imG_MipMapLimit[] = { "None (Use Global Mipmap Limit)" };
-							static int MipMapLim_current_idx = 0; // Index for the selected item
-							ImGui::SetNextItemWidth(150.0f);
-							ImGui::Combo("##Combo14", &MipMapLim_current_idx, imG_MipMapLimit, IM_ARRAYSIZE(imG_MipMapLimit));
-
-
-							ImGui::Unindent(20);
-
-							static bool mipStream = false;
-							ImGui::Text("Mip Streaming");
-							ImGui::SameLine(225);
-
-							ImGui::Checkbox("##Button5 ", &mipStream);
-
-
-
-
-
-
-							ImGui::Text("Mipmap Filtering");
-							ImGui::SameLine(225);
-
-							const char* imG_MipMapFilter[] = { "Box", "Kaiser" };
-							static int MipFilter_current_idx = 0; // Index for the selected item
-							ImGui::SetNextItemWidth(150.0f);
-							ImGui::Combo("##Combo15", &MipFilter_current_idx, imG_MipMapFilter, IM_ARRAYSIZE(imG_MipMapFilter));
-
-
-
-
-
-
-
-
-							static bool PreserveCoverage = false;
-							ImGui::Text("Preserve Coverage");
-							ImGui::SameLine(225);
-
-							ImGui::Checkbox("##Button6 ", &PreserveCoverage);
-
-
-
-
-							static bool ReplicaBorder = false;
-							ImGui::Text("Replicate Border");
-							ImGui::SameLine(225);
-
-							ImGui::Checkbox("##Button7 ", &ReplicaBorder);
-
-
-
-
-
-							static bool FadeoutGray = false;
-							ImGui::Text("Fadeout to Gray");
-							ImGui::SameLine(225);
-
-							ImGui::Checkbox("##Button8 ", &FadeoutGray);
-
-
-
-
-
-							static bool pngGamma = false;
-							ImGui::Text("Ignore PNG Gamma");
-							ImGui::SameLine(225);
-
-							ImGui::Checkbox("##Button9 ", &pngGamma);
-
-
-
-						}
-
-
-
-
-
-
-
-
-
-
-
-
-
-						ImGui::TreePop(); // Ends the child node
-					}
-
-
-
-
-					/*
-						Wrap Mode
-					*/
-
-
-					ImGui::Text("Wrap Mode ");
-					ImGui::SameLine(225);
-
-					const char* imG_Wrap[] = { "Repeat Mode" };
-					static int Wrap_current_idx = 0; // Index for the selected item
-					//ImGui::Set
-					ImGui::SetNextItemWidth(200.0f);
-					ImGui::Combo("##Combo4", &Wrap_current_idx, imG_Wrap, IM_ARRAYSIZE(imG_Wrap));
-
-
-					/*
-						Filter Mode
-					*/
-
-
-					ImGui::Text("Filter Mode ");
-					ImGui::SameLine(225);
-
-					const char* imG_Filter[] = { "Bilinear" };
-					static int Filter_current_idx = 0; // Index for the selected item
-					ImGui::SetNextItemWidth(150.0f);
-					ImGui::Combo("##Combo5", &Filter_current_idx, imG_Filter, IM_ARRAYSIZE(imG_Filter));
-
-
-					/*
-						Aniso Level
-					*/
-
-					ImGui::Text("Aniso Level ");
-
-					static float sliderValue = 0.0f;
-
-
-
-					// Create a drag float that increments by 0.1 within a range of 0 to 10
-					ImGui::SliderFloat("Slider (0.1 Steps)", &sliderValue, 0.0f, 10.0f, "%.1f");
-
-
-					/*
-						Compression Format
-					*/
+				
 
 					if (ImGui::BeginTabBar("InspectorTabs"))
 					{
@@ -1906,10 +1630,8 @@ void ImGuiEditor::InspectorWindow()
 
 
 
-					ImGui::EndTabBar();  // End the tab bar
 
 
-				}
 
 			}
 			else if (selectedFilePath.find(".mat") != std::string::npos)
@@ -1919,9 +1641,9 @@ void ImGuiEditor::InspectorWindow()
 				static float WidthIndentation = 125.0f;
 				static float ComboIdentation = 300.0f;
 
-													/*
-														SHADER
-													*/
+				/*
+					SHADER
+				*/
 
 				ImGui::Text("Material");
 				ImGui::SameLine(WidthIndentation);
@@ -1996,7 +1718,7 @@ void ImGuiEditor::InspectorWindow()
 				//Put a Add texture here
 
 				ImGui::Text("Metallic"); ImGui::SameLine(WidthIndentation); ImGui::PushItemWidth(250);
-				
+
 
 				static float MetallicMatValue = 0.0f;
 
@@ -2022,7 +1744,7 @@ void ImGuiEditor::InspectorWindow()
 
 				ImGui::Unindent(40);
 
-				
+
 				ImGui::Button("##MatButton4 ", ImVec2(15, 15)); ImGui::SameLine();  ImGui::Text("Normal Map");   	 // Create a visual box
 
 				ImGui::Button("##MatButton5 ", ImVec2(15, 15)); ImGui::SameLine();	ImGui::Text("Height Map"); 	 // Create a visual box
@@ -2149,8 +1871,8 @@ void ImGuiEditor::InspectorWindow()
 
 
 
-				
-				
+
+
 
 
 				const char* imG_UVSet[] = { "UV0", "UV1" };
@@ -2181,7 +1903,7 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("Advanced Options");
 
 
-				const char* imG_RenderQueue[] = { "From Shader", "Geometry", "AlphaTest", "Transparent"};
+				const char* imG_RenderQueue[] = { "From Shader", "Geometry", "AlphaTest", "Transparent" };
 				static int MatR_Queue_current_idx = 0; // Index for the selected item
 				//ImGui::Set
 				ImGui::SetNextItemWidth(200.0f);
@@ -2189,7 +1911,7 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("UV Set");  ImGui::SameLine(WidthIndentation); ImGui::Combo("##MatCombo4", &MatR_Queue_current_idx, imG_RenderQueue, IM_ARRAYSIZE(imG_RenderQueue));
 				static float rQueueVal = 0.0f;
 
-				ImGui::Text("Render Queue"); ImGui::SameLine(WidthIndentation); ImGui::InputFloat("##RenderQueueInput1", &rQueueVal, 0.0f,0.0f);
+				ImGui::Text("Render Queue"); ImGui::SameLine(WidthIndentation); ImGui::InputFloat("##RenderQueueInput1", &rQueueVal, 0.0f, 0.0f);
 
 
 
@@ -2214,8 +1936,8 @@ void ImGuiEditor::InspectorWindow()
 
 
 
-//				ImGui::SameLine();  ImGui::Text("Normal Map"); ImGui::InputFloat();
-					
+				//				ImGui::SameLine();  ImGui::Text("Normal Map"); ImGui::InputFloat();
+
 
 			}
 		}
@@ -2341,11 +2063,11 @@ void ImGuiEditor::AssetWindow()
 
 		ImGui::Columns(colCount, 0, false);	// for resizing purposes
 
-//		std::cout << m_SelectedFile << '\n';
+		//		std::cout << m_SelectedFile << '\n';
 
 
-		// CREATE WINDOW WITH RIGHT CLICK HERE RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHTCLICKRIGHTCLICK
-		// Alternatively, use ImGui::BeginPopupContextWindow() for right-click anywhere in the window
+				// CREATE WINDOW WITH RIGHT CLICK HERE RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHTCLICKRIGHTCLICK
+				// Alternatively, use ImGui::BeginPopupContextWindow() for right-click anywhere in the window
 		if (ImGui::BeginPopupContextWindow("WindowContextMenu", ImGuiMouseButton_Right)) {
 			if (ImGui::MenuItem("Create Material Instances")) {
 				// Handle action for "Window Option 1"
