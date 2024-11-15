@@ -1159,7 +1159,59 @@ void ImGuiEditor::InspectorWindow()
 					}
 					else if (className == "CameraComponent")
 					{
+						// Custom UI for CameraComponent
+						if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_None))
+						{
+							auto& cameraComponent = g_Coordinator.GetComponent<CameraComponent>(g_SelectedEntity);
+							cameraComponent.RegisterProperties();
 
+							const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+
+							// Handle Camera Property
+							/*auto volumeProperty = std::find_if(properties.begin(), properties.end(),
+								[](const ReflectionPropertyBase* prop) { return prop->GetName() == "Volume"; });
+
+							if (volumeProperty != properties.end())
+							{
+								std::string propertyName = "Volume";
+								float volume = std::stof((*volumeProperty)->GetValue(&cameraComponent));
+
+								ImGui::Text("Volume  ");
+								ImGui::SameLine();
+								ImGui::PushID(propertyName.c_str());
+
+								if (ImGui::DragFloat("##Volume", &volume, 0.01f))
+								{
+									(*volumeProperty)->SetValue(&audioComponent, std::to_string(volume));
+								}
+
+								if (ImGui::IsItemActivated())
+								{
+									oldFloatValues[propertyName] = volume;
+								}
+
+								if (ImGui::IsItemDeactivatedAfterEdit())
+								{
+									float newValue = volume;
+									float oldValue = oldFloatValues[propertyName];
+									Entity entity = g_SelectedEntity;
+									oldFloatValues.erase(propertyName);
+
+									g_UndoRedoManager.ExecuteCommand(
+										[entity, newValue]() {
+											auto& component = g_Coordinator.GetComponent<AudioComponent>(entity);
+											component.SetVolume(newValue);
+										},
+										[entity, oldValue]() {
+											auto& component = g_Coordinator.GetComponent<AudioComponent>(entity);
+											component.SetVolume(oldValue);
+										}
+									);
+								}
+
+								ImGui::PopID();
+							}*/
+						}
 					}
 				}
 			}
