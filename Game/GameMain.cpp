@@ -4,6 +4,7 @@
 #include "../BoofWoof/Core/EngineCore.h"
 #include "Level Manager/LevelManager.h"
 #include "Game Levels/Splashscreen.h"
+#include "Game Levels/MainMenu.h"
 #include "GSM/GameStateMachine.h"
 
 EngineCore* g_Core = nullptr;
@@ -11,7 +12,7 @@ EngineCore* g_Core = nullptr;
 void InitializeLevels() {
 	// Register your levels here
 	g_LevelManager.RegisterLevel("Splashscreen", new(Splashscreen));
-	//g_LevelManager.RegisterLevel("MainMenu", new(MainMenu));
+	g_LevelManager.RegisterLevel("MainMenu", new(MainMenu));
 	//g_LevelManager.RegisterLevel("Level1", new(Level1));
 
 	// Set the initial level
