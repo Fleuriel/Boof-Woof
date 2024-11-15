@@ -1163,11 +1163,53 @@ void ImGuiEditor::InspectorWindow()
 						if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_None))
 						{
 							auto& cameraComponent = g_Coordinator.GetComponent<CameraComponent>(g_SelectedEntity);
-							cameraComponent.RegisterProperties();
-
-							const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
-
+							
 							// Handle Camera Property
+							
+								std::string propertyName = "Camera";
+								//set camera position
+								glm::vec3 cameraPos = cameraComponent.GetCameraPosition();
+								ImGui::Text("Position");
+								ImGui::SameLine();
+								ImGui::PushID(propertyName.c_str());
+								if (ImGui::DragFloat3("##CameraPos", &cameraPos.x, 0.1f))
+								{
+									cameraComponent.SetCameraPosition(cameraPos);
+								}
+
+								//set camera front
+								glm::vec3 cameraFront = cameraComponent.GetCameraDirection();
+								ImGui::Text("Front");
+								ImGui::SameLine();
+								
+								if (ImGui::DragFloat3("##CameraFront", &cameraFront.x, 0.1f))
+								{
+									cameraComponent.SetCameraDirection(cameraFront);
+								}
+
+								//set camera up
+								glm::vec3 cameraUp = cameraComponent.GetCameraUp();
+								ImGui::Text("Up");
+								ImGui::SameLine();
+								
+								if (ImGui::DragFloat3("##CameraUp", &cameraUp.x, 0.1f))
+								{
+									cameraComponent.SetCameraUp(cameraUp);
+								}
+
+								// set camera activity
+								bool cameraActive = cameraComponent.GetCameraActive();
+								ImGui::Text("Active");
+								ImGui::SameLine();
+								
+								if (ImGui::Checkbox("##CameraActive", &cameraActive))
+								{
+									cameraComponent.SetCameraActive(cameraActive);
+								}
+
+
+								ImGui::PopID();
+							
 							/*auto volumeProperty = std::find_if(properties.begin(), properties.end(),
 								[](const ReflectionPropertyBase* prop) { return prop->GetName() == "Volume"; });
 

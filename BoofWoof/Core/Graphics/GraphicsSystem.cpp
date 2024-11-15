@@ -20,6 +20,7 @@ bool GraphicsSystem::D3 = false;
 bool GraphicsSystem::lightOn = true;
 
 CameraComponent GraphicsSystem::camera;
+CameraComponent camera_render;
 glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 
 //int GraphicsSystem::set_Texture_ = 0;
@@ -126,9 +127,7 @@ void GraphicsSystem::UpdateLoop() {
 
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 
-	shdrParam.View = camera.GetViewMatrix();
-	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
-
+	
 	// Setup camera and projection matrix
 	//glm::mat4 view_ = camera.GetViewMatrix();
 	//glm::mat4 projection = 
@@ -137,9 +136,25 @@ void GraphicsSystem::UpdateLoop() {
 
 
 	// Loop through all entities and render them
+
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+	//check camera active
+	camera_render = camera;
+	for (auto& entity : allEntities) {
+		if (g_Coordinator.HaveComponent<CameraComponent>(entity)) {
+			auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
+			if (cameraComp.GetCameraActive()) {
+				camera_render = cameraComp;
+			}
+		}
+
+	}
+	shdrParam.View = camera_render.GetViewMatrix();
+	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
+
 	for (auto& entity : allEntities)
 	{
+		
 		if (g_Coordinator.HaveComponent<TransformComponent>(entity))
 		{
 			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
@@ -167,7 +182,7 @@ void GraphicsSystem::UpdateLoop() {
 				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 //				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
-				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
+				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera_render.Position);
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightOn", lightOn);
 
 				//std::cout << "entity "<< entity << "\n";
@@ -336,6 +351,8 @@ void GraphicsSystem::UpdateLoop() {
 			}
 			g_AssetManager.GetShader("Shader3D").UnUse();
 		}
+
+
 	}
 
 	

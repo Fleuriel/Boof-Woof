@@ -32,6 +32,8 @@ const unsigned int SCR_HEIGHT = 600;
 class CameraComponent
 {
 public:
+	bool active = false; // only one camera can be active at a time for entiry entities
+    
     // camera Attributes
     glm::vec3 Position{};
     glm::vec3 Front{};
@@ -124,9 +126,43 @@ public:
 
     //void RenderMiniMapCam();
 
+    // setter
 	void SetCameraDirection(glm::vec3 direction) {
-		Front = glm::normalize(direction);
+		// update Yaw and Pitch
+		Yaw = glm::degrees(atan2(direction.z, direction.x));
+		Pitch = glm::degrees(asin(direction.y));
 		updateCameraVectors();
+	}
+
+	void SetCameraPosition(glm::vec3 position) {
+		Position = position;
+        updateCameraVectors();
+	}
+
+	void SetCameraUp(glm::vec3 up) {
+		WorldUp = up;
+		updateCameraVectors();
+	}
+    
+	void SetCameraActive(bool isActive) {
+		active = isActive;
+	}
+
+	// getter
+	glm::vec3 GetCameraDirection() {
+		return Front;
+	}
+
+	glm::vec3 GetCameraPosition() {
+		return Position;
+	}
+
+	glm::vec3 GetCameraUp() {
+		return WorldUp;
+	}
+
+	bool GetCameraActive() {
+		return active;
 	}
 
     // calculates the front vector from the Camera's (updated) Euler Angles
