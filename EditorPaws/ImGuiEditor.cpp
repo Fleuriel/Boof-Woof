@@ -1998,7 +1998,7 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Button("##MatButton7 ", ImVec2(15, 15)); ImGui::SameLine();	ImGui::Text("Detail Mask");	 // Create a visual box
 
 
-				static bool mat_Emission = true;
+				static bool mat_Emission = false;
 
 				ImGui::Text("Emission ");
 				ImGui::SameLine(WidthIndentation);
@@ -2070,6 +2070,114 @@ void ImGuiEditor::InspectorWindow()
 					}
 					ImGui::EndDragDropTarget();
 				}
+
+				static float nMapVal = 0.0f;
+
+				ImGui::SameLine();	ImGui::Text("Normal Map"); ImGui::SameLine(WidthIndentation);
+				ImGui::InputFloat("##NormalMapInput1", &nMapVal, 0.0f, 0.0f);
+				// ImGui::Button("##MatButton9 ", ImVec2(15, 15)); // Create a visual box
+
+				static float SMap_TillingxValue = 0.0f;
+				static float SMap_TillingyValue = 0.0f;
+
+
+				ImGui::Text("Tilling");
+				ImGui::SameLine(WidthIndentation);
+
+				// Create a line with "X" label, a draggable float, and text input
+				ImGui::Text("X");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
+				ImGui::DragFloat("##XValue3", &SMap_TillingxValue, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
+				ImGui::PopItemWidth();
+
+				ImGui::SameLine();
+				// Create a line with "Y" label, a draggable float, and text input
+				ImGui::Text("Y");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
+				ImGui::DragFloat("##YValue3", &SMap_TillingyValue, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
+				ImGui::PopItemWidth();
+
+
+				static float S_MapOffsetXVal = 0.0f;
+				static float S_MapOffsetYVal = 0.0f;
+
+				ImGui::Text("Offset");
+				ImGui::SameLine(WidthIndentation);
+
+				// Create a line with "X" label, a draggable float, and text input
+				ImGui::Text("X");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
+				ImGui::DragFloat("##XValue4", &S_MapOffsetXVal, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
+				ImGui::PopItemWidth();
+
+				ImGui::SameLine();
+				// Create a line with "Y" label, a draggable float, and text input
+				ImGui::Text("Y");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
+				ImGui::DragFloat("##YValue4", &S_MapOffsetYVal, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
+				ImGui::PopItemWidth();
+
+
+
+				
+				
+
+
+				const char* imG_UVSet[] = { "UV0", "UV1" };
+				static int MatUVcurrent_idx = 0; // Index for the selected item
+				//ImGui::Set
+				ImGui::SetNextItemWidth(200.0f);
+
+				ImGui::Text("UV Set");  ImGui::SameLine(WidthIndentation); ImGui::Combo("##MatCombo3", &MatUVcurrent_idx, imG_UVSet, IM_ARRAYSIZE(imG_UVSet));
+
+
+				static bool mat_SpecularHighlights = false;
+
+				ImGui::Text("Specular Highlights ");
+				ImGui::SameLine(WidthIndentation);
+
+				ImGui::Checkbox("##MatSpecularHigh1 ", &mat_SpecularHighlights);
+
+				static bool mat_Reflections = false;
+
+				ImGui::Text("Reflections ");
+				ImGui::SameLine(WidthIndentation);
+
+				ImGui::Checkbox("##MatReflection1 ", &mat_Reflections);
+
+
+
+
+				ImGui::Text("Advanced Options");
+
+
+				const char* imG_RenderQueue[] = { "From Shader", "Geometry", "AlphaTest", "Transparent"};
+				static int MatR_Queue_current_idx = 0; // Index for the selected item
+				//ImGui::Set
+				ImGui::SetNextItemWidth(200.0f);
+
+				ImGui::Text("UV Set");  ImGui::SameLine(WidthIndentation); ImGui::Combo("##MatCombo4", &MatR_Queue_current_idx, imG_RenderQueue, IM_ARRAYSIZE(imG_RenderQueue));
+				static float rQueueVal = 0.0f;
+
+				ImGui::Text("Render Queue"); ImGui::SameLine(WidthIndentation); ImGui::InputFloat("##RenderQueueInput1", &rQueueVal, 0.0f,0.0f);
+
+
+
+
+
+				static bool mat_GPUInstancing = false;
+
+				ImGui::Text("Reflections ");
+				ImGui::SameLine(WidthIndentation);
+
+				ImGui::Checkbox("##MatGPUInsta1 ", &mat_GPUInstancing);
+
+				static bool mat_GlobalIllum = false;
+
+				ImGui::Text("Double Sided Global Illumination ");
+				ImGui::SameLine(WidthIndentation);
+
+				ImGui::Checkbox("##MatIllum1 ", &mat_GlobalIllum);
+
+
+
+
 
 
 //				ImGui::SameLine();  ImGui::Text("Normal Map"); ImGui::InputFloat();
