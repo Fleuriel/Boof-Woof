@@ -196,7 +196,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     </ClCompile>
     <ClCompile Include="Core\EngineCore.cpp" />
     <ClCompile Include="Core\Graphics\BoundingVolume.cpp" />
-    <ClCompile Include="Core\Graphics\Camera.cpp" />
+    <ClCompile Include="Core\Graphics\CameraComponent.cpp" />
     <ClCompile Include="Core\Graphics\FontSystem.cpp" />
     <ClCompile Include="Core\Graphics\GraphicsSystem.cpp" />
     <ClCompile Include="Core\Graphics\Mesh.cpp" />
@@ -238,7 +238,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\ECS\SystemManager.hpp" />
     <ClInclude Include="Core\EngineCore.h" />
     <ClInclude Include="Core\Graphics\BoundingVolume.h" />
-    <ClInclude Include="Core\Graphics\Camera.h" />
+    <ClInclude Include="Core\Graphics\CameraComponent.hpp" />
     <ClInclude Include="Core\Graphics\FontSystem.h" />
     <ClInclude Include="Core\Graphics\GraphicsSystem.h" />
     <ClInclude Include="Core\Graphics\Mesh.h" />

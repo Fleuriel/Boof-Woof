@@ -19,7 +19,7 @@ bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
 bool GraphicsSystem::lightOn = true;
 
-Camera GraphicsSystem::camera;
+CameraComponent GraphicsSystem::camera;
 glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 
 //int GraphicsSystem::set_Texture_ = 0;
@@ -82,7 +82,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	shdrParam.Color = glm::vec3(1.0f, 1.0f,1.0f);
 
 	// Initialize camera
-	camera = Camera(glm::vec3(0.f, 2.f, 10.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
+	camera = CameraComponent(glm::vec3(0.f, 2.f, 10.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
 	
 
 	glEnable(GL_DEPTH_TEST);
