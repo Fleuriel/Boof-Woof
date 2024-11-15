@@ -1170,6 +1170,41 @@ void ImGuiEditor::InspectorWindow()
 			else if (selectedFilePath.find(".png") != std::string::npos)
 			{
 
+				std::string selectedFileName = m_SelectedFile.stem().string();
+				GLuint pictureIcon = g_ResourceManager.GetTextureDDS(selectedFileName);
+				GLuint pictureWidth = g_ResourceManager.GetTextureDDSWidth(selectedFileName);
+				GLuint pictureHeight = g_ResourceManager.GetTextureDDSHeight(selectedFileName);
+
+				// 256 x 256 is our max picture size to show.
+				int maxWidth = 32;
+
+
+				//std::cout << selectedFileName << '\t' << g_ResourceManager.GetTextureDDSWidth(selectedFileName) << '\t' << std::to_string(g_ResourceManager.GetTextureDDSHeight(selectedFileName))  << '\t' << '\n';
+
+				std::string inputTextToDisplay = selectedFileName + "(Texture 2D) Import Settings";
+
+				// Fix such that the picture does not appear too big.
+				GLuint newWidth = pictureWidth;
+				GLuint newHeight = pictureHeight;
+
+
+
+				float aspectRatio = static_cast<float>(pictureWidth) / static_cast<float>(pictureHeight);
+
+				if (pictureWidth > maxWidth) {
+					newWidth = maxWidth;
+					newHeight = static_cast<int>(newWidth / aspectRatio);
+				}
+
+				ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(newWidth, newHeight));
+				ImGui::SameLine();
+				ImGui::Text(inputTextToDisplay.c_str());
+				
+
+
+
+
+				ImGui::Separator();
 				/*
 					TEXTURE TYPE
 				*/
@@ -1464,20 +1499,81 @@ void ImGuiEditor::InspectorWindow()
 
 
 
-				
 
-					if (ImGui::BeginTabBar("InspectorTabs"))
+
+				if (ImGui::BeginTabBar("InspectorTabs"))
+				{
+					// First Tab: Default
+					if (ImGui::BeginTabItem("Default"))
 					{
-						// First Tab: Default
-						if (ImGui::BeginTabItem("Default"))
+						ImGui::Text("Max Size");
+						ImGui::SameLine(225);
+
+						const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384" };
+						static int MaxSize_current_idx = 0; // Index for the selected item
+						ImGui::SetNextItemWidth(150.0f);
+						ImGui::Combo("##Combo6", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
+
+
+
+						ImGui::Text("Resize Algorithm");
+						ImGui::SameLine(225);
+
+						const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear" };
+						static int ResizeAlg_current_idx = 0; // Index for the selected item
+						ImGui::SetNextItemWidth(150.0f);
+						ImGui::Combo("##Combo7", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
+
+
+						ImGui::Text("Format");
+						ImGui::SameLine(225);
+
+						const char* imG_OperatingSystemFormat[] = { "RGB(A) Compressed BC7" , "RGBA Compressed DXT5|BC3", "RGBA Crunched DXT5|BC3", "RGBA 64 bit", "RGBA 32 bit", "ARGB 16bit"
+																   "RGB Compressed DXT1|BC1", "RGB Crunched DXT1|BC1", "RGB 48 bit", " RGB 16 bit", "RGB 24 bit", "RG Compressed BC5", "RG 32 bit"
+																   "R Compressed BC4", "R 8", "R 16 bit", "Alpha 8", "RGBA Float", "RGBA Half", "RG Float", "R Float", "RGB HDR Compressed BC6H", "RGB9e5 32 bit Shared Exponent Float" };
+						static int OS_current_idx = 0; // Index for the selected item
+						ImGui::SetNextItemWidth(150.0f);
+						ImGui::Combo("##Combo8", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
+
+
+
+						ImGui::Text("Compression");
+						ImGui::SameLine(225);
+
+						const char* imG_CompressionQuality[] = { "None", "Low Quality", "Normal Quality", "High Quality" };
+						static int Compression_current_idx = 0; // Index for the selected item
+						ImGui::SetNextItemWidth(150.0f);
+						ImGui::Combo("##Combo9", &Compression_current_idx, imG_CompressionQuality, IM_ARRAYSIZE(imG_CompressionQuality));
+
+
+						static bool crunchCompress = false;
+
+						ImGui::Text("Use Crunch Compression");
+						ImGui::SameLine(225);
+
+						ImGui::Checkbox("##Button10 ", &crunchCompress);
+
+						// More controls as needed...
+						ImGui::EndTabItem();
+					}
+
+					// Second Tab: Another settings tab
+					if (ImGui::BeginTabItem("Advanced"))
+					{
+						static bool overrite = false;
+
+						ImGui::Text("Override For Windows, Mac, Linux");
+						ImGui::SameLine(225);
+
+						ImGui::Checkbox(" ", &overrite);
+
+						if (overrite)
 						{
-							ImGui::Text("Max Size");
-							ImGui::SameLine(225);
 
 							const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384" };
 							static int MaxSize_current_idx = 0; // Index for the selected item
 							ImGui::SetNextItemWidth(150.0f);
-							ImGui::Combo("##Combo6", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
+							ImGui::Combo("##Combo10", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
 
 
 
@@ -1487,143 +1583,67 @@ void ImGuiEditor::InspectorWindow()
 							const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear" };
 							static int ResizeAlg_current_idx = 0; // Index for the selected item
 							ImGui::SetNextItemWidth(150.0f);
-							ImGui::Combo("##Combo7", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
+							ImGui::Combo("##Combo11", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
 
 
 							ImGui::Text("Format");
 							ImGui::SameLine(225);
 
-							const char* imG_OperatingSystemFormat[] = { "RGB(A) Compressed BC7" , "RGBA Compressed DXT5|BC3", "RGBA Crunched DXT5|BC3", "RGBA 64 bit", "RGBA 32 bit", "ARGB 16bit"
-																	   "RGB Compressed DXT1|BC1", "RGB Crunched DXT1|BC1", "RGB 48 bit", " RGB 16 bit", "RGB 24 bit", "RG Compressed BC5", "RG 32 bit"
-																	   "R Compressed BC4", "R 8", "R 16 bit", "Alpha 8", "RGBA Float", "RGBA Half", "RG Float", "R Float", "RGB HDR Compressed BC6H", "RGB9e5 32 bit Shared Exponent Float" };
+							const char* imG_OperatingSystemFormat[] = { "RGBA Compressed DXT5|BC3" };
 							static int OS_current_idx = 0; // Index for the selected item
 							ImGui::SetNextItemWidth(150.0f);
-							ImGui::Combo("##Combo8", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
+							ImGui::Combo("##Combo12", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
 
-
-
-							ImGui::Text("Compression");
-							ImGui::SameLine(225);
-
-							const char* imG_CompressionQuality[] = { "None", "Low Quality", "Normal Quality", "High Quality" };
-							static int Compression_current_idx = 0; // Index for the selected item
-							ImGui::SetNextItemWidth(150.0f);
-							ImGui::Combo("##Combo9", &Compression_current_idx, imG_CompressionQuality, IM_ARRAYSIZE(imG_CompressionQuality));
-
-
-							static bool crunchCompress = false;
-
-							ImGui::Text("Use Crunch Compression");
-							ImGui::SameLine(225);
-
-							ImGui::Checkbox("##Button10 ", &crunchCompress);
-
-							// More controls as needed...
-							ImGui::EndTabItem();
 						}
 
-						// Second Tab: Another settings tab
-						if (ImGui::BeginTabItem("Advanced"))
-						{
-							static bool overrite = false;
 
-							ImGui::Text("Override For Windows, Mac, Linux");
-							ImGui::SameLine(225);
-
-							ImGui::Checkbox(" ", &overrite);
-
-							if (overrite)
-							{
-
-								const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384" };
-								static int MaxSize_current_idx = 0; // Index for the selected item
-								ImGui::SetNextItemWidth(150.0f);
-								ImGui::Combo("##Combo10", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize));
-
-
-
-								ImGui::Text("Resize Algorithm");
-								ImGui::SameLine(225);
-
-								const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear" };
-								static int ResizeAlg_current_idx = 0; // Index for the selected item
-								ImGui::SetNextItemWidth(150.0f);
-								ImGui::Combo("##Combo11", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo));
-
-
-								ImGui::Text("Format");
-								ImGui::SameLine(225);
-
-								const char* imG_OperatingSystemFormat[] = { "RGBA Compressed DXT5|BC3" };
-								static int OS_current_idx = 0; // Index for the selected item
-								ImGui::SetNextItemWidth(150.0f);
-								ImGui::Combo("##Combo12", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat));
-
-							}
-
-
-							// Additional widgets can go here
-							ImGui::EndTabItem();
-						}
-
-						ImGui::EndTabBar();  // End the tab bar
+						// Additional widgets can go here
+						ImGui::EndTabItem();
 					}
 
-
-
-					ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();
-
-
-					ImGui::Indent(300);
-
-					if (ImGui::Button("Apply"))
-					{
-
-						//Save
-
-					}
-
-					ImGui::SameLine();
-					if (ImGui::Button("Revert"))
-					{
-
-						//Go back to original shit
-
-					}
-
-					ImGui::Unindent(300);
-
-					std::string selectedFileName = m_SelectedFile.stem().string();
-					GLuint pictureIcon = g_ResourceManager.GetTextureDDS(selectedFileName);
-					GLuint pictureWidth = g_ResourceManager.GetTextureDDSWidth(selectedFileName);
-					GLuint pictureHeight = g_ResourceManager.GetTextureDDSHeight(selectedFileName);
-
-					// 256 x 256 is our max picture size to show.
-					int maxWidth = 256;
-
-
-					//std::cout << selectedFileName << '\t' << g_ResourceManager.GetTextureDDSWidth(selectedFileName) << '\t' << std::to_string(g_ResourceManager.GetTextureDDSHeight(selectedFileName))  << '\t' << '\n';
-
-					std::string inputTextToDisplay = "Image Preview: " + m_SelectedFile.filename().string() +
-						" Width: " + std::to_string(pictureWidth) +
-						" Height: " + std::to_string(pictureHeight);
-
-					// Fix such that the picture does not appear too big.
-					GLuint newWidth = pictureWidth;
-					GLuint newHeight = pictureHeight;
+					ImGui::EndTabBar();  // End the tab bar
+				}
 
 
 
-					float aspectRatio = static_cast<float>(pictureWidth) / static_cast<float>(pictureHeight);
+				ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();
 
-					if (pictureWidth > maxWidth) {
-						newWidth = maxWidth;
-						newHeight = static_cast<int>(newWidth / aspectRatio);
-					}
 
-					ImGui::Separator();
-					ImGui::Text(inputTextToDisplay.c_str());
-					ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(newWidth, newHeight));
+				ImGui::Indent(300);
+
+				if (ImGui::Button("Apply"))
+				{
+
+					//Save
+
+				}
+
+				ImGui::SameLine();
+				if (ImGui::Button("Revert"))
+				{
+
+					//Go back to original shit
+
+				}
+
+				ImGui::Unindent(300);
+
+
+				maxWidth = 256;
+
+				newWidth = pictureWidth;
+				newHeight = pictureHeight;
+				
+				
+				if (pictureWidth > maxWidth) {
+					newWidth = maxWidth;
+					newHeight = static_cast<int>(newWidth / aspectRatio);
+				}
+
+
+				ImGui::Separator();
+				ImGui::Text(inputTextToDisplay.c_str());
+				ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(newWidth, newHeight));
 
 
 
