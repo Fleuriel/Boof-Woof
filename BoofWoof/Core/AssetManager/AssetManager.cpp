@@ -350,23 +350,6 @@ bool AssetManager::LoadTextures() {
                 CompressTextureWithDescriptor(desc, texFilePath, outputPath.string());
                 g_ResourceManager.AddTextureDDS(nameWithoutExtension);
 
-                //// Process the descriptor file and print details
-                //std::vector<std::string> fileInfo;
-                //fileInfo.reserve(5);
-                //fileInfo = processTextureDescriptorFile(descriptorFilePath);
-                //if (!fileInfo.empty()) {
-
-                //     std::cout << fileInfo[0] << std::endl;
-                //     std::cout << fileInfo[1] << std::endl;
-                //     std::cout << fileInfo[2] << std::endl;
-                //     std::cout << fileInfo[3] << std::endl;
-                //     std::cout << fileInfo[4] << std::endl;
-
-                //    // Run compression command
-                //    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[4] + " " + fileInfo[1] + " " + fileInfo[3]);
-                //    g_ResourceManager.AddTextureDDS(nameWithoutExtension);
-                //}
-
 
             }
             else
