@@ -43,7 +43,7 @@ public:
     float Yaw;
     float Pitch;
     // camera options
-	float MovementSpeed = 3.0f;
+	float MovementSpeed;
     float MouseSensitivity;
     float Zoom;
     float width{ 1280 }, height{ 960 };
@@ -54,6 +54,8 @@ public:
 		WorldUp = up;
 		Yaw = yaw;
 		Pitch = pitch;
+		MovementSpeed = SPEED;
+		MouseSensitivity = SENSITIVITY;
 		updateCameraVectors();
     }
 
@@ -63,6 +65,8 @@ public:
         WorldUp = glm::vec3(upX, upY, upZ);
         Yaw = yaw;
         Pitch = pitch;
+		MovementSpeed = SPEED;
+		MouseSensitivity = SENSITIVITY;
         updateCameraVectors();
     }
 
@@ -119,6 +123,11 @@ public:
     }
 
     //void RenderMiniMapCam();
+
+	void SetCameraDirection(glm::vec3 direction) {
+		Front = glm::normalize(direction);
+		updateCameraVectors();
+	}
 
     // calculates the front vector from the Camera's (updated) Euler Angles
     void updateCameraVectors() {
