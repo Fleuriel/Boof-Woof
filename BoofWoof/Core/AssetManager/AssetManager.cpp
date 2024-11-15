@@ -1124,75 +1124,6 @@ bool AssetManager::ReloadShaders()
 
 
 
-// Function to process the descriptor file
-std::vector<std::string> processFontDescriptorFile(const std::string& descriptorFilePath) {
-    std::ifstream file(descriptorFilePath);
-
-    if (!file.is_open()) {
-        std::cerr << "Unable to open descriptor file: " << descriptorFilePath << std::endl;
-        return {};
-    }
-
-    std::string line;
-    std::string fontName;
-    std::string fontFilePath;
-    std::string resourceGuid;
-    std::string resourceFilePath;
-    std::string resourceDataFilePath;
-    std::string compressionFormat;
-
-    std::vector<std::string> fileInfo{};
-
-    while (std::getline(file, line)) {
-        // Find the "Texture Name" line
-        if (line.find("Font Name") != std::string::npos) {
-            fontName = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(fontName);
-        }
-        // Find the "Texture File Path" line
-        if (line.find("Font File Path") != std::string::npos) {
-            fontFilePath = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(fontFilePath);
-        }
-        // Find the "Resource GUID" line
-        if (line.find("Resource GUID") != std::string::npos) {
-            resourceGuid = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(resourceGuid);
-        }
-        // Find the "Resource File Path" line
-        else if (line.find("Resource File Path") != std::string::npos) {
-            resourceFilePath = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(resourceFilePath);
-        }
-        // Find the "Resource Data File Path" line
-        else if (line.find("Resource Data File Path") != std::string::npos) {
-            resourceDataFilePath = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(resourceDataFilePath);
-        }
-        // Find the "Compression Format" line
-        else if (line.find("Compression Format") != std::string::npos) {
-            compressionFormat = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(compressionFormat);
-        }
-    }
-
-#ifdef _DEBUG
-    std::cout << "\n**************************************************************************************\nFont Converter Print Out\n";
-    // Print out the details from the descriptor file
-    std::cout << "Texture Name: " << fileInfo[0] << std::endl;
-    std::cout << "Texture File Path: " << fileInfo[1] << std::endl;
-    std::cout << "Resource GUID: " << fileInfo[2] << std::endl;
-    std::cout << "Resource File Path: " << fileInfo[3] << std::endl;
-    std::cout << "Resource Data File Path: " << fileInfo[4] << std::endl;
-    std::cout << "Compression Format: " << fileInfo[5] << std::endl;
-    std::cout << "\n**************************************************************************************\n";
-#endif
-
-    file.close();
-
-    return fileInfo;
-}
-
 
 
 bool AssetManager::LoadFonts() {
@@ -1204,8 +1135,8 @@ bool AssetManager::LoadFonts() {
         for (const auto& entry : fs::directory_iterator(filepath)) {
 
 
-            std::string texFilePath = filepath + "\\" + entry.path().filename().string();
-            //std::cout << "Font file " << texFilePath << " Found." << std::endl;
+            std::string FilePath = filepath + "\\" + entry.path().filename().string();
+            //std::cout << "Font file " << FilePath << " Found." << std::endl;
 
             size_t pos = entry.path().filename().string().find_last_of('.');
             if (pos != std::string::npos) {
@@ -1236,42 +1167,29 @@ bool AssetManager::LoadFonts() {
                     fs::create_directory(FILEPATH_DESCRIPTOR_FONTS);
 
                 // Create an output file stream (ofstream) object
-                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_FONTS + "/" + nameWithoutExtension + ".txt" };
-                std::ofstream outFile(descriptorFilePath);
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_FONTS+ "/" + nameWithoutExtension + ".json" };
 
-                // Check if the file opened successfully
-                if (outFile.is_open()) {
+                TextureDescriptor desc;
+                desc.SaveTextureDescriptor(descriptorFilePath);  // Correctly passing as const reference
 
-                    outFile << "Font Name : " << nameWithoutExtension << std::endl;
-                    outFile << "Font File Path : " << FILEPATH_ASSET_FONTS + "\\" + entry.path().filename().string() << std::endl;
-                    outFile << "Resource GUID : " << std::endl;
-                    outFile << "Resource File Path : " << FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".dds" << std::endl;
-                    outFile << "Resource Data File Path : " << FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".json" << std::endl;
-                    outFile << "Compression Format : " << "-fd BC3";
-
-                    // Close the file
-                    outFile.close();
-                }
-
-                if (!fs::exists(FILEPATH_RESOURCE_FONTS))
+                // Ensure the directory exists
+                if (!fs::exists(FILEPATH_RESOURCE_FONTS)) {
                     fs::create_directory(FILEPATH_RESOURCE_FONTS);
-
-                // Process the descriptor file and print details
-                std::vector<std::string> fileInfo = processFontDescriptorFile(descriptorFilePath);
-                if (!fileInfo.empty()) {
-
-                    // Run command
-                    runCommand("..\\lib\\msdf-atlas-gen\\msdf-atlas-gen.exe -font " + fileInfo[1] + " -allglyphs -size 32 -imageout " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png" + " -json " + fileInfo[4]);
-                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[5] + " " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png " + fileInfo[3]);
-                    if (std::remove((FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png").c_str()) == 0) {
-                        std::cout << "File deleted successfully.\n";
-                    }
-                    else {
-                        std::perror("Error deleting file");
-                    }
-
-                    g_ResourceManager.AddFontDDS(nameWithoutExtension);
                 }
+
+                // Ensure texFilePath is valid
+                fs::path outputPath = fs::path(FILEPATH_RESOURCE_FONTS) / (nameWithoutExtension + ".dds");
+
+                // Run the compression command
+                runCommand("..\\lib\\msdf-atlas-gen\\msdf-atlas-gen.exe -font " + FilePath + " -allglyphs -size 32 -imageout " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png" + " -json " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".json");
+                CompressTextureWithDescriptor(desc, FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png", outputPath.string());
+                if (std::remove((FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png").c_str()) == 0) {
+                    std::cout << "File deleted successfully.\n";
+                }
+                else {
+                    std::perror("Error deleting file");
+                }
+                g_ResourceManager.AddFontDDS(nameWithoutExtension);
 
             }
             else

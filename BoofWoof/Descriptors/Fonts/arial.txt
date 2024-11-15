@@ -1,6 +1,0 @@
-Font Name : arial
-Font File Path : ..\BoofWoof\Assets\Fonts\arial.ttf
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Fonts\arial.dds
-Resource Data File Path : ..\BoofWoof\Resources\Fonts\arial.json
-Compression Format : -fd BC3
