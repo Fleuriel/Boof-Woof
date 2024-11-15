@@ -1953,10 +1953,41 @@ void ImGuiEditor::InspectorWindow()
 
 
 
+				ImGui::Separator();
+
+				static GLuint fbo = 0, textureColorbuffer = 0, rbo = 0; // Declare outside to persist across frames
+				static bool isFramebufferGenerated = false; // Flag to prevent generating framebuffer every frame
 
 
+				if (!isFramebufferGenerated) {
+					// Generate framebuffer only once
+					g_Coordinator.GetSystem<GraphicsSystem>()->generateNewFrameBuffer(fbo, textureColorbuffer, rbo, 512, 512);
+					// std::cout << '\t' << fbo << '\t' << textureColorbuffer << '\t' << rbo << '\n';
 
-				//				ImGui::SameLine();  ImGui::Text("Normal Map"); ImGui::InputFloat();
+					isFramebufferGenerated = true;
+				}
+
+				// Set clear color
+				glClearColor(1.f, 0.5f, 0.25f, 1.0f);  // Set the color to clear the framebuffer to
+
+				// Bind the custom framebuffer (where you want to render)
+				glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+				glViewport(0, 0, 512, 512);  // Set the custom viewport size for this framebuffer
+
+				// Clear the framebuffer
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear the color and depth buffers
+
+				// Now render your objects
+			    g_Coordinator.GetSystem<GraphicsSystem>()->DrawMaterialSphere(); // Your rendering code
+
+				// After rendering to the custom framebuffer, unbind it to render to the default framebuffer
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the custom framebuffer (restore to default framebuffer)
+
+				// Reset the viewport for the default framebuffer (main window size)
+				glViewport(0, 0, g_WindowX, g_WindowY);
+
+				// Display the custom framebuffer texture (this will display in the ImGui window)
+				ImGui::Image((void*)(intptr_t)textureColorbuffer, ImVec2(512, 512));  // Display texture in the ImGui window
 
 
 			}
