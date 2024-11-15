@@ -24,6 +24,8 @@
 
 #include "Graphics/GraphicsSystem.h" //temporary
 
+#include "Descriptor.h"
+
 AssetManager g_AssetManager;
 
 namespace fs = std::filesystem;
@@ -331,42 +333,39 @@ bool AssetManager::LoadTextures() {
                     fs::create_directory(FILEPATH_DESCRIPTOR_TEXTURES);
 
                 // Create an output file stream (ofstream) object
-                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_TEXTURES + "/" + nameWithoutExtension + ".txt"};
-                std::ofstream outFile(descriptorFilePath);
-
-                // Check if the file opened successfully
-                if (outFile.is_open()) {
-                    
-                    outFile << "Texture Name : " << nameWithoutExtension << std::endl;
-                    outFile << "Texture File Path : " << FILEPATH_ASSET_TEXTURES + "\\" + entry.path().filename().string() << std::endl;
-                    outFile << "Resource GUID : " << std::endl;
-                    outFile << "Resource File Path : " << FILEPATH_RESOURCE_TEXTURES + "\\" + nameWithoutExtension + ".dds" << std::endl;
-                    outFile << "Compression Format : "<< "-fd BC3";
-
-                    // Close the file
-                    outFile.close();
-                }
-
-                if (!fs::exists(FILEPATH_RESOURCE_TEXTURES))
-                    fs::create_directory(FILEPATH_RESOURCE_TEXTURES);
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_TEXTURES + "/" + nameWithoutExtension + ".json"};
                 
+                TextureDescriptor desc;
+                desc.SaveTextureDescriptor(descriptorFilePath);  // Correctly passing as const reference
 
-                // Process the descriptor file and print details
-                std::vector<std::string> fileInfo;
-                fileInfo.reserve(5);
-                fileInfo = processTextureDescriptorFile(descriptorFilePath);
-                if (!fileInfo.empty()) {
-
-                     std::cout << fileInfo[0] << std::endl;
-                     std::cout << fileInfo[1] << std::endl;
-                     std::cout << fileInfo[2] << std::endl;
-                     std::cout << fileInfo[3] << std::endl;
-                     std::cout << fileInfo[4] << std::endl;
-
-                    // Run compression command
-                    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[4] + " " + fileInfo[1] + " " + fileInfo[3]);
-                    g_ResourceManager.AddTextureDDS(nameWithoutExtension);
+                // Ensure the directory exists
+                if (!fs::exists(FILEPATH_RESOURCE_TEXTURES)) {
+                    fs::create_directory(FILEPATH_RESOURCE_TEXTURES);
                 }
+
+                // Ensure texFilePath is valid
+                fs::path outputPath = fs::path(FILEPATH_RESOURCE_TEXTURES) / (nameWithoutExtension + ".dds");
+
+                // Run the compression command
+                CompressTextureWithDescriptor(desc, texFilePath, outputPath.string());
+                g_ResourceManager.AddTextureDDS(nameWithoutExtension);
+
+                //// Process the descriptor file and print details
+                //std::vector<std::string> fileInfo;
+                //fileInfo.reserve(5);
+                //fileInfo = processTextureDescriptorFile(descriptorFilePath);
+                //if (!fileInfo.empty()) {
+
+                //     std::cout << fileInfo[0] << std::endl;
+                //     std::cout << fileInfo[1] << std::endl;
+                //     std::cout << fileInfo[2] << std::endl;
+                //     std::cout << fileInfo[3] << std::endl;
+                //     std::cout << fileInfo[4] << std::endl;
+
+                //    // Run compression command
+                //    runCommand("..\\lib\\Compressonator\\compressonatorcli.exe " + fileInfo[4] + " " + fileInfo[1] + " " + fileInfo[3]);
+                //    g_ResourceManager.AddTextureDDS(nameWithoutExtension);
+                //}
 
 
             }

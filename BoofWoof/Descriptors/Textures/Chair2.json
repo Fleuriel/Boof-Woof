@@ -1,0 +1,23 @@
+{
+    "textureAlpha": "default_alpha",
+    "alphaIsTransparency": false,
+    "nonPowerOfTwoOption": "default_option",
+    "readWrite": true,
+    "generateMipMaps": true,
+    "mipMapLimits": false,
+    "mipMapLimitGroup": "default_group",
+    "mipStreaming": false,
+    "mipMapFiltering": "default_filtering",
+    "preserveCoverage": true,
+    "replicateBorder": false,
+    "fadeoutToGray": false,
+    "ignorePngGamma": false,
+    "wrapMode": "default_wrap",
+    "filterMode": "default_filter",
+    "anisoLevel": 1.0,
+    "maxSize": "1024",
+    "resizeAlgorithm": "default_algorithm",
+    "format": "default_format",
+    "compressionQuality": "default_quality",
+    "useCrunchCompression": false
+}

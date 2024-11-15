@@ -21,76 +21,48 @@ std::string trim(const std::string& str) {
     return (first == std::string::npos || last == std::string::npos) ? "" : str.substr(first, last - first + 1);
 }
 
-// Function to process the descriptor file
-std::vector<std::string> processTextureDescriptorFile(const std::string& descriptorFilePath) {
-    std::ifstream file(descriptorFilePath);
+int CompressTextureWithDescriptor(const TextureDescriptor& descriptor, const std::string& inputTexturePath, const std::string& outputTexturePath) {
+    std::stringstream commandStream;
 
-    if (!file.is_open()) {
-        std::cerr << "Unable to open descriptor file: " << descriptorFilePath << std::endl;
-        return {};
+    // Base CompressonatorCLI command
+    commandStream << "..\\lib\\Compressonator\\compressonatorcli.exe -fd ";
+
+    // Set texture format based on descriptor
+    if (descriptor.format == "default_format") {
+        commandStream << "BC3";  // For example, default format is BC7
+    }
+    else {
+        commandStream << descriptor.format;
     }
 
-    std::string line;
-    std::string textureName;
-    std::string textureFilePath;
-    std::string resourceGuid;
-    std::string resourceFilePath;
-    std::string compressionFormat;
+    // Set compression quality
+    //commandStream << " -quality " << descriptor.compressionQuality;
 
-    std::vector<std::string> fileInfo{};
+    // Set other texture options based on descriptor fields (e.g., mipmaps, wrap mode, etc.)
+    //if (descriptor.generateMipMaps) {
+    //    commandStream << " -mipmaps";
+    //}
 
-    while (std::getline(file, line)) {
-        // Find the "Texture Name" line
-        if (line.find("Texture Name") != std::string::npos) {
-            textureName = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(textureName);
-        }
-        // Find the "Texture File Path" line
-        if (line.find("Texture File Path") != std::string::npos) {
-            textureFilePath = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(textureFilePath);
-        }
-        // Find the "Resource GUID" line
-        if (line.find("Resource GUID") != std::string::npos) {
-            resourceGuid = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(resourceGuid);
-        }
-        // Find the "Resource File Path" line
-        else if (line.find("Resource File Path") != std::string::npos) {
-            resourceFilePath = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(resourceFilePath);
-        }
-        // Find the "Compression Format" line
-        else if (line.find("Compression Format") != std::string::npos) {
-            compressionFormat = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(compressionFormat);
-        }
-    }
+    //if (descriptor.useCrunchCompression) {
+    //    commandStream << " -crunch";
+    //}
 
+    //// Wrap mode
+    //if (descriptor.wrapMode != "default_wrap") {
+    //    commandStream << " -wrapmode " << descriptor.wrapMode;
+    //}
 
-    /*
-    outFile << "Texture Name : " << nameWithoutExtension << std::endl;
-                    outFile << "Texture File Path : " << FILEPATH_TEXTURES + "\\" + entry.path().filename().string() << std::endl;
-                    outFile << "Resource GUID : " << std::endl;
-                    outFile << "Resource File Path : " << FILEPATH_TEXTURES_RESOURCE + "\\" + nameWithoutExtension + ".dds" << std::endl;
-                    outFile << "Compression Format : "<< "-fd BC3";
+    //// Filter mode
+    //if (descriptor.filterMode != "default_filter") {
+    //    commandStream << " -filtermode " << descriptor.filterMode;
+    //}
 
-    */
+    // Specify the input and output files
+    commandStream << " " << inputTexturePath << " " << outputTexturePath;
 
-#ifdef _DEBUG
-    std::cout << "\n**************************************************************************************\nCompressonator Print Out\n";
-    // Print out the details from the descriptor file
-    std::cout << "Texture Name: " << fileInfo[0] << std::endl;
-    std::cout << "Texture File Path: " << fileInfo[1] << std::endl;
-    std::cout << "Resource GUID: " << fileInfo[2] << std::endl;
-    std::cout << "Resource File Path: " << fileInfo[3] << std::endl;
-    std::cout << "Compression Format: " << fileInfo[4] << std::endl;
-    std::cout << "\n**************************************************************************************\n";
-
-#endif
-    file.close();
-
-    return fileInfo;
+    // Execute the command
+    std::string command = commandStream.str();
+    return runCommand(command);  // Call your existing runCommand function
 }
 
 // Function to run a command line command
