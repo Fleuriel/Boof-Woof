@@ -388,6 +388,24 @@ void ImGuiEditor::InspectorWindow()
 
 					}
 				}
+				if (ImGui::Selectable("Camera Component"))
+				{
+					if (!g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<CameraComponent>(g_SelectedEntity, CameraComponent());
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (!g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<CameraComponent>(g_SelectedEntity, CameraComponent());
+							},
+							[this]() {
+								if (g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<CameraComponent>(g_SelectedEntity);
+							}
+						);
+
+					}
+				}
 				ImGui::EndPopup();
 			}
 
@@ -493,6 +511,25 @@ void ImGuiEditor::InspectorWindow()
 							[this, componentData]() {
 								if (!g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
 									g_Coordinator.AddComponent<CollisionComponent>(g_SelectedEntity, componentData);
+							}
+						);
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+				{
+					if (ImGui::Selectable("Camera Component"))
+					{
+						auto componentData = g_Coordinator.GetComponent<CameraComponent>(g_SelectedEntity);
+
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<CameraComponent>(g_SelectedEntity);
+							},
+							[this, componentData]() {
+								if (!g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<CameraComponent>(g_SelectedEntity, componentData);
 							}
 						);
 					}
@@ -1119,6 +1156,10 @@ void ImGuiEditor::InspectorWindow()
 						{
 							// Add custom collision component UI here
 						}
+					}
+					else if (className == "CameraComponent")
+					{
+
 					}
 				}
 			}
