@@ -7,7 +7,7 @@ class MainMenu : public Level
 {
 	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/RoomLevel.json");
+		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainMenuFront.json");
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/Test.wav");
 	}
 

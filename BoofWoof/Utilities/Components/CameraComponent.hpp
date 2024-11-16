@@ -32,7 +32,7 @@ const unsigned int SCR_HEIGHT = 600;
 class CameraComponent
 {
 public:
-	bool active = false; // only one camera can be active at a time for entiry entities
+	bool IsActive = false; // only one camera can be active at a time for entiry entities
     
     // camera Attributes
     glm::vec3 Position{};
@@ -58,7 +58,7 @@ public:
 		Pitch = pitch;
 		MovementSpeed = SPEED;
 		MouseSensitivity = SENSITIVITY;
-        active = isActive;
+        IsActive = isActive;
 		updateCameraVectors();
     }
 
@@ -70,7 +70,7 @@ public:
         Pitch = pitch;
 		MovementSpeed = SPEED;
 		MouseSensitivity = SENSITIVITY;
-        active = isActive;
+        IsActive = isActive;
         updateCameraVectors();
     }
 
@@ -157,7 +157,7 @@ public:
 	}
     
 	void SetCameraActive(bool isActive) {
-		active = isActive;
+        IsActive = isActive;
 	}
 
 	// getter
@@ -182,7 +182,7 @@ public:
 	}
 
 	bool GetCameraActive() {
-		return active;
+		return IsActive;
 	}
 
     // calculates the front vector from the Camera's (updated) Euler Angles
@@ -204,7 +204,11 @@ public:
 	// Reflection integration
     REFLECT_COMPONENT(CameraComponent)
     {
-
+        REGISTER_PROPERTY(CameraComponent, Position, glm::vec3, SetCameraPosition, GetCameraPosition);
+        REGISTER_PROPERTY(CameraComponent, WorldUp, glm::vec3, SetCameraUp, GetCameraUp);
+        REGISTER_PROPERTY(CameraComponent, Pitch, float, SetCameraPitch, GetCameraPitch);
+        REGISTER_PROPERTY(CameraComponent, Yaw, float, SetCameraYaw, GetCameraYaw);
+        REGISTER_PROPERTY(CameraComponent, IsActive, bool, SetCameraActive, GetCameraActive);
     }
 };
 
