@@ -2005,24 +2005,55 @@ void ImGuiEditor::InspectorWindow()
 
 				if (!isFramebufferGenerated) {
 					// Generate framebuffer only once
-					g_Coordinator.GetSystem<GraphicsSystem>()->generateNewFrameBuffer(fbo, textureColorbuffer, rbo, 512, 512);
+					g_Coordinator.GetSystem<GraphicsSystem>()->generateNewFrameBuffer(fbo, textureColorbuffer, rbo, 512, 288);
 					// std::cout << '\t' << fbo << '\t' << textureColorbuffer << '\t' << rbo << '\n';
 
 					isFramebufferGenerated = true;
 				}
 
 				// Set clear color
-				glClearColor(1.f, 0.5f, 0.25f, 1.0f);  // Set the color to clear the framebuffer to
+				glClearColor(169.f/255.f , 169.f / 255.f, 169.f / 255.f, 1.0f);  // Set the color to clear the framebuffer to
 
 				// Bind the custom framebuffer (where you want to render)
 				glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-				glViewport(0, 0, 512, 512);  // Set the custom viewport size for this framebuffer
+				glViewport(0, 0, 512, 288);  // Set the custom viewport size for this framebuffer
 
 				// Clear the framebuffer
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear the color and depth buffers
 
 				// Now render your objects
-			    g_Coordinator.GetSystem<GraphicsSystem>()->DrawMaterialSphere(); // Your rendering code
+// 
+			 //   g_Coordinator.GetSystem<GraphicsSystem>()->DrawMaterialSphere(); // Your rendering code
+
+
+				g_AssetManager.GetShader("Material").Use();
+
+				glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 5.0f);  // Position of the camera
+				glm::vec3 target = glm::vec3(0.0f, 0.0f, 0.0f);     // Point the camera is looking at (center of the sphere)
+				glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);         // Up direction
+
+				glm::mat4 view = glm::lookAt(cameraPos, target, up);
+
+				float aspectRatio = 512.0f / 288.0f;
+				glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
+
+				g_AssetManager.GetShader("Material").SetUniform("view", view);
+				g_AssetManager.GetShader("Material").SetUniform("projection", projection);
+
+				g_AssetManager.GetShader("Material").SetUniform("inputColor", glm::vec4(color[0], color[1], color[2], color[3]));
+
+				Model* sphereModel = g_ResourceManager.getModel("sphere");
+
+				if (sphereModel)
+					sphereModel->DrawMaterial(g_AssetManager.GetShader("Material"));
+				else
+					std::cerr << "cant find sphere model\n";
+
+
+
+
+				g_AssetManager.GetShader("Material").UnUse();
+
 
 				// After rendering to the custom framebuffer, unbind it to render to the default framebuffer
 				glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the custom framebuffer (restore to default framebuffer)
@@ -2031,7 +2062,7 @@ void ImGuiEditor::InspectorWindow()
 				glViewport(0, 0, g_WindowX, g_WindowY);
 
 				// Display the custom framebuffer texture (this will display in the ImGui window)
-				ImGui::Image((void*)(intptr_t)textureColorbuffer, ImVec2(512, 512));  // Display texture in the ImGui window
+				ImGui::Image((void*)(intptr_t)textureColorbuffer, ImVec2(512, 288));  // Display texture in the ImGui window
 
 
 			}

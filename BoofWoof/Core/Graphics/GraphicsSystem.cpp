@@ -444,18 +444,17 @@ void GraphicsSystem::UpdateViewportSize(int width, int height) {
 bool GraphicsSystem::DrawMaterialSphere()
 {
 //	auto& transformComp = 
-	//g_AssetManager.GetShader("Shader3D").Use();
-	////shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
-	//SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
-	//g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
-	//g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
-	//g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
-	//
-	//
-	//g_ResourceManager.getModel("sphere")->Draw(g_AssetManager.GetShader("Shader3D"));
-	//
-	//
-	//g_AssetManager.GetShader("Shader3D").UnUse();
+	g_AssetManager.GetShader("Shader3D").Use();
+	//shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
+	SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
+	g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
+	g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
+	g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
+	
+	
+//	 g_ResourceManager.getModel("Square")->Draw(g_AssetManager.GetShader("Material"));
+	
+	g_AssetManager.GetShader("Shader3D").UnUse();
 	return true;
 }
 
