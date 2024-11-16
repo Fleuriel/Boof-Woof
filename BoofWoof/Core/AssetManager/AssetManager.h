@@ -24,6 +24,7 @@
 #include "Graphics/Model.h"
 #include "Graphics/Object.h"
 #include "Sprite.h"
+#include "Descriptor.h"
 
  // Forward declarations
 
@@ -103,7 +104,7 @@ private:
 	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
 	std::vector<std::string>shdrpgmOrder{};													//Container to store the order of shader programs
 
-
+	TextureDescriptor textureInfo;
 };
 
 

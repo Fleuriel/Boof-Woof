@@ -334,9 +334,23 @@ bool AssetManager::LoadTextures() {
 
                 // Create an output file stream (ofstream) object
                 std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_TEXTURES + "/" + nameWithoutExtension + ".json"};
-                
-                TextureDescriptor desc;
-                desc.SaveTextureDescriptor(descriptorFilePath);  // Correctly passing as const reference
+
+                // Check if the file exists
+                if (std::filesystem::exists(descriptorFilePath)) {
+                    //std::cout << "Descriptor file already exists: " << descriptorFilePath << std::endl;
+                    // Optional: Handle what to do if the file exists (e.g., overwrite, prompt user, etc.)
+                }
+                else {
+                    TextureDescriptor desc;
+                    if (desc.SaveTextureDescriptor(descriptorFilePath)) {
+                        std::cout << "Descriptor file saved successfully: " << descriptorFilePath << std::endl;
+                    }
+                    else {
+                        std::cerr << "Failed to save descriptor file: " << descriptorFilePath << std::endl;
+                    }
+                }
+
+
 
                 // Ensure the directory exists
                 if (!fs::exists(FILEPATH_RESOURCE_TEXTURES)) {
@@ -347,7 +361,8 @@ bool AssetManager::LoadTextures() {
                 fs::path outputPath = fs::path(FILEPATH_RESOURCE_TEXTURES) / (nameWithoutExtension + ".dds");
 
                 // Run the compression command
-                CompressTextureWithDescriptor(desc, texFilePath, outputPath.string());
+                textureInfo.LoadTextureDescriptor(descriptorFilePath);
+                CompressTextureWithDescriptor(textureInfo, texFilePath, outputPath.string());
                 g_ResourceManager.AddTextureDDS(nameWithoutExtension);
 
 

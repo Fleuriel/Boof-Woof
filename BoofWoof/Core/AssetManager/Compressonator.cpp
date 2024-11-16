@@ -28,7 +28,7 @@ int CompressTextureWithDescriptor(const TextureDescriptor& descriptor, const std
     commandStream << "..\\lib\\Compressonator\\compressonatorcli.exe -fd ";
 
     // Set texture format based on descriptor
-    if (descriptor.format == "default_format") {
+    if (descriptor.format == 0) {
         commandStream << "BC3";  // For example, default format is BC7
     }
     else {
