@@ -1961,24 +1961,64 @@ void ImGuiEditor::InspectorWindow()
 
 				if (!isFramebufferGenerated) {
 					// Generate framebuffer only once
-					g_Coordinator.GetSystem<GraphicsSystem>()->generateNewFrameBuffer(fbo, textureColorbuffer, rbo, 512, 512);
+					g_Coordinator.GetSystem<GraphicsSystem>()->generateNewFrameBuffer(fbo, textureColorbuffer, rbo, 512, 288);
 					// std::cout << '\t' << fbo << '\t' << textureColorbuffer << '\t' << rbo << '\n';
 
 					isFramebufferGenerated = true;
 				}
 
 				// Set clear color
-				glClearColor(1.f, 0.5f, 0.25f, 1.0f);  // Set the color to clear the framebuffer to
+				glClearColor(169.f/255.f , 169.f / 255.f, 169.f / 255.f, 1.0f);  // Set the color to clear the framebuffer to
 
 				// Bind the custom framebuffer (where you want to render)
 				glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-				glViewport(0, 0, 512, 512);  // Set the custom viewport size for this framebuffer
+				glViewport(0, 0, 512, 288);  // Set the custom viewport size for this framebuffer
 
 				// Clear the framebuffer
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear the color and depth buffers
 
 				// Now render your objects
-			    g_Coordinator.GetSystem<GraphicsSystem>()->DrawMaterialSphere(); // Your rendering code
+// 
+			 //   g_Coordinator.GetSystem<GraphicsSystem>()->DrawMaterialSphere(); // Your rendering code
+
+
+				g_AssetManager.GetShader("Material").Use();
+
+
+				// 4. Set up vertices for a triangle
+				float triangleVertices[] = {
+					// positions         // colors
+					 0.0f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f, // Top vertex (Red)
+					-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, // Bottom left (Green)
+					 0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f  // Bottom right (Blue)
+				};
+
+				// 5. Generate and bind a VAO and VBO
+				unsigned int VAO, VBO;
+				glGenVertexArrays(1, &VAO);
+				glGenBuffers(1, &VBO);
+
+				glBindVertexArray(VAO);
+				glBindBuffer(GL_ARRAY_BUFFER, VBO);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(triangleVertices), triangleVertices, GL_STATIC_DRAW);
+
+				// 6. Define the vertex attributes (position and color)
+				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+				glEnableVertexAttribArray(0);
+				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+				glEnableVertexAttribArray(1);
+
+				// 7. Draw the triangle
+				glDrawArrays(GL_TRIANGLES, 0, 3);
+
+				// 8. Unbind the VBO and VAO
+				glBindBuffer(GL_ARRAY_BUFFER, 0);
+				glBindVertexArray(0);
+
+
+
+				g_AssetManager.GetShader("Material").UnUse();
+
 
 				// After rendering to the custom framebuffer, unbind it to render to the default framebuffer
 				glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the custom framebuffer (restore to default framebuffer)
@@ -1987,7 +2027,7 @@ void ImGuiEditor::InspectorWindow()
 				glViewport(0, 0, g_WindowX, g_WindowY);
 
 				// Display the custom framebuffer texture (this will display in the ImGui window)
-				ImGui::Image((void*)(intptr_t)textureColorbuffer, ImVec2(512, 512));  // Display texture in the ImGui window
+				ImGui::Image((void*)(intptr_t)textureColorbuffer, ImVec2(512, 288));  // Display texture in the ImGui window
 
 
 			}
