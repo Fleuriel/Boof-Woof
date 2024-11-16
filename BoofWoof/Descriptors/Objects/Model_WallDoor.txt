@@ -1,6 +1,6 @@
-File Name: Floor
-Source File Path: ..\BoofWoof\Assets\Objects\Floor.obj
-Output File Path: ..\BoofWoof\Resources\Objects\Floor.bin
+File Name: WallDoor
+Source File Path: ..\BoofWoof\Assets\Objects\WallDoor.obj
+Output File Path: ..\BoofWoof\Resources\Objects\WallDoor.bin
 MTL File Exist: 1
 PNG File Exist: 0
 JPG File Exist: 0
