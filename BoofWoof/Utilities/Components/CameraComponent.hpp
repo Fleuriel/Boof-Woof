@@ -134,6 +134,16 @@ public:
 		updateCameraVectors();
 	}
 
+	void SetCameraYaw(float yaw) {
+		Yaw = yaw;
+		updateCameraVectors();
+	}
+
+	void SetCameraPitch(float pitch) {
+		Pitch = pitch;
+		updateCameraVectors();
+	}
+
 	void SetCameraPosition(glm::vec3 position) {
 		Position = position;
         updateCameraVectors();
@@ -151,6 +161,14 @@ public:
 	// getter
 	glm::vec3 GetCameraDirection() {
 		return Front;
+	}
+
+	float GetCameraYaw() {
+		return Yaw;
+	}
+
+	float GetCameraPitch() {
+		return Pitch;
 	}
 
 	glm::vec3 GetCameraPosition() {
