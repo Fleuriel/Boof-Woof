@@ -1984,36 +1984,27 @@ void ImGuiEditor::InspectorWindow()
 
 				g_AssetManager.GetShader("Material").Use();
 
+				glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 5.0f);  // Position of the camera
+				glm::vec3 target = glm::vec3(0.0f, 0.0f, 0.0f);     // Point the camera is looking at (center of the sphere)
+				glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);         // Up direction
 
-				// 4. Set up vertices for a triangle
-				float triangleVertices[] = {
-					// positions         // colors
-					 0.0f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f, // Top vertex (Red)
-					-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, // Bottom left (Green)
-					 0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f  // Bottom right (Blue)
-				};
+				glm::mat4 view = glm::lookAt(cameraPos, target, up);
 
-				// 5. Generate and bind a VAO and VBO
-				unsigned int VAO, VBO;
-				glGenVertexArrays(1, &VAO);
-				glGenBuffers(1, &VBO);
+				float aspectRatio = 512.0f / 288.0f;
+				glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
 
-				glBindVertexArray(VAO);
-				glBindBuffer(GL_ARRAY_BUFFER, VBO);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(triangleVertices), triangleVertices, GL_STATIC_DRAW);
+				g_AssetManager.GetShader("Material").SetUniform("view", view);
+				g_AssetManager.GetShader("Material").SetUniform("projection", projection);
 
-				// 6. Define the vertex attributes (position and color)
-				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-				glEnableVertexAttribArray(0);
-				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-				glEnableVertexAttribArray(1);
+				g_AssetManager.GetShader("Material").SetUniform("inputColor", glm::vec4(color[0], color[1], color[2], color[3]));
 
-				// 7. Draw the triangle
-				glDrawArrays(GL_TRIANGLES, 0, 3);
+				Model* sphereModel = g_ResourceManager.getModel("sphere");
 
-				// 8. Unbind the VBO and VAO
-				glBindBuffer(GL_ARRAY_BUFFER, 0);
-				glBindVertexArray(0);
+				if (sphereModel)
+					sphereModel->DrawMaterial(g_AssetManager.GetShader("Material"));
+				else
+					std::cerr << "cant find sphere model\n";
+
 
 
 
