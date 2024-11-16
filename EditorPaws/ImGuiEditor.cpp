@@ -1650,7 +1650,7 @@ void ImGuiEditor::InspectorWindow()
 				}
 
 				ImGui::SameLine();
-				if (ImGui::Button("Revert"))
+				if (ImGui::Button("Revert To Default"))
 				{
 					// Go back to default settings
 					TextureDescriptor desc;
