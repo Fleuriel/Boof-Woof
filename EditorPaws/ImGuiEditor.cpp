@@ -898,29 +898,6 @@ void ImGuiEditor::InspectorWindow()
 								GraphicsSystem::D3 = false;
 								GraphicsSystem::D2 = false;
 							}
-
-							// light position
-							ImGui::PushItemWidth(250.0f);
-							ImGui::Text("LightPos"); ImGui::SameLine();
-
-							// Fetch the current light position from the Graphics System
-							glm::vec3 lightPos = g_Coordinator.GetSystem<GraphicsSystem>()->GetLightPos();
-
-							if (ImGui::DragFloat3("##Light Pos", &lightPos.x, 0.1f))
-							{
-								g_Coordinator.GetSystem<GraphicsSystem>()->SetLightPos(lightPos);
-							}
-
-							ImGui::Checkbox("Light On", &GraphicsSystem::lightOn);
-							if (GraphicsSystem::lightOn)
-							{
-								GraphicsSystem::lightOn = true;
-							}
-							else
-							{
-								GraphicsSystem::lightOn = false;
-							}
-
 						}												
 					}
 					else if (className == "AudioComponent")
@@ -1601,6 +1578,28 @@ void ImGuiEditor::Settings()
 		ImGui::Text("Window Size: %d x %d", g_Window->GetWindowWidth(), g_Window->GetWindowHeight());
 		ImGui::Text("Frame Rate: %f", g_Window->GetFPS());
 		ImGui::Text("Frame Count: %d", g_Core->m_CurrNumSteps);
+
+		// light position
+		ImGui::PushItemWidth(250.0f);
+		ImGui::Text("LightPos"); ImGui::SameLine();
+
+		// Fetch the current light position from the Graphics System
+		glm::vec3 lightPos = g_Coordinator.GetSystem<GraphicsSystem>()->GetLightPos();
+
+		if (ImGui::DragFloat3("##Light Pos", &lightPos.x, 0.1f))
+		{
+			g_Coordinator.GetSystem<GraphicsSystem>()->SetLightPos(lightPos);
+		}
+
+		ImGui::Checkbox("Light On", &GraphicsSystem::lightOn);
+		if (GraphicsSystem::lightOn)
+		{
+			GraphicsSystem::lightOn = true;
+		}
+		else
+		{
+			GraphicsSystem::lightOn = false;
+		}
 
 		ImGui::Spacing();
 
