@@ -83,7 +83,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	shdrParam.Color = glm::vec3(1.0f, 1.0f,1.0f);
 
 	// Initialize camera
-	camera = CameraComponent(glm::vec3(0.f, 2.f, 10.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
+	camera = CameraComponent(glm::vec3(0.f, 2.f, 10.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f, false);
 	
 
 	glEnable(GL_DEPTH_TEST);

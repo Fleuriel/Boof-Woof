@@ -51,24 +51,26 @@ public:
     float width{ 1280 }, height{ 960 };
 
     // constructor with vectors
-    CameraComponent(glm::vec3 position = glm::vec3(0.0f, 0.0f, 8.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) {
+    CameraComponent(glm::vec3 position = glm::vec3(0.0f, 0.0f, 8.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH, bool isActive = false) {
 		Position = position;
 		WorldUp = up;
 		Yaw = yaw;
 		Pitch = pitch;
 		MovementSpeed = SPEED;
 		MouseSensitivity = SENSITIVITY;
+        active = isActive;
 		updateCameraVectors();
     }
 
     // constructor with scalar values
-    CameraComponent(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) {
+    CameraComponent(float posX, float posY, float posZ, float upX, float upY, float upZ, bool isActive, float yaw, float pitch) {
         Position = glm::vec3(posX, posY, posZ);
         WorldUp = glm::vec3(upX, upY, upZ);
         Yaw = yaw;
         Pitch = pitch;
 		MovementSpeed = SPEED;
 		MouseSensitivity = SENSITIVITY;
+        active = isActive;
         updateCameraVectors();
     }
 

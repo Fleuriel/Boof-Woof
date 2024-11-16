@@ -241,6 +241,37 @@ bool Serialization::SaveScene(const std::string& filepath) {
             entityData.AddMember("CollisionComponent", collisionData, allocator);
         }
 
+        // Serialize CameraComponent
+        if (g_Coordinator.HaveComponent<CameraComponent>(entity))
+        {
+            rapidjson::Value Cam(rapidjson::kObjectType);
+
+            auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
+
+            rapidjson::Value position(rapidjson::kObjectType);
+            position.AddMember("x", cameraComp.GetCameraPosition().x, allocator);
+            position.AddMember("y", cameraComp.GetCameraPosition().y, allocator);
+            position.AddMember("z", cameraComp.GetCameraPosition().z, allocator);
+            // Add the Position inside the CameraComponent
+            Cam.AddMember("Position", position, allocator);
+
+            // Add Yaw & Pitch
+            Cam.AddMember("Yaw", cameraComp.GetCameraYaw(), allocator);
+            Cam.AddMember("Pitch", cameraComp.GetCameraPitch(), allocator);
+
+            rapidjson::Value Up(rapidjson::kObjectType);
+            Up.AddMember("x", cameraComp.GetCameraUp().x, allocator);
+            Up.AddMember("y", cameraComp.GetCameraUp().y, allocator);
+            Up.AddMember("z", cameraComp.GetCameraUp().z, allocator);
+            // Add the Position inside the CameraComponent
+            Cam.AddMember("Up", Up, allocator);
+
+            Cam.AddMember("Active", cameraComp.GetCameraActive(), allocator);
+
+            // Add the CameraComponent to the entityData
+            entityData.AddMember("CameraComponent", Cam, allocator);
+        }
+
         entities.PushBack(entityData, allocator);
     }
 
@@ -458,6 +489,64 @@ bool Serialization::LoadScene(const std::string& filepath) {
 
                 CollisionComponent collisionComponent(layer);
                 g_Coordinator.AddComponent(entity, collisionComponent);
+            }
+
+            //// Serialize CameraComponent
+            //if (g_Coordinator.HaveComponent<CameraComponent>(entity))
+            //{
+            //    rapidjson::Value Cam(rapidjson::kObjectType);
+
+            //    auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
+
+            //    rapidjson::Value position(rapidjson::kObjectType);
+            //    position.AddMember("x", cameraComp.GetCameraPosition().x, allocator);
+            //    position.AddMember("y", cameraComp.GetCameraPosition().y, allocator);
+            //    position.AddMember("z", cameraComp.GetCameraPosition().z, allocator);
+            //    // Add the Position inside the CameraComponent
+            //    Cam.AddMember("Position", position, allocator);
+
+            //    // Add Yaw & Pitch
+            //    Cam.AddMember("Yaw", cameraComp.GetCameraYaw(), allocator);
+            //    Cam.AddMember("Pitch", cameraComp.GetCameraPitch(), allocator);
+
+            //    rapidjson::Value Up(rapidjson::kObjectType);
+            //    Up.AddMember("x", cameraComp.GetCameraUp().x, allocator);
+            //    Up.AddMember("y", cameraComp.GetCameraUp().y, allocator);
+            //    Up.AddMember("z", cameraComp.GetCameraUp().z, allocator);
+            //    // Add the Position inside the CameraComponent
+            //    Cam.AddMember("Up", Up, allocator);
+
+            //    Cam.AddMember("Active", cameraComp.GetCameraActive(), allocator);
+
+            //    // Add the CameraComponent to the entityData
+            //    entityData.AddMember("CameraComponent", Cam, allocator);
+            //}
+
+            // Deserialize CameraComponent
+            if (entityData.HasMember("CameraComponent"))
+            {
+                const auto& CData = entityData["CameraComponent"];
+                if (CData.HasMember("Position")) 
+                {
+                    glm::vec3 camPosition(
+                        CData["Position"]["x"].GetFloat(),
+                        CData["Position"]["y"].GetFloat(),
+                        CData["Position"]["z"].GetFloat()
+                    );
+
+                    glm::vec3 Up(
+                        CData["Up"]["x"].GetFloat(),
+                        CData["Up"]["y"].GetFloat(),
+                        CData["Up"]["z"].GetFloat()
+                    );
+
+                    float yaw = CData["Yaw"].GetFloat();
+                    float pitch = CData["Pitch"].GetFloat();
+                    bool active = CData["Active"].GetBool();
+
+                    CameraComponent cameraComponent(camPosition, Up, yaw, pitch, active);
+                    g_Coordinator.AddComponent(entity, cameraComponent);
+                }
             }
 
 
