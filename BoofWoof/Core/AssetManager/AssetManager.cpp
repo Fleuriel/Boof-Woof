@@ -588,6 +588,7 @@ bool AssetManager::LoadObjects() {
     Currentlyloading = true;
     std::string filepath(FILEPATH_ASSET_OBJECTS);
 
+
     if (fs::is_directory(filepath)) {
         for (const auto& entry : fs::directory_iterator(filepath)) {
 
@@ -610,6 +611,9 @@ bool AssetManager::LoadObjects() {
 #ifdef _DEBUG
                 std::cout << mtlFileName << '\t' << pngFileName << '\t' << jpgFileName << '\t';
 #endif
+
+                std::cout << "test without expenaisnom\t" << nameWithoutExtension << '\n';
+
 
                 // Check if the substring exists in the full string
                 size_t found = allowedExtensions.find(toLowerCase(Extension));
