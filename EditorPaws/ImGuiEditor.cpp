@@ -1177,15 +1177,23 @@ void ImGuiEditor::InspectorWindow()
 									cameraComponent.SetCameraPosition(cameraPos);
 								}
 
-								//set camera front
-								glm::vec3 cameraFront = cameraComponent.GetCameraDirection();
-								ImGui::Text("Front");
+								//set camera yaw and pitch
+								float cameraYaw = cameraComponent.GetCameraYaw();
+								ImGui::Text("Yaw");
 								ImGui::SameLine();
-								
-								if (ImGui::DragFloat3("##CameraFront", &cameraFront.x, 0.1f))
+								if (ImGui::DragFloat("##CameraYaw", &cameraYaw, 0.1f))
 								{
-									cameraComponent.SetCameraDirection(cameraFront);
+									cameraComponent.SetCameraYaw(cameraYaw);
 								}
+
+								float cameraPitch = cameraComponent.GetCameraPitch();
+								ImGui::Text("Pitch");
+								ImGui::SameLine();
+								if (ImGui::DragFloat("##CameraPitch", &cameraPitch, 0.1f))
+								{
+									cameraComponent.SetCameraPitch(cameraPitch);
+								}
+
 
 								//set camera up
 								glm::vec3 cameraUp = cameraComponent.GetCameraUp();
