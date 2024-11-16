@@ -29,5 +29,6 @@ class Splashscreen : public Level
 	void UnloadLevel() 
 	{
 		g_Coordinator.ResetEntities();
+		elapsedTime = 0.0;
 	}
 };
