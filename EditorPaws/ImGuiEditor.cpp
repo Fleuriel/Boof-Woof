@@ -1999,6 +1999,11 @@ void ImGuiEditor::InspectorWindow()
 
 				ImGui::Separator();
 
+				static glm::vec3 lightPos = glm::vec3(-18.5f, -12.6f, 31.6f);
+				static bool showLightControls = false;
+
+
+
 				static GLuint fbo = 0, textureColorbuffer = 0, rbo = 0; // Declare outside to persist across frames
 				static bool isFramebufferGenerated = false; // Flag to prevent generating framebuffer every frame
 
@@ -2012,7 +2017,7 @@ void ImGuiEditor::InspectorWindow()
 				}
 
 				// Set clear color
-				glClearColor(169.f/255.f , 169.f / 255.f, 169.f / 255.f, 1.0f);  // Set the color to clear the framebuffer to
+				glClearColor(46.f/255.f , 46.f / 255.f, 46.f / 255.f, 1.0f);  // Set the color to clear the framebuffer to
 
 				// Bind the custom framebuffer (where you want to render)
 				glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -2037,10 +2042,12 @@ void ImGuiEditor::InspectorWindow()
 				float aspectRatio = 512.0f / 288.0f;
 				glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
 
+
+				g_AssetManager.GetShader("Material").SetUniform("model", glm::mat4(1.0f)); // Identity matrix for no transformation
 				g_AssetManager.GetShader("Material").SetUniform("view", view);
 				g_AssetManager.GetShader("Material").SetUniform("projection", projection);
-
 				g_AssetManager.GetShader("Material").SetUniform("inputColor", glm::vec4(color[0], color[1], color[2], color[3]));
+				g_AssetManager.GetShader("Material").SetUniform("inputLight", lightPos);
 
 				Model* sphereModel = g_ResourceManager.getModel("sphere");
 
@@ -2064,6 +2071,27 @@ void ImGuiEditor::InspectorWindow()
 				// Display the custom framebuffer texture (this will display in the ImGui window)
 				ImGui::Image((void*)(intptr_t)textureColorbuffer, ImVec2(512, 288));  // Display texture in the ImGui window
 
+
+				ImGui::Separator();
+				ImGui::Text("Adjust Light Position");
+
+				if (ImGui::Button("Open Light Controls")) {
+					ImGui::OpenPopup("LightControlPopup");
+				}
+
+				// Popup modal window
+				if (ImGui::BeginPopup("LightControlPopup")) {
+					ImGui::Text("Adjust Light Position");
+					ImGui::DragFloat("X", &lightPos.x, 0.1f, -100.0f, 100.0f, "X: %.1f");
+					ImGui::DragFloat("Y", &lightPos.y, 0.1f, -100.0f, 100.0f, "Y: %.1f");
+					ImGui::DragFloat("Z", &lightPos.z, 0.1f, -100.0f, 100.0f, "Z: %.1f");
+
+					// Close button inside the popup
+					if (ImGui::Button("Close")) {
+						ImGui::CloseCurrentPopup();
+					}
+					ImGui::EndPopup();
+				}
 
 			}
 		}

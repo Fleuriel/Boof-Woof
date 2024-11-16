@@ -15,9 +15,15 @@
 #version 450 core
 out vec4 FragColor;
 
-uniform vec4 inputColor;
+layout(location = 1) in vec3 vertNormal;
+layout(location = 2) in vec3 FragPos;
+
+in vec4 outputColor;
+in vec3 outputLight;
 
 void main()
 {
-    FragColor = inputColor;
+    vec3 lightVector = outputLight - FragPos;
+    float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
+    FragColor = vec4(outputColor.rgb *N_dot_L, outputColor.w * 1.0f);
 } 
