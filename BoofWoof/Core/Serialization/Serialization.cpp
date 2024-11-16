@@ -129,84 +129,110 @@ bool Serialization::SaveScene(const std::string& filepath) {
         rapidjson::Value entityData(rapidjson::kObjectType);
 
         // Serialize MetadataComponent
-        if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) {
+        if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) 
+        {
+            rapidjson::Value metadataComponent(rapidjson::kObjectType);
             auto& name = g_Coordinator.GetComponent<MetadataComponent>(entity);
             rapidjson::Value entityName;
             entityName.SetString(name.GetName().c_str(), allocator);
-            entityData.AddMember("EntityName", entityName, allocator);
+
+            // Add the EntityName inside the MetadataComponent
+            metadataComponent.AddMember("EntityName", entityName, allocator);
+            metadataComponent.AddMember("EntityID", static_cast<int>(entity), allocator);
+
+            // Add the MetadataComponent to the entityData
+            entityData.AddMember("MetadataComponent", metadataComponent, allocator);
         }
 
         // Serialize TransformComponent
-        if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+        if (g_Coordinator.HaveComponent<TransformComponent>(entity)) 
+        {
+            rapidjson::Value Trans(rapidjson::kObjectType);
+
             auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
 
             rapidjson::Value position(rapidjson::kObjectType);
             position.AddMember("x", transformComp.GetPosition().x, allocator);
             position.AddMember("y", transformComp.GetPosition().y, allocator);
             position.AddMember("z", transformComp.GetPosition().z, allocator);
-            entityData.AddMember("Position", position, allocator);
+            // Add the Position inside the TransformComponent
+            Trans.AddMember("Position", position, allocator);
 
             rapidjson::Value scale(rapidjson::kObjectType);
             scale.AddMember("x", transformComp.GetScale().x, allocator);
             scale.AddMember("y", transformComp.GetScale().y, allocator);
             scale.AddMember("z", transformComp.GetScale().z, allocator);
-            entityData.AddMember("Scale", scale, allocator);
+            Trans.AddMember("Scale", scale, allocator);
 
             rapidjson::Value rotation(rapidjson::kObjectType);
             rotation.AddMember("x", transformComp.GetRotation().x, allocator);
             rotation.AddMember("y", transformComp.GetRotation().y, allocator);
             rotation.AddMember("z", transformComp.GetRotation().z, allocator);
-            entityData.AddMember("Rotation", rotation, allocator);
+            Trans.AddMember("Rotation", rotation, allocator);
+
+            // Add the TransformComponent to the entityData
+            entityData.AddMember("TransformComponent", Trans, allocator);
         }
 
         // Serialize GraphicsComponent
-        if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
+        if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) 
+        {
+            rapidjson::Value Grafics(rapidjson::kObjectType);
+
             auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-            entityData.AddMember("ModelID", graphicsComp.getModelID(), allocator);
-            entityData.AddMember("EntityID", static_cast<int>(entity), allocator);
             
             // Model Name
-            entityData.AddMember("ModelName", rapidjson::Value(graphicsComp.getModelName().c_str(), allocator), allocator);
+            Grafics.AddMember("ModelName", rapidjson::Value(graphicsComp.getModelName().c_str(), allocator), allocator);
 
             // Texture Name
-            entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
+            Grafics.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
 
-            std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.getTextureName() << '\n';
-
-
-            //entityData.AddMember("", S)
+            // Add the TransformComponent to the entityData
+            entityData.AddMember("GraphicsComponent", Grafics, allocator);
         }
 
         // Serialize AudioComponent
-        if (g_Coordinator.HaveComponent<AudioComponent>(entity)) {
+        if (g_Coordinator.HaveComponent<AudioComponent>(entity)) 
+        {
+            rapidjson::Value Aud(rapidjson::kObjectType);
+
             auto& audioComp = g_Coordinator.GetComponent<AudioComponent>(entity);
 
             // Add audio file path
             rapidjson::Value audioFilePath;
             audioFilePath.SetString(audioComp.GetFilePath().c_str(), allocator);
-            entityData.AddMember("AudioFilePath", audioFilePath, allocator);
+            Aud.AddMember("AudioFilePath", audioFilePath, allocator);
 
             // Add volume
-            entityData.AddMember("Volume", audioComp.GetVolume(), allocator);
+            Aud.AddMember("Volume", audioComp.GetVolume(), allocator);
 
             // Add loop status
-            entityData.AddMember("ShouldLoop", audioComp.ShouldLoop(), allocator);
+            Aud.AddMember("ShouldLoop", audioComp.ShouldLoop(), allocator);
+
+            // Add the AudioComponent to the entityData
+            entityData.AddMember("AudioComponent", Aud, allocator);
         }
 
         // Serialize BehaviorComponent
         if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) 
         {
+            rapidjson::Value Behave(rapidjson::kObjectType);
+
             auto& behaviorComp = g_Coordinator.GetComponent<BehaviourComponent>(entity);
             rapidjson::Value behaviorNameKey("BehaviourName", allocator); 
 
             rapidjson::Value behaviorNameValue;
             behaviorNameValue.SetString(behaviorComp.GetBehaviourName().c_str(), allocator);
 
-            entityData.AddMember(behaviorNameKey, behaviorNameValue, allocator);
+            Behave.AddMember(behaviorNameKey, behaviorNameValue, allocator);
+
+            // Add the BehaviourComponent to the entityData
+            entityData.AddMember("BehaviourComponent", Behave, allocator);
         }
 
         // Serialize CollisionComponent
-        if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+        if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) 
+        {
             auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
 
             rapidjson::Value collisionData(rapidjson::kObjectType);
@@ -287,135 +313,141 @@ bool Serialization::LoadScene(const std::string& filepath) {
             Entity entity = g_Coordinator.CreateEntity();
 
             // Deserialize MetadataComponent
-            if (entityData.HasMember("EntityName")) {
-                std::string name = entityData["EntityName"].GetString();
-                MetadataComponent metadataComponent(name, entity);
-                g_Coordinator.AddComponent(entity, metadataComponent);
-            }
-
-            // Deserialize TransformComponent
-            if (entityData.HasMember("Position")) {
-                glm::vec3 position(
-                    entityData["Position"]["x"].GetFloat(),
-                    entityData["Position"]["y"].GetFloat(),
-                    entityData["Position"]["z"].GetFloat()
-                );
-
-                glm::vec3 scale(
-                    entityData["Scale"]["x"].GetFloat(),
-                    entityData["Scale"]["y"].GetFloat(),
-                    entityData["Scale"]["z"].GetFloat()
-                );
-
-                glm::vec3 rotation(
-                    entityData["Rotation"]["x"].GetFloat(),
-                    entityData["Rotation"]["y"].GetFloat(),
-                    entityData["Rotation"]["z"].GetFloat()
-                );
-
-                TransformComponent transformComponent(position, scale, rotation, entity);
-                g_Coordinator.AddComponent(entity, transformComponent);
-            }
-
-            // Deserialize GraphicsComponent
-            if (entityData.HasMember("ModelID")) {
-                int modelID = entityData["ModelID"].GetInt();
-                
-
-                if (entityData.HasMember("ModelName"))
+            if (entityData.HasMember("MetadataComponent")) 
+            {
+                const auto& metadataComponentData = entityData["MetadataComponent"];
+                if (metadataComponentData.HasMember("EntityName")) 
                 {
+                    std::string name = metadataComponentData["EntityName"].GetString();
 
-                    std::string modelName = entityData["ModelName"].GetString();
-                    std::string TextureName;
-                    
-
-
-                    if (entityData.HasMember("Texture"))
-                    {
-                        TextureName = entityData["Texture"].GetString();
-                        std::cout << TextureName << '\n';
-
-                    }
-
-                    GraphicsComponent graphicsComponent(modelName, entity, TextureName);
-                    graphicsComponent.SetModelID(modelID);
-                    
-                    graphicsComponent.incrementTextureNumber();
-
-                    std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
-
-
-                    std::cout << g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
-                    std::cout << graphicsComponent.getTextureNumber() << '\n';
-
-                    while (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt < graphicsComponent.getTextureNumber()) {
-                        Texture texture_add;
-                        texture_add.id = graphicsComponent.getTexture(g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt);
-                        texture_add.type = "texture_diffuse";
-                        if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 0)
-                        {
-                            //                            std::cout << "etner\n";
-                            texture_add.type = "texture_diffuse";
-                        }
-                        else if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 1)
-                        {
-
-                            texture_add.type = "texture_normal";
-                            // std::cout << "v2.o";
-                        }
-                        else
-                            texture_add.type = "texture_specular";
-
-                        texture_add.path = graphicsComponent.getModelName();
-
-
-#ifdef _DEBUG
-                        //std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
-                     //  std::cout << "\n\n\n\n\n";
-                     //  std::cout << graphicsComponent.getModelName() << '\n';
-
-
-                      //  std::cout << "id type path " << texture_add.id << '\t' << texture_add.type << '\t' << texture_add.path << '\n';
-#endif
-                        for (auto& mesh : g_ResourceManager.getModel(graphicsComponent.getModelName())->meshes) {
-                            //     std::cout << "asd\n";
-
-                            mesh.textures.clear();
-
-                            mesh.textures.push_back(texture_add);
-                            //     std::cout << mesh.textures.size() << '\n';
-                        }
-
-                        g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt++;
-
-
-
-                    }
-
-
-                    g_Coordinator.AddComponent(entity, graphicsComponent);
+                    MetadataComponent metadataComponent(name, entity);
+                    g_Coordinator.AddComponent(entity, metadataComponent);
                 }
             }
 
-            // Deserialize AudioComponent
-            if (entityData.HasMember("AudioFilePath")) {
-                std::string filePath = entityData["AudioFilePath"].GetString();
-                float volume = entityData["Volume"].GetFloat();
-                bool shouldLoop = entityData["ShouldLoop"].GetBool();
+            // Deserialize TransformComponent
+            if (entityData.HasMember("TransformComponent"))
+            {
+                const auto& TData = entityData["TransformComponent"];
+                if (TData.HasMember("Position")) {
+                    glm::vec3 position(
+                        TData["Position"]["x"].GetFloat(),
+                        TData["Position"]["y"].GetFloat(),
+                        TData["Position"]["z"].GetFloat()
+                    );
 
-                AudioComponent audioComponent(filePath, volume, shouldLoop, entity);
-                g_Coordinator.AddComponent(entity, audioComponent);
+                    glm::vec3 scale(
+                        TData["Scale"]["x"].GetFloat(),
+                        TData["Scale"]["y"].GetFloat(),
+                        TData["Scale"]["z"].GetFloat()
+                    );
+
+                    glm::vec3 rotation(
+                        TData["Rotation"]["x"].GetFloat(),
+                        TData["Rotation"]["y"].GetFloat(),
+                        TData["Rotation"]["z"].GetFloat()
+                    );
+
+                    TransformComponent transformComponent(position, scale, rotation, entity);
+                    g_Coordinator.AddComponent(entity, transformComponent);
+                }
+            }
+
+            // Deserialize GraphicsComponent
+			if (entityData.HasMember("GraphicsComponent"))
+			{
+				const auto& GData = entityData["GraphicsComponent"];
+
+				if (GData.HasMember("ModelName"))
+				{
+					std::string modelName = GData["ModelName"].GetString();
+					std::string TextureName;
+
+					if (GData.HasMember("Texture"))
+					{
+						TextureName = GData["Texture"].GetString();
+					}
+
+					GraphicsComponent graphicsComponent(modelName, entity, TextureName);
+
+					graphicsComponent.incrementTextureNumber();
+
+					//std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
+					//std::cout << g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
+					//std::cout << graphicsComponent.getTextureNumber() << '\n';
+
+					while (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt < graphicsComponent.getTextureNumber()) 
+                    {
+						Texture texture_add;
+						texture_add.id = graphicsComponent.getTexture(g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt);
+						texture_add.type = "texture_diffuse";
+						if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 0)
+						{
+							//                            std::cout << "etner\n";
+							texture_add.type = "texture_diffuse";
+						}
+						else if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 1)
+						{
+
+							texture_add.type = "texture_normal";
+							// std::cout << "v2.o";
+						}
+						else
+							texture_add.type = "texture_specular";
+
+						texture_add.path = graphicsComponent.getModelName();
+
+
+#ifdef _DEBUG
+						//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
+					 //  std::cout << "\n\n\n\n\n";
+					 //  std::cout << graphicsComponent.getModelName() << '\n';
+
+
+					  //  std::cout << "id type path " << texture_add.id << '\t' << texture_add.type << '\t' << texture_add.path << '\n';
+#endif
+						for (auto& mesh : g_ResourceManager.getModel(graphicsComponent.getModelName())->meshes) {
+							//     std::cout << "asd\n";
+
+							mesh.textures.clear();
+
+							mesh.textures.push_back(texture_add);
+							//     std::cout << mesh.textures.size() << '\n';
+						}
+
+						g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt++;
+
+					}
+
+
+					g_Coordinator.AddComponent(entity, graphicsComponent);
+				}
+
+			}
+
+            // Deserialize AudioComponent
+            if (entityData.HasMember("AudioComponent"))
+            {
+                const auto& AData = entityData["AudioComponent"];
+                if (AData.HasMember("AudioFilePath")) {
+                    std::string filePath = AData["AudioFilePath"].GetString();
+                    float volume = AData["Volume"].GetFloat();
+                    bool shouldLoop = AData["ShouldLoop"].GetBool();
+
+                    AudioComponent audioComponent(filePath, volume, shouldLoop, entity);
+                    g_Coordinator.AddComponent(entity, audioComponent);
+                }
             }
 
             // Deserialize BehaviourComponent
-            if (entityData.HasMember("BehaviourName")) {
-                std::string name = entityData["BehaviourName"].GetString();
-                g_Coordinator.AddComponent(entity, BehaviourComponent(name, entity));
-                //g_Coordinator.GetComponent<BehaviourComponent>(entity).SetBehaviourName(name);
-                //BehaviourComponent behaviourComponent(name.c_str(), entity);
-                //behaviourComponent.SetBehaviourName(name.c_str());
-                
-				//std::cout << "Serialization: " << g_Coordinator.GetEntityId(entity) << ". | " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << "." << std::endl;
+            if (entityData.HasMember("BehaviourComponent"))
+            {
+                const auto& BData = entityData["BehaviourComponent"];
+                if (BData.HasMember("BehaviourName")) 
+                {
+                    std::string name = BData["BehaviourName"].GetString();
+                    g_Coordinator.AddComponent(entity, BehaviourComponent(name, entity));
+                }
             }
 
             // Deserialize CollisionComponent
@@ -430,26 +462,26 @@ bool Serialization::LoadScene(const std::string& filepath) {
 
 
             // Print out all entity components
-			std::cout << "Entity: " << g_Coordinator.GetEntityId(entity) << std::endl;
-			if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) {
-				std::cout << "MetadataComponent: " << g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() << std::endl;
-			}
-            if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
-                std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().x << std::endl;
-                std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().y << std::endl;
-                std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().z << std::endl;
-            }
-            if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
-                std::cout << "GraphicsComponent: " << g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelID() << std::endl;
-            }
-			if (g_Coordinator.HaveComponent<AudioComponent>(entity)) {
-				std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetFilePath().c_str() << std::endl;
-				std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetVolume() << std::endl;
-                std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).ShouldLoop() << std::endl;
-			}
-			if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) {
-				std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << std::endl;
-			}
+			//std::cout << "Entity: " << g_Coordinator.GetEntityId(entity) << std::endl;
+			//if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) {
+			//	std::cout << "MetadataComponent: " << g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() << std::endl;
+			//}
+   //         if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().x << std::endl;
+   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().y << std::endl;
+   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().z << std::endl;
+   //         }
+   //         if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
+   //             std::cout << "GraphicsComponent: " << g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelID() << std::endl;
+   //         }
+			//if (g_Coordinator.HaveComponent<AudioComponent>(entity)) {
+			//	std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetFilePath().c_str() << std::endl;
+			//	std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetVolume() << std::endl;
+   //             std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).ShouldLoop() << std::endl;
+			//}
+			//if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) {
+			//	std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << std::endl;
+			//}
         }
     }
 
