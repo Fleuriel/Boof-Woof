@@ -2042,6 +2042,9 @@ void ImGuiEditor::InspectorWindow()
 				static bool showLightControls = false;
 
 
+				glEnable(GL_MULTISAMPLE);
+
+
 
 				static GLuint fbo = 0, textureColorbuffer = 0, rbo = 0; // Declare outside to persist across frames
 				static bool isFramebufferGenerated = false; // Flag to prevent generating framebuffer every frame
@@ -2088,6 +2091,12 @@ void ImGuiEditor::InspectorWindow()
 				g_AssetManager.GetShader("Material").SetUniform("inputColor", glm::vec4(color[0], color[1], color[2], color[3]));
 				g_AssetManager.GetShader("Material").SetUniform("inputLight", lightPos);
 
+				g_AssetManager.GetShader("Material").SetUniform("viewPos", cameraPos);
+				g_AssetManager.GetShader("Material").SetUniform("metallic", MetallicMatValue);
+				g_AssetManager.GetShader("Material").SetUniform("smoothness", SmoothnessValue);
+//				g_AssetManager.GetShader("Material").SetUniform("shininess", shininessValue);  // Shininess value
+
+
 				Model* sphereModel = g_ResourceManager.getModel("sphere");
 
 				if (sphereModel)
@@ -2121,9 +2130,9 @@ void ImGuiEditor::InspectorWindow()
 				// Popup modal window
 				if (ImGui::BeginPopup("LightControlPopup")) {
 					ImGui::Text("Adjust Light Position");
-					ImGui::DragFloat("X", &lightPos.x, 0.1f, -100.0f, 100.0f, "X: %.1f");
-					ImGui::DragFloat("Y", &lightPos.y, 0.1f, -100.0f, 100.0f, "Y: %.1f");
-					ImGui::DragFloat("Z", &lightPos.z, 0.1f, -100.0f, 100.0f, "Z: %.1f");
+					ImGui::DragFloat("X", &lightPos.x, 0.1f, -10000.0f, 10000.0f, "X: %.1f");
+					ImGui::DragFloat("Y", &lightPos.y, 0.1f, -10000.0f, 10000.0f, "Y: %.1f");
+					ImGui::DragFloat("Z", &lightPos.z, 0.1f, -10000.0f, 10000.0f, "Z: %.1f");
 
 					// Close button inside the popup
 					if (ImGui::Button("Close")) {
