@@ -403,7 +403,7 @@ bool AssetManager::LoadTextures() {
  *************************************************************************/
 bool AssetManager::FreeTextures() {
     DeleteAllFilesInDirectory(FILEPATH_RESOURCE_TEXTURES);
-    DeleteAllFilesInDirectory(FILEPATH_DESCRIPTOR_TEXTURES);
+    //DeleteAllFilesInDirectory(FILEPATH_DESCRIPTOR_TEXTURES);
     TextureFiles.clear();
     TextureDescriptionFiles.clear();
     // Return true if the container size is 0, false otherwise.

@@ -1320,7 +1320,7 @@ void ImGuiEditor::InspectorWindow()
 
 					if (textureInfo.generateMipMaps)
 					{
-						std::cout << "MipMaps are enabled!" << std::endl;
+						//std::cout << "MipMaps are enabled!" << std::endl;
 						ImGui::Indent(20);
 
 
@@ -1415,10 +1415,12 @@ void ImGuiEditor::InspectorWindow()
 
 
 
-
-						ImGui::SetNextItemWidth(80);
+						ImGui::Text("Swizzle");
+						ImGui::SameLine(225);
+						
 
 						// First Combo Box
+						ImGui::SetNextItemWidth(50);
 						const char* items1[] = { "R", "G", "B", "A", "1R", "1G", "1B", "1A", "0", "1" };
 						static int selected_idx1 = 0;
 						ImGui::Combo("##Swizzle1", &selected_idx1, items1, IM_ARRAYSIZE(items1));
@@ -1426,6 +1428,7 @@ void ImGuiEditor::InspectorWindow()
 						ImGui::SameLine();
 
 						// Second Combo Box
+						ImGui::SetNextItemWidth(50);
 						const char* items2[] = { "R", "G", "B", "A", "1R", "1G", "1B", "1A", "0", "1" };
 						static int selected_idx2 = 1;
 						ImGui::Combo("##Swizzle2", &selected_idx2, items2, IM_ARRAYSIZE(items2));
@@ -1433,6 +1436,7 @@ void ImGuiEditor::InspectorWindow()
 						ImGui::SameLine();
 
 						// Third Combo Box
+						ImGui::SetNextItemWidth(50);
 						const char* items3[] = { "R", "G", "B", "A", "1R", "1G", "1B", "1A", "0", "1" };
 						static int selected_idx3 = 2;
 						ImGui::Combo("##Swizzle3", &selected_idx3, items3, IM_ARRAYSIZE(items3));
@@ -1440,6 +1444,7 @@ void ImGuiEditor::InspectorWindow()
 						ImGui::SameLine();
 
 						// Fourth Combo Box
+						ImGui::SetNextItemWidth(50);
 						const char* items4[] = { "R", "G", "B", "A", "1R", "1G", "1B", "1A", "0", "1" };
 						static int selected_idx4 = 3;
 						ImGui::Combo("##Swizzle4", &selected_idx4, items4, IM_ARRAYSIZE(items4));
@@ -1547,16 +1552,50 @@ void ImGuiEditor::InspectorWindow()
 						ImGui::Text("Format");
 						ImGui::SameLine(225);
 
-						const char* imG_OperatingSystemFormat[] = { "RGB(A) Compressed BC7" , "RGBA Compressed DXT5|BC3", "RGBA Crunched DXT5|BC3", "RGBA 64 bit", "RGBA 32 bit", "ARGB 16bit"
-																   "RGB Compressed DXT1|BC1", "RGB Crunched DXT1|BC1", "RGB 48 bit", " RGB 16 bit", "RGB 24 bit", "RG Compressed BC5", "RG 32 bit"
-																   "R Compressed BC4", "R 8", "R 16 bit", "Alpha 8", "RGBA Float", "RGBA Half", "RG Float", "R Float", "RGB HDR Compressed BC6H", "RGB9e5 32 bit Shared Exponent Float" };
+						const char* imG_OperatingSystemFormat[] = { 
+							"RGB Uncompressed",
+							"ATC_RGB",
+							"ATC_RGBA_Explicit",
+							"ATC_RGBA_Interpolated",
+							"ATI1N",
+							"ATI2N",
+							"ATI2N_XY",
+							"ATI2N_DXT5",
+							"BC1",
+							"BC2",
+							"BC3",
+							"BC4",
+							"BC4_S",
+							"BC5",
+							"BC5_S",
+							"BC6H",
+							"BC7",
+							"DXT1",
+							"DXT3",
+							"DXT5",
+							"DXT5_xGBR",
+							"DXT5_RxBG",
+							"DXT5_RBxG",
+							"DXT5_xRBG",
+							"DXT5_RGxB",
+							"DXT5_xGxR"
+						};
 						int& OS_current_idx = textureInfo.format; // Index for the selected item
 						ImGui::SetNextItemWidth(150.0f);
 						if (ImGui::Combo("##Combo8", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat))) {
 							textureInfo.format = OS_current_idx;
 						};
-
-
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
 
 						ImGui::Text("Compression");
 						ImGui::SameLine(225);
@@ -1617,7 +1656,7 @@ void ImGuiEditor::InspectorWindow()
 							ImGui::SameLine(225);
 
 							const char* imG_OperatingSystemFormat[] = { "RGBA Compressed DXT5|BC3" };
-							int& OS_current_idx = textureInfo.format; // Index for the selected item
+							int OS_current_idx = 0; // Index for the selected item
 							ImGui::SetNextItemWidth(150.0f);
 							if (ImGui::Combo("##Combo12", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat))) {
 								textureInfo.format = OS_current_idx;
@@ -1646,7 +1685,7 @@ void ImGuiEditor::InspectorWindow()
 					//Save
 					std::cout << FILEPATH_DESCRIPTOR_TEXTURES + "/" + selectedFileName + ".json";
 					textureInfo.SaveTextureDescriptor(FILEPATH_DESCRIPTOR_TEXTURES + "/" + selectedFileName + ".json");
-
+					g_AssetManager.ReloadTextures();
 				}
 
 				ImGui::SameLine();

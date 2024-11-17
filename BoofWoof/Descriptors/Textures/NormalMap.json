@@ -20,7 +20,7 @@
     "anisoLevel": 1.0,
     "maxSize": 0,
     "resizeAlgorithm": 0,
-    "format": 0,
+    "format": 10,
     "compression": 0,
     "useCrunchCompression": false
 }
