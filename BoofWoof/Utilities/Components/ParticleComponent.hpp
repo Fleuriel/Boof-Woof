@@ -22,18 +22,18 @@ public:
 	class Particle
 	{
 	public:
-		Particle(glm::vec3* pos)
+		Particle(glm::vec3 pos)
 			: position(pos)
 		{}
 		~Particle() {};
 
 		void update(float dt)
 		{
-			*position += velocity * dt;
+			position += velocity * dt;
 			lifeCount += dt;
 		}
 		
-		glm::vec3* position{};
+		glm::vec3 position{};
 		glm::vec3 velocity{};
 		glm::vec3 direction{};
 		float lifeTime{};
@@ -42,11 +42,10 @@ public:
 
 	void init( )
 	{
-		particles.reserve(PARTICLE_NUM);
 		for (int i = 0; i < PARTICLE_NUM; i++)
 		{
 			translation[i] = glm::vec3(0.0f, 0.0f, 0.0f);
-			auto ptc = std::make_unique<Particle>(&translation[i]);
+			auto ptc = std::make_unique<Particle>(translation[i]);
 			ptc->velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			ptc->direction = glm::vec3(0.0f, 0.0f, 0.0f);
 			ptc->lifeTime = 0.0f;
