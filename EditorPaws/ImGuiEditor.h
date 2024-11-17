@@ -14,8 +14,9 @@
 #include "../BoofWoof/Utilities/Components/BehaviourComponent.hpp"
 #include "UndoRedoManager.hpp"
 #include "ArchetypeManager.hpp"
-
+#include <ImGuizmo.h>
 #include <filesystem>
+#include <vector>
 
 class ImGuiEditor 
 {
@@ -77,6 +78,11 @@ public:
 private:
 	Window* m_Window = nullptr;
 	std::vector<std::type_index> compTypes; // Member variable to hold selected component types
+
+	glm::vec3 m_OldPosition;
+	glm::vec3 m_OldRotationRadians;
+	glm::vec3 m_OldScale;
+	bool m_WasUsingGizmo = false;
 
 };
 
