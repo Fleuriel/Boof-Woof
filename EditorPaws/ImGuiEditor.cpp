@@ -1468,11 +1468,18 @@ void ImGuiEditor::InspectorWindow()
 
 				ImGui::Separator();
 				ImGui::Text(inputTextToDisplay.c_str());
-				ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(newWidth, newHeight));
+				if (ImGui::BeginTabBar("InspectorTab2"))
+				{
+					// First Tab: Default
+					if (ImGui::BeginTabItem("Texture Image"))
+					{
+						ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(newWidth, newHeight));
 
+						ImGui::EndTabItem();
+					}
 
-
-
+					ImGui::EndTabBar();  // End the tab bar
+				}
 
 
 
