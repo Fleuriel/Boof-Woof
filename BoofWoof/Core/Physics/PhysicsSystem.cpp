@@ -304,9 +304,16 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
             && g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
             auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
             auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+            auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 
             JPH::RVec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
             glm::vec3 scale = transform.GetScale();
+
+            // Validate the GraphicsComponent's model
+            if (graphicsComp.getModelName().empty()) {
+                //std::cerr << "Entity " << entity << " has an invalid or missing model. Skipping body creation." << std::endl;
+                continue;
+            }
 
             // Only add a new body if it hasn't already been added
             if (!collisionComponent.HasBodyAdded()) {
@@ -375,13 +382,20 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
 }
 
 void MyPhysicsSystem::AddEntityBody(Entity entity) {
-    if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+    if (g_Coordinator.HaveComponent<TransformComponent>(entity) && g_Coordinator.HaveComponent<GraphicsComponent>(entity)
+        && g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
         auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
         auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
         auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
 
         // Get the texture name from GraphicsComponent to determine the object type
         std::string modelName = graphicsComp.getModelName();
+
+        if (modelName.empty()) {
+            //std::cerr << "AddEntityBody: Entity " << entity << " has an invalid or missing model." << std::endl;
+            return;
+        }
+
         std::cout << "Model Name: " << modelName << std::endl;
         ObjectType objectType = GetObjectTypeFromModel(modelName);
 
