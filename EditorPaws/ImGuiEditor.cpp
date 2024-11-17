@@ -59,6 +59,24 @@ void ImGuiEditor::ImGuiInit(Window* window)
 	g_Coordinator.GetSystem<GraphicsSystem>()->clearAllEntityTextures();
 }
 
+void ImGuiEditor::ShowPickingDebugWindow()
+{
+	ImGui::Begin("Picking Debug View");
+
+	// Get the dimensions of the picking texture
+	int width = g_Coordinator.GetSystem<GraphicsSystem>()->GetViewportWidth();
+	int height = g_Coordinator.GetSystem<GraphicsSystem>()->GetViewportHeight();
+
+	// Retrieve the picking texture
+	GLuint pickingTexture = g_Coordinator.GetSystem<GraphicsSystem>()->GetPickingTexture();
+
+	// Display the texture in ImGui
+	ImGui::Image((void*)(intptr_t)pickingTexture, ImVec2((float)width, (float)height), ImVec2(0, 1), ImVec2(1, 0));
+
+	ImGui::End();
+}
+
+
 void ImGuiEditor::ImGuiUpdate()
 {
 	// Start a new frame
@@ -71,6 +89,8 @@ void ImGuiEditor::ImGuiUpdate()
 
 	//ImGui::ShowDemoWindow();
 
+	GLuint pickingTexture = g_Coordinator.GetSystem<GraphicsSystem>()->GetPickingTexture();
+
 	ImGuiViewport();
 	WorldHierarchy();
 	InspectorWindow();
@@ -78,6 +98,8 @@ void ImGuiEditor::ImGuiUpdate()
 	Settings();
 	Scenes();
 	PlayStopRunBtn();
+	ShowPickingDebugWindow();
+
 
 	ArchetypeTest();
 
@@ -121,18 +143,61 @@ void ImGuiEditor::ImGuiViewport() {
 
 		// If the size changes, update the OpenGL viewport and framebuffer
 		g_Coordinator.GetSystem<GraphicsSystem>()->SetEditorMode(true);
-
 		g_Coordinator.GetSystem<GraphicsSystem>()->UpdateViewportSize(static_cast<int>(viewportPanelSize.x), static_cast<int>(viewportPanelSize.y));
+
+		// Get the position where the image will be drawn
+		ImVec2 viewportPanelPos = ImGui::GetCursorScreenPos();
 
 		// Get framebuffer texture from GraphicsSystem
 		GLuint texture = g_Coordinator.GetSystem<GraphicsSystem>()->GetFramebufferTexture();
 
 		// Display the framebuffer texture in the ImGui viewport panel
 		ImGui::Image((void*)(intptr_t)texture, viewportPanelSize, ImVec2(0, 1), ImVec2(1, 0));
+
+
+		// Object picking
+		if (ImGui::IsWindowFocused() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+		{
+			ImVec2 mousePos = ImGui::GetMousePos();
+
+			float mouseX = mousePos.x - viewportPanelPos.x;
+			float mouseY = mousePos.y - viewportPanelPos.y;
+			mouseY = viewportPanelSize.y - mouseY;
+
+			if (mouseX >= 0 && mouseY >= 0 && mouseX < viewportPanelSize.x && mouseY < viewportPanelSize.y)
+			{
+
+				// Request picking render
+				g_Coordinator.GetSystem<GraphicsSystem>()->SetPickingRenderer(true);
+
+				// Read the pixel from the picking framebuffer
+				glBindFramebuffer(GL_FRAMEBUFFER, g_Coordinator.GetSystem<GraphicsSystem>()->GetPickingFBO());
+				glReadBuffer(GL_COLOR_ATTACHMENT0);
+
+				unsigned char data[3];
+				glReadPixels(static_cast<int>(mouseX), static_cast<int>(mouseY), 1, 1, GL_RGB, GL_UNSIGNED_BYTE, data);
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+				// Decode the color to get the entity ID
+				Entity pickedEntity = g_Coordinator.GetSystem<GraphicsSystem>()->DecodeColorToID(data);
+
+				if (pickedEntity != MAX_ENTITIES)
+				{
+					g_SelectedEntity = pickedEntity;
+					m_IsSelected = true;
+				}
+				else
+				{
+					g_SelectedEntity = MAX_ENTITIES;
+					m_IsSelected = false;
+				}
+			}
+		}
 	}
 
 	ImGui::End();
 }
+
 
 
 void ImGuiEditor::WorldHierarchy()

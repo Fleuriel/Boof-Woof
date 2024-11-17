@@ -75,6 +75,30 @@ public:
     // GraphicsSystem() : fbo(0), textureColorbuffer(0), rbo(0){}
 
 
+    void InitializePickingFramebuffer(int width, int height);
+
+    void RenderSceneForPicking();
+
+    glm::vec3 EncodeIDToColor(Entity id);
+
+    Entity DecodeColorToID(unsigned char* data);
+
+    inline void SetPickingRenderer(bool flag) {
+        needsPickingRender = flag;
+    }
+    inline GLuint GetPickingFBO() {
+        return pickingFBO;
+    }
+
+    inline GLuint GetPickingTexture() const
+    {
+        return pickingColorTexture;
+    }
+
+    int GetViewportWidth() const { return viewportWidth; }
+    int GetViewportHeight() const { return viewportHeight; }
+
+
 private:
     unsigned int fbo;
     unsigned int textureColorbuffer;  // Store the framebuffer texture ID here
@@ -83,6 +107,12 @@ private:
     static GLFWwindow* newWindow;  // OpenGL window
 	static Camera camera;
     static glm::vec3 lightPos;
+    GLuint pickingFBO;
+    GLuint pickingColorTexture;
+    GLuint pickingRBO;
+    int viewportWidth = 0;
+    int viewportHeight = 0;
+    bool needsPickingRender = false;
 
 };
 
