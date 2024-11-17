@@ -25,7 +25,17 @@ int CompressTextureWithDescriptor(const TextureDescriptor& descriptor, const std
     std::stringstream commandStream;
 
     // Base CompressonatorCLI command
-    commandStream << "..\\lib\\Compressonator\\compressonatorcli.exe -fd ";
+    commandStream << "..\\lib\\Compressonator\\compressonatorcli.exe ";
+
+    if (descriptor.generateMipMaps == false) {
+        commandStream << "-nomipmap ";
+    }
+
+    if (descriptor.sRGB == true) {
+        commandStream << "-UseSRGBFrames ";
+    }
+
+    commandStream << "-fd ";
 
     // Set texture format based on descriptor
     switch (descriptor.format) {
