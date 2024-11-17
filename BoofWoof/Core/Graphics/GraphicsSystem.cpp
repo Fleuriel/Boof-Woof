@@ -473,15 +473,6 @@ void GraphicsSystem::UpdateViewportSize(int width, int height) {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-
-
-
-
-
-
-
-
-
 void GraphicsSystem::clearAllEntityTextures()
 {
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
@@ -539,7 +530,7 @@ void GraphicsSystem::InitializePickingFramebuffer(int width, int height)
 
 void GraphicsSystem::RenderSceneForPicking() {
 	glBindFramebuffer(GL_FRAMEBUFFER, pickingFBO);
-	glViewport(0, 0, g_WindowX, g_WindowY);
+	glViewport(0, 0, viewportWidth, viewportHeight);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Use the picking shader
