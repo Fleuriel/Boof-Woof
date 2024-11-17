@@ -88,9 +88,6 @@ void ImGuiEditor::ImGuiUpdate()
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
 	//ImGui::ShowDemoWindow();
-
-	GLuint pickingTexture = g_Coordinator.GetSystem<GraphicsSystem>()->GetPickingTexture();
-
 	ImGuiViewport();
 	WorldHierarchy();
 	InspectorWindow();
@@ -98,7 +95,7 @@ void ImGuiEditor::ImGuiUpdate()
 	Settings();
 	Scenes();
 	PlayStopRunBtn();
-	ShowPickingDebugWindow();
+	//ShowPickingDebugWindow();
 
 
 	ArchetypeTest();

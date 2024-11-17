@@ -146,7 +146,7 @@ public:
     }
 
 
-    void DrawForPicking(OpenGLShader& shader)
+    void DrawForPicking()
     {
         // Bind the VAO
         glBindVertexArray(VAO);

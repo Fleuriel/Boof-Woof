@@ -564,7 +564,7 @@ void GraphicsSystem::RenderSceneForPicking() {
 				Model* model = g_ResourceManager.getModel(graphicsComp.getModelName());
 				if (model)
 				{
-					model->DrawForPicking(pickingShader);
+					model->DrawForPicking();
 				}
 			}
 		}

@@ -68,11 +68,11 @@ public:
     }
     
 
-    void DrawForPicking(OpenGLShader& shader)
+    void DrawForPicking()
     {
         for (Mesh& mesh : meshes)
         {
-            mesh.DrawForPicking(shader);
+            mesh.DrawForPicking();
         }
     }
 
