@@ -25,37 +25,130 @@ int CompressTextureWithDescriptor(const TextureDescriptor& descriptor, const std
     std::stringstream commandStream;
 
     // Base CompressonatorCLI command
-    commandStream << "..\\lib\\Compressonator\\compressonatorcli.exe -fd ";
+    commandStream << "..\\lib\\Compressonator\\compressonatorcli.exe ";
+
+    if (descriptor.generateMipMaps == false) {
+        commandStream << "-nomipmap ";
+    }
+
+    if (descriptor.sRGB == true) {
+        commandStream << "-UseSRGBFrames ";
+    }
+
+    commandStream << "-fd ";
 
     // Set texture format based on descriptor
-    if (descriptor.format == "default_format") {
-        commandStream << "BC3";  // For example, default format is BC7
+    switch (descriptor.format) {
+    case 0: // RGB Uncompressed
+        commandStream << "NONE";
+        break;
+
+    case 1: // ATC_RGB
+        commandStream << "ATC_RGB";
+        break;
+
+    case 2: // ATC_RGBA_Explicit
+        commandStream << "ATC_RGBA_Explicit";
+        break;
+
+    case 3: // ATC_RGBA_Interpolated
+        commandStream << "ATC_RGBA_Interpolated";
+        break;
+
+    case 4: // ATI1N
+        commandStream << "ATI1N";
+        break;
+
+    case 5: // ATI2N
+        commandStream << "ATI2N";
+        break;
+
+    case 6: // ATI2N_XY
+        commandStream << "ATI2N_XY";
+        break;
+
+    case 7: // ATI2N_DXT5
+        commandStream << "ATI2N_DXT5";
+        break;
+
+    case 8: // BC1
+        commandStream << "BC1";
+        break;
+
+    case 9: // BC2
+        commandStream << "BC2";
+        break;
+
+    case 10: // BC3
+        commandStream << "BC3";
+        break;
+
+    case 11: // BC4
+        commandStream << "BC4";
+        break;
+
+    case 12: // BC4_S
+        commandStream << "BC4_S";
+        break;
+
+    case 13: // BC5
+        commandStream << "BC5";
+        break;
+
+    case 14: // BC5_S
+        commandStream << "BC5_S";
+        break;
+
+    case 15: // BC6H
+        commandStream << "BC6H";
+        break;
+
+    case 16: // BC7
+        commandStream << "BC7";
+        break;
+
+    case 17: // DXT1
+        commandStream << "DXT1";
+        break;
+
+    case 18: // DXT3
+        commandStream << "DXT3";
+        break;
+
+    case 19: // DXT5
+        commandStream << "DXT5";
+        break;
+
+    case 20: // DXT5_xGBR
+        commandStream << "DXT5_xGBR";
+        break;
+
+    case 21: // DXT5_RxBG
+        commandStream << "DXT5_RxBG";
+        break;
+
+    case 22: // DXT5_RBxG
+        commandStream << "DXT5_RBxG";
+        break;
+
+    case 23: // DXT5_xRBG
+        commandStream << "DXT5_xRBG";
+        break;
+
+    case 24: // DXT5_RGxB
+        commandStream << "DXT5_RGxB";
+        break;
+
+    case 25: // DXT5_xGxR
+        commandStream << "DXT5_xGxR";
+        break;
+
+    default:
+        std::cerr << "Unsupported format in descriptor!" << std::endl;
+        return -1;
     }
-    else {
-        commandStream << descriptor.format;
-    }
 
-    // Set compression quality
-    //commandStream << " -quality " << descriptor.compressionQuality;
-
-    // Set other texture options based on descriptor fields (e.g., mipmaps, wrap mode, etc.)
-    //if (descriptor.generateMipMaps) {
-    //    commandStream << " -mipmaps";
-    //}
-
-    //if (descriptor.useCrunchCompression) {
-    //    commandStream << " -crunch";
-    //}
-
-    //// Wrap mode
-    //if (descriptor.wrapMode != "default_wrap") {
-    //    commandStream << " -wrapmode " << descriptor.wrapMode;
-    //}
-
-    //// Filter mode
-    //if (descriptor.filterMode != "default_filter") {
-    //    commandStream << " -filtermode " << descriptor.filterMode;
-    //}
+    
 
     // Specify the input and output files
     commandStream << " " << inputTexturePath << " " << outputTexturePath;

@@ -67,6 +67,14 @@ public:
             meshes[i].Draw(shader);
     }
 
+    void DrawMaterial(OpenGLShader& shader)
+    {
+        for (unsigned int i = 0; i < meshes.size(); i++)
+            meshes[i].DrawMaterial(shader);
+
+    }
+
+
     // draw with line
     void DrawLine()
     {

@@ -145,6 +145,20 @@ public:
         
     }
 
+
+
+    void DrawMaterial(OpenGLShader& shader)
+    {
+
+        // draw mesh
+        glPolygonMode(GL_FRONT_AND_BACK, GL_TRIANGLES);
+
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(vertices.size()));
+        glBindVertexArray(0);
+
+    }
+
     // render the mesh with lines
     void DrawLines()
     {
