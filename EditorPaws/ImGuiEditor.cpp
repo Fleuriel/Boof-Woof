@@ -1257,21 +1257,6 @@ void ImGuiEditor::InspectorWindow()
 
 						//static bool sRGBCheck = false;
 
-						ImGui::Spacing();
-						ImGui::Text("sRGB (Color Texture) ");
-						ImGui::SameLine(225);
-
-						ImGui::Checkbox("##Button1 ", &textureInfo.sRGB);
-
-
-
-
-						ImGui::Text("Generate MipMaps");
-						ImGui::SameLine(225);
-
-						ImGui::Checkbox("##CBoxGenMip1 ", &textureInfo.generateMipMaps);
-
-
 
 
 				//		ImGui::Text("Max Size");
@@ -1336,7 +1321,22 @@ void ImGuiEditor::InspectorWindow()
 							
 							
 							
-							
+
+						ImGui::Spacing();
+						ImGui::Text("sRGB (Color Texture) ");
+						ImGui::SameLine(225);
+
+						ImGui::Checkbox("##Button1 ", &textureInfo.sRGB);
+
+
+
+
+						ImGui::Text("Generate MipMaps");
+						ImGui::SameLine(225);
+
+						ImGui::Checkbox("##CBoxGenMip1 ", &textureInfo.generateMipMaps);
+
+
 							
 
 						// ImGui::Text("Compression");
