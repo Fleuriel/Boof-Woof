@@ -196,7 +196,6 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     </ClCompile>
     <ClCompile Include="Core\EngineCore.cpp" />
     <ClCompile Include="Core\Graphics\BoundingVolume.cpp" />
-    <ClCompile Include="Core\Graphics\Camera.cpp" />
     <ClCompile Include="Core\Graphics\FontSystem.cpp" />
     <ClCompile Include="Core\Graphics\GraphicsSystem.cpp" />
     <ClCompile Include="Core\Graphics\Mesh.cpp" />
@@ -216,6 +215,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\Windows\WindowManager.cpp" />
     <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
+    <ClCompile Include="Utilities\Components\CameraComponent.cpp" />
     <ClCompile Include="Utilities\Components\GraphicsComponent.cpp" />
     <ClCompile Include="Utilities\Components\MetaData.cpp" />
     <ClCompile Include="Utilities\Components\TransformComponent.cpp" />
@@ -238,7 +238,6 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\ECS\SystemManager.hpp" />
     <ClInclude Include="Core\EngineCore.h" />
     <ClInclude Include="Core\Graphics\BoundingVolume.h" />
-    <ClInclude Include="Core\Graphics\Camera.h" />
     <ClInclude Include="Core\Graphics\FontSystem.h" />
     <ClInclude Include="Core\Graphics\GraphicsSystem.h" />
     <ClInclude Include="Core\Graphics\Mesh.h" />
@@ -262,6 +261,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Windows\WindowManager.h" />
     <ClInclude Include="Utilities\Components\AudioComponent.hpp" />
     <ClInclude Include="Utilities\Components\BehaviourComponent.hpp" />
+    <ClInclude Include="Utilities\Components\CameraComponent.hpp" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
     <ClInclude Include="Utilities\Components\GraphicsComponent.hpp" />
     <ClInclude Include="Utilities\Components\MetaData.hpp" />

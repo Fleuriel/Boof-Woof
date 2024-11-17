@@ -5,7 +5,7 @@
 
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
-#include "Camera.h"
+#include "../Utilities/Components/CameraComponent.hpp"
 #include "Animation/AnimationManager.h"
 
 class Model;
@@ -60,7 +60,7 @@ public:
 
     void UpdateViewportSize(int width, int height);  // Method to handle viewport resizing
     inline void SetEditorMode(bool EditorMode) { editorMode = EditorMode; };
-	Camera& GetCamera() { return camera; };
+	CameraComponent& GetCamera() { return camera; };
 
 	glm::vec3 GetLightPos() { return lightPos; };
 	void SetLightPos(glm::vec3 pos) { lightPos = pos; };
@@ -105,7 +105,7 @@ private:
     unsigned int rbo;
     bool editorMode = false;
     static GLFWwindow* newWindow;  // OpenGL window
-	static Camera camera;
+	static CameraComponent camera;
     static glm::vec3 lightPos;
     GLuint pickingFBO;
     GLuint pickingColorTexture;

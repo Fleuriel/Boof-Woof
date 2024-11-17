@@ -1,0 +1,12 @@
+File Name: WallBothSide
+Source File Path: ..\BoofWoof\Assets\Objects\WallBothSide.obj
+Output File Path: ..\BoofWoof\Resources\Objects\WallBothSide.bin
+MTL File Exist: 1
+PNG File Exist: 0
+JPG File Exist: 0
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0

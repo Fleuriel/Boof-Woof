@@ -32,7 +32,7 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<AudioComponent>();
 	g_Coordinator.RegisterComponent<CollisionComponent>();
 	g_Coordinator.RegisterComponent<BehaviourComponent>();
-
+	g_Coordinator.RegisterComponent<CameraComponent>();
 	// setting global pointer
 	g_Core = this;
 
@@ -53,6 +53,7 @@ void EngineCore::OnInit()
 		Signature signature;
 		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
 		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
+		signature.set(g_Coordinator.GetComponentType<CameraComponent>());
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
@@ -116,6 +117,7 @@ void EngineCore::OnInit()
 	ReflectionManager::Instance().RegisterComponentType<AudioComponent>("AudioComponent");
 	ReflectionManager::Instance().RegisterComponentType<BehaviourComponent>("BehaviourComponent");
 	ReflectionManager::Instance().RegisterComponentType<CollisionComponent>("CollisionComponent");
+	ReflectionManager::Instance().RegisterComponentType<CameraComponent>("CameraComponent");
 }
 
 void EngineCore::OnUpdate()
