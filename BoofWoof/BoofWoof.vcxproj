@@ -275,6 +275,8 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <None Include="Assets\Scenes\engine_state.json" />
     <None Include="Assets\Shaders\Font.frag" />
     <None Include="Assets\Shaders\Font.vert" />
+    <None Include="Assets\Shaders\instanced.frag" />
+    <None Include="Assets\Shaders\instanced.vert" />
     <None Include="Assets\Shaders\Shader2D.frag" />
     <None Include="Assets\Shaders\Shader2D.vert" />
     <None Include="Assets\Shaders\Shader3D.frag" />

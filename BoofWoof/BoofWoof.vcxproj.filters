@@ -94,5 +94,7 @@
     <None Include="Saves\engine_state.json" />
     <None Include="Assets\Shaders\Font.frag" />
     <None Include="Assets\Shaders\Font.vert" />
+    <None Include="Assets\Shaders\instanced.frag" />
+    <None Include="Assets\Shaders\instanced.vert" />
   </ItemGroup>
 </Project>

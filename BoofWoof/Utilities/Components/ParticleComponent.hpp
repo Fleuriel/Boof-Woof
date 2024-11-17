@@ -6,6 +6,8 @@
 #include "ECS/Coordinator.hpp"
 #include "../Core/Reflection/ReflectionManager.hpp"
 #include "../Core/Reflection/ReflectionManager.hpp"
+#include "../Core/Graphics/Mesh.h"
+#include "../Core/Graphics/Shader.h"
 
 #define PARTICLE_NUM 100
 
@@ -13,34 +15,38 @@ class ParticleComponent
 {
 public:
 	ParticleComponent() {};
-	~ParticleComponent() {};
+	~ParticleComponent() {
+		particles.clear();
+	};
 
-	class particle
+	class Particle
 	{
 	public:
-		particle() {};
-		~particle() {};
+		Particle(glm::vec3* pos)
+			: position(pos)
+		{}
+		~Particle() {};
 
 		void update(float dt)
 		{
-			position += velocity * dt;
+			*position += velocity * dt;
 			lifeCount += dt;
 		}
 		
-		glm::vec3 position;
-		glm::vec3 velocity;
-		glm::vec3 direction;
-		float lifeTime;
-		float lifeCount;
+		glm::vec3* position{};
+		glm::vec3 velocity{};
+		glm::vec3 direction{};
+		float lifeTime{};
+		float lifeCount{};
 	};
 
 	void init( )
 	{
+		particles.reserve(PARTICLE_NUM);
 		for (int i = 0; i < PARTICLE_NUM; i++)
 		{
 			translation[i] = glm::vec3(0.0f, 0.0f, 0.0f);
-			auto ptc = std::make_unique<particle>();
-			ptc->position = glm::vec3(0.01f, 0.0f, 0.0f);
+			auto ptc = std::make_unique<Particle>(&translation[i]);
 			ptc->velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			ptc->direction = glm::vec3(0.0f, 0.0f, 0.0f);
 			ptc->lifeTime = 0.0f;
@@ -58,7 +64,7 @@ public:
 		glGenBuffers(1, &quadVBO);
 		glBindVertexArray(quadVAO);
 		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(mesh.vertices), &mesh.vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(particle_mesh.vertices), &particle_mesh.vertices, GL_STATIC_DRAW);
 		// vertex attributes
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
@@ -110,10 +116,10 @@ public:
 
 
 private:
-	std::vector<std::unique_ptr<particle>> particles;
+	std::vector<std::unique_ptr<Particle>> particles{};
 	glm::vec3 translation[PARTICLE_NUM]{};
 	GLuint instanceVBO{}, quadVAO{}, quadVBO{};
-	Mesh mesh;
+	Mesh particle_mesh{};
 
 	
 };
