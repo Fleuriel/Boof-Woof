@@ -71,6 +71,9 @@ void GraphicsSystem::initGraphicsPipeline() {
 	// Unbind the framebuffer to render to the default framebuffer initially
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+
+	InitializePickingFramebuffer(g_WindowX, g_WindowY);
+
 	// load shaders and models
 	g_AssetManager.LoadAll();
 	g_ResourceManager.LoadAll();
@@ -366,6 +369,14 @@ void GraphicsSystem::UpdateLoop() {
 
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
+
+
+
+	// 2. Picking Rendering Pass (only when needed)
+	if (needsPickingRender) {
+		RenderSceneForPicking();
+		needsPickingRender = false;
+	}
 }
 
 
@@ -434,6 +445,11 @@ void GraphicsSystem::UpdateViewportSize(int width, int height) {
 		return;
 	}
 
+
+	// Store the new viewport dimensions
+	viewportWidth = width;
+	viewportHeight = height;
+
 	// Update the OpenGL viewport to match the new size
 	glViewport(0, 0, width, height);
 
@@ -454,16 +470,26 @@ void GraphicsSystem::UpdateViewportSize(int width, int height) {
 
 	// Unbind the framebuffer
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+
+
+	// Update picking framebuffer attachments
+	glBindFramebuffer(GL_FRAMEBUFFER, pickingFBO);
+
+	// Resize the picking color texture
+	glBindTexture(GL_TEXTURE_2D, pickingColorTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+	// Resize the picking renderbuffer
+	glBindRenderbuffer(GL_RENDERBUFFER, pickingRBO);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
+
+	// Check framebuffer completeness
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		std::cout << "Picking framebuffer is not complete!" << std::endl;
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
-
-
-
-
-
-
-
-
-
 
 void GraphicsSystem::clearAllEntityTextures()
 {
@@ -488,3 +514,109 @@ void GraphicsSystem::clearAllEntityTextures()
 
 	std::cout << "Cleared all entities Textures\n";
 };
+
+void GraphicsSystem::InitializePickingFramebuffer(int width, int height)
+{
+	// Generate framebuffer
+	glGenFramebuffers(1, &pickingFBO);
+	glBindFramebuffer(GL_FRAMEBUFFER, pickingFBO);
+
+	// Create texture to store object IDs
+	glGenTextures(1, &pickingColorTexture);
+	glBindTexture(GL_TEXTURE_2D, pickingColorTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+	// Set texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // Important for pixel-perfect picking
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	// Attach texture to framebuffer
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, pickingColorTexture, 0);
+
+	// Create a renderbuffer object for depth attachment
+	glGenRenderbuffers(1, &pickingRBO);
+	glBindRenderbuffer(GL_RENDERBUFFER, pickingRBO);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, pickingRBO);
+
+	// Check if framebuffer is complete
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		std::cout << "Error: Picking framebuffer is not complete!" << std::endl;
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void GraphicsSystem::RenderSceneForPicking() {
+	glBindFramebuffer(GL_FRAMEBUFFER, pickingFBO);
+	glViewport(0, 0, viewportWidth, viewportHeight);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// Use the picking shader
+	OpenGLShader& pickingShader = g_AssetManager.GetShader("PickingShader");
+	pickingShader.Use();
+
+	// Update shader uniforms
+	pickingShader.SetUniform("view", camera.GetViewMatrix());
+	pickingShader.SetUniform("projection", glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f));
+
+	// Render each entity with its unique ID color
+	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+	for (auto& entity : allEntities)
+	{
+		if (g_Coordinator.HaveComponent<TransformComponent>(entity))
+		{
+			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+			glm::mat4 worldMatrix = transformComp.GetWorldMatrix();
+			pickingShader.SetUniform("vertexTransform", worldMatrix);
+
+			// Encode the entity ID as a color
+			glm::vec3 idColor = EncodeIDToColor(entity);
+			pickingShader.SetUniform("objectIDColor", idColor);
+
+			// Retrieve the model (ensure you have error checking)
+			if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+			{
+				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+
+				// Render the model without textures or materials
+				Model* model = g_ResourceManager.getModel(graphicsComp.getModelName());
+				if (model)
+				{
+					model->DrawForPicking();
+				}
+			}
+		}
+	}
+
+	pickingShader.UnUse();
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+
+glm::vec3 GraphicsSystem::EncodeIDToColor(Entity id)
+{
+	unsigned int r = (id & 0x000000FF) >> 0;
+	unsigned int g = (id & 0x0000FF00) >> 8;
+	unsigned int b = (id & 0x00FF0000) >> 16;
+
+	return glm::vec3(r, g, b) / 255.0f;
+}
+
+Entity GraphicsSystem::DecodeColorToID(unsigned char* data)
+{
+	unsigned int r = data[0];
+	unsigned int g = data[1];
+	unsigned int b = data[2];
+
+	unsigned int id = r + (g << 8) + (b << 16);
+
+	if (id < MAX_ENTITIES)
+	{
+		return static_cast<Entity>(id);
+	}
+	else
+	{
+		return MAX_ENTITIES; // Invalid ID
+	}
+}

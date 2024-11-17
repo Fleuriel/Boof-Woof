@@ -38,6 +38,7 @@ public:
 	void Audio();
 	void PlayStopRunBtn();
 	void ArchetypeTest();
+	void ShowPickingDebugWindow();
 
 	// PlayStopRun Panel
 	enum class States
