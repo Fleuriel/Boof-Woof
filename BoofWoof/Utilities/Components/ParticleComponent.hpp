@@ -8,8 +8,10 @@
 #include "../Core/Reflection/ReflectionManager.hpp"
 #include "../Core/Graphics/Mesh.h"
 #include "../Core/Graphics/Shader.h"
+#include <random>
+#define PARTICLE_NUM 100
 
-#define PARTICLE_NUM 2
+
 
 class ParticleComponent
 {
@@ -29,16 +31,31 @@ public:
 
 		void update(float dt)
 		{
-			position += velocity * dt;
+			position += velocity * direction * dt;
+
+		
+			
+			target_distance_count += velocity * dt;
+			
+			
 			lifeCount += dt;
 		}
 		
 		glm::vec3 position{};
-		glm::vec3 velocity{};
+		float velocity{};
+
+
+		int target_count{};
 		glm::vec3 direction{};
+		float target_distance{};
+		float target_distance_count{};
+
+
 		float lifeTime{};
 		float lifeCount{};
 	};
+
+	//setter 
 
 	void setMesh(Mesh mesh)
 	{
@@ -50,8 +67,10 @@ public:
 		for (int i = 0; i < PARTICLE_NUM; i++)
 		{
 			translation[i] = glm::vec3(0.0f, 0.0f, 0.0f);
+			visibility[i] = 0.0f;
 			Particle ptc(glm::vec3(0.0f, 0.0f, 0.0f));
-			ptc.velocity = glm::vec3(0.1f, 0.0f, 0.0f);
+			ptc.velocity = 0.f;
+			ptc.target_count = 0;
 			ptc.direction = glm::vec3(0.0f, 0.0f, 0.0f);
 			ptc.lifeTime = 0.0f;
 			ptc.lifeCount = 0.0f;
@@ -61,6 +80,12 @@ public:
 		glGenBuffers(1, &instanceVBO);
 		glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
 		glBufferData(GL_ARRAY_BUFFER, PARTICLE_NUM * sizeof(glm::vec3), &translation[0], GL_STATIC_DRAW);
+
+		glGenBuffers(1, &visibilityVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, visibilityVBO);
+		glBufferData(GL_ARRAY_BUFFER, PARTICLE_NUM * sizeof(float), &visibility[0], GL_STATIC_DRAW);
+
+
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 
@@ -102,8 +127,19 @@ public:
 		glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+
+		// set life time 
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, sizeof(Particle), (void*)offsetof(Particle, lifeTime));
 		glVertexAttribDivisor(0, 1);
+
+		glBindBuffer(GL_ARRAY_BUFFER, visibilityVBO);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, sizeof(float), (void*)0);
+		glVertexAttribDivisor(1, 1);
+
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 
 		glBindVertexArray(0);
 
@@ -111,22 +147,59 @@ public:
 
 	void update(float dt)
 	{
-		std::cout << "time: " << dt << "\n";
+		density_counter += dt;
+		bool add_particle = false;
+		if (density_counter > density)
+		{
+			density_counter = 0.0f;
+			add_particle = true;
+			std::cout << "adding particle\n";
+		}
+		
 		for (int i = 0; i < PARTICLE_NUM; i++)
 		{
+			if (add_particle && !visibility[i])
+			{
+				particles[i].position = getRandomVec3(Pos_min, Pos_max);
+				particles[i].velocity = randomFloat(velocity_min, velocity_max);
+
+				particles[i].direction = getDirection(particles[i].target_count);
+				particles[i].target_distance = getDistance(particles[i].target_count);
+				particles[i].target_distance_count = 0.0f;
+
+
+				particles[i].lifeTime = 0.0f;
+				particles[i].lifeCount = 0.0f;
+				add_particle = false;
+				visibility[i] = 1.0f;
+			}
 			particles[i].update(dt);
+			if (particles[i].target_distance_count > particles[i].target_distance)
+			{
+				if (particles[i].target_count < target_positions.size()-1 )
+				{
+					particles[i].target_count++;
+				}
+				particles[i].target_distance_count = 0.0f;
+				particles[i].direction = getDirection(particles[i].target_count);
+				particles[i].target_distance = getDistance(particles[i].target_count);
+			}
 			translation[i] = particles[i].position;
-			std::cout << "translation: " << i << " : " << translation[i].x << " " << translation[i].y << " " << translation[i].z << "\n";
+			
 		}
 		glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * PARTICLE_NUM, &translation[0] , GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		std::cout << "particle updated\n";
+
+		glBindBuffer(GL_ARRAY_BUFFER, visibilityVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * PARTICLE_NUM, &visibility[0], GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		
 	}
 
-	void draw(OpenGLShader shader)
+	void draw()
 	{
-		shader.Use();
+		
 		glBindVertexArray(quadVAO);
 		//glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
 		//std::cout << "before particle draw\n";
@@ -134,7 +207,7 @@ public:
 		glDrawArraysInstanced(GL_POINTS, 0, 1, PARTICLE_NUM);
 		//std::cout << "after particle draw\n";
 		glBindVertexArray(0);
-		shader.UnUse();
+		
 	}
 	
 
@@ -144,13 +217,73 @@ public:
 
 	}
 
+	// Utility function to generate a random float in range [min, max]
+	float randomFloat(float min, float max) {
+		static std::random_device rd;  // Obtain a random number from hardware
+		static std::mt19937 eng(rd()); // Seed the generator
+		std::uniform_real_distribution<> distr(min, max); // Define the range
+		return distr(eng);
+	}
+
+	// Function to generate a random glm::vec3 between two glm::vec3 vectors
+	glm::vec3 getRandomVec3(glm::vec3 minVec, glm::vec3 maxVec) {
+		glm::vec3 randomVec;
+		randomVec.x = randomFloat(minVec.x, maxVec.x);
+		randomVec.y = randomFloat(minVec.y, maxVec.y);
+		randomVec.z = randomFloat(minVec.z, maxVec.z);
+		return randomVec;
+	}
+
+	glm::vec3 getDirection(int target_c) {
+		if (target_c < target_positions.size()-1)
+		{
+			glm::vec3 direction = target_positions[target_c + 1] - target_positions[target_c];
+			return glm::normalize(direction);
+		}
+		else
+		{
+			glm::vec3 direction = target_positions[target_c] - target_positions[target_c - 1];
+			return glm::normalize(direction);
+		}
+
+	}
+
+	float getDistance(int target_c)
+	{
+		if (target_c < target_positions.size() - 1)
+		{
+			glm::vec3 direction = target_positions[target_c + 1] - target_positions[target_c];
+			return glm::length(direction);
+		}
+		else
+		{
+			glm::vec3 direction = target_positions[target_c] - target_positions[target_c - 1];
+			return glm::length(direction);
+		}
+		
+	}
 
 private:
+	// particle data
 	std::vector<Particle> particles{};
 	glm::vec3 translation[PARTICLE_NUM]{};
-	GLuint instanceVBO{}, quadVAO{}, quadVBO{}, quadEBO{};
+	float visibility[PARTICLE_NUM]{};
+	GLuint instanceVBO{}, visibilityVBO{}, quadVAO{}, quadVBO{}, quadEBO{};
 	Mesh particle_mesh{};
 
+	// particle killer and generator
+	float density_counter{};
+	float lifeTime{};
+
+	// settings
+	float density = 1.f;
+
+	glm::vec3 Pos_min{ 0.0f,-0.5f,0.0 };
+	glm::vec3 Pos_max{ 0.0f, 0.5f,0.0 };
+	float velocity_min{ 1.0f };
+	float velocity_max{ 3.0f };
+
+	std::vector<glm::vec3> target_positions{ {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {-1.0f, 0.0f, 0.0f} };
 	
 };
 

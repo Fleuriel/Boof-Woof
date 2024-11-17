@@ -2,9 +2,15 @@
 #version 450 core
 out vec4 fragColor;
 
+layout(location = 0) in float visibility;
+
 void main()
 {
-    fragColor = vec4(1.0, 1.0, 1.0, 1.0); // Solid color with full opacity
+      if(visibility < 0.5f){
+            fragColor = vec4(1.0, 0.0, 0.0, 0.0); // Solid color with full opacity
+      }else{ 
+            fragColor = vec4(1.0, 1.0, 0.0, 1.0); // Solid color with full opacity
+      }  
 }
 
 /*layout(location = 0) in vec3 vertColor;

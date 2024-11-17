@@ -137,12 +137,21 @@ void GraphicsSystem::UpdateLoop() {
 		Particle_cmp.init();
 		particleInit = true;
 	}
+	g_AssetManager.GetShader("instanced").Use();
 	g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
 	g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
-	//shdrParam.WorldMatrix = glm::mat4(1.0f);
+	glPointSize(10.0f);
+	
+	
+	shdrParam.WorldMatrix = { {1.0f, 0.0f, 0.0f, 0.0f},
+							{0.0f, 1.0f, 0.0f, 0.0f},
+							{0.0f, 0.0f, 1.0f, 0.0f},
+							{0.0f, 0.0f, 0.0f, 1.0f} };
+	g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
 	//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
 	Particle_cmp.update(static_cast<float>(g_Core->m_DeltaTime));
-	Particle_cmp.draw(g_AssetManager.GetShader("instanced"));
+	Particle_cmp.draw();
+	g_AssetManager.GetShader("instanced").UnUse();
 
 
 	// Setup camera and projection matrix
