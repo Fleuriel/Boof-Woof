@@ -1,0 +1,86 @@
+{
+    "SceneGUID": "6e34a3ca-ed8f-4f7f-b216-97e2ab68d160",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Floor",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "FloorCastle",
+                "Texture": "FloorCastle"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Floor",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 10.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "FloorCastle",
+                "Texture": "FloorCastle"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Floor",
+                "EntityID": 2
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 20.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "FloorCastle",
+                "Texture": "FloorCastle"
+            }
+        }
+    ]
+}
