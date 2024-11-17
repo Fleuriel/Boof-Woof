@@ -41,8 +41,13 @@ class Level1 : public Level
 	{
 		cameraController->Update(deltaTime);
 
+		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1) 
+		{
+			cameraController->ToggleCameraMode();
+		}
+
 		// Space to go back mainmenu
-		if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
+		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
 		{
 			g_LevelManager.SetNextLevel("MainMenu");
 		}

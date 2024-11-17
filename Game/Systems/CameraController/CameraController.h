@@ -15,13 +15,14 @@ public:
 
     void Update(float deltaTime);
 
-    //void ToggleCameraMode();
+    void ToggleCameraMode();
+
+private:
+    void UpdateFirstPersonView(CameraComponent& camera);
+    void UpdateThirdPersonView(CameraComponent& camera);
 
 private:
     Entity playerEntity{};
     CameraMode currentMode = CameraMode::FIRST_PERSON;
     glm::vec3 thirdPersonOffset = glm::vec3(0.0f, 2.0f, -5.0f); // Example offset for third-person view
-
-    void UpdateFirstPersonView(CameraComponent& camera, float deltaTime);
-    //void UpdateThirdPersonView();
 };
