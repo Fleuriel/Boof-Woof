@@ -1339,15 +1339,15 @@ void ImGuiEditor::InspectorWindow()
 							
 							
 
-						ImGui::Text("Compression");
-						ImGui::SameLine(225);
-
-						const char* imG_CompressionQuality[] = { "None", "Low Quality", "Normal Quality", "High Quality" };
-						int& Compression_current_idx = textureInfo.compression; // Index for the selected item
-						ImGui::SetNextItemWidth(150.0f);
-						if (ImGui::Combo("##Combo9", &Compression_current_idx, imG_CompressionQuality, IM_ARRAYSIZE(imG_CompressionQuality))) {
-							textureInfo.compression = Compression_current_idx;
-						};
+						// ImGui::Text("Compression");
+						// ImGui::SameLine(225);
+						// 
+						// const char* imG_CompressionQuality[] = { "None", "Low Quality", "Normal Quality", "High Quality" };
+						// int& Compression_current_idx = textureInfo.compression; // Index for the selected item
+						// ImGui::SetNextItemWidth(150.0f);
+						// if (ImGui::Combo("##Combo9", &Compression_current_idx, imG_CompressionQuality, IM_ARRAYSIZE(imG_CompressionQuality))) {
+						// 	textureInfo.compression = Compression_current_idx;
+						// };
 
 
 						//static bool crunchCompress = false;
