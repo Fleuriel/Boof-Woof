@@ -13,6 +13,7 @@
 #pragma warning(pop)
 
 Entity g_Player = NULL;
+const std::wstring g_DLL_PATH = L"..\\ScriptWoof.dll";
 
 void LogicSystem::Init()
 {
@@ -103,6 +104,9 @@ void LogicSystem::Update()
 
 void LogicSystem::Shutdown()
 {
+	// Unload the dynamic library
+	FreeLibrary(hGetProcIDDLL);
+
 	// Clean up Script_to_Engine object to prevent memory leak
 	delete mScriptEngine;  // Ensure that the dynamically allocated object is deleted
 

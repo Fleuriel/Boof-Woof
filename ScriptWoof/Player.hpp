@@ -39,7 +39,8 @@ struct Player final : public Behaviour
 			m_Engine.SetVelocity(entity, velocity);
 		}
 		//std::cout << "Player Update" << std::endl;
-
+		//std::cout << "It works" << std::endl;
+		// does this work?
 	}
 
 	virtual const char* getBehaviourName() override
