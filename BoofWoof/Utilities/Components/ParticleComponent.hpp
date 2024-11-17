@@ -40,17 +40,22 @@ public:
 		float lifeCount{};
 	};
 
+	void setMesh(Mesh mesh)
+	{
+		particle_mesh = mesh;
+	}
+
 	void init( )
 	{
 		for (int i = 0; i < PARTICLE_NUM; i++)
 		{
 			translation[i] = glm::vec3(0.0f, 0.0f, 0.0f);
-			auto ptc = std::make_unique<Particle>(translation[i]);
-			ptc->velocity = glm::vec3(0.0f, 0.0f, 0.0f);
-			ptc->direction = glm::vec3(0.0f, 0.0f, 0.0f);
-			ptc->lifeTime = 0.0f;
-			ptc->lifeCount = 0.0f;
-			particles.push_back(std::move(ptc));
+			Particle ptc(glm::vec3(0.0f, 0.0f, 0.0f));
+			ptc.velocity = glm::vec3(1.0f, 0.0f, 0.0f);
+			ptc.direction = glm::vec3(0.0f, 0.0f, 0.0f);
+			ptc.lifeTime = 0.0f;
+			ptc.lifeCount = 0.0f;
+			particles.emplace_back(ptc);
 		}
 
 		glGenBuffers(1, &instanceVBO);
@@ -61,9 +66,17 @@ public:
 
 		glGenVertexArrays(1, &quadVAO);
 		glGenBuffers(1, &quadVBO);
+		glGenBuffers(1, &quadEBO);
+
 		glBindVertexArray(quadVAO);
+
 		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(particle_mesh.vertices), &particle_mesh.vertices, GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quadEBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(particle_mesh.indices), &particle_mesh.indices, GL_STATIC_DRAW);
+
+		
 		// vertex attributes
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
@@ -76,7 +89,7 @@ public:
 		glEnableVertexAttribArray(3);
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 
-
+		std::cout << "ParticleComponent: mesh loaded with " << particle_mesh.vertices.size() << " vertices\n";
 
 		// instance VBO
 		glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
@@ -86,22 +99,28 @@ public:
 		glVertexAttribDivisor(2, 1);
 		glBindVertexArray(0);
 
-
 	}
 
 	void update(float dt)
 	{
 		for (int i = 0; i < PARTICLE_NUM; i++)
 		{
-			particles[i]->update(dt);
+			particles[i].update(dt);
 		}
+		glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * PARTICLE_NUM, &translation[0], GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		std::cout << "particle updated\n";
 	}
 
 	void draw(OpenGLShader shader)
 	{
 		shader.Use();
 		glBindVertexArray(quadVAO);
-		glDrawArraysInstanced(GL_TRIANGLES, 0, 6, PARTICLE_NUM);
+		//glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+		std::cout << "before particle draw\n";
+		glDrawArraysInstanced(GL_TRIANGLES, 0, particle_mesh.vertices.size(), PARTICLE_NUM);
+		std::cout << "after particle draw\n";
 		glBindVertexArray(0);
 		shader.UnUse();
 	}
@@ -115,9 +134,9 @@ public:
 
 
 private:
-	std::vector<std::unique_ptr<Particle>> particles{};
+	std::vector<Particle> particles{};
 	glm::vec3 translation[PARTICLE_NUM]{};
-	GLuint instanceVBO{}, quadVAO{}, quadVBO{};
+	GLuint instanceVBO{}, quadVAO{}, quadVBO{}, quadEBO{};
 	Mesh particle_mesh{};
 
 	

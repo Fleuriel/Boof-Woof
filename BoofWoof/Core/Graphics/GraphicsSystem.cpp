@@ -19,6 +19,7 @@ bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
 
 Camera GraphicsSystem::camera;
+ParticleComponent Particle_cmp;
 glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 
 //int GraphicsSystem::set_Texture_ = 0;
@@ -91,7 +92,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//fontSystem.init_font();
-
+	
 
 }
 
@@ -129,6 +130,18 @@ void GraphicsSystem::UpdateLoop() {
 
 	shdrParam.View = camera.GetViewMatrix();
 	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
+	static bool particleInit = false;
+	if (!particleInit) {
+		Particle_cmp.setMesh(g_ResourceManager.getModel("sphere")->meshes[0]);
+		Particle_cmp.init();
+		particleInit = true;
+	}
+	
+	shdrParam.WorldMatrix = glm::mat4(1.0f);
+	SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
+	Particle_cmp.update(deltaTime);
+	Particle_cmp.draw(g_AssetManager.GetShader("instanced"));
+
 
 	// Setup camera and projection matrix
 	//glm::mat4 view_ = camera.GetViewMatrix();
