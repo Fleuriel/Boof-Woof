@@ -1205,316 +1205,6 @@ void ImGuiEditor::InspectorWindow()
 
 
 				ImGui::Separator();
-				/*
-					TEXTURE TYPE
-				*/
-
-				ImGui::Text("Texture Type ");
-				ImGui::SameLine(225);
-
-				const char* imG_TexType[] = { "Default", "Normal Map", "Editor GUI and Legacy GUI", "Sprite (2D and UI)", "Cursor", "Cookie", "Lightmap", "Directional Lightmap", "Shadowmask", "Single Channel" };
-				int& TexType_current_idx = textureInfo.textureType; // Index for the selected item
-				//ImGui::Set
-				ImGui::SetNextItemWidth(200.0f);
-				if (ImGui::Combo("##Combo1", &TexType_current_idx, imG_TexType, IM_ARRAYSIZE(imG_TexType))) {
-					textureInfo.textureType = TexType_current_idx; // Update the textureInfo value
-				}
-
-				/*
-					TEXTURE SHAPE
-				*/
-
-
-				ImGui::Text("Texture Shape ");
-				ImGui::SameLine(225);
-
-				const char* imG_TexShape[] = { "2D","Cube","2D Array", "3D" };
-				int& TexShape_current_idx = textureInfo.textureShape;
-
-				ImGui::SetNextItemWidth(200.0f);
-				if (ImGui::Combo("##Combo2", &TexShape_current_idx, imG_TexShape, IM_ARRAYSIZE(imG_TexShape))) {
-					textureInfo.textureShape = TexShape_current_idx;
-				};
-
-
-
-				/*
-					sRGB Color Texture
-				*/
-
-
-				//static bool sRGBCheck = false;
-
-				ImGui::Spacing();
-				ImGui::Text("sRGB (Color Texture) ");
-				ImGui::SameLine(225);
-
-				ImGui::Checkbox("##Button1 ", &textureInfo.sRGB);
-
-
-
-				/*
-					Alpha Source
-				*/
-
-				ImGui::Text("Alpha Source ");
-				ImGui::SameLine(225);
-
-				const char* imG_TexAlpha[] = { "None", "Input Texture Alpha", "From Gray Scale" };
-				int& TexAlpha_current_idx = textureInfo.alphaSource; // Index for the selected item
-				//ImGui::Set
-				ImGui::SetNextItemWidth(200.0f);
-				if (ImGui::Combo("##Combo3", &TexAlpha_current_idx, imG_TexAlpha, IM_ARRAYSIZE(imG_TexAlpha))) {
-					textureInfo.alphaSource = TexAlpha_current_idx;
-				};
-
-				/*
-					Alpha is Transparency?
-				*/
-
-
-				//static bool a_Transparency = false;
-
-				ImGui::Text("Alpha is Transparency ");
-				ImGui::SameLine(225);
-
-				ImGui::Checkbox("##Button2 ", &textureInfo.alphaIsTransparency);
-
-
-
-
-				/*
-					Advanced
-				*/
-
-
-				if (ImGui::TreeNode("Advanced")) {
-
-
-					ImGui::Text("Non-Power of 2");
-					ImGui::SameLine(225);
-
-					const char* imG_NonPowTwo[] = { "None", "ToNearest", "ToLargest", "ToSmallest" };
-					int& NonPowTwo_current_idx = textureInfo.nonPowerOfTwo; // Index for the selected item
-					ImGui::SetNextItemWidth(150.0f);
-					if (ImGui::Combo("##Combo13", &NonPowTwo_current_idx, imG_NonPowTwo, IM_ARRAYSIZE(imG_NonPowTwo))) {
-						textureInfo.nonPowerOfTwo = NonPowTwo_current_idx;
-					};
-
-
-
-					//static bool readWrite = false;
-
-					ImGui::Text("Read/Write");
-					ImGui::SameLine(225);
-
-					ImGui::Checkbox("##Button3 ", &textureInfo.readWrite);
-
-
-					//static bool GenmipMaps = true;
-
-					ImGui::Text("Generate MipMaps");
-					ImGui::SameLine(225);
-
-					ImGui::Checkbox("##CBoxGenMip1 ", &textureInfo.generateMipMaps);
-
-					if (textureInfo.generateMipMaps)
-					{
-						//std::cout << "MipMaps are enabled!" << std::endl;
-						ImGui::Indent(20);
-
-
-						//static bool mipMapsLimit = false;
-
-						ImGui::Text("Use Mipmap limits");
-						ImGui::SameLine(225);
-
-						ImGui::Checkbox("##Button4 ", &textureInfo.mipMapLimits);
-
-
-
-
-
-						ImGui::Indent(20);
-
-						ImGui::Text("Mipmap Limit Groups");
-						ImGui::SameLine(225);
-
-						const char* imG_MipMapLimit[] = { "None (Use Global Mipmap Limit)" };
-						int& MipMapLim_current_idx = textureInfo.mipMapLimitGroup; // Index for the selected item
-						ImGui::SetNextItemWidth(150.0f);
-						if (ImGui::Combo("##Combo14", &MipMapLim_current_idx, imG_MipMapLimit, IM_ARRAYSIZE(imG_MipMapLimit))) {
-							textureInfo.mipMapLimitGroup = MipMapLim_current_idx;
-						};
-
-
-						ImGui::Unindent(20);
-
-						//static bool mipStream = false;
-						ImGui::Text("Mip Streaming");
-						ImGui::SameLine(225);
-
-						ImGui::Checkbox("##Button5 ", &textureInfo.mipStreaming);
-
-
-
-
-
-
-						ImGui::Text("Mipmap Filtering");
-						ImGui::SameLine(225);
-
-						const char* imG_MipMapFilter[] = { "Box", "Kaiser" };
-						int& MipFilter_current_idx = textureInfo.mipMapFiltering; // Index for the selected item
-						ImGui::SetNextItemWidth(150.0f);
-						if (ImGui::Combo("##Combo15", &MipFilter_current_idx, imG_MipMapFilter, IM_ARRAYSIZE(imG_MipMapFilter))) {
-							textureInfo.mipMapFiltering = MipFilter_current_idx;
-						};
-
-
-
-
-
-
-
-
-						//static bool PreserveCoverage = false;
-						ImGui::Text("Preserve Coverage");
-						ImGui::SameLine(225);
-
-						ImGui::Checkbox("##Button6 ", &textureInfo.preserveCoverage);
-
-
-
-
-						//static bool ReplicaBorder = false;
-						ImGui::Text("Replicate Border");
-						ImGui::SameLine(225);
-
-						ImGui::Checkbox("##Button7 ", &textureInfo.replicateBorder);
-
-
-
-
-
-						//static bool FadeoutGray = false;
-						ImGui::Text("Fadeout to Gray");
-						ImGui::SameLine(225);
-
-						ImGui::Checkbox("##Button8 ", &textureInfo.fadeoutToGray);
-
-
-
-
-
-						//static bool pngGamma = false;
-						ImGui::Text("Ignore PNG Gamma");
-						ImGui::SameLine(225);
-
-						ImGui::Checkbox("##Button9 ", &textureInfo.ignorePngGamma);
-
-
-
-						ImGui::Text("Swizzle");
-						ImGui::SameLine(225);
-						
-
-						// First Combo Box
-						ImGui::SetNextItemWidth(50);
-						const char* items1[] = { "R", "G", "B", "A", "1R", "1G", "1B", "1A", "0", "1" };
-						static int selected_idx1 = 0;
-						ImGui::Combo("##Swizzle1", &selected_idx1, items1, IM_ARRAYSIZE(items1));
-						ImGui::SetNextItemWidth(80);
-						ImGui::SameLine();
-
-						// Second Combo Box
-						ImGui::SetNextItemWidth(50);
-						const char* items2[] = { "R", "G", "B", "A", "1R", "1G", "1B", "1A", "0", "1" };
-						static int selected_idx2 = 1;
-						ImGui::Combo("##Swizzle2", &selected_idx2, items2, IM_ARRAYSIZE(items2));
-						ImGui::SetNextItemWidth(80);
-						ImGui::SameLine();
-
-						// Third Combo Box
-						ImGui::SetNextItemWidth(50);
-						const char* items3[] = { "R", "G", "B", "A", "1R", "1G", "1B", "1A", "0", "1" };
-						static int selected_idx3 = 2;
-						ImGui::Combo("##Swizzle3", &selected_idx3, items3, IM_ARRAYSIZE(items3));
-						ImGui::SetNextItemWidth(80);
-						ImGui::SameLine();
-
-						// Fourth Combo Box
-						ImGui::SetNextItemWidth(50);
-						const char* items4[] = { "R", "G", "B", "A", "1R", "1G", "1B", "1A", "0", "1" };
-						static int selected_idx4 = 3;
-						ImGui::Combo("##Swizzle4", &selected_idx4, items4, IM_ARRAYSIZE(items4));
-
-
-					}
-
-
-
-
-
-
-
-
-
-
-
-
-
-					ImGui::TreePop(); // Ends the child node
-				}
-
-
-
-
-				/*
-					Wrap Mode
-				*/
-
-
-				ImGui::Text("Wrap Mode ");
-				ImGui::SameLine(225);
-
-				const char* imG_Wrap[] = { "Repeat", "Clamp", "Mirror", "Mirror Once", "Per-axis" };
-				int& Wrap_current_idx = textureInfo.wrapMode; // Index for the selected item
-				//ImGui::Set
-				ImGui::SetNextItemWidth(200.0f);
-				if (ImGui::Combo("##Combo4", &Wrap_current_idx, imG_Wrap, IM_ARRAYSIZE(imG_Wrap))) {
-					textureInfo.wrapMode = Wrap_current_idx;
-				};
-
-
-				/*
-					Filter Mode
-				*/
-
-
-				ImGui::Text("Filter Mode ");
-				ImGui::SameLine(225);
-
-				const char* imG_Filter[] = { "Point (no filter)" , "Bilinear" , "Trilinear" };
-				int& Filter_current_idx = textureInfo.filterMode; // Index for the selected item
-				ImGui::SetNextItemWidth(150.0f);
-				if (ImGui::Combo("##Combo5", &Filter_current_idx, imG_Filter, IM_ARRAYSIZE(imG_Filter))) {
-					textureInfo.filterMode = Filter_current_idx;
-				};
-
-
-				/*
-					Aniso Level
-				*/
-
-				ImGui::Text("Aniso Level ");
-
-				//static float sliderValue = 0.0f;
-
-
-
-				// Create a drag float that increments by 0.1 within a range of 0 to 10
-				ImGui::SliderFloat("Slider (0.1 Steps)", &textureInfo.anisoLevel, 0.0f, 10.0f, "%.1f");
 
 
 
@@ -1524,29 +1214,87 @@ void ImGuiEditor::InspectorWindow()
 				if (ImGui::BeginTabBar("InspectorTabs"))
 				{
 					// First Tab: Default
-					if (ImGui::BeginTabItem("Default"))
+					if (ImGui::BeginTabItem("Texture Descriptor"))
 					{
-						ImGui::Text("Max Size");
+
+						/*
+	TEXTURE TYPE
+*/
+
+						ImGui::Text("Texture Type ");
 						ImGui::SameLine(225);
 
-						const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384" };
-						int& MaxSize_current_idx = textureInfo.maxSize; // Index for the selected item
-						ImGui::SetNextItemWidth(150.0f);
-						if (ImGui::Combo("##Combo6", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize))) {
-							textureInfo.maxSize = MaxSize_current_idx;
+						const char* imG_TexType[] = { "Default", "Normal Map", "Editor GUI and Legacy GUI", "Sprite (2D and UI)", "Cursor", "Cookie", "Lightmap", "Directional Lightmap", "Shadowmask", "Single Channel" };
+						int& TexType_current_idx = textureInfo.textureType; // Index for the selected item
+						//ImGui::Set
+						ImGui::SetNextItemWidth(200.0f);
+						if (ImGui::Combo("##Combo1", &TexType_current_idx, imG_TexType, IM_ARRAYSIZE(imG_TexType))) {
+							textureInfo.textureType = TexType_current_idx; // Update the textureInfo value
+						}
+
+						/*
+							TEXTURE SHAPE
+						*/
+
+
+						ImGui::Text("Texture Shape ");
+						ImGui::SameLine(225);
+
+						const char* imG_TexShape[] = { "2D","Cube","2D Array", "3D" };
+						int& TexShape_current_idx = textureInfo.textureShape;
+
+						ImGui::SetNextItemWidth(200.0f);
+						if (ImGui::Combo("##Combo2", &TexShape_current_idx, imG_TexShape, IM_ARRAYSIZE(imG_TexShape))) {
+							textureInfo.textureShape = TexShape_current_idx;
 						};
 
 
 
-						ImGui::Text("Resize Algorithm");
+						/*
+							sRGB Color Texture
+						*/
+
+
+						//static bool sRGBCheck = false;
+
+						ImGui::Spacing();
+						ImGui::Text("sRGB (Color Texture) ");
 						ImGui::SameLine(225);
 
-						const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear" };
-						int& ResizeAlg_current_idx = textureInfo.resizeAlgorithm; // Index for the selected item
-						ImGui::SetNextItemWidth(150.0f);
-						if (ImGui::Combo("##Combo7", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo))) {
-							textureInfo.resizeAlgorithm = ResizeAlg_current_idx;
-						};
+						ImGui::Checkbox("##Button1 ", &textureInfo.sRGB);
+
+
+
+
+						ImGui::Text("Generate MipMaps");
+						ImGui::SameLine(225);
+
+						ImGui::Checkbox("##CBoxGenMip1 ", &textureInfo.generateMipMaps);
+
+
+
+
+				//		ImGui::Text("Max Size");
+				//		ImGui::SameLine(225);
+				//
+				//		const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384" };
+				//		int& MaxSize_current_idx = textureInfo.maxSize; // Index for the selected item
+				//		ImGui::SetNextItemWidth(150.0f);
+				//		if (ImGui::Combo("##Combo6", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize))) {
+				//			textureInfo.maxSize = MaxSize_current_idx;
+				//		};
+				//
+				//
+				//
+				//		ImGui::Text("Resize Algorithm");
+				//		ImGui::SameLine(225);
+				//
+				//		const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear" };
+				//		int& ResizeAlg_current_idx = textureInfo.resizeAlgorithm; // Index for the selected item
+				//		ImGui::SetNextItemWidth(150.0f);
+				//		if (ImGui::Combo("##Combo7", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo))) {
+				//			textureInfo.resizeAlgorithm = ResizeAlg_current_idx;
+				//		};
 
 
 						ImGui::Text("Format");
@@ -1590,12 +1338,6 @@ void ImGuiEditor::InspectorWindow()
 							
 							
 							
-							
-							
-							
-							
-							
-							
 
 						ImGui::Text("Compression");
 						ImGui::SameLine(225);
@@ -1610,64 +1352,64 @@ void ImGuiEditor::InspectorWindow()
 
 						//static bool crunchCompress = false;
 
-						ImGui::Text("Use Crunch Compression");
-						ImGui::SameLine(225);
-
-						ImGui::Checkbox("##Button10 ", &textureInfo.useCrunchCompression);
+						//ImGui::Text("Use Crunch Compression");
+						//ImGui::SameLine(225);
+						//
+						//ImGui::Checkbox("##Button10 ", &textureInfo.useCrunchCompression);
 
 						// More controls as needed...
 						ImGui::EndTabItem();
 					}
 
 					// Second Tab: Another settings tab
-					if (ImGui::BeginTabItem("Advanced"))
-					{
-						static bool overrite = false;
-
-						ImGui::Text("Override For Windows, Mac, Linux");
-						ImGui::SameLine(225);
-
-						ImGui::Checkbox(" ", &overrite);
-
-						if (overrite)
-						{
-
-							const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384" };
-							int& MaxSize_current_idx = textureInfo.maxSize; // Index for the selected item
-							ImGui::SetNextItemWidth(150.0f);
-							if (ImGui::Combo("##Combo10", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize))) {
-								textureInfo.maxSize = MaxSize_current_idx;
-							};
-
-
-
-							ImGui::Text("Resize Algorithm");
-							ImGui::SameLine(225);
-
-							const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear" };
-							int& ResizeAlg_current_idx = textureInfo.resizeAlgorithm; // Index for the selected item
-							ImGui::SetNextItemWidth(150.0f);
-							if (ImGui::Combo("##Combo11", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo))) {
-								textureInfo.resizeAlgorithm = ResizeAlg_current_idx;
-							};
-
-
-							ImGui::Text("Format");
-							ImGui::SameLine(225);
-
-							const char* imG_OperatingSystemFormat[] = { "RGBA Compressed DXT5|BC3" };
-							int OS_current_idx = 0; // Index for the selected item
-							ImGui::SetNextItemWidth(150.0f);
-							if (ImGui::Combo("##Combo12", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat))) {
-								textureInfo.format = OS_current_idx;
-							};
-
-						}
-
-
-						// Additional widgets can go here
-						ImGui::EndTabItem();
-					}
+					//if (ImGui::BeginTabItem("Advanced"))
+					//{
+					//	static bool overrite = false;
+					//
+					//	ImGui::Text("Override For Windows, Mac, Linux");
+					//	ImGui::SameLine(225);
+					//
+					//	ImGui::Checkbox(" ", &overrite);
+					//
+					//	if (overrite)
+					//	{
+					//
+					//		const char* imG_MaxSize[] = { "32","64","128","256", "512" ,"1024", "2048", "4096", "8192", "16384" };
+					//		int& MaxSize_current_idx = textureInfo.maxSize; // Index for the selected item
+					//		ImGui::SetNextItemWidth(150.0f);
+					//		if (ImGui::Combo("##Combo10", &MaxSize_current_idx, imG_MaxSize, IM_ARRAYSIZE(imG_MaxSize))) {
+					//			textureInfo.maxSize = MaxSize_current_idx;
+					//		};
+					//
+					//
+					//
+					//		ImGui::Text("Resize Algorithm");
+					//		ImGui::SameLine(225);
+					//
+					//		const char* imG_ResizeAlgo[] = { "Mitchell", "Bilinear" };
+					//		int& ResizeAlg_current_idx = textureInfo.resizeAlgorithm; // Index for the selected item
+					//		ImGui::SetNextItemWidth(150.0f);
+					//		if (ImGui::Combo("##Combo11", &ResizeAlg_current_idx, imG_ResizeAlgo, IM_ARRAYSIZE(imG_ResizeAlgo))) {
+					//			textureInfo.resizeAlgorithm = ResizeAlg_current_idx;
+					//		};
+					//
+					//
+					//		ImGui::Text("Format");
+					//		ImGui::SameLine(225);
+					//
+					//		const char* imG_OperatingSystemFormat[] = { "RGBA Compressed DXT5|BC3" };
+					//		int OS_current_idx = 0; // Index for the selected item
+					//		ImGui::SetNextItemWidth(150.0f);
+					//		if (ImGui::Combo("##Combo12", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat))) {
+					//			textureInfo.format = OS_current_idx;
+					//		};
+					//
+					//	}
+					//
+					//
+					//	// Additional widgets can go here
+					//	ImGui::EndTabItem();
+					//}
 
 					ImGui::EndTabBar();  // End the tab bar
 				}
@@ -1850,189 +1592,189 @@ void ImGuiEditor::InspectorWindow()
 
 				ImGui::Button("##MatButton4 ", ImVec2(15, 15)); ImGui::SameLine();  ImGui::Text("Normal Map");   	 // Create a visual box
 
-				ImGui::Button("##MatButton5 ", ImVec2(15, 15)); ImGui::SameLine();	ImGui::Text("Height Map"); 	 // Create a visual box
-
-				ImGui::Button("##MatButton6 ", ImVec2(15, 15)); ImGui::SameLine();	ImGui::Text("Occulsion");  	 // Create a visual box
-
-				ImGui::Button("##MatButton7 ", ImVec2(15, 15)); ImGui::SameLine();	ImGui::Text("Detail Mask");	 // Create a visual box
-
-
-				static bool mat_Emission = false;
-
-				ImGui::Text("Emission ");
-				ImGui::SameLine(WidthIndentation);
-
-				ImGui::Checkbox("##MatEmission1 ", &mat_Emission);
-
-				static float TillingxValue = 0.0f;
-				static float TillingyValue = 0.0f;
-
-
-				ImGui::Text("Tilling");
-				ImGui::SameLine(WidthIndentation);
-
-				// Create a line with "X" label, a draggable float, and text input
-				ImGui::Text("X");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
-				ImGui::DragFloat("##XValue1", &TillingxValue, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
-				ImGui::PopItemWidth();
-
-				ImGui::SameLine();
-				// Create a line with "Y" label, a draggable float, and text input
-				ImGui::Text("Y");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
-				ImGui::DragFloat("##YValue1", &TillingyValue, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
-				ImGui::PopItemWidth();
-
-
-				static float OffsetXVal = 0.0f;
-				static float OffsetYVal = 0.0f;
-
-				ImGui::Text("Offset");
-				ImGui::SameLine(WidthIndentation);
-
-				// Create a line with "X" label, a draggable float, and text input
-				ImGui::Text("X");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
-				ImGui::DragFloat("##XValue2", &OffsetXVal, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
-				ImGui::PopItemWidth();
-
-				ImGui::SameLine();
-				// Create a line with "Y" label, a draggable float, and text input
-				ImGui::Text("Y");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
-				ImGui::DragFloat("##YValue2", &OffsetYVal, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
-				ImGui::PopItemWidth();
-
-				ImGui::NewLine();
-				ImGui::Text("Secondary Map");
-
-
-				ImGui::Button("##MatButton8 ", ImVec2(15, 15)); // Create a visual box
-
-				if (ImGui::BeginDragDropTarget()) {
-					// Check if a payload is available
-					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DND_ITEM_TYPE")) {
-						// Process the payload data (for example, a file path)
-						const char* droppedData = (const char*)payload->Data;
-						ImGui::Text("Dropped: %s", droppedData);
-					}
-					ImGui::EndDragDropTarget();
-				}
-
-				ImGui::SameLine();	ImGui::Text("Detail Albedo x2");
-
-				ImGui::Button("##MatButton9 ", ImVec2(15, 15)); // Create a visual box
-
-				if (ImGui::BeginDragDropTarget()) {
-					// Check if a payload is available
-					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DND_ITEM_TYPE")) {
-						// Process the payload data (for example, a file path)
-						const char* droppedData = (const char*)payload->Data;
-						ImGui::Text("Dropped: %s", droppedData);
-					}
-					ImGui::EndDragDropTarget();
-				}
-
-				static float nMapVal = 0.0f;
-
-				ImGui::SameLine();	ImGui::Text("Normal Map"); ImGui::SameLine(WidthIndentation);
-				ImGui::InputFloat("##NormalMapInput1", &nMapVal, 0.0f, 0.0f);
-				// ImGui::Button("##MatButton9 ", ImVec2(15, 15)); // Create a visual box
-
-				static float SMap_TillingxValue = 0.0f;
-				static float SMap_TillingyValue = 0.0f;
-
-
-				ImGui::Text("Tilling");
-				ImGui::SameLine(WidthIndentation);
-
-				// Create a line with "X" label, a draggable float, and text input
-				ImGui::Text("X");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
-				ImGui::DragFloat("##XValue3", &SMap_TillingxValue, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
-				ImGui::PopItemWidth();
-
-				ImGui::SameLine();
-				// Create a line with "Y" label, a draggable float, and text input
-				ImGui::Text("Y");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
-				ImGui::DragFloat("##YValue3", &SMap_TillingyValue, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
-				ImGui::PopItemWidth();
-
-
-				static float S_MapOffsetXVal = 0.0f;
-				static float S_MapOffsetYVal = 0.0f;
-
-				ImGui::Text("Offset");
-				ImGui::SameLine(WidthIndentation);
-
-				// Create a line with "X" label, a draggable float, and text input
-				ImGui::Text("X");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
-				ImGui::DragFloat("##XValue4", &S_MapOffsetXVal, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
-				ImGui::PopItemWidth();
-
-				ImGui::SameLine();
-				// Create a line with "Y" label, a draggable float, and text input
-				ImGui::Text("Y");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
-				ImGui::DragFloat("##YValue4", &S_MapOffsetYVal, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
-				ImGui::PopItemWidth();
-
-
-
-
-
-
-
-				const char* imG_UVSet[] = { "UV0", "UV1" };
-				static int MatUVcurrent_idx = 0; // Index for the selected item
-				//ImGui::Set
-				ImGui::SetNextItemWidth(200.0f);
-
-				ImGui::Text("UV Set");  ImGui::SameLine(WidthIndentation); ImGui::Combo("##MatCombo3", &MatUVcurrent_idx, imG_UVSet, IM_ARRAYSIZE(imG_UVSet));
-
-
-				static bool mat_SpecularHighlights = false;
-
-				ImGui::Text("Specular Highlights ");
-				ImGui::SameLine(WidthIndentation);
-
-				ImGui::Checkbox("##MatSpecularHigh1 ", &mat_SpecularHighlights);
-
-				static bool mat_Reflections = false;
-
-				ImGui::Text("Reflections ");
-				ImGui::SameLine(WidthIndentation);
-
-				ImGui::Checkbox("##MatReflection1 ", &mat_Reflections);
-
-
-
-
-				ImGui::Text("Advanced Options");
-
-
-				const char* imG_RenderQueue[] = { "From Shader", "Geometry", "AlphaTest", "Transparent" };
-				static int MatR_Queue_current_idx = 0; // Index for the selected item
-				//ImGui::Set
-				ImGui::SetNextItemWidth(200.0f);
-
-				ImGui::Text("UV Set");  ImGui::SameLine(WidthIndentation); ImGui::Combo("##MatCombo4", &MatR_Queue_current_idx, imG_RenderQueue, IM_ARRAYSIZE(imG_RenderQueue));
-				static float rQueueVal = 0.0f;
-
-				ImGui::Text("Render Queue"); ImGui::SameLine(WidthIndentation); ImGui::InputFloat("##RenderQueueInput1", &rQueueVal, 0.0f, 0.0f);
-
-
-
-
-
-				static bool mat_GPUInstancing = false;
-
-				ImGui::Text("Reflections ");
-				ImGui::SameLine(WidthIndentation);
-
-				ImGui::Checkbox("##MatGPUInsta1 ", &mat_GPUInstancing);
-
-				static bool mat_GlobalIllum = false;
-
-				ImGui::Text("Double Sided Global Illumination ");
-				ImGui::SameLine(WidthIndentation);
-
-				ImGui::Checkbox("##MatIllum1 ", &mat_GlobalIllum);
+				//ImGui::Button("##MatButton5 ", ImVec2(15, 15)); ImGui::SameLine();	ImGui::Text("Height Map"); 	 // Create a visual box
+				//
+				//ImGui::Button("##MatButton6 ", ImVec2(15, 15)); ImGui::SameLine();	ImGui::Text("Occulsion");  	 // Create a visual box
+				//
+				//ImGui::Button("##MatButton7 ", ImVec2(15, 15)); ImGui::SameLine();	ImGui::Text("Detail Mask");	 // Create a visual box
+				//
+				//
+				//static bool mat_Emission = false;
+				//
+				//ImGui::Text("Emission ");
+				//ImGui::SameLine(WidthIndentation);
+				//
+				//ImGui::Checkbox("##MatEmission1 ", &mat_Emission);
+				//
+				//static float TillingxValue = 0.0f;
+				//static float TillingyValue = 0.0f;
+				//
+				//
+				//ImGui::Text("Tilling");
+				//ImGui::SameLine(WidthIndentation);
+				//
+				//// Create a line with "X" label, a draggable float, and text input
+				//ImGui::Text("X");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
+				//ImGui::DragFloat("##XValue1", &TillingxValue, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
+				//ImGui::PopItemWidth();
+				//
+				//ImGui::SameLine();
+				//// Create a line with "Y" label, a draggable float, and text input
+				//ImGui::Text("Y");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
+				//ImGui::DragFloat("##YValue1", &TillingyValue, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
+				//ImGui::PopItemWidth();
+				//
+				//
+				//static float OffsetXVal = 0.0f;
+				//static float OffsetYVal = 0.0f;
+				//
+				//ImGui::Text("Offset");
+				//ImGui::SameLine(WidthIndentation);
+				//
+				//// Create a line with "X" label, a draggable float, and text input
+				//ImGui::Text("X");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
+				//ImGui::DragFloat("##XValue2", &OffsetXVal, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
+				//ImGui::PopItemWidth();
+				//
+				//ImGui::SameLine();
+				//// Create a line with "Y" label, a draggable float, and text input
+				//ImGui::Text("Y");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
+				//ImGui::DragFloat("##YValue2", &OffsetYVal, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
+				//ImGui::PopItemWidth();
+				//
+				//ImGui::NewLine();
+				//ImGui::Text("Secondary Map");
+				//
+				//
+				//ImGui::Button("##MatButton8 ", ImVec2(15, 15)); // Create a visual box
+				//
+				//if (ImGui::BeginDragDropTarget()) {
+				//	// Check if a payload is available
+				//	if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DND_ITEM_TYPE")) {
+				//		// Process the payload data (for example, a file path)
+				//		const char* droppedData = (const char*)payload->Data;
+				//		ImGui::Text("Dropped: %s", droppedData);
+				//	}
+				//	ImGui::EndDragDropTarget();
+				//}
+				//
+				//ImGui::SameLine();	ImGui::Text("Detail Albedo x2");
+				//
+				//ImGui::Button("##MatButton9 ", ImVec2(15, 15)); // Create a visual box
+				//
+				//if (ImGui::BeginDragDropTarget()) {
+				//	// Check if a payload is available
+				//	if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DND_ITEM_TYPE")) {
+				//		// Process the payload data (for example, a file path)
+				//		const char* droppedData = (const char*)payload->Data;
+				//		ImGui::Text("Dropped: %s", droppedData);
+				//	}
+				//	ImGui::EndDragDropTarget();
+				//}
+				//
+				//static float nMapVal = 0.0f;
+				//
+				//ImGui::SameLine();	ImGui::Text("Normal Map"); ImGui::SameLine(WidthIndentation);
+				//ImGui::InputFloat("##NormalMapInput1", &nMapVal, 0.0f, 0.0f);
+				//// ImGui::Button("##MatButton9 ", ImVec2(15, 15)); // Create a visual box
+				//
+				//static float SMap_TillingxValue = 0.0f;
+				//static float SMap_TillingyValue = 0.0f;
+				//
+				//
+				//ImGui::Text("Tilling");
+				//ImGui::SameLine(WidthIndentation);
+				//
+				//// Create a line with "X" label, a draggable float, and text input
+				//ImGui::Text("X");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
+				//ImGui::DragFloat("##XValue3", &SMap_TillingxValue, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
+				//ImGui::PopItemWidth();
+				//
+				//ImGui::SameLine();
+				//// Create a line with "Y" label, a draggable float, and text input
+				//ImGui::Text("Y");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
+				//ImGui::DragFloat("##YValue3", &SMap_TillingyValue, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
+				//ImGui::PopItemWidth();
+				//
+				//
+				//static float S_MapOffsetXVal = 0.0f;
+				//static float S_MapOffsetYVal = 0.0f;
+				//
+				//ImGui::Text("Offset");
+				//ImGui::SameLine(WidthIndentation);
+				//
+				//// Create a line with "X" label, a draggable float, and text input
+				//ImGui::Text("X");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
+				//ImGui::DragFloat("##XValue4", &S_MapOffsetXVal, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
+				//ImGui::PopItemWidth();
+				//
+				//ImGui::SameLine();
+				//// Create a line with "Y" label, a draggable float, and text input
+				//ImGui::Text("Y");	ImGui::SameLine();	ImGui::PushItemWidth(100.0f); // Adjust the width as needed
+				//ImGui::DragFloat("##YValue4", &S_MapOffsetYVal, 0.03f, -FLT_MAX, FLT_MAX, "%.2f");
+				//ImGui::PopItemWidth();
+				//
+				//
+				//
+				//
+				//
+				//
+				//
+				//const char* imG_UVSet[] = { "UV0", "UV1" };
+				//static int MatUVcurrent_idx = 0; // Index for the selected item
+				////ImGui::Set
+				//ImGui::SetNextItemWidth(200.0f);
+				//
+				//ImGui::Text("UV Set");  ImGui::SameLine(WidthIndentation); ImGui::Combo("##MatCombo3", &MatUVcurrent_idx, imG_UVSet, IM_ARRAYSIZE(imG_UVSet));
+				//
+				//
+				//static bool mat_SpecularHighlights = false;
+				//
+				//ImGui::Text("Specular Highlights ");
+				//ImGui::SameLine(WidthIndentation);
+				//
+				//ImGui::Checkbox("##MatSpecularHigh1 ", &mat_SpecularHighlights);
+				//
+				//static bool mat_Reflections = false;
+				//
+				//ImGui::Text("Reflections ");
+				//ImGui::SameLine(WidthIndentation);
+				//
+				//ImGui::Checkbox("##MatReflection1 ", &mat_Reflections);
+				//
+				//
+				//
+				//
+				//ImGui::Text("Advanced Options");
+				//
+				//
+				//const char* imG_RenderQueue[] = { "From Shader", "Geometry", "AlphaTest", "Transparent" };
+				//static int MatR_Queue_current_idx = 0; // Index for the selected item
+				////ImGui::Set
+				//ImGui::SetNextItemWidth(200.0f);
+				//
+				//ImGui::Text("UV Set");  ImGui::SameLine(WidthIndentation); ImGui::Combo("##MatCombo4", &MatR_Queue_current_idx, imG_RenderQueue, IM_ARRAYSIZE(imG_RenderQueue));
+				//static float rQueueVal = 0.0f;
+				//
+				//ImGui::Text("Render Queue"); ImGui::SameLine(WidthIndentation); ImGui::InputFloat("##RenderQueueInput1", &rQueueVal, 0.0f, 0.0f);
+				//
+				//
+				//
+				//
+				//
+				//static bool mat_GPUInstancing = false;
+				//
+				//ImGui::Text("Reflections ");
+				//ImGui::SameLine(WidthIndentation);
+				//
+				//ImGui::Checkbox("##MatGPUInsta1 ", &mat_GPUInstancing);
+				//
+				//static bool mat_GlobalIllum = false;
+				//
+				//ImGui::Text("Double Sided Global Illumination ");
+				//ImGui::SameLine(WidthIndentation);
+				//
+				//ImGui::Checkbox("##MatIllum1 ", &mat_GlobalIllum);
 
 
 
