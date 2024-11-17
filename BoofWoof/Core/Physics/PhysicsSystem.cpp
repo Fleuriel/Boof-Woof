@@ -76,8 +76,8 @@ ObjectType MyPhysicsSystem::GetObjectTypeFromModel(const std::string& modelName)
     else if (modelName == "Corgi_small") {
         type = ObjectType::Corgi_small;
     }
-    else if (modelName.find("Floor") != std::string::npos) {
-        type = ObjectType::Floor;
+    else if (modelName.find("FloorCastle") != std::string::npos) {
+        type = ObjectType::FloorCastle;
     }
     else if (modelName.find("Wall") != std::string::npos) {
         type = ObjectType::Wall;
@@ -113,8 +113,8 @@ ObjectType MyPhysicsSystem::GetObjectTypeFromModel(const std::string& modelName)
     case ObjectType::Corgi_small:
         std::cout << "Corgi_small";
         break;
-    case ObjectType::Floor:
-        std::cout << "Floor";
+    case ObjectType::FloorCastle:
+        std::cout << "FloorCastle";
         break;
     case ObjectType::Wall:
         std::cout << "Wall";
@@ -153,13 +153,13 @@ JPH::Shape* MyPhysicsSystem::CreateShapeForObjectType(ObjectType type, const glm
         return new JPH::BoxShape(JPH::Vec3(scale.x * 1.5f, scale.y * 0.6f, scale.z * 1.0f)); // Dimensions for couch
 
     case ObjectType::Corgi:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.8f, scale.y * 0.5f, scale.z * 1.3f)); // Dimensions for corgi x = length of dog, y = height, z = thickness
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.8f, scale.y * 0.3f, scale.z * 1.3f)); // Dimensions for corgi x = length of dog, y = height, z = thickness
 
     case ObjectType::Corgi_small:
         return new JPH::BoxShape(JPH::Vec3(scale.x * 1.4f, scale.y * 0.5f, scale.z * 0.6f)); // Dimensions for corgi x = length of dog, y = height, z = thickness
 
-    case ObjectType::Floor:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 5.0f, scale.y * 0.1f, scale.z * 5.0f)); // Large, flat shape for the floor
+    case ObjectType::FloorCastle:
+        return new JPH::BoxShape(JPH::Vec3(scale.x * 5.0f, scale.y * 0.15f, scale.z * 4.2f)); // Large, flat shape for the floor
 
     case ObjectType::Wall:
         return new JPH::BoxShape(JPH::Vec3(scale.x * 2.5f, scale.y * 3.0f, scale.z * 0.8f)); // Thin, tall shape for walls x = width, y = height, z = thickness
@@ -239,8 +239,8 @@ JPH::PhysicsSystem* MyPhysicsSystem::CreatePhysicsSystem() {
     );
 
     // Set gravity
-    //mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, -9.81f, 0.0f));
-    mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, 0.0f, 0.0f));
+    mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, -9.81f * 20, 0.0f));
+    //mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, 0.0f, 0.0f));
 
     std::cout << "Jolt physics system created" << std::endl;
     return mPhysicsSystem;

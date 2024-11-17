@@ -55,7 +55,7 @@ enum class ObjectType {
     Couch,
     Corgi,
     Corgi_small,
-    Floor,
+    FloorCastle,
     Wall,
     Wardrobe,
     Wardrobe2,
