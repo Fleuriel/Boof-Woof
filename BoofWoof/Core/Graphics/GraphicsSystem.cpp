@@ -9,6 +9,7 @@
 #include "Windows/WindowManager.h"
 
 #include "Input/Input.h"
+#include "EngineCore.h"
 
 
 bool GraphicsSystem::debug = false;
@@ -136,10 +137,11 @@ void GraphicsSystem::UpdateLoop() {
 		Particle_cmp.init();
 		particleInit = true;
 	}
-	
-	shdrParam.WorldMatrix = glm::mat4(1.0f);
-	SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
-	Particle_cmp.update(deltaTime);
+	g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
+	g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
+	//shdrParam.WorldMatrix = glm::mat4(1.0f);
+	//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
+	Particle_cmp.update(static_cast<float>(g_Core->m_DeltaTime));
 	Particle_cmp.draw(g_AssetManager.GetShader("instanced"));
 
 
