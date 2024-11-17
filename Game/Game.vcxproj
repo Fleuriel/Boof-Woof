@@ -172,11 +172,13 @@ xcopy /y /d "$(SolutionDir)lib\freetype\freetype.dll" "$(OutDir)"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="Systems\CameraController\CameraController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game Levels\Level1.h" />
     <ClInclude Include="Game Levels\MainMenu.h" />
     <ClInclude Include="Game Levels\Splashscreen.h" />
+    <ClInclude Include="Systems\CameraController\CameraController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

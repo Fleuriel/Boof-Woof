@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "7fc0686a-41db-476a-b02e-af18a2d339fe",
+    "SceneGUID": "72bb0bb0-4783-4890-b10c-c587e19115d0",
     "Entities": [
         {
             "MetadataComponent": {
@@ -1393,7 +1393,7 @@
                 "Position": {
                     "x": 0.11194869130849838,
                     "y": 0.0,
-                    "z": -0.00030209217220544815
+                    "z": 0.002362830564379692
                 },
                 "Scale": {
                     "x": 0.5,
@@ -1547,9 +1547,6 @@
             "GraphicsComponent": {
                 "ModelName": "RopeDrawbridge",
                 "Texture": "RopeDrawbridge"
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0
             }
         },
         {
@@ -1577,9 +1574,6 @@
             "GraphicsComponent": {
                 "ModelName": "NailDrawbridge",
                 "Texture": "NailDrawbridge"
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0
             }
         },
         {
