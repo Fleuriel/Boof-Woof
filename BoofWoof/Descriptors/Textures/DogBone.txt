@@ -1,0 +1,5 @@
+Texture Name : DogBone
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\DogBone.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\DogBone.dds
+Compression Format : -fd BC3

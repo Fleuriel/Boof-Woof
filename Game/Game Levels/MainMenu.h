@@ -32,9 +32,6 @@ class MainMenu : public Level
 
 	void UpdateLevel(double deltaTime)
 	{
-		std::cout << "Mouse Pos x " << g_Input.GetMousePosition().x << " ,y " << g_Input.GetMousePosition().y << std::endl;
-
-
 		// Get the current yaw value
 		float currentYaw = g_Coordinator.GetComponent<CameraComponent>(BackCamera).GetCameraYaw();
 
@@ -50,10 +47,10 @@ class MainMenu : public Level
 		// Set the updated yaw value
 		g_Coordinator.GetComponent<CameraComponent>(BackCamera).SetCameraYaw(currentYaw);
 
-		// Press space to start - now just go back splashscreen
+		// Press space to start go level 1
 		if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
 		{
-			g_LevelManager.SetNextLevel("Splashscreen");
+			g_LevelManager.SetNextLevel("Level1");
 		}
 	}
 

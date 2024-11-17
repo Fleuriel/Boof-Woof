@@ -26,5 +26,8 @@
     <ClInclude Include="Game Levels\MainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game Levels\Level1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
