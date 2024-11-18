@@ -1394,6 +1394,216 @@ void ImGuiEditor::InspectorWindow()
 							}
 						}
 
+						else if (className == "CameraComponent")
+						{
+							// Custom UI for CameraComponent
+							if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_None))
+							{
+								auto& cameraComponent = g_Coordinator.GetComponent<CameraComponent>(g_SelectedEntity);
+								cameraComponent.RegisterProperties();
+
+								const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+
+								std::unordered_map<std::string, int> spaceMapping = {
+									{"WorldUp", 1}, {"Pitch", 3}, {"Yaw", 5}
+								};
+
+								// Handle Camera Property
+								for (const auto& property : properties)
+								{
+									std::string propertyName = property->GetName();
+
+									if (spaceMapping.find(propertyName) != spaceMapping.end())
+									{
+										// Append the corresponding number of spaces
+										propertyName += std::string(spaceMapping[propertyName], ' ');
+									}
+
+									ImGui::PushItemWidth(250.0f);
+									ImGui::Text("%s", propertyName.c_str());
+									ImGui::SameLine();
+									std::string widgetID = "##" + propertyName;
+
+									ImGui::PushID(widgetID.c_str());
+
+									// For glm::vec3 properties
+									if (property->GetValue(&cameraComponent).find(",") != std::string::npos)
+									{
+										glm::vec3 vecValue = SerializationHelpers::DeserializeVec3(property->GetValue(&cameraComponent));
+
+										if (ImGui::DragFloat3("##Drag", &vecValue.x, 0.1f))
+										{
+											property->SetValue(&cameraComponent, SerializationHelpers::SerializeVec3(vecValue));
+										}
+
+										if (ImGui::IsItemActivated())
+										{
+											// Store old value
+											oldVec3Values[propertyName] = vecValue;
+										}
+
+										if (ImGui::IsItemDeactivatedAfterEdit())
+										{
+											glm::vec3 newValue = vecValue;
+											glm::vec3 oldValue = oldVec3Values[propertyName];
+											Entity entity = g_SelectedEntity;
+
+											// Clean up the stored old value
+											oldVec3Values.erase(propertyName);
+
+											g_UndoRedoManager.ExecuteCommand(
+												[entity, propertyName, newValue]() {
+													auto& component = g_Coordinator.GetComponent<CameraComponent>(entity);
+													const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+													auto propIt = std::find_if(properties.begin(), properties.end(),
+														[&propertyName](const ReflectionPropertyBase* prop) {
+															return prop->GetName() == propertyName;
+														});
+													if (propIt != properties.end())
+													{
+														(*propIt)->SetValue(&component, SerializationHelpers::SerializeVec3(newValue));
+													}
+												},
+												[entity, propertyName, oldValue]() {
+													auto& component = g_Coordinator.GetComponent<CameraComponent>(entity);
+													const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+													auto propIt = std::find_if(properties.begin(), properties.end(),
+														[&propertyName](const ReflectionPropertyBase* prop) {
+															return prop->GetName() == propertyName;
+														});
+													if (propIt != properties.end())
+													{
+														(*propIt)->SetValue(&component, SerializationHelpers::SerializeVec3(oldValue));
+													}
+												}
+											);
+										}
+									}
+									else
+									{
+										// Check if the value is a boolean or float
+										std::string propertyValue = property->GetValue(&cameraComponent);
+
+										bool isBool = false;
+										bool boolValue = false;
+
+										// Check if it's a boolean
+										if (propertyValue == "true" || propertyValue == "false")
+										{
+											isBool = true;
+											boolValue = (propertyValue == "true");
+										}
+
+										if (isBool)
+										{
+											// Handle boolean property
+											if (ImGui::Checkbox("##Checkbox", &boolValue))
+											{
+												property->SetValue(&cameraComponent, boolValue ? "true" : "false");
+											}
+
+											if (ImGui::IsItemActivated())
+											{
+												// Store old boolean value
+												oldBoolValues[propertyName] = boolValue;
+											}
+
+											if (ImGui::IsItemDeactivatedAfterEdit())
+											{
+												bool newValue = boolValue;
+												bool oldValue = oldBoolValues[propertyName];
+												Entity entity = g_SelectedEntity;
+
+												// Clean up the stored old value
+												oldBoolValues.erase(propertyName);
+
+												g_UndoRedoManager.ExecuteCommand(
+													[entity, propertyName, newValue]() {
+														auto& component = g_Coordinator.GetComponent<CameraComponent>(entity);
+														const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+														auto propIt = std::find_if(properties.begin(), properties.end(),
+															[&propertyName](const ReflectionPropertyBase* prop) {
+																return prop->GetName() == propertyName;
+															});
+														if (propIt != properties.end())
+														{
+															(*propIt)->SetValue(&component, newValue ? "true" : "false");
+														}
+													},
+													[entity, propertyName, oldValue]() {
+														auto& component = g_Coordinator.GetComponent<CameraComponent>(entity);
+														const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+														auto propIt = std::find_if(properties.begin(), properties.end(),
+															[&propertyName](const ReflectionPropertyBase* prop) {
+																return prop->GetName() == propertyName;
+															});
+														if (propIt != properties.end())
+														{
+															(*propIt)->SetValue(&component, oldValue ? "true" : "false");
+														}
+													}
+												);
+											}
+										}
+										else
+										{
+											// For scalar properties (float)
+											float floatValue = std::stof(property->GetValue(&cameraComponent));
+
+											if (ImGui::DragFloat("##Drag", &floatValue, 0.1f))
+											{
+												property->SetValue(&cameraComponent, std::to_string(floatValue));
+											}
+
+											if (ImGui::IsItemActivated())
+											{
+												// Store old value
+												oldFloatValues[propertyName] = floatValue;
+											}
+
+											if (ImGui::IsItemDeactivatedAfterEdit())
+											{
+												float newValue = floatValue;
+												float oldValue = oldFloatValues[propertyName];
+												Entity entity = g_SelectedEntity;
+
+												// Clean up the stored old value
+												oldFloatValues.erase(propertyName);
+
+												g_UndoRedoManager.ExecuteCommand(
+													[entity, propertyName, newValue]() {
+														auto& component = g_Coordinator.GetComponent<CameraComponent>(entity);
+														const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+														auto propIt = std::find_if(properties.begin(), properties.end(),
+															[&propertyName](const ReflectionPropertyBase* prop) {
+																return prop->GetName() == propertyName;
+															});
+														if (propIt != properties.end())
+														{
+															(*propIt)->SetValue(&component, std::to_string(newValue));
+														}
+													},
+													[entity, propertyName, oldValue]() {
+														auto& component = g_Coordinator.GetComponent<CameraComponent>(entity);
+														const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+														auto propIt = std::find_if(properties.begin(), properties.end(),
+															[&propertyName](const ReflectionPropertyBase* prop) {
+																return prop->GetName() == propertyName;
+															});
+														if (propIt != properties.end())
+														{
+															(*propIt)->SetValue(&component, std::to_string(oldValue));
+														}
+													}
+												);
+											}
+										}
+									}
+									ImGui::PopID();
+								}
+							}
+						}
+
 						else if (className == "ParticleComponent")
 						{
 							// Custom UI for MetadataComponent
@@ -1410,8 +1620,8 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("No entity selected or invalid entity ID.");
 			}
 		}
-
-		else {
+		else 
+		{
 			// Convert paths to strings for comparison
 			std::string selectedFilePath = m_SelectedFile.string();
 			std::replace(selectedFilePath.begin(), selectedFilePath.end(), '/', '\\');

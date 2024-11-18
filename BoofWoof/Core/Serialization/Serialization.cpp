@@ -400,7 +400,6 @@ bool Serialization::LoadScene(const std::string& filepath) {
                     std::string TextureName;
                     
                     GraphicsComponent graphicsComponent(modelName, entity);
-                    graphicsComponent.SetModelID(modelID);
 					graphicsComponent.clearTextures();
 
                     if (GData.HasMember("Texture"))
