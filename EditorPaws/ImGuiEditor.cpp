@@ -416,6 +416,24 @@ void ImGuiEditor::InspectorWindow()
 
 						}
 					}
+					if (ImGui::Selectable("Particle Component"))
+					{
+						if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, ParticleComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, ParticleComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<ParticleComponent>(g_SelectedEntity);
+								}
+							);
+
+						}
+					}
 					ImGui::EndPopup();
 				}
 
@@ -471,7 +489,7 @@ void ImGuiEditor::InspectorWindow()
 
 					if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
 					{
-						if (ImGui::Selectable("Graphics Component"))
+						if (ImGui::Selectable("Animation Component"))
 						{
 							auto componentData = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
 
@@ -540,6 +558,25 @@ void ImGuiEditor::InspectorWindow()
 								[this, componentData]() {
 									if (!g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity))
 										g_Coordinator.AddComponent<CollisionComponent>(g_SelectedEntity, componentData);
+								}
+							);
+						}
+					}
+
+					if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("Particle Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<ParticleComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, componentData);
 								}
 							);
 						}
@@ -1185,6 +1222,15 @@ void ImGuiEditor::InspectorWindow()
 							if (ImGui::CollapsingHeader("Collision", ImGuiTreeNodeFlags_None))
 							{
 								// Add custom collision component UI here
+							}
+						}
+
+						else if (className == "ParticleComponent")
+						{
+							// Custom UI for MetadataComponent
+							if (ImGui::CollapsingHeader("Particle", ImGuiTreeNodeFlags_None))
+							{
+
 							}
 						}
 					}

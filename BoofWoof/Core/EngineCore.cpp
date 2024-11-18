@@ -126,6 +126,7 @@ void EngineCore::OnInit()
 	ReflectionManager::Instance().RegisterComponentType<AudioComponent>("AudioComponent");
 	ReflectionManager::Instance().RegisterComponentType<BehaviourComponent>("BehaviourComponent");
 	ReflectionManager::Instance().RegisterComponentType<CollisionComponent>("CollisionComponent");
+	ReflectionManager::Instance().RegisterComponentType<ParticleComponent>("ParticleComponent");
 }
 
 void EngineCore::OnUpdate()
