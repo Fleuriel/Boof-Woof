@@ -5,6 +5,7 @@
 
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
+#include "../Utilities/Components/ParticleComponent.hpp"
 #include "Camera.h"
 #include "Animation/AnimationManager.h"
 

@@ -9,6 +9,7 @@
 #include "Windows/WindowManager.h"
 
 #include "Input/Input.h"
+#include "EngineCore.h"
 
 
 bool GraphicsSystem::debug = false;
@@ -19,6 +20,7 @@ bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
 
 Camera GraphicsSystem::camera;
+ParticleComponent Particle_cmp;
 glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 
 //int GraphicsSystem::set_Texture_ = 0;
@@ -91,7 +93,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//fontSystem.init_font();
-
+	
 
 }
 
@@ -129,6 +131,28 @@ void GraphicsSystem::UpdateLoop() {
 
 	shdrParam.View = camera.GetViewMatrix();
 	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
+	//static bool particleInit = false;
+	//if (!particleInit) {
+	//	//Particle_cmp.setMesh(g_ResourceManager.getModel("sphere")->meshes[0]);
+	//	Particle_cmp.init();
+	//	particleInit = true;
+	//}
+	//g_AssetManager.GetShader("instanced").Use();
+	//g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
+	//g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
+	//glPointSize(10.0f);
+	//
+	//
+	//shdrParam.WorldMatrix = { {1.0f, 0.0f, 0.0f, 0.0f},
+	//						{0.0f, 1.0f, 0.0f, 0.0f},
+	//						{0.0f, 0.0f, 1.0f, 0.0f},
+	//						{0.0f, 0.0f, 0.0f, 1.0f} };
+	//g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+	////SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
+	//Particle_cmp.update(static_cast<float>(g_Core->m_DeltaTime));
+	//Particle_cmp.draw();
+	//g_AssetManager.GetShader("instanced").UnUse();
+
 
 	// Setup camera and projection matrix
 	//glm::mat4 view_ = camera.GetViewMatrix();
