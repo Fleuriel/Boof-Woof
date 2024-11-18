@@ -131,27 +131,27 @@ void GraphicsSystem::UpdateLoop() {
 
 	shdrParam.View = camera.GetViewMatrix();
 	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
-	static bool particleInit = false;
-	if (!particleInit) {
-		//Particle_cmp.setMesh(g_ResourceManager.getModel("sphere")->meshes[0]);
-		Particle_cmp.init();
-		particleInit = true;
-	}
-	g_AssetManager.GetShader("instanced").Use();
-	g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
-	g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
-	glPointSize(10.0f);
-	
-	
-	shdrParam.WorldMatrix = { {1.0f, 0.0f, 0.0f, 0.0f},
-							{0.0f, 1.0f, 0.0f, 0.0f},
-							{0.0f, 0.0f, 1.0f, 0.0f},
-							{0.0f, 0.0f, 0.0f, 1.0f} };
-	g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
-	//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
-	Particle_cmp.update(static_cast<float>(g_Core->m_DeltaTime));
-	Particle_cmp.draw();
-	g_AssetManager.GetShader("instanced").UnUse();
+	//static bool particleInit = false;
+	//if (!particleInit) {
+	//	//Particle_cmp.setMesh(g_ResourceManager.getModel("sphere")->meshes[0]);
+	//	Particle_cmp.init();
+	//	particleInit = true;
+	//}
+	//g_AssetManager.GetShader("instanced").Use();
+	//g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
+	//g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
+	//glPointSize(10.0f);
+	//
+	//
+	//shdrParam.WorldMatrix = { {1.0f, 0.0f, 0.0f, 0.0f},
+	//						{0.0f, 1.0f, 0.0f, 0.0f},
+	//						{0.0f, 0.0f, 1.0f, 0.0f},
+	//						{0.0f, 0.0f, 0.0f, 1.0f} };
+	//g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+	////SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
+	//Particle_cmp.update(static_cast<float>(g_Core->m_DeltaTime));
+	//Particle_cmp.draw();
+	//g_AssetManager.GetShader("instanced").UnUse();
 
 
 	// Setup camera and projection matrix
