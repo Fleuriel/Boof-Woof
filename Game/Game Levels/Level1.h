@@ -3,6 +3,7 @@
 #include "Level Manager/Level.h"
 #include "ECS/Coordinator.hpp"
 #include "../Systems/CameraController/CameraController.h"
+#include "../Systems/BoneCatcher/BoneCatcher.h"
 
 Entity playerEnt{};
 CameraController* cameraController = nullptr;
@@ -12,6 +13,7 @@ class Level1 : public Level
 	void LoadLevel()
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/TestScene.json");
+		g_BoneCatcher.OnLoad();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -34,16 +36,23 @@ class Level1 : public Level
 		{ 
 			// Ensure player entity is valid
 			cameraController = new CameraController(playerEnt);
+			g_BoneCatcher.OnInitialize();
 		}
 	}
 
 	void UpdateLevel(double deltaTime)
 	{
 		cameraController->Update(deltaTime);
+		g_BoneCatcher.OnUpdate(deltaTime);
 
 		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1) 
 		{
 			cameraController->ToggleCameraMode();
+		}
+
+		if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
+		{
+			g_BoneCatcher.Stop();
 		}
 
 		// Space to go back mainmenu
@@ -51,6 +60,7 @@ class Level1 : public Level
 		{
 			g_LevelManager.SetNextLevel("MainMenu");
 		}
+
 	}
 
 	void FreeLevel() 
