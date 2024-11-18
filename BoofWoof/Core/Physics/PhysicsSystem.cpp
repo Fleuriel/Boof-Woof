@@ -281,7 +281,7 @@ JPH::PhysicsSystem* MyPhysicsSystem::CreatePhysicsSystem() {
     );
 
     // Set gravity
-    mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, -9.81f * 20, 0.0f));
+    mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, -9.81f, 0.0f));
     //mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, 0.0f, 0.0f));
 
     std::cout << "Jolt physics system created" << std::endl;
@@ -320,6 +320,16 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
 
             // Retrieve the physics body
             JPH::Body* body = collisionComponent.GetPhysicsBody();
+
+            if (body != nullptr && body->GetMotionType() == JPH::EMotionType::Dynamic) {
+                JPH::Vec3 gravity = mPhysicsSystem->GetGravity();
+                JPH::Vec3 velocity = body->GetLinearVelocity();
+                //std::cout << "Entity ID: " << entity
+                //    << " Gravity: (" << gravity.GetX() << ", " << gravity.GetY() << ", " << gravity.GetZ() << ")"
+                //    << " Velocity: (" << velocity.GetX() << ", " << velocity.GetY() << ", " << velocity.GetZ() << ")"
+                //    << std::endl;
+            }
+
             if (body != nullptr && !body->GetID().IsInvalid()) {
                 // Get the new rotation from the TransformComponent
                 glm::quat newRotation = transform.GetRotation();

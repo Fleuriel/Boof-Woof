@@ -63,20 +63,41 @@ public:
 		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody() != nullptr;
 	}
 
-	virtual void SetVelocity(Entity entity, glm::vec3 velocity) override
+	virtual void SetVelocity(Entity entity, glm::vec3 inputVelocity) override
 	{
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
 		{
 			auto* body = g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody();
 			if (body->GetMotionType() == JPH::EMotionType::Dynamic)
 			{
-				body->SetLinearVelocity(JPH::Vec3(velocity.x, velocity.y, velocity.z));
+				JPH::Vec3 currentVelocity = body->GetLinearVelocity();
+
+				// Combine gravity with player input velocity
+				JPH::Vec3 newVelocity(inputVelocity.x, currentVelocity.GetY(), inputVelocity.z);
+
+				body->SetLinearVelocity(newVelocity);
+
+				// std::cout << "Set Velocity: (" << newVelocity.GetX() << ", " << newVelocity.GetY() << ", " << newVelocity.GetZ() << ")" << std::endl;
 			}
 		}
 		else
 		{
 			std::cerr << "Entity " << entity << " does not have a valid CollisionComponent or PhysicsBody. Skipping SetVelocity." << std::endl;
 		}
+	}
+
+	virtual glm::vec3 GetVelocity(Entity entity) override
+	{
+		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
+		{
+			auto* body = g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody();
+			if (body->GetMotionType() == JPH::EMotionType::Dynamic)
+			{
+				JPH::Vec3 velocity = body->GetLinearVelocity();
+				return glm::vec3(velocity.GetX(), velocity.GetY(), velocity.GetZ());
+			}
+		}
+		return glm::vec3(0.0f); // Return zero velocity for static or invalid entities
 	}
 
 };

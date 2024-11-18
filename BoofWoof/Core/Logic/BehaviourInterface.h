@@ -33,6 +33,7 @@ struct engine_interface
 	virtual bool HaveCollisionComponent(Entity entity) = 0;
 	virtual bool HavePhysicsBody(Entity entity) = 0;
 	virtual void SetVelocity(Entity entity, glm::vec3 velocity) = 0;
+	virtual glm::vec3 GetVelocity(Entity entity) = 0; // New function
 };
 
 #ifdef GAME_ENGINE
