@@ -41,6 +41,9 @@
 // MATERIAL ASSETS
 #define FILEPATH_ASSET_MATERIAL					std::string("..\\BoofWoof\\Assets\\Material")
 
+// ANIMATION ASSETS //
+#define FILEPATH_ASSET_ANIMATIONS				std::string("..\\BoofWoof\\Assets\\Animations")
+
 // ASSET TRASHBIN //
 #define FILEPATH_ASSET_TRASHBIN					std::string("..\\BoofWoof\\Assets\\Trashbin")
 

@@ -156,15 +156,15 @@ void AssetManager::LoadAll() {
         fs::create_directory(FILEPATH_RESOURCES);
 
 #ifdef _DEBUG
-    bool loadTextures   = AssetManager::LoadTextures(),
-        loadObjects     = LoadObjects(),
+    bool loadTextures = AssetManager::LoadTextures(),
+        loadObjects = LoadObjects(),
         //loadSprites   = AssetManager::LoadSprites(),
         //loadSounds    = AssetManager::LoadSounds(),
-        loadFonts     = AssetManager::LoadFonts(),
-        loadScenes      = AssetManager::LoadScenes(),
+        loadFonts = AssetManager::LoadFonts(),
+        loadScenes = AssetManager::LoadScenes(),
         //loadPrefabs   = AssetManager::LoadPrefabs(),
-        loadShaders     = AssetManager::LoadShaders();
-       // LoadObjects();
+        loadShaders = AssetManager::LoadShaders(),
+        loadAnimations = AssetManager::LoadAnimations();
 
     std::cout
         << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
@@ -1244,6 +1244,117 @@ bool AssetManager::ReloadFonts() {
     LoadFonts();
     return g_ResourceManager.ReloadFontsDDS();
 }
+
+
+
+
+
+
+
+
+
+bool AssetManager::LoadAnimations() {
+    Currentlyloading = true;
+    std::string filepath(FILEPATH_ASSET_ANIMATIONS);
+
+    if (fs::is_directory(filepath)) {
+        for (const auto& entry : fs::directory_iterator(filepath)) {
+
+
+            std::string FilePath = filepath + "\\" + entry.path().filename().string();
+            //std::cout << "Font file " << FilePath << " Found." << std::endl;
+
+            size_t pos = entry.path().filename().string().find_last_of('.');
+            if (pos != std::string::npos) {
+
+                std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
+                //std::cout << nameWithoutExtension << std::endl;
+
+                std::string Extension = entry.path().filename().string().substr(pos);
+                //std::cout << Extension;
+                std::string allowedExtensions = ".fbx";
+
+                // Check if the substring exists in the full string
+                size_t found = allowedExtensions.find(toLowerCase(Extension));
+
+                if (found == std::string::npos) {
+                    DiscardToTrashBin(entry.path().string(), FILEPATH_ASSET_ANIMATIONS);
+                    continue;
+                }
+
+                AnimationFiles.push_back(entry.path().string());
+
+#ifdef _DEBUG
+                std::cout << "\n**************************************************************************************\n";
+                std::cout << nameWithoutExtension << " detected successfully!\n";
+#endif // DEBUG
+
+
+                
+
+            }
+            else
+            {
+#ifdef _DEBUG
+                std::cout << "File " << entry.path().filename().string() << " is missing file extension.\n";
+#endif // DEBUG
+            }
+
+        }
+        Currentlyloading = false;
+        return true;
+    }
+    else {
+        // Print error
+#ifdef _DEBUG
+        std::cout << "The specified path is not a directory." << std::endl;
+#endif // DEBUG
+        Currentlyloading = false;
+        return false;
+    }
+
+}
+
+bool AssetManager::FreeAnimations() {
+    return 0;
+}
+
+bool AssetManager::ReloadAnimations() {
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

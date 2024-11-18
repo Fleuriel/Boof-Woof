@@ -1184,6 +1184,33 @@ void ImGuiEditor::InspectorWindow()
 
 							}
 						}
+						else if (className == "AnimationComponent") {
+							// Show the dropdown menu if there are any files
+							if (!g_AssetManager.AnimationFiles.empty()) {
+								static int selectedFileIndex = -1; // To remember the selected index
+
+								if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
+									if (ImGui::BeginCombo("Select Animation", selectedFileIndex == -1 ? "None" : g_AssetManager.AnimationFiles[selectedFileIndex].c_str())) {
+										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
+											bool isSelected = (selectedFileIndex == i);
+											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
+												selectedFileIndex = i; // Update the selected file index
+											}
+											if (isSelected) {
+												ImGui::SetItemDefaultFocus(); // Set the default focus to the selected item
+											}
+										}
+										ImGui::EndCombo();
+									}
+								}
+							}
+							else {
+								if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
+									ImGui::Text("No animations found.");
+								}
+							}
+
+						}
 						else if (className == "AudioComponent")
 						{
 							// Custom UI for AudioComponent

@@ -75,6 +75,9 @@ public:
 	bool FreeShaders();																		//Function to free shaders
 	bool ReloadShaders();																	//Function to reload shaders
 
+	bool LoadAnimations();																	//Function to load animations
+	bool FreeAnimations();																	//Function to free animations
+	bool ReloadAnimations();																//Function to reload animations
 
 	bool LoadMaterials();
 	bool ReloadMaterials();
@@ -94,6 +97,7 @@ public:
 
 	MaterialComponent LoadMaterialFromFile(const std::string& filePath);
 
+	std::vector<std::string> AnimationFiles;													//Container to store animation file names
 
 private:
 
@@ -105,6 +109,8 @@ private:
 	std::set<std::wstring> ShaderFiles;														//Container to store shader file names
 	std::set<std::wstring> FontFiles;														//Container to store font file names
 	std::set<std::wstring> MaterialFiles;
+
+
 
 
 	//Containers
