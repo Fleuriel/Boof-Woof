@@ -288,51 +288,6 @@ JPH::PhysicsSystem* MyPhysicsSystem::CreatePhysicsSystem() {
     return mPhysicsSystem;
 }
 
-//void MyPhysicsSystem::OnUpdate(float deltaTime) {
-//    ++_step;
-//
-//    JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
-//
-//    // Iterate through all entities that match the PhysicsSystem signature
-//    auto allEntities = g_Coordinator.GetAliveEntitiesSet();
-//
-//    for (auto& entity : allEntities) {
-//        if (g_Coordinator.HaveComponent<TransformComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-//            auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
-//            auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
-//
-//            JPH::RVec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
-//            glm::vec3 scale = transform.GetScale();
-//
-//            // Debug output to check Position
-//            std::cout << "Entity ID: " << entity << " Position = (" << transform.GetPosition().x << ", " << transform.GetPosition().y << ", " << transform.GetPosition().z << ")" << std::endl;
-//
-//            // Only add a new body if it hasn't already been added
-//            if (!collisionComponent.HasBodyAdded()) {
-//                AddEntityBody(entity);
-//                collisionComponent.SetHasBodyAdded(true); // Mark as added
-//            }
-//
-//            JPH::Vec3 velocity = bodyInterface.GetLinearVelocity(bodyID);
-//
-//            // Debug output to check Position
-//            std::cout << "Entity ID: " << entity << " Jolt x: " << position.GetX() << " Jolt y: " << position.GetY() << " Jolt z: " << position.GetZ() << std::endl;
-//            std::cout << "Step " << _step << ": Position = (" << position.GetX() << ", " << position.GetY() << ", " << position.GetZ() 
-//                << "), Velocity = (" << velocity.GetX() << ", " << velocity.GetY() << ", " << velocity.GetZ() << ")" << std::endl;
-//
-//            // Simulate physics
-//            //mPhysicsSystem->Update(deltaTime, 1, mTempAllocator, mJobSystem);
-//
-//        }
-//    }
-//
-//    // Simulate physics
-//    mPhysicsSystem->Update(deltaTime, 1, mTempAllocator, mJobSystem);
-//
-//    // Update the entities' transforms after simulation
-//    UpdateEntityTransforms();
-//}
-
 void MyPhysicsSystem::OnUpdate(float deltaTime) {
     ++_step;
 
@@ -424,8 +379,10 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
 }
 
 void MyPhysicsSystem::AddEntityBody(Entity entity) {
-    if (g_Coordinator.HaveComponent<TransformComponent>(entity) && g_Coordinator.HaveComponent<GraphicsComponent>(entity)
-        && g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+    if (g_Coordinator.HaveComponent<TransformComponent>(entity) &&
+        g_Coordinator.HaveComponent<GraphicsComponent>(entity) &&
+        g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+
         auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
         auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
         auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
@@ -434,17 +391,14 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         std::string modelName = graphicsComp.getModelName();
 
         if (modelName.empty()) {
-            //std::cerr << "AddEntityBody: Entity " << entity << " has an invalid or missing model." << std::endl;
+            std::cerr << "AddEntityBody: Entity " << entity << " has an invalid or missing model." << std::endl;
             return;
         }
 
         std::cout << "Model Name: " << modelName << std::endl;
         ObjectType objectType = GetObjectTypeFromModel(modelName);
 
-        // Use GetName() to check if this entity is the player
-        std::string name = g_Coordinator.GetComponent<MetadataComponent>(entity).GetName();
-        bool isPlayer = (name == "Player");
-
+        // Get the position, scale, and rotation from the TransformComponent
         JPH::RVec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
         glm::vec3 scale = transform.GetScale();
         glm::quat rotation = transform.GetRotation();
@@ -452,17 +406,17 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         // Create shape based on object type
         JPH::Shape* shape = CreateShapeForObjectType(objectType, scale);
 
-        // Set motion type based on whether the entity is the player
-        JPH::EMotionType motionType = isPlayer ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
+        // Set motion type based on IsDynamic in CollisionComponent
+        bool isDynamic = collisionComponent.IsDynamic();
+        JPH::EMotionType motionType = isDynamic ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
 
         // Define body creation settings
         JPH::BodyCreationSettings bodySettings(
-            //boxShape,
             shape,
             position,
-            JPH::Quat(rotation.w, rotation.x, rotation.y, rotation.z),  // Apply initial rotation
-            motionType, // Set Motion Type for entity
-            motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING  // Layer based on motion type
+            JPH::Quat(rotation.w, rotation.x, rotation.y, rotation.z), // Apply initial rotation
+            motionType,
+            motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING // Layer based on motion type
         );
 
         JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
@@ -481,8 +435,8 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             bodyID = body->GetID();
             bodyInterface.AddBody(body->GetID(), JPH::EActivation::Activate);
 
-            // Prevent player body from sleeping
-            if (isPlayer) {
+            // Prevent dynamic bodies (like the player) from sleeping
+            if (isDynamic) {
                 body->SetAllowSleeping(false);
             }
 
@@ -492,53 +446,38 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
     }
 }
 
-//void MyPhysicsSystem::UpdateEntityBody(Entity entity) {
-//    if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-//        auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
-//        auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
-//
-//        // Remove existing body
-//        RemoveEntityBody(entity);
-//
-//        // Create a new body with the updated AABB
-//        JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, transform.GetScale(), collisionComponent.GetAABBSize());
-//
-//        JPH::BodyCreationSettings bodySettings(
-//            newShape,
-//            JPH::RVec3(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z),
-//            JPH::Quat::sIdentity(),
-//            JPH::EMotionType::Dynamic,
-//            Layers::MOVING
-//        );
-//
-//        JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
-//        JPH::Body* body = bodyInterface.CreateBody(bodySettings);
-//        bodyInterface.AddBody(body->GetID(), JPH::EActivation::Activate);
-//        collisionComponent.SetPhysicsBody(body);
-//        collisionComponent.SetHasBodyAdded(true);
-//    }
-//}
-
-void MyPhysicsSystem::UpdateEntityBody(Entity entity) {
-    if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+void MyPhysicsSystem::UpdateEntityBody(Entity entity)
+{
+    if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
+    {
         auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
         auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
 
         // Remove the existing body if it exists
         JPH::Body* oldBody = collisionComponent.GetPhysicsBody();
-        if (oldBody != nullptr && !oldBody->GetID().IsInvalid()) {
+        if (oldBody != nullptr && !oldBody->GetID().IsInvalid())
+        {
             mPhysicsSystem->GetBodyInterface().RemoveBody(oldBody->GetID());
         }
 
-        // Create a new body with the updated AABB size
+        // If the entity is a player, it must be dynamic
+        if (collisionComponent.IsPlayer())
+        {
+            collisionComponent.SetIsDynamic(true);
+        }
+
+        // Determine motion type based on the dynamic/static flag
+        JPH::EMotionType motionType = collisionComponent.IsDynamic() ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
+
+        // Create a new shape and body
         JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, transform.GetScale(), collisionComponent.GetAABBSize());
 
         JPH::BodyCreationSettings bodySettings(
             newShape,
             JPH::RVec3(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z),
             JPH::Quat::sIdentity(), // Default rotation
-            JPH::EMotionType::Dynamic, // Adjust as necessary (Static, Kinematic, etc.)
-            Layers::MOVING // Adjust based on collision layer
+            motionType,
+            motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING
         );
 
         JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
@@ -548,9 +487,13 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity) {
         // Update the CollisionComponent with the new body
         collisionComponent.SetPhysicsBody(newBody);
         collisionComponent.SetHasBodyAdded(true);
+
+        // Debug log for motion type
+        std::cout << "Updated body for Entity " << entity
+            << " to " << (collisionComponent.IsDynamic() ? "Dynamic" : "Static")
+            << (collisionComponent.IsPlayer() ? " (Player)" : "") << "." << std::endl;
     }
 }
-
 
 
 void MyPhysicsSystem::UpdateEntityTransforms() {
@@ -580,42 +523,6 @@ void MyPhysicsSystem::UpdateEntityTransforms() {
         }
     }
 }
-
-
-//void MyPhysicsSystem::UpdateEntityTransforms() {
-//    auto allEntities = g_Coordinator.GetAliveEntitiesSet();
-//    for (auto& entity : allEntities) {
-//        if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-//            // std::cout << "is inside updateEntityTransform" << std::endl;
-//            auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
-//            JPH::Body* body = collisionComp.GetPhysicsBody();
-//
-//            // Ensure the body ID is valid before accessing it
-//            if (body != nullptr && !body->GetID().IsInvalid()) {
-//                // Debug statement to print the updated body position
-//                std::cout << "Updating transform for entity: " << entity << std::endl;
-//
-//                // Get the updated position and rotation from the JoltPhysics body
-//                JPH::Vec3 updatedPosition = body->GetPosition();
-//                JPH::Quat updatedRotation = body->GetRotation();
-//
-//                // Update the entity's TransformComponent
-//                auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
-//                transform.SetPosition(glm::vec3(updatedPosition.GetX(), updatedPosition.GetY(), updatedPosition.GetZ()));
-//
-//                glm::quat newRotation(updatedRotation.GetW(), updatedRotation.GetX(), updatedRotation.GetY(), updatedRotation.GetZ());
-//                glm::vec3 eulerRotation = glm::eulerAngles(newRotation);  // Convert quaternion to Euler angles
-//                transform.SetRotation(eulerRotation);
-//
-//                // Debug output of the updated position
-//                std::cout << "Updated entity position: (" << updatedPosition.GetX() << ", "
-//                    << updatedPosition.GetY() << ", " << updatedPosition.GetZ() << ")"
-//                    << "\nUpdated entity rotation: (" << eulerRotation.x << ", "
-//                    << eulerRotation.y << ", " << eulerRotation.z << ")" << std::endl;
-//            }
-//        }
-//    }
-//}
 
 void MyPhysicsSystem::RemoveEntityBody(Entity entity) {
     // Check if the entity has a CollisionComponent

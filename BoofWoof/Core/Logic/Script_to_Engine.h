@@ -67,7 +67,11 @@ public:
 	{
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
 		{
-			g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody()->SetLinearVelocity(JPH::Vec3(velocity.x, velocity.y, velocity.z));
+			auto* body = g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody();
+			if (body->GetMotionType() == JPH::EMotionType::Dynamic)
+			{
+				body->SetLinearVelocity(JPH::Vec3(velocity.x, velocity.y, velocity.z));
+			}
 		}
 		else
 		{

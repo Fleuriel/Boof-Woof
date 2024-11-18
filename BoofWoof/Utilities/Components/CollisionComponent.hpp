@@ -34,7 +34,8 @@ public:
     {
         /*Empty by design*/
     }
-    CollisionComponent(int layer) : m_CollisionLayer(layer) {}
+    CollisionComponent(int layer, bool isDynamic = false)
+        : m_CollisionLayer(layer), m_IsDynamic(isDynamic) {}
 
     ~CollisionComponent() = default;
 
@@ -43,11 +44,15 @@ public:
     void SetPhysicsBody(JPH::Body* body) { m_PhysicsBody = body; }
     void SetCollisionLayer(int layer) { m_CollisionLayer = layer; }
     void SetHasBodyAdded(bool hasBodyAdded) { m_HasBodyAdded = hasBodyAdded; }
+    void SetIsDynamic(bool isDynamic) { m_IsDynamic = isDynamic; }
+    void SetIsPlayer(bool isPlayer) { m_IsPlayer = isPlayer; }
 
     // Getters
     JPH::Body* GetPhysicsBody() const { return m_PhysicsBody; }
     int GetCollisionLayer() const { return m_CollisionLayer; }
     bool HasBodyAdded() const { return m_HasBodyAdded; }
+    bool IsDynamic() const { return m_IsDynamic; }
+    bool IsPlayer() const { return m_IsPlayer; }
 
     // AABB Size Getters and Setters
     void SetAABBSize(const glm::vec3& size) { m_AABBSize = size; }
@@ -58,6 +63,8 @@ public:
     {
         REGISTER_PROPERTY(CollisionComponent, CollisionLayer, int, SetCollisionLayer, GetCollisionLayer);
         REGISTER_PROPERTY(CollisionComponent, HasBodyAdded, bool, SetHasBodyAdded, HasBodyAdded);
+        REGISTER_PROPERTY(CollisionComponent, IsDynamic, bool, SetIsDynamic, IsDynamic);
+        REGISTER_PROPERTY(CollisionComponent, IsPlayer, bool, SetIsPlayer, IsPlayer);
     }
 
 private:
@@ -66,6 +73,8 @@ private:
     int m_CollisionLayer = 0;            // Layer used for collision filtering
     bool m_HasBodyAdded = false;         // Flag to check if the body is already added
     glm::vec3 m_AABBSize = glm::vec3(1.0f, 1.0f, 1.0f); // Default AABB size (x, y, z)
+    bool m_IsDynamic = false;             // Flag to determine if the entity is dynamic or static
+    bool m_IsPlayer = false;            // Determines if the entity is a player
 };
 
 #endif  // COLLISION_COMPONENT_HPP
