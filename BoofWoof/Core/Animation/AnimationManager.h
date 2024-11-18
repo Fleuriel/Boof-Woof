@@ -29,6 +29,9 @@ public:
     double ticksPerSecond;
     std::vector<AnimationChannel> channels;
 
+    // Default constructor
+    Animation() = default;
+
     Animation(const aiAnimation* assimpAnimation);
 };
 
