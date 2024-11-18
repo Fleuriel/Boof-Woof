@@ -133,7 +133,7 @@ void GraphicsSystem::UpdateLoop() {
 	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
 	static bool particleInit = false;
 	if (!particleInit) {
-		Particle_cmp.setMesh(g_ResourceManager.getModel("sphere")->meshes[0]);
+		//Particle_cmp.setMesh(g_ResourceManager.getModel("sphere")->meshes[0]);
 		Particle_cmp.init();
 		particleInit = true;
 	}

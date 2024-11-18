@@ -21,6 +21,25 @@ public:
 		particles.clear();
 	};
 
+
+	////// setter
+	void setDensity(float d) { density = d; }
+	void setPosMin(glm::vec3 p) { Pos_min = p; }
+	void setPosMax(glm::vec3 p) { Pos_max = p; }
+	void setVelocityMin(float v) { velocity_min = v; }
+	void setVelocityMax(float v) { velocity_max = v; }
+	void setTargetPositions(std::vector<glm::vec3> tp) { target_positions = tp; }
+
+
+	////// getter
+	float getDensity() { return density; }
+	glm::vec3 getPosMin() { return Pos_min; }
+	glm::vec3 getPosMax() { return Pos_max; }
+	float getVelocityMin() { return velocity_min; }
+	float getVelocityMax() { return velocity_max; }
+	std::vector<glm::vec3> getTargetPositions() { return target_positions; }
+
+
 	class Particle
 	{
 	public:
@@ -50,17 +69,11 @@ public:
 		float target_distance{};
 		float target_distance_count{};
 
-
 		float lifeTime{};
 		float lifeCount{};
 	};
 
-	//setter 
-
-	void setMesh(Mesh mesh)
-	{
-		particle_mesh = mesh;
-	}
+	
 
 	void init( )
 	{
@@ -163,8 +176,8 @@ public:
 				particles[i].position = getRandomVec3(Pos_min, Pos_max);
 				particles[i].velocity = randomFloat(velocity_min, velocity_max);
 
-				particles[i].direction = getDirection(particles[i].target_count);
-				particles[i].target_distance = getDistance(particles[i].target_count);
+				particles[i].direction = DirectionValue(particles[i].target_count);
+				particles[i].target_distance = DistanceValue(particles[i].target_count);
 				particles[i].target_distance_count = 0.0f;
 
 
@@ -181,8 +194,8 @@ public:
 					particles[i].target_count++;
 				}
 				particles[i].target_distance_count = 0.0f;
-				particles[i].direction = getDirection(particles[i].target_count);
-				particles[i].target_distance = getDistance(particles[i].target_count);
+				particles[i].direction = DirectionValue(particles[i].target_count);
+				particles[i].target_distance = DistanceValue(particles[i].target_count);
 			}
 			translation[i] = particles[i].position;
 			
@@ -234,7 +247,7 @@ public:
 		return randomVec;
 	}
 
-	glm::vec3 getDirection(int target_c) {
+	glm::vec3 DirectionValue(int target_c) {
 		if (target_c < target_positions.size()-1)
 		{
 			glm::vec3 direction = target_positions[target_c + 1] - target_positions[target_c];
@@ -248,7 +261,7 @@ public:
 
 	}
 
-	float getDistance(int target_c)
+	float DistanceValue(int target_c)
 	{
 		if (target_c < target_positions.size() - 1)
 		{
@@ -269,11 +282,12 @@ private:
 	glm::vec3 translation[PARTICLE_NUM]{};
 	float visibility[PARTICLE_NUM]{};
 	GLuint instanceVBO{}, visibilityVBO{}, quadVAO{}, quadVBO{}, quadEBO{};
-	Mesh particle_mesh{};
+	//Mesh particle_mesh{};
 
 	// particle killer and generator
 	float density_counter{};
 	float lifeTime{};
+
 
 	// settings
 	float density = 1.f;
