@@ -1,0 +1,5 @@
+Texture Name : NailDrawbridge
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\NailDrawbridge.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\NailDrawbridge.dds
+Compression Format : -fd BC3

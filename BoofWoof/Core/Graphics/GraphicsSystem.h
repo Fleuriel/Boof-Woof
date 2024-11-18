@@ -5,8 +5,8 @@
 
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
+#include "../Utilities/Components/CameraComponent.hpp"
 #include "../Utilities/Components/ParticleComponent.hpp"
-#include "Camera.h"
 #include "Animation/AnimationManager.h"
 
 class Model;
@@ -41,6 +41,8 @@ public:
     static bool debug;
     static bool D2; // 0 is 2D, 1 is 3D
     static bool D3; // 0 is 2D, 1 is 3D
+
+	static bool lightOn;
     
     
     int set_Texture_T;
@@ -59,7 +61,7 @@ public:
 
     void UpdateViewportSize(int width, int height);  // Method to handle viewport resizing
     inline void SetEditorMode(bool EditorMode) { editorMode = EditorMode; };
-	Camera& GetCamera() { return camera; };
+	CameraComponent& GetCamera() { return camera; };
 
 	glm::vec3 GetLightPos() { return lightPos; };
 	void SetLightPos(glm::vec3 pos) { lightPos = pos; };
@@ -77,14 +79,44 @@ public:
     // GraphicsSystem() : fbo(0), textureColorbuffer(0), rbo(0){}
 
 
+    void InitializePickingFramebuffer(int width, int height);
+
+    void RenderSceneForPicking();
+
+    glm::vec3 EncodeIDToColor(Entity id);
+
+    Entity DecodeColorToID(unsigned char* data);
+
+    inline void SetPickingRenderer(bool flag) {
+        needsPickingRender = flag;
+    }
+    inline GLuint GetPickingFBO() {
+        return pickingFBO;
+    }
+
+    inline GLuint GetPickingTexture() const
+    {
+        return pickingColorTexture;
+    }
+
+    int GetViewportWidth() const { return viewportWidth; }
+    int GetViewportHeight() const { return viewportHeight; }
+
+
 private:
     unsigned int fbo;
     unsigned int textureColorbuffer;  // Store the framebuffer texture ID here
     unsigned int rbo;
     bool editorMode = false;
     static GLFWwindow* newWindow;  // OpenGL window
-	static Camera camera;
+	static CameraComponent camera;
     static glm::vec3 lightPos;
+    GLuint pickingFBO;
+    GLuint pickingColorTexture;
+    GLuint pickingRBO;
+    int viewportWidth = 0;
+    int viewportHeight = 0;
+    bool needsPickingRender = false;
 
 };
 
