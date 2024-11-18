@@ -134,47 +134,89 @@ ObjectType MyPhysicsSystem::GetObjectTypeFromModel(const std::string& modelName)
     return type;
 }
 
-// Define different shapes based on ObjectType
-JPH::Shape* MyPhysicsSystem::CreateShapeForObjectType(ObjectType type, const glm::vec3& scale) {
+//// Define different shapes based on ObjectType
+//JPH::Shape* MyPhysicsSystem::CreateShapeForObjectType(ObjectType type, const glm::vec3& scale) {
+//    switch (type) {
+//    case ObjectType::Bed:
+//        return new JPH::BoxShape(JPH::Vec3(scale.x * 1.5f, scale.y * 0.5f, scale.z * 2.0f)); // Dimensions for bed
+//
+//    case ObjectType::Chair:
+//        return new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.8f, scale.z * 0.5f)); // Dimensions for chair
+//
+//    case ObjectType::Table:
+//        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.0f, scale.y * 0.4f, scale.z * 2.0f)); // Dimensions for table x = sideways, y = height, z = forwards
+//
+//    case ObjectType::Table2:
+//        return new JPH::BoxShape(JPH::Vec3(scale.x * 0.8f, scale.y * 0.4f, scale.z * 2.0f)); // Dimensions for table x = sideways, y = height, z = forwards
+//
+//    case ObjectType::Couch:
+//        return new JPH::BoxShape(JPH::Vec3(scale.x * 1.5f, scale.y * 0.6f, scale.z * 1.0f)); // Dimensions for couch
+//
+//    case ObjectType::Corgi:
+//        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.8f, scale.y * 0.3f, scale.z * 1.3f)); // Dimensions for corgi x = length of dog, y = height, z = thickness
+//
+//    case ObjectType::Corgi_small:
+//        return new JPH::BoxShape(JPH::Vec3(scale.x * 1.4f, scale.y * 0.5f, scale.z * 0.6f)); // Dimensions for corgi x = length of dog, y = height, z = thickness
+//
+//    case ObjectType::FloorCastle:
+//        return new JPH::BoxShape(JPH::Vec3(scale.x * 5.0f, scale.y * 0.15f, scale.z * 4.2f)); // Large, flat shape for the floor
+//
+//    case ObjectType::Wall:
+//        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.5f, scale.y * 3.0f, scale.z * 0.8f)); // Thin, tall shape for walls x = width, y = height, z = thickness
+//
+//    case ObjectType::Wardrobe:
+//        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.0f, scale.y * 2.0f, scale.z * 1.0f)); // Tall and narrow for wardrobe x = width, y = height, z = thickness
+//
+//    case ObjectType::Wardrobe2:
+//        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.8f, scale.y * 2.0f, scale.z * 1.0f)); // Tall and narrow for wardrobe x = width, y = height, z = thickness
+//
+//    default:
+//        return new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.5f, scale.z * 0.5f)); // Default dimensions
+//    }
+//}
+
+JPH::Shape* MyPhysicsSystem::CreateShapeForObjectType(ObjectType type, const glm::vec3& scale, const glm::vec3& customAABB) 
+{
+    glm::vec3 dimensions = (customAABB != glm::vec3(0.0f)) ? customAABB : scale;
+
     switch (type) {
     case ObjectType::Bed:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 1.5f, scale.y * 0.5f, scale.z * 2.0f)); // Dimensions for bed
+        return new JPH::BoxShape(JPH::Vec3(dimensions.x * 1.5f, dimensions.y * 0.5f, dimensions.z * 2.0f));
 
     case ObjectType::Chair:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.8f, scale.z * 0.5f)); // Dimensions for chair
+        return new JPH::BoxShape(JPH::Vec3(dimensions.x * 0.5f, dimensions.y * 0.8f, dimensions.z * 0.5f));
 
     case ObjectType::Table:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.0f, scale.y * 0.4f, scale.z * 2.0f)); // Dimensions for table x = sideways, y = height, z = forwards
+        return new JPH::BoxShape(JPH::Vec3(dimensions.x * 2.0f, dimensions.y * 0.4f, dimensions.z * 2.0f));
 
     case ObjectType::Table2:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 0.8f, scale.y * 0.4f, scale.z * 2.0f)); // Dimensions for table x = sideways, y = height, z = forwards
+        return new JPH::BoxShape(JPH::Vec3(dimensions.x * 0.8f, dimensions.y * 0.4f, dimensions.z * 2.0f));
 
     case ObjectType::Couch:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 1.5f, scale.y * 0.6f, scale.z * 1.0f)); // Dimensions for couch
+        return new JPH::BoxShape(JPH::Vec3(dimensions.x * 1.5f, dimensions.y * 0.6f, dimensions.z * 1.0f));
 
     case ObjectType::Corgi:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.8f, scale.y * 0.3f, scale.z * 1.3f)); // Dimensions for corgi x = length of dog, y = height, z = thickness
+        return new JPH::BoxShape(JPH::Vec3(dimensions.x * 2.8f, dimensions.y * 0.3f, dimensions.z * 1.3f));
 
     case ObjectType::Corgi_small:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 1.4f, scale.y * 0.5f, scale.z * 0.6f)); // Dimensions for corgi x = length of dog, y = height, z = thickness
+        return new JPH::BoxShape(JPH::Vec3(dimensions.x * 1.4f, dimensions.y * 0.5f, dimensions.z * 0.6f));
 
     case ObjectType::FloorCastle:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 5.0f, scale.y * 0.15f, scale.z * 4.2f)); // Large, flat shape for the floor
+        return new JPH::BoxShape(JPH::Vec3(dimensions.x * 5.0f, dimensions.y * 0.15f, dimensions.z * 4.2f));
 
     case ObjectType::Wall:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.5f, scale.y * 3.0f, scale.z * 0.8f)); // Thin, tall shape for walls x = width, y = height, z = thickness
+        return new JPH::BoxShape(JPH::Vec3(dimensions.x * 2.5f, dimensions.y * 3.0f, dimensions.z * 0.8f));
 
     case ObjectType::Wardrobe:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.0f, scale.y * 2.0f, scale.z * 1.0f)); // Tall and narrow for wardrobe x = width, y = height, z = thickness
+        return new JPH::BoxShape(JPH::Vec3(dimensions.x * 2.0f, dimensions.y * 2.0f, dimensions.z * 1.0f));
 
     case ObjectType::Wardrobe2:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 2.8f, scale.y * 2.0f, scale.z * 1.0f)); // Tall and narrow for wardrobe x = width, y = height, z = thickness
+        return new JPH::BoxShape(JPH::Vec3(dimensions.x * 2.8f, dimensions.y * 2.0f, dimensions.z * 1.0f));
 
     default:
-        return new JPH::BoxShape(JPH::Vec3(scale.x * 0.5f, scale.y * 0.5f, scale.z * 0.5f)); // Default dimensions
+        return new JPH::BoxShape(JPH::Vec3(dimensions.x * 0.5f, dimensions.y * 0.5f, dimensions.z * 0.5f));
     }
 }
-
 
 void MyPhysicsSystem::InitializeJolt() {
 
@@ -449,6 +491,66 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         }
     }
 }
+
+//void MyPhysicsSystem::UpdateEntityBody(Entity entity) {
+//    if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+//        auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+//        auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+//
+//        // Remove existing body
+//        RemoveEntityBody(entity);
+//
+//        // Create a new body with the updated AABB
+//        JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, transform.GetScale(), collisionComponent.GetAABBSize());
+//
+//        JPH::BodyCreationSettings bodySettings(
+//            newShape,
+//            JPH::RVec3(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z),
+//            JPH::Quat::sIdentity(),
+//            JPH::EMotionType::Dynamic,
+//            Layers::MOVING
+//        );
+//
+//        JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
+//        JPH::Body* body = bodyInterface.CreateBody(bodySettings);
+//        bodyInterface.AddBody(body->GetID(), JPH::EActivation::Activate);
+//        collisionComponent.SetPhysicsBody(body);
+//        collisionComponent.SetHasBodyAdded(true);
+//    }
+//}
+
+void MyPhysicsSystem::UpdateEntityBody(Entity entity) {
+    if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+        auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+        auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+
+        // Remove the existing body if it exists
+        JPH::Body* oldBody = collisionComponent.GetPhysicsBody();
+        if (oldBody != nullptr && !oldBody->GetID().IsInvalid()) {
+            mPhysicsSystem->GetBodyInterface().RemoveBody(oldBody->GetID());
+        }
+
+        // Create a new body with the updated AABB size
+        JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, transform.GetScale(), collisionComponent.GetAABBSize());
+
+        JPH::BodyCreationSettings bodySettings(
+            newShape,
+            JPH::RVec3(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z),
+            JPH::Quat::sIdentity(), // Default rotation
+            JPH::EMotionType::Dynamic, // Adjust as necessary (Static, Kinematic, etc.)
+            Layers::MOVING // Adjust based on collision layer
+        );
+
+        JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
+        JPH::Body* newBody = bodyInterface.CreateBody(bodySettings);
+        bodyInterface.AddBody(newBody->GetID(), JPH::EActivation::Activate);
+
+        // Update the CollisionComponent with the new body
+        collisionComponent.SetPhysicsBody(newBody);
+        collisionComponent.SetHasBodyAdded(true);
+    }
+}
+
 
 
 void MyPhysicsSystem::UpdateEntityTransforms() {

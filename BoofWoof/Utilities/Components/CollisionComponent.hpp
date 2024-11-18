@@ -49,6 +49,10 @@ public:
     int GetCollisionLayer() const { return m_CollisionLayer; }
     bool HasBodyAdded() const { return m_HasBodyAdded; }
 
+    // AABB Size Getters and Setters
+    void SetAABBSize(const glm::vec3& size) { m_AABBSize = size; }
+    glm::vec3 GetAABBSize() const { return m_AABBSize; }
+
     // Reflection integration
     REFLECT_COMPONENT(CollisionComponent)
     {
@@ -61,6 +65,7 @@ private:
     JPH::Body* m_PhysicsBody = nullptr;  // Reference to the JoltPhysics body
     int m_CollisionLayer = 0;            // Layer used for collision filtering
     bool m_HasBodyAdded = false;         // Flag to check if the body is already added
+    glm::vec3 m_AABBSize = glm::vec3(1.0f, 1.0f, 1.0f); // Default AABB size (x, y, z)
 };
 
 #endif  // COLLISION_COMPONENT_HPP

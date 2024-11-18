@@ -1193,7 +1193,21 @@ void ImGuiEditor::InspectorWindow()
 						// Custom UI for CollisionComponent
 						if (ImGui::CollapsingHeader("Collision", ImGuiTreeNodeFlags_None))
 						{
-							// Add custom collision component UI here
+							auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(g_SelectedEntity);
+
+							// AABB Size Editor
+							glm::vec3 aabbSize = collisionComponent.GetAABBSize();
+							if (ImGui::DragFloat3("AABB Size", &aabbSize.x, 0.1f, 0.1f, 10.0f, "%.2f"))
+							{
+								// Update AABB size in the CollisionComponent
+								collisionComponent.SetAABBSize(aabbSize);
+
+								// Update the physics body in real time
+								g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+							}
+
+							// Debug output for AABB size
+							ImGui::Text("Current AABB: (%.2f, %.2f, %.2f)", aabbSize.x, aabbSize.y, aabbSize.z);
 						}
 					}
 					else if (className == "CameraComponent")

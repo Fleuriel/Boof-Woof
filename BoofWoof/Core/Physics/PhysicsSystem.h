@@ -233,7 +233,9 @@ public:
 
     // Shape creation utility methods
     ObjectType GetObjectTypeFromModel(const std::string& modelName);
-    JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& scale);
+    //JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& scale);
+    JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& scale, const glm::vec3& userAABBSize = glm::vec3(1.0f));
+    void UpdateEntityBody(Entity entity);
 
     /**************************************************************************/
     /*!
