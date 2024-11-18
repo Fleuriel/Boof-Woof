@@ -74,6 +74,9 @@ public:
 	bool FreeShaders();																		//Function to free shaders
 	bool ReloadShaders();																	//Function to reload shaders
 
+	bool LoadAnimations();																	//Function to load animations
+	bool FreeAnimations();																	//Function to free animations
+	bool ReloadAnimations();																//Function to reload animations
 
 	//Getters
 	OpenGLShader& GetShader(std::string);													//Function to access shaders
@@ -87,6 +90,8 @@ public:
 
 	bool Currentlyloading{ false };
 
+	std::vector<std::string> AnimationFiles;													//Container to store animation file names
+
 private:
 
 	//Monitoring purposes
@@ -96,6 +101,8 @@ private:
 	std::set<std::wstring> ObjectFiles;														//Container to store object file names
 	std::set<std::wstring> ShaderFiles;														//Container to store shader file names
 	std::set<std::wstring> FontFiles;														//Container to store font file names
+
+
 
 
 	//Containers
