@@ -7,6 +7,7 @@
 
 class AnimationComponent {
 public:
+
     AnimationComponent(std::shared_ptr<AnimationManager> animManager);
 
     void SetAnimation(const std::string& animationName);

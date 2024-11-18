@@ -69,4 +69,6 @@ private:
     std::unordered_map<std::string, EntityAnimationState> entityStates; // Entity-specific states
 };
 
+extern AnimationManager g_AnimationManager;
+
 #endif // ANIMATION_MANAGER_H

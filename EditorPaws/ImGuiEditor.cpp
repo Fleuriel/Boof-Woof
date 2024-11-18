@@ -8,11 +8,13 @@
 #include <ImGuiFileDialog.h>
 #include "ResourceManager/ResourceManager.h"
 #include "AssetManager/FilePaths.h"
-
-
+#include "Animation/AnimationComponent.h"
+#include "Animation/AnimationManager.h"
 
 
 namespace fs = std::filesystem;
+
+AnimationManager g_AnimationManager;
 
 //Helper function to locate save file directory
 std::string GetScenesDir()
@@ -337,6 +339,24 @@ void ImGuiEditor::InspectorWindow()
 
 						}
 					}
+					if (ImGui::Selectable("Animation Component")) {
+						if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+							g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
+									}
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+										g_Coordinator.RemoveComponent<AnimationComponent>(g_SelectedEntity);
+									}
+								}
+							);
+						}
+					}
+
 					if (ImGui::Selectable("Audio Component"))
 					{
 						if (!g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
