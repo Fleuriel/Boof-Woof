@@ -12,6 +12,7 @@
 #include <glm/gtc/epsilon.hpp>
 #include "../Utilities/Components/AnimationComponent.h"
 #include "Animation/AnimationManager.h"
+#include "../Utilities/Components/MaterialComponent.hpp"
 
 namespace fs = std::filesystem;
 
@@ -253,7 +254,7 @@ void ImGuiEditor::ImGuiViewport() {
 
 
 		// Object picking
-		if (!ImGuizmo::IsUsing() && ImGui::IsWindowFocused() && ImGui::IsMouseClicked(ImGuiMouseButton_Left)) 
+		if (!ImGuizmo::IsUsing() && ImGui::IsWindowFocused() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 		{
 			ImVec2 mousePos = ImGui::GetMousePos();
 
@@ -574,48 +575,68 @@ void ImGuiEditor::InspectorWindow()
 								}
 							);
 
+						}
 					}
-				}
-				if (ImGui::Selectable("Camera Component"))
-				{
-					if (!g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+					if (ImGui::Selectable("Camera Component"))
 					{
-						g_Coordinator.AddComponent<CameraComponent>(g_SelectedEntity, CameraComponent());
-						g_UndoRedoManager.ExecuteCommand(
-							[this]() {
-								if (!g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
-									g_Coordinator.AddComponent<CameraComponent>(g_SelectedEntity, CameraComponent());
-							},
-							[this]() {
-								if (g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
-									g_Coordinator.RemoveComponent<CameraComponent>(g_SelectedEntity);
-							}
-						);
+						if (!g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<CameraComponent>(g_SelectedEntity, CameraComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<CameraComponent>(g_SelectedEntity, CameraComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<CameraComponent>(g_SelectedEntity);
+								}
+							);
 
+						}
 					}
-				}
 
-				if (ImGui::Selectable("Particle Component"))
-				{
-					if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+					if (ImGui::Selectable("Particle Component"))
 					{
-						g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, ParticleComponent());
-						g_UndoRedoManager.ExecuteCommand(
-							[this]() {
-								if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
-									g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, ParticleComponent());
-							},
-							[this]() {
-								if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
-									g_Coordinator.RemoveComponent<ParticleComponent>(g_SelectedEntity);
-							}
-						);
+						if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, ParticleComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, ParticleComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<ParticleComponent>(g_SelectedEntity);
+								}
+							);
 
+						}
 					}
-				}
 
-				ImGui::EndPopup();
-			}
+
+					if (ImGui::Selectable("Material Component"))
+					{
+						if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<MaterialComponent>(g_SelectedEntity);
+								}
+							);
+
+						}
+					}
+
+					ImGui::EndPopup();
+				}
 
 				if (ImGui::Button("Add Components"))
 				{
@@ -743,46 +764,46 @@ void ImGuiEditor::InspectorWindow()
 						}
 					}
 
-				if (g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
-				{
-					if (ImGui::Selectable("Camera Component"))
+					if (g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
 					{
-						auto componentData = g_Coordinator.GetComponent<CameraComponent>(g_SelectedEntity);
+						if (ImGui::Selectable("Camera Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<CameraComponent>(g_SelectedEntity);
 
-						g_UndoRedoManager.ExecuteCommand(
-							[this]() {
-								if (g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
-									g_Coordinator.RemoveComponent<CameraComponent>(g_SelectedEntity);
-							},
-							[this, componentData]() {
-								if (!g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
-									g_Coordinator.AddComponent<CameraComponent>(g_SelectedEntity, componentData);
-							}
-						);
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<CameraComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<CameraComponent>(g_SelectedEntity, componentData);
+								}
+							);
+						}
 					}
-				}
 
-				if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
-				{
-					if (ImGui::Selectable("Particle Component"))
+					if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
 					{
-						auto componentData = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
+						if (ImGui::Selectable("Particle Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
 
-						g_UndoRedoManager.ExecuteCommand(
-							[this]() {
-								if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
-									g_Coordinator.RemoveComponent<ParticleComponent>(g_SelectedEntity);
-							},
-							[this, componentData]() {
-								if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
-									g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, componentData);
-							}
-						);
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<ParticleComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, componentData);
+								}
+							);
+						}
 					}
-				}
 
-				ImGui::EndPopup();
-			}
+					ImGui::EndPopup();
+				}
 
 				if (ImGui::Button("Delete Component"))
 				{
@@ -993,6 +1014,10 @@ void ImGuiEditor::InspectorWindow()
 							// Custom UI for GraphicsComponent
 							if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
 							{
+
+
+
+
 								const auto& properties = ReflectionManager::Instance().GetProperties("GraphicsComponent");
 								auto& graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
 								graphicsComponent.RegisterProperties();
@@ -1155,7 +1180,7 @@ void ImGuiEditor::InspectorWindow()
 
 									ImGui::TreePop();
 								}
-								
+
 
 							}
 						}
@@ -1612,6 +1637,15 @@ void ImGuiEditor::InspectorWindow()
 
 							}
 						}
+
+						else if (className == "MaterialComponent")
+						{
+							if (ImGui::CollapsingHeader("GetMaterials", ImGuiTreeNodeFlags_None))
+							{
+
+							}
+
+						}
 					}
 				}
 			}
@@ -1620,7 +1654,7 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("No entity selected or invalid entity ID.");
 			}
 		}
-		else 
+		else
 		{
 			// Convert paths to strings for comparison
 			std::string selectedFilePath = m_SelectedFile.string();
@@ -1668,7 +1702,7 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(newWidth, newHeight));
 				ImGui::SameLine();
 				ImGui::Text(inputTextToDisplay.c_str());
-				
+
 
 
 
@@ -1754,7 +1788,7 @@ void ImGuiEditor::InspectorWindow()
 						ImGui::Text("Format");
 						ImGui::SameLine(225);
 
-						const char* imG_OperatingSystemFormat[] = { 
+						const char* imG_OperatingSystemFormat[] = {
 							"RGB Uncompressed",
 							"ATC_RGB",
 							"ATC_RGBA_Explicit",
@@ -1787,9 +1821,9 @@ void ImGuiEditor::InspectorWindow()
 						if (ImGui::Combo("##Combo8", &OS_current_idx, imG_OperatingSystemFormat, IM_ARRAYSIZE(imG_OperatingSystemFormat))) {
 							textureInfo.format = OS_current_idx;
 						};
-							
-							
-							
+
+
+
 
 						ImGui::Spacing();
 						ImGui::Text("sRGB (Color Texture) ");
@@ -1806,7 +1840,7 @@ void ImGuiEditor::InspectorWindow()
 						ImGui::Checkbox("##CBoxGenMip1 ", &textureInfo.generateMipMaps);
 
 
-							
+
 
 						// ImGui::Text("Compression");
 						// ImGui::SameLine(225);
@@ -1927,8 +1961,8 @@ void ImGuiEditor::InspectorWindow()
 
 				newWidth = pictureWidth;
 				newHeight = pictureHeight;
-				
-				
+
+
 				if (pictureWidth > maxWidth) {
 					newWidth = maxWidth;
 					newHeight = static_cast<int>(newWidth / aspectRatio);
@@ -1957,6 +1991,10 @@ void ImGuiEditor::InspectorWindow()
 			}
 			else if (selectedFilePath.find(".mat") != std::string::npos)
 			{
+
+
+
+
 				// do some search for the Shader name:
 
 				static float WidthIndentation = 125.0f;
@@ -1970,10 +2008,13 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::SameLine(WidthIndentation);
 
 				const char* imG_Material[] = { "Shader3D", "Shader2D", " " };
-				static int Material_current_idx = 0; // Index for the selected item
+				static int Material_current_idx = materialInfo.shaderIndex; // Index for the selected item
 				//ImGui::Set
 				ImGui::SetNextItemWidth(WidthIndentation);
-				ImGui::Combo("##MatCombo1", &Material_current_idx, imG_Material, IM_ARRAYSIZE(imG_Material));
+				if (ImGui::Combo("##MatCombo1", &Material_current_idx, imG_Material, IM_ARRAYSIZE(imG_Material)))
+				{
+					materialInfo.shaderIndex = Material_current_idx;
+				}
 
 
 				/*
@@ -2024,7 +2065,22 @@ void ImGuiEditor::InspectorWindow()
 					ImGui::SetNextItemWidth(250.0f); // Adjust this value to change the color picker's width
 
 					// Display the color picker inside the popup
-					ImGui::ColorPicker4("##picker", color, ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_PickerHueBar);
+					if (ImGui::ColorPicker4("##picker", color, ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_PickerHueBar))
+					{
+						materialInfo.albedoColorRed = color[0];
+						materialInfo.albedoColorGreen = color[1];
+						materialInfo.albedoColorBlue = color[2];
+						materialInfo.albedoColorAlpha = color[3];
+
+						std::cout << "================================\n";
+						std::cout << materialInfo.albedoColorRed << '\t'
+							<< materialInfo.albedoColorGreen << '\t'
+							<< materialInfo.albedoColorBlue << '\t'
+							<< materialInfo.albedoColorAlpha << '\n';
+						std::cout << "================================\n";
+					}
+
+
 					ImGui::EndPopup();
 				}
 
@@ -2041,24 +2097,35 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("Metallic"); ImGui::SameLine(WidthIndentation); ImGui::PushItemWidth(250);
 
 
-				static float MetallicMatValue = 0.0f;
+				static float MetallicMatValue = materialInfo.metallic;
 
 				// Create a drag float that increments by 0.1 within a range of 0 to 10
-				ImGui::SliderFloat("##MetallicMat1", &MetallicMatValue, 0.0f, 1.0f, "%.3f");
+				if (ImGui::SliderFloat("##MetallicMat1", &MetallicMatValue, 0.0f, 1.0f, "%.3f"))
+				{
+					materialInfo.metallic = MetallicMatValue;
 
+				}
 				// put the value here. that can set one.
 
-				static float SmoothnessValue = 0.0f;
+				static float SmoothnessValue = materialInfo.smoothness;
 
-				ImGui::Indent(20); ImGui::Text("Smoothness"); ImGui::SameLine(WidthIndentation); ImGui::SliderFloat("##SmoothnessMat1", &SmoothnessValue, 0.0f, 1.0f, "%.3f");
-
+				ImGui::Indent(20); ImGui::Text("Smoothness"); ImGui::SameLine(WidthIndentation); 
+				if (ImGui::SliderFloat("##SmoothnessMat1", &SmoothnessValue, 0.0f, 1.0f, "%.3f"))
+				{
+					materialInfo.smoothness = SmoothnessValue;
+				}
 
 				const char* imG_MaterialAlpha[] = { "Metallic Alpha", "Albedo Alpha" };
 				static int MatAlphacurrent_idx = 0; // Index for the selected item
 				//ImGui::Set
 				ImGui::SetNextItemWidth(200.0f);
 
-				ImGui::Indent(20); ImGui::Text("Source");  ImGui::SameLine(WidthIndentation); ImGui::Combo("##MatCombo2", &MatAlphacurrent_idx, imG_MaterialAlpha, IM_ARRAYSIZE(imG_MaterialAlpha));
+				ImGui::Indent(20); ImGui::Text("Source");  ImGui::SameLine(WidthIndentation); 
+				if (ImGui::Combo("##MatCombo2", &MatAlphacurrent_idx, imG_MaterialAlpha, IM_ARRAYSIZE(imG_MaterialAlpha)))
+				{
+
+					materialInfo.materialAlpha = MatAlphacurrent_idx;
+				}
 
 
 
@@ -2277,7 +2344,7 @@ void ImGuiEditor::InspectorWindow()
 				}
 
 				// Set clear color
-				glClearColor(46.f/255.f , 46.f / 255.f, 46.f / 255.f, 1.0f);  // Set the color to clear the framebuffer to
+				glClearColor(46.f / 255.f, 46.f / 255.f, 46.f / 255.f, 1.0f);  // Set the color to clear the framebuffer to
 
 				// Bind the custom framebuffer (where you want to render)
 				glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -2312,7 +2379,7 @@ void ImGuiEditor::InspectorWindow()
 				g_AssetManager.GetShader("Material").SetUniform("viewPos", cameraPos);
 				g_AssetManager.GetShader("Material").SetUniform("metallic", MetallicMatValue);
 				g_AssetManager.GetShader("Material").SetUniform("smoothness", SmoothnessValue);
-//				g_AssetManager.GetShader("Material").SetUniform("shininess", shininessValue);  // Shininess value
+				//				g_AssetManager.GetShader("Material").SetUniform("shininess", shininessValue);  // Shininess value
 
 
 				Model* sphereModel = g_ResourceManager.getModel("sphere");
@@ -2363,6 +2430,7 @@ void ImGuiEditor::InspectorWindow()
 		}
 
 	}
+
 	ImGui::End();
 }
 
@@ -2485,42 +2553,63 @@ void ImGuiEditor::AssetWindow()
 
 		//		std::cout << m_SelectedFile << '\n';
 
-
+		static int materialCount = 1;
 				// CREATE WINDOW WITH RIGHT CLICK HERE RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHTCLICKRIGHTCLICK
 				// Alternatively, use ImGui::BeginPopupContextWindow() for right-click anywhere in the window
 		if (ImGui::BeginPopupContextWindow("WindowContextMenu", ImGuiMouseButton_Right)) {
 			if (ImGui::MenuItem("Create Material Instances")) {
-				// Handle action for "Window Option 1"
+				// Handle action for "Create Material Instances"
+
+				// Generate the material name based on the current count
+				std::string materialName = "Material_" + std::to_string(materialCount);
 
 				rapidjson::Document document;
 				document.SetObject();
 				rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
 
-				// Add name and type
-				document.AddMember("name", rapidjson::Value("Material_1", allocator), allocator);
+				// Add name and type (similar to your previous structure)
+				document.AddMember("name", rapidjson::Value(materialName.c_str(), allocator), allocator);
 				document.AddMember("type", rapidjson::Value("Example", allocator), allocator);
 
-				// Add properties (as an object)
+				// Add material properties (color, shininess, textureID, etc.)
 				rapidjson::Value properties(rapidjson::kObjectType);
-				properties.AddMember("color", rapidjson::Value("red", allocator), allocator);
-				properties.AddMember("shininess", 0.5, allocator);
-				properties.AddMember("reflectivity", 0.8, allocator);
+
+				// Adding color as a JSON array for RGBA values
+				rapidjson::Value color(rapidjson::kArrayType);
+				color.PushBack(1.0f, allocator);  // R
+				color.PushBack(0.0f, allocator);  // G
+				color.PushBack(0.0f, allocator);  // B
+				color.PushBack(1.0f, allocator);  // A (Alpha)
+				properties.AddMember("color", color, allocator);
+
+				// Add shininess
+				properties.AddMember("shininess", 0.5f, allocator);
+
+				// Add texture ID
+				properties.AddMember("textureID", 0, allocator);  // Modify this if you have a specific texture ID
+
+				// Add shader name
+				properties.AddMember("shader", rapidjson::Value("Shader3D", allocator), allocator);
+
+				// Add reflectivity
+				properties.AddMember("reflectivity", 0.8f, allocator);
+
+				// Adding the properties object to the document
 				document.AddMember("properties", properties, allocator);
 
-				// Serialize the JSON document to a string
+				// Serialize the JSON document to a string with pretty printing
 				rapidjson::StringBuffer buffer;
-				rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+				rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
 				document.Accept(writer);
 
 				// Write the JSON string to a file
-				// Edit the filePath, append a new file name (e.g., "Material_1.json")
-				std::string filePath = entireFilePath.c_str(); // Convert path to string
-				filePath += "/Material_1.mat"; // Append the new file name (you can customize this as needed)
+				std::string filePath = entireFilePath.c_str();  // Convert path to string
+				filePath += "/" + materialName + ".mat";  // Append the new file name (customize this if needed)
 
 				// Write the JSON string to the file
 				std::ofstream file(filePath);
 				if (file.is_open()) {
-					file << buffer.GetString(); // Write the serialized JSON
+					file << buffer.GetString();  // Write the serialized JSON
 					file.close();
 					std::cout << "File created: " << filePath << std::endl;
 				}
@@ -2528,7 +2617,10 @@ void ImGuiEditor::AssetWindow()
 					std::cerr << "Error: Could not create the file." << std::endl;
 				}
 
+				// Increment the material count for the next creation
+				materialCount++;
 			}
+
 			if (ImGui::MenuItem("DOES NOT CREATE MATERIAL INSTANCES")) {
 				// Handle action for "Window Option 2"
 			}

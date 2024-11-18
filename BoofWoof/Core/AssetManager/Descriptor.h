@@ -49,6 +49,34 @@ struct TextureDescriptor {
     bool LoadTextureDescriptor(const std::string& filepath);
 };
 
+struct MaterialDescriptor
+{
+
+
+    int shaderIndex;            // Select Shader
+
+    
+    float albedoColorRed;       // 0 ~ 1
+    float albedoColorGreen;     // 0 ~ 1
+    float albedoColorBlue;      // 0 ~ 1
+    float albedoColorAlpha;     // 0 ~ 1
+
+    float metallic;             // 0 ~ 1
+    float smoothness;           // 0 ~ 1
+
+
+    int materialAlpha;          // Select Albedo Stuffs.
+
+    // Save the current descriptor to a file
+    bool SaveMaterialDescriptor(const std::string& filepath);
+
+    // Load descriptor data from a file into this instance
+    bool LoadMaterialDescriptor(const std::string& filepath);
+
+
+
+};
+
 
 
 #endif // !DESCRIPTOR_H

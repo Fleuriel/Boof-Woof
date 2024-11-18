@@ -55,9 +55,6 @@ public:
    // void setTexture(std::string texture) { textureName = texture; }
 
 
-
-
-
     // Constructor and destructor
 	GraphicsComponent() {};
 	

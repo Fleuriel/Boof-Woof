@@ -151,3 +151,115 @@ bool TextureDescriptor::LoadTextureDescriptor(const std::string& filepath) {
 
 	return true;
 }
+
+
+
+
+
+
+
+bool MaterialDescriptor::SaveMaterialDescriptor(const std::string& filepath) {
+	using namespace rapidjson;
+
+	// Create a JSON document
+	Document document;
+	document.SetObject();
+	Document::AllocatorType& allocator = document.GetAllocator();
+
+	// Add members to the JSON object
+
+
+	document.AddMember("shaderIndex", shaderIndex, allocator);
+	document.AddMember("colorRed", albedoColorRed, allocator);
+	document.AddMember("colorGreen", albedoColorGreen, allocator);
+	document.AddMember("colorBlue", albedoColorBlue, allocator);
+	document.AddMember("colorAlpha", albedoColorAlpha, allocator);
+	
+	document.AddMember("metallic", metallic, allocator);
+	document.AddMember("smoothness", smoothness, allocator);
+
+	document.AddMember("materialAlpha", materialAlpha, allocator);
+
+	// Write JSON to file
+	std::ofstream ofs(filepath, std::ios::out | std::ios::trunc);
+	if (!ofs) {
+		std::cerr << "Error: Unable to open file for writing: " << filepath << std::endl;
+		return false;
+	}
+
+	// Use RapidJSON's PrettyWriter to write the document
+	OStreamWrapper osw(ofs);
+	PrettyWriter<OStreamWrapper> writer(osw);
+
+	if (!document.Accept(writer)) {
+		std::cerr << "Error: Failed to write JSON data to file." << std::endl;
+		return false;
+	}
+
+	return true;
+}
+
+
+bool MaterialDescriptor::LoadMaterialDescriptor(const std::string& filepath) {
+	using namespace rapidjson;
+
+	// Open the file
+	std::ifstream ifs(filepath, std::ios::in);
+	if (!ifs.is_open()) {
+		std::cerr << "Error: Failed to open descriptor file: " << filepath << std::endl;
+		return false;
+	}
+
+	// Parse the JSON file
+	IStreamWrapper isw(ifs);
+	Document document;
+	if (document.ParseStream(isw).HasParseError()) {
+		std::cerr << "Error: Failed to parse descriptor file: " << filepath
+			<< " (Error code: " << document.GetParseError()
+			<< ", Offset: " << document.GetErrorOffset() << ")" << std::endl;
+		return false;
+	}
+
+	// Check that the document is an object
+	if (!document.IsObject()) {
+		std::cerr << "Error: Descriptor file does not contain a valid JSON object: " << filepath << std::endl;
+		return false;
+	}
+
+	// Helper lambda functions to safely extract values
+	auto GetInt = [&](const char* key, int& target) {
+		if (document.HasMember(key) && document[key].IsInt())
+			target = document[key].GetInt();
+		};
+
+	auto GetString = [&](const char* key, std::string& target) {
+		if (document.HasMember(key) && document[key].IsString())
+			target = document[key].GetString();
+		};
+
+	auto GetBool = [&](const char* key, bool& target) {
+		if (document.HasMember(key) && document[key].IsBool())
+			target = document[key].GetBool();
+		};
+
+	auto GetFloat = [&](const char* key, float& target) {
+		if (document.HasMember(key) && document[key].IsFloat())
+			target = document[key].GetFloat();
+		};
+
+
+
+	// Populate descriptor fields
+	GetInt("shaderIndex", shaderIndex);
+	GetFloat("colorRed", albedoColorRed);
+	GetFloat("colorGreen", albedoColorGreen);
+	GetFloat("colorBlue", albedoColorBlue);
+	GetFloat("colorAlpha", albedoColorAlpha);
+	GetFloat("metallic", metallic);
+	GetFloat("smoothness", smoothness);
+
+
+	GetInt("materialAlpha", materialAlpha);
+
+	return true;
+}

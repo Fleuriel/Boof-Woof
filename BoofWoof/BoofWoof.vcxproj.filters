@@ -35,6 +35,7 @@
     <ClCompile Include="Core\AssetManager\Descriptor.cpp" />
     <ClCompile Include="Utilities\Components\AnimationComponent.cpp" />
     <ClCompile Include="Utilities\Components\CameraComponent.cpp" />
+    <ClCompile Include="Utilities\Components\MaterialComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="Core\AssetManager\Descriptor.h" />
     <ClInclude Include="Utilities\Components\AnimationComponent.h" />
     <ClInclude Include="Utilities\Components\CameraComponent.hpp" />
+    <ClInclude Include="Utilities\Components\MaterialComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

@@ -8,6 +8,9 @@
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/AnimationComponent.h"
 #include "../Utilities/Components/TransformComponent.hpp"
+#include "../Utilities/Components/MaterialComponent.hpp"
+
+
 #include "../Utilities/Components/BehaviourComponent.hpp"
 #include "../Utilities/Components/CollisionComponent.hpp"
 #include "../Utilities/Components/MetaData.hpp"

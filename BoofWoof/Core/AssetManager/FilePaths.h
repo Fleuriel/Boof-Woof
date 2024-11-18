@@ -38,6 +38,9 @@
 // AUDIO ASSETS //
 #define FILEPATH_ASSET_AUDIO					std::string("..\\BoofWoof\\Assets\\Audio")
 
+// MATERIAL ASSETS
+#define FILEPATH_ASSET_MATERIAL					std::string("..\\BoofWoof\\Assets\\Material")
+
 // ASSET TRASHBIN //
 #define FILEPATH_ASSET_TRASHBIN					std::string("..\\BoofWoof\\Assets\\Trashbin")
 
@@ -56,6 +59,9 @@
 // MODEL DESCRIPTOR FILES //
 #define FILEPATH_DESCRIPTOR_OBJECTS				std::string("..\\BoofWoof\\Descriptors\\Objects")
 
+// MATERIAL DESCRIPTOR FILES //
+#define FILEPATH_DESCRIPTOR_MATERIAL			std::string("..\\BoofWoof\\Descriptors\\Material")
+
 
 
 
@@ -71,6 +77,9 @@
 
 // FONT RESOURCES //
 #define FILEPATH_RESOURCE_FONTS					std::string("..\\BoofWoof\\Resources\\Fonts")
+
+// MATERIAL RESOURCES //
+#define FILEPATH_RESOURCE_MATERIAL				std::string("..\\BoofWoof\\Resources\\Material")
 
 
 #endif

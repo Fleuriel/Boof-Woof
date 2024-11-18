@@ -1381,5 +1381,100 @@ void AssetManager::DeleteAllFilesInDirectory(const std::string& directoryPath) {
 
 
 
+bool AssetManager::LoadMaterials()
+{
+
+    Currentlyloading = true;
+    std::string filepath(FILEPATH_ASSET_MATERIAL);
+
+    if (fs::is_directory(filepath)) {
+        for (const auto& entry : fs::directory_iterator(filepath)) {
+            std::string texFilePath = filepath + "\\" + entry.path().filename().string();
+            //std::cout << "Texture file " << texFilePath << " Found." << std::endl;
+
+            size_t pos = entry.path().filename().string().find_last_of('.');
+            if (pos != std::string::npos) {
+                std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
+                //std::cout << nameWithoutExtension << std::endl;
+
+                std::string Extension = entry.path().filename().string().substr(pos);
+                //std::cout << Extension;
+                std::string allowedExtensions = ".mat";
+
+                // Check if the substring exists in the full string
+                size_t found = allowedExtensions.find(toLowerCase(Extension));
+
+                if (found == std::string::npos) {
+                    DiscardToTrashBin(entry.path().string(), FILEPATH_ASSET_MATERIAL);
+                    continue;
+                }
+
+                MaterialFiles.insert(entry.path().wstring());
+
+#ifdef _DEBUG
+                std::cout << "\n**************************************************************************************\n";
+                std::cout << nameWithoutExtension << " detected successfully!\n";
+#endif // DEBUG
+
+                if (!fs::exists(FILEPATH_DESCRIPTOR_MATERIAL))
+                    fs::create_directory(FILEPATH_DESCRIPTOR_MATERIAL);
+
+                // Create an output file stream (ofstream) object
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_MATERIAL + "/" + nameWithoutExtension + ".json" };
+
+                // Check if the file exists
+                if (std::filesystem::exists(descriptorFilePath)) {
+                    //std::cout << "Descriptor file already exists: " << descriptorFilePath << std::endl;
+                    // Optional: Handle what to do if the file exists (e.g., overwrite, prompt user, etc.)
+                }
+                else {
+                    MaterialDescriptor desc;
+                    if (desc.SaveMaterialDescriptor(descriptorFilePath)) {
+                        std::cout << "Descriptor file saved successfully: " << descriptorFilePath << std::endl;
+                    }
+                    else {
+                        std::cerr << "Failed to save descriptor file: " << descriptorFilePath << std::endl;
+                    }
+                }
+            }
+            else
+            {
+#ifdef _DEBUG
+                std::cout << "File " << entry.path().filename().string() << " is missing file extension.\n";
+#endif // DEBUG
+            }
+
+        }
+        Currentlyloading = false;
+        return true;
+    }
+    else {
+        // Print error
+#ifdef _DEBUG
+        std::cout << "The specified path is not a directory." << std::endl;
+#endif // DEBUG
+        Currentlyloading = false;
+        return false;
+    }
+
+
+}
+
+bool AssetManager::ReloadMaterials()
+{
+
+
+    return true;
+}
+
+
+bool AssetManager::FreeMaterials()
+{
+
+
+    return true;
+}
+
+
 
 #pragma warning(pop)

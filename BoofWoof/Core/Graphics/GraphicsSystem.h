@@ -7,7 +7,9 @@
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/CameraComponent.hpp"
 #include "../Utilities/Components/ParticleComponent.hpp"
+#include "../Utilities/Components/MaterialComponent.hpp"
 #include "Animation/AnimationManager.h"
+
 
 class Model;
 class Model2D;

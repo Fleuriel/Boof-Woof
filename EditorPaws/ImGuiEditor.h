@@ -84,6 +84,8 @@ private:
 
 	TextureDescriptor textureInfo;
 
+	MaterialDescriptor materialInfo;
+
 	glm::vec3 m_OldPosition;
 	glm::vec3 m_OldRotationRadians;
 	glm::vec3 m_OldScale;
