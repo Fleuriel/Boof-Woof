@@ -1,0 +1,5 @@
+Texture Name : WallDrawbridge
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\WallDrawbridge.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\WallDrawbridge.dds
+Compression Format : -fd BC3

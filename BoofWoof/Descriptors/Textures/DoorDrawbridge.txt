@@ -1,0 +1,5 @@
+Texture Name : DoorDrawbridge
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\DoorDrawbridge.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\DoorDrawbridge.dds
+Compression Format : -fd BC3

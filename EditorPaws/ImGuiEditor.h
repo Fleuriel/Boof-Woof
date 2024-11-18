@@ -14,9 +14,11 @@
 #include "../BoofWoof/Utilities/Components/BehaviourComponent.hpp"
 #include "UndoRedoManager.hpp"
 #include "ArchetypeManager.hpp"
+#include <ImGuizmo.h>
 #include "AssetManager/Descriptor.h"
 
 #include <filesystem>
+#include <vector>
 
 class ImGuiEditor 
 {
@@ -39,6 +41,7 @@ public:
 	void Audio();
 	void PlayStopRunBtn();
 	void ArchetypeTest();
+	void ShowPickingDebugWindow();
 
 	// PlayStopRun Panel
 	enum class States
@@ -80,6 +83,11 @@ private:
 	std::filesystem::path m_SelectedFile;
 
 	TextureDescriptor textureInfo;
+
+	glm::vec3 m_OldPosition;
+	glm::vec3 m_OldRotationRadians;
+	glm::vec3 m_OldScale;
+	bool m_WasUsingGizmo = false;
 
 };
 

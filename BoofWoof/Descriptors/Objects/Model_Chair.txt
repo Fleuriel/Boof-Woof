@@ -2,7 +2,7 @@ File Name: Chair
 Source File Path: ..\BoofWoof\Assets\Objects\Chair.obj
 Output File Path: ..\BoofWoof\Resources\Objects\Chair.bin
 MTL File Exist: 1
-PNG File Exist: 1
+PNG File Exist: 0
 JPG File Exist: 0
 Expected Attributes: 
  -  Vertices

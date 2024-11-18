@@ -8,11 +8,14 @@
 #include <ImGuiFileDialog.h>
 #include "ResourceManager/ResourceManager.h"
 #include "AssetManager/FilePaths.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/epsilon.hpp>
 #include "../Utilities/Components/AnimationComponent.h"
 #include "Animation/AnimationManager.h"
 
-
 namespace fs = std::filesystem;
+
+constexpr float EPSILON = 1e-6f;
 
 AnimationManager g_AnimationManager;
 
@@ -31,6 +34,11 @@ std::string GetScenesDir()
 	return scenesPath.string();
 }
 
+
+bool AreVectorsEqual(const glm::vec3& v1, const glm::vec3& v2, float epsilon = EPSILON)
+{
+	return glm::all(glm::epsilonEqual(v1, v2, epsilon));
+}
 
 ImGuiEditor& ImGuiEditor::GetInstance() {
 	static ImGuiEditor instance{};
@@ -68,11 +76,13 @@ void ImGuiEditor::ImGuiUpdate()
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
+	// Initialize ImGuizmo
+	ImGuizmo::BeginFrame();
+
 	// Docking space
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
 	//ImGui::ShowDemoWindow();
-
 	ImGuiViewport();
 	WorldHierarchy();
 	InspectorWindow();
@@ -80,6 +90,8 @@ void ImGuiEditor::ImGuiUpdate()
 	Settings();
 	Scenes();
 	PlayStopRunBtn();
+	//ShowPickingDebugWindow();
+
 
 	ArchetypeTest();
 
@@ -121,20 +133,168 @@ void ImGuiEditor::ImGuiViewport() {
 		// Get the size of the "Viewport" window
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 
-		// If the size changes, update the OpenGL viewport and framebuffer
+		// Update the OpenGL viewport and framebuffer
 		g_Coordinator.GetSystem<GraphicsSystem>()->SetEditorMode(true);
-
 		g_Coordinator.GetSystem<GraphicsSystem>()->UpdateViewportSize(static_cast<int>(viewportPanelSize.x), static_cast<int>(viewportPanelSize.y));
+
+		// Get the position where the image will be drawn
+		ImVec2 viewportPanelPos = ImGui::GetCursorScreenPos();
 
 		// Get framebuffer texture from GraphicsSystem
 		GLuint texture = g_Coordinator.GetSystem<GraphicsSystem>()->GetFramebufferTexture();
 
 		// Display the framebuffer texture in the ImGui viewport panel
 		ImGui::Image((void*)(intptr_t)texture, viewportPanelSize, ImVec2(0, 1), ImVec2(1, 0));
+
+		// Set up ImGuizmo
+		ImGuizmo::SetOrthographic(false); // Assuming you are using perspective projection
+		ImGuizmo::SetDrawlist();
+
+		// Set the ImGuizmo rect to match the viewport
+		ImGuizmo::SetRect(viewportPanelPos.x, viewportPanelPos.y, viewportPanelSize.x, viewportPanelSize.y);
+
+		glm::mat4 view = g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().GetViewMatrix();
+		glm::mat4 projection = glm::perspective(glm::radians(45.0f), viewportPanelSize.x / viewportPanelSize.y, 0.1f, 100.0f);
+
+		// Get the transform matrix of the selected entity
+		if (g_SelectedEntity != MAX_ENTITIES && g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+		{
+			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+
+			// Get the object's transform matrix
+			glm::mat4 modelMatrix = transformComp.GetWorldMatrix();
+
+			// Define the operation and mode
+			static ImGuizmo::OPERATION mCurrentGizmoOperation = ImGuizmo::TRANSLATE;
+			static ImGuizmo::MODE mCurrentGizmoMode = ImGuizmo::LOCAL;
+
+			// Handle ImGuizmo manipulation
+			ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(projection),
+				mCurrentGizmoOperation, mCurrentGizmoMode, glm::value_ptr(modelMatrix));
+
+			// Get the current ImGuizmo usage state
+			bool isUsingGizmo = ImGuizmo::IsUsing();
+
+			if (isUsingGizmo)
+			{
+				// Decompose the manipulated matrix to get position, rotation, scale
+				glm::vec3 position, rotationDegrees, scale;
+				ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(modelMatrix),
+					glm::value_ptr(position), glm::value_ptr(rotationDegrees), glm::value_ptr(scale));
+
+				// Convert rotation from degrees to radians
+				glm::vec3 rotationRadians = glm::radians(rotationDegrees);
+
+				// If manipulation has just started
+				if (!m_WasUsingGizmo)
+				{
+					// Store old transform values
+					m_OldPosition = transformComp.GetPosition();
+					m_OldRotationRadians = transformComp.GetRotation();
+					m_OldScale = transformComp.GetScale();
+				}
+
+				// Update the TransformComponent with new values
+				transformComp.SetPosition(position);
+				transformComp.SetRotation(rotationRadians);
+				transformComp.SetScale(scale);
+			}
+			else if (m_WasUsingGizmo) // Manipulation has just ended
+			{
+				// Retrieve the new transform values
+				glm::vec3 newPosition = transformComp.GetPosition();
+				glm::vec3 newRotationRadians = transformComp.GetRotation();
+				glm::vec3 newScale = transformComp.GetScale();
+
+				Entity entity = g_SelectedEntity;
+
+				// Store copies of the old values to capture in the lambda
+				glm::vec3 oldPosition = m_OldPosition;
+				glm::vec3 oldRotationRadians = m_OldRotationRadians;
+				glm::vec3 oldScale = m_OldScale;
+
+				// Check if any of the transform components have changed
+				bool positionChanged = !AreVectorsEqual(oldPosition, newPosition);
+				bool rotationChanged = !AreVectorsEqual(oldRotationRadians, newRotationRadians);
+				bool scaleChanged = !AreVectorsEqual(oldScale, newScale);
+
+				if (positionChanged || rotationChanged || scaleChanged)
+				{
+					// Push the action into the UndoRedoManager
+					g_UndoRedoManager.ExecuteCommand(
+						[entity, newPosition, newRotationRadians, newScale]() {
+							auto& component = g_Coordinator.GetComponent<TransformComponent>(entity);
+							component.SetPosition(newPosition);
+							component.SetRotation(newRotationRadians);
+							component.SetScale(newScale);
+						},
+						[entity, oldPosition, oldRotationRadians, oldScale]() {
+							auto& component = g_Coordinator.GetComponent<TransformComponent>(entity);
+							component.SetPosition(oldPosition);
+							component.SetRotation(oldRotationRadians);
+							component.SetScale(oldScale);
+						}
+					);
+				}
+			}
+
+			// Update m_WasUsingGizmo for the next frame
+			m_WasUsingGizmo = isUsingGizmo;
+
+			// Handle changing the gizmo operation via keyboard shortcuts
+			if (ImGui::IsKeyPressed(ImGuiKey_T))
+				mCurrentGizmoOperation = ImGuizmo::TRANSLATE;
+			if (ImGui::IsKeyPressed(ImGuiKey_R))
+				mCurrentGizmoOperation = ImGuizmo::ROTATE;
+			if (ImGui::IsKeyPressed(ImGuiKey_E))
+				mCurrentGizmoOperation = ImGuizmo::SCALE;
+		}
+
+
+
+		// Object picking
+		if (!ImGuizmo::IsUsing() && ImGui::IsWindowFocused() && ImGui::IsMouseClicked(ImGuiMouseButton_Left)) 
+		{
+			ImVec2 mousePos = ImGui::GetMousePos();
+
+			float mouseX = mousePos.x - viewportPanelPos.x;
+			float mouseY = mousePos.y - viewportPanelPos.y;
+			mouseY = viewportPanelSize.y - mouseY;
+
+			if (mouseX >= 0 && mouseY >= 0 && mouseX < viewportPanelSize.x && mouseY < viewportPanelSize.y)
+			{
+
+				// Request picking render
+				g_Coordinator.GetSystem<GraphicsSystem>()->SetPickingRenderer(true);
+
+				// Read the pixel from the picking framebuffer
+				glBindFramebuffer(GL_FRAMEBUFFER, g_Coordinator.GetSystem<GraphicsSystem>()->GetPickingFBO());
+				glReadBuffer(GL_COLOR_ATTACHMENT0);
+
+				unsigned char data[3];
+				glReadPixels(static_cast<int>(mouseX), static_cast<int>(mouseY), 1, 1, GL_RGB, GL_UNSIGNED_BYTE, data);
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+				// Decode the color to get the entity ID
+				Entity pickedEntity = g_Coordinator.GetSystem<GraphicsSystem>()->DecodeColorToID(data);
+
+				if (pickedEntity != MAX_ENTITIES)
+				{
+					g_SelectedEntity = pickedEntity;
+					m_IsSelected = true;
+				}
+				else
+				{
+					g_SelectedEntity = MAX_ENTITIES;
+					m_IsSelected = false;
+				}
+			}
+		}
 	}
 
 	ImGui::End();
 }
+
 
 
 void ImGuiEditor::WorldHierarchy()
@@ -414,28 +574,48 @@ void ImGuiEditor::InspectorWindow()
 								}
 							);
 
-						}
 					}
-					if (ImGui::Selectable("Particle Component"))
-					{
-						if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
-						{
-							g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, ParticleComponent());
-							g_UndoRedoManager.ExecuteCommand(
-								[this]() {
-									if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
-										g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, ParticleComponent());
-								},
-								[this]() {
-									if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
-										g_Coordinator.RemoveComponent<ParticleComponent>(g_SelectedEntity);
-								}
-							);
-
-						}
-					}
-					ImGui::EndPopup();
 				}
+				if (ImGui::Selectable("Camera Component"))
+				{
+					if (!g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<CameraComponent>(g_SelectedEntity, CameraComponent());
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (!g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<CameraComponent>(g_SelectedEntity, CameraComponent());
+							},
+							[this]() {
+								if (g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<CameraComponent>(g_SelectedEntity);
+							}
+						);
+
+					}
+				}
+
+				if (ImGui::Selectable("Particle Component"))
+				{
+					if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+					{
+						g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, ParticleComponent());
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, ParticleComponent());
+							},
+							[this]() {
+								if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<ParticleComponent>(g_SelectedEntity);
+							}
+						);
+
+					}
+				}
+
+				ImGui::EndPopup();
+			}
 
 				if (ImGui::Button("Add Components"))
 				{
@@ -563,27 +743,46 @@ void ImGuiEditor::InspectorWindow()
 						}
 					}
 
-					if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+				if (g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+				{
+					if (ImGui::Selectable("Camera Component"))
 					{
-						if (ImGui::Selectable("Particle Component"))
-						{
-							auto componentData = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
+						auto componentData = g_Coordinator.GetComponent<CameraComponent>(g_SelectedEntity);
 
-							g_UndoRedoManager.ExecuteCommand(
-								[this]() {
-									if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
-										g_Coordinator.RemoveComponent<ParticleComponent>(g_SelectedEntity);
-								},
-								[this, componentData]() {
-									if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
-										g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, componentData);
-								}
-							);
-						}
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<CameraComponent>(g_SelectedEntity);
+							},
+							[this, componentData]() {
+								if (!g_Coordinator.HaveComponent<CameraComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<CameraComponent>(g_SelectedEntity, componentData);
+							}
+						);
 					}
-
-					ImGui::EndPopup();
 				}
+
+				if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+				{
+					if (ImGui::Selectable("Particle Component"))
+					{
+						auto componentData = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
+
+						g_UndoRedoManager.ExecuteCommand(
+							[this]() {
+								if (g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+									g_Coordinator.RemoveComponent<ParticleComponent>(g_SelectedEntity);
+							},
+							[this, componentData]() {
+								if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
+									g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, componentData);
+							}
+						);
+					}
+				}
+
+				ImGui::EndPopup();
+			}
 
 				if (ImGui::Button("Delete Component"))
 				{
@@ -956,37 +1155,7 @@ void ImGuiEditor::InspectorWindow()
 
 									ImGui::TreePop();
 								}
-								if (ImGui::TreeNode("Light Properties"))
-								{
-
-									// light position
-									ImGui::PushItemWidth(250.0f);
-									ImGui::Text("LightPos"); ImGui::SameLine();
-
-									// Fetch the current light position from the Graphics System
-									glm::vec3 lightPos = g_Coordinator.GetSystem<GraphicsSystem>()->GetLightPos();
-
-									if (ImGui::DragFloat3("##Light Pos", &lightPos.x, 0.1f))
-									{
-										g_Coordinator.GetSystem<GraphicsSystem>()->SetLightPos(lightPos);
-									}
-
-									ImGui::TreePop();
-
-								}
-
-
-
-
-
-
-
-
-
-
-
-
-
+								
 
 							}
 						}
@@ -1252,6 +1421,216 @@ void ImGuiEditor::InspectorWindow()
 							}
 						}
 
+						else if (className == "CameraComponent")
+						{
+							// Custom UI for CameraComponent
+							if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_None))
+							{
+								auto& cameraComponent = g_Coordinator.GetComponent<CameraComponent>(g_SelectedEntity);
+								cameraComponent.RegisterProperties();
+
+								const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+
+								std::unordered_map<std::string, int> spaceMapping = {
+									{"WorldUp", 1}, {"Pitch", 3}, {"Yaw", 5}
+								};
+
+								// Handle Camera Property
+								for (const auto& property : properties)
+								{
+									std::string propertyName = property->GetName();
+
+									if (spaceMapping.find(propertyName) != spaceMapping.end())
+									{
+										// Append the corresponding number of spaces
+										propertyName += std::string(spaceMapping[propertyName], ' ');
+									}
+
+									ImGui::PushItemWidth(250.0f);
+									ImGui::Text("%s", propertyName.c_str());
+									ImGui::SameLine();
+									std::string widgetID = "##" + propertyName;
+
+									ImGui::PushID(widgetID.c_str());
+
+									// For glm::vec3 properties
+									if (property->GetValue(&cameraComponent).find(",") != std::string::npos)
+									{
+										glm::vec3 vecValue = SerializationHelpers::DeserializeVec3(property->GetValue(&cameraComponent));
+
+										if (ImGui::DragFloat3("##Drag", &vecValue.x, 0.1f))
+										{
+											property->SetValue(&cameraComponent, SerializationHelpers::SerializeVec3(vecValue));
+										}
+
+										if (ImGui::IsItemActivated())
+										{
+											// Store old value
+											oldVec3Values[propertyName] = vecValue;
+										}
+
+										if (ImGui::IsItemDeactivatedAfterEdit())
+										{
+											glm::vec3 newValue = vecValue;
+											glm::vec3 oldValue = oldVec3Values[propertyName];
+											Entity entity = g_SelectedEntity;
+
+											// Clean up the stored old value
+											oldVec3Values.erase(propertyName);
+
+											g_UndoRedoManager.ExecuteCommand(
+												[entity, propertyName, newValue]() {
+													auto& component = g_Coordinator.GetComponent<CameraComponent>(entity);
+													const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+													auto propIt = std::find_if(properties.begin(), properties.end(),
+														[&propertyName](const ReflectionPropertyBase* prop) {
+															return prop->GetName() == propertyName;
+														});
+													if (propIt != properties.end())
+													{
+														(*propIt)->SetValue(&component, SerializationHelpers::SerializeVec3(newValue));
+													}
+												},
+												[entity, propertyName, oldValue]() {
+													auto& component = g_Coordinator.GetComponent<CameraComponent>(entity);
+													const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+													auto propIt = std::find_if(properties.begin(), properties.end(),
+														[&propertyName](const ReflectionPropertyBase* prop) {
+															return prop->GetName() == propertyName;
+														});
+													if (propIt != properties.end())
+													{
+														(*propIt)->SetValue(&component, SerializationHelpers::SerializeVec3(oldValue));
+													}
+												}
+											);
+										}
+									}
+									else
+									{
+										// Check if the value is a boolean or float
+										std::string propertyValue = property->GetValue(&cameraComponent);
+
+										bool isBool = false;
+										bool boolValue = false;
+
+										// Check if it's a boolean
+										if (propertyValue == "true" || propertyValue == "false")
+										{
+											isBool = true;
+											boolValue = (propertyValue == "true");
+										}
+
+										if (isBool)
+										{
+											// Handle boolean property
+											if (ImGui::Checkbox("##Checkbox", &boolValue))
+											{
+												property->SetValue(&cameraComponent, boolValue ? "true" : "false");
+											}
+
+											if (ImGui::IsItemActivated())
+											{
+												// Store old boolean value
+												oldBoolValues[propertyName] = boolValue;
+											}
+
+											if (ImGui::IsItemDeactivatedAfterEdit())
+											{
+												bool newValue = boolValue;
+												bool oldValue = oldBoolValues[propertyName];
+												Entity entity = g_SelectedEntity;
+
+												// Clean up the stored old value
+												oldBoolValues.erase(propertyName);
+
+												g_UndoRedoManager.ExecuteCommand(
+													[entity, propertyName, newValue]() {
+														auto& component = g_Coordinator.GetComponent<CameraComponent>(entity);
+														const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+														auto propIt = std::find_if(properties.begin(), properties.end(),
+															[&propertyName](const ReflectionPropertyBase* prop) {
+																return prop->GetName() == propertyName;
+															});
+														if (propIt != properties.end())
+														{
+															(*propIt)->SetValue(&component, newValue ? "true" : "false");
+														}
+													},
+													[entity, propertyName, oldValue]() {
+														auto& component = g_Coordinator.GetComponent<CameraComponent>(entity);
+														const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+														auto propIt = std::find_if(properties.begin(), properties.end(),
+															[&propertyName](const ReflectionPropertyBase* prop) {
+																return prop->GetName() == propertyName;
+															});
+														if (propIt != properties.end())
+														{
+															(*propIt)->SetValue(&component, oldValue ? "true" : "false");
+														}
+													}
+												);
+											}
+										}
+										else
+										{
+											// For scalar properties (float)
+											float floatValue = std::stof(property->GetValue(&cameraComponent));
+
+											if (ImGui::DragFloat("##Drag", &floatValue, 0.1f))
+											{
+												property->SetValue(&cameraComponent, std::to_string(floatValue));
+											}
+
+											if (ImGui::IsItemActivated())
+											{
+												// Store old value
+												oldFloatValues[propertyName] = floatValue;
+											}
+
+											if (ImGui::IsItemDeactivatedAfterEdit())
+											{
+												float newValue = floatValue;
+												float oldValue = oldFloatValues[propertyName];
+												Entity entity = g_SelectedEntity;
+
+												// Clean up the stored old value
+												oldFloatValues.erase(propertyName);
+
+												g_UndoRedoManager.ExecuteCommand(
+													[entity, propertyName, newValue]() {
+														auto& component = g_Coordinator.GetComponent<CameraComponent>(entity);
+														const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+														auto propIt = std::find_if(properties.begin(), properties.end(),
+															[&propertyName](const ReflectionPropertyBase* prop) {
+																return prop->GetName() == propertyName;
+															});
+														if (propIt != properties.end())
+														{
+															(*propIt)->SetValue(&component, std::to_string(newValue));
+														}
+													},
+													[entity, propertyName, oldValue]() {
+														auto& component = g_Coordinator.GetComponent<CameraComponent>(entity);
+														const auto& properties = ReflectionManager::Instance().GetProperties("CameraComponent");
+														auto propIt = std::find_if(properties.begin(), properties.end(),
+															[&propertyName](const ReflectionPropertyBase* prop) {
+																return prop->GetName() == propertyName;
+															});
+														if (propIt != properties.end())
+														{
+															(*propIt)->SetValue(&component, std::to_string(oldValue));
+														}
+													}
+												);
+											}
+										}
+									}
+									ImGui::PopID();
+								}
+							}
+						}
+
 						else if (className == "ParticleComponent")
 						{
 							// Custom UI for MetadataComponent
@@ -1268,8 +1647,8 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("No entity selected or invalid entity ID.");
 			}
 		}
-
-		else {
+		else 
+		{
 			// Convert paths to strings for comparison
 			std::string selectedFilePath = m_SelectedFile.string();
 			std::replace(selectedFilePath.begin(), selectedFilePath.end(), '/', '\\');
@@ -2337,6 +2716,28 @@ void ImGuiEditor::Settings()
 		ImGui::Text("Frame Rate: %f", g_Window->GetFPS());
 		ImGui::Text("Frame Count: %d", g_Core->m_CurrNumSteps);
 
+		// light position
+		ImGui::PushItemWidth(250.0f);
+		ImGui::Text("LightPos"); ImGui::SameLine();
+
+		// Fetch the current light position from the Graphics System
+		glm::vec3 lightPos = g_Coordinator.GetSystem<GraphicsSystem>()->GetLightPos();
+
+		if (ImGui::DragFloat3("##Light Pos", &lightPos.x, 0.1f))
+		{
+			g_Coordinator.GetSystem<GraphicsSystem>()->SetLightPos(lightPos);
+		}
+
+		ImGui::Checkbox("Light On", &GraphicsSystem::lightOn);
+		if (GraphicsSystem::lightOn)
+		{
+			GraphicsSystem::lightOn = true;
+		}
+		else
+		{
+			GraphicsSystem::lightOn = false;
+		}
+
 		ImGui::Spacing();
 
 		ImGui::SeparatorText("System DT (% of Total Game Loop)");
@@ -2967,5 +3368,23 @@ void ImGuiEditor::ArchetypeTest()
 			}
 		}
 	}
+	ImGui::End();
+}
+
+
+void ImGuiEditor::ShowPickingDebugWindow()
+{
+	ImGui::Begin("Picking Debug View");
+
+	// Get the dimensions of the picking texture
+	int width = g_Coordinator.GetSystem<GraphicsSystem>()->GetViewportWidth();
+	int height = g_Coordinator.GetSystem<GraphicsSystem>()->GetViewportHeight();
+
+	// Retrieve the picking texture
+	GLuint pickingTexture = g_Coordinator.GetSystem<GraphicsSystem>()->GetPickingTexture();
+
+	// Display the texture in ImGui
+	ImGui::Image((void*)(intptr_t)pickingTexture, ImVec2((float)width, (float)height), ImVec2(0, 1), ImVec2(1, 0));
+
 	ImGui::End();
 }

@@ -147,6 +147,7 @@
     <ClInclude Include="..\BoofWoof\Core\Logic\BehaviourInterface.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Treat.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Compile.cpp" />

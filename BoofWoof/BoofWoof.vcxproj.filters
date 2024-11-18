@@ -4,7 +4,6 @@
     <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
     <ClCompile Include="Core\EngineCore.cpp" />
     <ClCompile Include="Core\Graphics\BoundingVolume.cpp" />
-    <ClCompile Include="Core\Graphics\Camera.cpp" />
     <ClCompile Include="Core\Graphics\GraphicsSystem.cpp" />
     <ClCompile Include="Core\Graphics\Mesh.cpp" />
     <ClCompile Include="Core\Graphics\Model.cpp" />
@@ -35,6 +34,7 @@
     <ClCompile Include="Utilities\Components\ParticleComponent.cpp" />
     <ClCompile Include="Core\AssetManager\Descriptor.cpp" />
     <ClCompile Include="Utilities\Components\AnimationComponent.cpp" />
+    <ClCompile Include="Utilities\Components\CameraComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -46,7 +46,6 @@
     <ClInclude Include="Core\ECS\SystemManager.hpp" />
     <ClInclude Include="Core\EngineCore.h" />
     <ClInclude Include="Core\Graphics\BoundingVolume.h" />
-    <ClInclude Include="Core\Graphics\Camera.h" />
     <ClInclude Include="Core\Graphics\GraphicsSystem.h" />
     <ClInclude Include="Core\Graphics\Mesh.h" />
     <ClInclude Include="Core\Graphics\Model.h" />
@@ -84,6 +83,7 @@
     <ClInclude Include="Utilities\Components\ParticleComponent.hpp" />
     <ClInclude Include="Core\AssetManager\Descriptor.h" />
     <ClInclude Include="Utilities\Components\AnimationComponent.h" />
+    <ClInclude Include="Utilities\Components\CameraComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

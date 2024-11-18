@@ -66,6 +66,15 @@ public:
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Draw(shader);
     }
+    
+
+    void DrawForPicking()
+    {
+        for (Mesh& mesh : meshes)
+        {
+            mesh.DrawForPicking();
+        }
+    }
 
     void DrawMaterial(OpenGLShader& shader)
     {
