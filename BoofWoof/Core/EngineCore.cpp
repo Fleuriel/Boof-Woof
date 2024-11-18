@@ -3,6 +3,7 @@
 #include "../Core/Reflection/ReflectionManager.hpp"
 
 std::shared_ptr<GraphicsSystem> mGraphicsSys;
+//std::shared_ptr<AnimationComponent> m_AnimationSys;
 std::shared_ptr<AudioSystem> mAudioSys;
 std::shared_ptr<LogicSystem> mLogicSys;
 std::shared_ptr<FontSystem> mFontSys;
@@ -30,6 +31,7 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<MetadataComponent>();
 	g_Coordinator.RegisterComponent<TransformComponent>();
 	g_Coordinator.RegisterComponent<GraphicsComponent>();
+	g_Coordinator.RegisterComponent<AnimationComponent>();
 	g_Coordinator.RegisterComponent<AudioComponent>();
 	g_Coordinator.RegisterComponent<CollisionComponent>();
 	g_Coordinator.RegisterComponent<BehaviourComponent>();
@@ -50,10 +52,12 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<LogicSystem>(signature);
 	}
 
+
 	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
 	{
 		Signature signature;
 		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		signature.set(g_Coordinator.GetComponentType<AnimationComponent>());
 		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
 		signature.set(g_Coordinator.GetComponentType<ParticleComponent>());
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
@@ -118,6 +122,7 @@ void EngineCore::OnInit()
 	ReflectionManager::Instance().RegisterComponentType<MetadataComponent>("MetadataComponent");
 	ReflectionManager::Instance().RegisterComponentType<TransformComponent>("TransformComponent");
 	ReflectionManager::Instance().RegisterComponentType<GraphicsComponent>("GraphicsComponent");
+	ReflectionManager::Instance().RegisterComponentType<AnimationComponent>("AnimationComponent");
 	ReflectionManager::Instance().RegisterComponentType<AudioComponent>("AudioComponent");
 	ReflectionManager::Instance().RegisterComponentType<BehaviourComponent>("BehaviourComponent");
 	ReflectionManager::Instance().RegisterComponentType<CollisionComponent>("CollisionComponent");

@@ -6,6 +6,7 @@
 
 #include "../Core/ECS/Coordinator.hpp"
 #include "../Utilities/Components/GraphicsComponent.hpp"
+#include "../Utilities/Components/AnimationComponent.h"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/BehaviourComponent.hpp"
 #include "../Utilities/Components/CollisionComponent.hpp"

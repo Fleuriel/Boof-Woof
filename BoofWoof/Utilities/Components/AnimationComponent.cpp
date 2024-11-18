@@ -1,6 +1,6 @@
 #include "pch.h"
 
-#include "AnimationComponent.h"
+#include "../Utilities/Components/AnimationComponent.h"
 
 AnimationComponent::AnimationComponent(std::shared_ptr<AnimationManager> animManager)
     : animationManager(std::move(animManager)) {}

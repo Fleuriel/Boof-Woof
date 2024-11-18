@@ -3,10 +3,15 @@
 
 #include <string>
 #include <memory>
-#include "AnimationManager.h"
+#include "../Core/Animation/AnimationManager.h"
 
 class AnimationComponent {
 public:
+  //  AnimationComponent();
+  // ~AnimationComponent();
+
+    AnimationComponent() = default;
+
 
     AnimationComponent(std::shared_ptr<AnimationManager> animManager);
 

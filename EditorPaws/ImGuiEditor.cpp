@@ -8,7 +8,7 @@
 #include <ImGuiFileDialog.h>
 #include "ResourceManager/ResourceManager.h"
 #include "AssetManager/FilePaths.h"
-#include "Animation/AnimationComponent.h"
+#include "../Utilities/Components/AnimationComponent.h"
 #include "Animation/AnimationManager.h"
 
 
@@ -341,7 +341,12 @@ void ImGuiEditor::InspectorWindow()
 					}
 					if (ImGui::Selectable("Animation Component")) {
 						if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+							std::cout << "enter1\n";
+
+
 							g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
+
+
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
 									if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
@@ -459,6 +464,25 @@ void ImGuiEditor::InspectorWindow()
 								[this, componentData]() {
 									if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 										g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, componentData);
+								}
+							);
+						}
+					}
+
+					if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("Graphics Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<AnimationComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, componentData);
 								}
 							);
 						}
