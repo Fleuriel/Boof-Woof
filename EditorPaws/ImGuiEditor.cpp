@@ -8,11 +8,12 @@
 #include <ImGuiFileDialog.h>
 #include "ResourceManager/ResourceManager.h"
 #include "AssetManager/FilePaths.h"
-
-
-
+#include <glm/glm.hpp>
+#include <glm/gtc/epsilon.hpp>
 
 namespace fs = std::filesystem;
+
+constexpr float EPSILON = 1e-6f;
 
 //Helper function to locate save file directory
 std::string GetScenesDir() 
@@ -29,6 +30,11 @@ std::string GetScenesDir()
 	return scenesPath.string();
 }
 
+
+bool AreVectorsEqual(const glm::vec3& v1, const glm::vec3& v2, float epsilon = EPSILON)
+{
+	return glm::all(glm::epsilonEqual(v1, v2, epsilon));
+}
 
 ImGuiEditor& ImGuiEditor::GetInstance() {
 	static ImGuiEditor instance{};
@@ -59,30 +65,15 @@ void ImGuiEditor::ImGuiInit(Window* window)
 	g_Coordinator.GetSystem<GraphicsSystem>()->clearAllEntityTextures();
 }
 
-void ImGuiEditor::ShowPickingDebugWindow()
-{
-	ImGui::Begin("Picking Debug View");
-
-	// Get the dimensions of the picking texture
-	int width = g_Coordinator.GetSystem<GraphicsSystem>()->GetViewportWidth();
-	int height = g_Coordinator.GetSystem<GraphicsSystem>()->GetViewportHeight();
-
-	// Retrieve the picking texture
-	GLuint pickingTexture = g_Coordinator.GetSystem<GraphicsSystem>()->GetPickingTexture();
-
-	// Display the texture in ImGui
-	ImGui::Image((void*)(intptr_t)pickingTexture, ImVec2((float)width, (float)height), ImVec2(0, 1), ImVec2(1, 0));
-
-	ImGui::End();
-}
-
-
 void ImGuiEditor::ImGuiUpdate()
 {
 	// Start a new frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
+
+	// Initialize ImGuizmo
+	ImGuizmo::BeginFrame();
 
 	// Docking space
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
@@ -138,7 +129,7 @@ void ImGuiEditor::ImGuiViewport() {
 		// Get the size of the "Viewport" window
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 
-		// If the size changes, update the OpenGL viewport and framebuffer
+		// Update the OpenGL viewport and framebuffer
 		g_Coordinator.GetSystem<GraphicsSystem>()->SetEditorMode(true);
 		g_Coordinator.GetSystem<GraphicsSystem>()->UpdateViewportSize(static_cast<int>(viewportPanelSize.x), static_cast<int>(viewportPanelSize.y));
 
@@ -151,9 +142,114 @@ void ImGuiEditor::ImGuiViewport() {
 		// Display the framebuffer texture in the ImGui viewport panel
 		ImGui::Image((void*)(intptr_t)texture, viewportPanelSize, ImVec2(0, 1), ImVec2(1, 0));
 
+		// Set up ImGuizmo
+		ImGuizmo::SetOrthographic(false); // Assuming you are using perspective projection
+		ImGuizmo::SetDrawlist();
+
+		// Set the ImGuizmo rect to match the viewport
+		ImGuizmo::SetRect(viewportPanelPos.x, viewportPanelPos.y, viewportPanelSize.x, viewportPanelSize.y);
+
+		glm::mat4 view = g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().GetViewMatrix();
+		glm::mat4 projection = glm::perspective(glm::radians(45.0f), viewportPanelSize.x / viewportPanelSize.y, 0.1f, 100.0f);
+
+		// Get the transform matrix of the selected entity
+		if (g_SelectedEntity != MAX_ENTITIES && g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+		{
+			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+
+			// Get the object's transform matrix
+			glm::mat4 modelMatrix = transformComp.GetWorldMatrix();
+
+			// Define the operation and mode
+			static ImGuizmo::OPERATION mCurrentGizmoOperation = ImGuizmo::TRANSLATE;
+			static ImGuizmo::MODE mCurrentGizmoMode = ImGuizmo::LOCAL;
+
+			// Handle ImGuizmo manipulation
+			ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(projection),
+				mCurrentGizmoOperation, mCurrentGizmoMode, glm::value_ptr(modelMatrix));
+
+			// Get the current ImGuizmo usage state
+			bool isUsingGizmo = ImGuizmo::IsUsing();
+
+			if (isUsingGizmo)
+			{
+				// Decompose the manipulated matrix to get position, rotation, scale
+				glm::vec3 position, rotationDegrees, scale;
+				ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(modelMatrix),
+					glm::value_ptr(position), glm::value_ptr(rotationDegrees), glm::value_ptr(scale));
+
+				// Convert rotation from degrees to radians
+				glm::vec3 rotationRadians = glm::radians(rotationDegrees);
+
+				// If manipulation has just started
+				if (!m_WasUsingGizmo)
+				{
+					// Store old transform values
+					m_OldPosition = transformComp.GetPosition();
+					m_OldRotationRadians = transformComp.GetRotation();
+					m_OldScale = transformComp.GetScale();
+				}
+
+				// Update the TransformComponent with new values
+				transformComp.SetPosition(position);
+				transformComp.SetRotation(rotationRadians);
+				transformComp.SetScale(scale);
+			}
+			else if (m_WasUsingGizmo) // Manipulation has just ended
+			{
+				// Retrieve the new transform values
+				glm::vec3 newPosition = transformComp.GetPosition();
+				glm::vec3 newRotationRadians = transformComp.GetRotation();
+				glm::vec3 newScale = transformComp.GetScale();
+
+				Entity entity = g_SelectedEntity;
+
+				// Store copies of the old values to capture in the lambda
+				glm::vec3 oldPosition = m_OldPosition;
+				glm::vec3 oldRotationRadians = m_OldRotationRadians;
+				glm::vec3 oldScale = m_OldScale;
+
+				// Check if any of the transform components have changed
+				bool positionChanged = !AreVectorsEqual(oldPosition, newPosition);
+				bool rotationChanged = !AreVectorsEqual(oldRotationRadians, newRotationRadians);
+				bool scaleChanged = !AreVectorsEqual(oldScale, newScale);
+
+				if (positionChanged || rotationChanged || scaleChanged)
+				{
+					// Push the action into the UndoRedoManager
+					g_UndoRedoManager.ExecuteCommand(
+						[entity, newPosition, newRotationRadians, newScale]() {
+							auto& component = g_Coordinator.GetComponent<TransformComponent>(entity);
+							component.SetPosition(newPosition);
+							component.SetRotation(newRotationRadians);
+							component.SetScale(newScale);
+						},
+						[entity, oldPosition, oldRotationRadians, oldScale]() {
+							auto& component = g_Coordinator.GetComponent<TransformComponent>(entity);
+							component.SetPosition(oldPosition);
+							component.SetRotation(oldRotationRadians);
+							component.SetScale(oldScale);
+						}
+					);
+				}
+			}
+
+			// Update m_WasUsingGizmo for the next frame
+			m_WasUsingGizmo = isUsingGizmo;
+
+			// Handle changing the gizmo operation via keyboard shortcuts
+			if (ImGui::IsKeyPressed(ImGuiKey_T))
+				mCurrentGizmoOperation = ImGuizmo::TRANSLATE;
+			if (ImGui::IsKeyPressed(ImGuiKey_R))
+				mCurrentGizmoOperation = ImGuizmo::ROTATE;
+			if (ImGui::IsKeyPressed(ImGuiKey_E))
+				mCurrentGizmoOperation = ImGuizmo::SCALE;
+		}
+
+
 
 		// Object picking
-		if (ImGui::IsWindowFocused() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+		if (!ImGuizmo::IsUsing() && ImGui::IsWindowFocused() && ImGui::IsMouseClicked(ImGuiMouseButton_Left)) 
 		{
 			ImVec2 mousePos = ImGui::GetMousePos();
 
@@ -2293,5 +2389,23 @@ void ImGuiEditor::ArchetypeTest()
 			}
 		}
 	}
+	ImGui::End();
+}
+
+
+void ImGuiEditor::ShowPickingDebugWindow()
+{
+	ImGui::Begin("Picking Debug View");
+
+	// Get the dimensions of the picking texture
+	int width = g_Coordinator.GetSystem<GraphicsSystem>()->GetViewportWidth();
+	int height = g_Coordinator.GetSystem<GraphicsSystem>()->GetViewportHeight();
+
+	// Retrieve the picking texture
+	GLuint pickingTexture = g_Coordinator.GetSystem<GraphicsSystem>()->GetPickingTexture();
+
+	// Display the texture in ImGui
+	ImGui::Image((void*)(intptr_t)pickingTexture, ImVec2((float)width, (float)height), ImVec2(0, 1), ImVec2(1, 0));
+
 	ImGui::End();
 }
