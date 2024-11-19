@@ -66,7 +66,7 @@ public:
 
 private:
     std::unordered_map<std::string, Animation> animations;            // All loaded animations
-    std::unordered_map<std::string, EntityAnimationState> entityStates; // Entity-specific states
+    std::unordered_map<std::string, EntityAnimationState> entityStates;     // Entity-specific states
 };
 
 extern AnimationManager g_AnimationManager;

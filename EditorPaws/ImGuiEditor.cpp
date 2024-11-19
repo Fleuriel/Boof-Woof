@@ -1190,17 +1190,114 @@ void ImGuiEditor::InspectorWindow()
 								static int selectedFileIndex = -1; // To remember the selected index
 
 								if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
-									if (ImGui::BeginCombo("Select Animation", selectedFileIndex == -1 ? "None" : g_AssetManager.AnimationFiles[selectedFileIndex].c_str())) {
+									ImGui::Text("Animation Selection:"); // Add a label before the combo boxes
+									ImGui::NewLine();
+
+									static int idleAnimationIndex = -1;     // Index for idle animation
+									static int movementAnimationIndex = -1; // Index for movement animation
+									static int actionAnimationIndex = -1;   // Index for action animation
+
+									float comboBoxWidth = 200.0f; // Set a consistent width for the combo boxes
+									float labelWidth = 200.0f;   // Reserve space for the labels
+
+									// Idle Animation
+									ImGui::Text("Idle Animation:");
+									ImGui::SameLine(labelWidth);
+									ImGui::SetNextItemWidth(comboBoxWidth);
+									if (ImGui::BeginCombo("##IdleAnimation",
+										idleAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[idleAnimationIndex].c_str())) {
+										// "None" option
+										bool isSelected = (idleAnimationIndex == -1);
+										if (ImGui::Selectable("None", isSelected)) {
+											idleAnimationIndex = -1; // Set to "None"
+										}
+										if (isSelected) {
+											ImGui::SetItemDefaultFocus();
+										}
+
+										// File options
 										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
-											bool isSelected = (selectedFileIndex == i);
+											isSelected = (idleAnimationIndex == i);
 											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
-												selectedFileIndex = i; // Update the selected file index
+												idleAnimationIndex = i; // Update the idle animation index
 											}
 											if (isSelected) {
-												ImGui::SetItemDefaultFocus(); // Set the default focus to the selected item
+												ImGui::SetItemDefaultFocus();
 											}
 										}
 										ImGui::EndCombo();
+									}
+
+									ImGui::NewLine();
+
+									// Movement Animation
+									ImGui::Text("Movement Animation:");
+									ImGui::SameLine(labelWidth);
+									ImGui::SetNextItemWidth(comboBoxWidth);
+									if (ImGui::BeginCombo("##MovementAnimation",
+										movementAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[movementAnimationIndex].c_str())) {
+										// "None" option
+										bool isSelected = (movementAnimationIndex == -1);
+										if (ImGui::Selectable("None", isSelected)) {
+											movementAnimationIndex = -1; // Set to "None"
+										}
+										if (isSelected) {
+											ImGui::SetItemDefaultFocus();
+										}
+
+										// File options
+										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
+											isSelected = (movementAnimationIndex == i);
+											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
+												movementAnimationIndex = i; // Update the movement animation index
+											}
+											if (isSelected) {
+												ImGui::SetItemDefaultFocus();
+											}
+										}
+										ImGui::EndCombo();
+									}
+
+									ImGui::NewLine();
+
+									// Action Animation
+									ImGui::Text("Action Animation:");
+									ImGui::SameLine(labelWidth);
+									ImGui::SetNextItemWidth(comboBoxWidth);
+									if (ImGui::BeginCombo("##ActionAnimation",
+										actionAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[actionAnimationIndex].c_str())) {
+										// "None" option
+										bool isSelected = (actionAnimationIndex == -1);
+										if (ImGui::Selectable("None", isSelected)) {
+											actionAnimationIndex = -1; // Set to "None"
+										}
+										if (isSelected) {
+											ImGui::SetItemDefaultFocus();
+										}
+
+										// File options
+										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
+											isSelected = (actionAnimationIndex == i);
+											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
+												actionAnimationIndex = i; // Update the action animation index
+											}
+											if (isSelected) {
+												ImGui::SetItemDefaultFocus();
+											}
+										}
+										ImGui::EndCombo();
+									}
+
+									ImGui::NewLine();
+
+									// Buttons
+									if (ImGui::Button("Apply")) {
+										// Apply logic here
+									}
+
+									ImGui::SameLine();
+									if (ImGui::Button("Revert To Default")) {
+										// Revert logic here
 									}
 								}
 							}
@@ -2136,7 +2233,7 @@ void ImGuiEditor::InspectorWindow()
 
 				static float SmoothnessValue = materialInfo.smoothness;
 
-				ImGui::Indent(20); ImGui::Text("Smoothness"); ImGui::SameLine(WidthIndentation); 
+				ImGui::Indent(20); ImGui::Text("Smoothness"); ImGui::SameLine(WidthIndentation);
 				if (ImGui::SliderFloat("##SmoothnessMat1", &SmoothnessValue, 0.0f, 1.0f, "%.3f"))
 				{
 					materialInfo.smoothness = SmoothnessValue;
@@ -2147,7 +2244,7 @@ void ImGuiEditor::InspectorWindow()
 				//ImGui::Set
 				ImGui::SetNextItemWidth(200.0f);
 
-				ImGui::Indent(20); ImGui::Text("Source");  ImGui::SameLine(WidthIndentation); 
+				ImGui::Indent(20); ImGui::Text("Source");  ImGui::SameLine(WidthIndentation);
 				if (ImGui::Combo("##MatCombo2", &MatAlphacurrent_idx, imG_MaterialAlpha, IM_ARRAYSIZE(imG_MaterialAlpha)))
 				{
 
@@ -2581,8 +2678,8 @@ void ImGuiEditor::AssetWindow()
 		//		std::cout << m_SelectedFile << '\n';
 
 		static int materialCount = 1;
-				// CREATE WINDOW WITH RIGHT CLICK HERE RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHTCLICKRIGHTCLICK
-				// Alternatively, use ImGui::BeginPopupContextWindow() for right-click anywhere in the window
+		// CREATE WINDOW WITH RIGHT CLICK HERE RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHT CLICK RIGHTCLICKRIGHTCLICK
+		// Alternatively, use ImGui::BeginPopupContextWindow() for right-click anywhere in the window
 		if (ImGui::BeginPopupContextWindow("WindowContextMenu", ImGuiMouseButton_Right)) {
 			if (ImGui::MenuItem("Create Material Instances")) {
 				// Handle action for "Create Material Instances"
@@ -2708,6 +2805,7 @@ void ImGuiEditor::AssetWindow()
 							std::cerr << "Failed to load texture descriptor for: " << descriptorPath << std::endl;
 						}
 					}
+
 				}
 			}
 

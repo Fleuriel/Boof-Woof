@@ -1282,7 +1282,7 @@ bool AssetManager::LoadAnimations() {
                     continue;
                 }
 
-                AnimationFiles.push_back(entry.path().string());
+                AnimationFiles.push_back(entry.path().filename().string());
 
 #ifdef _DEBUG
                 std::cout << "\n**************************************************************************************\n";
