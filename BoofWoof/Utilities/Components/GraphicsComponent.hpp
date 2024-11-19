@@ -40,6 +40,7 @@ public:
 		}
 		return false;
 	}
+	void SetFollowCamera(bool follow) { followCamera = follow; }
 
     // Getters
     std::string getModelName() const { return m_ModelName; }
@@ -50,6 +51,7 @@ public:
     //bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
     int getTextureNumber() const { return static_cast<int>(textures.size()); }
     int getTexture(int i) const { return textures[i]; }
+	bool getFollowCamera() const { return followCamera; }
 
     // Set texture name
    // void setTexture(std::string texture) { textureName = texture; }
@@ -83,6 +85,7 @@ private:
     int m_ModelID{};
     //std::string textureName;
     std::vector<int> textures{};
+    bool followCamera = true;
 
 };
 

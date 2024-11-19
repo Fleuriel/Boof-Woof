@@ -1154,6 +1154,8 @@ void ImGuiEditor::InspectorWindow()
 										ImGui::PopID();
 									}
 
+									
+
 
 									ImGui::Text("Debug   ");
 									ImGui::SameLine();
@@ -1180,7 +1182,10 @@ void ImGuiEditor::InspectorWindow()
 
 									ImGui::TreePop();
 								}
-
+								// camera follow settings
+								bool followCamera = graphicsComponent.getFollowCamera();
+								ImGui::Checkbox("Follow Camera", &followCamera);
+								graphicsComponent.SetFollowCamera(followCamera);
 
 							}
 						}
