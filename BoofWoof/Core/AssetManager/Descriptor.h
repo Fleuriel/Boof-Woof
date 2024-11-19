@@ -52,9 +52,9 @@ struct TextureDescriptor {
 struct MaterialDescriptor
 {
 
-
+    
     int shaderIndex;            // Select Shader
-
+    std::string shaderChosen;
     
     float albedoColorRed;       // 0 ~ 1
     float albedoColorGreen;     // 0 ~ 1
@@ -66,6 +66,11 @@ struct MaterialDescriptor
 
 
     int materialAlpha;          // Select Albedo Stuffs.
+
+
+    MaterialDescriptor() : shaderIndex(-1), albedoColorRed(0), albedoColorGreen(0), albedoColorBlue(0), albedoColorAlpha(0),
+        metallic(0), smoothness(0), materialAlpha(0), shaderChosen("nothing"){}
+
 
     // Save the current descriptor to a file
     bool SaveMaterialDescriptor(const std::string& filepath);

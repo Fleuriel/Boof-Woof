@@ -83,6 +83,9 @@ public:
 	bool ReloadMaterials();
 	bool FreeMaterials();
 
+
+	
+
 	//Getters
 	OpenGLShader& GetShader(std::string);													//Function to access shaders
 
@@ -98,6 +101,11 @@ public:
 	MaterialComponent LoadMaterialFromFile(const std::string& filePath);
 
 	std::vector<std::string> AnimationFiles;													//Container to store animation file names
+//	std::vector<std::string> MaterialFiles;													//Container to store animation file names
+	std::vector<std::string> MaterialFiles;
+
+	std::vector<std::string>shdrpgmOrder{};													//Container to store the order of shader programs
+
 
 private:
 
@@ -108,7 +116,7 @@ private:
 	std::set<std::wstring> ObjectFiles;														//Container to store object file names
 	std::set<std::wstring> ShaderFiles;														//Container to store shader file names
 	std::set<std::wstring> FontFiles;														//Container to store font file names
-	std::set<std::wstring> MaterialFiles;
+	//std::set<std::wstring> MaterialFiles;
 
 
 
@@ -118,7 +126,6 @@ private:
 	std::vector<std::string> TextureDescriptionFiles;										//Container to store texture description files
 	std::map<std::string, Sprite> sprites{};												//Container to store sprites
 	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
-	std::vector<std::string>shdrpgmOrder{};													//Container to store the order of shader programs
 
 	TextureDescriptor textureInfo;
 	MaterialDescriptor materialInfo;

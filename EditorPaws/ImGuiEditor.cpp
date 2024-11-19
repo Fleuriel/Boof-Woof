@@ -2018,9 +2018,7 @@ void ImGuiEditor::InspectorWindow()
 			}
 			else if (selectedFilePath.find(".mat") != std::string::npos)
 			{
-
-
-
+				
 
 				// do some search for the Shader name:
 
@@ -2034,13 +2032,22 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("Material");
 				ImGui::SameLine(WidthIndentation);
 
-				const char* imG_Material[] = { "Shader3D", "Shader2D", " " };
-				static int Material_current_idx = materialInfo.shaderIndex; // Index for the selected item
+
+
+				std::string comboItems;
+				for (const auto& item : g_AssetManager.shdrpgmOrder) {
+					comboItems += item;
+					comboItems += '\0'; // Null-terminate each item
+				}
+
+
+				int &Material_current_idx = materialInfo.shaderIndex; // Index for the selected item
 				//ImGui::Set
-				ImGui::SetNextItemWidth(WidthIndentation);
-				if (ImGui::Combo("##MatCombo1", &Material_current_idx, imG_Material, IM_ARRAYSIZE(imG_Material)))
-				{
+				if (ImGui::Combo("##MatCombo1", &Material_current_idx, comboItems.c_str())) {
+					// Update materialInfo.shaderIndex with the selected index
 					materialInfo.shaderIndex = Material_current_idx;
+
+					materialInfo.shaderChosen = g_AssetManager.shdrpgmOrder[materialInfo.shaderIndex];
 				}
 
 
@@ -2077,7 +2084,12 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("Albedo");
 				ImGui::SameLine();
 
-				static float color[4] = { 1.0f, 0.0f, 0.0f, 1.0f }; // Example initial color (red)
+				float color[4];// = { 1.0f, 0.0f, 0.0f, 1.0f }; // Example initial color (red)
+
+				color[0] = materialInfo.albedoColorRed;
+				color[1] = materialInfo.albedoColorGreen;
+				color[2] = materialInfo.albedoColorBlue;
+				color[3] = materialInfo.albedoColorAlpha;
 
 				ImGui::SetNextItemWidth(100.0f); // Adjust this value to change the color picker's width
 				if (ImGui::ColorButton("Color Bar", ImVec4(color[0], color[1], color[2], color[3]), ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_NoBorder, ImVec2(300, 10))) {
@@ -2161,6 +2173,46 @@ void ImGuiEditor::InspectorWindow()
 
 
 				ImGui::Button("##MatButton4 ", ImVec2(15, 15)); ImGui::SameLine();  ImGui::Text("Normal Map");   	 // Create a visual box
+
+
+
+				ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();
+
+
+				ImGui::Indent(300);
+
+				if (ImGui::Button("Apply"))
+				{
+
+					//Save
+					std::cout << m_SelectedFile.string();
+					materialInfo.SaveMaterialDescriptor(m_SelectedFile.string());
+					materialInfo.LoadMaterialDescriptor(m_SelectedFile.string());
+					// g_AssetManager.ReloadTextures();
+				}
+
+				ImGui::SameLine();
+				if (ImGui::Button("Revert To Default"))
+				{
+					// Go back to default settings
+					MaterialDescriptor desc;
+
+					// Save default settings to the descriptor file
+					if (desc.SaveMaterialDescriptor(m_SelectedFile.string())) {
+						// Load the reverted settings to refresh the inspector
+						if (materialInfo.LoadMaterialDescriptor(m_SelectedFile.string())) {
+							std::cout << "Reverted to default settings." << std::endl;
+						}
+						else {
+							std::cerr << "Failed to load the reverted descriptor file." << std::endl;
+						}
+					}
+					else {
+						std::cerr << "Failed to save the reverted descriptor file." << std::endl;
+					}
+				}
+
+				ImGui::Unindent(300);
 
 				//ImGui::Button("##MatButton5 ", ImVec2(15, 15)); ImGui::SameLine();	ImGui::Text("Height Map"); 	 // Create a visual box
 				//
@@ -2366,7 +2418,6 @@ void ImGuiEditor::InspectorWindow()
 					// Generate framebuffer only once
 					g_Coordinator.GetSystem<GraphicsSystem>()->generateNewFrameBuffer(fbo, textureColorbuffer, rbo, 512, 288);
 					// std::cout << '\t' << fbo << '\t' << textureColorbuffer << '\t' << rbo << '\n';
-
 					isFramebufferGenerated = true;
 				}
 
@@ -2706,6 +2757,15 @@ void ImGuiEditor::AssetWindow()
 						// Attempt to load the texture descriptor and handle potential failure
 						if (!textureInfo.LoadTextureDescriptor(descriptorPath)) {
 							std::cerr << "Failed to load texture descriptor for: " << descriptorPath << std::endl;
+						}
+					}
+					else if(extension == ".mat")
+					{
+						//std::cout << m_SelectedFile.string() << '\n';
+
+						if (materialInfo.LoadMaterialDescriptor(m_SelectedFile.string()))
+						{
+							std::cerr << "Failed to load material for this: " << m_SelectedFile.stem().string() << '\n';
 						}
 					}
 				}

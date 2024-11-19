@@ -3,14 +3,13 @@
     "type": "Example",
     "properties": {
         "color": [
-            0.0,
-            1.0,
+            0.21301589906215669,
+            0.7079645991325378,
             0.0,
             1.0
         ],
-        "shininess": 0.5,
-        "textureID": 0,
+        "shininess": 0.0,
         "shader": "Shader3D",
-        "reflectivity": 0.800000011920929
+        "reflectivity": 0.0
     }
 }

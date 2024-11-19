@@ -157,14 +157,15 @@ void AssetManager::LoadAll() {
 
 #ifdef _DEBUG
     bool loadTextures = AssetManager::LoadTextures(),
-        loadObjects = LoadObjects(),
+        loadObjects = AssetManager::LoadObjects(),
         //loadSprites   = AssetManager::LoadSprites(),
         //loadSounds    = AssetManager::LoadSounds(),
         loadFonts = AssetManager::LoadFonts(),
         loadScenes = AssetManager::LoadScenes(),
         //loadPrefabs   = AssetManager::LoadPrefabs(),
         loadShaders = AssetManager::LoadShaders(),
-        loadAnimations = AssetManager::LoadAnimations();
+        loadAnimations = AssetManager::LoadAnimations(),
+        loadMaterial = AssetManager::LoadMaterials();
 
     std::cout
         << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
@@ -1520,33 +1521,15 @@ bool AssetManager::LoadMaterials()
                     continue;
                 }
 
-                MaterialFiles.insert(entry.path().wstring());
+                MaterialFiles.push_back(entry.path().filename().string());
+
+                std::string descFilePath = FILEPATH_ASSET_MATERIAL + "/" + nameWithoutExtension + ".matJson";
 
 #ifdef _DEBUG
                 std::cout << "\n**************************************************************************************\n";
-                std::cout << nameWithoutExtension << " detected successfully!\n";
+                std::cout << "Material: \t" << nameWithoutExtension << " detected successfully!\n";
 #endif // DEBUG
 
-                if (!fs::exists(FILEPATH_DESCRIPTOR_MATERIAL))
-                    fs::create_directory(FILEPATH_DESCRIPTOR_MATERIAL);
-
-                // Create an output file stream (ofstream) object
-                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_MATERIAL + "/" + nameWithoutExtension + ".json" };
-
-                // Check if the file exists
-                if (std::filesystem::exists(descriptorFilePath)) {
-                    //std::cout << "Descriptor file already exists: " << descriptorFilePath << std::endl;
-                    // Optional: Handle what to do if the file exists (e.g., overwrite, prompt user, etc.)
-                }
-                else {
-                    MaterialDescriptor desc;
-                    if (desc.SaveMaterialDescriptor(descriptorFilePath)) {
-                        std::cout << "Descriptor file saved successfully: " << descriptorFilePath << std::endl;
-                    }
-                    else {
-                        std::cerr << "Failed to save descriptor file: " << descriptorFilePath << std::endl;
-                    }
-                }
             }
             else
             {
