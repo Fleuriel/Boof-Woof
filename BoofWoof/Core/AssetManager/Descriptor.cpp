@@ -166,19 +166,33 @@ bool MaterialDescriptor::SaveMaterialDescriptor(const std::string& filepath) {
 	document.SetObject();
 	Document::AllocatorType& allocator = document.GetAllocator();
 
-	// Add members to the JSON object
+	std::string filename = std::filesystem::path(filepath).stem().string();
 
+	// Add top-level members
+	document.AddMember("name", Value(filename.c_str(), allocator), allocator); // Change as needed
+	document.AddMember("type", Value("Example", allocator), allocator);
 
-	document.AddMember("shaderIndex", shaderIndex, allocator);
-	document.AddMember("colorRed", albedoColorRed, allocator);
-	document.AddMember("colorGreen", albedoColorGreen, allocator);
-	document.AddMember("colorBlue", albedoColorBlue, allocator);
-	document.AddMember("colorAlpha", albedoColorAlpha, allocator);
+	// Add "properties" object
+	Value properties(kObjectType);
+
+	// Add "color" array
+	Value color(kArrayType);
+	color.PushBack(albedoColorRed, allocator)
+		.PushBack(albedoColorGreen, allocator)
+		.PushBack(albedoColorBlue, allocator)
+		.PushBack(albedoColorAlpha, allocator);
+	properties.AddMember("color", color, allocator);
+
+	// Add other properties
+	properties.AddMember("shininess", smoothness, allocator);
+//	properties.AddMember("textureID", textureID, allocator); // Assuming textureID exists in your class
 	
-	document.AddMember("metallic", metallic, allocator);
-	document.AddMember("smoothness", smoothness, allocator);
+	rapidjson::Value shaderValue(shaderChosen.c_str(), allocator); // Convert std::string to rapidjson::Value
+	properties.AddMember("shader", shaderValue, allocator);
+	properties.AddMember("reflectivity", metallic, allocator);
 
-	document.AddMember("materialAlpha", materialAlpha, allocator);
+	// Attach "properties" to the main document
+	document.AddMember("properties", properties, allocator);
 
 	// Write JSON to file
 	std::ofstream ofs(filepath, std::ios::out | std::ios::trunc);
@@ -187,7 +201,7 @@ bool MaterialDescriptor::SaveMaterialDescriptor(const std::string& filepath) {
 		return false;
 	}
 
-	// Use RapidJSON's PrettyWriter to write the document
+	// Use PrettyWriter to write the JSON document
 	OStreamWrapper osw(ofs);
 	PrettyWriter<OStreamWrapper> writer(osw);
 
@@ -220,46 +234,52 @@ bool MaterialDescriptor::LoadMaterialDescriptor(const std::string& filepath) {
 		return false;
 	}
 
-	// Check that the document is an object
 	if (!document.IsObject()) {
 		std::cerr << "Error: Descriptor file does not contain a valid JSON object: " << filepath << std::endl;
 		return false;
 	}
 
-	// Helper lambda functions to safely extract values
-	auto GetInt = [&](const char* key, int& target) {
-		if (document.HasMember(key) && document[key].IsInt())
-			target = document[key].GetInt();
-		};
+	// Extract top-level values
+	if (document.HasMember("name") && document["name"].IsString()) {
+		std::string name = document["name"].GetString();
+		std::cout << "Material Name: " << name << std::endl;
+	}
 
-	auto GetString = [&](const char* key, std::string& target) {
-		if (document.HasMember(key) && document[key].IsString())
-			target = document[key].GetString();
-		};
+	if (document.HasMember("type") && document["type"].IsString()) {
+		std::string type = document["type"].GetString();
+		std::cout << "Material Type: " << type << std::endl;
+	}
 
-	auto GetBool = [&](const char* key, bool& target) {
-		if (document.HasMember(key) && document[key].IsBool())
-			target = document[key].GetBool();
-		};
+	// Extract properties object
+	if (document.HasMember("properties") && document["properties"].IsObject()) {
+		const Value& properties = document["properties"];
 
-	auto GetFloat = [&](const char* key, float& target) {
-		if (document.HasMember(key) && document[key].IsFloat())
-			target = document[key].GetFloat();
-		};
+		// Extract color array
+		if (properties.HasMember("color") && properties["color"].IsArray()) {
+			const Value& color = properties["color"];
+			if (color.Size() == 4) {
+				albedoColorRed = color[0].GetFloat();
+				albedoColorGreen = color[1].GetFloat();
+				albedoColorBlue = color[2].GetFloat();
+				albedoColorAlpha = color[3].GetFloat();
+			}
+		}
 
+		// Extract other properties
+		if (properties.HasMember("shininess") && properties["shininess"].IsFloat()) {
+			smoothness = properties["shininess"].GetFloat();
+		}
 
+		
+		if (properties.HasMember("shader") && properties["shader"].IsString()) {
+			std::string shader = properties["shader"].GetString();
+			std::cout << "Shader: " << shader << std::endl;
+		}
 
-	// Populate descriptor fields
-	GetInt("shaderIndex", shaderIndex);
-	GetFloat("colorRed", albedoColorRed);
-	GetFloat("colorGreen", albedoColorGreen);
-	GetFloat("colorBlue", albedoColorBlue);
-	GetFloat("colorAlpha", albedoColorAlpha);
-	GetFloat("metallic", metallic);
-	GetFloat("smoothness", smoothness);
-
-
-	GetInt("materialAlpha", materialAlpha);
+		if (properties.HasMember("reflectivity") && properties["reflectivity"].IsFloat()) {
+			metallic = properties["reflectivity"].GetFloat();
+		}
+	}
 
 	return true;
 }

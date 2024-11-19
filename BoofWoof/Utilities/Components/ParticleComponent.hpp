@@ -23,6 +23,7 @@ public:
 
 
 	////// setter
+	void setInitFlag(bool f) { init_flag = f; }
 	void setDensity(float d) { density = d; }
 	void setPosMin(glm::vec3 p) { Pos_min = p; }
 	void setPosMax(glm::vec3 p) { Pos_max = p; }
@@ -31,7 +32,9 @@ public:
 	void setTargetPositions(std::vector<glm::vec3> tp) { target_positions = tp; }
 
 
+
 	////// getter
+	bool getInitFlag() { return init_flag; }
 	float getDensity() { return density; }
 	glm::vec3 getPosMin() { return Pos_min; }
 	glm::vec3 getPosMax() { return Pos_max; }
@@ -176,6 +179,7 @@ public:
 				particles[i].position = getRandomVec3(Pos_min, Pos_max);
 				particles[i].velocity = randomFloat(velocity_min, velocity_max);
 
+				particles[i].target_count = 0;
 				particles[i].direction = DirectionValue(particles[i].target_count);
 				particles[i].target_distance = DistanceValue(particles[i].target_count);
 				particles[i].target_distance_count = 0.0f;
@@ -192,6 +196,10 @@ public:
 				if (particles[i].target_count < target_positions.size()-1 )
 				{
 					particles[i].target_count++;
+				}
+				else {
+					visibility[i] = 0.0f;
+
 				}
 				particles[i].target_distance_count = 0.0f;
 				particles[i].direction = DirectionValue(particles[i].target_count);
@@ -234,6 +242,11 @@ public:
 	float randomFloat(float min, float max) {
 		static std::random_device rd;  // Obtain a random number from hardware
 		static std::mt19937 eng(rd()); // Seed the generator
+		if (min > max) {
+			float temp = min;
+			min = max;
+			max = temp;
+		}
 		std::uniform_real_distribution<> distr(min, max); // Define the range
 		return distr(eng);
 	}
@@ -290,7 +303,8 @@ private:
 
 
 	// settings
-	float density = 1.f;
+	bool init_flag = false;
+	float density = 0.1f;
 
 	glm::vec3 Pos_min{ 0.0f,-0.5f,0.0 };
 	glm::vec3 Pos_max{ 0.0f, 0.5f,0.0 };

@@ -1,5 +1,5 @@
 {
-    "name": "Material_Red",
+    "name": "Material_1",
     "type": "Example",
     "properties": {
         "color": [
@@ -8,8 +8,9 @@
             0.0,
             1.0
         ],
-        "shininess": 0.0,
+        "shininess": 0.5,
+        "textureID": 0,
         "shader": "Shader3D",
-        "reflectivity": 0.0
+        "reflectivity": 0.800000011920929
     }
 }

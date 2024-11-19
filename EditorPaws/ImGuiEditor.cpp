@@ -1758,6 +1758,109 @@ void ImGuiEditor::InspectorWindow()
 							// Custom UI for MetadataComponent
 							if (ImGui::CollapsingHeader("Particle", ImGuiTreeNodeFlags_None))
 							{
+								auto& particleComponent = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
+								// set the properties
+								glm::vec3 position = particleComponent.getPosMin();
+								glm::vec3 positionMax = particleComponent.getPosMax();
+
+								ImGui::Text("Position Min");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("PositionMin");
+
+								if (ImGui::DragFloat3("##PositionMin", &position.x, 0.1f))
+								{
+									particleComponent.setPosMin(position);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								ImGui::Text("Position Max");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("PositionMax");
+
+								if (ImGui::DragFloat3("##PositionMax", &positionMax.x, 0.1f))
+								{
+									particleComponent.setPosMax(positionMax);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// set the density
+								float density = particleComponent.getDensity();
+								ImGui::Text("Density");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Density");
+
+								if (ImGui::DragFloat("##Density", &density, 0.1f))
+								{
+									particleComponent.setDensity(density);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Fetch the current velocity minimum and maximum from the particle component
+								float vel_min = particleComponent.getVelocityMin();
+								float vel_max = particleComponent.getVelocityMax();
+
+								// Begin the velocity section
+								ImGui::Text("Velocity: Min");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("VelocityMin");
+
+								if (ImGui::DragFloat("##VelocityMin", &vel_min, 0.1f, 0.0f, vel_max)) {
+									particleComponent.setVelocityMin(vel_min);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								ImGui::SameLine();
+
+								ImGui::Text("Max");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("VelocityMax");
+								if (ImGui::DragFloat("##VelocityMax", &vel_max, 0.1f, vel_min, FLT_MAX)) {
+									particleComponent.setVelocityMax(vel_max);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// set TargetPositions
+								std::vector<glm::vec3> targetPositions = particleComponent.getTargetPositions();
+								if (ImGui::CollapsingHeader("Target Positions")) {
+
+									for (size_t i = 0; i < targetPositions.size(); ++i) {
+										ImGui::PushID(i);
+										ImGui::Text("Position %zu", i + 1);
+										ImGui::SameLine();
+
+										if (ImGui::DragFloat3("##TargetPos", &targetPositions[i].x, 0.1f)) {
+											particleComponent.setTargetPositions(targetPositions);
+										}
+										ImGui::PopID();
+									}
+
+
+									if (ImGui::Button("Add Position")) {
+										targetPositions.push_back(glm::vec3(0.0f));
+										particleComponent.setTargetPositions(targetPositions);
+									}
+
+									if (!targetPositions.empty()) {
+										ImGui::SameLine();
+										if (ImGui::Button("Remove Position")) {
+											targetPositions.pop_back();
+											particleComponent.setTargetPositions(targetPositions);
+										}
+									}
+								}
+
 
 							}
 						}
@@ -2115,9 +2218,7 @@ void ImGuiEditor::InspectorWindow()
 			}
 			else if (selectedFilePath.find(".mat") != std::string::npos)
 			{
-
-
-
+				
 
 				// do some search for the Shader name:
 
@@ -2131,13 +2232,22 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("Material");
 				ImGui::SameLine(WidthIndentation);
 
-				const char* imG_Material[] = { "Shader3D", "Shader2D", " " };
-				static int Material_current_idx = materialInfo.shaderIndex; // Index for the selected item
+
+
+				std::string comboItems;
+				for (const auto& item : g_AssetManager.shdrpgmOrder) {
+					comboItems += item;
+					comboItems += '\0'; // Null-terminate each item
+				}
+
+
+				int &Material_current_idx = materialInfo.shaderIndex; // Index for the selected item
 				//ImGui::Set
-				ImGui::SetNextItemWidth(WidthIndentation);
-				if (ImGui::Combo("##MatCombo1", &Material_current_idx, imG_Material, IM_ARRAYSIZE(imG_Material)))
-				{
+				if (ImGui::Combo("##MatCombo1", &Material_current_idx, comboItems.c_str())) {
+					// Update materialInfo.shaderIndex with the selected index
 					materialInfo.shaderIndex = Material_current_idx;
+
+					materialInfo.shaderChosen = g_AssetManager.shdrpgmOrder[materialInfo.shaderIndex];
 				}
 
 
@@ -2174,7 +2284,12 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("Albedo");
 				ImGui::SameLine();
 
-				static float color[4] = { 1.0f, 0.0f, 0.0f, 1.0f }; // Example initial color (red)
+				float color[4];// = { 1.0f, 0.0f, 0.0f, 1.0f }; // Example initial color (red)
+
+				color[0] = materialInfo.albedoColorRed;
+				color[1] = materialInfo.albedoColorGreen;
+				color[2] = materialInfo.albedoColorBlue;
+				color[3] = materialInfo.albedoColorAlpha;
 
 				ImGui::SetNextItemWidth(100.0f); // Adjust this value to change the color picker's width
 				if (ImGui::ColorButton("Color Bar", ImVec4(color[0], color[1], color[2], color[3]), ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_NoBorder, ImVec2(300, 10))) {
@@ -2258,6 +2373,46 @@ void ImGuiEditor::InspectorWindow()
 
 
 				ImGui::Button("##MatButton4 ", ImVec2(15, 15)); ImGui::SameLine();  ImGui::Text("Normal Map");   	 // Create a visual box
+
+
+
+				ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();
+
+
+				ImGui::Indent(300);
+
+				if (ImGui::Button("Apply"))
+				{
+
+					//Save
+					std::cout << m_SelectedFile.string();
+					materialInfo.SaveMaterialDescriptor(m_SelectedFile.string());
+					materialInfo.LoadMaterialDescriptor(m_SelectedFile.string());
+					// g_AssetManager.ReloadTextures();
+				}
+
+				ImGui::SameLine();
+				if (ImGui::Button("Revert To Default"))
+				{
+					// Go back to default settings
+					MaterialDescriptor desc;
+
+					// Save default settings to the descriptor file
+					if (desc.SaveMaterialDescriptor(m_SelectedFile.string())) {
+						// Load the reverted settings to refresh the inspector
+						if (materialInfo.LoadMaterialDescriptor(m_SelectedFile.string())) {
+							std::cout << "Reverted to default settings." << std::endl;
+						}
+						else {
+							std::cerr << "Failed to load the reverted descriptor file." << std::endl;
+						}
+					}
+					else {
+						std::cerr << "Failed to save the reverted descriptor file." << std::endl;
+					}
+				}
+
+				ImGui::Unindent(300);
 
 				//ImGui::Button("##MatButton5 ", ImVec2(15, 15)); ImGui::SameLine();	ImGui::Text("Height Map"); 	 // Create a visual box
 				//
@@ -2463,7 +2618,6 @@ void ImGuiEditor::InspectorWindow()
 					// Generate framebuffer only once
 					g_Coordinator.GetSystem<GraphicsSystem>()->generateNewFrameBuffer(fbo, textureColorbuffer, rbo, 512, 288);
 					// std::cout << '\t' << fbo << '\t' << textureColorbuffer << '\t' << rbo << '\n';
-
 					isFramebufferGenerated = true;
 				}
 
@@ -2805,7 +2959,15 @@ void ImGuiEditor::AssetWindow()
 							std::cerr << "Failed to load texture descriptor for: " << descriptorPath << std::endl;
 						}
 					}
+					else if(extension == ".mat")
+					{
+						//std::cout << m_SelectedFile.string() << '\n';
 
+						if (materialInfo.LoadMaterialDescriptor(m_SelectedFile.string()))
+						{
+							std::cerr << "Failed to load material for this: " << m_SelectedFile.stem().string() << '\n';
+						}
+					}
 				}
 			}
 
