@@ -136,27 +136,7 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-	//static bool particleInit = false;
-	//if (!particleInit) {
-	//	//Particle_cmp.setMesh(g_ResourceManager.getModel("sphere")->meshes[0]);
-	//	Particle_cmp.init();
-	//	particleInit = true;
-	//}
-	//g_AssetManager.GetShader("instanced").Use();
-	//g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
-	//g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
-	//glPointSize(10.0f);
-	//
-	//
-	//shdrParam.WorldMatrix = { {1.0f, 0.0f, 0.0f, 0.0f},
-	//						{0.0f, 1.0f, 0.0f, 0.0f},
-	//						{0.0f, 0.0f, 1.0f, 0.0f},
-	//						{0.0f, 0.0f, 0.0f, 1.0f} };
-	//g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
-	////SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
-	//Particle_cmp.update(static_cast<float>(g_Core->m_DeltaTime));
-	//Particle_cmp.draw();
-	//g_AssetManager.GetShader("instanced").UnUse();
+	
 
 
 	// Setup camera and projection matrix
@@ -186,14 +166,40 @@ void GraphicsSystem::UpdateLoop() {
 			}
 		}
 
-		if (!g_Coordinator.HaveComponent<TransformComponent>(entity) || !g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+		if (!g_Coordinator.HaveComponent<TransformComponent>(entity))
 		{
 			continue;
 		}
-
-
-
 		auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+
+		
+		if (g_Coordinator.HaveComponent<ParticleComponent>(entity))
+		{
+			auto& particleComp = g_Coordinator.GetComponent<ParticleComponent>(entity);
+			if (!particleComp.getInitFlag()) {
+				particleComp.init();
+				particleComp.setInitFlag(true);
+			}
+			g_AssetManager.GetShader("instanced").Use();
+			g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
+			g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
+			glPointSize(10.0f);
+			
+			
+			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
+			g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+			//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
+			particleComp.update(static_cast<float>(g_Core->m_DeltaTime));
+			particleComp.draw();
+			g_AssetManager.GetShader("instanced").UnUse();
+
+		}
+		
+
+		if (!g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+		{
+			continue;
+		}
 		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 
 		shdrParam.WorldMatrix = transformComp.GetWorldMatrix();

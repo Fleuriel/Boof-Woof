@@ -1661,6 +1661,109 @@ void ImGuiEditor::InspectorWindow()
 							// Custom UI for MetadataComponent
 							if (ImGui::CollapsingHeader("Particle", ImGuiTreeNodeFlags_None))
 							{
+								auto& particleComponent = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
+								// set the properties
+								glm::vec3 position = particleComponent.getPosMin();
+								glm::vec3 positionMax = particleComponent.getPosMax();
+
+								ImGui::Text("Position Min");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("PositionMin");
+
+								if (ImGui::DragFloat3("##PositionMin", &position.x, 0.1f))
+								{
+									particleComponent.setPosMin(position);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								ImGui::Text("Position Max");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("PositionMax");
+
+								if (ImGui::DragFloat3("##PositionMax", &positionMax.x, 0.1f))
+								{
+									particleComponent.setPosMax(positionMax);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// set the density
+								float density = particleComponent.getDensity();
+								ImGui::Text("Density");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Density");
+
+								if (ImGui::DragFloat("##Density", &density, 0.1f))
+								{
+									particleComponent.setDensity(density);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Fetch the current velocity minimum and maximum from the particle component
+								float vel_min = particleComponent.getVelocityMin();
+								float vel_max = particleComponent.getVelocityMax();
+
+								// Begin the velocity section
+								ImGui::Text("Velocity: Min");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("VelocityMin");
+
+								if (ImGui::DragFloat("##VelocityMin", &vel_min, 0.1f, 0.0f, vel_max)) {
+									particleComponent.setVelocityMin(vel_min);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								ImGui::SameLine();
+
+								ImGui::Text("Max");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("VelocityMax");
+								if (ImGui::DragFloat("##VelocityMax", &vel_max, 0.1f, vel_min, FLT_MAX)) {
+									particleComponent.setVelocityMax(vel_max);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// set TargetPositions
+								std::vector<glm::vec3> targetPositions = particleComponent.getTargetPositions();
+								if (ImGui::CollapsingHeader("Target Positions")) {
+
+									for (size_t i = 0; i < targetPositions.size(); ++i) {
+										ImGui::PushID(i);
+										ImGui::Text("Position %zu", i + 1);
+										ImGui::SameLine();
+
+										if (ImGui::DragFloat3("##TargetPos", &targetPositions[i].x, 0.1f)) {
+											particleComponent.setTargetPositions(targetPositions);
+										}
+										ImGui::PopID();
+									}
+
+
+									if (ImGui::Button("Add Position")) {
+										targetPositions.push_back(glm::vec3(0.0f));
+										particleComponent.setTargetPositions(targetPositions);
+									}
+
+									if (!targetPositions.empty()) {
+										ImGui::SameLine();
+										if (ImGui::Button("Remove Position")) {
+											targetPositions.pop_back();
+											particleComponent.setTargetPositions(targetPositions);
+										}
+									}
+								}
+
 
 							}
 						}
