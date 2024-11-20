@@ -1040,7 +1040,7 @@ void ImGuiEditor::InspectorWindow()
 
 								ImGui::Text("Graphics Properties:");
 
-								auto graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+								auto& graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
 								const auto& properties = ReflectionManager::Instance().GetProperties("GraphicsComponent");
 								//if (ImGui::Button("Add Sub Components"))
 								//{
@@ -1176,33 +1176,39 @@ void ImGuiEditor::InspectorWindow()
 
 								if (ImGui::TreeNode("old Texture"))
 								{
-									// Handle TextureName Property
-									auto textureNameProperty = std::find_if(properties.begin(), properties.end(),
-										[](const ReflectionPropertyBase* prop) { return prop->GetName() == "Textures"; });
+									//// Handle TextureName Property
+									//auto textureNameProperty = std::find_if(properties.begin(), properties.end(),
+									//	[](const ReflectionPropertyBase* prop) { return prop->GetName() == "Textures"; });
 
-									if (textureNameProperty != properties.end())
-									{
-										std::string propertyName = "Textures";
-										std::string currentTextureName = (*textureNameProperty)->GetValue(&graphicsComponent);
-										std::string newTextureName = currentTextureName;
+									//if (textureNameProperty != properties.end())
+									//{
+									//	std::string propertyName = "Textures";
+									//	std::string currentTextureName = (*textureNameProperty)->GetValue(&graphicsComponent);
+									//	std::string newTextureName = currentTextureName;
+										
+										std::vector<int>  textureIds = graphicsComponent.getTextures();
 
 										ImGui::Text("Texture ");
 										ImGui::SameLine();
-										ImGui::PushID(propertyName.c_str());
+										ImGui::PushID("Textures");
 
-										char buffer[256];
+										/*char buffer[256];
 										memset(buffer, 0, sizeof(buffer));
 										strcpy_s(buffer, sizeof(buffer), currentTextureName.c_str());
 
-										ImGui::InputText("##Textures", buffer, sizeof(buffer), ImGuiInputTextFlags_ReadOnly);
+										ImGui::InputText("##Textures", buffer, sizeof(buffer), ImGuiInputTextFlags_ReadOnly);*/
+
+										// get texture names
+										
+
 
 										ImGui::SameLine();
 
 										// Store old value before opening the file dialog
-										static std::string oldTextureName = "";
+										//static std::string oldTextureName = "";
 										if (ImGui::Button("Set Texture"))
 										{
-											oldTextureName = currentTextureName; // Capture the old value
+											//oldTextureName = currentTextureName; // Capture the old value
 											ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
 										}
 
@@ -1218,17 +1224,17 @@ void ImGuiEditor::InspectorWindow()
 													selectedFile = selectedFile.substr(0, lastDotPos);
 												}
 
-												newTextureName = selectedFile;
-												(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
-												int textureId = g_ResourceManager.GetTextureDDS(newTextureName);
+												//newTextureName = selectedFile;
+												//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
+												int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
 												graphicsComponent.AddTexture(textureId);
 
 
 
 
 												// Execute undo/redo command
-												std::string oldValue = oldTextureName;
-												Entity entity = g_SelectedEntity;
+												/*std::string oldValue = oldTextureName;
+												Entity entity = g_SelectedEntity;*/
 
 												/*g_UndoRedoManager.ExecuteCommand(
 													[entity, newTextureName]() {
@@ -1245,7 +1251,7 @@ void ImGuiEditor::InspectorWindow()
 										}
 
 										ImGui::PopID();
-									}
+									
 
 									
 
