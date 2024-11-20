@@ -258,11 +258,7 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-				if(debug)
-					if(D3)
-					{
-						g_ResourceManager.getModel(graphicsComp.getModelName())->RenderAABB(glm::vec3(0.0f), glm::vec3(1.0f,1.0f,1.0f));
-					}
+
 
 
 
@@ -331,18 +327,7 @@ void GraphicsSystem::UpdateLoop() {
 					glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName()));
 				//glBindTextureUnit(6, set_Texture_T);
 
-				if (debug)
-				{
-					if (D2)
-					{
-						Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
-						g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
-						g_AssetManager.GetShader("OutlineAndFont").Use();
-						SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
-
-						g_AssetManager.GetShader("OutlineAndFont").UnUse();
-					}
-				}
+				
 
 				//graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
 				//g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
@@ -351,7 +336,27 @@ void GraphicsSystem::UpdateLoop() {
 				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader("Shader2D"));
 
 				g_AssetManager.GetShader("Shader2D").UnUse();
+
+				g_AssetManager.GetShader("OutlineAndFont").Use();
+
+				SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
+
+				if (D2)
+				{
+					Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
+					g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
+					//g_AssetManager.GetShader("OutlineAndFont").Use();
+
+				}
+				if (D3)
+				{
+					Model AABBOutline = AABB(glm::vec3(0.0f, 1.0f, 1.0f));
+					g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(AABBOutline);
+				}
 				
+				
+				g_AssetManager.GetShader("OutlineAndFont").UnUse();
+
 
 
 

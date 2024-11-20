@@ -94,7 +94,6 @@ public:
     {
         return pickingColorTexture;
     }
-    void RenderAABB(const glm::vec3& center, const glm::vec3& halfExtents);
 
 
     int GetViewportWidth() const { return viewportWidth; }

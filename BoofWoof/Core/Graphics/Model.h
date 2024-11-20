@@ -96,7 +96,7 @@ public:
         meshes.push_back(mesh);
     }
 
-    void RenderAABB(const glm::vec3& center, const glm::vec3& halfExtents);
+//    void RenderAABB(const glm::vec3& center, const glm::vec3& halfExtents, const glm::vec3& color);
 
     //void setMesh()
     //{
