@@ -615,7 +615,6 @@ void ImGuiEditor::InspectorWindow()
 						}
 					}
 
-
 					if (ImGui::Selectable("Material Component"))
 					{
 						if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
@@ -634,6 +633,7 @@ void ImGuiEditor::InspectorWindow()
 
 						}
 					}
+					
 
 					ImGui::EndPopup();
 				}
@@ -671,21 +671,42 @@ void ImGuiEditor::InspectorWindow()
 
 					if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 					{
+						
+						auto graphics = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
 						if (ImGui::Selectable("Graphics Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+							
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
 									if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 										g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
 								},
-								[this, componentData]() {
+								[this, graphics]() {
 									if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
-										g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, componentData);
+										g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, graphics);
 								}
 							);
 						}
+
+
+
+
+
+
+
+						//if (ImGui::Selectable("Add Animation")) {
+						//	Animation newAnimation{/*initialize animation properties*/ };
+						//	AddAnimation(graphics, newAnimation);
+						//}
+						//
+						//if (graphics.hasAnimation && ImGui::Selectable("Remove Animation")) {
+						//	RemoveAnimation(componentData);
+						//}
+
+
+
+
 					}
 
 					if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
@@ -1011,15 +1032,87 @@ void ImGuiEditor::InspectorWindow()
 						}
 						else if (className == "GraphicsComponent")
 						{
+
 							// Custom UI for GraphicsComponent
 							if (ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_None))
 							{
 
 
+								ImGui::Text("Graphics Properties:");
 
-
+								auto graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
 								const auto& properties = ReflectionManager::Instance().GetProperties("GraphicsComponent");
-								auto& graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+								//if (ImGui::Button("Add Sub Components"))
+								//{
+								//	ImGui::OpenPopup("SComponents");
+								//}
+
+
+								//if (ImGui::BeginPopupContextItem("SComponents"))
+								//{
+								//	
+								//
+								//	if (ImGui::Selectable("Material Component"))
+								//	{
+								//		if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+								//		{
+								//			g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
+								//			graphicsComponent.hasMaterial = true;
+								//			g_UndoRedoManager.ExecuteCommand(
+								//				[this]() {
+								//					if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+								//						g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
+								//				},
+								//				[this]() {
+								//					if (g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+								//						g_Coordinator.RemoveComponent<MaterialComponent>(g_SelectedEntity);
+								//				}
+								//			);
+								//	
+								//		}
+								//	}
+								//
+								//	ImGui::EndPopup();
+								//}
+
+								//if (graphicsComponent.hasMaterial) {
+								//	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_None)) {
+								//		auto& material = graphicsComponent.material;
+								//
+								//		// Display MaterialComponent properties
+								//		ImGui::Text("Material Name: %s", material.name.c_str());
+								//		ImGui::SliderFloat("Shininess", &material.shininess, 0.0f, 100.0f);
+								//		ImGui::ColorEdit3("Diffuse Color", material.diffuseColor);
+								//	}
+								//}
+								// Access subcomponents
+
+							//std::cout <<"ths be material true\t" << graphicsComponent.hasMaterial << '\n';
+							//if (graphicsComponent.hasMaterial) {
+							//	if(ImGui::CollapsingHeader("Material Component", ImGuiTreeNodeFlags_None))
+							//	{
+							//		
+							//
+							//		
+							//		const MaterialComponent& material = graphicsComponent.material;
+							//		ImGui::Text("Material: %s", material.GetShaderName().c_str());
+							//		ImGui::Text("Shininess %.2f", material.GetShininess());
+							//
+							//		std::cout << material.GetShaderName().c_str() << '\t' << material.GetShininess() << '\n';
+							//
+							//	}
+							//}
+
+								//if (ImGui::Selectable("Add Material")) {
+								//	MaterialComponent newMaterial{/* Initialize material properties */ };
+								//	graphics.AddMaterial(newMaterial);
+								//}
+								//
+								//if (graphics.hasMaterial && ImGui::Selectable("Remove Material")) {
+								//	graphics.RemoveMaterial();
+								//}
+
+
 								graphicsComponent.RegisterProperties();
 								if (ImGui::TreeNode("Mesh Properties")) {
 
@@ -1866,12 +1959,20 @@ void ImGuiEditor::InspectorWindow()
 						}
 
 						else if (className == "MaterialComponent")
-						{
-							if (ImGui::CollapsingHeader("GetMaterials", ImGuiTreeNodeFlags_None))
+						{	
+							if (ImGui::CollapsingHeader("Materials", ImGuiTreeNodeFlags_None))
 							{
+								auto graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+								const MaterialComponent& material = graphicsComponent.material;
+								ImGui::Text("Material: %s", material.GetShaderName().c_str());
+								ImGui::Text("Shininess %.2f", material.GetShininess());
+
+
+
+
 
 							}
-
+						
 						}
 					}
 				}
@@ -2232,21 +2333,26 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("Material");
 				ImGui::SameLine(WidthIndentation);
 
-
-
 				std::string comboItems;
 				for (const auto& item : g_AssetManager.shdrpgmOrder) {
 					comboItems += item;
 					comboItems += '\0'; // Null-terminate each item
 				}
 
+				// Ensure default selection is the first item
+				if (materialInfo.shaderIndex < 0 || materialInfo.shaderIndex >= g_AssetManager.shdrpgmOrder.size()) {
+					materialInfo.shaderIndex = 5; // Default to the first item
+					materialInfo.shaderChosen = g_AssetManager.shdrpgmOrder[5]; // Set the chosen shader
+				}
 
-				int &Material_current_idx = materialInfo.shaderIndex; // Index for the selected item
-				//ImGui::Set
+				int& Material_current_idx = materialInfo.shaderIndex; // Index for the selected item
+
+				ImGui::SetNextItemWidth(WidthIndentation); // Set combo box width
 				if (ImGui::Combo("##MatCombo1", &Material_current_idx, comboItems.c_str())) {
 					// Update materialInfo.shaderIndex with the selected index
 					materialInfo.shaderIndex = Material_current_idx;
 
+					// Retrieve the selected string from the original vector
 					materialInfo.shaderChosen = g_AssetManager.shdrpgmOrder[materialInfo.shaderIndex];
 				}
 
@@ -2336,7 +2442,7 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("Metallic"); ImGui::SameLine(WidthIndentation); ImGui::PushItemWidth(250);
 
 
-				static float MetallicMatValue = materialInfo.metallic;
+				float &MetallicMatValue = materialInfo.metallic;
 
 				// Create a drag float that increments by 0.1 within a range of 0 to 10
 				if (ImGui::SliderFloat("##MetallicMat1", &MetallicMatValue, 0.0f, 1.0f, "%.3f"))
@@ -2346,7 +2452,7 @@ void ImGuiEditor::InspectorWindow()
 				}
 				// put the value here. that can set one.
 
-				static float SmoothnessValue = materialInfo.smoothness;
+				float &SmoothnessValue = materialInfo.smoothness;
 
 				ImGui::Indent(20); ImGui::Text("Smoothness"); ImGui::SameLine(WidthIndentation);
 				if (ImGui::SliderFloat("##SmoothnessMat1", &SmoothnessValue, 0.0f, 1.0f, "%.3f"))

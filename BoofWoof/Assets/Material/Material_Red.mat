@@ -8,8 +8,8 @@
             0.0,
             1.0
         ],
-        "shininess": 0.0,
-        "shader": "Shader3D",
-        "reflectivity": 0.0
+        "shininess": 0.23499999940395356,
+        "shader": "nothing",
+        "reflectivity": 0.5
     }
 }

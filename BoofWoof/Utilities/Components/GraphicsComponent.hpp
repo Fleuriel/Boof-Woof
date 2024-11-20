@@ -20,6 +20,10 @@
 #include "../Core/Graphics/Model.h"   // Make sure Model is included
 #include "../Core/Graphics/Object.h"  // Full definition of Object is needed here
 #include "../Core/Reflection/ReflectionManager.hpp" // Include the reflection manager
+#include "../Utilities/Components/MaterialComponent.hpp"
+
+class MaterialComponent;
+
 
 class GraphicsComponent
 {
@@ -56,9 +60,9 @@ public:
 
 
     // Constructor and destructor
-	GraphicsComponent() {};
+	GraphicsComponent() :hasMaterial(false){};
 	
-	GraphicsComponent(std::string modelName, Entity& entity) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity))
+	GraphicsComponent(std::string modelName, Entity& entity) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity)), hasMaterial(false)
 	{/*Empty by design*/
 
         
@@ -76,6 +80,32 @@ public:
         REGISTER_PROPERTY(GraphicsComponent, ModelID, int, SetModelID, getModelID);
         //REGISTER_PROPERTY(GraphicsComponent, TextureName, std::string, setTexture, getTextureName);
     }
+
+
+    MaterialComponent material;
+    bool hasMaterial;       // Indicates if a material is assigned
+
+//    Animation animation;
+
+
+    void AddMaterial(const MaterialComponent& newMaterial) {
+        material = newMaterial;
+        hasMaterial = true;
+    }
+
+    void RemoveMaterial() {
+        hasMaterial = false;
+        // Reset material to a default state, if applicable
+    }
+
+  //  void AddAnimation(GraphicsComponent& graphics, const Animation& newAnimation) {
+  //      graphics.animation = newAnimation;
+  //      graphics.hasAnimation = true;
+  //  }
+  //
+  //  void RemoveAnimation(GraphicsComponent& graphics) {
+  //      graphics.hasAnimation = false;
+  //  }
 
 private:
     Entity m_EntityID{};

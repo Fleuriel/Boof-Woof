@@ -10,7 +10,8 @@
 class MaterialComponent {
 public:
     // Constructors
-    MaterialComponent() = default;
+//    MaterialComponent() = default;
+    MaterialComponent() :shaderName("Shader3D"), color(glm::vec4(1.0f,1.0f,1.0f,1.0f)), textureID(-1), shininess(0) {}
     MaterialComponent(const std::string& shader, const glm::vec4& baseColor, int texID, float shiny)
         : shaderName(shader), color(baseColor), textureID(texID), shininess(shiny) {
     }
