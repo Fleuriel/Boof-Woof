@@ -1,0 +1,15 @@
+{
+    "name": "GameObject",
+    "type": "Example",
+    "properties": {
+        "color": [
+            0.03982299566268921,
+            1.0,
+            0.6176286339759827,
+            1.0
+        ],
+        "shininess": 0.0,
+        "shader": "Shader3D",
+        "reflectivity": 0.0
+    }
+}

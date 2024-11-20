@@ -109,7 +109,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 void GraphicsSystem::UpdateLoop() {
 
-
+	//glViewport(0, 0, static_cast<GLsizei>( g_Window->GetWindowWidth()), static_cast<GLsizei>(g_Window->GetWindowHeight()));
 	//if (g_Input.IsActionPressed(ActionType::Jump)) {
 	//	std::cout << "Jump\n";
 	//}
@@ -158,6 +158,8 @@ void GraphicsSystem::UpdateLoop() {
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
 	{
+
+
 		if (g_Coordinator.HaveComponent<CameraComponent>(entity)) {
 			auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
 			if (cameraComp.GetCameraActive()) {
@@ -204,17 +206,28 @@ void GraphicsSystem::UpdateLoop() {
 
 		shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
 
+		
+		std::cout << graphicsComp.material.materialDesc.shaderChosen << '\n';
+
+
 		g_AssetManager.GetShader("Shader3D").Use();
 
 		if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
 		{
 			/* We do not need these anymore */
-
-			// std::cout << "Model is null" << std::endl;
-			//graphicsComp.setModelName("cubeModel");
-			//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
 			continue;
 		}
+
+
+
+		//g_AssetManager.GetShader(graphicsComp.material.materialDesc.shaderChosen).Use();
+		//
+		//
+		//
+		//
+		//
+		//
+		//g_AssetManager.GetShader(graphicsComp.material.materialDesc.shaderChosen).UnUse();
 
 
 
@@ -298,6 +311,8 @@ void GraphicsSystem::UpdateLoop() {
 		if (debug)
 			if (D3)
 				g_ResourceManager.getModel(graphicsComp.getModelName())->DrawLine();
+		
+		
 		/*//skip for now
 		for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
 		{
@@ -317,6 +332,9 @@ void GraphicsSystem::UpdateLoop() {
 
 				//graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
 				//std::cout << "Drawing entity: " << entity << '\n';
+		
+		
+		
 		g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("Shader3D"));
 		//				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
 						//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
@@ -626,7 +644,7 @@ void GraphicsSystem::InitializePickingFramebuffer(int width, int height)
 
 void GraphicsSystem::RenderSceneForPicking() {
 	glBindFramebuffer(GL_FRAMEBUFFER, pickingFBO);
-	glViewport(0, 0, viewportWidth, viewportHeight);
+	//glViewport(0, 0, viewportWidth, viewportHeight);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Use the picking shader

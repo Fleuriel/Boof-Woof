@@ -45,7 +45,7 @@ public:
     void SetAlpha(float a) { materialDesc.albedoColorAlpha = a; }
 
 
-
+    bool loadedMaterial = false;
 
 
     //void SetTextureID(int texID) {
@@ -61,7 +61,7 @@ public:
    // int GetTextureID() const { return textureID; }
    // float GetShininess() const { return shininess; }
 
-private:
     MaterialDescriptor materialDesc;
+private:
 };
 #endif;

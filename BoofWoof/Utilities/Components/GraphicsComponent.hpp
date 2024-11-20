@@ -50,7 +50,7 @@ public:
     std::string getModelName() const { return m_ModelName; }
     int getModelID() const { return m_ModelID; }
     
-   // std::string getTextureName() const { return textureName; }
+    std::string getTextureName() const { return textureName; }
 
     //bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
     int getTextureNumber() const { return static_cast<int>(textures.size()); }
@@ -58,7 +58,7 @@ public:
 	bool getFollowCamera() const { return followCamera; }
 
     // Set texture name
-   // void setTexture(std::string texture) { textureName = texture; }
+    void setTexture(std::string texture) { textureName = texture; }
 
 
     // Constructor and destructor
@@ -80,30 +80,20 @@ public:
     {
         REGISTER_PROPERTY(GraphicsComponent, ModelName, std::string, setModelName, getModelName);
         REGISTER_PROPERTY(GraphicsComponent, ModelID, int, SetModelID, getModelID);
-        //REGISTER_PROPERTY(GraphicsComponent, TextureName, std::string, setTexture, getTextureName);
+        REGISTER_PROPERTY(GraphicsComponent, TextureName, std::string, setTexture, getTextureName);
     }
 
 
-    std::optional<MaterialComponent> material = std::nullopt; // MaterialComponent is optional
+    MaterialComponent material; // MaterialComponent is optional
 
     void AddMaterial(const MaterialComponent& newMaterial) {
         material = newMaterial;
     }
 
-    void RemoveMaterial() {
-        material.reset(); // Clear the optional
-    }
 
-    bool HasMaterial() const {
-        return material.has_value(); // Check if a material is assigned
-    }
 
-    MaterialComponent& GetMaterial() {
-        if (!material.has_value()) {
-            throw std::runtime_error("No material assigned!");
-        }
-        return material.value();
-    }
+
+
 
   //  void AddAnimation(GraphicsComponent& graphics, const Animation& newAnimation) {
   //      graphics.animation = newAnimation;
@@ -118,7 +108,7 @@ private:
     Entity m_EntityID{};
     std::string m_ModelName{};
     int m_ModelID{};
-    //std::string textureName;
+    std::string textureName;
     std::vector<int> textures{};
     bool followCamera = true;
 
