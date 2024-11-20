@@ -198,6 +198,7 @@ public:
 					particles[i].target_count++;
 				}
 				else {
+					particles[i].target_count = target_positions.size() - 1;
 					visibility[i] = 0.0f;
 
 				}
