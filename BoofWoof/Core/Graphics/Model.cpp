@@ -410,6 +410,7 @@ void Model::DrawCollisionBox2D(Model outlineModel)
 }
 
 
+
 void Model::DrawCollisionBox3D(Model outlineModel) const
 {
 	// Bind the VAO for the outline model
@@ -430,3 +431,69 @@ void Model::DrawCollisionBox3D(Model outlineModel) const
 
 
 }
+
+
+
+
+
+std::vector<glm::vec3> CalculateAABBVertices(const glm::vec3& center, const glm::vec3& halfExtents) {
+	std::vector<glm::vec3> vertices(8);
+
+	// Compute the 8 corners of the AABB
+	vertices[0] = center + glm::vec3(-halfExtents.x, -halfExtents.y, -halfExtents.z); // Left-bottom-back
+	vertices[1] = center + glm::vec3(halfExtents.x, -halfExtents.y, -halfExtents.z); // Right-bottom-back
+	vertices[2] = center + glm::vec3(halfExtents.x, halfExtents.y, -halfExtents.z); // Right-top-back
+	vertices[3] = center + glm::vec3(-halfExtents.x, halfExtents.y, -halfExtents.z); // Left-top-back
+	vertices[4] = center + glm::vec3(-halfExtents.x, -halfExtents.y, halfExtents.z); // Left-bottom-front
+	vertices[5] = center + glm::vec3(halfExtents.x, -halfExtents.y, halfExtents.z); // Right-bottom-front
+	vertices[6] = center + glm::vec3(halfExtents.x, halfExtents.y, halfExtents.z); // Right-top-front
+	vertices[7] = center + glm::vec3(-halfExtents.x, halfExtents.y, halfExtents.z); // Left-top-front
+
+	return vertices;
+}
+
+
+
+void Model::RenderAABB(const glm::vec3& center, const glm::vec3& halfExtents) {
+	// Get the 8 corners of the AABB
+	std::vector<glm::vec3> vertices = CalculateAABBVertices(center, halfExtents);
+
+	// Define the edges of the AABB
+	GLuint indices[] = {
+		0, 1, 1, 2, 2, 3, 3, 0, // Back face
+		4, 5, 5, 6, 6, 7, 7, 4, // Front face
+		0, 4, 1, 5, 2, 6, 3, 7  // Connecting edges
+	};
+
+	// Create OpenGL buffers
+	GLuint VAO, VBO, EBO;
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
+
+	// Bind VAO
+	glBindVertexArray(VAO);
+
+	// Upload vertices
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), vertices.data(), GL_STATIC_DRAW);
+
+	// Upload indices
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+	// Enable vertex attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	// Render the AABB as a wireframe
+	glBindVertexArray(VAO);
+	glDrawElements(GL_LINES, sizeof(indices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
+
+	// Cleanup
+	glBindVertexArray(0);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
+	glDeleteVertexArrays(1, &VAO);
+}
+

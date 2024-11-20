@@ -260,7 +260,12 @@ void GraphicsSystem::UpdateLoop() {
 
 				if(debug)
 					if(D3)
-						g_ResourceManager.getModel(graphicsComp.getModelName())->DrawLine();
+					{
+						g_ResourceManager.getModel(graphicsComp.getModelName())->RenderAABB(glm::vec3(0.0f), glm::vec3(1.0f,1.0f,1.0f));
+					}
+
+
+
 				/*//skip for now
 				for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
 				{
@@ -620,3 +625,4 @@ Entity GraphicsSystem::DecodeColorToID(unsigned char* data)
 		return MAX_ENTITIES; // Invalid ID
 	}
 }
+
