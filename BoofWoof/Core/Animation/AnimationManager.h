@@ -35,13 +35,25 @@ public:
     Animation(const aiAnimation* assimpAnimation);
 };
 
+// Enum for animation types
+enum class AnimationType {
+    Idle,
+    Moving,
+    Action
+};
+
 // Entity-specific animation state
 struct EntityAnimationState {
-    std::string activeAnimation;
+    std::unordered_map<AnimationType, std::string> animations; // Mapped animations for each type
+    std::string activeAnimation; // Currently playing animation
     double currentTime = 0.0;
     bool isPlaying = false;
 
+    // Update entity animation state
     void Update(double deltaTime, const Animation& animation);
+
+    // Set specific animation type
+    void SetAnimation(AnimationType type, const std::string& animationName);
 };
 
 // Animation Manager
@@ -57,7 +69,7 @@ public:
     const Animation& GetAnimation(const std::string& animationName) const;
 
     // Manage entity animations
-    void AssignAnimation(const std::string& entityId, const std::string& animationName);
+    void AssignAnimation(const std::string& entityId, AnimationType type, const std::string& animationName);
     void PlayAnimation(const std::string& entityId);
     void StopAnimation(const std::string& entityId);
 
@@ -66,7 +78,7 @@ public:
 
 private:
     std::unordered_map<std::string, Animation> animations;            // All loaded animations
-    std::unordered_map<std::string, EntityAnimationState> entityStates;     // Entity-specific states
+    std::unordered_map<std::string, EntityAnimationState> entityStates; // Entity-specific states
 };
 
 extern AnimationManager g_AnimationManager;

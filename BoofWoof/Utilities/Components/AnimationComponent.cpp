@@ -1,41 +1,68 @@
 #include "pch.h"
 
-#include "../Utilities/Components/AnimationComponent.h"
+#include "AnimationComponent.h"
+#include <iostream>
 
+// Constructor
 AnimationComponent::AnimationComponent(std::shared_ptr<AnimationManager> animManager)
     : animationManager(std::move(animManager)) {}
 
+// Set an animation for the entity
 void AnimationComponent::SetAnimation(const std::string& animationName) {
-    if (animationManager->IsAnimationLoaded(animationName)) {
-        state.activeAnimation = animationName;
-        state.currentTime = 0.0;
-    }
-    else {
+    if (!animationManager->IsAnimationLoaded(animationName)) {
         std::cerr << "Animation not found: " << animationName << std::endl;
+        return;
     }
+    state.activeAnimation = animationName;
+    state.currentTime = 0.0; // Reset animation playback
 }
 
+// Play the current animation
 void AnimationComponent::Play() {
     state.isPlaying = true;
 }
 
+// Stop the current animation
 void AnimationComponent::Stop() {
     state.isPlaying = false;
 }
 
+// Update animation playback
 void AnimationComponent::Update(double deltaTime) {
-    if (!state.isPlaying || state.activeAnimation.empty()) return;
+    if (!state.isPlaying) return;
 
-    const Animation& animation = animationManager->GetAnimation(state.activeAnimation);
+    const auto& animation = animationManager->GetAnimation(state.activeAnimation);
     state.Update(deltaTime, animation);
 
-    // Apply transformations or interpolation logic here
+    // Apply transformations (interpolation logic can go here if needed)
 }
 
+// Optional: Blend to a new animation
 void AnimationComponent::BlendTo(const std::string& animationName, double blendDuration) {
-    // Implement blending logic (e.g., gradually transition from one animation to another)
+    // Implementation of blending logic (if applicable)
+    std::cerr << "BlendTo is not implemented yet." << std::endl;
 }
 
+// Get the current transformation matrix
 void AnimationComponent::GetCurrentTransform(const std::string& nodeName, aiMatrix4x4& outTransform) const {
-    // Calculate and return the interpolated transformation for the given node
+    // Logic to calculate the transformation matrix for a specific node (e.g., skeletal bones)
+    std::cerr << "GetCurrentTransform is not implemented yet." << std::endl;
+}
+
+// Set an animation for a specific type
+void AnimationComponent::SetAnimation(AnimationType type, const std::string& animationName) {
+    if (!animationManager->IsAnimationLoaded(animationName)) {
+        std::cerr << "Animation not found: " << animationName << std::endl;
+        return;
+    }
+    animationMap[type] = animationName;
+}
+
+// Get the animation assigned to a specific type
+std::string AnimationComponent::GetAnimation(AnimationType type) const {
+    auto it = animationMap.find(type);
+    if (it != animationMap.end()) {
+        return it->second;
+    }
+    return ""; // Return an empty string if no animation is assigned
 }
