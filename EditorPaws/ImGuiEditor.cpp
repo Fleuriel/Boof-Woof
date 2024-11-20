@@ -620,6 +620,74 @@ void ImGuiEditor::InspectorWindow()
 						if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
 						{
 							g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
+
+							// Creates a Material File to get the data.
+
+							{
+								static int materialCount = 1;
+								std::string entireFilePath = m_BaseDir.relative_path().string();
+
+								// Handle action for "Create Material Instances"
+
+								// Generate the material name based on the current count
+								std::string materialName = "GameObject_" + std::to_string(materialCount);
+
+								rapidjson::Document document;
+								document.SetObject();
+								rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+
+								// Add name and type (similar to your previous structure)
+								document.AddMember("name", rapidjson::Value(materialName.c_str(), allocator), allocator);
+								document.AddMember("type", rapidjson::Value("Example", allocator), allocator);
+
+								// Add material properties (color, shininess, textureID, etc.)
+								rapidjson::Value properties(rapidjson::kObjectType);
+
+								// Adding color as a JSON array for RGBA values
+								rapidjson::Value color(rapidjson::kArrayType);
+								color.PushBack(1.0f, allocator);  // R
+								color.PushBack(0.0f, allocator);  // G
+								color.PushBack(0.0f, allocator);  // B
+								color.PushBack(1.0f, allocator);  // A (Alpha)
+								properties.AddMember("color", color, allocator);
+
+								// Add shininess
+								properties.AddMember("shininess", 0.5f, allocator);
+
+								// Add texture ID
+								properties.AddMember("textureID", 0, allocator);  // Modify this if you have a specific texture ID
+
+								// Add shader name
+								properties.AddMember("shader", rapidjson::Value("Shader3D", allocator), allocator);
+
+								// Add reflectivity
+								properties.AddMember("reflectivity", 0.8f, allocator);
+
+								// Adding the properties object to the document
+								document.AddMember("properties", properties, allocator);
+
+								// Serialize the JSON document to a string with pretty printing
+								rapidjson::StringBuffer buffer;
+								rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
+								document.Accept(writer);
+
+								// Write the JSON string to a file
+								std::string filePath = entireFilePath.c_str();  // Convert path to string
+								filePath += "/Material/" + materialName + ".mat";  // Append the new file name (customize this if needed)
+
+								// Write the JSON string to the file
+								std::ofstream file(filePath);
+								if (file.is_open()) {
+									file << buffer.GetString();  // Write the serialized JSON
+									file.close();
+									std::cout << "File created: " << filePath << std::endl;
+								}
+								else {
+									std::cerr << "Error: Could not create the file." << std::endl;
+								}
+							}
+
+
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
 									if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
@@ -2000,6 +2068,11 @@ void ImGuiEditor::InspectorWindow()
 
 						else if (className == "MaterialComponent")
 						{	
+
+
+							
+
+
 							if (ImGui::CollapsingHeader("Materials", ImGuiTreeNodeFlags_None))
 							{
 								auto graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
