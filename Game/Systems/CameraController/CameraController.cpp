@@ -71,25 +71,15 @@ void CameraController::UpdateFirstPersonView(CameraComponent& camera)
 
     // Ensure the camera's direction is updated based on its yaw and pitch
     camera.updateCameraVectors();
+
+	
 }
 
 void CameraController::UpdateThirdPersonView(CameraComponent& camera)
 {
-    if (g_Coordinator.HaveComponent<TransformComponent>(playerEntity)) 
+    if (!g_Coordinator.HaveComponent<TransformComponent>(playerEntity)) 
     {
-        glm::vec3 playerPos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
-
-        // Set fixed offset values for the third-person camera
-        glm::vec3 offset = glm::vec3(0.0f, 3.7f, 11.718f); // Desired position relative to the player
-
-        // Calculate the target camera position
-        glm::vec3 targetPosition = playerPos + offset;
-
-        // Smoothly move the camera to the target position
-        camera.Position = glm::mix(camera.Position, targetPosition, 0.1f); // Adjust smoothing factor as needed
-
-        // Make the camera look at the player - if i set this, it jitters.
-        // camera.SetCameraDirection(glm::normalize(playerPos - camera.Position));
+        return;
     }
 
     // Handle mouse input for rotating the camera
@@ -115,7 +105,33 @@ void CameraController::UpdateThirdPersonView(CameraComponent& camera)
 
     // Clamp the pitch to avoid flipping the camera
     camera.Pitch = glm::clamp(camera.Pitch, -90.0f, 90.0f);
+    glm::vec3 playerPos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
+
+    // Set fixed offset values for the third-person camera
+    glm::vec3 offset = glm::vec3(0.0f, 3.7f, 11.718f); // Desired position relative to the player
+
+	// calculate the rotation matrix
+	glm::mat4 rotationMatrix = glm::mat4(1.0f);
+	rotationMatrix = glm::rotate(rotationMatrix, glm::radians(camera.Yaw + 90), glm::vec3(0.0f, -1.0f, 0.0f));
+	//rotationMatrix = glm::rotate(rotationMatrix, glm::radians(camera.Pitch), glm::vec3(-1.0f, 0.0f, 0.0f));
+
+	// calculate the new offset
+	glm::vec3 newOffset = glm::vec3(rotationMatrix * glm::vec4(offset, 1.0f));
+
+	// Set the camera's position to the player's position plus the offset
+	camera.Position = playerPos + newOffset;
+    // Make the camera look at the player - if i set this, it jitters.
+    // camera.SetCameraDirection(glm::normalize(playerPos - camera.Position));
 
     // Update the camera's direction vectors
     camera.updateCameraVectors();
+
+    //calculate the translation rotation x, y and z
+    float x = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetRotation().x;
+    float y = glm::radians(-camera.Yaw);
+    float z = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetRotation().z;
+
+
+    glm::vec3 newrotation = glm::vec3(x, y, z);
+    g_Coordinator.GetComponent<TransformComponent>(playerEntity).SetRotation(newrotation);
 }
