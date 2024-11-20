@@ -1178,11 +1178,11 @@ void ImGuiEditor::InspectorWindow()
 								{
 									// Handle TextureName Property
 									auto textureNameProperty = std::find_if(properties.begin(), properties.end(),
-										[](const ReflectionPropertyBase* prop) { return prop->GetName() == "TextureName"; });
+										[](const ReflectionPropertyBase* prop) { return prop->GetName() == "Textures"; });
 
 									if (textureNameProperty != properties.end())
 									{
-										std::string propertyName = "TextureName";
+										std::string propertyName = "Textures";
 										std::string currentTextureName = (*textureNameProperty)->GetValue(&graphicsComponent);
 										std::string newTextureName = currentTextureName;
 
@@ -1194,7 +1194,7 @@ void ImGuiEditor::InspectorWindow()
 										memset(buffer, 0, sizeof(buffer));
 										strcpy_s(buffer, sizeof(buffer), currentTextureName.c_str());
 
-										ImGui::InputText("##TextureName", buffer, sizeof(buffer), ImGuiInputTextFlags_ReadOnly);
+										ImGui::InputText("##Textures", buffer, sizeof(buffer), ImGuiInputTextFlags_ReadOnly);
 
 										ImGui::SameLine();
 
