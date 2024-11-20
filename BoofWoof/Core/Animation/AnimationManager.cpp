@@ -1,5 +1,4 @@
 #include "pch.h"
-
 #include "AnimationManager.h"
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
@@ -43,8 +42,14 @@ void EntityAnimationState::Update(double deltaTime, const Animation& animation) 
     if (currentTime > animation.duration) {
         currentTime = fmod(currentTime, animation.duration); // Loop animation
     }
+}
 
-    // Add logic here to apply interpolated transformations to the entity
+// Set animation type
+void EntityAnimationState::SetAnimation(AnimationType type, const std::string& animationName) {
+    animations[type] = animationName;
+    if (activeAnimation.empty()) {
+        activeAnimation = animationName; // Default to first assigned animation
+    }
 }
 
 // AnimationManager::LoadAnimations
@@ -79,10 +84,9 @@ const Animation& AnimationManager::GetAnimation(const std::string& animationName
 }
 
 // Assign an animation to an entity
-void AnimationManager::AssignAnimation(const std::string& entityId, const std::string& animationName) {
+void AnimationManager::AssignAnimation(const std::string& entityId, AnimationType type, const std::string& animationName) {
     if (animations.find(animationName) != animations.end()) {
-        entityStates[entityId].activeAnimation = animationName;
-        entityStates[entityId].currentTime = 0.0;
+        entityStates[entityId].SetAnimation(type, animationName);
     }
     else {
         std::cerr << "Animation not found: " << animationName << std::endl;
@@ -111,7 +115,6 @@ void AnimationManager::Update(double deltaTime) {
             state.Update(deltaTime, animation);
 
             // Apply interpolated transformation to the entity here
-            // (e.g., Fetch keyframes from `animation` and interpolate)
         }
     }
 }

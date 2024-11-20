@@ -1247,6 +1247,8 @@ void ImGuiEditor::InspectorWindow()
 										ImGui::PopID();
 									}
 
+									
+
 
 									ImGui::Text("Debug   ");
 									ImGui::SameLine();
@@ -1273,7 +1275,10 @@ void ImGuiEditor::InspectorWindow()
 
 									ImGui::TreePop();
 								}
-
+								// camera follow settings
+								bool followCamera = graphicsComponent.getFollowCamera();
+								ImGui::Checkbox("Follow Camera", &followCamera);
+								graphicsComponent.SetFollowCamera(followCamera);
 
 							}
 						}
@@ -1292,6 +1297,9 @@ void ImGuiEditor::InspectorWindow()
 
 									float comboBoxWidth = 200.0f; // Set a consistent width for the combo boxes
 									float labelWidth = 200.0f;   // Reserve space for the labels
+
+
+									
 
 									// Idle Animation
 									ImGui::Text("Idle Animation:");
@@ -1385,8 +1393,38 @@ void ImGuiEditor::InspectorWindow()
 
 									// Buttons
 									if (ImGui::Button("Apply")) {
-										// Apply logic here
+										auto animationComponent = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
+
+										// Apply or remove the Idle animation
+										if (idleAnimationIndex == -1) {
+											animationComponent.SetAnimation(AnimationType::Idle, ""); // Remove animation
+										}
+										else {
+											std::string idleAnimation = g_AssetManager.AnimationFiles[idleAnimationIndex];
+											animationComponent.SetAnimation(AnimationType::Idle, idleAnimation);
+										}
+
+										// Apply or remove the Movement animation
+										if (movementAnimationIndex == -1) {
+											animationComponent.SetAnimation(AnimationType::Moving, ""); // Remove animation
+										}
+										else {
+											std::string movementAnimation = g_AssetManager.AnimationFiles[movementAnimationIndex];
+											animationComponent.SetAnimation(AnimationType::Moving, movementAnimation);
+										}
+
+										// Apply or remove the Action animation
+										if (actionAnimationIndex == -1) {
+											animationComponent.SetAnimation(AnimationType::Action, ""); // Remove animation
+										}
+										else {
+											std::string actionAnimation = g_AssetManager.AnimationFiles[actionAnimationIndex];
+											animationComponent.SetAnimation(AnimationType::Action, actionAnimation);
+										}
+
+										std::cout << "Animations applied successfully to entity " << g_SelectedEntity << "." << std::endl;
 									}
+
 
 									ImGui::SameLine();
 									if (ImGui::Button("Revert To Default")) {
