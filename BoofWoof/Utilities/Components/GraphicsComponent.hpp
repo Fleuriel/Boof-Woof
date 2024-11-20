@@ -62,9 +62,9 @@ public:
 
 
     // Constructor and destructor
-	GraphicsComponent() :hasMaterial(false){};
+	GraphicsComponent(){};
 	
-	GraphicsComponent(std::string modelName, Entity& entity) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity)), hasMaterial(false)
+	GraphicsComponent(std::string modelName, Entity& entity) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity))
 	{/*Empty by design*/
 
         
@@ -84,20 +84,25 @@ public:
     }
 
 
-    MaterialComponent material;
-    bool hasMaterial;       // Indicates if a material is assigned
-
-//    Animation animation;
-
+    std::optional<MaterialComponent> material = std::nullopt; // MaterialComponent is optional
 
     void AddMaterial(const MaterialComponent& newMaterial) {
         material = newMaterial;
-        hasMaterial = true;
     }
 
     void RemoveMaterial() {
-        hasMaterial = false;
-        // Reset material to a default state, if applicable
+        material.reset(); // Clear the optional
+    }
+
+    bool HasMaterial() const {
+        return material.has_value(); // Check if a material is assigned
+    }
+
+    MaterialComponent& GetMaterial() {
+        if (!material.has_value()) {
+            throw std::runtime_error("No material assigned!");
+        }
+        return material.value();
     }
 
   //  void AddAnimation(GraphicsComponent& graphics, const Animation& newAnimation) {

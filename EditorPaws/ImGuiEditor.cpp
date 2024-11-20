@@ -1042,6 +1042,8 @@ void ImGuiEditor::InspectorWindow()
 
 								auto graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
 								const auto& properties = ReflectionManager::Instance().GetProperties("GraphicsComponent");
+
+
 								//if (ImGui::Button("Add Sub Components"))
 								//{
 								//	ImGui::OpenPopup("SComponents");
@@ -2001,14 +2003,58 @@ void ImGuiEditor::InspectorWindow()
 							if (ImGui::CollapsingHeader("Materials", ImGuiTreeNodeFlags_None))
 							{
 								auto graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
-								const MaterialComponent& material = graphicsComponent.material;
-								ImGui::Text("Material: %s", material.GetShaderName().c_str());
-								ImGui::Text("Shininess %.2f", material.GetShininess());
+								if(!graphicsComponent.HasMaterial())
+									graphicsComponent.material = MaterialComponent(); // Initialize with a default material
+
+								if (graphicsComponent.HasMaterial()) {
+									auto& material = graphicsComponent.material.value();
+
+
+									//ImGui::Text("Material: %s", material.GetShaderName().c_str());
+									//
+									//ImGui::Text("Shininess %.2f", material.GetShininess());
 
 
 
+									ImGui::Text("Albedo");
+									ImGui::SameLine();
+
+							
+									float color[4] = {
+										material.GetColor().r,
+										material.GetColor().g,
+										material.GetColor().b,
+										material.GetColor().a
+									};
+
+									ImGui::SetNextItemWidth(100.0f);
+									if (ImGui::ColorButton("Color Bar", ImVec4(color[0], color[1], color[2], color[3]),
+										ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_NoBorder, ImVec2(300, 10))) {
+										ImGui::OpenPopup("Color Picker Popup");
+									}
+
+									if (ImGui::BeginPopup("Color Picker Popup")) {
+										ImGui::Text("Select a color:");
+										ImGui::SetNextItemWidth(250.0f);
+
+										if (ImGui::ColorPicker4("##picker1", color, ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_PickerHueBar)) {
+
+											
+											material.SetRed(color[0]);
+											material.SetGreen(color[1]);
+											material.SetBlue(color[2]);
+											material.SetAlpha(color[3]);
+
+										
 
 
+										}
+
+
+										ImGui::EndPopup();
+									}
+
+								}
 							}
 						
 						}

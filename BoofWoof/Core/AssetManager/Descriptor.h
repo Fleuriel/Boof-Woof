@@ -64,7 +64,6 @@ struct MaterialDescriptor
     float metallic;             // 0 ~ 1
     float smoothness;           // 0 ~ 1
 
-
     int materialAlpha;          // Select Albedo Stuffs.
 
 
