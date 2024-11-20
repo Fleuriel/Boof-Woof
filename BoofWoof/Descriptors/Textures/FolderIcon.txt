@@ -1,5 +1,0 @@
-Texture Name : FolderIcon
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\FolderIcon.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\FolderIcon.dds
-Compression Format : -fd BC3

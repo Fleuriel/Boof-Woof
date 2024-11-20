@@ -15,6 +15,8 @@
 #include "UndoRedoManager.hpp"
 #include "ArchetypeManager.hpp"
 #include <ImGuizmo.h>
+#include "AssetManager/Descriptor.h"
+
 #include <filesystem>
 #include <vector>
 
@@ -78,6 +80,11 @@ public:
 private:
 	Window* m_Window = nullptr;
 	std::vector<std::type_index> compTypes; // Member variable to hold selected component types
+	std::filesystem::path m_SelectedFile;
+
+	TextureDescriptor textureInfo;
+
+	MaterialDescriptor materialInfo;
 
 	glm::vec3 m_OldPosition;
 	glm::vec3 m_OldRotationRadians;

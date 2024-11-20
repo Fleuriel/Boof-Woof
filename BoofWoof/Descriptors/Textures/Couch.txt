@@ -1,5 +1,0 @@
-Texture Name : Couch
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\Couch.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\Couch.dds
-Compression Format : -fd BC3

@@ -30,9 +30,12 @@
     <ClCompile Include="Utilities\Components\MetaData.cpp" />
     <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
-    <ClCompile Include="Core\Animation\Animation.cpp" />
     <ClCompile Include="Core\Animation\AnimationManager.cpp" />
+    <ClCompile Include="Utilities\Components\ParticleComponent.cpp" />
+    <ClCompile Include="Core\AssetManager\Descriptor.cpp" />
+    <ClCompile Include="Utilities\Components\AnimationComponent.cpp" />
     <ClCompile Include="Utilities\Components\CameraComponent.cpp" />
+    <ClCompile Include="Utilities\Components\MaterialComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -75,11 +78,14 @@
     <ClInclude Include="Core\Physics\CollisionSystem.h" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
     <ClInclude Include="Core\Reflection\ReflectionManager.hpp" />
-    <ClInclude Include="Core\Animation\Animation.h" />
     <ClInclude Include="Core\Animation\AnimationManager.h" />
     <ClInclude Include="Utilities\Components\BehaviourComponent.hpp" />
     <ClInclude Include="Core\ECS\ArchetypeManager.hpp" />
+    <ClInclude Include="Utilities\Components\ParticleComponent.hpp" />
+    <ClInclude Include="Core\AssetManager\Descriptor.h" />
+    <ClInclude Include="Utilities\Components\AnimationComponent.h" />
     <ClInclude Include="Utilities\Components\CameraComponent.hpp" />
+    <ClInclude Include="Utilities\Components\MaterialComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />
@@ -90,5 +96,7 @@
     <None Include="Saves\engine_state.json" />
     <None Include="Assets\Shaders\Font.frag" />
     <None Include="Assets\Shaders\Font.vert" />
+    <None Include="Assets\Shaders\instanced.frag" />
+    <None Include="Assets\Shaders\instanced.vert" />
   </ItemGroup>
 </Project>

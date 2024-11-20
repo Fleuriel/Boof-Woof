@@ -6,7 +6,10 @@
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/CameraComponent.hpp"
+#include "../Utilities/Components/ParticleComponent.hpp"
+#include "../Utilities/Components/MaterialComponent.hpp"
 #include "Animation/AnimationManager.h"
+
 
 class Model;
 class Model2D;
@@ -65,6 +68,9 @@ public:
 	glm::vec3 GetLightPos() { return lightPos; };
 	void SetLightPos(glm::vec3 pos) { lightPos = pos; };
 
+    bool DrawMaterialSphere();
+
+    void generateNewFrameBuffer(unsigned int& fbo, unsigned int& textureColorbuffer, unsigned int& rbo, int width, int height);
 
 
 

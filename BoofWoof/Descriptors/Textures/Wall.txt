@@ -1,5 +1,0 @@
-Texture Name : Wall
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\Wall.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\Wall.dds
-Compression Format : -fd BC3
