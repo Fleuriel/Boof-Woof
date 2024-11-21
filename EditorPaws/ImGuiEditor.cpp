@@ -1290,37 +1290,39 @@ void ImGuiEditor::InspectorWindow()
 
 								if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
 
-									// Get the current animations from the component
+									// Get the animation index values (as copies)
 									int idleAnimationIndex = g_AnimationManager.GetAnimationIndex(animationComponent.GetAnimation(AnimationType::Idle));
 									int movementAnimationIndex = g_AnimationManager.GetAnimationIndex(animationComponent.GetAnimation(AnimationType::Moving));
 									int actionAnimationIndex = g_AnimationManager.GetAnimationIndex(animationComponent.GetAnimation(AnimationType::Action));
 
-									ImGui::Text("Animation Selection:"); // Add a label before the combo boxes
+									ImGui::Text("Animation Selection:");
 									ImGui::NewLine();
 
-									float comboBoxWidth = 200.0f; // Set a consistent width for the combo boxes
-									float labelWidth = 200.0f;   // Reserve space for the labels
+									float comboBoxWidth = 200.0f;
+									float labelWidth = 200.0f;
 
 									// Idle Animation
 									ImGui::Text("Idle Animation:");
 									ImGui::SameLine(labelWidth);
 									ImGui::SetNextItemWidth(comboBoxWidth);
+
 									if (ImGui::BeginCombo("##IdleAnimation",
 										idleAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[idleAnimationIndex].c_str())) {
-										// "None" option
+
 										bool isSelected = (idleAnimationIndex == -1);
 										if (ImGui::Selectable("None", isSelected)) {
 											idleAnimationIndex = -1; // Set to "None"
+											animationComponent.SetAnimation(AnimationType::Idle, "None");
 										}
 										if (isSelected) {
 											ImGui::SetItemDefaultFocus();
 										}
 
-										// File options
 										for (int i = 0; i < g_AnimationManager.animationNames.size(); ++i) {
 											isSelected = (idleAnimationIndex == i);
 											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
 												idleAnimationIndex = i; // Update the idle animation index
+												animationComponent.SetAnimation(AnimationType::Idle, g_AnimationManager.animationNames[i]);
 											}
 											if (isSelected) {
 												ImGui::SetItemDefaultFocus();
@@ -1330,17 +1332,19 @@ void ImGuiEditor::InspectorWindow()
 									}
 
 									ImGui::NewLine();
-
 									// Movement Animation
 									ImGui::Text("Movement Animation:");
 									ImGui::SameLine(labelWidth);
 									ImGui::SetNextItemWidth(comboBoxWidth);
+
 									if (ImGui::BeginCombo("##MovementAnimation",
 										movementAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[movementAnimationIndex].c_str())) {
+
 										// "None" option
 										bool isSelected = (movementAnimationIndex == -1);
 										if (ImGui::Selectable("None", isSelected)) {
 											movementAnimationIndex = -1; // Set to "None"
+											animationComponent.SetAnimation(AnimationType::Moving, "None");
 										}
 										if (isSelected) {
 											ImGui::SetItemDefaultFocus();
@@ -1351,6 +1355,7 @@ void ImGuiEditor::InspectorWindow()
 											isSelected = (movementAnimationIndex == i);
 											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
 												movementAnimationIndex = i; // Update the movement animation index
+												animationComponent.SetAnimation(AnimationType::Moving, g_AnimationManager.animationNames[i]);
 											}
 											if (isSelected) {
 												ImGui::SetItemDefaultFocus();
@@ -1365,12 +1370,15 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Text("Action Animation:");
 									ImGui::SameLine(labelWidth);
 									ImGui::SetNextItemWidth(comboBoxWidth);
+
 									if (ImGui::BeginCombo("##ActionAnimation",
 										actionAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[actionAnimationIndex].c_str())) {
+
 										// "None" option
 										bool isSelected = (actionAnimationIndex == -1);
 										if (ImGui::Selectable("None", isSelected)) {
 											actionAnimationIndex = -1; // Set to "None"
+											animationComponent.SetAnimation(AnimationType::Action, "None");
 										}
 										if (isSelected) {
 											ImGui::SetItemDefaultFocus();
@@ -1381,6 +1389,7 @@ void ImGuiEditor::InspectorWindow()
 											isSelected = (actionAnimationIndex == i);
 											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
 												actionAnimationIndex = i; // Update the action animation index
+												animationComponent.SetAnimation(AnimationType::Action, g_AnimationManager.animationNames[i]);
 											}
 											if (isSelected) {
 												ImGui::SetItemDefaultFocus();
