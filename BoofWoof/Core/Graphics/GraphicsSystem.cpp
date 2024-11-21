@@ -182,8 +182,15 @@ void GraphicsSystem::UpdateLoop() {
 
 
 				// START OF 3D
+				if (graphicsComp.getFollowCamera()) {
+					SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
+				}else {
+					g_AssetManager.GetShader("Shader3D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+					g_AssetManager.GetShader("Shader3D").SetUniform("view", glm::mat4(1.0f));
+					g_AssetManager.GetShader("Shader3D").SetUniform("projection", glm::mat4(1.0f));
 
-				SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
+				}
+				
 //				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 				g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
 				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera_render.Position);
