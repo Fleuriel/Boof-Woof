@@ -21,76 +21,141 @@ std::string trim(const std::string& str) {
     return (first == std::string::npos || last == std::string::npos) ? "" : str.substr(first, last - first + 1);
 }
 
-// Function to process the descriptor file
-std::vector<std::string> processTextureDescriptorFile(const std::string& descriptorFilePath) {
-    std::ifstream file(descriptorFilePath);
+int CompressTextureWithDescriptor(const TextureDescriptor& descriptor, const std::string& inputTexturePath, const std::string& outputTexturePath) {
+    std::stringstream commandStream;
 
-    if (!file.is_open()) {
-        std::cerr << "Unable to open descriptor file: " << descriptorFilePath << std::endl;
-        return {};
+    // Base CompressonatorCLI command
+    commandStream << "..\\lib\\Compressonator\\compressonatorcli.exe ";
+
+    if (descriptor.generateMipMaps == false) {
+        commandStream << "-nomipmap ";
     }
 
-    std::string line;
-    std::string textureName;
-    std::string textureFilePath;
-    std::string resourceGuid;
-    std::string resourceFilePath;
-    std::string compressionFormat;
-
-    std::vector<std::string> fileInfo{};
-
-    while (std::getline(file, line)) {
-        // Find the "Texture Name" line
-        if (line.find("Texture Name") != std::string::npos) {
-            textureName = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(textureName);
-        }
-        // Find the "Texture File Path" line
-        if (line.find("Texture File Path") != std::string::npos) {
-            textureFilePath = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(textureFilePath);
-        }
-        // Find the "Resource GUID" line
-        if (line.find("Resource GUID") != std::string::npos) {
-            resourceGuid = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(resourceGuid);
-        }
-        // Find the "Resource File Path" line
-        else if (line.find("Resource File Path") != std::string::npos) {
-            resourceFilePath = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(resourceFilePath);
-        }
-        // Find the "Compression Format" line
-        else if (line.find("Compression Format") != std::string::npos) {
-            compressionFormat = trim(line.substr(line.find(":") + 1));
-            fileInfo.push_back(compressionFormat);
-        }
+    if (descriptor.sRGB == true) {
+        commandStream << "-UseSRGBFrames ";
     }
 
+    commandStream << "-fd ";
 
-    /*
-    outFile << "Texture Name : " << nameWithoutExtension << std::endl;
-                    outFile << "Texture File Path : " << FILEPATH_TEXTURES + "\\" + entry.path().filename().string() << std::endl;
-                    outFile << "Resource GUID : " << std::endl;
-                    outFile << "Resource File Path : " << FILEPATH_TEXTURES_RESOURCE + "\\" + nameWithoutExtension + ".dds" << std::endl;
-                    outFile << "Compression Format : "<< "-fd BC3";
+    // Set texture format based on descriptor
+    switch (descriptor.format) {
+    case 0: // RGB Uncompressed
+        commandStream << "NONE";
+        break;
 
-    */
+    case 1: // ATC_RGB
+        commandStream << "ATC_RGB";
+        break;
 
-#ifdef _DEBUG
-    std::cout << "\n**************************************************************************************\nCompressonator Print Out\n";
-    // Print out the details from the descriptor file
-    std::cout << "Texture Name: " << fileInfo[0] << std::endl;
-    std::cout << "Texture File Path: " << fileInfo[1] << std::endl;
-    std::cout << "Resource GUID: " << fileInfo[2] << std::endl;
-    std::cout << "Resource File Path: " << fileInfo[3] << std::endl;
-    std::cout << "Compression Format: " << fileInfo[4] << std::endl;
-    std::cout << "\n**************************************************************************************\n";
+    case 2: // ATC_RGBA_Explicit
+        commandStream << "ATC_RGBA_Explicit";
+        break;
 
-#endif
-    file.close();
+    case 3: // ATC_RGBA_Interpolated
+        commandStream << "ATC_RGBA_Interpolated";
+        break;
 
-    return fileInfo;
+    case 4: // ATI1N
+        commandStream << "ATI1N";
+        break;
+
+    case 5: // ATI2N
+        commandStream << "ATI2N";
+        break;
+
+    case 6: // ATI2N_XY
+        commandStream << "ATI2N_XY";
+        break;
+
+    case 7: // ATI2N_DXT5
+        commandStream << "ATI2N_DXT5";
+        break;
+
+    case 8: // BC1
+        commandStream << "BC1";
+        break;
+
+    case 9: // BC2
+        commandStream << "BC2";
+        break;
+
+    case 10: // BC3
+        commandStream << "BC3";
+        break;
+
+    case 11: // BC4
+        commandStream << "BC4";
+        break;
+
+    case 12: // BC4_S
+        commandStream << "BC4_S";
+        break;
+
+    case 13: // BC5
+        commandStream << "BC5";
+        break;
+
+    case 14: // BC5_S
+        commandStream << "BC5_S";
+        break;
+
+    case 15: // BC6H
+        commandStream << "BC6H";
+        break;
+
+    case 16: // BC7
+        commandStream << "BC7";
+        break;
+
+    case 17: // DXT1
+        commandStream << "DXT1";
+        break;
+
+    case 18: // DXT3
+        commandStream << "DXT3";
+        break;
+
+    case 19: // DXT5
+        commandStream << "DXT5";
+        break;
+
+    case 20: // DXT5_xGBR
+        commandStream << "DXT5_xGBR";
+        break;
+
+    case 21: // DXT5_RxBG
+        commandStream << "DXT5_RxBG";
+        break;
+
+    case 22: // DXT5_RBxG
+        commandStream << "DXT5_RBxG";
+        break;
+
+    case 23: // DXT5_xRBG
+        commandStream << "DXT5_xRBG";
+        break;
+
+    case 24: // DXT5_RGxB
+        commandStream << "DXT5_RGxB";
+        break;
+
+    case 25: // DXT5_xGxR
+        commandStream << "DXT5_xGxR";
+        break;
+
+    default:
+        std::cerr << "Unsupported format in descriptor!" << std::endl;
+        return -1;
+    }
+
+    
+
+    // Specify the input and output files
+    commandStream << " " << inputTexturePath << " " << outputTexturePath;
+
+    // Execute the command
+    std::string command = commandStream.str();
+    return runCommand(command);  // Call your existing runCommand function
 }
 
 // Function to run a command line command

@@ -1,5 +1,0 @@
-Texture Name : Chair
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\Chair.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\Chair.dds
-Compression Format : -fd BC3

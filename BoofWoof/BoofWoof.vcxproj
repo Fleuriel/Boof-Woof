@@ -184,10 +184,10 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Core\Animation\Animation.cpp" />
     <ClCompile Include="Core\Animation\AnimationManager.cpp" />
     <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
     <ClCompile Include="Core\AssetManager\Compressonator.cpp" />
+    <ClCompile Include="Core\AssetManager\Descriptor.cpp" />
     <ClCompile Include="Core\Audio\AudioSystem.cpp" />
     <ClCompile Include="Core\AssetManager\Sprite.cpp" />
     <ClCompile Include="Core\ECS\pch.cpp">
@@ -213,18 +213,21 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\Logic\LogicSystem.cpp" />
     <ClCompile Include="Core\Serialization\Serialization.cpp" />
     <ClCompile Include="Core\Windows\WindowManager.cpp" />
+    <ClCompile Include="Utilities\Components\AnimationComponent.cpp" />
     <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
     <ClCompile Include="Utilities\Components\CameraComponent.cpp" />
     <ClCompile Include="Utilities\Components\GraphicsComponent.cpp" />
+    <ClCompile Include="Utilities\Components\MaterialComponent.cpp" />
     <ClCompile Include="Utilities\Components\MetaData.cpp" />
+    <ClCompile Include="Utilities\Components\ParticleComponent.cpp" />
     <ClCompile Include="Utilities\Components\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\Animation\Animation.h" />
     <ClInclude Include="Core\Animation\AnimationManager.h" />
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
     <ClInclude Include="Core\AssetManager\Compressonator.h" />
+    <ClInclude Include="Core\AssetManager\Descriptor.h" />
     <ClInclude Include="Core\AssetManager\FilePaths.h" />
     <ClInclude Include="Core\Audio\AudioSystem.h" />
     <ClInclude Include="Core\AssetManager\Sprite.h" />
@@ -259,18 +262,23 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Logic\LogicSystem.h" />
     <ClInclude Include="Core\Serialization\Serialization.h" />
     <ClInclude Include="Core\Windows\WindowManager.h" />
+    <ClInclude Include="Utilities\Components\AnimationComponent.h" />
     <ClInclude Include="Utilities\Components\AudioComponent.hpp" />
     <ClInclude Include="Utilities\Components\BehaviourComponent.hpp" />
     <ClInclude Include="Utilities\Components\CameraComponent.hpp" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
     <ClInclude Include="Utilities\Components\GraphicsComponent.hpp" />
+    <ClInclude Include="Utilities\Components\MaterialComponent.hpp" />
     <ClInclude Include="Utilities\Components\MetaData.hpp" />
+    <ClInclude Include="Utilities\Components\ParticleComponent.hpp" />
     <ClInclude Include="Utilities\Components\TransformComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scenes\engine_state.json" />
     <None Include="Assets\Shaders\Font.frag" />
     <None Include="Assets\Shaders\Font.vert" />
+    <None Include="Assets\Shaders\instanced.frag" />
+    <None Include="Assets\Shaders\instanced.vert" />
     <None Include="Assets\Shaders\Shader2D.frag" />
     <None Include="Assets\Shaders\Shader2D.vert" />
     <None Include="Assets\Shaders\Shader3D.frag" />
