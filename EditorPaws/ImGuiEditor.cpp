@@ -1973,7 +1973,7 @@ void ImGuiEditor::InspectorWindow()
 								if (ImGui::CollapsingHeader("Target Positions")) {
 
 									for (size_t i = 0; i < targetPositions.size(); ++i) {
-										ImGui::PushID(i);
+										ImGui::PushID(static_cast<int>(i));
 										ImGui::Text("Position %zu", i + 1);
 										ImGui::SameLine();
 
@@ -2071,7 +2071,7 @@ void ImGuiEditor::InspectorWindow()
 					newHeight = static_cast<int>(newWidth / aspectRatio);
 				}
 
-				ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(newWidth, newHeight));
+				ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(static_cast<float>(newWidth), static_cast<float>(newHeight)));
 				ImGui::SameLine();
 				ImGui::Text(inputTextToDisplay.c_str());
 
@@ -2348,7 +2348,7 @@ void ImGuiEditor::InspectorWindow()
 					// First Tab: Default
 					if (ImGui::BeginTabItem("Texture Image"))
 					{
-						ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(newWidth, newHeight));
+						ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(static_cast<float>(newWidth), static_cast<float>(newHeight)));
 
 						ImGui::EndTabItem();
 					}
