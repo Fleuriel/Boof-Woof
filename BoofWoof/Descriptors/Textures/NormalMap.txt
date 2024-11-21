@@ -1,5 +1,0 @@
-Texture Name : NormalMap
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\NormalMap.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\NormalMap.dds
-Compression Format : -fd BC3

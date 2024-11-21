@@ -3,11 +3,13 @@
 #include "../Core/Reflection/ReflectionManager.hpp"
 
 std::shared_ptr<GraphicsSystem> mGraphicsSys;
+//std::shared_ptr<AnimationComponent> m_AnimationSys;
 std::shared_ptr<AudioSystem> mAudioSys;
 std::shared_ptr<LogicSystem> mLogicSys;
 std::shared_ptr<FontSystem> mFontSys;
 std::shared_ptr<MyPhysicsSystem> mPhysicSys;
 //std::shared_ptr<CollisionSystem> mCollisionSys;
+std::shared_ptr<ParticleComponent> mParticleSys;
 
 
 void EngineCore::OnInit()
@@ -29,10 +31,14 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<MetadataComponent>();
 	g_Coordinator.RegisterComponent<TransformComponent>();
 	g_Coordinator.RegisterComponent<GraphicsComponent>();
+	g_Coordinator.RegisterComponent<AnimationComponent>();
+	g_Coordinator.RegisterComponent<MaterialComponent>();
 	g_Coordinator.RegisterComponent<AudioComponent>();
 	g_Coordinator.RegisterComponent<CollisionComponent>();
 	g_Coordinator.RegisterComponent<BehaviourComponent>();
 	g_Coordinator.RegisterComponent<CameraComponent>();
+	g_Coordinator.RegisterComponent<ParticleComponent>();
+
 	// setting global pointer
 	g_Core = this;
 
@@ -48,12 +54,16 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<LogicSystem>(signature);
 	}
 
+
 	mGraphicsSys = g_Coordinator.RegisterSystem<GraphicsSystem>();
 	{
 		Signature signature;
-		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
 		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
+		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		signature.set(g_Coordinator.GetComponentType<MaterialComponent>());
+		signature.set(g_Coordinator.GetComponentType<AnimationComponent>());
 		signature.set(g_Coordinator.GetComponentType<CameraComponent>());
+		signature.set(g_Coordinator.GetComponentType<ParticleComponent>());
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
@@ -77,6 +87,8 @@ void EngineCore::OnInit()
 		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
 		g_Coordinator.SetSystemSignature<MyPhysicsSystem>(signature);
 	}
+
+
 
 	//mCollisionSys = g_Coordinator.RegisterSystem<CollisionSystem>();
 	//{
@@ -114,10 +126,13 @@ void EngineCore::OnInit()
 	ReflectionManager::Instance().RegisterComponentType<MetadataComponent>("MetadataComponent");
 	ReflectionManager::Instance().RegisterComponentType<TransformComponent>("TransformComponent");
 	ReflectionManager::Instance().RegisterComponentType<GraphicsComponent>("GraphicsComponent");
+	ReflectionManager::Instance().RegisterComponentType<AnimationComponent>("AnimationComponent");
 	ReflectionManager::Instance().RegisterComponentType<AudioComponent>("AudioComponent");
 	ReflectionManager::Instance().RegisterComponentType<BehaviourComponent>("BehaviourComponent");
 	ReflectionManager::Instance().RegisterComponentType<CollisionComponent>("CollisionComponent");
 	ReflectionManager::Instance().RegisterComponentType<CameraComponent>("CameraComponent");
+	ReflectionManager::Instance().RegisterComponentType<ParticleComponent>("ParticleComponent");
+	ReflectionManager::Instance().RegisterComponentType<MaterialComponent>("MaterialComponent");
 }
 
 void EngineCore::OnUpdate()
