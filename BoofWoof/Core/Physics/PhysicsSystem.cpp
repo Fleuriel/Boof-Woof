@@ -224,7 +224,7 @@ JPH::Shape* MyPhysicsSystem::CreateShapeForObjectType(ObjectType type, const glm
 
     switch (type) {
     case ObjectType::Bed:
-        dimensions = (customAABB != glm::vec3(0.0f)) ? customAABB : glm::vec3(1.5f, 0.5f, 2.0f);
+        dimensions = (customAABB != glm::vec3(0.0f)) ? customAABB : glm::vec3(1.5f, 1.8f, 2.0f);
         break;
     case ObjectType::Chair:
         dimensions = (customAABB != glm::vec3(0.0f)) ? customAABB : glm::vec3(0.5f, 0.8f, 0.5f);
@@ -533,7 +533,7 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         glm::vec3 defaultAABB;
         switch (objectType) {
         case ObjectType::Bed:
-            defaultAABB = glm::vec3(1.5f, 0.5f, 2.0f);
+            defaultAABB = glm::vec3(1.5f, 1.8f, 2.0f);
             break;
         case ObjectType::Chair:
             defaultAABB = glm::vec3(0.5f, 0.8f, 0.5f);

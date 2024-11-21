@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "08154cae-da9c-4733-9aad-29ec80aa162a",
+    "SceneGUID": "104ed8e2-37b3-486d-9477-4d1f45399a35",
     "Entities": [
         {
             "MetadataComponent": {
@@ -33,7 +33,12 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsPlayer": false
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.799999952316284,
+                    "y": 0.30000001192092898,
+                    "z": 1.2999999523162842
+                }
             }
         },
         {
@@ -65,7 +70,12 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsPlayer": false
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.15000000596046449,
+                    "z": 4.199999809265137
+                }
             }
         },
         {
@@ -97,7 +107,12 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsPlayer": false
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -129,7 +144,12 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsPlayer": false
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.5,
+                    "y": 1.7999999523162842,
+                    "z": 2.0
+                }
             }
         }
     ]
