@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "3054d34d-c38d-4233-a455-14b6a0f90f05",
+    "SceneGUID": "a70fe9dc-d798-4397-8a74-73dc6c60e962",
     "Entities": [
         {
             "MetadataComponent": {
@@ -117,8 +117,8 @@
             "TransformComponent": {
                 "Position": {
                     "x": 0.0,
-                    "y": 0.0,
-                    "z": -3.0999999046325685
+                    "y": 3.0999999046325685,
+                    "z": -2.9000000953674318
                 },
                 "Scale": {
                     "x": 1.0,
@@ -127,7 +127,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 }
             },
@@ -147,8 +147,8 @@
             "TransformComponent": {
                 "Position": {
                     "x": 4.800000190734863,
-                    "y": 0.0,
-                    "z": -3.0999999046325685
+                    "y": 3.0999999046325685,
+                    "z": -2.9000000953674318
                 },
                 "Scale": {
                     "x": 1.0,
@@ -177,7 +177,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": -3.0999999046325685,
-                    "y": 0.0,
+                    "y": 3.0999999046325685,
                     "z": 0.0
                 },
                 "Scale": {
@@ -207,7 +207,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": -3.0999999046325685,
-                    "y": 0.0,
+                    "y": 3.0999999046325685,
                     "z": 4.800000190734863
                 },
                 "Scale": {
@@ -236,8 +236,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 8.0,
-                    "y": 0.0,
+                    "x": 7.900000095367432,
+                    "y": 3.0999999046325685,
                     "z": 0.0
                 },
                 "Scale": {
@@ -266,8 +266,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 8.0,
-                    "y": 0.0,
+                    "x": 7.900000095367432,
+                    "y": 3.0999999046325685,
                     "z": 4.800000190734863
                 },
                 "Scale": {
@@ -297,8 +297,8 @@
             "TransformComponent": {
                 "Position": {
                     "x": 2.9000000953674318,
-                    "y": 0.0,
-                    "z": -0.30000001192092898
+                    "y": 1.7999999523162842,
+                    "z": -0.07500000298023224
                 },
                 "Scale": {
                     "x": 1.0,
@@ -307,7 +307,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 }
             },
@@ -326,9 +326,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.734000027179718,
-                    "y": -0.000004345270099292975,
-                    "z": 1.4579999446868897
+                    "x": -1.1291111707687379,
+                    "y": 0.800000011920929,
+                    "z": 3.2964460849761965
                 },
                 "Scale": {
                     "x": 0.4000000059604645,
@@ -344,6 +344,9 @@
             "GraphicsComponent": {
                 "ModelName": "Corgi2",
                 "Texture": "Corgi2"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0
             }
         },
         {
@@ -353,9 +356,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.2999999523162842,
-                    "y": 0.0,
-                    "z": -1.399999976158142
+                    "x": -1.100000023841858,
+                    "y": 1.100000023841858,
+                    "z": -1.0
                 },
                 "Scale": {
                     "x": 0.5,
@@ -383,24 +386,27 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 6.5,
-                    "y": 0.10000000149011612,
-                    "z": 4.5
+                    "x": 6.183000087738037,
+                    "y": 2.0999999046325685,
+                    "z": 4.500569820404053
                 },
                 "Scale": {
                     "x": 0.800000011920929,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 0.699999988079071
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": -1.5700000524520875,
+                    "y": -1.5699999332427979,
                     "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Wardrobe2",
                 "Texture": "Wardrobe2"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0
             }
         },
         {
@@ -411,7 +417,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 1.7999999523162842,
-                    "y": 0.0,
+                    "y": 0.800000011920929,
                     "z": 4.800000190734863
                 },
                 "Scale": {
@@ -441,7 +447,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 4.199999809265137,
-                    "y": 0.0,
+                    "y": 0.8999999761581421,
                     "z": 4.599999904632568
                 },
                 "Scale": {
@@ -465,14 +471,14 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "BackCamera",
+                "EntityName": "Wall7",
                 "EntityID": 16
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 3.0,
-                    "y": 8.699999809265137,
-                    "z": -4.5
+                    "x": -1.4500000476837159,
+                    "y": 3.0999999046325685,
+                    "z": 7.900000095367432
                 },
                 "Scale": {
                     "x": 1.0,
@@ -481,63 +487,28 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "CameraComponent": {
-                "Position": {
-                    "x": 3.0,
-                    "y": 8.699999809265137,
-                    "z": 3.5
-                },
-                "Yaw": -90.0,
-                "Pitch": -61.599998474121097,
-                "Up": {
-                    "x": 0.0,
-                    "y": 1.0,
-                    "z": 0.0
-                },
-                "Active": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Wall7",
-                "EntityID": 17
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -1.5,
-                    "y": 0.0,
-                    "z": 8.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "Texture": "WallBothSide"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Wall8",
-                "EntityID": 18
+                "EntityID": 17
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 6.300000190734863,
-                    "y": 0.0,
-                    "z": 8.0
+                    "x": 6.25,
+                    "y": 3.0999999046325685,
+                    "z": 7.900000095367432
                 },
                 "Scale": {
                     "x": 1.0,
@@ -546,25 +517,28 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "Texture": "WallBothSide"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "Wall10",
-                "EntityID": 19
+                "EntityName": "Door",
+                "EntityID": 18
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 2.4000000953674318,
-                    "y": 0.0,
-                    "z": 8.0
+                    "x": 2.299999952316284,
+                    "y": 3.0999999046325685,
+                    "z": 7.900000095367432
                 },
                 "Scale": {
                     "x": 1.0,
@@ -580,6 +554,47 @@
             "GraphicsComponent": {
                 "ModelName": "WallDoor",
                 "Texture": "WallDoor"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BackCamera",
+                "EntityID": 19
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 6.0,
+                    "y": 16.600000381469728,
+                    "z": -7.800000190734863
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "CameraComponent": {
+                "Position": {
+                    "x": 3.0,
+                    "y": 7.900000095367432,
+                    "z": 4.699999809265137
+                },
+                "Yaw": -90.0,
+                "Pitch": -55.0,
+                "Up": {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                "Active": true
             }
         }
     ]
