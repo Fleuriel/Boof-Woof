@@ -48,12 +48,7 @@ class Level1 : public Level
 		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
 		{
 			cameraController->ToggleCameraMode();
-		}
-
-		if (g_Input.GetKeyState(GLFW_KEY_C) >= 1)
-		{
-			g_BoneCatcher.Stop();
-		}
+		}		
 
 		// Space to go back mainmenu
 		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)

@@ -2,6 +2,9 @@
 
 BoneCatcher g_BoneCatcher;
 Serialization serial;
+std::random_device rd;
+std::mt19937 gen{ rd() };  // Mersenne Twister random number generator
+std::uniform_real_distribution<float> dist;  // Default distribution range
 
 void BoneCatcher::OnLoad()
 {
@@ -36,13 +39,26 @@ void BoneCatcher::OnInitialize()
 
 				if (g_Coordinator.HaveComponent<TransformComponent>(m_CatchZone))
 				{
+					// Get initial position set from level editor first
 					CatchZonePos = g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).GetPosition();
+
+					// Randomize the value, set it
+					dist = std::uniform_real_distribution<float>(MinMaxPos.x, MinMaxPos.y);
+					CatchZonePos.x = dist(gen);
+					g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetPosition(CatchZonePos);
+
+					// Get initial scale set from level editor first
 					CatchZoneScale = g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).GetScale();
+
+					// Randomize the value, set it
+					dist = std::uniform_real_distribution<float>(MinMaxScale.x, MinMaxScale.y);
+					CatchZoneScale.x = dist(gen);
+					g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetScale(CatchZoneScale);
 
 					BoxMin = CatchZonePos - CatchZoneScale * 0.5f;	// Bottom left
 					BoxMax = CatchZonePos + CatchZoneScale * 0.5f;  // Top right
 
-					TeethPos = { DogPos.x + 0.05f, DogPos.y - (DogScale.y / 2) + (TeethScale.y / 2), 0.f };
+					TeethPos = { DogPos.x - 0.1f, DogPos.y - (DogScale.y / 2) + (TeethScale.y / 2), 0.f };
 				}
 			}
 		}
@@ -51,29 +67,21 @@ void BoneCatcher::OnInitialize()
 
 void BoneCatcher::OnUpdate(double deltaTime)
 {
+	if (g_Input.GetKeyState(GLFW_KEY_C) >= 1)
+	{
+		g_BoneCatcher.Stop();
+	}
+
 	if (m_IsMoving)
 	{
 		MoveLeftRightVisual(deltaTime);
 	}
 	else 
 	{
-		BiteDownVisual(deltaTime);
+		BiteDownVisual(deltaTime);		
 	}
 
-	bool isInRange = (TeethPos.x >= BoxMin.x && TeethPos.x <= BoxMax.x) && (TeethPos.y >= BoxMin.y && TeethPos.y <= BoxMax.y);
-
-	if (isInRange)
-	{
-		std::cout << "Hit detected!" << std::endl;
-		// Play YAY sound
-		// pass, change catchzone to smaller & speed faster.
-	}
-	else
-	{
-		std::cout << "No hit." << std::endl;
-		// Play BOO sound
-		// Fail, same speed, same catchzone.
-	}
+	
 
 	if (m_ShouldDestroy)
 	{
@@ -92,7 +100,39 @@ void BoneCatcher::Stop()
 	// Stop then visual feedback up down
 	m_IsMoving = false;
 	
+	TeethPos = { DogPos.x - 0.1f, DogPos.y - (DogScale.y / 2) + (TeethScale.y / 2), 0.f };
+	
+	BoxMin = CatchZonePos - CatchZoneScale * 0.5f;	// Bottom left
+	BoxMax = CatchZonePos + CatchZoneScale * 0.5f;  // Top right
 
+	bool isInRange = (TeethPos.x >= BoxMin.x && TeethPos.x <= BoxMax.x) && (TeethPos.y >= BoxMin.y && TeethPos.y <= BoxMax.y);
+
+	if (isInRange && !m_HitDetected)
+	{
+		// std::cout << "Hit detected!" << std::endl;
+		m_HitDetected = true;
+
+		// Play YAY sound
+		// pass, change catchzone to smaller & speed faster.
+
+		// Randomize X position (must stay within the smaller range after each hit)
+		dist = std::uniform_real_distribution<float>(MinMaxPos.x, MinMaxPos.y);
+		CatchZonePos.x = dist(gen);
+		g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetPosition(CatchZonePos);
+
+		// Randomize the X scale (must stay within the smaller range after each hit)
+		dist = std::uniform_real_distribution<float>(MinMaxScale.x, CatchZoneScale.x);
+		CatchZoneScale.x = dist(gen);
+		g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetScale(CatchZoneScale);
+	}
+	else
+	{
+		//std::cout << "No hit." << std::endl;
+		// Play BOO sound
+		// Fail, same speed, same catchzone.
+	}
+
+	// Comment out first
 	//m_DestroyTimer = 2.0f;
 	//m_ShouldDestroy = true;
 }
@@ -154,6 +194,7 @@ void BoneCatcher::BiteDownVisual(double deltaTime)
 			}
 
 			m_Down = false;
+			m_HitDetected = false;
 			m_IsMoving = true;
 		}
 	}

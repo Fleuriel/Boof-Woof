@@ -28,6 +28,11 @@ private:
 	glm::vec3 CatchZoneScale{};
 	glm::vec3 BoxMin{}, BoxMax{};
 
+	glm::vec2 MinMaxScale{ 0.7, 4.0f };
+	glm::vec2 MinMaxPos{ -1.4f, 2.0f };
+
+	bool m_HitDetected{ false };
+
 	// Dog Teeth
 	glm::vec3 TeethScale{ 0.5f, 0.2f, 0.f };
 	glm::vec3 TeethPos{};
