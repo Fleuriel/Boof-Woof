@@ -164,8 +164,8 @@ void AssetManager::LoadAll() {
         loadScenes = AssetManager::LoadScenes(),
         //loadPrefabs   = AssetManager::LoadPrefabs(),
         loadShaders = AssetManager::LoadShaders(),
-        loadAnimations = AssetManager::LoadAnimations(),
-        loadMaterial = AssetManager::LoadMaterials();
+        loadMaterial = AssetManager::LoadMaterials(),
+        loadAnimations = AssetManager::LoadAnimations();
 
     std::cout
         << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
@@ -1283,14 +1283,14 @@ bool AssetManager::LoadAnimations() {
                     continue;
                 }
 
-                AnimationFiles.push_back(entry.path().filename().string());
+                
 
 #ifdef _DEBUG
                 std::cout << "\n**************************************************************************************\n";
                 std::cout << nameWithoutExtension << " detected successfully!\n";
 #endif // DEBUG
 
-
+                g_AnimationManager.LoadAnimations(entry.path().string());
                 
 
             }

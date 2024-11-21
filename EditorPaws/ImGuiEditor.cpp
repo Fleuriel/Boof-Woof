@@ -412,6 +412,7 @@ void ImGuiEditor::WorldHierarchy()
 	ImGui::End();
 }
 
+
 void ImGuiEditor::InspectorWindow()
 {
 	static std::unordered_map<std::string, glm::vec3> oldVec3Values;
@@ -1227,7 +1228,7 @@ void ImGuiEditor::InspectorWindow()
 
 								ImGui::Text("Graphics Properties:");
 
-								auto graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+								auto& graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
 								const auto& properties = ReflectionManager::Instance().GetProperties("GraphicsComponent");
 
 
@@ -1365,35 +1366,39 @@ void ImGuiEditor::InspectorWindow()
 
 								if (ImGui::TreeNode("old Texture"))
 								{
-									// Handle TextureName Property
-									auto textureNameProperty = std::find_if(properties.begin(), properties.end(),
-										[](const ReflectionPropertyBase* prop) { return prop->GetName() == "TextureName"; });
+									//// Handle TextureName Property
+									//auto textureNameProperty = std::find_if(properties.begin(), properties.end(),
+									//	[](const ReflectionPropertyBase* prop) { return prop->GetName() == "Textures"; });
 
-									if (textureNameProperty != properties.end())
-									{
-										std::cout << "what hapepn here\n";
-
-										std::string propertyName = "TextureName";
-										std::string currentTextureName = (*textureNameProperty)->GetValue(&graphicsComponent);
-										std::string newTextureName = currentTextureName;
+									//if (textureNameProperty != properties.end())
+									//{
+									//	std::string propertyName = "Textures";
+									//	std::string currentTextureName = (*textureNameProperty)->GetValue(&graphicsComponent);
+									//	std::string newTextureName = currentTextureName;
+										
+										std::vector<int>  textureIds = graphicsComponent.getTextures();
 
 										ImGui::Text("Texture ");
 										ImGui::SameLine();
-										ImGui::PushID(propertyName.c_str());
+										ImGui::PushID("Textures");
 
-										char buffer[256];
+										/*char buffer[256];
 										memset(buffer, 0, sizeof(buffer));
 										strcpy_s(buffer, sizeof(buffer), currentTextureName.c_str());
 
-										ImGui::InputText("##TextureName", buffer, sizeof(buffer), ImGuiInputTextFlags_ReadOnly);
+										ImGui::InputText("##Textures", buffer, sizeof(buffer), ImGuiInputTextFlags_ReadOnly);*/
+
+										// get texture names
+										
+
 
 										ImGui::SameLine();
 
 										// Store old value before opening the file dialog
-										static std::string oldTextureName = "";
+										//static std::string oldTextureName = "";
 										if (ImGui::Button("Set Texture"))
 										{
-											oldTextureName = currentTextureName; // Capture the old value
+											//oldTextureName = currentTextureName; // Capture the old value
 											ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
 										}
 
@@ -1409,11 +1414,9 @@ void ImGuiEditor::InspectorWindow()
 													selectedFile = selectedFile.substr(0, lastDotPos);
 												}
 
-												std::cout << "I have be seleced tis " << selectedFile << '\n';
-
-												newTextureName = selectedFile;
-												(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
-												int textureId = g_ResourceManager.GetTextureDDS(newTextureName);
+												//newTextureName = selectedFile;
+												//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
+												int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
 												graphicsComponent.AddTexture(textureId);
 
 
@@ -1421,8 +1424,8 @@ void ImGuiEditor::InspectorWindow()
 
 
 												// Execute undo/redo command
-												std::string oldValue = oldTextureName;
-												Entity entity = g_SelectedEntity;
+												/*std::string oldValue = oldTextureName;
+												Entity entity = g_SelectedEntity;*/
 
 												/*g_UndoRedoManager.ExecuteCommand(
 													[entity, newTextureName]() {
@@ -1440,6 +1443,8 @@ void ImGuiEditor::InspectorWindow()
 
 										ImGui::PopID();
 									}
+
+
 
 
 
@@ -1478,11 +1483,18 @@ void ImGuiEditor::InspectorWindow()
 						}
 						else if (className == "AnimationComponent") {
 							// Show the dropdown menu if there are any files
-							if (!g_AssetManager.AnimationFiles.empty()) {
-								static int selectedFileIndex = -1; // To remember the selected index
+							if (!g_AnimationManager.animationNames.empty()) {
+
+								auto& animationComponent = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
 
 								if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
-									ImGui::Text("Animation Selection:"); // Add a label before the combo boxes
+
+									// Get the animation index values (as copies)
+									int idleAnimationIndex = g_AnimationManager.GetAnimationIndex(animationComponent.GetAnimation(AnimationType::Idle));
+									int movementAnimationIndex = g_AnimationManager.GetAnimationIndex(animationComponent.GetAnimation(AnimationType::Moving));
+									int actionAnimationIndex = g_AnimationManager.GetAnimationIndex(animationComponent.GetAnimation(AnimationType::Action));
+
+									ImGui::Text("Animation Selection:");
 									ImGui::NewLine();
 
 									static int idleAnimationIndex = -1;     // Index for idle animation
@@ -1499,22 +1511,24 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Text("Idle Animation:");
 									ImGui::SameLine(labelWidth);
 									ImGui::SetNextItemWidth(comboBoxWidth);
+
 									if (ImGui::BeginCombo("##IdleAnimation",
-										idleAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[idleAnimationIndex].c_str())) {
-										// "None" option
+										idleAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[idleAnimationIndex].c_str())) {
+
 										bool isSelected = (idleAnimationIndex == -1);
 										if (ImGui::Selectable("None", isSelected)) {
 											idleAnimationIndex = -1; // Set to "None"
+											animationComponent.SetAnimation(AnimationType::Idle, "None");
 										}
 										if (isSelected) {
 											ImGui::SetItemDefaultFocus();
 										}
 
-										// File options
-										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
+										for (int i = 0; i < g_AnimationManager.animationNames.size(); ++i) {
 											isSelected = (idleAnimationIndex == i);
-											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
+											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
 												idleAnimationIndex = i; // Update the idle animation index
+												animationComponent.SetAnimation(AnimationType::Idle, g_AnimationManager.animationNames[i]);
 											}
 											if (isSelected) {
 												ImGui::SetItemDefaultFocus();
@@ -1524,27 +1538,30 @@ void ImGuiEditor::InspectorWindow()
 									}
 
 									ImGui::NewLine();
-
 									// Movement Animation
 									ImGui::Text("Movement Animation:");
 									ImGui::SameLine(labelWidth);
 									ImGui::SetNextItemWidth(comboBoxWidth);
+
 									if (ImGui::BeginCombo("##MovementAnimation",
-										movementAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[movementAnimationIndex].c_str())) {
+										movementAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[movementAnimationIndex].c_str())) {
+
 										// "None" option
 										bool isSelected = (movementAnimationIndex == -1);
 										if (ImGui::Selectable("None", isSelected)) {
 											movementAnimationIndex = -1; // Set to "None"
+											animationComponent.SetAnimation(AnimationType::Moving, "None");
 										}
 										if (isSelected) {
 											ImGui::SetItemDefaultFocus();
 										}
 
 										// File options
-										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
+										for (int i = 0; i < g_AnimationManager.animationNames.size(); ++i) {
 											isSelected = (movementAnimationIndex == i);
-											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
+											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
 												movementAnimationIndex = i; // Update the movement animation index
+												animationComponent.SetAnimation(AnimationType::Moving, g_AnimationManager.animationNames[i]);
 											}
 											if (isSelected) {
 												ImGui::SetItemDefaultFocus();
@@ -1559,22 +1576,26 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Text("Action Animation:");
 									ImGui::SameLine(labelWidth);
 									ImGui::SetNextItemWidth(comboBoxWidth);
+
 									if (ImGui::BeginCombo("##ActionAnimation",
-										actionAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[actionAnimationIndex].c_str())) {
+										actionAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[actionAnimationIndex].c_str())) {
+
 										// "None" option
 										bool isSelected = (actionAnimationIndex == -1);
 										if (ImGui::Selectable("None", isSelected)) {
 											actionAnimationIndex = -1; // Set to "None"
+											animationComponent.SetAnimation(AnimationType::Action, "None");
 										}
 										if (isSelected) {
 											ImGui::SetItemDefaultFocus();
 										}
 
 										// File options
-										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
+										for (int i = 0; i < g_AnimationManager.animationNames.size(); ++i) {
 											isSelected = (actionAnimationIndex == i);
-											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
+											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
 												actionAnimationIndex = i; // Update the action animation index
+												animationComponent.SetAnimation(AnimationType::Action, g_AnimationManager.animationNames[i]);
 											}
 											if (isSelected) {
 												ImGui::SetItemDefaultFocus();
@@ -1594,7 +1615,7 @@ void ImGuiEditor::InspectorWindow()
 											animationComponent.SetAnimation(AnimationType::Idle, ""); // Remove animation
 										}
 										else {
-											std::string idleAnimation = g_AssetManager.AnimationFiles[idleAnimationIndex];
+											std::string idleAnimation = g_AnimationManager.animationNames[idleAnimationIndex];
 											animationComponent.SetAnimation(AnimationType::Idle, idleAnimation);
 										}
 
@@ -1603,7 +1624,7 @@ void ImGuiEditor::InspectorWindow()
 											animationComponent.SetAnimation(AnimationType::Moving, ""); // Remove animation
 										}
 										else {
-											std::string movementAnimation = g_AssetManager.AnimationFiles[movementAnimationIndex];
+											std::string movementAnimation = g_AnimationManager.animationNames[movementAnimationIndex];
 											animationComponent.SetAnimation(AnimationType::Moving, movementAnimation);
 										}
 
@@ -1612,13 +1633,12 @@ void ImGuiEditor::InspectorWindow()
 											animationComponent.SetAnimation(AnimationType::Action, ""); // Remove animation
 										}
 										else {
-											std::string actionAnimation = g_AssetManager.AnimationFiles[actionAnimationIndex];
+											std::string actionAnimation = g_AnimationManager.animationNames[actionAnimationIndex];
 											animationComponent.SetAnimation(AnimationType::Action, actionAnimation);
 										}
 
 										std::cout << "Animations applied successfully to entity " << g_SelectedEntity << "." << std::endl;
 									}
-
 
 									ImGui::SameLine();
 									if (ImGui::Button("Revert To Default")) {
@@ -1631,7 +1651,6 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Text("No animations found.");
 								}
 							}
-
 						}
 						else if (className == "AudioComponent")
 						{
@@ -2192,7 +2211,10 @@ void ImGuiEditor::InspectorWindow()
 
 						else if (className == "MaterialComponent")
 						{
+
 							auto& graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity); // Reference to GraphicsComponent
+
+
 
 							std::string objectName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
 

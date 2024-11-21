@@ -34,6 +34,7 @@ public:
     void setModelName(std::string modelName) { m_ModelName = modelName; }
     void SetModelID(int modelID) { m_ModelID = modelID; }
     void AddTexture(int textureid) { textures.push_back(textureid); }
+	void SetTextures(std::vector<int> textureids) { textures = textureids; }
 	void clearTextures() { textures.clear(); }
 	bool RemoveTexture(int textureid) {
 		for (int i = 0; i < textures.size(); i++) {
@@ -49,6 +50,7 @@ public:
     // Getters
     std::string getModelName() const { return m_ModelName; }
     int getModelID() const { return m_ModelID; }
+	std::vector<int> getTextures() const { return textures; }
     
     std::string getTextureName() const { return textureName; }
 
@@ -82,7 +84,7 @@ public:
     {
         REGISTER_PROPERTY(GraphicsComponent, ModelName, std::string, setModelName, getModelName);
         REGISTER_PROPERTY(GraphicsComponent, ModelID, int, SetModelID, getModelID);
-        REGISTER_PROPERTY(GraphicsComponent, TextureName, std::string, setTexture, getTextureName);
+		REGISTER_PROPERTY(GraphicsComponent, Textures, std::vector<int>, SetTextures, getTextures);
     }
 
 

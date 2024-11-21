@@ -197,8 +197,8 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
 			g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
 			glPointSize(10.0f);
-			
-			
+
+
 			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
 			g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
 			//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
