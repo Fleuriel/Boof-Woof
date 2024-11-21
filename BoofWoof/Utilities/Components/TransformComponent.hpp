@@ -6,9 +6,6 @@
 #include "../Core/Graphics/Model.h"   // Make sure Model is included
 #include "../Core/Graphics/Object.h"  // Full definition of Object is needed here
 #include "../Core/Reflection/ReflectionManager.hpp"      // Include the reflection system
-#include <glm/gtc/quaternion.hpp>
-#include <glm/gtx/quaternion.hpp>
-
 
 class TransformComponent
 {
@@ -34,22 +31,20 @@ public:
 
     glm::mat4 GetWorldMatrix()
     {
-        // Create scale matrix
-        glm::mat4 scaleMat = glm::scale(glm::mat4(1.0f), m_Scale);
+        glm::mat4 worldMatrix = glm::mat4(1.0f);
+        worldMatrix = glm::rotate(worldMatrix, m_Rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+        worldMatrix = glm::rotate(worldMatrix, m_Rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+        worldMatrix = glm::rotate(worldMatrix, m_Rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 
-        // Create rotation matrix using quaternions for proper rotation handling
-        glm::quat quaternion = glm::quat(m_Rotation); // m_Rotation should be in radians
-        
-        glm::mat4 rotateMat = glm::toMat4(quaternion);
+        glm::mat4 scaleMat = glm::mat4(1.0f);
+        scaleMat = glm::scale(scaleMat, m_Scale);
 
-        // Create translation matrix
-        glm::mat4 translateMat = glm::translate(glm::mat4(1.0f), m_Position);
+        glm::mat4 translateMat = glm::mat4(1.0f);
+        translateMat = glm::translate(translateMat, m_Position);
 
-        // Combine transformations: ModelMatrix = Translation * Rotation * Scale
-        glm::mat4 worldMatrix = translateMat * rotateMat * scaleMat;
+        worldMatrix = translateMat * worldMatrix * scaleMat;
         return worldMatrix;
     }
-
 
     // Reflection integration
     REFLECT_COMPONENT(TransformComponent)

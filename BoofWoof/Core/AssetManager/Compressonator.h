@@ -15,13 +15,13 @@
 #ifndef TEXTURE_COMPRESSONATOR_H
 #define TEXTURE_COMPRESSONATOR_H
 
-
-#include "Descriptor.h"
-
+// Function to trim leading and trailing whitespaces from a string
 std::string trim(const std::string& str);
 
-int CompressTextureWithDescriptor(const TextureDescriptor& descriptor, const std::string& inputTexturePath, const std::string& outputTexturePath);
+// Function to process the descriptor file and print details
+std::vector<std::string> processTextureDescriptorFile(const std::string& descriptorFilePath);
 
 int runCommand(const std::string& command);
 
+int test();
 #endif // TEXTURE_COMPRESSONATOR_H

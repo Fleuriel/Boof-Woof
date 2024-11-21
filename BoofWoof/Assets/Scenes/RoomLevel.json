@@ -1,0 +1,644 @@
+{
+    "SceneGUID": "c80d08f4-ee99-4d23-9d88-935052876b67",
+    "Entities": [
+        {
+            "EntityName": "Floor1",
+            "Position": {
+                "x": -6.300000190734863,
+                "y": 0.0,
+                "z": 2.299999952316284
+            },
+            "Scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 0,
+            "ModelName": "Floor",
+            "Texture": "Floor"
+        },
+        {
+            "EntityName": "Floor2",
+            "Position": {
+                "x": 1.600000023841858,
+                "y": 0.0,
+                "z": 2.299999952316284
+            },
+            "Scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 1,
+            "ModelName": "Floor",
+            "Texture": "Floor"
+        },
+        {
+            "EntityName": "Floor3",
+            "Position": {
+                "x": 1.600000023841858,
+                "y": 0.0,
+                "z": -5.599999904632568
+            },
+            "Scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 2,
+            "ModelName": "Floor",
+            "Texture": "Floor"
+        },
+        {
+            "EntityName": "Floor4",
+            "Position": {
+                "x": -6.300000190734863,
+                "y": 0.0,
+                "z": -5.599999904632568
+            },
+            "Scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 3,
+            "ModelName": "Floor",
+            "Texture": "Floor"
+        },
+        {
+            "EntityName": "Wall1",
+            "Position": {
+                "x": -7.699999809265137,
+                "y": 0.0,
+                "z": -10.199999809265137
+            },
+            "Scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 0.8999999761581421
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 4,
+            "ModelName": "Wall",
+            "Texture": "Wall",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Wall2",
+            "Position": {
+                "x": -2.299999952316284,
+                "y": 0.0,
+                "z": -10.199999809265137
+            },
+            "Scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 0.8999999761581421
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 5,
+            "ModelName": "Wall",
+            "Texture": "Wall",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Wall3",
+            "Position": {
+                "x": 3.0999999046325685,
+                "y": 0.0,
+                "z": -10.199999809265137
+            },
+            "Scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 0.8999999761581421
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 6,
+            "ModelName": "Wall",
+            "Texture": "Wall",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Wall4",
+            "Position": {
+                "x": -10.800000190734864,
+                "y": 0.0,
+                "z": -7.199999809265137
+            },
+            "Scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 0.8999999761581421
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 1.5700000524520875,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 7,
+            "ModelName": "Wall",
+            "Texture": "Wall",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Wall5",
+            "Position": {
+                "x": -10.800000190734864,
+                "y": 0.0,
+                "z": -1.7999999523162842
+            },
+            "Scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 0.8999999761581421
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 1.5700000524520875,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 8,
+            "ModelName": "Wall",
+            "Texture": "Wall",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Wall6",
+            "Position": {
+                "x": -10.800000190734864,
+                "y": 0.0,
+                "z": 3.5999999046325685
+            },
+            "Scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 0.8999999761581421
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 1.5700000524520875,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 9,
+            "ModelName": "Wall",
+            "Texture": "Wall",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Wall7",
+            "Position": {
+                "x": 6.199999809265137,
+                "y": 0.0,
+                "z": -7.25
+            },
+            "Scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 0.8999999761581421
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": -1.5700000524520875,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 10,
+            "ModelName": "Wall",
+            "Texture": "Wall",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Wall8",
+            "Position": {
+                "x": 6.199999809265137,
+                "y": 0.0,
+                "z": -1.850000023841858
+            },
+            "Scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 0.8999999761581421
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": -1.5700000524520875,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 11,
+            "ModelName": "Wall",
+            "Texture": "Wall",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Wall9",
+            "Position": {
+                "x": 6.199999809265137,
+                "y": 0.0,
+                "z": 3.549999952316284
+            },
+            "Scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 0.8999999761581421
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": -1.5700000524520875,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 12,
+            "ModelName": "Wall",
+            "Texture": "Wall",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Bed",
+            "Position": {
+                "x": -2.0,
+                "y": 0.0,
+                "z": -7.099999904632568
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 13,
+            "ModelName": "Bed2",
+            "Texture": "Bed2",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Table",
+            "Position": {
+                "x": -1.899999976158142,
+                "y": 0.0,
+                "z": 0.30000001192092898
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 14,
+            "ModelName": "Table",
+            "Texture": "Table",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Chair2",
+            "Position": {
+                "x": 1.0,
+                "y": 0.0,
+                "z": 0.30000001192092898
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 15,
+            "ModelName": "Chair2",
+            "Texture": "Chair2",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Wardrobe2",
+            "Position": {
+                "x": 4.199999809265137,
+                "y": 0.0,
+                "z": 1.7000000476837159
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": -1.5700000524520875,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 16,
+            "ModelName": "Wardrobe2",
+            "Texture": "Wardrobe2",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Table2",
+            "Position": {
+                "x": 4.5,
+                "y": 0.0,
+                "z": -7.099999904632568
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 17,
+            "ModelName": "Table2",
+            "Texture": "Table2",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Chair1",
+            "Position": {
+                "x": 3.200000047683716,
+                "y": 0.0,
+                "z": -7.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": -1.2000000476837159,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 18,
+            "ModelName": "Chair",
+            "Texture": "Chair",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Player",
+            "Position": {
+                "x": -5.390946865081787,
+                "y": 0.08609484881162644,
+                "z": -5.760461330413818
+            },
+            "Scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": -1.7999999523162842,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 19,
+            "ModelName": "Corgi2",
+            "Texture": "Corgi2",
+            "BehaviourName": "Player",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "CorgiOther",
+            "Position": {
+                "x": 1.100000023841858,
+                "y": 0.0,
+                "z": 3.799999952316284
+            },
+            "Scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": -3.4000000953674318,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 20,
+            "ModelName": "Corgi_small",
+            "Texture": "Corgi_small",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Chair3",
+            "Position": {
+                "x": -4.599999904632568,
+                "y": 0.0,
+                "z": -0.800000011920929
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 21,
+            "ModelName": "Chair2",
+            "Texture": "Chair2",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Chair4",
+            "Position": {
+                "x": -1.5,
+                "y": 0.0,
+                "z": -3.200000047683716
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 22,
+            "ModelName": "Chair2",
+            "Texture": "Chair2",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Chair5",
+            "Position": {
+                "x": -2.200000047683716,
+                "y": 0.0,
+                "z": 3.0
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 5.0,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 23,
+            "ModelName": "Chair2",
+            "Texture": "Chair2",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Wardrobe",
+            "Position": {
+                "x": -8.699999809265137,
+                "y": 0.0,
+                "z": 1.399999976158142
+            },
+            "Scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 1.5700000524520875,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 24,
+            "ModelName": "Wardrobe",
+            "Texture": "Wardrobe",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "EntityName": "Couch",
+            "Position": {
+                "x": -8.699999809265137,
+                "y": 0.0,
+                "z": -8.199999809265137
+            },
+            "Scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "Rotation": {
+                "x": 0.0,
+                "y": 0.5,
+                "z": 0.0
+            },
+            "ModelID": 0,
+            "EntityID": 25,
+            "ModelName": "Couch",
+            "Texture": "Couch",
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        }
+    ]
+}

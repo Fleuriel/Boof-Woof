@@ -74,26 +74,20 @@ bool ResourceManager::LoadAll() {
 }
 
 
-DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
-    
-    DDSData ddsData;
-
-
-
+GLuint LoadDDS(const char* filePath, GLuint existingTexture = 0) {
     // Load the DDS file
     gli::texture Texture = gli::load(filePath);
     if (Texture.empty()) {
         std::cerr << "Failed to load DDS file: " << filePath << std::endl;
-        return ddsData; // Return 0 on failure
+        return 0; // Return 0 on failure
     }
 
     // Check if the format is compressed
     if (!gli::is_compressed(Texture.format())) {
         std::cerr << "Loaded DDS is not a compressed format!" << std::endl;
-        return ddsData;
+        return 0;
     }
 
-  
     // Get OpenGL texture parameters
     gli::gl GL(gli::gl::PROFILE_GL33);
     gli::gl::format const Format = GL.translate(Texture.format(), Texture.swizzles());
@@ -104,6 +98,7 @@ DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
     GLuint TextureName = existingTexture;
     if (TextureName == 0)
     {
+
         glGenTextures(1, &TextureName);
     }
     else
@@ -129,12 +124,7 @@ DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
             Target, static_cast<GLint>(Level), 0, 0, Extent.x, Extent.y,
             Format.Internal, static_cast<GLsizei>(Texture.size(Level)), Texture.data(0, 0, Level)
         );
-
-        ddsData.Width = Extent.x;
-        ddsData.Height = Extent.y;
-
     }
-
 
     // Optionally set additional texture parameters
     glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -145,10 +135,7 @@ DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
     // Unbind the texture
     glBindTexture(Target, 0);
 
-
-    ddsData.ID = TextureName;
-
-    return ddsData; // Return the OpenGL texture ID
+    return TextureName; // Return the OpenGL texture ID
 }
 
 
@@ -438,14 +425,14 @@ bool ResourceManager::LoadTexturesDDS() {
         // std::cout << "names:" << textureDDSFileNames[i].c_str() << "\n";
 
         //add DDS processing here
-        DDSData result = LoadDDS((FILEPATH_RESOURCE_TEXTURES + "\\" + textureDDSFileNames[i] + ".dds").c_str());
+        GLuint result = LoadDDS((FILEPATH_RESOURCE_TEXTURES + "\\" + textureDDSFileNames[i] + ".dds").c_str());
 
 //        result = LoadDDS((FILEPATH_RESOURCE_TEXTURES + "\\" + textureDDSFileNames[i] + ".dds").c_str())
 
-        std::cout << result.ID <<std::endl;
+        std::cout << result <<std::endl;
 
 
-        if (result.ID != -1) {
+        if (result != -1) {
             textureDDS[textureDDSFileNames[i]] = result;
             std::cout << "Texture DDS File Added : " << textureDDSFileNames[i] << std::endl;
         }
@@ -462,7 +449,7 @@ bool ResourceManager::LoadTexturesDDS() {
 bool ResourceManager::FreeTexturesDDS() {
     // Iterate over each texture in the map and delete it
     for (const auto& texturePair : textureDDS) {
-        GLuint textureID = texturePair.second.ID;
+        GLuint textureID = texturePair.second;
         glDeleteTextures(1, &textureID); // Delete the OpenGL texture
     }
 
@@ -497,17 +484,17 @@ bool ResourceManager::AddTextureDDS(std::string textureName) {
     textureDDSFileNames.push_back(textureName);
 
     // Attempt to load the DDS texture immediately
-    DDSData result = LoadDDS((FILEPATH_RESOURCE_TEXTURES + "\\" + textureName + ".dds").c_str());
+    GLuint result = LoadDDS((FILEPATH_RESOURCE_TEXTURES + "\\" + textureName + ".dds").c_str());
 
-    if (result.ID != 0) { // If loading is successful, result will be a valid texture ID
+    if (result != 0) { // If loading is successful, result will be a valid texture ID
         textureDDS[textureName] = result; // Store the loaded texture ID in the map
-        std::cout << "Texture DDS File Added and Loaded: " << textureName << " with ID " << result.ID << std::endl;
+        std::cout << "Texture DDS File Added and Loaded: " << textureName << " with ID " << result << std::endl;
     }
     else {
         std::cerr << "Failed to load Texture DDS: " << textureName << std::endl;
     }
 
-    return result.ID != 0; // Return true if texture was loaded successfully, false otherwise
+    return result != 0; // Return true if texture was loaded successfully, false otherwise
 }
 
 
@@ -516,7 +503,7 @@ int ResourceManager::GetTextureDDS(std::string textureName) {
     auto it = textureDDS.find(textureName);
     if (it != textureDDS.end()) {
         // Return the texture ID if found
-        return it->second.ID;
+        return it->second;
     }
     else {
         // Return -1 or some error value if texture not found
@@ -526,36 +513,10 @@ int ResourceManager::GetTextureDDS(std::string textureName) {
 }
 
 
-int ResourceManager::GetTextureDDSWidth(std::string textureName)
-{
-    auto it = textureDDS.find(textureName);
-    if (it != textureDDS.end()) {
-        // Return the DDS data if found
-        return it->second.Width;  // This will return the DDSData associated with the texture
-    }
-    else {
-        // Return a default or error DDSData if texture not found
-        // You can either create a default DDSData object with error values or handle it as needed
-        std::cerr << "Texture not found: " << textureName << std::endl;
-        return -1; // Default-constructed DDSData (all members initialized to 0)
-    }
-}
 
 
-int ResourceManager::GetTextureDDSHeight(std::string textureName)
-{
-    auto it = textureDDS.find(textureName);
-    if (it != textureDDS.end()) {
-        // Return the DDS data if found
-        return it->second.Height;  // This will return the DDSData associated with the texture
-    }
-    else {
-        // Return a default or error DDSData if texture not found
-        // You can either create a default DDSData object with error values or handle it as needed
-        std::cerr << "Texture not found: " << textureName << std::endl;
-        return -1; // Default-constructed DDSData (all members initialized to 0)
-    }
-}
+
+
 
 
 
@@ -569,13 +530,13 @@ bool ResourceManager::LoadFontsDDS() {
         // std::cout << "names:" << textureDDSFileNames[i].c_str() << "\n";
 
         //add DDS processing here
-        GLuint result = LoadDDS((FILEPATH_RESOURCE_FONTS + "\\" + fontDDSFileNames[i] + ".dds").c_str()).ID;
+        GLuint result = LoadDDS((FILEPATH_RESOURCE_FONTS + "\\" + fontDDSFileNames[i] + ".dds").c_str());
 
         std::cout << result << std::endl;
 
 
         if (result != -1) {
-            textureDDS[textureDDSFileNames[i]].ID = result;
+            textureDDS[textureDDSFileNames[i]] = result;
             std::cout << "Font DDS File Added : " << fontDDSFileNames[i] << std::endl;
         }
         else
@@ -626,7 +587,7 @@ bool ResourceManager::AddFontDDS(std::string textureName) {
     fontDDSFileNames.push_back(textureName);
 
     // Attempt to load the DDS texture immediately
-    GLuint result = LoadDDS((FILEPATH_RESOURCE_FONTS + "\\" + textureName + ".dds").c_str()).ID;
+    GLuint result = LoadDDS((FILEPATH_RESOURCE_FONTS + "\\" + textureName + ".dds").c_str());
 
     if (result != 0) { // If loading is successful, result will be a valid texture ID
         fontDDS[textureName] = result; // Store the loaded texture ID in the map

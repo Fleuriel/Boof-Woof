@@ -1,0 +1,5 @@
+Texture Name : Digipen_Logo
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\Digipen_Logo.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\Digipen_Logo.dds
+Compression Format : -fd BC3

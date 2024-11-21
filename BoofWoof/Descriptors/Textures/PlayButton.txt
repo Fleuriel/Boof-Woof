@@ -1,0 +1,5 @@
+Texture Name : PlayButton
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\PlayButton.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\PlayButton.dds
+Compression Format : -fd BC3
