@@ -61,6 +61,8 @@ public:
     void setTexture(std::string texture) { textureName = texture; }
 
 
+    void setTextureMaterial(int texture) { material.SetTexture(texture); }
+
     // Constructor and destructor
 	GraphicsComponent(){};
 	

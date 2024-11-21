@@ -1409,12 +1409,15 @@ void ImGuiEditor::InspectorWindow()
 													selectedFile = selectedFile.substr(0, lastDotPos);
 												}
 
+												std::cout << "I have be seleced tis " << selectedFile << '\n';
+
 												newTextureName = selectedFile;
 												(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
 												int textureId = g_ResourceManager.GetTextureDDS(newTextureName);
 												graphicsComponent.AddTexture(textureId);
 
 
+												graphicsComponent.setTextureMaterial(textureId);
 
 
 												// Execute undo/redo command
