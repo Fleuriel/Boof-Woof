@@ -87,6 +87,10 @@ private:
 	TextureDescriptor textureInfo;
 	MaterialDescriptor materialInfo;
 
+	int idleAnimationIndex = -1;
+	int movementAnimationIndex = -1;
+	int actionAnimationIndex = -1;
+
 	glm::vec3 m_OldPosition;
 	glm::vec3 m_OldRotationRadians;
 	glm::vec3 m_OldScale;
