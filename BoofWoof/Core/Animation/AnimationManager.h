@@ -5,7 +5,6 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <memory>
 
 // Struct for keyframe data
 struct KeyFrame {
@@ -21,7 +20,7 @@ struct AnimationChannel {
     std::vector<KeyFrame> keyframes;
 };
 
-// Struct for animation
+// Class for animation
 class Animation {
 public:
     std::string name;
@@ -32,6 +31,7 @@ public:
     // Default constructor
     Animation() = default;
 
+    // Constructor to initialize from Assimp animation
     Animation(const aiAnimation* assimpAnimation);
 };
 
@@ -68,19 +68,28 @@ public:
     // Retrieve an animation by name
     const Animation& GetAnimation(const std::string& animationName) const;
 
-    // Manage entity animations
+    // Assign an animation to an entity
     void AssignAnimation(const std::string& entityId, AnimationType type, const std::string& animationName);
+
+    // Play animation for an entity
     void PlayAnimation(const std::string& entityId);
+
+    // Stop animation for an entity
     void StopAnimation(const std::string& entityId);
 
     // Update animations for all entities
     void Update(double deltaTime);
 
+    // Get the index of an animation by its name
+    int GetAnimationIndex(const std::string& animationName) const;
+
+    std::vector<std::string> animationNames;							//Container to store animation file names
+
 private:
-    std::unordered_map<std::string, Animation> animations;            // All loaded animations
+    std::unordered_map<std::string, Animation> animations;              // All loaded animations
     std::unordered_map<std::string, EntityAnimationState> entityStates; // Entity-specific states
 };
 
-extern AnimationManager g_AnimationManager;
 
+extern AnimationManager g_AnimationManager;
 #endif // ANIMATION_MANAGER_H

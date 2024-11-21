@@ -20,6 +20,8 @@
 #include <filesystem>
 #include <vector>
 
+
+
 class ImGuiEditor 
 {
 public:
@@ -83,7 +85,6 @@ private:
 	std::filesystem::path m_SelectedFile;
 
 	TextureDescriptor textureInfo;
-
 	MaterialDescriptor materialInfo;
 
 	glm::vec3 m_OldPosition;

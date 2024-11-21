@@ -66,3 +66,24 @@ std::string AnimationComponent::GetAnimation(AnimationType type) const {
     }
     return ""; // Return an empty string if no animation is assigned
 }
+
+// Clear a specific animation type
+void AnimationComponent::ClearAnimation(AnimationType type) {
+    auto it = animationMap.find(type);
+    if (it != animationMap.end()) {
+        animationMap.erase(it);
+        std::cout << "Cleared animation for type: " << static_cast<int>(type) << std::endl;
+    }
+    else {
+        std::cerr << "No animation found for type: " << static_cast<int>(type) << std::endl;
+    }
+}
+
+// Clear all animations
+void AnimationComponent::ClearAllAnimations() {
+    animationMap.clear();
+    state.activeAnimation.clear();
+    state.isPlaying = false;
+    state.currentTime = 0.0;
+    std::cout << "All animations cleared." << std::endl;
+}

@@ -28,6 +28,12 @@ public:
     void SetAnimation(AnimationType type, const std::string& animationName);
     std::string GetAnimation(AnimationType type) const;
 
+    // Clear a specific animation type
+    void ClearAnimation(AnimationType type);
+
+    // Clear all animations
+    void ClearAllAnimations();
+
 private:
     std::shared_ptr<AnimationManager> animationManager; // Shared animation manager
     EntityAnimationState state;                         // Entity-specific playback state
