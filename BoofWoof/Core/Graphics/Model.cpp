@@ -306,28 +306,28 @@ Model SquareModelOutline(glm::vec3 color)
 }
 
 
-// Function to create an AABB cube
-Model AABB(glm::vec3 color)
+Model AABB(glm::vec3 position, glm::vec3 halfextents, glm::vec3 color)
 {
 	struct Vertex {
 		glm::vec3 position;  // 3D position
 		glm::vec3 color;     // Color
 	};
 
+	glm::vec3 biggerHalfExtents = halfextents + glm::vec3(0.0005);
 
 	// Cube vertices with positions and a uniform color
 	std::vector<Vertex> vertices{
 		// Front face
-		{ glm::vec3(1.f,  1.f,  1.f), color },  // Top-right front
-		{ glm::vec3(-1.f,  1.f,  1.f), color },  // Top-left front
-		{ glm::vec3(-1.f, -1.f,  1.f), color },  // Bottom-left front
-		{ glm::vec3(1.f, -1.f,  1.f), color },  // Bottom-right front
+		{ glm::vec3(biggerHalfExtents.x,  biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Top-right front
+		{ glm::vec3(-biggerHalfExtents.x,  biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Top-left front
+		{ glm::vec3(-biggerHalfExtents.x, -biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Bottom-left front
+		{ glm::vec3(biggerHalfExtents.x, -biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Bottom-right front
 
 		// Back face
-		{ glm::vec3(1.f,  1.f, -1.f), color },  // Top-right back
-		{ glm::vec3(-1.f,  1.f, -1.f), color },  // Top-left back
-		{ glm::vec3(-1.f, -1.f, -1.f), color },  // Bottom-left back
-		{ glm::vec3(1.f, -1.f, -1.f), color },  // Bottom-right back
+		{ glm::vec3(biggerHalfExtents.x,  biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Top-right back
+		{ glm::vec3(-biggerHalfExtents.x,  biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Top-left back
+		{ glm::vec3(-biggerHalfExtents.x, -biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Bottom-left back
+		{ glm::vec3(biggerHalfExtents.x, -biggerHalfExtents.y, -biggerHalfExtents.z)	, color }   // Bottom-right back
 	};
 
 	// Indices for drawing cube edges (outline)
@@ -374,6 +374,7 @@ Model AABB(glm::vec3 color)
 
 
 
+
 /* Draw */
 
 
@@ -411,19 +412,20 @@ void Model::DrawCollisionBox2D(Model outlineModel)
 
 
 
-void Model::DrawCollisionBox3D(Model outlineModel) const
+void Model::DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color) const
 {
 	// Bind the VAO for the outline model
 
+	Model AABBOutline = AABB(position, halfExtents, color);
 
 
-	glBindVertexArray(outlineModel.vaoid);
+	glBindVertexArray(AABBOutline.vaoid);
 	//	std::cout << outlineModel.vaoid << '\n';
 
 	glLineWidth(1.0f);
 
 	// Draw the square outline
-	glDrawElements(outlineModel.primitive_type, outlineModel.draw_cnt, GL_UNSIGNED_SHORT, 0);
+	glDrawElements(AABBOutline.primitive_type, AABBOutline.draw_cnt, GL_UNSIGNED_SHORT, 0);
 
 	// Unbind the VAO
 	glBindVertexArray(0);

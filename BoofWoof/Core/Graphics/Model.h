@@ -56,7 +56,7 @@ public:
 
     void DrawCollisionBox2D(Model outlineModel);
 
-    void DrawCollisionBox3D(Model outlineModel) const;
+    void DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color) const;
 
 
         // draws the model, and thus all its meshes
@@ -333,7 +333,7 @@ Model SquareModel(glm::vec3 color);
 Model CubeModel(glm::vec3 color);
 
 Model SquareModelOutline(glm::vec3 color);
-Model AABB(glm::vec3 color);
+Model AABB(glm::vec3 position, glm::vec3 halfextents = glm::vec3(1.0f), glm::vec3 color = glm::vec3(1.0f));
 
 
 #endif // !MODEL_H

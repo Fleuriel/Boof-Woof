@@ -350,8 +350,7 @@ void GraphicsSystem::UpdateLoop() {
 				}
 				if (D3)
 				{
-					Model AABBOutline = AABB(glm::vec3(0.0f, 1.0f, 1.0f));
-					g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(AABBOutline);
+					g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(transformComp.GetPosition(), glm::vec3(0.5), glm::vec3(0.8f,0.4f,0.3f));
 				}
 				
 				
