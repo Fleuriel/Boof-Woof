@@ -305,10 +305,15 @@ void GraphicsSystem::UpdateLoop() {
 
 
 				g_AssetManager.GetShader("Shader2D").Use();
+				if (graphicsComp.getFollowCamera()) {
+					SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
+				}
+				else {
+					g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+					g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
+					g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
 
-				SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
-				//shader.Use();
-			
+				}
 
 
 				//tex = g_ResourceManager.GetTextureDDS("Sadge");
@@ -360,7 +365,6 @@ void GraphicsSystem::UpdateLoop() {
 				// END OF 2D OUTLINE AND FONTS
 				
 			}
-			g_AssetManager.GetShader("Shader3D").UnUse();
 		}
 
 
