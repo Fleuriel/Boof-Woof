@@ -240,6 +240,13 @@ bool Serialization::SaveScene(const std::string& filepath) {
             collisionData.AddMember("IsDynamic", collisionComp.IsDynamic(), allocator);
             collisionData.AddMember("IsPlayer", collisionComp.IsPlayer(), allocator);
 
+            // Save AABB size
+            rapidjson::Value aabbSize(rapidjson::kObjectType);
+            aabbSize.AddMember("x", collisionComp.GetAABBSize().x, allocator);
+            aabbSize.AddMember("y", collisionComp.GetAABBSize().y, allocator);
+            aabbSize.AddMember("z", collisionComp.GetAABBSize().z, allocator);
+            collisionData.AddMember("AABBSize", aabbSize, allocator);
+
             entityData.AddMember("CollisionComponent", collisionData, allocator);
         }
 
@@ -494,6 +501,18 @@ bool Serialization::LoadScene(const std::string& filepath) {
                 CollisionComponent collisionComponent(layer);
                 collisionComponent.SetIsDynamic(isDynamic);
                 collisionComponent.SetIsPlayer(isPlayer);
+
+                // Load AABB size
+                if (collisionData.HasMember("AABBSize")) {
+                    const auto& aabbSize = collisionData["AABBSize"];
+                    glm::vec3 loadedAABBSize(
+                        aabbSize["x"].GetFloat(),
+                        aabbSize["y"].GetFloat(),
+                        aabbSize["z"].GetFloat()
+                    );
+                    collisionComponent.SetAABBSize(loadedAABBSize);
+                }
+
                 g_Coordinator.AddComponent(entity, collisionComponent);
             }
 

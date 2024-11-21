@@ -436,6 +436,74 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
     UpdateEntityTransforms();
 }
 
+//void MyPhysicsSystem::AddEntityBody(Entity entity) {
+//    if (g_Coordinator.HaveComponent<TransformComponent>(entity) &&
+//        g_Coordinator.HaveComponent<GraphicsComponent>(entity) &&
+//        g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+//
+//        auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+//        auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+//        auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+//
+//        // Get the texture name from GraphicsComponent to determine the object type
+//        std::string modelName = graphicsComp.getModelName();
+//
+//        if (modelName.empty()) {
+//            std::cerr << "AddEntityBody: Entity " << entity << " has an invalid or missing model." << std::endl;
+//            return;
+//        }
+//
+//        std::cout << "Model Name: " << modelName << std::endl;
+//        ObjectType objectType = GetObjectTypeFromModel(modelName);
+//
+//        // Get the position, scale, and rotation from the TransformComponent
+//        JPH::RVec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
+//        glm::vec3 scale = transform.GetScale();
+//        glm::quat rotation = transform.GetRotation();
+//
+//        // Create shape based on object type
+//        JPH::Shape* shape = CreateShapeForObjectType(objectType, scale);
+//
+//        // Set motion type based on IsDynamic in CollisionComponent
+//        bool isDynamic = collisionComponent.IsDynamic();
+//        JPH::EMotionType motionType = isDynamic ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
+//
+//        // Define body creation settings
+//        JPH::BodyCreationSettings bodySettings(
+//            shape,
+//            position,
+//            JPH::Quat(rotation.w, rotation.x, rotation.y, rotation.z), // Apply initial rotation
+//            motionType,
+//            motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING // Layer based on motion type
+//        );
+//
+//        JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
+//        if (&bodyInterface == nullptr) {
+//            std::cerr << "BodyInterface is not available!" << std::endl;
+//            return;
+//        }
+//
+//        // Create and add the body to the physics system
+//        JPH::Body* body = bodyInterface.CreateBody(bodySettings);
+//        if (body == nullptr) {
+//            std::cerr << "Failed to create a new body!" << std::endl;
+//        }
+//        else {
+//            std::cout << "Body successfully created with ID: " << body->GetID().GetIndex() << std::endl;
+//            bodyID = body->GetID();
+//            bodyInterface.AddBody(body->GetID(), JPH::EActivation::Activate);
+//
+//            // Prevent dynamic bodies (like the player) from sleeping
+//            if (isDynamic) {
+//                body->SetAllowSleeping(false);
+//            }
+//
+//            // Assign the body to the CollisionComponent
+//            collisionComponent.SetPhysicsBody(body);
+//        }
+//    }
+//}
+
 void MyPhysicsSystem::AddEntityBody(Entity entity) {
     if (g_Coordinator.HaveComponent<TransformComponent>(entity) &&
         g_Coordinator.HaveComponent<GraphicsComponent>(entity) &&
@@ -460,9 +528,52 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         JPH::RVec3 position(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
         glm::vec3 scale = transform.GetScale();
         glm::quat rotation = transform.GetRotation();
+ 
+        // Assign default AABB based on ObjectType
+        glm::vec3 defaultAABB;
+        switch (objectType) {
+        case ObjectType::Bed:
+            defaultAABB = glm::vec3(1.5f, 0.5f, 2.0f);
+            break;
+        case ObjectType::Chair:
+            defaultAABB = glm::vec3(0.5f, 0.8f, 0.5f);
+            break;
+        case ObjectType::Table:
+            defaultAABB = glm::vec3(2.0f, 0.4f, 2.0f);
+            break;
+        case ObjectType::Table2:
+            defaultAABB = glm::vec3(0.8f, 0.4f, 2.0f);
+            break;
+        case ObjectType::Couch:
+            defaultAABB = glm::vec3(1.5f, 0.6f, 1.0f);
+            break;
+        case ObjectType::Corgi:
+            defaultAABB = glm::vec3(2.8f, 0.3f, 1.3f);
+            break;
+        case ObjectType::FloorCastle:
+            defaultAABB = glm::vec3(5.0f, 0.15f, 4.2f);
+            break;
+        case ObjectType::Wall:
+            defaultAABB = glm::vec3(2.5f, 3.0f, 0.8f);
+            break;
+        case ObjectType::Wardrobe:
+            defaultAABB = glm::vec3(2.0f, 2.0f, 1.0f);
+            break;
+        default:
+            defaultAABB = glm::vec3(1.0f, 1.0f, 1.0f); // Default fallback
+            break;
+        }
 
-        // Create shape based on object type
-        JPH::Shape* shape = CreateShapeForObjectType(objectType, scale);
+        // Set the default AABB size in the CollisionComponent (only if it hasn't been customized)
+        if (collisionComponent.GetAABBSize() == glm::vec3(1.0f, 1.0f, 1.0f)) {
+            collisionComponent.SetAABBSize(defaultAABB);
+        }
+
+        // Get the AABB size from the CollisionComponent
+        glm::vec3 customAABB = collisionComponent.GetAABBSize();
+
+        // Create shape based on object type and custom AABB
+        JPH::Shape* shape = CreateShapeForObjectType(objectType, customAABB);
 
         // Set motion type based on IsDynamic in CollisionComponent
         bool isDynamic = collisionComponent.IsDynamic();
@@ -503,6 +614,7 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         }
     }
 }
+
 
 void MyPhysicsSystem::UpdateEntityBody(Entity entity)
 {

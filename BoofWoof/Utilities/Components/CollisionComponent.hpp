@@ -34,8 +34,11 @@ public:
     {
         /*Empty by design*/
     }
-    CollisionComponent(int layer, bool isDynamic = false)
-        : m_CollisionLayer(layer), m_IsDynamic(isDynamic) {}
+    //CollisionComponent(int layer, bool isDynamic = false)
+    //    : m_CollisionLayer(layer), m_IsDynamic(isDynamic) {}
+    // Constructor with initial AABB size
+    CollisionComponent(int layer, bool isDynamic = false, const glm::vec3& initialAABB = glm::vec3(1.0f, 1.0f, 1.0f))
+        : m_CollisionLayer(layer), m_IsDynamic(isDynamic), m_AABBSize(initialAABB) {}
 
     ~CollisionComponent() = default;
 

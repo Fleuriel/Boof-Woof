@@ -1225,11 +1225,10 @@ void ImGuiEditor::InspectorWindow()
 
 							// Debugging for player type
 							ImGui::Text("Is Player: %s", collisionComponent.IsPlayer() ? "Yes" : "No");
-
+							
 							// AABB Size Editor
 							glm::vec3 aabbSize = collisionComponent.GetAABBSize();
-							if (ImGui::DragFloat3("AABB Size", &aabbSize.x, 0.1f, 0.1f, 10.0f, "%.2f"))
-							{
+							if (ImGui::DragFloat3("AABB Size", &aabbSize.x, 0.1f, 0.1f, 10.0f, "%.2f")) {
 								// Update AABB size in the CollisionComponent
 								collisionComponent.SetAABBSize(aabbSize);
 
