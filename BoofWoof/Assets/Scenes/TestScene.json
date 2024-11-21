@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "2337eafd-15eb-4c70-939e-d7d6a2bd3152",
+    "SceneGUID": "e823c626-c166-4cb1-848f-bab00bcfd372",
     "Entities": [
         {
             "MetadataComponent": {
@@ -25,7 +25,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -52,7 +53,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -79,7 +81,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -106,7 +109,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -133,7 +137,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -160,7 +165,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -187,7 +193,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -214,7 +221,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -241,7 +249,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -268,7 +277,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -298,7 +308,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -328,7 +339,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -358,7 +370,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -388,7 +401,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -418,7 +432,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -448,7 +463,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -478,7 +494,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -508,7 +525,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -538,7 +556,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -568,7 +587,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -598,7 +618,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -628,7 +649,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -658,7 +680,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -688,7 +711,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -718,7 +742,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -748,7 +773,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -778,7 +804,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -808,7 +835,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -838,7 +866,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -868,7 +897,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -898,7 +928,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -928,7 +959,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -958,7 +990,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -988,7 +1021,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1018,7 +1052,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1048,7 +1083,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1078,7 +1114,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1108,7 +1145,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1138,7 +1176,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1168,7 +1207,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1198,7 +1238,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1228,7 +1269,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1258,7 +1300,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1288,7 +1331,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1318,7 +1362,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1348,7 +1393,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1378,7 +1424,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1408,7 +1455,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Corgi2",
-                "Texture": "Corgi2"
+                "Texture": "Corgi2",
+                "FollowCamera": true
             },
             "BehaviourComponent": {
                 "BehaviourName": "Player"
@@ -1456,7 +1504,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Couch",
-                "Texture": "Couch"
+                "Texture": "Couch",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1486,7 +1535,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Bed2",
-                "Texture": "Bed2"
+                "Texture": "Bed2",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1516,7 +1566,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDrawbridge",
-                "Texture": "WallDrawbridge"
+                "Texture": "WallDrawbridge",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1546,7 +1597,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "RopeDrawbridge",
-                "Texture": "RopeDrawbridge"
+                "Texture": "RopeDrawbridge",
+                "FollowCamera": true
             }
         },
         {
@@ -1573,7 +1625,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "NailDrawbridge",
-                "Texture": "NailDrawbridge"
+                "Texture": "NailDrawbridge",
+                "FollowCamera": true
             }
         },
         {
@@ -1600,7 +1653,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "DoorDrawbridge",
-                "Texture": "DoorDrawbridge"
+                "Texture": "DoorDrawbridge",
+                "FollowCamera": true
             }
         },
         {
@@ -1627,7 +1681,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor",
-                "Texture": "Floor"
+                "Texture": "Floor",
+                "FollowCamera": true
             }
         },
         {
@@ -1654,7 +1709,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2"
+                "Texture": "Chair2",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -1684,7 +1740,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Table",
-                "Texture": "Table"
+                "Texture": "Table",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0

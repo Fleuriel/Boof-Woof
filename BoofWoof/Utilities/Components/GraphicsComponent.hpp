@@ -54,7 +54,7 @@ public:
     // Constructor and destructor
 	GraphicsComponent() : textureName (" "){};
 	
-	GraphicsComponent(std::string modelName, Entity& entity, std::string texName) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity)), textureName(texName)
+	GraphicsComponent(std::string modelName, Entity& entity, std::string texName, bool followCam = true) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity)), textureName(texName), followCamera(followCam)
 	{/*Empty by design*/
 
         

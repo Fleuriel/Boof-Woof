@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "4ca43b84-6261-48f5-ab11-ed95b57e1806",
+    "SceneGUID": "9ff0493e-1ab9-421c-91ba-6910275eb9b6",
     "Entities": [
         {
             "MetadataComponent": {
@@ -25,7 +25,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "BlackScreen"
+                "Texture": "BlackScreen",
+                "FollowCamera": false
             }
         },
         {
@@ -52,7 +53,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "Digipen_Logo"
+                "Texture": "Digipen_Logo",
+                "FollowCamera": false
             }
         }
     ]

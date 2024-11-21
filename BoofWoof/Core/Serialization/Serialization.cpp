@@ -192,6 +192,9 @@ bool Serialization::SaveScene(const std::string& filepath) {
             // Texture Name
             Grafics.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
 
+            // Follow Camera
+            Grafics.AddMember("FollowCamera", graphicsComp.getFollowCamera(), allocator);
+
             // Add the TransformComponent to the entityData
             entityData.AddMember("GraphicsComponent", Grafics, allocator);
         }
@@ -401,13 +404,19 @@ bool Serialization::LoadScene(const std::string& filepath)
 				{
 					std::string modelName = GData["ModelName"].GetString();
 					std::string TextureName;
+                    bool isFollowing{};
 
 					if (GData.HasMember("Texture"))
 					{
 						TextureName = GData["Texture"].GetString();
 					}
 
-					GraphicsComponent graphicsComponent(modelName, entity, TextureName);
+                    if (GData.HasMember("FollowCamera"))
+                    {
+                        isFollowing = GData["FollowCamera"].GetBool();
+                    }
+
+					GraphicsComponent graphicsComponent(modelName, entity, TextureName, isFollowing);
 
 					graphicsComponent.incrementTextureNumber();
 

@@ -25,7 +25,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "PawsieAdventure"
+                "Texture": "PawsieAdventure",
+                "FollowCamera": false
             }
         },
         {
@@ -52,7 +53,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "SpaceToStart"
+                "Texture": "SpaceToStart",
+                "FollowCamera": false
             }
         }
     ]
