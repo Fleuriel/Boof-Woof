@@ -2339,9 +2339,24 @@ void ImGuiEditor::InspectorWindow()
 									// Set clear color
 									glClearColor(46.f / 255.f, 46.f / 255.f, 46.f / 255.f, 1.0f);  // Set the color to clear the framebuffer to
 
+
+
+
+
+									/*
+										SAVE THE DAMNED VIEWPORT FIRST	
+									*/
+
+									GLint viewport[4];
+									glGetIntegerv(GL_VIEWPORT, viewport);
+
+
+
 									// Bind the custom framebuffer (where you want to render)
 									glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 									glViewport(0, 0, 512, 288);  // Set the custom viewport size for this framebuffer
+
+									
 
 									// Clear the framebuffer
 									glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear the color and depth buffers
@@ -2363,7 +2378,7 @@ void ImGuiEditor::InspectorWindow()
 									glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
 
 
-									g_AssetManager.GetShader("Material").SetUniform("model", glm::mat4(1.0f)); // Identity matrix for no transformation
+									g_AssetManager.GetShader("Material").SetUniform("vertexTransform", glm::mat4(1.0f)); // Identity matrix for no transformation
 									g_AssetManager.GetShader("Material").SetUniform("view", view);
 									g_AssetManager.GetShader("Material").SetUniform("projection", projection);
 									g_AssetManager.GetShader("Material").SetUniform("inputColor", glm::vec4(color[0], color[1], color[2], color[3]));
@@ -2392,7 +2407,14 @@ void ImGuiEditor::InspectorWindow()
 									glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the custom framebuffer (restore to default framebuffer)
 
 									// Reset the viewport for the default framebuffer (main window size)
-									glViewport(0, 0, g_WindowX, g_WindowY);
+									glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
+
+									//glGetIntegerv(GL_VIEWPORT, viewport);
+									//std::cout << "Viewport: " << viewport[0] << ", " << viewport[1] << ", "
+									//	<< viewport[2] << ", " << viewport[3] << std::endl;
+									//
+									//glGetIntegerv(GL_FRAMEBUFFER_BINDING, &framebuffer);
+									//std::cout << "Framebuffer: " << framebuffer << std::endl;
 
 									// Display the custom framebuffer texture (this will display in the ImGui window)
 									ImGui::Image((void*)(intptr_t)textureColorbuffer, ImVec2(512, 288));  // Display texture in the ImGui window
