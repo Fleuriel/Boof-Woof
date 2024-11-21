@@ -17,9 +17,9 @@ void InitializeLevels() {
 	g_LevelManager.RegisterLevel("Level1", new(Level1));
 
 	// Set the initial level
-	g_LevelManager.Initialize("MainMenu");
-	g_LevelManager.SetNextLevel("MainMenu");
-	g_LevelManager.SetPreviousLevel("MainMenu");
+	g_LevelManager.Initialize("Level1");
+	g_LevelManager.SetNextLevel("Level1");
+	g_LevelManager.SetPreviousLevel("Level1");
 }
 
 int main()

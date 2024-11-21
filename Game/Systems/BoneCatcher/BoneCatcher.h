@@ -18,23 +18,23 @@ private:
 
 	// Dog
 	glm::vec3 initialDogPos{}, DogPos{}, DogScale{};
-	float m_Speed{ 2.5f }, m_DestroyTimer{ 0.f }, m_DownTimer{};
+	float m_Speed{ 0.5f }, m_DestroyTimer{ 0.f }, m_DownTimer{};
 	bool m_IsMoving{ true }, m_ShouldDestroy{ false }, m_Down{ false }, m_Up{ false };
 	int m_Direction{ 1 }; // 1 for right, -1 for left
-	float m_MinPos{ -1.9f }, m_MaxPos{ 2.2f };
+	float m_MinPos{ -0.23f }, m_MaxPos{ 0.27f };
 
 	// CatchZone
 	glm::vec3 CatchZonePos{};
 	glm::vec3 CatchZoneScale{};
 	glm::vec3 BoxMin{}, BoxMax{};
 
-	glm::vec2 MinMaxScale{ 0.7, 4.0f };
-	glm::vec2 MinMaxPos{ -1.4f, 2.0f };
+	glm::vec2 MinMaxScale{ 0.1f, 0.4f };
+	glm::vec2 MinMaxPos{ -0.24f, 0.26f };	// values of when scale is smallest
 
 	bool m_HitDetected{ false };
 
 	// Dog Teeth
-	glm::vec3 TeethScale{ 0.5f, 0.2f, 0.f };
+	glm::vec3 TeethScale{ 0.07f, 0.1f, 0.f };
 	glm::vec3 TeethPos{};
 
 protected:

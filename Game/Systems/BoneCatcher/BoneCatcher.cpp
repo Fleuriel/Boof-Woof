@@ -58,7 +58,7 @@ void BoneCatcher::OnInitialize()
 					BoxMin = CatchZonePos - CatchZoneScale * 0.5f;	// Bottom left
 					BoxMax = CatchZonePos + CatchZoneScale * 0.5f;  // Top right
 
-					TeethPos = { DogPos.x - 0.1f, DogPos.y - (DogScale.y / 2) + (TeethScale.y / 2), 0.f };
+					TeethPos = { DogPos.x - 0.01f, DogPos.y - (DogScale.y / 2) + (TeethScale.y / 2), 0.f };
 				}
 			}
 		}
@@ -100,8 +100,8 @@ void BoneCatcher::Stop()
 	// Stop then visual feedback up down
 	m_IsMoving = false;
 	
-	TeethPos = { DogPos.x - 0.1f, DogPos.y - (DogScale.y / 2) + (TeethScale.y / 2), 0.f };
-	
+	TeethPos = { DogPos.x - 0.01f, DogPos.y - (DogScale.y / 2) + (TeethScale.y / 2), 0.f };
+
 	BoxMin = CatchZonePos - CatchZoneScale * 0.5f;	// Bottom left
 	BoxMax = CatchZonePos + CatchZoneScale * 0.5f;  // Top right
 
@@ -141,7 +141,6 @@ void BoneCatcher::MoveLeftRightVisual(double deltaTime)
 {
 	// Update position based on direction and speed
 	DogPos.x += m_Direction * m_Speed * static_cast<float>(deltaTime);
-	TeethPos = { DogPos.x + 0.05f, DogPos.y - (DogScale.y / 2) + (TeethScale.y / 2), 0.f };
 
 	if (g_Coordinator.HaveComponent<TransformComponent>(m_DogHead))
 	{
@@ -165,7 +164,7 @@ void BoneCatcher::BiteDownVisual(double deltaTime)
 {
 	if (!m_Down)
 	{
-		DogPos.y -= 0.2f;
+		DogPos.y -= 0.02f;
 
 		if (g_Coordinator.HaveComponent<TransformComponent>(m_DogHead))
 		{
@@ -186,7 +185,7 @@ void BoneCatcher::BiteDownVisual(double deltaTime)
 		if (m_DownTimer <= 0.0f)
 		{
 			// Move the dog head back up
-			DogPos.y += 0.2f;
+			DogPos.y += 0.02f;
 
 			if (g_Coordinator.HaveComponent<TransformComponent>(m_DogHead))
 			{

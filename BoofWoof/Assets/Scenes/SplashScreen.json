@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "9ff0493e-1ab9-421c-91ba-6910275eb9b6",
+    "SceneGUID": "7692d3a0-06a6-4e63-b510-1cd01ae48375",
     "Entities": [
         {
             "MetadataComponent": {
@@ -9,12 +9,12 @@
             "TransformComponent": {
                 "Position": {
                     "x": 0.0,
-                    "y": 2.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Scale": {
-                    "x": 15.0,
-                    "y": 9.0,
+                    "x": 2.0999999046325685,
+                    "y": 2.200000047683716,
                     "z": 1.0
                 },
                 "Rotation": {
@@ -37,12 +37,12 @@
             "TransformComponent": {
                 "Position": {
                     "x": 0.0,
-                    "y": 2.0,
-                    "z": 1.0
+                    "y": 0.0,
+                    "z": -0.10000000149011612
                 },
                 "Scale": {
-                    "x": 15.0,
-                    "y": 10.0,
+                    "x": 2.0,
+                    "y": 2.0,
                     "z": 1.0
                 },
                 "Rotation": {
