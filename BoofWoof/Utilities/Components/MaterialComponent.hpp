@@ -44,6 +44,10 @@ public:
     void SetBlue(float b) { materialDesc.albedoColorBlue = b; }
     void SetAlpha(float a) { materialDesc.albedoColorAlpha = a; }
 
+    void SetTexture(int tex) { materialDesc.textureID = tex; }
+    
+    MaterialDescriptor GetMaterial() { return materialDesc; }
+
 
     bool loadedMaterial = false;
 

@@ -314,12 +314,23 @@ void GraphicsSystem::UpdateLoop() {
 		g_AssetManager.GetShader(shaderName).SetUniform("viewPos", camera.GetViewMatrix());
 		g_AssetManager.GetShader(shaderName).SetUniform("metallic", shader.metallic);
 		g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.smoothness);
+		
 
+		// Check if a texture is set, and bind it
+		if (shader.textureID >= 0) { // Assuming textureID is -1 if no texture
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, shader.textureID);
+			g_AssetManager.GetShader(shaderName).SetUniform("albedoTexture", 0);
+			g_AssetManager.GetShader(shaderName).SetUniform("useTexture", true);
+		}
+		else {
+			g_AssetManager.GetShader(shaderName).SetUniform("useTexture", false);
+		}
 
-		Model* sphereModel = g_ResourceManager.getModel(graphicsComp.getModelName());
+		Model* Model = g_ResourceManager.getModel(graphicsComp.getModelName());
 
-		if (sphereModel)
-			sphereModel->DrawMaterial(g_AssetManager.GetShader("Material"));
+		if (Model)
+			Model->DrawMaterial(g_AssetManager.GetShader("Material"));
 		else
 			std::cerr << "cant find sphere model\n";
 

@@ -9,8 +9,7 @@
  *
  * This file contains the fragment shader
  *
- *************************************************************************/
-#version 450 core
+ *************************************************************************/#version 450 core
 
 #define PI 3.14159265359
 
@@ -24,7 +23,11 @@ in float fragRoughness; // Roughness factor
 
 uniform vec3 inputLight; // Light source position
 uniform vec3 viewPos; // Camera position
-uniform vec3 lightPos; // Light position
+
+// Add a sampler for the texture
+uniform sampler2D albedoTexture;
+uniform bool useTexture; // Flag to enable/disable texture
+
 
 // Improved specular distribution using GGX
 float D_GGX(float NoH, float roughness) {
@@ -73,14 +76,22 @@ void main() {
     vec3 specular = (D * G * F) / max(4.0 * NoV * NoL, 0.001);
 
     // Diffuse BRDF (Lambertian for non-metals)
-    vec3 diffuse = (1.0 - F) * (1.0 - fragMetallic) * fragColor.rgb / PI;
+    vec3 baseColor = fragColor.rgb;
+
+    // Blend the texture with the color
+    if (useTexture) {
+        vec4 texColor = texture(albedoTexture, fragWorldPos.xy); // UV mapping required here
+        baseColor = mix(baseColor, texColor.rgb, texColor.a); // Blend using alpha
+    }
+
+    vec3 diffuse = (1.0 - F) * (1.0 - fragMetallic) * baseColor / PI;
 
     // Combine with light
     vec3 lightColor = vec3(5.0); // Intensity of the light source
     vec3 directLight = (diffuse + specular) * NoL * lightColor;
 
     // Ambient light (for non-metals: based on the base color)
-    vec3 ambient = fragColor.rgb * 0.2 * (1.0 - fragMetallic);
+    vec3 ambient = baseColor * 0.2 * (1.0 - fragMetallic);
     
     // Ambient light for metallic materials (based on F0)
     vec3 ambient_metal = F0 * 0.2; // Reflection for metals

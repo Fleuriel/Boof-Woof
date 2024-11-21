@@ -66,9 +66,11 @@ struct MaterialDescriptor
 
     int materialAlpha;          // Select Albedo Stuffs.
 
+    int textureID;
+
 
     MaterialDescriptor() : shaderIndex(-1), albedoColorRed(0), albedoColorGreen(0), albedoColorBlue(0), albedoColorAlpha(0),
-        metallic(0), smoothness(0), materialAlpha(0), shaderChosen("nothing"){}
+        metallic(0), smoothness(0), materialAlpha(0), shaderChosen("nothing"), textureID(-1){}
 
 
     // Save the current descriptor to a file
