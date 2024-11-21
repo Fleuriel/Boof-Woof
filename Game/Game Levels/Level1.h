@@ -50,7 +50,7 @@ class Level1 : public Level
 			cameraController->ToggleCameraMode();
 		}
 
-		if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
+		if (g_Input.GetKeyState(GLFW_KEY_C) >= 1)
 		{
 			g_BoneCatcher.Stop();
 		}

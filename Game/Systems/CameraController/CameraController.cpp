@@ -39,7 +39,7 @@ void CameraController::UpdateFirstPersonView(CameraComponent& camera)
         glm::vec3 playerPos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
 
         // eye offset 
-        glm::vec3 eyeOffset = glm::vec3(0.0f, 1.09f, -1.1f);
+        glm::vec3 eyeOffset = glm::vec3(0.0f, 0.193f, -1.189f);
 
         // Set the camera's position to the player's eye position
         camera.Position = playerPos + eyeOffset;
