@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "f4bb7bd9-630c-4a05-bc52-9e91e1ae5b90",
+    "SceneGUID": "299ac200-1502-40c5-9d7c-10bc7e38037b",
     "Entities": [
         {
             "MetadataComponent": {
@@ -24,8 +24,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "Corgi2",
-                "Texture": "Corgi2"
+                "ModelName": "Corgi2"
             },
             "BehaviourComponent": {
                 "BehaviourName": "Player"
@@ -36,7 +35,7 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.799999952316284,
-                    "y": 0.30000001192092898,
+                    "y": 1.7999999523162842,
                     "z": 1.2999999523162842
                 }
             }
@@ -64,8 +63,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "ModelName": "FloorCastle"
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
@@ -85,8 +83,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 6.599999904632568,
-                    "y": 0.0,
+                    "x": 8.41706657409668,
+                    "y": 2.5901877880096437,
                     "z": -3.799999952316284
                 },
                 "Scale": {
@@ -96,13 +94,12 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "Wall",
-                "Texture": "Wall"
+                "ModelName": "Wall"
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
@@ -138,8 +135,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "Bed2",
-                "Texture": "Bed2"
+                "ModelName": "Bed2"
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,

@@ -1676,7 +1676,51 @@ void ImGuiEditor::InspectorWindow()
 							// Custom UI for CollisionComponent
 							if (ImGui::CollapsingHeader("Collision", ImGuiTreeNodeFlags_None))
 							{
-								// Add custom collision component UI here
+								auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(g_SelectedEntity);
+
+								// Toggle Dynamic/Static checkbox
+								bool isDynamic = collisionComponent.IsDynamic();
+								if (ImGui::Checkbox("Dynamic", &isDynamic)) {
+									if (collisionComponent.IsDynamic() != isDynamic) {
+										collisionComponent.SetIsDynamic(isDynamic);
+										// Call UpdateEntityBody instead of removing and adding the entity again
+										g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+									}
+								}
+
+								// Debugging output for motion type
+								ImGui::Text("Current Motion Type: %s", isDynamic ? "Dynamic" : "Static");
+
+								// Checkbox to mark as player
+								bool isPlayer = collisionComponent.IsPlayer();
+								if (ImGui::Checkbox("Is Player", &isPlayer))
+								{
+									collisionComponent.SetIsPlayer(isPlayer);
+
+									// Automatically set to dynamic if it's marked as a player
+									if (isPlayer)
+									{
+										collisionComponent.SetIsDynamic(true);
+									}
+
+									g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+								}
+
+								// Debugging for player type
+								ImGui::Text("Is Player: %s", collisionComponent.IsPlayer() ? "Yes" : "No");
+
+								// AABB Size Editor
+								glm::vec3 aabbSize = collisionComponent.GetAABBSize();
+								if (ImGui::DragFloat3("AABB Size", &aabbSize.x, 0.1f, 0.1f, 10.0f, "%.2f")) {
+									// Update AABB size in the CollisionComponent
+									collisionComponent.SetAABBSize(aabbSize);
+
+									// Update the physics body in real time
+									g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+								}
+
+								// Debug Output
+								ImGui::Text("Current AABB: (%.2f, %.2f, %.2f)", aabbSize.x, aabbSize.y, aabbSize.z);
 							}
 						}
 
