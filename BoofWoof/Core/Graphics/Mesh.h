@@ -168,6 +168,7 @@ public:
         glPolygonMode(GL_FRONT_AND_BACK, GL_TRIANGLES);
 
         glBindVertexArray(VAO);
+        // glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
         glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(vertices.size()));
         glBindVertexArray(0);
 

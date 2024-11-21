@@ -327,6 +327,9 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader(shaderName).SetUniform("useTexture", false);
 		}
 
+		std::cout << graphicsComp.getModelName() << '\n';
+
+
 		Model* Model = g_ResourceManager.getModel(graphicsComp.getModelName());
 
 		if (Model)
