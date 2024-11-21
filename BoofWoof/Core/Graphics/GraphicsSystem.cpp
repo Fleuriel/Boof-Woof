@@ -124,14 +124,14 @@ void GraphicsSystem::UpdateLoop() {
 	previousTime = currentTime;
 
 
-	GLint viewport[4];
-	glGetIntegerv(GL_VIEWPORT, viewport);
-	std::cout << "Viewport 1: " << viewport[0] << ", " << viewport[1] << ", "
-		<< viewport[2] << ", " << viewport[3] << std::endl;
-
-	GLint framebuffer;
-	glGetIntegerv(GL_FRAMEBUFFER_BINDING, &framebuffer);
-	std::cout << "Framebuffer 1: " << framebuffer << std::endl;
+	// GLint viewport[4];
+	// glGetIntegerv(GL_VIEWPORT, viewport);
+	// std::cout << "Viewport 1: " << viewport[0] << ", " << viewport[1] << ", "
+	// 	<< viewport[2] << ", " << viewport[3] << std::endl;
+	// 
+	// GLint framebuffer;
+	// glGetIntegerv(GL_FRAMEBUFFER_BINDING, &framebuffer);
+	// std::cout << "Framebuffer 1: " << framebuffer << std::endl;
 
 	// Bind the framebuffer for rendering
 	if (editorMode == true)

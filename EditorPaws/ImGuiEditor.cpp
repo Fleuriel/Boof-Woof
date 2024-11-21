@@ -499,6 +499,117 @@ void ImGuiEditor::InspectorWindow()
 							);
 
 						}
+
+						if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+						{
+							auto& graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+							g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
+
+
+
+							// Creates a Material File to get the data.
+							if (g_Coordinator.HaveComponent<MetadataComponent>(g_SelectedEntity))
+							{
+								std::string objectName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
+
+
+								static int materialCount = 0;
+								std::string entireFilePath = m_BaseDir.relative_path().string();
+
+
+								// Handle action for "Create Material Instances"
+								std::string materialName;
+								// Generate the material name based on the current count
+								if (materialCount > 0)
+									materialName = objectName + "_" + std::to_string(materialCount);
+								else
+
+									materialName = objectName;
+
+								// Write the JSON string to a file
+								std::string filePath = entireFilePath.c_str();  // Convert path to string
+								filePath += "/Material/" + materialName + ".mat";  // Append the new file name (customize this if needed)
+
+								std::ifstream existingFile(filePath);
+								if (existingFile.good()) {
+									std::cout << "Material already exists: " << filePath << std::endl;
+
+								}
+								else
+								{
+									rapidjson::Document document;
+									document.SetObject();
+									rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+
+									// Add name and type (similar to your previous structure)
+									document.AddMember("name", rapidjson::Value(materialName.c_str(), allocator), allocator);
+									document.AddMember("type", rapidjson::Value("Example", allocator), allocator);
+
+									// Add material properties (color, shininess, textureID, etc.)
+									rapidjson::Value properties(rapidjson::kObjectType);
+
+									// Adding color as a JSON array for RGBA values
+									rapidjson::Value color(rapidjson::kArrayType);
+									color.PushBack(1.0f, allocator);  // R
+									color.PushBack(1.0f, allocator);  // G
+									color.PushBack(1.0f, allocator);  // B
+									color.PushBack(1.0f, allocator);  // A (Alpha)
+									properties.AddMember("color", color, allocator);
+
+									// Add shininess
+									properties.AddMember("shininess", 0, allocator);
+
+									// Add texture ID
+									properties.AddMember("textureID", 0, allocator);  // Modify this if you have a specific texture ID
+
+									// Add shader name
+									properties.AddMember("shader", rapidjson::Value("Shader3D", allocator), allocator);
+
+									// Add reflectivity
+									properties.AddMember("reflectivity", 0.8f, allocator);
+
+									// Adding the properties object to the document
+									document.AddMember("properties", properties, allocator);
+
+									// Serialize the JSON document to a string with pretty printing
+									rapidjson::StringBuffer buffer;
+									rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
+									document.Accept(writer);
+
+
+
+									// Write the JSON string to the file
+									std::ofstream file(filePath);
+									if (file.is_open()) {
+										file << buffer.GetString();  // Write the serialized JSON
+										file.close();
+										std::cout << "File created: " << filePath << std::endl;
+									}
+									else {
+										std::cerr << "Error: Could not create the file." << std::endl;
+									}
+									materialCount++;
+								}
+							}
+
+
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<MaterialComponent>(g_SelectedEntity);
+								}
+							);
+
+						}
+
+
+
+
 					}
 					if (ImGui::Selectable("Animation Component")) {
 						if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
@@ -625,8 +736,8 @@ void ImGuiEditor::InspectorWindow()
 							if (g_Coordinator.HaveComponent<MetadataComponent>(g_SelectedEntity))
 							{
 								std::string objectName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
-								
-								
+
+
 								static int materialCount = 0;
 								std::string entireFilePath = m_BaseDir.relative_path().string();
 
@@ -780,22 +891,8 @@ void ImGuiEditor::InspectorWindow()
 						}
 
 
-
-
-
-
-
-						//if (ImGui::Selectable("Add Animation")) {
-						//	Animation newAnimation{/*initialize animation properties*/ };
-						//	AddAnimation(graphics, newAnimation);
-						//}
-						//
-						//if (graphics.hasAnimation && ImGui::Selectable("Remove Animation")) {
-						//	RemoveAnimation(componentData);
-						//}
-
-
-
+						
+							
 
 					}
 
