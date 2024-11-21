@@ -237,6 +237,8 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
             rapidjson::Value collisionData(rapidjson::kObjectType);
             collisionData.AddMember("CollisionLayer", collisionComp.GetCollisionLayer(), allocator);
+            collisionData.AddMember("IsDynamic", collisionComp.IsDynamic(), allocator);
+            collisionData.AddMember("IsPlayer", collisionComp.IsPlayer(), allocator);
 
             entityData.AddMember("CollisionComponent", collisionData, allocator);
         }
@@ -486,8 +488,12 @@ bool Serialization::LoadScene(const std::string& filepath) {
                 const auto& collisionData = entityData["CollisionComponent"];
 
                 int layer = collisionData["CollisionLayer"].GetInt();
+                bool isDynamic = collisionData.HasMember("IsDynamic") ? collisionData["IsDynamic"].GetBool() : false;
+                bool isPlayer = collisionData.HasMember("IsPlayer") ? collisionData["IsPlayer"].GetBool() : false;
 
                 CollisionComponent collisionComponent(layer);
+                collisionComponent.SetIsDynamic(isDynamic);
+                collisionComponent.SetIsPlayer(isPlayer);
                 g_Coordinator.AddComponent(entity, collisionComponent);
             }
 
