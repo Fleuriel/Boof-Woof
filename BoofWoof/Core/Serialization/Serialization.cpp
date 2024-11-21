@@ -20,7 +20,7 @@
 
 // Initialize the static member variable
 std::string Serialization::currentSceneGUID = "";
-
+std::vector<Entity> Serialization::storedEnt;
 
 /**************************************************************************
  * @brief Retrieves the file path to the Scenes directory.
@@ -86,6 +86,11 @@ std::string Serialization::GenerateGUID() {
  *************************************************************************/
 std::string Serialization::GetSceneGUID() {
     return currentSceneGUID;
+}
+
+std::vector<Entity> Serialization::GetStored()
+{
+    return storedEnt;
 }
 
 /**************************************************************************
@@ -309,7 +314,10 @@ bool Serialization::SaveScene(const std::string& filepath) {
  * scene data is not in valid JSON format.
  *************************************************************************/
 
-bool Serialization::LoadScene(const std::string& filepath) {
+bool Serialization::LoadScene(const std::string& filepath) 
+{
+    storedEnt.clear();
+
     FILE* fp = fopen(filepath.c_str(), "rb");
     if (!fp) {
         std::cerr << "Failed to open file for loading: " << filepath << std::endl;
@@ -539,6 +547,8 @@ bool Serialization::LoadScene(const std::string& filepath) {
 			//if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) {
 			//	std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << std::endl;
 			//}
+
+            storedEnt.push_back(entity);
         }
     }
 

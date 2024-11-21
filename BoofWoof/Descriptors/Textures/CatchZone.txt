@@ -1,0 +1,5 @@
+Texture Name : CatchZone
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\CatchZone.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\CatchZone.dds
+Compression Format : -fd BC3
