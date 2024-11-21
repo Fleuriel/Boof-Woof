@@ -88,7 +88,7 @@ private:
 	MaterialDescriptor materialInfo;
 
 	int idleAnimationIndex = -1;
-	int movementAnimationIndex = -1;
+	int movingAnimationIndex = -1;
 	int actionAnimationIndex = -1;
 
 	glm::vec3 m_OldPosition;
