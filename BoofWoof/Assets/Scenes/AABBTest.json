@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "104ed8e2-37b3-486d-9477-4d1f45399a35",
+    "SceneGUID": "b18a73c0-1f93-46de-8a29-c1fb733e05a2",
     "Entities": [
         {
             "MetadataComponent": {
@@ -96,7 +96,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 1.5,
+                    "y": 0.0,
                     "z": 0.0
                 }
             },
@@ -109,7 +109,7 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 2.5,
+                    "x": 3.0,
                     "y": 3.0,
                     "z": 0.800000011920929
                 }
