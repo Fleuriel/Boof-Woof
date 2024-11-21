@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "b18a73c0-1f93-46de-8a29-c1fb733e05a2",
+    "SceneGUID": "f4bb7bd9-630c-4a05-bc52-9e91e1ae5b90",
     "Entities": [
         {
             "MetadataComponent": {
@@ -73,7 +73,7 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
-                    "y": 0.15000000596046449,
+                    "y": 0.20000000298023225,
                     "z": 4.199999809265137
                 }
             }
