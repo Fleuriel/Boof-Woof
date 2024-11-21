@@ -6,6 +6,7 @@
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/CameraComponent.hpp"
+#include "../Utilities/Components/CollisionComponent.hpp"
 #include "Animation/AnimationManager.h"
 
 class Model;

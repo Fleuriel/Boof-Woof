@@ -1,0 +1,5 @@
+Texture Name : Floor2b
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\Floor2b.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\Floor2b.dds
+Compression Format : -fd BC3

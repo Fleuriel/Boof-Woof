@@ -1,0 +1,12 @@
+File Name: Floor2b
+Source File Path: ..\BoofWoof\Assets\Objects\Floor2b.obj
+Output File Path: ..\BoofWoof\Resources\Objects\Floor2b.bin
+MTL File Exist: 1
+PNG File Exist: 0
+JPG File Exist: 0
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0
