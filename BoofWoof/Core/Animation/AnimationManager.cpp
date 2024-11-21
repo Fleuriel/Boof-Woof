@@ -52,7 +52,7 @@ void EntityAnimationState::SetAnimation(AnimationType type, const std::string& a
     }
 }
 
-// AnimationManager::LoadAnimations
+// Load Animations from a File
 void AnimationManager::LoadAnimations(const std::string& filePath) {
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -62,10 +62,58 @@ void AnimationManager::LoadAnimations(const std::string& filePath) {
         return;
     }
 
+    // Extract file name for naming
+    std::string baseName = filePath.substr(filePath.find_last_of("/\\") + 1);
+    baseName = baseName.substr(0, baseName.find_last_of('.'));
+
     for (unsigned int i = 0; i < scene->mNumAnimations; ++i) {
-        Animation animation(scene->mAnimations[i]);
-        animations[animation.name] = animation;
-        std::cout << "Loaded animation: " << animation.name << std::endl;
+        aiAnimation* anim = scene->mAnimations[i];
+        double ticksPerSecond = anim->mTicksPerSecond != 0 ? anim->mTicksPerSecond : 25.0;
+        double duration = anim->mDuration;
+
+        unsigned int segmentIndex = 0;
+        for (double startTick = 0; startTick < duration; startTick += 70) { // 60-tick animations + 10-tick gap
+            double endTick = std::min(startTick + 60, duration);
+
+            Animation segmentAnimation;
+            segmentAnimation.name = baseName + "_" + std::to_string(segmentIndex++);
+            segmentAnimation.duration = endTick - startTick;
+            segmentAnimation.ticksPerSecond = ticksPerSecond;
+
+            for (unsigned int j = 0; j < anim->mNumChannels; ++j) {
+                const aiNodeAnim* channel = anim->mChannels[j];
+                AnimationChannel segmentChannel;
+                segmentChannel.nodeName = channel->mNodeName.C_Str();
+
+                for (unsigned int k = 0; k < channel->mNumPositionKeys; ++k) {
+                    if (channel->mPositionKeys[k].mTime >= startTick && channel->mPositionKeys[k].mTime <= endTick) {
+                        KeyFrame keyframe;
+                        keyframe.time = channel->mPositionKeys[k].mTime - startTick;
+                        keyframe.position = channel->mPositionKeys[k].mValue;
+
+                        if (k < channel->mNumRotationKeys) {
+                            keyframe.rotation = channel->mRotationKeys[k].mValue;
+                        }
+                        if (k < channel->mNumScalingKeys) {
+                            keyframe.scale = channel->mScalingKeys[k].mValue;
+                        }
+                        segmentChannel.keyframes.push_back(keyframe);
+                    }
+                }
+                segmentAnimation.channels.push_back(segmentChannel);
+            }
+
+            animations[segmentAnimation.name] = segmentAnimation;
+
+            animationNames.push_back(segmentAnimation.name);
+
+            // Debug output
+            std::cout << "Created animation segment: " << segmentAnimation.name << std::endl;
+            std::cout << "  Start Tick: " << startTick << std::endl;
+            std::cout << "  End Tick: " << endTick << std::endl;
+            std::cout << "  Duration: " << segmentAnimation.duration << " ticks ("
+                << segmentAnimation.duration / ticksPerSecond << " seconds)" << std::endl;
+        }
     }
 }
 
@@ -88,9 +136,6 @@ void AnimationManager::AssignAnimation(const std::string& entityId, AnimationTyp
     if (animations.find(animationName) != animations.end()) {
         entityStates[entityId].SetAnimation(type, animationName);
     }
-    else {
-        std::cerr << "Animation not found: " << animationName << std::endl;
-    }
 }
 
 // Play animation for an entity
@@ -107,7 +152,7 @@ void AnimationManager::StopAnimation(const std::string& entityId) {
     }
 }
 
-// Update all entity animations
+// Update animations for all entities
 void AnimationManager::Update(double deltaTime) {
     for (auto& [entityId, state] : entityStates) {
         if (state.isPlaying) {
@@ -117,4 +162,13 @@ void AnimationManager::Update(double deltaTime) {
             // Apply interpolated transformation to the entity here
         }
     }
+}
+
+// Get the index of an animation by its name
+int AnimationManager::GetAnimationIndex(const std::string& animationName) const {
+    auto it = std::find(animationNames.begin(), animationNames.end(), animationName);
+    if (it != animationNames.end()) {
+        return static_cast<int>(std::distance(animationNames.begin(), it));
+    }
+    return -1; // Animation not found
 }

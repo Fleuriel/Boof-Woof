@@ -633,7 +633,7 @@ void ImGuiEditor::InspectorWindow()
 
 						}
 					}
-					
+
 
 					ImGui::EndPopup();
 				}
@@ -671,11 +671,11 @@ void ImGuiEditor::InspectorWindow()
 
 					if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 					{
-						
+
 						auto graphics = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
 						if (ImGui::Selectable("Graphics Component"))
 						{
-							
+
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -1253,7 +1253,7 @@ void ImGuiEditor::InspectorWindow()
 										ImGui::PopID();
 									
 
-									
+
 
 
 									ImGui::Text("Debug   ");
@@ -1290,43 +1290,45 @@ void ImGuiEditor::InspectorWindow()
 						}
 						else if (className == "AnimationComponent") {
 							// Show the dropdown menu if there are any files
-							if (!g_AssetManager.AnimationFiles.empty()) {
-								static int selectedFileIndex = -1; // To remember the selected index
+							if (!g_AnimationManager.animationNames.empty()) {
+
+								auto& animationComponent = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
 
 								if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
-									ImGui::Text("Animation Selection:"); // Add a label before the combo boxes
+
+									// Get the animation index values (as copies)
+									int idleAnimationIndex = g_AnimationManager.GetAnimationIndex(animationComponent.GetAnimation(AnimationType::Idle));
+									int movementAnimationIndex = g_AnimationManager.GetAnimationIndex(animationComponent.GetAnimation(AnimationType::Moving));
+									int actionAnimationIndex = g_AnimationManager.GetAnimationIndex(animationComponent.GetAnimation(AnimationType::Action));
+
+									ImGui::Text("Animation Selection:");
 									ImGui::NewLine();
 
-									static int idleAnimationIndex = -1;     // Index for idle animation
-									static int movementAnimationIndex = -1; // Index for movement animation
-									static int actionAnimationIndex = -1;   // Index for action animation
-
-									float comboBoxWidth = 200.0f; // Set a consistent width for the combo boxes
-									float labelWidth = 200.0f;   // Reserve space for the labels
-
-
-									
+									float comboBoxWidth = 200.0f;
+									float labelWidth = 200.0f;
 
 									// Idle Animation
 									ImGui::Text("Idle Animation:");
 									ImGui::SameLine(labelWidth);
 									ImGui::SetNextItemWidth(comboBoxWidth);
+
 									if (ImGui::BeginCombo("##IdleAnimation",
-										idleAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[idleAnimationIndex].c_str())) {
-										// "None" option
+										idleAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[idleAnimationIndex].c_str())) {
+
 										bool isSelected = (idleAnimationIndex == -1);
 										if (ImGui::Selectable("None", isSelected)) {
 											idleAnimationIndex = -1; // Set to "None"
+											animationComponent.SetAnimation(AnimationType::Idle, "None");
 										}
 										if (isSelected) {
 											ImGui::SetItemDefaultFocus();
 										}
 
-										// File options
-										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
+										for (int i = 0; i < g_AnimationManager.animationNames.size(); ++i) {
 											isSelected = (idleAnimationIndex == i);
-											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
+											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
 												idleAnimationIndex = i; // Update the idle animation index
+												animationComponent.SetAnimation(AnimationType::Idle, g_AnimationManager.animationNames[i]);
 											}
 											if (isSelected) {
 												ImGui::SetItemDefaultFocus();
@@ -1336,27 +1338,30 @@ void ImGuiEditor::InspectorWindow()
 									}
 
 									ImGui::NewLine();
-
 									// Movement Animation
 									ImGui::Text("Movement Animation:");
 									ImGui::SameLine(labelWidth);
 									ImGui::SetNextItemWidth(comboBoxWidth);
+
 									if (ImGui::BeginCombo("##MovementAnimation",
-										movementAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[movementAnimationIndex].c_str())) {
+										movementAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[movementAnimationIndex].c_str())) {
+
 										// "None" option
 										bool isSelected = (movementAnimationIndex == -1);
 										if (ImGui::Selectable("None", isSelected)) {
 											movementAnimationIndex = -1; // Set to "None"
+											animationComponent.SetAnimation(AnimationType::Moving, "None");
 										}
 										if (isSelected) {
 											ImGui::SetItemDefaultFocus();
 										}
 
 										// File options
-										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
+										for (int i = 0; i < g_AnimationManager.animationNames.size(); ++i) {
 											isSelected = (movementAnimationIndex == i);
-											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
+											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
 												movementAnimationIndex = i; // Update the movement animation index
+												animationComponent.SetAnimation(AnimationType::Moving, g_AnimationManager.animationNames[i]);
 											}
 											if (isSelected) {
 												ImGui::SetItemDefaultFocus();
@@ -1371,22 +1376,26 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Text("Action Animation:");
 									ImGui::SameLine(labelWidth);
 									ImGui::SetNextItemWidth(comboBoxWidth);
+
 									if (ImGui::BeginCombo("##ActionAnimation",
-										actionAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[actionAnimationIndex].c_str())) {
+										actionAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[actionAnimationIndex].c_str())) {
+
 										// "None" option
 										bool isSelected = (actionAnimationIndex == -1);
 										if (ImGui::Selectable("None", isSelected)) {
 											actionAnimationIndex = -1; // Set to "None"
+											animationComponent.SetAnimation(AnimationType::Action, "None");
 										}
 										if (isSelected) {
 											ImGui::SetItemDefaultFocus();
 										}
 
 										// File options
-										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
+										for (int i = 0; i < g_AnimationManager.animationNames.size(); ++i) {
 											isSelected = (actionAnimationIndex == i);
-											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
+											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
 												actionAnimationIndex = i; // Update the action animation index
+												animationComponent.SetAnimation(AnimationType::Action, g_AnimationManager.animationNames[i]);
 											}
 											if (isSelected) {
 												ImGui::SetItemDefaultFocus();
@@ -1406,7 +1415,7 @@ void ImGuiEditor::InspectorWindow()
 											animationComponent.SetAnimation(AnimationType::Idle, ""); // Remove animation
 										}
 										else {
-											std::string idleAnimation = g_AssetManager.AnimationFiles[idleAnimationIndex];
+											std::string idleAnimation = g_AnimationManager.animationNames[idleAnimationIndex];
 											animationComponent.SetAnimation(AnimationType::Idle, idleAnimation);
 										}
 
@@ -1415,7 +1424,7 @@ void ImGuiEditor::InspectorWindow()
 											animationComponent.SetAnimation(AnimationType::Moving, ""); // Remove animation
 										}
 										else {
-											std::string movementAnimation = g_AssetManager.AnimationFiles[movementAnimationIndex];
+											std::string movementAnimation = g_AnimationManager.animationNames[movementAnimationIndex];
 											animationComponent.SetAnimation(AnimationType::Moving, movementAnimation);
 										}
 
@@ -1424,13 +1433,12 @@ void ImGuiEditor::InspectorWindow()
 											animationComponent.SetAnimation(AnimationType::Action, ""); // Remove animation
 										}
 										else {
-											std::string actionAnimation = g_AssetManager.AnimationFiles[actionAnimationIndex];
+											std::string actionAnimation = g_AnimationManager.animationNames[actionAnimationIndex];
 											animationComponent.SetAnimation(AnimationType::Action, actionAnimation);
 										}
 
 										std::cout << "Animations applied successfully to entity " << g_SelectedEntity << "." << std::endl;
 									}
-
 
 									ImGui::SameLine();
 									if (ImGui::Button("Revert To Default")) {
@@ -1443,7 +1451,6 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Text("No animations found.");
 								}
 							}
-
 						}
 						else if (className == "AudioComponent")
 						{
@@ -2003,7 +2010,7 @@ void ImGuiEditor::InspectorWindow()
 						}
 
 						else if (className == "MaterialComponent")
-						{	
+						{
 							if (ImGui::CollapsingHeader("Materials", ImGuiTreeNodeFlags_None))
 							{
 								auto graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
@@ -2016,7 +2023,7 @@ void ImGuiEditor::InspectorWindow()
 
 
 							}
-						
+
 						}
 					}
 				}
@@ -2363,7 +2370,7 @@ void ImGuiEditor::InspectorWindow()
 			}
 			else if (selectedFilePath.find(".mat") != std::string::npos)
 			{
-				
+
 
 				// do some search for the Shader name:
 
@@ -2486,7 +2493,7 @@ void ImGuiEditor::InspectorWindow()
 				ImGui::Text("Metallic"); ImGui::SameLine(WidthIndentation); ImGui::PushItemWidth(250);
 
 
-				float &MetallicMatValue = materialInfo.metallic;
+				float& MetallicMatValue = materialInfo.metallic;
 
 				// Create a drag float that increments by 0.1 within a range of 0 to 10
 				if (ImGui::SliderFloat("##MetallicMat1", &MetallicMatValue, 0.0f, 1.0f, "%.3f"))
@@ -2496,7 +2503,7 @@ void ImGuiEditor::InspectorWindow()
 				}
 				// put the value here. that can set one.
 
-				float &SmoothnessValue = materialInfo.smoothness;
+				float& SmoothnessValue = materialInfo.smoothness;
 
 				ImGui::Indent(20); ImGui::Text("Smoothness"); ImGui::SameLine(WidthIndentation);
 				if (ImGui::SliderFloat("##SmoothnessMat1", &SmoothnessValue, 0.0f, 1.0f, "%.3f"))
@@ -3109,7 +3116,7 @@ void ImGuiEditor::AssetWindow()
 							std::cerr << "Failed to load texture descriptor for: " << descriptorPath << std::endl;
 						}
 					}
-					else if(extension == ".mat")
+					else if (extension == ".mat")
 					{
 						//std::cout << m_SelectedFile.string() << '\n';
 
