@@ -12,8 +12,7 @@ class Level1 : public Level
 {
 	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/TestScene.json");
-		g_BoneCatcher.OnLoad();
+		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/TestScene.json");		
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -36,14 +35,17 @@ class Level1 : public Level
 		{
 			// Ensure player entity is valid
 			cameraController = new CameraController(playerEnt);
-			g_BoneCatcher.OnInitialize();
+
+			// If collide with rope then load
+			// g_BoneCatcher.OnInitialize();
 		}
 	}
 
 	void UpdateLevel(double deltaTime)
 	{
 		cameraController->Update(static_cast<float>(deltaTime));
-		g_BoneCatcher.OnUpdate(deltaTime);
+
+		// g_BoneCatcher.OnUpdate(deltaTime);
 
 		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
 		{

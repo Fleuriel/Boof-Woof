@@ -6,14 +6,11 @@ std::random_device rd;
 std::mt19937 gen{ rd() };  // Mersenne Twister random number generator
 std::uniform_real_distribution<float> dist;  // Default distribution range
 
-void BoneCatcher::OnLoad()
+void BoneCatcher::OnInitialize()
 {
 	g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/BoneCatcher.json");
 	storage = serial.GetStored();
-}
 
-void BoneCatcher::OnInitialize()
-{
 	// Retrieve the head
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 

@@ -4,7 +4,6 @@
 class BoneCatcher
 {
 public:
-	void OnLoad();
 	void OnInitialize();
 	void OnUpdate(double deltaTime);
 	void Stop(double deltaTime);
