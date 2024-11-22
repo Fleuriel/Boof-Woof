@@ -380,9 +380,6 @@ void GraphicsSystem::UpdateLoop() {
 		}
 		//shader.Use();
 
-				}
-
-
 		//tex = g_ResourceManager.GetTextureDDS("Sadge");
 
 
