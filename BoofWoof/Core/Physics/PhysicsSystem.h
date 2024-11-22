@@ -407,14 +407,14 @@ public:
 
         if (entity1 != invalid_entity) {
             auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
-            std::cout << "Entity " << entity1 << ": isColliding = "
-                << collisionComponent1.GetIsColliding() << std::endl;
+            //std::cout << "Entity " << entity1 << ": isColliding = "
+            //    << collisionComponent1.GetIsColliding() << std::endl;
         }
 
         if (entity2 != invalid_entity) {
             auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
-            std::cout << "Entity " << entity2 << ": isColliding = "
-                << collisionComponent2.GetIsColliding() << std::endl;
+            //std::cout << "Entity " << entity2 << ": isColliding = "
+            //    << collisionComponent2.GetIsColliding() << std::endl;
         }
     }
 
