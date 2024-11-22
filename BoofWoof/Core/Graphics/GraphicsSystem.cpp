@@ -194,9 +194,8 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader("instanced").Use();
 			g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
 			g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
-			glPointSize(10.0f);
-
-
+			glPointSize(particleComp.getParticleSize());
+			g_AssetManager.GetShader("instanced").SetUniform("particleColor", particleComp.getParticleColor());
 			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
 			g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
 			//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);

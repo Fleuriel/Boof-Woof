@@ -30,6 +30,8 @@ public:
 	void setVelocityMin(float v) { velocity_min = v; }
 	void setVelocityMax(float v) { velocity_max = v; }
 	void setTargetPositions(std::vector<glm::vec3> tp) { target_positions = tp; }
+	void setParticleSize(float s) { particle_size = s; }
+	void setParticleColor(glm::vec4 c) { particle_color = c; }
 
 
 
@@ -41,6 +43,8 @@ public:
 	float getVelocityMin() { return velocity_min; }
 	float getVelocityMax() { return velocity_max; }
 	std::vector<glm::vec3> getTargetPositions() { return target_positions; }
+	float getParticleSize() { return particle_size; }
+	glm::vec4 getParticleColor() { return particle_color; }
 
 
 	class Particle
@@ -305,6 +309,10 @@ private:
 
 	// settings
 	bool init_flag = false;
+
+	float particle_size = 10.f;
+	glm::vec4 particle_color{ 1.0f, 1.0f, 1.0f , 1.0f};
+
 	float density = 0.1f;
 
 	glm::vec3 Pos_min{ 0.0f,-0.5f,0.0 };
