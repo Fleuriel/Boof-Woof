@@ -56,7 +56,7 @@ public:
 
     void DrawCollisionBox2D(Model outlineModel);
 
-    void DrawCollisionBox3D(Model outlineModel) const;
+    void DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color) const;
 
 
         // draws the model, and thus all its meshes
@@ -66,6 +66,23 @@ public:
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Draw(shader);
     }
+    
+
+    void DrawForPicking()
+    {
+        for (Mesh& mesh : meshes)
+        {
+            mesh.DrawForPicking();
+        }
+    }
+
+    void DrawMaterial(OpenGLShader& shader)
+    {
+        for (unsigned int i = 0; i < meshes.size(); i++)
+            meshes[i].DrawMaterial(shader);
+
+    }
+
 
     // draw with line
     void DrawLine()
@@ -86,6 +103,8 @@ public:
     {
         meshes.push_back(mesh);
     }
+
+//    void RenderAABB(const glm::vec3& center, const glm::vec3& halfExtents, const glm::vec3& color);
 
     //void setMesh()
     //{
@@ -322,7 +341,7 @@ Model SquareModel(glm::vec3 color);
 Model CubeModel(glm::vec3 color);
 
 Model SquareModelOutline(glm::vec3 color);
-Model AABB(glm::vec3 color);
+Model AABB(glm::vec3 position, glm::vec3 halfextents = glm::vec3(1.0f), glm::vec3 color = glm::vec3(1.0f));
 
 
 #endif // !MODEL_H

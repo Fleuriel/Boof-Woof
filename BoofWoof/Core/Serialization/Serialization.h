@@ -42,6 +42,12 @@ public:
     // Retrieve the GUID of a loaded scene
     static std::string GetSceneGUID();
 
+    // For storing overlayed scenes
+    static std::vector<Entity> GetStored();
+
+public:
+    static std::vector<Entity> storedEnt;
+
 private:
     static std::string currentSceneGUID;  // To store the GUID for the current scene
 };

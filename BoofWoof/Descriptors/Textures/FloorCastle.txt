@@ -1,0 +1,5 @@
+Texture Name : FloorCastle
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\FloorCastle.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\FloorCastle.dds
+Compression Format : -fd BC3

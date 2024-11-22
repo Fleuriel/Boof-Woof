@@ -1,5 +1,0 @@
-Texture Name : StopButton
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\StopButton.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\StopButton.dds
-Compression Format : -fd BC3

@@ -1,0 +1,68 @@
+{
+    "SceneGUID": "00c0cd82-4618-46cc-8819-8bfed72d0c1c",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Player",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.12279000133275986,
+                    "y": 2.799999952316284,
+                    "z": -5.640601634979248
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Corgi2",
+                "Texture": "Corgi2"
+            },
+            "BehaviourComponent": {
+                "BehaviourName": "Player"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -5.640601634979248
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "FloorCastle",
+                "Texture": "FloorCastle"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        }
+    ]
+}

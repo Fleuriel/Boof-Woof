@@ -267,10 +267,10 @@ Model SquareModelOutline(glm::vec3 color)
 	};
 
 	std::vector<Vertex> vertices{
-		{ glm::vec2(0.5f,  -0.5f), color }, // Bottom-right
-		{ glm::vec2(0.5f,   0.5f), color }, // Top-right
-		{ glm::vec2(-0.5f,  0.5f), color }, // Top-left
-		{ glm::vec2(-0.5f, -0.5f), color }  // Bottom-left
+		{ glm::vec2(0.505f,  -0.505f), color }, // Bottom-right
+		{ glm::vec2(0.505f,   0.51f), color }, // Top-right
+		{ glm::vec2(-0.505f,  0.51f), color }, // Top-left
+		{ glm::vec2(-0.505f, -0.505f), color }  // Bottom-left
 	};
 
 	Model mdl;
@@ -306,28 +306,28 @@ Model SquareModelOutline(glm::vec3 color)
 }
 
 
-// Function to create an AABB cube
-Model AABB(glm::vec3 color)
+Model AABB(glm::vec3 position, glm::vec3 halfextents, glm::vec3 color)
 {
 	struct Vertex {
 		glm::vec3 position;  // 3D position
 		glm::vec3 color;     // Color
 	};
 
+	glm::vec3 biggerHalfExtents = halfextents + glm::vec3(0.0005);
 
 	// Cube vertices with positions and a uniform color
 	std::vector<Vertex> vertices{
 		// Front face
-		{ glm::vec3(1.f,  1.f,  1.f), color },  // Top-right front
-		{ glm::vec3(-1.f,  1.f,  1.f), color },  // Top-left front
-		{ glm::vec3(-1.f, -1.f,  1.f), color },  // Bottom-left front
-		{ glm::vec3(1.f, -1.f,  1.f), color },  // Bottom-right front
+		{ glm::vec3(biggerHalfExtents.x,  biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Top-right front
+		{ glm::vec3(-biggerHalfExtents.x,  biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Top-left front
+		{ glm::vec3(-biggerHalfExtents.x, -biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Bottom-left front
+		{ glm::vec3(biggerHalfExtents.x, -biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Bottom-right front
 
 		// Back face
-		{ glm::vec3(1.f,  1.f, -1.f), color },  // Top-right back
-		{ glm::vec3(-1.f,  1.f, -1.f), color },  // Top-left back
-		{ glm::vec3(-1.f, -1.f, -1.f), color },  // Bottom-left back
-		{ glm::vec3(1.f, -1.f, -1.f), color },  // Bottom-right back
+		{ glm::vec3(biggerHalfExtents.x,  biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Top-right back
+		{ glm::vec3(-biggerHalfExtents.x,  biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Top-left back
+		{ glm::vec3(-biggerHalfExtents.x, -biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Bottom-left back
+		{ glm::vec3(biggerHalfExtents.x, -biggerHalfExtents.y, -biggerHalfExtents.z)	, color }   // Bottom-right back
 	};
 
 	// Indices for drawing cube edges (outline)
@@ -374,6 +374,7 @@ Model AABB(glm::vec3 color)
 
 
 
+
 /* Draw */
 
 
@@ -410,19 +411,21 @@ void Model::DrawCollisionBox2D(Model outlineModel)
 }
 
 
-void Model::DrawCollisionBox3D(Model outlineModel) const
+
+void Model::DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color) const
 {
 	// Bind the VAO for the outline model
 
+	Model AABBOutline = AABB(position, halfExtents, color);
 
 
-	glBindVertexArray(outlineModel.vaoid);
+	glBindVertexArray(AABBOutline.vaoid);
 	//	std::cout << outlineModel.vaoid << '\n';
 
 	glLineWidth(1.0f);
 
 	// Draw the square outline
-	glDrawElements(outlineModel.primitive_type, outlineModel.draw_cnt, GL_UNSIGNED_SHORT, 0);
+	glDrawElements(AABBOutline.primitive_type, AABBOutline.draw_cnt, GL_UNSIGNED_SHORT, 0);
 
 	// Unbind the VAO
 	glBindVertexArray(0);
@@ -430,3 +433,24 @@ void Model::DrawCollisionBox3D(Model outlineModel) const
 
 
 }
+
+
+
+
+
+std::vector<glm::vec3> CalculateAABBVertices(const glm::vec3& center, const glm::vec3& halfExtents) {
+	std::vector<glm::vec3> vertices(8);
+
+	// Compute the 8 corners of the AABB
+	vertices[0] = center + glm::vec3(-halfExtents.x, -halfExtents.y, -halfExtents.z); // Left-bottom-back
+	vertices[1] = center + glm::vec3(halfExtents.x, -halfExtents.y, -halfExtents.z); // Right-bottom-back
+	vertices[2] = center + glm::vec3(halfExtents.x, halfExtents.y, -halfExtents.z); // Right-top-back
+	vertices[3] = center + glm::vec3(-halfExtents.x, halfExtents.y, -halfExtents.z); // Left-top-back
+	vertices[4] = center + glm::vec3(-halfExtents.x, -halfExtents.y, halfExtents.z); // Left-bottom-front
+	vertices[5] = center + glm::vec3(halfExtents.x, -halfExtents.y, halfExtents.z); // Right-bottom-front
+	vertices[6] = center + glm::vec3(halfExtents.x, halfExtents.y, halfExtents.z); // Right-top-front
+	vertices[7] = center + glm::vec3(-halfExtents.x, halfExtents.y, halfExtents.z); // Left-top-front
+
+	return vertices;
+}
+

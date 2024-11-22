@@ -6,10 +6,16 @@
 
 #include "../Core/ECS/Coordinator.hpp"
 #include "../Utilities/Components/GraphicsComponent.hpp"
+#include "../Utilities/Components/AnimationComponent.h"
 #include "../Utilities/Components/TransformComponent.hpp"
+#include "../Utilities/Components/MaterialComponent.hpp"
+
+
 #include "../Utilities/Components/BehaviourComponent.hpp"
 #include "../Utilities/Components/CollisionComponent.hpp"
 #include "../Utilities/Components/MetaData.hpp"
+#include "../Utilities/Components/CameraComponent.hpp"
+#include "../Utilities/Components/ParticleComponent.hpp"
 
 #include "Windows/WindowManager.h"
 #include "AssetManager/AssetManager.h"

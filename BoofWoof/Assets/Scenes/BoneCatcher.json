@@ -1,0 +1,89 @@
+{
+    "SceneGUID": "b238cad4-c2c8-4800-a967-a1233b2ed442",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Bone",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 0.5,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "DogBone",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Head",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.23000000417232514,
+                    "y": 0.20000000298023225,
+                    "z": -0.20000000298023225
+                },
+                "Scale": {
+                    "x": 0.20000000298023225,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "DogHead",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CatchZone",
+                "EntityID": 2
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.05999999865889549,
+                    "y": 0.029999999329447748,
+                    "z": -0.10000000149011612
+                },
+                "Scale": {
+                    "x": 0.4000000059604645,
+                    "y": 0.10000000149011612,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "CatchZone",
+                "FollowCamera": false
+            }
+        }
+    ]
+}

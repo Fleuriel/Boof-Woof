@@ -1,0 +1,61 @@
+{
+    "SceneGUID": "403b8d12-74b6-4e95-88e9-852926f54288",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Title",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.4000000059604645,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.5,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "PawsieAdventure",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "SpaceToStart",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": -0.4000000059604645,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "SpaceToStart",
+                "FollowCamera": false
+            }
+        }
+    ]
+}

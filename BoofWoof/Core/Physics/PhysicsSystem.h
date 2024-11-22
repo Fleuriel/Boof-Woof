@@ -55,7 +55,7 @@ enum class ObjectType {
     Couch,
     Corgi,
     Corgi_small,
-    Floor,
+    FloorCastle,
     Wall,
     Wardrobe,
     Wardrobe2,
@@ -233,7 +233,10 @@ public:
 
     // Shape creation utility methods
     ObjectType GetObjectTypeFromModel(const std::string& modelName);
-    JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& scale);
+    //JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& scale);
+    //JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& scale, const glm::vec3& userAABBSize = glm::vec3(1.0f));
+    JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& customAABB);
+    void UpdateEntityBody(Entity entity);
 
     /**************************************************************************/
     /*!
@@ -320,14 +323,6 @@ public:
         return JPH::ValidateResult::AcceptAllContactsForThisBodyPair;
     }
 
-    //void OnContactAdded(const JPH::Body& /* inBody1 */,
-    //    const JPH::Body& /* inBody2 */,
-    //    const JPH::ContactManifold& /* inManifold */,
-    //    JPH::ContactSettings& /* ioSettings */) override
-    //{
-    //    std::cout << "A contact was added" << std::endl;
-    //}
-
     void OnContactAdded(const JPH::Body& inBody1,
         const JPH::Body& inBody2,
         const JPH::ContactManifold& inManifold,
@@ -337,14 +332,6 @@ public:
             << inBody1.GetID().GetIndex() << " and "
             << inBody2.GetID().GetIndex() << std::endl;
     }
-
-    //void OnContactPersisted(const JPH::Body& /* inBody1 */,
-    //    const JPH::Body& /* inBody2 */,
-    //    const JPH::ContactManifold& /* inManifold */,
-    //    JPH::ContactSettings& /* ioSettings */) override
-    //{
-    //    std::cout << "A contact was persisted" << std::endl;
-    //}
 
     void OnContactPersisted(const JPH::Body& inBody1, const JPH::Body& inBody2,
         const JPH::ContactManifold& inManifold,

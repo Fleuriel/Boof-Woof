@@ -1,0 +1,61 @@
+{
+    "SceneGUID": "7692d3a0-06a6-4e63-b510-1cd01ae48375",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Black Screen",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 2.0999999046325685,
+                    "y": 2.200000047683716,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "BlackScreen",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GGPen",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.10000000149011612
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Digipen_Logo",
+                "FollowCamera": false
+            }
+        }
+    ]
+}

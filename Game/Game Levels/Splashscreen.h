@@ -2,30 +2,33 @@
 #include "Level Manager/Level.h"
 #include "ECS/Coordinator.hpp"
 
-class Splashscreen : public Level 
+double elapsedTime = 0.0;
+double timeLimit = 3.0;    // Set the time limit to 3 seconds
+
+class Splashscreen : public Level
 {
-	void LoadLevel() 
+	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/RoomLevel.json");
+		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/SplashScreen.json");
 	}
 
 	void InitLevel() { /* Empty by design */ }
 
-	void UpdateLevel(double deltaTime) 
+	void UpdateLevel(double deltaTime)
 	{
-		(void)deltaTime;
+		elapsedTime += deltaTime;
 
-		// Press space to skip Splashscreen
-		if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1) 
+		if (elapsedTime >= timeLimit)
 		{
-			//g_LevelManager.SetNextLevel("../BoofWoof/Assets/Scenes/2Circle.json");
+			g_LevelManager.SetNextLevel("MainMenu");
 		}
 	}
 
 	void FreeLevel() { /*Empty by design*/ }
 
-	void UnloadLevel() 
+	void UnloadLevel()
 	{
 		g_Coordinator.ResetEntities();
+		elapsedTime = 0.0;
 	}
 };

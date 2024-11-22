@@ -18,6 +18,18 @@
 #include <filesystem>
 #include "../Core/Graphics/Model.h"
 
+
+struct DDSData {
+
+
+	GLint ID;
+	GLuint Width;
+	GLuint Height;
+
+	DDSData() :ID(0), Width(0), Height(0) {}
+
+};
+
 class ResourceManager {
 
 public:
@@ -52,6 +64,8 @@ public:
 
 	bool AddTextureDDS(std::string);
 	int GetTextureDDS(std::string);																		//Function to access textures
+	int GetTextureDDSWidth(std::string);
+	int GetTextureDDSHeight(std::string);
 
 
 	bool LoadFontsDDS();
@@ -70,12 +84,14 @@ private:
 
 	std::vector<std::string> ModelNames;
 
-	std::map<std::string, int> textureDDS{};															//Container to store textures
+	std::map <std::string, DDSData> textureDDS{};															//Container to store textures
 	std::vector<std::string> textureDDSFileNames{};														//Container to store texture DDS file names
 
 	std::map<std::string, int> fontDDS{};																//Container to store textures
 	std::vector<std::string> fontDDSFileNames{};														//Container to store texture DDS file names
 
+
+	std::vector<DDSData> textureDDS_WidthHeight;
 
 };
 

@@ -1,5 +1,0 @@
-Texture Name : Table2
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\Table2.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\Table2.dds
-Compression Format : -fd BC3

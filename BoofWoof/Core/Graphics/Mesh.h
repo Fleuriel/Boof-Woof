@@ -145,6 +145,34 @@ public:
         
     }
 
+
+    void DrawForPicking()
+    {
+        // Bind the VAO
+        glBindVertexArray(VAO);
+
+        // Draw the mesh without textures
+        glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
+
+        // Unbind the VAO
+        glBindVertexArray(0);
+    }
+
+
+
+
+    void DrawMaterial(OpenGLShader& shader)
+    {
+
+        // draw mesh
+        glPolygonMode(GL_FRONT_AND_BACK, GL_TRIANGLES);
+
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(vertices.size()));
+        glBindVertexArray(0);
+
+    }
+
     // render the mesh with lines
     void DrawLines()
     {

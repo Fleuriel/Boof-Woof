@@ -21,14 +21,16 @@
 #include <assimp/postprocess.h>
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/Shader.h"
-#include "Graphics/Model.h"
 #include "Graphics/Object.h"
 #include "Sprite.h"
+#include "Descriptor.h"
 
  // Forward declarations
 
 
 
+
+class MaterialComponent;
 
 /**************************************************************************
 * @brief AssetManager Class
@@ -73,6 +75,16 @@ public:
 	bool FreeShaders();																		//Function to free shaders
 	bool ReloadShaders();																	//Function to reload shaders
 
+	bool LoadAnimations();																	//Function to load animations
+	bool FreeAnimations();																	//Function to free animations
+	bool ReloadAnimations();																//Function to reload animations
+
+	bool LoadMaterials();
+	bool ReloadMaterials();
+	bool FreeMaterials();
+
+
+	
 
 	//Getters
 	OpenGLShader& GetShader(std::string);													//Function to access shaders
@@ -86,6 +98,15 @@ public:
 
 	bool Currentlyloading{ false };
 
+	MaterialComponent LoadMaterialFromFile(const std::string& filePath);
+
+	std::vector<std::string> AnimationFiles;												//Container to store animation file names
+//	std::vector<std::string> MaterialFiles;													//Container to store animation file names
+	std::vector<std::string> MaterialFiles;
+
+	std::vector<std::string>shdrpgmOrder{};													//Container to store the order of shader programs
+
+
 private:
 
 	//Monitoring purposes
@@ -95,15 +116,19 @@ private:
 	std::set<std::wstring> ObjectFiles;														//Container to store object file names
 	std::set<std::wstring> ShaderFiles;														//Container to store shader file names
 	std::set<std::wstring> FontFiles;														//Container to store font file names
+	//std::set<std::wstring> MaterialFiles;
+
+
 
 
 	//Containers
+	std::unordered_map<std::string, MaterialComponent> materials;
 	std::vector<std::string> TextureDescriptionFiles;										//Container to store texture description files
 	std::map<std::string, Sprite> sprites{};												//Container to store sprites
 	std::vector<OpenGLShader>shdrpgms;														//Container to store shader programs
-	std::vector<std::string>shdrpgmOrder{};													//Container to store the order of shader programs
 
-
+	TextureDescriptor textureInfo;
+	MaterialDescriptor materialInfo;
 };
 
 
