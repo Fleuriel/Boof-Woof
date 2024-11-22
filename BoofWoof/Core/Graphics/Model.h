@@ -24,6 +24,7 @@
 #include "Mesh.h"
 
 #include "AssetManager/AssetManager.h"
+#include "../Physics/PhysicsSystem.h"
 
 
 //extern std::vector<Model2D> models;
@@ -89,53 +90,161 @@ public:
 			meshes[i].DrawPoints(shader);
 	}
 
+    void drawAABB(const glm::vec3& min, const glm::vec3& max) {
+        glm::vec3 aabbVertices[8] = {
+            glm::vec3(max.x, max.y, max.z), // Front-top-right
+            glm::vec3(min.x, max.y, max.z), // Front-top-left
+            glm::vec3(min.x, min.y, max.z), // Front-bottom-left
+            glm::vec3(max.x, min.y, max.z), // Front-bottom-right
+            glm::vec3(max.x, max.y, min.z), // Back-top-right
+            glm::vec3(min.x, max.y, min.z), // Back-top-left
+            glm::vec3(min.x, min.y, min.z), // Back-bottom-left
+            glm::vec3(max.x, min.y, min.z)  // Back-bottom-right
+        };
+
+        GLuint indices[24] = {
+            0, 1, 1, 2, 2, 3, 3, 0,  // Front face
+            4, 5, 5, 6, 6, 7, 7, 4,  // Back face
+            0, 4, 1, 5, 2, 6, 3, 7   // Connecting lines
+        };
+
+        // Set up OpenGL buffers (same as before)
+        GLuint VAO, VBO, EBO;
+        glGenVertexArrays(1, &VAO);
+        glGenBuffers(1, &VBO);
+        glGenBuffers(1, &EBO);
+
+        glBindVertexArray(VAO);
+
+        // Vertex buffer
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(aabbVertices), aabbVertices, GL_STATIC_DRAW);
+
+        // Element buffer
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+        // Position attribute
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        // Draw AABB as wireframe
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glDrawElements(GL_LINES, 24, GL_UNSIGNED_INT, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+        // Cleanup
+        glDeleteVertexArrays(1, &VAO);
+        glDeleteBuffers(1, &VBO);
+        glDeleteBuffers(1, &EBO);
+    }
+
+    void TransformAABB(const JPH::AABox& aabb, const glm::mat4& modelMatrix, float* transformedVertices) {
+        JPH::Vec3 min = aabb.mMin;
+        JPH::Vec3 max = aabb.mMax;
+
+        // Create the 8 corners of the AABB (local space)
+        glm::vec3 corners[8] = {
+            {min.GetX(), min.GetY(), min.GetZ()},
+            {max.GetX(), min.GetY(), min.GetZ()},
+            {max.GetX(), max.GetY(), min.GetZ()},
+            {min.GetX(), max.GetY(), min.GetZ()},
+            {min.GetX(), min.GetY(), max.GetZ()},
+            {max.GetX(), min.GetY(), max.GetZ()},
+            {max.GetX(), max.GetY(), max.GetZ()},
+            {min.GetX(), max.GetY(), max.GetZ()}
+        };
+
+        // Apply the model transformation (position, rotation, scale)
+        for (int i = 0; i < 8; ++i) {
+            glm::vec4 transformed = modelMatrix * glm::vec4(corners[i], 1.0f);
+            transformedVertices[i * 3] = transformed.x;
+            transformedVertices[i * 3 + 1] = transformed.y;
+            transformedVertices[i * 3 + 2] = transformed.z;
+        }
+    }
+
+
+    void DrawAABB(const JPH::AABox& aabb, const glm::mat4& modelMatrix) {
+        // Array to hold transformed vertices (after applying model matrix)
+        float transformedVertices[24];
+
+        // Transform the AABB corners based on the model matrix
+        TransformAABB(aabb, modelMatrix, transformedVertices);
+
+        // Indices for the edges of the AABB
+        GLuint indices[] = {
+            0, 1, 1, 2, 2, 3, 3, 0,   // Bottom face
+            4, 5, 5, 6, 6, 7, 7, 4,   // Top face
+            0, 4, 1, 5, 2, 6, 3, 7    // Vertical edges
+        };
+
+        GLuint VAO, VBO, EBO;
+        glGenVertexArrays(1, &VAO);
+        glGenBuffers(1, &VBO);
+        glGenBuffers(1, &EBO);
+
+        glBindVertexArray(VAO);
+
+        // Vertex buffer: Store the transformed AABB vertices
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(transformedVertices), transformedVertices, GL_STATIC_DRAW);
+
+        // Element buffer: Store the indices for drawing the AABB
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+        // Position attribute
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        // Draw the AABB
+        glLineWidth(2.0f);  // Make lines more visible
+        glEnable(GL_DEPTH_TEST);  // Ensure lines are rendered in the correct order
+
+        glDrawElements(GL_LINES, 24, GL_UNSIGNED_INT, 0);
+
+        // Unbind VAO, VBO, and EBO
+        glBindVertexArray(0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
+
     void drawOBB(const glm::vec3& position, const glm::vec3& rotationRadians, const glm::vec3& halfextents) {
+
         // Create transformation matrix
         glm::mat4 transform = glm::mat4(1.0f);
 
-        // Apply scaling first
-       // transform = glm::scale(transform, scale);
-
         // Apply rotations (order: X, Y, Z)
-        transform = glm::rotate(transform, rotationRadians.x, glm::vec3(1.0f, 0.0f, 0.0f));
-        transform = glm::rotate(transform, rotationRadians.y, glm::vec3(0.0f, 1.0f, 0.0f));
-        transform = glm::rotate(transform, rotationRadians.z, glm::vec3(0.0f, 0.0f, 1.0f));
+        transform = glm::rotate(transform, glm::radians(rotationRadians.x), glm::vec3(1.0f, 0.0f, 0.0f));
+        transform = glm::rotate(transform, glm::radians(rotationRadians.y), glm::vec3(0.0f, 1.0f, 0.0f));
+        transform = glm::rotate(transform, glm::radians(rotationRadians.z), glm::vec3(0.0f, 0.0f, 1.0f));
 
-        // Apply translation last
-//        transform = glm::translate(transform);
+        // Apply translation to position
+        transform = glm::translate(transform, position);
 
-        // OBB Vertices
-       //glm::vec3 obbVertices[8] = {
-       //    glm::vec3(-1.0f, -1.0f, -1.0f),
-       //    glm::vec3(1.0f, -1.0f, -1.0f),
-       //    glm::vec3(1.0f, 1.0f, -1.0f),
-       //    glm::vec3(-1.0f, 1.0f, -1.0f),
-       //    glm::vec3(-1.0f, -1.0f, 1.0f),
-       //    glm::vec3(1.0f, -1.0f, 1.0f),
-       //    glm::vec3(1.0f, 1.0f, 1.0f),
-       //    glm::vec3(-1.0f, 1.0f, 1.0f)
-       //};
-
-
+        // Vertices of the OBB in its local space
         glm::vec3 obbVertices[8]{
             // Front face
-            glm::vec3( halfextents.x,  halfextents.y,  halfextents.z) ,
-            glm::vec3(-halfextents.x,  halfextents.y,  halfextents.z) ,
-            glm::vec3(-halfextents.x, -halfextents.y,  halfextents.z) ,
-            glm::vec3( halfextents.x, -halfextents.y,  halfextents.z) ,
+            glm::vec3(halfextents.x, halfextents.y, halfextents.z),
+            glm::vec3(-halfextents.x, halfextents.y, halfextents.z),
+            glm::vec3(-halfextents.x, -halfextents.y, halfextents.z),
+            glm::vec3(halfextents.x, -halfextents.y, halfextents.z),
             // Back face
-            glm::vec3( halfextents.x,  halfextents.y, -halfextents.z ),
-            glm::vec3(-halfextents.x,  halfextents.y, -halfextents.z ),
-            glm::vec3(-halfextents.x, -halfextents.y, -halfextents.z ),
-            glm::vec3( halfextents.x, -halfextents.y, -halfextents.z )
+            glm::vec3(halfextents.x, halfextents.y, -halfextents.z),
+            glm::vec3(-halfextents.x, halfextents.y, -halfextents.z),
+            glm::vec3(-halfextents.x, -halfextents.y, -halfextents.z),
+            glm::vec3(halfextents.x, -halfextents.y, -halfextents.z)
         };
 
-        // Transform vertices to world space
+        // Apply rotation to half-extents for proper bounding box orientation
+        glm::mat3 rotationMatrix = glm::mat3(transform); // Extract rotation part from the transform matrix
+
         for (auto& vertex : obbVertices) {
-            vertex = glm::vec3(transform * glm::vec4(vertex, 1.0f));
+            vertex = glm::vec3(rotationMatrix * vertex);  // Apply rotation to each vertex
         }
 
-        // Indices for drawing lines
+        // Indices for drawing lines (connect vertices to form edges of the box)
         GLuint indices[24] = {
             0, 1, 1, 2, 2, 3, 3, 0,  // Bottom face
             4, 5, 5, 6, 6, 7, 7, 4,  // Top face
@@ -150,11 +259,11 @@ public:
 
         glBindVertexArray(VAO);
 
-        // Vertex buffer
+        // Vertex buffer: Send the transformed vertices to the GPU
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(obbVertices), obbVertices, GL_STATIC_DRAW);
 
-        // Element buffer
+        // Element buffer: Send the indices for the lines
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
@@ -165,7 +274,7 @@ public:
         // Set color to white
         glColor3f(1.0f, 1.0f, 1.0f);
 
-        // Draw the OBB as wireframe
+        // Draw the OBB as a wireframe
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glDrawElements(GL_LINES, 24, GL_UNSIGNED_INT, 0);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -175,7 +284,6 @@ public:
         glDeleteBuffers(1, &VBO);
         glDeleteBuffers(1, &EBO);
     }
-    
 
     void addMesh(const Mesh& mesh)
     {
