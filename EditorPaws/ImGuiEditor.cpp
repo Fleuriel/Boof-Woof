@@ -1228,7 +1228,7 @@ void ImGuiEditor::InspectorWindow()
 												//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
 												int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
 												graphicsComponent.AddTexture(textureId);
-
+												graphicsComponent.setTexture(selectedFile);
 
 
 

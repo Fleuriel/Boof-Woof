@@ -184,10 +184,12 @@ bool Serialization::SaveScene(const std::string& filepath) {
             // Model Name
             Grafics.AddMember("ModelName", rapidjson::Value(graphicsComp.getModelName().c_str(), allocator), allocator);
 
-            // Texture Name
-            //entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
 
-            //std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.getTextureName() << '\n';
+
+            // Texture Name
+            Grafics.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
+
+            std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.getTextureName() << '\n';
 
 
             //entityData.AddMember("", S)
@@ -408,17 +410,25 @@ bool Serialization::LoadScene(const std::string& filepath) {
                     std::string modelName = GData["ModelName"].GetString();
                     std::string TextureName;
                     
-                    GraphicsComponent graphicsComponent(modelName, entity);
-					graphicsComponent.clearTextures();
+
+
+                    std::cout<< "has member tex" << GData.HasMember("Texture") << '\n';
 
                     if (GData.HasMember("Texture"))
                     {
                         TextureName = GData["Texture"].GetString();
-                        std::cout << TextureName << '\n';
-                        int textureID = g_ResourceManager.GetTextureDDS(TextureName);
-						graphicsComponent.AddTexture(textureID);
-
+                        std::cout << "Texture: " << TextureName << '\n';
+					    
                     }
+
+                    int textureID = g_ResourceManager.GetTextureDDS(TextureName);
+
+                    GraphicsComponent graphicsComponent(modelName, entity, TextureName);
+                    if(textureID > 0)
+                        graphicsComponent.AddTexture(textureID);
+//                    graphicsComponent.SetModelID(modelID);
+
+
                     //graphicsComponent.incrementTextureNumber();
 
                     std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
