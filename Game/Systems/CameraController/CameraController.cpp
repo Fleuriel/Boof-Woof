@@ -72,7 +72,14 @@ void CameraController::UpdateFirstPersonView(CameraComponent& camera)
     // Ensure the camera's direction is updated based on its yaw and pitch
     camera.updateCameraVectors();
 
+    //calculate the translation rotation x, y and z
+    float x = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetRotation().x;
+    float y = glm::radians(-camera.Yaw);
+    float z = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetRotation().z;
 
+
+    glm::vec3 newrotation = glm::vec3(x, y, z);
+    g_Coordinator.GetComponent<TransformComponent>(playerEntity).SetRotation(newrotation);
 }
 
 void CameraController::UpdateThirdPersonView(CameraComponent& camera)
