@@ -18,25 +18,28 @@ void CameraController::Update(float deltaTime)
         UpdateThirdPersonView(camera);
     }
 
-	/*if (currentMode == CameraMode::SHIFTING)
+	if (currentMode == CameraMode::SHIFTING)
 	{
 		UpdateShiftingView(camera);
-	}*/
+	}
 }
 
 void CameraController::ToggleCameraMode()
 {
     if (currentMode == CameraMode::FIRST_PERSON)
     {
-        currentMode = CameraMode::THIRD_PERSON;
-		//lastMode = CameraMode::FIRST_PERSON;
+        currentMode = CameraMode::SHIFTING;
+		lastMode = CameraMode::FIRST_PERSON;
+		cameraMove = getThirdPersonCameraMove(g_Coordinator.GetComponent<CameraComponent>(playerEntity));
     }
     else if (currentMode == CameraMode::THIRD_PERSON)
     {
-        currentMode = CameraMode::FIRST_PERSON;
-		//lastMode = CameraMode::THIRD_PERSON;
-    }
+        currentMode = CameraMode::SHIFTING;
+		lastMode = CameraMode::THIRD_PERSON;
+		cameraMove = getfirstPersonCameraMove(g_Coordinator.GetComponent<CameraComponent>(playerEntity));
+	}
 }
+
 
 void CameraController::UpdateFirstPersonView(CameraComponent& camera)
 {
@@ -159,10 +162,87 @@ void CameraController::UpdateThirdPersonView(CameraComponent& camera)
     g_Coordinator.GetComponent<TransformComponent>(playerEntity).SetRotation(newrotation);
 }
 
-CameraMove CameraController::getfirstPersonCameraMove()
+void CameraController::UpdateShiftingView(CameraComponent& camera)
+{
+	std::cout << "Shifting dis " << moved_dis << std::endl;
+    moved_dis += cameraSpeed ;
+	camera.Position += cameraMove.Move_direct * cameraSpeed;
+    if (moved_dis >= cameraMove.distance)
+    {
+		if (lastMode == CameraMode::FIRST_PERSON)
+		{
+			currentMode = CameraMode::THIRD_PERSON;
+		}
+		else if (lastMode == CameraMode::THIRD_PERSON)
+		{
+			currentMode = CameraMode::FIRST_PERSON;
+		}
+		moved_dis = 0.0f;
+    }
+}
+
+CameraMove CameraController::getfirstPersonCameraMove(CameraComponent& camera)
 {
 	CameraMove cm;
+    // Match the camera's position to the player's position
+    if (!g_Coordinator.HaveComponent<TransformComponent>(playerEntity))
+    {
+        return cm;
+    }
 
+    glm::vec3 playerPos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
+
+    // calculate the rotation matrix
+    glm::mat4 rotationMatrix = glm::mat4(1.0f);
+    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(camera.Yaw + 90), glm::vec3(0.0f, -1.0f, 0.0f));
+
+	// eye offset
+    glm::vec3 eyeOffset = glm::vec3(0.0f, 0.193f, -1.189f);
+    eyeOffset = glm::vec3(rotationMatrix * glm::vec4(eyeOffset, 1.0f));
+   
+	// 3rd person offset
+	glm::vec3 cmoffset = glm::vec3(0.0f, 3.7f, 11.718f); // Desired position relative to the player
+	cmoffset = glm::vec3(rotationMatrix * glm::vec4(cmoffset, 1.0f));
+
+	cm.Move_direct = eyeOffset - cmoffset;
+
+	cm.distance = glm::length(cm.Move_direct);
+	cm.Move_direct = glm::normalize(cm.Move_direct);
+
+    std::cout << " move dis " << cm.distance << std::endl;
 	return cm;
 
+}
+
+CameraMove CameraController::getThirdPersonCameraMove(CameraComponent& camera)
+{
+    CameraMove cm;
+    // Match the camera's position to the player's position
+    if (!g_Coordinator.HaveComponent<TransformComponent>(playerEntity))
+    {
+        return cm;
+    }
+
+    glm::vec3 playerPos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
+
+    // calculate the rotation matrix
+    glm::mat4 rotationMatrix = glm::mat4(1.0f);
+    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(camera.Yaw + 90), glm::vec3(0.0f, -1.0f, 0.0f));
+
+    // eye offset
+    glm::vec3 eyeOffset = glm::vec3(0.0f, 0.193f, -1.189f);
+    eyeOffset = glm::vec3(rotationMatrix * glm::vec4(eyeOffset, 1.0f));
+
+    // 3rd person offset
+    glm::vec3 cmoffset = glm::vec3(0.0f, 3.7f, 11.718f); // Desired position relative to the player
+    cmoffset = glm::vec3(rotationMatrix * glm::vec4(cmoffset, 1.0f));
+
+    cm.Move_direct = cmoffset - eyeOffset;
+
+    cm.distance = glm::length(cm.Move_direct);
+    cm.Move_direct = glm::normalize(cm.Move_direct);
+
+	std::cout << " move dis " << cm.distance << std::endl;
+
+    return cm;
 }
