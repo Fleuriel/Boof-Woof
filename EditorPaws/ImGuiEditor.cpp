@@ -1296,86 +1296,85 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::TreePop();
 								}
 
-								if (ImGui::TreeNode("old Texture"))
-								{
-									//// Handle TextureName Property
-									//auto textureNameProperty = std::find_if(properties.begin(), properties.end(),
-									//	[](const ReflectionPropertyBase* prop) { return prop->GetName() == "Textures"; });
-
-									//if (textureNameProperty != properties.end())
-									//{
-									//	std::string propertyName = "Textures";
-									//	std::string currentTextureName = (*textureNameProperty)->GetValue(&graphicsComponent);
-									//	std::string newTextureName = currentTextureName;
-
-									std::vector<int>  textureIds = graphicsComponent.getTextures();
-
-									ImGui::Text("Texture ");
-									ImGui::SameLine();
-									ImGui::PushID("Textures");
-
-									/*char buffer[256];
-									memset(buffer, 0, sizeof(buffer));
-									strcpy_s(buffer, sizeof(buffer), currentTextureName.c_str());
-
-									ImGui::InputText("##Textures", buffer, sizeof(buffer), ImGuiInputTextFlags_ReadOnly);*/
-
-									// get texture names
-
-
-
-									ImGui::SameLine();
-
-									// Store old value before opening the file dialog
-									//static std::string oldTextureName = "";
-									if (ImGui::Button("Set Texture"))
-									{
-										//oldTextureName = currentTextureName; // Capture the old value
-										ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
-									}
-
-									if (ImGuiFileDialog::Instance()->Display("SetTexture"))
-									{
-										if (ImGuiFileDialog::Instance()->IsOk())
-										{
-											// User selected a file
-											std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
-											size_t lastDotPos = selectedFile.find_last_of(".");
-											if (lastDotPos != std::string::npos)
-											{
-												selectedFile = selectedFile.substr(0, lastDotPos);
-											}
-
-											//newTextureName = selectedFile;
-											//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
-											int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
-											graphicsComponent.AddTexture(textureId);
-
-
-											graphicsComponent.setTextureMaterial(textureId);
-
-
-											// Execute undo/redo command
-											/*std::string oldValue = oldTextureName;
-											Entity entity = g_SelectedEntity;*/
-
-											/*g_UndoRedoManager.ExecuteCommand(
-												[entity, newTextureName]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.setTexture(newTextureName);
-												},
-												[entity, oldValue]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.setTexture(oldValue);
-												}
-											);*/
-										}
-										ImGuiFileDialog::Instance()->Close();
-									}
-
-									ImGui::PopID();
-									ImGui::TreePop();
-								}
+								//if (ImGui::TreeNode("old Texture"))
+								//{
+								//	//// Handle TextureName Property
+								//	//auto textureNameProperty = std::find_if(properties.begin(), properties.end(),
+								//	//	[](const ReflectionPropertyBase* prop) { return prop->GetName() == "Textures"; });
+								//
+								//	//if (textureNameProperty != properties.end())
+								//	//{
+								//	//	std::string propertyName = "Textures";
+								//	//	std::string currentTextureName = (*textureNameProperty)->GetValue(&graphicsComponent);
+								//	//	std::string newTextureName = currentTextureName;
+								//
+								//
+								//	ImGui::Text("Texture ");
+								//	ImGui::SameLine();
+								//	ImGui::PushID("Textures");
+								//
+								//	/*char buffer[256];
+								//	memset(buffer, 0, sizeof(buffer));
+								//	strcpy_s(buffer, sizeof(buffer), currentTextureName.c_str());
+								//
+								//	ImGui::InputText("##Textures", buffer, sizeof(buffer), ImGuiInputTextFlags_ReadOnly);*/
+								//
+								//	// get texture names
+								//
+								//
+								//
+								//	ImGui::SameLine();
+								//
+								//	// Store old value before opening the file dialog
+								//	//static std::string oldTextureName = "";
+								//	if (ImGui::Button("Set Texture"))
+								//	{
+								//		//oldTextureName = currentTextureName; // Capture the old value
+								//		ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+								//	}
+								//
+								//	if (ImGuiFileDialog::Instance()->Display("SetTexture"))
+								//	{
+								//		if (ImGuiFileDialog::Instance()->IsOk())
+								//		{
+								//			// User selected a file
+								//			std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+								//			size_t lastDotPos = selectedFile.find_last_of(".");
+								//			if (lastDotPos != std::string::npos)
+								//			{
+								//				selectedFile = selectedFile.substr(0, lastDotPos);
+								//			}
+								//
+								//			//newTextureName = selectedFile;
+								//			//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
+								//			int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
+								//			graphicsComponent.AddTexture(textureId);
+								//
+								//
+								//			graphicsComponent.setTextureMaterial(textureId);
+								//
+								//
+								//			// Execute undo/redo command
+								//			/*std::string oldValue = oldTextureName;
+								//			Entity entity = g_SelectedEntity;*/
+								//
+								//			/*g_UndoRedoManager.ExecuteCommand(
+								//				[entity, newTextureName]() {
+								//					auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+								//					component.setTexture(newTextureName);
+								//				},
+								//				[entity, oldValue]() {
+								//					auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+								//					component.setTexture(oldValue);
+								//				}
+								//			);*/
+								//		}
+								//		ImGuiFileDialog::Instance()->Close();
+								//	}
+								//
+								//	ImGui::PopID();
+								//	ImGui::TreePop();
+								//}
 
 
 
@@ -2143,10 +2142,7 @@ void ImGuiEditor::InspectorWindow()
 
 						else if (className == "MaterialComponent")
 						{
-
 							auto& graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity); // Reference to GraphicsComponent
-
-
 
 							std::string objectName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
 
@@ -2168,11 +2164,76 @@ void ImGuiEditor::InspectorWindow()
 							{
 								if (ImGui::CollapsingHeader("Materials", ImGuiTreeNodeFlags_DefaultOpen))
 								{
-
 									// do some search for the Shader name:
 
 									static float WidthIndentation = 125.0f;
 									static float ComboIdentation = 300.0f;
+
+									
+	
+
+
+
+									ImGui::Text("Texture ");
+									ImGui::SameLine(WidthIndentation);
+									ImGui::PushItemWidth(200); // Set the width in pixels
+									ImGui::InputText(" ", graphicsComponent.getTextureName().data(), graphicsComponent.getTextureName().capacity() + 1);
+									
+
+
+									ImGui::PushID("Textures");
+									ImGui::SameLine();
+
+									// Store old value before opening the file dialog
+									// static std::string oldTextureName = "";
+									if (ImGui::Button("Set Texture"))
+									{
+										//oldTextureName = currentTextureName; // Capture the old value
+										ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+									}
+
+									if (ImGuiFileDialog::Instance()->Display("SetTexture"))
+										{
+											if (ImGuiFileDialog::Instance()->IsOk())
+											{
+												// User selected a file
+												std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+												size_t lastDotPos = selectedFile.find_last_of(".");
+												if (lastDotPos != std::string::npos)
+												{
+													selectedFile = selectedFile.substr(0, lastDotPos);
+												}
+
+												//newTextureName = selectedFile;
+												//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
+												int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
+												graphicsComponent.AddTexture(textureId);
+												graphicsComponent.setTexture(selectedFile);
+
+
+
+												// Execute undo/redo command
+												/*std::string oldValue = oldTextureName;
+												Entity entity = g_SelectedEntity;*/
+
+												/*g_UndoRedoManager.ExecuteCommand(
+													[entity, newTextureName]() {
+														auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+														component.setTexture(newTextureName);
+													},
+													[entity, oldValue]() {
+														auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+														component.setTexture(oldValue);
+													}
+												);*/
+											}
+											ImGuiFileDialog::Instance()->Close();
+										}
+
+									ImGui::PopID();
+
+
+
 
 									/*
 										SHADER

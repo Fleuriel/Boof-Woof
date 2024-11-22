@@ -316,6 +316,7 @@ void GraphicsSystem::UpdateLoop() {
 		g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.smoothness);
 		
 
+
 		// Check if a texture is set, and bind it
 		if (shader.textureID >= 0) { // Assuming textureID is -1 if no texture
 			glActiveTexture(GL_TEXTURE0);
