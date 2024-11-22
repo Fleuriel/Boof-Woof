@@ -109,10 +109,7 @@ void BoneCatcher::Stop(double deltaTime)
 
 			if (g_RopeBreaker.RopeCount != 0) 
 			{
-				g_RopeBreaker.RopeCount -= 1;
-
-				if (g_RopeBreaker.PlayerCollidedRope1) g_RopeBreaker.PlayerCollidedRope1 = false;
-				if (g_RopeBreaker.PlayerCollidedRope2) g_RopeBreaker.PlayerCollidedRope2 = false;			
+				g_RopeBreaker.RopeCount -= 1;		
 
 				// Despawn the rope
 				g_RopeBreaker.DespawnRope();

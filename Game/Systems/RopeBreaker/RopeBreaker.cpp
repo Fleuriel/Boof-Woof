@@ -35,13 +35,13 @@ void RopeBreaker::CheckCollision()
 		Rope2Colliding = g_Coordinator.GetComponent<CollisionComponent>(rope2).GetIsColliding();
 	}
 
-	if (PlayerColliding && Rope1Colliding)
+	if (PlayerColliding && Rope1Colliding && !PlayerCollidedRope1)
 	{
 		PlayerCollidedRope1 = true;
 		SpawnBoneCatcher();
 	}
 
-	if (PlayerColliding && Rope2Colliding) 
+	if (PlayerColliding && Rope2Colliding && !PlayerCollidedRope2)
 	{
 		PlayerCollidedRope2 = true;
 		SpawnBoneCatcher();
