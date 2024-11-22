@@ -37,12 +37,14 @@ void RopeBreaker::CheckCollision()
 
 	if (PlayerColliding && Rope1Colliding && !PlayerCollidedRope1)
 	{
+		std::cout << "Rope1" << std::endl;
 		PlayerCollidedRope1 = true;
 		SpawnBoneCatcher();
 	}
 
 	if (PlayerColliding && Rope2Colliding && !PlayerCollidedRope2)
 	{
+		std::cout << "Rope2" << std::endl;
 		PlayerCollidedRope2 = true;
 		SpawnBoneCatcher();
 	}
@@ -69,6 +71,7 @@ void RopeBreaker::DespawnRope()
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
 				{
+					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 				}
 			}
@@ -77,6 +80,7 @@ void RopeBreaker::DespawnRope()
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
 				{
+					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 				}
 			}

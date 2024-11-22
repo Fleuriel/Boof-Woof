@@ -62,6 +62,7 @@ void BoneCatcher::OnInitialize()
 		}
 	}
 
+	m_Speed = 0.5f;
 	m_HitCount = 0;
 }
 
