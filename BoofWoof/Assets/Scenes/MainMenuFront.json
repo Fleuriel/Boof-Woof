@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "ad52a4b0-5d72-4d67-b9a0-775b9dcd1469",
+    "SceneGUID": "403b8d12-74b6-4e95-88e9-852926f54288",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,24 +8,25 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 3.0,
-                    "y": 3.9000000953674318,
-                    "z": -0.30000001192092898
+                    "x": 0.0,
+                    "y": 0.4000000059604645,
+                    "z": 0.0
                 },
                 "Scale": {
-                    "x": 7.0,
-                    "y": 2.5,
+                    "x": 1.5,
+                    "y": 1.0,
                     "z": 1.0
                 },
                 "Rotation": {
-                    "x": -1.0,
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "PawsieAdventure"
+                "Texture": "PawsieAdventure",
+                "FollowCamera": false
             }
         },
         {
@@ -35,24 +36,25 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 2.799999952316284,
-                    "y": 3.700000047683716,
-                    "z": 1.899999976158142
+                    "x": 0.0,
+                    "y": -0.4000000059604645,
+                    "z": 0.0
                 },
                 "Scale": {
-                    "x": 2.5,
-                    "y": 1.5,
+                    "x": 0.5,
+                    "y": 0.5,
                     "z": 1.0
                 },
                 "Rotation": {
-                    "x": -1.0,
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "SpaceToStart"
+                "Texture": "SpaceToStart",
+                "FollowCamera": false
             }
         }
     ]

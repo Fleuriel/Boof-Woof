@@ -938,6 +938,50 @@ void ImGuiEditor::InspectorWindow()
 							}
 
 
+							// Handel Camera Property
+							auto FollowCameraProperty = std::find_if(properties.begin(), properties.end(),
+								[](const ReflectionPropertyBase* prop) { return prop->GetName() == "FollowCamera"; });
+							if (FollowCameraProperty != properties.end())
+							{
+								std::string propertyName = "FollowCamera";
+								bool isFollowCamera = (*FollowCameraProperty)->GetValue(&graphicsComponent) == "true";
+
+								ImGui::Text("Follow Camera");
+								ImGui::SameLine();
+								ImGui::PushID(propertyName.c_str());
+
+								if (ImGui::Checkbox("##FollowCamera", &isFollowCamera))
+								{
+									(*FollowCameraProperty)->SetValue(&graphicsComponent, isFollowCamera ? "true" : "false");
+								}
+
+								if (ImGui::IsItemActivated())
+								{
+									oldBoolValues[propertyName] = isFollowCamera;
+								}
+
+								if (ImGui::IsItemDeactivatedAfterEdit())
+								{
+									bool newValue = isFollowCamera;
+									bool oldValue = oldBoolValues[propertyName];
+									Entity entity = g_SelectedEntity;
+									oldBoolValues.erase(propertyName);
+
+									g_UndoRedoManager.ExecuteCommand(
+										[entity, newValue]() {
+											auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+											component.SetFollowCamera(newValue);
+										},
+										[entity, oldValue]() {
+											auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+											component.SetFollowCamera(oldValue);
+										}
+									);
+								}
+
+								ImGui::PopID();
+							}
+
 							ImGui::Text("Debug   ");
 							ImGui::SameLine();
 							ImGui::Checkbox("##DebugMode", &GraphicsSystem::debug);
