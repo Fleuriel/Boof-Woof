@@ -52,7 +52,7 @@ public:
     int getModelID() const { return m_ModelID; }
 	std::vector<int> getTextures() const { return textures; }
     
-   // std::string getTextureName() const { return textureName; }
+    std::string getTextureName() const { return textureName; }
 
     //bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
     int getTextureNumber() const { return static_cast<int>(textures.size()); }
@@ -60,7 +60,7 @@ public:
 	bool getFollowCamera() const { return followCamera; }
 
     // Set texture name
-   // void setTexture(std::string texture) { textureName = texture; }
+    void setTexture(std::string texture) { textureName = texture; }
 
     glm::vec3 boundingBox;
 
@@ -68,7 +68,7 @@ public:
     // Constructor and destructor
 	GraphicsComponent() :hasMaterial(false){};
 	
-	GraphicsComponent(std::string modelName, Entity& entity) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity)), hasMaterial(false)
+	GraphicsComponent(std::string modelName, Entity& entity, std::string texName, bool followCam = true) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity)), textureName(texName), followCamera(followCam)
 	{/*Empty by design*/
 
         
@@ -85,6 +85,7 @@ public:
         REGISTER_PROPERTY(GraphicsComponent, ModelName, std::string, setModelName, getModelName);
         REGISTER_PROPERTY(GraphicsComponent, ModelID, int, SetModelID, getModelID);
 		REGISTER_PROPERTY(GraphicsComponent, Textures, std::vector<int>, SetTextures, getTextures);
+        REGISTER_PROPERTY(GraphicsComponent, FollowCamera, bool, SetFollowCamera, getFollowCamera);
     }
 
 
@@ -117,7 +118,7 @@ private:
     Entity m_EntityID{};
     std::string m_ModelName{};
     int m_ModelID{};
-    //std::string textureName;
+    std::string textureName;
     std::vector<int> textures{};
     bool followCamera = true;
 
