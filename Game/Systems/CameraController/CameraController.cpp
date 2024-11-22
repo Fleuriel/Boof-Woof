@@ -49,19 +49,7 @@ void CameraController::UpdateFirstPersonView(CameraComponent& camera)
 		return;
     }
 
-    glm::vec3 playerPos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
-
-    // eye offset 
-    glm::vec3 eyeOffset = glm::vec3(0.0f, 0.193f, -1.189f);
-    // calculate the rotation matrix
-    glm::mat4 rotationMatrix = glm::mat4(1.0f);
-    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(camera.Yaw + 90), glm::vec3(0.0f, -1.0f, 0.0f));
-    //rotationMatrix = glm::rotate(rotationMatrix, glm::radians(camera.Pitch), glm::vec3(-1.0f, 0.0f, 0.0f));
-
-    // calculate the new offset
-    glm::vec3 newOffset = glm::vec3(rotationMatrix * glm::vec4(eyeOffset, 1.0f));
-
-	camera.Position = playerPos + newOffset;
+    
 
     // Handle mouse input for camera rotation
     static glm::vec2 lastMousePos = glm::vec2(g_Input.GetMousePosition().x, g_Input.GetMousePosition().y);
@@ -86,6 +74,20 @@ void CameraController::UpdateFirstPersonView(CameraComponent& camera)
 
     // Apply mouse movement to the camera's yaw and pitch
     camera.ProcessMouseMovement(mouseOffset.x, mouseOffset.y);
+
+    glm::vec3 playerPos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
+
+    // eye offset 
+    glm::vec3 eyeOffset = glm::vec3(0.0f, 0.193f, -1.189f);
+    // calculate the rotation matrix
+    glm::mat4 rotationMatrix = glm::mat4(1.0f);
+    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(camera.Yaw + 90), glm::vec3(0.0f, -1.0f, 0.0f));
+    //rotationMatrix = glm::rotate(rotationMatrix, glm::radians(camera.Pitch), glm::vec3(-1.0f, 0.0f, 0.0f));
+
+    // calculate the new offset
+    glm::vec3 newOffset = glm::vec3(rotationMatrix * glm::vec4(eyeOffset, 1.0f));
+
+    camera.Position = playerPos + newOffset;
 
     // Ensure the camera's direction is updated based on its yaw and pitch
     camera.updateCameraVectors();
@@ -125,12 +127,11 @@ void CameraController::UpdateThirdPersonView(CameraComponent& camera)
     // Apply mouse sensitivity
     mouseOffset *= camera.MouseSensitivity;
 
-    // Update the camera's yaw and pitch based on mouse input
-    camera.Yaw += mouseOffset.x;       // Horizontal rotation
-    camera.Pitch -= mouseOffset.y;     // Vertical rotation (Pitch is inverted to match intuitive controls)
 
-    // Clamp the pitch to avoid flipping the camera
-    camera.Pitch = glm::clamp(camera.Pitch, -90.0f, 90.0f);
+    // Apply mouse movement to the camera's yaw and pitch
+    camera.ProcessMouseMovement(mouseOffset.x, mouseOffset.y);
+
+
     glm::vec3 playerPos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
 
     // Set fixed offset values for the third-person camera
@@ -164,7 +165,7 @@ void CameraController::UpdateThirdPersonView(CameraComponent& camera)
 
 void CameraController::UpdateShiftingView(CameraComponent& camera)
 {
-	std::cout << "Shifting dis " << moved_dis << std::endl;
+	
     moved_dis += cameraSpeed ;
 	camera.Position += cameraMove.Move_direct * cameraSpeed;
     if (moved_dis >= cameraMove.distance)
@@ -209,7 +210,6 @@ CameraMove CameraController::getfirstPersonCameraMove(CameraComponent& camera)
 	cm.distance = glm::length(cm.Move_direct);
 	cm.Move_direct = glm::normalize(cm.Move_direct);
 
-    std::cout << " move dis " << cm.distance << std::endl;
 	return cm;
 
 }
@@ -242,7 +242,6 @@ CameraMove CameraController::getThirdPersonCameraMove(CameraComponent& camera)
     cm.distance = glm::length(cm.Move_direct);
     cm.Move_direct = glm::normalize(cm.Move_direct);
 
-	std::cout << " move dis " << cm.distance << std::endl;
 
     return cm;
 }
