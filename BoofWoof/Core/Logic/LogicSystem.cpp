@@ -6,6 +6,7 @@
 #include "LogicSystem.h"
 #include "../ECS/Coordinator.hpp"
 #include "../Utilities/Components/BehaviourComponent.hpp"
+#include "../Utilities/Components/AnimationComponent.h"
 #include "../../../ScriptWoof/Compile.cpp"	
 #include "Script_to_Engine.h"
 #include <wtypes.h>
@@ -98,6 +99,8 @@ void LogicSystem::Update()
 			// Find which behaviour the entity has and run
 			mBehaviours[behaviourComponent.GetBehaviourName()]->Update(entity);
 		}
+
+
 	}
 }
 

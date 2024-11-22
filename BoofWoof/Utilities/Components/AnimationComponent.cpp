@@ -34,7 +34,21 @@ void AnimationComponent::Update(double deltaTime) {
     const auto& animation = animationManager->GetAnimation(state.activeAnimation);
     state.Update(deltaTime, animation);
 
-    // Apply transformations (interpolation logic can go here if needed)
+    // Loop through each node and apply the computed transformation
+    aiMatrix4x4 finalTransform;
+    for (const auto& channel : animation.channels) {
+        // Retrieve the current animation from the animation manager
+        const auto& animation = animationManager->GetAnimation(state.activeAnimation);
+
+        // Now call ComputeNodeTransformation on the animation
+        finalTransform = animation.ComputeNodeTransformation(channel.nodeName, state.currentTime);
+
+
+        // Now apply this transformation to the entity's node, e.g., update the entity's matrix
+        // If your entity has a corresponding node structure, apply the finalTransform matrix to it
+        // Example: entity->GetNode(channel.nodeName)->SetTransform(finalTransform);
+        
+    }
 }
 
 // Optional: Blend to a new animation
@@ -45,8 +59,8 @@ void AnimationComponent::BlendTo(const std::string& animationName, double blendD
 
 // Get the current transformation matrix
 void AnimationComponent::GetCurrentTransform(const std::string& nodeName, aiMatrix4x4& outTransform) const {
-    // Logic to calculate the transformation matrix for a specific node (e.g., skeletal bones)
-    std::cerr << "GetCurrentTransform is not implemented yet." << std::endl;
+    const auto& animation = animationManager->GetAnimation(state.activeAnimation);
+    outTransform = animation.ComputeNodeTransformation(nodeName, state.currentTime);
 }
 
 // Set an animation for a specific type

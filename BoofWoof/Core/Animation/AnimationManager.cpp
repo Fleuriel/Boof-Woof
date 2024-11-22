@@ -1,9 +1,41 @@
 #include "pch.h"
+
 #include "AnimationManager.h"
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
+#include <assimp/vector3.h>
 #include <iostream>
 #include <cmath>
+
+
+// Overload for subtraction
+inline aiVector3D operator-(const aiVector3D& lhs, const aiVector3D& rhs) {
+    return aiVector3D(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
+}
+
+// Overload for addition
+inline aiVector3D operator+(const aiVector3D& lhs, const aiVector3D& rhs) {
+    return aiVector3D(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
+}
+
+// Overload for scalar multiplication (vector * scalar)
+inline aiVector3D operator*(const aiVector3D& vec, double scalar) {
+    return aiVector3D(vec.x * scalar, vec.y * scalar, vec.z * scalar);
+}
+
+// Overload for scalar multiplication (scalar * vector)
+inline aiVector3D operator*(double scalar, const aiVector3D& vec) {
+    return aiVector3D(vec.x * scalar, vec.y * scalar, vec.z * scalar);
+}
+
+// Helper function for linear interpolation between two values
+template <typename T>
+T Lerp(const T& start, const T& end, double factor) {
+    return start + static_cast<T>(factor * (end - start));
+}
+
+
+
 
 // Animation Constructor
 Animation::Animation(const aiAnimation* assimpAnimation) {
@@ -32,6 +64,77 @@ Animation::Animation(const aiAnimation* assimpAnimation) {
         }
         channels.push_back(animationChannel);
     }
+}
+
+// Compute the transformation matrix for a given node
+aiMatrix4x4 Animation::ComputeNodeTransformation(const std::string& nodeName, double currentTime) const {
+    // Find the animation channel for the node
+    const auto it = std::find_if(channels.begin(), channels.end(),
+        [&nodeName](const AnimationChannel& channel) {
+            return channel.nodeName == nodeName;
+        });
+
+    if (it == channels.end()) {
+        // Node not found in animation, return identity matrix
+        return aiMatrix4x4();
+    }
+
+    const AnimationChannel& channel = *it;
+
+    aiVector3D interpolatedPosition(0.0f, 0.0f, 0.0f);
+    aiQuaternion interpolatedRotation(1.0f, 0.0f, 0.0f, 0.0f);
+    aiVector3D interpolatedScale(1.0f, 1.0f, 1.0f);
+
+    // Interpolate position
+    if (!channel.keyframes.empty()) {
+        for (size_t i = 0; i < channel.keyframes.size() - 1; ++i) {
+            const KeyFrame& current = channel.keyframes[i];
+            const KeyFrame& next = channel.keyframes[i + 1];
+            if (currentTime >= current.time && currentTime <= next.time) {
+                double factor = (currentTime - current.time) / (next.time - current.time);
+                interpolatedPosition = Lerp(current.position, next.position, factor);
+                break;
+            }
+        }
+    }
+
+    // Interpolate rotation
+    if (!channel.keyframes.empty()) {
+        for (size_t i = 0; i < channel.keyframes.size() - 1; ++i) {
+            const KeyFrame& current = channel.keyframes[i];
+            const KeyFrame& next = channel.keyframes[i + 1];
+            if (currentTime >= current.time && currentTime <= next.time) {
+                double factor = (currentTime - current.time) / (next.time - current.time);
+                aiQuaternion::Interpolate(interpolatedRotation, current.rotation, next.rotation, static_cast<float>(factor));
+                interpolatedRotation.Normalize();
+                break;
+            }
+        }
+    }
+
+    // Interpolate scale
+    if (!channel.keyframes.empty()) {
+        for (size_t i = 0; i < channel.keyframes.size() - 1; ++i) {
+            const KeyFrame& current = channel.keyframes[i];
+            const KeyFrame& next = channel.keyframes[i + 1];
+            if (currentTime >= current.time && currentTime <= next.time) {
+                double factor = (currentTime - current.time) / (next.time - current.time);
+                interpolatedScale = Lerp(current.scale, next.scale, factor);
+                break;
+            }
+        }
+    }
+
+    // Construct transformation matrix
+    aiMatrix4x4 translationMatrix;
+    aiMatrix4x4::Translation(interpolatedPosition, translationMatrix);
+
+    aiMatrix4x4 rotationMatrix = aiMatrix4x4(interpolatedRotation.GetMatrix());
+
+    aiMatrix4x4 scaleMatrix;
+    aiMatrix4x4::Scaling(interpolatedScale, scaleMatrix);
+
+    return translationMatrix * rotationMatrix * scaleMatrix;
 }
 
 // EntityAnimationState Update Function
@@ -68,52 +171,14 @@ void AnimationManager::LoadAnimations(const std::string& filePath) {
 
     for (unsigned int i = 0; i < scene->mNumAnimations; ++i) {
         aiAnimation* anim = scene->mAnimations[i];
-        double ticksPerSecond = anim->mTicksPerSecond != 0 ? anim->mTicksPerSecond : 25.0;
-        double duration = anim->mDuration;
+        Animation animation(anim);
 
-        unsigned int segmentIndex = 0;
-        for (double startTick = 0; startTick < duration; startTick += 70) { // 60-tick animations + 10-tick gap
-            double endTick = std::min(startTick + 60, duration);
+        animation.name = baseName + "_" + std::to_string(i);
+        animations[animation.name] = animation;
+        animationNames.push_back(animation.name);
 
-            Animation segmentAnimation;
-            segmentAnimation.name = baseName + "_" + std::to_string(segmentIndex++);
-            segmentAnimation.duration = endTick - startTick;
-            segmentAnimation.ticksPerSecond = ticksPerSecond;
-
-            for (unsigned int j = 0; j < anim->mNumChannels; ++j) {
-                const aiNodeAnim* channel = anim->mChannels[j];
-                AnimationChannel segmentChannel;
-                segmentChannel.nodeName = channel->mNodeName.C_Str();
-
-                for (unsigned int k = 0; k < channel->mNumPositionKeys; ++k) {
-                    if (channel->mPositionKeys[k].mTime >= startTick && channel->mPositionKeys[k].mTime <= endTick) {
-                        KeyFrame keyframe;
-                        keyframe.time = channel->mPositionKeys[k].mTime - startTick;
-                        keyframe.position = channel->mPositionKeys[k].mValue;
-
-                        if (k < channel->mNumRotationKeys) {
-                            keyframe.rotation = channel->mRotationKeys[k].mValue;
-                        }
-                        if (k < channel->mNumScalingKeys) {
-                            keyframe.scale = channel->mScalingKeys[k].mValue;
-                        }
-                        segmentChannel.keyframes.push_back(keyframe);
-                    }
-                }
-                segmentAnimation.channels.push_back(segmentChannel);
-            }
-
-            animations[segmentAnimation.name] = segmentAnimation;
-
-            animationNames.push_back(segmentAnimation.name);
-
-            // Debug output
-            std::cout << "Created animation segment: " << segmentAnimation.name << std::endl;
-            std::cout << "  Start Tick: " << startTick << std::endl;
-            std::cout << "  End Tick: " << endTick << std::endl;
-            std::cout << "  Duration: " << segmentAnimation.duration << " ticks ("
-                << segmentAnimation.duration / ticksPerSecond << " seconds)" << std::endl;
-        }
+        // Debug output
+        std::cout << "Loaded animation: " << animation.name << std::endl;
     }
 }
 

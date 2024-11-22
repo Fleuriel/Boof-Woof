@@ -33,6 +33,9 @@ public:
 
     // Constructor to initialize from Assimp animation
     Animation(const aiAnimation* assimpAnimation);
+
+    // Computes the transformation matrix for a given node at the current time
+    aiMatrix4x4 ComputeNodeTransformation(const std::string& nodeName, double currentTime) const;
 };
 
 // Enum for animation types
@@ -83,13 +86,12 @@ public:
     // Get the index of an animation by its name
     int GetAnimationIndex(const std::string& animationName) const;
 
-    std::vector<std::string> animationNames;							//Container to store animation file names
+    std::vector<std::string> animationNames; // Container to store animation file names
 
 private:
     std::unordered_map<std::string, Animation> animations;              // All loaded animations
     std::unordered_map<std::string, EntityAnimationState> entityStates; // Entity-specific states
 };
-
 
 extern AnimationManager g_AnimationManager;
 #endif // ANIMATION_MANAGER_H
