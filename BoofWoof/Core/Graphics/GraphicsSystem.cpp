@@ -151,6 +151,16 @@ void GraphicsSystem::UpdateLoop() {
 
 	//check camera active
 	camera_render = camera;
+	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
+	{
+		if (g_Coordinator.HaveComponent<CameraComponent>(entity)) {
+			auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
+			if (cameraComp.GetCameraActive()) {
+				camera_render = cameraComp;
+			}
+		}
+	}
+	
 	shdrParam.View = camera_render.GetViewMatrix();
 	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
 
@@ -158,14 +168,14 @@ void GraphicsSystem::UpdateLoop() {
 
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
-	{
+	{/*
 		if (g_Coordinator.HaveComponent<CameraComponent>(entity)) {
 			auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
 			if (cameraComp.GetCameraActive()) {
 				camera_render = cameraComp;
-				break;
+				std::cout << "Camera Active\n";
 			}
-		}
+		}*/
 
 		if (!g_Coordinator.HaveComponent<TransformComponent>(entity))
 		{
