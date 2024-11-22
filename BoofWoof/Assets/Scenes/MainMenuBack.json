@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "7a05cdb8-6a5b-4386-bb77-c8faf98382ab",
+    "SceneGUID": "ad262ffc-8862-42b1-9dc1-80ba8096d7b5",
     "Entities": [
         {
             "MetadataComponent": {
@@ -27,6 +27,16 @@
                 "ModelName": "FloorCastle",
                 "Texture": "FloorCastle",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.15000000596046449,
+                    "z": 4.199999809265137
+                }
             }
         },
         {
@@ -55,6 +65,16 @@
                 "ModelName": "FloorCastle",
                 "Texture": "FloorCastle",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.15000000596046449,
+                    "z": 4.199999809265137
+                }
             }
         },
         {
@@ -83,6 +103,16 @@
                 "ModelName": "FloorCastle",
                 "Texture": "FloorCastle",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.15000000596046449,
+                    "z": 4.199999809265137
+                }
             }
         },
         {
@@ -111,6 +141,16 @@
                 "ModelName": "FloorCastle",
                 "Texture": "FloorCastle",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.15000000596046449,
+                    "z": 4.199999809265137
+                }
             }
         },
         {
@@ -141,7 +181,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -172,7 +219,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -203,7 +257,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -234,7 +295,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -265,7 +333,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -296,7 +371,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -327,7 +409,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.5,
+                    "y": 1.7999999523162842,
+                    "z": 2.0
+                }
             }
         },
         {
@@ -337,9 +426,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.1291111707687379,
-                    "y": 0.800000011920929,
-                    "z": 3.2964460849761965
+                    "x": -0.9300000071525574,
+                    "y": 0.8629999756813049,
+                    "z": 2.559999942779541
                 },
                 "Scale": {
                     "x": 0.4000000059604645,
@@ -358,7 +447,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.100000023841858,
+                    "y": 1.7999999523162842,
+                    "z": 2.9000000953674318
+                }
             }
         },
         {
@@ -389,7 +485,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.5,
+                    "y": 0.6000000238418579,
+                    "z": 1.0
+                }
             }
         },
         {
@@ -420,7 +523,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
             }
         },
         {
@@ -451,7 +561,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 2.0
+                }
             }
         },
         {
@@ -482,7 +599,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                }
             }
         },
         {
@@ -513,7 +637,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -544,7 +675,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -575,7 +713,14 @@
                 "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
