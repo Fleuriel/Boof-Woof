@@ -215,6 +215,7 @@ xcopy /y /d "$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win6
     <ClCompile Include="..\lib\imgui\inc\imgui_impl_opengl3.cpp" />
     <ClCompile Include="..\lib\imgui\inc\imgui_tables.cpp" />
     <ClCompile Include="..\lib\imgui\inc\imgui_widgets.cpp" />
+    <ClCompile Include="DLL_Support.cpp" />
     <ClCompile Include="EditorMain.cpp" />
     <ClCompile Include="ImGuiEditor.cpp" />
   </ItemGroup>
@@ -232,6 +233,7 @@ xcopy /y /d "$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win6
     <ClInclude Include="..\lib\imgui\inc\imstb_rectpack.h" />
     <ClInclude Include="..\lib\imgui\inc\imstb_textedit.h" />
     <ClInclude Include="..\lib\imgui\inc\imstb_truetype.h" />
+    <ClInclude Include="DLL_Support.h" />
     <ClInclude Include="ImGuiEditor.h" />
     <ClInclude Include="UndoRedoManager.hpp" />
   </ItemGroup>

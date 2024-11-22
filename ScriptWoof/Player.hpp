@@ -40,7 +40,6 @@ struct Player final : public Behaviour
 		}
 		//std::cout << "Player Update" << std::endl;
 		//std::cout << "It works" << std::endl;
-		// does this work?
 	}
 
 	virtual const char* getBehaviourName() override
