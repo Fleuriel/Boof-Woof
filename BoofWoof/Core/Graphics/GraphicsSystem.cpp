@@ -365,14 +365,6 @@ void GraphicsSystem::UpdateLoop() {
 
 		// SET ALL SAME TEX...
 //				set_Texture_T = GraphicsSystem::set_Texture_;
-
-
-
-		g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
-		//shader.SetUniform("")
-
-
-
 		if (graphicsComp.getTextureNumber() == 0)
 		{
 			glBindTextureUnit(6, 0);
@@ -380,6 +372,16 @@ void GraphicsSystem::UpdateLoop() {
 		}
 		else
 			glBindTextureUnit(6, graphicsComp.getTexture(0));
+
+		g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader("Shader2D"));
+
+		g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
+		//shader.SetUniform("")
+		g_AssetManager.GetShader("Shader2D").UnUse();
+
+
+
+
 		//glBindTextureUnit(6, set_Texture_T);
 
 		g_AssetManager.GetShader("OutlineAndFont").Use();
@@ -418,10 +420,7 @@ void GraphicsSystem::UpdateLoop() {
 		//g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
 //				g_ResourceManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
 
-		g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader("Shader2D"));
-
-		g_AssetManager.GetShader("Shader2D").UnUse();
-
+		
 	}
 
 

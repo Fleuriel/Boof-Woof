@@ -2140,7 +2140,10 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::Text("Shininess %.2f", material.GetShininess());
 
 
+//								ImGui::Text("Shininess %.2f", );
 
+
+								ImGui::Text("%s", graphicsComponent.getTextureName().c_str());
 
 
 							}
