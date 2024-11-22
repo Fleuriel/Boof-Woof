@@ -20,6 +20,8 @@ in vec3 fragWorldPos;
 in vec4 fragColor; // Diffuse color of the material
 in float fragMetallic; // Metallic factor
 in float fragRoughness; // Roughness factor
+in vec2 fragTexCoord;                   // Interpolated texture coordinates from vertex shader
+
 
 uniform vec3 inputLight; // Light source position
 uniform vec3 viewPos; // Camera position
@@ -80,8 +82,12 @@ void main() {
 
     // Blend the texture with the color
     if (useTexture) {
-        vec4 texColor = texture(albedoTexture, fragWorldPos.xy); // UV mapping required here
-        baseColor = mix(baseColor, texColor.rgb, texColor.a); // Blend using alpha
+        vec4 texColor = texture(albedoTexture, fragTexCoord);
+        baseColor = fragColor.rgb * texColor.rgb; // Multiply the color and texture
+
+        //vec4 texColor = texture(albedoTexture, fragTexCoord);
+        //float blendFactor = 0.5; // Example blend factor, can be uniform or derived
+        //baseColor = mix(fragColor.rgb, texColor.rgb, blendFactor);
     }
 
     vec3 diffuse = (1.0 - F) * (1.0 - fragMetallic) * baseColor / PI;

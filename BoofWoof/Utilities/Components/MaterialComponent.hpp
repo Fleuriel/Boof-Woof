@@ -44,9 +44,20 @@ public:
     void SetBlue(float b) { materialDesc.albedoColorBlue = b; }
     void SetAlpha(float a) { materialDesc.albedoColorAlpha = a; }
 
-    void SetTexture(int tex) { materialDesc.textureID = tex; }
-    
+    void SetDiffuseID(int tex) { materialDesc.DiffuseID = tex; }
+    void SetNormalID(int norm) { materialDesc.NormalID = norm; }
+    void SetHeightID(int height) { materialDesc.HeightID = height; }
+
+    void SetDiffuseName(std::string Name) { materialDesc.textureDiffuse = Name; }
+    void SetNomralName(std::string Name) { materialDesc.textureNormal = Name; }
+    void SetHeightName(std::string Name) { materialDesc.textureHeight = Name; }
+
+
+
     MaterialDescriptor GetMaterial() { return materialDesc; }
+
+
+
 
 
     bool loadedMaterial = false;

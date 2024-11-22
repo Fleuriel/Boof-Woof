@@ -14,6 +14,9 @@
 #ifndef DESCRIPTOR_H
 #define DESCRIPTOR_H
 
+#include <string>
+
+
 
 struct TextureDescriptor {
 
@@ -66,11 +69,20 @@ struct MaterialDescriptor
 
     int materialAlpha;          // Select Albedo Stuffs.
 
-    int textureID;
+    int DiffuseID;
+    int NormalID;
+    int HeightID;
+
+    std::string textureDiffuse;
+    std::string textureNormal;
+    std::string textureHeight;
+
+
 
 
     MaterialDescriptor() : shaderIndex(-1), albedoColorRed(0), albedoColorGreen(0), albedoColorBlue(0), albedoColorAlpha(0),
-        metallic(0), smoothness(0), materialAlpha(0), shaderChosen("nothing"), textureID(-1){}
+        metallic(0), smoothness(0), materialAlpha(0), shaderChosen("nothing"), DiffuseID(-1), NormalID(-1), HeightID(-1), textureDiffuse("NothingTexture"),
+        textureNormal("NothingNormal"), textureHeight("NothingHeight"){ }
 
 
     // Save the current descriptor to a file

@@ -212,7 +212,7 @@ void GraphicsSystem::UpdateLoop() {
 		shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
 
 		
-		std::cout << graphicsComp.material.materialDesc.shaderChosen << '\n';
+		// std::cout << graphicsComp.material.materialDesc.shaderChosen << '\n';
 
 
 		//g_AssetManager.GetShader("Shader3D").Use();
@@ -308,19 +308,24 @@ void GraphicsSystem::UpdateLoop() {
 		g_AssetManager.GetShader(shaderName).Use();
 
 		SetShaderUniforms(g_AssetManager.GetShader(shaderName), shdrParam);
-		g_AssetManager.GetShader(shaderName).SetUniform("inputColor", glm::vec4(shader.albedoColorRed, shader.albedoColorGreen, shader.albedoColorBlue, shader.albedoColorAlpha));
-		g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
-								 
-		g_AssetManager.GetShader(shaderName).SetUniform("viewPos", camera.GetViewMatrix());
-		g_AssetManager.GetShader(shaderName).SetUniform("metallic", shader.metallic);
-		g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.smoothness);
-		
+
+
+		if (shaderName == "Material")
+		{
+			g_AssetManager.GetShader(shaderName).SetUniform("inputColor", glm::vec4(shader.albedoColorRed, shader.albedoColorGreen, shader.albedoColorBlue, shader.albedoColorAlpha));
+			g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
+
+			g_AssetManager.GetShader(shaderName).SetUniform("viewPos", camera.GetViewMatrix());
+			g_AssetManager.GetShader(shaderName).SetUniform("metallic", shader.metallic);
+			g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.smoothness);
+		}
+
 
 
 		// Check if a texture is set, and bind it
-		if (shader.textureID >= 0) { // Assuming textureID is -1 if no texture
+		if (shader.DiffuseID >= 0) { // Assuming textureID is -1 if no texture
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, shader.textureID);
+			glBindTexture(GL_TEXTURE_2D, shader.DiffuseID);
 			g_AssetManager.GetShader(shaderName).SetUniform("albedoTexture", 0);
 			g_AssetManager.GetShader(shaderName).SetUniform("useTexture", true);
 		}
@@ -328,7 +333,8 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader(shaderName).SetUniform("useTexture", false);
 		}
 
-		std::cout << graphicsComp.getModelName() << '\n';
+		//std::cout << graphicsComp.getModelName() << '\n';
+
 
 
 		Model* Model = g_ResourceManager.getModel(graphicsComp.getModelName());
@@ -500,6 +506,7 @@ void GraphicsSystem::DrawObject(GraphicsComponent& component)
 void GraphicsSystem::SetShaderUniforms(OpenGLShader& shader, const ShaderParams& shdrParams)
 {
 	shader.SetUniform("vertexTransform", shdrParams.WorldMatrix);
+	//shader.SetUniform("model", shdrParams.WorldMatrix);
 	shader.SetUniform("view", shdrParams.View);
 	shader.SetUniform("projection", shdrParams.Projection);
 }

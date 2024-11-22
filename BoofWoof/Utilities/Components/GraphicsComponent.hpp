@@ -63,8 +63,6 @@ public:
     void setTexture(std::string texture) { textureName = texture; }
 
 
-    void setTextureMaterial(int texture) { material.SetTexture(texture); }
-
     // Constructor and destructor
 	GraphicsComponent(){};
 	
@@ -90,9 +88,7 @@ public:
 
     MaterialComponent material; // MaterialComponent is optional
 
-    void AddMaterial(const MaterialComponent& newMaterial) {
-        material = newMaterial;
-    }
+
 
 
 

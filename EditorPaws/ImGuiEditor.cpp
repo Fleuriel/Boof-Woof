@@ -2209,6 +2209,11 @@ void ImGuiEditor::InspectorWindow()
 												int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
 												graphicsComponent.AddTexture(textureId);
 												graphicsComponent.setTexture(selectedFile);
+												material.SetDiffuseID(textureId);
+												material.SetDiffuseName(selectedFile);
+
+
+												std::cout << "Testing PLS WROK\t" << material.materialDesc.DiffuseID << '\t' << material.materialDesc.textureDiffuse << '\n';
 
 
 
@@ -2493,6 +2498,7 @@ void ImGuiEditor::InspectorWindow()
 									glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
 
 
+
 									g_AssetManager.GetShader("Material").SetUniform("vertexTransform", glm::mat4(1.0f)); // Identity matrix for no transformation
 									g_AssetManager.GetShader("Material").SetUniform("view", view);
 									g_AssetManager.GetShader("Material").SetUniform("projection", projection);
@@ -2503,6 +2509,21 @@ void ImGuiEditor::InspectorWindow()
 									g_AssetManager.GetShader("Material").SetUniform("metallic", MetallicMatValue);
 									g_AssetManager.GetShader("Material").SetUniform("smoothness", SmoothnessValue);
 									//				g_AssetManager.GetShader("Material").SetUniform("shininess", shininessValue);  // Shininess value
+											// Check if a texture is set, and bind it
+									
+									
+									if (graphicsComponent.material.materialDesc.DiffuseID >= 0) { // Assuming textureID is -1 if no texture
+										glActiveTexture(GL_TEXTURE0);
+										glBindTexture(GL_TEXTURE_2D, graphicsComponent.material.materialDesc.DiffuseID);
+										g_AssetManager.GetShader("Material").SetUniform("albedoTexture", 0);
+										g_AssetManager.GetShader("Material").SetUniform("useTexture", true);
+									}
+									else {
+										g_AssetManager.GetShader("Material").SetUniform("useTexture", false);
+									}
+
+									g_AssetManager.GetShader("Material").SetUniform("albedoTexture", 0);
+
 
 
 									Model* sphereModel = g_ResourceManager.getModel("sphere");
