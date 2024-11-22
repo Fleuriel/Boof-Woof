@@ -99,7 +99,7 @@ void BoneCatcher::Stop(double deltaTime)
 	if (m_ShouldDestroy)
 	{
 		m_DestroyTimer -= static_cast<float>(deltaTime); // decreasing timer based on deltatime
-		std::cout << m_DestroyTimer << std::endl;
+		// std::cout << m_DestroyTimer << std::endl;
 		if (m_DestroyTimer <= 0.0f)
 		{
 			ClearBoneCatcher();

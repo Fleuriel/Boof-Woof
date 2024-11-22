@@ -4,15 +4,17 @@
 #include "ECS/Coordinator.hpp"
 #include "../Systems/CameraController/CameraController.h"
 #include "../Systems/BoneCatcher/BoneCatcher.h"
+#include "../Systems/RopeBreaker/RopeBreaker.h"
 
-Entity playerEnt{};
+Entity playerEnt{}, RopeEnt{};
 CameraController* cameraController = nullptr;
+RopeBreaker* ropeBreaker = nullptr;
 
 class Level1 : public Level
 {
 	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/TestScene.json");		
+		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");		
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -22,7 +24,12 @@ class Level1 : public Level
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Player")
 				{
-					playerEnt = entity;
+					playerEnt = entity;					
+				}
+
+				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope")
+				{
+					RopeEnt = entity;
 					break;
 				}
 			}
@@ -36,8 +43,10 @@ class Level1 : public Level
 			// Ensure player entity is valid
 			cameraController = new CameraController(playerEnt);
 
-			// If collide with rope then load
-			// g_BoneCatcher.OnInitialize();
+			if (RopeEnt != Entity{}) 
+			{
+				ropeBreaker = new RopeBreaker(playerEnt, RopeEnt);
+			}
 		}
 	}
 
@@ -45,7 +54,12 @@ class Level1 : public Level
 	{
 		cameraController->Update(static_cast<float>(deltaTime));
 
-		// g_BoneCatcher.OnUpdate(deltaTime);
+
+		if (ropeBreaker)
+		{
+			ropeBreaker->OnUpdate(deltaTime);
+		}
+		
 
 		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
 		{
@@ -66,6 +80,12 @@ class Level1 : public Level
 		{
 			delete cameraController;
 			cameraController = nullptr;
+		}
+
+		if (ropeBreaker) 
+		{
+			delete ropeBreaker;
+			ropeBreaker = nullptr;
 		}
 	}
 
