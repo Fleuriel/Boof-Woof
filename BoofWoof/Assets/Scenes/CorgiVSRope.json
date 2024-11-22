@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "da75d26f-eec9-423a-9b0d-c3367ad9fd50",
+    "SceneGUID": "e34436d6-8771-4e38-b4e7-0e41b3dbc33c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -46,9 +46,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.180646538734436,
-                    "y": 1.0481756925582886,
-                    "z": 0.08314288407564163
+                    "x": -1.1806460618972779,
+                    "y": 1.048175573348999,
+                    "z": 0.08314462006092072
                 },
                 "Scale": {
                     "x": 0.5,
@@ -135,7 +135,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Rope",
+                "EntityName": "Rope1",
                 "EntityID": 3
             },
             "TransformComponent": {
@@ -165,9 +165,47 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 0.10000000149011612,
-                    "y": 2.4000000953674318,
-                    "z": 2.950000047683716
+                    "x": 0.15000000596046449,
+                    "y": 2.3499999046325685,
+                    "z": 2.1500000953674318
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Rope2",
+                "EntityID": 4
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 8.899999618530274,
+                    "y": 2.9000000953674318,
+                    "z": 2.5999999046325685
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -1.5700000524520875,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "RopeDrawbridge",
+                "Texture": "RopeDrawbridge",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.15000000596046449,
+                    "y": 2.3499999046325685,
+                    "z": 2.1500000953674318
                 }
             }
         }

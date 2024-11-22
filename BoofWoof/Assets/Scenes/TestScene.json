@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "fa61d515-9ab8-482f-88ab-0b4bccb4f980",
+    "SceneGUID": "482064ca-89a3-4447-8c49-f98719b9d8d9",
     "Entities": [
         {
             "MetadataComponent": {
@@ -1794,7 +1794,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.00023923184198793024,
+                    "x": -0.00023873143072705716,
                     "y": -2.150000810623169,
                     "z": 4.207273006439209
                 },
@@ -1959,14 +1959,14 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Rope",
+                "EntityName": "Rope1",
                 "EntityID": 51
             },
             "TransformComponent": {
                 "Position": {
                     "x": 10.899999618530274,
                     "y": -0.6499999761581421,
-                    "z": 0.0
+                    "z": -1.25
                 },
                 "Scale": {
                     "x": 1.0,
@@ -2143,6 +2143,34 @@
                     "y": 0.4000000059604645,
                     "z": 2.0
                 }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Rope2",
+                "EntityID": 57
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 10.899999618530274,
+                    "y": -0.6499999761581421,
+                    "z": 1.25
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -1.5700000524520875,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "RopeDrawbridge",
+                "Texture": "RopeDrawbridge",
+                "FollowCamera": true
             }
         }
     ]
