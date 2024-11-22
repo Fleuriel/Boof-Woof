@@ -19,7 +19,7 @@ bool GraphicsSystem::glewInitialized = false;
 
 bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
-bool GraphicsSystem::lightOn = true;
+bool GraphicsSystem::lightOn = false;
 
 CameraComponent GraphicsSystem::camera;
 CameraComponent camera_render;
@@ -367,11 +367,16 @@ void GraphicsSystem::UpdateLoop() {
 				// END OF 3D
 
 
-		g_AssetManager.GetShader("Shader2D").Use();
+				g_AssetManager.GetShader("Shader2D").Use();
+				if (graphicsComp.getFollowCamera()) {
+					SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
+				}
+				else {
+					g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+					g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
+					g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
 
-		SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
-		//shader.Use();
-
+				}
 
 
 		//tex = g_ResourceManager.GetTextureDDS("Sadge");

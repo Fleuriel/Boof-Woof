@@ -1,0 +1,5 @@
+Texture Name : DogHead
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\DogHead.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\DogHead.dds
+Compression Format : -fd BC3
