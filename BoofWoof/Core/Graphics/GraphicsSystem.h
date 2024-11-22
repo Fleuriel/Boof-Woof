@@ -51,7 +51,6 @@ public:
     int set_Texture_T;
     static int set_Texture_;
 
-    std::unordered_map<uint32_t, glm::vec3> bodyInitialHalfExtents;
 
     std::string textureNameInput;
 

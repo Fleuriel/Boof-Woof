@@ -105,7 +105,7 @@ public:
     }
 
 
-    void drawOBB(const glm::vec3& position, const glm::vec3& rotationRadians, const glm::vec3& halfextents) {
+    void drawOBB(const glm::vec3& position, const glm::vec3& rotationRadians, const glm::vec3& halfextents, glm::vec3 color = glm::vec3(1.0f,0.0f,0.0f), float lineWidth = 2.0f) {
 
         // Create transformation matrix
         glm::mat4 transform = glm::mat4(1.0f);
@@ -118,25 +118,28 @@ public:
         // Apply translation to position
         transform = glm::translate(transform, position);
 
-        // Vertices of the OBB in its local space
-        glm::vec3 obbVertices[8]{
-            // Front face
-            glm::vec3(halfextents.x, halfextents.y, halfextents.z),
-            glm::vec3(-halfextents.x, halfextents.y, halfextents.z),
-            glm::vec3(-halfextents.x, -halfextents.y, halfextents.z),
-            glm::vec3(halfextents.x, -halfextents.y, halfextents.z),
-            // Back face
-            glm::vec3(halfextents.x, halfextents.y, -halfextents.z),
-            glm::vec3(-halfextents.x, halfextents.y, -halfextents.z),
-            glm::vec3(-halfextents.x, -halfextents.y, -halfextents.z),
-            glm::vec3(halfextents.x, -halfextents.y, -halfextents.z)
+        // Vertices of the OBB in its local space, now with color
+        struct Vertex {
+            glm::vec3 position;
+            glm::vec3 color;
         };
 
-        // Apply rotation to half-extents for proper bounding box orientation
+        Vertex obbVertices[8] = {
+            {glm::vec3(halfextents.x, halfextents.y, halfextents.z), color},
+            {glm::vec3(-halfextents.x, halfextents.y, halfextents.z), color},
+            {glm::vec3(-halfextents.x, -halfextents.y, halfextents.z), color},
+            {glm::vec3(halfextents.x, -halfextents.y, halfextents.z), color},
+            {glm::vec3(halfextents.x, halfextents.y, -halfextents.z), color},
+            {glm::vec3(-halfextents.x, halfextents.y, -halfextents.z), color},
+            {glm::vec3(-halfextents.x, -halfextents.y, -halfextents.z), color},
+            {glm::vec3(halfextents.x, -halfextents.y, -halfextents.z), color}
+        };
+
+        // Apply rotation to each vertex position
         glm::mat3 rotationMatrix = glm::mat3(transform); // Extract rotation part from the transform matrix
 
         for (auto& vertex : obbVertices) {
-            vertex = glm::vec3(rotationMatrix * vertex);  // Apply rotation to each vertex
+            vertex.position = glm::vec3(rotationMatrix * vertex.position);  // Apply rotation to each vertex
         }
 
         // Indices for drawing lines (connect vertices to form edges of the box)
@@ -163,10 +166,15 @@ public:
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
         // Position attribute
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
         glEnableVertexAttribArray(0);
 
-        // Set color to white
+        // Color attribute
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
+        glEnableVertexAttribArray(1);
+
+
+        glLineWidth(lineWidth);  // Set line width to make the AABB more visible
         glColor3f(1.0f, 1.0f, 1.0f);
 
         // Draw the OBB as a wireframe
