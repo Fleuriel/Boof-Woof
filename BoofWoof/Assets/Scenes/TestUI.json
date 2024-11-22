@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "a3c5a541-64fb-44fb-8f83-7557d85a7915",
+    "SceneGUID": "460ce230-6e4b-430a-a2a3-3d71b42e2054",
     "Entities": [
         {
             "MetadataComponent": {
@@ -25,7 +25,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -52,7 +53,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -79,7 +81,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -106,7 +109,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -133,7 +137,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -163,7 +168,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -193,7 +199,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -223,7 +230,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -253,7 +261,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -283,7 +292,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -313,7 +323,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Bed2",
-                "Texture": "Bed2"
+                "Texture": "Bed2",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -326,9 +337,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.800000011920929,
+                    "x": -1.1291111707687379,
                     "y": 0.800000011920929,
-                    "z": 4.400000095367432
+                    "z": 3.2964460849761965
                 },
                 "Scale": {
                     "x": 0.4000000059604645,
@@ -343,10 +354,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Corgi2",
-                "Texture": "Corgi2"
-            },
-            "BehaviourComponent": {
-                "BehaviourName": "Player"
+                "Texture": "Corgi2",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -376,7 +385,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Couch",
-                "Texture": "Couch"
+                "Texture": "Couch",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -406,7 +416,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Wardrobe2",
-                "Texture": "Wardrobe2"
+                "Texture": "Wardrobe2",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -436,7 +447,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Table",
-                "Texture": "Table"
+                "Texture": "Table",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
@@ -466,10 +478,198 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2"
+                "Texture": "Chair2",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wall7",
+                "EntityID": 16
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -1.4500000476837159,
+                    "y": 3.0999999046325685,
+                    "z": 7.900000095367432
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wall8",
+                "EntityID": 17
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 6.25,
+                    "y": 3.0999999046325685,
+                    "z": 7.900000095367432
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Door",
+                "EntityID": 18
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 2.299999952316284,
+                    "y": 3.0999999046325685,
+                    "z": 7.900000095367432
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoor",
+                "Texture": "WallDoor",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BackCamera",
+                "EntityID": 19
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 6.0,
+                    "y": 16.600000381469728,
+                    "z": -7.800000190734863
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "CameraComponent": {
+                "Position": {
+                    "x": 3.0,
+                    "y": 7.900000095367432,
+                    "z": 4.699999809265137
+                },
+                "Yaw": -90.0,
+                "Pitch": -55.0,
+                "Up": {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                "Active": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Title",
+                "EntityID": 20
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 3.0,
+                    "y": 4.099999904632568,
+                    "z": 1.0
+                },
+                "Scale": {
+                    "x": 6.0,
+                    "y": 2.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "PawsieAdventure",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "SpaceToStart",
+                "EntityID": 21
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 2.799999952316284,
+                    "y": 3.700000047683716,
+                    "z": 2.700000047683716
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "SpaceToStart",
+                "FollowCamera": false
             }
         }
     ]

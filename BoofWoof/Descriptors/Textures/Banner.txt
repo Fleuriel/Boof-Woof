@@ -1,0 +1,5 @@
+Texture Name : Banner
+Texture File Path : ..\BoofWoof\Assets\Art\Textures\Banner.png
+Resource GUID : 
+Resource File Path : ..\BoofWoof\Resources\Textures\Banner.dds
+Compression Format : -fd BC3
