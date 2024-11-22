@@ -1,4 +1,5 @@
 #include "BoneCatcher.h"
+#include "../RopeBreaker/RopeBreaker.h"
 
 BoneCatcher g_BoneCatcher;
 Serialization serial;
@@ -105,6 +106,17 @@ void BoneCatcher::Stop(double deltaTime)
 			ClearBoneCatcher();
 			m_ShouldDestroy = false; // reset
 			m_HitCount = 0;
+
+			if (g_RopeBreaker.RopeCount != 0) 
+			{
+				g_RopeBreaker.RopeCount -= 1;
+
+				if (g_RopeBreaker.PlayerCollidedRope1) g_RopeBreaker.PlayerCollidedRope1 = false;
+				if (g_RopeBreaker.PlayerCollidedRope2) g_RopeBreaker.PlayerCollidedRope2 = false;			
+
+				// Despawn the rope
+				g_RopeBreaker.DespawnRope();
+			}
 		}
 	}
 }

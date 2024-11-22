@@ -8,7 +8,6 @@
 
 Entity playerEnt{}, RopeEnt{};
 CameraController* cameraController = nullptr;
-RopeBreaker* ropeBreaker = nullptr;
 
 class Level1 : public Level
 {
@@ -45,7 +44,7 @@ class Level1 : public Level
 
 			if (RopeEnt != Entity{}) 
 			{
-				ropeBreaker = new RopeBreaker(playerEnt, RopeEnt);
+				g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt);
 			}
 		}
 	}
@@ -54,12 +53,7 @@ class Level1 : public Level
 	{
 		cameraController->Update(static_cast<float>(deltaTime));
 
-
-		if (ropeBreaker)
-		{
-			ropeBreaker->OnUpdate(deltaTime);
-		}
-		
+		g_RopeBreaker.OnUpdate(deltaTime);	
 
 		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
 		{
@@ -71,7 +65,6 @@ class Level1 : public Level
 		{
 			g_LevelManager.SetNextLevel("MainMenu");
 		}
-
 	}
 
 	void FreeLevel()
@@ -80,12 +73,6 @@ class Level1 : public Level
 		{
 			delete cameraController;
 			cameraController = nullptr;
-		}
-
-		if (ropeBreaker) 
-		{
-			delete ropeBreaker;
-			ropeBreaker = nullptr;
 		}
 	}
 
