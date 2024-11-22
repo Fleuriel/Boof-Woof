@@ -56,7 +56,7 @@ public:
 
     void DrawCollisionBox2D(Model outlineModel);
 
-    void DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color) const;
+    void DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color, float lineWidth = 1.0f) const;
 
 
         // draws the model, and thus all its meshes

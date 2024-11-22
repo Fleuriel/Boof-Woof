@@ -487,7 +487,7 @@ void Model::DrawCollisionBox2D(Model outlineModel)
 
 
 
-void Model::DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color) const
+void Model::DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color, float lineWidth) const
 {
 	// Bind the VAO for the outline model
 
@@ -497,7 +497,7 @@ void Model::DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::v
 	glBindVertexArray(AABBOutline.vaoid);
 	//	std::cout << outlineModel.vaoid << '\n';
 
-	glLineWidth(1.0f);
+	glLineWidth(lineWidth);
 
 	// Draw the square outline
 	glDrawElements(AABBOutline.primitive_type, AABBOutline.draw_cnt, GL_UNSIGNED_SHORT, 0);
