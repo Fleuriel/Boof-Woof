@@ -1758,16 +1758,52 @@ void ImGuiEditor::InspectorWindow()
 
 									// AABB Size Editor
 									graphicsComponent.boundingBox  = collisionComponent.GetAABBSize();
-									if (ImGui::DragFloat3("AABB Size", &graphicsComponent.boundingBox.x, 0.05f, 0.1f, 10.0f, "%.2f")) {
-										// Update AABB size in the CollisionComponent
-										collisionComponent.SetAABBSize(graphicsComponent.boundingBox);
+									
+									// Retrieve the scale from the TransformComponent
+									if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) {
+										auto& transformComponent = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+										glm::vec3 scale = transformComponent.GetScale();
 
-										// Update the physics body in real time
-										g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+										// Compute the effective AABB by scaling the bounding box
+										glm::vec3 effectiveAABB = graphicsComponent.boundingBox * scale;
+
+										// Set a minimum size to prevent crashes
+										glm::vec3 minAABBSize(0.1f, 0.1f, 0.1f); // Minimum size for AABB
+										if (ImGui::DragFloat3("Unscaled AABB Size", &graphicsComponent.boundingBox.x, 0.05f, 0.1f, 10.0f, "%.2f")) {
+											// Clamp the values to prevent zero or invalid sizes
+											graphicsComponent.boundingBox.x = glm::max(graphicsComponent.boundingBox.x, minAABBSize.x);
+											graphicsComponent.boundingBox.y = glm::max(graphicsComponent.boundingBox.y, minAABBSize.y);
+											graphicsComponent.boundingBox.z = glm::max(graphicsComponent.boundingBox.z, minAABBSize.z);
+
+											// Update AABB size in the CollisionComponent
+											collisionComponent.SetAABBSize(graphicsComponent.boundingBox);
+
+											// Update the physics body in real time
+											g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+										}
+
+										// Debug Output for both unscaled and effective (scaled) AABB
+										ImGui::Text("Unscaled AABB: (%.2f, %.2f, %.2f)", graphicsComponent.boundingBox.x, graphicsComponent.boundingBox.y, graphicsComponent.boundingBox.z);
+										ImGui::Text("Scaled AABB: (%.2f, %.2f, %.2f)", effectiveAABB.x, effectiveAABB.y, effectiveAABB.z);
 									}
 
-									// Debug Output
-									ImGui::Text("Current AABB: (%.2f, %.2f, %.2f)", graphicsComponent.boundingBox.x, graphicsComponent.boundingBox.y, graphicsComponent.boundingBox.z);
+									//// Set a minimum size to prevent crashes
+									//glm::vec3 minAABBSize(0.1f, 0.1f, 0.1f); // Minimum size for AABB
+									//if (ImGui::DragFloat3("AABB Size", &graphicsComponent.boundingBox.x, 0.05f, 0.1f, 10.0f, "%.2f")) {
+									//	// Clamp the values to prevent zero or invalid sizes
+									//	graphicsComponent.boundingBox.x = glm::max(graphicsComponent.boundingBox.x, minAABBSize.x);
+									//	graphicsComponent.boundingBox.y = glm::max(graphicsComponent.boundingBox.y, minAABBSize.y);
+									//	graphicsComponent.boundingBox.z = glm::max(graphicsComponent.boundingBox.z, minAABBSize.z);
+
+									//	// Update AABB size in the CollisionComponent
+									//	collisionComponent.SetAABBSize(graphicsComponent.boundingBox);
+
+									//	// Update the physics body in real time
+									//	g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+									//}
+
+									//// Debug Output
+									//ImGui::Text("Current AABB: (%.2f, %.2f, %.2f)", graphicsComponent.boundingBox.x, graphicsComponent.boundingBox.y, graphicsComponent.boundingBox.z);
 								}
 							}
 						}

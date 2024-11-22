@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "a3c5a541-64fb-44fb-8f83-7557d85a7915",
+    "SceneGUID": "a58ff305-b3a9-491b-9df1-d4d56fd086ca",
     "Entities": [
         {
             "MetadataComponent": {
@@ -25,7 +25,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -52,7 +53,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -79,7 +81,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -106,7 +109,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             }
         },
         {
@@ -133,10 +137,18 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -163,10 +175,18 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -193,10 +213,18 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -223,10 +251,18 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -253,10 +289,18 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -283,10 +327,18 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide"
+                "Texture": "WallBothSide",
+                "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                }
             }
         },
         {
@@ -313,10 +365,18 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Bed2",
-                "Texture": "Bed2"
+                "Texture": "Bed2",
+                "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.5,
+                    "y": 1.7999999523162842,
+                    "z": 2.0
+                }
             }
         },
         {
@@ -343,13 +403,21 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Corgi2",
-                "Texture": "Corgi2"
+                "Texture": "Corgi2",
+                "FollowCamera": true
             },
             "BehaviourComponent": {
                 "BehaviourName": "Player"
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.799999952316284,
+                    "y": 0.30000001192092898,
+                    "z": 1.2999999523162842
+                }
             }
         },
         {
@@ -376,10 +444,18 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Couch",
-                "Texture": "Couch"
+                "Texture": "Couch",
+                "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.5,
+                    "y": 0.6000000238418579,
+                    "z": 1.0
+                }
             }
         },
         {
@@ -406,10 +482,18 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Wardrobe2",
-                "Texture": "Wardrobe2"
+                "Texture": "Wardrobe2",
+                "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
             }
         },
         {
@@ -436,10 +520,18 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Table",
-                "Texture": "Table"
+                "Texture": "Table",
+                "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 2.0
+                }
             }
         },
         {
@@ -466,10 +558,18 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2"
+                "Texture": "Chair2",
+                "FollowCamera": true
             },
             "CollisionComponent": {
-                "CollisionLayer": 0
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                }
             }
         }
     ]

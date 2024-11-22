@@ -581,8 +581,11 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         // Get the AABB size from the CollisionComponent
         glm::vec3 customAABB = collisionComponent.GetAABBSize();
 
+        // Compute the scaled AABB
+        glm::vec3 scaledAABB = customAABB * scale;
+
         // Create shape based on object type and custom AABB
-        JPH::Shape* shape = CreateShapeForObjectType(objectType, customAABB);
+        JPH::Shape* shape = CreateShapeForObjectType(objectType, scaledAABB);
 
         // Set motion type based on IsDynamic in CollisionComponent
         bool isDynamic = collisionComponent.IsDynamic();
@@ -663,9 +666,13 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity)
         bool isDynamic = collisionComponent.IsDynamic();
         JPH::EMotionType motionType = isDynamic ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
 
+        // Compute the scaled AABB
+        glm::vec3 scale = transform.GetScale();
+        glm::vec3 scaledAABB = collisionComponent.GetAABBSize() * scale;
+
         // Create a new shape and body
         //JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, transform.GetScale(), collisionComponent.GetAABBSize());
-        JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, collisionComponent.GetAABBSize());
+        JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, scaledAABB);
 
         JPH::BodyCreationSettings bodySettings(
             newShape,

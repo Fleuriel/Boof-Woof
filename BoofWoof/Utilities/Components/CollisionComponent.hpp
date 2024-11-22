@@ -66,6 +66,10 @@ public:
     }
     glm::vec3 GetAABBSize() const { return m_AABBSize; }
 
+    glm::vec3 GetScaledAABBSize(const glm::vec3& scale) const {
+        return m_AABBSize * scale; // Compute the scaled AABB dynamically
+    }
+
     // Reflection integration
     REFLECT_COMPONENT(CollisionComponent)
     {
