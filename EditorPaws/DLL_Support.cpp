@@ -1,6 +1,10 @@
 #include "DLL_Support.h"
 #include "../BoofWoof/Core/Logic/LogicSystem.h"
 #include "../BoofWoof/Core/Windows/WindowManager.h"
+#include <SceneManager/SceneManager.h>
+#include <Coordinator.hpp>
+#include <Physics/PhysicsSystem.h>
+#include "ImGuiEditor.h"
 
 // Global Variables
 HHOOK hHook = NULL;
@@ -192,7 +196,6 @@ void MonitorDirectory() {
 
                 FILE_NOTIFY_INFORMATION* fni = (FILE_NOTIFY_INFORMATION*)buffer;
                 do {
-                    std::cout << "Checking for changes..." << std::endl;
                     std::wstring fileName(fni->FileName, fni->FileNameLength / sizeof(WCHAR));
                     if (fileName == L"ScriptWoof.dll") { // Replace with your DLL name
                         PostThreadMessage(GetCurrentThreadId(), WM_FILE_CHANGED, 0, 0);
@@ -228,9 +231,15 @@ void MonitorDirectory() {
 }
 
 void ChangeDLL() {
-    // Save current scene to temp file
+    // Save current scene to temp 
+	std::string tempfilepath = "TempScene.json";
+	g_SceneManager.SaveScene(tempfilepath);
 
-                        // Clear current scene
+    // Clear current scene
+    g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
+    //g_Coordinator.GetSystem<GraphicsSystem>()->clearAllEntityTextures();
+    g_Coordinator.ResetEntities();
+    g_SceneManager.ClearSceneList();
 
     if (IsDLLInUse(DLL_COPY_DIRECTORY)) {
         std::cout << "DLL is being used by another process. Unloading the DLL..." << std::endl;
@@ -247,6 +256,8 @@ void ChangeDLL() {
         std::cout << "DLL copied and overwritten successfully!" << std::endl;
         hGetProcIDDLL = LoadLibraryW(DLL_COPY_DIRECTORY.c_str());
         // Load Temp Scene
+		tempfilepath = GetScenesDir() + "/" + tempfilepath;
+        g_SceneManager.LoadScene(tempfilepath);
     }
     else {
         std::cerr << "Failed to copy and overwrite the DLL." << std::endl;
