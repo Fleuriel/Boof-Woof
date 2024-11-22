@@ -223,10 +223,10 @@ void GraphicsSystem::UpdateLoop() {
 		if (graphicsComp.getFollowCamera()) {
 			SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 		}else {
-			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
-			shdrParam.View = glm::mat4(1.0f);
-			shdrParam.Projection = glm::mat4(1.0f);
-			SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
+			g_AssetManager.GetShader("Shader3D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+			g_AssetManager.GetShader("Shader3D").SetUniform("view", glm::mat4(1.0f));
+			g_AssetManager.GetShader("Shader3D").SetUniform("projection", glm::mat4(1.0f));
+
 		}
 		g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 		g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
@@ -369,7 +369,15 @@ void GraphicsSystem::UpdateLoop() {
 
 		g_AssetManager.GetShader("Shader2D").Use();
 
-		SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
+		if (graphicsComp.getFollowCamera()) {
+			SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
+		}
+		else {
+			g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+			g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
+			g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
+
+		}
 		//shader.Use();
 
 
