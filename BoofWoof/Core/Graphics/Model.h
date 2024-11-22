@@ -106,52 +106,40 @@ public:
 
 
     void drawOBB(const glm::vec3& position, const glm::vec3& rotationRadians, const glm::vec3& halfextents) {
+
         // Create transformation matrix
         glm::mat4 transform = glm::mat4(1.0f);
 
-        // Apply scaling first
-       // transform = glm::scale(transform, scale);
-
         // Apply rotations (order: X, Y, Z)
-        transform = glm::rotate(transform, rotationRadians.x, glm::vec3(1.0f, 0.0f, 0.0f));
-        transform = glm::rotate(transform, rotationRadians.y, glm::vec3(0.0f, 1.0f, 0.0f));
-        transform = glm::rotate(transform, rotationRadians.z, glm::vec3(0.0f, 0.0f, 1.0f));
+        transform = glm::rotate(transform, glm::radians(rotationRadians.x), glm::vec3(1.0f, 0.0f, 0.0f));
+        transform = glm::rotate(transform, glm::radians(rotationRadians.y), glm::vec3(0.0f, 1.0f, 0.0f));
+        transform = glm::rotate(transform, glm::radians(rotationRadians.z), glm::vec3(0.0f, 0.0f, 1.0f));
 
-        // Apply translation last
-//        transform = glm::translate(transform);
+        // Apply translation to position
+        transform = glm::translate(transform, position);
 
-        // OBB Vertices
-       //glm::vec3 obbVertices[8] = {
-       //    glm::vec3(-1.0f, -1.0f, -1.0f),
-       //    glm::vec3(1.0f, -1.0f, -1.0f),
-       //    glm::vec3(1.0f, 1.0f, -1.0f),
-       //    glm::vec3(-1.0f, 1.0f, -1.0f),
-       //    glm::vec3(-1.0f, -1.0f, 1.0f),
-       //    glm::vec3(1.0f, -1.0f, 1.0f),
-       //    glm::vec3(1.0f, 1.0f, 1.0f),
-       //    glm::vec3(-1.0f, 1.0f, 1.0f)
-       //};
-
-
+        // Vertices of the OBB in its local space
         glm::vec3 obbVertices[8]{
             // Front face
-            glm::vec3(halfextents.x,  halfextents.y,  halfextents.z) ,
-            glm::vec3(-halfextents.x,  halfextents.y,  halfextents.z) ,
-            glm::vec3(-halfextents.x, -halfextents.y,  halfextents.z) ,
-            glm::vec3(halfextents.x, -halfextents.y,  halfextents.z) ,
+            glm::vec3(halfextents.x, halfextents.y, halfextents.z),
+            glm::vec3(-halfextents.x, halfextents.y, halfextents.z),
+            glm::vec3(-halfextents.x, -halfextents.y, halfextents.z),
+            glm::vec3(halfextents.x, -halfextents.y, halfextents.z),
             // Back face
-            glm::vec3(halfextents.x,  halfextents.y, -halfextents.z),
-            glm::vec3(-halfextents.x,  halfextents.y, -halfextents.z),
+            glm::vec3(halfextents.x, halfextents.y, -halfextents.z),
+            glm::vec3(-halfextents.x, halfextents.y, -halfextents.z),
             glm::vec3(-halfextents.x, -halfextents.y, -halfextents.z),
             glm::vec3(halfextents.x, -halfextents.y, -halfextents.z)
         };
 
-        // Transform vertices to world space
+        // Apply rotation to half-extents for proper bounding box orientation
+        glm::mat3 rotationMatrix = glm::mat3(transform); // Extract rotation part from the transform matrix
+
         for (auto& vertex : obbVertices) {
-            vertex = glm::vec3(transform * glm::vec4(vertex, 1.0f));
+            vertex = glm::vec3(rotationMatrix * vertex);  // Apply rotation to each vertex
         }
 
-        // Indices for drawing lines
+        // Indices for drawing lines (connect vertices to form edges of the box)
         GLuint indices[24] = {
             0, 1, 1, 2, 2, 3, 3, 0,  // Bottom face
             4, 5, 5, 6, 6, 7, 7, 4,  // Top face
@@ -166,11 +154,11 @@ public:
 
         glBindVertexArray(VAO);
 
-        // Vertex buffer
+        // Vertex buffer: Send the transformed vertices to the GPU
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(obbVertices), obbVertices, GL_STATIC_DRAW);
 
-        // Element buffer
+        // Element buffer: Send the indices for the lines
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
@@ -181,7 +169,7 @@ public:
         // Set color to white
         glColor3f(1.0f, 1.0f, 1.0f);
 
-        // Draw the OBB as wireframe
+        // Draw the OBB as a wireframe
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glDrawElements(GL_LINES, 24, GL_UNSIGNED_INT, 0);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

@@ -302,37 +302,71 @@ void GraphicsSystem::UpdateLoop() {
 
 		if (debug) 
 		{
+			//// Debug AABB Drawing
+			//if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+			//	auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+			//	JPH::Body* body = collisionComp.GetPhysicsBody();
+
+			//	if (body) {
+			//		// Get the world-space AABB from JoltPhysics
+			//		JPH::AABox aabb = body->GetWorldSpaceBounds();
+
+			//		// Calculate center and half-extents
+			//		JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
+			//		JPH::Vec3 halfExtents = (aabb.mMax - aabb.mMin) * 0.5f;
+
+			//		std::cout << transformComp.GetRotation().x << '\t' << transformComp.GetRotation().y << '\t' << transformComp.GetRotation().z << '\n';
+
+			//		// Convert to glm::vec3
+			//		glm::vec3 glmCenter = glm::vec3(center.GetX(), center.GetY(), center.GetZ());
+			//		glm::vec3 glmHalfExtents = glm::vec3(halfExtents.GetX(), halfExtents.GetY(), halfExtents.GetZ());
+
+			//		std::cout << "Explain to me: " << glmHalfExtents.x << '\t' << glmHalfExtents.y << '\t' << glmHalfExtents.z << "\n";
+
+			//		if (D3)
+			//		{
+			//			// Draw the AABB using your existing DrawCollisionBox3D function
+			//			//g_ResourceManager.getModel("cubeModel")->DrawCollisionBox3D(glmCenter, glmHalfExtents, glm::vec3(0.0f, 1.0f, 0.0f)); // Green color
+			//			//g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(glmCenter, glmHalfExtents, transformComp.GetRotation(), glm::vec3(0.0f, 1.0f, 0.0f)); // Green color
+
+			//			g_ResourceManager.getModel("cubdeModel")->drawOBB(glmCenter, transformComp.GetRotation() * glm::vec3(1 / 12 * 3.14159265358979323846), glmHalfExtents);
+			//		}
+			//	}
+			//}
+			
 			// Debug AABB Drawing
 			if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
 				auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
 				JPH::Body* body = collisionComp.GetPhysicsBody();
-
 				if (body) {
+					// Get unique ID for this body - using GetIndex() to get the uint32
+					uint32_t bodyId = body->GetID().GetIndex();
+
 					// Get the world-space AABB from JoltPhysics
 					JPH::AABox aabb = body->GetWorldSpaceBounds();
 
 					// Calculate center and half-extents
 					JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
-					JPH::Vec3 halfExtents = (aabb.mMax - aabb.mMin) * 0.5f;
+					glm::vec3 glmCenter = glm::vec3(center.GetX(), center.GetY(), center.GetZ());
+
+					// If this body's half extents haven't been stored yet, store them
+					if (bodyInitialHalfExtents.find(bodyId) == bodyInitialHalfExtents.end()) {
+						JPH::Vec3 halfExtents = (aabb.mMax - aabb.mMin) * 0.5f;
+						bodyInitialHalfExtents[bodyId] = glm::vec3(halfExtents.GetX(), halfExtents.GetY(), halfExtents.GetZ());
+					}
+
+					// Use the stored half extents for this specific body
+					glm::vec3& initialHalfExtents = bodyInitialHalfExtents[bodyId];
 
 					std::cout << transformComp.GetRotation().x << '\t' << transformComp.GetRotation().y << '\t' << transformComp.GetRotation().z << '\n';
+					std::cout << "Explain to me: " << initialHalfExtents.x << '\t' << initialHalfExtents.y << '\t' << initialHalfExtents.z << "\n";
 
-					// Convert to glm::vec3
-					glm::vec3 glmCenter = glm::vec3(center.GetX(), center.GetY(), center.GetZ());
-					glm::vec3 glmHalfExtents = glm::vec3(halfExtents.GetX(), halfExtents.GetY(), halfExtents.GetZ());
-
-					std::cout << "Explain to me: " << glmHalfExtents.x << '\t' << glmHalfExtents.y << '\t' << glmHalfExtents.z << "\n";
-
-					if (D3)
-					{
-						// Draw the AABB using your existing DrawCollisionBox3D function
-						//g_ResourceManager.getModel("cubeModel")->DrawCollisionBox3D(glmCenter, glmHalfExtents, glm::vec3(0.0f, 1.0f, 0.0f)); // Green color
-						//g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(glmCenter, glmHalfExtents, transformComp.GetRotation(), glm::vec3(0.0f, 1.0f, 0.0f)); // Green color
-
-						g_ResourceManager.getModel("cubdeModel")->drawOBB(glmCenter, transformComp.GetRotation() * glm::vec3(1 / 12 * 3.14159265358979323846), glmHalfExtents);
+					if (D3) {
+						g_ResourceManager.getModel("cubdeModel")->drawOBB(glmCenter, transformComp.GetRotation(), initialHalfExtents);
 					}
 				}
 			}
+
 			//if (D3) 
 			//{
 			//	g_ResourceManager.getModel(graphicsComp.getModelName())->DrawLine();
