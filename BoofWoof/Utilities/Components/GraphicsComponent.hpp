@@ -62,6 +62,8 @@ public:
     // Set texture name
    // void setTexture(std::string texture) { textureName = texture; }
 
+    glm::vec3 boundingBox;
+
 
     // Constructor and destructor
 	GraphicsComponent() :hasMaterial(false){};

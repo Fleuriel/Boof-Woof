@@ -338,6 +338,7 @@ void GraphicsSystem::UpdateLoop() {
 			if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
 				auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
 				JPH::Body* body = collisionComp.GetPhysicsBody();
+
 				if (body) {
 					// Get unique ID for this body - using GetIndex() to get the uint32
 					uint32_t bodyId = body->GetID().GetIndex();
@@ -358,11 +359,13 @@ void GraphicsSystem::UpdateLoop() {
 					// Use the stored half extents for this specific body
 					glm::vec3& initialHalfExtents = bodyInitialHalfExtents[bodyId];
 
-					std::cout << transformComp.GetRotation().x << '\t' << transformComp.GetRotation().y << '\t' << transformComp.GetRotation().z << '\n';
-					std::cout << "Explain to me: " << initialHalfExtents.x << '\t' << initialHalfExtents.y << '\t' << initialHalfExtents.z << "\n";
+
+
+					std::cout << "Rotation: " << transformComp.GetRotation().x << '\t' << transformComp.GetRotation().y << '\t' << transformComp.GetRotation().z << '\n';
+					std::cout << "Initial Half Extents: " << initialHalfExtents.x << '\t' << initialHalfExtents.y << '\t' << initialHalfExtents.z << "\n";
 
 					if (D3) {
-						g_ResourceManager.getModel("cubdeModel")->drawOBB(glmCenter, transformComp.GetRotation(), initialHalfExtents);
+						g_ResourceManager.getModel("cubeModel")->drawOBB(glmCenter, transformComp.GetRotation(), graphicsComp.boundingBox);
 					}
 				}
 			}
