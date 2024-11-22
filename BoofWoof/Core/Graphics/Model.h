@@ -56,7 +56,7 @@ public:
 
     void DrawCollisionBox2D(Model outlineModel);
 
-    void DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color) const;
+    void DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 rotation, glm::vec3 color) const;
 
 
         // draws the model, and thus all its meshes
@@ -89,7 +89,93 @@ public:
 			meshes[i].DrawPoints(shader);
 	}
 
-   
+    void drawOBB(const glm::vec3& position, const glm::vec3& rotationRadians, const glm::vec3& halfextents) {
+        // Create transformation matrix
+        glm::mat4 transform = glm::mat4(1.0f);
+
+        // Apply scaling first
+       // transform = glm::scale(transform, scale);
+
+        // Apply rotations (order: X, Y, Z)
+        transform = glm::rotate(transform, rotationRadians.x, glm::vec3(1.0f, 0.0f, 0.0f));
+        transform = glm::rotate(transform, rotationRadians.y, glm::vec3(0.0f, 1.0f, 0.0f));
+        transform = glm::rotate(transform, rotationRadians.z, glm::vec3(0.0f, 0.0f, 1.0f));
+
+        // Apply translation last
+//        transform = glm::translate(transform);
+
+        // OBB Vertices
+       //glm::vec3 obbVertices[8] = {
+       //    glm::vec3(-1.0f, -1.0f, -1.0f),
+       //    glm::vec3(1.0f, -1.0f, -1.0f),
+       //    glm::vec3(1.0f, 1.0f, -1.0f),
+       //    glm::vec3(-1.0f, 1.0f, -1.0f),
+       //    glm::vec3(-1.0f, -1.0f, 1.0f),
+       //    glm::vec3(1.0f, -1.0f, 1.0f),
+       //    glm::vec3(1.0f, 1.0f, 1.0f),
+       //    glm::vec3(-1.0f, 1.0f, 1.0f)
+       //};
+
+
+        glm::vec3 obbVertices[8]{
+            // Front face
+            glm::vec3( halfextents.x,  halfextents.y,  halfextents.z) ,
+            glm::vec3(-halfextents.x,  halfextents.y,  halfextents.z) ,
+            glm::vec3(-halfextents.x, -halfextents.y,  halfextents.z) ,
+            glm::vec3( halfextents.x, -halfextents.y,  halfextents.z) ,
+            // Back face
+            glm::vec3( halfextents.x,  halfextents.y, -halfextents.z ),
+            glm::vec3(-halfextents.x,  halfextents.y, -halfextents.z ),
+            glm::vec3(-halfextents.x, -halfextents.y, -halfextents.z ),
+            glm::vec3( halfextents.x, -halfextents.y, -halfextents.z )
+        };
+
+        // Transform vertices to world space
+        for (auto& vertex : obbVertices) {
+            vertex = glm::vec3(transform * glm::vec4(vertex, 1.0f));
+        }
+
+        // Indices for drawing lines
+        GLuint indices[24] = {
+            0, 1, 1, 2, 2, 3, 3, 0,  // Bottom face
+            4, 5, 5, 6, 6, 7, 7, 4,  // Top face
+            0, 4, 1, 5, 2, 6, 3, 7   // Connecting vertical lines
+        };
+
+        // Generate and bind VAO and VBO
+        GLuint VAO, VBO, EBO;
+        glGenVertexArrays(1, &VAO);
+        glGenBuffers(1, &VBO);
+        glGenBuffers(1, &EBO);
+
+        glBindVertexArray(VAO);
+
+        // Vertex buffer
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(obbVertices), obbVertices, GL_STATIC_DRAW);
+
+        // Element buffer
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+        // Position attribute
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        // Set color to white
+        glColor3f(1.0f, 1.0f, 1.0f);
+
+        // Draw the OBB as wireframe
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glDrawElements(GL_LINES, 24, GL_UNSIGNED_INT, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+        // Cleanup
+        glDeleteVertexArrays(1, &VAO);
+        glDeleteBuffers(1, &VBO);
+        glDeleteBuffers(1, &EBO);
+    }
+    
 
     void addMesh(const Mesh& mesh)
     {
@@ -334,6 +420,6 @@ Model CubeModel(glm::vec3 color);
 
 Model SquareModelOutline(glm::vec3 color);
 Model AABB(glm::vec3 position, glm::vec3 halfextents = glm::vec3(1.0f), glm::vec3 color = glm::vec3(1.0f));
-
+Model OBB(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 rotation, glm::vec3 color = glm::vec3(1.0f));
 
 #endif // !MODEL_H

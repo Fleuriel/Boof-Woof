@@ -355,14 +355,24 @@ void GraphicsSystem::UpdateLoop() {
 						JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
 						JPH::Vec3 halfExtents = (aabb.mMax - aabb.mMin) * 0.5f;
 
+//						std::cout << transformComp.GetRotation();
+
+						std::cout << transformComp.GetRotation().x << '\t' << transformComp.GetRotation().y << '\t' << transformComp.GetRotation().z << '\n';
+
 						// Convert to glm::vec3
 						glm::vec3 glmCenter = glm::vec3(center.GetX(), center.GetY(), center.GetZ());
 						glm::vec3 glmHalfExtents = glm::vec3(halfExtents.GetX(), halfExtents.GetY(), halfExtents.GetZ());
 
+						std::cout << "Explain to me: " << glmHalfExtents.x << '\t' << glmHalfExtents.y << '\t' << glmHalfExtents.z << "\n";
+
+
 						if (D3)
 						{
 							// Draw the AABB using your existing DrawCollisionBox3D function
-							g_ResourceManager.getModel("cubeModel")->DrawCollisionBox3D(glmCenter, glmHalfExtents, glm::vec3(0.0f, 1.0f, 0.0f)); // Green color
+							//g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(glmCenter, glmHalfExtents, transformComp.GetRotation(), glm::vec3(0.0f, 1.0f, 0.0f)); // Green color
+							
+							g_ResourceManager.getModel("cubdeModel")->drawOBB(glmCenter, transformComp.GetRotation() * glm::vec3(1/12 * 3.14159265358979323846), glmHalfExtents);
+
 						}
 					}
 				}

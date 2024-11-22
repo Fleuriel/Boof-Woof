@@ -65,7 +65,8 @@
 //class OBB :public AABB
 //{
 //public:
-//	OBB(const glm::vec3& setCenter, const glm::vec3& setHalf, const glm::mat3& rotation)
+//	OBB(const glm::vec3& setCenter, const glm::vec3& setHalf, const glm::mat3& 
+// )
 //		: AABB(setCenter, setHalf), r_rotation(rotation) {}
 //
 //	OBB() : r_rotation(glm::mat3(1.0f)){};
