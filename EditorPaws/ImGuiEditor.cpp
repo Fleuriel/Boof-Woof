@@ -1721,50 +1721,90 @@ void ImGuiEditor::InspectorWindow()
 							if (ImGui::CollapsingHeader("Collision", ImGuiTreeNodeFlags_None))
 							{
 								auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(g_SelectedEntity);
+								if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+								{
+									auto& graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
 
-								// Toggle Dynamic/Static checkbox
-								bool isDynamic = collisionComponent.IsDynamic();
-								if (ImGui::Checkbox("Dynamic", &isDynamic)) {
-									if (collisionComponent.IsDynamic() != isDynamic) {
-										collisionComponent.SetIsDynamic(isDynamic);
-										// Call UpdateEntityBody instead of removing and adding the entity again
+									// Toggle Dynamic/Static checkbox
+									bool isDynamic = collisionComponent.IsDynamic();
+									if (ImGui::Checkbox("Dynamic", &isDynamic)) {
+										if (collisionComponent.IsDynamic() != isDynamic) {
+											collisionComponent.SetIsDynamic(isDynamic);
+											// Call UpdateEntityBody instead of removing and adding the entity again
+											g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+										}
+									}
+
+									// Debugging output for motion type
+									ImGui::Text("Current Motion Type: %s", isDynamic ? "Dynamic" : "Static");
+
+									// Checkbox to mark as player
+									bool isPlayer = collisionComponent.IsPlayer();
+									if (ImGui::Checkbox("Is Player", &isPlayer))
+									{
+										collisionComponent.SetIsPlayer(isPlayer);
+
+										// Automatically set to dynamic if it's marked as a player
+										if (isPlayer)
+										{
+											collisionComponent.SetIsDynamic(true);
+										}
+
 										g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
 									}
-								}
 
-								// Debugging output for motion type
-								ImGui::Text("Current Motion Type: %s", isDynamic ? "Dynamic" : "Static");
+									// Debugging for player type
+									ImGui::Text("Is Player: %s", collisionComponent.IsPlayer() ? "Yes" : "No");
 
-								// Checkbox to mark as player
-								bool isPlayer = collisionComponent.IsPlayer();
-								if (ImGui::Checkbox("Is Player", &isPlayer))
-								{
-									collisionComponent.SetIsPlayer(isPlayer);
+									// AABB Size Editor
+									graphicsComponent.boundingBox  = collisionComponent.GetAABBSize();
+									
+									// Retrieve the scale from the TransformComponent
+									if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) {
+										auto& transformComponent = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+										glm::vec3 scale = transformComponent.GetScale();
 
-									// Automatically set to dynamic if it's marked as a player
-									if (isPlayer)
-									{
-										collisionComponent.SetIsDynamic(true);
+										// Compute the effective AABB by scaling the bounding box
+										glm::vec3 effectiveAABB = graphicsComponent.boundingBox * scale;
+
+										// Set a minimum size to prevent crashes
+										glm::vec3 minAABBSize(0.1f, 0.1f, 0.1f); // Minimum size for AABB
+										if (ImGui::DragFloat3("Unscaled AABB Size", &graphicsComponent.boundingBox.x, 0.05f, 0.1f, 10.0f, "%.2f")) {
+											// Clamp the values to prevent zero or invalid sizes
+											graphicsComponent.boundingBox.x = glm::max(graphicsComponent.boundingBox.x, minAABBSize.x);
+											graphicsComponent.boundingBox.y = glm::max(graphicsComponent.boundingBox.y, minAABBSize.y);
+											graphicsComponent.boundingBox.z = glm::max(graphicsComponent.boundingBox.z, minAABBSize.z);
+
+											// Update AABB size in the CollisionComponent
+											collisionComponent.SetAABBSize(graphicsComponent.boundingBox);
+
+											// Update the physics body in real time
+											g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+										}
+
+										// Debug Output for both unscaled and effective (scaled) AABB
+										ImGui::Text("Unscaled AABB: (%.2f, %.2f, %.2f)", graphicsComponent.boundingBox.x, graphicsComponent.boundingBox.y, graphicsComponent.boundingBox.z);
+										ImGui::Text("Scaled AABB: (%.2f, %.2f, %.2f)", effectiveAABB.x, effectiveAABB.y, effectiveAABB.z);
 									}
 
-									g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+									//// Set a minimum size to prevent crashes
+									//glm::vec3 minAABBSize(0.1f, 0.1f, 0.1f); // Minimum size for AABB
+									//if (ImGui::DragFloat3("AABB Size", &graphicsComponent.boundingBox.x, 0.05f, 0.1f, 10.0f, "%.2f")) {
+									//	// Clamp the values to prevent zero or invalid sizes
+									//	graphicsComponent.boundingBox.x = glm::max(graphicsComponent.boundingBox.x, minAABBSize.x);
+									//	graphicsComponent.boundingBox.y = glm::max(graphicsComponent.boundingBox.y, minAABBSize.y);
+									//	graphicsComponent.boundingBox.z = glm::max(graphicsComponent.boundingBox.z, minAABBSize.z);
+
+									//	// Update AABB size in the CollisionComponent
+									//	collisionComponent.SetAABBSize(graphicsComponent.boundingBox);
+
+									//	// Update the physics body in real time
+									//	g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+									//}
+
+									//// Debug Output
+									//ImGui::Text("Current AABB: (%.2f, %.2f, %.2f)", graphicsComponent.boundingBox.x, graphicsComponent.boundingBox.y, graphicsComponent.boundingBox.z);
 								}
-
-								// Debugging for player type
-								ImGui::Text("Is Player: %s", collisionComponent.IsPlayer() ? "Yes" : "No");
-
-								// AABB Size Editor
-								glm::vec3 aabbSize = collisionComponent.GetAABBSize();
-								if (ImGui::DragFloat3("AABB Size", &aabbSize.x, 0.1f, 0.1f, 10.0f, "%.2f")) {
-									// Update AABB size in the CollisionComponent
-									collisionComponent.SetAABBSize(aabbSize);
-
-									// Update the physics body in real time
-									g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
-								}
-
-								// Debug Output
-								ImGui::Text("Current AABB: (%.2f, %.2f, %.2f)", aabbSize.x, aabbSize.y, aabbSize.z);
 							}
 						}
 

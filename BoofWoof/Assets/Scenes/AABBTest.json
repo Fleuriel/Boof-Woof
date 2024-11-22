@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "60cbdf58-c009-4c81-b25a-87a58e46a504",
+    "SceneGUID": "9955ed24-70ca-474a-a022-1f97d3728ba0",
     "Entities": [
         {
             "MetadataComponent": {
@@ -25,7 +25,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Corgi2",
-                "Texture": "Corgi"
+                "Texture": "Corgi",
+                "FollowCamera": true
             },
             "BehaviourComponent": {
                 "BehaviourName": "Player"
@@ -65,7 +66,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "FloorCastle",
-                "Texture": "FloorCastle"
+                "Texture": "FloorCastle",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
@@ -102,7 +104,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Wall",
-                "Texture": "Wall"
+                "Texture": "Wall",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
@@ -139,7 +142,8 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Bed2",
-                "Texture": "Bed2"
+                "Texture": "Bed2",
+                "FollowCamera": true
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,

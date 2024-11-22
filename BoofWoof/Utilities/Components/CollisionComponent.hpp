@@ -60,8 +60,15 @@ public:
     bool GetIsColliding() const { return isColliding; }
 
     // AABB Size Getters and Setters
-    void SetAABBSize(const glm::vec3& size) { m_AABBSize = size; }
+    void SetAABBSize(const glm::vec3& size) 
+    { 
+        m_AABBSize = size;
+    }
     glm::vec3 GetAABBSize() const { return m_AABBSize; }
+
+    glm::vec3 GetScaledAABBSize(const glm::vec3& scale) const {
+        return m_AABBSize * scale; // Compute the scaled AABB dynamically
+    }
 
     // Reflection integration
     REFLECT_COMPONENT(CollisionComponent)

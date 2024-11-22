@@ -371,7 +371,82 @@ Model AABB(glm::vec3 position, glm::vec3 halfextents, glm::vec3 color)
 	return mdl;
 }
 
+Model OBB(glm::vec3 position, glm::vec3 halfextents, glm::vec3 rotationRadians, glm::vec3 color)
+{
+	struct Vertex {
+		glm::vec3 position;  // 3D position
+		glm::vec3 color;     // Color
+	};
 
+	// Define the 8 corner points of the OBB in local space
+	std::vector<glm::vec3> localVertices{
+		// Front face
+		{ halfextents.x,  halfextents.y,  halfextents.z },
+		{-halfextents.x,  halfextents.y,  halfextents.z },
+		{-halfextents.x, -halfextents.y,  halfextents.z },
+		{ halfextents.x, -halfextents.y,  halfextents.z },
+		// Back face
+		{ halfextents.x,  halfextents.y, -halfextents.z },
+		{-halfextents.x,  halfextents.y, -halfextents.z },
+		{-halfextents.x, -halfextents.y, -halfextents.z },
+		{ halfextents.x, -halfextents.y, -halfextents.z }
+	};
+
+
+
+	// Compute the transformation matrix
+	glm::mat4 translation = glm::translate(glm::mat4(1.0f), position);
+	glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), rotationRadians.x, glm::vec3(1, 0, 0)) // Pitch (X-axis)
+		* glm::rotate(glm::mat4(1.0f), rotationRadians.y, glm::vec3(0, 1, 0)) // Yaw (Y-axis)
+		* glm::rotate(glm::mat4(1.0f), rotationRadians.z, glm::vec3(0, 0, 1)); // Roll (Z-axis)
+	glm::mat4 transform = translation * rotation;
+
+	// Transform the local vertices to world space
+	std::vector<Vertex> vertices;
+	for (const auto& localVertex : localVertices)
+	{
+		glm::vec3 worldPosition = glm::vec3(transform * glm::vec4(localVertex, 1.0f));
+		vertices.push_back({ worldPosition, color });
+	}
+
+	// Indices for drawing the OBB edges
+	std::vector<GLushort> indices{
+		// Front face
+		0, 1, 2, 3, 0,
+		// Back face
+		4, 5, 6, 7, 4,
+		// Connect front and back
+		0, 4, 1, 5, 2, 6, 3, 7
+	};
+
+	// Create VAO, VBO, EBO
+	GLuint vbo_hdl, ebo_hdl, vaoid;
+	glCreateBuffers(1, &vbo_hdl);
+	glNamedBufferStorage(vbo_hdl, sizeof(Vertex) * vertices.size(), vertices.data(), GL_DYNAMIC_STORAGE_BIT);
+
+	glCreateVertexArrays(1, &vaoid);
+	glEnableVertexArrayAttrib(vaoid, 0);
+	glVertexArrayVertexBuffer(vaoid, 0, vbo_hdl, offsetof(Vertex, position), sizeof(Vertex));
+	glVertexArrayAttribFormat(vaoid, 0, 3, GL_FLOAT, GL_FALSE, 0);
+	glVertexArrayAttribBinding(vaoid, 0, 0);
+
+	glEnableVertexArrayAttrib(vaoid, 1);
+	glVertexArrayVertexBuffer(vaoid, 1, vbo_hdl, offsetof(Vertex, color), sizeof(Vertex));
+	glVertexArrayAttribFormat(vaoid, 1, 3, GL_FLOAT, GL_FALSE, 0);
+	glVertexArrayAttribBinding(vaoid, 1, 1);
+
+	glCreateBuffers(1, &ebo_hdl);
+	glNamedBufferStorage(ebo_hdl, sizeof(GLushort) * indices.size(), indices.data(), GL_DYNAMIC_STORAGE_BIT);
+	glVertexArrayElementBuffer(vaoid, ebo_hdl);
+
+	// Return the OBB model
+	Model mdl;
+	mdl.vaoid = vaoid;
+	mdl.primitive_type = GL_LINE_LOOP;
+	mdl.draw_cnt = static_cast<GLsizei>(indices.size());
+
+	return mdl;
+}
 
 
 
@@ -412,7 +487,7 @@ void Model::DrawCollisionBox2D(Model outlineModel)
 
 
 
-void Model::DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color) const
+void Model::DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color, float lineWidth) const
 {
 	// Bind the VAO for the outline model
 
@@ -422,7 +497,7 @@ void Model::DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::v
 	glBindVertexArray(AABBOutline.vaoid);
 	//	std::cout << outlineModel.vaoid << '\n';
 
-	glLineWidth(1.0f);
+	glLineWidth(lineWidth);
 
 	// Draw the square outline
 	glDrawElements(AABBOutline.primitive_type, AABBOutline.draw_cnt, GL_UNSIGNED_SHORT, 0);
