@@ -4,12 +4,6 @@ RopeBreaker g_RopeBreaker;
 
 void RopeBreaker::OnUpdate(double deltaTime)
 {
-	if (g_Input.GetKeyState(GLFW_KEY_V) >= 1)
-	{
-		// INTERACT ???
-
-	}
-
 	if (!PlayerCollidedRope1 || !PlayerCollidedRope2)
 	{
 		CheckCollision();
@@ -18,7 +12,7 @@ void RopeBreaker::OnUpdate(double deltaTime)
 	g_BoneCatcher.OnUpdate(deltaTime);	
 
 
-	if (RopeDespawned >= 2)
+	if (PlayerCollidedRope1 && PlayerCollidedRope2 && RopeDespawned >= 2)
 	{
 		DropBridge();
 	}
@@ -28,8 +22,9 @@ void RopeBreaker::OnUpdate(double deltaTime)
 	{
 		return; // do nothing
 
-		/*PlayerCollidedRope1 = true;
-		PlayerCollidedRope2 = true;*/
+		// For quick testing
+		/*PlayerCollidedRope1 = PlayerCollidedRope2 = true;
+		RopeDespawned = 2;*/
 	}
 	else 
 	{
@@ -42,15 +37,15 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		float t = glm::min(ElapsedTime / FallDuration, 1.0f);
 
 		// Calculate current position with offset
-		//glm::vec3 currentPos = initialPos + TargetPos;
+		glm::vec3 currentPos = initialPos + TargetPos;
 
 		// Calculate current rotation (only changing Z rotation from initial to -90)
 		glm::vec3 currentRotation = initialRotation;
 		currentRotation.z = glm::mix(initialRotation.z, -90.0f, t);
 
 		// Apply transforms
-		//transform.SetPosition(currentPos);
-		transform.SetPosition(initialPos);
+		transform.SetPosition(currentPos);
+		//transform.SetPosition(initialPos);
 		transform.SetRotation(glm::radians(currentRotation));
 
 		// Stop animation when complete
@@ -60,7 +55,7 @@ void RopeBreaker::OnUpdate(double deltaTime)
 			// Ensure final position
 			currentRotation.z = -90.0f;
 			transform.SetRotation(glm::radians(currentRotation));
-			//transform.SetPosition(initialPos + TargetPos);
+			transform.SetPosition(initialPos + TargetPos);
 		}
 	}
 
