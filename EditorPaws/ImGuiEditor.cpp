@@ -2174,6 +2174,7 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::SameLine(WidthIndentation);
 
 
+									ImGui::PushItemWidth(150); // Set the width in pixels
 									ImGui::InputText(" ", objectName.data(), objectName.capacity() + 1);
 
 
@@ -2210,7 +2211,7 @@ void ImGuiEditor::InspectorWindow()
 
 									ImGui::Text("Texture ");
 									ImGui::SameLine(WidthIndentation);
-									ImGui::PushItemWidth(200); // Set the width in pixels
+									ImGui::PushItemWidth(150); // Set the width in pixels
 									ImGui::InputText("##TexDiff1", graphicsComponent.GetDiffuseName().data(), graphicsComponent.GetDiffuseName().capacity() + 1);
 
 
@@ -2272,7 +2273,7 @@ void ImGuiEditor::InspectorWindow()
 
 									ImGui::Text("Normal ");
 									ImGui::SameLine(WidthIndentation);
-									ImGui::PushItemWidth(200); // Set the width in pixels
+									ImGui::PushItemWidth(150); // Set the width in pixels
 									ImGui::InputText("##TexNorm1", graphicsComponent.GetNormalName().data(), graphicsComponent.GetNormalName().capacity() + 1);
 									
 									ImGui::PushID("Normal");
@@ -2332,7 +2333,7 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::PopID();
 									ImGui::Text("Height ");
 									ImGui::SameLine(WidthIndentation);
-									ImGui::PushItemWidth(200); // Set the width in pixels
+									ImGui::PushItemWidth(150); // Set the width in pixels
 									ImGui::InputText("##TexHeight1 ", graphicsComponent.GetHeightName().data(), graphicsComponent.GetHeightName().capacity() + 1);
 									
 									
