@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "61b56753-189f-42de-ad97-f64209dbd341",
+    "SceneGUID": "0e56105d-d1eb-4a55-9080-96ff6586cc4e",
     "Entities": [
         {
             "MetadataComponent": {
@@ -171,92 +171,8 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Floor",
-                "EntityID": 6
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 20.0,
-                    "y": 0.10000000149011612,
-                    "z": 20.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Floor",
-                "EntityID": 7
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 10.0,
-                    "y": 0.10000000149011612,
-                    "z": 20.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Floor",
-                "EntityID": 8
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.10000000149011612,
-                    "z": 20.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 9
+                "EntityID": 6
             },
             "TransformComponent": {
                 "Position": {
@@ -284,7 +200,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 10
+                "EntityID": 7
             },
             "TransformComponent": {
                 "Position": {
@@ -312,7 +228,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 11
+                "EntityID": 8
             },
             "TransformComponent": {
                 "Position": {
@@ -340,7 +256,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 12
+                "EntityID": 9
             },
             "TransformComponent": {
                 "Position": {
@@ -368,7 +284,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 13
+                "EntityID": 10
             },
             "TransformComponent": {
                 "Position": {
@@ -396,7 +312,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 14
+                "EntityID": 11
             },
             "TransformComponent": {
                 "Position": {
@@ -424,7 +340,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 15
+                "EntityID": 12
             },
             "TransformComponent": {
                 "Position": {
@@ -452,7 +368,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 16
+                "EntityID": 13
             },
             "TransformComponent": {
                 "Position": {
@@ -480,11 +396,95 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 17
+                "EntityID": 14
             },
             "TransformComponent": {
                 "Position": {
                     "x": 25.200000762939454,
+                    "y": 3.4000000953674318,
+                    "z": 7.199999809265137
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -1.5700000524520875,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wall",
+                "EntityID": 15
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 25.200000762939454,
+                    "y": 3.4000000953674318,
+                    "z": 12.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -1.5700000524520875,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wall",
+                "EntityID": 16
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -5.0,
+                    "y": 3.4000000953674318,
+                    "z": 12.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -1.5700000524520875,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wall",
+                "EntityID": 17
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -5.0,
                     "y": 3.4000000953674318,
                     "z": 7.199999809265137
                 },
@@ -512,202 +512,6 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.200000762939454,
-                    "y": 3.4000000953674318,
-                    "z": 12.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -1.5700000524520875,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Wall",
-                "EntityID": 19
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 25.200000762939454,
-                    "y": 3.4000000953674318,
-                    "z": 16.799999237060548
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -1.5700000524520875,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Wall",
-                "EntityID": 20
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 25.200000762939454,
-                    "y": 3.4000000953674318,
-                    "z": 21.600000381469728
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -1.5700000524520875,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Wall",
-                "EntityID": 21
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -5.0,
-                    "y": 3.4000000953674318,
-                    "z": 21.600000381469728
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -1.5700000524520875,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Wall",
-                "EntityID": 22
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -5.0,
-                    "y": 3.4000000953674318,
-                    "z": 16.799999237060548
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -1.5700000524520875,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Wall",
-                "EntityID": 23
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -5.0,
-                    "y": 3.4000000953674318,
-                    "z": 12.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -1.5700000524520875,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Wall",
-                "EntityID": 24
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -5.0,
-                    "y": 3.4000000953674318,
-                    "z": 7.199999809265137
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -1.5700000524520875,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Wall",
-                "EntityID": 25
-            },
-            "TransformComponent": {
-                "Position": {
                     "x": -5.0,
                     "y": 3.4000000953674318,
                     "z": 2.4000000953674318
@@ -732,7 +536,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 26
+                "EntityID": 19
             },
             "TransformComponent": {
                 "Position": {
@@ -760,7 +564,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 27
+                "EntityID": 20
             },
             "TransformComponent": {
                 "Position": {
@@ -788,7 +592,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 28
+                "EntityID": 21
             },
             "TransformComponent": {
                 "Position": {
@@ -816,13 +620,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 29
+                "EntityID": 22
             },
             "TransformComponent": {
                 "Position": {
                     "x": -2.0,
                     "y": 3.4000000953674318,
-                    "z": 24.600000381469728
+                    "z": 15.100000381469727
                 },
                 "Scale": {
                     "x": 1.0,
@@ -844,13 +648,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 30
+                "EntityID": 23
             },
             "TransformComponent": {
                 "Position": {
                     "x": -5.0,
                     "y": 3.4000000953674318,
-                    "z": 24.600000381469728
+                    "z": 15.100000381469727
                 },
                 "Scale": {
                     "x": 1.0,
@@ -872,13 +676,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 31
+                "EntityID": 24
             },
             "TransformComponent": {
                 "Position": {
                     "x": 2.799999952316284,
                     "y": 3.4000000953674318,
-                    "z": 24.600000381469728
+                    "z": 15.100000381469727
                 },
                 "Scale": {
                     "x": 1.0,
@@ -900,13 +704,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 32
+                "EntityID": 25
             },
             "TransformComponent": {
                 "Position": {
                     "x": 7.599999904632568,
                     "y": 3.4000000953674318,
-                    "z": 24.600000381469728
+                    "z": 15.100000381469727
                 },
                 "Scale": {
                     "x": 1.0,
@@ -928,13 +732,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 33
+                "EntityID": 26
             },
             "TransformComponent": {
                 "Position": {
                     "x": 12.399999618530274,
                     "y": 3.4000000953674318,
-                    "z": 24.600000381469728
+                    "z": 15.100000381469727
                 },
                 "Scale": {
                     "x": 1.0,
@@ -956,13 +760,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 34
+                "EntityID": 27
             },
             "TransformComponent": {
                 "Position": {
                     "x": 17.200000762939454,
                     "y": 3.4000000953674318,
-                    "z": 24.600000381469728
+                    "z": 15.100000381469727
                 },
                 "Scale": {
                     "x": 1.0,
@@ -984,13 +788,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 35
+                "EntityID": 28
             },
             "TransformComponent": {
                 "Position": {
                     "x": 22.0,
                     "y": 3.4000000953674318,
-                    "z": 24.600000381469728
+                    "z": 15.100000381469727
                 },
                 "Scale": {
                     "x": 1.0,
@@ -1012,13 +816,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 36
+                "EntityID": 29
             },
             "TransformComponent": {
                 "Position": {
                     "x": 25.100000381469728,
                     "y": 3.4000000953674318,
-                    "z": 24.600000381469728
+                    "z": 15.100000381469727
                 },
                 "Scale": {
                     "x": 1.1299999952316285,
@@ -1040,13 +844,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Fireplace",
-                "EntityID": 37
+                "EntityID": 30
             },
             "TransformComponent": {
                 "Position": {
                     "x": 7.699999809265137,
                     "y": 3.4000000953674318,
-                    "z": -2.200000047683716
+                    "z": -3.5082266330718996
                 },
                 "Scale": {
                     "x": 1.0,
@@ -1055,7 +859,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 }
             },
@@ -1068,13 +872,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 38
+                "EntityID": 31
             },
             "TransformComponent": {
                 "Position": {
                     "x": 1.899999976158142,
                     "y": 3.5999999046325685,
-                    "z": -4.5
+                    "z": -4.5810112953186039
                 },
                 "Scale": {
                     "x": 0.8999999761581421,
@@ -1083,7 +887,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 }
             },
@@ -1096,13 +900,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 39
+                "EntityID": 32
             },
             "TransformComponent": {
                 "Position": {
                     "x": 13.100000381469727,
                     "y": 3.5999999046325685,
-                    "z": -4.5
+                    "z": -4.5573320388793949
                 },
                 "Scale": {
                     "x": 0.8999999761581421,
@@ -1111,7 +915,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 }
             },
@@ -1124,7 +928,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Bed",
-                "EntityID": 40
+                "EntityID": 33
             },
             "TransformComponent": {
                 "Position": {
@@ -1152,23 +956,23 @@
         {
             "MetadataComponent": {
                 "EntityName": "Carpet",
-                "EntityID": 41
+                "EntityID": 34
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 11.199999809265137,
-                    "y": 0.699999988079071,
-                    "z": 7.699999809265137
+                    "x": 17.31524658203125,
+                    "y": 0.4529520571231842,
+                    "z": 9.172317504882813
                 },
                 "Scale": {
-                    "x": 1.0,
+                    "x": 1.212120532989502,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 0.9998273849487305
                 },
                 "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
+                    "x": 3.1411924362182619,
+                    "y": -1.570607304573059,
+                    "z": -3.141180992126465
                 }
             },
             "GraphicsComponent": {
@@ -1179,14 +983,14 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 42
+                "EntityName": "Chair2",
+                "EntityID": 35
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 6.0,
-                    "y": 1.2000000476837159,
-                    "z": 5.199999809265137
+                    "x": 17.114999771118165,
+                    "y": 1.2903683185577393,
+                    "z": 12.218999862670899
                 },
                 "Scale": {
                     "x": 1.0,
@@ -1194,9 +998,9 @@
                     "z": 1.0
                 },
                 "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
+                    "x": -3.1415908336639406,
+                    "y": -1.3415921926498414,
+                    "z": -3.1415908336639406
                 }
             },
             "GraphicsComponent": {
@@ -1208,23 +1012,23 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table2",
-                "EntityID": 43
+                "EntityID": 36
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 2.9000000953674318,
-                    "y": 1.399999976158142,
-                    "z": 6.900000095367432
+                    "x": -0.2951342463493347,
+                    "y": 1.2446321249008179,
+                    "z": 13.475873947143555
                 },
                 "Scale": {
-                    "x": 1.0,
+                    "x": 0.9999998807907105,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 0.9999998807907105
                 },
                 "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
+                    "x": -0.000053419691539602357,
+                    "y": 1.5579172372817994,
+                    "z": -0.00005342016811482608
                 }
             },
             "GraphicsComponent": {
@@ -1236,13 +1040,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wardrobe",
-                "EntityID": 45
+                "EntityID": 37
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -2.299999952316284,
-                    "y": 2.5,
-                    "z": 0.0
+                    "x": -3.0999999046325685,
+                    "y": 2.4000000953674318,
+                    "z": -1.7000000476837159
                 },
                 "Scale": {
                     "x": 1.0,
@@ -1264,13 +1068,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 44
+                "EntityID": 38
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 5.300000190734863,
-                    "y": 1.2999999523162842,
-                    "z": 13.100000381469727
+                    "x": 17.41603660583496,
+                    "y": 1.3581547737121583,
+                    "z": 9.114313125610352
                 },
                 "Scale": {
                     "x": 1.0,
@@ -1279,7 +1083,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 }
             },
@@ -1291,14 +1095,266 @@
         },
         {
             "MetadataComponent": {
+                "EntityName": "Chair",
+                "EntityID": 39
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.1463887244462967,
+                    "y": 1.5470826625823975,
+                    "z": 12.165596961975098
+                },
+                "Scale": {
+                    "x": 0.9999850392341614,
+                    "y": 1.0,
+                    "z": 0.9999850392341614
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": 0.06319316476583481,
+                    "z": -3.1415908336639406
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair",
+                "Texture": "Chair",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bookshelf1",
+                "EntityID": 40
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -3.6407837867736818,
+                    "y": 2.8471152782440187,
+                    "z": 6.948731422424316
+                },
+                "Scale": {
+                    "x": 0.9998849034309387,
+                    "y": 1.0,
+                    "z": 0.9998849034309387
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 1.5699999332427979,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bookshelf1",
+                "Texture": "Bookshelf1",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bookshelf2",
+                "EntityID": 41
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -3.6091413497924806,
+                    "y": 2.8674683570861818,
+                    "z": 3.2812037467956545
+                },
+                "Scale": {
+                    "x": 0.9999118447303772,
+                    "y": 1.0,
+                    "z": 0.9999118447303772
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 1.5699999332427979,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bookshelf2",
+                "Texture": "Bookshelf2",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
                 "EntityName": "GameObject",
+                "EntityID": 42
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -3.624081611633301,
+                    "y": 2.866384983062744,
+                    "z": 10.725735664367676
+                },
+                "Scale": {
+                    "x": 0.9998893737792969,
+                    "y": 1.0,
+                    "z": 0.9998893737792969
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 1.5699999332427979,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bookshelf3",
+                "Texture": "Bookshelf3",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair2",
+                "EntityID": 43
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 20.19499969482422,
+                    "y": 1.3192174434661866,
+                    "z": 9.324159622192383
+                },
+                "Scale": {
+                    "x": 0.9999992847442627,
+                    "y": 1.0,
+                    "z": 0.9999992847442627
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.30000007152557375,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair2",
+                "Texture": "Chair2",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair2",
+                "EntityID": 44
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 14.531000137329102,
+                    "y": 1.3091700077056885,
+                    "z": 9.315130233764649
+                },
+                "Scale": {
+                    "x": 0.9999922513961792,
+                    "y": 1.0,
+                    "z": 0.9999922513961792
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": -0.3415924906730652,
+                    "z": -3.1415908336639406
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair2",
+                "Texture": "Chair2",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 45
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -3.3607726097106935,
+                    "y": 3.4000000953674318,
+                    "z": 13.621899604797364
+                },
+                "Scale": {
+                    "x": 0.9999387264251709,
+                    "y": 1.0,
+                    "z": 0.9999387264251709
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 1.5699999332427979,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallTorch",
+                "Texture": "WallTorch",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wall",
                 "EntityID": 46
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 5.099999904632568,
-                    "y": 1.600000023841858,
-                    "z": 16.0
+                    "x": 6.4335150718688969,
+                    "y": 3.4160678386688234,
+                    "z": 12.105113983154297
+                },
+                "Scale": {
+                    "x": 0.9998587965965271,
+                    "y": 1.0,
+                    "z": 0.9998587965965271
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -1.5699999332427979,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 47
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 6.420000076293945,
+                    "y": 3.4200000762939455,
+                    "z": 8.88599967956543
+                },
+                "Scale": {
+                    "x": 1.000000238418579,
+                    "y": 1.0,
+                    "z": 1.0000017881393433
+                },
+                "Rotation": {
+                    "x": 3.1374893188476564,
+                    "y": -0.0016072239959612489,
+                    "z": -3.1415133476257326
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallTorch",
+                "Texture": "WallTorch",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BackCamera",
+                "EntityID": 48
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 7.800000190734863,
+                    "y": 6.199999809265137,
+                    "z": -1.7999999523162842
                 },
                 "Scale": {
                     "x": 1.0,
@@ -1307,14 +1363,261 @@
                 },
                 "Rotation": {
                     "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "CameraComponent": {
+                "Position": {
+                    "x": 7.800000190734863,
+                    "y": 6.199999809265137,
+                    "z": 6.199999809265137
+                },
+                "Yaw": -90.0,
+                "Pitch": -22.0,
+                "Up": {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                "Active": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 49
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 7.6997971534729,
+                    "y": 0.5,
+                    "z": 2.217721700668335
+                },
+                "Scale": {
+                    "x": 0.4000000059604645,
+                    "y": 0.4000000059604645,
+                    "z": 0.4000000059604645
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Floor",
+                "Texture": "Floor",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Carpet",
+                "EntityID": 50
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.8149999976158142,
+                    "y": 0.7000830173492432,
+                    "z": 6.171999931335449
+                },
+                "Scale": {
+                    "x": 0.800000011920929,
+                    "y": 0.800000011920929,
+                    "z": 0.800000011920929
+                },
+                "Rotation": {
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "Chair",
-                "Texture": "Chair",
+                "ModelName": "Carpet",
+                "Texture": "Carpet",
                 "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 51
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 9.075275421142579,
+                    "y": 2.0197198390960695,
+                    "z": 12.182504653930664
+                },
+                "Scale": {
+                    "x": 0.800000011920929,
+                    "y": 0.800000011920929,
+                    "z": 0.800000011920929
+                },
+                "Rotation": {
+                    "x": -3.1415884494781496,
+                    "y": 0.8420000076293945,
+                    "z": -3.1415884494781496
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Couch",
+                "Texture": "Couch",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Banner",
+                "EntityID": 52
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 22.484407424926759,
+                    "y": 3.599963665008545,
+                    "z": 14.233770370483399
+                },
+                "Scale": {
+                    "x": 0.8999500274658203,
+                    "y": 0.8999998569488525,
+                    "z": 0.9999589920043945
+                },
+                "Rotation": {
+                    "x": 3.140637159347534,
+                    "y": -0.000547679839655757,
+                    "z": 3.1415224075317385
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Banner",
+                "Texture": "Banner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Banner",
+                "EntityID": 53
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 15.750592231750489,
+                    "y": 3.5999693870544435,
+                    "z": 14.2225980758667
+                },
+                "Scale": {
+                    "x": 0.9000811576843262,
+                    "y": 0.9000000357627869,
+                    "z": 1.0000494718551636
+                },
+                "Rotation": {
+                    "x": 3.1407623291015627,
+                    "y": -0.005785858258605003,
+                    "z": 3.1415679454803469
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Banner",
+                "Texture": "Banner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Banner",
+                "EntityID": 54
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 9.625565528869629,
+                    "y": 3.5999810695648195,
+                    "z": 14.216705322265625
+                },
+                "Scale": {
+                    "x": 0.9000232219696045,
+                    "y": 0.8999999761581421,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": -0.008406705223023892,
+                    "z": -3.1415908336639406
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Banner",
+                "Texture": "Banner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "left particle",
+                "EntityID": 55
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 7.730772972106934,
+                    "y": 0.7512809038162231,
+                    "z": -3.245418071746826
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "right particle",
+                "EntityID": 56
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 8.130999565124512,
+                    "y": 0.7512810230255127,
+                    "z": -3.245419979095459
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "middle particle",
+                "EntityID": 57
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 8.130999565124512,
+                    "y": 0.7512810230255127,
+                    "z": -3.245419979095459
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
             }
         }
     ]
