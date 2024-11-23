@@ -1,97 +1,97 @@
-#ifndef ANIMATION_MANAGER_H
-#define ANIMATION_MANAGER_H
+#ifndef ANIMATIONMANAGER_H
+#define ANIMATIONMANAGER_H
 
-#include <assimp/scene.h>
-#include <string>
-#include <unordered_map>
-#include <vector>
+#include "pch.h"
+#include "../Utilities/Components/AnimationComponent.h"
+#include "EntityAnimator.h"
 
-// Struct for keyframe data
-struct KeyFrame {
-    double time;
-    aiVector3D position;
-    aiQuaternion rotation;
-    aiVector3D scale;
-};
-
-// Struct for animation channels
-struct AnimationChannel {
-    std::string nodeName;
-    std::vector<KeyFrame> keyframes;
-};
-
-// Class for animation
-class Animation {
-public:
-    std::string name;
-    double duration;      // Duration in ticks
-    double ticksPerSecond;
-    std::vector<AnimationChannel> channels;
-
-    // Default constructor
-    Animation() = default;
-
-    // Constructor to initialize from Assimp animation
-    Animation(const aiAnimation* assimpAnimation);
-
-    // Computes the transformation matrix for a given node at the current time
-    aiMatrix4x4 ComputeNodeTransformation(const std::string& nodeName, double currentTime) const;
-};
-
-// Enum for animation types
-enum class AnimationType {
-    Idle,
-    Moving,
-    Action
-};
-
-// Entity-specific animation state
-struct EntityAnimationState {
-    std::unordered_map<AnimationType, std::string> animations; // Mapped animations for each type
-    std::string activeAnimation; // Currently playing animation
-    double currentTime = 0.0;
-    bool isPlaying = false;
-
-    // Update entity animation state
-    void Update(double deltaTime, const Animation& animation);
-
-    // Set specific animation type
-    void SetAnimation(AnimationType type, const std::string& animationName);
-};
-
-// Animation Manager
 class AnimationManager {
 public:
-    // Load animations from a file
-    void LoadAnimations(const std::string& filePath);
+    static AnimationManager& getInstance() {
+        static AnimationManager instance;
+        return instance;
+    }
 
-    // Check if an animation is loaded
-    bool IsAnimationLoaded(const std::string& animationName) const;
+    // Delete copy constructor and assignment operator
+    AnimationManager(const AnimationManager&) = delete;
+    AnimationManager& operator=(const AnimationManager&) = delete;
 
-    // Retrieve an animation by name
-    const Animation& GetAnimation(const std::string& animationName) const;
+    // Core functions
+    void initialize();
+    void shutdown();
+    void update(float deltaTime);
 
-    // Assign an animation to an entity
-    void AssignAnimation(const std::string& entityId, AnimationType type, const std::string& animationName);
+    // Animation management
+    bool loadAnimation(const std::string& filename, const std::string& animName = "");
+    AnimationClip* getAnimation(const std::string& name);
+    void unloadAnimation(const std::string& name);
+    void unloadAllAnimations();
 
-    // Play animation for an entity
-    void PlayAnimation(const std::string& entityId);
+    // Animation pool management
+    void preloadAnimation(const std::string& filename);
+    void purgeUnusedAnimations();
 
-    // Stop animation for an entity
-    void StopAnimation(const std::string& entityId);
+    // Settings
+    void setGlobalAnimationSpeed(float speed) { m_globalSpeedMultiplier = speed; }
+    float getGlobalAnimationSpeed() const { return m_globalSpeedMultiplier; }
 
-    // Update animations for all entities
-    void Update(double deltaTime);
+    // Debug/Statistics
+    size_t getLoadedAnimationCount() const { return m_animationLibrary.size(); }
+    size_t getTotalMemoryUsage() const;
+    void printStatistics() const;
 
-    // Get the index of an animation by its name
-    int GetAnimationIndex(const std::string& animationName) const;
+    // Create a new entity animator
+    std::shared_ptr<EntityAnimator> createEntityAnimator(const std::string& entityId) {
+        auto animator = std::make_shared<EntityAnimator>(entityId);
+        m_entityAnimators[entityId] = animator;
+        return animator;
+    }
 
-    std::vector<std::string> animationNames; // Container to store animation file names
+    // Get an existing entity animator
+    std::shared_ptr<EntityAnimator> getEntityAnimator(const std::string& entityId) {
+        auto it = m_entityAnimators.find(entityId);
+        return it != m_entityAnimators.end() ? it->second : nullptr;
+    }
 
+    // Add an animation to an entity
+    void addAnimationToEntity(const std::string& entityId, const std::string& animName) {
+        auto animator = getEntityAnimator(entityId);
+        auto clip = getAnimation(animName);
+        if (animator && clip) {
+            animator->addAnimation(animName, clip);
+        }
+    }
+
+    std::vector<std::string> getAnimationNames() const {
+        std::vector<std::string> names;
+        for (const auto& [name, clip] : m_animationLibrary) {
+            names.push_back(name);
+        }
+        return names;
+    }
+
+
+    AnimationManager() : m_globalSpeedMultiplier(1.0f) {}
+    ~AnimationManager() { shutdown(); }
 private:
-    std::unordered_map<std::string, Animation> animations;              // All loaded animations
-    std::unordered_map<std::string, EntityAnimationState> entityStates; // Entity-specific states
+
+    // Internal helper functions
+    bool processAnimationFile(const std::string& filename, const std::string& animName);
+    void cleanupResources();
+
+    // Storage
+    std::unordered_map<std::string, std::unique_ptr<AnimationClip>> m_animationLibrary;
+    std::vector<std::weak_ptr<AnimationComponent>> m_activeComponents;
+
+    // Settings
+    float m_globalSpeedMultiplier;
+
+    // Assimp importer (kept as member to prevent reallocation)
+    Assimp::Importer m_importer;
+
+    std::unordered_map<std::string, std::shared_ptr<EntityAnimator>> m_entityAnimators;
 };
 
 extern AnimationManager g_AnimationManager;
-#endif // ANIMATION_MANAGER_H
+
+#endif // !1

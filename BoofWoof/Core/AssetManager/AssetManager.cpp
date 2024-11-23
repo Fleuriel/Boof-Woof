@@ -1258,62 +1258,63 @@ bool AssetManager::LoadAnimations() {
     Currentlyloading = true;
     std::string filepath(FILEPATH_ASSET_ANIMATIONS);
 
-    if (fs::is_directory(filepath)) {
-        for (const auto& entry : fs::directory_iterator(filepath)) {
-
-
-            std::string FilePath = filepath + "\\" + entry.path().filename().string();
-            //std::cout << "Font file " << FilePath << " Found." << std::endl;
-
-            size_t pos = entry.path().filename().string().find_last_of('.');
-            if (pos != std::string::npos) {
-
-                std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
-                //std::cout << nameWithoutExtension << std::endl;
-
-                std::string Extension = entry.path().filename().string().substr(pos);
-                //std::cout << Extension;
-                std::string allowedExtensions = ".fbx";
-
-                // Check if the substring exists in the full string
-                size_t found = allowedExtensions.find(toLowerCase(Extension));
-
-                if (found == std::string::npos) {
-                    DiscardToTrashBin(entry.path().string(), FILEPATH_ASSET_ANIMATIONS);
-                    continue;
-                }
-
-                
-
+    // Check if the specified path is a valid directory
+    if (!fs::is_directory(filepath)) {
 #ifdef _DEBUG
-                std::cout << "\n**************************************************************************************\n";
-                std::cout << nameWithoutExtension << " detected successfully!\n";
-#endif // DEBUG
-
-                g_AnimationManager.LoadAnimations(entry.path().string());
-                
-
-            }
-            else
-            {
-#ifdef _DEBUG
-                std::cout << "File " << entry.path().filename().string() << " is missing file extension.\n";
-#endif // DEBUG
-            }
-
-        }
-        Currentlyloading = false;
-        return true;
-    }
-    else {
-        // Print error
-#ifdef _DEBUG
-        std::cout << "The specified path is not a directory." << std::endl;
-#endif // DEBUG
+        std::cout << "The specified path is not a directory: " << filepath << std::endl;
+#endif
         Currentlyloading = false;
         return false;
     }
 
+    // Supported animation file extensions
+    const std::vector<std::string> allowedExtensions = { ".fbx", ".dae", ".gltf", ".glb" }; // Extendable list
+
+    for (const auto& entry : fs::directory_iterator(filepath)) {
+        std::string filePath = entry.path().string();
+        std::string fileName = entry.path().filename().string();
+
+        // Get the file extension
+        size_t pos = fileName.find_last_of('.');
+        if (pos == std::string::npos) {
+#ifdef _DEBUG
+            std::cout << "File " << fileName << " is missing a file extension.\n";
+#endif
+            DiscardToTrashBin(filePath, FILEPATH_ASSET_ANIMATIONS);
+            continue;
+        }
+
+        std::string extension = fileName.substr(pos);
+        std::string nameWithoutExtension = fileName.substr(0, pos);
+
+        // Check if the extension is allowed
+        if (std::find(allowedExtensions.begin(), allowedExtensions.end(), toLowerCase(extension)) == allowedExtensions.end()) {
+#ifdef _DEBUG
+            std::cout << "File " << fileName << " has an unsupported extension (" << extension << ").\n";
+#endif
+            DiscardToTrashBin(filePath, FILEPATH_ASSET_ANIMATIONS);
+            continue;
+        }
+
+        // Load the animation using the AnimationManager
+#ifdef _DEBUG
+        std::cout << "\n**************************************************************************************\n";
+        std::cout << "Detected valid animation file: " << nameWithoutExtension << " (" << extension << ")\n";
+#endif
+
+        if (!g_AnimationManager.loadAnimation(filePath, nameWithoutExtension)) {
+#ifdef _DEBUG
+            std::cout << "Failed to load animation: " << fileName << std::endl;
+#endif
+            continue;
+        }
+#ifdef _DEBUG
+        std::cout << "Successfully loaded animation: " << nameWithoutExtension << std::endl;
+#endif
+    }
+
+    Currentlyloading = false;
+    return true;
 }
 
 bool AssetManager::FreeAnimations() {

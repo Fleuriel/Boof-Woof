@@ -50,6 +50,27 @@ public:
         return worldMatrix;
     }
 
+    void SetTransformation(const glm::mat4& transform) {
+        // Extract the position from the transformation matrix
+        m_Position = glm::vec3(transform[3]);
+
+        // Extract the scale
+        m_Scale = glm::vec3(
+            glm::length(glm::vec3(transform[0])),
+            glm::length(glm::vec3(transform[1])),
+            glm::length(glm::vec3(transform[2]))
+        );
+
+        // Extract the rotation by removing the scaling from the rotation part of the matrix
+        glm::mat3 rotationMat = glm::mat3(transform);
+        rotationMat[0] /= m_Scale.x;
+        rotationMat[1] /= m_Scale.y;
+        rotationMat[2] /= m_Scale.z;
+
+        m_Rotation = glm::eulerAngles(glm::quat_cast(rotationMat)); // Convert to Euler angles
+    }
+
+
 
     // Reflection integration
     REFLECT_COMPONENT(TransformComponent)

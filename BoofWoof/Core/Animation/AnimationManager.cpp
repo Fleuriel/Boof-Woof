@@ -1,239 +1,276 @@
+// AnimationManager.cpp
 #include "pch.h"
-
 #include "AnimationManager.h"
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
-#include <assimp/vector3.h>
 #include <iostream>
-#include <cmath>
+#include <filesystem>
+#include <chrono>
+#include <thread>
 
-
-// Overload for subtraction
-inline aiVector3D operator-(const aiVector3D& lhs, const aiVector3D& rhs) {
-    return aiVector3D(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
+void AnimationManager::initialize() {
+    m_globalSpeedMultiplier = 1.0f;
+    m_importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);
+    m_importer.SetPropertyFloat(AI_CONFIG_GLOBAL_SCALE_FACTOR_KEY, 1.0f);
+    m_importer.SetPropertyBool(AI_CONFIG_IMPORT_REMOVE_EMPTY_BONES, true);
 }
 
-// Overload for addition
-inline aiVector3D operator+(const aiVector3D& lhs, const aiVector3D& rhs) {
-    return aiVector3D(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
+void AnimationManager::shutdown() {
+    unloadAllAnimations();
+    m_importer.FreeScene();
+    m_activeComponents.clear();
 }
 
-// Overload for scalar multiplication (vector * scalar)
-inline aiVector3D operator*(const aiVector3D& vec, double scalar) {
-    return aiVector3D(vec.x * scalar, vec.y * scalar, vec.z * scalar);
-}
+void AnimationManager::update(float deltaTime) {
+    // Apply global speed multiplier
+    float adjustedDelta = deltaTime * m_globalSpeedMultiplier;
 
-// Overload for scalar multiplication (scalar * vector)
-inline aiVector3D operator*(double scalar, const aiVector3D& vec) {
-    return aiVector3D(vec.x * scalar, vec.y * scalar, vec.z * scalar);
-}
+    // Clean up expired components
+    m_activeComponents.erase(
+        std::remove_if(m_activeComponents.begin(), m_activeComponents.end(),
+            [](const std::weak_ptr<AnimationComponent>& comp) {
+                return comp.expired();
+            }),
+        m_activeComponents.end()
+    );
 
-// Helper function for linear interpolation between two values
-template <typename T>
-T Lerp(const T& start, const T& end, double factor) {
-    return start + static_cast<T>(factor * (end - start));
-}
-
-
-
-
-// Animation Constructor
-Animation::Animation(const aiAnimation* assimpAnimation) {
-    name = assimpAnimation->mName.C_Str();
-    duration = assimpAnimation->mDuration;
-    ticksPerSecond = assimpAnimation->mTicksPerSecond != 0 ? assimpAnimation->mTicksPerSecond : 25.0;
-
-    for (unsigned int i = 0; i < assimpAnimation->mNumChannels; ++i) {
-        const aiNodeAnim* channel = assimpAnimation->mChannels[i];
-        AnimationChannel animationChannel;
-        animationChannel.nodeName = channel->mNodeName.C_Str();
-
-        for (unsigned int j = 0; j < channel->mNumPositionKeys; ++j) {
-            KeyFrame keyframe;
-            keyframe.time = channel->mPositionKeys[j].mTime;
-            keyframe.position = channel->mPositionKeys[j].mValue;
-
-            if (j < channel->mNumRotationKeys) {
-                keyframe.rotation = channel->mRotationKeys[j].mValue;
-            }
-            if (j < channel->mNumScalingKeys) {
-                keyframe.scale = channel->mScalingKeys[j].mValue;
-            }
-
-            animationChannel.keyframes.push_back(keyframe);
-        }
-        channels.push_back(animationChannel);
-    }
-}
-
-// Compute the transformation matrix for a given node
-aiMatrix4x4 Animation::ComputeNodeTransformation(const std::string& nodeName, double currentTime) const {
-    // Find the animation channel for the node
-    const auto it = std::find_if(channels.begin(), channels.end(),
-        [&nodeName](const AnimationChannel& channel) {
-            return channel.nodeName == nodeName;
-        });
-
-    if (it == channels.end()) {
-        // Node not found in animation, return identity matrix
-        return aiMatrix4x4();
-    }
-
-    const AnimationChannel& channel = *it;
-
-    aiVector3D interpolatedPosition(0.0f, 0.0f, 0.0f);
-    aiQuaternion interpolatedRotation(1.0f, 0.0f, 0.0f, 0.0f);
-    aiVector3D interpolatedScale(1.0f, 1.0f, 1.0f);
-
-    // Interpolate position
-    if (!channel.keyframes.empty()) {
-        for (size_t i = 0; i < channel.keyframes.size() - 1; ++i) {
-            const KeyFrame& current = channel.keyframes[i];
-            const KeyFrame& next = channel.keyframes[i + 1];
-            if (currentTime >= current.time && currentTime <= next.time) {
-                double factor = (currentTime - current.time) / (next.time - current.time);
-                interpolatedPosition = Lerp(current.position, next.position, factor);
-                break;
-            }
+    // Update active components
+    for (auto& weakComp : m_activeComponents) {
+        if (auto comp = weakComp.lock()) {
+            comp->update(adjustedDelta);
         }
     }
-
-    // Interpolate rotation
-    if (!channel.keyframes.empty()) {
-        for (size_t i = 0; i < channel.keyframes.size() - 1; ++i) {
-            const KeyFrame& current = channel.keyframes[i];
-            const KeyFrame& next = channel.keyframes[i + 1];
-            if (currentTime >= current.time && currentTime <= next.time) {
-                double factor = (currentTime - current.time) / (next.time - current.time);
-                aiQuaternion::Interpolate(interpolatedRotation, current.rotation, next.rotation, static_cast<float>(factor));
-                interpolatedRotation.Normalize();
-                break;
-            }
-        }
-    }
-
-    // Interpolate scale
-    if (!channel.keyframes.empty()) {
-        for (size_t i = 0; i < channel.keyframes.size() - 1; ++i) {
-            const KeyFrame& current = channel.keyframes[i];
-            const KeyFrame& next = channel.keyframes[i + 1];
-            if (currentTime >= current.time && currentTime <= next.time) {
-                double factor = (currentTime - current.time) / (next.time - current.time);
-                interpolatedScale = Lerp(current.scale, next.scale, factor);
-                break;
-            }
-        }
-    }
-
-    // Construct transformation matrix
-    aiMatrix4x4 translationMatrix;
-    aiMatrix4x4::Translation(interpolatedPosition, translationMatrix);
-
-    aiMatrix4x4 rotationMatrix = aiMatrix4x4(interpolatedRotation.GetMatrix());
-
-    aiMatrix4x4 scaleMatrix;
-    aiMatrix4x4::Scaling(interpolatedScale, scaleMatrix);
-
-    return translationMatrix * rotationMatrix * scaleMatrix;
 }
 
-// EntityAnimationState Update Function
-void EntityAnimationState::Update(double deltaTime, const Animation& animation) {
-    if (!isPlaying || activeAnimation.empty()) return;
+bool AnimationManager::loadAnimation(const std::string& filename, const std::string& animName) {
+    // Check if animation is already loaded
+    std::string finalAnimName = animName.empty() ?
+        std::filesystem::path(filename).stem().string() : animName;
 
-    currentTime += deltaTime * animation.ticksPerSecond;
-    if (currentTime > animation.duration) {
-        currentTime = fmod(currentTime, animation.duration); // Loop animation
+    if (m_animationLibrary.find(finalAnimName) != m_animationLibrary.end()) {
+        std::cout << "Animation '" << finalAnimName << "' already loaded\n";
+        return true;
     }
+
+    return processAnimationFile(filename, finalAnimName);
 }
 
-// Set animation type
-void EntityAnimationState::SetAnimation(AnimationType type, const std::string& animationName) {
-    animations[type] = animationName;
-    if (activeAnimation.empty()) {
-        activeAnimation = animationName; // Default to first assigned animation
+bool AnimationManager::processAnimationFile(const std::string& filename, const std::string& animName) {
+    // Import the animation file
+    const aiScene* scene = m_importer.ReadFile(filename,
+        aiProcess_Triangulate |
+        aiProcess_GenSmoothNormals |
+        aiProcess_CalcTangentSpace |
+        aiProcess_LimitBoneWeights |
+        aiProcess_GlobalScale |
+        aiProcess_PopulateArmatureData
+    );
+
+    if (!scene || !scene->HasAnimations()) {
+        std::cerr << "Failed to load animation file: " << filename << "\n";
+        std::cerr << "Assimp error: " << m_importer.GetErrorString() << "\n";
+        return false;
     }
-}
 
-// Load Animations from a File
-void AnimationManager::LoadAnimations(const std::string& filePath) {
-    Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs);
-
-    if (!scene || !scene->mRootNode || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) {
-        std::cerr << "Error loading file: " << importer.GetErrorString() << std::endl;
-        return;
-    }
-
-    // Extract file name for naming
-    std::string baseName = filePath.substr(filePath.find_last_of("/\\") + 1);
-    baseName = baseName.substr(0, baseName.find_last_of('.'));
-
-    for (unsigned int i = 0; i < scene->mNumAnimations; ++i) {
+    // Process each animation in the file
+    for (unsigned int i = 0; i < scene->mNumAnimations; i++) {
         aiAnimation* anim = scene->mAnimations[i];
-        Animation animation(anim);
+        std::string currentAnimName = animName;
 
-        animation.name = baseName + "_" + std::to_string(i);
-        animations[animation.name] = animation;
-        animationNames.push_back(animation.name);
+        // If file contains multiple animations, append index to name
+        if (scene->mNumAnimations > 1) {
+            currentAnimName += "_" + std::to_string(i);
+        }
 
-        // Debug output
-        std::cout << "Loaded animation: " << animation.name << std::endl;
+        auto clip = std::make_unique<AnimationClip>();
+        clip->name = currentAnimName;
+        clip->duration = anim->mDuration;
+        clip->ticksPerSecond = anim->mTicksPerSecond != 0 ?
+            anim->mTicksPerSecond : 24.0f;
+        clip->rootNode = scene->mRootNode;
+
+        // Process animation channels (bone animations)
+        for (unsigned int j = 0; j < anim->mNumChannels; j++) {
+            aiNodeAnim* channel = anim->mChannels[j];
+            BoneInfo& boneInfo = clip->bones[channel->mNodeName.C_Str()];
+            boneInfo.name = channel->mNodeName.C_Str();
+
+            // Reserve space for keyframes
+            size_t numKeys = std::max({
+                channel->mNumPositionKeys,
+                channel->mNumRotationKeys,
+                channel->mNumScalingKeys
+                });
+            boneInfo.keyFrames.reserve(numKeys);
+
+            // Process keyframes
+            for (unsigned int k = 0; k < numKeys; k++) {
+                KeyFrame keyFrame;
+
+                // Position keys
+                if (k < channel->mNumPositionKeys) {
+                    auto& pos = channel->mPositionKeys[k];
+                    keyFrame.timeStamp = pos.mTime;
+                    keyFrame.position = glm::vec3(pos.mValue.x, pos.mValue.y, pos.mValue.z);
+                }
+
+                // Rotation keys
+                if (k < channel->mNumRotationKeys) {
+                    auto& rot = channel->mRotationKeys[k];
+                    keyFrame.rotation = glm::quat(rot.mValue.w, rot.mValue.x, rot.mValue.y, rot.mValue.z);
+                }
+
+                // Scale keys
+                if (k < channel->mNumScalingKeys) {
+                    auto& scale = channel->mScalingKeys[k];
+                    keyFrame.scale = glm::vec3(scale.mValue.x, scale.mValue.y, scale.mValue.z);
+                }
+
+                boneInfo.keyFrames.push_back(keyFrame);
+            }
+        }
+
+        // Process bone hierarchy and offsets
+        std::function<void(aiNode*, const glm::mat4&)> processNode;
+        processNode = [&](aiNode* node, const glm::mat4& parentTransform) {
+            std::string nodeName = node->mName.C_Str();
+
+            // Convert aiMatrix4x4 to glm::mat4
+            glm::mat4 transform;
+            memcpy(&transform, &node->mTransformation, sizeof(float) * 16);
+
+            glm::mat4 globalTransform = parentTransform * transform;
+
+            // If this node is a bone in our animation
+            if (clip->bones.find(nodeName) != clip->bones.end()) {
+                BoneInfo& boneInfo = clip->bones[nodeName];
+                boneInfo.offset = globalTransform;
+            }
+
+            // Process children
+            for (unsigned int i = 0; i < node->mNumChildren; i++) {
+                processNode(node->mChildren[i], globalTransform);
+            }
+            };
+
+        // Start processing from root with identity matrix
+        processNode(scene->mRootNode, glm::mat4(1.0f));
+
+        // Store the processed animation
+        m_animationLibrary[currentAnimName] = std::move(clip);
+    }
+
+    return true;
+}
+
+AnimationClip* AnimationManager::getAnimation(const std::string& name) {
+    auto it = m_animationLibrary.find(name);
+    if (it != m_animationLibrary.end()) {
+        return it->second.get();
+    }
+    return nullptr;
+}
+
+void AnimationManager::unloadAnimation(const std::string& name) {
+    auto it = m_animationLibrary.find(name);
+    if (it != m_animationLibrary.end()) {
+        // Check if animation is still in use
+        for (const auto& weakComp : m_activeComponents) {
+            if (auto comp = weakComp.lock()) {
+                if (comp->getCurrentClipName() == name) {
+                    std::cout << "Warning: Attempting to unload animation '"
+                        << name << "' that is still in use\n";
+                    return;
+                }
+            }
+        }
+        m_animationLibrary.erase(it);
     }
 }
 
-// Check if an animation is loaded
-bool AnimationManager::IsAnimationLoaded(const std::string& animationName) const {
-    return animations.find(animationName) != animations.end();
-}
-
-// Retrieve an animation by name
-const Animation& AnimationManager::GetAnimation(const std::string& animationName) const {
-    auto it = animations.find(animationName);
-    if (it == animations.end()) {
-        throw std::runtime_error("Animation not found: " + animationName);
-    }
-    return it->second;
-}
-
-// Assign an animation to an entity
-void AnimationManager::AssignAnimation(const std::string& entityId, AnimationType type, const std::string& animationName) {
-    if (animations.find(animationName) != animations.end()) {
-        entityStates[entityId].SetAnimation(type, animationName);
-    }
-}
-
-// Play animation for an entity
-void AnimationManager::PlayAnimation(const std::string& entityId) {
-    if (entityStates.find(entityId) != entityStates.end()) {
-        entityStates[entityId].isPlaying = true;
-    }
-}
-
-// Stop animation for an entity
-void AnimationManager::StopAnimation(const std::string& entityId) {
-    if (entityStates.find(entityId) != entityStates.end()) {
-        entityStates[entityId].isPlaying = false;
-    }
-}
-
-// Update animations for all entities
-void AnimationManager::Update(double deltaTime) {
-    for (auto& [entityId, state] : entityStates) {
-        if (state.isPlaying) {
-            const auto& animation = animations[state.activeAnimation];
-            state.Update(deltaTime, animation);
-
-            // Apply interpolated transformation to the entity here
+void AnimationManager::unloadAllAnimations() {
+    // Only unload animations that aren't currently in use
+    auto it = m_animationLibrary.begin();
+    while (it != m_animationLibrary.end()) {
+        bool inUse = false;
+        for (const auto& weakComp : m_activeComponents) {
+            if (auto comp = weakComp.lock()) {
+                if (comp->getCurrentClipName() == it->first) {
+                    inUse = true;
+                    break;
+                }
+            }
+        }
+        if (!inUse) {
+            it = m_animationLibrary.erase(it);
+        }
+        else {
+            ++it;
         }
     }
 }
 
-// Get the index of an animation by its name
-int AnimationManager::GetAnimationIndex(const std::string& animationName) const {
-    auto it = std::find(animationNames.begin(), animationNames.end(), animationName);
-    if (it != animationNames.end()) {
-        return static_cast<int>(std::distance(animationNames.begin(), it));
+void AnimationManager::preloadAnimation(const std::string& filename) {
+    // Load the animation in a separate thread
+    std::thread loadThread([this, filename]() {
+        loadAnimation(filename);
+        });
+    loadThread.detach();
+}
+
+void AnimationManager::purgeUnusedAnimations() {
+    // Track which animations are currently in use
+    std::unordered_set<std::string> inUseAnimations;
+    for (const auto& weakComp : m_activeComponents) {
+        if (auto comp = weakComp.lock()) {
+            inUseAnimations.insert(comp->getCurrentClipName());
+        }
     }
-    return -1; // Animation not found
+
+    // Remove animations that aren't in use
+    auto it = m_animationLibrary.begin();
+    while (it != m_animationLibrary.end()) {
+        if (inUseAnimations.find(it->first) == inUseAnimations.end()) {
+            it = m_animationLibrary.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
+}
+
+size_t AnimationManager::getTotalMemoryUsage() const {
+    size_t totalMemory = 0;
+
+    // Calculate memory used by animation library
+    for (const auto& [name, clip] : m_animationLibrary) {
+        // Base size of AnimationClip
+        totalMemory += sizeof(AnimationClip);
+
+        // Size of name string
+        totalMemory += name.capacity() * sizeof(char);
+
+        // Size of bone data
+        for (const auto& [boneName, boneInfo] : clip->bones) {
+            totalMemory += boneName.capacity() * sizeof(char);
+            totalMemory += sizeof(BoneInfo);
+            totalMemory += boneInfo.keyFrames.capacity() * sizeof(KeyFrame);
+        }
+    }
+
+    return totalMemory;
+}
+
+void AnimationManager::printStatistics() const {
+    std::cout << "\n=== Animation Manager Statistics ===\n";
+    std::cout << "Loaded animations: " << m_animationLibrary.size() << "\n";
+    std::cout << "Active components: " << m_activeComponents.size() << "\n";
+    std::cout << "Total memory usage: " << getTotalMemoryUsage() / 1024.0f << " KB\n";
+
+    std::cout << "\nAnimation details:\n";
+    for (const auto& [name, clip] : m_animationLibrary) {
+        std::cout << "- " << name << ":\n";
+        std::cout << "  Duration: " << clip->duration << "s\n";
+        std::cout << "  Bones: " << clip->bones.size() << "\n";
+        std::cout << "  Ticks per second: " << clip->ticksPerSecond << "\n";
+    }
+    std::cout << "===============================\n\n";
 }

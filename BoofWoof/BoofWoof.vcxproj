@@ -225,6 +225,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Animation\AnimationManager.h" />
+    <ClInclude Include="Core\Animation\EntityAnimator.h" />
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
     <ClInclude Include="Core\AssetManager\Compressonator.h" />
     <ClInclude Include="Core\AssetManager\Descriptor.h" />

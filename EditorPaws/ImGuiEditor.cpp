@@ -516,13 +516,13 @@ void ImGuiEditor::InspectorWindow()
 					if (ImGui::Selectable("Animation Component")) {
 						if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
 
-							g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
+							g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
 
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
 									if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
-										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
+										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
 									}
 								},
 								[this]() {
@@ -1300,172 +1300,83 @@ void ImGuiEditor::InspectorWindow()
 							}
 						}
 						else if (className == "AnimationComponent") {
-							// Ensure animations exist in the manager
-							if (!g_AnimationManager.animationNames.empty()) {
-								auto& animationComponent = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
+							auto entityAnimator = g_AnimationManager.getEntityAnimator(std::to_string(g_SelectedEntity));
 
+							if (!entityAnimator) {
 								if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
-
-									ImGui::Text("Current Animation Selected:");
-									ImGui::NewLine();
-
-									// Display current animations
-									ImGui::Text(("Idle Animation: " +
-										(animationComponent.GetAnimation(AnimationType::Idle).empty() ? "None"
-											: animationComponent.GetAnimation(AnimationType::Idle))).c_str());
-									ImGui::Text(("Moving Animation: " +
-										(animationComponent.GetAnimation(AnimationType::Moving).empty() ? "None"
-											: animationComponent.GetAnimation(AnimationType::Moving))).c_str());
-									ImGui::Text(("Action Animation: " +
-										(animationComponent.GetAnimation(AnimationType::Action).empty() ? "None"
-											: animationComponent.GetAnimation(AnimationType::Action))).c_str());
-
-									ImGui::NewLine(); ImGui::NewLine();
-
-									ImGui::Text("Animation Selection:");
-									ImGui::NewLine();
-
-									float comboBoxWidth = 200.0f;
-									float labelWidth = 200.0f;
-
-									// Idle Animation
-									ImGui::Text("Idle Animation:");
-									ImGui::SameLine(labelWidth);
-									ImGui::SetNextItemWidth(comboBoxWidth);
-
-									if (ImGui::BeginCombo("##IdleAnimation",
-										idleAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[idleAnimationIndex].c_str())) {
-
-										bool isSelected = (idleAnimationIndex == -1);
-										if (ImGui::Selectable("None", isSelected)) {
-											idleAnimationIndex = -1;
-										}
-										if (isSelected) {
-											ImGui::SetItemDefaultFocus();
-										}
-
-										for (int i = 0; i < g_AnimationManager.animationNames.size(); ++i) {
-											isSelected = (idleAnimationIndex == i);
-											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
-												idleAnimationIndex = i;
-											}
-											if (isSelected) {
-												ImGui::SetItemDefaultFocus();
-											}
-										}
-										ImGui::EndCombo();
-									}
-
-									// Movement Animation
-									ImGui::Text("Movement Animation:");
-									ImGui::SameLine(labelWidth);
-									ImGui::SetNextItemWidth(comboBoxWidth);
-
-									if (ImGui::BeginCombo("##MovingAnimation",
-										movingAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[movingAnimationIndex].c_str())) {
-
-										bool isSelected = (movingAnimationIndex == -1);
-										if (ImGui::Selectable("None", isSelected)) {
-											movingAnimationIndex = -1;
-										}
-										if (isSelected) {
-											ImGui::SetItemDefaultFocus();
-										}
-
-										for (int i = 0; i < g_AnimationManager.animationNames.size(); ++i) {
-											isSelected = (movingAnimationIndex == i);
-											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
-												movingAnimationIndex = i;
-											}
-											if (isSelected) {
-												ImGui::SetItemDefaultFocus();
-											}
-										}
-										ImGui::EndCombo();
-									}
-
-									// Action Animation
-									ImGui::Text("Action Animation:");
-									ImGui::SameLine(labelWidth);
-									ImGui::SetNextItemWidth(comboBoxWidth);
-
-									if (ImGui::BeginCombo("##ActionAnimation",
-										actionAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[actionAnimationIndex].c_str())) {
-
-										bool isSelected = (actionAnimationIndex == -1);
-										if (ImGui::Selectable("None", isSelected)) {
-											actionAnimationIndex = -1;
-										}
-										if (isSelected) {
-											ImGui::SetItemDefaultFocus();
-										}
-
-										for (int i = 0; i < g_AnimationManager.animationNames.size(); ++i) {
-											isSelected = (actionAnimationIndex == i);
-											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
-												actionAnimationIndex = i;
-											}
-											if (isSelected) {
-												ImGui::SetItemDefaultFocus();
-											}
-										}
-										ImGui::EndCombo();
-									}
-
-									ImGui::NewLine();
-
-									// Apply and Revert Buttons
-									if (ImGui::Button("Apply")) {
-										// Apply Idle Animation
-										if (idleAnimationIndex == -1) {
-											animationComponent.ClearAnimation(AnimationType::Idle);
-										}
-										else {
-											std::string idleAnimation = g_AnimationManager.animationNames[idleAnimationIndex];
-											animationComponent.SetAnimation(AnimationType::Idle, idleAnimation);
-										}
-
-										// Apply Movement Animation
-										if (movingAnimationIndex == -1) {
-											animationComponent.ClearAnimation(AnimationType::Moving);
-										}
-										else {
-											std::string movingAnimation = g_AnimationManager.animationNames[movingAnimationIndex];
-											animationComponent.SetAnimation(AnimationType::Moving, movingAnimation);
-										}
-
-										// Apply Action Animation
-										if (actionAnimationIndex == -1) {
-											animationComponent.ClearAnimation(AnimationType::Action);
-										}
-										else {
-											std::string actionAnimation = g_AnimationManager.animationNames[actionAnimationIndex];
-											animationComponent.SetAnimation(AnimationType::Action, actionAnimation);
-										}
-
-										std::cout << "Animations applied successfully to entity " << g_SelectedEntity << "." << std::endl;
-									}
-
-									ImGui::SameLine();
-
-									if (ImGui::Button("Revert To Default")) {
-										// Reset indices and animations
-										idleAnimationIndex = -1;
-										movingAnimationIndex = -1;
-										actionAnimationIndex = -1;
-
-										animationComponent.ClearAllAnimations();
-										std::cout << "Animations reverted to default." << std::endl;
-									}
-
-									ImGui::NewLine();
-
-									
+									ImGui::Text("No animator associated with the entity.");
 								}
+								return;
 							}
-							else {
-								if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
-									ImGui::Text("No animations found.");
+
+							if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
+								ImGui::Text("Animation States:");
+								ImGui::NewLine();
+
+								for (const auto& [name, state] : entityAnimator->getAnimationStates()) {
+									ImGui::Text(("Animation: " + name).c_str());
+									ImGui::Text((" - Is Playing: " + std::string(state.isPlaying ? "Yes" : "No")).c_str());
+									ImGui::Text((" - Is Looping: " + std::string(state.isLooping ? "Yes" : "No")).c_str());
+									ImGui::Text((" - Weight: " + std::to_string(state.weight)).c_str());
+									ImGui::NewLine();
+								}
+
+								float comboBoxWidth = 200.0f;
+								float labelWidth = 150.0f;
+
+								// Animation Selection Section
+								ImGui::Text("Animation Selection:");
+								ImGui::NewLine();
+
+								static int selectedAnimationIndex = -1;
+
+								ImGui::Text("Select Animation:");
+								ImGui::SameLine(labelWidth);
+								ImGui::SetNextItemWidth(comboBoxWidth);
+
+								// Dropdown for selecting animations
+								if (ImGui::BeginCombo("##AnimationSelection",
+									selectedAnimationIndex == -1 ? "None"
+									: g_AnimationManager.getAnimationNames()[selectedAnimationIndex].c_str())) {
+									if (ImGui::Selectable("None", selectedAnimationIndex == -1)) {
+										selectedAnimationIndex = -1;
+									}
+
+									for (int i = 0; i < g_AnimationManager.getAnimationNames().size(); ++i) {
+										bool isSelected = (selectedAnimationIndex == i);
+										if (ImGui::Selectable(g_AnimationManager.getAnimationNames()[i].c_str(), isSelected)) {
+											selectedAnimationIndex = i;
+										}
+										if (isSelected) {
+											ImGui::SetItemDefaultFocus();
+										}
+									}
+									ImGui::EndCombo();
+								}
+
+								ImGui::NewLine();
+
+								// Buttons for Play, Stop, and Revert
+								if (ImGui::Button("Play Animation")) {
+									if (selectedAnimationIndex != -1) {
+										const std::string& selectedAnimation = g_AnimationManager.getAnimationNames()[selectedAnimationIndex];
+										entityAnimator->playAnimation(selectedAnimation);
+										std::cout << "Playing animation: " << selectedAnimation << " on entity: " << g_SelectedEntity << std::endl;
+									}
+								}
+								ImGui::SameLine();
+								if (ImGui::Button("Stop Animation")) {
+									if (selectedAnimationIndex != -1) {
+										const std::string& selectedAnimation = g_AnimationManager.getAnimationNames()[selectedAnimationIndex];
+										entityAnimator->removeAnimation(selectedAnimation);
+										std::cout << "Stopped animation: " << selectedAnimation << " on entity: " << g_SelectedEntity << std::endl;
+									}
+								}
+
+								ImGui::NewLine();
+								if (ImGui::Button("Revert All Animations")) {
+									entityAnimator->removeAllAnimations();
+									std::cout << "Reverted all animations to default on entity: " << g_SelectedEntity << "." << std::endl;
 								}
 							}
 						}
