@@ -17,6 +17,12 @@ class ParticleComponent
 {
 public:
 	ParticleComponent() {};
+	ParticleComponent(float d, glm::vec3 p_min, glm::vec3 p_max,
+		float v_min, float v_max, std::vector<glm::vec3> target_positions,
+		float p_size, glm::vec4 p_color)
+		: density(d), Pos_min(p_min), Pos_max(p_max),
+		velocity_min(v_min), velocity_max(v_max), target_positions(target_positions),
+		particle_size(p_size), particle_color(p_color) {}
 	~ParticleComponent() {
 		particles.clear();
 	};
@@ -173,7 +179,6 @@ public:
 		{
 			density_counter = 0.0f;
 			add_particle = true;
-			std::cout << "adding particle\n";
 		}
 		
 		for (int i = 0; i < PARTICLE_NUM; i++)
