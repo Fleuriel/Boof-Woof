@@ -25,7 +25,7 @@ AnimationComponent::AnimationComponent()
 }
 
 AnimationComponent::~AnimationComponent() {
-    m_animations.clear();
+   // m_animations.clear();
 }
 
 void AnimationComponent::loadAnimation(const std::string& filename) {
@@ -45,7 +45,7 @@ void AnimationComponent::loadAnimation(const std::string& filename) {
         return;
     }
 
-    loadAnimation(scene, std::filesystem::path(filename).stem().string());
+  //  loadAnimation(scene, std::filesystem::path(filename).stem().string());
 }
 
 void AnimationComponent::processAnimation(const aiNodeAnim* nodeAnim, AnimationClip* clip) {
@@ -103,37 +103,37 @@ void AnimationComponent::processNode(aiNode* node, const glm::mat4& parentTransf
     }
 }
 
-void AnimationComponent::loadAnimation(const aiScene* scene, const std::string& animationName) {
-    if (!scene->HasAnimations()) return;
-
-    for (unsigned int animIndex = 0; animIndex < scene->mNumAnimations; animIndex++) {
-        aiAnimation* animation = scene->mAnimations[animIndex];
-        std::string clipName = animationName;
-
-        if (scene->mNumAnimations > 1) {
-            clipName += "_" + std::to_string(animIndex);
-        }
-
-        auto clip = std::make_unique<AnimationClip>();
-        clip->name = clipName;
-        clip->duration = static_cast<float>(animation->mDuration);
-        clip->ticksPerSecond = animation->mTicksPerSecond != 0 ?
-            static_cast<float>(animation->mTicksPerSecond) : 24.0f;
-
-        clip->rootNode = scene->mRootNode;
-
-        // Process all animation channels (bone animations)
-        for (unsigned int channelIndex = 0; channelIndex < animation->mNumChannels; channelIndex++) {
-            aiNodeAnim* channel = animation->mChannels[channelIndex];
-            processAnimation(channel, clip.get());
-        }
-
-        // Process the bone hierarchy
-        processNode(scene->mRootNode, glm::mat4(1.0f), clip.get());
-
-        m_animations[clipName] = std::move(clip);
-    }
-}
+//void AnimationComponent::loadAnimation(const aiScene* scene, const std::string& animationName) {
+//    if (!scene->HasAnimations()) return;
+//
+//    for (unsigned int animIndex = 0; animIndex < scene->mNumAnimations; animIndex++) {
+//        aiAnimation* animation = scene->mAnimations[animIndex];
+//        std::string clipName = animationName;
+//
+//        if (scene->mNumAnimations > 1) {
+//            clipName += "_" + std::to_string(animIndex);
+//        }
+//
+//        auto clip = std::make_unique<AnimationClip>();
+//        clip->name = clipName;
+//        clip->duration = static_cast<float>(animation->mDuration);
+//        clip->ticksPerSecond = animation->mTicksPerSecond != 0 ?
+//            static_cast<float>(animation->mTicksPerSecond) : 24.0f;
+//
+//        clip->rootNode = scene->mRootNode;
+//
+//        // Process all animation channels (bone animations)
+//        for (unsigned int channelIndex = 0; channelIndex < animation->mNumChannels; channelIndex++) {
+//            aiNodeAnim* channel = animation->mChannels[channelIndex];
+//            processAnimation(channel, clip.get());
+//        }
+//
+//        // Process the bone hierarchy
+//        processNode(scene->mRootNode, glm::mat4(1.0f), clip.get());
+//
+//        m_animations[clipName] = std::move(clip);
+//    }
+//}
 
 
 void AnimationComponent::update(float deltaTime) {
@@ -262,26 +262,26 @@ KeyFrame AnimationComponent::interpolateKeyFrames(float animationTime, const std
     return interpolatedFrame;
 }
 
-void AnimationComponent::play(const std::string& clipName, bool loop) {
-    auto it = m_animations.find(clipName);
-    if (it != m_animations.end()) {
-        m_currentClip = it->second.get();
-        m_currentTime = 0.0f;
-        m_isPlaying = true;
-        m_isLooping = loop;
-        m_nextClip = nullptr;
-        m_currentFadeTime = 0.0f;
-    }
-}
-
-void AnimationComponent::crossFadeTo(const std::string& clipName, float fadeTime) {
-    auto it = m_animations.find(clipName);
-    if (it != m_animations.end() && it->second.get() != m_currentClip) {
-        m_nextClip = it->second.get();
-        m_fadeTime = fadeTime;
-        m_currentFadeTime = 0.0f;
-    }
-}
+//void AnimationComponent::play(const std::string& clipName, bool loop) {
+//    auto it = m_animations.find(clipName);
+//    if (it != m_animations.end()) {
+//        m_currentClip = it->second.get();
+//        m_currentTime = 0.0f;
+//        m_isPlaying = true;
+//        m_isLooping = loop;
+//        m_nextClip = nullptr;
+//        m_currentFadeTime = 0.0f;
+//    }
+//}
+//
+//void AnimationComponent::crossFadeTo(const std::string& clipName, float fadeTime) {
+//    auto it = m_animations.find(clipName);
+//    if (it != m_animations.end() && it->second.get() != m_currentClip) {
+//        m_nextClip = it->second.get();
+//        m_fadeTime = fadeTime;
+//        m_currentFadeTime = 0.0f;
+//    }
+//}
 
 void AnimationComponent::stop() {
     m_isPlaying = false;

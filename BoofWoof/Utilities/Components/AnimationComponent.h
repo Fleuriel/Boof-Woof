@@ -61,7 +61,7 @@ public:
 
     // Core animation functions
     void loadAnimation(const std::string& filename);
-    void loadAnimation(const aiScene* scene, const std::string& animationName);
+    //void loadAnimation(const aiScene* scene, const std::string& animationName);
     void update(float deltaTime);
 
     // Animation control functions
@@ -97,7 +97,7 @@ private:
     KeyFrame interpolateKeyFrames(float animationTime, const std::vector<KeyFrame>& keyFrames);
 
     // Animation state
-    std::map<std::string, std::unique_ptr<AnimationClip>> m_animations;
+//    std::map<std::string, std::unique_ptr<AnimationClip>> m_animations;
     AnimationClip* m_currentClip;
     AnimationClip* m_nextClip;  // For crossfading
     float m_fadeTime;
