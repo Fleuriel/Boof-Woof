@@ -18,8 +18,6 @@ namespace fs = std::filesystem;
 
 constexpr float EPSILON = 1e-6f;
 
-AnimationManager g_AnimationManager;
-
 //Helper function to locate save file directory
 std::string GetScenesDir()
 {

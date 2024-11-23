@@ -5,6 +5,8 @@
 #include <iostream>
 #include <cmath>
 
+AnimationManager g_AnimationManager;
+
 // Animation Constructor
 Animation::Animation(const aiAnimation* assimpAnimation) {
     name = assimpAnimation->mName.C_Str();
