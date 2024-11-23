@@ -59,6 +59,8 @@ class Level1 : public Level
 		}
 	}
 
+	bool teb_last = false;
+
 	void UpdateLevel(double deltaTime)
 	{
 		cameraController->Update(static_cast<float>(deltaTime));
@@ -67,8 +69,16 @@ class Level1 : public Level
 
 		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
 		{
-			cameraController->ToggleCameraMode();
-		}		
+			if (!teb_last)
+			{
+				teb_last = true;
+				cameraController->ToggleCameraMode();
+			}
+		}
+		else
+		{
+			teb_last = false;
+		}
 
 		// Space to go back mainmenu
 		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
