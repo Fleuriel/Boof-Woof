@@ -167,6 +167,8 @@ void AssetManager::LoadAll() {
         loadMaterial = AssetManager::LoadMaterials(),
         loadAnimations = AssetManager::LoadAnimations();
 
+    g_AnimationManager.printStatistics();
+
     std::cout
         << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
         //<< ((loadSprites) ? "Sprites loaded successfully" : "Failed to load sprites") << std::endl

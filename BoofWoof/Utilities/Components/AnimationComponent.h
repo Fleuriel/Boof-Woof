@@ -1,5 +1,9 @@
 // AnimationComponent.h
-#pragma once
+
+#ifndef ANIMATIONCOMPONENT_H
+#define ANIMATIONCOMPONENT_H
+
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -51,6 +55,7 @@ public:
     aiNode* rootNode;
 
     AnimationClip() : duration(0.0f), ticksPerSecond(24.0f), rootNode(nullptr) {}
+    ~AnimationClip() = default;
 };
 
 // Main animation component class
@@ -90,9 +95,9 @@ public:
 private:
     // Internal animation processing functions
     void processNode(aiNode* node, const glm::mat4& parentTransform, AnimationClip* clip);
-    void processBone(const aiBone* bone);
+    //void processBone(const aiBone* bone);
     void processAnimation(const aiNodeAnim* nodeAnim, AnimationClip* clip);
-    void extractBoneKeyFrames(const aiNodeAnim* nodeAnim, std::vector<KeyFrame>& keyFrames);
+    //void extractBoneKeyFrames(const aiNodeAnim* nodeAnim, std::vector<KeyFrame>& keyFrames);
     void calculateBoneTransform(const std::string& nodeName, const glm::mat4& parentTransform);
     KeyFrame interpolateKeyFrames(float animationTime, const std::vector<KeyFrame>& keyFrames);
 
@@ -118,3 +123,5 @@ private:
     static const int MAX_BONES = 100;
     static const float ANIMATION_BLEND_TIME;
 };
+
+#endif // !ANIMATIONCOMPONENT_H

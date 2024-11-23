@@ -1302,17 +1302,15 @@ void ImGuiEditor::InspectorWindow()
 						else if (className == "AnimationComponent") {
 							auto entityAnimator = g_AnimationManager.getEntityAnimator(std::to_string(g_SelectedEntity));
 
-							if (!entityAnimator) {
-								if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
-									ImGui::Text("No animator associated with the entity.");
-								}
-								return;
-							}
 
 							if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
+
 								ImGui::Text("Animation States:");
 								ImGui::NewLine();
 
+								std::cout << "\n\n\n\n\nPINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG\n\n\n\n\n";
+
+								if (entityAnimator)
 								for (const auto& [name, state] : entityAnimator->getAnimationStates()) {
 									ImGui::Text(("Animation: " + name).c_str());
 									ImGui::Text((" - Is Playing: " + std::string(state.isPlaying ? "Yes" : "No")).c_str());
@@ -1359,7 +1357,7 @@ void ImGuiEditor::InspectorWindow()
 								// Buttons for Play, Stop, and Revert
 								if (ImGui::Button("Play Animation")) {
 									if (selectedAnimationIndex != -1) {
-										const std::string& selectedAnimation = g_AnimationManager.getAnimationNames()[selectedAnimationIndex];
+										std::string selectedAnimation = g_AnimationManager.getAnimationNames()[selectedAnimationIndex];
 										entityAnimator->playAnimation(selectedAnimation);
 										std::cout << "Playing animation: " << selectedAnimation << " on entity: " << g_SelectedEntity << std::endl;
 									}
@@ -1367,7 +1365,7 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::SameLine();
 								if (ImGui::Button("Stop Animation")) {
 									if (selectedAnimationIndex != -1) {
-										const std::string& selectedAnimation = g_AnimationManager.getAnimationNames()[selectedAnimationIndex];
+										std::string selectedAnimation = g_AnimationManager.getAnimationNames()[selectedAnimationIndex];
 										entityAnimator->removeAnimation(selectedAnimation);
 										std::cout << "Stopped animation: " << selectedAnimation << " on entity: " << g_SelectedEntity << std::endl;
 									}
@@ -1908,7 +1906,7 @@ void ImGuiEditor::InspectorWindow()
 								if (ImGui::CollapsingHeader("Target Positions")) {
 
 									for (size_t i = 0; i < targetPositions.size(); ++i) {
-										ImGui::PushID(i);
+										ImGui::PushID(static_cast<int>(i));
 										ImGui::Text("Position %zu", i + 1);
 										ImGui::SameLine();
 
@@ -2006,7 +2004,7 @@ void ImGuiEditor::InspectorWindow()
 					newHeight = static_cast<int>(newWidth / aspectRatio);
 				}
 
-				ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(newWidth, newHeight));
+				ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(static_cast<float>(newWidth), static_cast<float>(newHeight)));
 				ImGui::SameLine();
 				ImGui::Text(inputTextToDisplay.c_str());
 
@@ -2283,7 +2281,7 @@ void ImGuiEditor::InspectorWindow()
 					// First Tab: Default
 					if (ImGui::BeginTabItem("Texture Image"))
 					{
-						ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(newWidth, newHeight));
+						ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(static_cast<float>(newWidth), static_cast<float>(newHeight)));
 
 						ImGui::EndTabItem();
 					}

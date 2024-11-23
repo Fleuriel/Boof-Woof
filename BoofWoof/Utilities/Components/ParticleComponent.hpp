@@ -193,12 +193,12 @@ public:
 			particles[i].update(dt);
 			if (particles[i].target_distance_count > particles[i].target_distance)
 			{
-				if (particles[i].target_count < target_positions.size()-1 )
+				if (particles[i].target_count < static_cast<int>(target_positions.size() - 1))
 				{
 					particles[i].target_count++;
 				}
 				else {
-					particles[i].target_count = target_positions.size() - 1;
+					particles[i].target_count = static_cast<int>(target_positions.size() - 1);
 					visibility[i] = 0.0f;
 
 				}
@@ -249,7 +249,7 @@ public:
 			max = temp;
 		}
 		std::uniform_real_distribution<> distr(min, max); // Define the range
-		return distr(eng);
+		return static_cast<float>(distr(eng));
 	}
 
 	// Function to generate a random glm::vec3 between two glm::vec3 vectors

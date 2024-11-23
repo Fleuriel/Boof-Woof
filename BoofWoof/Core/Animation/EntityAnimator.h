@@ -1,5 +1,8 @@
 // EntityAnimator.h
-#pragma once
+#ifndef ENTITYANIMATOR_H
+#define ENTITYANIMATOR_H
+
+
 #include "../Utilities/Components/AnimationComponent.h"
 #include <string>
 #include <memory>
@@ -219,3 +222,5 @@ private:
     std::unordered_map<std::string, int> m_boneMapping;
     std::vector<glm::mat4> m_finalBoneMatrices;
 };
+
+#endif // !1

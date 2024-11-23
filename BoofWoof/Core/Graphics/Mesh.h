@@ -164,6 +164,8 @@ public:
     void DrawMaterial(OpenGLShader& shader)
     {
 
+        (void)shader;
+
         // draw mesh
         glPolygonMode(GL_FRONT_AND_BACK, GL_TRIANGLES);
 

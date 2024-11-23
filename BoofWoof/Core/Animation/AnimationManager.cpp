@@ -41,6 +41,8 @@ void AnimationManager::update(float deltaTime) {
 }
 
 bool AnimationManager::loadAnimation(const std::string& filename, const std::string& animName) {
+
+
     // Check if animation is already loaded
     std::string finalAnimName = animName.empty() ?
         std::filesystem::path(filename).stem().string() : animName;

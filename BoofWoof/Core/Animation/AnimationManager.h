@@ -77,7 +77,7 @@ private:
 
     // Internal helper functions
     bool processAnimationFile(const std::string& filename, const std::string& animName);
-    void cleanupResources();
+    //void cleanupResources();
 
     // Storage
     std::unordered_map<std::string, std::unique_ptr<AnimationClip>> m_animationLibrary;
