@@ -275,7 +275,7 @@ void GraphicsSystem::UpdateLoop() {
 //			//if(graphicsComp.getModelName() == "sphere")
 //			texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
 //			//else
-//				//texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName());
+//				//texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComp.getDiffuseName());
 //
 //			//std::cout << texture_add.id << "\n";
 //
@@ -301,31 +301,31 @@ void GraphicsSystem::UpdateLoop() {
 //
 //		}
 
-		auto& shaderName = graphicsComp.material.materialDesc.shaderChosen;
-		auto& shader = graphicsComp.material.materialDesc;
-
+		auto& shaderName = graphicsComp.material.GetShaderNameRef();
+		auto& shader = graphicsComp.material;
 
 		g_AssetManager.GetShader(shaderName).Use();
 
 		SetShaderUniforms(g_AssetManager.GetShader(shaderName), shdrParam);
 
-
+	
+		
 		if (shaderName == "Material")
 		{
-			g_AssetManager.GetShader(shaderName).SetUniform("inputColor", glm::vec4(shader.albedoColorRed, shader.albedoColorGreen, shader.albedoColorBlue, shader.albedoColorAlpha));
+			g_AssetManager.GetShader(shaderName).SetUniform("inputColor", glm::vec4(shader.GetColor()));
 			g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
 
 			g_AssetManager.GetShader(shaderName).SetUniform("viewPos", camera.GetViewMatrix());
-			g_AssetManager.GetShader(shaderName).SetUniform("metallic", shader.metallic);
-			g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.smoothness);
+			g_AssetManager.GetShader(shaderName).SetUniform("metallic", shader.GetMetallic());
+			g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.GetSmoothness());
 		}
 
 
 
 		// Check if a texture is set, and bind it
-		if (shader.DiffuseID >= 0) { // Assuming textureID is -1 if no texture
+		if (shader.GetDiffuseID() >= 0) { // Assuming textureID is -1 if no texture
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, shader.DiffuseID);
+			glBindTexture(GL_TEXTURE_2D, shader.GetDiffuseID());
 			g_AssetManager.GetShader(shaderName).SetUniform("albedoTexture", 0);
 			g_AssetManager.GetShader(shaderName).SetUniform("useTexture", true);
 		}
@@ -350,7 +350,7 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-		g_AssetManager.GetShader(graphicsComp.material.materialDesc.shaderChosen).UnUse();
+		g_AssetManager.GetShader(shaderName).UnUse();
 
 
 		////clear all textures

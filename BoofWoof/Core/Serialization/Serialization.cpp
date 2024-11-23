@@ -185,9 +185,9 @@ bool Serialization::SaveScene(const std::string& filepath) {
             Grafics.AddMember("ModelName", rapidjson::Value(graphicsComp.getModelName().c_str(), allocator), allocator);
 
             // Texture Name
-            //entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
+            //entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getDiffuseName().c_str(), allocator), allocator);
 
-            //std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.getTextureName() << '\n';
+            //std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.getDiffuseName() << '\n';
 
 
             //entityData.AddMember("", S)

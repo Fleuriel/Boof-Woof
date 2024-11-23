@@ -51,8 +51,10 @@ public:
     std::string getModelName() const { return m_ModelName; }
     int getModelID() const { return m_ModelID; }
 	std::vector<int> getTextures() const { return textures; }
-    
-    std::string getTextureName() const { return textureName; }
+
+    std::string getDiffuseName() { return material.GetDiffuseName(); }
+    std::string getNormalName()  { return  material.GetNormalName(); }
+    std::string getHeightName()  { return  material.GetHeightName(); }
 
     //bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
     int getTextureNumber() const { return static_cast<int>(textures.size()); }
@@ -86,10 +88,17 @@ public:
     }
 
 
-    MaterialComponent material; // MaterialComponent is optional
+    MaterialComponent material; // MaterialComponent is 
 
 
+    bool LoadMaterialDesc(std::string filepath)
+    {
+        return material.LoadMaterialDescriptor(filepath);
 
+    }
+    void ReplaceMaterial(const MaterialComponent& newMaterial) {
+        material = newMaterial;
+    }
 
 
 

@@ -2154,7 +2154,7 @@ void ImGuiEditor::InspectorWindow()
 
 							if (!material.loadedMaterial)
 							{
-								if (material.materialDesc.LoadMaterialDescriptor(loadSaveLocation))
+								if (material.LoadMaterialDescriptor(loadSaveLocation))
 								{
 									std::cout << "load material is true\n";
 									material.loadedMaterial = true;
@@ -2171,15 +2171,12 @@ void ImGuiEditor::InspectorWindow()
 
 									
 	
-
-
-
+							
 									ImGui::Text("Texture ");
 									ImGui::SameLine(WidthIndentation);
 									ImGui::PushItemWidth(200); // Set the width in pixels
-									ImGui::InputText(" ", graphicsComponent.getTextureName().data(), graphicsComponent.getTextureName().capacity() + 1);
+									ImGui::InputText(" ", graphicsComponent.getDiffuseName().data(), graphicsComponent.getDiffuseName().capacity() + 1);
 									
-
 
 									ImGui::PushID("Textures");
 									ImGui::SameLine();
@@ -2190,6 +2187,7 @@ void ImGuiEditor::InspectorWindow()
 									{
 										//oldTextureName = currentTextureName; // Capture the old value
 										ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+
 									}
 
 									if (ImGuiFileDialog::Instance()->Display("SetTexture"))
@@ -2213,8 +2211,6 @@ void ImGuiEditor::InspectorWindow()
 												material.SetDiffuseName(selectedFile);
 
 
-												std::cout << "Testing PLS WROK\t" << material.materialDesc.DiffuseID << '\t' << material.materialDesc.textureDiffuse << '\n';
-
 
 
 												// Execute undo/redo command
@@ -2235,9 +2231,132 @@ void ImGuiEditor::InspectorWindow()
 											ImGuiFileDialog::Instance()->Close();
 										}
 
+
 									ImGui::PopID();
+									//ImGui::Text("Normal ");
+									//ImGui::SameLine(WidthIndentation);
+									//ImGui::PushItemWidth(200); // Set the width in pixels
+									//ImGui::InputText(" ", graphicsComponent.getNormalName().data(), graphicsComponent.getNormalName().capacity() + 1);
+									//
+									//ImGui::PushID("Normal");
+									//ImGui::SameLine();
+									//
+									//// Store old value before opening the file dialog
+									//// static std::string oldTextureName = "";
+									//if (ImGui::Button("Set Normal"))
+									//{
+									//	//oldTextureName = currentTextureName; // Capture the old value
+									//	ImGuiFileDialog::Instance()->OpenDialog("SetN", "Choose Normal", ".png,.dds", "../BoofWoof/Assets");
+									//}
+									//
+									//if (ImGuiFileDialog::Instance()->Display("SetN"))
+									//{
+									//	if (ImGuiFileDialog::Instance()->IsOk())
+									//	{
+									//		// User selected a file
+									//		std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+									//		size_t lastDotPos = selectedFile.find_last_of(".");
+									//		if (lastDotPos != std::string::npos)
+									//		{
+									//			selectedFile = selectedFile.substr(0, lastDotPos);
+									//		}
+									//
+									//		//newTextureName = selectedFile;
+									//		//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
+									//		int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
+									//		graphicsComponent.AddTexture(textureId);
+									//		graphicsComponent.setTexture(selectedFile);
+									//		material.SetDiffuseID(textureId);
+									//		material.SetDiffuseName(selectedFile);
+									//
+									//
+									//		std::cout << "Testing PLS WROK\t" << material.materialDesc.DiffuseID << '\t' << material.materialDesc.textureDiffuse << '\n';
+									//
+									//
+									//
+									//		// Execute undo/redo command
+									//		/*std::string oldValue = oldTextureName;
+									//		Entity entity = g_SelectedEntity;*/
+									//
+									//		/*g_UndoRedoManager.ExecuteCommand(
+									//			[entity, newTextureName]() {
+									//				auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+									//				component.setTexture(newTextureName);
+									//			},
+									//			[entity, oldValue]() {
+									//				auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+									//				component.setTexture(oldValue);
+									//			}
+									//		);*/
+									//	}
+									//	ImGuiFileDialog::Instance()->Close();
+									//}
+									//
+									//
+									//ImGui::PopID();
+									//ImGui::Text("Height ");
+									//ImGui::SameLine(WidthIndentation);
+									//ImGui::PushItemWidth(200); // Set the width in pixels
+									//ImGui::InputText(" ", graphicsComponent.getHeightName().data(), graphicsComponent.getHeightName().capacity() + 1);
+									//
+									//
+									//ImGui::PushID("Height");
+									//ImGui::SameLine();
+									//
+									//// Store old value before opening the file dialog
+									//// static std::string oldTextureName = "";
+									//if (ImGui::Button("Set Height"))
+									//{
+									//	//oldTextureName = currentTextureName; // Capture the old value
+									//	ImGuiFileDialog::Instance()->OpenDialog("SetH", "Choose Height", ".png,.dds", "../BoofWoof/Assets");
+									//}
+									//
+									//if (ImGuiFileDialog::Instance()->Display("SetH"))
+									//{
+									//	if (ImGuiFileDialog::Instance()->IsOk())
+									//	{
+									//		// User selected a file
+									//		std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+									//		size_t lastDotPos = selectedFile.find_last_of(".");
+									//		if (lastDotPos != std::string::npos)
+									//		{
+									//			selectedFile = selectedFile.substr(0, lastDotPos);
+									//		}
+									//
+									//		//newTextureName = selectedFile;
+									//		//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
+									//		int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
+									//		graphicsComponent.AddTexture(textureId);
+									//		graphicsComponent.setTexture(selectedFile);
+									//		material.SetDiffuseID(textureId);
+									//		material.SetDiffuseName(selectedFile);
+									//
+									//
+									//		std::cout << "Testing PLS WROK\t" << material.materialDesc.DiffuseID << '\t' << material.materialDesc.textureDiffuse << '\n';
+									//
+									//
+									//
+									//		// Execute undo/redo command
+									//		/*std::string oldValue = oldTextureName;
+									//		Entity entity = g_SelectedEntity;*/
+									//
+									//		/*g_UndoRedoManager.ExecuteCommand(
+									//			[entity, newTextureName]() {
+									//				auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+									//				component.setTexture(newTextureName);
+									//			},
+									//			[entity, oldValue]() {
+									//				auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+									//				component.setTexture(oldValue);
+									//			}
+									//		);*/
+									//	}
+									//	ImGuiFileDialog::Instance()->Close();
+									//}
 
 
+
+									//ImGui::PopID();
 
 
 									/*
@@ -2254,20 +2373,20 @@ void ImGuiEditor::InspectorWindow()
 									}
 
 									// Ensure default selection is the first item
-									if (material.materialDesc.shaderIndex < 0 || material.materialDesc.shaderIndex >= g_AssetManager.shdrpgmOrder.size()) {
-										material.materialDesc.shaderIndex = 5; // Default to the first item
-										material.materialDesc.shaderChosen = g_AssetManager.shdrpgmOrder[5]; // Set the chosen shader
+									if (material.GetShaderIndex()<0 || material.GetShaderIndex() >= g_AssetManager.shdrpgmOrder.size()) {
+										material.SetShaderIndex(5); // Default to the first item
+										material.SetShaderName(g_AssetManager.shdrpgmOrder[5]); // Set the chosen shader
 									}
 
-									int& Material_current_idx = material.materialDesc.shaderIndex; // Index for the selected item
+									int& Material_current_idx = material.GetShaderIDRef(); // Index for the selected item
 
 									ImGui::SetNextItemWidth(WidthIndentation); // Set combo box width
 									if (ImGui::Combo("##MatCombo1", &Material_current_idx, comboItems.c_str())) {
-										// Update material.materialDesc.shaderIndex with the selected index
-										material.materialDesc.shaderIndex = Material_current_idx;
+										// Update material.GetShaderIndex() with the selected index
+										material.SetShaderIndex(Material_current_idx);
 
 										// Retrieve the selected string from the original vector
-										material.materialDesc.shaderChosen = g_AssetManager.shdrpgmOrder[material.materialDesc.shaderIndex];
+										material.SetShaderName(g_AssetManager.shdrpgmOrder[material.GetShaderIndex()]);
 									}
 
 
@@ -2306,10 +2425,10 @@ void ImGuiEditor::InspectorWindow()
 
 									float color[4];// = { 1.0f, 0.0f, 0.0f, 1.0f }; // Example initial color (red)
 
-									color[0] = material.materialDesc.albedoColorRed;
-									color[1] = material.materialDesc.albedoColorGreen;
-									color[2] = material.materialDesc.albedoColorBlue;
-									color[3] = material.materialDesc.albedoColorAlpha;
+									color[0] = material.GetMaterialRed();
+									color[1] = material.GetMaterialGreen();
+									color[2] = material.GetMaterialBlue();
+									color[3] = material.GetMaterialAlpha();
 
 									ImGui::SetNextItemWidth(100.0f); // Adjust this value to change the color picker's width
 									if (ImGui::ColorButton("Color Bar", ImVec4(color[0], color[1], color[2], color[3]), ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_NoBorder, ImVec2(300, 10))) {
@@ -2326,16 +2445,15 @@ void ImGuiEditor::InspectorWindow()
 										// Display the color picker inside the popup
 										if (ImGui::ColorPicker4("##picker", color, ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_PickerHueBar))
 										{
-											material.materialDesc.albedoColorRed = color[0];
-											material.materialDesc.albedoColorGreen = color[1];
-											material.materialDesc.albedoColorBlue = color[2];
-											material.materialDesc.albedoColorAlpha = color[3];
+
+
+											material.SetColor(glm::vec4(color[0], color[1], color[2], color[3]));
 
 											std::cout << "================================\n";
-											std::cout << material.materialDesc.albedoColorRed << '\t'
-												<< material.materialDesc.albedoColorGreen << '\t'
-												<< material.materialDesc.albedoColorBlue << '\t'
-												<< material.materialDesc.albedoColorAlpha << '\n';
+											std::cout << material.GetMaterialRed() << '\t'
+												<< material.GetMaterialGreen() << '\t'
+												<< material.GetMaterialBlue() << '\t'
+												<< material.GetMaterialAlpha() << '\n';
 											std::cout << "================================\n";
 										}
 
@@ -2356,22 +2474,22 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Text("Metallic"); ImGui::SameLine(WidthIndentation); ImGui::PushItemWidth(250);
 
 
-									float& MetallicMatValue = material.materialDesc.metallic;
+									float& MetallicMatValue = material.GetMetallicRef();
 
 									// Create a drag float that increments by 0.1 within a range of 0 to 10
 									if (ImGui::SliderFloat("##MetallicMat1", &MetallicMatValue, 0.0f, 1.0f, "%.3f"))
 									{
-										material.materialDesc.metallic = MetallicMatValue;
+										material.SetMetallic(MetallicMatValue);
 
 									}
 									// put the value here. that can set one.
 
-									float& SmoothnessValue = material.materialDesc.smoothness;
+									float& SmoothnessValue = material.GetSmoothnessRef();
 
 									ImGui::Indent(20); ImGui::Text("Smoothness"); ImGui::SameLine(WidthIndentation);
 									if (ImGui::SliderFloat("##SmoothnessMat1", &SmoothnessValue, 0.0f, 1.0f, "%.3f"))
 									{
-										material.materialDesc.smoothness = SmoothnessValue;
+										material.SetSmoothness(SmoothnessValue);
 									}
 
 									const char* imG_MaterialAlpha[] = { "Metallic Alpha", "Albedo Alpha" };
@@ -2383,7 +2501,7 @@ void ImGuiEditor::InspectorWindow()
 									if (ImGui::Combo("##MatCombo2", &MatAlphacurrent_idx, imG_MaterialAlpha, IM_ARRAYSIZE(imG_MaterialAlpha)))
 									{
 
-										material.materialDesc.materialAlpha = MatAlphacurrent_idx;
+										material.SetAlpha(MatAlphacurrent_idx);
 									}
 
 
@@ -2406,8 +2524,8 @@ void ImGuiEditor::InspectorWindow()
 
 										//Save
 										std::cout << "saved at location: " << loadSaveLocation << '\n';
-										material.materialDesc.SaveMaterialDescriptor(loadSaveLocation);
-										material.materialDesc.LoadMaterialDescriptor(loadSaveLocation);
+										material.SaveMaterialDescriptor(loadSaveLocation);
+										material.LoadMaterialDescriptor(loadSaveLocation);
 										// g_AssetManager.ReloadTextures();
 									}
 
@@ -2420,7 +2538,7 @@ void ImGuiEditor::InspectorWindow()
 										// Save default settings to the descriptor file
 										if (desc.SaveMaterialDescriptor(m_SelectedFile.string())) {
 											// Load the reverted settings to refresh the inspector
-											if (material.materialDesc.LoadMaterialDescriptor(m_SelectedFile.string())) {
+											if (material.LoadMaterialDescriptor(m_SelectedFile.string())) {
 												std::cout << "Reverted to default settings." << std::endl;
 											}
 											else {
@@ -2512,9 +2630,9 @@ void ImGuiEditor::InspectorWindow()
 											// Check if a texture is set, and bind it
 									
 									
-									if (graphicsComponent.material.materialDesc.DiffuseID >= 0) { // Assuming textureID is -1 if no texture
+									if (graphicsComponent.material.GetDiffuseID() >= 0) { // Assuming textureID is -1 if no texture
 										glActiveTexture(GL_TEXTURE0);
-										glBindTexture(GL_TEXTURE_2D, graphicsComponent.material.materialDesc.DiffuseID);
+										glBindTexture(GL_TEXTURE_2D, graphicsComponent.material.GetDiffuseID());
 										g_AssetManager.GetShader("Material").SetUniform("albedoTexture", 0);
 										g_AssetManager.GetShader("Material").SetUniform("useTexture", true);
 									}
