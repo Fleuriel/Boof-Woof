@@ -6,7 +6,7 @@
 #include "../Systems/BoneCatcher/BoneCatcher.h"
 #include "../Systems/RopeBreaker/RopeBreaker.h"
 
-Entity playerEnt{}, RopeEnt{}, RopeEnt2{};
+Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{};
 CameraController* cameraController = nullptr;
 
 class Level1 : public Level
@@ -35,6 +35,12 @@ class Level1 : public Level
 				{
 					RopeEnt2 = entity;
 				}
+
+				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "DrawBridge") 
+				{
+					BridgeEnt = entity;
+					break;
+				}
 			}
 		}
 	}
@@ -48,7 +54,7 @@ class Level1 : public Level
 
 			if (RopeEnt != Entity{}) 
 			{
-				g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2);
+				g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
 			}
 		}
 	}

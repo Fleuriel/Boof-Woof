@@ -16,6 +16,54 @@ void RopeBreaker::OnUpdate(double deltaTime)
 	}
 
 	g_BoneCatcher.OnUpdate(deltaTime);	
+
+
+	if (RopeDespawned >= 2)
+	{
+		DropBridge();
+	}
+
+	// Drawbridge
+	if (!isFalling) 
+	{
+		return; // do nothing
+
+		/*PlayerCollidedRope1 = true;
+		PlayerCollidedRope2 = true;*/
+	}
+	else 
+	{
+		ElapsedTime += static_cast<float>(deltaTime);
+
+		if (!g_Coordinator.HaveComponent<TransformComponent>(bridge)) return;
+		auto& transform = g_Coordinator.GetComponent<TransformComponent>(bridge);
+
+		// Calculate smooth interpolation factor
+		float t = glm::min(ElapsedTime / FallDuration, 1.0f);
+
+		// Calculate current position with offset
+		//glm::vec3 currentPos = initialPos + TargetPos;
+
+		// Calculate current rotation (only changing Z rotation from initial to -90)
+		glm::vec3 currentRotation = initialRotation;
+		currentRotation.z = glm::mix(initialRotation.z, -90.0f, t);
+
+		// Apply transforms
+		//transform.SetPosition(currentPos);
+		transform.SetPosition(initialPos);
+		transform.SetRotation(glm::radians(currentRotation));
+
+		// Stop animation when complete
+		if (ElapsedTime >= FallDuration) 
+		{
+			isFalling = false;
+			// Ensure final position
+			currentRotation.z = -90.0f;
+			transform.SetRotation(glm::radians(currentRotation));
+			//transform.SetPosition(initialPos + TargetPos);
+		}
+	}
+
 }
 
 void RopeBreaker::CheckCollision()
@@ -37,17 +85,30 @@ void RopeBreaker::CheckCollision()
 
 	if (PlayerColliding && Rope1Colliding && !PlayerCollidedRope1)
 	{
-		std::cout << "Rope1" << std::endl;
 		PlayerCollidedRope1 = true;
 		SpawnBoneCatcher();
 	}
 
 	if (PlayerColliding && Rope2Colliding && !PlayerCollidedRope2)
 	{
-		std::cout << "Rope2" << std::endl;
 		PlayerCollidedRope2 = true;
 		SpawnBoneCatcher();
 	}
+}
+
+void RopeBreaker::DropBridge()
+{
+	if (!g_Coordinator.HaveComponent<TransformComponent>(bridge)) return;
+
+	auto& transform = g_Coordinator.GetComponent<TransformComponent>(bridge);
+
+	// Store initial state
+	initialPos = transform.GetPosition();
+	initialRotation = glm::degrees(transform.GetRotation());
+
+	// Start animation
+	isFalling = true;
+	ElapsedTime = 0.0f;
 }
 
 void RopeBreaker::SpawnBoneCatcher()
@@ -73,6 +134,7 @@ void RopeBreaker::DespawnRope()
 				{
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
+					RopeDespawned++;
 				}
 			}
 			
@@ -82,6 +144,7 @@ void RopeBreaker::DespawnRope()
 				{
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
+					RopeDespawned++;
 				}
 			}
 		}		
