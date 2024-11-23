@@ -1234,7 +1234,7 @@ void ImGuiEditor::InspectorWindow()
 
 
 								graphicsComponent.RegisterProperties();
-								if (ImGui::TreeNode("Mesh Properties")) {
+								//if (ImGui::TreeNode("Mesh Properties")) {
 
 									// Handle ModelName Property
 									auto modelNameProperty = std::find_if(properties.begin(), properties.end(),
@@ -1291,8 +1291,8 @@ void ImGuiEditor::InspectorWindow()
 										ImGui::PopID();
 									}
 
-									ImGui::TreePop();
-								}
+								//	ImGui::TreePop();
+								//}
 
 								//if (ImGui::TreeNode("old Texture"))
 								//{
@@ -2144,10 +2144,9 @@ void ImGuiEditor::InspectorWindow()
 
 							std::string objectName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
 
-
 							auto& material = graphicsComponent.material;
-
 							std::string loadSaveLocation = FILEPATH_ASSET_MATERIAL + "\\" + objectName + ".mat";
+
 
 
 							if (!material.loadedMaterial)
@@ -2167,13 +2166,52 @@ void ImGuiEditor::InspectorWindow()
 									static float WidthIndentation = 125.0f;
 									static float ComboIdentation = 300.0f;
 
+									/*
+										MATERIAL NAME
+									*/
 
+									ImGui::Text("Material Name: ");
+									ImGui::SameLine(WidthIndentation);
+
+
+									ImGui::InputText(" ", objectName.data(), objectName.capacity() + 1);
+
+
+									/*
+										SHADER
+									*/
+
+									ImGui::Text("Material");
+									ImGui::SameLine(WidthIndentation);
+
+									std::string comboItems;
+									for (const auto& item : g_AssetManager.shdrpgmOrder) {
+										comboItems += item;
+										comboItems += '\0'; // Null-terminate each item
+									}
+
+									// Ensure default selection is the first item
+									if (material.GetShaderIndex() < 0 || material.GetShaderIndex() >= g_AssetManager.shdrpgmOrder.size()) {
+										material.SetShaderIndex(5); // Default to the first item
+										material.SetShaderName(g_AssetManager.shdrpgmOrder[5]); // Set the chosen shader
+									}
+
+									int& Material_current_idx = material.GetShaderIDRef(); // Index for the selected item
+
+									ImGui::SetNextItemWidth(WidthIndentation); // Set combo box width
+									if (ImGui::Combo("##MatCombo1", &Material_current_idx, comboItems.c_str())) {
+										// Update material.GetShaderIndex() with the selected index
+										material.SetShaderIndex(Material_current_idx);
+
+										// Retrieve the selected string from the original vector
+										material.SetShaderName(g_AssetManager.shdrpgmOrder[material.GetShaderIndex()]);
+									}
 
 
 									ImGui::Text("Texture ");
 									ImGui::SameLine(WidthIndentation);
 									ImGui::PushItemWidth(200); // Set the width in pixels
-									ImGui::InputText(" ", graphicsComponent.getDiffuseName().data(), graphicsComponent.getDiffuseName().capacity() + 1);
+									ImGui::InputText("##TexDiff1", graphicsComponent.GetDiffuseName().data(), graphicsComponent.GetDiffuseName().capacity() + 1);
 
 
 									ImGui::PushID("Textures");
@@ -2235,7 +2273,7 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Text("Normal ");
 									ImGui::SameLine(WidthIndentation);
 									ImGui::PushItemWidth(200); // Set the width in pixels
-									ImGui::InputText(" ", graphicsComponent.getNormalName().data(), graphicsComponent.getNormalName().capacity() + 1);
+									ImGui::InputText("##TexNorm1", graphicsComponent.GetNormalName().data(), graphicsComponent.GetNormalName().capacity() + 1);
 									
 									ImGui::PushID("Normal");
 									ImGui::SameLine();
@@ -2263,10 +2301,9 @@ void ImGuiEditor::InspectorWindow()
 											//newTextureName = selectedFile;
 											//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
 											int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
-											graphicsComponent.AddTexture(textureId);
-											graphicsComponent.setTexture(selectedFile);
-											material.SetDiffuseID(textureId);
-											material.SetDiffuseName(selectedFile);
+
+											material.SetNormalID(textureId);
+											material.SetNormalName(selectedFile);
 									
 									
 											//std::cout << "Testing PLS WROK\t" << material.materialDesc.DiffuseID << '\t' << material.materialDesc.textureDiffuse << '\n';
@@ -2296,7 +2333,7 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Text("Height ");
 									ImGui::SameLine(WidthIndentation);
 									ImGui::PushItemWidth(200); // Set the width in pixels
-									ImGui::InputText(" ", graphicsComponent.getHeightName().data(), graphicsComponent.getHeightName().capacity() + 1);
+									ImGui::InputText("##TexHeight1 ", graphicsComponent.GetHeightName().data(), graphicsComponent.GetHeightName().capacity() + 1);
 									
 									
 									ImGui::PushID("Height");
@@ -2325,10 +2362,9 @@ void ImGuiEditor::InspectorWindow()
 											//newTextureName = selectedFile;
 											//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
 											int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
-											graphicsComponent.AddTexture(textureId);
-											graphicsComponent.setTexture(selectedFile);
-											material.SetDiffuseID(textureId);
-											material.SetDiffuseName(selectedFile);
+
+											material.SetHeightID(textureId);
+											material.SetHeightName(selectedFile);
 									
 									
 											//std::cout << "Testing PLS WROK\t" << material.materialDesc.DiffuseID << '\t' << material.materialDesc.textureDiffuse << '\n';
@@ -2358,35 +2394,6 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::PopID();
 
 
-									/*
-										SHADER
-									*/
-
-									ImGui::Text("Material");
-									ImGui::SameLine(WidthIndentation);
-
-									std::string comboItems;
-									for (const auto& item : g_AssetManager.shdrpgmOrder) {
-										comboItems += item;
-										comboItems += '\0'; // Null-terminate each item
-									}
-
-									// Ensure default selection is the first item
-									if (material.GetShaderIndex() < 0 || material.GetShaderIndex() >= g_AssetManager.shdrpgmOrder.size()) {
-										material.SetShaderIndex(5); // Default to the first item
-										material.SetShaderName(g_AssetManager.shdrpgmOrder[5]); // Set the chosen shader
-									}
-
-									int& Material_current_idx = material.GetShaderIDRef(); // Index for the selected item
-
-									ImGui::SetNextItemWidth(WidthIndentation); // Set combo box width
-									if (ImGui::Combo("##MatCombo1", &Material_current_idx, comboItems.c_str())) {
-										// Update material.GetShaderIndex() with the selected index
-										material.SetShaderIndex(Material_current_idx);
-
-										// Retrieve the selected string from the original vector
-										material.SetShaderName(g_AssetManager.shdrpgmOrder[material.GetShaderIndex()]);
-									}
 
 
 									/*

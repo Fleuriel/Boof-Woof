@@ -52,9 +52,11 @@ public:
     int getModelID() const { return m_ModelID; }
 	std::vector<int> getTextures() const { return textures; }
 
-    std::string getDiffuseName() { return material.GetDiffuseName(); }
-    std::string getNormalName()  { return  material.GetNormalName(); }
-    std::string getHeightName()  { return  material.GetHeightName(); }
+    
+    std::string GetShaderName() { return material.GetShaderName(); }
+    std::string GetDiffuseName() { return material.GetDiffuseName(); }
+    std::string GetNormalName()  { return  material.GetNormalName(); }
+    std::string GetHeightName()  { return  material.GetHeightName(); }
 
     //bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
     int getTextureNumber() const { return static_cast<int>(textures.size()); }
