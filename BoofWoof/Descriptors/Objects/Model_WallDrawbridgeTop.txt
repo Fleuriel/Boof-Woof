@@ -1,0 +1,12 @@
+File Name: WallDrawbridgeTop
+Source File Path: ..\BoofWoof\Assets\Objects\WallDrawbridgeTop.obj
+Output File Path: ..\BoofWoof\Resources\Objects\WallDrawbridgeTop.bin
+MTL File Exist: 1
+PNG File Exist: 0
+JPG File Exist: 0
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0
