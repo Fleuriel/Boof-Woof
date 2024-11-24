@@ -1,0 +1,61 @@
+{
+    "SceneGUID": "78432c01-bb63-4983-89ba-d397260b511c",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "BlackScreenBack",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 2.0999999046325685,
+                    "y": 2.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Text",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.10000000149011612
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 0.20000000298023225,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "BullyText1",
+                "FollowCamera": false
+            }
+        }
+    ]
+}
