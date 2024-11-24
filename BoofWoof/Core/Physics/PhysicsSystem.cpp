@@ -285,7 +285,13 @@ void MyPhysicsSystem::InitializeJolt() {
     CreatePhysicsSystem();
 
     // Register the contact listener to handle collision events
-    mContactListener = new MyContactListener();  // Instantiate the listener
+    mContactListener = new MyContactListener(mPhysicsSystem);
+    mPhysicsSystem->SetContactListener(mContactListener);
+
+    //mContactListener = new MyContactListener();  // Instantiate the listener
+    //mContactListener->SetPhysicsSystem(mPhysicsSystem); // Set physics system after initialization
+    //mPhysicsSystem->SetContactListener(mContactListener);
+
     mPhysicsSystem->SetContactListener(mContactListener);  // Register the listener
 
     // Register the body activation listener to handle collision events
@@ -426,6 +432,9 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
 
                 }
             }
+
+            //bool isColliding = collisionComponent.GetIsColliding();
+            //std::cout << "Entity ID: " << entity << " | isColliding: " << (isColliding ? "true" : "false") << std::endl;
         }
     }
 
@@ -572,8 +581,11 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         // Get the AABB size from the CollisionComponent
         glm::vec3 customAABB = collisionComponent.GetAABBSize();
 
+        // Compute the scaled AABB
+        glm::vec3 scaledAABB = customAABB * scale;
+
         // Create shape based on object type and custom AABB
-        JPH::Shape* shape = CreateShapeForObjectType(objectType, customAABB);
+        JPH::Shape* shape = CreateShapeForObjectType(objectType, scaledAABB);
 
         // Set motion type based on IsDynamic in CollisionComponent
         bool isDynamic = collisionComponent.IsDynamic();
@@ -609,8 +621,10 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
                 body->SetAllowSleeping(false);
             }
 
+            body->SetUserData(static_cast<uintptr_t>(entity)); // Store Entity ID directly as uintptr_t
             // Assign the body to the CollisionComponent
             collisionComponent.SetPhysicsBody(body);
+            bodyToEntityMap[body->GetID()] = entity;
         }
     }
 }
@@ -627,7 +641,16 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity)
         JPH::Body* oldBody = collisionComponent.GetPhysicsBody();
         if (oldBody != nullptr && !oldBody->GetID().IsInvalid())
         {
+            // Reset isColliding flag for the old body
+            collisionComponent.SetIsColliding(false);
+
             mPhysicsSystem->GetBodyInterface().RemoveBody(oldBody->GetID());
+
+            // Destroy the body
+            mPhysicsSystem->GetBodyInterface().DestroyBody(oldBody->GetID());
+
+            // Remove the body from the mapping
+            bodyToEntityMap.erase(oldBody->GetID());
         }
 
         // If the entity is a player, it must be dynamic
@@ -637,11 +660,19 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity)
         }
 
         // Determine motion type based on the dynamic/static flag
-        JPH::EMotionType motionType = collisionComponent.IsDynamic() ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
+        //JPH::EMotionType motionType = collisionComponent.IsDynamic() ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
+
+        // Set motion type based on IsDynamic in CollisionComponent
+        bool isDynamic = collisionComponent.IsDynamic();
+        JPH::EMotionType motionType = isDynamic ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
+
+        // Compute the scaled AABB
+        glm::vec3 scale = transform.GetScale();
+        glm::vec3 scaledAABB = collisionComponent.GetAABBSize() * scale;
 
         // Create a new shape and body
         //JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, transform.GetScale(), collisionComponent.GetAABBSize());
-        JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, collisionComponent.GetAABBSize());
+        JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, scaledAABB);
 
         JPH::BodyCreationSettings bodySettings(
             newShape,
@@ -655,9 +686,14 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity)
         JPH::Body* newBody = bodyInterface.CreateBody(bodySettings);
         bodyInterface.AddBody(newBody->GetID(), JPH::EActivation::Activate);
 
+        if (isDynamic) {
+            newBody->SetAllowSleeping(false);
+        }
+
         // Update the CollisionComponent with the new body
         collisionComponent.SetPhysicsBody(newBody);
         collisionComponent.SetHasBodyAdded(true);
+        bodyToEntityMap[newBody->GetID()] = entity;
 
         //// Debug log for motion type
         //std::cout << "Updated body for Entity " << entity
@@ -776,6 +812,15 @@ void MyPhysicsSystem::Cleanup() {
 
     std::cout << "Physics system cleanup done" << std::endl;
 }
+
+Entity MyPhysicsSystem::GetEntityFromBody(const JPH::BodyID bodyID) {
+    auto it = bodyToEntityMap.find(bodyID);
+    if (it != bodyToEntityMap.end()) {
+        return it->second;
+    }
+    return invalid_entity; // Sentinel value for invalid entity
+}
+
 
 
 #pragma warning(pop)

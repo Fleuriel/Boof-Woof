@@ -310,37 +310,7 @@ void GraphicsSystem::UpdateLoop() {
 		//std::cout << "out comp tetx cnt " << graphicsComp.getTextureNumber() << "\n";
 
 
-		if (debug) 
-		{
-			// Debug AABB Drawing
-			if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-				auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
-				JPH::Body* body = collisionComp.GetPhysicsBody();
-
-				if (body) {
-					// Get the world-space AABB from JoltPhysics
-					JPH::AABox aabb = body->GetWorldSpaceBounds();
-
-					// Calculate center and half-extents
-					JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
-					JPH::Vec3 halfExtents = (aabb.mMax - aabb.mMin) * 0.5f;
-
-					// Convert to glm::vec3
-					glm::vec3 glmCenter = glm::vec3(center.GetX(), center.GetY(), center.GetZ());
-					glm::vec3 glmHalfExtents = glm::vec3(halfExtents.GetX(), halfExtents.GetY(), halfExtents.GetZ());
-
-					if (D3)
-					{
-						// Draw the AABB using your existing DrawCollisionBox3D function
-						g_ResourceManager.getModel("cubeModel")->DrawCollisionBox3D(glmCenter, glmHalfExtents, glm::vec3(0.0f, 1.0f, 0.0f)); // Green color
-					}
-				}
-			}
-			//if (D3) 
-			//{
-			//	g_ResourceManager.getModel(graphicsComp.getModelName())->DrawLine();
-			//}
-		}
+		
 		/*//skip for now
 		for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
 		{
@@ -412,19 +382,38 @@ void GraphicsSystem::UpdateLoop() {
 			glBindTextureUnit(6, graphicsComp.getTexture(0));
 		//glBindTextureUnit(6, set_Texture_T);
 
+		g_AssetManager.GetShader("OutlineAndFont").Use();
+		SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
 		if (debug)
 		{
 			if (D2)
 			{
 				Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
 				g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
-				g_AssetManager.GetShader("OutlineAndFont").Use();
-				SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
 
-				g_AssetManager.GetShader("OutlineAndFont").UnUse();
+			}
+
+			if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+				auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+				JPH::Body* body = collisionComp.GetPhysicsBody();
+
+				if (body) {
+					// Get the world-space AABB from JoltPhysics
+					JPH::AABox aabb = body->GetWorldSpaceBounds();
+
+					// Calculate center and half-extents
+					JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
+					glm::vec3 glmCenter = glm::vec3(center.GetX(), center.GetY(), center.GetZ());
+
+					if (D3) {
+						g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(glmCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f)); // Green color
+						//						g_ResourceManager.getModel("cubeModel")->drawOBB(glmCenter, transformComp.GetRotation(), graphicsComp.boundingBox, glm::vec3(1.0f,1.0f,1.0f), 1.0f);
+					}
+				}
 			}
 		}
 
+		g_AssetManager.GetShader("OutlineAndFont").UnUse();
 		//graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
 		//g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
 //				g_ResourceManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));

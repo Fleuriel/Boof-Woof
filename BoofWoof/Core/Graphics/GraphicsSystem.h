@@ -51,6 +51,7 @@ public:
     int set_Texture_T;
     static int set_Texture_;
 
+
     std::string textureNameInput;
 
     void SetShaderUniforms(OpenGLShader& shader, const ShaderParams& shdrParam);
