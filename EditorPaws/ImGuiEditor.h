@@ -20,6 +20,8 @@
 #include <filesystem>
 #include <vector>
 
+std::string GetScenesDir();
+
 class ImGuiEditor 
 {
 public:

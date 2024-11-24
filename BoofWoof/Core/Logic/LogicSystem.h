@@ -10,6 +10,9 @@ class Script_to_Engine;
 #include "Behaviour.h"
 #include "BehaviourInterface.h"
 #include <map>
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <wtypes.h>
 
 class LogicSystem : public System
 {
@@ -28,4 +31,7 @@ private:
 };
 
 extern Entity g_Player;
+const std::wstring DLL_MAIN_DIRECTORY = L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll";
+const std::wstring DLL_COPY_DIRECTORY = L"..\\ScriptWoof.dll";
+extern HINSTANCE hGetProcIDDLL;
 #endif  // LOGIC_SYSTEM_H

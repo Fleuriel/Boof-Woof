@@ -4,6 +4,7 @@
 #include <crtdbg.h>
 #include "ImGuiEditor.h"
 #include "../BoofWoof/Core/EngineCore.h"
+#include "DLL_Support.h"
 
 EngineCore* g_Core = nullptr;
 
@@ -19,12 +20,27 @@ int main()
 	// refer to stack frame and see where it all went wrong
 	//_crtBreakAlloc = 20649858;
 
+	DLL_Support_Init();
+
+    // Start the directory monitoring in a separate thread
+    //std::thread monitorThread(MonitorDirectory);
+
+	
+
+    MSG msg;
+    
 	g_Core = new EngineCore();
 	g_Core->OnInit();
 	g_ImGuiEditor.ImGuiInit(g_Window);
 
+	
+	glfwSetWindowFocusCallback(g_Window->GetGLFWWindow(), FocusChecker);
+	//StartFocusChecker();
+
 	while (!glfwWindowShouldClose(g_Window->GetGLFWWindow()))
 	{
+		glfwPollEvents();
+		//DLL_Support_Update();
 		g_Core->OnUpdate();
 		g_ImGuiEditor.ImGuiUpdate();
 		g_ImGuiEditor.ImGuiRender();
@@ -35,5 +51,12 @@ int main()
 
 	delete g_Core;
 
+    
+	// Clean up
+	//monitorThread.detach();
+	DLL_Support_Unload();
+    
 	return 0;
 }
+
+
