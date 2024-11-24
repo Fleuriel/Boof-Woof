@@ -50,7 +50,7 @@ class MainMenu : public Level
 		// Press space to start go level 1
 		if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
 		{
-			g_LevelManager.SetNextLevel("Level1");
+			g_LevelManager.SetNextLevel("Cutscene");
 		}
 	}
 
