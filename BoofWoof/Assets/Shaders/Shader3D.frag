@@ -75,7 +75,7 @@ void main()
         vec4 textureColor = texture(texture_diffuse1, TexCoords);
         vec3 result = vec3(0.0f,0.0f,0.0f);
         for(int i = 0; i < numLights; i++){
-		    vec3 lightVector = fs_in.TangentLightPos[i] - fs_in.TangentFragPos;
+		    vec3 lightVector = lights[i].position - FragPos;
             float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
             textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
             //fragColor = vec4(textureColor.rgb, textureColor.a);
