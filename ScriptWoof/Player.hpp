@@ -65,7 +65,7 @@ struct Player final : public Behaviour
 		//std::cout << "Player Velocity: (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
 
 		//std::cout << "Player Update" << std::endl;
-		std::cout << "It works" << std::endl;
+		//std::cout << "It works" << std::endl;
 	}
 
 	virtual const char* getBehaviourName() override
