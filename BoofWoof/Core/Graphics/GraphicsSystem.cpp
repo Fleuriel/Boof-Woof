@@ -316,41 +316,49 @@ void GraphicsSystem::UpdateLoop() {
 
 		SetShaderUniforms(g_AssetManager.GetShader(shaderName), shdrParam);
 
-	
-		
-		if (shaderName == "Material")
+
+		if (shaderName == "Shader2D")
 		{
-			g_AssetManager.GetShader(shaderName).SetUniform("inputColor", glm::vec4(shader.GetColor()));
-			g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
+			g_AssetManager.GetShader(shaderName).SetUniform("uTex2d", 6);
 
-			g_AssetManager.GetShader(shaderName).SetUniform("viewPos", camera.GetViewMatrix());
-			g_AssetManager.GetShader(shaderName).SetUniform("metallic", shader.GetMetallic());
-			g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.GetSmoothness());
+			if (graphicsComp.getTextureNumber() == 0)
+				glBindTextureUnit(6, 0);
+			else
+				glBindTextureUnit(6, graphicsComp.getTexture(0));
 		}
+		else
+		{
+			if (shaderName == "Material")
+			{
+				g_AssetManager.GetShader(shaderName).SetUniform("inputColor", glm::vec4(shader.GetColor()));
+				g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
+
+				g_AssetManager.GetShader(shaderName).SetUniform("viewPos", camera.GetViewMatrix());
+				g_AssetManager.GetShader(shaderName).SetUniform("metallic", shader.GetMetallic());
+				g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.GetSmoothness());
+			}
 
 
-
-		// Check if a texture is set, and bind it
-		if (shader.GetDiffuseID() >= 0) { // Assuming textureID is -1 if no texture
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, shader.GetDiffuseID());
-			g_AssetManager.GetShader(shaderName).SetUniform("albedoTexture", 0);
-			g_AssetManager.GetShader(shaderName).SetUniform("useTexture", true);
+			// Check if a texture is set, and bind it
+			if (shader.GetDiffuseID() >= 0) { // Assuming textureID is -1 if no texture
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, shader.GetDiffuseID());
+				g_AssetManager.GetShader(shaderName).SetUniform("albedoTexture", 0);
+				g_AssetManager.GetShader(shaderName).SetUniform("useTexture", true);
+			}
+			else {
+				g_AssetManager.GetShader(shaderName).SetUniform("useTexture", false);
+			}
 		}
-		else {
-			g_AssetManager.GetShader(shaderName).SetUniform("useTexture", false);
-		}
-
 		//std::cout << graphicsComp.getModelName() << '\n';
 
 
 
-		Model* Model = g_ResourceManager.getModel(graphicsComp.getModelName());
-
-		if (Model)
-			Model->DrawMaterial(g_AssetManager.GetShader("Material"));
+		if(shaderName == "Shader2D")
+			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader(shaderName));
 		else
-			std::cerr << "cant find sphere model\n";
+			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader(shaderName));
+		
 
 
 
@@ -359,7 +367,7 @@ void GraphicsSystem::UpdateLoop() {
 
 
 		g_AssetManager.GetShader(shaderName).UnUse();
-
+		
 
 		////clear all textures
 		////for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {

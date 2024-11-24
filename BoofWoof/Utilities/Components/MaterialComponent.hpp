@@ -31,6 +31,9 @@ public:
     // Setters and Getters
 //    void SetShaderName(const std::string& shader) { shaderName = shader; }
     
+
+    std::string GetMaterialName() { return materialDesc.materialName; }
+
     void SetColor(const glm::vec4& baseColor) 
     { 
         materialDesc.albedoColorRed = baseColor.r;

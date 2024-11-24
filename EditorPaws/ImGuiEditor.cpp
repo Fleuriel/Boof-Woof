@@ -522,7 +522,6 @@ void ImGuiEditor::InspectorWindow()
 								if (materialCount > 0)
 									materialName = objectName + "_" + std::to_string(materialCount);
 								else
-
 									materialName = objectName;
 
 								// Write the JSON string to a file
@@ -542,7 +541,7 @@ void ImGuiEditor::InspectorWindow()
 
 									// Add name and type (similar to your previous structure)
 									document.AddMember("name", rapidjson::Value(materialName.c_str(), allocator), allocator);
-									document.AddMember("type", rapidjson::Value("Example", allocator), allocator);
+									document.AddMember("shader", rapidjson::Value("Shader3D", allocator), allocator);
 
 									// Add material properties (color, shininess, textureID, etc.)
 									rapidjson::Value properties(rapidjson::kObjectType);
@@ -561,11 +560,8 @@ void ImGuiEditor::InspectorWindow()
 									// Add texture ID
 									properties.AddMember("textureID", 0, allocator);  // Modify this if you have a specific texture ID
 
-									// Add shader name
-									properties.AddMember("shader", rapidjson::Value("Shader3D", allocator), allocator);
-
 									// Add reflectivity
-									properties.AddMember("reflectivity", 0.8f, allocator);
+									// properties.AddMember("reflectivity", 0.8f, allocator);
 
 									// Adding the properties object to the document
 									document.AddMember("properties", properties, allocator);
@@ -2428,9 +2424,58 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Text("Material Name: ");
 									ImGui::SameLine(WidthIndentation);
 
-
 									ImGui::PushItemWidth(150); // Set the width in pixels
-									ImGui::InputText(" ", objectName.data(), objectName.capacity() + 1);
+									ImGui::InputText("##MatName1001 ", graphicsComponent.material.GetMaterialName().data(), graphicsComponent.material.GetMaterialName().capacity() + 1);
+
+									ImGui::PushID("LoadMaterialz");
+									ImGui::SameLine();
+
+									// Store old value before opening the file dialog
+									// static std::string oldTextureName = "";
+									if (ImGui::Button("Load Material"))
+									{
+										//oldTextureName = currentTextureName; // Capture the old value
+										ImGuiFileDialog::Instance()->OpenDialog("LoadMat", "Choose File", ".mat", "../BoofWoof/Assets/Material/");
+
+									}
+
+									if (ImGuiFileDialog::Instance()->Display("LoadMat"))
+									{
+										if (ImGuiFileDialog::Instance()->IsOk())
+										{
+											// User selected a file
+											std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+											size_t lastDotPos = selectedFile.find_last_of(".");
+											if (lastDotPos != std::string::npos)
+											{
+												selectedFile = selectedFile.substr(0, lastDotPos);
+											}
+											
+											graphicsComponent.LoadMaterialDesc(FILEPATH_ASSET_MATERIAL + "\\" + selectedFile + ".mat");
+
+											std::cout << "loaded\n";
+
+
+											// Execute undo/redo command
+											/*std::string oldValue = oldTextureName;
+											Entity entity = g_SelectedEntity;*/
+
+											/*g_UndoRedoManager.ExecuteCommand(
+												[entity, newTextureName]() {
+													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+													component.setTexture(newTextureName);
+												},
+												[entity, oldValue]() {
+													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+													component.setTexture(oldValue);
+												}
+											);*/
+										}
+										ImGuiFileDialog::Instance()->Close();
+									}
+
+
+									ImGui::PopID();
 
 
 									/*
@@ -3996,7 +4041,7 @@ void ImGuiEditor::AssetWindow()
 
 				// Add name and type (similar to your previous structure)
 				document.AddMember("name", rapidjson::Value(materialName.c_str(), allocator), allocator);
-				document.AddMember("type", rapidjson::Value("Example", allocator), allocator);
+				document.AddMember("material", rapidjson::Value("Shader3D", allocator), allocator);
 
 				// Add material properties (color, shininess, textureID, etc.)
 				rapidjson::Value properties(rapidjson::kObjectType);
@@ -4004,8 +4049,8 @@ void ImGuiEditor::AssetWindow()
 				// Adding color as a JSON array for RGBA values
 				rapidjson::Value color(rapidjson::kArrayType);
 				color.PushBack(1.0f, allocator);  // R
-				color.PushBack(0.0f, allocator);  // G
-				color.PushBack(0.0f, allocator);  // B
+				color.PushBack(1.0f, allocator);  // G
+				color.PushBack(1.0f, allocator);  // B
 				color.PushBack(1.0f, allocator);  // A (Alpha)
 				properties.AddMember("color", color, allocator);
 

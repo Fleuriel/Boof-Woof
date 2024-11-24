@@ -170,7 +170,8 @@ bool MaterialDescriptor::SaveMaterialDescriptor(const std::string& filepath) {
 
 	// Add top-level members
 	document.AddMember("name", Value(filename.c_str(), allocator), allocator); // Change as needed
-	document.AddMember("type", Value("Example", allocator), allocator);
+	rapidjson::Value shaderValue(shaderChosen.c_str(), allocator); // Convert std::string to rapidjson::Value
+	document.AddMember("shader", shaderValue, allocator);
 
 	// Add "properties" object
 	Value properties(kObjectType);
@@ -183,13 +184,26 @@ bool MaterialDescriptor::SaveMaterialDescriptor(const std::string& filepath) {
 		.PushBack(albedoColorAlpha, allocator);
 	properties.AddMember("color", color, allocator);
 
+
+	Value diffuseValue(textureDiffuse.c_str(), allocator);
+	properties.AddMember("Diffuse", diffuseValue, allocator);
+
+	Value NormalValue(textureNormal.c_str(), allocator);
+	properties.AddMember("Normal", NormalValue, allocator);
+
+	Value HeightValue(textureHeight.c_str(), allocator);
+	properties.AddMember("Height", HeightValue, allocator);
+
+
+
+
+
 	// Add other properties
+	properties.AddMember("metallic", metallic, allocator);
 	properties.AddMember("shininess", smoothness, allocator);
 //	properties.AddMember("textureID", textureID, allocator); // Assuming textureID exists in your class
 	
-	rapidjson::Value shaderValue(shaderChosen.c_str(), allocator); // Convert std::string to rapidjson::Value
-	properties.AddMember("shader", shaderValue, allocator);
-	properties.AddMember("reflectivity", metallic, allocator);
+	
 
 	// Attach "properties" to the main document
 	document.AddMember("properties", properties, allocator);
@@ -214,8 +228,10 @@ bool MaterialDescriptor::SaveMaterialDescriptor(const std::string& filepath) {
 }
 
 
+
 bool MaterialDescriptor::LoadMaterialDescriptor(const std::string& filepath) {
 	using namespace rapidjson;
+
 
 	// Open the file
 	std::ifstream ifs(filepath, std::ios::in);
@@ -241,13 +257,15 @@ bool MaterialDescriptor::LoadMaterialDescriptor(const std::string& filepath) {
 
 	// Extract top-level values
 	if (document.HasMember("name") && document["name"].IsString()) {
-		std::string name = document["name"].GetString();
-		std::cout << "Material Name: " << name << std::endl;
+		materialName = document["name"].GetString();
+
+		 
+		std::cout << "Material Name: " << materialName << std::endl;
 	}
 
-	if (document.HasMember("type") && document["type"].IsString()) {
-		std::string type = document["type"].GetString();
-		std::cout << "Material Type: " << type << std::endl;
+	if (document.HasMember("shader") && document["shader"].IsString()) {
+		shaderChosen = document["shader"].GetString();
+		std::cout << "Shader: " << shaderChosen << std::endl;
 	}
 
 	// Extract properties object
@@ -265,19 +283,23 @@ bool MaterialDescriptor::LoadMaterialDescriptor(const std::string& filepath) {
 			}
 		}
 
+		// Extract texture paths
+		if (properties.HasMember("Diffuse") && properties["Diffuse"].IsString()) {
+			textureDiffuse = properties["Diffuse"].GetString();
+		}
+		if (properties.HasMember("Normal") && properties["Normal"].IsString()) {
+			textureNormal = properties["Normal"].GetString();
+		}
+		if (properties.HasMember("Height") && properties["Height"].IsString()) {
+			textureHeight = properties["Height"].GetString();
+		}
+
 		// Extract other properties
+		if (properties.HasMember("metallic") && properties["metallic"].IsFloat()) {
+			metallic = properties["metallic"].GetFloat();
+		}
 		if (properties.HasMember("shininess") && properties["shininess"].IsFloat()) {
 			smoothness = properties["shininess"].GetFloat();
-		}
-
-		
-		if (properties.HasMember("shader") && properties["shader"].IsString()) {
-			std::string shader = properties["shader"].GetString();
-			std::cout << "Shader: " << shader << std::endl;
-		}
-
-		if (properties.HasMember("reflectivity") && properties["reflectivity"].IsFloat()) {
-			metallic = properties["reflectivity"].GetFloat();
 		}
 	}
 
