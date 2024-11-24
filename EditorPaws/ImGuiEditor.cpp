@@ -1385,7 +1385,148 @@ void ImGuiEditor::InspectorWindow()
 
 								if (GraphicsSystem::debug)
 								{
-									if (ImGui::Button("2D"))
+									//// Handle TextureName Property
+									//auto textureNameProperty = std::find_if(properties.begin(), properties.end(),
+									//	[](const ReflectionPropertyBase* prop) { return prop->GetName() == "Textures"; });
+
+									//if (textureNameProperty != properties.end())
+									//{
+									//	std::string propertyName = "Textures";
+									//	std::string currentTextureName = (*textureNameProperty)->GetValue(&graphicsComponent);
+									//	std::string newTextureName = currentTextureName;
+										
+										std::vector<int>  textureIds = graphicsComponent.getTextures();
+
+										ImGui::Text("Texture ");
+										ImGui::SameLine();
+										ImGui::PushID("Textures");
+
+										/*char buffer[256];
+										memset(buffer, 0, sizeof(buffer));
+										strcpy_s(buffer, sizeof(buffer), currentTextureName.c_str());
+
+										ImGui::InputText("##Textures", buffer, sizeof(buffer), ImGuiInputTextFlags_ReadOnly);*/
+
+										// get texture names
+										
+
+
+										ImGui::SameLine();
+
+										// Store old value before opening the file dialog
+										//static std::string oldTextureName = "";
+										if (ImGui::Button("Set Texture"))
+										{
+											//oldTextureName = currentTextureName; // Capture the old value
+											ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+										}
+
+										if (ImGuiFileDialog::Instance()->Display("SetTexture"))
+										{
+											if (ImGuiFileDialog::Instance()->IsOk())
+											{
+												// User selected a file
+												std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+												size_t lastDotPos = selectedFile.find_last_of(".");
+												if (lastDotPos != std::string::npos)
+												{
+													selectedFile = selectedFile.substr(0, lastDotPos);
+												}
+
+												//newTextureName = selectedFile;
+												//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
+												int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
+												graphicsComponent.AddTexture(textureId);
+												graphicsComponent.setTexture(selectedFile);
+
+
+
+												// Execute undo/redo command
+												/*std::string oldValue = oldTextureName;
+												Entity entity = g_SelectedEntity;*/
+
+												/*g_UndoRedoManager.ExecuteCommand(
+													[entity, newTextureName]() {
+														auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+														component.setTexture(newTextureName);
+													},
+													[entity, oldValue]() {
+														auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+														component.setTexture(oldValue);
+													}
+												);*/
+											}
+											ImGuiFileDialog::Instance()->Close();
+										}
+
+										ImGui::PopID();
+									
+
+									
+
+
+							// Handel Camera Property
+							auto FollowCameraProperty = std::find_if(properties.begin(), properties.end(),
+								[](const ReflectionPropertyBase* prop) { return prop->GetName() == "FollowCamera"; });
+							if (FollowCameraProperty != properties.end())
+							{
+								std::string propertyName = "FollowCamera";
+								bool isFollowCamera = (*FollowCameraProperty)->GetValue(&graphicsComponent) == "true";
+
+								ImGui::Text("Follow Camera");
+								ImGui::SameLine();
+								ImGui::PushID(propertyName.c_str());
+
+								if (ImGui::Checkbox("##FollowCamera", &isFollowCamera))
+								{
+									(*FollowCameraProperty)->SetValue(&graphicsComponent, isFollowCamera ? "true" : "false");
+								}
+
+								if (ImGui::IsItemActivated())
+								{
+									oldBoolValues[propertyName] = isFollowCamera;
+								}
+
+								if (ImGui::IsItemDeactivatedAfterEdit())
+								{
+									bool newValue = isFollowCamera;
+									bool oldValue = oldBoolValues[propertyName];
+									Entity entity = g_SelectedEntity;
+									oldBoolValues.erase(propertyName);
+
+									g_UndoRedoManager.ExecuteCommand(
+										[entity, newValue]() {
+											auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+											component.SetFollowCamera(newValue);
+										},
+										[entity, oldValue]() {
+											auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+											component.SetFollowCamera(oldValue);
+										}
+									);
+								}
+
+								ImGui::PopID();
+							}
+
+							ImGui::Text("Debug   ");
+							ImGui::SameLine();
+							ImGui::Checkbox("##DebugMode", &GraphicsSystem::debug);
+
+									if (GraphicsSystem::debug)
+									{
+										if (ImGui::Button("2D"))
+										{
+											GraphicsSystem::D3 = false;
+											GraphicsSystem::D2 = true;
+										}
+										if (ImGui::Button("3D"))
+										{
+											GraphicsSystem::D3 = true;
+											GraphicsSystem::D2 = false;
+										}
+									}
+									else
 									{
 										GraphicsSystem::D3 = false;
 										GraphicsSystem::D2 = true;
@@ -1812,7 +1953,91 @@ void ImGuiEditor::InspectorWindow()
 							// Custom UI for CollisionComponent
 							if (ImGui::CollapsingHeader("Collision", ImGuiTreeNodeFlags_None))
 							{
-								// Add custom collision component UI here
+								auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(g_SelectedEntity);
+								if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+								{
+									auto& graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+
+									// Toggle Dynamic/Static checkbox
+									bool isDynamic = collisionComponent.IsDynamic();
+									if (ImGui::Checkbox("Dynamic", &isDynamic)) {
+										if (collisionComponent.IsDynamic() != isDynamic) {
+											collisionComponent.SetIsDynamic(isDynamic);
+											// Call UpdateEntityBody instead of removing and adding the entity again
+											g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+										}
+									}
+
+									// Debugging output for motion type
+									ImGui::Text("Current Motion Type: %s", isDynamic ? "Dynamic" : "Static");
+
+									// Checkbox to mark as player
+									bool isPlayer = collisionComponent.IsPlayer();
+									if (ImGui::Checkbox("Is Player", &isPlayer))
+									{
+										collisionComponent.SetIsPlayer(isPlayer);
+
+										// Automatically set to dynamic if it's marked as a player
+										if (isPlayer)
+										{
+											collisionComponent.SetIsDynamic(true);
+										}
+
+										g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+									}
+
+									// Debugging for player type
+									ImGui::Text("Is Player: %s", collisionComponent.IsPlayer() ? "Yes" : "No");
+
+									// AABB Size Editor
+									graphicsComponent.boundingBox  = collisionComponent.GetAABBSize();
+									
+									// Retrieve the scale from the TransformComponent
+									if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) {
+										auto& transformComponent = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+										glm::vec3 scale = transformComponent.GetScale();
+
+										// Compute the effective AABB by scaling the bounding box
+										glm::vec3 effectiveAABB = graphicsComponent.boundingBox * scale;
+
+										// Set a minimum size to prevent crashes
+										glm::vec3 minAABBSize(0.1f, 0.1f, 0.1f); // Minimum size for AABB
+										if (ImGui::DragFloat3("Unscaled AABB Size", &graphicsComponent.boundingBox.x, 0.05f, 0.1f, 10.0f, "%.2f")) {
+											// Clamp the values to prevent zero or invalid sizes
+											graphicsComponent.boundingBox.x = glm::max(graphicsComponent.boundingBox.x, minAABBSize.x);
+											graphicsComponent.boundingBox.y = glm::max(graphicsComponent.boundingBox.y, minAABBSize.y);
+											graphicsComponent.boundingBox.z = glm::max(graphicsComponent.boundingBox.z, minAABBSize.z);
+
+											// Update AABB size in the CollisionComponent
+											collisionComponent.SetAABBSize(graphicsComponent.boundingBox);
+
+											// Update the physics body in real time
+											g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+										}
+
+										// Debug Output for both unscaled and effective (scaled) AABB
+										ImGui::Text("Unscaled AABB: (%.2f, %.2f, %.2f)", graphicsComponent.boundingBox.x, graphicsComponent.boundingBox.y, graphicsComponent.boundingBox.z);
+										ImGui::Text("Scaled AABB: (%.2f, %.2f, %.2f)", effectiveAABB.x, effectiveAABB.y, effectiveAABB.z);
+									}
+
+									//// Set a minimum size to prevent crashes
+									//glm::vec3 minAABBSize(0.1f, 0.1f, 0.1f); // Minimum size for AABB
+									//if (ImGui::DragFloat3("AABB Size", &graphicsComponent.boundingBox.x, 0.05f, 0.1f, 10.0f, "%.2f")) {
+									//	// Clamp the values to prevent zero or invalid sizes
+									//	graphicsComponent.boundingBox.x = glm::max(graphicsComponent.boundingBox.x, minAABBSize.x);
+									//	graphicsComponent.boundingBox.y = glm::max(graphicsComponent.boundingBox.y, minAABBSize.y);
+									//	graphicsComponent.boundingBox.z = glm::max(graphicsComponent.boundingBox.z, minAABBSize.z);
+
+									//	// Update AABB size in the CollisionComponent
+									//	collisionComponent.SetAABBSize(graphicsComponent.boundingBox);
+
+									//	// Update the physics body in real time
+									//	g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+									//}
+
+									//// Debug Output
+									//ImGui::Text("Current AABB: (%.2f, %.2f, %.2f)", graphicsComponent.boundingBox.x, graphicsComponent.boundingBox.y, graphicsComponent.boundingBox.z);
+								}
 							}
 						}
 
@@ -2109,7 +2334,7 @@ void ImGuiEditor::InspectorWindow()
 								if (ImGui::CollapsingHeader("Target Positions")) {
 
 									for (size_t i = 0; i < targetPositions.size(); ++i) {
-										ImGui::PushID(i);
+										ImGui::PushID(static_cast<int>(i));
 										ImGui::Text("Position %zu", i + 1);
 										ImGui::SameLine();
 
@@ -2133,6 +2358,36 @@ void ImGuiEditor::InspectorWindow()
 										}
 									}
 								}
+
+								// set particle size
+								float particleSize = particleComponent.getParticleSize();
+								ImGui::Text("Particle Size");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("ParticleSize");
+
+								if (ImGui::DragFloat("##ParticleSize", &particleSize, 0.1f))
+								{
+									particleComponent.setParticleSize(particleSize);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// set particle color
+								glm::vec4 particleColor = particleComponent.getParticleColor();
+								ImGui::Text("Particle Color");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("ParticleColor");
+
+								if (ImGui::ColorEdit4("##ParticleColor", &particleColor.x))
+								{
+									particleComponent.setParticleColor(particleColor);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
 
 
 							}
@@ -2749,7 +3004,10 @@ void ImGuiEditor::InspectorWindow()
 								//	ImGui::EndPopup();
 								//}
 
+//								ImGui::Text("Shininess %.2f", );
 
+
+								ImGui::Text("%s", graphicsComponent.getTextureName().c_str());
 
 
 							}
@@ -2807,7 +3065,7 @@ void ImGuiEditor::InspectorWindow()
 					newHeight = static_cast<int>(newWidth / aspectRatio);
 				}
 
-				ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(newWidth, newHeight));
+				ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(static_cast<float>(newWidth), static_cast<float>(newHeight)));
 				ImGui::SameLine();
 				ImGui::Text(inputTextToDisplay.c_str());
 
@@ -3084,7 +3342,7 @@ void ImGuiEditor::InspectorWindow()
 					// First Tab: Default
 					if (ImGui::BeginTabItem("Texture Image"))
 					{
-						ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(newWidth, newHeight));
+						ImGui::Image((ImTextureID)(uintptr_t)(pictureIcon != -1 ? pictureIcon : g_ResourceManager.GetTextureDDS("BlackScreen")), ImVec2(static_cast<float>(newWidth), static_cast<float>(newHeight)));
 
 						ImGui::EndTabItem();
 					}

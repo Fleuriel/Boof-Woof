@@ -29,10 +29,13 @@
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayerInterfaceMask.h>
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
 #include <../Utilities/Components/TransformComponent.hpp>
-
+#include <unordered_set> // For tracking colliding entities
 
 
 #include "../ECS/System.hpp"
+
+using Entity = std::uint32_t; // Assuming Entity is defined as uint32_t
+static constexpr Entity invalid_entity = static_cast<Entity>(-1);
 
 // Forward declarations
 namespace JPH {
@@ -55,7 +58,7 @@ enum class ObjectType {
     Couch,
     Corgi,
     Corgi_small,
-    Floor,
+    FloorCastle,
     Wall,
     Wardrobe,
     Wardrobe2,
@@ -233,7 +236,10 @@ public:
 
     // Shape creation utility methods
     ObjectType GetObjectTypeFromModel(const std::string& modelName);
-    JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& scale);
+    //JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& scale);
+    //JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& scale, const glm::vec3& userAABBSize = glm::vec3(1.0f));
+    JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& customAABB);
+    void UpdateEntityBody(Entity entity);
 
     /**************************************************************************/
     /*!
@@ -281,6 +287,8 @@ public:
     /**************************************************************************/
     void Cleanup();
 
+    Entity GetEntityFromBody(const JPH::BodyID bodyID);
+
 private:
     JPH::uint _step{ 0 };
     JPH::JobSystemThreadPool* mJobSystem = nullptr;
@@ -300,12 +308,27 @@ private:
 
     JPH::BodyID bodyID;
 
+    std::unordered_map<JPH::BodyID, Entity> bodyToEntityMap;
+
 };
 
 // An example contact listener
 class MyContactListener : public JPH::ContactListener
 {
 public:
+
+    // Default constructor
+    MyContactListener() = default;
+
+    // Constructor with physics system
+    MyContactListener(JPH::PhysicsSystem* physicsSystem)
+        : mPhysicsSystem(physicsSystem) {}
+
+    // Setter for physics system
+    void SetPhysicsSystem(JPH::PhysicsSystem* physicsSystem) {
+        mPhysicsSystem = physicsSystem;
+    }
+
     // See: ContactListener
     JPH::ValidateResult OnContactValidate(
         const JPH::Body& /* inBody1 */,
@@ -320,12 +343,14 @@ public:
         return JPH::ValidateResult::AcceptAllContactsForThisBodyPair;
     }
 
-    //void OnContactAdded(const JPH::Body& /* inBody1 */,
-    //    const JPH::Body& /* inBody2 */,
-    //    const JPH::ContactManifold& /* inManifold */,
-    //    JPH::ContactSettings& /* ioSettings */) override
+    //void OnContactAdded(const JPH::Body& inBody1,
+    //    const JPH::Body& inBody2,
+    //    const JPH::ContactManifold& inManifold,
+    //    JPH::ContactSettings& ioSettings) override
     //{
-    //    std::cout << "A contact was added" << std::endl;
+    //    std::cout << "Collision detected between bodies with IDs: "
+    //        << inBody1.GetID().GetIndex() << " and "
+    //        << inBody2.GetID().GetIndex() << std::endl;
     //}
 
     void OnContactAdded(const JPH::Body& inBody1,
@@ -336,34 +361,177 @@ public:
         std::cout << "Collision detected between bodies with IDs: "
             << inBody1.GetID().GetIndex() << " and "
             << inBody2.GetID().GetIndex() << std::endl;
+
+        Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
+        Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
+
+        if (entity1 != invalid_entity) {
+            auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
+            collisionComponent1.SetIsColliding(true);
+            std::cout << "Entity " << entity1 << ": isColliding set to true." << std::endl;
+        }
+        else {
+            std::cout << "Entity 1 is invalid." << std::endl;
+        }
+
+        if (entity2 != invalid_entity) {
+            auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
+            collisionComponent2.SetIsColliding(true);
+            std::cout << "Entity " << entity2 << ": isColliding set to true." << std::endl;
+        }
+        else {
+            std::cout << "Entity 2 is invalid." << std::endl;
+        }
     }
 
-    //void OnContactPersisted(const JPH::Body& /* inBody1 */,
-    //    const JPH::Body& /* inBody2 */,
-    //    const JPH::ContactManifold& /* inManifold */,
-    //    JPH::ContactSettings& /* ioSettings */) override
-    //{
-    //    std::cout << "A contact was persisted" << std::endl;
+
+    //void OnContactPersisted(const JPH::Body& inBody1, const JPH::Body& inBody2,
+    //    const JPH::ContactManifold& inManifold,
+    //    JPH::ContactSettings& ioSettings) override {
+    //    std::cout << "Persisting contact between Body IDs: " << inBody1.GetID().GetIndex()
+    //        << " and " << inBody2.GetID().GetIndex() << std::endl;
+    //    std::cout << "Positions: Body1(" << inBody1.GetPosition().GetX() << ", "
+    //        << inBody1.GetPosition().GetY() << ", " << inBody1.GetPosition().GetZ()
+    //        << ") and Body2(" << inBody2.GetPosition().GetX() << ", "
+    //        << inBody2.GetPosition().GetY() << ", " << inBody2.GetPosition().GetZ()
+    //        << ")" << std::endl;
     //}
 
-    void OnContactPersisted(const JPH::Body& inBody1, const JPH::Body& inBody2,
+    void OnContactPersisted(const JPH::Body& inBody1,
+        const JPH::Body& inBody2,
         const JPH::ContactManifold& inManifold,
-        JPH::ContactSettings& ioSettings) override {
-        //std::cout << "Persisting contact between Body IDs: " << inBody1.GetID().GetIndex()
-        //    << " and " << inBody2.GetID().GetIndex() << std::endl;
-        //std::cout << "Positions: Body1(" << inBody1.GetPosition().GetX() << ", "
-        //    << inBody1.GetPosition().GetY() << ", " << inBody1.GetPosition().GetZ()
-        //    << ") and Body2(" << inBody2.GetPosition().GetX() << ", "
-        //    << inBody2.GetPosition().GetY() << ", " << inBody2.GetPosition().GetZ()
-        //    << ")" << std::endl;
+        JPH::ContactSettings& ioSettings) override
+    {
+        Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
+        Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
+
+        if (entity1 != invalid_entity) {
+            auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
+            //std::cout << "Entity " << entity1 << ": isColliding = "
+            //    << collisionComponent1.GetIsColliding() << std::endl;
+        }
+
+        if (entity2 != invalid_entity) {
+            auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
+            //std::cout << "Entity " << entity2 << ": isColliding = "
+            //    << collisionComponent2.GetIsColliding() << std::endl;
+        }
     }
 
-    void OnContactRemoved(
-        const JPH::SubShapeIDPair& /* inSubShapePair */) override
+    //void OnContactRemoved(
+    //    const JPH::SubShapeIDPair& /* inSubShapePair */) override
+    //{
+    //    std::cout << "A contact was removed" << std::endl;
+    //}
+
+    //void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) {
+    //    JPH::BodyID body1ID = inSubShapePair.GetBody1ID();
+    //    JPH::BodyID body2ID = inSubShapePair.GetBody2ID();
+
+    //    JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
+
+    //    {
+    //        JPH::BodyLockRead lock1(mPhysicsSystem->GetBodyLockInterface(), body1ID);
+    //        if (lock1.Succeeded()) {
+    //            const JPH::Body& body1 = lock1.GetBody();
+    //            Entity entity1 = static_cast<Entity>(body1.GetUserData());
+    //            if (entity1 != invalid_entity) {
+    //                auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
+    //                collisionComponent1.SetIsColliding(false);
+    //                std::cout << "Entity " << entity1 << ": isColliding set to false." << std::endl;
+    //            }
+    //            else {
+    //                std::cout << "Entity 1 is invalid during contact removal." << std::endl;
+    //            }
+    //        }
+    //    }
+
+    //    {
+    //        JPH::BodyLockRead lock2(mPhysicsSystem->GetBodyLockInterface(), body2ID);
+    //        if (lock2.Succeeded()) {
+    //            const JPH::Body& body2 = lock2.GetBody();
+    //            Entity entity2 = static_cast<Entity>(body2.GetUserData());
+    //            if (entity2 != invalid_entity) {
+    //                auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
+    //                collisionComponent2.SetIsColliding(false);
+    //                std::cout << "Entity " << entity2 << ": isColliding set to false." << std::endl;
+    //            }
+    //            else {
+    //                std::cout << "Entity 2 is invalid during contact removal." << std::endl;
+    //            }
+    //        }
+    //    }
+    //}
+
+    void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) override
     {
-        std::cout << "A contact was removed" << std::endl;
+        // Retrieve the BodyIDs from the SubShapeIDPair
+        JPH::BodyID bodyID1 = inSubShapePair.GetBody1ID();
+        JPH::BodyID bodyID2 = inSubShapePair.GetBody2ID();
+
+        // Map BodyIDs to Entities using the PhysicsSystem's mapping
+        Entity entity1 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID1);
+        Entity entity2 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID2);
+
+        // Debug message for contact removal
+        std::cout << "Contact removed between Body ID: " << bodyID1.GetIndex()
+            << " and Body ID: " << bodyID2.GetIndex() << std::endl;
+
+        // Debug entity mapping
+        std::cout << "Entity 1: " << entity1 << ", Entity 2: " << entity2 << std::endl;
+
+        // Reset isColliding flag for entity1
+        if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
+            auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
+
+            // Debugging the state before resetting
+            std::cout << "Entity 1 before reset: isColliding = " << collisionComponent1.GetIsColliding() << std::endl;
+
+            // Check and reset if the body matches
+            if (collisionComponent1.GetPhysicsBody() != nullptr && collisionComponent1.GetPhysicsBody()->GetID() == bodyID1) {
+                collisionComponent1.SetIsColliding(false);
+
+                // Debugging the state after resetting
+                std::cout << "Entity 1 after reset: isColliding = " << collisionComponent1.GetIsColliding() << std::endl;
+            }
+            else {
+                std::cout << "Entity 1: Body mismatch or no physics body found." << std::endl;
+            }
+        }
+        else {
+            std::cout << "Entity 1 is invalid or does not have a CollisionComponent." << std::endl;
+        }
+
+        // Reset isColliding flag for entity2
+        if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
+            auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
+
+            // Debugging the state before resetting
+            std::cout << "Entity 2 before reset: isColliding = " << collisionComponent2.GetIsColliding() << std::endl;
+
+            // Check and reset if the body matches
+            if (collisionComponent2.GetPhysicsBody() != nullptr && collisionComponent2.GetPhysicsBody()->GetID() == bodyID2) {
+                collisionComponent2.SetIsColliding(false);
+
+                // Debugging the state after resetting
+                std::cout << "Entity 2 after reset: isColliding = " << collisionComponent2.GetIsColliding() << std::endl;
+            }
+            else {
+                std::cout << "Entity 2: Body mismatch or no physics body found." << std::endl;
+            }
+        }
+        else {
+            std::cout << "Entity 2 is invalid or does not have a CollisionComponent." << std::endl;
+        }
     }
+
+
+
+private:
+    JPH::PhysicsSystem* mPhysicsSystem = nullptr; // Reference or pointer to the physics system
+
 };
+
 
 // An example activation listener
 class MyBodyActivationListener : public JPH::BodyActivationListener

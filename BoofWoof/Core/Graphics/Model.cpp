@@ -267,10 +267,10 @@ Model SquareModelOutline(glm::vec3 color)
 	};
 
 	std::vector<Vertex> vertices{
-		{ glm::vec2(0.5f,  -0.5f), color }, // Bottom-right
-		{ glm::vec2(0.5f,   0.5f), color }, // Top-right
-		{ glm::vec2(-0.5f,  0.5f), color }, // Top-left
-		{ glm::vec2(-0.5f, -0.5f), color }  // Bottom-left
+		{ glm::vec2(0.505f,  -0.505f), color }, // Bottom-right
+		{ glm::vec2(0.505f,   0.51f), color }, // Top-right
+		{ glm::vec2(-0.505f,  0.51f), color }, // Top-left
+		{ glm::vec2(-0.505f, -0.505f), color }  // Bottom-left
 	};
 
 	Model mdl;
@@ -306,28 +306,28 @@ Model SquareModelOutline(glm::vec3 color)
 }
 
 
-// Function to create an AABB cube
-Model AABB(glm::vec3 color)
+Model AABB(glm::vec3 position, glm::vec3 halfextents, glm::vec3 color)
 {
 	struct Vertex {
 		glm::vec3 position;  // 3D position
 		glm::vec3 color;     // Color
 	};
 
+	glm::vec3 biggerHalfExtents = halfextents + glm::vec3(0.0005);
 
 	// Cube vertices with positions and a uniform color
 	std::vector<Vertex> vertices{
 		// Front face
-		{ glm::vec3(1.f,  1.f,  1.f), color },  // Top-right front
-		{ glm::vec3(-1.f,  1.f,  1.f), color },  // Top-left front
-		{ glm::vec3(-1.f, -1.f,  1.f), color },  // Bottom-left front
-		{ glm::vec3(1.f, -1.f,  1.f), color },  // Bottom-right front
+		{ glm::vec3(biggerHalfExtents.x,  biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Top-right front
+		{ glm::vec3(-biggerHalfExtents.x,  biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Top-left front
+		{ glm::vec3(-biggerHalfExtents.x, -biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Bottom-left front
+		{ glm::vec3(biggerHalfExtents.x, -biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Bottom-right front
 
 		// Back face
-		{ glm::vec3(1.f,  1.f, -1.f), color },  // Top-right back
-		{ glm::vec3(-1.f,  1.f, -1.f), color },  // Top-left back
-		{ glm::vec3(-1.f, -1.f, -1.f), color },  // Bottom-left back
-		{ glm::vec3(1.f, -1.f, -1.f), color },  // Bottom-right back
+		{ glm::vec3(biggerHalfExtents.x,  biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Top-right back
+		{ glm::vec3(-biggerHalfExtents.x,  biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Top-left back
+		{ glm::vec3(-biggerHalfExtents.x, -biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Bottom-left back
+		{ glm::vec3(biggerHalfExtents.x, -biggerHalfExtents.y, -biggerHalfExtents.z)	, color }   // Bottom-right back
 	};
 
 	// Indices for drawing cube edges (outline)
@@ -371,6 +371,82 @@ Model AABB(glm::vec3 color)
 	return mdl;
 }
 
+Model OBB(glm::vec3 position, glm::vec3 halfextents, glm::vec3 rotationRadians, glm::vec3 color)
+{
+	struct Vertex {
+		glm::vec3 position;  // 3D position
+		glm::vec3 color;     // Color
+	};
+
+	// Define the 8 corner points of the OBB in local space
+	std::vector<glm::vec3> localVertices{
+		// Front face
+		{ halfextents.x,  halfextents.y,  halfextents.z },
+		{-halfextents.x,  halfextents.y,  halfextents.z },
+		{-halfextents.x, -halfextents.y,  halfextents.z },
+		{ halfextents.x, -halfextents.y,  halfextents.z },
+		// Back face
+		{ halfextents.x,  halfextents.y, -halfextents.z },
+		{-halfextents.x,  halfextents.y, -halfextents.z },
+		{-halfextents.x, -halfextents.y, -halfextents.z },
+		{ halfextents.x, -halfextents.y, -halfextents.z }
+	};
+
+
+
+	// Compute the transformation matrix
+	glm::mat4 translation = glm::translate(glm::mat4(1.0f), position);
+	glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), rotationRadians.x, glm::vec3(1, 0, 0)) // Pitch (X-axis)
+		* glm::rotate(glm::mat4(1.0f), rotationRadians.y, glm::vec3(0, 1, 0)) // Yaw (Y-axis)
+		* glm::rotate(glm::mat4(1.0f), rotationRadians.z, glm::vec3(0, 0, 1)); // Roll (Z-axis)
+	glm::mat4 transform = translation * rotation;
+
+	// Transform the local vertices to world space
+	std::vector<Vertex> vertices;
+	for (const auto& localVertex : localVertices)
+	{
+		glm::vec3 worldPosition = glm::vec3(transform * glm::vec4(localVertex, 1.0f));
+		vertices.push_back({ worldPosition, color });
+	}
+
+	// Indices for drawing the OBB edges
+	std::vector<GLushort> indices{
+		// Front face
+		0, 1, 2, 3, 0,
+		// Back face
+		4, 5, 6, 7, 4,
+		// Connect front and back
+		0, 4, 1, 5, 2, 6, 3, 7
+	};
+
+	// Create VAO, VBO, EBO
+	GLuint vbo_hdl, ebo_hdl, vaoid;
+	glCreateBuffers(1, &vbo_hdl);
+	glNamedBufferStorage(vbo_hdl, sizeof(Vertex) * vertices.size(), vertices.data(), GL_DYNAMIC_STORAGE_BIT);
+
+	glCreateVertexArrays(1, &vaoid);
+	glEnableVertexArrayAttrib(vaoid, 0);
+	glVertexArrayVertexBuffer(vaoid, 0, vbo_hdl, offsetof(Vertex, position), sizeof(Vertex));
+	glVertexArrayAttribFormat(vaoid, 0, 3, GL_FLOAT, GL_FALSE, 0);
+	glVertexArrayAttribBinding(vaoid, 0, 0);
+
+	glEnableVertexArrayAttrib(vaoid, 1);
+	glVertexArrayVertexBuffer(vaoid, 1, vbo_hdl, offsetof(Vertex, color), sizeof(Vertex));
+	glVertexArrayAttribFormat(vaoid, 1, 3, GL_FLOAT, GL_FALSE, 0);
+	glVertexArrayAttribBinding(vaoid, 1, 1);
+
+	glCreateBuffers(1, &ebo_hdl);
+	glNamedBufferStorage(ebo_hdl, sizeof(GLushort) * indices.size(), indices.data(), GL_DYNAMIC_STORAGE_BIT);
+	glVertexArrayElementBuffer(vaoid, ebo_hdl);
+
+	// Return the OBB model
+	Model mdl;
+	mdl.vaoid = vaoid;
+	mdl.primitive_type = GL_LINE_LOOP;
+	mdl.draw_cnt = static_cast<GLsizei>(indices.size());
+
+	return mdl;
+}
 
 
 
@@ -410,19 +486,21 @@ void Model::DrawCollisionBox2D(Model outlineModel)
 }
 
 
-void Model::DrawCollisionBox3D(Model outlineModel) const
+
+void Model::DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color, float lineWidth) const
 {
 	// Bind the VAO for the outline model
 
+	Model AABBOutline = AABB(position, halfExtents, color);
 
 
-	glBindVertexArray(outlineModel.vaoid);
+	glBindVertexArray(AABBOutline.vaoid);
 	//	std::cout << outlineModel.vaoid << '\n';
 
-	glLineWidth(1.0f);
+	glLineWidth(lineWidth);
 
 	// Draw the square outline
-	glDrawElements(outlineModel.primitive_type, outlineModel.draw_cnt, GL_UNSIGNED_SHORT, 0);
+	glDrawElements(AABBOutline.primitive_type, AABBOutline.draw_cnt, GL_UNSIGNED_SHORT, 0);
 
 	// Unbind the VAO
 	glBindVertexArray(0);
@@ -430,3 +508,24 @@ void Model::DrawCollisionBox3D(Model outlineModel) const
 
 
 }
+
+
+
+
+
+std::vector<glm::vec3> CalculateAABBVertices(const glm::vec3& center, const glm::vec3& halfExtents) {
+	std::vector<glm::vec3> vertices(8);
+
+	// Compute the 8 corners of the AABB
+	vertices[0] = center + glm::vec3(-halfExtents.x, -halfExtents.y, -halfExtents.z); // Left-bottom-back
+	vertices[1] = center + glm::vec3(halfExtents.x, -halfExtents.y, -halfExtents.z); // Right-bottom-back
+	vertices[2] = center + glm::vec3(halfExtents.x, halfExtents.y, -halfExtents.z); // Right-top-back
+	vertices[3] = center + glm::vec3(-halfExtents.x, halfExtents.y, -halfExtents.z); // Left-top-back
+	vertices[4] = center + glm::vec3(-halfExtents.x, -halfExtents.y, halfExtents.z); // Left-bottom-front
+	vertices[5] = center + glm::vec3(halfExtents.x, -halfExtents.y, halfExtents.z); // Right-bottom-front
+	vertices[6] = center + glm::vec3(halfExtents.x, halfExtents.y, halfExtents.z); // Right-top-front
+	vertices[7] = center + glm::vec3(-halfExtents.x, halfExtents.y, halfExtents.z); // Left-top-front
+
+	return vertices;
+}
+

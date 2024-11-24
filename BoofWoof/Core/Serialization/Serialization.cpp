@@ -20,7 +20,7 @@
 
 // Initialize the static member variable
 std::string Serialization::currentSceneGUID = "";
-
+std::vector<Entity> Serialization::storedEnt;
 
 /**************************************************************************
  * @brief Retrieves the file path to the Scenes directory.
@@ -86,6 +86,11 @@ std::string Serialization::GenerateGUID() {
  *************************************************************************/
 std::string Serialization::GetSceneGUID() {
     return currentSceneGUID;
+}
+
+std::vector<Entity> Serialization::GetStored()
+{
+    return storedEnt;
 }
 
 /**************************************************************************
@@ -184,13 +189,16 @@ bool Serialization::SaveScene(const std::string& filepath) {
             // Model Name
             Grafics.AddMember("ModelName", rapidjson::Value(graphicsComp.getModelName().c_str(), allocator), allocator);
 
+
+
             // Texture Name
-            //entityData.AddMember("Texture", rapidjson::Value(graphicsComp.getDiffuseName().c_str(), allocator), allocator);
+            Grafics.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
 
-            //std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.getDiffuseName() << '\n';
+            std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.getTextureName() << '\n';
+          
+            // Follow Camera
+            Grafics.AddMember("FollowCamera", graphicsComp.getFollowCamera(), allocator);
 
-
-            //entityData.AddMember("", S)
             // Add the TransformComponent to the entityData
             entityData.AddMember("GraphicsComponent", Grafics, allocator);
         }
@@ -241,6 +249,15 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
             rapidjson::Value collisionData(rapidjson::kObjectType);
             collisionData.AddMember("CollisionLayer", collisionComp.GetCollisionLayer(), allocator);
+            collisionData.AddMember("IsDynamic", collisionComp.IsDynamic(), allocator);
+            collisionData.AddMember("IsPlayer", collisionComp.IsPlayer(), allocator);
+
+            // Save AABB size
+            rapidjson::Value aabbSize(rapidjson::kObjectType);
+            aabbSize.AddMember("x", collisionComp.GetAABBSize().x, allocator);
+            aabbSize.AddMember("y", collisionComp.GetAABBSize().y, allocator);
+            aabbSize.AddMember("z", collisionComp.GetAABBSize().z, allocator);
+            collisionData.AddMember("AABBSize", aabbSize, allocator);
 
             entityData.AddMember("CollisionComponent", collisionData, allocator);
         }
@@ -274,6 +291,56 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
             // Add the CameraComponent to the entityData
             entityData.AddMember("CameraComponent", Cam, allocator);
+        }
+
+        if (g_Coordinator.HaveComponent<ParticleComponent>(entity))
+        {
+            rapidjson::Value particles(rapidjson::kObjectType);
+
+            auto& particleComp = g_Coordinator.GetComponent<ParticleComponent>(entity);
+
+            rapidjson::Value positionMin(rapidjson::kObjectType);
+            positionMin.AddMember("x", particleComp.getPosMin().x, allocator);
+            positionMin.AddMember("y", particleComp.getPosMin().y, allocator);
+            positionMin.AddMember("z", particleComp.getPosMin().z, allocator);
+            particles.AddMember("PositionMin", positionMin, allocator);
+
+            rapidjson::Value positionMax(rapidjson::kObjectType);
+            positionMax.AddMember("x", particleComp.getPosMax().x, allocator);
+            positionMax.AddMember("y", particleComp.getPosMax().y, allocator);
+            positionMax.AddMember("z", particleComp.getPosMax().z, allocator);
+            particles.AddMember("PositionMax", positionMax, allocator);
+
+            particles.AddMember("Density", particleComp.getDensity(), allocator);
+            particles.AddMember("VelocityMin", particleComp.getVelocityMin(), allocator);
+            particles.AddMember("VelocityMax", particleComp.getVelocityMax(), allocator);
+
+            std::vector<glm::vec3> target_positions = particleComp.getTargetPositions();
+            rapidjson::Value targetPositionsArray(rapidjson::kArrayType);   // Create an array for target positions
+
+            for (const auto& pos : target_positions) {
+                rapidjson::Value targetPos(rapidjson::kObjectType);  // Create an object for each target position
+
+                targetPos.AddMember("x", pos.x, allocator);
+                targetPos.AddMember("y", pos.y, allocator);
+                targetPos.AddMember("z", pos.z, allocator);
+
+                targetPositionsArray.PushBack(targetPos, allocator);  // Add each position object to the array
+            }
+            particles.AddMember("TargetPositions", targetPositionsArray, allocator);
+
+            particles.AddMember("ParticleSize", particleComp.getParticleSize(), allocator);
+
+            glm::vec4 particle_color = particleComp.getParticleColor();
+            rapidjson::Value colorObj(rapidjson::kObjectType);
+            colorObj.AddMember("r", particle_color.r, allocator);  
+            colorObj.AddMember("g", particle_color.g, allocator);  
+            colorObj.AddMember("b", particle_color.b, allocator);  
+            colorObj.AddMember("a", particle_color.a, allocator);  
+            particles.AddMember("ParticleColor", colorObj, allocator);
+
+            // Add the CameraComponent to the entityData
+            entityData.AddMember("ParticleComponent", particles, allocator);
         }
 
         entities.PushBack(entityData, allocator);
@@ -313,7 +380,10 @@ bool Serialization::SaveScene(const std::string& filepath) {
  * scene data is not in valid JSON format.
  *************************************************************************/
 
-bool Serialization::LoadScene(const std::string& filepath) {
+bool Serialization::LoadScene(const std::string& filepath) 
+{
+    storedEnt.clear();
+
     FILE* fp = fopen(filepath.c_str(), "rb");
     if (!fp) {
         std::cerr << "Failed to open file for loading: " << filepath << std::endl;
@@ -398,18 +468,32 @@ bool Serialization::LoadScene(const std::string& filepath) {
 
                     std::string modelName = GData["ModelName"].GetString();
                     std::string TextureName;
-                    
-                    GraphicsComponent graphicsComponent(modelName, entity);
-					graphicsComponent.clearTextures();
+                    bool isFollowing{};
+
+
+                    std::cout<< "has member tex" << GData.HasMember("Texture") << '\n';
 
                     if (GData.HasMember("Texture"))
                     {
                         TextureName = GData["Texture"].GetString();
-                        std::cout << TextureName << '\n';
-                        int textureID = g_ResourceManager.GetTextureDDS(TextureName);
-						graphicsComponent.AddTexture(textureID);
-
+                        std::cout << "Texture: " << TextureName << '\n';
+					    
                     }
+
+                    int textureID = g_ResourceManager.GetTextureDDS(TextureName);
+
+                    if (GData.HasMember("FollowCamera"))
+                    {
+                        isFollowing = GData["FollowCamera"].GetBool();
+                    }
+
+                    GraphicsComponent graphicsComponent(modelName, entity, TextureName, isFollowing);
+
+                    if(textureID > 0)
+                        graphicsComponent.AddTexture(textureID);
+//                    graphicsComponent.SetModelID(modelID);
+
+
                     //graphicsComponent.incrementTextureNumber();
 
                     std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
@@ -498,8 +582,24 @@ bool Serialization::LoadScene(const std::string& filepath) {
                 const auto& collisionData = entityData["CollisionComponent"];
 
                 int layer = collisionData["CollisionLayer"].GetInt();
+                bool isDynamic = collisionData.HasMember("IsDynamic") ? collisionData["IsDynamic"].GetBool() : false;
+                bool isPlayer = collisionData.HasMember("IsPlayer") ? collisionData["IsPlayer"].GetBool() : false;
 
                 CollisionComponent collisionComponent(layer);
+                collisionComponent.SetIsDynamic(isDynamic);
+                collisionComponent.SetIsPlayer(isPlayer);
+
+                // Load AABB size
+                if (collisionData.HasMember("AABBSize")) {
+                    const auto& aabbSize = collisionData["AABBSize"];
+                    glm::vec3 loadedAABBSize(
+                        aabbSize["x"].GetFloat(),
+                        aabbSize["y"].GetFloat(),
+                        aabbSize["z"].GetFloat()
+                    );
+                    collisionComponent.SetAABBSize(loadedAABBSize);
+                }
+
                 g_Coordinator.AddComponent(entity, collisionComponent);
             }
 
@@ -530,6 +630,57 @@ bool Serialization::LoadScene(const std::string& filepath) {
                 }
             }
 
+            // Deserialize ParticleComponent
+            if (entityData.HasMember("ParticleComponent"))
+            {
+                const auto& PData = entityData["ParticleComponent"];
+                if (PData.HasMember("PositionMin"))
+                {
+                    glm::vec3 positionMin(
+                        PData["PositionMin"]["x"].GetFloat(),
+                        PData["PositionMin"]["y"].GetFloat(),
+                        PData["PositionMin"]["z"].GetFloat()
+                    );                   
+
+                    glm::vec3 positionMax(
+                        PData["PositionMax"]["x"].GetFloat(),
+                        PData["PositionMax"]["y"].GetFloat(),
+                        PData["PositionMax"]["z"].GetFloat()
+                    );
+
+                    float density = PData["Density"].GetFloat();
+                    float velocityMin = PData["VelocityMin"].GetFloat();
+                    float velocityMax = PData["VelocityMax"].GetFloat();
+
+                    const rapidjson::Value& targetPositionsArray = PData["TargetPositions"];
+                    std::vector<glm::vec3> target_positions;
+
+                    for (rapidjson::SizeType i = 0; i < targetPositionsArray.Size(); i++) {
+                        const rapidjson::Value& targetPos = targetPositionsArray[i];
+
+                        float x = targetPos["x"].GetFloat();
+                        float y = targetPos["y"].GetFloat();
+                        float z = targetPos["z"].GetFloat();
+
+                        target_positions.push_back(glm::vec3(x, y, z));
+                    }
+
+                    float particleSize = PData["ParticleSize"].GetFloat();
+
+                    const rapidjson::Value& colorObj = PData["ParticleColor"];
+
+                    float r = colorObj["r"].GetFloat();
+                    float g = colorObj["g"].GetFloat();
+                    float b = colorObj["b"].GetFloat();
+                    float a = colorObj["a"].GetFloat();
+
+                    glm::vec4 particleColor(r, g, b, a);
+
+                    ParticleComponent particleComponent(density, positionMin, positionMax, velocityMin, velocityMax, target_positions, particleSize, particleColor);
+                    g_Coordinator.AddComponent(entity, particleComponent);
+                }
+            }
+
             // Print out all entity components
 			//std::cout << "Entity: " << g_Coordinator.GetEntityId(entity) << std::endl;
 			//if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) {
@@ -551,6 +702,8 @@ bool Serialization::LoadScene(const std::string& filepath) {
 			//if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) {
 			//	std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << std::endl;
 			//}
+
+            storedEnt.push_back(entity);
         }
     }
 

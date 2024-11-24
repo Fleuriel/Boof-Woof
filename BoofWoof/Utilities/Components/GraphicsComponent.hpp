@@ -66,11 +66,13 @@ public:
     // Set texture name
     void setTexture(std::string texture) { textureName = texture; }
 
+    glm::vec3 boundingBox;
+
 
     // Constructor and destructor
 	GraphicsComponent(){};
 	
-	GraphicsComponent(std::string modelName, Entity& entity) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity))
+	GraphicsComponent(std::string modelName, Entity& entity, std::string texName, bool followCam = true) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity)), textureName(texName), followCamera(followCam)
 	{/*Empty by design*/
 
         
@@ -87,6 +89,7 @@ public:
         REGISTER_PROPERTY(GraphicsComponent, ModelName, std::string, setModelName, getModelName);
         REGISTER_PROPERTY(GraphicsComponent, ModelID, int, SetModelID, getModelID);
 		REGISTER_PROPERTY(GraphicsComponent, Textures, std::vector<int>, SetTextures, getTextures);
+        REGISTER_PROPERTY(GraphicsComponent, FollowCamera, bool, SetFollowCamera, getFollowCamera);
     }
 
 

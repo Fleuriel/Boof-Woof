@@ -1,0 +1,12 @@
+File Name: Floor3tripleheight
+Source File Path: ..\BoofWoof\Assets\Objects\Floor3tripleheight.obj
+Output File Path: ..\BoofWoof\Resources\Objects\Floor3tripleheight.bin
+MTL File Exist: 1
+PNG File Exist: 0
+JPG File Exist: 0
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0

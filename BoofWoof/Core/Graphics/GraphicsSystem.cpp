@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "GraphicsSystem.h"
+#include "../Physics/PhysicsSystem.h"
 #include <utility>
 #include "../Input/Input.h"
 
@@ -18,7 +19,7 @@ bool GraphicsSystem::glewInitialized = false;
 
 bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
-bool GraphicsSystem::lightOn = true;
+bool GraphicsSystem::lightOn = false;
 
 CameraComponent GraphicsSystem::camera;
 CameraComponent camera_render;
@@ -159,6 +160,16 @@ void GraphicsSystem::UpdateLoop() {
 
 	//check camera active
 	camera_render = camera;
+	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
+	{
+		if (g_Coordinator.HaveComponent<CameraComponent>(entity)) {
+			auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
+			if (cameraComp.GetCameraActive()) {
+				camera_render = cameraComp;
+			}
+		}
+	}
+	
 	shdrParam.View = camera_render.GetViewMatrix();
 	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
 
@@ -166,16 +177,14 @@ void GraphicsSystem::UpdateLoop() {
 
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
-	{
-
-
+	{/*
 		if (g_Coordinator.HaveComponent<CameraComponent>(entity)) {
 			auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
 			if (cameraComp.GetCameraActive()) {
 				camera_render = cameraComp;
-				break;
+				std::cout << "Camera Active\n";
 			}
-		}
+		}*/
 
 		if (!g_Coordinator.HaveComponent<TransformComponent>(entity) || !g_Coordinator.HaveComponent<GraphicsComponent>(entity))
 		{
@@ -196,9 +205,8 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader("instanced").Use();
 			g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
 			g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
-			glPointSize(10.0f);
-
-
+			glPointSize(particleComp.getParticleSize());
+			g_AssetManager.GetShader("instanced").SetUniform("particleColor", particleComp.getParticleColor());
 			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
 			g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
 			//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
@@ -773,3 +781,4 @@ Entity GraphicsSystem::DecodeColorToID(unsigned char* data)
 		return MAX_ENTITIES; // Invalid ID
 	}
 }
+

@@ -5,6 +5,7 @@
 #include "Level Manager/LevelManager.h"
 #include "Game Levels/Splashscreen.h"
 #include "Game Levels/MainMenu.h"
+#include "Game Levels/Level1.h"
 #include "GSM/GameStateMachine.h"
 
 EngineCore* g_Core = nullptr;
@@ -13,12 +14,12 @@ void InitializeLevels() {
 	// Register your levels here
 	g_LevelManager.RegisterLevel("Splashscreen", new(Splashscreen));
 	g_LevelManager.RegisterLevel("MainMenu", new(MainMenu));
-	//g_LevelManager.RegisterLevel("Level1", new(Level1));
+	g_LevelManager.RegisterLevel("Level1", new(Level1));
 
 	// Set the initial level
-	g_LevelManager.Initialize("Splashscreen");
-	g_LevelManager.SetNextLevel("Splashscreen");
-	g_LevelManager.SetPreviousLevel("Splashscreen");
+	g_LevelManager.Initialize("MainMenu");
+	g_LevelManager.SetNextLevel("MainMenu");
+	g_LevelManager.SetPreviousLevel("MainMenu");
 }
 
 int main()

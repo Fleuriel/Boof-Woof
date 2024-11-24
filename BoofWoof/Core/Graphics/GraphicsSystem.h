@@ -6,6 +6,7 @@
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/CameraComponent.hpp"
+#include "../Utilities/Components/CollisionComponent.hpp"
 #include "../Utilities/Components/ParticleComponent.hpp"
 #include "../Utilities/Components/MaterialComponent.hpp"
 #include "Animation/AnimationManager.h"
@@ -49,6 +50,7 @@ public:
     
     int set_Texture_T;
     static int set_Texture_;
+
 
     std::string textureNameInput;
 
@@ -100,6 +102,7 @@ public:
     {
         return pickingColorTexture;
     }
+
 
     int GetViewportWidth() const { return viewportWidth; }
     int GetViewportHeight() const { return viewportHeight; }

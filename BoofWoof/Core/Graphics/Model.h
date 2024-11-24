@@ -56,7 +56,7 @@ public:
 
     void DrawCollisionBox2D(Model outlineModel);
 
-    void DrawCollisionBox3D(Model outlineModel) const;
+    void DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color, float lineWidth = 1.0f) const;
 
 
         // draws the model, and thus all its meshes
@@ -103,6 +103,92 @@ public:
     {
         meshes.push_back(mesh);
     }
+
+
+    void drawOBB(const glm::vec3& position, const glm::vec3& rotationRadians, const glm::vec3& halfextents, glm::vec3 color = glm::vec3(1.0f,0.0f,0.0f), float lineWidth = 2.0f) {
+
+        // Create transformation matrix
+        glm::mat4 transform = glm::mat4(1.0f);
+
+        // Apply rotations (order: X, Y, Z)
+        transform = glm::rotate(transform, glm::radians(rotationRadians.x), glm::vec3(1.0f, 0.0f, 0.0f));
+        transform = glm::rotate(transform, glm::radians(rotationRadians.y), glm::vec3(0.0f, 1.0f, 0.0f));
+        transform = glm::rotate(transform, glm::radians(rotationRadians.z), glm::vec3(0.0f, 0.0f, 1.0f));
+
+        // Apply translation to position
+        transform = glm::translate(transform, position);
+
+        // Vertices of the OBB in its local space, now with color
+        struct Vertex {
+            glm::vec3 position;
+            glm::vec3 color;
+        };
+
+        Vertex obbVertices[8] = {
+            {glm::vec3(halfextents.x, halfextents.y, halfextents.z), color},
+            {glm::vec3(-halfextents.x, halfextents.y, halfextents.z), color},
+            {glm::vec3(-halfextents.x, -halfextents.y, halfextents.z), color},
+            {glm::vec3(halfextents.x, -halfextents.y, halfextents.z), color},
+            {glm::vec3(halfextents.x, halfextents.y, -halfextents.z), color},
+            {glm::vec3(-halfextents.x, halfextents.y, -halfextents.z), color},
+            {glm::vec3(-halfextents.x, -halfextents.y, -halfextents.z), color},
+            {glm::vec3(halfextents.x, -halfextents.y, -halfextents.z), color}
+        };
+
+        // Apply rotation to each vertex position
+        glm::mat3 rotationMatrix = glm::mat3(transform); // Extract rotation part from the transform matrix
+
+        for (auto& vertex : obbVertices) {
+            vertex.position = glm::vec3(rotationMatrix * vertex.position);  // Apply rotation to each vertex
+        }
+
+        // Indices for drawing lines (connect vertices to form edges of the box)
+        GLuint indices[24] = {
+            0, 1, 1, 2, 2, 3, 3, 0,  // Bottom face
+            4, 5, 5, 6, 6, 7, 7, 4,  // Top face
+            0, 4, 1, 5, 2, 6, 3, 7   // Connecting vertical lines
+        };
+
+        // Generate and bind VAO and VBO
+        GLuint VAO, VBO, EBO;
+        glGenVertexArrays(1, &VAO);
+        glGenBuffers(1, &VBO);
+        glGenBuffers(1, &EBO);
+
+        glBindVertexArray(VAO);
+
+        // Vertex buffer: Send the transformed vertices to the GPU
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(obbVertices), obbVertices, GL_STATIC_DRAW);
+
+        // Element buffer: Send the indices for the lines
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+        // Position attribute
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        // Color attribute
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
+        glEnableVertexAttribArray(1);
+
+
+        glLineWidth(lineWidth);  // Set line width to make the AABB more visible
+        glColor3f(1.0f, 1.0f, 1.0f);
+
+        // Draw the OBB as a wireframe
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glDrawElements(GL_LINES, 24, GL_UNSIGNED_INT, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+        // Cleanup
+        glDeleteVertexArrays(1, &VAO);
+        glDeleteBuffers(1, &VBO);
+        glDeleteBuffers(1, &EBO);
+    }
+
+//    void RenderAABB(const glm::vec3& center, const glm::vec3& halfExtents, const glm::vec3& color);
 
     //void setMesh()
     //{
@@ -339,7 +425,7 @@ Model SquareModel(glm::vec3 color);
 Model CubeModel(glm::vec3 color);
 
 Model SquareModelOutline(glm::vec3 color);
-Model AABB(glm::vec3 color);
-
+Model AABB(glm::vec3 position, glm::vec3 halfextents = glm::vec3(1.0f), glm::vec3 color = glm::vec3(1.0f));
+Model OBB(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 rotation, glm::vec3 color = glm::vec3(1.0f));
 
 #endif // !MODEL_H

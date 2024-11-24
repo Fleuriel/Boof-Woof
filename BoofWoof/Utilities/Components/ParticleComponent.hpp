@@ -17,6 +17,12 @@ class ParticleComponent
 {
 public:
 	ParticleComponent() {};
+	ParticleComponent(float d, glm::vec3 p_min, glm::vec3 p_max,
+		float v_min, float v_max, std::vector<glm::vec3> target_positions,
+		float p_size, glm::vec4 p_color)
+		: density(d), Pos_min(p_min), Pos_max(p_max),
+		velocity_min(v_min), velocity_max(v_max), target_positions(target_positions),
+		particle_size(p_size), particle_color(p_color) {}
 	~ParticleComponent() {
 		particles.clear();
 	};
@@ -30,6 +36,8 @@ public:
 	void setVelocityMin(float v) { velocity_min = v; }
 	void setVelocityMax(float v) { velocity_max = v; }
 	void setTargetPositions(std::vector<glm::vec3> tp) { target_positions = tp; }
+	void setParticleSize(float s) { particle_size = s; }
+	void setParticleColor(glm::vec4 c) { particle_color = c; }
 
 
 
@@ -41,6 +49,8 @@ public:
 	float getVelocityMin() { return velocity_min; }
 	float getVelocityMax() { return velocity_max; }
 	std::vector<glm::vec3> getTargetPositions() { return target_positions; }
+	float getParticleSize() { return particle_size; }
+	glm::vec4 getParticleColor() { return particle_color; }
 
 
 	class Particle
@@ -169,7 +179,6 @@ public:
 		{
 			density_counter = 0.0f;
 			add_particle = true;
-			std::cout << "adding particle\n";
 		}
 		
 		for (int i = 0; i < PARTICLE_NUM; i++)
@@ -198,7 +207,7 @@ public:
 					particles[i].target_count++;
 				}
 				else {
-					particles[i].target_count = target_positions.size() - 1;
+					particles[i].target_count = static_cast<int>(target_positions.size() - 1);
 					visibility[i] = 0.0f;
 
 				}
@@ -249,7 +258,7 @@ public:
 			max = temp;
 		}
 		std::uniform_real_distribution<> distr(min, max); // Define the range
-		return distr(eng);
+		return static_cast<float>(distr(eng));
 	}
 
 	// Function to generate a random glm::vec3 between two glm::vec3 vectors
@@ -305,6 +314,10 @@ private:
 
 	// settings
 	bool init_flag = false;
+
+	float particle_size = 10.f;
+	glm::vec4 particle_color{ 1.0f, 1.0f, 1.0f , 1.0f};
+
 	float density = 0.1f;
 
 	glm::vec3 Pos_min{ 0.0f,-0.5f,0.0 };
