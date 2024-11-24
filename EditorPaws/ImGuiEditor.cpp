@@ -1800,6 +1800,10 @@ void ImGuiEditor::InspectorWindow()
 									// Debug Output
 									ImGui::Text("Current Offset: (%.2f, %.2f, %.2f)", currentOffset.x, currentOffset.y, currentOffset.z);
 
+									// Debug for last colliding entity
+									ImGui::Text("Colliding: %s", collisionComponent.GetIsColliding() ? "Yes" : "No");
+									ImGui::Text("Last Collided Object: %s", collisionComponent.GetLastCollidedObjectName().c_str());
+
 								}
 							}
 						}

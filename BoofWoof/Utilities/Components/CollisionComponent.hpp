@@ -74,6 +74,9 @@ public:
     glm::vec3 GetAABBOffset() const { return aabbOffset; }
     void SetAABBOffset(const glm::vec3& newOffset) { aabbOffset = newOffset; }
 
+    void SetLastCollidedObjectName(const std::string& objectName) { lastCollidedObjectName = objectName; }
+    const std::string& GetLastCollidedObjectName() const { return lastCollidedObjectName; }
+
     // Reflection integration
     REFLECT_COMPONENT(CollisionComponent)
     {
@@ -94,6 +97,7 @@ private:
     bool m_IsDynamic = false;             // Flag to determine if the entity is dynamic or static
     bool m_IsPlayer = false;            // Determines if the entity is a player
     bool isColliding = false; // Flag to track collision status
+    std::string lastCollidedObjectName = "None"; // Default to no collision
 };
 
 #endif  // COLLISION_COMPONENT_HPP
