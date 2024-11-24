@@ -324,7 +324,7 @@ void ImGuiEditor::WorldHierarchy()
 						{
 							// Subsequent objects get "GameObject_1", "GameObject_2", etc.
 							g_Coordinator.AddComponent<MetadataComponent>(
-								g_SelectedEntity, MetadataComponent("GameObject_" + std::to_string(objectCount), g_SelectedEntity));
+								g_SelectedEntity, MetadataComponent("GameObject (" + std::to_string(objectCount) + ")", g_SelectedEntity));
 						}
 						objectCount++; // Increment the counter for the next object
 
