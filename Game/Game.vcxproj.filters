@@ -47,5 +47,8 @@
     <ClInclude Include="Systems\RopeBreaker\RopeBreaker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game Levels\Cutscene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
