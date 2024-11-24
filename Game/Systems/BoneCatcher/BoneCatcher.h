@@ -4,17 +4,18 @@
 class BoneCatcher
 {
 public:
-	void OnLoad();
 	void OnInitialize();
 	void OnUpdate(double deltaTime);
-	void Stop();
+	void Stop(double deltaTime);
 
 	void MoveLeftRightVisual(double deltaTime);
-	void BiteDownVisual(double deltaTime);
+	void BiteDown(double deltaTime);	// Check whether collided with catchzone + visual feedback
 	void ClearBoneCatcher();
+
 
 private:
 	Entity m_DogHead{}, m_CatchZone{};
+	int m_HitCount{ 0 };
 
 	// Dog
 	glm::vec3 initialDogPos{}, DogPos{}, DogScale{};
@@ -28,7 +29,7 @@ private:
 	glm::vec3 CatchZoneScale{};
 	glm::vec3 BoxMin{}, BoxMax{};
 
-	glm::vec2 MinMaxScale{ 0.1f, 0.4f };
+	//glm::vec2 MinMaxScale{ 0.1f, 0.4f };
 	glm::vec2 MinMaxPos{ -0.24f, 0.26f };	// values of when scale is smallest
 
 	bool m_HitDetected{ false };

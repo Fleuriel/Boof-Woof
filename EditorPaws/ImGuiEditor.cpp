@@ -2126,6 +2126,36 @@ void ImGuiEditor::InspectorWindow()
 									}
 								}
 
+								// set particle size
+								float particleSize = particleComponent.getParticleSize();
+								ImGui::Text("Particle Size");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("ParticleSize");
+
+								if (ImGui::DragFloat("##ParticleSize", &particleSize, 0.1f))
+								{
+									particleComponent.setParticleSize(particleSize);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// set particle color
+								glm::vec4 particleColor = particleComponent.getParticleColor();
+								ImGui::Text("Particle Color");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("ParticleColor");
+
+								if (ImGui::ColorEdit4("##ParticleColor", &particleColor.x))
+								{
+									particleComponent.setParticleColor(particleColor);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
 
 							}
 						}
@@ -2140,7 +2170,10 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::Text("Shininess %.2f", material.GetShininess());
 
 
+//								ImGui::Text("Shininess %.2f", );
 
+
+								ImGui::Text("%s", graphicsComponent.getTextureName().c_str());
 
 
 							}

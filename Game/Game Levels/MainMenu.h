@@ -11,7 +11,7 @@ class MainMenu : public Level
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainMenuBack.json");
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainMenuFront.json");
-		//g_Audio.PlayBGM("../BoofWoof/Assets/Audio/Test.wav");
+		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/Test.wav");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -58,7 +58,7 @@ class MainMenu : public Level
 
 	void UnloadLevel()
 	{
-		//g_Audio.StopBGM();
+		g_Audio.StopBGM();
 		g_Coordinator.ResetEntities();
 	}
 };

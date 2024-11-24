@@ -352,15 +352,19 @@ void AudioSystem::PlayBGM(const std::string& filePath) {
         soundCache[filePath] = bgmPtr;  // Cache the BGM sound using the shared_ptr
     }
 
-    // Play the cached BGM sound
     FMOD::Channel* channel = nullptr;
     system->playSound(soundCache[filePath].get(), nullptr, false, &channel);  // Use .get() to retrieve raw pointer
-    channel->setVolume(1.0f);  // Set the volume for BGM
-    channel->setMode(FMOD_LOOP_NORMAL);  // Ensure BGM loops
+
+    if (channel) {
+        channel->setVolume(1.0f);  // Set the volume for BGM
+        channel->setMode(FMOD_LOOP_NORMAL);  // Ensure BGM loops
+        currentChannel = channel;  // Store the channel globally
+    }
 
     // Update system to handle the audio
     system->update();
 }
+
 
 /**************************************************************************
  * @brief Gradually fades in the audio for a specific entity to a target volume.

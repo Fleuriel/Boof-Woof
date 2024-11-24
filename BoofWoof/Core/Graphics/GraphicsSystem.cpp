@@ -194,9 +194,8 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader("instanced").Use();
 			g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
 			g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
-			glPointSize(10.0f);
-
-
+			glPointSize(particleComp.getParticleSize());
+			g_AssetManager.GetShader("instanced").SetUniform("particleColor", particleComp.getParticleColor());
 			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
 			g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
 			//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
@@ -365,14 +364,6 @@ void GraphicsSystem::UpdateLoop() {
 
 		// SET ALL SAME TEX...
 //				set_Texture_T = GraphicsSystem::set_Texture_;
-
-
-
-		g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
-		//shader.SetUniform("")
-
-
-
 		if (graphicsComp.getTextureNumber() == 0)
 		{
 			glBindTextureUnit(6, 0);
@@ -380,6 +371,16 @@ void GraphicsSystem::UpdateLoop() {
 		}
 		else
 			glBindTextureUnit(6, graphicsComp.getTexture(0));
+
+		g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader("Shader2D"));
+
+		g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
+		//shader.SetUniform("")
+		g_AssetManager.GetShader("Shader2D").UnUse();
+
+
+
+
 		//glBindTextureUnit(6, set_Texture_T);
 
 		g_AssetManager.GetShader("OutlineAndFont").Use();
@@ -422,10 +423,7 @@ void GraphicsSystem::UpdateLoop() {
 		//g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
 //				g_ResourceManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
 
-		g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader("Shader2D"));
-
-		g_AssetManager.GetShader("Shader2D").UnUse();
-
+		
 	}
 
 
