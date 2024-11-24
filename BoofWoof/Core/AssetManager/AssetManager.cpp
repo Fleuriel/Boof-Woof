@@ -628,7 +628,7 @@ bool AssetManager::LoadObjects() {
                 std::cout << mtlFileName << '\t' << pngFileName << '\t' << jpgFileName << '\t';
 #endif
 
-                std::cout << "test without expenaisnom\t" << nameWithoutExtension << '\n';
+                std::cout << "\t" << nameWithoutExtension << '\n';
 
 
                 // Check if the substring exists in the full string

@@ -192,9 +192,9 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
 
             // Texture Name
-            Grafics.AddMember("Texture", rapidjson::Value(graphicsComp.getTextureName().c_str(), allocator), allocator);
+            Grafics.AddMember("Texture", rapidjson::Value(graphicsComp.GetDiffuseName().c_str(), allocator), allocator);
 
-            std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.getTextureName() << '\n';
+            std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.GetDiffuseName() << '\n';
           
             // Follow Camera
             Grafics.AddMember("FollowCamera", graphicsComp.getFollowCamera(), allocator);
