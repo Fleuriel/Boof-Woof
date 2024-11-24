@@ -30,6 +30,29 @@ uniform vec3 viewPos; // Camera position
 uniform sampler2D albedoTexture;
 uniform bool useTexture; // Flag to enable/disable texture
 
+vec4 fromLinear(vec4 linearRGB)
+{
+    bvec3 cutoff = lessThan(linearRGB.rgb, vec3(0.0031308));
+    vec3 higher = vec3(1.055)*pow(linearRGB.rgb, vec3(1.0/2.4)) - vec3(0.055);
+    vec3 lower = linearRGB.rgb * vec3(12.92);
+
+    return vec4(mix(higher, lower, cutoff), linearRGB.a);
+}
+
+// Converts a color from sRGB gamma to linear light gamma
+vec4 toLinear(vec4 sRGB)
+{
+    bvec3 cutoff = lessThan(sRGB.rgb, vec3(0.04045));
+    vec3 higher = pow((sRGB.rgb + vec3(0.055))/vec3(1.055), vec3(2.4));
+    vec3 lower = sRGB.rgb/vec3(12.92);
+
+    return vec4(mix(higher, lower, cutoff), sRGB.a);
+}
+
+vec3 sRGBToLinear(vec3 sRGB)
+{
+    return mix(sRGB / 12.92, pow((sRGB + 0.055) / 1.055, vec3(2.4)), lessThan(sRGB, vec3(0.04045)));
+}
 
 // Improved specular distribution using GGX
 float D_GGX(float NoH, float roughness) {
@@ -83,8 +106,16 @@ void main() {
     // Blend the texture with the color
     if (useTexture) {
         vec4 texColor = texture(albedoTexture, fragTexCoord);
-        baseColor = fragColor.rgb * texColor.rgb; // Multiply the color and texture
+        texColor = toLinear(texColor);
 
+
+        texColor.rgb = pow(texColor.rgb, vec3(2.2)); // Convert from sRGB to linear
+
+        texColor.a = 2.2;
+        
+        baseColor *= texColor.rgb;
+        
+        
         //vec4 texColor = texture(albedoTexture, fragTexCoord);
         //float blendFactor = 0.5; // Example blend factor, can be uniform or derived
         //baseColor = mix(fragColor.rgb, texColor.rgb, blendFactor);
@@ -106,7 +137,7 @@ void main() {
     vec3 finalColor = directLight + mix(ambient, ambient_metal, fragMetallic);
 
     // Tonemapping for HDR (Linear to display space)
-    finalColor = finalColor / (finalColor + vec3(1.0)); // simple tonemapping
+    //finalColor = finalColor / (finalColor + vec3(1.0)); // simple tonemapping
 
     // Gamma correction (2.2 gamma)
     finalColor = pow(finalColor, vec3(1.0 / 2.2));

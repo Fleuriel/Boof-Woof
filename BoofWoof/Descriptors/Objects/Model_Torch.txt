@@ -1,6 +1,6 @@
-File Name: Corgi_Small
-Source File Path: ..\BoofWoof\Assets\Objects\Corgi_Small.obj
-Output File Path: ..\BoofWoof\Resources\Objects\Corgi_Small.bin
+File Name: Torch
+Source File Path: ..\BoofWoof\Assets\Objects\Torch.obj
+Output File Path: ..\BoofWoof\Resources\Objects\Torch.bin
 MTL File Exist: 1
 PNG File Exist: 0
 JPG File Exist: 0

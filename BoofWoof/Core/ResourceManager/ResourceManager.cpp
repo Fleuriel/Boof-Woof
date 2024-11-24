@@ -75,7 +75,7 @@ bool ResourceManager::LoadAll() {
 
 
 DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
-    
+
     DDSData ddsData;
 
 
@@ -93,7 +93,9 @@ DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
         return ddsData;
     }
 
-  
+    std::cout << "\n\nTextueFOrmat : \t\t" << Texture.format() << '\n';
+
+
     // Get OpenGL texture parameters
     gli::gl GL(gli::gl::PROFILE_GL33);
     gli::gl::format const Format = GL.translate(Texture.format(), Texture.swizzles());
@@ -150,6 +152,7 @@ DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
 
     return ddsData; // Return the OpenGL texture ID
 }
+
 
 
 
