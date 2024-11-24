@@ -584,6 +584,14 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         // Compute the scaled AABB
         glm::vec3 scaledAABB = customAABB * scale;
 
+        // Include offset in body position
+        glm::vec3 offset = collisionComponent.GetAABBOffset();
+        JPH::RVec3 positionWithOffset = JPH::RVec3(
+            transform.GetPosition().x + offset.x,
+            transform.GetPosition().y + offset.y,
+            transform.GetPosition().z + offset.z
+        );
+
         // Create shape based on object type and custom AABB
         JPH::Shape* shape = CreateShapeForObjectType(objectType, scaledAABB);
 
@@ -594,7 +602,8 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
         // Define body creation settings
         JPH::BodyCreationSettings bodySettings(
             shape,
-            position,
+            //position,
+            positionWithOffset,
             JPH::Quat(rotation.w, rotation.x, rotation.y, rotation.z), // Apply initial rotation
             motionType,
             motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING // Layer based on motion type
@@ -670,13 +679,22 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity)
         glm::vec3 scale = transform.GetScale();
         glm::vec3 scaledAABB = collisionComponent.GetAABBSize() * scale;
 
+        // Include offset in body position
+        glm::vec3 offset = collisionComponent.GetAABBOffset();
+        JPH::RVec3 positionWithOffset = JPH::RVec3(
+            transform.GetPosition().x + offset.x,
+            transform.GetPosition().y + offset.y,
+            transform.GetPosition().z + offset.z
+        );
+
         // Create a new shape and body
         //JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, transform.GetScale(), collisionComponent.GetAABBSize());
         JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, scaledAABB);
 
         JPH::BodyCreationSettings bodySettings(
             newShape,
-            JPH::RVec3(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z),
+            //JPH::RVec3(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z),
+            positionWithOffset,
             JPH::Quat::sIdentity(), // Default rotation
             motionType,
             motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING
@@ -703,6 +721,34 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity)
 }
 
 
+//void MyPhysicsSystem::UpdateEntityTransforms() {
+//    auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+//    for (auto& entity : allEntities) {
+//        if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+//            auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+//            JPH::Body* body = collisionComp.GetPhysicsBody();
+//
+//            if (body != nullptr && !body->GetID().IsInvalid()) {
+//                // Physics position
+//                JPH::Vec3 updatedPosition = body->GetPosition();
+//                //std::cout << "Physics Position for Entity " << entity << ": ("
+//                //    << updatedPosition.GetX() << ", " << updatedPosition.GetY()
+//                //    << ", " << updatedPosition.GetZ() << ")" << std::endl;
+//
+//                // Transform component position
+//                auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+//                glm::vec3 enginePosition = transform.GetPosition();
+//                //std::cout << "Engine Position for Entity " << entity << ": ("
+//                //    << enginePosition.x << ", " << enginePosition.y << ", "
+//                //    << enginePosition.z << ")" << std::endl;
+//
+//                // Update the engine transform to match Jolt
+//                transform.SetPosition(glm::vec3(updatedPosition.GetX(), updatedPosition.GetY(), updatedPosition.GetZ()));
+//            }
+//        }
+//    }
+//}
+
 void MyPhysicsSystem::UpdateEntityTransforms() {
     auto allEntities = g_Coordinator.GetAliveEntitiesSet();
     for (auto& entity : allEntities) {
@@ -711,25 +757,25 @@ void MyPhysicsSystem::UpdateEntityTransforms() {
             JPH::Body* body = collisionComp.GetPhysicsBody();
 
             if (body != nullptr && !body->GetID().IsInvalid()) {
-                // Physics position
-                JPH::Vec3 updatedPosition = body->GetPosition();
-                //std::cout << "Physics Position for Entity " << entity << ": ("
-                //    << updatedPosition.GetX() << ", " << updatedPosition.GetY()
-                //    << ", " << updatedPosition.GetZ() << ")" << std::endl;
+                // Physics position from Jolt
+                JPH::Vec3 bodyPosition = body->GetPosition();
 
-                // Transform component position
+                // Remove the offset to get the entity's true position
+                glm::vec3 offset = collisionComp.GetAABBOffset();
+                glm::vec3 truePosition = glm::vec3(
+                    bodyPosition.GetX() - offset.x,
+                    bodyPosition.GetY() - offset.y,
+                    bodyPosition.GetZ() - offset.z
+                );
+
+                // Update the engine transform to match true position
                 auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
-                glm::vec3 enginePosition = transform.GetPosition();
-                //std::cout << "Engine Position for Entity " << entity << ": ("
-                //    << enginePosition.x << ", " << enginePosition.y << ", "
-                //    << enginePosition.z << ")" << std::endl;
-
-                // Update the engine transform to match Jolt
-                transform.SetPosition(glm::vec3(updatedPosition.GetX(), updatedPosition.GetY(), updatedPosition.GetZ()));
+                transform.SetPosition(truePosition);
             }
         }
     }
 }
+
 
 void MyPhysicsSystem::RemoveEntityBody(Entity entity) {
     // Check if the entity has a CollisionComponent

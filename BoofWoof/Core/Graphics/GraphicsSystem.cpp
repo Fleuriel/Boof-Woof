@@ -403,11 +403,15 @@ void GraphicsSystem::UpdateLoop() {
 
 					// Calculate center and half-extents
 					JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
-					glm::vec3 glmCenter = glm::vec3(center.GetX(), center.GetY(), center.GetZ());
+					glm::vec3 glmCenter = glm::vec3(0, 0, 0);
+
+					// Apply offset for visual debugging
+					glm::vec3 offset = collisionComp.GetAABBOffset();
+					glm::vec3 adjustedCenter = glmCenter + offset;
 
 					if (D3) {
-						g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(glmCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f)); // Green color
-						//						g_ResourceManager.getModel("cubeModel")->drawOBB(glmCenter, transformComp.GetRotation(), graphicsComp.boundingBox, glm::vec3(1.0f,1.0f,1.0f), 1.0f);
+						//g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(glmCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f)); // Green color
+						g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(adjustedCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f));
 					}
 				}
 			}
