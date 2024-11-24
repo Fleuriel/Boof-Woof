@@ -2398,6 +2398,7 @@ void ImGuiEditor::InspectorWindow()
 							auto& material = graphicsComponent.material;
 							std::string loadSaveLocation = FILEPATH_ASSET_MATERIAL + "\\" + objectName + ".mat";
 
+							std::string loadSaveLocationExt = FILEPATH_ASSET_MATERIAL + "\\" + graphicsComponent.material.GetMaterialName() + ".mat";
 
 
 							if (!material.loadedMaterial)
@@ -2425,7 +2426,22 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::SameLine(WidthIndentation);
 
 									ImGui::PushItemWidth(150); // Set the width in pixels
-									ImGui::InputText("##MatName1001 ", graphicsComponent.material.GetMaterialName().data(), graphicsComponent.material.GetMaterialName().capacity() + 1);
+
+									std::string& matNameBuffer = graphicsComponent.material.GetMaterialName();
+									matNameBuffer.resize(256);
+
+									if (ImGui::InputText("##MatName1001", &matNameBuffer[0], matNameBuffer.capacity())) {
+										// Trim to actual length after editing
+										matNameBuffer.resize(strlen(matNameBuffer.c_str()));
+
+										// You might also want to trigger an update or validate the name here
+										graphicsComponent.material.SetMaterialName(matNameBuffer); // If there's a setter
+										graphicsComponent.material.SetMaterialNameMat(matNameBuffer); // If there's a setter
+									}
+
+									// ImGui::InputText("##MatName1001 ", graphicsComponent.material.GetMaterialName().data(), graphicsComponent.material.GetMaterialName().capacity() + 1);
+
+
 
 									ImGui::PushID("LoadMaterialz");
 									ImGui::SameLine();
@@ -2452,8 +2468,6 @@ void ImGuiEditor::InspectorWindow()
 											}
 											
 											graphicsComponent.LoadMaterialDesc(FILEPATH_ASSET_MATERIAL + "\\" + selectedFile + ".mat");
-
-											std::cout << "loaded\n";
 
 
 											// Execute undo/redo command
@@ -2503,6 +2517,7 @@ void ImGuiEditor::InspectorWindow()
 									if (ImGui::Combo("##MatCombo1", &Material_current_idx, comboItems.c_str())) {
 										// Update material.GetShaderIndex() with the selected index
 										material.SetShaderIndex(Material_current_idx);
+										
 
 										// Retrieve the selected string from the original vector
 										material.SetShaderName(g_AssetManager.shdrpgmOrder[material.GetShaderIndex()]);
@@ -2830,9 +2845,9 @@ void ImGuiEditor::InspectorWindow()
 									{
 
 										//Save
-										std::cout << "saved at location: " << loadSaveLocation << '\n';
-										material.SaveMaterialDescriptor(loadSaveLocation);
-										material.LoadMaterialDescriptor(loadSaveLocation);
+										//std::cout << "saved at location: " << loadSaveLocationExt << '\n';
+										material.SaveMaterialDescriptor(loadSaveLocationExt);
+										material.LoadMaterialDescriptor(loadSaveLocationExt);
 										// g_AssetManager.ReloadTextures();
 									}
 
@@ -3430,6 +3445,9 @@ void ImGuiEditor::InspectorWindow()
 
 				int& Material_current_idx = materialInfo.shaderIndex; // Index for the selected item
 
+				std::cout <<"index: " << materialInfo.shaderIndex << '\n';
+
+
 				ImGui::SetNextItemWidth(WidthIndentation); // Set combo box width
 				if (ImGui::Combo("##MatCombo1", &Material_current_idx, comboItems.c_str())) {
 					// Update materialInfo.shaderIndex with the selected index
@@ -3574,10 +3592,20 @@ void ImGuiEditor::InspectorWindow()
 				{
 
 					//Save
-					std::cout << m_SelectedFile.string();
-					materialInfo.SaveMaterialDescriptor(m_SelectedFile.string());
-					materialInfo.LoadMaterialDescriptor(m_SelectedFile.string());
-					// g_AssetManager.ReloadTextures();
+
+					if (m_SelectedFile.string().empty() && !materialInfo.materialName.empty())
+					{
+
+						std::cout << "ASD\t" << m_SelectedFile.string();
+						materialInfo.SaveMaterialDescriptor(m_SelectedFile.string() + materialInfo.materialName);
+						materialInfo.LoadMaterialDescriptor(m_SelectedFile.string() + materialInfo.materialName);
+
+
+					}// g_AssetManager.ReloadTextures();
+					else
+					{
+						// do nothing bruH
+					}
 				}
 
 				ImGui::SameLine();

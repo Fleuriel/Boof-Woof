@@ -32,7 +32,10 @@ public:
 //    void SetShaderName(const std::string& shader) { shaderName = shader; }
     
 
-    std::string GetMaterialName() { return materialDesc.materialName; }
+    std::string& GetMaterialName() { return materialDesc.materialName; }
+    std::string& GetMaterialNameMat() { return materialDesc.materialNameMat; }
+    void SetMaterialName(std::string name) { materialDesc.materialName = name; std::cout << materialDesc.materialName << '\n'; }
+    void SetMaterialNameMat(std::string name) { materialDesc.materialNameMat = name + ".mat"; std::cout << materialDesc.materialNameMat << '\n'; }
 
     void SetColor(const glm::vec4& baseColor) 
     { 

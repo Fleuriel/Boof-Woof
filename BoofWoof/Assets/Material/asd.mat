@@ -1,7 +1,7 @@
 {
-    "name": "GameObject",
-    "shader": "Material",
-    "shaderIdx": 5,
+    "name": "asd",
+    "shader": "OutlineAndFont",
+    "shaderIdx": 2,
     "properties": {
         "color": [
             1.0,

@@ -161,6 +161,8 @@ bool TextureDescriptor::LoadTextureDescriptor(const std::string& filepath) {
 bool MaterialDescriptor::SaveMaterialDescriptor(const std::string& filepath) {
 	using namespace rapidjson;
 
+	std::cout << "saving: "  << filepath << '\n';
+
 	// Create a JSON document
 	Document document;
 	document.SetObject();
@@ -172,6 +174,7 @@ bool MaterialDescriptor::SaveMaterialDescriptor(const std::string& filepath) {
 	document.AddMember("name", Value(filename.c_str(), allocator), allocator); // Change as needed
 	rapidjson::Value shaderValue(shaderChosen.c_str(), allocator); // Convert std::string to rapidjson::Value
 	document.AddMember("shader", shaderValue, allocator);
+	document.AddMember("shaderIdx", shaderIndex, allocator);
 
 	// Add "properties" object
 	Value properties(kObjectType);
@@ -232,6 +235,8 @@ bool MaterialDescriptor::SaveMaterialDescriptor(const std::string& filepath) {
 bool MaterialDescriptor::LoadMaterialDescriptor(const std::string& filepath) {
 	using namespace rapidjson;
 
+	 
+	std::cout << "loading: " << filepath << '\n';
 
 	// Open the file
 	std::ifstream ifs(filepath, std::ios::in);
@@ -258,10 +263,17 @@ bool MaterialDescriptor::LoadMaterialDescriptor(const std::string& filepath) {
 	// Extract top-level values
 	if (document.HasMember("name") && document["name"].IsString()) {
 		materialName = document["name"].GetString();
-
-		 
 		std::cout << "Material Name: " << materialName << std::endl;
 	}
+
+	if (document.HasMember("shaderIdx") && document["shaderIdx"].IsInt())
+	{
+		shaderIndex = document["shaderIdx"].GetInt();
+		std::cout << "Shader Index: " << shaderIndex << '\n';
+	}
+
+
+
 
 	if (document.HasMember("shader") && document["shader"].IsString()) {
 		shaderChosen = document["shader"].GetString();

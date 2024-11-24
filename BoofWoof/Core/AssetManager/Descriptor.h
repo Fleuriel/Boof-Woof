@@ -55,6 +55,7 @@ struct TextureDescriptor {
 struct MaterialDescriptor
 {
     std::string materialName;
+    std::string materialNameMat;
 
     
     int shaderIndex;            // Select Shader
