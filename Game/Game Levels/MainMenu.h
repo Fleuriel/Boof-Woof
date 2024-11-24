@@ -11,8 +11,8 @@ class MainMenu : public Level
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainMenuBack.json");
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainMenuFront.json");
-		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/Test.wav");
-
+		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/MainMenu/mainmenu music.wav");
+		
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
 		for (auto entity : entities)
@@ -24,6 +24,8 @@ class MainMenu : public Level
 					BackCamera = entity;
 					break;
 				}
+
+
 			}
 		}
 	}
