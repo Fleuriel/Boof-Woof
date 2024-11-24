@@ -2418,7 +2418,7 @@ void ImGuiEditor::InspectorWindow()
 							auto& material = graphicsComponent.material;
 							std::string loadSaveLocation = FILEPATH_ASSET_MATERIAL + "\\" + objectName + ".mat";
 
-							std::string loadSaveLocationExt = FILEPATH_ASSET_MATERIAL + "\\" + graphicsComponent.material.GetMaterialName() + ".mat";
+							std::string loadSaveLocationExt = FILEPATH_ASSET_MATERIAL + "\\" + graphicsComponent.material.GetMaterialNameMat() ;
 
 
 							if (!material.loadedMaterial)
@@ -3103,7 +3103,7 @@ void ImGuiEditor::InspectorWindow()
 //								ImGui::Text("Shininess %.2f", );
 
 
-								ImGui::Text("%s", graphicsComponent.GetDiffuseName().c_str());
+//								ImGui::Text("%s", graphicsComponent.GetDiffuseName().c_str());
 
 
 							}

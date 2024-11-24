@@ -1,7 +1,7 @@
 {
-    "name": "asd",
-    "shader": "OutlineAndFont",
-    "shaderIdx": 2,
+    "name": "Table",
+    "shader": "Material",
+    "shaderIdx": 5,
     "properties": {
         "color": [
             1.0,
@@ -9,7 +9,7 @@
             1.0,
             1.0
         ],
-        "Diffuse": "NothingTexture",
+        "Diffuse": "Table",
         "Normal": "NothingNormal",
         "Height": "NothingHeight",
         "metallic": 0.0,

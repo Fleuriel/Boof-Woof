@@ -1,5 +1,5 @@
 {
-    "name": "testasd",
+    "name": "Corgi_small",
     "shader": "Material",
     "shaderIdx": 5,
     "properties": {
@@ -9,7 +9,7 @@
             1.0,
             1.0
         ],
-        "Diffuse": "NothingTexture",
+        "Diffuse": "Corgi_small",
         "Normal": "NothingNormal",
         "Height": "NothingHeight",
         "metallic": 0.0,

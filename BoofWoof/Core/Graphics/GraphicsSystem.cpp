@@ -207,7 +207,7 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
 			glPointSize(particleComp.getParticleSize());
 			g_AssetManager.GetShader("instanced").SetUniform("particleColor", particleComp.getParticleColor());
-			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
+			//shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
 			g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
 			//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
 			particleComp.update(static_cast<float>(g_Core->m_DeltaTime));
@@ -326,40 +326,42 @@ void GraphicsSystem::UpdateLoop() {
 			else
 				glBindTextureUnit(6, graphicsComp.getTexture(0));
 		}
-		else
+		else if (shaderName == "OutlineAndFont")
 		{
-			if (shaderName == "Material")
-			{
+			g_AssetManager.GetShader(shaderName).SetUniform("uTex2d", 6);
+			g_AssetManager.GetShader("OutlineAndFont").SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
 
-			}
-			else
-			{
-				g_AssetManager.GetShader(shaderName).SetUniform("inputColor", glm::vec4(shader.GetColor()));
-				g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
-
-				g_AssetManager.GetShader(shaderName).SetUniform("viewPos", camera.GetViewMatrix());
-				g_AssetManager.GetShader(shaderName).SetUniform("metallic", shader.GetMetallic());
-				g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.GetSmoothness());
-
-
-				// Check if a texture is set, and bind it
-				if (shader.GetDiffuseID() >= 0) { // Assuming textureID is -1 if no texture
-					glActiveTexture(GL_TEXTURE0);
-					glBindTexture(GL_TEXTURE_2D, shader.GetDiffuseID());
-					g_AssetManager.GetShader(shaderName).SetUniform("albedoTexture", 0);
-					g_AssetManager.GetShader(shaderName).SetUniform("useTexture", true);
-				}
-				else {
-					g_AssetManager.GetShader(shaderName).SetUniform("useTexture", false);
-				}
-			}
-
-
-
-
+			// This one put the D2 D3 here.
 
 
 		}
+		else if(shaderName == "Material" || shaderName == "Shader3D")
+		{
+			g_AssetManager.GetShader(shaderName).SetUniform("inputColor", glm::vec4(shader.GetColor()));
+			g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
+
+			g_AssetManager.GetShader(shaderName).SetUniform("viewPos", camera.GetViewMatrix());
+			g_AssetManager.GetShader(shaderName).SetUniform("metallic", shader.GetMetallic());
+			g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.GetSmoothness());
+
+
+			// Check if a texture is set, and bind it
+			if (shader.GetDiffuseID() >= 0) { // Assuming textureID is -1 if no texture
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, shader.GetDiffuseID());
+				g_AssetManager.GetShader(shaderName).SetUniform("albedoTexture", 0);
+				g_AssetManager.GetShader(shaderName).SetUniform("useTexture", true);
+			}
+			else {
+				g_AssetManager.GetShader(shaderName).SetUniform("useTexture", false);
+			}
+		}
+		else
+		{
+			std::cout << "shader does not exist\n";
+			continue;
+		}
+
 
 
 
