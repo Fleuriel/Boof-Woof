@@ -16,7 +16,7 @@
 #define PHYSICSSYSTEM_H
 
 #pragma warning(push)
-#pragma warning(disable: 4100)
+#pragma warning(disable: 4100 4189 4081 4458)
 #include <Jolt/Jolt.h>
 #include <Jolt/Core/Factory.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
