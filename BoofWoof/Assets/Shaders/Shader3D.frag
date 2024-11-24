@@ -24,15 +24,26 @@ uniform sampler2D texture_normal1;
 uniform int textureCount;
 uniform bool lightOn;
 
-uniform vec3 lightPos;
+struct Light {
+    vec3 position;
+    //vec3 color;
+    //float intensity;
+};
+
+//uniform vec3 lightPos;
 uniform vec3 viewPos;
+
+#define NUM_LIGHTS 3  // Define the number of lights you want
+uniform Light lights[NUM_LIGHTS];
+uniform int numLights;
+
 
 out vec4 fragColor;
 
 in VS_OUT {
 	vec3 FragPos;
     vec2 TexCoords;
-    vec3 TangentLightPos;
+    vec3 TangentLightPos[NUM_LIGHTS];
     vec3 TangentViewPos;
     vec3 TangentFragPos;
 } fs_in;
@@ -47,7 +58,7 @@ void main()
 
         vec3 color = texture(texture_diffuse1, TexCoords).rgb;
         vec3 ambient = 0.1 * color;
-        vec3 lightDir = normalize(fs_in.TangentLightPos - fs_in.TangentFragPos);
+        vec3 lightDir = normalize(fs_in.TangentLightPos[0] - fs_in.TangentFragPos);
 
         float diff = max(dot(normal, lightDir), 0.0);
         vec3 diffuse = diff * color;
@@ -61,28 +72,33 @@ void main()
 
     }else if(textureCount == 1 )
 	{
-		vec3 lightVector = lightPos - FragPos;
-        float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
         vec4 textureColor = texture(texture_diffuse1, TexCoords);
-        textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
-        //fragColor = vec4(textureColor.rgb, textureColor.a);
+        vec3 result = vec3(0.0f,0.0f,0.0f);
+        for(int i = 0; i < numLights; i++){
+		    vec3 lightVector = fs_in.TangentLightPos[i] - fs_in.TangentFragPos;
+            float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
+            textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
+            //fragColor = vec4(textureColor.rgb, textureColor.a);
+            vec3 ambientColor = vec3(0.0f,0.0f,0.0f);
+            vec3 diffuseColor = textureColor.rgb;
+
+
+            vec3 ambient = ambientColor  * 0.1f;
+            vec3 diffuse = diffuseColor  * N_dot_L;
+
+            vec3 finalColor = ambient + diffuse; // Combine ambient and diffuse components
+            result += finalColor;
+        }
         
-        vec3 ambientColor = vec3(0.0f,0.0f,0.0f);
-        vec3 diffuseColor = textureColor.rgb;
-
-
-        vec3 ambient = ambientColor  * 0.1f;
-        vec3 diffuse = diffuseColor  * N_dot_L;
-
-        vec3 finalColor = ambient + diffuse; // Combine ambient and diffuse components
+        
         if(lightOn){
-            fragColor = vec4(finalColor, 1.0);
+            fragColor = vec4(result, 1.0);
         }else{
 			fragColor = vec4(textureColor);
 		}
         
 	}else{
-        vec3 lightVector = lightPos - FragPos;
+        vec3 lightVector = fs_in.TangentLightPos[0] - FragPos;
         float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
         fragColor = vec4(vertColor*N_dot_L, 1.0f);
 	}

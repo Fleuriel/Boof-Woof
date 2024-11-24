@@ -238,7 +238,10 @@ void GraphicsSystem::UpdateLoop() {
 
 		}
 		g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
-		g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
+		//g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
+		g_AssetManager.GetShader("Shader3D").SetUniform("lights[0].position", lightPos);
+		g_AssetManager.GetShader("Shader3D").SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));
+		g_AssetManager.GetShader("Shader3D").SetUniform("numLights", 2);
 		g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera_render.Position);
 		g_AssetManager.GetShader("Shader3D").SetUniform("lightOn", lightOn);
 
