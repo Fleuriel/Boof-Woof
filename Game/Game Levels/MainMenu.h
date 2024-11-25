@@ -6,7 +6,7 @@
 Entity BackCamera{};  // Entity for the back camera
 
 double MenuelapsedTime = 0.0;  // Tracks the elapsed time
-double delayAfterSpace = 1.0;  // Set the delay to 1 second
+double delayAfterSpace = 0.5;  // Set the delay to 1 second
 bool spacePressed = false;  // Tracks whether the space bar has been pressed
 
 class MainMenu : public Level

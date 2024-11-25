@@ -658,22 +658,18 @@ void AudioSystem::PlayFileOnNewChannel(const std::string& filePath, bool isLoopi
     system->update();
 }
 
-void AudioSystem::StopFile(const std::string& filePath)
-{
-	// Iterate through the additional channels to find the matching sound and stop it
-	for (auto it = additionalChannels.begin(); it != additionalChannels.end(); ++it)
-	{
-		FMOD::Channel* channel = *it;
-		if (channel)
-		{
-			FMOD::Sound* sound = nullptr;
-			// Stop the channel if it is playing the same sound
-			if (channel->getCurrentSound(&sound) == FMOD_OK)
-			{
-				channel->stop();  // Stop the channel if it matches the requested file path
-				additionalChannels.erase(it);  // Remove the channel from the list
-				break;  // Exit after stopping the matching channel
-			}
-		}
-	}
+
+void AudioSystem::StopSpecificSound(const std::string& filePath) {
+    for (auto it = additionalChannels.begin(); it != additionalChannels.end(); ++it) {
+        if (*it) {
+            bool isPlaying = false;
+            (*it)->isPlaying(&isPlaying);
+
+            if (isPlaying) {
+                (*it)->stop(); 
+                additionalChannels.erase(it); 
+                break;
+            }
+        }
+    }
 }
