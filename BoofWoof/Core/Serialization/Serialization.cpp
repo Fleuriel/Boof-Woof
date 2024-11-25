@@ -729,10 +729,7 @@ bool Serialization::LoadScene(const std::string& filepath)
 						LData["LightColor"]["b"].GetFloat()
 					);
 
-                    LightComponent lightComponent;
-
-                    lightComponent.setIntensity(intensity);
-					lightComponent.setColor(color);
+					LightComponent lightComponent (intensity, color);
                     g_Coordinator.AddComponent(entity, lightComponent);
 
 

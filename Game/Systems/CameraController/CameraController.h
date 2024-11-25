@@ -7,7 +7,8 @@ enum class CameraMode
 {
     FIRST_PERSON,
     THIRD_PERSON,
-    SHIFTING
+    SHIFTING,
+	SHAKE
 };
 
 struct CameraMove {
@@ -25,11 +26,13 @@ public:
     void Update(float deltaTime);
 
     void ToggleCameraMode();
+	void ShakeCamera(float time, glm::vec3 range);
 
 private:
     void UpdateFirstPersonView(CameraComponent& camera);
     void UpdateThirdPersonView(CameraComponent& camera);
 	void UpdateShiftingView(CameraComponent& camera);
+	void UpdateShakeView(CameraComponent& camera);
 
     CameraMove getfirstPersonCameraMove(CameraComponent& camera);
     CameraMove getThirdPersonCameraMove(CameraComponent& camera);
@@ -43,4 +46,9 @@ private:
     CameraMove cameraMove;
 	float cameraSpeed = 0.05f;
     float moved_dis = 0.0f;
+
+
+	float shakeTime = 0.0f;
+	float shakeDuration = 0.0f;
+	glm::vec3 shakeRange = glm::vec3(0.0f);
 };

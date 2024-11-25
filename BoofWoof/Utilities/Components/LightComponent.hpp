@@ -10,8 +10,8 @@
 class LightComponent
 {
 public:
-	LightComponent() {};
-	//LightComponent(glm::vec3 l_pos) :LightPosition(l_pos) {}
+	LightComponent() :intensity(1.0f), color(glm::vec3(1.0f, 1.0f, 1.0f)) {}
+	LightComponent(float i, glm::vec3 c) :intensity(i), color(c) {}
 	~LightComponent() {
 	};
 
