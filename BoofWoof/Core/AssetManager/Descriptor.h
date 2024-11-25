@@ -57,6 +57,7 @@ struct MaterialDescriptor
     std::string materialName;
     std::string materialNameMat;
 
+
     
     int shaderIndex;            // Select Shader
     std::string shaderChosen;
@@ -65,6 +66,8 @@ struct MaterialDescriptor
     float albedoColorGreen;     // 0 ~ 1
     float albedoColorBlue;      // 0 ~ 1
     float albedoColorAlpha;     // 0 ~ 1
+    float finalAlpha;
+
 
     float metallic;             // 0 ~ 1
     float smoothness;           // 0 ~ 1
@@ -82,7 +85,7 @@ struct MaterialDescriptor
 
 
 
-    MaterialDescriptor() : shaderIndex(-1), albedoColorRed(0), albedoColorGreen(0), albedoColorBlue(0), albedoColorAlpha(0),
+    MaterialDescriptor() : shaderIndex(-1), albedoColorRed(0), albedoColorGreen(0), albedoColorBlue(0), albedoColorAlpha(0), finalAlpha(1),
         metallic(0), smoothness(0), materialAlpha(0), shaderChosen("nothing"), DiffuseID(-1), NormalID(-1), HeightID(-1), textureDiffuse("NothingTexture"),
         textureNormal("NothingNormal"), textureHeight("NothingHeight"){ }
 

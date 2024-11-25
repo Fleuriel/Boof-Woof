@@ -188,6 +188,8 @@ bool MaterialDescriptor::SaveMaterialDescriptor(const std::string& filepath) {
 	properties.AddMember("color", color, allocator);
 
 
+	properties.AddMember("finalAlpha", finalAlpha, allocator);
+
 	Value diffuseValue(textureDiffuse.c_str(), allocator);
 	properties.AddMember("Diffuse", diffuseValue, allocator);
 
@@ -294,6 +296,18 @@ bool MaterialDescriptor::LoadMaterialDescriptor(const std::string& filepath) {
 				albedoColorAlpha = color[3].GetFloat();
 			}
 		}
+
+		if (properties.HasMember("finalAlpha") && properties["finalAlpha"].IsNumber()) {
+			double alphaValue = properties["finalAlpha"].GetDouble(); // Read as double for safety.
+			if (alphaValue >= 0.0 && alphaValue <= 1.0) {
+				finalAlpha = static_cast<float>(alphaValue); // Convert to float.
+			}
+			else {
+				std::cerr << "Warning: finalAlpha out of range [0, 1]. Defaulting to 1.0.\n";
+				finalAlpha = 1.0f; // Assign a default value if out of range.
+			}
+		}
+		std::cout << "it is this though?\n";
 
 		// Extract texture paths
 		if (properties.HasMember("Diffuse") && properties["Diffuse"].IsString()) {

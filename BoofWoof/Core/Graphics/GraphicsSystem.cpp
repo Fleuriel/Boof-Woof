@@ -194,6 +194,8 @@ void GraphicsSystem::UpdateLoop() {
 
 		auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
 		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+		auto& mateiralComp = g_Coordinator.GetComponent<MaterialComponent>(entity);
+
 
 		if (g_Coordinator.HaveComponent<ParticleComponent>(entity))
 		{
@@ -312,6 +314,7 @@ void GraphicsSystem::UpdateLoop() {
 		auto& shaderName = graphicsComp.material.GetShaderNameRef();
 		auto& shader = graphicsComp.material;
 
+		//std::cout << shaderName << '\n';
 
 
 		g_AssetManager.GetShader(shaderName).Use();
@@ -338,10 +341,14 @@ void GraphicsSystem::UpdateLoop() {
 
 		}
 		else if(shaderName == "Material" || shaderName == "Shader3D")
-		{
-			std::cout << shaderName << '\n';
+		{ 
+			if(shaderName == "Shader3D")
+				g_AssetManager.GetShader(shaderName).SetUniform("setFinalAlpha", shader.GetFinalAlpha());
 
-			g_AssetManager.GetShader(shaderName).SetUniform("inputColor", glm::vec4(shader.GetColor()));
+			g_AssetManager.GetShader(shaderName).SetUniform("inputColor", shader.GetColor());
+			
+
+
 			g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
 
 			g_AssetManager.GetShader(shaderName).SetUniform("viewPos", camera.GetViewMatrix());

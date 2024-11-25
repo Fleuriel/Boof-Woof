@@ -1,18 +1,19 @@
 {
     "name": "GameObject",
-    "shader": "Shader3D",
-    "shaderIdx": 5,
+    "shader": "Material",
+    "shaderIdx": 1,
     "properties": {
         "color": [
-            1.0,
-            1.0,
-            1.0,
+            0.9159291982650757,
+            0.17832252383232118,
+            0.17832252383232118,
             1.0
         ],
-        "Diffuse": "Bookshelf2",
+        "finalAlpha": 1.0,
+        "Diffuse": "Bed2",
         "Normal": "NothingNormal",
         "Height": "NothingHeight",
-        "metallic": 0.5640000104904175,
-        "shininess": 0.7649999856948853
+        "metallic": 0.0,
+        "shininess": 0.0
     }
 }

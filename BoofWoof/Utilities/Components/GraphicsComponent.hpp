@@ -54,6 +54,8 @@ public:
 
     
     std::string GetShaderName() { return material.GetShaderName(); }
+    std::string GetMaterialName() { return material.GetMaterialName(); }
+    int GetShaderIdx() { return material.GetShaderIndex(); }
     std::string GetDiffuseName() { return material.GetDiffuseName(); }
     std::string GetNormalName()  { return  material.GetNormalName(); }
     std::string GetHeightName()  { return  material.GetHeightName(); }

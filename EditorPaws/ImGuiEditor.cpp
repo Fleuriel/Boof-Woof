@@ -2835,6 +2835,17 @@ void ImGuiEditor::InspectorWindow()
 									}
 
 
+									ImGui::Text("Final Alpha"); ImGui::SameLine(WidthIndentation); ImGui::PushItemWidth(250);
+
+
+									float& FinalAlphaVal = material.GetFinalAlphaRef();
+
+									// Create a drag float that increments by 0.1 within a range of 0 to 10
+									if (ImGui::SliderFloat("##FinalAlpha1", &FinalAlphaVal, 0.0f, 1.0f, "%.3f"))
+									{
+										material.SetFinalAlpha(FinalAlphaVal);
+									}
+
 									/*
 										Metallic
 									*/
@@ -2896,7 +2907,6 @@ void ImGuiEditor::InspectorWindow()
 									{
 										if (graphicsComponent.material.GetMaterialNameMat().empty())
 										{
-											std::cout << "XD\n";
 											std::string loadSaveLocation2 = FILEPATH_ASSET_MATERIAL + "\\" + g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName() + ".mat";
 										
 											std::cout << loadSaveLocation2 << '\n';

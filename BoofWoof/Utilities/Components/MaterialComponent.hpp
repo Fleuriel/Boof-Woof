@@ -57,6 +57,9 @@ public:
         materialDesc.materialAlpha = a;
     }
 
+    void SetFinalAlpha(float val) { materialDesc.finalAlpha = val; }
+    float& GetFinalAlphaRef() { return materialDesc.finalAlpha; }
+    float GetFinalAlpha() { return materialDesc.finalAlpha; }
 
 
     void SetDiffuseID(int tex) { materialDesc.DiffuseID = tex; }

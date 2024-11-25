@@ -28,6 +28,8 @@ in vec2 fragTexCoord;                   // Interpolated texture coordinates from
 uniform vec3 inputLight; // Light source position
 uniform vec3 viewPos; // Camera position
 
+uniform float setFinalAlpha;
+
 // Add a sampler for the texture
 uniform sampler2D albedoTexture;
 uniform bool useTexture; // Flag to enable/disable texture
@@ -123,6 +125,8 @@ void main() {
         //baseColor = mix(fragColor.rgb, texColor.rgb, blendFactor);
     }
 
+    baseColor *= vec3(fragColor.a);
+
     vec3 diffuse = (1.0 - F) * (1.0 - fragMetallic) * baseColor / PI;
 
     // Combine with light
@@ -144,6 +148,6 @@ void main() {
     // Gamma correction (2.2 gamma)
     finalColor = pow(finalColor, vec3(1.0 / 2.2));
 
-    FragColor = vec4(finalColor, 1.0);
+    FragColor = vec4(finalColor, setFinalAlpha);
 }
 
