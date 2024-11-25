@@ -67,9 +67,9 @@ void Checklist::OnUpdate(double deltaTime)
 
 	if (Check1 && Check2 && Check3 && Check4) 
 	{
-		cdTimer += deltaTime;
+		clTimer += deltaTime;
 
-		if (cdTimer >= cdLimit) 
+		if (clTimer >= clLimit) 
 		{
 			OnShutdown();
 		}

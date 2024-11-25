@@ -16,6 +16,7 @@ class Level1 : public Level
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");		
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
+
 		g_ChangeText.OnInitialize();
 		g_Checklist.OnInitialize();
 

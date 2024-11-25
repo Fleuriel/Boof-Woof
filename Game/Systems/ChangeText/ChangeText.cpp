@@ -15,7 +15,7 @@ void ChangeText::OnInitialize()
 	{
 		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 		{
-			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Text")
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "StartingText")
 			{
 				m_Text = entity;
 				break;
@@ -51,26 +51,6 @@ void ChangeText::OnUpdate(double deltaTime)
 		cdTimer = 0.0;  // Reset the timer after each texture change
 		textureIndex++;  // Move to the next texture
 	}
-
-	switch (textureIndex)
-	{
-	case 5:
-	{
-		// First i need to get out of this place
-		g_Audio.PlayFile("../BoofWoof/Assets/Audio/AggressiveDogBarking.wav");
-		break;
-	}
-	case 6:
-	{
-		// One step at a time
-		if (cdTimer <= 3.0)
-		{
-			g_Audio.PlayFile("../BoofWoof/Assets/Audio/CorgiWhimper.wav");
-		}
-		break;
-	}
-	}
-
 
 	// After showing CorgiText6 for 3 seconds, clear entity
 	if (textureIndex >= 6 && cdTimer >= cdLimit)
