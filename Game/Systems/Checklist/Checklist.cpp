@@ -37,6 +37,8 @@ void Checklist::OnInitialize()
 			}
 		}
 	}
+
+	shutted = false;
 }
 
 void Checklist::OnUpdate(double deltaTime)
@@ -125,6 +127,8 @@ void Checklist::OnShutdown()
 			}
 		}
 	}
+
+	shutted = true;
 }
 
 void Checklist::ChangeBoxChecked(Entity ent)

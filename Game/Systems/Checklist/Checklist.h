@@ -10,6 +10,9 @@ public:
 	void OnShutdown();
 	void ChangeBoxChecked(Entity ent);
 
+public:
+	bool shutted{ false };
+
 private:
 	Entity Box1{}, Box2{}, Box3{}, Box4{};
 

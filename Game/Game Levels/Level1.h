@@ -75,7 +75,10 @@ class Level1 : public Level
 			g_ChangeText.OnUpdate(deltaTime);
 		}
 
-		g_Checklist.OnUpdate(deltaTime);
+		if (!g_Checklist.shutted) 
+		{
+			g_Checklist.OnUpdate(deltaTime);
+		}
 
 		g_RopeBreaker.OnUpdate(deltaTime);	
 
