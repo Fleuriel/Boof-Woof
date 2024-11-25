@@ -653,3 +653,19 @@ void AudioSystem::PlayFileOnNewChannel(const std::string& filePath) {
     // Update the FMOD system to process audio
     system->update();
 }
+
+
+void AudioSystem::StopSpecificSound(const std::string& filePath) {
+    for (auto it = additionalChannels.begin(); it != additionalChannels.end(); ++it) {
+        if (*it) {
+            bool isPlaying = false;
+            (*it)->isPlaying(&isPlaying);
+
+            if (isPlaying) {
+                (*it)->stop(); 
+                additionalChannels.erase(it); 
+                break;
+            }
+        }
+    }
+}

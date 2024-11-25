@@ -51,6 +51,8 @@ public:
     bool IsPlaying() const; // Check if audio is playing
 
     void PlayFileOnNewChannel(const std::string& filePath);
+    void StopSpecificSound(const std::string& filePath);
+
 
 private:
     FMOD::System* system;  // FMOD system object
