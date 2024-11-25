@@ -10,6 +10,8 @@ std::uniform_real_distribution<float> dist;  // Default distribution range
 void BoneCatcher::OnInitialize()
 {
 	g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/BoneCatcher.json");
+	g_Audio.PlayFile("../BoofWoof/Assets/Audio/CreakingRope.wav");
+
 	storage = serial.GetStored();
 
 	// Retrieve the head
@@ -175,7 +177,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 			std::cout << "m_HitCount: " << m_HitCount  << std::endl;
 
 			// Play YAY sound
-			
+			g_Audio.PlayFile("../BoofWoof/Assets/Audio/CorrectSound.wav");
 
 			// Hit = Pass = Randomize Catchzone position & Faster DogHead Speed.
 			m_Speed += 0.5f;
@@ -190,7 +192,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 		}
 		else {
 			// Play BOO sound
-
+			g_Audio.PlayFile("../BoofWoof/Assets/Audio/WrongSound.wav");
 			// Failed to hit - nothing changes, play the same level.
 		}
 	}
@@ -227,6 +229,8 @@ void BoneCatcher::BiteDown(double deltaTime)
 }
 void BoneCatcher::ClearBoneCatcher()
 {
+	g_Audio.StopBGM();
+
 	// Just remove whatever we had stored from the current alive entity and destroy them
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 

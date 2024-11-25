@@ -19,9 +19,9 @@ void InitializeLevels() {
 	g_LevelManager.RegisterLevel("Level1", new(Level1));
 
 	// Set the initial level
-	g_LevelManager.Initialize("Cutscene");
-	g_LevelManager.SetNextLevel("Cutscene");
-	g_LevelManager.SetPreviousLevel("Cutscene");
+	g_LevelManager.Initialize("Level1");
+	g_LevelManager.SetNextLevel("Level1");
+	g_LevelManager.SetPreviousLevel("Level1");
 }
 
 int main()
