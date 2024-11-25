@@ -23,7 +23,9 @@ bool GraphicsSystem::lightOn = false;
 
 CameraComponent GraphicsSystem::camera;
 CameraComponent camera_render;
-ParticleComponent Particle_cmp;
+
+std::vector <glm::vec3> lightsPos;
+
 
 glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 
@@ -160,6 +162,19 @@ void GraphicsSystem::UpdateLoop() {
 			}
 		}
 	}
+
+	lightsPos.clear();
+	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
+	{
+		if (g_Coordinator.HaveComponent<LightComponent>(entity))
+		{
+			if (g_Coordinator.HaveComponent<TransformComponent>(entity))
+			{
+				auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+				lightsPos.push_back(transformComp.GetPosition());
+			}
+		}
+	}
 	
 	shdrParam.View = camera_render.GetViewMatrix();
 	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
@@ -238,10 +253,14 @@ void GraphicsSystem::UpdateLoop() {
 
 		}
 		g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
-		//g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
-		g_AssetManager.GetShader("Shader3D").SetUniform("lights[0].position", lightPos);
-		g_AssetManager.GetShader("Shader3D").SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));
-		g_AssetManager.GetShader("Shader3D").SetUniform("numLights", 2);
+		for (int i = 0; i < lightsPos.size(); i++)
+		{
+			std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
+			g_AssetManager.GetShader("Shader3D").SetUniform(lightPosStr.c_str(), lightsPos[i]);
+		}
+		/*g_AssetManager.GetShader("Shader3D").SetUniform("lights[0].position", lightPos);
+		g_AssetManager.GetShader("Shader3D").SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
+		g_AssetManager.GetShader("Shader3D").SetUniform("numLights", static_cast<int>(lightsPos.size()));
 		g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera_render.Position);
 		g_AssetManager.GetShader("Shader3D").SetUniform("lightOn", lightOn);
 

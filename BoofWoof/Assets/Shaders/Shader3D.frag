@@ -98,7 +98,7 @@ void main()
 		}
         
 	}else{
-        vec3 lightVector = lights[i].position - FragPos;
+        vec3 lightVector = lights[0].position - FragPos;
         float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
         fragColor = vec4(vertColor*N_dot_L, 1.0f);
 	}

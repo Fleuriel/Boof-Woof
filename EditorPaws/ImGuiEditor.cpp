@@ -633,6 +633,24 @@ void ImGuiEditor::InspectorWindow()
 
 						}
 					}
+					if (ImGui::Selectable("Light Component"))
+					{
+						if (!g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<LightComponent>(g_SelectedEntity, LightComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<LightComponent>(g_SelectedEntity, LightComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<LightComponent>(g_SelectedEntity);
+								}
+							);
+
+						}
+					}
 					
 
 					ImGui::EndPopup();
@@ -818,6 +836,24 @@ void ImGuiEditor::InspectorWindow()
 								[this, componentData]() {
 									if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
 										g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, componentData);
+								}
+							);
+						}
+					}
+					if (g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("Light Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<LightComponent>(g_SelectedEntity);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<LightComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<LightComponent>(g_SelectedEntity, componentData);
 								}
 							);
 						}
@@ -2178,6 +2214,28 @@ void ImGuiEditor::InspectorWindow()
 
 							}
 						
+						}
+						else if (className == "LightComponent") 
+						{
+							if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_None))
+							{
+								auto lightComponent = g_Coordinator.GetComponent<LightComponent>(g_SelectedEntity);
+								/*glm::vec3 light_position = lightComponent.getLightPosition();
+
+								ImGui::Text("Light Position");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("LightPosition");
+
+								if (ImGui::DragFloat3("##LightPosition", &light_position.x, 0.1f))
+								{
+									lightComponent.setLightPosition(light_position);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();*/
+							}
+
 						}
 					}
 				}
