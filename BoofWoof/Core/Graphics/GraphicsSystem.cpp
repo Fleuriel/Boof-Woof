@@ -26,7 +26,7 @@ CameraComponent camera_render;
 
 struct light_info {
 	glm::vec3 position;
-	//glm::vec3 color;
+	glm::vec3 color;
 	float intensity;
 };
 std::vector <light_info> lights_infos;
@@ -179,6 +179,7 @@ void GraphicsSystem::UpdateLoop() {
 				light_info light_info_;
 				light_info_.position = transformComp.GetPosition();
 				light_info_.intensity = g_Coordinator.GetComponent<LightComponent>(entity).getIntensity();
+				light_info_.color = g_Coordinator.GetComponent<LightComponent>(entity).getColor();
 
 				lights_infos.push_back(light_info_);
 
@@ -270,6 +271,8 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader("Shader3D").SetUniform(lightPosStr.c_str(), lights_infos[i].position);
 			std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
 			g_AssetManager.GetShader("Shader3D").SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
+			std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
+			g_AssetManager.GetShader("Shader3D").SetUniform(lightColorStr.c_str(), lights_infos[i].color);
 		}
 		/*g_AssetManager.GetShader("Shader3D").SetUniform("lights[0].position", lightPos);
 		g_AssetManager.GetShader("Shader3D").SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/

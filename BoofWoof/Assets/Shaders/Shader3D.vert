@@ -24,14 +24,14 @@ layout(location = 4) in vec3 aBitangent;
 
 struct Light {
     vec3 position;
-    //vec3 color;
+    vec3 color;
     float intensity;
 };
 
 //uniform vec3 lightPos;
 uniform vec3 viewPos;
 
-#define NUM_LIGHTS 3  // Define the number of lights you want
+#define NUM_LIGHTS 8  // Define the number of lights you want
 uniform Light lights[NUM_LIGHTS];
 uniform int numLights;
 

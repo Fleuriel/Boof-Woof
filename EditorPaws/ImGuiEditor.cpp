@@ -2243,6 +2243,20 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
+								glm::vec3 lightColor = lightComponent.getColor();	
+								ImGui::Text("Color");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Color");
+
+								if (ImGui::ColorEdit3("##Color", &lightColor.x))
+								{
+									lightComponent.setColor(lightColor);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
 
 							}
 

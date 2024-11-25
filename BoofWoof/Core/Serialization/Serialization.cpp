@@ -357,6 +357,13 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
 			light.AddMember("LightIntensity", lightComp.getIntensity(), allocator);
 
+			rapidjson::Value color(rapidjson::kObjectType);
+			color.AddMember("r", lightComp.getColor().r, allocator);
+			color.AddMember("g", lightComp.getColor().g, allocator);
+			color.AddMember("b", lightComp.getColor().b, allocator);
+
+			light.AddMember("LightColor", color, allocator);
+
 			entityData.AddMember("LightComponent", light, allocator);
 		}
 
@@ -715,9 +722,20 @@ bool Serialization::LoadScene(const std::string& filepath)
                 if (LData.HasMember("LightIntensity")) {
 
                     float intensity = LData["LightIntensity"].GetFloat();
+
+					glm::vec3 color(
+						LData["LightColor"]["r"].GetFloat(),
+						LData["LightColor"]["g"].GetFloat(),
+						LData["LightColor"]["b"].GetFloat()
+					);
+
                     LightComponent lightComponent;
+
                     lightComponent.setIntensity(intensity);
+					lightComponent.setColor(color);
                     g_Coordinator.AddComponent(entity, lightComponent);
+
+
                 }
                
 			}

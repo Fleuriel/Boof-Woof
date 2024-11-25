@@ -26,14 +26,14 @@ uniform bool lightOn;
 
 struct Light {
     vec3 position;
-    //vec3 color;
+    vec3 color;
     float intensity;
 };
 
 //uniform vec3 lightPos;
 uniform vec3 viewPos;
 
-#define NUM_LIGHTS 3  // Define the number of lights you want
+#define NUM_LIGHTS 8  // Define the number of lights you want
 uniform Light lights[NUM_LIGHTS];
 uniform int numLights;
 
@@ -84,7 +84,7 @@ void main()
 
 
             vec3 ambient = ambientColor  * 0.1f;
-            vec3 diffuse = diffuseColor  * N_dot_L * lights[i].intensity;
+            vec3 diffuse = diffuseColor  * N_dot_L * lights[i].intensity * lights[i].color;
 
             vec3 finalColor = ambient + diffuse; // Combine ambient and diffuse components
             result += finalColor;
