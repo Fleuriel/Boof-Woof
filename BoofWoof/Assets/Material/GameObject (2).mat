@@ -1,7 +1,6 @@
 {
-    "name": "GameObject",
+    "name": "GameObject (2)",
     "shader": "Shader3D",
-    "shaderIdx": 5,
     "properties": {
         "color": [
             1.0,
@@ -9,10 +8,11 @@
             1.0,
             1.0
         ],
-        "Diffuse": "Bookshelf2",
+        "Diffuse": "NothingTexture",
         "Normal": "NothingNormal",
         "Height": "NothingHeight",
-        "metallic": 0.5640000104904175,
-        "shininess": 0.7649999856948853
+        "metallic": 0,
+        "shininess": 0,
+        "textureID": 0
     }
 }

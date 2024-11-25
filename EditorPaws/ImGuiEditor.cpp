@@ -536,7 +536,7 @@ void ImGuiEditor::InspectorWindow()
 								std::string materialName;
 								// Generate the material name based on the current count
 								if (materialCount > 0)
-									materialName = objectName + "_" + std::to_string(materialCount);
+									materialName = objectName + " (" + std::to_string(materialCount) + ")";
 								else
 									materialName = objectName;
 
@@ -570,8 +570,23 @@ void ImGuiEditor::InspectorWindow()
 									color.PushBack(1.0f, allocator);  // A (Alpha)
 									properties.AddMember("color", color, allocator);
 
+
+									rapidjson::Value diffuseValue("NothingTexture", allocator);
+									properties.AddMember("Diffuse", diffuseValue, allocator);
+
+									rapidjson::Value NormalValue("NothingNormal", allocator);
+									properties.AddMember("Normal", NormalValue, allocator);
+
+									rapidjson::Value HeightValue("NothingHeight", allocator);
+									properties.AddMember("Height", HeightValue, allocator);
+
+
 									// Add shininess
+									
+									properties.AddMember("metallic", 0, allocator);
 									properties.AddMember("shininess", 0, allocator);
+
+
 
 									// Add texture ID
 									properties.AddMember("textureID", 0, allocator);  // Modify this if you have a specific texture ID
@@ -2879,11 +2894,25 @@ void ImGuiEditor::InspectorWindow()
 
 									if (ImGui::Button("Apply"))
 									{
+										if (graphicsComponent.material.GetMaterialNameMat().empty())
+										{
+											std::cout << "XD\n";
+											std::string loadSaveLocation2 = FILEPATH_ASSET_MATERIAL + "\\" + g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName() + ".mat";
+										
+											std::cout << loadSaveLocation2 << '\n';
 
-										//Save
-										//std::cout << "saved at location: " << loadSaveLocationExt << '\n';
-										material.SaveMaterialDescriptor(loadSaveLocationExt);
-										material.LoadMaterialDescriptor(loadSaveLocationExt);
+											material.SaveMaterialDescriptor(loadSaveLocation2);
+											material.LoadMaterialDescriptor(loadSaveLocation2);
+
+										}
+										else
+										{
+											std::cout << graphicsComponent.material.GetMaterialNameMat() << '\n';
+											//Save
+											std::cout << "saved at location: " << loadSaveLocationExt << '\n';
+											material.SaveMaterialDescriptor(loadSaveLocationExt);
+											material.LoadMaterialDescriptor(loadSaveLocationExt);
+										}
 										// g_AssetManager.ReloadTextures();
 									}
 

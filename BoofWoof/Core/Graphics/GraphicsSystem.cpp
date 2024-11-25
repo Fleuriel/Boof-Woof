@@ -312,6 +312,8 @@ void GraphicsSystem::UpdateLoop() {
 		auto& shaderName = graphicsComp.material.GetShaderNameRef();
 		auto& shader = graphicsComp.material;
 
+
+
 		g_AssetManager.GetShader(shaderName).Use();
 
 		SetShaderUniforms(g_AssetManager.GetShader(shaderName), shdrParam);
@@ -337,6 +339,8 @@ void GraphicsSystem::UpdateLoop() {
 		}
 		else if(shaderName == "Material" || shaderName == "Shader3D")
 		{
+			std::cout << shaderName << '\n';
+
 			g_AssetManager.GetShader(shaderName).SetUniform("inputColor", glm::vec4(shader.GetColor()));
 			g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
 
