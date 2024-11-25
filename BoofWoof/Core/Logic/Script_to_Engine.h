@@ -35,6 +35,7 @@ public:
 
 	// END OF INPUT INTERFACE
 
+
 	// ENGINE INTERFACE
 	
 	//Transform Component
@@ -80,7 +81,7 @@ public:
 				JPH::Vec3 currentVelocity = body->GetLinearVelocity();
 
 				// Combine gravity with player input velocity
-				JPH::Vec3 newVelocity(inputVelocity.x, currentVelocity.GetY(), inputVelocity.z);
+				JPH::Vec3 newVelocity(inputVelocity.x, inputVelocity.y, inputVelocity.z);
 
 				body->SetLinearVelocity(newVelocity);
 
