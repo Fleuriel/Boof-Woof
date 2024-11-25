@@ -1,0 +1,257 @@
+{
+    "SceneGUID": "e669ff77-8db8-4ce4-8b30-4c8558187050",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Paper",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.8999999761581421,
+                    "y": 0.6499999761581421,
+                    "z": -0.10000000149011612
+                },
+                "Scale": {
+                    "x": 0.699999988079071,
+                    "y": 0.699999988079071,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.5700000524520875
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Checklist",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Do1",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.8550000190734863,
+                    "y": 0.8149999976158142,
+                    "z": -0.20000000298023225
+                },
+                "Scale": {
+                    "x": 0.25,
+                    "y": 0.07999999821186066,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Do1",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Do2",
+                "EntityID": 2
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.828000009059906,
+                    "y": 0.7319999933242798,
+                    "z": -0.20000000298023225
+                },
+                "Scale": {
+                    "x": 0.25,
+                    "y": 0.09000000357627869,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Do2",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Do3",
+                "EntityID": 3
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.8019999861717224,
+                    "y": 0.6399999856948853,
+                    "z": -0.20000000298023225
+                },
+                "Scale": {
+                    "x": 0.25,
+                    "y": 0.07500000298023224,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Do3",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Do4",
+                "EntityID": 4
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.8600000143051148,
+                    "y": 0.5550000071525574,
+                    "z": -0.20000000298023225
+                },
+                "Scale": {
+                    "x": 0.25999999046325686,
+                    "y": 0.07999999821186066,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Do4",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Box1",
+                "EntityID": 5
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.7099999785423279,
+                    "y": 0.8169999718666077,
+                    "z": -0.30000001192092898
+                },
+                "Scale": {
+                    "x": 0.03999999910593033,
+                    "y": 0.05999999865889549,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Box",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Box2",
+                "EntityID": 6
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.7099999785423279,
+                    "y": 0.7250000238418579,
+                    "z": -0.30000001192092898
+                },
+                "Scale": {
+                    "x": 0.03999999910593033,
+                    "y": 0.05999999865889549,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Box",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Box3",
+                "EntityID": 7
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.7099999785423279,
+                    "y": 0.6399999856948853,
+                    "z": -0.30000001192092898
+                },
+                "Scale": {
+                    "x": 0.03999999910593033,
+                    "y": 0.05999999865889549,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Box",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Box4",
+                "EntityID": 8
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.7099999785423279,
+                    "y": 0.5550000071525574,
+                    "z": -0.30000001192092898
+                },
+                "Scale": {
+                    "x": 0.03999999910593033,
+                    "y": 0.05999999865889549,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Box",
+                "FollowCamera": false
+            }
+        }
+    ]
+}

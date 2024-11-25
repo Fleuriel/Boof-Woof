@@ -4,7 +4,7 @@
 #include "ECS/Coordinator.hpp"
 
 double cutsceneTimer = 0.0;
-double timerLimit = 4.0;    // Set the time limit to 3 seconds
+double timerLimit = 4.0;    
 int textureIndex = 0;  // To track which texture we're currently showing
 double lastBarkTime = 0.0;
 Entity TextEnt{}, DogName{};
