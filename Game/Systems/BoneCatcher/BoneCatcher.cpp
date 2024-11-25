@@ -12,6 +12,7 @@ void BoneCatcher::OnInitialize()
 	g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/BoneCatcher.json");
 	g_Audio.PlayFile("../BoofWoof/Assets/Audio/CreakingRope.wav");
 
+
 	storage = serial.GetStored();
 
 	// Retrieve the head
@@ -171,16 +172,16 @@ void BoneCatcher::BiteDown(double deltaTime)
 		// Check for collision 
 		if (isInRange && !m_HitDetected) 
 		{
-			std::cout << "Hit detected!" << std::endl;
+			//std::cout << "Hit detected!" << std::endl;
 			m_HitDetected = true;
 			m_HitCount += 1;
-			std::cout << "m_HitCount: " << m_HitCount  << std::endl;
+			//std::cout << "m_HitCount: " << m_HitCount  << std::endl;
 
 			// Play YAY sound
-			g_Audio.PlayFile("../BoofWoof/Assets/Audio/CorrectSound.wav");
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorrectSound.wav");
 
 			// Hit = Pass = Randomize Catchzone position & Faster DogHead Speed.
-			m_Speed += 0.5f;
+			m_Speed += 0.4f;
 
 			// Randomize X position (must stay within the smaller range after each hit)
 			dist = std::uniform_real_distribution<float>(MinMaxPos.x, MinMaxPos.y);
@@ -192,7 +193,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 		}
 		else {
 			// Play BOO sound
-			g_Audio.PlayFile("../BoofWoof/Assets/Audio/WrongSound.wav");
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WrongSound.wav");
 			// Failed to hit - nothing changes, play the same level.
 		}
 	}
