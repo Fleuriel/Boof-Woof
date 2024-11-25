@@ -41,25 +41,25 @@ void Checklist::OnInitialize()
 
 void Checklist::OnUpdate(double deltaTime)
 {
-	if (CheckWASD()) 
+	if (CheckWASD() && !Check1) 
 	{
 		ChangeBoxChecked(Box1);
 		Check1 = true;
 	}
 
-	if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1) 
+	if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1 && !Check2)
 	{
 		ChangeBoxChecked(Box2);
 		Check2 = true;
 	}
 
-	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) >= 1) 
+	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) >= 1 && !Check3) 
 	{
 		ChangeBoxChecked(Box3);
 		Check3 = true;
 	}
 
-	if (g_Input.GetKeyState(GLFW_KEY_R) >= 1)
+	if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !Check4)
 	{
 		ChangeBoxChecked(Box4);
 		Check4 = true;
@@ -129,6 +129,8 @@ void Checklist::OnShutdown()
 
 void Checklist::ChangeBoxChecked(Entity ent)
 {
+	playAudio = false;
+
 	if (!g_Coordinator.HaveComponent<GraphicsComponent>(ent)) return;
 
 	auto& text = g_Coordinator.GetComponent<GraphicsComponent>(ent);
@@ -142,5 +144,11 @@ void Checklist::ChangeBoxChecked(Entity ent)
 		int textureId = g_ResourceManager.GetTextureDDS("BoxChecked");
 		text.AddTexture(textureId);
 		text.setTexture("BoxChecked");
+
+		if (!playAudio) 
+		{
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CheckTheBox.wav");
+			playAudio = true;
+		}
 	}
 }

@@ -16,6 +16,7 @@ private:
 	bool w{ false }, a{ false }, s{ false }, d{ false };
 	bool WASDChecked{ false };
 	bool Check1{ false }, Check2{ false }, Check3{ false }, Check4{ false };
+	bool playAudio{ false };
 
 	double clTimer = 0.0;
 	double clLimit = 4.0;
