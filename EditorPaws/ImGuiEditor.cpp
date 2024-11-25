@@ -2472,7 +2472,8 @@ void ImGuiEditor::InspectorWindow()
 										material.SetShaderName(g_AssetManager.shdrpgmOrder[material.GetShaderIndex()]);
 									}
 
-
+									//graphicsComponent.material.SetDiffuseName(graphicsComponent.getModelName());
+									//graphicsComponent.material.SetDiffuseID(g_ResourceManager.GetTextureDDS(graphicsComponent.getModelName()));
 									ImGui::Text("Texture ");
 									ImGui::SameLine(WidthIndentation);
 									ImGui::PushItemWidth(150); // Set the width in pixels

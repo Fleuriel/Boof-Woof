@@ -194,147 +194,148 @@ void GraphicsSystem::UpdateLoop() {
 
 		auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
 		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-		auto& mateiralComp = g_Coordinator.GetComponent<MaterialComponent>(entity);
+		
 
-
-		if (g_Coordinator.HaveComponent<ParticleComponent>(entity))
+		if (g_Coordinator.HaveComponent<MaterialComponent>(entity))
 		{
-			auto& particleComp = g_Coordinator.GetComponent<ParticleComponent>(entity);
-			if (!particleComp.getInitFlag()) {
-				particleComp.init();
-				particleComp.setInitFlag(true);
-			}
-			g_AssetManager.GetShader("instanced").Use();
-			g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
-			g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
-			glPointSize(particleComp.getParticleSize());
-			g_AssetManager.GetShader("instanced").SetUniform("particleColor", particleComp.getParticleColor());
-			//shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
-			g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
-			//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
-			particleComp.update(static_cast<float>(g_Core->m_DeltaTime));
-			particleComp.draw();
-			g_AssetManager.GetShader("instanced").UnUse();
-
-		}
-		shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
-
-		if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
-		{
-			/* We do not need these anymore */
-			continue;
-		}
 
 
-		auto& shaderName = graphicsComp.material.GetShaderNameRef();
-		auto& shader = graphicsComp.material;
-
-		std::cout << shaderName << '\n';
-
-
-		g_AssetManager.GetShader(shaderName).Use();
-
-		SetShaderUniforms(g_AssetManager.GetShader(shaderName), shdrParam);
-
-
-		if (shaderName == "Shader2D")
-		{
-			g_AssetManager.GetShader(shaderName).SetUniform("uTex2d", 6);
-
-			if (graphicsComp.getTextureNumber() == 0)
-				glBindTextureUnit(6, 0);
-			else
-				glBindTextureUnit(6, graphicsComp.getTexture(0));
-		}
-		else if (shaderName == "OutlineAndFont")
-		{
-			g_AssetManager.GetShader(shaderName).SetUniform("uTex2d", 6);
-			g_AssetManager.GetShader(shaderName).SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
-
-			// This one put the D2 D3 here.
-
-			if (D2)
+			if (g_Coordinator.HaveComponent<ParticleComponent>(entity))
 			{
-				Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
-				g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
+				auto& particleComp = g_Coordinator.GetComponent<ParticleComponent>(entity);
+				if (!particleComp.getInitFlag()) {
+					particleComp.init();
+					particleComp.setInitFlag(true);
+				}
+				g_AssetManager.GetShader("instanced").Use();
+				g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
+				g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
+				glPointSize(particleComp.getParticleSize());
+				g_AssetManager.GetShader("instanced").SetUniform("particleColor", particleComp.getParticleColor());
+				//shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
+				g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+				//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
+				particleComp.update(static_cast<float>(g_Core->m_DeltaTime));
+				particleComp.draw();
+				g_AssetManager.GetShader("instanced").UnUse();
 
 			}
+			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
 
-			if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-				auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
-				JPH::Body* body = collisionComp.GetPhysicsBody();
+			if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
+			{
+				/* We do not need these anymore */
+				continue;
+			}
 
-				if (body) {
-					// Get the world-space AABB from JoltPhysics
-					JPH::AABox aabb = body->GetWorldSpaceBounds();
 
-					// Calculate center and half-extents
-					JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
-					glm::vec3 glmCenter = glm::vec3(0, 0, 0);
+			auto& shaderName = graphicsComp.material.GetShaderNameRef();
+			auto& shader = graphicsComp.material;
 
-					// Apply offset for visual debugging
-					glm::vec3 offset = collisionComp.GetAABBOffset();
-					glm::vec3 adjustedCenter = glmCenter + offset;
 
-					if (D3) {
-						//g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(glmCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f)); // Green color
-						g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(adjustedCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f));
+
+			g_AssetManager.GetShader(shaderName).Use();
+
+			SetShaderUniforms(g_AssetManager.GetShader(shaderName), shdrParam);
+
+
+			if (shaderName == "Shader2D")
+			{
+				g_AssetManager.GetShader(shaderName).SetUniform("uTex2d", 6);
+
+				if (graphicsComp.getTextureNumber() == 0)
+					glBindTextureUnit(6, 0);
+				else
+					glBindTextureUnit(6, graphicsComp.getTexture(0));
+			}
+			else if (shaderName == "OutlineAndFont")
+			{
+				g_AssetManager.GetShader(shaderName).SetUniform("uTex2d", 6);
+				g_AssetManager.GetShader(shaderName).SetUniform("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
+
+				// This one put the D2 D3 here.
+
+				if (D2)
+				{
+					Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
+					g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
+
+				}
+
+				if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+					auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+					JPH::Body* body = collisionComp.GetPhysicsBody();
+
+					if (body) {
+						// Get the world-space AABB from JoltPhysics
+						JPH::AABox aabb = body->GetWorldSpaceBounds();
+
+						// Calculate center and half-extents
+						JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
+						glm::vec3 glmCenter = glm::vec3(0, 0, 0);
+
+						// Apply offset for visual debugging
+						glm::vec3 offset = collisionComp.GetAABBOffset();
+						glm::vec3 adjustedCenter = glmCenter + offset;
+
+						if (D3) {
+							//g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(glmCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f)); // Green color
+							g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(adjustedCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f));
+						}
 					}
 				}
+
+			}
+			else if (shaderName == "Material" || shaderName == "Shader3D")
+			{
+				if (shaderName == "Shader3D")
+					g_AssetManager.GetShader(shaderName).SetUniform("setFinalAlpha", shader.GetFinalAlpha());
+
+				g_AssetManager.GetShader(shaderName).SetUniform("inputColor", shader.GetColor());
+
+
+
+				g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
+
+				g_AssetManager.GetShader(shaderName).SetUniform("viewPos", camera.GetViewMatrix());
+				g_AssetManager.GetShader(shaderName).SetUniform("metallic", shader.GetMetallic());
+				g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.GetSmoothness());
+
+
+				// Check if a texture is set, and bind it
+				if (shader.GetDiffuseID() >= 0) { // Assuming textureID is -1 if no texture
+					glActiveTexture(GL_TEXTURE0);
+					glBindTexture(GL_TEXTURE_2D, shader.GetDiffuseID());
+					g_AssetManager.GetShader(shaderName).SetUniform("albedoTexture", 0);
+					g_AssetManager.GetShader(shaderName).SetUniform("useTexture", true);
+				}
+				else {
+					g_AssetManager.GetShader(shaderName).SetUniform("useTexture", false);
+				}
+			}
+			else
+			{
+				std::cout << "shader does not exist\n";
+				continue;
 			}
 
+
+
+
+			if (shaderName == "Shader2D")
+				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader(shaderName));
+			else
+				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader(shaderName));
+
+
+
+
+
+
+
+
+			g_AssetManager.GetShader(shaderName).UnUse();
 		}
-		else if(shaderName == "Material" || shaderName == "Shader3D")
-		{ 
-			if(shaderName == "Shader3D")
-				g_AssetManager.GetShader(shaderName).SetUniform("setFinalAlpha", shader.GetFinalAlpha());
-
-			g_AssetManager.GetShader(shaderName).SetUniform("inputColor", shader.GetColor());
-			
-
-
-			g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
-
-			g_AssetManager.GetShader(shaderName).SetUniform("viewPos", camera.GetViewMatrix());
-			g_AssetManager.GetShader(shaderName).SetUniform("metallic", shader.GetMetallic());
-			g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.GetSmoothness());
-
-
-			// Check if a texture is set, and bind it
-			if (shader.GetDiffuseID() >= 0) { // Assuming textureID is -1 if no texture
-				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, shader.GetDiffuseID());
-				g_AssetManager.GetShader(shaderName).SetUniform("albedoTexture", 0);
-				g_AssetManager.GetShader(shaderName).SetUniform("useTexture", true);
-			}
-			else {
-				g_AssetManager.GetShader(shaderName).SetUniform("useTexture", false);
-			}
-		}
-		else
-		{
-			std::cout << "shader does not exist\n";
-			continue;
-		}
-
-
-
-
-		if(shaderName == "Shader2D")
-			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader(shaderName));
-		else
-			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader(shaderName));
-		
-
-
-
-
-
-
-
-		g_AssetManager.GetShader(shaderName).UnUse();
-		
-
 		////clear all textures
 		////for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
 		//////	std::cout << "texture size after clearing: " << mesh.textures.size() << "\n";

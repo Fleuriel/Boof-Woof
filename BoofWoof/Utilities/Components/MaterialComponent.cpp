@@ -59,3 +59,13 @@ MaterialComponent LoadMaterialFromFile(const std::string& filePath) {
     file.close();
     return material;
 }
+
+void MaterialComponent::RegisterProperties()
+{
+    static bool registered = false;
+    if (!registered)
+    {
+        RegisterAllProperties();  // Call the generated RegisterAllProperties function
+        registered = true;
+    }
+}

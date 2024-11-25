@@ -765,11 +765,10 @@ bool Serialization::LoadScene(const std::string& filepath)
                 }
             }
 
-            std::cout << "9";
+            std::cout << "9\n";
 
             if (entityData.HasMember("MaterialComponent"))
             {
-                std::cout << "NONE SHOULD EVER GO IN HERE\n";
 
                 const auto& MatData = entityData["MaterialComponent"];
 

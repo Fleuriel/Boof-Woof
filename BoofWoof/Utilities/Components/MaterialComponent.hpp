@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include "../Core/AssetManager/Descriptor.h"
 
+#include "../Core/Reflection/ReflectionManager.hpp" // Include the reflection manager
 
 
 class MaterialComponent {
@@ -120,6 +121,7 @@ public:
 
 
     MaterialDescriptor GetMaterial() { return materialDesc; }
+    void SetMaterial(MaterialDescriptor mat) { materialDesc = mat; }
 
 
 
@@ -132,6 +134,12 @@ public:
     const glm::vec4& GetColor() const { return glm::vec4(materialDesc.albedoColorRed, materialDesc.albedoColorGreen, materialDesc.albedoColorBlue, materialDesc.albedoColorAlpha); }
    // int GetTextureID() const { return textureID; }
    // float GetShininess() const { return shininess; }
+
+
+    REFLECT_COMPONENT(MaterialComponent)
+    {
+        REGISTER_PROPERTY(MaterialComponent, materialDesc, MaterialDescriptor, SetMaterial, GetMaterial);
+    }
 
 private:
     MaterialDescriptor materialDesc;
