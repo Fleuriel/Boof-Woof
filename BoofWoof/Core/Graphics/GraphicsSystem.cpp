@@ -217,15 +217,7 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader("instanced").UnUse();
 
 		}
-
-
 		shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
-
-		
-		// std::cout << graphicsComp.material.materialDesc.shaderChosen << '\n';
-
-
-		//g_AssetManager.GetShader("Shader3D").Use();
 
 		if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
 		{
@@ -234,87 +226,10 @@ void GraphicsSystem::UpdateLoop() {
 		}
 
 
-
-		//g_AssetManager.GetShader(graphicsComp.material.materialDesc.shaderChosen).Use();
-		//
-		//
-		//
-		//
-		//
-		//
-		//g_AssetManager.GetShader(graphicsComp.material.materialDesc.shaderChosen).UnUse();
-
-
-
-		// START OF 3D
-
-//		SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
-//		g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
-//		g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
-//		g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera_render.Position);
-//		g_AssetManager.GetShader("Shader3D").SetUniform("lightOn", lightOn);
-//
-//		/*std::cout << "entity "<< entity << "\n";
-//		std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
-//		std::cout << "comp tetx cnt "<<graphicsComp.getTextureNumber() << "\n";*/
-//
-//
-//		//if (graphicsComp.getTextureNumber() == 0) {
-//		for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
-//			mesh.textures.clear();
-//		}
-//
-//		g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt = 0;
-//		//}
-//
-//
-//		while (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()) {
-//
-//
-//#ifdef _DEBUG
-//			//std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->name << '\n';
-//
-//			//std::cout << graphicsComp.getModelName() << '\n';
-//
-//			//std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << '\t' << g_ResourceManager.getModel(graphicsComp.getModelName())->textures_loaded.size() << '\n';
-//#endif
-//
-//					// add texture to mesh
-//			Texture texture_add;
-//
-//			//if(graphicsComp.getModelName() == "sphere")
-//			texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
-//			//else
-//				//texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComp.getDiffuseName());
-//
-//			//std::cout << texture_add.id << "\n";
-//
-//			if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 0)
-//				texture_add.type = "texture_diffuse";
-//			else if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 1)
-//				texture_add.type = "texture_normal";
-//			else
-//				texture_add.type = "texture_specular";
-//
-//			//std::cout << texture_add.type << '\n';
-//
-//			//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
-//
-//			for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
-//				//	std::cout << "texture size before adding: " << mesh.textures.size() << "\n";
-//					//mesh.textures.clear();
-//				mesh.textures.push_back(texture_add);
-//				//	std::cout << "entered\n";
-//			}
-//
-//			g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
-//
-//		}
-
 		auto& shaderName = graphicsComp.material.GetShaderNameRef();
 		auto& shader = graphicsComp.material;
 
-		//std::cout << shaderName << '\n';
+		std::cout << shaderName << '\n';
 
 
 		g_AssetManager.GetShader(shaderName).Use();
@@ -334,7 +249,7 @@ void GraphicsSystem::UpdateLoop() {
 		else if (shaderName == "OutlineAndFont")
 		{
 			g_AssetManager.GetShader(shaderName).SetUniform("uTex2d", 6);
-			g_AssetManager.GetShader("OutlineAndFont").SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
+			g_AssetManager.GetShader(shaderName).SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
 
 			// This one put the D2 D3 here.
 
@@ -367,6 +282,7 @@ void GraphicsSystem::UpdateLoop() {
 					}
 				}
 			}
+
 		}
 		else if(shaderName == "Material" || shaderName == "Shader3D")
 		{ 

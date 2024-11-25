@@ -1421,87 +1421,7 @@ void ImGuiEditor::InspectorWindow()
 
 								if (GraphicsSystem::debug)
 								{
-									//// Handle TextureName Property
-									//auto textureNameProperty = std::find_if(properties.begin(), properties.end(),
-									//	[](const ReflectionPropertyBase* prop) { return prop->GetName() == "Textures"; });
 
-									//if (textureNameProperty != properties.end())
-									//{
-									//	std::string propertyName = "Textures";
-									//	std::string currentTextureName = (*textureNameProperty)->GetValue(&graphicsComponent);
-									//	std::string newTextureName = currentTextureName;
-
-									std::vector<int>  textureIds = graphicsComponent.getTextures();
-
-									ImGui::Text("Texture ");
-									ImGui::SameLine();
-									ImGui::PushID("Textures");
-
-									/*char buffer[256];
-									memset(buffer, 0, sizeof(buffer));
-									strcpy_s(buffer, sizeof(buffer), currentTextureName.c_str());
-
-									ImGui::InputText("##Textures", buffer, sizeof(buffer), ImGuiInputTextFlags_ReadOnly);*/
-
-									// get texture names
-
-
-
-									ImGui::SameLine();
-
-									// Store old value before opening the file dialog
-									//static std::string oldTextureName = "";
-									if (ImGui::Button("Set Texture"))
-									{
-										//oldTextureName = currentTextureName; // Capture the old value
-										ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
-									}
-
-									if (ImGuiFileDialog::Instance()->Display("SetTexture"))
-									{
-										if (ImGuiFileDialog::Instance()->IsOk())
-										{
-											// User selected a file
-											std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
-											size_t lastDotPos = selectedFile.find_last_of(".");
-											if (lastDotPos != std::string::npos)
-											{
-												selectedFile = selectedFile.substr(0, lastDotPos);
-											}
-
-											//newTextureName = selectedFile;
-											//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
-											int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
-											graphicsComponent.AddTexture(textureId);
-											graphicsComponent.setTexture(selectedFile);
-
-
-
-											// Execute undo/redo command
-											/*std::string oldValue = oldTextureName;
-											Entity entity = g_SelectedEntity;*/
-
-											/*g_UndoRedoManager.ExecuteCommand(
-												[entity, newTextureName]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.setTexture(newTextureName);
-												},
-												[entity, oldValue]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.setTexture(oldValue);
-												}
-											);*/
-										}
-										ImGuiFileDialog::Instance()->Close();
-									}
-
-									ImGui::PopID();
-
-									ImGui::SameLine();
-									if (ImGui::Button("Remove Texture")) {
-										graphicsComponent.setTexture("NothingTexture");
-										graphicsComponent.AddTexture(-1);
-									}
 
 
 
@@ -1566,21 +1486,6 @@ void ImGuiEditor::InspectorWindow()
 											GraphicsSystem::D2 = false;
 										}
 									}
-									else
-									{
-										GraphicsSystem::D3 = false;
-										GraphicsSystem::D2 = true;
-									}
-									if (ImGui::Button("3D"))
-									{
-										GraphicsSystem::D3 = true;
-										GraphicsSystem::D2 = false;
-									}
-								}
-								else
-								{
-									GraphicsSystem::D3 = false;
-									GraphicsSystem::D2 = false;
 								}
 
 

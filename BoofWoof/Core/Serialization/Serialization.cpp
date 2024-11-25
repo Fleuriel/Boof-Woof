@@ -481,6 +481,8 @@ bool Serialization::LoadScene(const std::string& filepath)
         for (const auto& entityData : entities.GetArray()) {
             Entity entity = g_Coordinator.CreateEntity();
 
+            std::cout << "1";
+
             // Deserialize MetadataComponent
             if (entityData.HasMember("MetadataComponent")) 
             {
@@ -494,6 +496,7 @@ bool Serialization::LoadScene(const std::string& filepath)
                 }
             }
 
+            std::cout << "2";
             // Deserialize TransformComponent
             if (entityData.HasMember("TransformComponent"))
             {
@@ -522,6 +525,7 @@ bool Serialization::LoadScene(const std::string& filepath)
                 }
             }
 
+            std::cout << "3";
             // Deserialize GraphicsComponent
 			if (entityData.HasMember("GraphicsComponent"))
 			{
@@ -616,6 +620,7 @@ bool Serialization::LoadScene(const std::string& filepath)
 
 			}
 
+            std::cout << "4";
             // Deserialize AudioComponent
             if (entityData.HasMember("AudioComponent"))
             {
@@ -629,6 +634,7 @@ bool Serialization::LoadScene(const std::string& filepath)
                     g_Coordinator.AddComponent(entity, audioComponent);
                 }
             }
+            std::cout << "5";
 
             // Deserialize BehaviourComponent
             if (entityData.HasMember("BehaviourComponent"))
@@ -641,6 +647,7 @@ bool Serialization::LoadScene(const std::string& filepath)
                 }
             }
 
+            std::cout << "6";
             // Deserialize CollisionComponent
             if (entityData.HasMember("CollisionComponent")) {
                 const auto& collisionData = entityData["CollisionComponent"];
@@ -678,6 +685,7 @@ bool Serialization::LoadScene(const std::string& filepath)
                 g_Coordinator.AddComponent(entity, collisionComponent);
             }
 
+            std::cout << "7";
             // Deserialize CameraComponent
             if (entityData.HasMember("CameraComponent"))
             {
@@ -705,6 +713,7 @@ bool Serialization::LoadScene(const std::string& filepath)
                 }
             }
 
+            std::cout << "8";
             // Deserialize ParticleComponent
             if (entityData.HasMember("ParticleComponent"))
             {
@@ -756,9 +765,11 @@ bool Serialization::LoadScene(const std::string& filepath)
                 }
             }
 
+            std::cout << "9";
 
             if (entityData.HasMember("MaterialComponent"))
             {
+                std::cout << "NONE SHOULD EVER GO IN HERE\n";
 
                 const auto& MatData = entityData["MaterialComponent"];
 
