@@ -82,30 +82,30 @@ class Cutscene : public Level
 			case 2:
 			{
 				// I can't keep living like this
-				if (static_cast<int>(cutsceneTimer) % 2 == 0)  
-				{					
-					g_Audio.PlayFile("../BooFwoof/Assets/Audio/CorgiBark1.wav");					
-				}
-				break;
-			}
-			case 3:
-			{
 				// I want to leave this place
-				if (static_cast<int>(cutsceneTimer) % 2 == 0)  
-				{
-					g_Audio.PlayFile("../BooFwoof/Assets/Audio/CorgiBark2.wav");
-				}
-				break;
-			}
-			case 4:
-			{
 				// No.. I WILL LEAVE THE CASTLE
-				if (static_cast<int>(cutsceneTimer) % 2 == 0)
-				{
-					g_Audio.PlayFile("../BooFwoof/Assets/Audio/CorgiBark1.wav");
-				}
+
+				g_Audio.PlayFile("../BooFwoof/Assets/Audio/12sGrowlBarkCorgi.wav");
+				
 				break;
 			}
+			//case 3:
+			//{
+			//	// I want to leave this place
+			//	if (static_cast<int>(cutsceneTimer) % 2 == 0)  
+			//	{
+			//		g_Audio.PlayFile("../BooFwoof/Assets/Audio/CorgiBark2.wav");
+			//	}
+			//	break;
+			//}
+			//case 4:
+			//{
+			//	if (static_cast<int>(cutsceneTimer) % 2 == 0)
+			//	{
+			//		g_Audio.PlayFile("../BooFwoof/Assets/Audio/CorgiBark1.wav");
+			//	}
+			//	break;
+			//}
 		}
 
 
