@@ -93,25 +93,6 @@ public:
     }
 };
 
-//class ObjectLayerPairFilterImpl : public JPH::ObjectLayerPairFilter
-//{
-//public:
-//    [[nodiscard]] bool ShouldCollide(JPH::ObjectLayer inObject1,
-//        JPH::ObjectLayer inObject2) const override
-//    {
-//        switch (inObject1)
-//        {
-//        case Layers::NON_MOVING:
-//            return inObject2 == Layers::MOVING; // Non-moving only collides with moving
-//        case Layers::MOVING:
-//            return inObject2 == Layers::MOVING || inObject2 == Layers::NON_MOVING; // Moving collides with everything
-//        default:
-//            JPH_ASSERT(false);
-//            return false;
-//        }
-//    }
-//};
-
 // Each broadphase layer results in a separate bounding volume tree in the broad
 // phase. You at least want to have a layer for non-moving and moving objects to
 // avoid having to update a tree full of static objects every frame. You can
@@ -172,28 +153,6 @@ private:
     JPH::BroadPhaseLayer mObjectToBroadPhase[Layers::NUM_LAYERS];
     //std::array<JPH::BroadPhaseLayer, Layers::NUM_LAYERS> mObjectToBroadPhase;
 };
-
-///// Class that determines if an object layer can collide with a broadphase layer
-//class ObjectVsBroadPhaseLayerFilterImpl
-//    : public JPH::ObjectVsBroadPhaseLayerFilter
-//{
-//public:
-//    [[nodiscard]] bool ShouldCollide(
-//        JPH::ObjectLayer inLayer1,
-//        JPH::BroadPhaseLayer inLayer2) const override
-//    {
-//        switch (inLayer1)
-//        {
-//        case Layers::NON_MOVING:
-//            return inLayer2 == BroadPhaseLayers::MOVING;
-//        case Layers::MOVING:
-//            return true;
-//        default:
-//            JPH_ASSERT(false);
-//            return false;
-//        }
-//    }
-//};
 
 class ObjectVsBroadPhaseLayerFilterImpl : public JPH::ObjectVsBroadPhaseLayerFilter
 {

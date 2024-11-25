@@ -575,7 +575,13 @@ void MyPhysicsSystem::UpdateEntityTransforms() {
     for (auto& entity : allEntities) {
         if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
             auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+            auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
             JPH::Body* body = collisionComp.GetPhysicsBody();
+
+            // Skip updating if the entity is being edited
+            if (transform.IsEditing()) {
+                continue;
+            }
 
             if (body != nullptr && !body->GetID().IsInvalid()) {
                 // Physics position from Jolt
@@ -590,13 +596,11 @@ void MyPhysicsSystem::UpdateEntityTransforms() {
                 );
 
                 // Update the engine transform to match true position
-                auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
                 transform.SetPosition(truePosition);
             }
         }
     }
 }
-
 
 void MyPhysicsSystem::RemoveEntityBody(Entity entity) {
     // Check if the entity has a CollisionComponent

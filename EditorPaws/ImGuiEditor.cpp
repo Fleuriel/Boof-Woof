@@ -926,7 +926,10 @@ void ImGuiEditor::InspectorWindow()
 
 										if (ImGui::DragFloat3("##Drag", &vecValue.x, 0.1f))
 										{
-											property->SetValue(&transformComponent, SerializationHelpers::SerializeVec3(vecValue));
+											// Start editing
+											transformComponent.SetEditing(true);
+
+											property->SetValue(&transformComponent, SerializationHelpers::SerializeVec3(vecValue));					
 										}
 
 										if (ImGui::IsItemActivated())
@@ -937,6 +940,12 @@ void ImGuiEditor::InspectorWindow()
 
 										if (ImGui::IsItemDeactivatedAfterEdit())
 										{
+											// Stop editing
+											transformComponent.SetEditing(false);
+
+											// Update the physics body position immediately
+											g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+
 											glm::vec3 newValue = vecValue;
 											glm::vec3 oldValue = oldVec3Values[propertyName];
 											Entity entity = g_SelectedEntity;
