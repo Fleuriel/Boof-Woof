@@ -24,6 +24,9 @@
     <ClCompile Include="Systems\CameraController\CameraController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\RopeBreaker\RopeBreaker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game Levels\Splashscreen.h">
@@ -39,6 +42,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\CameraController\CameraController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\RopeBreaker\RopeBreaker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Levels\Cutscene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

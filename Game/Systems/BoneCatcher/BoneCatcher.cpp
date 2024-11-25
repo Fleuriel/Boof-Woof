@@ -1,4 +1,5 @@
 #include "BoneCatcher.h"
+#include "../RopeBreaker/RopeBreaker.h"
 
 BoneCatcher g_BoneCatcher;
 Serialization serial;
@@ -61,6 +62,7 @@ void BoneCatcher::OnInitialize()
 		}
 	}
 
+	m_Speed = 0.5f;
 	m_HitCount = 0;
 }
 
@@ -99,12 +101,20 @@ void BoneCatcher::Stop(double deltaTime)
 	if (m_ShouldDestroy)
 	{
 		m_DestroyTimer -= static_cast<float>(deltaTime); // decreasing timer based on deltatime
-		std::cout << m_DestroyTimer << std::endl;
+		// std::cout << m_DestroyTimer << std::endl;
 		if (m_DestroyTimer <= 0.0f)
 		{
 			ClearBoneCatcher();
 			m_ShouldDestroy = false; // reset
 			m_HitCount = 0;
+
+			if (g_RopeBreaker.RopeCount != 0) 
+			{
+				g_RopeBreaker.RopeCount -= 1;		
+
+				// Despawn the rope
+				g_RopeBreaker.DespawnRope();
+			}
 		}
 	}
 }

@@ -1,0 +1,12 @@
+File Name: WallDrawbridgeRight
+Source File Path: ..\BoofWoof\Assets\Objects\WallDrawbridgeRight.obj
+Output File Path: ..\BoofWoof\Resources\Objects\WallDrawbridgeRight.bin
+MTL File Exist: 1
+PNG File Exist: 0
+JPG File Exist: 0
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0

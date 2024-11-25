@@ -306,6 +306,71 @@ Model SquareModelOutline(glm::vec3 color)
 }
 
 
+//Model AABB(glm::vec3 position, glm::vec3 halfextents, glm::vec3 color)
+//{
+//	struct Vertex {
+//		glm::vec3 position;  // 3D position
+//		glm::vec3 color;     // Color
+//	};
+//
+//	glm::vec3 biggerHalfExtents = halfextents + glm::vec3(0.0005);
+//
+//	// Cube vertices with positions and a uniform color
+//	std::vector<Vertex> vertices{
+//		// Front face
+//		{ glm::vec3(biggerHalfExtents.x,  biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Top-right front
+//		{ glm::vec3(-biggerHalfExtents.x,  biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Top-left front
+//		{ glm::vec3(-biggerHalfExtents.x, -biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Bottom-left front
+//		{ glm::vec3(biggerHalfExtents.x, -biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Bottom-right front
+//
+//		// Back face
+//		{ glm::vec3(biggerHalfExtents.x,  biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Top-right back
+//		{ glm::vec3(-biggerHalfExtents.x,  biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Top-left back
+//		{ glm::vec3(-biggerHalfExtents.x, -biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Bottom-left back
+//		{ glm::vec3(biggerHalfExtents.x, -biggerHalfExtents.y, -biggerHalfExtents.z)	, color }   // Bottom-right back
+//	};
+//
+//	// Indices for drawing cube edges (outline)
+//	std::vector<GLushort> indices{
+//		// Front face
+//		0, 1, 2, 3, 0,
+//
+//		// Back face
+//		4, 5, 6, 7, 4,
+//
+//		// Connect front and back
+//		0, 4, 1, 5, 2, 6, 3, 7
+//	};
+//
+//	// Create and set up VAO, VBO, EBO
+//	GLuint vbo_hdl, ebo_hdl, vaoid;
+//	glCreateBuffers(1, &vbo_hdl);
+//	glNamedBufferStorage(vbo_hdl, sizeof(Vertex) * vertices.size(), vertices.data(), GL_DYNAMIC_STORAGE_BIT);
+//
+//	glCreateVertexArrays(1, &vaoid);
+//	glEnableVertexArrayAttrib(vaoid, 0);
+//	glVertexArrayVertexBuffer(vaoid, 0, vbo_hdl, offsetof(Vertex, position), sizeof(Vertex));
+//	glVertexArrayAttribFormat(vaoid, 0, 3, GL_FLOAT, GL_FALSE, 0);
+//	glVertexArrayAttribBinding(vaoid, 0, 0);
+//
+//	glEnableVertexArrayAttrib(vaoid, 1);
+//	glVertexArrayVertexBuffer(vaoid, 1, vbo_hdl, offsetof(Vertex, color), sizeof(Vertex));
+//	glVertexArrayAttribFormat(vaoid, 1, 3, GL_FLOAT, GL_FALSE, 0);
+//	glVertexArrayAttribBinding(vaoid, 1, 1);
+//
+//	glCreateBuffers(1, &ebo_hdl);
+//	glNamedBufferStorage(ebo_hdl, sizeof(GLushort) * indices.size(), indices.data(), GL_DYNAMIC_STORAGE_BIT);
+//	glVertexArrayElementBuffer(vaoid, ebo_hdl);
+//
+//	// Model structure to return
+//	Model mdl;
+//	mdl.vaoid = vaoid;
+//	mdl.primitive_type = GL_LINE_LOOP;  // Use GL_LINE_LOOP for the cube's outline
+//	mdl.draw_cnt = static_cast<GLsizei>(indices.size());
+//
+//	return mdl;
+//}
+
 Model AABB(glm::vec3 position, glm::vec3 halfextents, glm::vec3 color)
 {
 	struct Vertex {
@@ -318,16 +383,16 @@ Model AABB(glm::vec3 position, glm::vec3 halfextents, glm::vec3 color)
 	// Cube vertices with positions and a uniform color
 	std::vector<Vertex> vertices{
 		// Front face
-		{ glm::vec3(biggerHalfExtents.x,  biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Top-right front
-		{ glm::vec3(-biggerHalfExtents.x,  biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Top-left front
-		{ glm::vec3(-biggerHalfExtents.x, -biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Bottom-left front
-		{ glm::vec3(biggerHalfExtents.x, -biggerHalfExtents.y,  biggerHalfExtents.z)	, color },  // Bottom-right front
+		{ position + glm::vec3(biggerHalfExtents.x,  biggerHalfExtents.y,  biggerHalfExtents.z), color },  // Top-right front
+		{ position + glm::vec3(-biggerHalfExtents.x,  biggerHalfExtents.y,  biggerHalfExtents.z), color },  // Top-left front
+		{ position + glm::vec3(-biggerHalfExtents.x, -biggerHalfExtents.y,  biggerHalfExtents.z), color },  // Bottom-left front
+		{ position + glm::vec3(biggerHalfExtents.x, -biggerHalfExtents.y,  biggerHalfExtents.z), color },  // Bottom-right front
 
 		// Back face
-		{ glm::vec3(biggerHalfExtents.x,  biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Top-right back
-		{ glm::vec3(-biggerHalfExtents.x,  biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Top-left back
-		{ glm::vec3(-biggerHalfExtents.x, -biggerHalfExtents.y, -biggerHalfExtents.z)	, color },  // Bottom-left back
-		{ glm::vec3(biggerHalfExtents.x, -biggerHalfExtents.y, -biggerHalfExtents.z)	, color }   // Bottom-right back
+		{ position + glm::vec3(biggerHalfExtents.x,  biggerHalfExtents.y, -biggerHalfExtents.z), color },  // Top-right back
+		{ position + glm::vec3(-biggerHalfExtents.x,  biggerHalfExtents.y, -biggerHalfExtents.z), color },  // Top-left back
+		{ position + glm::vec3(-biggerHalfExtents.x, -biggerHalfExtents.y, -biggerHalfExtents.z), color },  // Bottom-left back
+		{ position + glm::vec3(biggerHalfExtents.x, -biggerHalfExtents.y, -biggerHalfExtents.z), color }   // Bottom-right back
 	};
 
 	// Indices for drawing cube edges (outline)
@@ -370,6 +435,7 @@ Model AABB(glm::vec3 position, glm::vec3 halfextents, glm::vec3 color)
 
 	return mdl;
 }
+
 
 Model OBB(glm::vec3 position, glm::vec3 halfextents, glm::vec3 rotationRadians, glm::vec3 color)
 {

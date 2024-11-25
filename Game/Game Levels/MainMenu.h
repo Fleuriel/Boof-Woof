@@ -11,8 +11,8 @@ class MainMenu : public Level
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainMenuBack.json");
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainMenuFront.json");
-		//g_Audio.PlayBGM("../BoofWoof/Assets/Audio/Test.wav");
-
+		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/MainMenu/mainmenu music.wav");
+		
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
 		for (auto entity : entities)
@@ -24,6 +24,8 @@ class MainMenu : public Level
 					BackCamera = entity;
 					break;
 				}
+
+
 			}
 		}
 	}
@@ -50,7 +52,7 @@ class MainMenu : public Level
 		// Press space to start go level 1
 		if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
 		{
-			g_LevelManager.SetNextLevel("Level1");
+			g_LevelManager.SetNextLevel("Cutscene");
 		}
 	}
 
@@ -58,7 +60,7 @@ class MainMenu : public Level
 
 	void UnloadLevel()
 	{
-		//g_Audio.StopBGM();
+		g_Audio.StopBGM();
 		g_Coordinator.ResetEntities();
 	}
 };
