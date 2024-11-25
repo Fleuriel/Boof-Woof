@@ -25,7 +25,7 @@ layout(location = 4) in vec3 aBitangent;
 struct Light {
     vec3 position;
     //vec3 color;
-    //float intensity;
+    float intensity;
 };
 
 //uniform vec3 lightPos;

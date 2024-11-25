@@ -353,6 +353,10 @@ bool Serialization::SaveScene(const std::string& filepath) {
 		{
 			rapidjson::Value light(rapidjson::kObjectType);
 
+			auto& lightComp = g_Coordinator.GetComponent<LightComponent>(entity);
+
+			light.AddMember("LightIntensity", lightComp.getIntensity(), allocator);
+
 			entityData.AddMember("LightComponent", light, allocator);
 		}
 
@@ -708,18 +712,14 @@ bool Serialization::LoadScene(const std::string& filepath)
             if(entityData.HasMember("LightComponent"))
 			{
 				const auto& LData = entityData["LightComponent"];
-				/*if (LData.HasMember("LightPosition"))
-				{
-					glm::vec3 lightPosition(
-						LData["LightPosition"]["x"].GetFloat(),
-						LData["LightPosition"]["y"].GetFloat(),
-						LData["LightPosition"]["z"].GetFloat()
-					);
+                if (LData.HasMember("LightIntensity")) {
 
-					
-				}*/
-                LightComponent lightComponent;
-                g_Coordinator.AddComponent(entity, lightComponent);
+                    float intensity = LData["LightIntensity"].GetFloat();
+                    LightComponent lightComponent;
+                    lightComponent.setIntensity(intensity);
+                    g_Coordinator.AddComponent(entity, lightComponent);
+                }
+               
 			}
 
             // Print out all entity components

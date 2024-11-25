@@ -2228,21 +2228,22 @@ void ImGuiEditor::InspectorWindow()
 						{
 							if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_None))
 							{
-								auto lightComponent = g_Coordinator.GetComponent<LightComponent>(g_SelectedEntity);
-								/*glm::vec3 light_position = lightComponent.getLightPosition();
-
-								ImGui::Text("Light Position");
+								auto& lightComponent = g_Coordinator.GetComponent<LightComponent>(g_SelectedEntity);
+								float lightIntensity = lightComponent.getIntensity();
+								ImGui::Text("Intensity");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("LightPosition");
+								ImGui::PushID("Intensity");
 
-								if (ImGui::DragFloat3("##LightPosition", &light_position.x, 0.1f))
+								if (ImGui::DragFloat("##Intensity", &lightIntensity, 0.1f))
 								{
-									lightComponent.setLightPosition(light_position);
+									lightComponent.setIntensity(lightIntensity);
 								}
 
 								ImGui::PopID();
-								ImGui::PopItemWidth();*/
+								ImGui::PopItemWidth();
+
+
 							}
 
 						}

@@ -16,10 +16,10 @@ public:
 	};
 
 	////// setter
-	//void setLightPosition(glm::vec3 l_pos) { LightPosition = l_pos; }
+	void setIntensity(float i) { intensity = i; }
 
 	////// getter
-	//glm::vec3 getLightPosition() { return LightPosition; }
+	float getIntensity() const { return intensity; }
 
 	REFLECT_COMPONENT(ParticleComponent)
 	{
@@ -29,7 +29,7 @@ public:
 private:
 	//glm::vec3 LightPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 	//glm::vec3 color;
-	//float intensity;
+	float intensity = 1.0f;
 };
 
 

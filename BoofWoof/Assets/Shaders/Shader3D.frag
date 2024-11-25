@@ -27,7 +27,7 @@ uniform bool lightOn;
 struct Light {
     vec3 position;
     //vec3 color;
-    //float intensity;
+    float intensity;
 };
 
 //uniform vec3 lightPos;
@@ -84,7 +84,7 @@ void main()
 
 
             vec3 ambient = ambientColor  * 0.1f;
-            vec3 diffuse = diffuseColor  * N_dot_L;
+            vec3 diffuse = diffuseColor  * N_dot_L * lights[i].intensity;
 
             vec3 finalColor = ambient + diffuse; // Combine ambient and diffuse components
             result += finalColor;

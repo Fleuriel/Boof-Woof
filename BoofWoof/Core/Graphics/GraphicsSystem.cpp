@@ -24,7 +24,12 @@ bool GraphicsSystem::lightOn = false;
 CameraComponent GraphicsSystem::camera;
 CameraComponent camera_render;
 
-std::vector <glm::vec3> lightsPos;
+struct light_info {
+	glm::vec3 position;
+	//glm::vec3 color;
+	float intensity;
+};
+std::vector <light_info> lights_infos;
 
 
 glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
@@ -163,7 +168,7 @@ void GraphicsSystem::UpdateLoop() {
 		}
 	}
 
-	lightsPos.clear();
+	lights_infos.clear();
 	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
 	{
 		if (g_Coordinator.HaveComponent<LightComponent>(entity))
@@ -171,8 +176,14 @@ void GraphicsSystem::UpdateLoop() {
 			if (g_Coordinator.HaveComponent<TransformComponent>(entity))
 			{
 				auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
-				lightsPos.push_back(transformComp.GetPosition());
+				light_info light_info_;
+				light_info_.position = transformComp.GetPosition();
+				light_info_.intensity = g_Coordinator.GetComponent<LightComponent>(entity).getIntensity();
+
+				lights_infos.push_back(light_info_);
+
 			}
+
 		}
 	}
 	
@@ -253,14 +264,16 @@ void GraphicsSystem::UpdateLoop() {
 
 		}
 		g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
-		for (int i = 0; i < lightsPos.size(); i++)
+		for (int i = 0; i < lights_infos.size(); i++)
 		{
 			std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
-			g_AssetManager.GetShader("Shader3D").SetUniform(lightPosStr.c_str(), lightsPos[i]);
+			g_AssetManager.GetShader("Shader3D").SetUniform(lightPosStr.c_str(), lights_infos[i].position);
+			std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
+			g_AssetManager.GetShader("Shader3D").SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
 		}
 		/*g_AssetManager.GetShader("Shader3D").SetUniform("lights[0].position", lightPos);
 		g_AssetManager.GetShader("Shader3D").SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
-		g_AssetManager.GetShader("Shader3D").SetUniform("numLights", static_cast<int>(lightsPos.size()));
+		g_AssetManager.GetShader("Shader3D").SetUniform("numLights", static_cast<int>(lights_infos.size()));
 		g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera_render.Position);
 		g_AssetManager.GetShader("Shader3D").SetUniform("lightOn", lightOn);
 
