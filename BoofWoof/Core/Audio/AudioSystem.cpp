@@ -618,12 +618,16 @@ void AudioSystem::StopBGM() {
 
 
 
-void AudioSystem::PlayFileOnNewChannel(const std::string& filePath) {
+void AudioSystem::PlayFileOnNewChannel(const std::string& filePath, bool isLooping) 
+{
     // Check if the sound is already cached
     if (soundCache.find(filePath) == soundCache.end()) {
         // Load the sound if it's not already cached
         FMOD::Sound* sound = nullptr;
-        FMOD_RESULT result = system->createSound(filePath.c_str(), FMOD_DEFAULT, nullptr, &sound);
+
+        FMOD_MODE loopMode = isLooping ? FMOD_LOOP_NORMAL : FMOD_DEFAULT;
+
+        FMOD_RESULT result = system->createSound(filePath.c_str(), loopMode, nullptr, &sound);
 
         if (result != FMOD_OK) {
             std::cerr << "Error loading sound from file: " << filePath << std::endl;

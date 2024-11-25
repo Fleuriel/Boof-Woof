@@ -61,7 +61,7 @@ class MainMenu : public Level
 				//g_Audio.StopBGM();
 
 				// Play the button click sound
-				g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/(MenuButtonClick).wav");
+				g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/(MenuButtonClick).wav", false);
 
 				// Mark space as pressed and reset elapsed time
 				spacePressed = true;

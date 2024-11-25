@@ -9,8 +9,10 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		CheckCollision();
 	}
 
-	g_BoneCatcher.OnUpdate(deltaTime);	
-
+	if (RopeSpawned) 
+	{
+		g_BoneCatcher.OnUpdate(deltaTime);
+	}
 
 	if (PlayerCollidedRope1 && PlayerCollidedRope2 && RopeDespawned >= 2)
 	{
@@ -93,6 +95,8 @@ void RopeBreaker::CheckCollision()
 
 void RopeBreaker::DropBridge()
 {
+	g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WoodenBridgeDropping.wav", false);
+
 	if (!g_Coordinator.HaveComponent<TransformComponent>(bridge)) return;
 
 	auto& transform = g_Coordinator.GetComponent<TransformComponent>(bridge);
@@ -112,6 +116,7 @@ void RopeBreaker::SpawnBoneCatcher()
 	if (PlayerCollidedRope1 || PlayerCollidedRope2)
 	{
 		g_BoneCatcher.OnInitialize();
+		RopeSpawned = true;
 	}
 }
 
@@ -127,6 +132,7 @@ void RopeBreaker::DespawnRope()
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
 				{
+					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav", false);
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					RopeDespawned++;
@@ -137,6 +143,7 @@ void RopeBreaker::DespawnRope()
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
 				{
+					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav", false);
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					RopeDespawned++;

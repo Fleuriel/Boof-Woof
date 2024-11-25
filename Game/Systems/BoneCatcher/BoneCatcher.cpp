@@ -10,8 +10,7 @@ std::uniform_real_distribution<float> dist;  // Default distribution range
 void BoneCatcher::OnInitialize()
 {
 	g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/BoneCatcher.json");
-	g_Audio.PlayFile("../BoofWoof/Assets/Audio/CreakingRope.wav");
-
+	g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CreakingRope.wav", true);
 
 	storage = serial.GetStored();
 
@@ -178,7 +177,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 			//std::cout << "m_HitCount: " << m_HitCount  << std::endl;
 
 			// Play YAY sound
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorrectSound.wav");
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorrectSound.wav", false);
 
 			// Hit = Pass = Randomize Catchzone position & Faster DogHead Speed.
 			m_Speed += 0.4f;
@@ -193,7 +192,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 		}
 		else {
 			// Play BOO sound
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WrongSound.wav");
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WrongSound.wav", false);
 			// Failed to hit - nothing changes, play the same level.
 		}
 	}
