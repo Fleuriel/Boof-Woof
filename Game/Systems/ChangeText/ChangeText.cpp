@@ -22,6 +22,8 @@ void ChangeText::OnInitialize()
 			}			
 		}
 	}
+
+	shutted = false;
 }
 
 void ChangeText::OnUpdate(double deltaTime)
@@ -74,4 +76,6 @@ void ChangeText::OnShutdown()
 			}
 		}
 	}
+
+	shutted = true;
 }

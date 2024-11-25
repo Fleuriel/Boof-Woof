@@ -70,9 +70,14 @@ class Level1 : public Level
 	{
 		cameraController->Update(static_cast<float>(deltaTime));
 
-		g_RopeBreaker.OnUpdate(deltaTime);	
-		g_ChangeText.OnUpdate(deltaTime);
+		if (!g_ChangeText.shutted) 
+		{
+			g_ChangeText.OnUpdate(deltaTime);
+		}
+
 		g_Checklist.OnUpdate(deltaTime);
+
+		g_RopeBreaker.OnUpdate(deltaTime);	
 
 		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
 		{

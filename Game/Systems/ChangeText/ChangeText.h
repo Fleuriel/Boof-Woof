@@ -8,6 +8,8 @@ public:
 	void OnUpdate(double deltaTime);
 	void OnShutdown();
 
+public:
+	bool shutted{ false };
 
 private:
 	Entity m_Text{};
