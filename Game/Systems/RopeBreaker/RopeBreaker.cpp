@@ -9,7 +9,7 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		CheckCollision();
 	}
 
-	if (RopeSpawned) 
+	if (BoneSpawned)
 	{
 		g_BoneCatcher.OnUpdate(deltaTime);
 	}
@@ -25,8 +25,8 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		return; // do nothing
 
 		// For quick testing
-		/*PlayerCollidedRope1 = PlayerCollidedRope2 = true;
-		RopeDespawned = 2;*/
+		//PlayerCollidedRope1 = PlayerCollidedRope2 = true;
+		//RopeDespawned = 2;
 	}
 	else 
 	{
@@ -95,7 +95,11 @@ void RopeBreaker::CheckCollision()
 
 void RopeBreaker::DropBridge()
 {
-	g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WoodenBridgeDropping.wav", false);
+	if (!bridgeAudio) 
+	{
+		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/BridgeCreak.wav", false);
+		bridgeAudio = true;
+	}
 
 	if (!g_Coordinator.HaveComponent<TransformComponent>(bridge)) return;
 
@@ -116,12 +120,14 @@ void RopeBreaker::SpawnBoneCatcher()
 	if (PlayerCollidedRope1 || PlayerCollidedRope2)
 	{
 		g_BoneCatcher.OnInitialize();
-		RopeSpawned = true;
+		BoneSpawned = true;
 	}
 }
 
 void RopeBreaker::DespawnRope()
 {
+	BoneSpawned = false;
+
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
 	for (auto entity : entities)

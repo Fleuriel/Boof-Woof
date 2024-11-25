@@ -10,7 +10,6 @@ std::uniform_real_distribution<float> dist;  // Default distribution range
 void BoneCatcher::OnInitialize()
 {
 	g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/BoneCatcher.json");
-	g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CreakingRope.wav", true);
 
 	storage = serial.GetStored();
 
@@ -70,6 +69,8 @@ void BoneCatcher::OnInitialize()
 
 void BoneCatcher::OnUpdate(double deltaTime)
 {
+	ClearBoneCatcherTimer += deltaTime;
+
 	if (m_HitCount <= 4) 
 	{
 		if (g_Input.GetKeyState(GLFW_KEY_C) >= 1)
@@ -87,6 +88,13 @@ void BoneCatcher::OnUpdate(double deltaTime)
 			BiteDown(deltaTime);
 		}
 	}		
+
+	// Play for as long bonecatcher lasts.
+	if (AudioTimer <= ClearBoneCatcherTimer && !isAudioPlaying)
+	{
+		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CreakingRope2.wav", false);
+		isAudioPlaying = true;
+	}
 
 	Stop(deltaTime);
 }
@@ -229,7 +237,15 @@ void BoneCatcher::BiteDown(double deltaTime)
 }
 void BoneCatcher::ClearBoneCatcher()
 {
-	g_Audio.StopBGM();
+	AudioTimer = ClearBoneCatcherTimer;
+
+	// Stop the audio when bonecatcher is cleared
+	if (isAudioPlaying) 
+	{
+		std::cout << "Entered audioplaying" << std::endl;
+		g_Audio.StopFile("../BooFwoof/Assets/Audio/CreakingRope2.wav"); // Stop the specific file path
+		isAudioPlaying = false;  // Reset the flag
+	}
 
 	// Just remove whatever we had stored from the current alive entity and destroy them
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
