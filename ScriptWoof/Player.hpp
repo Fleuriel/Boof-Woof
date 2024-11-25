@@ -4,11 +4,31 @@
 struct Player final : public Behaviour
 {
 	using Behaviour::Behaviour;
+	glm::vec3 velocity;
+	float speed;
+	bool isMoving;
+	bool isJumping;
+
+	virtual void Init(Entity entity) override
+	{
+		std::cout << "Player Init" << std::endl;
+		
+		isJumping = false;
+	}
 
 	virtual void Update(Entity entity) override
 	{
-		glm::vec3 velocity(0.0f);
-		bool isMoving = false;
+		velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+		isMoving = false;
+		
+
+		if (m_Engine.getInputSystem().isActionPressed("Sprint"))
+		{
+			speed = 5.0f;
+		}
+		else {
+			speed = 3.0f;
+		}
 
 		if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
 		{
@@ -16,9 +36,8 @@ struct Player final : public Behaviour
 			// Get Camera Direction
 			//float yaw = m_Engine.GetCameraYaw();
 
-			velocity += m_Engine.GetCameraDirection(entity) * 2.f;
-			
-			std::cout << velocity.x << " " << velocity.z << std::endl;
+			velocity.x += m_Engine.GetCameraDirection(entity).x * speed;
+			velocity.z += m_Engine.GetCameraDirection(entity).z * speed;
 			isMoving = true;
 
 		}
@@ -31,15 +50,15 @@ struct Player final : public Behaviour
 				0.0f, 1.0f, 0.0f,
 				1.0f, 0.0f, 0.0f
 			);
-
-			velocity += rotation * m_Engine.GetCameraDirection(entity) * 2.f;
+			velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
 			isMoving = true;
 		}
 
 		if (m_Engine.getInputSystem().isActionPressed("MoveBackward"))
 		{
 			//std::cout << "movingS" << std::endl;
-			velocity += -m_Engine.GetCameraDirection(entity) * 2.f;
+			velocity.x += -m_Engine.GetCameraDirection(entity).x * speed;
+			velocity.z += -m_Engine.GetCameraDirection(entity).z * speed;
 			isMoving = true;
 		}
 
@@ -54,18 +73,29 @@ struct Player final : public Behaviour
 				-1.0f, 0.0f, 0.0f
 			);
 
-			velocity += rotation * m_Engine.GetCameraDirection(entity) * 2.f;
+			velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
 			isMoving = true;
 		}
 
-		/*
-		if (m_Engine.getInputSystem().isActionPressed("Jump"))
-		{
-			//std::cout << "jumping" << std::endl;
-			velocity.y += 2.f;
+		
+		if (m_Engine.getInputSystem().isActionPressed("Jump")) {
+			float gravity = 10.0f;      // Use your engine's gravity value
+			float jumpHeight = 2.0f;    // Desired jump height in units
+			float jumpVelocity = sqrt(speed * gravity * jumpHeight);
+			velocity.y += jumpVelocity; // Add upward velocity for the jump
+
+			std::cout << "Player jumped with velocity: " << jumpVelocity << std::endl;
 			isMoving = true;
+			isJumping = true;
 		}
-		*/
+		
+
+		if (m_Engine.getInputSystem().isActionPressed("Bark"))
+		{
+			std::cout << "Bark" << std::endl;
+
+		}
+		
 
 		//// Check if the entity has a collision component and physics body before setting velocity
 		//if (m_Engine.HaveCollisionComponent(entity) && m_Engine.HavePhysicsBody(entity))
@@ -78,7 +108,6 @@ struct Player final : public Behaviour
 		{
 			if (isMoving)
 			{
-				//velocity *= m_Engine.GetRotation(entity);
 				// Apply player input velocity
 				m_Engine.SetVelocity(entity, velocity);
 			}
@@ -89,6 +118,12 @@ struct Player final : public Behaviour
 				glm::vec3 stopVelocity(0.0f, currentVelocity.y, 0.0f); // Preserve Y-axis velocity (gravity)
 				m_Engine.SetVelocity(entity, stopVelocity);
 			}
+			/*
+			if (m_Engine.GetPosition(entity).y == 0.0f)
+			{
+				isJumping = false;
+			}
+			*/
 		}
 
 		// Debug output for velocity
