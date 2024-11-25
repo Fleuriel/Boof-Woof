@@ -3329,6 +3329,20 @@ void ImGuiEditor::AssetWindow()
 						ImGui::OpenPopup("INCORRECT EXTENSION");
 					}
 				}
+				if (m_CurrDir == "../BoofWoof/Assets/Audio/Corgi/Dog_Footsteps_Walk")
+				{
+					if (fileExtension == "wav")
+					{
+						m_ShowAudio = true;
+						m_AudioName = fileName;
+					}
+					else
+					{
+						m_ShowAudio = false;
+						ImGui::OpenPopup("INCORRECT EXTENSION");
+					}
+				}
+
 			}
 
 			if (ImGui::BeginPopupModal("INCORRECT EXTENSION", NULL, ImGuiWindowFlags_AlwaysAutoResize))
