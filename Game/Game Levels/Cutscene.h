@@ -6,6 +6,7 @@
 double cutsceneTimer = 0.0;
 double timerLimit = 4.0;    // Set the time limit to 3 seconds
 int textureIndex = 0;  // To track which texture we're currently showing
+double lastBarkTime = 0.0;
 Entity TextEnt{};
 
 class Cutscene : public Level
@@ -34,7 +35,8 @@ class Cutscene : public Level
 	void UpdateLevel(double deltaTime)
 	{
 		cutsceneTimer += deltaTime;		
-		
+		std::cout << "cutsceneTimer: " << cutsceneTimer << std::endl;
+
 		if (!g_Coordinator.HaveComponent<GraphicsComponent>(TextEnt)) return;
 
 		auto &text = g_Coordinator.GetComponent<GraphicsComponent>(TextEnt);
@@ -59,6 +61,49 @@ class Cutscene : public Level
 			cutsceneTimer = 0.0;  // Reset the timer after each texture change
 			textureIndex++;  // Move to the next texture
 		}
+
+		switch (textureIndex) 
+		{
+			case 0:
+			{
+				g_Audio.PlayFile("../BoofWoof/Assets/Audio/Corgi/AggressiveDogBarking.wav");
+				break;
+			}
+			case 1:
+			{
+				if (cutsceneTimer <= 3.0) 
+				{
+					g_Audio.PlayFile("../BoofWoof/Assets/Audio/Corgi/CorgiWhimper.wav");
+				}
+				break;
+			}
+			case 2:
+			{
+				// odd number barking
+				if (static_cast<int>(cutsceneTimer) % 2 == 0)  
+				{					
+					g_Audio.PlayFile("../BooFwoof/Assets/Audio/Corgi/CorgiBark1.wav");					
+				}
+				break;
+			}
+			case 3:
+			{
+				if (static_cast<int>(cutsceneTimer) % 2 == 0)  
+				{
+					g_Audio.PlayFile("../BooFwoof/Assets/Audio/Corgi/CorgiBark2.wav");
+				}
+				break;
+			}
+			case 4:
+			{
+				if (static_cast<int>(cutsceneTimer) % 2 == 0)
+				{
+					g_Audio.PlayFile("../BooFwoof/Assets/Audio/Corgi/CorgiBark1.wav");
+				}
+				break;
+			}
+		}
+
 
 		// After showing CorgiText4 for 3 seconds, transition to the next scene
 		if (textureIndex >= 4 && cutsceneTimer >= timerLimit)
