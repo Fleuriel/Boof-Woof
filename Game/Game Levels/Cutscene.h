@@ -66,39 +66,43 @@ class Cutscene : public Level
 		{
 			case 0:
 			{
-				g_Audio.PlayFile("../BoofWoof/Assets/Audio/Corgi/AggressiveDogBarking.wav");
+				// Big dog telling you stay in the room
+				g_Audio.PlayFile("../BoofWoof/Assets/Audio/AggressiveDogBarking.wav");
 				break;
 			}
 			case 1:
 			{
+				// I'm scared
 				if (cutsceneTimer <= 3.0) 
 				{
-					g_Audio.PlayFile("../BoofWoof/Assets/Audio/Corgi/CorgiWhimper.wav");
+					g_Audio.PlayFile("../BoofWoof/Assets/Audio/CorgiWhimper.wav");
 				}
 				break;
 			}
 			case 2:
 			{
-				// odd number barking
+				// I can't keep living like this
 				if (static_cast<int>(cutsceneTimer) % 2 == 0)  
 				{					
-					g_Audio.PlayFile("../BooFwoof/Assets/Audio/Corgi/CorgiBark1.wav");					
+					g_Audio.PlayFile("../BooFwoof/Assets/Audio/CorgiBark1.wav");					
 				}
 				break;
 			}
 			case 3:
 			{
+				// I want to leave this place
 				if (static_cast<int>(cutsceneTimer) % 2 == 0)  
 				{
-					g_Audio.PlayFile("../BooFwoof/Assets/Audio/Corgi/CorgiBark2.wav");
+					g_Audio.PlayFile("../BooFwoof/Assets/Audio/CorgiBark2.wav");
 				}
 				break;
 			}
 			case 4:
 			{
+				// No.. I WILL LEAVE THE CASTLE
 				if (static_cast<int>(cutsceneTimer) % 2 == 0)
 				{
-					g_Audio.PlayFile("../BooFwoof/Assets/Audio/Corgi/CorgiBark1.wav");
+					g_Audio.PlayFile("../BooFwoof/Assets/Audio/CorgiBark1.wav");
 				}
 				break;
 			}
