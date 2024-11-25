@@ -29,7 +29,7 @@ private:
 
 	// Rope
 	Entity player{}, rope1{}, rope2{};
-	bool PlayerColliding{}, Rope1Colliding{}, Rope2Colliding{};
+	bool PlayerColliding{}, Rope1Colliding{}, Rope2Colliding{}, BoneSpawned{ false };
 	int RopeDespawned{ 0 };
 
 	// Drawbridge
@@ -40,6 +40,7 @@ private:
 	glm::vec3 initialPos{};
 	glm::vec3 initialRotation{};
 
+	bool bridgeAudio{ false };
 
 	float ElapsedTime = 0.0f;	// Time since animation started
 	float FallDuration = 2.0f;	// Total duration of animation

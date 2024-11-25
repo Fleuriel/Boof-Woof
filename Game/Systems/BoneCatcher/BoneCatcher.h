@@ -38,6 +38,10 @@ private:
 	glm::vec3 TeethScale{ 0.07f, 0.1f, 0.f };
 	glm::vec3 TeethPos{};
 
+	double ClearBoneCatcherTimer = 0.0;
+	double AudioTimer = 0.0;
+	bool isAudioPlaying{ false };
+
 protected:
 
 	// Storage is for those entity you added in when you load a scene file

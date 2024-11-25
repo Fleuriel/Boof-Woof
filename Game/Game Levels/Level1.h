@@ -14,6 +14,7 @@ class Level1 : public Level
 	void LoadLevel()
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");		
+		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -98,6 +99,7 @@ class Level1 : public Level
 
 	void UnloadLevel()
 	{
+		g_Audio.StopBGM();
 		g_Coordinator.ResetEntities();
 	}
 };

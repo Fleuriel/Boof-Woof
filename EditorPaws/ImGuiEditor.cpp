@@ -1139,7 +1139,10 @@ void ImGuiEditor::InspectorWindow()
 
 										if (ImGui::DragFloat3("##Drag", &vecValue.x, 0.1f))
 										{
-											property->SetValue(&transformComponent, SerializationHelpers::SerializeVec3(vecValue));
+											// Start editing
+											transformComponent.SetEditing(true);
+
+											property->SetValue(&transformComponent, SerializationHelpers::SerializeVec3(vecValue));					
 										}
 
 										if (ImGui::IsItemActivated())
@@ -1150,6 +1153,12 @@ void ImGuiEditor::InspectorWindow()
 
 										if (ImGui::IsItemDeactivatedAfterEdit())
 										{
+											// Stop editing
+											transformComponent.SetEditing(false);
+
+											// Update the physics body position immediately
+											g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+
 											glm::vec3 newValue = vecValue;
 											glm::vec3 oldValue = oldVec3Values[propertyName];
 											Entity entity = g_SelectedEntity;
@@ -2051,23 +2060,23 @@ void ImGuiEditor::InspectorWindow()
 										ImGui::Text("Scaled AABB: (%.2f, %.2f, %.2f)", effectiveAABB.x, effectiveAABB.y, effectiveAABB.z);
 									}
 
-									//// Set a minimum size to prevent crashes
-									//glm::vec3 minAABBSize(0.1f, 0.1f, 0.1f); // Minimum size for AABB
-									//if (ImGui::DragFloat3("AABB Size", &graphicsComponent.boundingBox.x, 0.05f, 0.1f, 10.0f, "%.2f")) {
-									//	// Clamp the values to prevent zero or invalid sizes
-									//	graphicsComponent.boundingBox.x = glm::max(graphicsComponent.boundingBox.x, minAABBSize.x);
-									//	graphicsComponent.boundingBox.y = glm::max(graphicsComponent.boundingBox.y, minAABBSize.y);
-									//	graphicsComponent.boundingBox.z = glm::max(graphicsComponent.boundingBox.z, minAABBSize.z);
+									// Add UI for editing collision offset
+									glm::vec3 currentOffset = collisionComponent.GetAABBOffset();
+									if (ImGui::DragFloat3("AABB Offset", &currentOffset.x, 0.05f, -10.0f, 10.0f, "%.2f")) {
+										collisionComponent.SetAABBOffset(currentOffset);
 
-									//	// Update AABB size in the CollisionComponent
-									//	collisionComponent.SetAABBSize(graphicsComponent.boundingBox);
+										// Update the physics body in real time to reflect the offset
+										g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
 
-									//	// Update the physics body in real time
-									//	g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
-									//}
+									}
 
-									//// Debug Output
-									//ImGui::Text("Current AABB: (%.2f, %.2f, %.2f)", graphicsComponent.boundingBox.x, graphicsComponent.boundingBox.y, graphicsComponent.boundingBox.z);
+									// Debug Output
+									ImGui::Text("Current Offset: (%.2f, %.2f, %.2f)", currentOffset.x, currentOffset.y, currentOffset.z);
+
+									// Debug for last colliding entity
+									ImGui::Text("Colliding: %s", collisionComponent.GetIsColliding() ? "Yes" : "No");
+									ImGui::Text("Last Collided Object: %s", collisionComponent.GetLastCollidedObjectName().c_str());
+
 								}
 							}
 						}

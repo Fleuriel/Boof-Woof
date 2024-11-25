@@ -50,6 +50,9 @@ public:
         return worldMatrix;
     }
 
+    // Editing flag
+    void SetEditing(bool editing) { m_IsEditing = editing; }
+    bool IsEditing() const { return m_IsEditing; }
 
     // Reflection integration
     REFLECT_COMPONENT(TransformComponent)
@@ -64,6 +67,7 @@ private:
     glm::vec3 m_Position{};
     glm::vec3 m_Scale{ 1.0f, 1.0f, 1.0f };
     glm::vec3 m_Rotation{};
+    bool m_IsEditing = false; // New flag for editing state
 };
 
 #endif // TRANSFORM_COMPONENT_HPP

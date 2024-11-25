@@ -3,18 +3,25 @@
 #include "Level Manager/Level.h"
 #include "ECS/Coordinator.hpp"
 
-Entity BackCamera{};
+Entity BackCamera{};  // Entity for the back camera
+
+double MenuelapsedTime = 0.0;  // Tracks the elapsed time
+double delayAfterSpace = 0.5;  // Set the delay to 1 second
+bool spacePressed = false;  // Tracks whether the space bar has been pressed
 
 class MainMenu : public Level
 {
 	void LoadLevel()
 	{
+		// Load the main menu scenes
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainMenuBack.json");
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainMenuFront.json");
-		//g_Audio.PlayBGM("../BoofWoof/Assets/Audio/Test.wav");
 
+		// Play background music
+		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/mainmenu music.wav"); 
+
+		// Find the "BackCamera" entity
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
-
 		for (auto entity : entities)
 		{
 			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
@@ -32,33 +39,53 @@ class MainMenu : public Level
 
 	void UpdateLevel(double deltaTime)
 	{
-		// Get the current yaw value
+		// Get the current yaw value for the camera
 		float currentYaw = g_Coordinator.GetComponent<CameraComponent>(BackCamera).GetCameraYaw();
 
 		// Increment the yaw by deltaTime (adjust speed as needed)
-		currentYaw += static_cast<float>(deltaTime) * 10.0f; // 10.0f is the speed multiplier, adjust as needed
+		currentYaw += static_cast<float>(deltaTime) * 10.0f; // Adjust speed multiplier if needed
 
-		// Check if yaw has reached or passed 270 degrees, and reset to -90 if true
+		// Reset yaw if it exceeds 270 degrees
 		if (currentYaw >= 270.0f)
 		{
 			currentYaw = -90.0f;
 		}
 
-		// Set the updated yaw value
+		// Update the yaw value in the camera component
 		g_Coordinator.GetComponent<CameraComponent>(BackCamera).SetCameraYaw(currentYaw);
 
-		// Press space to start go level 1
-		if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
+		if (!spacePressed)
 		{
-			g_LevelManager.SetNextLevel("Level1");
+			if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
+			{
+				//g_Audio.StopBGM();
+
+				// Play the button click sound
+				g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/(MenuButtonClick).wav");
+
+				// Mark space as pressed and reset elapsed time
+				spacePressed = true;
+				MenuelapsedTime = 0.0;
+			}
+		}
+		else 
+		{
+			MenuelapsedTime += deltaTime;
+			if (MenuelapsedTime >= delayAfterSpace)
+			{
+				g_LevelManager.SetNextLevel("Cutscene");
+			}
 		}
 	}
 
-	void FreeLevel() { /*Empty by design*/ }
+	void FreeLevel() { /* Empty by design */ }
 
 	void UnloadLevel()
 	{
-		//g_Audio.StopBGM();
+		g_Audio.StopBGM();
+		// Reset all entities
 		g_Coordinator.ResetEntities();
+		MenuelapsedTime = 0.0;
+		spacePressed = false;
 	}
 };

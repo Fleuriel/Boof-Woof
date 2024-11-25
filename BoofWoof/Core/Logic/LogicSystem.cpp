@@ -5,25 +5,31 @@
 
 #include "LogicSystem.h"
 #include "../ECS/Coordinator.hpp"
+#include "../Logic/BehaviourInterface.h"
 #include "../Utilities/Components/BehaviourComponent.hpp"
 #include "../../../ScriptWoof/Compile.cpp"	
 #include "Script_to_Engine.h"
-#include <wtypes.h>
+
 
 #pragma warning(pop)
 
 Entity g_Player = NULL;
+//DLL_MAIN_DIRECTORY = L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll";
+//DLL_COPY_DIRECTORY = L"..\\ScriptWoof.dll";
+//const std::wstring DLL_PATH = L"..\\ScriptWoof.dll";
+HINSTANCE hGetProcIDDLL = nullptr;
 
 void LogicSystem::Init()
 {
 	std::cout << std::endl << "Logic System Initialized" << std::endl;
 
 	//HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll");
-	HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\ScriptWoof.dll");
+	hGetProcIDDLL = LoadLibraryW(DLL_COPY_DIRECTORY.c_str());
 
 	if (hGetProcIDDLL == NULL)
 	{
 		std::cerr << "Could not load the dynamic library" << std::endl;
+		throw std::runtime_error("Could not load the dynamic library");
 		return;
 	}
 
@@ -59,6 +65,7 @@ void LogicSystem::Init()
 		else if(behaviourName == "Player" && g_Player == NULL)
 		{
 			g_Player = entity;
+			std::cout << "Player entity found" << std::endl;
 		}
 		else if (behaviourName == "Player" && g_Player != NULL)
 		{
@@ -103,6 +110,9 @@ void LogicSystem::Update()
 
 void LogicSystem::Shutdown()
 {
+	// Unload the dynamic library
+	FreeLibrary(hGetProcIDDLL);
+
 	// Clean up Script_to_Engine object to prevent memory leak
 	delete mScriptEngine;  // Ensure that the dynamically allocated object is deleted
 

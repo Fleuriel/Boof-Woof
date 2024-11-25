@@ -1,0 +1,12 @@
+File Name: Ceiling
+Source File Path: ..\BoofWoof\Assets\Objects\Ceiling.obj
+Output File Path: ..\BoofWoof\Resources\Objects\Ceiling.bin
+MTL File Exist: 1
+PNG File Exist: 0
+JPG File Exist: 0
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0

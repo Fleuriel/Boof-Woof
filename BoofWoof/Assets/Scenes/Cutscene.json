@@ -1,0 +1,89 @@
+{
+    "SceneGUID": "b066b3e7-852e-4478-b98a-29f52a6d66c3",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "BlackScreenBack",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 2.0999999046325685,
+                    "y": 2.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Text",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.10000000149011612
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 0.25,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "BullyText1",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "DogName",
+                "EntityID": 2
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.5,
+                    "y": 0.30000001192092898,
+                    "z": -0.10000000149011612
+                },
+                "Scale": {
+                    "x": 0.4000000059604645,
+                    "y": 0.15000000596046449,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "RexTheBully",
+                "FollowCamera": false
+            }
+        }
+    ]
+}

@@ -338,7 +338,35 @@ void GraphicsSystem::UpdateLoop() {
 
 			// This one put the D2 D3 here.
 
+			if (D2)
+			{
+				Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
+				g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
 
+			}
+
+			if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+				auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+				JPH::Body* body = collisionComp.GetPhysicsBody();
+
+				if (body) {
+					// Get the world-space AABB from JoltPhysics
+					JPH::AABox aabb = body->GetWorldSpaceBounds();
+
+					// Calculate center and half-extents
+					JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
+					glm::vec3 glmCenter = glm::vec3(0, 0, 0);
+
+					// Apply offset for visual debugging
+					glm::vec3 offset = collisionComp.GetAABBOffset();
+					glm::vec3 adjustedCenter = glmCenter + offset;
+
+					if (D3) {
+						//g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(glmCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f)); // Green color
+						g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(adjustedCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f));
+					}
+				}
+			}
 		}
 		else if(shaderName == "Material" || shaderName == "Shader3D")
 		{ 
