@@ -342,6 +342,12 @@ bool Serialization::SaveScene(const std::string& filepath) {
             // Add the CameraComponent to the entityData
             entityData.AddMember("ParticleComponent", particles, allocator);
         }
+		if (g_Coordinator.HaveComponent<LightComponent>(entity))
+		{
+			rapidjson::Value light(rapidjson::kObjectType);
+
+			entityData.AddMember("LightComponent", light, allocator);
+		}
 
         entities.PushBack(entityData, allocator);
     }
@@ -680,6 +686,23 @@ bool Serialization::LoadScene(const std::string& filepath)
                     g_Coordinator.AddComponent(entity, particleComponent);
                 }
             }
+
+            if(entityData.HasMember("LightComponent"))
+			{
+				const auto& LData = entityData["LightComponent"];
+				/*if (LData.HasMember("LightPosition"))
+				{
+					glm::vec3 lightPosition(
+						LData["LightPosition"]["x"].GetFloat(),
+						LData["LightPosition"]["y"].GetFloat(),
+						LData["LightPosition"]["z"].GetFloat()
+					);
+
+					
+				}*/
+                LightComponent lightComponent;
+                g_Coordinator.AddComponent(entity, lightComponent);
+			}
 
             // Print out all entity components
 			//std::cout << "Entity: " << g_Coordinator.GetEntityId(entity) << std::endl;
