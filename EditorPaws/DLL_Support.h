@@ -12,6 +12,8 @@ bool CopyAndOverwriteDLL(const std::wstring& sourcePath, const std::wstring& des
 
 bool IsDLLInUse(const std::wstring& dllPath);
 
+bool CompareFiles(const std::filesystem::path& main, const std::filesystem::path& copy);
+
 void MonitorDirectory();
 
 void ChangeDLL();

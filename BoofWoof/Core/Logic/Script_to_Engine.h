@@ -13,7 +13,7 @@
 #pragma warning(disable: 6385 6386)
 #include <Jolt/Physics/Body/Body.h>
 
-class Script_to_Engine : public engine_interface, public input_interface
+class Script_to_Engine : public engine_interface, public input_interface, public audio_interface
 {
 public:
 
@@ -30,13 +30,30 @@ public:
 
 	virtual bool isActionPressed(const char * action) override
 	{
+		
 		return g_Input.IsActionPressed(action);
 	}
 
 	// END OF INPUT INTERFACE
+	
+	// AUDIO INTERFACE
+	virtual audio_interface& getAudioSystem() override
+	{
+		return *this;
+	}
 
+	virtual void PlaySound(const char* pSoundName) override
+	{
+		// Play sound
+		// g_Audio.PlayFile(pSoundName);
+	}
 
 	// ENGINE INTERFACE
+
+	virtual void DestroyEntity(Entity entity) override
+	{
+		g_Coordinator.DestroyEntity(entity);
+	}
 	
 	//Transform Component
 	virtual glm::vec3 GetPosition(Entity entity) override
@@ -71,6 +88,31 @@ public:
 		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody() != nullptr;
 	}
 
+	
+	virtual glm::vec3 GetVelocity(Entity entity) override
+	{
+		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
+		{
+			auto* body = g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody();
+			if (body->GetMotionType() == JPH::EMotionType::Dynamic)
+			{
+				JPH::Vec3 velocity = body->GetLinearVelocity();
+				return glm::vec3(velocity.GetX(), velocity.GetY(), velocity.GetZ());
+			}
+		}
+		return glm::vec3(0.0f); // Return zero velocity for static or invalid entities
+	}
+
+	virtual bool IsColliding(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetIsColliding();
+	}
+
+	virtual const char* GetCollidingEntityName(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetLastCollidedObjectName().c_str();
+	}
+
 	virtual void SetVelocity(Entity entity, glm::vec3 inputVelocity) override
 	{
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
@@ -94,19 +136,6 @@ public:
 		}
 	}
 
-	virtual glm::vec3 GetVelocity(Entity entity) override
-	{
-		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
-		{
-			auto* body = g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody();
-			if (body->GetMotionType() == JPH::EMotionType::Dynamic)
-			{
-				JPH::Vec3 velocity = body->GetLinearVelocity();
-				return glm::vec3(velocity.GetX(), velocity.GetY(), velocity.GetZ());
-			}
-		}
-		return glm::vec3(0.0f); // Return zero velocity for static or invalid entities
-	}
 
 	//Camera Component
 	virtual bool HaveCameraComponent(Entity entity) override
