@@ -5,6 +5,7 @@
 #include "../Systems/CameraController/CameraController.h"
 #include "../Systems/BoneCatcher/BoneCatcher.h"
 #include "../Systems/RopeBreaker/RopeBreaker.h"
+#include "../Systems/ChangeText/ChangeText.h"
 
 Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{};
 CameraController* cameraController = nullptr;
@@ -15,6 +16,7 @@ class Level1 : public Level
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");		
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
+		g_ChangeText.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -67,6 +69,7 @@ class Level1 : public Level
 		cameraController->Update(static_cast<float>(deltaTime));
 
 		g_RopeBreaker.OnUpdate(deltaTime);	
+		g_ChangeText.OnUpdate(deltaTime);
 
 		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
 		{
