@@ -71,8 +71,8 @@ public:
     }
 
     // Getter and setter for offset
-    glm::vec3 GetAABBOffset() const { return aabbOffset; }
-    void SetAABBOffset(const glm::vec3& newOffset) { aabbOffset = newOffset; }
+    glm::vec3 GetAABBOffset() const { return AABBOffset; }
+    void SetAABBOffset(const glm::vec3& newOffset) { AABBOffset = newOffset; }
 
     void SetLastCollidedObjectName(const std::string& objectName) { lastCollidedObjectName = objectName; }
     const std::string& GetLastCollidedObjectName() const { return lastCollidedObjectName; }
@@ -85,6 +85,7 @@ public:
         REGISTER_PROPERTY(CollisionComponent, IsDynamic, bool, SetIsDynamic, IsDynamic);
         REGISTER_PROPERTY(CollisionComponent, IsPlayer, bool, SetIsPlayer, IsPlayer);
         REGISTER_PROPERTY(CollisionComponent, GetIsColliding, bool, SetIsColliding, GetIsColliding);
+        REGISTER_PROPERTY(CollisionComponent, AABBOffset, glm::vec3, SetAABBOffset, GetAABBOffset); // Add this line
     }
 
 private:
@@ -93,7 +94,7 @@ private:
     int m_CollisionLayer = 0;            // Layer used for collision filtering
     bool m_HasBodyAdded = false;         // Flag to check if the body is already added
     glm::vec3 m_AABBSize = glm::vec3(1.0f, 1.0f, 1.0f); // Default AABB size (x, y, z)
-    glm::vec3 aabbOffset = glm::vec3(0.0f); // Default to no offset
+    glm::vec3 AABBOffset = glm::vec3(0.0f); // Default to no offset
     bool m_IsDynamic = false;             // Flag to determine if the entity is dynamic or static
     bool m_IsPlayer = false;            // Determines if the entity is a player
     bool isColliding = false; // Flag to track collision status

@@ -259,6 +259,13 @@ bool Serialization::SaveScene(const std::string& filepath) {
             aabbSize.AddMember("z", collisionComp.GetAABBSize().z, allocator);
             collisionData.AddMember("AABBSize", aabbSize, allocator);
 
+            // Save AABB offset
+            rapidjson::Value aabbOffset(rapidjson::kObjectType);
+            aabbOffset.AddMember("x", collisionComp.GetAABBOffset().x, allocator);
+            aabbOffset.AddMember("y", collisionComp.GetAABBOffset().y, allocator);
+            aabbOffset.AddMember("z", collisionComp.GetAABBOffset().z, allocator);
+            collisionData.AddMember("AABBOffset", aabbOffset, allocator);
+
             entityData.AddMember("CollisionComponent", collisionData, allocator);
         }
 
@@ -598,6 +605,17 @@ bool Serialization::LoadScene(const std::string& filepath)
                         aabbSize["z"].GetFloat()
                     );
                     collisionComponent.SetAABBSize(loadedAABBSize);
+                }
+
+                // Load AABB offset
+                if (collisionData.HasMember("AABBOffset")) {
+                    const auto& aabbOffset = collisionData["AABBOffset"];
+                    glm::vec3 loadedAABBOffset(
+                        aabbOffset["x"].GetFloat(),
+                        aabbOffset["y"].GetFloat(),
+                        aabbOffset["z"].GetFloat()
+                    );
+                    collisionComponent.SetAABBOffset(loadedAABBOffset);
                 }
 
                 g_Coordinator.AddComponent(entity, collisionComponent);
