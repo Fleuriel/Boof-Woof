@@ -45,6 +45,14 @@ struct BoneInfo {
     BoneInfo() : id(-1), offset(1.0f), finalTransform(1.0f) {}
 };
 
+// Enum for animation states
+enum class AnimationState {
+    IDLE,
+    MOVING,
+    ACTION1,
+    ACTION2
+};
+
 // Represents a complete animation sequence
 class AnimationClip {
 public:
@@ -65,26 +73,26 @@ public:
     ~AnimationComponent();
 
     // Core animation functions
-    void loadAnimation(const std::string& filename);
-    //void loadAnimation(const aiScene* scene, const std::string& animationName);
     void update(float deltaTime);
 
     // Animation control functions
-    void play(const std::string& clipName, bool loop = true);
+    void playState(AnimationState state, bool loop = true);
     void stop();
     void pause();
     void resume();
     void setSpeed(float speed) { m_playbackSpeed = speed; }
     void setTime(float time);
-    void crossFadeTo(const std::string& clipName, float fadeTime);
+    void crossFadeTo(AnimationState state, float fadeTime);
 
     // Getters
     bool isPlaying() const { return m_isPlaying; }
     bool isLooping() const { return m_isLooping; }
     float getCurrentTime() const { return m_currentTime; }
     float getPlaybackSpeed() const { return m_playbackSpeed; }
-    const std::string& getCurrentClipName() const;
+    AnimationState getCurrentState() const { return m_currentState; }
     const std::vector<glm::mat4>& getFinalBoneMatrices() const { return m_finalBoneMatrices; }
+    bool hasAnimation(AnimationState state) const;
+    const std::string& getCurrentClipName() const;
 
     // Bone management
     int getBoneCount() const { return m_boneCount; }
@@ -95,16 +103,59 @@ public:
 private:
     // Internal animation processing functions
     void processNode(aiNode* node, const glm::mat4& parentTransform, AnimationClip* clip);
-    //void processBone(const aiBone* bone);
     void processAnimation(const aiNodeAnim* nodeAnim, AnimationClip* clip);
-    //void extractBoneKeyFrames(const aiNodeAnim* nodeAnim, std::vector<KeyFrame>& keyFrames);
     void calculateBoneTransform(const std::string& nodeName, const glm::mat4& parentTransform);
     KeyFrame interpolateKeyFrames(float animationTime, const std::vector<KeyFrame>& keyFrames);
 
+    glm::mat4 calculateTransformMatrix(const KeyFrame& frame) const {
+        glm::mat4 translation = glm::translate(glm::mat4(1.0f), frame.position);
+        glm::mat4 rotation = glm::mat4_cast(frame.rotation);
+        glm::mat4 scale = glm::scale(glm::mat4(1.0f), frame.scale);
+        return translation * rotation * scale;
+    }
+
+    // Interpolate between two matrices with proper decomposition
+    glm::mat4 interpolateMatrix(const glm::mat4& m1, const glm::mat4& m2, float t) const {
+        // Extract translation
+        glm::vec3 pos1 = glm::vec3(m1[3]);
+        glm::vec3 pos2 = glm::vec3(m2[3]);
+
+        // Extract rotation
+        glm::quat rot1 = glm::quat_cast(m1);
+        glm::quat rot2 = glm::quat_cast(m2);
+
+        // Extract scale
+        glm::vec3 scale1 = glm::vec3(
+            glm::length(glm::vec3(m1[0])),
+            glm::length(glm::vec3(m1[1])),
+            glm::length(glm::vec3(m1[2]))
+        );
+        glm::vec3 scale2 = glm::vec3(
+            glm::length(glm::vec3(m2[0])),
+            glm::length(glm::vec3(m2[1])),
+            glm::length(glm::vec3(m2[2]))
+        );
+
+        // Interpolate components
+        glm::vec3 pos = glm::mix(pos1, pos2, t);
+        glm::quat rot = glm::slerp(rot1, rot2, t);
+        glm::vec3 scale = glm::mix(scale1, scale2, t);
+
+        // Reconstruct matrix
+        glm::mat4 result(1.0f);
+        result = glm::translate(result, pos);
+        result = result * glm::mat4_cast(rot);
+        result = glm::scale(result, scale);
+
+        return result;
+    }
+
     // Animation state
-//    std::map<std::string, std::unique_ptr<AnimationClip>> m_animations;
+    std::map<AnimationState, AnimationClip*> m_animations;
     AnimationClip* m_currentClip;
     AnimationClip* m_nextClip;  // For crossfading
+    AnimationState m_currentState;
+    AnimationState m_nextState;  // For crossfading
     float m_fadeTime;
     float m_currentFadeTime;
 
@@ -123,5 +174,26 @@ private:
     static const int MAX_BONES = 100;
     static const float ANIMATION_BLEND_TIME;
 };
+
+// Helper functions for state conversion
+namespace AnimationUtils {
+    inline const char* getStateName(AnimationState state) {
+        switch (state) {
+        case AnimationState::IDLE: return "Idle";
+        case AnimationState::MOVING: return "Moving";
+        case AnimationState::ACTION1: return "Action1";
+        case AnimationState::ACTION2: return "Action2";
+        default: return "Unknown";
+        }
+    }
+
+    inline AnimationState getStateFromString(const std::string& stateName) {
+        if (stateName == "Idle") return AnimationState::IDLE;
+        if (stateName == "Moving") return AnimationState::MOVING;
+        if (stateName == "Action1") return AnimationState::ACTION1;
+        if (stateName == "Action2") return AnimationState::ACTION2;
+        return AnimationState::IDLE; // Default to IDLE if unknown
+    }
+}
 
 #endif // !ANIMATIONCOMPONENT_H

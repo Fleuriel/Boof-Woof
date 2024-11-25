@@ -38,7 +38,6 @@ public:
     // Debug/Statistics
     size_t getLoadedAnimationCount() const { return m_animationLibrary.size(); }
     size_t getTotalMemoryUsage() const;
-    void printStatistics() const;
 
     // Create a new entity animator
     std::shared_ptr<EntityAnimator> createEntityAnimator(const std::string& entityId) {
@@ -70,6 +69,8 @@ public:
         return names;
     }
 
+    void registerComponent(const std::shared_ptr<AnimationComponent>& component);
+
 
     AnimationManager() : m_globalSpeedMultiplier(1.0f) {}
     ~AnimationManager() { shutdown(); }
@@ -80,7 +81,7 @@ private:
     //void cleanupResources();
 
     // Storage
-    std::unordered_map<std::string, std::unique_ptr<AnimationClip>> m_animationLibrary;
+    std::unordered_map<std::string, AnimationClip*> m_animationLibrary;
     std::vector<std::weak_ptr<AnimationComponent>> m_activeComponents;
 
     // Settings

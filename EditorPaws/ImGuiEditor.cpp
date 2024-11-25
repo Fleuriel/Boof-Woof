@@ -1299,86 +1299,111 @@ void ImGuiEditor::InspectorWindow()
 
 							}
 						}
-						else if (className == "AnimationComponent") {
-							auto entityAnimator = g_AnimationManager.getEntityAnimator(std::to_string(g_SelectedEntity));
+else if (className == "AnimationComponent") {
+	// Ensure animations exist in the manager
+	if (!g_AnimationManager.getAnimationNames().empty()) {
+		// Fetch the animator associated with the selected entity
+		std::shared_ptr<EntityAnimator> entityAnimator = g_AnimationManager.getEntityAnimator(std::to_string(g_SelectedEntity));
+		if (!entityAnimator) {
+			// If no animator exists, create one
+			entityAnimator = g_AnimationManager.createEntityAnimator(std::to_string(g_SelectedEntity));
+		}
 
+		if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
+			ImGui::Text("Current Animation States:");
+			ImGui::NewLine();
 
-							if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
+			// Display current animations managed by EntityAnimator
+			const auto& animationStates = entityAnimator->getAnimationStates();
+			for (const auto& [name, state] : animationStates) {
+				ImGui::Text(("Animation: " + name).c_str());
+				ImGui::Text(("   Playing: " + std::string(state.isPlaying ? "Yes" : "No")).c_str());
+				ImGui::Text(("   Looping: " + std::string(state.isLooping ? "Yes" : "No")).c_str());
+				ImGui::Text(("   Weight: " + std::to_string(state.weight)).c_str());
+				ImGui::NewLine();
+			}
 
-								ImGui::Text("Animation States:");
-								ImGui::NewLine();
+			ImGui::NewLine();
 
-								std::cout << "\n\n\n\n\nPINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG\n\n\n\n\n";
+			ImGui::Text("Animation Selection:");
+			ImGui::NewLine();
 
-								if (entityAnimator)
-								for (const auto& [name, state] : entityAnimator->getAnimationStates()) {
-									ImGui::Text(("Animation: " + name).c_str());
-									ImGui::Text((" - Is Playing: " + std::string(state.isPlaying ? "Yes" : "No")).c_str());
-									ImGui::Text((" - Is Looping: " + std::string(state.isLooping ? "Yes" : "No")).c_str());
-									ImGui::Text((" - Weight: " + std::to_string(state.weight)).c_str());
-									ImGui::NewLine();
-								}
+			float comboBoxWidth = 200.0f;
+			float labelWidth = 200.0f;
 
-								float comboBoxWidth = 200.0f;
-								float labelWidth = 150.0f;
+			// Static indices to store selected animations for Idle, Moving, Action
+			static int selectedIndices[3] = { -1, -1, -1 }; // Idle, Moving, Action
+			const char* animationTypes[3] = { "Idle Animation", "Moving Animation", "Action Animation" };
 
-								// Animation Selection Section
-								ImGui::Text("Animation Selection:");
-								ImGui::NewLine();
+			auto animationNames = g_AnimationManager.getAnimationNames();
 
-								static int selectedAnimationIndex = -1;
+			for (int i = 0; i < 3; ++i) {
+				ImGui::Text(animationTypes[i]);
+				ImGui::SameLine(labelWidth);
+				ImGui::SetNextItemWidth(comboBoxWidth);
 
-								ImGui::Text("Select Animation:");
-								ImGui::SameLine(labelWidth);
-								ImGui::SetNextItemWidth(comboBoxWidth);
+				if (ImGui::BeginCombo(("##" + std::string(animationTypes[i])).c_str(),
+					selectedIndices[i] == -1 ? "None" : animationNames[selectedIndices[i]].c_str())) {
 
-								// Dropdown for selecting animations
-								if (ImGui::BeginCombo("##AnimationSelection",
-									selectedAnimationIndex == -1 ? "None"
-									: g_AnimationManager.getAnimationNames()[selectedAnimationIndex].c_str())) {
-									if (ImGui::Selectable("None", selectedAnimationIndex == -1)) {
-										selectedAnimationIndex = -1;
-									}
+					bool isSelected = (selectedIndices[i] == -1);
+					if (ImGui::Selectable("None", isSelected)) {
+						selectedIndices[i] = -1;
+					}
+					if (isSelected) {
+						ImGui::SetItemDefaultFocus();
+					}
 
-									for (int i = 0; i < g_AnimationManager.getAnimationNames().size(); ++i) {
-										bool isSelected = (selectedAnimationIndex == i);
-										if (ImGui::Selectable(g_AnimationManager.getAnimationNames()[i].c_str(), isSelected)) {
-											selectedAnimationIndex = i;
-										}
-										if (isSelected) {
-											ImGui::SetItemDefaultFocus();
-										}
-									}
-									ImGui::EndCombo();
-								}
-
-								ImGui::NewLine();
-
-								// Buttons for Play, Stop, and Revert
-								if (ImGui::Button("Play Animation")) {
-									if (selectedAnimationIndex != -1) {
-										std::string selectedAnimation = g_AnimationManager.getAnimationNames()[selectedAnimationIndex];
-										entityAnimator->playAnimation(selectedAnimation);
-										std::cout << "Playing animation: " << selectedAnimation << " on entity: " << g_SelectedEntity << std::endl;
-									}
-								}
-								ImGui::SameLine();
-								if (ImGui::Button("Stop Animation")) {
-									if (selectedAnimationIndex != -1) {
-										std::string selectedAnimation = g_AnimationManager.getAnimationNames()[selectedAnimationIndex];
-										entityAnimator->removeAnimation(selectedAnimation);
-										std::cout << "Stopped animation: " << selectedAnimation << " on entity: " << g_SelectedEntity << std::endl;
-									}
-								}
-
-								ImGui::NewLine();
-								if (ImGui::Button("Revert All Animations")) {
-									entityAnimator->removeAllAnimations();
-									std::cout << "Reverted all animations to default on entity: " << g_SelectedEntity << "." << std::endl;
-								}
-							}
+					for (int j = 0; j < animationNames.size(); ++j) {
+						isSelected = (selectedIndices[i] == j);
+						if (ImGui::Selectable(animationNames[j].c_str(), isSelected)) {
+							selectedIndices[i] = j;
 						}
-						else if (className == "AudioComponent")
+						if (isSelected) {
+							ImGui::SetItemDefaultFocus();
+						}
+					}
+					ImGui::EndCombo();
+				}
+			}
+
+			ImGui::NewLine();
+
+			// Apply and Revert Buttons
+			if (ImGui::Button("Apply")) {
+				for (int i = 0; i < 3; ++i) {
+					if (selectedIndices[i] == -1) {
+						// Clear animation for this type
+						entityAnimator->removeAnimation(animationTypes[i]);
+					}
+					else {
+						// Set animation
+						const std::string& selectedAnimation = animationNames[selectedIndices[i]];
+						g_AnimationManager.addAnimationToEntity(std::to_string(g_SelectedEntity), selectedAnimation);
+						entityAnimator->playAnimation(animationTypes[i]);
+					}
+				}
+				std::cout << "Animations applied successfully to entity " << g_SelectedEntity << "." << std::endl;
+			}
+
+			ImGui::SameLine();
+
+			if (ImGui::Button("Revert To Default")) {
+				// Reset indices and clear all animations for the entity
+				std::fill(std::begin(selectedIndices), std::end(selectedIndices), -1);
+				entityAnimator->removeAllAnimations();
+				std::cout << "Animations reverted to default for entity " << g_SelectedEntity << "." << std::endl;
+			}
+
+			ImGui::NewLine();
+		}
+	}
+	else {
+		if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
+			ImGui::Text("No animations found.");
+		}
+	}
+	}
+else if (className == "AudioComponent")
 						{
 							// Custom UI for AudioComponent
 							if (ImGui::CollapsingHeader("Audio", ImGuiTreeNodeFlags_None))

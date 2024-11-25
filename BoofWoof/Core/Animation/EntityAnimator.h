@@ -60,6 +60,13 @@ public:
         }
     }
 
+    void setAnimationLooping(const std::string& name, bool loop) {
+        auto stateIt = m_animationStates.find(name);
+        if (stateIt != m_animationStates.end()) {
+            stateIt->second.isLooping = loop;
+        }
+    }
+
     // Play multiple animations with blending
     void blendAnimations(const std::vector<std::pair<std::string, float>>& animationWeights) {
         float totalWeight = 0.0f;
