@@ -1,11 +1,11 @@
 #pragma once
-
 #include "Level Manager/Level.h"
 #include "ECS/Coordinator.hpp"
 #include "../Systems/CameraController/CameraController.h"
 #include "../Systems/BoneCatcher/BoneCatcher.h"
 #include "../Systems/RopeBreaker/RopeBreaker.h"
 #include "../Systems/ChangeText/ChangeText.h"
+#include "../Systems/Checklist/Checklist.h"
 
 Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{};
 CameraController* cameraController = nullptr;
@@ -17,6 +17,7 @@ class Level1 : public Level
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");		
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
 		g_ChangeText.OnInitialize();
+		g_Checklist.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -70,6 +71,7 @@ class Level1 : public Level
 
 		g_RopeBreaker.OnUpdate(deltaTime);	
 		g_ChangeText.OnUpdate(deltaTime);
+		g_Checklist.OnUpdate(deltaTime);
 
 		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
 		{
