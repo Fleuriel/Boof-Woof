@@ -49,10 +49,15 @@ public:
     void ResumeBGM();  // Function to resume the current audio
     bool IsPaused() const;  // Check if the audio is currently paused
     bool IsPlaying() const; // Check if audio is playing
+
+    void PlayFileOnNewChannel(const std::string& filePath);
+
 private:
     FMOD::System* system;  // FMOD system object
     std::unordered_map<Entity, std::vector<FMOD::Channel*>> channelMap;  // Channels per entity
     std::unordered_map<Entity, std::shared_ptr<FMOD::Sound>> audioMap;  // Sounds per entity
     std::unordered_map<std::string, std::shared_ptr<FMOD::Sound>> soundCache;  // Cached sounds
     std::unordered_map<Entity, float> volumeMap;  // Volume per entity
+    std::vector<FMOD::Channel*> additionalChannels;
+
 };

@@ -58,10 +58,10 @@ class MainMenu : public Level
 		{
 			if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
 			{
-				g_Audio.StopBGM();
+				//g_Audio.StopBGM();
 
 				// Play the button click sound
-				g_Audio.PlayFile("../BoofWoof/Assets/Audio/(MenuButtonClick).wav");
+				g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/(MenuButtonClick).wav");
 
 				// Mark space as pressed and reset elapsed time
 				spacePressed = true;
