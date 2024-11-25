@@ -13,30 +13,59 @@ struct Player final : public Behaviour
 		if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
 		{
 			//std::cout << "movingW" << std::endl;
-			velocity.z -= 2.f;
+			// Get Camera Direction
+			//float yaw = m_Engine.GetCameraYaw();
+
+			velocity += m_Engine.GetCameraDirection(entity) * 2.f;
+			
+			std::cout << velocity.x << " " << velocity.z << std::endl;
 			isMoving = true;
+
 		}
 
 		if (m_Engine.getInputSystem().isActionPressed("MoveLeft"))
 		{
-			//std::cout << "movingA" << std::endl;
-			velocity.x -= 2.f;
+			// Rotate the velocity 90 degrees to the left
+			glm::mat3 rotation = glm::mat3(
+				0.0f, 0.0f, -1.0f,
+				0.0f, 1.0f, 0.0f,
+				1.0f, 0.0f, 0.0f
+			);
+
+			velocity += rotation * m_Engine.GetCameraDirection(entity) * 2.f;
 			isMoving = true;
 		}
 
 		if (m_Engine.getInputSystem().isActionPressed("MoveBackward"))
 		{
 			//std::cout << "movingS" << std::endl;
-			velocity.z += 2.f;
+			velocity += -m_Engine.GetCameraDirection(entity) * 2.f;
 			isMoving = true;
 		}
 
 		if (m_Engine.getInputSystem().isActionPressed("MoveRight"))
 		{
 			//std::cout << "movingD" << std::endl;
-			velocity.x += 2.f;
+			
+			// Rotate the velocity 90 degrees to the right
+			glm::mat3 rotation = glm::mat3(
+				0.0f, 0.0f, 1.0f,
+				0.0f, 1.0f, 0.0f,
+				-1.0f, 0.0f, 0.0f
+			);
+
+			velocity += rotation * m_Engine.GetCameraDirection(entity) * 2.f;
 			isMoving = true;
 		}
+
+		/*
+		if (m_Engine.getInputSystem().isActionPressed("Jump"))
+		{
+			//std::cout << "jumping" << std::endl;
+			velocity.y += 2.f;
+			isMoving = true;
+		}
+		*/
 
 		//// Check if the entity has a collision component and physics body before setting velocity
 		//if (m_Engine.HaveCollisionComponent(entity) && m_Engine.HavePhysicsBody(entity))
@@ -49,6 +78,7 @@ struct Player final : public Behaviour
 		{
 			if (isMoving)
 			{
+				//velocity *= m_Engine.GetRotation(entity);
 				// Apply player input velocity
 				m_Engine.SetVelocity(entity, velocity);
 			}

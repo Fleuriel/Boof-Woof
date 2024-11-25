@@ -6,6 +6,8 @@
 #include "BehaviourInterface.h"
 #include "../Input/Input.h"
 #include "../Utilities/Components/CollisionComponent.hpp"
+#include "../Utilities/Components/TransformComponent.hpp"
+#include "../Utilities/Components/CameraComponent.hpp"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
@@ -39,6 +41,11 @@ public:
 	virtual glm::vec3 GetPosition(Entity entity) override
 	{
 		return g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition();
+	}
+
+	virtual glm::vec3 GetRotation(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<TransformComponent>(entity).GetRotation();
 	}
 
 	virtual void SetPosition(Entity entity, glm::vec3 position) override
@@ -98,6 +105,34 @@ public:
 			}
 		}
 		return glm::vec3(0.0f); // Return zero velocity for static or invalid entities
+	}
+
+	//Camera Component
+	virtual bool HaveCameraComponent(Entity entity) override
+	{
+		return g_Coordinator.HaveComponent<CameraComponent>(entity);
+	}
+
+	virtual glm::vec3 GetCameraDirection(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CameraComponent>(entity).GetCameraDirection();
+	}
+
+	// not used
+	virtual float GetCameraYaw(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CameraComponent>(entity).GetCameraYaw();
+	}
+
+	// not used
+	virtual float GetCameraPitch(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CameraComponent>(g_Player).GetCameraPitch();
+	}
+
+	virtual glm::vec3 GetCameraUp(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CameraComponent>(entity).GetCameraUp();
 	}
 
 };
