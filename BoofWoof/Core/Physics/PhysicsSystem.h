@@ -481,17 +481,17 @@ public:
             //std::cout << "[DEBUG] Entity " << entity1 << " removed collision with: "
             //    << g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName() << std::endl;
 
-            // Debug: Check if there are ongoing collisions
-            if (collisionComponent1.HasOngoingCollisions()) {
-                std::cout << "[DEBUG] Entity " << entity1 << " still colliding with: ";
-                for (const auto& collision : collisionComponent1.GetOngoingCollisions()) {
-                    std::cout << collision << " ";
-                }
-                std::cout << std::endl;
-            }
-            else {
-                std::cout << "[DEBUG] Entity " << entity1 << " has no more collisions." << std::endl;
-            }
+            //// Debug: Check if there are ongoing collisions
+            //if (collisionComponent1.HasOngoingCollisions()) {
+            //    std::cout << "[DEBUG] Entity " << entity1 << " still colliding with: ";
+            //    for (const auto& collision : collisionComponent1.GetOngoingCollisions()) {
+            //        std::cout << collision << " ";
+            //    }
+            //    std::cout << std::endl;
+            //}
+            //else {
+            //    std::cout << "[DEBUG] Entity " << entity1 << " has no more collisions." << std::endl;
+            //}
         }
 
         if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
@@ -502,17 +502,17 @@ public:
             std::cout << "[DEBUG] Entity " << entity2 << " removed collision with: "
                 << g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName() << std::endl;
 
-            // Debug: Check if there are ongoing collisions
-            if (collisionComponent2.HasOngoingCollisions()) {
-                std::cout << "[DEBUG] Entity " << entity2 << " still colliding with: ";
-                for (const auto& collision : collisionComponent2.GetOngoingCollisions()) {
-                    std::cout << collision << " ";
-                }
-                std::cout << std::endl;
-            }
-            else {
-                std::cout << "[DEBUG] Entity " << entity2 << " has no more collisions." << std::endl;
-            }
+            //// Debug: Check if there are ongoing collisions
+            //if (collisionComponent2.HasOngoingCollisions()) {
+            //    std::cout << "[DEBUG] Entity " << entity2 << " still colliding with: ";
+            //    for (const auto& collision : collisionComponent2.GetOngoingCollisions()) {
+            //        std::cout << collision << " ";
+            //    }
+            //    std::cout << std::endl;
+            //}
+            //else {
+            //    std::cout << "[DEBUG] Entity " << entity2 << " has no more collisions." << std::endl;
+            //}
         }
     }
 
