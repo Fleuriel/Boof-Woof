@@ -395,9 +395,7 @@ void GraphicsSystem::UpdateLoop() {
 
 		// Disable depth writing and enable blending for transparency
 
-		glDepthMask(GL_FALSE);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 
 		// Set shader uniforms based on camera following
 		if (graphicsComp.getFollowCamera()) {
