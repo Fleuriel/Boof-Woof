@@ -1320,6 +1320,12 @@ else if (className == "AnimationComponent") {
 				ImGui::Text(("   Playing: " + std::string(state.isPlaying ? "Yes" : "No")).c_str());
 				ImGui::Text(("   Looping: " + std::string(state.isLooping ? "Yes" : "No")).c_str());
 				ImGui::Text(("   Weight: " + std::to_string(state.weight)).c_str());
+
+				// Add a Play button for this animation
+				if (ImGui::Button(("Play##" + name).c_str())) {
+					entityAnimator->playAnimation(name); // Call the play function
+				}
+
 				ImGui::NewLine();
 			}
 

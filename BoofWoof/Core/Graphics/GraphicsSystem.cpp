@@ -10,6 +10,7 @@
 
 #include "Input/Input.h"
 #include "EngineCore.h"
+#include "Animation/AnimationManager.h"
 
 
 bool GraphicsSystem::debug = false;
@@ -135,7 +136,7 @@ void GraphicsSystem::UpdateLoop() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear framebuffer
 
 
-
+	g_AnimationManager.update(deltaTime);
 	
 
 
