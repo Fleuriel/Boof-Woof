@@ -22,11 +22,11 @@ void RopeBreaker::OnUpdate(double deltaTime)
 	// Drawbridge
 	if (!isFalling) 
 	{
-		//return; // do nothing
+		return; // do nothing
 
 		// For quick testing
-		PlayerCollidedRope1 = PlayerCollidedRope2 = true;
-		RopeDespawned = 2;
+		//PlayerCollidedRope1 = PlayerCollidedRope2 = true;
+		//RopeDespawned = 2;
 	}
 	else 
 	{
