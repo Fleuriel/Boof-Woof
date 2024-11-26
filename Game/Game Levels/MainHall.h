@@ -17,8 +17,6 @@ class MainHall : public Level
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainHall.json");
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
 
-		g_ChangeText.OnInitialize();
-
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
 		for (auto entity : entities)
@@ -51,16 +49,8 @@ class MainHall : public Level
 
 	void InitLevel()
 	{
-		if (playerEnt != Entity{})
-		{
-			// Ensure player entity is valid
-			cameraController = new CameraController(playerEnt);
-
-			if (RopeEnt != Entity{})
-			{
-				g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
-			}
-		}
+		cameraController = new CameraController(playerEnt);
+		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
 	}
 
 	bool teb_last = false;
