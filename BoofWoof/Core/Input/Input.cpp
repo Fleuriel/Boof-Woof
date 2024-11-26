@@ -20,10 +20,10 @@ InputSystem::InputSystem() {
     SetActionMapping("MoveLeft", GLFW_KEY_A);
     SetActionMapping("MoveRight", GLFW_KEY_D);
     SetActionMapping("Jump", GLFW_KEY_SPACE);
-    SetActionMapping("Bark", GLFW_MOUSE_BUTTON_LEFT);
-	SetActionMapping("Sniff", GLFW_MOUSE_BUTTON_RIGHT);
+    SetActionMapping("Bark", GLFW_MOUSE_BUTTON_RIGHT);
+	SetActionMapping("Sniff", GLFW_KEY_E);
 	SetActionMapping("Sprint", GLFW_KEY_LEFT_SHIFT);
-    //SetActionMapping("Shoot", GLFW_MOUSE_BUTTON_LEFT);
+    SetActionMapping("Biting", GLFW_MOUSE_BUTTON_LEFT);
 }
 
 /**************************************************************************
