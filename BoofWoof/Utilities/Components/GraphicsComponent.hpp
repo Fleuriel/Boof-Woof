@@ -71,17 +71,18 @@ public:
     glm::vec3 boundingBox;
 
 
-    // Constructor and destructor
-    GraphicsComponent() {};
-	
-	GraphicsComponent(std::string modelName, Entity& entity, std::string texName, bool followCam = true) : m_ModelName(modelName), m_EntityID(g_Coordinator.GetEntityId(entity)), textureName(texName), followCamera(followCam)
-	{/*Empty by design*/
+    GraphicsComponent() : hasMaterial(false), boundingBox(glm::vec3(0.0f)) {}
 
-        
-
-		std::cout << "Model Name of Graphics Component: " << m_ModelName << '\n';
-		//std::cout << "Texture Name of Graphics Component: " << textureName << '\n';
-	}
+    GraphicsComponent(std::string modelName, Entity& entity, std::string texName, bool followCam = true)
+        : m_ModelName(modelName),
+        m_EntityID(g_Coordinator.GetEntityId(entity)),
+        textureName(texName),
+        followCamera(followCam),
+        hasMaterial(false),
+        boundingBox(glm::vec3(0.0f))
+    {
+        std::cout << "Model Name of Graphics Component: " << m_ModelName << '\n';
+    }
 
     ~GraphicsComponent() = default;
 

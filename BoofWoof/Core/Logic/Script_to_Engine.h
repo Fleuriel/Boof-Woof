@@ -8,12 +8,13 @@
 #include "../Utilities/Components/CollisionComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/CameraComponent.hpp"
+#include "../Core/EngineCore.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
 #include <Jolt/Physics/Body/Body.h>
 
-class Script_to_Engine : public engine_interface, public input_interface
+class Script_to_Engine : public engine_interface, public input_interface, public audio_interface
 {
 public:
 
@@ -30,12 +31,31 @@ public:
 
 	virtual bool isActionPressed(const char * action) override
 	{
+		
 		return g_Input.IsActionPressed(action);
 	}
 
 	// END OF INPUT INTERFACE
+	
+	// AUDIO INTERFACE
+	virtual audio_interface& getAudioSystem() override
+	{
+		return *this;
+	}
+
+	virtual void PlaySound(const char* pSoundName) override
+	{
+		UNREFERENCED_PARAMETER(pSoundName);
+		// Play sound
+		// g_Audio.PlayFile(pSoundName);
+	}
 
 	// ENGINE INTERFACE
+
+	virtual void DestroyEntity(Entity entity) override
+	{
+		g_Coordinator.DestroyEntity(entity);
+	}
 	
 	//Transform Component
 	virtual glm::vec3 GetPosition(Entity entity) override
@@ -70,29 +90,7 @@ public:
 		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody() != nullptr;
 	}
 
-	virtual void SetVelocity(Entity entity, glm::vec3 inputVelocity) override
-	{
-		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
-		{
-			auto* body = g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody();
-			if (body->GetMotionType() == JPH::EMotionType::Dynamic)
-			{
-				JPH::Vec3 currentVelocity = body->GetLinearVelocity();
-
-				// Combine gravity with player input velocity
-				JPH::Vec3 newVelocity(inputVelocity.x, currentVelocity.GetY(), inputVelocity.z);
-
-				body->SetLinearVelocity(newVelocity);
-
-				// std::cout << "Set Velocity: (" << newVelocity.GetX() << ", " << newVelocity.GetY() << ", " << newVelocity.GetZ() << ")" << std::endl;
-			}
-		}
-		else
-		{
-			std::cerr << "Entity " << entity << " does not have a valid CollisionComponent or PhysicsBody. Skipping SetVelocity." << std::endl;
-		}
-	}
-
+	
 	virtual glm::vec3 GetVelocity(Entity entity) override
 	{
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
@@ -105,6 +103,60 @@ public:
 			}
 		}
 		return glm::vec3(0.0f); // Return zero velocity for static or invalid entities
+	}
+
+	virtual bool IsColliding(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetIsColliding();
+	}
+
+	virtual const char* GetCollidingEntityName(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetLastCollidedObjectName().c_str();
+	}
+
+	virtual void SetVelocity(Entity entity, glm::vec3 inputVelocity) override
+	{
+		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
+		{
+			auto* body = g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody();
+			if (body->GetMotionType() == JPH::EMotionType::Dynamic)
+			{
+				JPH::Vec3 currentVelocity = body->GetLinearVelocity();
+
+				// Combine gravity with player input velocity
+				JPH::Vec3 newVelocity(inputVelocity.x, inputVelocity.y, inputVelocity.z);
+
+				body->SetLinearVelocity(newVelocity);
+
+				// std::cout << "Set Velocity: (" << newVelocity.GetX() << ", " << newVelocity.GetY() << ", " << newVelocity.GetZ() << ")" << std::endl;
+			}
+		}
+		else
+		{
+			std::cerr << "Entity " << entity << " does not have a valid CollisionComponent or PhysicsBody. Skipping SetVelocity." << std::endl;
+		}
+	}
+
+	// Grounded functions
+	virtual bool IsGrounded(Entity entity) override
+	{
+		if (HaveCollisionComponent(entity)) {
+			return g_Coordinator.GetComponent<CollisionComponent>(entity).GetIsGrounded();
+		}
+		return false;
+	}
+
+	virtual void SetGrounded(Entity entity, bool grounded) override
+	{
+		if (HaveCollisionComponent(entity)) {
+			g_Coordinator.GetComponent<CollisionComponent>(entity).SetIsGrounded(grounded);
+		}
+	}
+
+	virtual double GetDeltaTime() override
+	{
+		return g_Core ? g_Core->m_DeltaTime : 0.0;
 	}
 
 	//Camera Component
@@ -127,6 +179,7 @@ public:
 	// not used
 	virtual float GetCameraPitch(Entity entity) override
 	{
+		UNREFERENCED_PARAMETER(entity);
 		return g_Coordinator.GetComponent<CameraComponent>(g_Player).GetCameraPitch();
 	}
 

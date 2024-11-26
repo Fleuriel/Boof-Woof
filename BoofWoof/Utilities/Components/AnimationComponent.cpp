@@ -3,6 +3,9 @@
 #include "AnimationComponent.h"
 #include <iostream>
 
+#define UNREFERENCED_PARAMETER(P)          (P)
+
+
 // Constructor
 AnimationComponent::AnimationComponent(std::shared_ptr<AnimationManager> animManager)
     : animationManager(std::move(animManager)) {}
@@ -40,12 +43,16 @@ void AnimationComponent::Update(double deltaTime) {
 // Optional: Blend to a new animation
 void AnimationComponent::BlendTo(const std::string& animationName, double blendDuration) {
     // Implementation of blending logic (if applicable)
+    UNREFERENCED_PARAMETER(animationName);
+    UNREFERENCED_PARAMETER(blendDuration);
     std::cerr << "BlendTo is not implemented yet." << std::endl;
 }
 
 // Get the current transformation matrix
 void AnimationComponent::GetCurrentTransform(const std::string& nodeName, aiMatrix4x4& outTransform) const {
     // Logic to calculate the transformation matrix for a specific node (e.g., skeletal bones)
+    UNREFERENCED_PARAMETER(nodeName);
+    UNREFERENCED_PARAMETER(outTransform);
     std::cerr << "GetCurrentTransform is not implemented yet." << std::endl;
 }
 

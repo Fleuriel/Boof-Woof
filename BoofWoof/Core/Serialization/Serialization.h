@@ -50,6 +50,7 @@ public:
 
 private:
     static std::string currentSceneGUID;  // To store the GUID for the current scene
+    std::unordered_map<int, Entity> oldToNewEntityMap;
 };
 
 #endif // SERIALIZATION_H

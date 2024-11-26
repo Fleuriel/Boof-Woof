@@ -174,15 +174,21 @@ xcopy /y /d "$(SolutionDir)lib\freetype\freetype.dll" "$(OutDir)"</Command>
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Systems\BoneCatcher\BoneCatcher.cpp" />
     <ClCompile Include="Systems\CameraController\CameraController.cpp" />
+    <ClCompile Include="Systems\ChangeText\ChangeText.cpp" />
+    <ClCompile Include="Systems\Checklist\Checklist.cpp" />
     <ClCompile Include="Systems\RopeBreaker\RopeBreaker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game Levels\Cutscene.h" />
-    <ClInclude Include="Game Levels\Level1.h" />
+    <ClInclude Include="Game Levels\MainHall.h" />
+    <ClInclude Include="Game Levels\StartingRoom.h" />
     <ClInclude Include="Game Levels\MainMenu.h" />
     <ClInclude Include="Game Levels\Splashscreen.h" />
+    <ClInclude Include="Game Levels\TimeRush.h" />
     <ClInclude Include="Systems\BoneCatcher\BoneCatcher.h" />
     <ClInclude Include="Systems\CameraController\CameraController.h" />
+    <ClInclude Include="Systems\ChangeText\ChangeText.h" />
+    <ClInclude Include="Systems\Checklist\Checklist.h" />
     <ClInclude Include="Systems\RopeBreaker\RopeBreaker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

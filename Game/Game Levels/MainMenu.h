@@ -3,6 +3,7 @@
 #include "Level Manager/Level.h"
 #include "ECS/Coordinator.hpp"
 
+
 Entity BackCamera{};  // Entity for the back camera
 
 double MenuelapsedTime = 0.0;  // Tracks the elapsed time
@@ -66,6 +67,7 @@ class MainMenu : public Level
 				// Mark space as pressed and reset elapsed time
 				spacePressed = true;
 				MenuelapsedTime = 0.0;
+				g_Window->HideMouseCursor();
 			}
 		}
 		else 

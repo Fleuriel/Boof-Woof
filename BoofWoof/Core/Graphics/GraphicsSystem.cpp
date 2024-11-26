@@ -23,7 +23,14 @@ bool GraphicsSystem::lightOn = false;
 
 CameraComponent GraphicsSystem::camera;
 CameraComponent camera_render;
-ParticleComponent Particle_cmp;
+
+struct light_info {
+	glm::vec3 position;
+	glm::vec3 color;
+	float intensity;
+};
+std::vector <light_info> lights_infos;
+
 
 glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 
@@ -169,6 +176,26 @@ void GraphicsSystem::UpdateLoop() {
 			}
 		}
 	}
+
+	lights_infos.clear();
+	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
+	{
+		if (g_Coordinator.HaveComponent<LightComponent>(entity))
+		{
+			if (g_Coordinator.HaveComponent<TransformComponent>(entity))
+			{
+				auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+				light_info light_info_;
+				light_info_.position = transformComp.GetPosition();
+				light_info_.intensity = g_Coordinator.GetComponent<LightComponent>(entity).getIntensity();
+				light_info_.color = g_Coordinator.GetComponent<LightComponent>(entity).getColor();
+
+				lights_infos.push_back(light_info_);
+
+			}
+
+		}
+	}
 	
 	shdrParam.View = camera_render.GetViewMatrix();
 	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
@@ -191,12 +218,50 @@ void GraphicsSystem::UpdateLoop() {
 			continue;
 		}
 
-
 		auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+
+		// Get the TransformSystem instance
+		std::shared_ptr<TransformSystem> transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+
+		// Retrieve the world matrix for the current entity
+		glm::mat4 worldMatrix = transformSystem->GetWorldMatrix(entity);
+
+		shdrParam.WorldMatrix = worldMatrix; // Use the world matrix for rendering
+
+
+		if (g_Coordinator.HaveComponent<ParticleComponent>(entity))
+		{
+			auto& particleComp = g_Coordinator.GetComponent<ParticleComponent>(entity);
+			if (!particleComp.getInitFlag()) {
+				particleComp.init();
+				particleComp.setInitFlag(true);
+			}
+			g_AssetManager.GetShader("instanced").Use();
+			g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
+			g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
+			glPointSize(particleComp.getParticleSize());
+			g_AssetManager.GetShader("instanced").SetUniform("particleColor", particleComp.getParticleColor());
+			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
+			g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+			//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
+			particleComp.update(static_cast<float>(g_Core->m_DeltaTime));
+			particleComp.draw();
+			g_AssetManager.GetShader("instanced").UnUse();
+
+		}
+
+
+		if (!g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+		{
+			continue;
+		}
 		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 		
 
 		if (g_Coordinator.HaveComponent<MaterialComponent>(entity))
+		g_AssetManager.GetShader("Shader3D").Use();
+
+		if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
 		{
 
 
@@ -222,10 +287,74 @@ void GraphicsSystem::UpdateLoop() {
 			}
 			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
 
-			if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
-			{
-				/* We do not need these anymore */
-				continue;
+		}
+		g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
+		for (int i = 0; i < lights_infos.size(); i++)
+		{
+			std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
+			g_AssetManager.GetShader("Shader3D").SetUniform(lightPosStr.c_str(), lights_infos[i].position);
+			std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
+			g_AssetManager.GetShader("Shader3D").SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
+			std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
+			g_AssetManager.GetShader("Shader3D").SetUniform(lightColorStr.c_str(), lights_infos[i].color);
+		}
+		/*g_AssetManager.GetShader("Shader3D").SetUniform("lights[0].position", lightPos);
+		g_AssetManager.GetShader("Shader3D").SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
+		g_AssetManager.GetShader("Shader3D").SetUniform("numLights", static_cast<int>(lights_infos.size()));
+		g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera_render.Position);
+		g_AssetManager.GetShader("Shader3D").SetUniform("lightOn", lightOn);
+
+		/*std::cout << "entity "<< entity << "\n";
+		std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
+		std::cout << "comp tetx cnt "<<graphicsComp.getTextureNumber() << "\n";*/
+
+
+		//if (graphicsComp.getTextureNumber() == 0) {
+		for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+			mesh.textures.clear();
+		}
+
+		g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt = 0;
+		//}
+
+
+		while (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()) {
+
+
+#ifdef _DEBUG
+			//std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->name << '\n';
+
+			//std::cout << graphicsComp.getModelName() << '\n';
+
+			//std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << '\t' << g_ResourceManager.getModel(graphicsComp.getModelName())->textures_loaded.size() << '\n';
+#endif
+
+					// add texture to mesh
+			Texture texture_add;
+
+			//if(graphicsComp.getModelName() == "sphere")
+			texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
+			//else
+				//texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName());
+
+			//std::cout << texture_add.id << "\n";
+
+			if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 0)
+				texture_add.type = "texture_diffuse";
+			else if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 1)
+				texture_add.type = "texture_normal";
+			else
+				texture_add.type = "texture_specular";
+
+			//std::cout << texture_add.type << '\n';
+
+			//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
+
+			for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+				//	std::cout << "texture size before adding: " << mesh.textures.size() << "\n";
+					//mesh.textures.clear();
+				mesh.textures.push_back(texture_add);
+				//	std::cout << "entered\n";
 			}
 
 
@@ -234,145 +363,239 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-			g_AssetManager.GetShader(shaderName).Use();
+		//g_AssetManager.GetShader(shaderName).Use();
 
-			SetShaderUniforms(g_AssetManager.GetShader(shaderName), shdrParam);
-
-
-			if (shaderName == "Shader2D")
-			{
-				g_AssetManager.GetShader(shaderName).SetUniform("uTex2d", 6);
-
-				
-				graphicsComp.AddTexture(g_ResourceManager.GetTextureDDS(graphicsComp.GetDiffuseName()));
-
-				glBindTextureUnit(6, graphicsComp.getTexture(0));
+		//SetShaderUniforms(g_AssetManager.GetShader(shaderName), shdrParam);
 
 
-			}
-			else if (shaderName == "OutlineAndFont")
-			{
-				g_AssetManager.GetShader(shaderName).SetUniform("uTex2d", 6);
-				g_AssetManager.GetShader(shaderName).SetUniform("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
+		//if (shaderName == "Shader2D")
+		//{
+		//	g_AssetManager.GetShader(shaderName).SetUniform("uTex2d", 6);
 
-				// This one put the D2 D3 here.
+		//	
+		//	graphicsComp.AddTexture(g_ResourceManager.GetTextureDDS(graphicsComp.GetDiffuseName()));
 
-				if (D2)
-				{
-					Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
-					g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
-
-				}
-
-				if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-					auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
-					JPH::Body* body = collisionComp.GetPhysicsBody();
-
-					if (body) {
-						// Get the world-space AABB from JoltPhysics
-						JPH::AABox aabb = body->GetWorldSpaceBounds();
-
-						// Calculate center and half-extents
-						JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
-						glm::vec3 glmCenter = glm::vec3(0, 0, 0);
-
-						// Apply offset for visual debugging
-						glm::vec3 offset = collisionComp.GetAABBOffset();
-						glm::vec3 adjustedCenter = glmCenter + offset;
-
-						if (D3) {
-							//g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(glmCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f)); // Green color
-							g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(adjustedCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f));
-						}
-					}
-				}
-
-			}
-			else if (shaderName == "Material" || shaderName == "Shader3D")
-			{
-				if (shaderName == "Shader3D")
-					g_AssetManager.GetShader(shaderName).SetUniform("setFinalAlpha", shader.GetFinalAlpha());
-
-				g_AssetManager.GetShader(shaderName).SetUniform("inputColor", shader.GetColor());
+		//	glBindTextureUnit(6, graphicsComp.getTexture(0));
 
 
+		//}
+		//else if (shaderName == "OutlineAndFont")
+		//{
+		//	g_AssetManager.GetShader(shaderName).SetUniform("uTex2d", 6);
+		//	g_AssetManager.GetShader(shaderName).SetUniform("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
 
-				g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
+		//	// This one put the D2 D3 here.
 
-				g_AssetManager.GetShader(shaderName).SetUniform("viewPos", camera.GetViewMatrix());
-				g_AssetManager.GetShader(shaderName).SetUniform("metallic", shader.GetMetallic());
-				g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.GetSmoothness());
+		//	if (D2)
+		//	{
+		//		Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
+		//		g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
 
+		//	}
 
-				// Check if a texture is set, and bind it
-				if (shader.GetDiffuseID() >= 0) { // Assuming textureID is -1 if no texture
-					glActiveTexture(GL_TEXTURE0);
-					glBindTexture(GL_TEXTURE_2D, shader.GetDiffuseID());
-					g_AssetManager.GetShader(shaderName).SetUniform("albedoTexture", 0);
-					g_AssetManager.GetShader(shaderName).SetUniform("useTexture", true);
-				}
-				else {
-					g_AssetManager.GetShader(shaderName).SetUniform("useTexture", false);
-				}
-			}
-			else
-			{
-				std::cout << "shader does not exist\n";
-				continue;
-			}
+		//	if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+		//		auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+		//		JPH::Body* body = collisionComp.GetPhysicsBody();
+
+		//		if (body) {
+		//			// Get the world-space AABB from JoltPhysics
+		//			JPH::AABox aabb = body->GetWorldSpaceBounds();
+
+		//			// Calculate center and half-extents
+		//			JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
+		//			glm::vec3 glmCenter = glm::vec3(0, 0, 0);
+
+		//			// Apply offset for visual debugging
+		//			glm::vec3 offset = collisionComp.GetAABBOffset();
+		//			glm::vec3 adjustedCenter = glmCenter + offset;
+
+		//			if (D3) {
+		//				//g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(glmCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f)); // Green color
+		//				g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(adjustedCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f));
+		//			}
+		//		}
+		//	}
+
+		//}
+		//else if (shaderName == "Material" || shaderName == "Shader3D")
+		//{
+		//	if (shaderName == "Shader3D")
+		//		g_AssetManager.GetShader(shaderName).SetUniform("setFinalAlpha", shader.GetFinalAlpha());
+
+		//	g_AssetManager.GetShader(shaderName).SetUniform("inputColor", shader.GetColor());
 
 
 
+		//	g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
 
-			if (shaderName == "Shader2D")
-				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader(shaderName));
-			else
-				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader(shaderName));
+		//	g_AssetManager.GetShader(shaderName).SetUniform("viewPos", camera.GetViewMatrix());
+		//	g_AssetManager.GetShader(shaderName).SetUniform("metallic", shader.GetMetallic());
+		//	g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.GetSmoothness());
 
 
+		//	// Check if a texture is set, and bind it
+		//	if (shader.GetDiffuseID() >= 0) { // Assuming textureID is -1 if no texture
+		//		glActiveTexture(GL_TEXTURE0);
+		//		glBindTexture(GL_TEXTURE_2D, shader.GetDiffuseID());
+		//		g_AssetManager.GetShader(shaderName).SetUniform("albedoTexture", 0);
+		//		g_AssetManager.GetShader(shaderName).SetUniform("useTexture", true);
+		//	}
+		//	else {
+		//		g_AssetManager.GetShader(shaderName).SetUniform("useTexture", false);
+		//	}
+		//}
+		//else
+		//{
+		//	std::cout << "shader does not exist\n";
+		//	continue;
+		//}
+
+
+
+
+		//if (shaderName == "Shader2D")
+		//	g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader(shaderName));
+		//else
+		//	g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader(shaderName));
 
 
 
 
 
 
-			g_AssetManager.GetShader(shaderName).UnUse();
-		}
-		////clear all textures
-		////for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
-		//////	std::cout << "texture size after clearing: " << mesh.textures.size() << "\n";
-		////}
-		//g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
-		////std::cout << "out model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
-		////std::cout << "out comp tetx cnt " << graphicsComp.getTextureNumber() << "\n";
+
+
+		//g_AssetManager.GetShader(shaderName).UnUse();
+		//
+		//clear all textures
+		//for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+		////	std::cout << "texture size after clearing: " << mesh.textures.size() << "\n";
+		//}
+		//AssetManager.GetShader("Shader3D").SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
+		//std::cout << "out model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
+		//std::cout << "out comp tetx cnt " << graphicsComp.getTextureNumber() << "\n";
 		//
 		//
 		//
 		//
-		//if (debug)
-		//	if (D3)
-		//		g_ResourceManager.getModel(graphicsComp.getModelName())->DrawLine();
-		
-		
-		/*//skip for now
-		for (int i = 0; i < graphicsComp.getTextureNumber(); i++)
-		{
-			glActiveTexture(GL_TEXTURE0 + i);
-			static bool show = true;
-			if (show) {
-				std::cout << "Texture Count: " << graphicsComp.getTextureNumber() <<" with 1st texture number " << graphicsComp.getTexture(i) << std::endl;
-				show = false;
-			}
-			g_AssetManager.GetShader("Shader3D").SetUniform("texture1", i);
-			glBindTexture(GL_TEXTURE_2D, graphicsComp.getTexture(i));
-		}*/
+		// (debug)
+		//if (D3)
+		//	g_ResourceManager.getModel(graphicsComp.getModelName())->DrawLine();
+		//
+		//
+		//skip for now
+		//(int i = 0; i < graphicsComp.getTextureNumber(); i++)
+		//
+		//glActiveTexture(GL_TEXTURE0 + i);
+		//static bool show = true;
+		//if (show) {
+		//	std::cout << "Texture Count: " << graphicsComp.getTextureNumber() <<" with 1st texture number " << graphicsComp.getTexture(i) << std::endl;
+		//	show = false;
+		//}
+		//g_AssetManager.GetShader("Shader3D").SetUniform("texture1", i);
+		//glBindTexture(GL_TEXTURE_2D, graphicsComp.getTexture(i));
+		//
 
-		//	g_AssetManager.GetShader("Shader3D").SetUniform("texture1", tex1);
-		//	g_AssetManager.GetShader("Shader3D").SetUniform("texture2", tex2);
-//				g_AssetManager.GetShader("OutlineAndFont").SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
+		//g_AssetManager.GetShader("Shader3D").SetUniform("texture1", tex1);
+		//g_AssetManager.GetShader("Shader3D").SetUniform("texture2", tex2);
+//		//	g_AssetManager.GetShader("OutlineAndFont").SetUniform("objectColor", glm::vec3(1.0f,1.0f,1.0f));
 
-				//graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
-				//std::cout << "Drawing entity: " << entity << '\n';
+		//	//graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
+		//	//std::cout << "Drawing entity: " << entity << '\n';
+		//sourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("Shader3D"));
+		//			g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
+		//			//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
+
+		//setManager.GetShader("Shader3D").UnUse();
+
+
+
+
+		//del outline = ModelOutline3D(,glm::vec3(0.0f, 1.0f, 0.0f));
+		//TART OF 3D BOX WIREFRAME MODE
+
+//		//	g_AssetManager.GetShader("OutlineAndFont").Use();
+
+		//	// END OF 3D
+
+
+		//setManager.GetShader("Shader2D").Use();
+
+		//isable depth writing and enable blending for transparency
+
+
+
+		//et shader uniforms based on camera following
+		//graphicsComp.getFollowCamera()) {
+		//SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
+		//
+		// {
+		//g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+		//g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
+		//g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
+		//
+
+		//ind texture
+		//graphicsComp.getTextureNumber() == 0) {
+		//glBindTextureUnit(6, 0); // No texture
+		//
+		// {
+		//glBindTextureUnit(6, graphicsComp.getTexture(0)); // Texture with transparency
+		//
+
+		//et texture uniform before drawing
+		//setManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
+
+		//raw the model
+		//sourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader("Shader2D"));
+
+		//estore settings
+		//setManager.GetShader("Shader2D").UnUse();
+
+
+
+		//BindTextureUnit(6, set_Texture_T);
+
+		//setManager.GetShader("OutlineAndFont").Use();
+		//haderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
+		//debug)
+		//
+		//if (D2)
+		//{
+		//	Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
+		//	g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
+
+		//}
+
+		//if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+		//	auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+		//	JPH::Body* body = collisionComp.GetPhysicsBody();
+
+		//	if (body) {
+		//		// Get the world-space AABB from JoltPhysics
+		//		JPH::AABox aabb = body->GetWorldSpaceBounds();
+
+		//		// Calculate center and half-extents
+		//		JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
+		//		glm::vec3 glmCenter = glm::vec3(0, 0, 0);
+
+		//		// Apply offset for visual debugging
+		//		glm::vec3 offset = collisionComp.GetAABBOffset();
+		//		glm::vec3 adjustedCenter = glmCenter + offset;
+
+		//		if (D3) {
+		//			//g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(glmCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f)); // Green color
+		//			g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(adjustedCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f));
+		//		}
+		//	}
+		//}
+		//
+
+		//setManager.GetShader("OutlineAndFont").UnUse();
+		//graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
+		//g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
+//				g_ResourceManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
+
 		
 		
 		
@@ -602,24 +825,24 @@ bool GraphicsSystem::DrawMaterialSphere()
 	return true;
 }
 
-void GraphicsSystem::generateNewFrameBuffer(unsigned int& fbo, unsigned int& textureColorbuffer, unsigned int& rbo, int width, int height) {
+void GraphicsSystem::generateNewFrameBuffer(unsigned int& fbo_, unsigned int& textureColorbuffer_, unsigned int& rbo_, int width, int height) {
 	// Generate and bind the framebuffer
-	glGenFramebuffers(1, &fbo);
-	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+	glGenFramebuffers(1, &fbo_);
+	glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
 
 	// Create the texture for the framebuffer
-	glGenTextures(1, &textureColorbuffer);
-	glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+	glGenTextures(1, &textureColorbuffer_);
+	glBindTexture(GL_TEXTURE_2D, textureColorbuffer_);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer_, 0);
 
 	// Create the renderbuffer for depth and stencil
-	glGenRenderbuffers(1, &rbo);
-	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+	glGenRenderbuffers(1, &rbo_);
+	glBindRenderbuffer(GL_RENDERBUFFER, rbo_);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo_);
 
 	// Check if the framebuffer is complete
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
@@ -704,7 +927,9 @@ void GraphicsSystem::RenderSceneForPicking() {
 		if (g_Coordinator.HaveComponent<TransformComponent>(entity))
 		{
 			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
-			glm::mat4 worldMatrix = transformComp.GetWorldMatrix();
+			// Get the TransformSystem instance
+			std::shared_ptr<TransformSystem> transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+			glm::mat4 worldMatrix = transformSystem->GetWorldMatrix(entity);
 			pickingShader.SetUniform("vertexTransform", worldMatrix);
 
 			// Encode the entity ID as a color

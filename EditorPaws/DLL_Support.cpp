@@ -48,9 +48,9 @@ void DLL_Support_Unload() {
 // Custom hook procedure
 LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam) {
     if (nCode >= 0) {
-        MSG* msg = (MSG*)lParam;
+        MSG* Message = (MSG*)lParam;
 
-        if (msg->message == WM_FILE_CHANGED) {
+        if (Message->message == WM_FILE_CHANGED) {
             MessageBoxW(NULL, L"File change detected!", L"Notification", MB_OK);
             std::cout << "File change detected!" << std::endl;
         }
@@ -98,39 +98,41 @@ bool IsDLLInUse(const std::wstring& dllPath) {
     CloseHandle(hFile);
     return false; // DLL is not in use
 }
-/*
-void StartFocusChecker() {
-    // Launch focus checker in a separate thread
-    std::thread focusThread(FocusChecker);
-    focusThread.detach(); // Detach to allow independent execution
-}
-*/
-
 
 void FocusChecker(GLFWwindow* window, int focused) {
     
         if (focused) {
             if (wasPreviouslyUnfocused.exchange(false)) {
                 std::cout << "Window regained focus.\n";
+                /*
                 monitoringThread = false;
                 if (monitorThread.joinable()) {
                     monitorThread.join();
                 }
-				if (DLL_has_changed) {
-					ChangeDLL();
-					DLL_has_changed = false;
+                */
+				// Compare DLL modification times
+				std::filesystem::path dllMainPath = DLL_MAIN_DIRECTORY;
+				std::filesystem::path dllCopyPath = DLL_COPY_DIRECTORY;
+                if (CompareFiles(dllMainPath, dllCopyPath)) {
+                    ChangeDLL();
+                }
+                /*
+				if (!DLL_has_changed) {
+                    std::cout << "DLL has not changed.\n";
 				}
 				else {
-					std::cout << "DLL has not changed.\n";
+                    ChangeDLL();
+                    DLL_has_changed = false;
 				}
+                */
             }
             
         }
         else {
             if (!wasPreviouslyUnfocused.exchange(true)) {
                 std::cout << "Window lost focus 2.\n";
-				monitoringThread = true;
-                monitorThread = std::thread(MonitorDirectory); // Trigger directory monitoring
+				//monitoringThread = true;
+                //monitorThread = std::thread(MonitorDirectory); // Trigger directory monitoring
             }
         }
 
@@ -139,7 +141,82 @@ void FocusChecker(GLFWwindow* window, int focused) {
         //std::this_thread::sleep_for(std::chrono::milliseconds(100));
  }
 
+// Function to compare file modification times
+bool CompareFiles(const std::filesystem::path& build, const std::filesystem::path& copy) {
+    try {
+        auto time1 = std::filesystem::last_write_time(build);
+        auto time2 = std::filesystem::last_write_time(copy);
+
+		// if time1 is greater than time2, then the build file is newer
+        if (time1 > time2) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    catch (const std::filesystem::filesystem_error& e) {
+		std::cerr << "Error comparing file modification times: " << e.what() << std::endl;
+        return false;
+    }
+}
+
+void ChangeDLL() {
+    // Save current scene to temp 
+	std::string tempfilepath = "TempScene.json";
+	g_SceneManager.SaveScene(tempfilepath);
+
+    // Clear current scene
+    g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
+    //g_Coordinator.GetSystem<GraphicsSystem>()->clearAllEntityTextures();
+    g_Coordinator.ResetEntities();
+    g_SceneManager.ClearSceneList();
+
+    if (IsDLLInUse(DLL_COPY_DIRECTORY)) {
+        std::cout << "DLL is being used by another process. Unloading the DLL..." << std::endl;
+        if (hGetProcIDDLL != nullptr) {
+            FreeLibrary(hGetProcIDDLL);
+            std::cout << "DLL unloaded." << std::endl;
+        }
+        else {
+            std::cerr << "Unable to Free." << std::endl;
+            return;
+        }
+    }
+    if (CopyAndOverwriteDLL(DLL_MAIN_DIRECTORY, DLL_COPY_DIRECTORY)) {
+        std::cout << "DLL copied and overwritten successfully!" << std::endl;
+        hGetProcIDDLL = LoadLibraryW(DLL_COPY_DIRECTORY.c_str());
+        // Load Temp Scene
+		tempfilepath = GetScenesDir() + "/" + tempfilepath;
+        g_SceneManager.LoadScene(tempfilepath);
+    }
+    else {
+        std::cerr << "Failed to copy and overwrite the DLL." << std::endl;
+    }
+}
+
+// Set up the hook
+void SetCustomHook() {
+    hHook = SetWindowsHookEx(WH_GETMESSAGE, HookProc, NULL, GetCurrentThreadId());
+    if (!hHook) {
+        MessageBoxW(NULL, L"Failed to set hook.", L"Error", MB_OK);
+    }
+}
+
+
+/**************************************************************************************
+* Not in use
+* *************************************************************************************/
+/*
+void StartFocusChecker() {
+    // Launch focus checker in a separate thread
+    std::thread focusThread(FocusChecker);
+    focusThread.detach(); // Detach to allow independent execution
+}
+*/
+
 // Function to monitor directory changes
+/*
 void MonitorDirectory() {
     std::cout << "Checking directory for changes...\n";
 
@@ -201,7 +278,7 @@ void MonitorDirectory() {
                         PostThreadMessage(GetCurrentThreadId(), WM_FILE_CHANGED, 0, 0);
                         std::cout << "File change detected!" << std::endl;
 
-						DLL_has_changed = true;
+                        DLL_has_changed = true;
                     }
                     else {
                         //std::cerr << "Not the file we are looking for." << std::endl;
@@ -212,7 +289,7 @@ void MonitorDirectory() {
             }
             else if (waitStatus == WAIT_TIMEOUT) {
                 //std::cout << "No changes detected within the timeout period." << std::endl;
-				// Just continue monitoring if timeout
+                // Just continue monitoring if timeout
             }
             else {
                 std::cerr << "Error waiting for directory changes: " << GetLastError() << std::endl;
@@ -229,45 +306,4 @@ void MonitorDirectory() {
     CloseHandle(hDir);
     std::cout << "Directory monitoring stopped." << std::endl;
 }
-
-void ChangeDLL() {
-    // Save current scene to temp 
-	std::string tempfilepath = "TempScene.json";
-	g_SceneManager.SaveScene(tempfilepath);
-
-    // Clear current scene
-    g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
-    //g_Coordinator.GetSystem<GraphicsSystem>()->clearAllEntityTextures();
-    g_Coordinator.ResetEntities();
-    g_SceneManager.ClearSceneList();
-
-    if (IsDLLInUse(DLL_COPY_DIRECTORY)) {
-        std::cout << "DLL is being used by another process. Unloading the DLL..." << std::endl;
-        if (hGetProcIDDLL != nullptr) {
-            FreeLibrary(hGetProcIDDLL);
-            std::cout << "DLL unloaded." << std::endl;
-        }
-        else {
-            std::cerr << "Unable to Free." << std::endl;
-            return;
-        }
-    }
-    if (CopyAndOverwriteDLL(DLL_MAIN_DIRECTORY, DLL_COPY_DIRECTORY)) {
-        std::cout << "DLL copied and overwritten successfully!" << std::endl;
-        hGetProcIDDLL = LoadLibraryW(DLL_COPY_DIRECTORY.c_str());
-        // Load Temp Scene
-		tempfilepath = GetScenesDir() + "/" + tempfilepath;
-        g_SceneManager.LoadScene(tempfilepath);
-    }
-    else {
-        std::cerr << "Failed to copy and overwrite the DLL." << std::endl;
-    }
-}
-
-// Set up the hook
-void SetCustomHook() {
-    hHook = SetWindowsHookEx(WH_GETMESSAGE, HookProc, NULL, GetCurrentThreadId());
-    if (!hHook) {
-        MessageBoxW(NULL, L"Failed to set hook.", L"Error", MB_OK);
-    }
-}
+*/

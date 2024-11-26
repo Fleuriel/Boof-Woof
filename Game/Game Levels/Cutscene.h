@@ -3,14 +3,14 @@
 #include "ResourceManager/ResourceManager.h"
 #include "ECS/Coordinator.hpp"
 
-double cutsceneTimer = 0.0;
-double timerLimit = 4.0;    // Set the time limit to 3 seconds
-int textureIndex = 0;  // To track which texture we're currently showing
-double lastBarkTime = 0.0;
-Entity TextEnt{}, DogName{};
-
 class Cutscene : public Level
 {
+	double cutsceneTimer = 0.0;
+	double timerLimit = 4.0;
+	int textureIndex = 0;  // To track which texture we're currently showing
+	double lastBarkTime = 0.0;
+	Entity TextEnt{}, DogName{};
+
 	void LoadLevel()
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/Cutscene.json");
@@ -108,7 +108,7 @@ class Cutscene : public Level
 		// After showing CorgiText4 for 3 seconds, transition to the next scene
 		if (textureIndex >= 4 && cutsceneTimer >= timerLimit)
 		{
-			g_LevelManager.SetNextLevel("Level1");  // Transition to the next level after CorgiText4
+			g_LevelManager.SetNextLevel("StartingRoom");  // Transition to the next level after CorgiText4
 		}
 	}
 

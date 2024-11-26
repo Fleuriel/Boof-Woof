@@ -20,7 +20,8 @@
 #include "Shader.h"
 //#include "ResourceManager/ResourceManager.h"
 
-#define MAX_BONE_INFLUENCE 4
+constexpr auto MAX_BONE_INFLUENCE = 4;
+#define UNREFERENCED_PARAMETER(P)          (P)
 
 struct Vertex {
     // position
@@ -146,7 +147,7 @@ public:
 //    }
 
 
-    void DrawForPicking()
+    void DrawForPicking() const
     {
         // Bind the VAO
         glBindVertexArray(VAO);
@@ -161,9 +162,9 @@ public:
 
 
 
-    void DrawMaterial(OpenGLShader& shader)
+    void DrawMaterial(OpenGLShader& shader) const
     {
-
+        UNREFERENCED_PARAMETER(shader);
         // draw mesh
         glPolygonMode(GL_FRONT_AND_BACK, GL_TRIANGLES);
 
@@ -188,7 +189,7 @@ public:
     }
 
     // render the mesh with lines
-    void DrawLines()
+    void DrawLines() const
     {
         //glPolygonMode(GL_FRONT_AND_BACK, drawMode);
 
@@ -201,7 +202,7 @@ public:
 	}
     
     // render the mesh with point
-    void DrawPoints(OpenGLShader& shader)
+    void DrawPoints(OpenGLShader& shader) const
 	{
         (void)shader;
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

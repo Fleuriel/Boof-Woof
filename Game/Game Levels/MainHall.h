@@ -1,19 +1,20 @@
 #pragma once
-
 #include "Level Manager/Level.h"
 #include "ECS/Coordinator.hpp"
 #include "../Systems/CameraController/CameraController.h"
 #include "../Systems/BoneCatcher/BoneCatcher.h"
 #include "../Systems/RopeBreaker/RopeBreaker.h"
+#include "../Systems/ChangeText/ChangeText.h"
+#include "../Systems/Checklist/Checklist.h"
 
-Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{};
-CameraController* cameraController = nullptr;
-
-class Level1 : public Level
+class MainHall : public Level
 {
+	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{};
+	CameraController* cameraController = nullptr;
+
 	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");		
+		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainHall.json");
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -24,7 +25,7 @@ class Level1 : public Level
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Player")
 				{
-					playerEnt = entity;					
+					playerEnt = entity;
 				}
 
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
@@ -37,27 +38,21 @@ class Level1 : public Level
 					RopeEnt2 = entity;
 				}
 
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "DrawBridge") 
+				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "DrawBridge")
 				{
 					BridgeEnt = entity;
 					break;
 				}
 			}
 		}
+
+		g_Window->HideMouseCursor();
 	}
 
 	void InitLevel()
 	{
-		if (playerEnt != Entity{})
-		{
-			// Ensure player entity is valid
-			cameraController = new CameraController(playerEnt);
-
-			if (RopeEnt != Entity{}) 
-			{
-				g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
-			}
-		}
+		cameraController = new CameraController(playerEnt);
+		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
 	}
 
 	bool teb_last = false;
@@ -66,7 +61,12 @@ class Level1 : public Level
 	{
 		cameraController->Update(static_cast<float>(deltaTime));
 
-		g_RopeBreaker.OnUpdate(deltaTime);	
+		if (!g_Checklist.shutted)
+		{
+			g_Checklist.OnUpdate(deltaTime);
+		}
+
+		g_RopeBreaker.OnUpdate(deltaTime);
 
 		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
 		{
@@ -85,6 +85,7 @@ class Level1 : public Level
 		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
 		{
 			g_LevelManager.SetNextLevel("MainMenu");
+			g_Window->ShowMouseCursor();
 		}
 	}
 
@@ -100,6 +101,7 @@ class Level1 : public Level
 	void UnloadLevel()
 	{
 		g_Audio.StopBGM();
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 	}
 };

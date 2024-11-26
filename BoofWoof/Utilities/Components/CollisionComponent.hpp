@@ -77,6 +77,9 @@ public:
     void SetLastCollidedObjectName(const std::string& objectName) { lastCollidedObjectName = objectName; }
     const std::string& GetLastCollidedObjectName() const { return lastCollidedObjectName; }
 
+    void SetIsGrounded(bool value) { m_IsGrounded = value; }
+    bool GetIsGrounded() const { return m_IsGrounded; }
+
     // Reflection integration
     REFLECT_COMPONENT(CollisionComponent)
     {
@@ -86,6 +89,7 @@ public:
         REGISTER_PROPERTY(CollisionComponent, IsPlayer, bool, SetIsPlayer, IsPlayer);
         REGISTER_PROPERTY(CollisionComponent, GetIsColliding, bool, SetIsColliding, GetIsColliding);
         REGISTER_PROPERTY(CollisionComponent, AABBOffset, glm::vec3, SetAABBOffset, GetAABBOffset); // Add this line
+        REGISTER_PROPERTY(CollisionComponent, IsGrounded, bool, SetIsGrounded, GetIsGrounded);  // Add this line
     }
 
 private:
@@ -99,6 +103,8 @@ private:
     bool m_IsPlayer = false;            // Determines if the entity is a player
     bool isColliding = false; // Flag to track collision status
     std::string lastCollidedObjectName = "None"; // Default to no collision
+    bool m_IsGrounded = false;  // Track whether the entity is on the ground
+
 };
 
 #endif  // COLLISION_COMPONENT_HPP

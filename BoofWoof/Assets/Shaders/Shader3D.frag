@@ -28,126 +28,89 @@ in vec2 fragTexCoord;                   // Interpolated texture coordinates from
 uniform vec3 inputLight; // Light source position
 uniform vec3 viewPos; // Camera position
 
-uniform float setFinalAlpha;
+struct Light {
+    vec3 position;
+    vec3 color;
+    float intensity;
+};
 
-// Add a sampler for the texture
-uniform sampler2D albedoTexture;
-uniform bool useTexture; // Flag to enable/disable texture
+//uniform vec3 lightPos;
+uniform vec3 viewPos;
 
-vec4 fromLinear(vec4 linearRGB)
+#define NUM_LIGHTS 8  // Define the number of lights you want
+uniform Light lights[NUM_LIGHTS];
+uniform int numLights;
+
+
+out vec4 fragColor;
+
+in VS_OUT {
+	vec3 FragPos;
+    vec2 TexCoords;
+    vec3 TangentLightPos[NUM_LIGHTS];
+    vec3 TangentViewPos;
+    vec3 TangentFragPos;
+} fs_in;
+
+void main()
 {
     bvec3 cutoff = lessThan(linearRGB.rgb, vec3(0.0031308));
     vec3 higher = vec3(1.055)*pow(linearRGB.rgb, vec3(1.0/2.4)) - vec3(0.055);
     vec3 lower = linearRGB.rgb * vec3(12.92);
 
-    return vec4(mix(higher, lower, cutoff), linearRGB.a);
-}
+    if(textureCount ==2 ){
+        vec3 normal = texture(texture_normal1, TexCoords).rgb;
 
-// Converts a color from sRGB gamma to linear light gamma
-vec4 toLinear(vec4 sRGB)
-{
-    bvec3 cutoff = lessThan(sRGB.rgb, vec3(0.04045));
-    vec3 higher = pow((sRGB.rgb + vec3(0.055))/vec3(1.055), vec3(2.4));
-    vec3 lower = sRGB.rgb/vec3(12.92);
+        normal = normalize(normal * 2.0 - 1.0);
 
-    return vec4(mix(higher, lower, cutoff), sRGB.a);
-}
+        vec3 color = texture(texture_diffuse1, TexCoords).rgb;
+        vec3 ambient = 0.1 * color;
+        vec3 lightDir = normalize(fs_in.TangentLightPos[0] - fs_in.TangentFragPos);
 
-vec3 sRGBToLinear(vec3 sRGB)
-{
-    return mix(sRGB / 12.92, pow((sRGB + 0.055) / 1.055, vec3(2.4)), lessThan(sRGB, vec3(0.04045)));
-}
+        float diff = max(dot(normal, lightDir), 0.0);
+        vec3 diffuse = diff * color;
 
-// Improved specular distribution using GGX
-float D_GGX(float NoH, float roughness) {
-    float alpha = roughness * roughness;
-    float alpha2 = alpha * alpha;
-    float NoH2 = NoH * NoH;
-    float denom = (NoH2 * (alpha2 - 1.0) + 1.0);
-    return alpha2 / (PI * denom * denom);
-}
+        vec3 viewDir = normalize(fs_in.TangentViewPos - fs_in.TangentFragPos);
+        vec3 reflectDir = reflect(-lightDir, normal);
+        vec3 halfwayDir = normalize(lightDir + viewDir);
+        float spec = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
+        vec3 specular = vec3(0.2) * spec;
+        fragColor = vec4(ambient + diffuse + specular, 1.0);
 
-// Geometry term (Smith)
-float G_Smith(float NoV, float NoL, float roughness) {
-    float k = pow(roughness + 1.0, 2.0) / 8.0;
-    float G1V = NoV / (NoV * (1.0 - k) + k);
-    float G1L = NoL / (NoL * (1.0 - k) + k);
-    return G1L * G1V;
-}
-
-void main() {
-    // Normalize vectors
-    vec3 N = normalize(fragNormal);
-    vec3 V = normalize(viewPos - fragWorldPos); // View direction
-    vec3 L = normalize(inputLight - fragWorldPos); // Light direction
-    vec3 H = normalize(L + V); // Halfway vector
-
-    // Dot products
-    float NoV = max(dot(N, V), 0.001);
-    float NoL = max(dot(N, L), 0.001);
-    float NoH = max(dot(N, H), 0.001);
-    float VoH = max(dot(V, H), 0.001);
-
-    // Calculate the roughness factor (clamp it to avoid any edge cases)
-    float roughness = clamp(fragRoughness, 0.001, 1.0);
-    
-    // Base reflectivity (F0)
-    vec3 F0 = mix(vec3(0.04), fragColor.rgb, fragMetallic);
-
-    // Fresnel term (Schlick approximation)
-    vec3 F = F0 + (1.0 - F0) * pow(1.0 - VoH, 5.0);
-
-    // Distribution and Geometry terms
-    float D = D_GGX(NoH, roughness);
-    float G = G_Smith(NoV, NoL, roughness);
-
-    // Specular BRDF (Cook-Torrance)
-    vec3 specular = (D * G * F) / max(4.0 * NoV * NoL, 0.001);
-
-    // Diffuse BRDF (Lambertian for non-metals)
-    vec3 baseColor = fragColor.rgb;
-
-    // Blend the texture with the color
-    if (useTexture) {
-        vec4 texColor = texture(albedoTexture, fragTexCoord);
-        texColor = toLinear(texColor);
+    }else if(textureCount == 1 )
+	{
+        vec4 textureColor = texture(texture_diffuse1, TexCoords);
+        vec3 result = vec3(0.0f,0.0f,0.0f);
+        for(int i = 0; i < numLights; i++){
+		    vec3 lightVector = lights[i].position - FragPos;
+            float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
+            textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
+            //fragColor = vec4(textureColor.rgb, textureColor.a);
+            vec3 ambientColor = vec3(0.0f,0.0f,0.0f);
+            vec3 diffuseColor = textureColor.rgb;
 
 
-        texColor.rgb = pow(texColor.rgb, vec3(2.2)); // Convert from sRGB to linear
+            vec3 ambient = ambientColor  * 0.1f;
+            vec3 diffuse = diffuseColor  * N_dot_L * lights[i].intensity * lights[i].color;
 
-        texColor.a = 2.2;
-        
-        baseColor *= texColor.rgb;
+            vec3 finalColor = ambient + diffuse; // Combine ambient and diffuse components
+            result += finalColor;
+        }
         
         
-        //vec4 texColor = texture(albedoTexture, fragTexCoord);
-        //float blendFactor = 0.5; // Example blend factor, can be uniform or derived
-        //baseColor = mix(fragColor.rgb, texColor.rgb, blendFactor);
-    }
+        if(lightOn){
+            fragColor = vec4(result, 1.0);
+        }else{
+			fragColor = vec4(textureColor);
+		}
+        
+	}else{
+        vec3 lightVector = lights[0].position - FragPos;
+        float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
+        fragColor = vec4(vertColor*N_dot_L, 1.0f);
+	}
 
-    baseColor *= vec3(fragColor.a);
-
-    vec3 diffuse = (1.0 - F) * (1.0 - fragMetallic) * baseColor / PI;
-
-    // Combine with light
-    vec3 lightColor = vec3(5.0); // Intensity of the light source
-    vec3 directLight = (diffuse + specular) * NoL * lightColor;
-
-    // Ambient light (for non-metals: based on the base color)
-    vec3 ambient = baseColor * 0.2 * (1.0 - fragMetallic);
-    
-    // Ambient light for metallic materials (based on F0)
-    vec3 ambient_metal = F0 * 0.2; // Reflection for metals
-
-    // Combine direct light and ambient light
-    vec3 finalColor = directLight + mix(ambient, ambient_metal, fragMetallic);
-
-    // Tonemapping for HDR (Linear to display space)
-    //finalColor = finalColor / (finalColor + vec3(1.0)); // simple tonemapping
-
-    // Gamma correction (2.2 gamma)
-    finalColor = pow(finalColor, vec3(1.0 / 2.2));
-
-    FragColor = vec4(finalColor, setFinalAlpha);
+       
+   
 }
 
