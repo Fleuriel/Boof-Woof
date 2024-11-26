@@ -24,9 +24,9 @@ void InitializeLevels()
 	g_LevelManager.RegisterLevel("MainHall", new(MainHall));
 
 	// Set the initial level
-	g_LevelManager.Initialize("MainMenu");
-	g_LevelManager.SetNextLevel("MainMenu");
-	g_LevelManager.SetPreviousLevel("MainMenu");
+	g_LevelManager.Initialize("Splashscreen");
+	g_LevelManager.SetNextLevel("Splashscreen");
+	g_LevelManager.SetPreviousLevel("Splashscreen");
 }
 
 int main()

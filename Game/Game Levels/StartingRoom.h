@@ -9,12 +9,12 @@
 
 class StartingRoom : public Level
 {
-	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{};
+	Entity playerEnt{};
 	CameraController* cameraController = nullptr;
 
 	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");		
+		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/StartingRoom.json");		
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
 
 		g_ChangeText.OnInitialize();
@@ -27,22 +27,7 @@ class StartingRoom : public Level
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Player")
 				{
-					playerEnt = entity;					
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
-				{
-					RopeEnt = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
-				{
-					RopeEnt2 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "DrawBridge") 
-				{
-					BridgeEnt = entity;
+					playerEnt = entity;		
 					break;
 				}
 			}
@@ -51,16 +36,8 @@ class StartingRoom : public Level
 
 	void InitLevel()
 	{
-		if (playerEnt != Entity{})
-		{
-			// Ensure player entity is valid
-			cameraController = new CameraController(playerEnt);
-
-			if (RopeEnt != Entity{}) 
-			{
-				g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
-			}
-		}
+		// Ensure player entity is valid
+		cameraController = new CameraController(playerEnt);
 	}
 
 	bool teb_last = false;
@@ -78,8 +55,6 @@ class StartingRoom : public Level
 		{
 			g_Checklist.OnUpdate(deltaTime);
 		}
-
-		g_RopeBreaker.OnUpdate(deltaTime);	
 
 		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
 		{
