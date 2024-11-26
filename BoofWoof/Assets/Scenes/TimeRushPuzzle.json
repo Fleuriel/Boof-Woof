@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "c85006b9-5e0b-4386-a79b-5fd381dbb435",
+    "SceneGUID": "10873b73-fcdb-45db-9a64-153c079eca21",
     "Entities": [
         {
             "MetadataComponent": {
@@ -3032,6 +3032,21 @@
                 "ModelName": "WallTorch",
                 "Texture": "WallTorch",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.800000011920929,
+                    "y": 3.0,
+                    "z": 0.550000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.44999998807907107
+                }
             }
         },
         {
@@ -3060,6 +3075,21 @@
                 "ModelName": "WallTorch",
                 "Texture": "WallTorch",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 3.0,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.5
+                }
             }
         },
         {
@@ -3385,6 +3415,21 @@
                 "ModelName": "WallTorch",
                 "Texture": "WallTorch",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.8999999761581421,
+                    "y": 3.0,
+                    "z": 0.4000000059604645
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.3499999940395355
+                }
             }
         },
         {
@@ -3413,6 +3458,21 @@
                 "ModelName": "WallTorch",
                 "Texture": "WallTorch",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.800000011920929,
+                    "y": 3.0,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.44999998807907107
+                }
             }
         },
         {
@@ -3441,6 +3501,21 @@
                 "ModelName": "WallTorch",
                 "Texture": "WallTorch",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 3.0999999046325685,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.4000000059604645
+                }
             }
         },
         {
@@ -3469,6 +3544,21 @@
                 "ModelName": "WallTorch",
                 "Texture": "WallTorch",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.699999988079071,
+                    "y": 3.0,
+                    "z": 0.44999998807907107
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.4000000059604645
+                }
             }
         },
         {
@@ -4341,6 +4431,21 @@
                 "ModelName": "Fireplace",
                 "Texture": "Fireplace",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.049999952316284,
+                    "y": 2.75,
+                    "z": 1.2999999523162842
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4425,6 +4530,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4453,6 +4573,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4481,6 +4616,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4509,6 +4659,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4537,6 +4702,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4565,6 +4745,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4593,6 +4788,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4621,6 +4831,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -5058,6 +5283,21 @@
                 "ModelName": "WallTorch",
                 "Texture": "WallTorch",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.699999988079071,
+                    "y": 3.0,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.3499999940395355
+                }
             }
         },
         {
@@ -5114,6 +5354,21 @@
                 "ModelName": "WallTorch",
                 "Texture": "WallTorch",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.699999988079071,
+                    "y": 3.0,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.4000000059604645
+                }
             }
         },
         {
@@ -5142,6 +5397,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -5170,6 +5440,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -5254,6 +5539,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -5282,6 +5582,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -5310,34 +5625,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 172
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 27.80234718322754,
-                    "y": 2.0807831287384035,
-                    "z": -50.49971008300781
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
                 },
-                "Scale": {
-                    "x": 2.0,
-                    "y": 2.5,
-                    "z": 2.0
-                },
-                "Rotation": {
+                "AABBOffset": {
                     "x": 0.0,
-                    "y": -0.0,
+                    "y": 0.0,
                     "z": 0.0
                 }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "Texture": "Chair2",
-                "FollowCamera": true
             }
         },
         {
@@ -5366,6 +5668,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -5394,6 +5711,21 @@
                 "ModelName": "Chair2",
                 "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6690,6 +7022,21 @@
                 "ModelName": "WallTorch",
                 "Texture": "WallTorch",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 3.0,
+                    "z": 0.550000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.5
+                }
             }
         },
         {
@@ -8576,6 +8923,21 @@
                 "ModelName": "WallTorch",
                 "Texture": "WallTorch",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.800000011920929,
+                    "y": 3.0,
+                    "z": 0.550000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.44999998807907107
+                }
             }
         },
         {
@@ -8860,7 +9222,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "ScentTrail",
+                "EntityName": "ScentTrail1",
                 "EntityID": 289
             },
             "TransformComponent": {
@@ -8927,7 +9289,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "ScentTrail",
+                "EntityName": "ScentTrail2",
                 "EntityID": 290
             },
             "TransformComponent": {
@@ -8994,7 +9356,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "ScentTrail",
+                "EntityName": "ScentTrail3",
                 "EntityID": 291
             },
             "TransformComponent": {
@@ -9061,7 +9423,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "ScentTrail",
+                "EntityName": "ScentTrail4",
                 "EntityID": 292
             },
             "TransformComponent": {
@@ -9128,7 +9490,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "ScentTrail",
+                "EntityName": "ScentTrail5",
                 "EntityID": 293
             },
             "TransformComponent": {
@@ -9195,7 +9557,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "ScentTrail",
+                "EntityName": "ScentTrail6",
                 "EntityID": 294
             },
             "TransformComponent": {
@@ -9256,6 +9618,73 @@
                     "r": 0.3529411852359772,
                     "g": 0.7058823704719544,
                     "b": 0.03921568766236305,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "FireParticle",
+                "EntityID": 172
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 37.520263671875,
+                    "y": 1.7441768646240235,
+                    "z": -39.393184661865237
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 1.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 30.0,
+                "ParticleColor": {
+                    "r": 0.9558823704719544,
+                    "g": 0.5303106904029846,
+                    "b": 0.05154268816113472,
                     "a": 1.0
                 }
             }
