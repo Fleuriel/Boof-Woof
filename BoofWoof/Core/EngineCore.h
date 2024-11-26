@@ -9,6 +9,7 @@
 #include "../Utilities/Components/AnimationComponent.h"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/MaterialComponent.hpp"
+#include "../Utilities/Components/HierarchyComponent.hpp"
 
 
 #include "../Utilities/Components/BehaviourComponent.hpp"
@@ -25,6 +26,7 @@
 #include "Logic/LogicSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Physics/CollisionSystem.h"
+#include "Graphics/TransformSystem.hpp"
 
 
 #include "Serialization/Serialization.h"

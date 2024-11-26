@@ -10,6 +10,7 @@ std::shared_ptr<FontSystem> mFontSys;
 std::shared_ptr<MyPhysicsSystem> mPhysicSys;
 //std::shared_ptr<CollisionSystem> mCollisionSys;
 std::shared_ptr<ParticleComponent> mParticleSys;
+std::shared_ptr<TransformSystem> mTransformSys;
 
 
 void EngineCore::OnInit()
@@ -38,6 +39,7 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<BehaviourComponent>();
 	g_Coordinator.RegisterComponent<CameraComponent>();
 	g_Coordinator.RegisterComponent<ParticleComponent>();
+	g_Coordinator.RegisterComponent<HierarchyComponent>();
 
 	// setting global pointer
 	g_Core = this;
@@ -89,6 +91,11 @@ void EngineCore::OnInit()
 	}
 
 
+	mTransformSys = g_Coordinator.RegisterSystem<TransformSystem>(); {
+		Signature signature;
+		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		g_Coordinator.SetSystemSignature<TransformSystem>(signature);
+	}
 
 	//mCollisionSys = g_Coordinator.RegisterSystem<CollisionSystem>();
 	//{
@@ -133,6 +140,7 @@ void EngineCore::OnInit()
 	ReflectionManager::Instance().RegisterComponentType<CameraComponent>("CameraComponent");
 	ReflectionManager::Instance().RegisterComponentType<ParticleComponent>("ParticleComponent");
 	ReflectionManager::Instance().RegisterComponentType<MaterialComponent>("MaterialComponent");
+	ReflectionManager::Instance().RegisterComponentType<HierarchyComponent>("HierarchyComponent");
 }
 
 void EngineCore::OnUpdate()
@@ -182,6 +190,11 @@ void EngineCore::OnUpdate()
 	{
 		mAudioSys->Update();
 	}
+
+	{
+		mTransformSys->Update();
+	}
+
 
 	{
 		// Graphics

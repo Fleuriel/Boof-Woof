@@ -79,6 +79,16 @@ public:
 
 	static ImGuiEditor& GetInstance();
 
+
+	void DrawEntityNode(Entity entity);
+	void SetParent(Entity child, Entity parent);
+	void RemoveParent(Entity child); 
+	bool IsDescendantOf(Entity potentialParent, Entity child);
+	void DeleteEntity(Entity entity);
+	bool IsAncestorOf(Entity ancestor, Entity entity);
+
+
+
 private:
 	Window* m_Window = nullptr;
 	std::vector<std::type_index> compTypes; // Member variable to hold selected component types

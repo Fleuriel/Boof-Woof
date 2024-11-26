@@ -76,6 +76,11 @@ public:
         return !redoStack.empty();
     }
 
+    void Clear() {
+        undoStack.clear();
+        redoStack.clear();
+    }
+
 private:
     std::deque<Command> undoStack;
     std::deque<Command> redoStack;

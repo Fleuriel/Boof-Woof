@@ -181,7 +181,16 @@ void GraphicsSystem::UpdateLoop() {
 		{
 			continue;
 		}
+
 		auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+
+		// Get the TransformSystem instance
+		std::shared_ptr<TransformSystem> transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+
+		// Retrieve the world matrix for the current entity
+		glm::mat4 worldMatrix = transformSystem->GetWorldMatrix(entity);
+
+		shdrParam.WorldMatrix = worldMatrix; // Use the world matrix for rendering
 
 
 		if (g_Coordinator.HaveComponent<ParticleComponent>(entity))
@@ -211,8 +220,6 @@ void GraphicsSystem::UpdateLoop() {
 			continue;
 		}
 		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-
-		shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
 
 		g_AssetManager.GetShader("Shader3D").Use();
 
@@ -677,7 +684,9 @@ void GraphicsSystem::RenderSceneForPicking() {
 		if (g_Coordinator.HaveComponent<TransformComponent>(entity))
 		{
 			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
-			glm::mat4 worldMatrix = transformComp.GetWorldMatrix();
+			// Get the TransformSystem instance
+			std::shared_ptr<TransformSystem> transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+			glm::mat4 worldMatrix = transformSystem->GetWorldMatrix(entity);
 			pickingShader.SetUniform("vertexTransform", worldMatrix);
 
 			// Encode the entity ID as a color
