@@ -27,12 +27,14 @@ public:
 
     void ToggleCameraMode();
 	void ShakeCamera(float time, glm::vec3 range);
+	void ShakePlayer(float time, glm::vec3 range);
 
 private:
     void UpdateFirstPersonView(CameraComponent& camera);
     void UpdateThirdPersonView(CameraComponent& camera);
 	void UpdateShiftingView(CameraComponent& camera);
 	void UpdateShakeView(CameraComponent& camera);
+	void UpdateShakePlayer(CameraComponent& camera);
 
     CameraMove getfirstPersonCameraMove(CameraComponent& camera);
     CameraMove getThirdPersonCameraMove(CameraComponent& camera);
@@ -51,4 +53,5 @@ private:
 	float shakeTime = 0.0f;
 	float shakeDuration = 0.0f;
 	glm::vec3 shakeRange = glm::vec3(0.0f);
+	glm::vec3 player_old_pos = glm::vec3(0.0f);
 };
