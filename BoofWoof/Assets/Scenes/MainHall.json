@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "79d1e97c-01e5-40b2-8be2-aaf92cbd6f9b",
+    "SceneGUID": "40344d2e-e8e7-49c1-965d-03657350a2ff",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.2353041172027588,
-                    "y": 1.199999451637268,
-                    "z": -5.070489406585693
+                    "x": -1.2353912591934205,
+                    "y": 1.1977953910827637,
+                    "z": -6.309542179107666
                 },
                 "Scale": {
                     "x": 0.5,
@@ -8072,9 +8072,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.90599250793457,
-                    "y": 2.5932211875915529,
-                    "z": -69.13566589355469
+                    "x": 25.90607261657715,
+                    "y": 2.537782669067383,
+                    "z": -69.13237762451172
                 },
                 "Scale": {
                     "x": 1.600000023841858,
@@ -8560,14 +8560,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 5.0,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 5.0
                 },
                 "AABBOffset": {
-                    "x": 5.300000190734863,
+                    "x": 0.0,
                     "y": 0.10000000149011612,
-                    "z": -5.099999904632568
+                    "z": 0.0
                 }
             }
         },
@@ -8597,11 +8597,26 @@
                 "ModelName": "Floor3tripleheight",
                 "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.20000000298023225,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCastleCollisionPoint",
+                "EntityName": "FloorCastle",
                 "EntityID": 255
             },
             "TransformComponent": {
@@ -8631,14 +8646,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 5.0,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 5.0
                 },
                 "AABBOffset": {
-                    "x": 5.300000190734863,
+                    "x": 0.0,
                     "y": 0.10000000149011612,
-                    "z": -5.099999904632568
+                    "z": 0.0
                 }
             }
         },
@@ -8668,6 +8683,21 @@
                 "ModelName": "Floor3tripleheight",
                 "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.20000000298023225,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8696,11 +8726,26 @@
                 "ModelName": "Floor3tripleheight",
                 "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.20000000298023225,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCastleCollisionPoint",
+                "EntityName": "FloorCastle",
                 "EntityID": 258
             },
             "TransformComponent": {
@@ -8732,12 +8777,12 @@
                 "AABBSize": {
                     "x": 5.0,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 5.0
                 },
                 "AABBOffset": {
-                    "x": 0.30000001192092898,
+                    "x": 0.0,
                     "y": 0.10000000149011612,
-                    "z": -5.150000095367432
+                    "z": 0.0
                 }
             }
         },
@@ -8767,6 +8812,21 @@
                 "ModelName": "Floor3tripleheight",
                 "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.20000000298023225,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8795,6 +8855,21 @@
                 "ModelName": "Floor3tripleheight",
                 "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.20000000298023225,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8823,11 +8898,26 @@
                 "ModelName": "Floor3tripleheight",
                 "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.20000000298023225,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCastleCollisionPoint",
+                "EntityName": "FloorCastle",
                 "EntityID": 262
             },
             "TransformComponent": {
@@ -8857,12 +8947,12 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 5.0,
                     "y": 0.20000000298023225,
-                    "z": 4.900000095367432
+                    "z": 5.0
                 },
                 "AABBOffset": {
-                    "x": 5.300000190734863,
+                    "x": 0.0,
                     "y": 0.10000000149011612,
                     "z": 0.0
                 }
@@ -8894,11 +8984,26 @@
                 "ModelName": "Floor3tripleheight",
                 "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.20000000298023225,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCastleCollisionPoint",
+                "EntityName": "FloorCastle",
                 "EntityID": 264
             },
             "TransformComponent": {
@@ -8928,12 +9033,12 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 5.0,
                     "y": 0.20000000298023225,
-                    "z": 4.900000095367432
+                    "z": 5.0
                 },
                 "AABBOffset": {
-                    "x": 5.300000190734863,
+                    "x": 0.0,
                     "y": 0.10000000149011612,
                     "z": 0.0
                 }
@@ -8965,6 +9070,21 @@
                 "ModelName": "Floor3tripleheight",
                 "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.20000000298023225,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8993,11 +9113,26 @@
                 "ModelName": "Floor3tripleheight",
                 "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.20000000298023225,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCastleCollisionPoint",
+                "EntityName": "FloorCastle",
                 "EntityID": 267
             },
             "TransformComponent": {
@@ -9029,12 +9164,12 @@
                 "AABBSize": {
                     "x": 5.0,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 5.0
                 },
                 "AABBOffset": {
                     "x": 0.0,
                     "y": 0.10000000149011612,
-                    "z": -5.25
+                    "z": 0.0
                 }
             }
         },
@@ -9064,11 +9199,26 @@
                 "ModelName": "Floor3tripleheight",
                 "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.20000000298023225,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCastleCollisionPoint",
+                "EntityName": "FloorCastle",
                 "EntityID": 269
             },
             "TransformComponent": {
@@ -9098,12 +9248,12 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 4.849999904632568,
+                    "x": 5.0,
                     "y": 0.20000000298023225,
-                    "z": 4.849999904632568
+                    "z": 5.0
                 },
                 "AABBOffset": {
-                    "x": 0.15000000596046449,
+                    "x": 0.0,
                     "y": 0.10000000149011612,
                     "z": 0.0
                 }
@@ -9135,11 +9285,26 @@
                 "ModelName": "Floor3tripleheight",
                 "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.20000000298023225,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCastleCollisionPoint",
+                "EntityName": "FloorCastle",
                 "EntityID": 271
             },
             "TransformComponent": {
@@ -9171,12 +9336,12 @@
                 "AABBSize": {
                     "x": 5.0,
                     "y": 0.20000000298023225,
-                    "z": 8.149999618530274
+                    "z": 5.0
                 },
                 "AABBOffset": {
                     "x": 0.0,
                     "y": 0.10000000149011612,
-                    "z": -3.4000000953674318
+                    "z": 0.0
                 }
             }
         },
@@ -9212,20 +9377,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 5.199999809265137,
-                    "y": 0.3499999940395355,
-                    "z": 4.800000190734863
+                    "x": 5.0,
+                    "y": 0.20000000298023225,
+                    "z": 5.0
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": 0.10000000149011612,
                     "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCastleCollisionPoint",
+                "EntityName": "FloorCastle",
                 "EntityID": 273
             },
             "TransformComponent": {
@@ -9255,20 +9420,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 3.0,
+                    "x": 4.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 4.75
+                    "z": 4.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 2.0,
+                    "x": 0.0,
                     "y": 0.10000000149011612,
-                    "z": 0.10000000149011612
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCastleCollisionPoint",
+                "EntityName": "FloorCastle",
                 "EntityID": 274
             },
             "TransformComponent": {
@@ -9298,14 +9463,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 3.049999952316284,
+                    "x": 5.0,
                     "y": 0.20000000298023225,
-                    "z": 4.699999809265137
+                    "z": 5.050000190734863
                 },
                 "AABBOffset": {
-                    "x": -1.9500000476837159,
+                    "x": 0.0,
                     "y": 0.10000000149011612,
-                    "z": 0.20000000298023225
+                    "z": 0.0
                 }
             }
         },
@@ -9545,8 +9710,8 @@
             "TransformComponent": {
                 "Position": {
                     "x": 35.868099212646487,
-                    "y": 0.5326305031776428,
-                    "z": 3.3373782634735109
+                    "y": 0.3330000042915344,
+                    "z": 3.3373799324035646
                 },
                 "Scale": {
                     "x": 0.5,
@@ -9563,6 +9728,21 @@
                 "ModelName": "Bone",
                 "Texture": "Bone",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -9572,9 +9752,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 16.62067985534668,
-                    "y": 0.6700470447540283,
-                    "z": -13.432731628417969
+                    "x": 18.129100799560548,
+                    "y": 0.550000011920929,
+                    "z": -13.540200233459473
                 },
                 "Scale": {
                     "x": 0.10000000149011612,
@@ -9591,6 +9771,21 @@
                 "ModelName": "TennisBall",
                 "Texture": "TennisBall",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0999999046325685,
+                    "y": 2.049999952316284,
+                    "z": 2.299999952316284
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -9632,7 +9827,7 @@
                 "TargetPositions": [
                     {
                         "x": -20.5,
-                        "y": 0.0,
+                        "y": 3.299999952316284,
                         "z": 17.799999237060548
                     },
                     {
@@ -9699,7 +9894,7 @@
                 "TargetPositions": [
                     {
                         "x": -38.400001525878909,
-                        "y": 0.0,
+                        "y": 3.799999952316284,
                         "z": 0.0
                     },
                     {

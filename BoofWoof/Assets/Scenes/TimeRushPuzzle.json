@@ -1,9 +1,9 @@
 {
-    "SceneGUID": "ccfc11be-fd60-44b7-87d6-9988d7669cb6",
+    "SceneGUID": "a05e78d8-fa3d-4de3-8d6f-b28f4ef25244",
     "Entities": [
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 0
             },
             "TransformComponent": {
@@ -33,20 +33,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 0.699999988079071,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -0.699999988079071
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 1
             },
             "TransformComponent": {
@@ -76,20 +76,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 4.900000095367432,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -0.699999988079071
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 2
             },
             "TransformComponent": {
@@ -119,20 +119,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 0.699999988079071,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -4.900000095367432
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 3
             },
             "TransformComponent": {
@@ -162,14 +162,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 4.900000095367432,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -4.900000095367432
+                    "z": 0.0
                 }
             }
         },
@@ -180,9 +180,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 18.903770446777345,
-                    "y": 0.9887654185295105,
-                    "z": 5.063878059387207
+                    "x": 18.903881072998048,
+                    "y": 0.9999973177909851,
+                    "z": 5.936375141143799
                 },
                 "Scale": {
                     "x": 0.5,
@@ -348,7 +348,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 9
             },
             "TransformComponent": {
@@ -378,12 +378,12 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 7.900000095367432,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
                     "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 6.949999809265137,
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 }
@@ -415,6 +415,21 @@
                 "ModelName": "Bookshelf2",
                 "Texture": "Bookshelf2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -443,6 +458,21 @@
                 "ModelName": "Bookshelf3",
                 "Texture": "Bookshelf3",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -602,7 +632,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 17
             },
             "TransformComponent": {
@@ -632,20 +662,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 9.300000190734864,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
                     "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -0.699999988079071
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 18
             },
             "TransformComponent": {
@@ -675,14 +705,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 5.099999904632568,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 4.199999809265137,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -4.900000095367432
+                    "z": 0.0
                 }
             }
         },
@@ -768,11 +798,26 @@
                 "ModelName": "Floor",
                 "Texture": "Floor",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 7.900000095367432,
+                    "y": 0.20000000298023225,
+                    "z": 7.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 22
             },
             "TransformComponent": {
@@ -802,20 +847,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 4.900000095367432,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -9.100000381469727
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 23
             },
             "TransformComponent": {
@@ -845,14 +890,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 0.699999988079071,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -9.100000381469727
+                    "z": 0.0
                 }
             }
         },
@@ -938,6 +983,21 @@
                 "ModelName": "Floor",
                 "Texture": "Floor",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 7.900000095367432,
+                    "y": 0.20000000298023225,
+                    "z": 7.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -966,11 +1026,26 @@
                 "ModelName": "Floor",
                 "Texture": "Floor",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 7.900000095367432,
+                    "y": 0.20000000298023225,
+                    "z": 7.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.10000000149011612,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 28
             },
             "TransformComponent": {
@@ -1000,14 +1075,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 4.849999904632568,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 3.950000047683716,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": 6.699999809265137
+                    "z": 0.0
                 }
             }
         },
@@ -1041,7 +1116,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 30
             },
             "TransformComponent": {
@@ -1071,20 +1146,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 0.699999988079071,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": 2.5
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 31
             },
             "TransformComponent": {
@@ -1114,20 +1189,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 4.900000095367432,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": 2.5
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 32
             },
             "TransformComponent": {
@@ -1157,14 +1232,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 4.650000095367432,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 3.75,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": 2.5
+                    "z": 0.0
                 }
             }
         },
@@ -1282,7 +1357,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 37
             },
             "TransformComponent": {
@@ -1312,12 +1387,12 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 8.699999809265137,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
                     "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 7.050000190734863,
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 }
@@ -1349,6 +1424,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -1377,6 +1467,21 @@
                 "ModelName": "Bookshelf2",
                 "Texture": "Bookshelf2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -1405,6 +1510,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -1433,11 +1553,26 @@
                 "ModelName": "Bookshelf3",
                 "Texture": "Bookshelf3",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 42
             },
             "TransformComponent": {
@@ -1467,14 +1602,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 6.25,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -4.599999904632568,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
@@ -1504,6 +1639,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -1532,6 +1682,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -1560,6 +1725,21 @@
                 "ModelName": "Bookshelf2",
                 "Texture": "Bookshelf2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -1588,6 +1768,21 @@
                 "ModelName": "Bookshelf3",
                 "Texture": "Bookshelf3",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -1608,7 +1803,7 @@
                 },
                 "Rotation": {
                     "x": -3.1415908336639406,
-                    "y": -0.008402462117373944,
+                    "y": -0.00840245746076107,
                     "z": -3.1415908336639406
                 }
             },
@@ -1616,6 +1811,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -1644,11 +1854,26 @@
                 "ModelName": "Bookshelf2",
                 "Texture": "Bookshelf2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 49
             },
             "TransformComponent": {
@@ -1678,12 +1903,12 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 6.099999904632568,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
                     "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -4.449999809265137,
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 }
@@ -1715,6 +1940,21 @@
                 "ModelName": "Bookshelf3",
                 "Texture": "Bookshelf3",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -1743,6 +1983,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -1771,6 +2026,21 @@
                 "ModelName": "Bookshelf2",
                 "Texture": "Bookshelf2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -1859,7 +2129,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 56
             },
             "TransformComponent": {
@@ -1889,12 +2159,12 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 9.100000381469727,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
                     "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -7.5,
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 }
@@ -1926,6 +2196,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -1954,6 +2239,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -1982,6 +2282,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2010,11 +2325,26 @@
                 "ModelName": "Bookshelf2",
                 "Texture": "Bookshelf2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 61
             },
             "TransformComponent": {
@@ -2044,14 +2374,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 3.299999952316284,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -1.649999976158142,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
@@ -2081,11 +2411,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisonPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 63
             },
             "TransformComponent": {
@@ -2115,14 +2460,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 1.2999999523162842,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 0.4000000059604645,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
@@ -2152,6 +2497,21 @@
                 "ModelName": "Bookshelf2",
                 "Texture": "Bookshelf2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2180,6 +2540,21 @@
                 "ModelName": "Bookshelf2",
                 "Texture": "Bookshelf2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2208,11 +2583,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 67
             },
             "TransformComponent": {
@@ -2242,14 +2632,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 1.600000023841858,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -0.05000000074505806,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
@@ -2279,6 +2669,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2307,11 +2712,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 70
             },
             "TransformComponent": {
@@ -2341,14 +2761,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 6.800000190734863,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.149999976158142
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -5.099999904632568,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.550000011920929
+                    "z": 0.0
                 }
             }
         },
@@ -2378,6 +2798,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2406,6 +2841,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2434,6 +2884,21 @@
                 "ModelName": "Bookshelf2",
                 "Texture": "Bookshelf2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2462,6 +2927,21 @@
                 "ModelName": "Bookshelf2",
                 "Texture": "Bookshelf2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2490,6 +2970,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.600000023841858,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2518,6 +3013,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2546,6 +3056,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2574,11 +3099,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 79
             },
             "TransformComponent": {
@@ -2608,14 +3148,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 4.800000190734863,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.100000023841858
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -3.799999952316284,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.550000011920929
+                    "z": 0.0
                 }
             }
         },
@@ -2645,6 +3185,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2673,11 +3228,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 82
             },
             "TransformComponent": {
@@ -2707,14 +3277,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 2.700000047683716,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -1.7999999523162842,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
@@ -2744,6 +3314,21 @@
                 "ModelName": "Bookshelf3",
                 "Texture": "Bookshelf3",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2772,6 +3357,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2800,6 +3400,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2828,6 +3443,21 @@
                 "ModelName": "Bookshelf3",
                 "Texture": "Bookshelf3",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2968,6 +3598,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -2996,6 +3641,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3024,6 +3684,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3052,6 +3727,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3166,11 +3856,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 98
             },
             "TransformComponent": {
@@ -3200,20 +3905,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 4.949999809265137,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.149999976158142
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -3.299999952316284,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 99
             },
             "TransformComponent": {
@@ -3243,12 +3948,12 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 9.100000381469727,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
                     "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 7.449999809265137,
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 }
@@ -3280,11 +3985,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 101
             },
             "TransformComponent": {
@@ -3314,14 +4034,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 3.299999952316284,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -1.649999976158142,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
@@ -3351,6 +4071,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3365,9 +4100,9 @@
                     "z": -21.924394607543947
                 },
                 "Scale": {
-                    "x": 1.4001580476760865,
+                    "x": 1.4001582860946656,
                     "y": 1.399999976158142,
-                    "z": 1.0001580715179444
+                    "z": 1.0001583099365235
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -3379,6 +4114,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.600000023841858,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3407,6 +4157,21 @@
                 "ModelName": "Bookshelf3",
                 "Texture": "Bookshelf3",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3435,6 +4200,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3635,6 +4415,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3663,6 +4458,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3691,6 +4501,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3719,6 +4544,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3747,6 +4587,21 @@
                 "ModelName": "Bookshelf3",
                 "Texture": "Bookshelf3",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3775,6 +4630,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3803,6 +4673,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3831,6 +4716,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3859,6 +4759,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3887,6 +4802,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -3915,11 +4845,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 121
             },
             "TransformComponent": {
@@ -3949,14 +4894,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 6.199999809265137,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 5.400000095367432,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
@@ -3986,6 +4931,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4014,6 +4974,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4042,6 +5017,21 @@
                 "ModelName": "Bookshelf2",
                 "Texture": "Bookshelf2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4070,11 +5060,26 @@
                 "ModelName": "Bookshelf2",
                 "Texture": "Bookshelf2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 126
             },
             "TransformComponent": {
@@ -4104,14 +5109,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 8.25,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.149999976158142
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 6.599999904632568,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6499999761581421
+                    "z": 0.0
                 }
             }
         },
@@ -4141,6 +5146,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4169,6 +5189,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4197,11 +5232,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 130
             },
             "TransformComponent": {
@@ -4231,12 +5281,12 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 3.299999952316284,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
                     "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -1.649999976158142,
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 }
@@ -4268,11 +5318,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 132
             },
             "TransformComponent": {
@@ -4302,14 +5367,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 4.900000095367432,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.149999976158142
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 3.25,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.550000011920929
+                    "z": 0.0
                 }
             }
         },
@@ -4339,6 +5404,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4367,6 +5447,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4395,6 +5490,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4423,6 +5533,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4451,6 +5576,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4922,6 +6062,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4950,6 +6105,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -4978,6 +6148,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -5006,6 +6191,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -5038,7 +6238,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 154
             },
             "TransformComponent": {
@@ -5068,20 +6268,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 4.949999809265137,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 4.050000190734863,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -1.7000000476837159
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 155
             },
             "TransformComponent": {
@@ -5111,20 +6311,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 4.900000095367432,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -1.7000000476837159
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 156
             },
             "TransformComponent": {
@@ -5154,14 +6354,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 10.0
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": 0.6499999761581421,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -1.7000000476837159
+                    "z": 0.0
                 }
             }
         },
@@ -5778,7 +6978,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 174
             },
             "TransformComponent": {
@@ -5808,20 +7008,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 6.25
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": -1.0499999523162842,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -2.1500000953674318
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 175
             },
             "TransformComponent": {
@@ -5851,20 +7051,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 6.150000095367432
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": -5.25,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -2.0999999046325685
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "FloorCollisionPoint",
+                "EntityName": "Floor",
                 "EntityID": 176
             },
             "TransformComponent": {
@@ -5894,14 +7094,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 4.900000095367432,
+                    "x": 7.900000095367432,
                     "y": 0.20000000298023225,
-                    "z": 6.300000190734863
+                    "z": 7.900000095367432
                 },
                 "AABBOffset": {
-                    "x": -4.400000095367432,
+                    "x": 0.0,
                     "y": -0.10000000149011612,
-                    "z": -2.200000047683716
+                    "z": 0.0
                 }
             }
         },
@@ -6215,7 +7415,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 188
             },
             "TransformComponent": {
@@ -6245,12 +7445,12 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
                     "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -8.350000381469727,
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 }
@@ -6282,11 +7482,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 190
             },
             "TransformComponent": {
@@ -6316,12 +7531,12 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
                     "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 8.350000381469727,
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 }
@@ -6353,6 +7568,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6381,6 +7611,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6409,6 +7654,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6437,6 +7697,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6465,6 +7740,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6493,11 +7783,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 197
             },
             "TransformComponent": {
@@ -6527,14 +7832,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 4.949999809265137,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -3.299999952316284,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
@@ -6564,6 +7869,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6592,6 +7912,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6620,6 +7955,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6648,6 +7998,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6676,6 +8041,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6704,11 +8084,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 204
             },
             "TransformComponent": {
@@ -6738,14 +8133,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 7.0,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -5.400000095367432,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
@@ -6775,6 +8170,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6803,6 +8213,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6831,6 +8256,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6859,6 +8299,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6887,11 +8342,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 210
             },
             "TransformComponent": {
@@ -6921,14 +8391,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 4.900000095367432,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -3.299999952316284,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
@@ -6958,6 +8428,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -6986,6 +8471,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7014,6 +8514,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7042,6 +8557,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7089,7 +8619,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 216
             },
             "TransformComponent": {
@@ -7119,14 +8649,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
                     "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -8.649999618530274,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": 0.15000000596046449
+                    "z": 0.0
                 }
             }
         },
@@ -7156,6 +8686,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7184,6 +8729,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7212,6 +8772,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7240,6 +8815,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7268,6 +8858,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7296,11 +8901,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 223
             },
             "TransformComponent": {
@@ -7330,14 +8950,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 8.399999618530274,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -6.75,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
@@ -7367,6 +8987,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6499999761581421
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7395,6 +9030,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7423,6 +9073,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7451,6 +9116,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7479,6 +9159,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7507,6 +9202,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7535,11 +9245,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 231
             },
             "TransformComponent": {
@@ -7569,14 +9294,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 1.2999999523162842,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 0.3499999940395355,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6499999761581421
+                    "z": 0.0
                 }
             }
         },
@@ -7606,11 +9331,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 233
             },
             "TransformComponent": {
@@ -7640,12 +9380,12 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 3.5999999046325685,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
                     "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 2.0999999046325685,
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 }
@@ -7677,6 +9417,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7944,6 +9699,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7972,11 +9742,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 245
             },
             "TransformComponent": {
@@ -8006,14 +9791,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 4.699999809265137,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.149999976158142
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -3.049999952316284,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.550000011920929
+                    "z": 0.0
                 }
             }
         },
@@ -8043,6 +9828,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8071,6 +9871,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8099,11 +9914,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 249
             },
             "TransformComponent": {
@@ -8133,14 +9963,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 9.850000381469727,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
                     "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 9.0,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": 0.25
+                    "z": 0.0
                 }
             }
         },
@@ -8170,6 +10000,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8198,6 +10043,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8226,6 +10086,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8254,6 +10129,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8282,6 +10172,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8310,6 +10215,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8338,6 +10258,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8366,6 +10301,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8394,6 +10344,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8422,6 +10387,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8450,6 +10430,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8478,11 +10473,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 262
             },
             "TransformComponent": {
@@ -8512,14 +10522,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 7.349999904632568,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": -5.75,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
@@ -8549,6 +10559,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8563,9 +10588,9 @@
                     "z": -82.0082778930664
                 },
                 "Scale": {
-                    "x": 1.600014567375183,
+                    "x": 1.6000151634216309,
                     "y": 1.399999976158142,
-                    "z": 1.0003087520599366
+                    "z": 1.0003091096878052
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -8577,6 +10602,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8605,6 +10645,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8633,6 +10688,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8661,6 +10731,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8689,6 +10774,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8717,11 +10817,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 270
             },
             "TransformComponent": {
@@ -8751,20 +10866,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 2.200000047683716,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 1.25,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 271
             },
             "TransformComponent": {
@@ -8831,6 +10946,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8859,6 +10989,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8887,6 +11032,21 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8915,11 +11075,26 @@
                 "ModelName": "Bookshelf1",
                 "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "BookshelfCollisionPoint",
+                "EntityName": "Bookshelf",
                 "EntityID": 276
             },
             "TransformComponent": {
@@ -8949,14 +11124,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 3.0999999046325685,
+                    "x": 1.649999976158142,
                     "y": 2.450000047683716,
-                    "z": 1.2000000476837159
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 1.649999976158142,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -0.6000000238418579
+                    "z": 0.0
                 }
             }
         },
@@ -9688,7 +11863,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "left particle",
-                "EntityID": 295
+                "EntityID": 294
             },
             "TransformComponent": {
                 "Position": {
@@ -9745,7 +11920,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "right particle",
-                "EntityID": 296
+                "EntityID": 295
             },
             "TransformComponent": {
                 "Position": {
@@ -9802,7 +11977,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "middle particle",
-                "EntityID": 297
+                "EntityID": 296
             },
             "TransformComponent": {
                 "Position": {
@@ -9859,7 +12034,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "middle particle 2",
-                "EntityID": 298
+                "EntityID": 297
             },
             "TransformComponent": {
                 "Position": {
