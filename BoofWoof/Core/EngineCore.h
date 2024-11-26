@@ -16,6 +16,7 @@
 #include "../Utilities/Components/MetaData.hpp"
 #include "../Utilities/Components/CameraComponent.hpp"
 #include "../Utilities/Components/ParticleComponent.hpp"
+#include "../Utilities/Components/LightComponent.hpp"
 
 #include "Windows/WindowManager.h"
 #include "AssetManager/AssetManager.h"

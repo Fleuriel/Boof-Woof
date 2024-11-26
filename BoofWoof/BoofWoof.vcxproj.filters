@@ -36,6 +36,7 @@
     <ClCompile Include="Utilities\Components\AnimationComponent.cpp" />
     <ClCompile Include="Utilities\Components\CameraComponent.cpp" />
     <ClCompile Include="Utilities\Components\MaterialComponent.cpp" />
+    <ClCompile Include="Utilities\Components\LightComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -86,6 +87,7 @@
     <ClInclude Include="Utilities\Components\AnimationComponent.h" />
     <ClInclude Include="Utilities\Components\CameraComponent.hpp" />
     <ClInclude Include="Utilities\Components\MaterialComponent.hpp" />
+    <ClInclude Include="Utilities\Components\LightComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

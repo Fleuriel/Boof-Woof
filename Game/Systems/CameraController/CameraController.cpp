@@ -22,6 +22,11 @@ void CameraController::Update(float deltaTime)
 	{
 		UpdateShiftingView(camera);
 	}
+
+	if (currentMode == CameraMode::SHAKE)
+	{
+		UpdateShakePlayer(camera);
+	}
 }
 
 void CameraController::ToggleCameraMode()
@@ -38,6 +43,25 @@ void CameraController::ToggleCameraMode()
 		lastMode = CameraMode::THIRD_PERSON;
 		cameraMove = getfirstPersonCameraMove(g_Coordinator.GetComponent<CameraComponent>(playerEntity));
 	}
+}
+
+void CameraController::ShakeCamera(float time, glm::vec3 range)
+{
+	shakeTime = 0.0f;
+	shakeDuration = time;
+	shakeRange = range;
+    lastMode = currentMode;
+    currentMode = CameraMode::SHAKE;
+}
+
+void CameraController::ShakePlayer(float time, glm::vec3 range)
+{
+	shakeTime = 0.0f;
+	shakeDuration = time;
+	shakeRange = range;
+	player_old_pos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
+	lastMode = currentMode;
+	currentMode = CameraMode::SHAKE;
 }
 
 
@@ -180,6 +204,52 @@ void CameraController::UpdateShiftingView(CameraComponent& camera)
 		}
 		moved_dis = 0.0f;
     }
+}
+
+void CameraController::UpdateShakeView(CameraComponent& camera)
+{
+    shakeTime += g_Core->m_FixedDT;
+	if (shakeTime >= shakeDuration)
+	{
+		currentMode = lastMode;
+		shakeTime = 0.0f;
+		shakeDuration = 0.0f;
+	}
+	else
+	{
+		glm::vec3 offset = glm::vec3(
+			((rand() % 100) / 100.0f) * shakeRange.x - shakeRange.x / 2.0f,
+			((rand() % 100) / 100.0f) * shakeRange.y - shakeRange.y / 2.0f,
+			((rand() % 100) / 100.0f) * shakeRange.z - shakeRange.z / 2.0f
+		);
+
+		//offset = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetRotation() * offset;
+		camera.Position += offset;
+	}
+}
+
+void CameraController::UpdateShakePlayer(CameraComponent& camera)
+{
+	shakeTime += g_Core->m_FixedDT;
+	if (shakeTime >= shakeDuration)
+	{
+		currentMode = lastMode;
+		shakeTime = 0.0f;
+		shakeDuration = 0.0f;
+		g_Coordinator.GetComponent<TransformComponent>(playerEntity).SetPosition(player_old_pos);
+	}
+	else
+	{
+		glm::vec3 offset = glm::vec3(
+			((rand() % 100) / 100.0f) * shakeRange.x - shakeRange.x / 2.0f,
+			((rand() % 100) / 100.0f) * shakeRange.y - shakeRange.y / 2.0f,
+			((rand() % 100) / 100.0f) * shakeRange.z - shakeRange.z / 2.0f
+		);
+
+		auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEntity);
+		playerTransform.SetPosition(player_old_pos + offset);
+		std::cout << "ShakePlayer " << playerTransform.GetPosition().x << " " << playerTransform.GetPosition().y << " " << playerTransform.GetPosition().z << std::endl;
+	}
 }
 
 CameraMove CameraController::getfirstPersonCameraMove(CameraComponent& camera)
