@@ -45,6 +45,8 @@ class MainHall : public Level
 				}
 			}
 		}
+
+		g_Window->HideMouseCursor();
 	}
 
 	void InitLevel()
