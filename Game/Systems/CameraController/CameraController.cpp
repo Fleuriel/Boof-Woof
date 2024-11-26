@@ -248,7 +248,7 @@ void CameraController::UpdateShakePlayer(CameraComponent& camera)
 
 		auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEntity);
 		playerTransform.SetPosition(player_old_pos + offset);
-		std::cout << "ShakePlayer " << playerTransform.GetPosition().x << " " << playerTransform.GetPosition().y << " " << playerTransform.GetPosition().z << std::endl;
+		//std::cout << "ShakePlayer " << playerTransform.GetPosition().x << " " << playerTransform.GetPosition().y << " " << playerTransform.GetPosition().z << std::endl;
 	}
 }
 
