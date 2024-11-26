@@ -81,12 +81,12 @@ class StartingRoom : public Level
 			}
 		}
 
-		// Space to go back mainmenu
-		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
-		{
-			g_LevelManager.SetNextLevel("MainMenu");
-			g_Window->ShowMouseCursor();
-		}
+		//// Space to go back mainmenu
+		//if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
+		//{
+		//	g_LevelManager.SetNextLevel("MainMenu");
+		//	g_Window->ShowMouseCursor();
+		//}
 	}
 
 	void FreeLevel()

@@ -69,11 +69,6 @@ class MainHall : public Level
 	{
 		cameraController->Update(static_cast<float>(deltaTime));
 
-		if (!g_ChangeText.shutted)
-		{
-			g_ChangeText.OnUpdate(deltaTime);
-		}
-
 		if (!g_Checklist.shutted)
 		{
 			g_Checklist.OnUpdate(deltaTime);

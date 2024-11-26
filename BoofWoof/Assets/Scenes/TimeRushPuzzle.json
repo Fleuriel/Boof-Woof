@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "f0b3fcd9-87bc-477f-bebe-91f735d662b3",
+    "SceneGUID": "be5f61b9-d219-4030-81cc-9a6f8d3e1a1c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -180,9 +180,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 18.903772354125978,
-                    "y": 0.9887655377388,
-                    "z": 5.063877582550049
+                    "x": 18.903770446777345,
+                    "y": 0.9887654781341553,
+                    "z": 5.063878059387207
                 },
                 "Scale": {
                     "x": 0.5,
@@ -7761,6 +7761,21 @@
                 "ModelName": "WallDoor",
                 "Texture": "WallDoor",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.799999952316284,
+                    "y": 3.0,
+                    "z": 0.699999988079071
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {

@@ -77,6 +77,11 @@ class TimeRush : public Level
         {
             std::cout << "End of timer" << std::endl;
         }
+
+        if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallDoor")
+        {
+            g_LevelManager.SetNextLevel("MainHall");
+        }
     }
 
     void FreeLevel() override 
