@@ -14,7 +14,7 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		g_BoneCatcher.OnUpdate(deltaTime);
 	}
 
-	if (PlayerCollidedRope1 && PlayerCollidedRope2 && RopeDespawned >= 2)
+	if (PlayerCollidedRope1 && PlayerCollidedRope2 && RopeDespawned >= 2 && !isFalling)
 	{
 		DropBridge();
 	}
