@@ -23,7 +23,14 @@ bool GraphicsSystem::lightOn = false;
 
 CameraComponent GraphicsSystem::camera;
 CameraComponent camera_render;
-ParticleComponent Particle_cmp;
+
+struct light_info {
+	glm::vec3 position;
+	glm::vec3 color;
+	float intensity;
+};
+std::vector <light_info> lights_infos;
+
 
 glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 
@@ -160,6 +167,26 @@ void GraphicsSystem::UpdateLoop() {
 			}
 		}
 	}
+
+	lights_infos.clear();
+	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
+	{
+		if (g_Coordinator.HaveComponent<LightComponent>(entity))
+		{
+			if (g_Coordinator.HaveComponent<TransformComponent>(entity))
+			{
+				auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+				light_info light_info_;
+				light_info_.position = transformComp.GetPosition();
+				light_info_.intensity = g_Coordinator.GetComponent<LightComponent>(entity).getIntensity();
+				light_info_.color = g_Coordinator.GetComponent<LightComponent>(entity).getColor();
+
+				lights_infos.push_back(light_info_);
+
+			}
+
+		}
+	}
 	
 	shdrParam.View = camera_render.GetViewMatrix();
 	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
@@ -238,7 +265,18 @@ void GraphicsSystem::UpdateLoop() {
 
 		}
 		g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
-		g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
+		for (int i = 0; i < lights_infos.size(); i++)
+		{
+			std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
+			g_AssetManager.GetShader("Shader3D").SetUniform(lightPosStr.c_str(), lights_infos[i].position);
+			std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
+			g_AssetManager.GetShader("Shader3D").SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
+			std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
+			g_AssetManager.GetShader("Shader3D").SetUniform(lightColorStr.c_str(), lights_infos[i].color);
+		}
+		/*g_AssetManager.GetShader("Shader3D").SetUniform("lights[0].position", lightPos);
+		g_AssetManager.GetShader("Shader3D").SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
+		g_AssetManager.GetShader("Shader3D").SetUniform("numLights", static_cast<int>(lights_infos.size()));
 		g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera_render.Position);
 		g_AssetManager.GetShader("Shader3D").SetUniform("lightOn", lightOn);
 
@@ -575,24 +613,24 @@ bool GraphicsSystem::DrawMaterialSphere()
 	return true;
 }
 
-void GraphicsSystem::generateNewFrameBuffer(unsigned int& fbo, unsigned int& textureColorbuffer, unsigned int& rbo, int width, int height) {
+void GraphicsSystem::generateNewFrameBuffer(unsigned int& fbo_, unsigned int& textureColorbuffer_, unsigned int& rbo_, int width, int height) {
 	// Generate and bind the framebuffer
-	glGenFramebuffers(1, &fbo);
-	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+	glGenFramebuffers(1, &fbo_);
+	glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
 
 	// Create the texture for the framebuffer
-	glGenTextures(1, &textureColorbuffer);
-	glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+	glGenTextures(1, &textureColorbuffer_);
+	glBindTexture(GL_TEXTURE_2D, textureColorbuffer_);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer_, 0);
 
 	// Create the renderbuffer for depth and stencil
-	glGenRenderbuffers(1, &rbo);
-	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+	glGenRenderbuffers(1, &rbo_);
+	glBindRenderbuffer(GL_RENDERBUFFER, rbo_);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo_);
 
 	// Check if the framebuffer is complete
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {

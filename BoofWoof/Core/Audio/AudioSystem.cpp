@@ -615,3 +615,58 @@ void AudioSystem::StopBGM() {
     }
     system->update();
 }
+
+
+
+void AudioSystem::PlayFileOnNewChannel(const std::string& filePath) 
+{
+    // Check if the sound is already cached
+    if (soundCache.find(filePath) == soundCache.end()) {
+        // Load the sound if it's not already cached
+        FMOD::Sound* sound = nullptr;
+        FMOD_RESULT result = system->createSound(filePath.c_str(), FMOD_DEFAULT, nullptr, &sound);
+
+        if (result != FMOD_OK) {
+            std::cerr << "Error loading sound from file: " << filePath << std::endl;
+            return;
+        }
+
+        // Cache the sound
+        soundCache[filePath] = std::shared_ptr<FMOD::Sound>(sound, [](FMOD::Sound* s) {
+            s->release(); // Release the sound when the shared_ptr is destroyed
+            });
+    }
+
+    // Play the cached sound on a new channel
+    FMOD::Channel* newChannel = nullptr;
+    FMOD_RESULT result = system->playSound(soundCache[filePath].get(), nullptr, false, &newChannel);
+    if (result != FMOD_OK || !newChannel) {
+        std::cerr << "Error playing sound on new channel: " << FMODErrorToString(result) << std::endl;
+        return;
+    }
+
+    // Set volume and other settings for the new channel
+    newChannel->setVolume(1.0f); // Set to full volume
+
+    // Store the new channel to manage it later if needed
+    additionalChannels.push_back(newChannel);
+
+    // Update the FMOD system to process audio
+    system->update();
+}
+
+
+void AudioSystem::StopSpecificSound(const std::string& filePath) {
+    for (auto it = additionalChannels.begin(); it != additionalChannels.end(); ++it) {
+        if (*it) {
+            bool isPlaying = false;
+            (*it)->isPlaying(&isPlaying);
+
+            if (isPlaying) {
+                (*it)->stop(); 
+                additionalChannels.erase(it); 
+                break;
+            }
+        }
+    }
+}

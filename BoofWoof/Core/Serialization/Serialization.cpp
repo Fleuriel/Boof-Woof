@@ -349,6 +349,23 @@ bool Serialization::SaveScene(const std::string& filepath) {
             // Add the CameraComponent to the entityData
             entityData.AddMember("ParticleComponent", particles, allocator);
         }
+		if (g_Coordinator.HaveComponent<LightComponent>(entity))
+		{
+			rapidjson::Value light(rapidjson::kObjectType);
+
+			auto& lightComp = g_Coordinator.GetComponent<LightComponent>(entity);
+
+			light.AddMember("LightIntensity", lightComp.getIntensity(), allocator);
+
+			rapidjson::Value color(rapidjson::kObjectType);
+			color.AddMember("r", lightComp.getColor().r, allocator);
+			color.AddMember("g", lightComp.getColor().g, allocator);
+			color.AddMember("b", lightComp.getColor().b, allocator);
+
+			light.AddMember("LightColor", color, allocator);
+
+			entityData.AddMember("LightComponent", light, allocator);
+		}
 
         entities.PushBack(entityData, allocator);
     }
@@ -698,6 +715,27 @@ bool Serialization::LoadScene(const std::string& filepath)
                     g_Coordinator.AddComponent(entity, particleComponent);
                 }
             }
+
+            if(entityData.HasMember("LightComponent"))
+			{
+				const auto& LData = entityData["LightComponent"];
+                if (LData.HasMember("LightIntensity")) {
+
+                    float intensity = LData["LightIntensity"].GetFloat();
+
+					glm::vec3 color(
+						LData["LightColor"]["r"].GetFloat(),
+						LData["LightColor"]["g"].GetFloat(),
+						LData["LightColor"]["b"].GetFloat()
+					);
+
+					LightComponent lightComponent (intensity, color);
+                    g_Coordinator.AddComponent(entity, lightComponent);
+
+
+                }
+               
+			}
 
             // Print out all entity components
 			//std::cout << "Entity: " << g_Coordinator.GetEntityId(entity) << std::endl;

@@ -10,6 +10,7 @@ std::uniform_real_distribution<float> dist;  // Default distribution range
 void BoneCatcher::OnInitialize()
 {
 	g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/BoneCatcher.json");
+
 	storage = serial.GetStored();
 
 	// Retrieve the head
@@ -68,6 +69,8 @@ void BoneCatcher::OnInitialize()
 
 void BoneCatcher::OnUpdate(double deltaTime)
 {
+	ClearBoneCatcherTimer += deltaTime;
+
 	if (m_HitCount <= 4) 
 	{
 		if (g_Input.GetKeyState(GLFW_KEY_C) >= 1)
@@ -85,6 +88,13 @@ void BoneCatcher::OnUpdate(double deltaTime)
 			BiteDown(deltaTime);
 		}
 	}		
+
+	// Play for as long bonecatcher lasts.
+	if (AudioTimer <= ClearBoneCatcherTimer && !isAudioPlaying)
+	{
+		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CreakingRope2.wav");
+		isAudioPlaying = true;
+	}
 
 	Stop(deltaTime);
 }
@@ -169,16 +179,16 @@ void BoneCatcher::BiteDown(double deltaTime)
 		// Check for collision 
 		if (isInRange && !m_HitDetected) 
 		{
-			std::cout << "Hit detected!" << std::endl;
+			//std::cout << "Hit detected!" << std::endl;
 			m_HitDetected = true;
 			m_HitCount += 1;
-			std::cout << "m_HitCount: " << m_HitCount  << std::endl;
+			//std::cout << "m_HitCount: " << m_HitCount  << std::endl;
 
 			// Play YAY sound
-			
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorrectSound.wav");
 
 			// Hit = Pass = Randomize Catchzone position & Faster DogHead Speed.
-			m_Speed += 0.5f;
+			m_Speed += 0.4f;
 
 			// Randomize X position (must stay within the smaller range after each hit)
 			dist = std::uniform_real_distribution<float>(MinMaxPos.x, MinMaxPos.y);
@@ -190,7 +200,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 		}
 		else {
 			// Play BOO sound
-
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WrongSound.wav");
 			// Failed to hit - nothing changes, play the same level.
 		}
 	}
@@ -227,6 +237,16 @@ void BoneCatcher::BiteDown(double deltaTime)
 }
 void BoneCatcher::ClearBoneCatcher()
 {
+	AudioTimer = ClearBoneCatcherTimer;
+
+	// Stop the audio when bonecatcher is cleared
+	if (isAudioPlaying) 
+	{
+		std::cout << "Entered audioplaying" << std::endl;
+		g_Audio.StopSpecificSound("../BooFwoof/Assets/Audio/CreakingRope2.wav"); // Stop the specific file path
+		isAudioPlaying = false;  // Reset the flag
+	}
+
 	// Just remove whatever we had stored from the current alive entity and destroy them
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 

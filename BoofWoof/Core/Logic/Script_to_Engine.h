@@ -6,12 +6,14 @@
 #include "BehaviourInterface.h"
 #include "../Input/Input.h"
 #include "../Utilities/Components/CollisionComponent.hpp"
+#include "../Utilities/Components/TransformComponent.hpp"
+#include "../Utilities/Components/CameraComponent.hpp"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
 #include <Jolt/Physics/Body/Body.h>
 
-class Script_to_Engine : public engine_interface, public input_interface
+class Script_to_Engine : public engine_interface, public input_interface, public audio_interface
 {
 public:
 
@@ -28,17 +30,40 @@ public:
 
 	virtual bool isActionPressed(const char * action) override
 	{
+		
 		return g_Input.IsActionPressed(action);
 	}
 
 	// END OF INPUT INTERFACE
+	
+	// AUDIO INTERFACE
+	virtual audio_interface& getAudioSystem() override
+	{
+		return *this;
+	}
+
+	virtual void PlaySound(const char* pSoundName) override
+	{
+		// Play sound
+		// g_Audio.PlayFile(pSoundName);
+	}
 
 	// ENGINE INTERFACE
+
+	virtual void DestroyEntity(Entity entity) override
+	{
+		g_Coordinator.DestroyEntity(entity);
+	}
 	
 	//Transform Component
 	virtual glm::vec3 GetPosition(Entity entity) override
 	{
 		return g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition();
+	}
+
+	virtual glm::vec3 GetRotation(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<TransformComponent>(entity).GetRotation();
 	}
 
 	virtual void SetPosition(Entity entity, glm::vec3 position) override
@@ -61,6 +86,31 @@ public:
 	virtual bool HavePhysicsBody(Entity entity) override
 	{
 		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody() != nullptr;
+	}
+
+	
+	virtual glm::vec3 GetVelocity(Entity entity) override
+	{
+		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
+		{
+			auto* body = g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody();
+			if (body->GetMotionType() == JPH::EMotionType::Dynamic)
+			{
+				JPH::Vec3 velocity = body->GetLinearVelocity();
+				return glm::vec3(velocity.GetX(), velocity.GetY(), velocity.GetZ());
+			}
+		}
+		return glm::vec3(0.0f); // Return zero velocity for static or invalid entities
+	}
+
+	virtual bool IsColliding(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetIsColliding();
+	}
+
+	virtual const char* GetCollidingEntityName(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetLastCollidedObjectName().c_str();
 	}
 
 	virtual void SetVelocity(Entity entity, glm::vec3 inputVelocity) override
@@ -86,18 +136,33 @@ public:
 		}
 	}
 
-	virtual glm::vec3 GetVelocity(Entity entity) override
+
+	//Camera Component
+	virtual bool HaveCameraComponent(Entity entity) override
 	{
-		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
-		{
-			auto* body = g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody();
-			if (body->GetMotionType() == JPH::EMotionType::Dynamic)
-			{
-				JPH::Vec3 velocity = body->GetLinearVelocity();
-				return glm::vec3(velocity.GetX(), velocity.GetY(), velocity.GetZ());
-			}
-		}
-		return glm::vec3(0.0f); // Return zero velocity for static or invalid entities
+		return g_Coordinator.HaveComponent<CameraComponent>(entity);
+	}
+
+	virtual glm::vec3 GetCameraDirection(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CameraComponent>(entity).GetCameraDirection();
+	}
+
+	// not used
+	virtual float GetCameraYaw(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CameraComponent>(entity).GetCameraYaw();
+	}
+
+	// not used
+	virtual float GetCameraPitch(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CameraComponent>(g_Player).GetCameraPitch();
+	}
+
+	virtual glm::vec3 GetCameraUp(Entity entity) override
+	{
+		return g_Coordinator.GetComponent<CameraComponent>(entity).GetCameraUp();
 	}
 
 };

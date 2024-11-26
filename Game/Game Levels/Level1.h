@@ -1,10 +1,11 @@
 #pragma once
-
 #include "Level Manager/Level.h"
 #include "ECS/Coordinator.hpp"
 #include "../Systems/CameraController/CameraController.h"
 #include "../Systems/BoneCatcher/BoneCatcher.h"
 #include "../Systems/RopeBreaker/RopeBreaker.h"
+#include "../Systems/ChangeText/ChangeText.h"
+#include "../Systems/Checklist/Checklist.h"
 
 Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{};
 CameraController* cameraController = nullptr;
@@ -14,6 +15,10 @@ class Level1 : public Level
 	void LoadLevel()
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");		
+		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
+
+		g_ChangeText.OnInitialize();
+		g_Checklist.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -65,6 +70,16 @@ class Level1 : public Level
 	{
 		cameraController->Update(static_cast<float>(deltaTime));
 
+		if (!g_ChangeText.shutted) 
+		{
+			g_ChangeText.OnUpdate(deltaTime);
+		}
+
+		if (!g_Checklist.shutted) 
+		{
+			g_Checklist.OnUpdate(deltaTime);
+		}
+
 		g_RopeBreaker.OnUpdate(deltaTime);	
 
 		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
@@ -98,6 +113,7 @@ class Level1 : public Level
 
 	void UnloadLevel()
 	{
+		g_Audio.StopBGM();
 		g_Coordinator.ResetEntities();
 	}
 };

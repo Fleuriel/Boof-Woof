@@ -9,8 +9,10 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		CheckCollision();
 	}
 
-	g_BoneCatcher.OnUpdate(deltaTime);	
-
+	if (BoneSpawned)
+	{
+		g_BoneCatcher.OnUpdate(deltaTime);
+	}
 
 	if (PlayerCollidedRope1 && PlayerCollidedRope2 && RopeDespawned >= 2)
 	{
@@ -23,8 +25,8 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		return; // do nothing
 
 		// For quick testing
-		/*PlayerCollidedRope1 = PlayerCollidedRope2 = true;
-		RopeDespawned = 2;*/
+		//PlayerCollidedRope1 = PlayerCollidedRope2 = true;
+		//RopeDespawned = 2;
 	}
 	else 
 	{
@@ -93,6 +95,12 @@ void RopeBreaker::CheckCollision()
 
 void RopeBreaker::DropBridge()
 {
+	if (!bridgeAudio) 
+	{
+		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/BridgeCreak.wav");
+		bridgeAudio = true;
+	}
+
 	if (!g_Coordinator.HaveComponent<TransformComponent>(bridge)) return;
 
 	auto& transform = g_Coordinator.GetComponent<TransformComponent>(bridge);
@@ -112,11 +120,14 @@ void RopeBreaker::SpawnBoneCatcher()
 	if (PlayerCollidedRope1 || PlayerCollidedRope2)
 	{
 		g_BoneCatcher.OnInitialize();
+		BoneSpawned = true;
 	}
 }
 
 void RopeBreaker::DespawnRope()
 {
+	BoneSpawned = false;
+
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
 	for (auto entity : entities)
@@ -127,6 +138,7 @@ void RopeBreaker::DespawnRope()
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
 				{
+					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav");
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					RopeDespawned++;
@@ -137,6 +149,7 @@ void RopeBreaker::DespawnRope()
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
 				{
+					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav");
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					RopeDespawned++;

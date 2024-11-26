@@ -1,0 +1,33 @@
+{
+    "SceneGUID": "5e4fc73a-59d0-45d4-ae2d-3d8729100205",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "StartingText",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.10000000149011612,
+                    "z": -0.10000000149011612
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 0.20000000298023225,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "CorgiText5",
+                "FollowCamera": false
+            }
+        }
+    ]
+}

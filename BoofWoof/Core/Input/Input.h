@@ -29,6 +29,8 @@ enum class ActionType {
     MoveLeft,
     MoveRight,
     Jump,
+	Bark,
+	Sniff,
     Shoot,
     // Add more actions as needed
 };

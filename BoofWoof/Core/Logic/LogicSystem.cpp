@@ -65,6 +65,7 @@ void LogicSystem::Init()
 		else if(behaviourName == "Player" && g_Player == NULL)
 		{
 			g_Player = entity;
+			std::cout << "Player entity found" << std::endl;
 		}
 		else if (behaviourName == "Player" && g_Player != NULL)
 		{
