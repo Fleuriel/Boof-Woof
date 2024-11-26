@@ -99,5 +99,7 @@
     <None Include="Assets\Shaders\Font.vert" />
     <None Include="Assets\Shaders\instanced.frag" />
     <None Include="Assets\Shaders\instanced.vert" />
+    <None Include="Assets\Shaders\Shader3D_Animated.vert" />
+    <None Include="Assets\Shaders\Shader3D_Animated.frag" />
   </ItemGroup>
 </Project>
