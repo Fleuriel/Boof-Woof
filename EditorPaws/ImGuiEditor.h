@@ -4,6 +4,10 @@
 #define IMGUIEDITOR_H
 #define g_ImGuiEditor ImGuiEditor::GetInstance()
 
+#ifdef MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS
+#undef MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS
+#endif
+
 #include "../BoofWoof/Core/ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/Windows/WindowManager.h"
 #include "../BoofWoof/Utilities/Components/TransformComponent.hpp"

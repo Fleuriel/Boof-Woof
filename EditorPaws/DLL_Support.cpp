@@ -48,9 +48,9 @@ void DLL_Support_Unload() {
 // Custom hook procedure
 LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam) {
     if (nCode >= 0) {
-        MSG* msg = (MSG*)lParam;
+        MSG* Message = (MSG*)lParam;
 
-        if (msg->message == WM_FILE_CHANGED) {
+        if (Message->message == WM_FILE_CHANGED) {
             MessageBoxW(NULL, L"File change detected!", L"Notification", MB_OK);
             std::cout << "File change detected!" << std::endl;
         }

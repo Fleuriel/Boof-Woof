@@ -52,7 +52,7 @@ public:
 
 
 
-    void Draw2D(OpenGLShader& shader);
+    void Draw2D(OpenGLShader& shader) const;
 
     void DrawCollisionBox2D(Model outlineModel);
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#define UNREFERENCED_PARAMETER(P)          (P)
 
 
 struct Player final : public Behaviour
@@ -11,6 +12,7 @@ struct Player final : public Behaviour
 
 	virtual void Init(Entity entity) override
 	{
+		UNREFERENCED_PARAMETER(entity);
 		std::cout << "Player Init" << std::endl;
 		
 		isJumping = false;
@@ -18,6 +20,7 @@ struct Player final : public Behaviour
 
 	virtual void Update(Entity entity) override
 	{
+		UNREFERENCED_PARAMETER(entity);
 		velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 		isMoving = false;
 
