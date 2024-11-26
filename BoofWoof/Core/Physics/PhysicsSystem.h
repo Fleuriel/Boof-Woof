@@ -302,84 +302,84 @@ public:
         return JPH::ValidateResult::AcceptAllContactsForThisBodyPair;
     }
 
-    //void OnContactAdded(const JPH::Body& inBody1,
-    //    const JPH::Body& inBody2,
-    //    const JPH::ContactManifold& inManifold,
-    //    JPH::ContactSettings& ioSettings)
-    //{
-    //    std::cout << "Collision detected between bodies with IDs: "
-    //        << inBody1.GetID().GetIndex() << " and "
-    //        << inBody2.GetID().GetIndex() << std::endl;
-
-    //    Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
-    //    Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
-
-    //    if (entity1 != invalid_entity && entity2 != invalid_entity) {
-    //        // Get components for both entities
-    //        auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
-    //        auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
-
-    //        if (g_Coordinator.HaveComponent<GraphicsComponent>(entity1)) {
-    //            auto& graphicsComponent2 = g_Coordinator.GetComponent<GraphicsComponent>(entity2);
-
-    //            // Set entity 1's collided object name to entity 2's model name
-    //            collisionComponent1.SetIsColliding(true);
-    //            collisionComponent1.SetLastCollidedObjectName(graphicsComponent2.getModelName());
-
-    //            std::cout << "Entity " << entity1 << " is colliding with: "
-    //                << graphicsComponent2.getModelName() << std::endl;
-    //        }
-
-    //        if (g_Coordinator.HaveComponent<GraphicsComponent>(entity2)) {
-    //            auto& graphicsComponent1 = g_Coordinator.GetComponent<GraphicsComponent>(entity1);
-
-    //            // Set entity 2's collided object name to entity 1's model name
-    //            collisionComponent2.SetIsColliding(true);
-    //            collisionComponent2.SetLastCollidedObjectName(graphicsComponent1.getModelName());
-
-    //            std::cout << "Entity " << entity2 << " is colliding with: "
-    //                << graphicsComponent1.getModelName() << std::endl;
-    //        }
-    //    }
-    //}
-
     void OnContactAdded(const JPH::Body& inBody1,
         const JPH::Body& inBody2,
         const JPH::ContactManifold& inManifold,
-        JPH::ContactSettings& ioSettings) {
+        JPH::ContactSettings& ioSettings)
+    {
+        std::cout << "Collision detected between bodies with IDs: "
+            << inBody1.GetID().GetIndex() << " and "
+            << inBody2.GetID().GetIndex() << std::endl;
+
         Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
         Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
 
-        if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
+        if (entity1 != invalid_entity && entity2 != invalid_entity) {
+            // Get components for both entities
             auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
-            collisionComponent1.AddCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName());
-            collisionComponent1.SetIsColliding(true);
-
-            //// Debug: Log collision addition for entity1
-            //std::cout << "[DEBUG] Entity " << entity1 << " added collision with: "
-            //    << g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName() << std::endl;
-            //std::cout << "[DEBUG] Entity " << entity1 << " ongoing collisions: ";
-            for (const auto& collision : collisionComponent1.GetOngoingCollisions()) {
-                std::cout << collision << " ";
-            }
-            std::cout << std::endl;
-        }
-
-        if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
             auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
-            collisionComponent2.AddCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName());
-            collisionComponent2.SetIsColliding(true);
 
-            //// Debug: Log collision addition for entity2
-            //std::cout << "[DEBUG] Entity " << entity2 << " added collision with: "
-            //    << g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName() << std::endl;
-            //std::cout << "[DEBUG] Entity " << entity2 << " ongoing collisions: ";
-            for (const auto& collision : collisionComponent2.GetOngoingCollisions()) {
-                std::cout << collision << " ";
+            if (g_Coordinator.HaveComponent<GraphicsComponent>(entity1)) {
+                auto& graphicsComponent2 = g_Coordinator.GetComponent<GraphicsComponent>(entity2);
+
+                // Set entity 1's collided object name to entity 2's model name
+                collisionComponent1.SetIsColliding(true);
+                collisionComponent1.SetLastCollidedObjectName(graphicsComponent2.getModelName());
+
+                std::cout << "Entity " << entity1 << " is colliding with: "
+                    << graphicsComponent2.getModelName() << std::endl;
             }
-            std::cout << std::endl;
+
+            if (g_Coordinator.HaveComponent<GraphicsComponent>(entity2)) {
+                auto& graphicsComponent1 = g_Coordinator.GetComponent<GraphicsComponent>(entity1);
+
+                // Set entity 2's collided object name to entity 1's model name
+                collisionComponent2.SetIsColliding(true);
+                collisionComponent2.SetLastCollidedObjectName(graphicsComponent1.getModelName());
+
+                std::cout << "Entity " << entity2 << " is colliding with: "
+                    << graphicsComponent1.getModelName() << std::endl;
+            }
         }
     }
+
+    //void OnContactAdded(const JPH::Body& inBody1,
+    //    const JPH::Body& inBody2,
+    //    const JPH::ContactManifold& inManifold,
+    //    JPH::ContactSettings& ioSettings) {
+    //    Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
+    //    Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
+
+    //    if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
+    //        auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
+    //        collisionComponent1.AddCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName());
+    //        collisionComponent1.SetIsColliding(true);
+
+    //        //// Debug: Log collision addition for entity1
+    //        //std::cout << "[DEBUG] Entity " << entity1 << " added collision with: "
+    //        //    << g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName() << std::endl;
+    //        //std::cout << "[DEBUG] Entity " << entity1 << " ongoing collisions: ";
+    //        for (const auto& collision : collisionComponent1.GetOngoingCollisions()) {
+    //            std::cout << collision << " ";
+    //        }
+    //        std::cout << std::endl;
+    //    }
+
+    //    if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
+    //        auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
+    //        collisionComponent2.AddCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName());
+    //        collisionComponent2.SetIsColliding(true);
+
+    //        //// Debug: Log collision addition for entity2
+    //        //std::cout << "[DEBUG] Entity " << entity2 << " added collision with: "
+    //        //    << g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName() << std::endl;
+    //        //std::cout << "[DEBUG] Entity " << entity2 << " ongoing collisions: ";
+    //        for (const auto& collision : collisionComponent2.GetOngoingCollisions()) {
+    //            std::cout << collision << " ";
+    //        }
+    //        std::cout << std::endl;
+    //    }
+    //}
 
 
 
@@ -404,117 +404,117 @@ public:
         //}
     }
 
-    //void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) override
-    //{
-    //    // Retrieve the BodyIDs from the SubShapeIDPair
-    //    JPH::BodyID bodyID1 = inSubShapePair.GetBody1ID();
-    //    JPH::BodyID bodyID2 = inSubShapePair.GetBody2ID();
-
-    //    // Map BodyIDs to Entities using the PhysicsSystem's mapping
-    //    Entity entity1 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID1);
-    //    Entity entity2 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID2);
-
-    //    // Debug message for contact removal
-    //    std::cout << "Contact removed between Body ID: " << bodyID1.GetIndex()
-    //        << " and Body ID: " << bodyID2.GetIndex() << std::endl;
-
-    //    // Debug entity mapping
-    //    std::cout << "Entity 1: " << entity1 << ", Entity 2: " << entity2 << std::endl;
-
-    //    // Reset isColliding flag for entity1
-    //    if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
-    //        auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
-
-    //        // Debugging the state before resetting
-    //        std::cout << "Entity 1 before reset: isColliding = " << collisionComponent1.GetIsColliding() << std::endl;
-
-    //        // Check and reset if the body matches
-    //        if (collisionComponent1.GetPhysicsBody() != nullptr && collisionComponent1.GetPhysicsBody()->GetID() == bodyID1) {
-    //            collisionComponent1.SetIsColliding(false);
-
-    //            // Debugging the state after resetting
-    //            std::cout << "Entity 1 after reset: isColliding = " << collisionComponent1.GetIsColliding() << std::endl;
-    //        }
-    //        else {
-    //            std::cout << "Entity 1: Body mismatch or no physics body found." << std::endl;
-    //        }
-    //    }
-    //    else {
-    //        std::cout << "Entity 1 is invalid or does not have a CollisionComponent." << std::endl;
-    //    }
-
-    //    // Reset isColliding flag for entity2
-    //    if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
-    //        auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
-
-    //        // Debugging the state before resetting
-    //        std::cout << "Entity 2 before reset: isColliding = " << collisionComponent2.GetIsColliding() << std::endl;
-
-    //        // Check and reset if the body matches
-    //        if (collisionComponent2.GetPhysicsBody() != nullptr && collisionComponent2.GetPhysicsBody()->GetID() == bodyID2) {
-    //            collisionComponent2.SetIsColliding(false);
-
-    //            // Debugging the state after resetting
-    //            std::cout << "Entity 2 after reset: isColliding = " << collisionComponent2.GetIsColliding() << std::endl;
-    //        }
-    //        else {
-    //            std::cout << "Entity 2: Body mismatch or no physics body found." << std::endl;
-    //        }
-    //    }
-    //    else {
-    //        std::cout << "Entity 2 is invalid or does not have a CollisionComponent." << std::endl;
-    //    }
-    //}
-
-    void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) {
+    void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) override
+    {
+        // Retrieve the BodyIDs from the SubShapeIDPair
         JPH::BodyID bodyID1 = inSubShapePair.GetBody1ID();
         JPH::BodyID bodyID2 = inSubShapePair.GetBody2ID();
 
+        // Map BodyIDs to Entities using the PhysicsSystem's mapping
         Entity entity1 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID1);
         Entity entity2 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID2);
 
+        // Debug message for contact removal
+        std::cout << "Contact removed between Body ID: " << bodyID1.GetIndex()
+            << " and Body ID: " << bodyID2.GetIndex() << std::endl;
+
+        // Debug entity mapping
+        std::cout << "Entity 1: " << entity1 << ", Entity 2: " << entity2 << std::endl;
+
+        // Reset isColliding flag for entity1
         if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
             auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
-            collisionComponent1.RemoveCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName());
 
-            //// Debug: Log collision removal for entity1
-            //std::cout << "[DEBUG] Entity " << entity1 << " removed collision with: "
-            //    << g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName() << std::endl;
+            // Debugging the state before resetting
+            std::cout << "Entity 1 before reset: isColliding = " << collisionComponent1.GetIsColliding() << std::endl;
 
-            //// Debug: Check if there are ongoing collisions
-            //if (collisionComponent1.HasOngoingCollisions()) {
-            //    std::cout << "[DEBUG] Entity " << entity1 << " still colliding with: ";
-            //    for (const auto& collision : collisionComponent1.GetOngoingCollisions()) {
-            //        std::cout << collision << " ";
-            //    }
-            //    std::cout << std::endl;
-            //}
-            //else {
-            //    std::cout << "[DEBUG] Entity " << entity1 << " has no more collisions." << std::endl;
-            //}
+            // Check and reset if the body matches
+            if (collisionComponent1.GetPhysicsBody() != nullptr && collisionComponent1.GetPhysicsBody()->GetID() == bodyID1) {
+                collisionComponent1.SetIsColliding(false);
+
+                // Debugging the state after resetting
+                std::cout << "Entity 1 after reset: isColliding = " << collisionComponent1.GetIsColliding() << std::endl;
+            }
+            else {
+                std::cout << "Entity 1: Body mismatch or no physics body found." << std::endl;
+            }
+        }
+        else {
+            std::cout << "Entity 1 is invalid or does not have a CollisionComponent." << std::endl;
         }
 
+        // Reset isColliding flag for entity2
         if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
             auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
-            collisionComponent2.RemoveCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName());
 
-            // Debug: Log collision removal for entity2
-            std::cout << "[DEBUG] Entity " << entity2 << " removed collision with: "
-                << g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName() << std::endl;
+            // Debugging the state before resetting
+            std::cout << "Entity 2 before reset: isColliding = " << collisionComponent2.GetIsColliding() << std::endl;
 
-            //// Debug: Check if there are ongoing collisions
-            //if (collisionComponent2.HasOngoingCollisions()) {
-            //    std::cout << "[DEBUG] Entity " << entity2 << " still colliding with: ";
-            //    for (const auto& collision : collisionComponent2.GetOngoingCollisions()) {
-            //        std::cout << collision << " ";
-            //    }
-            //    std::cout << std::endl;
-            //}
-            //else {
-            //    std::cout << "[DEBUG] Entity " << entity2 << " has no more collisions." << std::endl;
-            //}
+            // Check and reset if the body matches
+            if (collisionComponent2.GetPhysicsBody() != nullptr && collisionComponent2.GetPhysicsBody()->GetID() == bodyID2) {
+                collisionComponent2.SetIsColliding(false);
+
+                // Debugging the state after resetting
+                std::cout << "Entity 2 after reset: isColliding = " << collisionComponent2.GetIsColliding() << std::endl;
+            }
+            else {
+                std::cout << "Entity 2: Body mismatch or no physics body found." << std::endl;
+            }
+        }
+        else {
+            std::cout << "Entity 2 is invalid or does not have a CollisionComponent." << std::endl;
         }
     }
+
+    //void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) {
+    //    JPH::BodyID bodyID1 = inSubShapePair.GetBody1ID();
+    //    JPH::BodyID bodyID2 = inSubShapePair.GetBody2ID();
+
+    //    Entity entity1 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID1);
+    //    Entity entity2 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID2);
+
+    //    if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
+    //        auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
+    //        collisionComponent1.RemoveCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName());
+
+    //        //// Debug: Log collision removal for entity1
+    //        //std::cout << "[DEBUG] Entity " << entity1 << " removed collision with: "
+    //        //    << g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName() << std::endl;
+
+    //        //// Debug: Check if there are ongoing collisions
+    //        //if (collisionComponent1.HasOngoingCollisions()) {
+    //        //    std::cout << "[DEBUG] Entity " << entity1 << " still colliding with: ";
+    //        //    for (const auto& collision : collisionComponent1.GetOngoingCollisions()) {
+    //        //        std::cout << collision << " ";
+    //        //    }
+    //        //    std::cout << std::endl;
+    //        //}
+    //        //else {
+    //        //    std::cout << "[DEBUG] Entity " << entity1 << " has no more collisions." << std::endl;
+    //        //}
+    //    }
+
+    //    if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
+    //        auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
+    //        collisionComponent2.RemoveCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName());
+
+    //        // Debug: Log collision removal for entity2
+    //        std::cout << "[DEBUG] Entity " << entity2 << " removed collision with: "
+    //            << g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName() << std::endl;
+
+    //        //// Debug: Check if there are ongoing collisions
+    //        //if (collisionComponent2.HasOngoingCollisions()) {
+    //        //    std::cout << "[DEBUG] Entity " << entity2 << " still colliding with: ";
+    //        //    for (const auto& collision : collisionComponent2.GetOngoingCollisions()) {
+    //        //        std::cout << collision << " ";
+    //        //    }
+    //        //    std::cout << std::endl;
+    //        //}
+    //        //else {
+    //        //    std::cout << "[DEBUG] Entity " << entity2 << " has no more collisions." << std::endl;
+    //        //}
+    //    }
+    //}
 
 
 
