@@ -28,7 +28,6 @@ class StartingRoom : public Level
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Player")
 				{
 					playerEnt = entity;		
-					break;
 				}
 			}
 		}
@@ -67,6 +66,14 @@ class StartingRoom : public Level
 		else
 		{
 			teb_last = false;
+		}
+
+		if (g_Checklist.shutted) 
+		{
+			if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
+			{
+				g_LevelManager.SetNextLevel("TimeRush");
+			}
 		}
 
 		// Space to go back mainmenu

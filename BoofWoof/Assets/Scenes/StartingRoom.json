@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "2f188527-6cfa-4689-bdfe-6ff19a452935",
+    "SceneGUID": "2ec2324d-2806-41f1-b0d7-017d094963d2",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.991060495376587,
+                    "x": -1.9910602569580079,
                     "y": 1.2000000476837159,
-                    "z": 0.0000033520327633596027
+                    "z": -0.0000011971307003477705
                 },
                 "Scale": {
                     "x": 0.5,
@@ -613,7 +613,7 @@
                 "Position": {
                     "x": 7.8480000495910648,
                     "y": 3.8253986835479738,
-                    "z": 15.414999961853028
+                    "z": 15.415000915527344
                 },
                 "Scale": {
                     "x": 0.9998177289962769,
@@ -630,6 +630,21 @@
                 "ModelName": "WallHole",
                 "Texture": "WallHole",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.799999952316284,
+                    "y": 2.950000047683716,
+                    "z": 0.949999988079071
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.15000000596046449
+                }
             }
         },
         {
