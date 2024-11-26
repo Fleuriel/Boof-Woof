@@ -12,6 +12,7 @@ class TimeRush : public Level
 
     void LoadLevel() override
     {
+        g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");
         g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/Timer.json");
 
         std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
