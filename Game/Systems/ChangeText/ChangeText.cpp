@@ -1,5 +1,6 @@
 #include "ChangeText.h"
 #include "ResourceManager/ResourceManager.h"
+#include "../Checklist/Checklist.h"
 
 ChangeText g_ChangeText;
 Serialization serialText;
@@ -35,7 +36,7 @@ void ChangeText::OnUpdate(double deltaTime)
 	auto& text = g_Coordinator.GetComponent<GraphicsComponent>(m_Text);
 
 	// If it's time to change the texture
-	if (cdTimer >= cdLimit && textureIndex < 6) // Only switch to CorgiText1, CorgiText2, CorgiText3, CorgiText4
+	if (cdTimer >= cdLimit && textureIndex < indexLimit) 
 	{
 		std::string newTextureName = "CorgiText" + std::to_string(textureIndex + 1);
 
@@ -55,7 +56,7 @@ void ChangeText::OnUpdate(double deltaTime)
 	}
 
 	// After showing CorgiText6 for 3 seconds, clear entity
-	if (textureIndex >= 6 && cdTimer >= cdLimit)
+	if (textureIndex >= indexLimit && cdTimer >= cdLimit)
 	{
 		OnShutdown();
 	}
@@ -75,6 +76,11 @@ void ChangeText::OnShutdown()
 				g_Coordinator.DestroyEntity(*i);
 			}
 		}
+	}
+
+	if (!g_Checklist.shutted) 
+	{
+		g_Checklist.OnInitialize();
 	}
 
 	shutted = true;
