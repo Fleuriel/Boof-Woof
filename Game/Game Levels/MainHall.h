@@ -101,6 +101,7 @@ class MainHall : public Level
 	void UnloadLevel()
 	{
 		g_Audio.StopBGM();
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 	}
 };
