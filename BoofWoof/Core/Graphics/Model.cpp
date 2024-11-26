@@ -378,7 +378,7 @@ Model AABB(glm::vec3 position, glm::vec3 halfextents, glm::vec3 color)
 		glm::vec3 color;     // Color
 	};
 
-	glm::vec3 biggerHalfExtents = halfextents + glm::vec3(0.0005);
+	glm::vec3 biggerHalfExtents = halfextents + glm::vec3(0.0005f);
 
 	// Cube vertices with positions and a uniform color
 	std::vector<Vertex> vertices{
@@ -519,7 +519,7 @@ Model OBB(glm::vec3 position, glm::vec3 halfextents, glm::vec3 rotationRadians, 
 /* Draw */
 
 
-void Model::Draw2D(OpenGLShader& shader)
+void Model::Draw2D(OpenGLShader& shader) const
 {
 	(void)shader;
 	glBindVertexArray(vaoid);
@@ -578,8 +578,8 @@ void Model::DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::v
 
 
 
-
-std::vector<glm::vec3> CalculateAABBVertices(const glm::vec3& center, const glm::vec3& halfExtents) {
+/*
+static std::vector<glm::vec3> CalculateAABBVertices(const glm::vec3& center, const glm::vec3& halfExtents) {
 	std::vector<glm::vec3> vertices(8);
 
 	// Compute the 8 corners of the AABB
@@ -594,4 +594,5 @@ std::vector<glm::vec3> CalculateAABBVertices(const glm::vec3& center, const glm:
 
 	return vertices;
 }
+*/
 

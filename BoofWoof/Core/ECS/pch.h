@@ -34,6 +34,10 @@
 #include <typeindex>
 
 // OPENGL & GLM
+// Prevent GLFW from redefining APIENTRY
+#ifdef APIENTRY
+#undef APIENTRY
+#endif
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 

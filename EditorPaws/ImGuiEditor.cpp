@@ -1,6 +1,11 @@
 #define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
 #include <Windows.h>
 #include "ImGuiEditor.h"
+#ifdef MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS
+#undef MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS
+#endif
+#include <Windows.h>
+#include "ImGuiEditor.h"
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
@@ -2606,7 +2611,7 @@ void ImGuiEditor::InspectorWindow()
 				GLuint pictureHeight = g_ResourceManager.GetTextureDDSHeight(selectedFileName);
 
 				// 256 x 256 is our max picture size to show.
-				int maxWidth = 32;
+				GLuint maxWidth = 32;
 
 
 				//std::cout << selectedFileName << '\t' << g_ResourceManager.GetTextureDDSWidth(selectedFileName) << '\t' << std::to_string(g_ResourceManager.GetTextureDDSHeight(selectedFileName))  << '\t' << '\n';
@@ -3655,7 +3660,12 @@ void ImGuiEditor::AssetWindow()
 
 					// Check for .png files (case insensitive)
 					std::string extension = m_SelectedFile.extension().string();
-					std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+					std::transform(
+						extension.begin(),
+						extension.end(),
+						extension.begin(),
+						[](unsigned char c) { return static_cast<char>(std::tolower(c)); }
+					);
 					if (extension == ".png") {
 						std::string descriptorPath = FILEPATH_DESCRIPTOR_TEXTURES + "/" + m_SelectedFile.stem().string() + ".json";
 

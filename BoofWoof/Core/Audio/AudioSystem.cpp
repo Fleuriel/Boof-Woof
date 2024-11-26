@@ -14,6 +14,9 @@
 #include "AudioSystem.h"
 #include <thread>
 
+#define UNREFERENCED_PARAMETER(P)          (P)
+
+
 FMOD::Channel* currentChannel = nullptr; // Store the current playing channel
 
 
@@ -29,7 +32,7 @@ FMOD::Channel* currentChannel = nullptr; // Store the current playing channel
   * @return const char* The human-readable string corresponding to the FMOD error.
   *************************************************************************/
 
-const char* FMODErrorToString(FMOD_RESULT result) {
+static const char* FMODErrorToString(FMOD_RESULT result) {
     switch (result) {
     case FMOD_OK: return "No errors.";
     case FMOD_ERR_BADCOMMAND: return "FMOD_ERR_BADCOMMAND: The command issued was not supported.";
@@ -657,6 +660,7 @@ void AudioSystem::PlayFileOnNewChannel(const std::string& filePath)
 
 
 void AudioSystem::StopSpecificSound(const std::string& filePath) {
+    UNREFERENCED_PARAMETER(filePath);
     for (auto it = additionalChannels.begin(); it != additionalChannels.end(); ++it) {
         if (*it) {
             bool isPlaying = false;
