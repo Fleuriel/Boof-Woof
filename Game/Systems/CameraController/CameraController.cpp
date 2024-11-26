@@ -25,7 +25,7 @@ void CameraController::Update(float deltaTime)
 
 	if (currentMode == CameraMode::SHAKE)
 	{
-		UpdateShakePlayer(camera);
+		UpdateShakeView(camera);
 	}
 }
 
@@ -60,6 +60,7 @@ void CameraController::ShakePlayer(float time, glm::vec3 range)
 	shakeDuration = time;
 	shakeRange = range;
 	player_old_pos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
+	camera_old_pos = g_Coordinator.GetComponent<CameraComponent>(playerEntity).GetCameraPosition();
 	lastMode = currentMode;
 	currentMode = CameraMode::SHAKE;
 }
@@ -112,6 +113,10 @@ void CameraController::UpdateFirstPersonView(CameraComponent& camera)
     glm::vec3 newOffset = glm::vec3(rotationMatrix * glm::vec4(eyeOffset, 1.0f));
 
     camera.Position = playerPos + newOffset;
+
+	// make sure the pitch is within the limits
+	if (camera.Pitch > high_limit_pitch_first) camera.Pitch = high_limit_pitch_first;
+	if (camera.Pitch < low_limit_pitch_first) camera.Pitch = low_limit_pitch_first;
 
     // Ensure the camera's direction is updated based on its yaw and pitch
     camera.updateCameraVectors();
@@ -214,6 +219,7 @@ void CameraController::UpdateShakeView(CameraComponent& camera)
 		currentMode = lastMode;
 		shakeTime = 0.0f;
 		shakeDuration = 0.0f;
+
 	}
 	else
 	{
@@ -230,13 +236,16 @@ void CameraController::UpdateShakeView(CameraComponent& camera)
 
 void CameraController::UpdateShakePlayer(CameraComponent& camera)
 {
+	
 	shakeTime += g_Core->m_FixedDT;
 	if (shakeTime >= shakeDuration)
 	{
+		
 		currentMode = lastMode;
 		shakeTime = 0.0f;
 		shakeDuration = 0.0f;
 		g_Coordinator.GetComponent<TransformComponent>(playerEntity).SetPosition(player_old_pos);
+		camera.SetCameraPosition(camera_old_pos);
 	}
 	else
 	{
@@ -246,9 +255,10 @@ void CameraController::UpdateShakePlayer(CameraComponent& camera)
 			((rand() % 100) / 100.0f) * shakeRange.z - shakeRange.z / 2.0f
 		);
 
-		auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEntity);
-		playerTransform.SetPosition(player_old_pos + offset);
-		//std::cout << "ShakePlayer " << playerTransform.GetPosition().x << " " << playerTransform.GetPosition().y << " " << playerTransform.GetPosition().z << std::endl;
+		g_Coordinator.GetComponent<TransformComponent>(playerEntity).SetPosition(player_old_pos + offset);
+		glm::vec3 camerapos = camera_old_pos + offset;
+		camera.SetCameraPosition(camerapos);
+        
 	}
 }
 

@@ -54,4 +54,8 @@ private:
 	float shakeDuration = 0.0f;
 	glm::vec3 shakeRange = glm::vec3(0.0f);
 	glm::vec3 player_old_pos = glm::vec3(0.0f);
+	glm::vec3 camera_old_pos = glm::vec3(0.0f);
+
+	float low_limit_pitch_first = -15.0f;
+	float high_limit_pitch_first = 45.0f;
 };
