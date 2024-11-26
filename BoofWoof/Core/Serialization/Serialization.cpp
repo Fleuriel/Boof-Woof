@@ -242,6 +242,28 @@ bool Serialization::SaveScene(const std::string& filepath) {
             entityData.AddMember("BehaviourComponent", Behave, allocator);
         }
 
+        // Serialize HierarchyComponent
+        if (g_Coordinator.HaveComponent<HierarchyComponent>(entity))
+        {
+            rapidjson::Value hierarchyData(rapidjson::kObjectType);
+            auto& hierarchyComp = g_Coordinator.GetComponent<HierarchyComponent>(entity);
+
+            // Serialize parent entity ID
+            hierarchyData.AddMember("Parent", static_cast<int>(hierarchyComp.parent), allocator);
+
+            // Serialize children entity IDs
+            rapidjson::Value childrenArray(rapidjson::kArrayType);
+            for (auto childEntity : hierarchyComp.children)
+            {
+                childrenArray.PushBack(static_cast<int>(childEntity), allocator);
+            }
+            hierarchyData.AddMember("Children", childrenArray, allocator);
+
+            // Add the HierarchyComponent to the entityData
+            entityData.AddMember("HierarchyComponent", hierarchyData, allocator);
+        }
+
+
         // Serialize CollisionComponent
         if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) 
         {
@@ -403,8 +425,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
  * @note The function logs errors if the file cannot be opened or if the
  * scene data is not in valid JSON format.
  *************************************************************************/
-
-bool Serialization::LoadScene(const std::string& filepath) 
+bool Serialization::LoadScene(const std::string& filepath)
 {
     storedEnt.clear();
 
@@ -435,17 +456,45 @@ bool Serialization::LoadScene(const std::string& filepath)
         std::cerr << "No GUID found in scene file" << std::endl;
     }
 
+    // Declare mapping from old entity IDs to new entities
+    std::unordered_map<int, Entity> oldToNewEntityMap;
+
     // Deserialize entities
     if (doc.HasMember("Entities") && doc["Entities"].IsArray()) {
         const auto& entities = doc["Entities"];
+
+        // First pass: Create all entities and store mapping
         for (const auto& entityData : entities.GetArray()) {
             Entity entity = g_Coordinator.CreateEntity();
 
-            // Deserialize MetadataComponent
-            if (entityData.HasMember("MetadataComponent")) 
+            // Get the old EntityID
+            int oldEntityID = -1;
+            if (entityData.HasMember("MetadataComponent"))
             {
                 const auto& metadataComponentData = entityData["MetadataComponent"];
-                if (metadataComponentData.HasMember("EntityName")) 
+                if (metadataComponentData.HasMember("EntityID"))
+                {
+                    oldEntityID = metadataComponentData["EntityID"].GetInt();
+                }
+            }
+
+            // Store mapping from oldID to newEntity
+            if (oldEntityID != -1)
+            {
+                oldToNewEntityMap[oldEntityID] = entity;
+            }
+            else
+            {
+                // Handle error: EntityID not found
+                std::cerr << "EntityID not found in MetadataComponent during deserialization.\n";
+                continue;
+            }
+
+            // Deserialize MetadataComponent
+            if (entityData.HasMember("MetadataComponent"))
+            {
+                const auto& metadataComponentData = entityData["MetadataComponent"];
+                if (metadataComponentData.HasMember("EntityName"))
                 {
                     std::string name = metadataComponentData["EntityName"].GetString();
 
@@ -458,34 +507,43 @@ bool Serialization::LoadScene(const std::string& filepath)
             if (entityData.HasMember("TransformComponent"))
             {
                 const auto& TData = entityData["TransformComponent"];
+                glm::vec3 position(0.0f), scale(1.0f), rotation(0.0f);
+
+                // Check and load Position
                 if (TData.HasMember("Position")) {
-                    glm::vec3 position(
+                    position = glm::vec3(
                         TData["Position"]["x"].GetFloat(),
                         TData["Position"]["y"].GetFloat(),
                         TData["Position"]["z"].GetFloat()
                     );
+                }
 
-                    glm::vec3 scale(
+                // Check and load Scale
+                if (TData.HasMember("Scale")) {
+                    scale = glm::vec3(
                         TData["Scale"]["x"].GetFloat(),
                         TData["Scale"]["y"].GetFloat(),
                         TData["Scale"]["z"].GetFloat()
                     );
+                }
 
-                    glm::vec3 rotation(
+                // Check and load Rotation
+                if (TData.HasMember("Rotation")) {
+                    rotation = glm::vec3(
                         TData["Rotation"]["x"].GetFloat(),
                         TData["Rotation"]["y"].GetFloat(),
                         TData["Rotation"]["z"].GetFloat()
                     );
-
-                    TransformComponent transformComponent(position, scale, rotation, entity);
-                    g_Coordinator.AddComponent(entity, transformComponent);
                 }
+
+                TransformComponent transformComponent(position, scale, rotation, entity);
+                g_Coordinator.AddComponent(entity, transformComponent);
             }
 
             // Deserialize GraphicsComponent
-			if (entityData.HasMember("GraphicsComponent"))
-			{
-				const auto& GData = entityData["GraphicsComponent"];
+            if (entityData.HasMember("GraphicsComponent"))
+            {
+                const auto& GData = entityData["GraphicsComponent"];
 
                 if (GData.HasMember("ModelName"))
                 {
@@ -494,14 +552,13 @@ bool Serialization::LoadScene(const std::string& filepath)
                     std::string TextureName;
                     bool isFollowing{};
 
-
-                    std::cout<< "has member tex" << GData.HasMember("Texture") << '\n';
+                    std::cout << "has member tex" << GData.HasMember("Texture") << '\n';
 
                     if (GData.HasMember("Texture"))
                     {
                         TextureName = GData["Texture"].GetString();
                         std::cout << "Texture: " << TextureName << '\n';
-					    
+
                     }
 
                     int textureID = g_ResourceManager.GetTextureDDS(TextureName);
@@ -513,68 +570,17 @@ bool Serialization::LoadScene(const std::string& filepath)
 
                     GraphicsComponent graphicsComponent(modelName, entity, TextureName, isFollowing);
 
-                    if(textureID > 0)
+                    if (textureID > 0)
                         graphicsComponent.AddTexture(textureID);
-//                    graphicsComponent.SetModelID(modelID);
-
-
-                    //graphicsComponent.incrementTextureNumber();
 
                     std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
 
+                    std::cout << "model text number: " << g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
+                    std::cout << "comp  text number: " << graphicsComponent.getTextureNumber() << '\n';
 
-                    std::cout << "model text number: "<<g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
-                    std::cout << "comp  text number: "<<graphicsComponent.getTextureNumber() << '\n';
-
-//                    while (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt < graphicsComponent.getTextureNumber()) {
-//                        Texture texture_add;
-//                        texture_add.id = graphicsComponent.getTexture(g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt);
-//                        texture_add.type = "texture_diffuse";
-//                        if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 0)
-//                        {
-//                            //                            std::cout << "etner\n";
-//                            texture_add.type = "texture_diffuse";
-//                        }
-//                        else if (g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt == 1)
-//                        {
-//
-//                            texture_add.type = "texture_normal";
-//                            // std::cout << "v2.o";
-//                        }
-//                        else
-//                            texture_add.type = "texture_specular";
-//
-//                        texture_add.path = graphicsComponent.getModelName();
-//
-//
-//#ifdef _DEBUG
-//                        //std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
-//                     //  std::cout << "\n\n\n\n\n";
-//                     //  std::cout << graphicsComponent.getModelName() << '\n';
-//
-//
-//                      //  std::cout << "id type path " << texture_add.id << '\t' << texture_add.type << '\t' << texture_add.path << '\n';
-//#endif
-//                        for (auto& mesh : g_ResourceManager.getModel(graphicsComponent.getModelName())->meshes) {
-//                            //     std::cout << "asd\n";
-//
-//                            mesh.textures.clear();
-//
-//                            mesh.textures.push_back(texture_add);
-//                            //     std::cout << mesh.textures.size() << '\n';
-//                        }
-//
-//                        g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt++;
-//
-//
-//
-//                    }
-
-
-					g_Coordinator.AddComponent(entity, graphicsComponent);
-				}
-
-			}
+                    g_Coordinator.AddComponent(entity, graphicsComponent);
+                }
+            }
 
             // Deserialize AudioComponent
             if (entityData.HasMember("AudioComponent"))
@@ -594,7 +600,7 @@ bool Serialization::LoadScene(const std::string& filepath)
             if (entityData.HasMember("BehaviourComponent"))
             {
                 const auto& BData = entityData["BehaviourComponent"];
-                if (BData.HasMember("BehaviourName")) 
+                if (BData.HasMember("BehaviourName"))
                 {
                     std::string name = BData["BehaviourName"].GetString();
                     g_Coordinator.AddComponent(entity, BehaviourComponent(name, entity));
@@ -642,7 +648,7 @@ bool Serialization::LoadScene(const std::string& filepath)
             if (entityData.HasMember("CameraComponent"))
             {
                 const auto& CData = entityData["CameraComponent"];
-                if (CData.HasMember("Position")) 
+                if (CData.HasMember("Position"))
                 {
                     glm::vec3 camPosition(
                         CData["Position"]["x"].GetFloat(),
@@ -675,7 +681,7 @@ bool Serialization::LoadScene(const std::string& filepath)
                         PData["PositionMin"]["x"].GetFloat(),
                         PData["PositionMin"]["y"].GetFloat(),
                         PData["PositionMin"]["z"].GetFloat()
-                    );                   
+                    );
 
                     glm::vec3 positionMax(
                         PData["PositionMax"]["x"].GetFloat(),
@@ -759,11 +765,91 @@ bool Serialization::LoadScene(const std::string& filepath)
 			//	std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << std::endl;
 			//}
 
+            // Store the entity
             storedEnt.push_back(entity);
+        }
+
+        // Second pass: Deserialize components that reference other entities
+        for (const auto& entityData : entities.GetArray()) {
+            // Get the old EntityID
+            int oldEntityID = -1;
+            if (entityData.HasMember("MetadataComponent"))
+            {
+                const auto& metadataComponentData = entityData["MetadataComponent"];
+                if (metadataComponentData.HasMember("EntityID"))
+                {
+                    oldEntityID = metadataComponentData["EntityID"].GetInt();
+                }
+            }
+
+            // Get the new entity using the mapping
+            Entity newEntity = oldToNewEntityMap[oldEntityID];
+
+            // Deserialize HierarchyComponent
+            if (entityData.HasMember("HierarchyComponent"))
+            {
+                const auto& hierarchyData = entityData["HierarchyComponent"];
+
+                Entity parentEntity = MAX_ENTITIES;
+                if (hierarchyData.HasMember("Parent"))
+                {
+                    int oldParentID = hierarchyData["Parent"].GetInt();
+                    if (oldParentID != MAX_ENTITIES)
+                    {
+                        // Get the new parent entity
+                        parentEntity = oldToNewEntityMap[oldParentID];
+                    }
+                }
+
+                std::vector<Entity> childrenEntities;
+                if (hierarchyData.HasMember("Children") && hierarchyData["Children"].IsArray())
+                {
+                    const auto& childrenArray = hierarchyData["Children"];
+                    for (const auto& childIDValue : childrenArray.GetArray())
+                    {
+                        int oldChildID = childIDValue.GetInt();
+                        Entity childEntity = oldToNewEntityMap[oldChildID];
+                        childrenEntities.push_back(childEntity);
+                    }
+                }
+
+                // Create HierarchyComponent and add to entity
+                HierarchyComponent hierarchyComponent;
+                hierarchyComponent.parent = parentEntity;
+                hierarchyComponent.children = childrenEntities;
+
+                g_Coordinator.AddComponent(newEntity, hierarchyComponent);
+            }
+
+            // If you have other components that reference entities, deserialize them here
+
+            // Print out all entity components (optional debugging)
+            /*
+            std::cout << "Entity: " << g_Coordinator.GetEntityId(newEntity) << std::endl;
+            if (g_Coordinator.HaveComponent<MetadataComponent>(newEntity)) {
+                std::cout << "MetadataComponent: " << g_Coordinator.GetComponent<MetadataComponent>(newEntity).GetName() << std::endl;
+            }
+            if (g_Coordinator.HaveComponent<TransformComponent>(newEntity)) {
+                auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(newEntity);
+                std::cout << "TransformComponent Position: " << transformComp.GetPosition().x << ", " << transformComp.GetPosition().y << ", " << transformComp.GetPosition().z << std::endl;
+            }
+            if (g_Coordinator.HaveComponent<GraphicsComponent>(newEntity)) {
+                std::cout << "GraphicsComponent: " << g_Coordinator.GetComponent<GraphicsComponent>(newEntity).getModelName() << std::endl;
+            }
+            if (g_Coordinator.HaveComponent<AudioComponent>(newEntity)) {
+                auto& audioComp = g_Coordinator.GetComponent<AudioComponent>(newEntity);
+                std::cout << "AudioComponent FilePath: " << audioComp.GetFilePath() << ", Volume: " << audioComp.GetVolume() << ", ShouldLoop: " << audioComp.ShouldLoop() << std::endl;
+            }
+            if (g_Coordinator.HaveComponent<BehaviourComponent>(newEntity)) {
+                std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(newEntity).GetBehaviourName() << std::endl;
+            }
+            if (g_Coordinator.HaveComponent<HierarchyComponent>(newEntity)) {
+                auto& hierarchyComp = g_Coordinator.GetComponent<HierarchyComponent>(newEntity);
+                std::cout << "HierarchyComponent Parent: " << hierarchyComp.parent << ", Children Count: " << hierarchyComp.children.size() << std::endl;
+            }
+            */
         }
     }
 
     return true;
 }
-
-

@@ -36,6 +36,7 @@
     <ClCompile Include="Utilities\Components\AnimationComponent.cpp" />
     <ClCompile Include="Utilities\Components\CameraComponent.cpp" />
     <ClCompile Include="Utilities\Components\MaterialComponent.cpp" />
+    <ClCompile Include="Utilities\Components\HierarchyComponent.cpp" />
     <ClCompile Include="Utilities\Components\LightComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +88,8 @@
     <ClInclude Include="Utilities\Components\AnimationComponent.h" />
     <ClInclude Include="Utilities\Components\CameraComponent.hpp" />
     <ClInclude Include="Utilities\Components\MaterialComponent.hpp" />
+    <ClInclude Include="Utilities\Components\HierarchyComponent.hpp" />
+    <ClInclude Include="Core\Graphics\TransformSystem.hpp" />
     <ClInclude Include="Utilities\Components\LightComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
