@@ -11,19 +11,16 @@
 
 #version 450 core
 
-layout(location = 0) in vec3 aPos;        // Vertex position
-layout(location = 1) in vec3 aNormal;     // Vertex normal
-layout(location = 2) in vec2 aTexCoord;  // Texture coordinates from model
-
-
-uniform vec4 inputColor;
-
 uniform mat4 projection;
 uniform mat4 view;
-uniform mat4 vertexTransform;                      // Model transformation matrix
+uniform mat4 vertexTransform;
+uniform vec3 objectColor;
 
-uniform float metallic;                  // Metallic factor (0.0 - 1.0)
-uniform float smoothness;                 // Roughness factor (0.0 - 1.0)
+layout(location = 0) in vec3 modelPosition;
+layout(location = 1) in vec3 vertexNormal;
+layout(location = 2) in vec2 aTexCoord;  // Texture coordinate input
+layout(location = 3) in vec3 aTangent;
+layout(location = 4) in vec3 aBitangent;
 
 struct Light {
     vec3 position;
@@ -81,8 +78,4 @@ void main()
     TexCoord = aTexCoord;
     FragPos = vec3(vertexTransform * vec4(modelPosition, 1.0f));
 
-    fragColor = inputColor;  // Pass base color to fragment shader
-    fragMetallic = metallic;  // Pass metallic to fragment shader
-    fragRoughness = smoothness;  // Pass roughness to fragment shader
-    fragTexCoord = aTexCoord; // Pass texture coordinates
 }

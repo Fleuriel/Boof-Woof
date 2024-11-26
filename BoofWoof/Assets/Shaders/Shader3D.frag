@@ -12,21 +12,16 @@
  *************************************************************************/
 
 #version 450 core
-
-#define PI 3.14159265359
-
-out vec4 FragColor;
-
-in vec3 fragNormal;
-in vec3 fragWorldPos;
-in vec4 fragColor; // Diffuse color of the material
-in float fragMetallic; // Metallic factor
-in float fragRoughness; // Roughness factor
-in vec2 fragTexCoord;                   // Interpolated texture coordinates from vertex shader
+layout(location = 0) in vec3 vertColor;
+layout(location = 1) in vec3 vertNormal;
+layout(location = 2) in vec3 FragPos;
+layout(location = 3) in vec2 TexCoords;
 
 
-uniform vec3 inputLight; // Light source position
-uniform vec3 viewPos; // Camera position
+uniform sampler2D texture_diffuse1;
+uniform sampler2D texture_normal1;
+uniform int textureCount;
+uniform bool lightOn;
 
 struct Light {
     vec3 position;
@@ -54,9 +49,6 @@ in VS_OUT {
 
 void main()
 {
-    bvec3 cutoff = lessThan(linearRGB.rgb, vec3(0.0031308));
-    vec3 higher = vec3(1.055)*pow(linearRGB.rgb, vec3(1.0/2.4)) - vec3(0.055);
-    vec3 lower = linearRGB.rgb * vec3(12.92);
 
     if(textureCount ==2 ){
         vec3 normal = texture(texture_normal1, TexCoords).rgb;
@@ -113,4 +105,3 @@ void main()
        
    
 }
-

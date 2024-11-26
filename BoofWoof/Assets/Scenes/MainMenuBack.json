@@ -27,25 +27,6 @@
                 "ModelName": "Floor3tripleheight",
                 "Texture": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Floor3tripleheight",
-                "shader": "Shader3D",
-                "shaderIdx": 1,
-                "properties": {
-                    "color": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Floor3tripleheight",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {

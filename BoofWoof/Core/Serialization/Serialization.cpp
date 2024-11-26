@@ -621,7 +621,7 @@ bool Serialization::LoadScene(const std::string& filepath)
 
                     }
 
-                    // int textureID = g_ResourceManager.GetTextureDDS(TextureName);
+                     int textureID = g_ResourceManager.GetTextureDDS(TextureName);
 
                     if (GData.HasMember("FollowCamera"))
                     {

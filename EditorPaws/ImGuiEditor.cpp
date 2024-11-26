@@ -942,8 +942,6 @@ void ImGuiEditor::InspectorWindow()
 					// 	}
 					// }
 
-						}
-					}
 
 					if (ImGui::Selectable("Light Component"))
 					{
@@ -4301,8 +4299,8 @@ void ImGuiEditor::InspectorWindow()
 
 	ImGui::End();
 
-}
 
+}
 
 
 

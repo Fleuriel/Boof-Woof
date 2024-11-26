@@ -99,6 +99,8 @@ public:
     MaterialComponent material; // MaterialComponent is 
 
 
+    bool hasMaterial;
+
     bool LoadMaterialDesc(std::string filepath)
     {
         return material.LoadMaterialDescriptor(filepath);
