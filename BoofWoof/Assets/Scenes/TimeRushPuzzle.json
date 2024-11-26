@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "119c9521-3534-4d9d-80e3-c8c8658b914e",
+    "SceneGUID": "c85006b9-5e0b-4386-a79b-5fd381dbb435",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8856,6 +8856,408 @@
                 "ModelName": "Ceiling",
                 "Texture": "Ceiling",
                 "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "ScentTrail",
+                "EntityID": 289
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 20.0,
+                    "y": 4.0,
+                    "z": 3.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 3.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 25.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.3529411852359772,
+                    "g": 0.7058823704719544,
+                    "b": 0.03921568766236305,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "ScentTrail",
+                "EntityID": 290
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -4.0,
+                    "y": 4.0,
+                    "z": -3.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 3.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": -30.0,
+                        "y": 0.0,
+                        "z": 23.5
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.3529411852359772,
+                    "g": 0.7058823704719544,
+                    "b": 0.03921568766236305,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "ScentTrail",
+                "EntityID": 291
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 34.0,
+                    "y": 4.0,
+                    "z": -30.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 3.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 30.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.3529411852359772,
+                    "g": 0.7058823704719544,
+                    "b": 1.0,
+                    "a": 0.03921568766236305
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "ScentTrail",
+                "EntityID": 292
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 31.6471004486084,
+                    "y": 4.0,
+                    "z": -60.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 3.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 25.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.3529411852359772,
+                    "g": 0.7058823704719544,
+                    "b": 0.03921568766236305,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "ScentTrail",
+                "EntityID": 293
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 7.885369777679443,
+                    "y": 4.0,
+                    "z": -62.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 3.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 20.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.3529411852359772,
+                    "g": 0.7058823704719544,
+                    "b": 0.03921568766236305,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "ScentTrail",
+                "EntityID": 294
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 1.8586499691009522,
+                    "y": 4.0,
+                    "z": -89.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 3.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": -20.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.3529411852359772,
+                    "g": 0.7058823704719544,
+                    "b": 0.03921568766236305,
+                    "a": 1.0
+                }
             }
         }
     ]
