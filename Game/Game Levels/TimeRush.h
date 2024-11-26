@@ -3,7 +3,7 @@
 #include "ResourceManager/ResourceManager.h"
 #include "ECS/Coordinator.hpp"
 
-class MyTimer : public Level
+class TimeRush : public Level
 {
     double timer = 0.0;
     double interval = 1.0; // Time interval in seconds

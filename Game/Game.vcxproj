@@ -180,10 +180,11 @@ xcopy /y /d "$(SolutionDir)lib\freetype\freetype.dll" "$(OutDir)"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game Levels\Cutscene.h" />
-    <ClInclude Include="Game Levels\Level1.h" />
+    <ClInclude Include="Game Levels\MainHall.h" />
+    <ClInclude Include="Game Levels\StartingRoom.h" />
     <ClInclude Include="Game Levels\MainMenu.h" />
     <ClInclude Include="Game Levels\Splashscreen.h" />
-    <ClInclude Include="Game Levels\Timer.h" />
+    <ClInclude Include="Game Levels\TimeRush.h" />
     <ClInclude Include="Systems\BoneCatcher\BoneCatcher.h" />
     <ClInclude Include="Systems\CameraController\CameraController.h" />
     <ClInclude Include="Systems\ChangeText\ChangeText.h" />

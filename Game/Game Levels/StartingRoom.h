@@ -7,11 +7,11 @@
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
 
-Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{};
-CameraController* cameraController = nullptr;
-
-class Level1 : public Level
+class StartingRoom : public Level
 {
+	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{};
+	CameraController* cameraController = nullptr;
+
 	void LoadLevel()
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");		
