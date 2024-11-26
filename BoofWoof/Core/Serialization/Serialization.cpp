@@ -192,7 +192,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
 
             // Texture Name
-            Grafics.AddMember("Texture", rapidjson::Value(graphicsComp.GetDiffuseName().c_str(), allocator), allocator);
+            //Grafics.AddMember("Texture", rapidjson::Value(graphicsComp.GetDiffuseName().c_str(), allocator), allocator);
 
             std::cout << "Graphics Comp Safve Texture: s" << graphicsComp.GetDiffuseName() << '\n';
           
@@ -361,8 +361,8 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
             
 
-            Material.AddMember("name", rapidjson::Value(graphicsComponent.GetMaterialName().c_str(), allocator), allocator);
-            Material.AddMember("shader", rapidjson::Value(graphicsComponent.GetShaderName().c_str(), allocator), allocator);
+            Material.AddMember("name", rapidjson::Value(graphicsComponent.material.GetMaterialName().c_str(), allocator), allocator);
+            Material.AddMember("shader", rapidjson::Value(graphicsComponent.material.GetShaderName().c_str(), allocator), allocator);
             Material.AddMember("shaderIdx", graphicsComponent.GetShaderIdx(),allocator);
 
             
@@ -371,7 +371,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
             // Add color (array)
             rapidjson::Value colorArray(rapidjson::kArrayType);
-            glm::vec4 color = materialComponent.GetColor();
+            glm::vec4 color = graphicsComponent.material.GetColor();
             colorArray.PushBack(color.r, allocator);
             colorArray.PushBack(color.g, allocator);
             colorArray.PushBack(color.b, allocator);
@@ -379,16 +379,16 @@ bool Serialization::SaveScene(const std::string& filepath) {
             properties.AddMember("color", colorArray, allocator);
 
             // Add finalAlpha (float)
-            properties.AddMember("finalAlpha", materialComponent.GetFinalAlpha(), allocator);
+            properties.AddMember("finalAlpha", graphicsComponent.material.GetFinalAlpha(), allocator);
 
             // Add textures (strings)
-            properties.AddMember("Diffuse", rapidjson::Value(materialComponent.GetDiffuseName().c_str(), allocator), allocator);
-            properties.AddMember("Normal", rapidjson::Value(materialComponent.GetNormalName().c_str(), allocator), allocator);
-            properties.AddMember("Height", rapidjson::Value(materialComponent.GetHeightName().c_str(), allocator), allocator);
+            properties.AddMember("Diffuse", rapidjson::Value(graphicsComponent.material.GetDiffuseName().c_str(), allocator), allocator);
+            properties.AddMember("Normal", rapidjson::Value(graphicsComponent.material.GetNormalName().c_str(), allocator), allocator);
+            properties.AddMember("Height", rapidjson::Value(graphicsComponent.material.GetHeightName().c_str(), allocator), allocator);
 
             // Add metallic and shininess (floats)
-            properties.AddMember("metallic", materialComponent.GetMetallic(), allocator);
-            properties.AddMember("shininess", materialComponent.GetSmoothness(), allocator);
+            properties.AddMember("metallic", graphicsComponent.material.GetMetallic(), allocator);
+            properties.AddMember("shininess", graphicsComponent.material.GetSmoothness(), allocator);
 
             // Add properties to the Material
             Material.AddMember("properties", properties, allocator);
@@ -397,6 +397,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
             std::cout << materialComponent.GetMaterialName() << '\n' << materialComponent.GetShaderName() << '\n' << materialComponent.GetShaderIndex() << '\n';
 
+            //graphicsComponent.material = materialComponent;
 
 
             entityData.AddMember("MaterialComponent", Material, allocator);
@@ -541,14 +542,14 @@ bool Serialization::LoadScene(const std::string& filepath)
 
                     std::cout<< "has member tex" << GData.HasMember("Texture") << '\n';
 
-                    if (GData.HasMember("Texture"))
-                    {
-                        TextureName = GData["Texture"].GetString();
-                        std::cout << "Texture: " << TextureName << '\n';
-					    
-                    }
+                    // if (GData.HasMember("Texture"))
+                    // {
+                    //     TextureName = GData["Texture"].GetString();
+                    //     std::cout << "Texture: " << TextureName << '\n';
+					//     
+                    // }
 
-                    int textureID = g_ResourceManager.GetTextureDDS(TextureName);
+                    // int textureID = g_ResourceManager.GetTextureDDS(TextureName);
 
                     if (GData.HasMember("FollowCamera"))
                     {
@@ -557,8 +558,8 @@ bool Serialization::LoadScene(const std::string& filepath)
 
                     GraphicsComponent graphicsComponent(modelName, entity, TextureName, isFollowing);
 
-                    if(textureID > 0)
-                        graphicsComponent.AddTexture(textureID);
+                    // if(textureID > 0)
+                    //     graphicsComponent.AddTexture(textureID);
 //                    graphicsComponent.SetModelID(modelID);
 
 
@@ -854,6 +855,7 @@ bool Serialization::LoadScene(const std::string& filepath)
 
                 materialComponent.SetFinalAlpha(finalAlpha);
                 materialComponent.SetDiffuseName(diffuseName);
+                materialComponent.SetDiffuseID(g_ResourceManager.GetTextureDDS(diffuseName));
                 materialComponent.SetNormalName(normalName);
                 materialComponent.SetHeightName(heightName);
                 
@@ -865,9 +867,20 @@ bool Serialization::LoadScene(const std::string& filepath)
                 if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
                 {
                     auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+                    graphicsComp.material = materialComponent; 
+                    
+//                    graphicsComp.AddTexture(g_ResourceManager.GetTextureDDS(graphicsComp.material.GetDiffuseName()));
+  
+                    
+                   // graphicsComp.material.SetDiffuseID(g_ResourceManager.GetTextureDDS(graphicsComp.material.GetDiffuseName()));
+                   // graphicsComp.material.SetDiffuseName(graphicsComp.material.GetDiffuseName());
+                        ;
 
-                    graphicsComp.material = materialComponent;
+                    std::cout << graphicsComp.material.GetMaterialName() << '\t' << graphicsComp.material.GetShaderName() << '\t' << graphicsComp.material.GetShaderIndex() << '\t' << '\n';
+
                 }
+                
+
                 g_Coordinator.AddComponent(entity, materialComponent);
 
 

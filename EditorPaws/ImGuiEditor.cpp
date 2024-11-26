@@ -1469,9 +1469,6 @@ void ImGuiEditor::InspectorWindow()
 										ImGui::PopID();
 									}
 
-									ImGui::Text("Debug   ");
-									ImGui::SameLine();
-									ImGui::Checkbox("##DebugMode", &GraphicsSystem::debug);
 
 									if (GraphicsSystem::debug)
 									{
@@ -2474,10 +2471,12 @@ void ImGuiEditor::InspectorWindow()
 
 									//graphicsComponent.material.SetDiffuseName(graphicsComponent.getModelName());
 									//graphicsComponent.material.SetDiffuseID(g_ResourceManager.GetTextureDDS(graphicsComponent.getModelName()));
+
+
 									ImGui::Text("Texture ");
 									ImGui::SameLine(WidthIndentation);
 									ImGui::PushItemWidth(150); // Set the width in pixels
-									ImGui::InputText("##TexDiff1", graphicsComponent.GetDiffuseName().data(), graphicsComponent.GetDiffuseName().capacity() + 1);
+									ImGui::InputText("##TexDiff1", graphicsComponent.material.GetDiffuseName().data(), graphicsComponent.material.GetDiffuseName().capacity() + 1);
 
 
 									ImGui::PushID("Textures");
