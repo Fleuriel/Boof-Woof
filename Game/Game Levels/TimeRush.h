@@ -95,6 +95,7 @@ class TimeRush : public Level
 
     void UnloadLevel() override
     {
+        g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
         g_Coordinator.ResetEntities();
         timer = 0.0;
         currentTextureIndex = 53;

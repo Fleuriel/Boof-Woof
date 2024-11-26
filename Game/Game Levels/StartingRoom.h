@@ -14,8 +14,8 @@ class StartingRoom : public Level
 
 	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/StartingRoom.json");		
-		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
+		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/StartingRoom2.json");		
+		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");	
 
 		g_ChangeText.OnInitialize();
 
@@ -28,9 +28,12 @@ class StartingRoom : public Level
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Player")
 				{
 					playerEnt = entity;		
+					break;
 				}
 			}
 		}
+
+		g_Window->HideMouseCursor();
 	}
 
 	void InitLevel()
@@ -101,6 +104,7 @@ class StartingRoom : public Level
 	void UnloadLevel()
 	{
 		g_Audio.StopBGM();
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 	}
 };
