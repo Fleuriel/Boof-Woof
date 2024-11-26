@@ -68,6 +68,11 @@ class StartingRoom : public Level
 			teb_last = false;
 		}
 
+		//if (g_Input.GetKeyState(GLFW_KEY_O) >= 1) 
+		//{
+		//	cameraController->ShakeCamera(1.0f, glm::vec3(0.1f,0.1f,0.1f));
+		//}
+
 		if (g_Checklist.shutted) 
 		{
 			if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")

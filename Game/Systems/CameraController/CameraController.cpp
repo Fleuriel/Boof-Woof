@@ -25,7 +25,7 @@ void CameraController::Update(float deltaTime)
 
 	if (currentMode == CameraMode::SHAKE)
 	{
-		UpdateShakePlayer(camera);
+        UpdateShakeView(camera);
 	}
 }
 

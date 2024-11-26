@@ -14,7 +14,7 @@ class MainHall : public Level
 
 	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");
+		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainHall.json");
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
 
 		g_ChangeText.OnInitialize();

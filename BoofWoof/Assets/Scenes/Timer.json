@@ -3,7 +3,7 @@
     "Entities": [
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Group",
                 "EntityID": 0
             },
             "TransformComponent": {
