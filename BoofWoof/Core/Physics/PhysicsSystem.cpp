@@ -325,7 +325,10 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
                         float previousYPosition = previousYPositions[entity];
                         float yChange = std::abs(currentYPosition - previousYPosition);
 
-                        if (yChange < 0.01f && collisionComponent.GetIsColliding()) {
+                        //if (yChange < 0.01f && collisionComponent.GetIsColliding()) {
+                        //    isGrounded = true;
+                        //}
+                        if (yChange < 0.01f) {
                             isGrounded = true;
                         }
                     }
