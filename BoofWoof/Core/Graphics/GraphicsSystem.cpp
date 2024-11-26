@@ -158,6 +158,7 @@ void GraphicsSystem::UpdateLoop() {
 
 	//check camera active
 	camera_render = camera;
+	lights_infos.clear();
 	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
 	{
 		if (g_Coordinator.HaveComponent<CameraComponent>(entity)) {
@@ -166,11 +167,6 @@ void GraphicsSystem::UpdateLoop() {
 				camera_render = cameraComp;
 			}
 		}
-	}
-
-	lights_infos.clear();
-	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
-	{
 		if (g_Coordinator.HaveComponent<LightComponent>(entity))
 		{
 			if (g_Coordinator.HaveComponent<TransformComponent>(entity))
@@ -187,6 +183,7 @@ void GraphicsSystem::UpdateLoop() {
 
 		}
 	}
+
 	
 	shdrParam.View = camera_render.GetViewMatrix();
 	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
@@ -227,17 +224,18 @@ void GraphicsSystem::UpdateLoop() {
 				particleComp.init();
 				particleComp.setInitFlag(true);
 			}
-			g_AssetManager.GetShader("instanced").Use();
-			g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
-			g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
+			OpenGLShader& shader_instanced = g_AssetManager.GetShader("instanced");
+			shader_instanced.Use();
+			shader_instanced.SetUniform("view", shdrParam.View);
+			shader_instanced.SetUniform("projection", shdrParam.Projection);
 			glPointSize(particleComp.getParticleSize());
-			g_AssetManager.GetShader("instanced").SetUniform("particleColor", particleComp.getParticleColor());
+			shader_instanced.SetUniform("particleColor", particleComp.getParticleColor());
 			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
-			g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+			shader_instanced.SetUniform("vertexTransform", shdrParam.WorldMatrix);
 			//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
 			particleComp.update(static_cast<float>(g_Core->m_DeltaTime));
 			particleComp.draw();
-			g_AssetManager.GetShader("instanced").UnUse();
+			shader_instanced.UnUse();
 
 		}
 
@@ -248,7 +246,8 @@ void GraphicsSystem::UpdateLoop() {
 		}
 		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 
-		g_AssetManager.GetShader("Shader3D").Use();
+		OpenGLShader& shader_3D = g_AssetManager.GetShader("Shader3D");
+		shader_3D.Use();
 
 		if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
 		{
@@ -261,31 +260,32 @@ void GraphicsSystem::UpdateLoop() {
 		}
 
 
+		
 
 		// START OF 3D
 		if (graphicsComp.getFollowCamera()) {
-			SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
+			SetShaderUniforms(shader_3D, shdrParam);
 		}else {
-			g_AssetManager.GetShader("Shader3D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
-			g_AssetManager.GetShader("Shader3D").SetUniform("view", glm::mat4(1.0f));
-			g_AssetManager.GetShader("Shader3D").SetUniform("projection", glm::mat4(1.0f));
+			shader_3D.SetUniform("vertexTransform", shdrParam.WorldMatrix);
+			shader_3D.SetUniform("view", glm::mat4(1.0f));
+			shader_3D.SetUniform("projection", glm::mat4(1.0f));
 
 		}
 		g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 		for (int i = 0; i < lights_infos.size(); i++)
 		{
 			std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
-			g_AssetManager.GetShader("Shader3D").SetUniform(lightPosStr.c_str(), lights_infos[i].position);
+			shader_3D.SetUniform(lightPosStr.c_str(), lights_infos[i].position);
 			std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
-			g_AssetManager.GetShader("Shader3D").SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
+			shader_3D.SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
 			std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
-			g_AssetManager.GetShader("Shader3D").SetUniform(lightColorStr.c_str(), lights_infos[i].color);
+			shader_3D.SetUniform(lightColorStr.c_str(), lights_infos[i].color);
 		}
 		/*g_AssetManager.GetShader("Shader3D").SetUniform("lights[0].position", lightPos);
 		g_AssetManager.GetShader("Shader3D").SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
-		g_AssetManager.GetShader("Shader3D").SetUniform("numLights", static_cast<int>(lights_infos.size()));
-		g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera_render.Position);
-		g_AssetManager.GetShader("Shader3D").SetUniform("lightOn", lightOn);
+		shader_3D.SetUniform("numLights", static_cast<int>(lights_infos.size()));
+		shader_3D.SetUniform("viewPos", camera_render.Position);
+		shader_3D.SetUniform("lightOn", lightOn);
 
 		/*std::cout << "entity "<< entity << "\n";
 		std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
@@ -349,7 +349,7 @@ void GraphicsSystem::UpdateLoop() {
 		//for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
 		////	std::cout << "texture size after clearing: " << mesh.textures.size() << "\n";
 		//}
-		g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
+		shader_3D.SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
 		//std::cout << "out model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
 		//std::cout << "out comp tetx cnt " << graphicsComp.getTextureNumber() << "\n";
 
@@ -374,11 +374,11 @@ void GraphicsSystem::UpdateLoop() {
 
 				//graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
 				//std::cout << "Drawing entity: " << entity << '\n';
-		g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("Shader3D"));
+		g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(shader_3D);
 		//				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
 						//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
 
-		g_AssetManager.GetShader("Shader3D").UnUse();
+		shader_3D.UnUse();
 
 
 
@@ -390,16 +390,16 @@ void GraphicsSystem::UpdateLoop() {
 
 				// END OF 3D
 
-
-		g_AssetManager.GetShader("Shader2D").Use();
+		OpenGLShader& shader_2D = g_AssetManager.GetShader("Shader2D");
+		shader_2D.Use();
 
 		if (graphicsComp.getFollowCamera()) {
-			SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
+			SetShaderUniforms(shader_2D, shdrParam);
 		}
 		else {
-			g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
-			g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
-			g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
+			shader_2D.SetUniform("vertexTransform", shdrParam.WorldMatrix);
+			shader_2D.SetUniform("view", glm::mat4(1.0f));
+			shader_2D.SetUniform("projection", glm::mat4(1.0f));
 
 		}
 		//shader.Use();
@@ -417,19 +417,19 @@ void GraphicsSystem::UpdateLoop() {
 		else
 			glBindTextureUnit(6, graphicsComp.getTexture(0));
 
-		g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader("Shader2D"));
+		g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(shader_2D);
 
-		g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
+		shader_2D.SetUniform("uTex2d", 6);
 		//shader.SetUniform("")
-		g_AssetManager.GetShader("Shader2D").UnUse();
+		shader_2D.UnUse();
 
 
 
 
 		//glBindTextureUnit(6, set_Texture_T);
-
-		g_AssetManager.GetShader("OutlineAndFont").Use();
-		SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
+		OpenGLShader& shader_Outline = g_AssetManager.GetShader("OutlineAndFont");
+		shader_Outline.Use();
+		SetShaderUniforms(shader_Outline, shdrParam);
 		if (debug)
 		{
 			if (D2)
@@ -463,7 +463,7 @@ void GraphicsSystem::UpdateLoop() {
 			}
 		}
 
-		g_AssetManager.GetShader("OutlineAndFont").UnUse();
+		shader_Outline.UnUse();
 		//graphicsComp.getModel()->Draw2D(g_AssetManager.GetShader("Shader2D"));
 		//g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
 //				g_ResourceManager.ModelMap[graphicsComp.getModelName()].Draw2D(g_AssetManager.GetShader("Shader2D"));
