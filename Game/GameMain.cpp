@@ -8,6 +8,7 @@
 #include "Game Levels/Level1.h"
 #include "GSM/GameStateMachine.h"
 #include "Game Levels/Cutscene.h"
+#include "Game Levels/Timer.h"
 
 EngineCore* g_Core = nullptr;
 
@@ -17,6 +18,7 @@ void InitializeLevels() {
 	g_LevelManager.RegisterLevel("MainMenu", new(MainMenu));
 	g_LevelManager.RegisterLevel("Cutscene", new(Cutscene));
 	g_LevelManager.RegisterLevel("Level1", new(Level1));
+	g_LevelManager.RegisterLevel("Timer", new(Timer));
 
 	// Set the initial level
 	g_LevelManager.Initialize("Splashscreen");
