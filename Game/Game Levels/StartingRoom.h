@@ -11,6 +11,7 @@ class StartingRoom : public Level
 {
 	Entity playerEnt{};
 	CameraController* cameraController = nullptr;
+	bool bark{ false };
 
 	void LoadLevel()
 	{
@@ -75,6 +76,17 @@ class StartingRoom : public Level
 		//{
 		//	cameraController->ShakeCamera(1.0f, glm::vec3(0.1f,0.1f,0.1f));
 		//}
+
+		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
+		{
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiBark1.wav");
+			bark = true;
+		}
+
+		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 0) 
+		{
+			bark = false;
+		}
 
 		if (g_Checklist.shutted) 
 		{
