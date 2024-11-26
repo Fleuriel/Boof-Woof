@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "2ec2324d-2806-41f1-b0d7-017d094963d2",
+    "SceneGUID": "abff1995-f7ff-43d4-8ef9-25c0ea8c0c7a",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.9910602569580079,
-                    "y": 1.2000000476837159,
-                    "z": -0.0000011971307003477705
+                    "x": 0.10493727773427963,
+                    "y": 1.1799991130828858,
+                    "z": -0.17340005934238435
                 },
                 "Scale": {
                     "x": 0.5,
@@ -59,7 +59,7 @@
                     "y": 1.0,
                     "z": 0.0
                 },
-                "Active": true
+                "Active": false
             }
         },
         {
@@ -1028,6 +1028,441 @@
                     "y": 0.949999988079071,
                     "z": 0.25
                 }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 27
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 7.25600004196167,
+                    "y": 2.875999927520752,
+                    "z": 9.01099967956543
+                },
+                "Scale": {
+                    "x": 1.5,
+                    "y": 1.5,
+                    "z": 1.5
+                },
+                "Rotation": {
+                    "x": -3.1415884494781496,
+                    "y": -0.0,
+                    "z": -3.1415884494781496
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed2",
+                "Texture": "Bed2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.5,
+                    "y": 1.7999999523162842,
+                    "z": 2.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 28
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.085339546203614,
+                    "y": 4.160999298095703,
+                    "z": 14.746463775634766
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -3.1415884494781496,
+                    "y": 0.05799976736307144,
+                    "z": -3.1415884494781496
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Banner",
+                "Texture": "Banner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 29
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 4.241174697875977,
+                    "y": 0.36121654510498049,
+                    "z": -0.14023934304714204
+                },
+                "Scale": {
+                    "x": 0.9999797344207764,
+                    "y": 1.0,
+                    "z": 0.9999797344207764
+                },
+                "Rotation": {
+                    "x": -3.1415891647338869,
+                    "y": 1.5700000524520875,
+                    "z": -3.1415891647338869
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Carpet",
+                "Texture": "Carpet",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 30
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.830764770507813,
+                    "y": 3.916069984436035,
+                    "z": 0.01921461708843708
+                },
+                "Scale": {
+                    "x": 1.1999706029891968,
+                    "y": 1.2000000476837159,
+                    "z": 1.1999706029891968
+                },
+                "Rotation": {
+                    "x": -3.1415884494781496,
+                    "y": -1.5700000524520875,
+                    "z": -3.1415884494781496
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Fireplace",
+                "Texture": "Fireplace",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 31
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 14.385313987731934,
+                    "y": 2.7290000915527345,
+                    "z": 7.213674545288086
+                },
+                "Scale": {
+                    "x": 0.9999862313270569,
+                    "y": 1.0,
+                    "z": 0.9999862313270569
+                },
+                "Rotation": {
+                    "x": 0.0000025323795398435324,
+                    "y": -1.5684067010879517,
+                    "z": 0.0000025342828848806677
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bookshelf3",
+                "Texture": "Bookshelf3",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 32
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 14.396483421325684,
+                    "y": 2.7290000915527345,
+                    "z": 11.890497207641602
+                },
+                "Scale": {
+                    "x": 0.9999813437461853,
+                    "y": 1.0,
+                    "z": 0.9999813437461853
+                },
+                "Rotation": {
+                    "x": 0.0000025323795398435324,
+                    "y": -1.5684067010879517,
+                    "z": 0.000002534282657506992
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bookshelf2",
+                "Texture": "Bookshelf3",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 33
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -3.6769466400146486,
+                    "y": 3.6499617099761965,
+                    "z": 4.211626052856445
+                },
+                "Scale": {
+                    "x": 1.1999510526657105,
+                    "y": 1.2000000476837159,
+                    "z": 1.1999510526657105
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 1.5699999332427979,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallTorch",
+                "Texture": "WallTorch",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 34
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -3.6702210903167726,
+                    "y": 3.6499617099761965,
+                    "z": -4.232629299163818
+                },
+                "Scale": {
+                    "x": 1.1999510526657105,
+                    "y": 1.2000000476837159,
+                    "z": 1.1999510526657105
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 1.5699999332427979,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallTorch",
+                "Texture": "WallTorch",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 35
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 5.708400249481201,
+                    "y": 3.64996600151062,
+                    "z": 4.750438690185547
+                },
+                "Scale": {
+                    "x": 1.2001147270202637,
+                    "y": 1.2000000476837159,
+                    "z": 1.2001147270202637
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": 0.0015923726605251432,
+                    "z": -3.1415908336639406
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallTorch",
+                "Texture": "WallTorch",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 36
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 2.8253836631774904,
+                    "y": 4.157292366027832,
+                    "z": -4.764188289642334
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Banner",
+                "Texture": "Banner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 37
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 8.524950981140137,
+                    "y": 4.157292366027832,
+                    "z": -4.764188289642334
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Banner",
+                "Texture": "Banner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 38
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.62553596496582,
+                    "y": 4.157292366027832,
+                    "z": -4.764188289642334
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Banner",
+                "Texture": "Banner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 39
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 11.678556442260743,
+                    "y": 0.3222463130950928,
+                    "z": 9.215129852294922
+                },
+                "Scale": {
+                    "x": 0.6000000238418579,
+                    "y": 0.6000000238418579,
+                    "z": 0.6000000238418579
+                },
+                "Rotation": {
+                    "x": -3.1415884494781496,
+                    "y": -0.0,
+                    "z": -3.1415884494781496
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Carpet",
+                "Texture": "Carpet",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 40
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 9.574302673339844,
+                    "y": 1.2423819303512574,
+                    "z": -1.6389493942260743
+                },
+                "Scale": {
+                    "x": 1.0000001192092896,
+                    "y": 1.0,
+                    "z": 1.0000001192092896
+                },
+                "Rotation": {
+                    "x": -3.1415884494781496,
+                    "y": 0.6019989252090454,
+                    "z": -3.1415884494781496
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair2",
+                "Texture": "Chair2",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 41
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 9.599352836608887,
+                    "y": 1.242393970489502,
+                    "z": 1.3578555583953858
+                },
+                "Scale": {
+                    "x": 0.9999861121177673,
+                    "y": 1.0,
+                    "z": 0.9999861121177673
+                },
+                "Rotation": {
+                    "x": -3.1415884494781496,
+                    "y": -0.4979992210865021,
+                    "z": -3.1415884494781496
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair2",
+                "Texture": "Chair2",
+                "FollowCamera": true
             }
         }
     ]

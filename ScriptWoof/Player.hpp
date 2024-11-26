@@ -1,4 +1,5 @@
 #include <iostream>
+#define UNREFERENCED_PARAMETER(P)          (P)
 
 
 struct Player final : public Behaviour
@@ -20,6 +21,7 @@ struct Player final : public Behaviour
 
 	virtual void Update(Entity entity) override
 	{
+		UNREFERENCED_PARAMETER(entity);
 		velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 		isMoving = false;
 
@@ -174,7 +176,7 @@ struct Player final : public Behaviour
 			{
 				if (m_Engine.HaveCameraComponent(entity))
 				{
-					std::cout << "has camera" << std::endl;
+					//std::cout << "has camera" << std::endl;
 
 					// Apply player input velocity
 					m_Engine.SetVelocity(entity, velocity);

@@ -7,18 +7,17 @@
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
 
-Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{};
-CameraController* cameraController = nullptr;
-
-class Level1 : public Level
+class StartingRoom : public Level
 {
+	Entity playerEnt{};
+	CameraController* cameraController = nullptr;
+
 	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");		
+		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/StartingRoom.json");		
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
 
 		g_ChangeText.OnInitialize();
-		g_Checklist.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -28,23 +27,7 @@ class Level1 : public Level
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Player")
 				{
-					playerEnt = entity;					
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
-				{
-					RopeEnt = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
-				{
-					RopeEnt2 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "DrawBridge") 
-				{
-					BridgeEnt = entity;
-					break;
+					playerEnt = entity;		
 				}
 			}
 		}
@@ -52,16 +35,8 @@ class Level1 : public Level
 
 	void InitLevel()
 	{
-		if (playerEnt != Entity{})
-		{
-			// Ensure player entity is valid
-			cameraController = new CameraController(playerEnt);
-
-			if (RopeEnt != Entity{}) 
-			{
-				g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
-			}
-		}
+		// Ensure player entity is valid
+		cameraController = new CameraController(playerEnt);
 	}
 
 	bool teb_last = false;
@@ -75,12 +50,10 @@ class Level1 : public Level
 			g_ChangeText.OnUpdate(deltaTime);
 		}
 
-		if (!g_Checklist.shutted) 
+		if (!g_Checklist.shutted)
 		{
 			g_Checklist.OnUpdate(deltaTime);
 		}
-
-		g_RopeBreaker.OnUpdate(deltaTime);	
 
 		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
 		{
@@ -95,11 +68,25 @@ class Level1 : public Level
 			teb_last = false;
 		}
 
-		// Space to go back mainmenu
-		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
+		//if (g_Input.GetKeyState(GLFW_KEY_O) >= 1) 
+		//{
+		//	cameraController->ShakeCamera(1.0f, glm::vec3(0.1f,0.1f,0.1f));
+		//}
+
+		if (g_Checklist.shutted) 
 		{
-			g_LevelManager.SetNextLevel("MainMenu");
+			if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
+			{
+				g_LevelManager.SetNextLevel("TimeRush");
+			}
 		}
+
+		//// Space to go back mainmenu
+		//if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
+		//{
+		//	g_LevelManager.SetNextLevel("MainMenu");
+		//	g_Window->ShowMouseCursor();
+		//}
 	}
 
 	void FreeLevel()

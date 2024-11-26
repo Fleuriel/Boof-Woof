@@ -10,12 +10,13 @@ public:
 
 public:
 	bool shutted{ false };
+	int textureIndex = 5;
+	int indexLimit = 6;
 
 private:
 	Entity m_Text{};
 	double cdTimer = 0.0;
 	double cdLimit = 4.0;   
-	int textureIndex = 5;
 
 
 protected:

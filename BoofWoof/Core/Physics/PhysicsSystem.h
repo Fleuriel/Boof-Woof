@@ -452,5 +452,3 @@ public:
 
 
 #endif // PHYSICSSYSTEM_H
-
-#pragma warning(pop)

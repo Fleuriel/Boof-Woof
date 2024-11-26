@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "2ec2324d-2806-41f1-b0d7-017d094963d2",
+    "SceneGUID": "f1b2ac53-973e-4708-9efb-69d4504b3c5c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.9910602569580079,
-                    "y": 1.2000000476837159,
-                    "z": -0.0000011971307003477705
+                    "x": 1.7334556579589844,
+                    "y": 1.199999213218689,
+                    "z": -0.21308408677577973
                 },
                 "Scale": {
                     "x": 0.5,
@@ -59,7 +59,7 @@
                     "y": 1.0,
                     "z": 0.0
                 },
-                "Active": true
+                "Active": false
             }
         },
         {
@@ -1027,6 +1027,49 @@
                     "x": 0.0,
                     "y": 0.949999988079071,
                     "z": 0.25
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 27
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 7.455999851226807,
+                    "y": 2.875999927520752,
+                    "z": 8.41100025177002
+                },
+                "Scale": {
+                    "x": 1.5,
+                    "y": 1.5,
+                    "z": 1.5
+                },
+                "Rotation": {
+                    "x": -3.1415884494781496,
+                    "y": -0.0,
+                    "z": -3.1415884494781496
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed2",
+                "Texture": "Bed2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.5,
+                    "y": 1.7999999523162842,
+                    "z": 2.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             }
         }

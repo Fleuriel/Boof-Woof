@@ -1,6 +1,11 @@
 #define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
 #include <Windows.h>
 #include "ImGuiEditor.h"
+#ifdef MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS
+#undef MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS
+#endif
+#include <Windows.h>
+#include "ImGuiEditor.h"
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
@@ -13,6 +18,8 @@
 #include "../Utilities/Components/AnimationComponent.h"
 #include "Animation/AnimationManager.h"
 #include "../Utilities/Components/MaterialComponent.hpp"
+#include <glm/gtx/matrix_decompose.hpp>
+
 
 namespace fs = std::filesystem;
 
@@ -85,6 +92,9 @@ void ImGuiEditor::ImGuiUpdate()
 
 	//ImGui::ShowDemoWindow();
 	ImGuiViewport();
+
+	ArchetypeTest();
+
 	WorldHierarchy();
 	InspectorWindow();
 	AssetWindow();
@@ -94,7 +104,6 @@ void ImGuiEditor::ImGuiUpdate()
 	//ShowPickingDebugWindow();
 
 
-	ArchetypeTest();
 
 	if (m_ShowAudio)
 	{
@@ -162,8 +171,11 @@ void ImGuiEditor::ImGuiViewport() {
 		{
 			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
 
-			// Get the object's transform matrix
-			glm::mat4 modelMatrix = transformComp.GetWorldMatrix();
+			// Get the TransformSystem instance
+			std::shared_ptr<TransformSystem> transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+
+			// Get the object's world matrix from TransformSystem
+			glm::mat4 modelMatrix = transformSystem->GetWorldMatrix(g_SelectedEntity);
 
 			// Define the operation and mode
 			static ImGuizmo::OPERATION mCurrentGizmoOperation = ImGuizmo::TRANSLATE;
@@ -178,43 +190,56 @@ void ImGuiEditor::ImGuiViewport() {
 
 			if (isUsingGizmo)
 			{
-				// Decompose the manipulated matrix to get position, rotation, scale
-				glm::vec3 position, rotationDegrees, scale;
-				ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(modelMatrix),
-					glm::value_ptr(position), glm::value_ptr(rotationDegrees), glm::value_ptr(scale));
+				// Get the parent's world matrix
+				glm::mat4 parentWorldMatrix = glm::mat4(1.0f);
+				if (g_Coordinator.HaveComponent<HierarchyComponent>(g_SelectedEntity))
+				{
+					Entity parent = g_Coordinator.GetComponent<HierarchyComponent>(g_SelectedEntity).parent;
+					if (parent != MAX_ENTITIES)
+					{
+						parentWorldMatrix = transformSystem->GetWorldMatrix(parent);
+					}
+				}
 
-				// Convert rotation from degrees to radians
-				glm::vec3 rotationRadians = glm::radians(rotationDegrees);
+				// Compute the new local matrix
+				glm::mat4 newLocalMatrix = glm::inverse(parentWorldMatrix) * modelMatrix;
+
+				// Decompose the new local matrix to get local position, rotation, scale
+				glm::vec3 newLocalPosition, newLocalRotationDegrees, newLocalScale;
+				ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(newLocalMatrix),
+					glm::value_ptr(newLocalPosition), glm::value_ptr(newLocalRotationDegrees), glm::value_ptr(newLocalScale));
+
+				glm::vec3 newLocalRotationRadians = glm::radians(newLocalRotationDegrees);
 
 				// If manipulation has just started
 				if (!m_WasUsingGizmo)
 				{
-					// Store old transform values
+					// Store old local transform values
 					m_OldPosition = transformComp.GetPosition();
 					m_OldRotationRadians = transformComp.GetRotation();
 					m_OldScale = transformComp.GetScale();
 				}
 
-				// Update the TransformComponent with new values
-				transformComp.SetPosition(position);
-				transformComp.SetRotation(rotationRadians);
-				transformComp.SetScale(scale);
+				// Update the TransformComponent with new local values
+				transformComp.SetPosition(newLocalPosition);
+				transformComp.SetRotation(newLocalRotationRadians);
+				transformComp.SetScale(newLocalScale);
 			}
 			else if (m_WasUsingGizmo) // Manipulation has just ended
 			{
-				// Retrieve the new transform values
+				// Retrieve the new local transform values
 				glm::vec3 newPosition = transformComp.GetPosition();
 				glm::vec3 newRotationRadians = transformComp.GetRotation();
 				glm::vec3 newScale = transformComp.GetScale();
 
 				Entity entity = g_SelectedEntity;
 
-				// Store copies of the old values to capture in the lambda
+				// Store copies of the old values
 				glm::vec3 oldPosition = m_OldPosition;
 				glm::vec3 oldRotationRadians = m_OldRotationRadians;
 				glm::vec3 oldScale = m_OldScale;
 
-				// Check if any of the transform components have changed
+				// Check if any transform component has changed
 				bool positionChanged = !AreVectorsEqual(oldPosition, newPosition);
 				bool rotationChanged = !AreVectorsEqual(oldRotationRadians, newRotationRadians);
 				bool scaleChanged = !AreVectorsEqual(oldScale, newScale);
@@ -250,6 +275,7 @@ void ImGuiEditor::ImGuiViewport() {
 			if (ImGui::IsKeyPressed(ImGuiKey_E))
 				mCurrentGizmoOperation = ImGuizmo::SCALE;
 		}
+
 
 
 
@@ -302,115 +328,187 @@ void ImGuiEditor::WorldHierarchy()
 {
 	ImGui::Begin("World Hierarchy");
 	{
-		if (g_Coordinator.GetTotalEntities() != MAX_ENTITIES)
+		// Context menu for creating entities
+		if (ImGui::BeginPopupContextItem("GameObj"))
 		{
-			if (ImGui::BeginPopupContextItem("GameObj"))
+			if (ImGui::Selectable("Empty GameObject"))
 			{
-				if (ImGui::Selectable("Empty GameObject"))
+				g_SelectedEntity = g_Coordinator.CreateEntity();
+
+				// By default, add Transform and MetadataComponent (Identifier)
+				if (!g_Coordinator.HaveComponent<MetadataComponent>(g_SelectedEntity))
 				{
-					g_SelectedEntity = g_Coordinator.CreateEntity();
-
-					// By default, add Transform and MetadataComponent (Identifier)
-					if (!g_Coordinator.HaveComponent<MetadataComponent>(g_SelectedEntity))
-					{
-						g_Coordinator.AddComponent<MetadataComponent>(g_SelectedEntity, MetadataComponent("GameObject", g_SelectedEntity));
-					}
-
-					if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
-					{
-						g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
-					}
+					g_Coordinator.AddComponent<MetadataComponent>(g_SelectedEntity, MetadataComponent("GameObject", g_SelectedEntity));
 				}
-				ImGui::EndPopup();
-			}
 
-			if (ImGui::Button("Create"))
+				if (!g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+				{
+					g_Coordinator.AddComponent<TransformComponent>(g_SelectedEntity, TransformComponent());
+				}
+
+			}
+			ImGui::EndPopup();
+		}
+
+		if (ImGui::Button("Create"))
+		{
+			ImGui::OpenPopup("GameObj");
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("Clone Object") && g_Coordinator.GetTotalEntities() != 0)
+		{
+			if (g_SelectedEntity != MAX_ENTITIES)
 			{
-				ImGui::OpenPopup("GameObj");
+				Entity clone = g_Coordinator.CloneEntity(g_SelectedEntity);
+				g_SelectedEntity = clone;
 			}
+		}
 
-			ImGui::SameLine();
+		ImGui::SameLine();
 
-			if (ImGui::Button("Clone Object") && g_Coordinator.GetTotalEntities() != 0) {
-
-				if (g_SelectedEntity != MAX_ENTITIES)
-				{
-					Entity clone = g_Coordinator.CloneEntity(g_SelectedEntity);
-					g_SelectedEntity = clone;
-				}
-			}
-
-			ImGui::SameLine();
-
-			if (ImGui::BeginPopupContextItem("Deletion"))
+		if (ImGui::BeginPopupContextItem("Deletion"))
+		{
+			if (ImGui::Selectable("Delete Last Object"))
 			{
-				if (ImGui::Selectable("Delete Last Object"))
+				if (g_GettingDeletedEntity != MAX_ENTITIES)
 				{
-					if (g_GettingDeletedEntity != MAX_ENTITIES)
-					{
-						g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(g_GettingDeletedEntity);
-						g_Coordinator.DestroyEntity(g_GettingDeletedEntity);
-
-					}
+					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(g_GettingDeletedEntity);
+					DeleteEntity(g_GettingDeletedEntity);
 				}
-				if (m_IsSelected)
+			}
+			if (m_IsSelected)
+			{
+				if (ImGui::Selectable("Delete Selected Object"))
 				{
-					if (ImGui::Selectable("Delete Selected Object"))
+					if (g_SelectedEntity != MAX_ENTITIES)
 					{
-						if (g_SelectedEntity != MAX_ENTITIES)
-						{
-							g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(g_SelectedEntity);
-							g_Coordinator.DestroyEntity(g_SelectedEntity);
-							m_IsSelected = false;
-						}
+						g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(g_SelectedEntity);
+						DeleteEntity(g_SelectedEntity);
+						m_IsSelected = false;
 					}
 				}
-				ImGui::EndPopup();
 			}
+			ImGui::EndPopup();
+		}
 
-			if (ImGui::Button("Delete"))
-			{
-				ImGui::OpenPopup("Deletion");
-			}
+		if (ImGui::Button("Delete"))
+		{
+			ImGui::OpenPopup("Deletion");
+		}
 
-			if (ImGui::Button("Clear all entities")) {
-				g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
-				//g_Coordinator.GetSystem<GraphicsSystem>()->clearAllEntityTextures();
-				g_Coordinator.ResetEntities();
-				g_SceneManager.ClearSceneList();
-
-
-			}
+		if (ImGui::Button("Clear all entities"))
+		{
+			g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
+			g_Coordinator.ResetEntities();
+			g_SceneManager.ClearSceneList();
+			g_UndoRedoManager.Clear();
 		}
 
 		ImGui::Spacing(); ImGui::Spacing(); // to insert a gap so it looks visually nicer
 
-		// Displaying hierarchy game objects - have to check for player next time
+		const ImGuiPayload* payload = ImGui::GetDragDropPayload();
+		if (payload && payload->IsDataType("DND_ENTITY"))
+		{
+			Entity draggedEntity = *(Entity*)payload->Data;
+
+			// Check if the dragged entity has a parent
+			Entity parent = g_Coordinator.HaveComponent<HierarchyComponent>(draggedEntity)
+				? g_Coordinator.GetComponent<HierarchyComponent>(draggedEntity).parent
+				: MAX_ENTITIES;
+
+			if (parent != MAX_ENTITIES)
+			{
+				// Display the "Drag here to remove parent" text and drag target
+				ImGui::Text("Drag here to remove parent");
+
+				// Make this area a drag-and-drop target
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* dropPayload = ImGui::AcceptDragDropPayload("DND_ENTITY"))
+					{
+						Entity droppedEntity = *(Entity*)dropPayload->Data;
+
+						// Capture old and new parents for undo/redo
+						Entity oldParent = parent;
+						Entity newParent = MAX_ENTITIES;
+
+						// Create doAction and undoAction lambdas
+						auto doAction = [this, droppedEntity]() {
+							RemoveParent(droppedEntity);
+							};
+
+						auto undoAction = [this, droppedEntity, oldParent]() {
+							SetParent(droppedEntity, oldParent);
+							};
+
+						// Execute the action and add it to the UndoRedoManager
+						g_UndoRedoManager.ExecuteCommand(doAction, undoAction);
+					}
+					ImGui::EndDragDropTarget();
+				}
+
+				ImGui::Separator(); // Visual separator between root drag target and entity list
+			}
+		}
+
+		// Displaying hierarchy game objects
 		const std::vector<Entity>& allEntities = g_Coordinator.GetAliveEntitiesSet();
 		m_PlayerExist = false;
 
+		// Display root entities (entities without a parent)
 		for (const auto& entity : allEntities)
 		{
-			// looping through to get EntityID, use the entityID to get the name of object		
-			auto& name = g_Coordinator.GetComponent<MetadataComponent>(entity).GetName();
+			bool isRoot = true;
 
-			// checking based on whether game object has a name called "Player"
-			if (name == "Player") m_PlayerExist = true;
-
-			ImGuiTreeNodeFlags nodeFlags = ((g_SelectedEntity == entity) ? ImGuiTreeNodeFlags_Selected : 0) | (ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen);
-			ImGui::TreeNodeEx(reinterpret_cast<void*>(static_cast<intptr_t>(entity)), nodeFlags, name.c_str());
-
-			if (ImGui::IsItemClicked())
+			if (g_Coordinator.HaveComponent<HierarchyComponent>(entity))
 			{
-				m_IsSelected = true;
-				g_SelectedEntity = entity;
+				auto& hierarchyComp = g_Coordinator.GetComponent<HierarchyComponent>(entity);
+				if (hierarchyComp.parent != MAX_ENTITIES)
+				{
+					// Entity has a parent, so it's not a root entity
+					isRoot = false;
+				}
 			}
 
-			g_GettingDeletedEntity = entity;
+			if (isRoot)
+			{
+				DrawEntityNode(entity);
+			}
 		}
 	}
 	ImGui::End();
 }
+
+
+bool DecomposeTransform(const glm::mat4& transform, glm::vec3& position, glm::vec3& rotation, glm::vec3& scale)
+{
+	using namespace glm;
+
+	vec3 skew;
+	vec4 perspective;
+	quat orientation;
+
+	if (!glm::decompose(transform, scale, orientation, position, skew, perspective))
+	{
+		return false;
+	}
+
+	// Correct the signs of the scale components if necessary
+	if (determinant(transform) < 0)
+	{
+		scale = -scale;
+	}
+
+	// Convert quaternion to Euler angles (in radians)
+	rotation = eulerAngles(orientation);
+
+	return true;
+}
+
+
+
 
 void ImGuiEditor::InspectorWindow()
 {
@@ -991,6 +1089,7 @@ void ImGuiEditor::InspectorWindow()
 											oldVec3Values.erase(propertyName);
 
 											g_UndoRedoManager.ExecuteCommand(
+												// Do Action
 												[entity, propertyName, newValue]() {
 													auto& component = g_Coordinator.GetComponent<TransformComponent>(entity);
 													const auto& properties = ReflectionManager::Instance().GetProperties("TransformComponent");
@@ -1002,7 +1101,10 @@ void ImGuiEditor::InspectorWindow()
 													{
 														(*propIt)->SetValue(&component, SerializationHelpers::SerializeVec3(newValue));
 													}
+													// Update systems
+													g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(entity);
 												},
+												// Undo Action
 												[entity, propertyName, oldValue]() {
 													auto& component = g_Coordinator.GetComponent<TransformComponent>(entity);
 													const auto& properties = ReflectionManager::Instance().GetProperties("TransformComponent");
@@ -1014,6 +1116,8 @@ void ImGuiEditor::InspectorWindow()
 													{
 														(*propIt)->SetValue(&component, SerializationHelpers::SerializeVec3(oldValue));
 													}
+													// Update systems
+													g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(entity);
 												}
 											);
 										}
@@ -1044,6 +1148,7 @@ void ImGuiEditor::InspectorWindow()
 											oldFloatValues.erase(propertyName);
 
 											g_UndoRedoManager.ExecuteCommand(
+												// Do Action
 												[entity, propertyName, newValue]() {
 													auto& component = g_Coordinator.GetComponent<TransformComponent>(entity);
 													const auto& properties = ReflectionManager::Instance().GetProperties("TransformComponent");
@@ -1055,7 +1160,10 @@ void ImGuiEditor::InspectorWindow()
 													{
 														(*propIt)->SetValue(&component, std::to_string(newValue));
 													}
+													// Update systems
+													g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(entity);
 												},
+												// Undo Action
 												[entity, propertyName, oldValue]() {
 													auto& component = g_Coordinator.GetComponent<TransformComponent>(entity);
 													const auto& properties = ReflectionManager::Instance().GetProperties("TransformComponent");
@@ -1067,15 +1175,228 @@ void ImGuiEditor::InspectorWindow()
 													{
 														(*propIt)->SetValue(&component, std::to_string(oldValue));
 													}
+													// Update systems
+													g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(entity);
 												}
 											);
+
 										}
+
+
+									}
+
+									ImGui::PopID();
+								}
+								if (g_Coordinator.HaveComponent<HierarchyComponent>(g_SelectedEntity)) {
+									ImGui::Separator();
+									ImGui::Text("World Transform");
+
+									// Get the world matrix from TransformSystem
+									auto transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+									glm::mat4 worldMatrix = transformSystem->GetWorldMatrix(g_SelectedEntity);
+
+									// Decompose the world matrix
+									glm::vec3 worldPosition, worldRotation, worldScale;
+									if (DecomposeTransform(worldMatrix, worldPosition, worldRotation, worldScale))
+									{
+										// Array of property names and values
+										std::vector<std::pair<std::string, glm::vec3*>> worldProperties = {
+											{"Position", &worldPosition},
+											{"Scale   ", &worldScale}, // Add extra spaces for alignment
+											{"Rotation", &worldRotation}
+										};
+
+										for (auto& [propertyName, valuePtr] : worldProperties)
+										{
+											ImGui::PushItemWidth(250.0f);
+											ImGui::Text("%s", propertyName.c_str());
+											ImGui::SameLine();
+											std::string widgetID = "##World" + propertyName;
+
+											ImGui::PushID(widgetID.c_str());
+
+											ImGui::InputFloat3("##WorldInput", &valuePtr->x, "%.3f", ImGuiInputTextFlags_ReadOnly);
+
+											ImGui::PopID();
+										}
+									}
+									else
+									{
+										ImGui::Text("Failed to decompose world matrix.");
+									}
+								}
+							}
+						}
+
+						else if(className == "HierarchyComponent")
+						{
+							if (ImGui::CollapsingHeader("Hierarchy", ImGuiTreeNodeFlags_None))
+							{
+								auto& hierarchyComponent = g_Coordinator.GetComponent<HierarchyComponent>(g_SelectedEntity);
+								hierarchyComponent.RegisterProperties();
+
+								const auto& properties = ReflectionManager::Instance().GetProperties("HierarchyComponent");
+								for (const auto& property : properties)
+								{
+									std::string propertyName = property->GetName();
+
+									ImGui::PushItemWidth(250.0f);
+									ImGui::Text("%s", propertyName.c_str());
+									ImGui::SameLine();
+									std::string widgetID = "##" + propertyName;
+
+									ImGui::PushID(widgetID.c_str());
+
+									// Handle 'parent' property
+									if (propertyName == "Parent")
+									{
+										std::string parentStr = property->GetValue(&hierarchyComponent);
+										Entity currentParentEntity = hierarchyComponent.parent;
+
+										// Prepare list of entities for selection
+										const auto& allEntities = g_Coordinator.GetAliveEntitiesSet();
+										std::vector<std::string> entityNames;
+										std::vector<std::string> entityIds;
+
+										entityNames.push_back("None");
+										entityIds.push_back("None");
+
+										int currentParentIndex = 0;
+
+										int index = 1; // Start from 1 because "None" is at index 0
+										for (auto& ent : allEntities)
+										{
+											if (ent != g_SelectedEntity) // Exclude the current entity to prevent self-parenting
+											{
+												bool includeEntity = false;
+
+												if (ent == currentParentEntity)
+												{
+													// Always include the current parent to allow maintaining the relationship
+													includeEntity = true;
+												}
+												else if (!IsAncestorOf(g_SelectedEntity, ent))
+												{
+													// Include entity if it is not a descendant of the selected entity
+													includeEntity = true;
+												}
+
+												if (includeEntity)
+												{
+													std::string name = "Entity " + std::to_string(ent);
+													if (g_Coordinator.HaveComponent<MetadataComponent>(ent))
+													{
+														name = g_Coordinator.GetComponent<MetadataComponent>(ent).GetName();
+													}
+													entityNames.push_back(name);
+													entityIds.push_back(std::to_string(ent));
+
+													if (parentStr != "None" && std::stoul(parentStr) == ent)
+													{
+														currentParentIndex = index;
+													}
+
+													++index;
+												}
+												// Else, skip the entity to prevent cyclic dependency
+											}
+										}
+
+										// Convert std::vector<std::string> to std::vector<const char*>
+										std::vector<const char*> items;
+										for (const auto& name : entityNames)
+										{
+											items.push_back(name.c_str());
+										}
+
+										// Display combo box for parent selection
+										if (ImGui::Combo("##Parent", &currentParentIndex, items.data(), static_cast<int>(items.size())))
+										{
+											// Parent changed
+											std::string newParentStr = entityIds[currentParentIndex];
+
+											// Update the actual parent-child relationship
+											Entity oldParent = hierarchyComponent.parent;
+											Entity newParent = MAX_ENTITIES;
+											if (newParentStr != "None")
+											{
+												newParent = static_cast<Entity>(std::stoul(newParentStr));
+											}
+
+											// Create doAction and undoAction lambdas
+											auto doAction = [this, entity = g_SelectedEntity, newParent]() {
+												// Apply the new parent
+												SetParent(entity, newParent);
+												};
+
+											auto undoAction = [this, entity = g_SelectedEntity, oldParent]() {
+												// Revert to the old parent
+												SetParent(entity, oldParent);
+												};
+
+
+											// Execute the action and add it to the UndoRedoManager
+											g_UndoRedoManager.ExecuteCommand(doAction, undoAction);
+										}
+									}
+
+									// Handle 'children' property
+									else if (propertyName == "Children")
+									{
+										// Display label
+
+										// Get children entities
+										std::string childrenStr = property->GetValue(&hierarchyComponent);
+
+										// Parse the string into a vector of Entities
+										std::vector<Entity> children;
+										std::stringstream ss(childrenStr);
+										std::string item;
+										while (std::getline(ss, item, ','))
+										{
+											if (!item.empty())
+											{
+												Entity childEntity = static_cast<Entity>(std::stoul(item));
+												children.push_back(childEntity);
+											}
+										}
+										ImGui::NewLine();
+										if (!children.empty())
+										{
+											for (auto child : children)
+											{
+												std::string childName = "Entity " + std::to_string(child);
+												if (g_Coordinator.HaveComponent<MetadataComponent>(child))
+												{
+													childName = g_Coordinator.GetComponent<MetadataComponent>(child).GetName();
+												}
+
+												// Display child entity as selectable text
+												if (ImGui::Selectable(childName.c_str()))
+												{
+													// Select the child entity
+													g_SelectedEntity = child;
+												}
+											}
+										}
+										else {
+											ImGui::NewLine();
+											ImGui::Text("This entity has no children");
+										}
+									}
+									else
+									{
+										// Handle other properties if necessary
+										std::string value = property->GetValue(&hierarchyComponent);
+										ImGui::Text("%s", value.c_str());
 									}
 
 									ImGui::PopID();
 								}
 							}
 						}
+
+
 						else if (className == "GraphicsComponent")
 						{
 
@@ -2290,7 +2611,7 @@ void ImGuiEditor::InspectorWindow()
 				GLuint pictureHeight = g_ResourceManager.GetTextureDDSHeight(selectedFileName);
 
 				// 256 x 256 is our max picture size to show.
-				int maxWidth = 32;
+				GLuint maxWidth = 32;
 
 
 				//std::cout << selectedFileName << '\t' << g_ResourceManager.GetTextureDDSWidth(selectedFileName) << '\t' << std::to_string(g_ResourceManager.GetTextureDDSHeight(selectedFileName))  << '\t' << '\n';
@@ -3339,7 +3660,12 @@ void ImGuiEditor::AssetWindow()
 
 					// Check for .png files (case insensitive)
 					std::string extension = m_SelectedFile.extension().string();
-					std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+					std::transform(
+						extension.begin(),
+						extension.end(),
+						extension.begin(),
+						[](unsigned char c) { return static_cast<char>(std::tolower(c)); }
+					);
 					if (extension == ".png") {
 						std::string descriptorPath = FILEPATH_DESCRIPTOR_TEXTURES + "/" + m_SelectedFile.stem().string() + ".json";
 
@@ -4142,4 +4468,203 @@ void ImGuiEditor::ShowPickingDebugWindow()
 	ImGui::Image((void*)(intptr_t)pickingTexture, ImVec2((float)width, (float)height), ImVec2(0, 1), ImVec2(1, 0));
 
 	ImGui::End();
+}
+
+void ImGuiEditor::DrawEntityNode(Entity entity)
+{
+	// Get entity name
+	std::string entityName = "Entity " + std::to_string(entity);
+	if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+	{
+		entityName = g_Coordinator.GetComponent<MetadataComponent>(entity).GetName();
+	}
+
+	ImGuiTreeNodeFlags flags = ((g_SelectedEntity == entity) ? ImGuiTreeNodeFlags_Selected : 0);
+	flags |= ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
+
+	bool hasChildren = false;
+	if (g_Coordinator.HaveComponent<HierarchyComponent>(entity))
+	{
+		auto& hierarchyComp = g_Coordinator.GetComponent<HierarchyComponent>(entity);
+		hasChildren = !hierarchyComp.children.empty();
+	}
+
+	if (!hasChildren)
+	{
+		flags |= ImGuiTreeNodeFlags_Leaf;
+	}
+
+	bool nodeOpen = ImGui::TreeNodeEx((void*)(intptr_t)entity, flags, "%s", entityName.c_str());
+
+	// Select entity when clicked
+	if (ImGui::IsItemClicked())
+	{
+		g_SelectedEntity = entity;
+	}
+
+	// Drag source
+	if (ImGui::BeginDragDropSource())
+	{
+		ImGui::SetDragDropPayload("DND_ENTITY", &entity, sizeof(Entity));
+		ImGui::Text("%s", entityName.c_str());
+		ImGui::EndDragDropSource();
+	}
+
+	// Drag target
+	if (ImGui::BeginDragDropTarget())
+	{
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DND_ENTITY"))
+		{
+			Entity droppedEntity = *(Entity*)payload->Data;
+
+			// Avoid reparenting to self or creating cyclic dependencies
+			if (droppedEntity != entity && !IsAncestorOf(entity, droppedEntity))
+			{
+				// Capture old and new parents for undo/redo
+				Entity oldParent = g_Coordinator.HaveComponent<HierarchyComponent>(droppedEntity)
+					? g_Coordinator.GetComponent<HierarchyComponent>(droppedEntity).parent
+					: MAX_ENTITIES;
+				Entity newParent = entity;
+
+				// Create doAction and undoAction lambdas
+				auto doAction = [this, droppedEntity, newParent]() {
+					SetParent(droppedEntity, newParent);
+					};
+
+				auto undoAction = [this, droppedEntity, oldParent]() {
+					SetParent(droppedEntity, oldParent);
+					};
+
+				// Execute the action and add it to the UndoRedoManager
+				g_UndoRedoManager.ExecuteCommand(doAction, undoAction);
+			}
+		}
+		ImGui::EndDragDropTarget();
+	}
+
+	// Recursively draw children
+	if (nodeOpen)
+	{
+		if (hasChildren)
+		{
+			auto& hierarchyComp = g_Coordinator.GetComponent<HierarchyComponent>(entity);
+			for (auto child : hierarchyComp.children)
+			{
+				DrawEntityNode(child);
+			}
+		}
+		ImGui::TreePop();
+	}
+}
+
+
+void ImGuiEditor::SetParent(Entity child, Entity parent)
+{
+	// Prevent setting an entity as its own parent
+	if (child == parent)
+		return;
+
+	// Check for cyclic dependency
+	if (IsDescendantOf(parent, child))
+		return;
+
+	// Remove child from its current parent, if any
+	RemoveParent(child);
+
+	// Update child's HierarchyComponent
+	if (parent != MAX_ENTITIES)
+	{
+		// Add or update HierarchyComponent for child
+		if (!g_Coordinator.HaveComponent<HierarchyComponent>(child))
+		{
+			g_Coordinator.AddComponent(child, HierarchyComponent(parent));
+		}
+		else
+		{
+			auto& childHierarchy = g_Coordinator.GetComponent<HierarchyComponent>(child);
+			childHierarchy.parent = parent;
+		}
+
+		// Ensure parent has HierarchyComponent
+		if (!g_Coordinator.HaveComponent<HierarchyComponent>(parent))
+		{
+			g_Coordinator.AddComponent(parent, HierarchyComponent());
+		}
+
+		// Add child to parent's children
+		auto& parentHierarchy = g_Coordinator.GetComponent<HierarchyComponent>(parent);
+		parentHierarchy.AddChild(child);
+	}
+}
+
+void ImGuiEditor::RemoveParent(Entity child)
+{
+	if (g_Coordinator.HaveComponent<HierarchyComponent>(child))
+	{
+		auto& childHierarchy = g_Coordinator.GetComponent<HierarchyComponent>(child);
+		Entity parent = childHierarchy.parent;
+		childHierarchy.parent = MAX_ENTITIES;
+
+		if (parent != MAX_ENTITIES && g_Coordinator.HaveComponent<HierarchyComponent>(parent))
+		{
+			auto& parentHierarchy = g_Coordinator.GetComponent<HierarchyComponent>(parent);
+			parentHierarchy.RemoveChild(child);
+		}
+	}
+}
+
+
+bool ImGuiEditor::IsDescendantOf(Entity potentialParent, Entity child)
+{
+	if (potentialParent == child)
+		return true;
+
+	if (g_Coordinator.HaveComponent<HierarchyComponent>(potentialParent))
+	{
+		auto& hierarchyComp = g_Coordinator.GetComponent<HierarchyComponent>(potentialParent);
+		for (auto descendant : hierarchyComp.children)
+		{
+			if (IsDescendantOf(descendant, child))
+				return true;
+		}
+	}
+	return false;
+}
+
+
+bool ImGuiEditor::IsAncestorOf(Entity ancestor, Entity entity)
+{
+	if (entity == MAX_ENTITIES)
+		return false;
+
+	if (ancestor == entity)
+		return true;
+
+	if (g_Coordinator.HaveComponent<HierarchyComponent>(entity))
+	{
+		auto& hierarchyComp = g_Coordinator.GetComponent<HierarchyComponent>(entity);
+		return IsAncestorOf(ancestor, hierarchyComp.parent);
+	}
+
+	return false;
+}
+
+
+void ImGuiEditor::DeleteEntity(Entity entity)
+{
+	// If the entity has children, delete them recursively
+	if (g_Coordinator.HaveComponent<HierarchyComponent>(entity))
+	{
+		auto& hierarchyComp = g_Coordinator.GetComponent<HierarchyComponent>(entity);
+		for (auto child : hierarchyComp.children)
+		{
+			DeleteEntity(child);
+		}
+	}
+
+	// Remove the entity from its parent's children list
+	RemoveParent(entity);
+
+	// Destroy the entity
+	g_Coordinator.DestroyEntity(entity);
 }

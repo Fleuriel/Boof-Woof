@@ -5,6 +5,7 @@ struct Treat final : public Behaviour
 
 	virtual void Init(Entity entity) override
 	{
+		UNREFERENCED_PARAMETER(entity);
 		//std::cout << "Treat Init" << std::endl;
 	}
 
@@ -31,6 +32,7 @@ struct Treat final : public Behaviour
 
 	virtual void Destroy(Entity entity) override
 	{
+		UNREFERENCED_PARAMETER(entity);
 		//std::cout << "Treat Destroy" << std::endl;
 	}
 };
