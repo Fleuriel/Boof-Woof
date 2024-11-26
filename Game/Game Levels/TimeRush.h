@@ -15,6 +15,7 @@ class TimeRush : public Level
     {
         g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/TimeRushPuzzle.json");
         g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/Timer.json");
+        g_Audio.PlayBGM("../BoofWoof/Assets/Audio/TimeRushBGM.wav");
 
         std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
         for (auto entity : entities)
@@ -33,6 +34,7 @@ class TimeRush : public Level
                 }
             }
         }
+        g_Window->HideMouseCursor();
     }
 
     void InitLevel() override 
@@ -95,6 +97,7 @@ class TimeRush : public Level
 
     void UnloadLevel() override
     {
+        g_Audio.StopBGM();
         g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
         g_Coordinator.ResetEntities();
         timer = 0.0;

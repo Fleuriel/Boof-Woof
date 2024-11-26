@@ -24,9 +24,9 @@ void InitializeLevels()
 	g_LevelManager.RegisterLevel("MainHall", new(MainHall));
 
 	// Set the initial level
-	g_LevelManager.Initialize("MainMenu");
-	g_LevelManager.SetNextLevel("MainMenu");
-	g_LevelManager.SetPreviousLevel("MainMenu");
+	g_LevelManager.Initialize("TimeRush");
+	g_LevelManager.SetNextLevel("TimeRush");
+	g_LevelManager.SetPreviousLevel("TimeRush");
 }
 
 int main()
