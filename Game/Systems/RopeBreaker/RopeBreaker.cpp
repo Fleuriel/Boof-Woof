@@ -22,11 +22,11 @@ void RopeBreaker::OnUpdate(double deltaTime)
 	// Drawbridge
 	if (!isFalling) 
 	{
-		return; // do nothing
+		//return; // do nothing
 
 		// For quick testing
-		//PlayerCollidedRope1 = PlayerCollidedRope2 = true;
-		//RopeDespawned = 2;
+		PlayerCollidedRope1 = PlayerCollidedRope2 = true;
+		RopeDespawned = 2;
 	}
 	else 
 	{
@@ -41,12 +41,13 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		// Calculate current position with offset
 		glm::vec3 currentPos = initialPos + TargetPos;
 
-		// Calculate current rotation (only changing Z rotation from initial to -90)
+		// Calculate current rotation (only changing X rotation from initial to -90)
 		glm::vec3 currentRotation = initialRotation;
-		currentRotation.z = glm::mix(initialRotation.z, -90.0f, t);
+		currentRotation.x = glm::mix(initialRotation.x, -90.0f, t);
 
 		// Apply transforms
 		transform.SetPosition(currentPos);
+
 		//transform.SetPosition(initialPos);
 		transform.SetRotation(glm::radians(currentRotation));
 
@@ -55,9 +56,11 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		{
 			isFalling = false;
 			// Ensure final position
-			currentRotation.z = -90.0f;
+			currentRotation.x = -90.0f;
 			transform.SetRotation(glm::radians(currentRotation));
 			transform.SetPosition(initialPos + TargetPos);
+
+
 		}
 	}
 

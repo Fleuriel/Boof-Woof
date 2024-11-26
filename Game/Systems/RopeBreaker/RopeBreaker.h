@@ -35,7 +35,7 @@ private:
 	// Drawbridge
 	Entity bridge{};
 
-	glm::vec3 TargetPos = glm::vec3(2.5f,-2.5f,0.0f);
+	glm::vec3 TargetPos = glm::vec3(0.0f,-2.3f, -2.6f);
 
 	glm::vec3 initialPos{};
 	glm::vec3 initialRotation{};
