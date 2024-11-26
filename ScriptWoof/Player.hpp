@@ -66,7 +66,7 @@ struct Player final : public Behaviour
 			// Apply the stopped velocity
 			m_Engine.SetVelocity(entity, currentVelocity);
 
-			//// Debug: Velocity after stopping
+			// Debug: Velocity after stopping
 			//std::cout << "[DEBUG] Velocity after landing: ("
 			//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
 		}
@@ -217,7 +217,7 @@ struct Player final : public Behaviour
 		// Update the previous position
 		previousPosition = currentPosition;
 
-		//// Debug: End of update
+		// Debug: End of update
 		//std::cout << "[DEBUG] End of Update: isMoving = " << std::boolalpha << isMoving << std::endl;
 
 		// Debug output for velocity

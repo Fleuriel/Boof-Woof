@@ -309,6 +309,14 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
 
                 // Check if the entity is grounded
                 if (collisionComponent.IsDynamic() && collisionComponent.IsPlayer()) {
+
+                    if (collisionComponent.HasOngoingCollisions()) {
+                        collisionComponent.SetIsColliding(true);
+                    }
+                    else {
+                        collisionComponent.SetIsColliding(false);
+                    }
+
                     float currentYPosition = transform.GetPosition().y;
 
                     // Check if the Y-position has minimal change and the entity is colliding
@@ -320,6 +328,11 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
                         if (yChange < 0.01f && collisionComponent.GetIsColliding()) {
                             isGrounded = true;
                         }
+                    }
+
+                    // Check if still colliding with the floor
+                    if (collisionComponent.GetLastCollidedObjectName() == "FloorCastle") {
+                        isGrounded = true;
                     }
 
                     // Update `isGrounded` status

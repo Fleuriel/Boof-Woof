@@ -26,6 +26,9 @@
 
 class CollisionComponent
 {
+
+    std::unordered_set<std::string> ongoingCollisions;
+
 public:
     // Constructor and destructor
     CollisionComponent() = default;
@@ -80,6 +83,22 @@ public:
     void SetIsGrounded(bool value) { m_IsGrounded = value; }
     bool GetIsGrounded() const { return m_IsGrounded; }
 
+    void AddCollision(const std::string& objectName) {
+        ongoingCollisions.insert(objectName);
+    }
+
+    void RemoveCollision(const std::string& objectName) {
+        ongoingCollisions.erase(objectName);
+    }
+
+    bool HasOngoingCollisions() const {
+        return !ongoingCollisions.empty();
+    }
+
+    const std::unordered_set<std::string>& GetOngoingCollisions() const {
+        return ongoingCollisions;
+
+    }
     // Reflection integration
     REFLECT_COMPONENT(CollisionComponent)
     {
