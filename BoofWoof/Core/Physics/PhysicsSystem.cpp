@@ -33,6 +33,8 @@
 #include <cstdarg>
 #include <cstdio>
 
+std::unordered_map<Entity, float> m_PreviousYPositions;
+
 using namespace JPH::literals;
 
 
@@ -263,6 +265,9 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
 
     JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
 
+    // Track previous Y-positions for entities
+    static std::unordered_map<Entity, float> previousYPositions;
+
     // Iterate through all entities that match the PhysicsSystem signature
     auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -326,6 +331,28 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
                     //    << " Rotation Updated to (" << eulerRotation.x << "°, "
                     //    << eulerRotation.y << "°, "
                     //    << eulerRotation.z << "°)" << std::endl;
+                }
+
+                // Check if the entity is grounded
+                if (collisionComponent.IsDynamic() && collisionComponent.IsPlayer()) {
+                    float currentYPosition = transform.GetPosition().y;
+
+                    // Check if the Y-position has minimal change and the entity is colliding
+                    bool isGrounded = false;
+                    if (previousYPositions.find(entity) != previousYPositions.end()) {
+                        float previousYPosition = previousYPositions[entity];
+                        float yChange = std::abs(currentYPosition - previousYPosition);
+
+                        if (yChange < 0.01f && collisionComponent.GetIsColliding()) {
+                            isGrounded = true;
+                        }
+                    }
+
+                    // Update `isGrounded` status
+                    collisionComponent.SetIsGrounded(isGrounded);
+
+                    // Update the previous Y-position
+                    previousYPositions[entity] = currentYPosition;
                 }
 
                 // Debug output to check Position and Velocity for Dynamic Bodies

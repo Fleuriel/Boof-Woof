@@ -8,6 +8,7 @@
 #include "../Utilities/Components/CollisionComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/CameraComponent.hpp"
+#include "../Core/EngineCore.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
@@ -136,6 +137,26 @@ public:
 		}
 	}
 
+	// Grounded functions
+	virtual bool IsGrounded(Entity entity) override
+	{
+		if (HaveCollisionComponent(entity)) {
+			return g_Coordinator.GetComponent<CollisionComponent>(entity).GetIsGrounded();
+		}
+		return false;
+	}
+
+	virtual void SetGrounded(Entity entity, bool grounded) override
+	{
+		if (HaveCollisionComponent(entity)) {
+			g_Coordinator.GetComponent<CollisionComponent>(entity).SetIsGrounded(grounded);
+		}
+	}
+
+	virtual double GetDeltaTime() override
+	{
+		return g_Core ? g_Core->m_DeltaTime : 0.0;
+	}
 
 	//Camera Component
 	virtual bool HaveCameraComponent(Entity entity) override
