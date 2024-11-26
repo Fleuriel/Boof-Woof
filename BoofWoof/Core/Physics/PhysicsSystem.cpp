@@ -443,6 +443,10 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             transform.GetPosition().z + offset.z
         );
 
+        // Get the rotation from TransformComponent
+        glm::quat glmRotation = transform.GetRotation();
+        JPH::Quat joltRotation(glmRotation.x, glmRotation.y, glmRotation.z, glmRotation.w);
+
         // Create shape based on object type and custom AABB
         JPH::Shape* shape = CreateShapeForObjectType(objectType, scaledAABB);
 
@@ -455,7 +459,8 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             shape,
             //position,
             positionWithOffset,
-            JPH::Quat(rotation.w, rotation.x, rotation.y, rotation.z), // Apply initial rotation
+            //JPH::Quat(rotation.w, rotation.x, rotation.y, rotation.z), // Apply initial rotation
+            joltRotation,
             motionType,
             motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING // Layer based on motion type
         );
