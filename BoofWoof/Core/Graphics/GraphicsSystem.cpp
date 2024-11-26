@@ -243,10 +243,12 @@ void GraphicsSystem::UpdateLoop() {
 			{
 				g_AssetManager.GetShader(shaderName).SetUniform("uTex2d", 6);
 
-				if (graphicsComp.getTextureNumber() == 0)
-					glBindTextureUnit(6, 0);
-				else
-					glBindTextureUnit(6, graphicsComp.getTexture(0));
+				
+				graphicsComp.AddTexture(g_ResourceManager.GetTextureDDS(graphicsComp.GetDiffuseName()));
+
+				glBindTextureUnit(6, graphicsComp.getTexture(0));
+
+
 			}
 			else if (shaderName == "OutlineAndFont")
 			{
