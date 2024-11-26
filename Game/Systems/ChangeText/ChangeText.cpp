@@ -1,5 +1,6 @@
 #include "ChangeText.h"
 #include "ResourceManager/ResourceManager.h"
+#include "../Checklist/Checklist.h"
 
 ChangeText g_ChangeText;
 Serialization serialText;
@@ -77,5 +78,6 @@ void ChangeText::OnShutdown()
 		}
 	}
 
+	g_Checklist.OnInitialize();
 	shutted = true;
 }

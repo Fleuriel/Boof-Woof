@@ -18,7 +18,6 @@ class Level1 : public Level
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
 
 		g_ChangeText.OnInitialize();
-		g_Checklist.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -75,7 +74,7 @@ class Level1 : public Level
 			g_ChangeText.OnUpdate(deltaTime);
 		}
 
-		if (!g_Checklist.shutted) 
+		if (!g_Checklist.shutted && g_ChangeText.shutted)
 		{
 			g_Checklist.OnUpdate(deltaTime);
 		}
