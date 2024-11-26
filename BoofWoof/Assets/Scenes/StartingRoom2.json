@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "d32d6212-1f46-4a21-9cca-17d5fabd9b6c",
+    "SceneGUID": "56da431e-6d7a-40a5-abbb-d09aebc911a4",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.10493756830692291,
+                    "x": 0.10493757575750351,
                     "y": 1.1799991130828858,
-                    "z": -0.173398956656456
+                    "z": -0.17339886724948884
                 },
                 "Scale": {
                     "x": 0.5,
@@ -1142,21 +1142,6 @@
                 "ModelName": "Carpet",
                 "Texture": "Carpet",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
             }
         },
         {
@@ -1542,21 +1527,6 @@
                 "ModelName": "Carpet",
                 "Texture": "Carpet",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
             }
         },
         {
@@ -2161,7 +2131,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "left particle",
-                "EntityID": 42
+                "EntityID": 51
             },
             "TransformComponent": {
                 "Position": {
@@ -2218,7 +2188,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "right particle",
-                "EntityID": 43
+                "EntityID": 52
             },
             "TransformComponent": {
                 "Position": {
@@ -2275,7 +2245,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "middle particle",
-                "EntityID": 44
+                "EntityID": 53
             },
             "TransformComponent": {
                 "Position": {
@@ -2332,7 +2302,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "middle particle 2",
-                "EntityID": 45
+                "EntityID": 54
             },
             "TransformComponent": {
                 "Position": {
