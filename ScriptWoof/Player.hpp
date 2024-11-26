@@ -111,7 +111,7 @@ struct Player final : public Behaviour
 			float jumpVelocity = sqrt(speed * gravity * jumpHeight);
 			velocity.y += jumpVelocity; // Add upward velocity for the jump
 
-			std::cout << "Player jumped with velocity: " << jumpVelocity << std::endl;
+			//std::cout << "Player jumped with velocity: " << jumpVelocity << std::endl;
 			isMoving = true;
 			isJumping = true;
 		}
@@ -136,7 +136,7 @@ struct Player final : public Behaviour
 			if (isMoving)
 			{
 				if (m_Engine.HaveCameraComponent(entity))
-					std::cout << "has camera" << std::endl;
+					//std::cout << "has camera" << std::endl;
 				// Apply player input velocity
 				m_Engine.SetVelocity(entity, velocity);
 			}
