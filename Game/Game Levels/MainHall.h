@@ -14,7 +14,7 @@ class MainHall : public Level
 
 	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainHall.json");
+		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/testdoorbridge.json");
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();

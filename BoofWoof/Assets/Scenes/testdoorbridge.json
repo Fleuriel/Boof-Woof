@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "ca134ce9-4443-422a-9fb2-7f5463723fe5",
+    "SceneGUID": "2fabd3c5-ccbd-4fa9-aa6a-c94acdbaead5",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,8 +8,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.56498908996582,
-                    "y": 1.199999213218689,
+                    "x": 25.56499481201172,
+                    "y": 1.1999995708465577,
                     "z": -49.769996643066409
                 },
                 "Scale": {
@@ -7835,6 +7835,21 @@
                 "ModelName": "WallDrawbridgeLeft",
                 "Texture": "WallDrawbridgeLeft",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.0,
+                    "y": 2.25,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -7863,6 +7878,21 @@
                 "ModelName": "WallDrawbridgeRight",
                 "Texture": "WallDrawbridgeRight",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.949999988079071,
+                    "y": 2.1500000953674318,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -8042,8 +8072,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.90599250793457,
-                    "y": 2.5932211875915529,
+                    "x": 25.905990600585939,
+                    "y": 2.5932209491729738,
                     "z": -69.13557434082031
                 },
                 "Scale": {

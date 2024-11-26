@@ -59,8 +59,6 @@ void RopeBreaker::OnUpdate(double deltaTime)
 			currentRotation.x = -90.0f;
 			transform.SetRotation(glm::radians(currentRotation));
 			transform.SetPosition(initialPos + TargetPos);
-
-
 		}
 	}
 
