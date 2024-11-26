@@ -9551,6 +9551,196 @@
                     "a": 1.0
                 }
             }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bone",
+                "EntityID": 276
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 35.868099212646487,
+                    "y": 0.5326305031776428,
+                    "z": 3.3373782634735109
+                },
+                "Scale": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bone",
+                "Texture": "Bone",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "TennisBall",
+                "EntityID": 277
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 16.62067985534668,
+                    "y": 0.6700470447540283,
+                    "z": -13.432731628417969
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "TennisBall",
+                "Texture": "TennisBall",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "ScentTrail1",
+                "EntityID": 278
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -1.6064636707305909,
+                    "y": 3.7222132682800295,
+                    "z": 3.485488176345825
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": -20.5,
+                        "y": 0.0,
+                        "z": 17.799999237060548
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.04685700312256813,
+                    "g": 0.661785900592804,
+                    "b": 0.9558823704719544,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "ScentTrail2",
+                "EntityID": 279
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -1.6064636707305909,
+                    "y": 3.7222132682800295,
+                    "z": 3.485488176345825
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": -38.400001525878909,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.7954660058021545,
+                    "g": 0.04685700312256813,
+                    "b": 0.9558823704719544,
+                    "a": 1.0
+                }
+            }
         }
     ]
 }
