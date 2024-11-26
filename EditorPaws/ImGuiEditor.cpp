@@ -1763,55 +1763,6 @@ void ImGuiEditor::InspectorWindow()
 
 								if (GraphicsSystem::debug)
 								{
-
-
-
-
-									// Handel Camera Property
-									auto FollowCameraProperty = std::find_if(properties.begin(), properties.end(),
-										[](const ReflectionPropertyBase* prop) { return prop->GetName() == "FollowCamera"; });
-									if (FollowCameraProperty != properties.end())
-									{
-										std::string propertyName = "FollowCamera";
-										bool isFollowCamera = (*FollowCameraProperty)->GetValue(&graphicsComponent) == "true";
-
-										ImGui::Text("Follow Camera");
-										ImGui::SameLine();
-										ImGui::PushID(propertyName.c_str());
-
-										if (ImGui::Checkbox("##FollowCamera", &isFollowCamera))
-										{
-											(*FollowCameraProperty)->SetValue(&graphicsComponent, isFollowCamera ? "true" : "false");
-										}
-
-										if (ImGui::IsItemActivated())
-										{
-											oldBoolValues[propertyName] = isFollowCamera;
-										}
-
-										if (ImGui::IsItemDeactivatedAfterEdit())
-										{
-											bool newValue = isFollowCamera;
-											bool oldValue = oldBoolValues[propertyName];
-											Entity entity = g_SelectedEntity;
-											oldBoolValues.erase(propertyName);
-
-											g_UndoRedoManager.ExecuteCommand(
-												[entity, newValue]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.SetFollowCamera(newValue);
-												},
-												[entity, oldValue]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.SetFollowCamera(oldValue);
-												}
-											);
-										}
-
-										ImGui::PopID();
-									}
-
-
 									if (GraphicsSystem::debug)
 									{
 										if (ImGui::Button("2D"))
@@ -1830,10 +1781,51 @@ void ImGuiEditor::InspectorWindow()
 
 								// camera follow settings
 
+								// Handel Camera Property
+								auto FollowCameraProperty = std::find_if(properties.begin(), properties.end(),
+									[](const ReflectionPropertyBase* prop) { return prop->GetName() == "FollowCamera"; });
+								if (FollowCameraProperty != properties.end())
+								{
+									std::string propertyName = "FollowCamera";
+									bool isFollowCamera = (*FollowCameraProperty)->GetValue(&graphicsComponent) == "true";
 
-								bool followCamera = graphicsComponent.getFollowCamera();
-								ImGui::Checkbox("Follow Camera", &followCamera);
-								graphicsComponent.SetFollowCamera(followCamera);
+									ImGui::Text("Follow Camera");
+									ImGui::SameLine();
+									ImGui::PushID(propertyName.c_str());
+
+									if (ImGui::Checkbox("##FollowCamera", &isFollowCamera))
+									{
+										(*FollowCameraProperty)->SetValue(&graphicsComponent, isFollowCamera ? "true" : "false");
+									}
+
+									if (ImGui::IsItemActivated())
+									{
+										oldBoolValues[propertyName] = isFollowCamera;
+									}
+
+									if (ImGui::IsItemDeactivatedAfterEdit())
+									{
+										bool newValue = isFollowCamera;
+										bool oldValue = oldBoolValues[propertyName];
+										Entity entity = g_SelectedEntity;
+										oldBoolValues.erase(propertyName);
+
+										g_UndoRedoManager.ExecuteCommand(
+											[entity, newValue]() {
+												auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+												component.SetFollowCamera(newValue);
+											},
+											[entity, oldValue]() {
+												auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+												component.SetFollowCamera(oldValue);
+											}
+										);
+									}
+
+									ImGui::PopID();
+								}
+
+	
 
 							}
 						}
@@ -2715,7 +2707,7 @@ void ImGuiEditor::InspectorWindow()
 
 									ImGui::PushItemWidth(150); // Set the width in pixels
 
-									std::string& matNameBuffer = graphicsComponent.material.GetMaterialName();
+									std::string matNameBuffer = "Default Material";
 									matNameBuffer.resize(256);
 
 									if (ImGui::InputText("##MatName1001", &matNameBuffer[0], matNameBuffer.capacity())) {
@@ -2795,8 +2787,8 @@ void ImGuiEditor::InspectorWindow()
 
 									// Ensure default selection is the first item
 									if (material.GetShaderIndex() < 0 || material.GetShaderIndex() >= g_AssetManager.shdrpgmOrder.size()) {
-										material.SetShaderIndex(5); // Default to the first item
-										material.SetShaderName(g_AssetManager.shdrpgmOrder[5]); // Set the chosen shader
+										material.SetShaderIndex(6); // Default to the first item
+										material.SetShaderName(g_AssetManager.shdrpgmOrder[6]); // Set the chosen shader
 									}
 
 									int& Material_current_idx = material.GetShaderIDRef(); // Index for the selected item
@@ -2807,8 +2799,15 @@ void ImGuiEditor::InspectorWindow()
 										material.SetShaderIndex(Material_current_idx);
 
 
+										std::cout << "ay it changed to this shiet!!" << '\n';
+
+										std::cout << material.GetShaderIndex() << '\n';
+
+										graphicsComponent.material.SetShaderIndex(Material_current_idx);
+
 										// Retrieve the selected string from the original vector
 										material.SetShaderName(g_AssetManager.shdrpgmOrder[material.GetShaderIndex()]);
+										graphicsComponent.material.SetShaderName(g_AssetManager.shdrpgmOrder[material.GetShaderIndex()]);
 									}
 
 									//graphicsComponent.material.SetDiffuseName(graphicsComponent.getModelName());
@@ -2850,10 +2849,15 @@ void ImGuiEditor::InspectorWindow()
 											int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
 											graphicsComponent.AddTexture(textureId);
 											graphicsComponent.setTexture(selectedFile);
+
+											std::cout << textureId << '\n';
+
+											graphicsComponent.material.SetDiffuseID(textureId);
+											graphicsComponent.material.SetDiffuseName(selectedFile);
 											material.SetDiffuseID(textureId);
 											material.SetDiffuseName(selectedFile);
 
-
+											std::cout << material.GetDiffuseID() << graphicsComponent.material.GetDiffuseID() << '\n';
 
 
 											// Execute undo/redo command
@@ -3202,6 +3206,7 @@ void ImGuiEditor::InspectorWindow()
 											std::cerr << "Failed to save the reverted descriptor file." << std::endl;
 										}
 									}
+
 
 									ImGui::Unindent(300);
 

@@ -85,8 +85,8 @@ struct MaterialDescriptor
 
 
 
-    MaterialDescriptor() : shaderIndex(-1), albedoColorRed(0), albedoColorGreen(0), albedoColorBlue(0), albedoColorAlpha(0), finalAlpha(1),
-        metallic(0), smoothness(0), materialAlpha(0), shaderChosen("nothing"), DiffuseID(-1), NormalID(-1), HeightID(-1), textureDiffuse("NothingTexture"),
+    MaterialDescriptor() : shaderIndex(6), albedoColorRed(0), albedoColorGreen(0), albedoColorBlue(0), albedoColorAlpha(0), finalAlpha(1),
+        metallic(0), smoothness(0), materialAlpha(0), shaderChosen("Shader3D"), DiffuseID(-1), NormalID(-1), HeightID(-1), textureDiffuse("NothingTexture"),
         textureNormal("NothingNormal"), textureHeight("NothingHeight"){ }
 
 
