@@ -105,8 +105,8 @@ struct Player final : public Behaviour
 
 		
 		if (m_Engine.getInputSystem().isActionPressed("Jump")) {
-			float gravity = 10.0f;      // Use your engine's gravity value
-			float jumpHeight = 2.0f;    // Desired jump height in units
+			float gravity = 9.81f;      // Use your engine's gravity value
+			float jumpHeight = 0.25f;    // Desired jump height in units
 			float jumpVelocity = sqrt(speed * gravity * jumpHeight);
 			velocity.y += jumpVelocity; // Add upward velocity for the jump
 
