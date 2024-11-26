@@ -98,6 +98,7 @@ class MainHall : public Level
 		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
 		{
 			g_LevelManager.SetNextLevel("MainMenu");
+			g_Window->ShowMouseCursor();
 		}
 	}
 
