@@ -8,11 +8,12 @@ class TimeRush : public Level
     double timer = 0.0;
     double interval = 1.0; // Time interval in seconds
     int currentTextureIndex = 53; // Start from "Group53"
-    Entity timerTextEntity{};
+    Entity timerTextEntity{}, playerEnt{};
+    CameraController* cameraController = nullptr;
 
     void LoadLevel() override
     {
-        g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");
+        g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/TimeRushPuzzle.json");
         g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/Timer.json");
 
         std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -20,6 +21,11 @@ class TimeRush : public Level
         {
             if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
             {
+                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Player")
+                {
+                    playerEnt = entity;
+                }
+
                 if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Group")
                 {
                     timerTextEntity = entity;
@@ -29,10 +35,15 @@ class TimeRush : public Level
         }
     }
 
-    void InitLevel() override { /* Empty by design */ }
+    void InitLevel() override 
+    {  
+        cameraController = new CameraController(playerEnt);
+    }
 
     void UpdateLevel(double deltaTime) override
     {
+        cameraController->Update(static_cast<float>(deltaTime));
+
         timer += deltaTime;
 
         if (!g_Coordinator.HaveComponent<GraphicsComponent>(timerTextEntity)) return;
@@ -65,11 +76,22 @@ class TimeRush : public Level
         if (currentTextureIndex > 234)
         {
             std::cout << "End of timer" << std::endl;
-            //g_LevelManager.SetNextLevel("NextLevelName"); // Replace "NextLevelName" with the actual level name
+        }
+
+        if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallDoor")
+        {
+            g_LevelManager.SetNextLevel("MainHall");
         }
     }
 
-    void FreeLevel() override { /* Empty by design */ }
+    void FreeLevel() override 
+    {
+        if (cameraController)
+        {
+            delete cameraController;
+            cameraController = nullptr;
+        }
+    }
 
     void UnloadLevel() override
     {

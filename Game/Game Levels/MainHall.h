@@ -14,10 +14,8 @@ class MainHall : public Level
 
 	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");
+		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainHall.json");
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
-
-		g_ChangeText.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -47,20 +45,14 @@ class MainHall : public Level
 				}
 			}
 		}
+
+		g_Window->HideMouseCursor();
 	}
 
 	void InitLevel()
 	{
-		if (playerEnt != Entity{})
-		{
-			// Ensure player entity is valid
-			cameraController = new CameraController(playerEnt);
-
-			if (RopeEnt != Entity{})
-			{
-				g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
-			}
-		}
+		cameraController = new CameraController(playerEnt);
+		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
 	}
 
 	bool teb_last = false;
@@ -68,11 +60,6 @@ class MainHall : public Level
 	void UpdateLevel(double deltaTime)
 	{
 		cameraController->Update(static_cast<float>(deltaTime));
-
-		if (!g_ChangeText.shutted)
-		{
-			g_ChangeText.OnUpdate(deltaTime);
-		}
 
 		if (!g_Checklist.shutted)
 		{
