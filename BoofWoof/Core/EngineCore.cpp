@@ -40,6 +40,7 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<CameraComponent>();
 	g_Coordinator.RegisterComponent<ParticleComponent>();
 	g_Coordinator.RegisterComponent<HierarchyComponent>();
+	g_Coordinator.RegisterComponent<LightComponent>();
 
 	// setting global pointer
 	g_Core = this;
@@ -66,6 +67,7 @@ void EngineCore::OnInit()
 		signature.set(g_Coordinator.GetComponentType<AnimationComponent>());
 		signature.set(g_Coordinator.GetComponentType<CameraComponent>());
 		signature.set(g_Coordinator.GetComponentType<ParticleComponent>());
+		signature.set(g_Coordinator.GetComponentType<LightComponent>());
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
@@ -141,6 +143,7 @@ void EngineCore::OnInit()
 	ReflectionManager::Instance().RegisterComponentType<ParticleComponent>("ParticleComponent");
 	ReflectionManager::Instance().RegisterComponentType<MaterialComponent>("MaterialComponent");
 	ReflectionManager::Instance().RegisterComponentType<HierarchyComponent>("HierarchyComponent");
+	ReflectionManager::Instance().RegisterComponentType<LightComponent>("LightComponent");
 }
 
 void EngineCore::OnUpdate()

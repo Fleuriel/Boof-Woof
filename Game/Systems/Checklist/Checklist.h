@@ -9,6 +9,7 @@ public:
 	bool CheckWASD();
 	void OnShutdown();
 	void ChangeBoxChecked(Entity ent);
+	void AddCorgiText();
 
 public:
 	bool shutted{ false };
@@ -23,6 +24,8 @@ private:
 
 	double clTimer = 0.0;
 	double clLimit = 4.0;
+
+	bool corgiText{ false };
 
 protected:
 

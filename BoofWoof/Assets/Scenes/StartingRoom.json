@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "d4059f3a-ce4c-4b09-83f9-55735a9c3650",
+    "SceneGUID": "8d0f1072-76a6-4929-ab89-b6407efa4e9a",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.9910609722137452,
-                    "y": 1.2517398595809937,
-                    "z": 0.0
+                    "x": -1.991060733795166,
+                    "y": 1.2000000476837159,
+                    "z": 0.0000029794712190778229
                 },
                 "Scale": {
                     "x": 0.5,
@@ -27,6 +27,24 @@
                 "ModelName": "Corgi2",
                 "Texture": "Corgi2",
                 "FollowCamera": true
+            },
+            "BehaviourComponent": {
+                "BehaviourName": "Player"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": true,
+                "IsPlayer": true,
+                "AABBSize": {
+                    "x": 2.9000000953674318,
+                    "y": 1.7999999523162842,
+                    "z": 1.350000023841858
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
             }
         },
         {
@@ -189,7 +207,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 6
+                "EntityID": 5
             },
             "TransformComponent": {
                 "Position": {
@@ -217,7 +235,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 5
+                "EntityID": 6
             },
             "TransformComponent": {
                 "Position": {
@@ -578,18 +596,18 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 7.9477949142456059,
-                    "y": 3.7619292736053469,
-                    "z": 15.415496826171875
+                    "x": 7.8480000495910648,
+                    "y": 3.8253986835479738,
+                    "z": 15.414999961853028
                 },
                 "Scale": {
-                    "x": 0.9998736381530762,
+                    "x": 0.9998177289962769,
                     "y": 1.2000000476837159,
-                    "z": 0.9998736381530762
+                    "z": 0.9998177289962769
                 },
                 "Rotation": {
                     "x": -3.1415884494781496,
-                    "y": 0.0009171723504550755,
+                    "y": 0.0009171140263788402,
                     "z": -3.1415908336639406
                 }
             },
@@ -659,7 +677,7 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 2.5,
+                    "x": 4.900000095367432,
                     "y": 3.0,
                     "z": 0.800000011920929
                 },

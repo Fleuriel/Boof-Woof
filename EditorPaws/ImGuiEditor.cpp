@@ -727,6 +727,25 @@ void ImGuiEditor::InspectorWindow()
 						}
 					}
 
+					if (ImGui::Selectable("Light Component"))
+					{
+						if (!g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<LightComponent>(g_SelectedEntity, LightComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<LightComponent>(g_SelectedEntity, LightComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<LightComponent>(g_SelectedEntity);
+								}
+							);
+
+						}
+					}
+					
 
 					ImGui::EndPopup();
 				}
@@ -911,6 +930,24 @@ void ImGuiEditor::InspectorWindow()
 								[this, componentData]() {
 									if (!g_Coordinator.HaveComponent<ParticleComponent>(g_SelectedEntity))
 										g_Coordinator.AddComponent<ParticleComponent>(g_SelectedEntity, componentData);
+								}
+							);
+						}
+					}
+					if (g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("Light Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<LightComponent>(g_SelectedEntity);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<LightComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<LightComponent>(g_SelectedEntity, componentData);
 								}
 							);
 						}
@@ -2494,6 +2531,43 @@ void ImGuiEditor::InspectorWindow()
 
 
 								ImGui::Text("%s", graphicsComponent.getTextureName().c_str());
+
+
+							}
+
+						}
+						else if (className == "LightComponent") 
+						{
+							if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_None))
+							{
+								auto& lightComponent = g_Coordinator.GetComponent<LightComponent>(g_SelectedEntity);
+								float lightIntensity = lightComponent.getIntensity();
+								ImGui::Text("Intensity");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Intensity");
+
+								if (ImGui::DragFloat("##Intensity", &lightIntensity, 0.1f))
+								{
+									lightComponent.setIntensity(lightIntensity);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								glm::vec3 lightColor = lightComponent.getColor();	
+								ImGui::Text("Color");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Color");
+
+								if (ImGui::ColorEdit3("##Color", &lightColor.x))
+								{
+									lightComponent.setColor(lightColor);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
 
 
 							}

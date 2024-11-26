@@ -3,25 +3,30 @@
 #include <crtdbg.h>
 #include "../BoofWoof/Core/EngineCore.h"
 #include "Level Manager/LevelManager.h"
+#include "GSM/GameStateMachine.h"
 #include "Game Levels/Splashscreen.h"
 #include "Game Levels/MainMenu.h"
-#include "Game Levels/Level1.h"
-#include "GSM/GameStateMachine.h"
 #include "Game Levels/Cutscene.h"
+#include "Game Levels/StartingRoom.h"
+#include "Game Levels/TimeRush.h"
+#include "Game Levels/MainHall.h"
 
 EngineCore* g_Core = nullptr;
 
-void InitializeLevels() {
+void InitializeLevels() 
+{
 	// Register your levels here
 	g_LevelManager.RegisterLevel("Splashscreen", new(Splashscreen));
 	g_LevelManager.RegisterLevel("MainMenu", new(MainMenu));
 	g_LevelManager.RegisterLevel("Cutscene", new(Cutscene));
-	g_LevelManager.RegisterLevel("Level1", new(Level1));
+	g_LevelManager.RegisterLevel("StartingRoom", new(StartingRoom));
+	g_LevelManager.RegisterLevel("TimeRush", new(TimeRush));
+	g_LevelManager.RegisterLevel("MainHall", new(MainHall));
 
 	// Set the initial level
-	g_LevelManager.Initialize("Splashscreen");
-	g_LevelManager.SetNextLevel("Splashscreen");
-	g_LevelManager.SetPreviousLevel("Splashscreen");
+	g_LevelManager.Initialize("MainMenu");
+	g_LevelManager.SetNextLevel("MainMenu");
+	g_LevelManager.SetPreviousLevel("MainMenu");
 }
 
 int main()

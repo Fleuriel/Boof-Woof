@@ -1,0 +1,33 @@
+{
+    "SceneGUID": "6db37000-8ab0-4f57-bfc1-69ecba74a587",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Group53",
+                "FollowCamera": false
+            }
+        }
+    ]
+}

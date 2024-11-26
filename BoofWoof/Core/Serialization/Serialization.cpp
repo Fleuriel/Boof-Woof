@@ -371,6 +371,23 @@ bool Serialization::SaveScene(const std::string& filepath) {
             // Add the CameraComponent to the entityData
             entityData.AddMember("ParticleComponent", particles, allocator);
         }
+		if (g_Coordinator.HaveComponent<LightComponent>(entity))
+		{
+			rapidjson::Value light(rapidjson::kObjectType);
+
+			auto& lightComp = g_Coordinator.GetComponent<LightComponent>(entity);
+
+			light.AddMember("LightIntensity", lightComp.getIntensity(), allocator);
+
+			rapidjson::Value color(rapidjson::kObjectType);
+			color.AddMember("r", lightComp.getColor().r, allocator);
+			color.AddMember("g", lightComp.getColor().g, allocator);
+			color.AddMember("b", lightComp.getColor().b, allocator);
+
+			light.AddMember("LightColor", color, allocator);
+
+			entityData.AddMember("LightComponent", light, allocator);
+		}
 
         entities.PushBack(entityData, allocator);
     }
@@ -705,7 +722,48 @@ bool Serialization::LoadScene(const std::string& filepath)
                 }
             }
 
-            // Note: Do not deserialize components that reference other entities yet (e.g., HierarchyComponent)
+            if(entityData.HasMember("LightComponent"))
+			{
+				const auto& LData = entityData["LightComponent"];
+                if (LData.HasMember("LightIntensity")) {
+
+                    float intensity = LData["LightIntensity"].GetFloat();
+
+					glm::vec3 color(
+						LData["LightColor"]["r"].GetFloat(),
+						LData["LightColor"]["g"].GetFloat(),
+						LData["LightColor"]["b"].GetFloat()
+					);
+
+					LightComponent lightComponent (intensity, color);
+                    g_Coordinator.AddComponent(entity, lightComponent);
+
+
+                }
+               
+			}
+
+            // Print out all entity components
+			//std::cout << "Entity: " << g_Coordinator.GetEntityId(entity) << std::endl;
+			//if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) {
+			//	std::cout << "MetadataComponent: " << g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() << std::endl;
+			//}
+   //         if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().x << std::endl;
+   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().y << std::endl;
+   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().z << std::endl;
+   //         }
+   //         if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
+   //             std::cout << "GraphicsComponent: " << g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelID() << std::endl;
+   //         }
+			//if (g_Coordinator.HaveComponent<AudioComponent>(entity)) {
+			//	std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetFilePath().c_str() << std::endl;
+			//	std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetVolume() << std::endl;
+   //             std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).ShouldLoop() << std::endl;
+			//}
+			//if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) {
+			//	std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << std::endl;
+			//}
 
             // Store the entity
             storedEnt.push_back(entity);

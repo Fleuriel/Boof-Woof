@@ -7,18 +7,17 @@
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
 
-Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{};
-CameraController* cameraController = nullptr;
-
-class Level1 : public Level
+class StartingRoom : public Level
 {
+	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{};
+	CameraController* cameraController = nullptr;
+
 	void LoadLevel()
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/CorgiVSRope.json");		
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
 
 		g_ChangeText.OnInitialize();
-		g_Checklist.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -75,7 +74,7 @@ class Level1 : public Level
 			g_ChangeText.OnUpdate(deltaTime);
 		}
 
-		if (!g_Checklist.shutted) 
+		if (!g_Checklist.shutted)
 		{
 			g_Checklist.OnUpdate(deltaTime);
 		}
@@ -99,6 +98,7 @@ class Level1 : public Level
 		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
 		{
 			g_LevelManager.SetNextLevel("MainMenu");
+			g_Window->ShowMouseCursor();
 		}
 	}
 

@@ -20,15 +20,16 @@ struct Player final : public Behaviour
 	{
 		velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 		isMoving = false;
+
+		if (m_Engine.getInputSystem().isActionPressed("Sprint"))
+		{
+			speed = 5.0f;
+		}
+		else {
+			speed = 3.0f;
+		}
 		
 		if (m_Engine.HaveCameraComponent(entity)) {
-			if (m_Engine.getInputSystem().isActionPressed("Sprint"))
-			{
-				speed = 5.0f;
-			}
-			else {
-				speed = 3.0f;
-			}
 
 			if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
 			{
@@ -80,13 +81,13 @@ struct Player final : public Behaviour
 		else {
 			if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
 			{
-				velocity.z += -speed;
+				velocity.z -= speed;
 				isMoving = true;
 			}
 
 			if (m_Engine.getInputSystem().isActionPressed("MoveLeft"))
 			{
-				velocity.x += -speed;
+				velocity.x -= speed;
 				isMoving = true;
 			}
 
@@ -105,12 +106,12 @@ struct Player final : public Behaviour
 
 		
 		if (m_Engine.getInputSystem().isActionPressed("Jump")) {
-			float gravity = 10.0f;      // Use your engine's gravity value
-			float jumpHeight = 2.0f;    // Desired jump height in units
+			float gravity = 9.81f;      // Use your engine's gravity value
+			float jumpHeight = 0.25f;    // Desired jump height in units
 			float jumpVelocity = sqrt(speed * gravity * jumpHeight);
 			velocity.y += jumpVelocity; // Add upward velocity for the jump
 
-			std::cout << "Player jumped with velocity: " << jumpVelocity << std::endl;
+			//std::cout << "Player jumped with velocity: " << jumpVelocity << std::endl;
 			isMoving = true;
 			isJumping = true;
 		}
@@ -134,6 +135,8 @@ struct Player final : public Behaviour
 		{
 			if (isMoving)
 			{
+				if (m_Engine.HaveCameraComponent(entity))
+					//std::cout << "has camera" << std::endl;
 				// Apply player input velocity
 				m_Engine.SetVelocity(entity, velocity);
 			}
