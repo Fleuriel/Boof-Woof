@@ -21,9 +21,9 @@ void InitializeLevels() {
 	g_LevelManager.RegisterLevel("MyTimer", new(MyTimer));
 
 	// Set the initial level
-	g_LevelManager.Initialize("Level1");
-	g_LevelManager.SetNextLevel("Level1");
-	g_LevelManager.SetPreviousLevel("Level1");
+	g_LevelManager.Initialize("Splashscreen");
+	g_LevelManager.SetNextLevel("Splashscreen");
+	g_LevelManager.SetPreviousLevel("Splashscreen");
 
 }
 

@@ -74,7 +74,7 @@ class Level1 : public Level
 			g_ChangeText.OnUpdate(deltaTime);
 		}
 
-		if (!g_Checklist.shutted && g_ChangeText.shutted)
+		if (!g_Checklist.shutted)
 		{
 			g_Checklist.OnUpdate(deltaTime);
 		}

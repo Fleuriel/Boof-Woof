@@ -1,5 +1,6 @@
 #include "Checklist.h"
 #include "ResourceManager/ResourceManager.h"
+#include "../ChangeText/ChangeText.h"
 
 Checklist g_Checklist;
 Serialization serialChecklist;
@@ -43,31 +44,40 @@ void Checklist::OnInitialize()
 
 void Checklist::OnUpdate(double deltaTime)
 {
-	if (CheckWASD() && !Check1) 
+	if (g_ChangeText.shutted) 
 	{
-		ChangeBoxChecked(Box1);
-		Check1 = true;
+		if (CheckWASD() && !Check1)
+		{
+			ChangeBoxChecked(Box1);
+			Check1 = true;
+		}
+
+		if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1 && !Check2)
+		{
+			ChangeBoxChecked(Box2);
+			Check2 = true;
+		}
+
+		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) >= 1 && !Check3)
+		{
+			ChangeBoxChecked(Box3);
+			Check3 = true;
+		}
+
+		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !Check4)
+		{
+			ChangeBoxChecked(Box4);
+			Check4 = true;
+		}
+	}
+	
+	if (Check4 && !corgiText)
+	{
+		AddCorgiText();
+		corgiText = true;
 	}
 
-	if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1 && !Check2)
-	{
-		ChangeBoxChecked(Box2);
-		Check2 = true;
-	}
-
-	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) >= 1 && !Check3) 
-	{
-		ChangeBoxChecked(Box3);
-		Check3 = true;
-	}
-
-	if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !Check4)
-	{
-		ChangeBoxChecked(Box4);
-		Check4 = true;
-	}
-
-	if (Check1 && Check2 && Check3 && Check4) 
+	if (Check1 && Check2 && Check3 && Check4 && corgiText)
 	{
 		clTimer += deltaTime;
 
@@ -154,5 +164,16 @@ void Checklist::ChangeBoxChecked(Entity ent)
 			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CheckTheBox.wav");
 			playAudio = true;
 		}
+	}
+}
+
+void Checklist::AddCorgiText()
+{
+	if (g_ChangeText.shutted)
+	{
+		g_ChangeText.textureIndex = 6;
+		g_ChangeText.indexLimit = 8;
+		g_ChangeText.OnInitialize();
+		g_ChangeText.shutted = false;
 	}
 }
