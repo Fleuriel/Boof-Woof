@@ -3,7 +3,7 @@
 #include "ResourceManager/ResourceManager.h"
 #include "ECS/Coordinator.hpp"
 
-class Timer : public Level
+class MyTimer : public Level
 {
     double timer = 0.0;
     double interval = 1.0; // Time interval in seconds
@@ -19,7 +19,7 @@ class Timer : public Level
         {
             if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
             {
-                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "TimerText")
+                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Group")
                 {
                     timerTextEntity = entity;
                     break;

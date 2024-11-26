@@ -18,12 +18,13 @@ void InitializeLevels() {
 	g_LevelManager.RegisterLevel("MainMenu", new(MainMenu));
 	g_LevelManager.RegisterLevel("Cutscene", new(Cutscene));
 	g_LevelManager.RegisterLevel("Level1", new(Level1));
-	g_LevelManager.RegisterLevel("Timer", new(Timer));
+	g_LevelManager.RegisterLevel("MyTimer", new(MyTimer));
 
 	// Set the initial level
 	g_LevelManager.Initialize("Splashscreen");
 	g_LevelManager.SetNextLevel("Splashscreen");
 	g_LevelManager.SetPreviousLevel("Splashscreen");
+
 }
 
 int main()
