@@ -1,10 +1,13 @@
 #define _CRTDBG_MAP_ALLOC
+#include "DLL_Support.h"
 #include "ECS/pch.h"
 #include <stdlib.h>
 #include <crtdbg.h>
+#ifdef MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS
+#undef MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS
+#endif
 #include "ImGuiEditor.h"
 #include "../BoofWoof/Core/EngineCore.h"
-#include "DLL_Support.h"
 
 EngineCore* g_Core = nullptr;
 
@@ -28,6 +31,7 @@ int main()
 	
 
     MSG msg;
+	UNREFERENCED_PARAMETER(msg);
     
 	g_Core = new EngineCore();
 	g_Core->OnInit();

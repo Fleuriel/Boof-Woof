@@ -44,6 +44,7 @@ public:
 
 	virtual void PlaySound(const char* pSoundName) override
 	{
+		UNREFERENCED_PARAMETER(pSoundName);
 		// Play sound
 		// g_Audio.PlayFile(pSoundName);
 	}
@@ -157,6 +158,7 @@ public:
 	// not used
 	virtual float GetCameraPitch(Entity entity) override
 	{
+		UNREFERENCED_PARAMETER(entity);
 		return g_Coordinator.GetComponent<CameraComponent>(g_Player).GetCameraPitch();
 	}
 

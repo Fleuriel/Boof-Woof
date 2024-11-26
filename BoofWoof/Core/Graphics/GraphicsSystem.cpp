@@ -393,6 +393,13 @@ void GraphicsSystem::UpdateLoop() {
 
 		g_AssetManager.GetShader("Shader2D").Use();
 
+		// Disable depth writing and enable blending for transparency
+
+		glDepthMask(GL_FALSE);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		// Set shader uniforms based on camera following
 		if (graphicsComp.getFollowCamera()) {
 			SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
 		}
@@ -400,29 +407,24 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
 			g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
 			g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
-
 		}
-		//shader.Use();
 
-		//tex = g_ResourceManager.GetTextureDDS("Sadge");
-
-
-		// SET ALL SAME TEX...
-//				set_Texture_T = GraphicsSystem::set_Texture_;
-		if (graphicsComp.getTextureNumber() == 0)
-		{
-			glBindTextureUnit(6, 0);
-			//std::cout << "its blank\n";
+		// Bind texture
+		if (graphicsComp.getTextureNumber() == 0) {
+			glBindTextureUnit(6, 0); // No texture
 		}
-		else
-			glBindTextureUnit(6, graphicsComp.getTexture(0));
+		else {
+			glBindTextureUnit(6, graphicsComp.getTexture(0)); // Texture with transparency
+		}
 
+		// Set texture uniform before drawing
+		g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
+
+		// Draw the model
 		g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader("Shader2D"));
 
-		g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
-		//shader.SetUniform("")
+		// Restore settings
 		g_AssetManager.GetShader("Shader2D").UnUse();
-
 
 
 

@@ -31,34 +31,6 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Head",
-                "EntityID": 1
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -0.23000000417232514,
-                    "y": 0.20000000298023225,
-                    "z": -0.20000000298023225
-                },
-                "Scale": {
-                    "x": 0.20000000298023225,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "Texture": "DogHead",
-                "FollowCamera": false
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "CatchZone",
                 "EntityID": 2
             },
@@ -82,6 +54,34 @@
             "GraphicsComponent": {
                 "ModelName": "Square",
                 "Texture": "CatchZone",
+                "FollowCamera": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Head",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.23000000417232514,
+                    "y": 0.20000000298023225,
+                    "z": -0.20000000298023225
+                },
+                "Scale": {
+                    "x": 0.20000000298023225,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "DogHead",
                 "FollowCamera": false
             }
         }

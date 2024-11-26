@@ -3,6 +3,9 @@
 #ifndef ENGINE_CORE_H
 #define ENGINE_CORE_H
 
+#ifdef APIENTRY
+#undef APIENTRY
+#endif
 
 #include "../Core/ECS/Coordinator.hpp"
 #include "../Utilities/Components/GraphicsComponent.hpp"
