@@ -22,6 +22,7 @@ class TimeRush : public Level
         g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/TimeRushPuzzle.json");
         g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/Timer.json");
         g_Audio.PlayBGM("../BoofWoof/Assets/Audio/TimeRushBGM.wav");
+        g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/AggressiveDogBarking.wav");
 
         std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
         for (auto entity : entities)
