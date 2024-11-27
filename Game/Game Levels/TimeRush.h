@@ -33,12 +33,6 @@ class TimeRush : public Level
                     playerEnt = entity;
                 }
 
-                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Group")
-                {
-                    timerTextEntity = entity;
-                    break;
-                }
-
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail1")
 				{
 					scentEntity1 = entity;
@@ -67,6 +61,11 @@ class TimeRush : public Level
                 if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail6")
                 {
                     scentEntity6 = entity;
+                }
+
+                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Group")
+                {
+                    timerTextEntity = entity;
                     break;
                 }
             }
