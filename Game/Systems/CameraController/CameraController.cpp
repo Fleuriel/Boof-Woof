@@ -51,6 +51,7 @@ void CameraController::ShakeCamera(float time, glm::vec3 range)
 	shakeDuration = time;
 	shakeRange = range;
     lastMode = currentMode;
+    camera_old_pos = g_Coordinator.GetComponent<CameraComponent>(playerEntity).GetCameraPosition();
     currentMode = CameraMode::SHAKE;
 }
 
@@ -249,6 +250,7 @@ void CameraController::UpdateShakeView(CameraComponent& camera)
 		currentMode = lastMode;
 		shakeTime = 0.0f;
 		shakeDuration = 0.0f;
+		camera.Position = camera_old_pos;
 
 	}
 	else
