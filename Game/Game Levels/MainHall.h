@@ -9,7 +9,7 @@
 
 class MainHall : public Level
 {
-	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{};
+	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{};
 	CameraController* cameraController = nullptr;
 
 	void LoadLevel()
@@ -41,6 +41,16 @@ class MainHall : public Level
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "DrawBridge")
 				{
 					BridgeEnt = entity;
+				}
+
+				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail1")
+				{
+					scentEntity1 = entity;
+				}
+
+				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail2")
+				{
+					scentEntity2 = entity;
 					break;
 				}
 			}
@@ -61,6 +71,9 @@ class MainHall : public Level
 	{
 		cameraController->Update(static_cast<float>(deltaTime));
 
+		auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
+		auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);
+
 		if (!g_Checklist.shutted)
 		{
 			g_Checklist.OnUpdate(deltaTime);
@@ -79,6 +92,12 @@ class MainHall : public Level
 		else
 		{
 			teb_last = false;
+		}
+
+		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1)
+		{
+			opacity1.setParticleColor(glm::vec4(0.0470588244497776f, 0.6627451181411743f, 0.95686274766922f, 1.0f));
+			opacity2.setParticleColor(glm::vec4(0.7960784435272217f, 0.0470588244497776f, 0.95686274766922f, 1.0f));
 		}
 
 		// Space to go back mainmenu

@@ -8,8 +8,14 @@ class TimeRush : public Level
     double timer = 0.0;
     double interval = 1.0; // Time interval in seconds
     int currentTextureIndex = 53; // Start from "Group53"
-    Entity timerTextEntity{}, playerEnt{};
+    Entity timerTextEntity{}, playerEnt{}, scentEntity1{}, scentEntity2{}, scentEntity3{}, scentEntity4{}, scentEntity5{}, scentEntity6{};
     CameraController* cameraController = nullptr;
+
+    double colorChangeTimer = 0.0;
+    double colorChangeDuration = 3.0; // Duration for which the color change lasts
+    double cooldownTimer = 10.0;
+	double cooldownDuration = 10.0; // Cooldown duration
+	bool isColorChanged = false;
 
     void LoadLevel() override
     {
@@ -32,6 +38,37 @@ class TimeRush : public Level
                     timerTextEntity = entity;
                     break;
                 }
+
+				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail1")
+				{
+					scentEntity1 = entity;
+				}
+
+                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail2")
+                {
+                    scentEntity2 = entity;
+                }
+
+                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail3")
+                {
+                    scentEntity3 = entity;
+                }
+
+                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail4")
+                {
+                    scentEntity4 = entity;
+                }
+
+                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail5")
+                {
+                    scentEntity5 = entity;
+                }
+
+                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail6")
+                {
+                    scentEntity6 = entity;
+                    break;
+                }
             }
         }
         g_Window->HideMouseCursor();
@@ -47,10 +84,18 @@ class TimeRush : public Level
         cameraController->Update(static_cast<float>(deltaTime));
 
         timer += deltaTime;
+		cooldownTimer += deltaTime;
 
         if (!g_Coordinator.HaveComponent<GraphicsComponent>(timerTextEntity)) return;
 
         auto& text = g_Coordinator.GetComponent<GraphicsComponent>(timerTextEntity);
+
+        auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
+        auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);
+        auto& opacity3 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity3);
+        auto& opacity4 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity4);
+        auto& opacity5 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity5);
+        auto& opacity6 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity6);
 
         // Change the texture every second
         if (timer >= interval && currentTextureIndex <= 233)
@@ -78,6 +123,38 @@ class TimeRush : public Level
         if (currentTextureIndex > 234)
         {
             std::cout << "End of timer" << std::endl;
+        }
+
+        if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && cooldownTimer >= cooldownDuration)
+        {
+            glm::vec4 newColor(0.3529411852359772f, 0.7058823704719544f, 0.03921568766236305f, 1.0f);
+			opacity1.setParticleColor(newColor);
+            opacity2.setParticleColor(newColor);
+            opacity3.setParticleColor(newColor);
+            opacity4.setParticleColor(newColor);
+            opacity5.setParticleColor(newColor);
+            opacity6.setParticleColor(newColor);
+
+			isColorChanged = true;
+            colorChangeTimer = 0.0;
+			cooldownTimer = 0.0;
+        }
+
+        if (isColorChanged)
+        {
+            colorChangeTimer += deltaTime;
+            if (colorChangeTimer >= colorChangeDuration)
+            {
+                glm::vec4 resetColor(0.3529411852359772f, 0.7058823704719544f, 0.03921568766236305f, 0.0f);
+                opacity1.setParticleColor(resetColor);
+                opacity2.setParticleColor(resetColor);
+                opacity3.setParticleColor(resetColor);
+                opacity4.setParticleColor(resetColor);
+                opacity5.setParticleColor(resetColor);
+                opacity6.setParticleColor(resetColor);
+
+                isColorChanged = false;
+            }
         }
 
         if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallDoor")

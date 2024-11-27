@@ -9,7 +9,7 @@
 
 class StartingRoom : public Level
 {
-	Entity playerEnt{};
+	Entity playerEnt{}, scentEntity{};
 	CameraController* cameraController = nullptr;
 	bool bark{ false };
 
@@ -28,7 +28,12 @@ class StartingRoom : public Level
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Player")
 				{
-					playerEnt = entity;		
+					playerEnt = entity;
+				}
+
+				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail")
+				{
+					scentEntity = entity;
 					break;
 				}
 			}
@@ -48,6 +53,8 @@ class StartingRoom : public Level
 	void UpdateLevel(double deltaTime)
 	{
 		cameraController->Update(static_cast<float>(deltaTime));
+
+		auto& opacity = g_Coordinator.GetComponent<ParticleComponent>(scentEntity);
 
 		if (!g_ChangeText.shutted) 
 		{
@@ -86,6 +93,11 @@ class StartingRoom : public Level
 		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 0) 
 		{
 			bark = false;
+		}
+
+		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1)
+		{
+			opacity.setParticleColor(glm::vec4(0.09019608050584793f, 0.7843137383460999f, 0.8549019694328308f, 1.0f));
 		}
 
 		if (g_Checklist.shutted) 
