@@ -98,7 +98,7 @@ void RopeBreaker::DropBridge()
 {
 	if (!bridgeAudio) 
 	{
-		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/BridgeCreak.wav");
+		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WoodenBridgeDropping.wav");
 		bridgeAudio = true;
 	}
 

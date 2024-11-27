@@ -12,7 +12,7 @@ class StartingRoom : public Level
 public:
 	Entity playerEnt{}, scentEntity{};
 	CameraController* cameraController = nullptr;
-	bool bark{ false };
+	bool bark{ false }, sniff{ false };
 
 	void LoadLevel()
 	{
@@ -102,9 +102,16 @@ public:
 			bark = false;
 		}
 
-		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1)
+		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniff)
 		{
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiSniff.wav");
 			opacity.setParticleColor(glm::vec4(0.09019608050584793f, 0.7843137383460999f, 0.8549019694328308f, 1.0f));
+			sniff = true;
+		}
+
+		if (g_Input.GetKeyState(GLFW_KEY_R) == 0) 
+		{
+			sniff = false;
 		}
 
 		if (g_Checklist.shutted) 

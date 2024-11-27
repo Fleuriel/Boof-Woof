@@ -11,6 +11,7 @@ class MainHall : public Level
 {
 	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{};
 	CameraController* cameraController = nullptr;
+	bool sniffa{ false };
 
 	void LoadLevel()
 	{
@@ -94,10 +95,18 @@ class MainHall : public Level
 			teb_last = false;
 		}
 
-		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1)
+		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniffa)
 		{
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiSniff.wav");
+
 			opacity1.setParticleColor(glm::vec4(0.0470588244497776f, 0.6627451181411743f, 0.95686274766922f, 1.0f));
 			opacity2.setParticleColor(glm::vec4(0.7960784435272217f, 0.0470588244497776f, 0.95686274766922f, 1.0f));
+			sniffa = true;
+		}
+
+		if (g_Input.GetKeyState(GLFW_KEY_R) == 0) 
+		{
+			sniffa = false;
 		}
 
 		// Space to go back mainmenu

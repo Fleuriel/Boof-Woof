@@ -127,6 +127,8 @@ class TimeRush : public Level
 
         if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && cooldownTimer >= cooldownDuration)
         {
+            g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiSniff.wav");
+
             glm::vec4 newColor(0.3529411852359772f, 0.7058823704719544f, 0.03921568766236305f, 1.0f);
 			opacity1.setParticleColor(newColor);
             opacity2.setParticleColor(newColor);
