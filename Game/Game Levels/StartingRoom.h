@@ -60,7 +60,7 @@ class StartingRoom : public Level
 			if (!teb_last)
 			{
 				teb_last = true;
-				cameraController->ToggleCameraMode();
+				cameraController->ShakePlayer(1.f, { 0.1f, 0.1f,0.1f });
 			}
 		}
 		else
