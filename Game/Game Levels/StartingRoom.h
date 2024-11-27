@@ -78,7 +78,7 @@ public:
 			if (!teb_last)
 			{
 				teb_last = true;
-				cameraController->ToggleCameraMode();
+				cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
 			}
 		}
 		else
