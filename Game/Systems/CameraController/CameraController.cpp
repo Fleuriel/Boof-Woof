@@ -65,6 +65,36 @@ void CameraController::ShakePlayer(float time, glm::vec3 range)
 	currentMode = CameraMode::SHAKE;
 }
 
+void CameraController::ChangeToFirstPerson(CameraComponent& camera)
+{
+	
+        glm::vec3 playerPos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
+
+        // Set fixed offset values for the third-person camera
+        glm::vec3 offset = glm::vec3(0.0f, 3.7f, 11.718f); // Desired position relative to the player
+
+        // calculate the rotation matrix
+        glm::mat4 rotationMatrix = glm::mat4(1.0f);
+        rotationMatrix = glm::rotate(rotationMatrix, glm::radians(camera.Yaw + 90), glm::vec3(0.0f, -1.0f, 0.0f));
+        //rotationMatrix = glm::rotate(rotationMatrix, glm::radians(camera.Pitch), glm::vec3(-1.0f, 0.0f, 0.0f));
+
+        // calculate the new offset
+        glm::vec3 newOffset = glm::vec3(rotationMatrix * glm::vec4(offset, 1.0f));
+
+        // Set the camera's position to the player's position plus the offset
+        camera.Position = playerPos + newOffset;
+        // Make the camera look at the player - if i set this, it jitters.
+        // camera.SetCameraDirection(glm::normalize(playerPos - camera.Position));
+
+        // Update the camera's direction vectors
+        camera.updateCameraVectors();
+		
+        currentMode = CameraMode::SHIFTING;
+        lastMode = CameraMode::THIRD_PERSON;
+        cameraMove = getfirstPersonCameraMove(g_Coordinator.GetComponent<CameraComponent>(playerEntity));
+	
+}
+
 
 void CameraController::UpdateFirstPersonView(CameraComponent& camera)
 {
@@ -98,7 +128,7 @@ void CameraController::UpdateFirstPersonView(CameraComponent& camera)
     mouseOffset *= camera.MouseSensitivity;
 
     // Apply mouse movement to the camera's yaw and pitch
-    camera.ProcessMouseMovement(mouseOffset.x, mouseOffset.y);
+    camera.ProcessMouseMovement(mouseOffset.x, -mouseOffset.y);
 
     glm::vec3 playerPos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
 

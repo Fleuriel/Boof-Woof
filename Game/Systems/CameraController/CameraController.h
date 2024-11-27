@@ -28,6 +28,7 @@ public:
     void ToggleCameraMode();
 	void ShakeCamera(float time, glm::vec3 range);
 	void ShakePlayer(float time, glm::vec3 range);
+	void ChangeToFirstPerson(CameraComponent& camera);
 
 private:
     void UpdateFirstPersonView(CameraComponent& camera);
@@ -42,7 +43,7 @@ private:
 
 private:
     Entity playerEntity{};
-    CameraMode currentMode = CameraMode::FIRST_PERSON;
+	CameraMode currentMode = CameraMode::FIRST_PERSON;
     glm::vec3 thirdPersonOffset = glm::vec3(0.0f, 2.0f, -5.0f); // Example offset for third-person view
 	CameraMode lastMode = CameraMode::FIRST_PERSON;
     CameraMove cameraMove;
