@@ -44,7 +44,8 @@ private:
 private:
     Entity playerEntity{};
 	CameraMode currentMode = CameraMode::FIRST_PERSON;
-    glm::vec3 thirdPersonOffset = glm::vec3(0.0f, 2.0f, -5.0f); // Example offset for third-person view
+    glm::vec3 thirdPersonOffset = glm::vec3(0.0f, 1.7f, 3.718f); // Example offset for third-person view
+	glm::vec3 firstPersonOffset = glm::vec3(0.0f, 0.193f, -1.189f); // Example offset for first-person view
 	CameraMode lastMode = CameraMode::FIRST_PERSON;
     CameraMove cameraMove;
 	float cameraSpeed = 0.05f;
