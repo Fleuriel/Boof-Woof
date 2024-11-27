@@ -9,6 +9,7 @@
 
 class StartingRoom : public Level
 {
+public:
 	Entity playerEnt{}, scentEntity{};
 	CameraController* cameraController = nullptr;
 	bool bark{ false };
@@ -46,12 +47,18 @@ class StartingRoom : public Level
 	{
 		// Ensure player entity is valid
 		cameraController = new CameraController(playerEnt);
+		camerachange = false;
 	}
 
 	bool teb_last = false;
 
 	void UpdateLevel(double deltaTime)
 	{
+		if (!camerachange)
+		{
+			cameraController->ChangeToFirstPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
+			camerachange = true;
+		}
 		cameraController->Update(static_cast<float>(deltaTime));
 
 		auto& opacity = g_Coordinator.GetComponent<ParticleComponent>(scentEntity);
@@ -131,4 +138,6 @@ class StartingRoom : public Level
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 	}
+private:
+	bool camerachange = false;
 };
