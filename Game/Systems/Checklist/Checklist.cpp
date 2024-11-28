@@ -16,6 +16,26 @@ void Checklist::OnInitialize()
 	{
 		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 		{
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Do1")
+			{
+				Do1 = entity;
+			}
+
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Do2")
+			{
+				Do2 = entity;
+			}
+
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Do3")
+			{
+				Do3 = entity;
+			}
+
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Do4")
+			{
+				Do4 = entity;
+			}
+
 			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Box1")
 			{
 				Box1 = entity;
@@ -176,4 +196,30 @@ void Checklist::AddCorgiText()
 		g_ChangeText.OnInitialize();
 		g_ChangeText.shutted = false;
 	}
+}
+
+void Checklist::ChangeAsset(Entity ent, glm::vec3 scale, std::string textureName)
+{
+	if (!g_Coordinator.HaveComponent<GraphicsComponent>(ent)) return;
+
+	auto& text = g_Coordinator.GetComponent<GraphicsComponent>(ent);
+
+	int oldTextureId = g_ResourceManager.GetTextureDDS(text.getTextureName());
+	if (text.RemoveTexture(oldTextureId))
+	{
+		// remove old texture & add new one
+		text.clearTextures();
+
+		int textureId = g_ResourceManager.GetTextureDDS(textureName);
+		text.AddTexture(textureId);
+		text.setTexture(textureName);
+	}
+
+	if (!g_Coordinator.HaveComponent<TransformComponent>(ent)) return;
+
+	g_Coordinator.GetComponent<TransformComponent>(ent).SetScale(scale);
+
+	auto& size = g_Coordinator.GetComponent<TransformComponent>(ent).GetScale();
+
+	std::cout << "Set Scale at: " << size.x << " , " << size.y << " , " << size.z << std::endl;
 }
