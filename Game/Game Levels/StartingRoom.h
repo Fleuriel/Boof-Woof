@@ -17,7 +17,7 @@ public:
 	void LoadLevel()
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/StartingRoom.json");		
-		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");	
+		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/BedRoomMusic.wav", true);	
 
 		g_ChangeText.OnInitialize();
 
@@ -93,7 +93,7 @@ public:
 
 		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
 		{
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiBark1.wav");
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiBark1.wav", false);
 			bark = true;
 		}
 
@@ -104,7 +104,7 @@ public:
 
 		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniff)
 		{
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiSniff.wav");
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiSniff.wav", false);
 			opacity.setParticleColor(glm::vec4(0.09019608050584793f, 0.7843137383460999f, 0.8549019694328308f, 1.0f));
 			sniff = true;
 		}
@@ -141,6 +141,7 @@ public:
 
 	void UnloadLevel()
 	{
+		g_Audio.StopSpecificSound("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
 		g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();

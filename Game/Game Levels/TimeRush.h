@@ -25,8 +25,8 @@ class TimeRush : public Level
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/TimeRushPuzzle.json");
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/Timer.json");
-		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/TimeRushBGM.wav");
-		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/AggressiveDogBarking.wav");
+		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/TimeRushBGM.wav", true);
+		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/AggressiveDogBarking.wav", false);
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 		for (auto entity : entities)
@@ -136,7 +136,7 @@ class TimeRush : public Level
 
 		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && cooldownTimer >= cooldownDuration)
 		{
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiSniff.wav");
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiSniff.wav", false);
 
 			glm::vec4 newColor(0.3529411852359772f, 0.7058823704719544f, 0.03921568766236305f, 1.0f);
 			opacity1.setParticleColor(newColor);
@@ -199,6 +199,7 @@ class TimeRush : public Level
 
 	void UnloadLevel() override
 	{
+		g_Audio.StopSpecificSound("../BoofWoof/Assets/Audio/TimeRushBGM.wav");
 		g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();

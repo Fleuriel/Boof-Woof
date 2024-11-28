@@ -183,7 +183,7 @@ void Checklist::ChangeBoxChecked(Entity ent)
 
 		if (!playAudio) 
 		{
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CheckTheBox.wav");
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CheckTheBox.wav", false);
 			playAudio = true;
 		}
 	}

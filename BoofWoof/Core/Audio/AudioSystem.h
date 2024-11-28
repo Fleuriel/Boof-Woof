@@ -50,7 +50,7 @@ public:
     bool IsPaused() const;  // Check if the audio is currently paused
     bool IsPlaying() const; // Check if audio is playing
 
-    void PlayFileOnNewChannel(const std::string& filePath);
+    void PlayFileOnNewChannel(const std::string& filePath, bool loop);
     void StopSpecificSound(const std::string& filePath);
 
 
