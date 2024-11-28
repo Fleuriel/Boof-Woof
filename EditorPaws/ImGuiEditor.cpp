@@ -2862,15 +2862,15 @@ void ImGuiEditor::InspectorWindow()
 											//newTextureName = selectedFile;
 											//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
 											int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
-											graphicsComponent.AddTexture(textureId);
-											graphicsComponent.setTexture(selectedFile);
+											// graphicsComponent.AddTexture(textureId);
+											// graphicsComponent.setTexture(selectedFile);
 
 											std::cout << textureId << '\n';
 
 											//graphicsComponent.material.SetDiffuseID(textureId);
 											//graphicsComponent.material.SetDiffuseName(selectedFile);
-											//material.SetDiffuseID(textureId);
-											//material.SetDiffuseName(selectedFile);
+											material.SetDiffuseID(textureId);
+											material.SetDiffuseName(selectedFile);
 
 											std::cout << material.GetDiffuseID() << graphicsComponent.material.GetDiffuseID() << '\n';
 
