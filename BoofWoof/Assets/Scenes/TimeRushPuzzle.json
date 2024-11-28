@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "35c9bf91-b1a4-4707-b500-9f08129fa041",
+    "SceneGUID": "55d20c57-3963-4517-8d8c-df776712e0a3",
     "Entities": [
         {
             "MetadataComponent": {
@@ -180,9 +180,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 18.90388298034668,
-                    "y": 0.9999973773956299,
-                    "z": 6.1266655921936039
+                    "x": 18.903892517089845,
+                    "y": 0.9999987483024597,
+                    "z": 6.179904937744141
                 },
                 "Scale": {
                     "x": 0.5,
@@ -222,7 +222,7 @@
                 "Position": {
                     "x": 18.899999618530275,
                     "y": 1.2000000476837159,
-                    "z": 3.9000000953674318
+                    "z": 5.0
                 },
                 "Yaw": -90.0,
                 "Pitch": 0.0,
@@ -11976,14 +11976,14 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "middle particle",
-                "EntityID": 296
+                "EntityName": "left particle",
+                "EntityID": 298
             },
             "TransformComponent": {
                 "Position": {
                     "x": 36.53099822998047,
                     "y": 1.0509999990463257,
-                    "z": -39.845001220703128
+                    "z": -40.744998931884769
                 },
                 "Scale": {
                     "x": 1.0,
@@ -12008,8 +12008,8 @@
                     "z": 0.0
                 },
                 "Density": 0.10000000149011612,
-                "VelocityMin": 0.6000000238418579,
-                "VelocityMax": 2.799999952316284,
+                "VelocityMin": 0.5,
+                "VelocityMax": 2.0999999046325685,
                 "TargetPositions": [
                     {
                         "x": 0.0,
@@ -12017,30 +12017,30 @@
                         "z": 0.0
                     },
                     {
-                        "x": 0.0,
+                        "x": -0.20000000298023225,
                         "y": 1.0,
                         "z": 0.0
                     }
                 ],
                 "ParticleSize": 15.0,
                 "ParticleColor": {
-                    "r": 0.970588207244873,
-                    "g": 0.512301504611969,
-                    "b": 0.3473183512687683,
+                    "r": 0.9372549057006836,
+                    "g": 0.27450981736183169,
+                    "b": 0.10196078568696976,
                     "a": 1.0
                 }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "middle particle 2",
-                "EntityID": 297
+                "EntityName": "right particle",
+                "EntityID": 299
             },
             "TransformComponent": {
                 "Position": {
                     "x": 36.53099822998047,
                     "y": 1.0509999990463257,
-                    "z": -39.54499816894531
+                    "z": -38.14500045776367
                 },
                 "Scale": {
                     "x": 1.0,
@@ -12056,16 +12056,16 @@
             "ParticleComponent": {
                 "PositionMin": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.5,
                     "z": 0.0
                 },
                 "PositionMax": {
                     "x": -0.800000011920929,
-                    "y": -0.20000000298023225,
+                    "y": 0.5,
                     "z": 0.0
                 },
-                "Density": 0.0,
-                "VelocityMin": 0.5,
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.800000011920929,
                 "VelocityMax": 2.700000047683716,
                 "TargetPositions": [
                     {
@@ -12074,16 +12074,529 @@
                         "z": 0.0
                     },
                     {
-                        "x": 0.0,
-                        "y": 0.6000000238418579,
+                        "x": 0.4000000059604645,
+                        "y": 1.0,
                         "z": 0.0
                     }
                 ],
                 "ParticleSize": 15.0,
                 "ParticleColor": {
-                    "r": 0.9558823704719544,
-                    "g": 0.28059056401252749,
-                    "b": 0.13588522374629975,
+                    "r": 0.9372549057006836,
+                    "g": 0.27450981736183169,
+                    "b": 0.10196078568696976,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "white particle",
+                "EntityID": 296
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 36.53099822998047,
+                    "y": 1.0509999990463257,
+                    "z": -40.345001220703128
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 1.600000023841858,
+                    "y": 0.0,
+                    "z": 1.5
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.6000000238418579,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "white particle2",
+                "EntityID": 297
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 36.53099822998047,
+                    "y": 1.0509999990463257,
+                    "z": -39.744998931884769
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 1.600000023841858,
+                    "y": 0.0,
+                    "z": 1.5
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 1.2999999523162842,
+                "VelocityMax": 2.700000047683716,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.6000000238418579,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "white particle3",
+                "EntityID": 300
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 36.53099822998047,
+                    "y": 1.0509999990463257,
+                    "z": -38.94499969482422
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 1.600000023841858,
+                    "y": 0.0,
+                    "z": 1.5
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.6000000238418579,
+                "VelocityMax": 2.5999999046325685,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.6000000238418579,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "yellow particle",
+                "EntityID": 301
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 36.53099822998047,
+                    "y": 1.4509999752044678,
+                    "z": -40.44499969482422
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 1.600000023841858,
+                    "y": 0.0,
+                    "z": 1.5
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.8999999761581421,
+                "VelocityMax": 2.9000000953674318,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.6000000238418579,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9607843160629273,
+                    "g": 0.9476248025894165,
+                    "b": 0.5133602619171143,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "yellow particle2",
+                "EntityID": 302
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 36.53099822998047,
+                    "y": 1.4509999752044678,
+                    "z": -39.64500045776367
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 1.600000023841858,
+                    "y": 0.0,
+                    "z": 1.5
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.800000011920929,
+                "VelocityMax": 2.700000047683716,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.6000000238418579,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9607843160629273,
+                    "g": 0.9476248025894165,
+                    "b": 0.5133602619171143,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "yellow particle3",
+                "EntityID": 303
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 36.53099822998047,
+                    "y": 1.4509999752044678,
+                    "z": -38.845001220703128
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 1.600000023841858,
+                    "y": 0.0,
+                    "z": 1.5
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.699999988079071,
+                "VelocityMax": 2.5999999046325685,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.6000000238418579,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9607843160629273,
+                    "g": 0.9476248025894165,
+                    "b": 0.5133602619171143,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "red particle",
+                "EntityID": 304
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 36.53099822998047,
+                    "y": 2.4509999752044679,
+                    "z": -40.744998931884769
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 1.600000023841858,
+                    "y": 0.0,
+                    "z": 1.5
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.8999999761581421,
+                "VelocityMax": 2.9000000953674318,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.6000000238418579,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9372549057006836,
+                    "g": 0.27450981736183169,
+                    "b": 0.10196078568696976,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "red particle2",
+                "EntityID": 305
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 36.53099822998047,
+                    "y": 2.4509999752044679,
+                    "z": -39.744998931884769
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 1.600000023841858,
+                    "y": 0.0,
+                    "z": 1.5
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.8999999761581421,
+                "VelocityMax": 2.9000000953674318,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.6000000238418579,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9372549057006836,
+                    "g": 0.27450981736183169,
+                    "b": 0.10196078568696976,
+                    "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "red particle3",
+                "EntityID": 306
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 36.53099822998047,
+                    "y": 2.4509999752044679,
+                    "z": -38.744998931884769
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 1.600000023841858,
+                    "y": 0.0,
+                    "z": 1.5
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.8999999761581421,
+                "VelocityMax": 2.9000000953674318,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.6000000238418579,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9372549057006836,
+                    "g": 0.27450981736183169,
+                    "b": 0.10196078568696976,
                     "a": 1.0
                 }
             }

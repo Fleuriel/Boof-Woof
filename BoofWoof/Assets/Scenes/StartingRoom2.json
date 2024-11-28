@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "362c7805-31e3-4cc8-a6c6-b6abc654147f",
+    "SceneGUID": "3e271a34-ac5d-4464-93fd-5b5dafde6c99",
     "Entities": [
         {
             "MetadataComponent": {
@@ -10,7 +10,7 @@
                 "Position": {
                     "x": 1.2000000476837159,
                     "y": 1.2000000476837159,
-                    "z": -0.1699998527765274
+                    "z": -0.16999980807304383
                 },
                 "Scale": {
                     "x": 0.5,
@@ -1021,7 +1021,7 @@
                 "AABBSize": {
                     "x": 4.449999809265137,
                     "y": 3.4000000953674318,
-                    "z": 0.5
+                    "z": 0.8999999761581421
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -1105,9 +1105,9 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
+                    "x": 1.2000000476837159,
+                    "y": 3.1500000953674318,
+                    "z": 0.15000000596046449
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -1176,9 +1176,9 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
+                    "x": 2.950000047683716,
+                    "y": 2.9000000953674318,
+                    "z": 1.2999999523162842
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -1199,9 +1199,9 @@
                     "z": 7.213674545288086
                 },
                 "Scale": {
-                    "x": 0.9999862313270569,
+                    "x": 0.999985933303833,
                     "y": 1.0,
-                    "z": 0.9999862313270569
+                    "z": 0.999985933303833
                 },
                 "Rotation": {
                     "x": 0.0000025323795398435324,
@@ -1245,7 +1245,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "torch1",
                 "EntityID": 33
             },
             "TransformComponent": {
@@ -1270,14 +1270,18 @@
                 "Texture": "WallTorch",
                 "FollowCamera": true
             },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 2.5,
-                    "y": 3.0,
-                    "z": 0.800000011920929
+                    "x": 0.800000011920929,
+                    "y": 2.5999999046325685,
+                    "z": 0.44999998807907107
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -1288,7 +1292,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "torch2",
                 "EntityID": 34
             },
             "TransformComponent": {
@@ -1313,14 +1317,18 @@
                 "Texture": "WallTorch",
                 "FollowCamera": true
             },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 2.5,
-                    "y": 3.0,
-                    "z": 0.800000011920929
+                    "x": 0.8500000238418579,
+                    "y": 2.549999952316284,
+                    "z": 0.550000011920929
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -1331,7 +1339,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "torch3",
                 "EntityID": 35
             },
             "TransformComponent": {
@@ -1361,14 +1369,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 2.5,
-                    "y": 3.0,
-                    "z": 0.800000011920929
+                    "x": 0.699999988079071,
+                    "y": 2.799999952316284,
+                    "z": 0.550000011920929
                 },
                 "AABBOffset": {
                     "x": 0.0,
                     "y": 0.0,
-                    "z": 0.0
+                    "z": -0.3499999940395355
                 }
             }
         },
@@ -1404,9 +1412,9 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
+                    "x": 1.2000000476837159,
+                    "y": 3.0,
+                    "z": 0.15000000596046449
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -1447,9 +1455,9 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
+                    "x": 1.2000000476837159,
+                    "y": 3.0,
+                    "z": 0.15000000596046449
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -1490,9 +1498,9 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
+                    "x": 1.2000000476837159,
+                    "y": 3.0,
+                    "z": 0.15000000596046449
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -2302,7 +2310,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail",
-                "EntityID": 55
+                "EntityID": 54
             },
             "TransformComponent": {
                 "Position": {
@@ -2369,7 +2377,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "left particle",
-                "EntityID": 54
+                "EntityID": 55
             },
             "TransformComponent": {
                 "Position": {
@@ -2477,6 +2485,146 @@
                     "g": 0.27450981736183169,
                     "b": 0.10196078568696976,
                     "a": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "light",
+                "EntityID": 57
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -2.0,
+                    "y": 5.599999904632568,
+                    "z": -0.10000000149011612
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "LightComponent": {
+                "LightIntensity": 0.4000000059604645,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "light",
+                "EntityID": 58
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 7.9538397789001469,
+                    "y": 6.111000061035156,
+                    "z": 3.8225901126861574
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "LightComponent": {
+                "LightIntensity": 0.20000000298023225,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "light",
+                "EntityID": 59
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 12.940726280212403,
+                    "y": 1.9898886680603028,
+                    "z": -0.01767343282699585
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "LightComponent": {
+                "LightIntensity": 0.30000001192092898,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "light",
+                "EntityID": 60
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 12.606754302978516,
+                    "y": 5.884167671203613,
+                    "z": 9.387678146362305
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "LightComponent": {
+                "LightIntensity": 0.10000000149011612,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
                 }
             }
         }
