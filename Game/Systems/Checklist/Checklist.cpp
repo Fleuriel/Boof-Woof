@@ -97,7 +97,7 @@ void Checklist::OnUpdate(double deltaTime)
 		corgiText = true;
 	}
 
-	if ((Check1 && Check2 && Check3 && Check4 && corgiText))
+	if ((Check1 && Check2 && Check3 && Check4 && corgiText) || finishTR)
 	{
 		clTimer += deltaTime;
 
