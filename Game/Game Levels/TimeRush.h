@@ -17,6 +17,10 @@ class TimeRush : public Level
 	double cooldownDuration = 10.0; // Cooldown duration
 	bool isColorChanged = false;
 
+    bool finishTR{ false };
+    double TRtimer = 0.0;
+    double TRlimit = 2.0f;
+
     void LoadLevel() override
     {
         g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/TimeRushPuzzle.json");
@@ -166,14 +170,19 @@ class TimeRush : public Level
 
         if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallDoor")
         {
-            if (!g_Checklist.finishTR)
+            if (!finishTR)
             {
                 g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
-                g_Checklist.OnUpdate(deltaTime);
-                g_Checklist.finishTR = true;
+                finishTR = true;
             }
+        }
 
-            if (g_Checklist.finishTR)
+
+        if (finishTR)
+        {
+            TRtimer += deltaTime;
+
+            if (TRtimer >= TRlimit)
             {
                 g_LevelManager.SetNextLevel("MainHall");
             }
