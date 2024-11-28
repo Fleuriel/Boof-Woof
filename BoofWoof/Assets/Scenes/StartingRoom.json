@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "ae85a7b8-f94a-4db5-9ca7-50ba6c2b9b46",
+    "SceneGUID": "3be3cb2e-d898-4b47-987a-567b22eb1b5e",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.6773040294647217,
-                    "y": 1.1799991130828858,
-                    "z": -0.6583585143089294
+                    "x": 1.2000000476837159,
+                    "y": 1.2000000476837159,
+                    "z": -0.169999897480011
                 },
                 "Scale": {
                     "x": 0.5,
@@ -48,7 +48,7 @@
             },
             "CameraComponent": {
                 "Position": {
-                    "x": 1.2000000476837159,
+                    "x": 2.4000000953674318,
                     "y": 1.399999976158142,
                     "z": -0.17000000178813935
                 },
@@ -1617,7 +1617,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "white1",
                 "EntityID": 42
             },
             "TransformComponent": {
@@ -1674,7 +1674,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "white2",
                 "EntityID": 43
             },
             "TransformComponent": {
@@ -1731,7 +1731,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "white3",
                 "EntityID": 44
             },
             "TransformComponent": {
@@ -1788,7 +1788,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "yellow1",
                 "EntityID": 45
             },
             "TransformComponent": {
@@ -1845,7 +1845,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "yellow2",
                 "EntityID": 46
             },
             "TransformComponent": {
@@ -1902,7 +1902,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "yellow3",
                 "EntityID": 47
             },
             "TransformComponent": {
@@ -1959,7 +1959,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "orangey1",
                 "EntityID": 48
             },
             "TransformComponent": {
@@ -2016,7 +2016,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "orangey2",
                 "EntityID": 49
             },
             "TransformComponent": {
@@ -2073,7 +2073,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "orangey3",
                 "EntityID": 50
             },
             "TransformComponent": {
