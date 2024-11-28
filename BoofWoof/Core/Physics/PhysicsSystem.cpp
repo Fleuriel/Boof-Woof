@@ -563,17 +563,17 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity)
         glm::quat glmRotation = transform.GetRotation();
         JPH::Quat joltRotation(glmRotation.x, glmRotation.y, glmRotation.z, glmRotation.w);
 
-        // Debug: Print both rotations for comparison
-        std::cout << "[DEBUG] Entity: " << entity << std::endl;
-        std::cout << "  GLM Rotation: (" << glmRotation.w << ", "
-            << glmRotation.x << ", "
-            << glmRotation.y << ", "
-            << glmRotation.z << ")" << std::endl;
+        //// Debug: Print both rotations for comparison
+        //std::cout << "[DEBUG] Entity: " << entity << std::endl;
+        //std::cout << "  GLM Rotation: (" << glmRotation.w << ", "
+        //    << glmRotation.x << ", "
+        //    << glmRotation.y << ", "
+        //    << glmRotation.z << ")" << std::endl;
 
-        std::cout << "  Jolt Rotation: (" << joltRotation.GetW() << ", "
-            << joltRotation.GetX() << ", "
-            << joltRotation.GetY() << ", "
-            << joltRotation.GetZ() << ")" << std::endl;
+        //std::cout << "  Jolt Rotation: (" << joltRotation.GetW() << ", "
+        //    << joltRotation.GetX() << ", "
+        //    << joltRotation.GetY() << ", "
+        //    << joltRotation.GetZ() << ")" << std::endl;
 
         // Create a new shape and body
         //JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, transform.GetScale(), collisionComponent.GetAABBSize());

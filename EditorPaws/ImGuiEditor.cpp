@@ -222,13 +222,12 @@ void ImGuiEditor::ImGuiViewport() {
 				// If manipulation has just started
 				if (!m_WasUsingGizmo)
 				{
-					// Re-enable physics control
-					transformComp.SetEditing(false);
 
 					// Store old local transform values
 					m_OldPosition = transformComp.GetPosition();
 					m_OldRotationRadians = transformComp.GetRotation();
 					m_OldScale = transformComp.GetScale();
+					
 				}
 
 				// Update the TransformComponent with new local values
@@ -238,6 +237,9 @@ void ImGuiEditor::ImGuiViewport() {
 			}
 			else if (m_WasUsingGizmo) // Manipulation has just ended
 			{
+				// Re-enable physics control
+				transformComp.SetEditing(false);
+
 				// Retrieve the new local transform values
 				glm::vec3 newPosition = transformComp.GetPosition();
 				glm::vec3 newRotationRadians = transformComp.GetRotation();
@@ -273,6 +275,8 @@ void ImGuiEditor::ImGuiViewport() {
 						}
 					);
 				}
+
+				g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
 			}
 
 			// Update m_WasUsingGizmo for the next frame
