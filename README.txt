@@ -47,11 +47,15 @@ If you try to move using WASD keys and you cannot move the corgi, please clean a
  >  W / A / S / D - Move Player
  >  Arrow Keys, Right Shift and Right Ctrl - Move Editor Camera
 
- KNOWN PROBLEMS & WILL CHANGE IN M3 ========================== 
+ GAME CONTROLS ============================
 
->   To control the lighting in the scene, ensure that the game object have a graphics component and you will be able
-to change the lighting as needed. Uncheck the LightOn to see the whole assets in full glory.
->   Allowing designers to change the collision components (physics).
->   Able to delete and look at the list of materials attached to the object.
+ > W / A / S / D - Move Player
+ > Spacebar - Jump
+ > RMB - Bark
+ > R - Scent Trail
+ > C - Catch Bone Catcher
+ > Left Shift - Sprint 
+
+ KNOWN PROBLEMS & WILL CHANGE IN M4 ========================== 
+
 >   Able to save archetypes & delete archetypes during runtime.
->   Able to move camera in Game.exe

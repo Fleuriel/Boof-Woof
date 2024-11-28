@@ -41,7 +41,7 @@
     <ClInclude Include="Game Levels\MainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game Levels\Level1.h">
+    <ClInclude Include="Game Levels\StartingRoom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\BoneCatcher\BoneCatcher.h">
@@ -56,10 +56,16 @@
     <ClInclude Include="Game Levels\Cutscene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game Levels\TimeRush.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Systems\ChangeText\ChangeText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Checklist\Checklist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Levels\MainHall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

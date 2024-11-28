@@ -3,12 +3,16 @@
 #ifndef ENGINE_CORE_H
 #define ENGINE_CORE_H
 
+#ifdef APIENTRY
+#undef APIENTRY
+#endif
 
 #include "../Core/ECS/Coordinator.hpp"
 #include "../Utilities/Components/GraphicsComponent.hpp"
 #include "../Utilities/Components/AnimationComponent.h"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/MaterialComponent.hpp"
+#include "../Utilities/Components/HierarchyComponent.hpp"
 
 
 #include "../Utilities/Components/BehaviourComponent.hpp"
@@ -16,6 +20,7 @@
 #include "../Utilities/Components/MetaData.hpp"
 #include "../Utilities/Components/CameraComponent.hpp"
 #include "../Utilities/Components/ParticleComponent.hpp"
+#include "../Utilities/Components/LightComponent.hpp"
 
 #include "Windows/WindowManager.h"
 #include "AssetManager/AssetManager.h"
@@ -25,6 +30,7 @@
 #include "Logic/LogicSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Physics/CollisionSystem.h"
+#include "Graphics/TransformSystem.hpp"
 
 
 #include "Serialization/Serialization.h"

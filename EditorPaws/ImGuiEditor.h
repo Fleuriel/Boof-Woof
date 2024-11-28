@@ -4,6 +4,10 @@
 #define IMGUIEDITOR_H
 #define g_ImGuiEditor ImGuiEditor::GetInstance()
 
+#ifdef MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS
+#undef MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS
+#endif
+
 #include "../BoofWoof/Core/ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/Windows/WindowManager.h"
 #include "../BoofWoof/Utilities/Components/TransformComponent.hpp"
@@ -78,6 +82,16 @@ public:
 	bool m_PlayerExist{ false };
 
 	static ImGuiEditor& GetInstance();
+
+
+	void DrawEntityNode(Entity entity);
+	void SetParent(Entity child, Entity parent);
+	void RemoveParent(Entity child); 
+	bool IsDescendantOf(Entity potentialParent, Entity child);
+	void DeleteEntity(Entity entity);
+	bool IsAncestorOf(Entity ancestor, Entity entity);
+
+
 
 private:
 	Window* m_Window = nullptr;

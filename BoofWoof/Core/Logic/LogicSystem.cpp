@@ -25,6 +25,18 @@ void LogicSystem::Init()
 {
 	std::cout << std::endl << "Logic System Initialized" << std::endl;
 
+	std::filesystem::path build = DLL_MAIN_DIRECTORY;
+	std::filesystem::path copy = DLL_COPY_DIRECTORY;
+
+	auto time1 = std::filesystem::last_write_time(build);
+	auto time2 = std::filesystem::last_write_time(copy);
+
+	// if time1 is greater than time2, then the build file is newer
+	if (time1 > time2) {
+		CopyFileW(DLL_MAIN_DIRECTORY.c_str(), DLL_COPY_DIRECTORY.c_str(), FALSE);
+		std::cout << "Updated DLL" << std::endl;
+	}
+
 	//HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll");
 	hGetProcIDDLL = LoadLibraryW(DLL_COPY_DIRECTORY.c_str());
 

@@ -33,6 +33,8 @@
 #include <cstdarg>
 #include <cstdio>
 
+std::unordered_map<Entity, float> m_PreviousYPositions;
+
 using namespace JPH::literals;
 
 
@@ -263,6 +265,9 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
 
     JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
 
+    // Track previous Y-positions for entities
+    static std::unordered_map<Entity, float> previousYPositions;
+
     // Iterate through all entities that match the PhysicsSystem signature
     auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -301,31 +306,43 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
             }
 
             if (body != nullptr && !body->GetID().IsInvalid()) {
-                // Get the new rotation from the TransformComponent
-                glm::quat newRotation = transform.GetRotation();
 
-                // Convert the current Jolt rotation to glm for comparison
-                JPH::Quat currentPhysicsRotation = body->GetRotation();
-                glm::quat currentRotation(
-                    currentPhysicsRotation.GetW(),
-                    currentPhysicsRotation.GetX(),
-                    currentPhysicsRotation.GetY(),
-                    currentPhysicsRotation.GetZ()
-                );
+                // Check if the entity is grounded
+                if (collisionComponent.IsDynamic() && collisionComponent.IsPlayer()) {
 
-                // Check if the rotation has changed
-                if (currentRotation != newRotation) {
-                    // Update the physics body with the new rotation
-                    JPH::Quat joltRotation(newRotation.w, newRotation.x, newRotation.y, newRotation.z);
-                    bodyInterface.SetRotation(body->GetID(), joltRotation, JPH::EActivation::Activate);
+                    if (collisionComponent.HasOngoingCollisions()) {
+                        collisionComponent.SetIsColliding(true);
+                    }
+                    else {
+                        collisionComponent.SetIsColliding(false);
+                    }
 
-                    // Debug output to verify rotation change
-                    glm::vec3 eulerRotation = glm::eulerAngles(newRotation);
-                    eulerRotation = glm::degrees(eulerRotation);
-                    //std::cout << "Entity ID: " << entity
-                    //    << " Rotation Updated to (" << eulerRotation.x << "°, "
-                    //    << eulerRotation.y << "°, "
-                    //    << eulerRotation.z << "°)" << std::endl;
+                    float currentYPosition = transform.GetPosition().y;
+
+                    // Check if the Y-position has minimal change and the entity is colliding
+                    bool isGrounded = false;
+                    if (previousYPositions.find(entity) != previousYPositions.end()) {
+                        float previousYPosition = previousYPositions[entity];
+                        float yChange = std::abs(currentYPosition - previousYPosition);
+
+                        //if (yChange < 0.01f && collisionComponent.GetIsColliding()) {
+                        //    isGrounded = true;
+                        //}
+                        if (yChange < 0.01f) {
+                            isGrounded = true;
+                        }
+                    }
+
+                    // Check if still colliding with the floor
+                    if (collisionComponent.GetLastCollidedObjectName() == "FloorCastle") {
+                        isGrounded = true;
+                    }
+
+                    // Update `isGrounded` status
+                    collisionComponent.SetIsGrounded(isGrounded);
+
+                    // Update the previous Y-position
+                    previousYPositions[entity] = currentYPosition;
                 }
 
                 // Debug output to check Position and Velocity for Dynamic Bodies
@@ -442,6 +459,10 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             transform.GetPosition().z + offset.z
         );
 
+        // Get the rotation from TransformComponent
+        glm::quat glmRotation = transform.GetRotation();
+        JPH::Quat joltRotation(glmRotation.x, glmRotation.y, glmRotation.z, glmRotation.w);
+
         // Create shape based on object type and custom AABB
         JPH::Shape* shape = CreateShapeForObjectType(objectType, scaledAABB);
 
@@ -454,7 +475,8 @@ void MyPhysicsSystem::AddEntityBody(Entity entity) {
             shape,
             //position,
             positionWithOffset,
-            JPH::Quat(rotation.w, rotation.x, rotation.y, rotation.z), // Apply initial rotation
+            //JPH::Quat(rotation.w, rotation.x, rotation.y, rotation.z), // Apply initial rotation
+            joltRotation,
             motionType,
             motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING // Layer based on motion type
         );
@@ -537,6 +559,22 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity)
             transform.GetPosition().z + offset.z
         );
 
+        // Get the rotation from TransformComponent
+        glm::quat glmRotation = transform.GetRotation();
+        JPH::Quat joltRotation(glmRotation.x, glmRotation.y, glmRotation.z, glmRotation.w);
+
+        //// Debug: Print both rotations for comparison
+        //std::cout << "[DEBUG] Entity: " << entity << std::endl;
+        //std::cout << "  GLM Rotation: (" << glmRotation.w << ", "
+        //    << glmRotation.x << ", "
+        //    << glmRotation.y << ", "
+        //    << glmRotation.z << ")" << std::endl;
+
+        //std::cout << "  Jolt Rotation: (" << joltRotation.GetW() << ", "
+        //    << joltRotation.GetX() << ", "
+        //    << joltRotation.GetY() << ", "
+        //    << joltRotation.GetZ() << ")" << std::endl;
+
         // Create a new shape and body
         //JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, transform.GetScale(), collisionComponent.GetAABBSize());
         JPH::Shape* newShape = CreateShapeForObjectType(ObjectType::Default, scaledAABB);
@@ -545,7 +583,8 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity)
             newShape,
             //JPH::RVec3(transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z),
             positionWithOffset,
-            JPH::Quat::sIdentity(), // Default rotation
+            //JPH::Quat::sIdentity(), // Default rotation
+            joltRotation,
             motionType,
             motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING
         );

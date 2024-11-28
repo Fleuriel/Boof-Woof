@@ -210,6 +210,56 @@ float Window::GetAspectRatio()
 }
 
 /**************************************************************************
+ * @brief This function checks if the GLFW window is currently in
+          fullscreen mode.
+ *************************************************************************/
+bool isFullScreen(GLFWwindow* widow) {
+    return (glfwGetWindowMonitor(widow) != nullptr);
+}
+
+/**************************************************************************
+ * @brief Toggles the fullscreen state of the GLFW window.
+ *
+ * This function checks if the GLFW window is currently in fullscreen mode.
+ * If it is not in fullscreen mode, it makes the window fullscreen by setting
+ * it to the primary monitor's dimensions. It also stores the window dimensions
+ * and position before going fullscreen to restore them when switching back to
+ * windowed mode.
+ *
+ * If the window is already in fullscreen mode, it switches it back to windowed
+ * mode using the stored dimensions and position.
+ *************************************************************************/
+
+int windowedWidth{}, windowedHeight{}, windowedXPos{}, windowedYPos{};
+bool fullScreen{};
+
+void Window::toggleFullScreen() {
+    // Toggle fullscreen state
+    if (!isFullScreen(m_Window)) {
+        // If not fullscreen, make it fullscreen
+        GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+        const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+        // Store window dimensions before going fullscreen
+        glfwGetWindowSize(m_Window, &windowedWidth, &windowedHeight);
+        glfwGetWindowPos(m_Window, &windowedXPos, &windowedYPos);
+
+        glfwSetWindowMonitor(m_Window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+
+        fullScreen = true;
+    }
+    else {
+        // If fullscreen, make it windowed
+        //GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
+        //const GLFWvidmode* primaryMode = glfwGetVideoMode(primaryMonitor);
+
+        glfwSetWindowMonitor(m_Window, nullptr, windowedXPos, windowedYPos, windowedWidth, windowedHeight, GLFW_DONT_CARE);
+
+        fullScreen = false;
+    }
+}
+
+/**************************************************************************
  * @brief Callback function for handling keyboard input in a GLFW window.
  *
  * This function is a callback used with the GLFW library to handle keyboard input events.
@@ -299,6 +349,9 @@ void Window::KeyCallBack(GLFWwindow* window, int key, int scancode, int action, 
             }
         }
     }
+
+    if (key == GLFW_KEY_F11 && action == GLFW_PRESS)
+        g_Window->toggleFullScreen();
 
     g_Input.buttonPressed = action;
 }

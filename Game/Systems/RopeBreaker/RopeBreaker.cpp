@@ -1,4 +1,5 @@
 #include "RopeBreaker.h"
+#include "../Checklist/Checklist.h"
 
 RopeBreaker g_RopeBreaker;
 
@@ -14,8 +15,10 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		g_BoneCatcher.OnUpdate(deltaTime);
 	}
 
-	if (PlayerCollidedRope1 && PlayerCollidedRope2 && RopeDespawned >= 2)
+	if (PlayerCollidedRope1 && PlayerCollidedRope2 && RopeDespawned >= 2 && !isFalling)
 	{
+		g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
+		g_Checklist.finishRB = true;
 		DropBridge();
 	}
 
@@ -41,12 +44,13 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		// Calculate current position with offset
 		glm::vec3 currentPos = initialPos + TargetPos;
 
-		// Calculate current rotation (only changing Z rotation from initial to -90)
+		// Calculate current rotation (only changing X rotation from initial to -90)
 		glm::vec3 currentRotation = initialRotation;
-		currentRotation.z = glm::mix(initialRotation.z, -90.0f, t);
+		currentRotation.x = glm::mix(initialRotation.x, -90.0f, t);
 
 		// Apply transforms
 		transform.SetPosition(currentPos);
+
 		//transform.SetPosition(initialPos);
 		transform.SetRotation(glm::radians(currentRotation));
 
@@ -55,7 +59,7 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		{
 			isFalling = false;
 			// Ensure final position
-			currentRotation.z = -90.0f;
+			currentRotation.x = -90.0f;
 			transform.SetRotation(glm::radians(currentRotation));
 			transform.SetPosition(initialPos + TargetPos);
 		}
@@ -97,7 +101,7 @@ void RopeBreaker::DropBridge()
 {
 	if (!bridgeAudio) 
 	{
-		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/BridgeCreak.wav");
+		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WoodenBridgeDropping.wav");
 		bridgeAudio = true;
 	}
 
@@ -134,7 +138,7 @@ void RopeBreaker::DespawnRope()
 	{
 		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 		{
-			if (PlayerCollidedRope1) 
+			if (PlayerCollidedRope1 && !deletedRope1)
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
 				{
@@ -142,10 +146,11 @@ void RopeBreaker::DespawnRope()
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					RopeDespawned++;
+					deletedRope1 = true;
 				}
 			}
 			
-			if (PlayerCollidedRope2)
+			if (PlayerCollidedRope2 && !deletedRope2)
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
 				{
@@ -153,6 +158,7 @@ void RopeBreaker::DespawnRope()
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					RopeDespawned++;
+					deletedRope2 = true;
 				}
 			}
 		}		

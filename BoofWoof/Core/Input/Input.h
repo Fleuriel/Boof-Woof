@@ -31,7 +31,7 @@ enum class ActionType {
     Jump,
 	Bark,
 	Sniff,
-    Shoot,
+    Biting
     // Add more actions as needed
 };
 

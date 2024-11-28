@@ -1,0 +1,33 @@
+{
+    "SceneGUID": "faab44f3-eedb-4e12-a9b1-aa5a537212af",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Group",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.800000011920929,
+                    "y": 0.75,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 0.30000001192092898,
+                    "y": 0.30000001192092898,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Group53",
+                "FollowCamera": false
+            }
+        }
+    ]
+}

@@ -188,7 +188,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorrectSound.wav");
 
 			// Hit = Pass = Randomize Catchzone position & Faster DogHead Speed.
-			m_Speed += 0.4f;
+			m_Speed += 0.2f;
 
 			// Randomize X position (must stay within the smaller range after each hit)
 			dist = std::uniform_real_distribution<float>(MinMaxPos.x, MinMaxPos.y);

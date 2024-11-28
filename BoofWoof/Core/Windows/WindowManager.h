@@ -30,6 +30,13 @@ public:
 	void SetWindowTitle(const char* name);
 	void SetWindowWidth(int width) { m_Width = width; }
 	void SetWindowHeight(int height) { m_Height = height; }
+	void HideMouseCursor() { 
+		glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
+	void ShowMouseCursor() {
+		glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		glfwSetCursorPos(m_Window, g_WindowX/2, g_WindowY/2);
+	}
 
 	// Getters
 	GLFWwindow* GetGLFWWindow();
@@ -50,6 +57,8 @@ private:
 
 	void OnUpdateFPS(double interval);
 
+	void toggleFullScreen();
+
 private:
 	int m_Width{};
 	int m_Height{};
@@ -63,6 +72,7 @@ private:
 	bool m_FullScreen{};
 	bool m_AltTab{};
 	float m_AssetManagerMonitoringTimer{};
+	//bool m_ShowMouseCursor{ true };
 };
 
 extern Window* g_Window;

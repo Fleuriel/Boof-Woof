@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "bf7a4818-3f24-4821-99d8-124568096516",
+    "SceneGUID": "fd4955b8-315b-44c8-a5e6-6da887cf6fa4",
     "Entities": [
         {
             "MetadataComponent": {
@@ -80,7 +80,7 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
-                    "y": 0.15000000596046449,
+                    "y": 0.20000000298023225,
                     "z": 4.199999809265137
                 },
                 "AABBOffset": {

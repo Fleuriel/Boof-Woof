@@ -343,6 +343,46 @@ public:
         }
     }
 
+    //void OnContactAdded(const JPH::Body& inBody1,
+    //    const JPH::Body& inBody2,
+    //    const JPH::ContactManifold& inManifold,
+    //    JPH::ContactSettings& ioSettings) {
+    //    Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
+    //    Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
+
+    //    if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
+    //        auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
+    //        collisionComponent1.AddCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName());
+    //        collisionComponent1.SetIsColliding(true);
+
+    //        //// Debug: Log collision addition for entity1
+    //        //std::cout << "[DEBUG] Entity " << entity1 << " added collision with: "
+    //        //    << g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName() << std::endl;
+    //        //std::cout << "[DEBUG] Entity " << entity1 << " ongoing collisions: ";
+    //        for (const auto& collision : collisionComponent1.GetOngoingCollisions()) {
+    //            std::cout << collision << " ";
+    //        }
+    //        std::cout << std::endl;
+    //    }
+
+    //    if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
+    //        auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
+    //        collisionComponent2.AddCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName());
+    //        collisionComponent2.SetIsColliding(true);
+
+    //        //// Debug: Log collision addition for entity2
+    //        //std::cout << "[DEBUG] Entity " << entity2 << " added collision with: "
+    //        //    << g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName() << std::endl;
+    //        //std::cout << "[DEBUG] Entity " << entity2 << " ongoing collisions: ";
+    //        for (const auto& collision : collisionComponent2.GetOngoingCollisions()) {
+    //            std::cout << collision << " ";
+    //        }
+    //        std::cout << std::endl;
+    //    }
+    //}
+
+
+
     void OnContactPersisted(const JPH::Body& inBody1,
         const JPH::Body& inBody2,
         const JPH::ContactManifold& inManifold,
@@ -426,6 +466,56 @@ public:
         }
     }
 
+    //void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) {
+    //    JPH::BodyID bodyID1 = inSubShapePair.GetBody1ID();
+    //    JPH::BodyID bodyID2 = inSubShapePair.GetBody2ID();
+
+    //    Entity entity1 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID1);
+    //    Entity entity2 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID2);
+
+    //    if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
+    //        auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
+    //        collisionComponent1.RemoveCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName());
+
+    //        //// Debug: Log collision removal for entity1
+    //        //std::cout << "[DEBUG] Entity " << entity1 << " removed collision with: "
+    //        //    << g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName() << std::endl;
+
+    //        //// Debug: Check if there are ongoing collisions
+    //        //if (collisionComponent1.HasOngoingCollisions()) {
+    //        //    std::cout << "[DEBUG] Entity " << entity1 << " still colliding with: ";
+    //        //    for (const auto& collision : collisionComponent1.GetOngoingCollisions()) {
+    //        //        std::cout << collision << " ";
+    //        //    }
+    //        //    std::cout << std::endl;
+    //        //}
+    //        //else {
+    //        //    std::cout << "[DEBUG] Entity " << entity1 << " has no more collisions." << std::endl;
+    //        //}
+    //    }
+
+    //    if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
+    //        auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
+    //        collisionComponent2.RemoveCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName());
+
+    //        // Debug: Log collision removal for entity2
+    //        std::cout << "[DEBUG] Entity " << entity2 << " removed collision with: "
+    //            << g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName() << std::endl;
+
+    //        //// Debug: Check if there are ongoing collisions
+    //        //if (collisionComponent2.HasOngoingCollisions()) {
+    //        //    std::cout << "[DEBUG] Entity " << entity2 << " still colliding with: ";
+    //        //    for (const auto& collision : collisionComponent2.GetOngoingCollisions()) {
+    //        //        std::cout << collision << " ";
+    //        //    }
+    //        //    std::cout << std::endl;
+    //        //}
+    //        //else {
+    //        //    std::cout << "[DEBUG] Entity " << entity2 << " has no more collisions." << std::endl;
+    //        //}
+    //    }
+    //}
+
 
 
 private:
@@ -452,5 +542,3 @@ public:
 
 
 #endif // PHYSICSSYSTEM_H
-
-#pragma warning(pop)
