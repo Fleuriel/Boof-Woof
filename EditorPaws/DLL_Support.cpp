@@ -9,15 +9,14 @@
 // Global Variables
 HHOOK hHook = NULL;
 UINT WM_FILE_CHANGED;
-
-const std::wstring WATCHED_DIRECTORY = L"..\\ScriptWoof\\x64\\Debug";
+bool toggle;
 
 std::atomic<bool> wasPreviouslyUnfocused(false); // Track window focus state
-std::atomic<bool> checkDirectoryOnce(false); // Check directory only once per focus regain
+//std::atomic<bool> checkDirectoryOnce(false); // Check directory only once per focus regain
 
-bool monitoringThread;
+//bool monitoringThread;
 bool DLL_has_changed;
-std::thread monitorThread; // Thread for directory monitoring
+//std::thread monitorThread; // Thread for directory monitoring
 
 MSG msg;
 
@@ -28,8 +27,9 @@ void DLL_Support_Init() {
     // Set the hook
     SetCustomHook();
 
-    monitoringThread = false;
+    //monitoringThread = false;
 	DLL_has_changed = false;
+    toggle = true;
 }
 
 void DLL_Support_Update() {
@@ -48,9 +48,9 @@ void DLL_Support_Unload() {
 // Custom hook procedure
 LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam) {
     if (nCode >= 0) {
-        MSG* msg = (MSG*)lParam;
+        MSG* tempmsg = (MSG*)lParam;
 
-        if (msg->message == WM_FILE_CHANGED) {
+        if (tempmsg->message == WM_FILE_CHANGED) {
             MessageBoxW(NULL, L"File change detected!", L"Notification", MB_OK);
             std::cout << "File change detected!" << std::endl;
         }
@@ -58,16 +58,47 @@ LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam) {
     return CallNextHookEx(hHook, nCode, wParam, lParam);
 }
 
-bool CopyAndOverwriteDLL(const std::wstring& sourcePath, const std::wstring& destPath) {
-    // Attempt to copy the DLL file and overwrite the existing one
-    if (CopyFileW(sourcePath.c_str(), destPath.c_str(), FALSE)) {
-        std::cout << "Successfully copied and overwritten the DLL!" << std::endl;
-        return true;
+void FocusChecker(GLFWwindow* window, int focused) {
+
+    if (focused) {
+        if (wasPreviouslyUnfocused.exchange(false)) {
+            std::cout << "Window regained focus.\n";
+            /*
+            monitoringThread = false;
+            if (monitorThread.joinable()) {
+                monitorThread.join();
+            }
+            */
+            // Compare DLL modification times
+            std::filesystem::path dllMainPath = DLL_MAIN_DIRECTORY;
+            std::filesystem::path dllCopyPath;
+            dllCopyPath = toggle ? DLL_COPY_DIRECTORY : OTHER_COPY_DIRECTORY;
+            if (CompareFiles(dllMainPath, dllCopyPath)) {
+                ChangeDLL();
+            }
+            /*
+            if (!DLL_has_changed) {
+                std::cout << "DLL has not changed.\n";
+            }
+            else {
+                ChangeDLL();
+                DLL_has_changed = false;
+            }
+            */
+        }
+
     }
     else {
-        std::cerr << "Failed to copy the DLL. Error: " << GetLastError() << std::endl;
-        return false;
+        if (!wasPreviouslyUnfocused.exchange(true)) {
+            std::cout << "Window lost focus 2.\n";
+            //monitoringThread = true;
+            //monitorThread = std::thread(MonitorDirectory); // Trigger directory monitoring
+        }
     }
+
+
+    // Sleep to avoid excessive CPU usage
+    //std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 bool IsDLLInUse(const std::wstring& dllPath) {
@@ -85,6 +116,7 @@ bool IsDLLInUse(const std::wstring& dllPath) {
         DWORD error = GetLastError();
         if (error == ERROR_SHARING_VIOLATION) {
             std::wcout << L"File is locked for changes: " << dllPath << std::endl;
+            CloseHandle(hFile);
             return true; // File is locked for changes
         }
         else if (error == ERROR_FILE_NOT_FOUND) {
@@ -99,47 +131,20 @@ bool IsDLLInUse(const std::wstring& dllPath) {
     return false; // DLL is not in use
 }
 
-void FocusChecker(GLFWwindow* window, int focused) {
-    
-        if (focused) {
-            if (wasPreviouslyUnfocused.exchange(false)) {
-                std::cout << "Window regained focus.\n";
-                /*
-                monitoringThread = false;
-                if (monitorThread.joinable()) {
-                    monitorThread.join();
-                }
-                */
-				// Compare DLL modification times
-				std::filesystem::path dllMainPath = DLL_MAIN_DIRECTORY;
-				std::filesystem::path dllCopyPath = DLL_COPY_DIRECTORY;
-                if (CompareFiles(dllMainPath, dllCopyPath)) {
-                    ChangeDLL();
-                }
-                /*
-				if (!DLL_has_changed) {
-                    std::cout << "DLL has not changed.\n";
-				}
-				else {
-                    ChangeDLL();
-                    DLL_has_changed = false;
-				}
-                */
-            }
-            
-        }
-        else {
-            if (!wasPreviouslyUnfocused.exchange(true)) {
-                std::cout << "Window lost focus 2.\n";
-				//monitoringThread = true;
-                //monitorThread = std::thread(MonitorDirectory); // Trigger directory monitoring
-            }
-        }
+bool CopyAndOverwriteDLL(const std::wstring& sourcePath, const std::wstring& destPath) {
+    // Attempt to copy the DLL file and overwrite the existing one
 
-
-        // Sleep to avoid excessive CPU usage
-        //std::this_thread::sleep_for(std::chrono::milliseconds(100));
- }
+	// Prof suggestion : copy file, rename file and load the renamed file.
+    // Rename by adding a number behind
+    if (CopyFileW(sourcePath.c_str(), destPath.c_str(), FALSE)) {
+        std::cout << "Successfully copied and overwritten the DLLs!" << std::endl;
+        return true;
+    }
+    else {
+        std::cerr << "Failed to copy the DLL. Error: " << GetLastError() << std::endl;
+        return false;
+    }
+}
 
 // Function to compare file modification times
 bool CompareFiles(const std::filesystem::path& build, const std::filesystem::path& copy) {
@@ -162,9 +167,16 @@ bool CompareFiles(const std::filesystem::path& build, const std::filesystem::pat
 }
 
 void ChangeDLL() {
-    // Save current scene to temp 
-	std::string tempfilepath = "TempScene.json";
-	g_SceneManager.SaveScene(tempfilepath);
+	// Check if scene is empty
+	bool emptyscene = g_SceneManager.GetAllScenes().empty() ? true : false;
+
+    std::string tempfilepath;
+	// If scene is not empty, save the current scene to temp
+    if (!emptyscene) {
+        // Save current scene to temp 
+        tempfilepath = "TempScene.json";
+        g_SceneManager.SaveScene(tempfilepath);
+    }
 
     // Clear current scene
     g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
@@ -172,10 +184,16 @@ void ChangeDLL() {
     g_Coordinator.ResetEntities();
     g_SceneManager.ClearSceneList();
 
-    if (IsDLLInUse(DLL_COPY_DIRECTORY)) {
+    std::wstring temp;
+	if (toggle)
+		temp = DLL_COPY_DIRECTORY;
+	else
+		temp = OTHER_COPY_DIRECTORY;
+
+    if (IsDLLInUse(temp)) {
         std::cout << "DLL is being used by another process. Unloading the DLL..." << std::endl;
         if (hGetProcIDDLL != nullptr) {
-            FreeLibrary(hGetProcIDDLL);
+			g_Coordinator.GetSystem<LogicSystem>()->UnloadDLL();
             std::cout << "DLL unloaded." << std::endl;
         }
         else {
@@ -183,12 +201,19 @@ void ChangeDLL() {
             return;
         }
     }
-    if (CopyAndOverwriteDLL(DLL_MAIN_DIRECTORY, DLL_COPY_DIRECTORY)) {
-        std::cout << "DLL copied and overwritten successfully!" << std::endl;
-        hGetProcIDDLL = LoadLibraryW(DLL_COPY_DIRECTORY.c_str());
-        // Load Temp Scene
-		tempfilepath = GetScenesDir() + "/" + tempfilepath;
-        g_SceneManager.LoadScene(tempfilepath);
+	bool result = toggle ? CopyAndOverwriteDLL(DLL_MAIN_DIRECTORY, OTHER_COPY_DIRECTORY) : CopyAndOverwriteDLL(DLL_MAIN_DIRECTORY, DLL_COPY_DIRECTORY);
+    if (result) {
+        if(toggle)
+		    g_Coordinator.GetSystem<LogicSystem>()->LoadDLL(OTHER_COPY_DIRECTORY);
+        else 
+			g_Coordinator.GetSystem<LogicSystem>()->LoadDLL(DLL_COPY_DIRECTORY);
+		toggle = !toggle;
+
+        if (!emptyscene) {
+            // Load Temp Scene
+            tempfilepath = GetScenesDir() + "/" + tempfilepath;
+            g_SceneManager.LoadScene(tempfilepath);
+        }
     }
     else {
         std::cerr << "Failed to copy and overwrite the DLL." << std::endl;

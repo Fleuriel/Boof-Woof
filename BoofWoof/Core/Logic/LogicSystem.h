@@ -21,6 +21,10 @@ public:
 	void Update();
 	void Shutdown();
 
+	// DLL Functions
+	void LoadDLL(std::wstring directory);
+	void UnloadDLL();
+
 	void AddBehaviours(void* scriptBehavioursPtr);
 	//void AddBehaviours(std::vector<std::unique_ptr<Behaviour_i>>* B_Vec);
 
@@ -31,7 +35,8 @@ private:
 };
 
 extern Entity g_Player;
-const std::wstring DLL_MAIN_DIRECTORY = L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll";
-const std::wstring DLL_COPY_DIRECTORY = L"..\\ScriptWoof.dll";
+extern std::wstring DLL_MAIN_DIRECTORY; //= L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll";
+extern std::wstring DLL_COPY_DIRECTORY; //= L"..\\ScriptWoof.dll";
+extern std::wstring OTHER_COPY_DIRECTORY; //= L"..\\ScriptWoof1.dll";
 extern HINSTANCE hGetProcIDDLL;
 #endif  // LOGIC_SYSTEM_H

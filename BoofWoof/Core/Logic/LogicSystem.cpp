@@ -14,10 +14,12 @@
 #pragma warning(pop)
 
 Entity g_Player = NULL;
-//DLL_MAIN_DIRECTORY = L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll";
-//DLL_COPY_DIRECTORY = L"..\\ScriptWoof.dll";
-//const std::wstring DLL_PATH = L"..\\ScriptWoof.dll";
+std::wstring DLL_MAIN_DIRECTORY = L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll";
+std::wstring DLL_COPY_DIRECTORY = L"..\\ScriptWoof.dll";
+std::wstring OTHER_COPY_DIRECTORY = L"..\\ScriptWoof1.dll";
+
 HINSTANCE hGetProcIDDLL = nullptr;
+
 
 void LogicSystem::Init()
 {
@@ -29,7 +31,6 @@ void LogicSystem::Init()
 	if (hGetProcIDDLL == NULL)
 	{
 		std::cerr << "Could not load the dynamic library" << std::endl;
-		throw std::runtime_error("Could not load the dynamic library");
 		return;
 	}
 
@@ -52,7 +53,7 @@ void LogicSystem::Init()
 
 	for (auto const& entity : mEntities)
 	{
-		// Get the logic component of the entity
+		// Get the behaviours component of the entity
 		BehaviourComponent behaviourComponent = g_Coordinator.GetComponent<BehaviourComponent>(entity);
 		std::string behaviourName = behaviourComponent.GetBehaviourName();
 
@@ -62,7 +63,7 @@ void LogicSystem::Init()
 			std::cout << "Behaviour not found" << std::endl;
 			continue;
 		}
-		else if(behaviourName == "Player" && g_Player == NULL)
+		else if (behaviourName == "Player" && g_Player == NULL)
 		{
 			g_Player = entity;
 			std::cout << "Player entity found" << std::endl;
@@ -73,7 +74,7 @@ void LogicSystem::Init()
 			continue;
 		}
 		else {
-			std::cout << "Behaviour Name: "<< behaviourName << "exist" << std::endl;
+			std::cout << "Behaviour Name: " << behaviourName << "exist" << std::endl;
 		}
 		//print all the behaviours
 		std::cout << "All Behaviours: " << std::endl;
@@ -118,6 +119,83 @@ void LogicSystem::Shutdown()
 
 	// Clear the map to remove all entries
 	mBehaviours.clear();
+}
+
+void LogicSystem::LoadDLL(std::wstring directory)
+{
+	//HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll");
+	std::wcout << directory << std::endl;
+	hGetProcIDDLL = LoadLibraryW(directory.c_str());
+
+	if (hGetProcIDDLL == NULL)
+	{
+		std::cerr << "Could not load the dynamic library" << std::endl;
+		return;
+	}
+
+	if (hGetProcIDDLL)
+	{
+		auto pGetScripts = (GetScripts_cpp_t)GetProcAddress(hGetProcIDDLL, "GetScripts");
+		if (!pGetScripts)
+		{
+			std::cout << "Its not working" << std::endl;
+		}
+		else
+		{
+			// Create Script_to_Engine object dynamically
+			mScriptEngine = new Script_to_Engine();
+			
+			// Get the scripts from the script engine
+			AddBehaviours(GetScripts(mScriptEngine));
+		}
+	}
+
+	for (auto const& entity : mEntities)
+	{
+		// Get the behaviours component of the entity
+		BehaviourComponent behaviourComponent = g_Coordinator.GetComponent<BehaviourComponent>(entity);
+		std::string behaviourName = behaviourComponent.GetBehaviourName();
+
+		// Check if behaviour exists
+		if (mBehaviours.find(behaviourName) == mBehaviours.end())
+		{
+			std::cout << "Behaviour not found" << std::endl;
+			continue;
+		}
+		else if (behaviourName == "Player" && g_Player == NULL)
+		{
+			g_Player = entity;
+			std::cout << "Player entity found" << std::endl;
+		}
+		else if (behaviourName == "Player" && g_Player != NULL)
+		{
+			std::cerr << "Multiple Player entities found!" << std::endl;
+			continue;
+		}
+		else {
+			std::cout << "Behaviour Name: " << behaviourName << "exist" << std::endl;
+		}
+		//print all the behaviours
+		std::cout << "All Behaviours: " << std::endl;
+		for (auto const& behaviour : mBehaviours)
+		{
+			std::cout << behaviour.first << std::endl;
+		}
+		std::cout << std::endl;
+
+		//Init the behaviour
+		mBehaviours[behaviourComponent.GetBehaviourName()]->Init(entity);
+
+	}
+}
+
+void LogicSystem::UnloadDLL()
+{
+	// Unload the dynamic library
+	FreeLibrary(hGetProcIDDLL);
+	mBehaviours.clear();
+	mScriptEngine = nullptr;
+	g_Player = NULL;
 }
 
 void LogicSystem::AddBehaviours(void* scriptBehavioursPtr)

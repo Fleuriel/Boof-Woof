@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <thread>
 
-extern bool monitoringThread;
+//extern bool monitoringThread;
 
 LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam);
 
@@ -14,7 +14,7 @@ bool IsDLLInUse(const std::wstring& dllPath);
 
 bool CompareFiles(const std::filesystem::path& main, const std::filesystem::path& copy);
 
-void MonitorDirectory();
+//void MonitorDirectory();
 
 void ChangeDLL();
 

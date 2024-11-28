@@ -33,4 +33,6 @@ struct Treat final : public Behaviour
 	{
 		//std::cout << "Treat Destroy" << std::endl;
 	}
+
+	virtual const char* getBehaviourName() override { return "Treat"; };
 };
