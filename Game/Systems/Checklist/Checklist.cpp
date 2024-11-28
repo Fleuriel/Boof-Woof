@@ -204,22 +204,19 @@ void Checklist::ChangeAsset(Entity ent, glm::vec3 scale, std::string textureName
 
 	auto& text = g_Coordinator.GetComponent<GraphicsComponent>(ent);
 
+	// Empty will be -1
 	int oldTextureId = g_ResourceManager.GetTextureDDS(text.getTextureName());
-	if (text.RemoveTexture(oldTextureId))
-	{
-		// remove old texture & add new one
-		text.clearTextures();
 
-		int textureId = g_ResourceManager.GetTextureDDS(textureName);
-		text.AddTexture(textureId);
-		text.setTexture(textureName);
-	}
+	text.RemoveTexture(oldTextureId);
+	
+	// remove old texture & add new one
+	text.clearTextures();
+
+	int textureId = g_ResourceManager.GetTextureDDS(textureName);
+	text.AddTexture(textureId);
+	text.setTexture(textureName);	
 
 	if (!g_Coordinator.HaveComponent<TransformComponent>(ent)) return;
 
 	g_Coordinator.GetComponent<TransformComponent>(ent).SetScale(scale);
-
-	auto& size = g_Coordinator.GetComponent<TransformComponent>(ent).GetScale();
-
-	std::cout << "Set Scale at: " << size.x << " , " << size.y << " , " << size.z << std::endl;
 }
