@@ -57,6 +57,8 @@ private:
 
 	void OnUpdateFPS(double interval);
 
+	void toggleFullScreen();
+
 private:
 	int m_Width{};
 	int m_Height{};

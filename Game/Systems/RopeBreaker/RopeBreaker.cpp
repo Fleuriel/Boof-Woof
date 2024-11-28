@@ -1,4 +1,5 @@
 #include "RopeBreaker.h"
+#include "../Checklist/Checklist.h"
 
 RopeBreaker g_RopeBreaker;
 
@@ -16,6 +17,8 @@ void RopeBreaker::OnUpdate(double deltaTime)
 
 	if (PlayerCollidedRope1 && PlayerCollidedRope2 && RopeDespawned >= 2 && !isFalling)
 	{
+		g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
+		g_Checklist.finishRB = true;
 		DropBridge();
 	}
 

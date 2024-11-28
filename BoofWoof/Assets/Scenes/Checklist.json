@@ -41,9 +41,9 @@
                     "z": -0.20000000298023225
                 },
                 "Scale": {
-                    "x": 0.25,
-                    "y": 0.07999999821186066,
-                    "z": 1.0
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -53,7 +53,7 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "Do1",
+                "Texture": "",
                 "FollowCamera": false
             }
         },
@@ -69,9 +69,9 @@
                     "z": -0.20000000298023225
                 },
                 "Scale": {
-                    "x": 0.25,
-                    "y": 0.09000000357627869,
-                    "z": 1.0
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -81,7 +81,7 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "Do2",
+                "Texture": "",
                 "FollowCamera": false
             }
         },
@@ -97,9 +97,9 @@
                     "z": -0.20000000298023225
                 },
                 "Scale": {
-                    "x": 0.25,
-                    "y": 0.07500000298023224,
-                    "z": 1.0
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -109,7 +109,7 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "Do3",
+                "Texture": "",
                 "FollowCamera": false
             }
         },
@@ -125,9 +125,9 @@
                     "z": -0.20000000298023225
                 },
                 "Scale": {
-                    "x": 0.25999999046325686,
-                    "y": 0.07999999821186066,
-                    "z": 1.0
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -137,7 +137,7 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "Do4",
+                "Texture": "",
                 "FollowCamera": false
             }
         },
