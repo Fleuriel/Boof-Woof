@@ -16,7 +16,7 @@ public:
 
 	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/StartingRoom2.json");		
+		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/StartingRoom.json");		
 		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");	
 
 		g_ChangeText.OnInitialize();
@@ -145,6 +145,7 @@ public:
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 	}
+
 private:
 	bool camerachange = false;
 };

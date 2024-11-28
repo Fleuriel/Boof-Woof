@@ -78,9 +78,14 @@ void ChangeText::OnShutdown()
 		}
 	}
 
+	// Just for StartingRoom.h
 	if (!g_Checklist.shutted) 
 	{
 		g_Checklist.OnInitialize();
+		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec3(0.25f, 0.08f, 1.0f), "Do1");
+		g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec3(0.25f, 0.09f, 1.0f), "Do2");
+		g_Checklist.ChangeAsset(g_Checklist.Do3, glm::vec3(0.25f, 0.075f, 1.0f), "Do3");
+		g_Checklist.ChangeAsset(g_Checklist.Do4, glm::vec3(0.26f, 0.08f, 1.0f), "Do4");
 	}
 
 	shutted = true;

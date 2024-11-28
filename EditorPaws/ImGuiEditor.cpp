@@ -171,6 +171,11 @@ void ImGuiEditor::ImGuiViewport() {
 		{
 			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
 
+			if (g_Coordinator.HaveComponent<CollisionComponent>(g_SelectedEntity)) 
+			{
+				auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(g_SelectedEntity);
+			}
+
 			// Get the TransformSystem instance
 			std::shared_ptr<TransformSystem> transformSystem = g_Coordinator.GetSystem<TransformSystem>();
 
@@ -190,6 +195,9 @@ void ImGuiEditor::ImGuiViewport() {
 
 			if (isUsingGizmo)
 			{
+				// Disable physics override
+				transformComp.SetEditing(true);
+
 				// Get the parent's world matrix
 				glm::mat4 parentWorldMatrix = glm::mat4(1.0f);
 				if (g_Coordinator.HaveComponent<HierarchyComponent>(g_SelectedEntity))
@@ -214,10 +222,12 @@ void ImGuiEditor::ImGuiViewport() {
 				// If manipulation has just started
 				if (!m_WasUsingGizmo)
 				{
+
 					// Store old local transform values
 					m_OldPosition = transformComp.GetPosition();
 					m_OldRotationRadians = transformComp.GetRotation();
 					m_OldScale = transformComp.GetScale();
+					
 				}
 
 				// Update the TransformComponent with new local values
@@ -227,6 +237,9 @@ void ImGuiEditor::ImGuiViewport() {
 			}
 			else if (m_WasUsingGizmo) // Manipulation has just ended
 			{
+				// Re-enable physics control
+				transformComp.SetEditing(false);
+
 				// Retrieve the new local transform values
 				glm::vec3 newPosition = transformComp.GetPosition();
 				glm::vec3 newRotationRadians = transformComp.GetRotation();
@@ -262,6 +275,8 @@ void ImGuiEditor::ImGuiViewport() {
 						}
 					);
 				}
+
+				g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
 			}
 
 			// Update m_WasUsingGizmo for the next frame
