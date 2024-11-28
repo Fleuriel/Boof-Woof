@@ -241,7 +241,6 @@ void GraphicsSystem::UpdateLoop() {
 				//std::cout << "Current Shader in use for this Entity: " << shaderName << '\n';
 
 
-				g_AssetManager.GetShader("Shader3D").Use();
 
 
 				if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
@@ -256,31 +255,6 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-				// START OF 3D
-				if (graphicsComp.getFollowCamera()) {
-					SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
-				}
-				else {
-					g_AssetManager.GetShader("Shader3D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
-					g_AssetManager.GetShader("Shader3D").SetUniform("view", glm::mat4(1.0f));
-					g_AssetManager.GetShader("Shader3D").SetUniform("projection", glm::mat4(1.0f));
-
-				}
-				g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
-				for (int i = 0; i < lights_infos.size(); i++)
-				{
-					std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
-					g_AssetManager.GetShader("Shader3D").SetUniform(lightPosStr.c_str(), lights_infos[i].position);
-					std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
-					g_AssetManager.GetShader("Shader3D").SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
-					std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
-					g_AssetManager.GetShader("Shader3D").SetUniform(lightColorStr.c_str(), lights_infos[i].color);
-				}
-				/*g_AssetManager.GetShader("Shader3D").SetUniform("lights[0].position", lightPos);
-				g_AssetManager.GetShader("Shader3D").SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
-				g_AssetManager.GetShader("Shader3D").SetUniform("numLights", static_cast<int>(lights_infos.size()));
-				g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera_render.Position);
-				g_AssetManager.GetShader("Shader3D").SetUniform("lightOn", lightOn);
 
 				/*std::cout << "entity "<< entity << "\n";
 				std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
@@ -288,56 +262,47 @@ void GraphicsSystem::UpdateLoop() {
 
 
 				//if (graphicsComp.getTextureNumber() == 0) {
-				for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
-					mesh.textures.clear();
-				}
+				//for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+				//	mesh.textures.clear();
+				//}
 
-				g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt = 0;
+				//g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt = 0;
 				//}
 
 
-				while (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()) {
-
-
-#ifdef _DEBUG
-					//std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->name << '\n';
-
-					//std::cout << graphicsComp.getModelName() << '\n';
-
-					//std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << '\t' << g_ResourceManager.getModel(graphicsComp.getModelName())->textures_loaded.size() << '\n';
-#endif
-
-					// add texture to mesh
-					Texture texture_add;
-
-					//if(graphicsComp.getModelName() == "sphere")
-					texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
-					//else
-						//texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName());
-
-					//std::cout << texture_add.id << "\n";
-
-					if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 0)
-						texture_add.type = "texture_diffuse";
-					else if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 1)
-						texture_add.type = "texture_normal";
-					else
-						texture_add.type = "texture_specular";
-
-					//std::cout << texture_add.type << '\n';
-
-					//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
-
-					for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
-						//	std::cout << "texture size before adding: " << mesh.textures.size() << "\n";
-							//mesh.textures.clear();
-						mesh.textures.push_back(texture_add);
-						//	std::cout << "entered\n";
-					}
-
-					g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
-
-				}
+				//while (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()) {
+				//
+				//	// add texture to mesh
+				//	Texture texture_add;
+				//
+				//	//if(graphicsComp.getModelName() == "sphere")
+				//	texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
+				//	//else
+				//		//texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName());
+				//
+				//	//std::cout << texture_add.id << "\n";
+				//
+				//	if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 0)
+				//		texture_add.type = "texture_diffuse";
+				//	else if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 1)
+				//		texture_add.type = "texture_normal";
+				//	else
+				//		texture_add.type = "texture_specular";
+				//
+				//	//std::cout << texture_add.type << '\n';
+				//
+				//	//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
+				//
+				//	for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+				//		//	std::cout << "texture size before adding: " << mesh.textures.size() << "\n";
+				//			//mesh.textures.clear();
+				//		mesh.textures.push_back(texture_add);
+				//		//	std::cout << "entered\n";
+				//	}
+				//
+				//	g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
+				//
+				//}
 
 
 				//clear all textures
@@ -369,11 +334,9 @@ void GraphicsSystem::UpdateLoop() {
 
 						//graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Shader3D"));
 						//std::cout << "Drawing entity: " << entity << '\n';
-				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("Shader3D"));
 				//				g_AssetManager.ModelMap[graphicsComp.getModelName()].Draw(g_AssetManager.GetShader("Shader3D"));
 								//graphicsComp.getModel()->DrawLine(g_AssetManager.GetShader("OutlineAndFont"));
 
-				g_AssetManager.GetShader("Shader3D").UnUse();
 
 
 
@@ -385,8 +348,6 @@ void GraphicsSystem::UpdateLoop() {
 					//	g_AssetManager.GetShader(shaderName).SetUniform("setFinalAlpha", shader.GetFinalAlpha());
 
 					g_AssetManager.GetShader(shaderName).SetUniform("inputColor", shader.GetColor());
-
-
 
 					g_AssetManager.GetShader(shaderName).SetUniform("inputLight", lightPos);
 
@@ -413,6 +374,46 @@ void GraphicsSystem::UpdateLoop() {
 						g_AssetManager.GetShader(shaderName).SetUniform("useTexture", false);
 					}
 				}
+
+				if (shaderName == "Shader3D")
+				{
+					// START OF 3D
+					if (graphicsComp.getFollowCamera()) {
+						SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
+					}
+					else {
+						g_AssetManager.GetShader("Shader3D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+						g_AssetManager.GetShader("Shader3D").SetUniform("view", glm::mat4(1.0f));
+						g_AssetManager.GetShader("Shader3D").SetUniform("projection", glm::mat4(1.0f));
+					}
+					g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
+					for (int i = 0; i < lights_infos.size(); i++)
+					{
+						std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
+						g_AssetManager.GetShader("Shader3D").SetUniform(lightPosStr.c_str(), lights_infos[i].position);
+						std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
+						g_AssetManager.GetShader("Shader3D").SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
+						std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
+						g_AssetManager.GetShader("Shader3D").SetUniform(lightColorStr.c_str(), lights_infos[i].color);
+					}
+					/*g_AssetManager.GetShader("Shader3D").SetUniform("lights[0].position", lightPos);
+					g_AssetManager.GetShader("Shader3D").SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
+					g_AssetManager.GetShader("Shader3D").SetUniform("numLights", static_cast<int>(lights_infos.size()));
+					g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera_render.Position);
+					g_AssetManager.GetShader("Shader3D").SetUniform("lightOn", lightOn);
+
+
+
+					g_AssetManager.GetShader("Shader3D").SetUniform("texture_diffuse1", g_ResourceManager.GetTextureDDS(graphicsComp.GetDiffuseName()));
+					
+					//hasTexture
+					//hasNormal
+					//hasHeight
+
+					g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("Shader3D"));
+
+				}
+
 
 
 				if (shaderName == "Shader2D")

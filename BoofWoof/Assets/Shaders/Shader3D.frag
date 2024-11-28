@@ -17,6 +17,9 @@ layout(location = 1) in vec3 vertNormal;
 layout(location = 2) in vec3 FragPos;
 layout(location = 3) in vec2 TexCoords;
 
+uniform bool hasTexture;
+//uniform bool hasNormal;
+//uniform bool hasHeight;
 
 uniform sampler2D texture_diffuse1;
 uniform sampler2D texture_normal1;
@@ -50,30 +53,13 @@ in VS_OUT {
 void main()
 {
 
-    if(textureCount ==2 ){
-        vec3 normal = texture(texture_normal1, TexCoords).rgb;
+    if(hasTexture)
+    {
 
-        normal = normalize(normal * 2.0 - 1.0);
-
-        vec3 color = texture(texture_diffuse1, TexCoords).rgb;
-        vec3 ambient = 0.1 * color;
-        vec3 lightDir = normalize(fs_in.TangentLightPos[0] - fs_in.TangentFragPos);
-
-        float diff = max(dot(normal, lightDir), 0.0);
-        vec3 diffuse = diff * color;
-
-        vec3 viewDir = normalize(fs_in.TangentViewPos - fs_in.TangentFragPos);
-        vec3 reflectDir = reflect(-lightDir, normal);
-        vec3 halfwayDir = normalize(lightDir + viewDir);
-        float spec = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
-        vec3 specular = vec3(0.2) * spec;
-        fragColor = vec4(ambient + diffuse + specular, 1.0);
-
-    }else if(textureCount == 1 )
-	{
         vec4 textureColor = texture(texture_diffuse1, TexCoords);
         vec3 result = vec3(0.0f,0.0f,0.0f);
-        for(int i = 0; i < numLights; i++){
+        for(int i = 0; i < numLights; i++)
+        {
 		    vec3 lightVector = lights[i].position - FragPos;
             float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
             textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
@@ -90,18 +76,43 @@ void main()
         }
         
         
-        if(lightOn){
+        if(lightOn)
+        {
             fragColor = vec4(result, 1.0);
-        }else{
+        }
+        else
+        {
 			fragColor = vec4(textureColor);
 		}
-        
-	}else{
+    }
+//    else if(hasNormal && hasTexture)
+//    {
+//        vec3 normal = texture(texture_diffuse1, TexCoords).rgb;
+//
+//        normal = normalize(normal * 2.0 - 1.0);
+//
+//        vec3 color = texture(texture_diffuse1, TexCoords).rgb;
+//        vec3 ambient = 0.1 * color;
+//        vec3 lightDir = normalize(fs_in.TangentLightPos[0] - fs_in.TangentFragPos);
+//
+//        float diff = max(dot(normal, lightDir), 0.0);
+//        vec3 diffuse = diff * color;
+//
+//        vec3 viewDir = normalize(fs_in.TangentViewPos - fs_in.TangentFragPos);
+//        vec3 reflectDir = reflect(-lightDir, normal);
+//        vec3 halfwayDir = normalize(lightDir + viewDir);
+//        float spec = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
+//        vec3 specular = vec3(0.2) * spec;
+//        fragColor = vec4(ambient + diffuse + specular, 1.0);
+//
+//    }
+//    else if(hasNormal && hasTexture && hasHeight)
+//    {
+//        fragColor = vec4(1.0f);
+//    }
+    else{
         vec3 lightVector = lights[0].position - FragPos;
         float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
         fragColor = vec4(vertColor*N_dot_L, 1.0f);
 	}
-
-       
-   
 }

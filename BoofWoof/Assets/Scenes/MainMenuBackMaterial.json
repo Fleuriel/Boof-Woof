@@ -29,7 +29,7 @@
             },
             "MaterialComponent": {
                 "name": "Floor3tripleheight",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -75,7 +75,7 @@
             },
             "MaterialComponent": {
                 "name": "Floor3tripleheight",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -121,7 +121,7 @@
             },
             "MaterialComponent": {
                 "name": "Floor3tripleheight",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -167,7 +167,7 @@
             },
             "MaterialComponent": {
                 "name": "Floor3tripleheight",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -213,7 +213,7 @@
             },
             "MaterialComponent": {
                 "name": "Floor3tripleheight",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -259,7 +259,7 @@
             },
             "MaterialComponent": {
                 "name": "Floor3tripleheight",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -305,7 +305,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -351,7 +351,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -397,7 +397,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -443,7 +443,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -489,7 +489,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -535,7 +535,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -581,7 +581,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -627,7 +627,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -673,7 +673,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -719,7 +719,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -765,7 +765,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -811,7 +811,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -857,7 +857,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -903,7 +903,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -949,7 +949,7 @@
             },
             "MaterialComponent": {
                 "name": "WallCorner",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -995,7 +995,7 @@
             },
             "MaterialComponent": {
                 "name": "WallCorner",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1041,7 +1041,7 @@
             },
             "MaterialComponent": {
                 "name": "WallBothSide",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1114,7 +1114,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1160,7 +1160,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1206,7 +1206,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1252,7 +1252,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1298,7 +1298,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1344,7 +1344,7 @@
             },
             "MaterialComponent": {
                 "name": "Wall",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1390,7 +1390,7 @@
             },
             "MaterialComponent": {
                 "name": "Fireplace",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1436,7 +1436,7 @@
             },
             "MaterialComponent": {
                 "name": "Banner",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1482,7 +1482,7 @@
             },
             "MaterialComponent": {
                 "name": "Banner",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1528,7 +1528,7 @@
             },
             "MaterialComponent": {
                 "name": "Bed2",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1574,7 +1574,7 @@
             },
             "MaterialComponent": {
                 "name": "Carpet",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1620,7 +1620,7 @@
             },
             "MaterialComponent": {
                 "name": "Chair2",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1666,7 +1666,7 @@
             },
             "MaterialComponent": {
                 "name": "Table2",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1712,7 +1712,7 @@
             },
             "MaterialComponent": {
                 "name": "Wardrobe2",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1758,7 +1758,7 @@
             },
             "MaterialComponent": {
                 "name": "Table",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1804,7 +1804,7 @@
             },
             "MaterialComponent": {
                 "name": "Chair",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1850,7 +1850,7 @@
             },
             "MaterialComponent": {
                 "name": "Bookshelf1",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1896,7 +1896,7 @@
             },
             "MaterialComponent": {
                 "name": "Bookshelf2",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1942,7 +1942,7 @@
             },
             "MaterialComponent": {
                 "name": "Bookshelf3",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -1988,7 +1988,7 @@
             },
             "MaterialComponent": {
                 "name": "Chair2",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -2034,7 +2034,7 @@
             },
             "MaterialComponent": {
                 "name": "Chair2",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -2080,7 +2080,7 @@
             },
             "MaterialComponent": {
                 "name": "WallTorch",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -2126,7 +2126,7 @@
             },
             "MaterialComponent": {
                 "name": "WallBothSide",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -2172,7 +2172,7 @@
             },
             "MaterialComponent": {
                 "name": "WallTorch",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -2256,7 +2256,7 @@
             },
             "MaterialComponent": {
                 "name": "WallTorch",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -2302,7 +2302,7 @@
             },
             "MaterialComponent": {
                 "name": "Carpet",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -2348,7 +2348,7 @@
             },
             "MaterialComponent": {
                 "name": "Couch",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -2394,7 +2394,7 @@
             },
             "MaterialComponent": {
                 "name": "Banner",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -2440,7 +2440,7 @@
             },
             "MaterialComponent": {
                 "name": "Banner",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
@@ -2486,7 +2486,7 @@
             },
             "MaterialComponent": {
                 "name": "Banner",
-                "shader": "Shader3D",
+                "shader": "Material",
                 "shaderIdx": 5,
                 "properties": {
                     "color": [
