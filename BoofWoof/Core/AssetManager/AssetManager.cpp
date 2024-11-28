@@ -361,9 +361,15 @@ bool AssetManager::LoadTextures() {
                 // Ensure texFilePath is valid
                 fs::path outputPath = fs::path(FILEPATH_RESOURCE_TEXTURES) / (nameWithoutExtension + ".dds");
 
-                // Run the compression command
-                textureInfo.LoadTextureDescriptor(descriptorFilePath);
-                CompressTextureWithDescriptor(textureInfo, texFilePath, outputPath.string());
+                if (fs::exists(outputPath)) {
+                    std::cout << "File exists\n";
+                }
+                else
+                {
+                    // Run the compression command
+                    textureInfo.LoadTextureDescriptor(descriptorFilePath);
+                    CompressTextureWithDescriptor(textureInfo, texFilePath, outputPath.string());
+                }
                 g_ResourceManager.AddTextureDDS(nameWithoutExtension);
 
 
