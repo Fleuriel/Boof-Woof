@@ -344,7 +344,7 @@ void GraphicsSystem::UpdateLoop() {
 				//for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
 				////	std::cout << "texture size after clearing: " << mesh.textures.size() << "\n";
 				//}
-				g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
+				// g_AssetManager.GetShader("Shader3D").SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
 				//std::cout << "out model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
 				//std::cout << "out comp tetx cnt " << graphicsComp.getTextureNumber() << "\n";
 
@@ -379,7 +379,7 @@ void GraphicsSystem::UpdateLoop() {
 
 				g_AssetManager.GetShader(shaderName).Use();
 				SetShaderUniforms(g_AssetManager.GetShader(shaderName), shdrParam);
-				if (shaderName == "Material" )
+				if (shaderName == "Material")
 				{
 					//if (shaderName == "Shader3D")
 					//	g_AssetManager.GetShader(shaderName).SetUniform("setFinalAlpha", shader.GetFinalAlpha());
@@ -415,48 +415,41 @@ void GraphicsSystem::UpdateLoop() {
 				}
 
 
+				if (shaderName == "Shader2D")
+				{
+					// Set shader uniforms based on camera following
+					if (graphicsComp.getFollowCamera()) {
+						SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
+					}
+					else {
+						g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+						g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
+						g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
+					}
+
+					std::cout << graphicsComp.material.GetDiffuseID() << '\t' << graphicsComp.material.GetDiffuseName() << '\n';
+
+					// Bind texture
+					if (graphicsComp.material.GetDiffuseID() == 0) {
+						glBindTextureUnit(6, 0); // No texture
+					}
+					else {
+						glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(graphicsComp.material.GetDiffuseName())); // Texture with transparency
+					}
+
+					// Set texture uniform before drawing
+					g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
+
+					// Draw the model
+					g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader("Shader2D"));
+
+
+				}
+
+
+
 				g_AssetManager.GetShader(shaderName).UnUse();
 
-				//Model outline = ModelOutline3D(,glm::vec3(0.0f, 1.0f, 0.0f));
-				// START OF 3D BOX WIREFRAME MODE
-
-		//				g_AssetManager.GetShader("OutlineAndFont").Use();
-
-						// END OF 3D
-
-
-				g_AssetManager.GetShader("Shader2D").Use();
-
-				// Disable depth writing and enable blending for transparency
-
-
-
-				// Set shader uniforms based on camera following
-				if (graphicsComp.getFollowCamera()) {
-					SetShaderUniforms(g_AssetManager.GetShader("Shader2D"), shdrParam);
-				}
-				else {
-					g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", shdrParam.WorldMatrix);
-					g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
-					g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
-				}
-
-				// Bind texture
-				if (graphicsComp.getTextureNumber() == 0) {
-					glBindTextureUnit(6, 0); // No texture
-				}
-				else {
-					glBindTextureUnit(6, graphicsComp.getTexture(0)); // Texture with transparency
-				}
-
-				// Set texture uniform before drawing
-				g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
-
-				// Draw the model
-				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader("Shader2D"));
-
-				// Restore settings
-				g_AssetManager.GetShader("Shader2D").UnUse();
 
 
 

@@ -33,8 +33,10 @@ public:
     // Setters
     void setModelName(std::string modelName) { m_ModelName = modelName; }
     void SetModelID(int modelID) { m_ModelID = modelID; }
+
     void AddTexture(int textureid) { textures.push_back(textureid); }
 	void SetTextures(std::vector<int> textureids) { textures = textureids; }
+
 	void clearTextures() { textures.clear(); }
 	bool RemoveTexture(int textureid) {
 		for (int i = 0; i < textures.size(); i++) {
