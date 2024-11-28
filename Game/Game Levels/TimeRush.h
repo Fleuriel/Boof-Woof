@@ -77,6 +77,11 @@ class TimeRush : public Level
     void InitLevel() override 
     {  
         cameraController = new CameraController(playerEnt);
+        g_Checklist.OnInitialize();
+        g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec3(0.3f, 0.09f, 0.0f), "Do5");
+        g_Checklist.ChangeAsset(g_Checklist.Box2, glm::vec3(0.0f, 0.0f, 0.0f), "");
+        g_Checklist.ChangeAsset(g_Checklist.Box3, glm::vec3(0.0f, 0.0f, 0.0f), "");
+        g_Checklist.ChangeAsset(g_Checklist.Box4, glm::vec3(0.0f, 0.0f, 0.0f), "");
     }
 
     void UpdateLevel(double deltaTime) override
@@ -161,7 +166,17 @@ class TimeRush : public Level
 
         if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallDoor")
         {
-            g_LevelManager.SetNextLevel("MainHall");
+            if (!g_Checklist.finishTR)
+            {
+                g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
+                g_Checklist.OnUpdate(deltaTime);
+                g_Checklist.finishTR = true;
+            }
+
+            if (g_Checklist.finishTR)
+            {
+                g_LevelManager.SetNextLevel("MainHall");
+            }
         }
     }
 

@@ -14,7 +14,7 @@ public:
 	void ChangeAsset(Entity ent, glm::vec3 scale, std::string textureName);
 
 public:
-	bool shutted{ false };
+	bool shutted{ false }, finishTR{ false };
 	Entity Do1{}, Do2{}, Do3{}, Do4{};
 	Entity Box1{}, Box2{}, Box3{}, Box4{};
 
@@ -25,7 +25,7 @@ private:
 	bool playAudio{ false };
 
 	double clTimer = 0.0;
-	double clLimit = 4.0;
+	double clLimit = 3.0;
 
 	bool corgiText{ false };
 
