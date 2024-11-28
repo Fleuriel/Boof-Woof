@@ -58,10 +58,10 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		if (ElapsedTime >= FallDuration) 
 		{
 			isFalling = false;
-			// Ensure final position
-			currentRotation.x = -90.0f;
-			transform.SetRotation(glm::radians(currentRotation));
-			transform.SetPosition(initialPos + TargetPos);
+			//// Ensure final position
+			//currentRotation.x = -90.0f;
+			//transform.SetRotation(glm::radians(currentRotation));
+			//transform.SetPosition(initialPos + TargetPos);
 		}
 	}
 
@@ -117,6 +117,7 @@ void RopeBreaker::DropBridge()
 	isFalling = true;
 	ElapsedTime = 0.0f;
 }
+
 
 void RopeBreaker::SpawnBoneCatcher()
 {

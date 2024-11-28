@@ -575,7 +575,7 @@ void MyPhysicsSystem::AddEntityBody(Entity entity, float mass) {
 
             float actualMass = bodySettings.mMassPropertiesOverride.mMass;
             collisionComponent.SetActualMass(actualMass);
-            std::cout << "Mass: " << actualMass << std::endl;
+            //std::cout << "Mass: " << actualMass << std::endl;
         }
 
         bodyInterface.AddBody(body->GetID(), JPH::EActivation::Activate);
@@ -681,7 +681,7 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity, float mass)
 
             float actualMass = bodySettings.mMassPropertiesOverride.mMass;
             collisionComponent.SetActualMass(actualMass);
-            std::cout << "Mass: " << actualMass << std::endl;
+            //std::cout << "Mass: " << actualMass << std::endl;
         }
 
         bodyInterface.AddBody(newBody->GetID(), JPH::EActivation::Activate);
