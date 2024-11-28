@@ -97,7 +97,7 @@ void Checklist::OnUpdate(double deltaTime)
 		corgiText = true;
 	}
 
-	if ((Check1 && Check2 && Check3 && Check4 && corgiText) || finishTR)
+	if ((Check1 && Check2 && Check3 && Check4 && corgiText) || finishTR || finishRB)
 	{
 		clTimer += deltaTime;
 
@@ -221,9 +221,20 @@ void Checklist::ChangeAsset(Entity ent, glm::vec3 scale, std::string textureName
 
 	g_Coordinator.GetComponent<TransformComponent>(ent).SetScale(scale);
 
+	auto& pos = g_Coordinator.GetComponent<TransformComponent>(ent).GetPosition();
+
 	if (textureName == "Do6") 
 	{
-		auto& pos = g_Coordinator.GetComponent<TransformComponent>(ent).GetPosition();
-		g_Coordinator.GetComponent<TransformComponent>(ent).SetPosition(glm::vec3(-0.835f, pos.y, pos.z));
+		g_Coordinator.GetComponent<TransformComponent>(ent).SetPosition(glm::vec3(pos.x + 0.02f, pos.y, pos.z));
+	}
+
+	if (textureName == "Do7")
+	{
+		g_Coordinator.GetComponent<TransformComponent>(ent).SetPosition(glm::vec3(pos.x, pos.y - 0.01f, pos.z));
+	}
+	
+	if (textureName == "Do8") 
+	{
+		g_Coordinator.GetComponent<TransformComponent>(ent).SetPosition(glm::vec3(pos.x - 0.02f, pos.y, pos.z));
 	}
 }

@@ -204,5 +204,6 @@ class TimeRush : public Level
 		g_Coordinator.ResetEntities();
 		timer = 0.0;
 		currentTextureIndex = 53;
+		g_Checklist.finishTR = false;
 	}
 };
