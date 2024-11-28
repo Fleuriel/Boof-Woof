@@ -746,12 +746,12 @@ bool AssetManager::LoadObjects() {
 #else
                     runCommand("..\\bin\\Release-x64\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
 #endif
-                    g_ResourceManager.AddModelBinary(nameWithoutExtension);
 
 #ifdef _DEBUG
                     std::cout << "Binary file created: " << binFilePath << std::endl;
 #endif
                 }
+                    g_ResourceManager.AddModelBinary(nameWithoutExtension);
             }
             else {
 #ifdef _DEBUG
