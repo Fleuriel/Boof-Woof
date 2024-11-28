@@ -101,7 +101,7 @@ void RopeBreaker::DropBridge()
 {
 	if (!bridgeAudio) 
 	{
-		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WoodenBridgeDropping.wav");
+		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WoodenBridgeDropping.wav", false);
 		bridgeAudio = true;
 	}
 
@@ -139,25 +139,27 @@ void RopeBreaker::DespawnRope()
 	{
 		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 		{
-			if (PlayerCollidedRope1) 
+			if (PlayerCollidedRope1 && !deletedRope1)
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
 				{
-					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav");
+					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav", false);
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					RopeDespawned++;
+					deletedRope1 = true;
 				}
 			}
 			
-			if (PlayerCollidedRope2)
+			if (PlayerCollidedRope2 && !deletedRope2)
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
 				{
-					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav");
+					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav", false);
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					RopeDespawned++;
+					deletedRope2 = true;
 				}
 			}
 		}		

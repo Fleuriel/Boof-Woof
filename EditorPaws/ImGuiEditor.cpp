@@ -3862,27 +3862,27 @@ void ImGuiEditor::Settings()
 	/// camera control
 	if (g_Input.GetKeyState(GLFW_KEY_UP))
 	{
-		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::FORWARD, static_cast<float>(g_Core->m_DeltaTime));
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::FORWARD, static_cast<float>(g_Core->m_DeltaTime) + 0.05f);
 	}
 	if (g_Input.GetKeyState(GLFW_KEY_DOWN))
 	{
-		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::BACKWARD, static_cast<float>(g_Core->m_DeltaTime));
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::BACKWARD, static_cast<float>(g_Core->m_DeltaTime) + 0.05f);
 	}
 	if (g_Input.GetKeyState(GLFW_KEY_LEFT))
 	{
-		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::LEFT, static_cast<float>(g_Core->m_DeltaTime));
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::LEFT, static_cast<float>(g_Core->m_DeltaTime) + 0.05f);
 	}
 	if (g_Input.GetKeyState(GLFW_KEY_RIGHT))
 	{
-		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::RIGHT, static_cast<float>(g_Core->m_DeltaTime));
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::RIGHT, static_cast<float>(g_Core->m_DeltaTime) + 0.05f);
 	}
 	if (g_Input.GetKeyState(GLFW_KEY_RIGHT_SHIFT))
 	{
-		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::UP, static_cast<float>(g_Core->m_DeltaTime));
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::UP, static_cast<float>(g_Core->m_DeltaTime) + 0.05f);
 	}
 	if (g_Input.GetKeyState(GLFW_KEY_RIGHT_CONTROL))
 	{
-		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::DOWN, static_cast<float>(g_Core->m_DeltaTime));
+		g_Coordinator.GetSystem<GraphicsSystem>()->GetCamera().ProcessKeyboard(Camera_Movement::DOWN, static_cast<float>(g_Core->m_DeltaTime) + 0.05f);
 	}
 
 

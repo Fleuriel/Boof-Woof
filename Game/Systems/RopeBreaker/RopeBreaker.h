@@ -40,7 +40,7 @@ private:
 	glm::vec3 initialPos{};
 	glm::vec3 initialRotation{};
 
-	bool bridgeAudio{ false };
+	bool bridgeAudio{ false }, deletedRope1{ false }, deletedRope2{ false };
 
 	float ElapsedTime = 0.0f;	// Time since animation started
 	float FallDuration = 2.0f;	// Total duration of animation
