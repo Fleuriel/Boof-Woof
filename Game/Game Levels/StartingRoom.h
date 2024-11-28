@@ -145,6 +145,7 @@ public:
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 	}
+
 private:
 	bool camerachange = false;
 };

@@ -164,5 +164,6 @@ class MainHall : public Level
 		g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
+		g_Checklist.shutted = false;
 	}
 };

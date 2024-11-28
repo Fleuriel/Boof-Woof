@@ -160,6 +160,7 @@ void Checklist::OnShutdown()
 
 	shutted = true;
 	clTimer = 0.0;
+	Check1 = Check2 = Check3 = Check4 = corgiText = false;
 }
 
 void Checklist::ChangeBoxChecked(Entity ent)
