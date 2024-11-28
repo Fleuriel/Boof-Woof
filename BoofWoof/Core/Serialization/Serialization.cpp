@@ -890,6 +890,8 @@ bool Serialization::LoadScene(const std::string& filepath)
                     auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
                     graphicsComp.material = materialComponent; 
                     
+                    graphicsComp.setTexture(materialComponent.GetDiffuseName());
+
 //                    graphicsComp.AddTexture(g_ResourceManager.GetTextureDDS(graphicsComp.material.GetDiffuseName()));
   
                     

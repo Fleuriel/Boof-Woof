@@ -2676,14 +2676,22 @@ void ImGuiEditor::InspectorWindow()
 							std::string objectName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
 
 							auto& material = graphicsComponent.material;
+
+
+
 							std::string loadSaveLocation = FILEPATH_ASSET_MATERIAL + "\\" + objectName + ".mat";
 
 							std::string loadSaveLocationExt = FILEPATH_ASSET_MATERIAL + "\\" + graphicsComponent.material.GetMaterialNameMat() ;
 
 
+							auto& materialComp = g_Coordinator.GetComponent<MaterialComponent>(g_SelectedEntity);
+
+
+							materialComp = material;
+
 							if (!material.loadedMaterial)
 							{
-								if (material.LoadMaterialDescriptor(loadSaveLocation))
+								//if (material.LoadMaterialDescriptor(loadSaveLocation))
 								{
 									std::cout << "load material is true\n";
 									material.loadedMaterial = true;
@@ -2694,6 +2702,7 @@ void ImGuiEditor::InspectorWindow()
 								if (ImGui::CollapsingHeader("Materials", ImGuiTreeNodeFlags_DefaultOpen))
 								{
 									// do some search for the Shader name:
+
 
 									static float WidthIndentation = 125.0f;
 									static float ComboIdentation = 300.0f;
@@ -2720,6 +2729,7 @@ void ImGuiEditor::InspectorWindow()
 									}
 
 									// ImGui::InputText("##MatName1001 ", graphicsComponent.material.GetMaterialName().data(), graphicsComponent.material.GetMaterialName().capacity() + 1);
+
 
 
 
@@ -2787,8 +2797,8 @@ void ImGuiEditor::InspectorWindow()
 
 									// Ensure default selection is the first item
 									if (material.GetShaderIndex() < 0 || material.GetShaderIndex() >= g_AssetManager.shdrpgmOrder.size()) {
-										material.SetShaderIndex(6); // Default to the first item
-										material.SetShaderName(g_AssetManager.shdrpgmOrder[6]); // Set the chosen shader
+										material.SetShaderIndex(7); // Default to the first item
+										material.SetShaderName(g_AssetManager.shdrpgmOrder[7]); // Set the chosen shader
 									}
 
 									int& Material_current_idx = material.GetShaderIDRef(); // Index for the selected item
@@ -2806,13 +2816,18 @@ void ImGuiEditor::InspectorWindow()
 										graphicsComponent.material.SetShaderIndex(Material_current_idx);
 
 										// Retrieve the selected string from the original vector
-										material.SetShaderName(g_AssetManager.shdrpgmOrder[material.GetShaderIndex()]);
-										graphicsComponent.material.SetShaderName(g_AssetManager.shdrpgmOrder[material.GetShaderIndex()]);
+										//material.SetShaderName(g_AssetManager.shdrpgmOrder[material.GetShaderIndex()]);
+										//graphicsComponent.material.SetShaderName(g_AssetManager.shdrpgmOrder[material.GetShaderIndex()]);
 									}
 
 									//graphicsComponent.material.SetDiffuseName(graphicsComponent.getModelName());
 									//graphicsComponent.material.SetDiffuseID(g_ResourceManager.GetTextureDDS(graphicsComponent.getModelName()));
 
+
+									std::cout << materialComp.GetDiffuseName() << '\t' << material.GetDiffuseName() << '\t' << materialComp.GetDiffuseID() << '\t' << material.GetDiffuseID();
+
+
+//									std::cout << materialComp.GetShaderName() << '\n';
 
 									ImGui::Text("Texture ");
 									ImGui::SameLine(WidthIndentation);
@@ -2852,10 +2867,10 @@ void ImGuiEditor::InspectorWindow()
 
 											std::cout << textureId << '\n';
 
-											graphicsComponent.material.SetDiffuseID(textureId);
-											graphicsComponent.material.SetDiffuseName(selectedFile);
-											material.SetDiffuseID(textureId);
-											material.SetDiffuseName(selectedFile);
+											//graphicsComponent.material.SetDiffuseID(textureId);
+											//graphicsComponent.material.SetDiffuseName(selectedFile);
+											//material.SetDiffuseID(textureId);
+											//material.SetDiffuseName(selectedFile);
 
 											std::cout << material.GetDiffuseID() << graphicsComponent.material.GetDiffuseID() << '\n';
 

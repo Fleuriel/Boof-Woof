@@ -84,7 +84,7 @@ public:
 	bool FreeMaterials();
 
 
-	
+
 
 	//Getters
 	OpenGLShader& GetShader(std::string);													//Function to access shaders
@@ -100,7 +100,8 @@ public:
 
 	MaterialComponent LoadMaterialFromFile(const std::string& filePath);
 
-//	std::vector<std::string> MaterialFiles;													//Container to store animation file names
+	std::vector<std::string> AnimationFiles;												//Container to store animation file names
+	//	std::vector<std::string> MaterialFiles;													//Container to store animation file names
 	std::vector<std::string> MaterialFiles;
 
 	std::vector<std::string>shdrpgmOrder{};													//Container to store the order of shader programs

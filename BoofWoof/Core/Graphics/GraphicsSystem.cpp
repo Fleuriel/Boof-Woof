@@ -238,7 +238,7 @@ void GraphicsSystem::UpdateLoop() {
 
 				auto& shader = graphicsComp.material;
 				auto& shaderName = graphicsComp.material.GetShaderNameRef();
-				std::cout << "Current Shader in use for this Entity: " << shaderName << '\n';
+				//std::cout << "Current Shader in use for this Entity: " << shaderName << '\n';
 
 
 				g_AssetManager.GetShader("Shader3D").Use();
@@ -395,15 +395,15 @@ void GraphicsSystem::UpdateLoop() {
 					g_AssetManager.GetShader(shaderName).SetUniform("smoothness", shader.GetSmoothness());
 
 
-					std::cout << shader.GetDiffuseID() << '\n';
+					//std::cout << shader.GetDiffuseID() << '\n';
 
-					std::cout << graphicsComp.material.GetDiffuseID() << '\n';
+					// std::cout << graphicsComp.material.GetDiffuseID() << '\n';
 
 
 					// Check if a texture is set, and bind it
 					if (shader.GetDiffuseID() >= 0) { // Assuming textureID is -1 if no texture
 						glActiveTexture(GL_TEXTURE0);
-						std::cout << shader.GetDiffuseID() << '\n';
+				//		std::cout << shader.GetDiffuseID() << '\n';
 
 						glBindTexture(GL_TEXTURE_2D, shader.GetDiffuseID());
 						g_AssetManager.GetShader(shaderName).SetUniform("albedoTexture", 0);

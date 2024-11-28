@@ -164,8 +164,8 @@ void AssetManager::LoadAll() {
         loadScenes = AssetManager::LoadScenes(),
         //loadPrefabs   = AssetManager::LoadPrefabs(),
         loadShaders = AssetManager::LoadShaders(),
-        loadMaterial = AssetManager::LoadMaterials(),
-        loadAnimations = AssetManager::LoadAnimations();
+   //     loadAnimations = AssetManager::LoadAnimations(),
+        loadMaterial = AssetManager::LoadMaterials();
 
     std::cout
         << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
@@ -174,10 +174,10 @@ void AssetManager::LoadAll() {
         << ((loadFonts) ? "Fonts loaded successfully" : "Failed to load fonts") << std::endl
         << ((loadScenes) ? "Scenes loaded successfully" : "Failed to load scenes") << std::endl
         //<< ((loadPrefabs) ? "Prefabs loaded successfully" : "Failed to load prefabs") << std::endl
-        << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl 
+        << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl
         << ((loadObjects) ? "Object loaded Successfully" : "failed to load object") << '\n';
 #else
-        AssetManager::LoadTextures(),
+    AssetManager::LoadTextures(),
         AssetManager::LoadObjects(),
         //AssetManager::LoadSprites(),
         //AssetManager::LoadSounds(),
@@ -334,7 +334,7 @@ bool AssetManager::LoadTextures() {
                     fs::create_directory(FILEPATH_DESCRIPTOR_TEXTURES);
 
                 // Create an output file stream (ofstream) object
-                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_TEXTURES + "/" + nameWithoutExtension + ".json"};
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_TEXTURES + "/" + nameWithoutExtension + ".json" };
 
                 // Check if the file exists
                 if (std::filesystem::exists(descriptorFilePath)) {
@@ -361,9 +361,15 @@ bool AssetManager::LoadTextures() {
                 // Ensure texFilePath is valid
                 fs::path outputPath = fs::path(FILEPATH_RESOURCE_TEXTURES) / (nameWithoutExtension + ".dds");
 
-                // Run the compression command
-                textureInfo.LoadTextureDescriptor(descriptorFilePath);
-                CompressTextureWithDescriptor(textureInfo, texFilePath, outputPath.string());
+                if (fs::exists(outputPath)) {
+                    //std::cout << "File exists\n";
+                }
+                else
+                {
+                    // Run the compression command
+                    textureInfo.LoadTextureDescriptor(descriptorFilePath);
+                    CompressTextureWithDescriptor(textureInfo, texFilePath, outputPath.string());
+                }
                 g_ResourceManager.AddTextureDDS(nameWithoutExtension);
 
 
@@ -628,12 +634,12 @@ bool AssetManager::LoadObjects() {
                 std::cout << mtlFileName << '\t' << pngFileName << '\t' << jpgFileName << '\t';
 #endif
 
-                std::cout << "\t" << nameWithoutExtension << '\n';
+                std::cout << "test without expenaisnom\t" << nameWithoutExtension << '\n';
 
 
                 // Check if the substring exists in the full string
                 size_t found = allowedExtensions.find(toLowerCase(Extension));
-                
+
                 size_t found2 = ignExt.find(toLowerCase(Extension));
 
                 if (!(found == std::string::npos && found2 == std::string::npos)) {
@@ -657,7 +663,7 @@ bool AssetManager::LoadObjects() {
                     DiscardToTrashBin(entry.path().string(), "FILEPATH_OBJECTS");
                 }
 
-                
+
 
                 for (int i = 0; i < ignoredExtensions.size(); ++i)
                 {
@@ -675,7 +681,7 @@ bool AssetManager::LoadObjects() {
                     }
                 }
 
-                
+
 
 #ifdef _DEBUG
                 std::cout << MTLCheck << '\t' << PNGCheck << '\t' << JPGCheck << '\n';
@@ -701,27 +707,28 @@ bool AssetManager::LoadObjects() {
 
 
                 std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_OBJECTS + "/Model_" + nameWithoutExtension + ".txt" };
-                std::ofstream outFile(descriptorFilePath);
-                
-               
- 
-                if (outFile.is_open())
-                {
-                    outFile << "File Name: " << nameWithoutExtension << '\n';
-                    outFile << "Source File Path: " << objFilePath << '\n';
-                    outFile << "Output File Path: " << binFilePath << '\n';
-                    outFile << "MTL File Exist: " << MTLCheck << '\n';
-                    outFile << "PNG File Exist: " << PNGCheck << '\n';
-                    outFile << "JPG File Exist: " << JPGCheck << '\n';
-                    outFile << "Expected Attributes: \n";
-                    outFile << " -  Vertices\n";
-                    outFile << " -  Indices\n";
-                    outFile << " -  Normals\n";
-                    outFile << "Transform Defauls: \n";
-                    outFile << " -  Scale: 1.0\n";
-                    outFile.close();
+
+                if (!fs::exists(descriptorFilePath)) {
+
+                    std::ofstream outFile(descriptorFilePath);
+
+                    if (outFile.is_open())
+                    {
+                        outFile << "File Name: " << nameWithoutExtension << '\n';
+                        outFile << "Source File Path: " << objFilePath << '\n';
+                        outFile << "Output File Path: " << binFilePath << '\n';
+                        outFile << "MTL File Exist: " << MTLCheck << '\n';
+                        outFile << "PNG File Exist: " << PNGCheck << '\n';
+                        outFile << "JPG File Exist: " << JPGCheck << '\n';
+                        outFile << "Expected Attributes: \n";
+                        outFile << " -  Vertices\n";
+                        outFile << " -  Indices\n";
+                        outFile << " -  Normals\n";
+                        outFile << "Transform Defauls: \n";
+                        outFile << " -  Scale: 1.0\n";
+                        outFile.close();
+                    }
                 }
- 
 
                 // bool firstCheck = false;
 
@@ -733,18 +740,18 @@ bool AssetManager::LoadObjects() {
 
                 }
 
-
+                if (!fs::exists(binFilePath)) {
 #ifdef _DEBUG
-                runCommand("..\\bin\\Debug-x64\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
+                    runCommand("..\\bin\\Debug-x64\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
 #else
-                runCommand("..\\bin\\Release-x64\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
+                    runCommand("..\\bin\\Release-x64\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
 #endif
-                g_ResourceManager.AddModelBinary(nameWithoutExtension);
+                    g_ResourceManager.AddModelBinary(nameWithoutExtension);
 
 #ifdef _DEBUG
-                std::cout << "Binary file created: " << binFilePath << std::endl;
+                    std::cout << "Binary file created: " << binFilePath << std::endl;
 #endif
-
+                }
             }
             else {
 #ifdef _DEBUG
@@ -815,8 +822,8 @@ bool AssetManager::LoadShaders() {
 
             size_t pos = entry.path().filename().string().find_last_of('.');
             if (pos != std::string::npos) {
-                
-                
+
+
                 std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
                 //std::cout << nameWithoutExtension << std::endl;
 
@@ -828,49 +835,7 @@ bool AssetManager::LoadShaders() {
                 size_t found = allowedExtensions.find(toLowerCase(Extension));
 
                 if (found == std::string::npos) {
-
-                    std::string file(entry.path().filename().string());
-                    std::wstring widefile(file.begin(), file.end());
-                    HWND hwnd = GetActiveWindow();
-                    std::string filepath(FILEPATH_ASSET_SHADERS);
-                    // Convert std::string to std::wstring
-                    std::wstring widefilepath(filepath.begin(), filepath.end());
-
-                    std::wstring message = L"Incompatible file \"" + widefile + L"\" detected in \"" + widefilepath + L"\" folder!\n\nFile moved to trash bin!";
-                    LPCWSTR boxMessage = message.c_str();
-
-                    MessageBox(hwnd, boxMessage, L"Load Failure", MB_OK | MB_ICONERROR);
-
-                    // Construct the full destination path including the file name
-                    fs::path destinationPath = FILEPATH_ASSET_TRASHBIN / entry.path().filename();
-                    fs::path trashbin = FILEPATH_ASSET_TRASHBIN;
-
-                    // If the trashbin file doesn't exist, create it
-                    if (!fs::exists(trashbin))
-                        fs::create_directory(trashbin);
-
-                    // If there exists a file in the trashbin with the same file name, add a counter to the name
-                    if (fs::exists(destinationPath)) {
-                        int counter = 1;
-
-                        std::string addstr = nameWithoutExtension + "(" + std::to_string(counter) + ")" + Extension;
-
-                        fs::path finalDestination = trashbin / addstr;
-
-                        while (fs::exists(finalDestination)) {
-                            counter++;
-                            addstr = nameWithoutExtension + "(" + std::to_string(counter) + ")" + Extension;
-                            finalDestination = trashbin / addstr;
-                        }
-
-                        // Move the file to the trashbin
-                        fs::rename(entry.path(), finalDestination);
-                    }
-                    // If there isn't an existing file in the trashbin with the same file name, move the file to the trashbin
-                    else {
-                        fs::rename(entry.path(), destinationPath);
-                    }
-
+                    DiscardToTrashBin(entry.path().string(), FILEPATH_ASSET_SHADERS);
                     continue;
                 }
 
@@ -1087,10 +1052,10 @@ OpenGLShader& AssetManager::GetShader(std::string shaderName) {
         size_t index = std::distance(shdrpgmOrder.begin(), it);
 
         // Check if the index is valid
-        if (index < shdrpgms.size()) 
+        if (index < shdrpgms.size())
         {
             // std::cout << shdrpgms[index].Validate();
-            
+
             // Return the shader program at the corresponding index
             return shdrpgms[index];
         }
@@ -1108,7 +1073,7 @@ OpenGLShader& AssetManager::GetShader(std::string shaderName) {
 }
 
 /**************************************************************************
- * @brief Free Shaders 
+ * @brief Free Shaders
  *************************************************************************/
 bool AssetManager::FreeShaders()
 {
@@ -1187,10 +1152,14 @@ bool AssetManager::LoadFonts() {
                     fs::create_directory(FILEPATH_DESCRIPTOR_FONTS);
 
                 // Create an output file stream (ofstream) object
-                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_FONTS+ "/" + nameWithoutExtension + ".json" };
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_FONTS + "/" + nameWithoutExtension + ".json" };
 
                 TextureDescriptor desc;
-                desc.SaveTextureDescriptor(descriptorFilePath);  // Correctly passing as const reference
+
+                if (!fs::exists(descriptorFilePath))
+                {
+                    desc.SaveTextureDescriptor(descriptorFilePath);  // Correctly passing as const reference
+                }
 
                 // Ensure the directory exists
                 if (!fs::exists(FILEPATH_RESOURCE_FONTS)) {
@@ -1200,14 +1169,17 @@ bool AssetManager::LoadFonts() {
                 // Ensure texFilePath is valid
                 fs::path outputPath = fs::path(FILEPATH_RESOURCE_FONTS) / (nameWithoutExtension + ".dds");
 
-                // Run the compression command
-                runCommand("..\\lib\\msdf-atlas-gen\\msdf-atlas-gen.exe -font " + FilePath + " -allglyphs -size 32 -imageout " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png" + " -json " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".json");
-                CompressTextureWithDescriptor(desc, FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png", outputPath.string());
-                if (std::remove((FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png").c_str()) == 0) {
-                    std::cout << "File deleted successfully.\n";
-                }
-                else {
-                    std::perror("Error deleting file");
+                if ((!fs::exists(outputPath)) || (!fs::exists(FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".json"))) {
+
+                    // Run the compression command
+                    runCommand("..\\lib\\msdf-atlas-gen\\msdf-atlas-gen.exe -font " + FilePath + " -allglyphs -size 32 -imageout " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png" + " -json " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".json");
+                    CompressTextureWithDescriptor(desc, FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png", outputPath.string());
+                    if (std::remove((FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png").c_str()) == 0) {
+                        std::cout << "File deleted successfully.\n";
+                    }
+                    else {
+                        std::perror("Error deleting file");
+                    }
                 }
                 g_ResourceManager.AddFontDDS(nameWithoutExtension);
 
@@ -1283,15 +1255,15 @@ bool AssetManager::LoadAnimations() {
                     continue;
                 }
 
-                
+                AnimationFiles.push_back(entry.path().filename().string());
 
 #ifdef _DEBUG
                 std::cout << "\n**************************************************************************************\n";
                 std::cout << nameWithoutExtension << " detected successfully!\n";
 #endif // DEBUG
 
-                g_AnimationManager.LoadAnimations(entry.path().string());
-                
+
+
 
             }
             else
@@ -1449,7 +1421,7 @@ void AssetManager::MonitorFiles(const std::wstring& path) {
             ReloadTextures();
         }
         /*else if (path == L"..\\BoofWoof\\Assets\\Art\\Sprites") {
-            
+
         }*/
         else if (path == L"..\\BoofWoof\\Assets\\Scenes") {
             //std::wcout << L"Changes detected." << std::endl;
