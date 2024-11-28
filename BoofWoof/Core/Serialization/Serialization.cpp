@@ -288,6 +288,9 @@ bool Serialization::SaveScene(const std::string& filepath) {
             aabbOffset.AddMember("z", collisionComp.GetAABBOffset().z, allocator);
             collisionData.AddMember("AABBOffset", aabbOffset, allocator);
 
+            // Save mass
+            collisionData.AddMember("Mass", collisionComp.GetMass(), allocator);
+
             entityData.AddMember("CollisionComponent", collisionData, allocator);
         }
 
@@ -639,6 +642,12 @@ bool Serialization::LoadScene(const std::string& filepath)
                         aabbOffset["z"].GetFloat()
                     );
                     collisionComponent.SetAABBOffset(loadedAABBOffset);
+                }
+
+                // Load mass
+                if (collisionData.HasMember("Mass")) {
+                    float mass = collisionData["Mass"].GetFloat();
+                    collisionComponent.SetMass(mass);
                 }
 
                 g_Coordinator.AddComponent(entity, collisionComponent);

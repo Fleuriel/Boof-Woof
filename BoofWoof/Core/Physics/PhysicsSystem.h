@@ -198,7 +198,8 @@ public:
     //JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& scale);
     //JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& scale, const glm::vec3& userAABBSize = glm::vec3(1.0f));
     JPH::Shape* CreateShapeForObjectType(ObjectType type, const glm::vec3& customAABB);
-    void UpdateEntityBody(Entity entity);
+    // UpdateEntityBody(Entity entity);
+    void UpdateEntityBody(Entity entity, float mass);
 
     /**************************************************************************/
     /*!
@@ -215,7 +216,8 @@ public:
     */
     /**************************************************************************/
     // Modify AddEntityBody to use the CollisionComponent
-    void AddEntityBody(Entity entity);  // Add a default layer
+    //void AddEntityBody(Entity entity);  // Add a default layer
+    void AddEntityBody(Entity entity, float mass);  // Add a default layer
 
     void RemoveEntityBody(Entity entity);
 
@@ -307,9 +309,9 @@ public:
         const JPH::ContactManifold& inManifold,
         JPH::ContactSettings& ioSettings)
     {
-        std::cout << "Collision detected between bodies with IDs: "
-            << inBody1.GetID().GetIndex() << " and "
-            << inBody2.GetID().GetIndex() << std::endl;
+        //std::cout << "Collision detected between bodies with IDs: "
+        //    << inBody1.GetID().GetIndex() << " and "
+        //    << inBody2.GetID().GetIndex() << std::endl;
 
         Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
         Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
@@ -326,8 +328,8 @@ public:
                 collisionComponent1.SetIsColliding(true);
                 collisionComponent1.SetLastCollidedObjectName(graphicsComponent2.getModelName());
 
-                std::cout << "Entity " << entity1 << " is colliding with: "
-                    << graphicsComponent2.getModelName() << std::endl;
+                //std::cout << "Entity " << entity1 << " is colliding with: "
+                //    << graphicsComponent2.getModelName() << std::endl;
             }
 
             if (g_Coordinator.HaveComponent<GraphicsComponent>(entity2)) {
@@ -337,8 +339,8 @@ public:
                 collisionComponent2.SetIsColliding(true);
                 collisionComponent2.SetLastCollidedObjectName(graphicsComponent1.getModelName());
 
-                std::cout << "Entity " << entity2 << " is colliding with: "
-                    << graphicsComponent1.getModelName() << std::endl;
+                //std::cout << "Entity " << entity2 << " is colliding with: "
+                //    << graphicsComponent1.getModelName() << std::endl;
             }
         }
     }
@@ -414,55 +416,55 @@ public:
         Entity entity1 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID1);
         Entity entity2 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID2);
 
-        // Debug message for contact removal
-        std::cout << "Contact removed between Body ID: " << bodyID1.GetIndex()
-            << " and Body ID: " << bodyID2.GetIndex() << std::endl;
+        //// Debug message for contact removal
+        //std::cout << "Contact removed between Body ID: " << bodyID1.GetIndex()
+        //    << " and Body ID: " << bodyID2.GetIndex() << std::endl;
 
-        // Debug entity mapping
-        std::cout << "Entity 1: " << entity1 << ", Entity 2: " << entity2 << std::endl;
+        //// Debug entity mapping
+        //std::cout << "Entity 1: " << entity1 << ", Entity 2: " << entity2 << std::endl;
 
         // Reset isColliding flag for entity1
         if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
             auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
 
-            // Debugging the state before resetting
-            std::cout << "Entity 1 before reset: isColliding = " << collisionComponent1.GetIsColliding() << std::endl;
+            //// Debugging the state before resetting
+            //std::cout << "Entity 1 before reset: isColliding = " << collisionComponent1.GetIsColliding() << std::endl;
 
             // Check and reset if the body matches
             if (collisionComponent1.GetPhysicsBody() != nullptr && collisionComponent1.GetPhysicsBody()->GetID() == bodyID1) {
                 collisionComponent1.SetIsColliding(false);
 
-                // Debugging the state after resetting
-                std::cout << "Entity 1 after reset: isColliding = " << collisionComponent1.GetIsColliding() << std::endl;
+                //// Debugging the state after resetting
+                //std::cout << "Entity 1 after reset: isColliding = " << collisionComponent1.GetIsColliding() << std::endl;
             }
             else {
-                std::cout << "Entity 1: Body mismatch or no physics body found." << std::endl;
+                //std::cout << "Entity 1: Body mismatch or no physics body found." << std::endl;
             }
         }
         else {
-            std::cout << "Entity 1 is invalid or does not have a CollisionComponent." << std::endl;
+            //std::cout << "Entity 1 is invalid or does not have a CollisionComponent." << std::endl;
         }
 
         // Reset isColliding flag for entity2
         if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
             auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
 
-            // Debugging the state before resetting
-            std::cout << "Entity 2 before reset: isColliding = " << collisionComponent2.GetIsColliding() << std::endl;
+            //// Debugging the state before resetting
+            //std::cout << "Entity 2 before reset: isColliding = " << collisionComponent2.GetIsColliding() << std::endl;
 
             // Check and reset if the body matches
             if (collisionComponent2.GetPhysicsBody() != nullptr && collisionComponent2.GetPhysicsBody()->GetID() == bodyID2) {
                 collisionComponent2.SetIsColliding(false);
 
-                // Debugging the state after resetting
-                std::cout << "Entity 2 after reset: isColliding = " << collisionComponent2.GetIsColliding() << std::endl;
+                //// Debugging the state after resetting
+                //std::cout << "Entity 2 after reset: isColliding = " << collisionComponent2.GetIsColliding() << std::endl;
             }
             else {
-                std::cout << "Entity 2: Body mismatch or no physics body found." << std::endl;
+                //std::cout << "Entity 2: Body mismatch or no physics body found." << std::endl;
             }
         }
         else {
-            std::cout << "Entity 2 is invalid or does not have a CollisionComponent." << std::endl;
+            //std::cout << "Entity 2 is invalid or does not have a CollisionComponent." << std::endl;
         }
     }
 
