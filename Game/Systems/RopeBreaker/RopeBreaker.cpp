@@ -138,7 +138,7 @@ void RopeBreaker::DespawnRope()
 	{
 		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 		{
-			if (PlayerCollidedRope1) 
+			if (PlayerCollidedRope1 && !deletedRope1)
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
 				{
@@ -146,10 +146,11 @@ void RopeBreaker::DespawnRope()
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					RopeDespawned++;
+					deletedRope1 = true;
 				}
 			}
 			
-			if (PlayerCollidedRope2)
+			if (PlayerCollidedRope2 && !deletedRope2)
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
 				{
@@ -157,6 +158,7 @@ void RopeBreaker::DespawnRope()
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					RopeDespawned++;
+					deletedRope2 = true;
 				}
 			}
 		}		
