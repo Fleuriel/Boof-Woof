@@ -1,0 +1,18 @@
+{
+    "name": "Corgi2",
+    "shader": "Material",
+    "shaderIdx": 5,
+    "properties": {
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "Diffuse": "Corgi2",
+        "Normal": "NothingNormal",
+        "Height": "NothingHeight",
+        "metallic": 0.0,
+        "shininess": 0.0
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "name": "Elegiggeled",
+    "shader": "Material",
+    "properties": {
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "metallic": 0.0,
+        "shininess": 0.0
+    }
+}

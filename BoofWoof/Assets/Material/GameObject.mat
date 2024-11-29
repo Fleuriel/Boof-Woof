@@ -1,0 +1,19 @@
+{
+    "name": "GameObject",
+    "shader": "Material",
+    "shaderIdx": 1,
+    "properties": {
+        "color": [
+            0.9159291982650757,
+            0.17832252383232118,
+            0.17832252383232118,
+            1.0
+        ],
+        "finalAlpha": 1.0,
+        "Diffuse": "Bed2",
+        "Normal": "NothingNormal",
+        "Height": "NothingHeight",
+        "metallic": 0.0,
+        "shininess": 0.0
+    }
+}

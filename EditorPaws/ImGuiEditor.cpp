@@ -25,8 +25,6 @@ namespace fs = std::filesystem;
 
 constexpr float EPSILON = 1e-6f;
 
-AnimationManager g_AnimationManager;
-
 //Helper function to locate save file directory
 std::string GetScenesDir()
 {
@@ -680,7 +678,6 @@ void ImGuiEditor::InspectorWindow()
 
 
 									// Add shininess
-
 									properties.AddMember("metallic", 0, allocator);
 									properties.AddMember("shininess", 0, allocator);
 
@@ -850,24 +847,115 @@ void ImGuiEditor::InspectorWindow()
 						}
 					}
 
-					if (ImGui::Selectable("Material Component"))
-					{
-						if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
-						{
-							g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
-							g_UndoRedoManager.ExecuteCommand(
-								[this]() {
-									if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
-										g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
-								},
-								[this]() {
-									if (g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
-										g_Coordinator.RemoveComponent<MaterialComponent>(g_SelectedEntity);
-								}
-							);
+					// if (ImGui::Selectable("Material Component"))
+					// {
+					// 	if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+					// 	{
+					// 		g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
+					// 
+					// 		// Creates a Material File to get the data.
+					// 		if (g_Coordinator.HaveComponent<MetadataComponent>(g_SelectedEntity))
+					// 		{
+					// 			std::string objectName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
+					// 
+					// 
+					// 			static int materialCount = 0;
+					// 			std::string entireFilePath = m_BaseDir.relative_path().string();
+					// 
+					// 
+					// 			// Handle action for "Create Material Instances"
+					// 			std::string materialName;
+					// 			// Generate the material name based on the current count
+					// 			if (materialCount > 0)
+					// 				materialName = objectName + "_" + std::to_string(materialCount);
+					// 			else
+					// 
+					// 				materialName = objectName;
+					// 
+					// 			// Write the JSON string to a file
+					// 			std::string filePath = entireFilePath.c_str();  // Convert path to string
+					// 			filePath += "/Material/" + materialName + ".mat";  // Append the new file name (customize this if needed)
+					// 
+					// 			std::ifstream existingFile(filePath);
+					// 			if (existingFile.good()) {
+					// 				std::cout << "Material already exists: " << filePath << std::endl;
+					// 
+					// 			}
+					// 			else
+					// 			{
+					// 				rapidjson::Document document;
+					// 				document.SetObject();
+					// 				rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+					// 
+					// 				// Add name and type (similar to your previous structure)
+					// 				document.AddMember("name", rapidjson::Value(materialName.c_str(), allocator), allocator);
+					// 				document.AddMember("type", rapidjson::Value("Example", allocator), allocator);
+					// 
+					// 				// Add material properties (color, shininess, textureID, etc.)
+					// 				rapidjson::Value properties(rapidjson::kObjectType);
+					// 
+					// 				// Adding color as a JSON array for RGBA values
+					// 				rapidjson::Value color(rapidjson::kArrayType);
+					// 				color.PushBack(1.0f, allocator);  // R
+					// 				color.PushBack(1.0f, allocator);  // G
+					// 				color.PushBack(1.0f, allocator);  // B
+					// 				color.PushBack(1.0f, allocator);  // A (Alpha)
+					// 				properties.AddMember("color", color, allocator);
+					// 
+					// 				// Add shininess
+					// 				properties.AddMember("shininess", 0, allocator);
+					// 
+					// 				// Add texture ID
+					// 				properties.AddMember("textureID", 0, allocator);  // Modify this if you have a specific texture ID
+					// 
+					// 				// Add shader name
+					// 				properties.AddMember("shader", rapidjson::Value("Shader3D", allocator), allocator);
+					// 
+					// 				// Add reflectivity
+					// 				properties.AddMember("reflectivity", 0.8f, allocator);
+					// 
+					// 				// Adding the properties object to the document
+					// 				document.AddMember("properties", properties, allocator);
+					// 
+					// 				// Serialize the JSON document to a string with pretty printing
+					// 				rapidjson::StringBuffer buffer;
+					// 				rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
+					// 				document.Accept(writer);
+					// 
+					// 
+					// 
+					// 				// Write the JSON string to the file
+					// 				std::ofstream file(filePath);
+					// 				if (file.is_open()) {
+					// 					file << buffer.GetString();  // Write the serialized JSON
+					// 					file.close();
+					// 					std::cout << "File created: " << filePath << std::endl;
+					// 				}
+					// 				else {
+					// 					std::cerr << "Error: Could not create the file." << std::endl;
+					// 				}
+					// 				materialCount++;
+					// 			}
+					// 
+					// 
+					// 		}
+					// 
+					// 
+					// 
+					// 		g_UndoRedoManager.ExecuteCommand(
+					// 			[this]() {
+					// 				if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+					// 					g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
+					// 			},
+					// 			[this]() {
+					// 				if (g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+					// 					g_Coordinator.RemoveComponent<MaterialComponent>(g_SelectedEntity);
+					// 			}
+					// 		);
+					// 
+					// 	}
+					// }
 
-						}
-					}
 
 					if (ImGui::Selectable("Light Component"))
 					{
@@ -943,20 +1031,6 @@ void ImGuiEditor::InspectorWindow()
 							);
 						}
 
-
-
-
-
-
-
-						//if (ImGui::Selectable("Add Animation")) {
-						//	Animation newAnimation{/*initialize animation properties*/ };
-						//	AddAnimation(graphics, newAnimation);
-						//}
-						//
-						//if (graphics.hasAnimation && ImGui::Selectable("Remove Animation")) {
-						//	RemoveAnimation(componentData);
-						//}
 
 
 
@@ -1546,268 +1620,163 @@ void ImGuiEditor::InspectorWindow()
 
 								auto& graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
 								const auto& properties = ReflectionManager::Instance().GetProperties("GraphicsComponent");
-								//if (ImGui::Button("Add Sub Components"))
-								//{
-								//	ImGui::OpenPopup("SComponents");
-								//}
 
 
-								//if (ImGui::BeginPopupContextItem("SComponents"))
-								//{
-								//	
-								//
-								//	if (ImGui::Selectable("Material Component"))
-								//	{
-								//		if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
-								//		{
-								//			g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
-								//			graphicsComponent.hasMaterial = true;
-								//			g_UndoRedoManager.ExecuteCommand(
-								//				[this]() {
-								//					if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
-								//						g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
-								//				},
-								//				[this]() {
-								//					if (g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
-								//						g_Coordinator.RemoveComponent<MaterialComponent>(g_SelectedEntity);
-								//				}
-								//			);
-								//	
-								//		}
-								//	}
-								//
-								//	ImGui::EndPopup();
-								//}
 
-								//if (graphicsComponent.hasMaterial) {
-								//	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_None)) {
-								//		auto& material = graphicsComponent.material;
-								//
-								//		// Display MaterialComponent properties
-								//		ImGui::Text("Material Name: %s", material.name.c_str());
-								//		ImGui::SliderFloat("Shininess", &material.shininess, 0.0f, 100.0f);
-								//		ImGui::ColorEdit3("Diffuse Color", material.diffuseColor);
-								//	}
-								//}
-								// Access subcomponents
-
-							//std::cout <<"ths be material true\t" << graphicsComponent.hasMaterial << '\n';
-							//if (graphicsComponent.hasMaterial) {
-							//	if(ImGui::CollapsingHeader("Material Component", ImGuiTreeNodeFlags_None))
-							//	{
-							//		
-							//
-							//		
-							//		const MaterialComponent& material = graphicsComponent.material;
-							//		ImGui::Text("Material: %s", material.GetShaderName().c_str());
-							//		ImGui::Text("Shininess %.2f", material.GetShininess());
-							//
-							//		std::cout << material.GetShaderName().c_str() << '\t' << material.GetShininess() << '\n';
-							//
-							//	}
-							//}
-
-								//if (ImGui::Selectable("Add Material")) {
-								//	MaterialComponent newMaterial{/* Initialize material properties */ };
-								//	graphics.AddMaterial(newMaterial);
-								//}
-								//
-								//if (graphics.hasMaterial && ImGui::Selectable("Remove Material")) {
-								//	graphics.RemoveMaterial();
-								//}
 
 
 								graphicsComponent.RegisterProperties();
-								if (ImGui::TreeNode("Mesh Properties")) {
+								//if (ImGui::TreeNode("Mesh Properties")) {
 
 									// Handle ModelName Property
-									auto modelNameProperty = std::find_if(properties.begin(), properties.end(),
-										[](const ReflectionPropertyBase* prop) { return prop->GetName() == "ModelName"; });
+								auto modelNameProperty = std::find_if(properties.begin(), properties.end(),
+									[](const ReflectionPropertyBase* prop) { return prop->GetName() == "ModelName"; });
 
 
 
 
-									if (modelNameProperty != properties.end())
-									{
-										std::string propertyName = "ModelName";
-										std::string currentModelName = (*modelNameProperty)->GetValue(&graphicsComponent);
-										std::vector<std::string> modelNames = g_ResourceManager.getModelNames();
-										int currentItem = 0;
-										for (size_t i = 0; i < modelNames.size(); ++i)
-										{
-											if (modelNames[i] == currentModelName)
-											{
-												currentItem = static_cast<int>(i);
-												break;
-											}
-										}
-
-										ImGui::PushItemWidth(123.0f);
-										ImGui::Text("Model   ");
-										ImGui::SameLine();
-										ImGui::PushID(propertyName.c_str());
-										std::string oldModelName = currentModelName;
-
-										if (ImGui::Combo("##ModelCombo", &currentItem, [](void* data, int idx, const char** out_text) {
-											const auto& names = *(static_cast<std::vector<std::string>*>(data));
-											*out_text = names[idx].c_str();
-											return true;
-											}, (void*)&modelNames, static_cast<int>(modelNames.size())))
-										{
-											// Selection changed
-											std::string newModelName = modelNames[currentItem];
-											(*modelNameProperty)->SetValue(&graphicsComponent, newModelName);
-
-											Entity entity = g_SelectedEntity;
-
-											g_UndoRedoManager.ExecuteCommand(
-												[entity, newModelName]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.setModelName(newModelName);
-												},
-												[entity, oldModelName]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.setModelName(oldModelName);
-												}
-											);
-										}
-
-										ImGui::PopID();
-									}
-
-									ImGui::TreePop();
-								}
-
-								if (ImGui::TreeNode("old Texture"))
+								if (modelNameProperty != properties.end())
 								{
-									//// Handle TextureName Property
-									//auto textureNameProperty = std::find_if(properties.begin(), properties.end(),
-									//	[](const ReflectionPropertyBase* prop) { return prop->GetName() == "Textures"; });
-
-									//if (textureNameProperty != properties.end())
-									//{
-									//	std::string propertyName = "Textures";
-									//	std::string currentTextureName = (*textureNameProperty)->GetValue(&graphicsComponent);
-									//	std::string newTextureName = currentTextureName;
-
-									std::vector<int>  textureIds = graphicsComponent.getTextures();
-
-									ImGui::Text("Texture ");
-									ImGui::SameLine();
-									ImGui::PushID("Textures");
-
-									/*char buffer[256];
-									memset(buffer, 0, sizeof(buffer));
-									strcpy_s(buffer, sizeof(buffer), currentTextureName.c_str());
-
-									ImGui::InputText("##Textures", buffer, sizeof(buffer), ImGuiInputTextFlags_ReadOnly);*/
-
-									// get texture names
-
-
-
-									ImGui::SameLine();
-
-									// Store old value before opening the file dialog
-									//static std::string oldTextureName = "";
-									if (ImGui::Button("Set Texture"))
+									std::string propertyName = "ModelName";
+									std::string currentModelName = (*modelNameProperty)->GetValue(&graphicsComponent);
+									std::vector<std::string> modelNames = g_ResourceManager.getModelNames();
+									int currentItem = 0;
+									for (size_t i = 0; i < modelNames.size(); ++i)
 									{
-										//oldTextureName = currentTextureName; // Capture the old value
-										ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+										if (modelNames[i] == currentModelName)
+										{
+											currentItem = static_cast<int>(i);
+											break;
+										}
 									}
 
-									if (ImGuiFileDialog::Instance()->Display("SetTexture"))
+									ImGui::PushItemWidth(123.0f);
+									ImGui::Text("Model   ");
+									ImGui::SameLine();
+									ImGui::PushID(propertyName.c_str());
+									std::string oldModelName = currentModelName;
+
+									if (ImGui::Combo("##ModelCombo", &currentItem, [](void* data, int idx, const char** out_text) {
+										const auto& names = *(static_cast<std::vector<std::string>*>(data));
+										*out_text = names[idx].c_str();
+										return true;
+										}, (void*)&modelNames, static_cast<int>(modelNames.size())))
 									{
-										if (ImGuiFileDialog::Instance()->IsOk())
-										{
-											// User selected a file
-											std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
-											size_t lastDotPos = selectedFile.find_last_of(".");
-											if (lastDotPos != std::string::npos)
-											{
-												selectedFile = selectedFile.substr(0, lastDotPos);
+										// Selection changed
+										std::string newModelName = modelNames[currentItem];
+										(*modelNameProperty)->SetValue(&graphicsComponent, newModelName);
+
+										Entity entity = g_SelectedEntity;
+
+										g_UndoRedoManager.ExecuteCommand(
+											[entity, newModelName]() {
+												auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+												component.setModelName(newModelName);
+											},
+											[entity, oldModelName]() {
+												auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+												component.setModelName(oldModelName);
 											}
-
-											//newTextureName = selectedFile;
-											//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
-											int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
-											graphicsComponent.AddTexture(textureId);
-											graphicsComponent.setTexture(selectedFile);
-
-
-
-											// Execute undo/redo command
-											/*std::string oldValue = oldTextureName;
-											Entity entity = g_SelectedEntity;*/
-
-											/*g_UndoRedoManager.ExecuteCommand(
-												[entity, newTextureName]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.setTexture(newTextureName);
-												},
-												[entity, oldValue]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.setTexture(oldValue);
-												}
-											);*/
-										}
-										ImGuiFileDialog::Instance()->Close();
+										);
 									}
 
 									ImGui::PopID();
+								}
+
+								//	ImGui::TreePop();
+								//}
+
+								//if (ImGui::TreeNode("old Texture"))
+								//{
+								//	//// Handle TextureName Property
+								//	//auto textureNameProperty = std::find_if(properties.begin(), properties.end(),
+								//	//	[](const ReflectionPropertyBase* prop) { return prop->GetName() == "Textures"; });
+								//
+								//	//if (textureNameProperty != properties.end())
+								//	//{
+								//	//	std::string propertyName = "Textures";
+								//	//	std::string currentTextureName = (*textureNameProperty)->GetValue(&graphicsComponent);
+								//	//	std::string newTextureName = currentTextureName;
+								//
+								//
+								//	ImGui::Text("Texture ");
+								//	ImGui::SameLine();
+								//	ImGui::PushID("Textures");
+								//
+								//	/*char buffer[256];
+								//	memset(buffer, 0, sizeof(buffer));
+								//	strcpy_s(buffer, sizeof(buffer), currentTextureName.c_str());
+								//
+								//	ImGui::InputText("##Textures", buffer, sizeof(buffer), ImGuiInputTextFlags_ReadOnly);*/
+								//
+								//	// get texture names
+								//
+								//
+								//
+								//	ImGui::SameLine();
+								//
+								//	// Store old value before opening the file dialog
+								//	//static std::string oldTextureName = "";
+								//	if (ImGui::Button("Set Texture"))
+								//	{
+								//		//oldTextureName = currentTextureName; // Capture the old value
+								//		ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+								//	}
+								//
+								//	if (ImGuiFileDialog::Instance()->Display("SetTexture"))
+								//	{
+								//		if (ImGuiFileDialog::Instance()->IsOk())
+								//		{
+								//			// User selected a file
+								//			std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+								//			size_t lastDotPos = selectedFile.find_last_of(".");
+								//			if (lastDotPos != std::string::npos)
+								//			{
+								//				selectedFile = selectedFile.substr(0, lastDotPos);
+								//			}
+								//
+								//			//newTextureName = selectedFile;
+								//			//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
+								//			int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
+								//			graphicsComponent.AddTexture(textureId);
+								//
+								//
+								//			graphicsComponent.setTextureMaterial(textureId);
+								//
+								//
+								//			// Execute undo/redo command
+								//			/*std::string oldValue = oldTextureName;
+								//			Entity entity = g_SelectedEntity;*/
+								//
+								//			/*g_UndoRedoManager.ExecuteCommand(
+								//				[entity, newTextureName]() {
+								//					auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+								//					component.setTexture(newTextureName);
+								//				},
+								//				[entity, oldValue]() {
+								//					auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+								//					component.setTexture(oldValue);
+								//				}
+								//			);*/
+								//		}
+								//		ImGuiFileDialog::Instance()->Close();
+								//	}
+								//
+								//	ImGui::PopID();
+								//	ImGui::TreePop();
+								//}
 
 
 
 
 
-									// Handel Camera Property
-									auto FollowCameraProperty = std::find_if(properties.begin(), properties.end(),
-										[](const ReflectionPropertyBase* prop) { return prop->GetName() == "FollowCamera"; });
-									if (FollowCameraProperty != properties.end())
-									{
-										std::string propertyName = "FollowCamera";
-										bool isFollowCamera = (*FollowCameraProperty)->GetValue(&graphicsComponent) == "true";
 
-										ImGui::Text("Follow Camera");
-										ImGui::SameLine();
-										ImGui::PushID(propertyName.c_str());
+								ImGui::Text("Debug   ");
+								ImGui::SameLine();
+								ImGui::Checkbox("##DebugMode", &GraphicsSystem::debug);
 
-										if (ImGui::Checkbox("##FollowCamera", &isFollowCamera))
-										{
-											(*FollowCameraProperty)->SetValue(&graphicsComponent, isFollowCamera ? "true" : "false");
-										}
-
-										if (ImGui::IsItemActivated())
-										{
-											oldBoolValues[propertyName] = isFollowCamera;
-										}
-
-										if (ImGui::IsItemDeactivatedAfterEdit())
-										{
-											bool newValue = isFollowCamera;
-											bool oldValue = oldBoolValues[propertyName];
-											Entity entity = g_SelectedEntity;
-											oldBoolValues.erase(propertyName);
-
-											g_UndoRedoManager.ExecuteCommand(
-												[entity, newValue]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.SetFollowCamera(newValue);
-												},
-												[entity, oldValue]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.SetFollowCamera(oldValue);
-												}
-											);
-										}
-
-										ImGui::PopID();
-									}
-
-									ImGui::Text("Debug   ");
-									ImGui::SameLine();
-									ImGui::Checkbox("##DebugMode", &GraphicsSystem::debug);
-
+								if (GraphicsSystem::debug)
+								{
 									if (GraphicsSystem::debug)
 									{
 										if (ImGui::Button("2D"))
@@ -1821,28 +1790,76 @@ void ImGuiEditor::InspectorWindow()
 											GraphicsSystem::D2 = false;
 										}
 									}
-									else
+								}
+
+
+								// camera follow settings
+
+								// Handel Camera Property
+								auto FollowCameraProperty = std::find_if(properties.begin(), properties.end(),
+									[](const ReflectionPropertyBase* prop) { return prop->GetName() == "FollowCamera"; });
+								if (FollowCameraProperty != properties.end())
+								{
+									std::string propertyName = "FollowCamera";
+									bool isFollowCamera = (*FollowCameraProperty)->GetValue(&graphicsComponent) == "true";
+
+									ImGui::Text("Follow Camera");
+									ImGui::SameLine();
+									ImGui::PushID(propertyName.c_str());
+
+									if (ImGui::Checkbox("##FollowCamera", &isFollowCamera))
 									{
-										GraphicsSystem::D3 = false;
-										GraphicsSystem::D2 = false;
+										(*FollowCameraProperty)->SetValue(&graphicsComponent, isFollowCamera ? "true" : "false");
 									}
 
-									ImGui::TreePop();
+									if (ImGui::IsItemActivated())
+									{
+										oldBoolValues[propertyName] = isFollowCamera;
+									}
+
+									if (ImGui::IsItemDeactivatedAfterEdit())
+									{
+										bool newValue = isFollowCamera;
+										bool oldValue = oldBoolValues[propertyName];
+										Entity entity = g_SelectedEntity;
+										oldBoolValues.erase(propertyName);
+
+										g_UndoRedoManager.ExecuteCommand(
+											[entity, newValue]() {
+												auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+												component.SetFollowCamera(newValue);
+											},
+											[entity, oldValue]() {
+												auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+												component.SetFollowCamera(oldValue);
+											}
+										);
+									}
+
+									ImGui::PopID();
 								}
+
+	
+
 							}
 						}
+
 						else if (className == "AnimationComponent") {
 							// Show the dropdown menu if there are any files
-							if (!g_AssetManager.AnimationFiles.empty()) {
-								static int selectedFileIndex = -1; // To remember the selected index
+							if (!g_AnimationManager.animationNames.empty()) {
+
+								auto& animationComponent = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
 
 								if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
-									ImGui::Text("Animation Selection:"); // Add a label before the combo boxes
+
+									// Get the animation index values (as copies)
+									int idleAnimationIndex = g_AnimationManager.GetAnimationIndex(animationComponent.GetAnimation(AnimationType::Idle));
+									int movementAnimationIndex = g_AnimationManager.GetAnimationIndex(animationComponent.GetAnimation(AnimationType::Moving));
+									int actionAnimationIndex = g_AnimationManager.GetAnimationIndex(animationComponent.GetAnimation(AnimationType::Action));
+
+									ImGui::Text("Animation Selection:");
 									ImGui::NewLine();
 
-									static int idleAnimationIndex = -1;     // Index for idle animation
-									static int movementAnimationIndex = -1; // Index for movement animation
-									static int actionAnimationIndex = -1;   // Index for action animation
 
 									float comboBoxWidth = 200.0f; // Set a consistent width for the combo boxes
 									float labelWidth = 200.0f;   // Reserve space for the labels
@@ -1854,22 +1871,24 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Text("Idle Animation:");
 									ImGui::SameLine(labelWidth);
 									ImGui::SetNextItemWidth(comboBoxWidth);
+
 									if (ImGui::BeginCombo("##IdleAnimation",
-										idleAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[idleAnimationIndex].c_str())) {
-										// "None" option
+										idleAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[idleAnimationIndex].c_str())) {
+
 										bool isSelected = (idleAnimationIndex == -1);
 										if (ImGui::Selectable("None", isSelected)) {
 											idleAnimationIndex = -1; // Set to "None"
+											animationComponent.SetAnimation(AnimationType::Idle, "None");
 										}
 										if (isSelected) {
 											ImGui::SetItemDefaultFocus();
 										}
 
-										// File options
-										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
+										for (int i = 0; i < g_AnimationManager.animationNames.size(); ++i) {
 											isSelected = (idleAnimationIndex == i);
-											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
+											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
 												idleAnimationIndex = i; // Update the idle animation index
+												animationComponent.SetAnimation(AnimationType::Idle, g_AnimationManager.animationNames[i]);
 											}
 											if (isSelected) {
 												ImGui::SetItemDefaultFocus();
@@ -1879,27 +1898,30 @@ void ImGuiEditor::InspectorWindow()
 									}
 
 									ImGui::NewLine();
-
 									// Movement Animation
 									ImGui::Text("Movement Animation:");
 									ImGui::SameLine(labelWidth);
 									ImGui::SetNextItemWidth(comboBoxWidth);
+
 									if (ImGui::BeginCombo("##MovementAnimation",
-										movementAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[movementAnimationIndex].c_str())) {
+										movementAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[movementAnimationIndex].c_str())) {
+
 										// "None" option
 										bool isSelected = (movementAnimationIndex == -1);
 										if (ImGui::Selectable("None", isSelected)) {
 											movementAnimationIndex = -1; // Set to "None"
+											animationComponent.SetAnimation(AnimationType::Moving, "None");
 										}
 										if (isSelected) {
 											ImGui::SetItemDefaultFocus();
 										}
 
 										// File options
-										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
+										for (int i = 0; i < g_AnimationManager.animationNames.size(); ++i) {
 											isSelected = (movementAnimationIndex == i);
-											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
+											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
 												movementAnimationIndex = i; // Update the movement animation index
+												animationComponent.SetAnimation(AnimationType::Moving, g_AnimationManager.animationNames[i]);
 											}
 											if (isSelected) {
 												ImGui::SetItemDefaultFocus();
@@ -1914,22 +1936,26 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Text("Action Animation:");
 									ImGui::SameLine(labelWidth);
 									ImGui::SetNextItemWidth(comboBoxWidth);
+
 									if (ImGui::BeginCombo("##ActionAnimation",
-										actionAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[actionAnimationIndex].c_str())) {
+										actionAnimationIndex == -1 ? "None" : g_AnimationManager.animationNames[actionAnimationIndex].c_str())) {
+
 										// "None" option
 										bool isSelected = (actionAnimationIndex == -1);
 										if (ImGui::Selectable("None", isSelected)) {
 											actionAnimationIndex = -1; // Set to "None"
+											animationComponent.SetAnimation(AnimationType::Action, "None");
 										}
 										if (isSelected) {
 											ImGui::SetItemDefaultFocus();
 										}
 
 										// File options
-										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
+										for (int i = 0; i < g_AnimationManager.animationNames.size(); ++i) {
 											isSelected = (actionAnimationIndex == i);
-											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
+											if (ImGui::Selectable(g_AnimationManager.animationNames[i].c_str(), isSelected)) {
 												actionAnimationIndex = i; // Update the action animation index
+												animationComponent.SetAnimation(AnimationType::Action, g_AnimationManager.animationNames[i]);
 											}
 											if (isSelected) {
 												ImGui::SetItemDefaultFocus();
@@ -1949,7 +1975,7 @@ void ImGuiEditor::InspectorWindow()
 											animationComponent.SetAnimation(AnimationType::Idle, ""); // Remove animation
 										}
 										else {
-											std::string idleAnimation = g_AssetManager.AnimationFiles[idleAnimationIndex];
+											std::string idleAnimation = g_AnimationManager.animationNames[idleAnimationIndex];
 											animationComponent.SetAnimation(AnimationType::Idle, idleAnimation);
 										}
 
@@ -1958,7 +1984,7 @@ void ImGuiEditor::InspectorWindow()
 											animationComponent.SetAnimation(AnimationType::Moving, ""); // Remove animation
 										}
 										else {
-											std::string movementAnimation = g_AssetManager.AnimationFiles[movementAnimationIndex];
+											std::string movementAnimation = g_AnimationManager.animationNames[movementAnimationIndex];
 											animationComponent.SetAnimation(AnimationType::Moving, movementAnimation);
 										}
 
@@ -1967,13 +1993,12 @@ void ImGuiEditor::InspectorWindow()
 											animationComponent.SetAnimation(AnimationType::Action, ""); // Remove animation
 										}
 										else {
-											std::string actionAnimation = g_AssetManager.AnimationFiles[actionAnimationIndex];
+											std::string actionAnimation = g_AnimationManager.animationNames[actionAnimationIndex];
 											animationComponent.SetAnimation(AnimationType::Action, actionAnimation);
 										}
 
 										std::cout << "Animations applied successfully to entity " << g_SelectedEntity << "." << std::endl;
 									}
-
 
 									ImGui::SameLine();
 									if (ImGui::Button("Revert To Default")) {
@@ -1986,7 +2011,6 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Text("No animations found.");
 								}
 							}
-
 						}
 						else if (className == "AudioComponent")
 						{
@@ -3185,7 +3209,6 @@ void ImGuiEditor::InspectorWindow()
 										if (graphicsComponent.material.GetMaterialNameMat().empty())
 										{
 											std::string loadSaveLocation2 = FILEPATH_ASSET_MATERIAL + "\\" + g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName() + ".mat";
-
 											std::cout << loadSaveLocation2 << '\n';
 
 											material.SaveMaterialDescriptor(loadSaveLocation2);
@@ -3836,6 +3859,9 @@ void ImGuiEditor::InspectorWindow()
 
 				int& Material_current_idx = materialInfo.shaderIndex; // Index for the selected item
 
+				std::cout << "index: " << materialInfo.shaderIndex << '\n';
+
+
 				ImGui::SetNextItemWidth(WidthIndentation); // Set combo box width
 				if (ImGui::Combo("##MatCombo1", &Material_current_idx, comboItems.c_str())) {
 					// Update materialInfo.shaderIndex with the selected index
@@ -3980,10 +4006,20 @@ void ImGuiEditor::InspectorWindow()
 				{
 
 					//Save
-					std::cout << m_SelectedFile.string();
-					materialInfo.SaveMaterialDescriptor(m_SelectedFile.string());
-					materialInfo.LoadMaterialDescriptor(m_SelectedFile.string());
-					// g_AssetManager.ReloadTextures();
+
+					if (m_SelectedFile.string().empty() && !materialInfo.materialName.empty())
+					{
+
+						std::cout << "ASD\t" << m_SelectedFile.string();
+						materialInfo.SaveMaterialDescriptor(m_SelectedFile.string() + materialInfo.materialName);
+						materialInfo.LoadMaterialDescriptor(m_SelectedFile.string() + materialInfo.materialName);
+
+
+					}// g_AssetManager.ReloadTextures();
+					else
+					{
+						// do nothing bruH
+					}
 				}
 
 				ImGui::SameLine();
@@ -4008,6 +4044,112 @@ void ImGuiEditor::InspectorWindow()
 				}
 
 				ImGui::Unindent(300);
+
+
+				ImGui::Separator();
+
+				static glm::vec3 lightPos = glm::vec3(-18.5f, -12.6f, 31.6f);
+				static bool showLightControls = false;
+
+
+				glEnable(GL_MULTISAMPLE);
+
+
+
+				static GLuint fbo = 0, textureColorbuffer = 0, rbo = 0; // Declare outside to persist across frames
+				static bool isFramebufferGenerated = false; // Flag to prevent generating framebuffer every frame
+
+
+				if (!isFramebufferGenerated) {
+					// Generate framebuffer only once
+					g_Coordinator.GetSystem<GraphicsSystem>()->generateNewFrameBuffer(fbo, textureColorbuffer, rbo, 512, 288);
+					// std::cout << '\t' << fbo << '\t' << textureColorbuffer << '\t' << rbo << '\n';
+					isFramebufferGenerated = true;
+				}
+
+				// Set clear color
+				glClearColor(46.f / 255.f, 46.f / 255.f, 46.f / 255.f, 1.0f);  // Set the color to clear the framebuffer to
+
+				// Bind the custom framebuffer (where you want to render)
+				glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+				glViewport(0, 0, 512, 288);  // Set the custom viewport size for this framebuffer
+
+				// Clear the framebuffer
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear the color and depth buffers
+
+				// Now render your objects
+// 
+			 //   g_Coordinator.GetSystem<GraphicsSystem>()->DrawMaterialSphere(); // Your rendering code
+
+
+				g_AssetManager.GetShader("Material").Use();
+
+				glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 5.0f);  // Position of the camera
+				glm::vec3 target = glm::vec3(0.0f, 0.0f, 0.0f);     // Point the camera is looking at (center of the sphere)
+				glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);         // Up direction
+
+				glm::mat4 view = glm::lookAt(cameraPos, target, up);
+
+				float aspectRatio = 512.0f / 288.0f;
+				glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
+
+
+				g_AssetManager.GetShader("Material").SetUniform("model", glm::mat4(1.0f)); // Identity matrix for no transformation
+				g_AssetManager.GetShader("Material").SetUniform("view", view);
+				g_AssetManager.GetShader("Material").SetUniform("projection", projection);
+				g_AssetManager.GetShader("Material").SetUniform("inputColor", glm::vec4(color[0], color[1], color[2], color[3]));
+				g_AssetManager.GetShader("Material").SetUniform("inputLight", lightPos);
+
+				g_AssetManager.GetShader("Material").SetUniform("viewPos", cameraPos);
+				g_AssetManager.GetShader("Material").SetUniform("metallic", MetallicMatValue);
+				g_AssetManager.GetShader("Material").SetUniform("smoothness", SmoothnessValue);
+				//				g_AssetManager.GetShader("Material").SetUniform("shininess", shininessValue);  // Shininess value
+
+
+				Model* sphereModel = g_ResourceManager.getModel("sphere");
+
+				if (sphereModel)
+					sphereModel->DrawMaterial(g_AssetManager.GetShader("Material"));
+				else
+					std::cerr << "cant find sphere model\n";
+
+
+
+
+				g_AssetManager.GetShader("Material").UnUse();
+
+
+				// After rendering to the custom framebuffer, unbind it to render to the default framebuffer
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the custom framebuffer (restore to default framebuffer)
+
+				// Reset the viewport for the default framebuffer (main window size)
+				glViewport(0, 0, g_WindowX, g_WindowY);
+
+				// Display the custom framebuffer texture (this will display in the ImGui window)
+				ImGui::Image((void*)(intptr_t)textureColorbuffer, ImVec2(512, 288));  // Display texture in the ImGui window
+
+
+				ImGui::Separator();
+				ImGui::Text("Adjust Light Position");
+
+				if (ImGui::Button("Open Light Controls")) {
+					ImGui::OpenPopup("LightControlPopup");
+				}
+
+				// Popup modal window
+				if (ImGui::BeginPopup("LightControlPopup")) {
+					ImGui::Text("Adjust Light Position");
+					ImGui::DragFloat("X", &lightPos.x, 0.1f, -10000.0f, 10000.0f, "X: %.1f");
+					ImGui::DragFloat("Y", &lightPos.y, 0.1f, -10000.0f, 10000.0f, "Y: %.1f");
+					ImGui::DragFloat("Z", &lightPos.z, 0.1f, -10000.0f, 10000.0f, "Z: %.1f");
+
+					// Close button inside the popup
+					if (ImGui::Button("Close")) {
+						ImGui::CloseCurrentPopup();
+					}
+					ImGui::EndPopup();
+				}
+
 
 				//ImGui::Button("##MatButton5 ", ImVec2(15, 15)); ImGui::SameLine();	ImGui::Text("Height Map"); 	 // Create a visual box
 				//
@@ -4195,117 +4337,16 @@ void ImGuiEditor::InspectorWindow()
 
 
 
-				ImGui::Separator();
-
-				static glm::vec3 lightPos = glm::vec3(-18.5f, -12.6f, 31.6f);
-				static bool showLightControls = false;
-
-
-				glEnable(GL_MULTISAMPLE);
-
-
-
-				static GLuint fbo = 0, textureColorbuffer = 0, rbo = 0; // Declare outside to persist across frames
-				static bool isFramebufferGenerated = false; // Flag to prevent generating framebuffer every frame
-
-
-				if (!isFramebufferGenerated) {
-					// Generate framebuffer only once
-					g_Coordinator.GetSystem<GraphicsSystem>()->generateNewFrameBuffer(fbo, textureColorbuffer, rbo, 512, 288);
-					// std::cout << '\t' << fbo << '\t' << textureColorbuffer << '\t' << rbo << '\n';
-					isFramebufferGenerated = true;
-				}
-
-				// Set clear color
-				glClearColor(46.f / 255.f, 46.f / 255.f, 46.f / 255.f, 1.0f);  // Set the color to clear the framebuffer to
-
-				// Bind the custom framebuffer (where you want to render)
-				glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-				glViewport(0, 0, 512, 288);  // Set the custom viewport size for this framebuffer
-
-				// Clear the framebuffer
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear the color and depth buffers
-
-				// Now render your objects
-// 
-			 //   g_Coordinator.GetSystem<GraphicsSystem>()->DrawMaterialSphere(); // Your rendering code
-
-
-				g_AssetManager.GetShader("Material").Use();
-
-				glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 5.0f);  // Position of the camera
-				glm::vec3 target = glm::vec3(0.0f, 0.0f, 0.0f);     // Point the camera is looking at (center of the sphere)
-				glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);         // Up direction
-
-				glm::mat4 view = glm::lookAt(cameraPos, target, up);
-
-				float aspectRatio = 512.0f / 288.0f;
-				glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
-
-
-				g_AssetManager.GetShader("Material").SetUniform("model", glm::mat4(1.0f)); // Identity matrix for no transformation
-				g_AssetManager.GetShader("Material").SetUniform("view", view);
-				g_AssetManager.GetShader("Material").SetUniform("projection", projection);
-				g_AssetManager.GetShader("Material").SetUniform("inputColor", glm::vec4(color[0], color[1], color[2], color[3]));
-				g_AssetManager.GetShader("Material").SetUniform("inputLight", lightPos);
-
-				g_AssetManager.GetShader("Material").SetUniform("viewPos", cameraPos);
-				g_AssetManager.GetShader("Material").SetUniform("metallic", MetallicMatValue);
-				g_AssetManager.GetShader("Material").SetUniform("smoothness", SmoothnessValue);
-				//				g_AssetManager.GetShader("Material").SetUniform("shininess", shininessValue);  // Shininess value
-
-
-				Model* sphereModel = g_ResourceManager.getModel("sphere");
-
-				if (sphereModel)
-					sphereModel->DrawMaterial(g_AssetManager.GetShader("Material"));
-				else
-					std::cerr << "cant find sphere model\n";
-
-
-
-
-				g_AssetManager.GetShader("Material").UnUse();
-
-
-				// After rendering to the custom framebuffer, unbind it to render to the default framebuffer
-				glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the custom framebuffer (restore to default framebuffer)
-
-				// Reset the viewport for the default framebuffer (main window size)
-				glViewport(0, 0, g_WindowX, g_WindowY);
-
-				// Display the custom framebuffer texture (this will display in the ImGui window)
-				ImGui::Image((void*)(intptr_t)textureColorbuffer, ImVec2(512, 288));  // Display texture in the ImGui window
-
-
-				ImGui::Separator();
-				ImGui::Text("Adjust Light Position");
-
-				if (ImGui::Button("Open Light Controls")) {
-					ImGui::OpenPopup("LightControlPopup");
-				}
-
-				// Popup modal window
-				if (ImGui::BeginPopup("LightControlPopup")) {
-					ImGui::Text("Adjust Light Position");
-					ImGui::DragFloat("X", &lightPos.x, 0.1f, -10000.0f, 10000.0f, "X: %.1f");
-					ImGui::DragFloat("Y", &lightPos.y, 0.1f, -10000.0f, 10000.0f, "Y: %.1f");
-					ImGui::DragFloat("Z", &lightPos.z, 0.1f, -10000.0f, 10000.0f, "Z: %.1f");
-
-					// Close button inside the popup
-					if (ImGui::Button("Close")) {
-						ImGui::CloseCurrentPopup();
-					}
-					ImGui::EndPopup();
-				}
-
 			}
 		}
 
 	}
 
 	ImGui::End();
+
+
 }
+
 
 
 
@@ -4442,7 +4483,7 @@ void ImGuiEditor::AssetWindow()
 
 				// Add name and type (similar to your previous structure)
 				document.AddMember("name", rapidjson::Value(materialName.c_str(), allocator), allocator);
-				document.AddMember("type", rapidjson::Value("Example", allocator), allocator);
+				document.AddMember("material", rapidjson::Value("Shader3D", allocator), allocator);
 
 				// Add material properties (color, shininess, textureID, etc.)
 				rapidjson::Value properties(rapidjson::kObjectType);
@@ -4450,8 +4491,8 @@ void ImGuiEditor::AssetWindow()
 				// Adding color as a JSON array for RGBA values
 				rapidjson::Value color(rapidjson::kArrayType);
 				color.PushBack(1.0f, allocator);  // R
-				color.PushBack(0.0f, allocator);  // G
-				color.PushBack(0.0f, allocator);  // B
+				color.PushBack(1.0f, allocator);  // G
+				color.PushBack(1.0f, allocator);  // B
 				color.PushBack(1.0f, allocator);  // A (Alpha)
 				properties.AddMember("color", color, allocator);
 

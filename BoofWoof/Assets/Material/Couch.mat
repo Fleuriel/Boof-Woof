@@ -1,0 +1,18 @@
+{
+    "name": "Couch",
+    "shader": "Material",
+    "shaderIdx": 5,
+    "properties": {
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "Diffuse": "Couch",
+        "Normal": "NothingNormal",
+        "Height": "NothingHeight",
+        "metallic": 0.0,
+        "shininess": 0.0
+    }
+}

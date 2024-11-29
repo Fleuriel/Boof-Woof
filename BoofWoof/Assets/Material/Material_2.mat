@@ -1,0 +1,15 @@
+{
+    "name": "Material_2",
+    "type": "Example",
+    "properties": {
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "shininess": 0.0,
+        "shader": "Shader3D",
+        "reflectivity": 0.0
+    }
+}

@@ -1,0 +1,97 @@
+{
+    "SceneGUID": "d1c84931-713e-4f12-9c68-43692d89a1ac",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "PawsieAdventure",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.013502359390258789,
+                    "y": 3.3424458503723146,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 10.800000190734864,
+                    "y": 3.9000000953674318,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "PawsieAdventure",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "PawsieAdventure",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "SpaceToStart",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": -0.0590309202671051,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 3.700000047683716,
+                    "y": 1.899999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "SpaceToStart",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SpaceToStart",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        }
+    ]
+}

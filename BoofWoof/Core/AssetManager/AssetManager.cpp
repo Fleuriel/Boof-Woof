@@ -164,7 +164,7 @@ void AssetManager::LoadAll() {
         loadScenes = AssetManager::LoadScenes(),
         //loadPrefabs   = AssetManager::LoadPrefabs(),
         loadShaders = AssetManager::LoadShaders(),
-        loadAnimations = AssetManager::LoadAnimations(),
+   //     loadAnimations = AssetManager::LoadAnimations(),
         loadMaterial = AssetManager::LoadMaterials();
 
     std::cout
@@ -174,10 +174,10 @@ void AssetManager::LoadAll() {
         << ((loadFonts) ? "Fonts loaded successfully" : "Failed to load fonts") << std::endl
         << ((loadScenes) ? "Scenes loaded successfully" : "Failed to load scenes") << std::endl
         //<< ((loadPrefabs) ? "Prefabs loaded successfully" : "Failed to load prefabs") << std::endl
-        << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl 
+        << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl
         << ((loadObjects) ? "Object loaded Successfully" : "failed to load object") << '\n';
 #else
-        AssetManager::LoadTextures(),
+    AssetManager::LoadTextures(),
         AssetManager::LoadObjects(),
         //AssetManager::LoadSprites(),
         //AssetManager::LoadSounds(),
@@ -334,7 +334,7 @@ bool AssetManager::LoadTextures() {
                     fs::create_directory(FILEPATH_DESCRIPTOR_TEXTURES);
 
                 // Create an output file stream (ofstream) object
-                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_TEXTURES + "/" + nameWithoutExtension + ".json"};
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_TEXTURES + "/" + nameWithoutExtension + ".json" };
 
                 // Check if the file exists
                 if (std::filesystem::exists(descriptorFilePath)) {
@@ -639,7 +639,7 @@ bool AssetManager::LoadObjects() {
 
                 // Check if the substring exists in the full string
                 size_t found = allowedExtensions.find(toLowerCase(Extension));
-                
+
                 size_t found2 = ignExt.find(toLowerCase(Extension));
 
                 if (!(found == std::string::npos && found2 == std::string::npos)) {
@@ -663,7 +663,7 @@ bool AssetManager::LoadObjects() {
                     DiscardToTrashBin(entry.path().string(), "FILEPATH_OBJECTS");
                 }
 
-                
+
 
                 for (int i = 0; i < ignoredExtensions.size(); ++i)
                 {
@@ -681,7 +681,7 @@ bool AssetManager::LoadObjects() {
                     }
                 }
 
-                
+
 
 #ifdef _DEBUG
                 std::cout << MTLCheck << '\t' << PNGCheck << '\t' << JPGCheck << '\n';
@@ -746,12 +746,12 @@ bool AssetManager::LoadObjects() {
 #else
                     runCommand("..\\bin\\Release-x64\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
 #endif
+                    g_ResourceManager.AddModelBinary(nameWithoutExtension);
 
 #ifdef _DEBUG
                     std::cout << "Binary file created: " << binFilePath << std::endl;
 #endif
                 }
-                    g_ResourceManager.AddModelBinary(nameWithoutExtension);
             }
             else {
 #ifdef _DEBUG
@@ -822,8 +822,8 @@ bool AssetManager::LoadShaders() {
 
             size_t pos = entry.path().filename().string().find_last_of('.');
             if (pos != std::string::npos) {
-                
-                
+
+
                 std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
                 //std::cout << nameWithoutExtension << std::endl;
 
@@ -1052,10 +1052,10 @@ OpenGLShader& AssetManager::GetShader(std::string shaderName) {
         size_t index = std::distance(shdrpgmOrder.begin(), it);
 
         // Check if the index is valid
-        if (index < shdrpgms.size()) 
+        if (index < shdrpgms.size())
         {
             // std::cout << shdrpgms[index].Validate();
-            
+
             // Return the shader program at the corresponding index
             return shdrpgms[index];
         }
@@ -1073,7 +1073,7 @@ OpenGLShader& AssetManager::GetShader(std::string shaderName) {
 }
 
 /**************************************************************************
- * @brief Free Shaders 
+ * @brief Free Shaders
  *************************************************************************/
 bool AssetManager::FreeShaders()
 {
@@ -1152,7 +1152,7 @@ bool AssetManager::LoadFonts() {
                     fs::create_directory(FILEPATH_DESCRIPTOR_FONTS);
 
                 // Create an output file stream (ofstream) object
-                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_FONTS+ "/" + nameWithoutExtension + ".json" };
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_FONTS + "/" + nameWithoutExtension + ".json" };
 
                 TextureDescriptor desc;
 
@@ -1263,7 +1263,7 @@ bool AssetManager::LoadAnimations() {
 #endif // DEBUG
 
 
-                
+
 
             }
             else
@@ -1421,7 +1421,7 @@ void AssetManager::MonitorFiles(const std::wstring& path) {
             ReloadTextures();
         }
         /*else if (path == L"..\\BoofWoof\\Assets\\Art\\Sprites") {
-            
+
         }*/
         else if (path == L"..\\BoofWoof\\Assets\\Scenes") {
             //std::wcout << L"Changes detected." << std::endl;

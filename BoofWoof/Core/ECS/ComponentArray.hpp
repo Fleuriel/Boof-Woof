@@ -65,6 +65,7 @@ public:
 		// Ensure entity ID is in range
 		assert(entity < MAX_ENTITIES && "Entity ID out of range");
 
+
 		assert(mEntityToIndexMap.find(entity) != mEntityToIndexMap.end() && "Retrieving non-existent component.");
 
 		// Return a reference to the entity's component

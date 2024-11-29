@@ -1,0 +1,15 @@
+{
+    "name": "Eleggigel",
+    "type": "Example",
+    "properties": {
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "shininess": 0.0,
+        "shader": "Material",
+        "reflectivity": 0.0
+    }
+}

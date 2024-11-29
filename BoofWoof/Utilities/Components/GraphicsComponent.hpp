@@ -33,8 +33,10 @@ public:
     // Setters
     void setModelName(std::string modelName) { m_ModelName = modelName; }
     void SetModelID(int modelID) { m_ModelID = modelID; }
+
     void AddTexture(int textureid) { textures.push_back(textureid); }
 	void SetTextures(std::vector<int> textureids) { textures = textureids; }
+
 	void clearTextures() { textures.clear(); }
 	bool RemoveTexture(int textureid) {
 		for (int i = 0; i < textures.size(); i++) {
@@ -51,8 +53,14 @@ public:
     std::string getModelName() const { return m_ModelName; }
     int getModelID() const { return m_ModelID; }
 	std::vector<int> getTextures() const { return textures; }
+
     
-    std::string getTextureName() const { return textureName; }
+    std::string GetShaderName() { return material.GetShaderName(); }
+    std::string GetMaterialName() { return material.GetMaterialName(); }
+    int GetShaderIdx() { return material.GetShaderIndex(); }
+    std::string GetDiffuseName() { return material.GetDiffuseName(); }
+    std::string GetNormalName()  { return  material.GetNormalName(); }
+    std::string GetHeightName()  { return  material.GetHeightName(); }
 
     //bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
     int getTextureNumber() const { return static_cast<int>(textures.size()); }
@@ -90,21 +98,23 @@ public:
     }
 
 
-    MaterialComponent material;
-    bool hasMaterial;       // Indicates if a material is assigned
-
-//    Animation animation;
+    MaterialComponent material; // MaterialComponent is 
 
 
-    void AddMaterial(const MaterialComponent& newMaterial) {
+    bool hasMaterial;
+
+    bool LoadMaterialDesc(std::string filepath)
+    {
+        return material.LoadMaterialDescriptor(filepath);
+
+    }
+    void ReplaceMaterial(const MaterialComponent& newMaterial) {
         material = newMaterial;
-        hasMaterial = true;
     }
 
-    void RemoveMaterial() {
-        hasMaterial = false;
-        // Reset material to a default state, if applicable
-    }
+
+
+
 
   //  void AddAnimation(GraphicsComponent& graphics, const Animation& newAnimation) {
   //      graphics.animation = newAnimation;

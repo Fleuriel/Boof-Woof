@@ -75,7 +75,7 @@ bool ResourceManager::LoadAll() {
 
 
 DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
-    
+
     DDSData ddsData;
 
 
@@ -93,7 +93,9 @@ DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
         return ddsData;
     }
 
-  
+    std::cout << "\n\nTextueFOrmat : \t\t" << Texture.format() << '\n';
+
+
     // Get OpenGL texture parameters
     gli::gl GL(gli::gl::PROFILE_GL33);
     gli::gl::format const Format = GL.translate(Texture.format(), Texture.swizzles());
@@ -150,6 +152,7 @@ DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
 
     return ddsData; // Return the OpenGL texture ID
 }
+
 
 
 
@@ -217,25 +220,25 @@ bool LoadBinFile(const std::string& filePath) {
                     throw std::runtime_error("Failed to read texture path.");
                 }
 #ifdef _DEBUG
-                std::cout << texture.path << '\n';
+     //           std::cout << texture.path << '\n';
 #endif
                 size_t dotPos = texture.path.find_last_of(".");
                 if (dotPos != std::string::npos) {
                     texture.path = texture.path.substr(0, dotPos);
                 }
 #ifdef _DEBUG
-                std::cout << texture.path << '\n';
+       //         std::cout << texture.path << '\n';
 #endif
                  //texture.id = 0;
                 // texture.id = g_ResourceManager.GetTextureDDS(texture.path);
 
 #ifdef _DEBUG
-                std::cout << texture.id << '\n';
+      //          std::cout << texture.id << '\n';
 #endif
               // texture.type = "texture_diffuse"; // Assign type if known
                 textures.push_back(texture);
 
-                std::cout << textures.size() << '\n';
+         //       std::cout << textures.size() << '\n';
             }
 
 #ifdef _DEBUG
@@ -400,6 +403,44 @@ bool ResourceManager::hasModel(const std::string& modelName) {
 
 bool ResourceManager::LoadModelBinary()
 {
+    namespace fs = std::filesystem;
+    // Counter for the number of .bin files
+    int binFileCount = 0;
+
+    // Iterate through the directory
+    try {
+        for (const auto& entry : fs::directory_iterator(FILEPATH_RESOURCE_OBJECTS)) {
+            // Check if the entry is a regular file
+            if (entry.is_regular_file()) {
+                // Get the file extension
+                std::string extension = entry.path().extension().string();
+
+                // Check if the extension is .bin
+                if (extension == ".bin") {
+                    // Increment the counter
+                    binFileCount++;
+
+                    // Get the filename without the .bin extension
+                    std::string fileNameWithoutExtension = entry.path().stem().string();
+
+                    // Print the filename without the extension
+                    std::cout << fileNameWithoutExtension << '\n';
+
+                    ModelNames.push_back(fileNameWithoutExtension);
+                }
+            }
+        }
+
+        // Print the total number of .bin files
+        std::cout << "Total number of .bin files: " << binFileCount << '\n';
+    }
+    catch (const fs::filesystem_error& e) {
+        std::cerr << "Filesystem error: " << e.what() << '\n';
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << '\n';
+    }
+
     for (int i = 0; i < ModelNames.size(); ++i)
     {
         if (ModelNames[i] == "Square" || ModelNames[i] == "cubeModel")

@@ -1,0 +1,18 @@
+{
+    "name": "asd",
+    "shader": "OutlineAndFont",
+    "shaderIdx": 2,
+    "properties": {
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "Diffuse": "NothingTexture",
+        "Normal": "NothingNormal",
+        "Height": "NothingHeight",
+        "metallic": 0.0,
+        "shininess": 0.0
+    }
+}
