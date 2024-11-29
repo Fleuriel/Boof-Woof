@@ -35,4 +35,6 @@ struct Treat final : public Behaviour
 		UNREFERENCED_PARAMETER(entity);
 		//std::cout << "Treat Destroy" << std::endl;
 	}
+
+	virtual const char* getBehaviourName() override { return "Treat"; };
 };

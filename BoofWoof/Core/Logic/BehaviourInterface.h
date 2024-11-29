@@ -32,6 +32,7 @@ struct engine_interface
 	virtual input_interface& getInputSystem() = 0;
 	virtual audio_interface& getAudioSystem() = 0;
 
+	virtual double GetDeltaTime() = 0;
 	virtual void DestroyEntity(Entity entity) = 0;
 
 	virtual bool HaveTransformComponent(Entity entity) = 0;
@@ -55,8 +56,6 @@ struct engine_interface
 	virtual float GetCameraYaw(Entity entity) = 0;
 	virtual float GetCameraPitch(Entity entity) = 0;
 	virtual glm::vec3 GetCameraUp(Entity entity) = 0;
-
-	virtual double GetDeltaTime() = 0;
 
 };
 

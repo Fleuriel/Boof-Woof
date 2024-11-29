@@ -44,7 +44,7 @@ int main()
 	while (!glfwWindowShouldClose(g_Window->GetGLFWWindow()))
 	{
 		glfwPollEvents();
-		//DLL_Support_Update();
+		DLL_Support_Update();
 		g_Core->OnUpdate();
 		g_ImGuiEditor.ImGuiUpdate();
 		g_ImGuiEditor.ImGuiRender();
