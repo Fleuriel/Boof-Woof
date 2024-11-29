@@ -14,9 +14,6 @@
 #define INPUT_H
 
 #include "../Graphics/GraphicsSystem.h"
-#include <unordered_map>
-#include <string>
-#include <glm/vec2.hpp>
 
 #define g_Input InputSystem::GetInstance()
 

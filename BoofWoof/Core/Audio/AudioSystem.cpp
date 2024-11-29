@@ -12,13 +12,10 @@
  *************************************************************************/
 #include "pch.h"
 #include "AudioSystem.h"
-#include <thread>
 
 #define UNREFERENCED_PARAMETER(P)          (P)
 
-
 FMOD::Channel* currentChannel = nullptr; // Store the current playing channel
-
 
  /**************************************************************************
   * @brief Converts an FMOD result code to a human-readable string.

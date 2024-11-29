@@ -27,11 +27,6 @@
 #include <../Utilities/Components/CollisionComponent.hpp>
 #include <../Utilities/Components/MetaData.hpp> // To get name of entity
 
-#include <glm/gtc/quaternion.hpp>   // For glm::quat
-#include <glm/gtx/euler_angles.hpp> // For Euler angles
-#include <cstdlib>
-#include <cstdarg>
-#include <cstdio>
 
 std::unordered_map<Entity, float> m_PreviousYPositions;
 

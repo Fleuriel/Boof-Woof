@@ -15,7 +15,6 @@
 #pragma warning(push)
 #pragma warning(disable: 4244 4005)
 
-#include <thread>
 #include "AssetManager.h"
 #include "windows.h"
 #include "FilePaths.h"
@@ -164,7 +163,7 @@ void AssetManager::LoadAll() {
         loadScenes = AssetManager::LoadScenes(),
         //loadPrefabs   = AssetManager::LoadPrefabs(),
         loadShaders = AssetManager::LoadShaders(),
-        loadAnimations = AssetManager::LoadAnimations(),
+        //loadAnimations = AssetManager::LoadAnimations(),
         loadMaterial = AssetManager::LoadMaterials();
 
     std::cout

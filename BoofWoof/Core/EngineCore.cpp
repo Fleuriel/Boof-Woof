@@ -8,7 +8,6 @@ std::shared_ptr<AudioSystem> mAudioSys;
 std::shared_ptr<LogicSystem> mLogicSys;
 std::shared_ptr<FontSystem> mFontSys;
 std::shared_ptr<MyPhysicsSystem> mPhysicSys;
-//std::shared_ptr<CollisionSystem> mCollisionSys;
 std::shared_ptr<ParticleComponent> mParticleSys;
 std::shared_ptr<TransformSystem> mTransformSys;
 
@@ -99,32 +98,11 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<TransformSystem>(signature);
 	}
 
-	//mCollisionSys = g_Coordinator.RegisterSystem<CollisionSystem>();
-	//{
-	//	Signature signature;
-	//	signature.set(g_Coordinator.GetComponentType<TransformComponent>());
-	//	signature.set(g_Coordinator.GetComponentType<CollisionComponent>());
-	//	g_Coordinator.SetSystemSignature<CollisionSystem>(signature);
-	//}
-
-
-	//// Create entities
-	//{
-	//	Entity entity = g_Coordinator.CreateEntity();
-	//	g_Coordinator.AddComponent(entity, TransformComponent());
-	//	g_Coordinator.AddComponent(entity, GraphicsComponent());
-	//	g_Coordinator.AddComponent(entity, BehaviourComponent("Movement", entity));
-	//	g_Coordinator.AddComponent(entity, MetadataComponent("Player", entity));
-	//	g_Coordinator.AddComponent(entity, AudioComponent("../BoofWoof/Assets/Audio/explode2.wav", 1.0f, false, entity));
-	//	g_Coordinator.AddComponent(entity, CollisionComponent());
-	//}
-	//
 
 	// init system
 	mLogicSys->Init();
 	mGraphicsSys->initGraphicsPipeline();
 	mPhysicSys->InitializeJolt();
-	//mCollisionSys->Init();
 	//mFontSys->init();
 		
 

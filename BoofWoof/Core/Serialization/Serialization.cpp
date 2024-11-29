@@ -14,8 +14,6 @@
 
 #include "Serialization.h"
 #include "../EngineCore.h"
-#include <cstdio>
-
 #include "ResourceManager/ResourceManager.h"
 
 // Initialize the static member variable

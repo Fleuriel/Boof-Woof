@@ -29,8 +29,6 @@
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayerInterfaceMask.h>
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
 #include <../Utilities/Components/TransformComponent.hpp>
-#include <unordered_set> // For tracking colliding entities
-
 
 #include "../ECS/System.hpp"
 

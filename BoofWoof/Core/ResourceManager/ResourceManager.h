@@ -15,9 +15,7 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
-#include <filesystem>
 #include "../Core/Graphics/Model.h"
-
 
 struct DDSData {
 
