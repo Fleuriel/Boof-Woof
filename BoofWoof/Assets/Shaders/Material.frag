@@ -10,8 +10,10 @@
  * This file contains the fragment shader
  *
  *************************************************************************/
-#version 450 core
 
+
+
+#version 450 core
 #define PI 3.14159265359
 
 out vec4 FragColor;
@@ -21,10 +23,39 @@ in vec3 fragWorldPos;
 in vec4 fragColor; // Diffuse color of the material
 in float fragMetallic; // Metallic factor
 in float fragRoughness; // Roughness factor
+in vec2 fragTexCoord;                   // Interpolated texture coordinates from vertex shader
+
 
 uniform vec3 inputLight; // Light source position
 uniform vec3 viewPos; // Camera position
-uniform vec3 lightPos; // Light position
+
+// Add a sampler for the texture
+uniform sampler2D albedoTexture;
+uniform bool useTexture; // Flag to enable/disable texture
+
+vec4 fromLinear(vec4 linearRGB)
+{
+    bvec3 cutoff = lessThan(linearRGB.rgb, vec3(0.0031308));
+    vec3 higher = vec3(1.055)*pow(linearRGB.rgb, vec3(1.0/2.4)) - vec3(0.055);
+    vec3 lower = linearRGB.rgb * vec3(12.92);
+
+    return vec4(mix(higher, lower, cutoff), linearRGB.a);
+}
+
+// Converts a color from sRGB gamma to linear light gamma
+vec4 toLinear(vec4 sRGB)
+{
+    bvec3 cutoff = lessThan(sRGB.rgb, vec3(0.04045));
+    vec3 higher = pow((sRGB.rgb + vec3(0.055))/vec3(1.055), vec3(2.4));
+    vec3 lower = sRGB.rgb/vec3(12.92);
+
+    return vec4(mix(higher, lower, cutoff), sRGB.a);
+}
+
+vec3 sRGBToLinear(vec3 sRGB)
+{
+    return mix(sRGB / 12.92, pow((sRGB + 0.055) / 1.055, vec3(2.4)), lessThan(sRGB, vec3(0.04045)));
+}
 
 // Improved specular distribution using GGX
 float D_GGX(float NoH, float roughness) {
@@ -73,14 +104,34 @@ void main() {
     vec3 specular = (D * G * F) / max(4.0 * NoV * NoL, 0.001);
 
     // Diffuse BRDF (Lambertian for non-metals)
-    vec3 diffuse = (1.0 - F) * (1.0 - fragMetallic) * fragColor.rgb / PI;
+    vec3 baseColor = fragColor.rgb;
+
+    // Blend the texture with the color
+    if (useTexture) {
+        vec4 texColor = texture(albedoTexture, fragTexCoord);
+        texColor = toLinear(texColor);
+
+
+        texColor.rgb = pow(texColor.rgb, vec3(2.2)); // Convert from sRGB to linear
+
+        texColor.a = 2.2;
+        
+        baseColor *= texColor.rgb;
+        
+        
+        //vec4 texColor = texture(albedoTexture, fragTexCoord);
+        //float blendFactor = 0.5; // Example blend factor, can be uniform or derived
+        //baseColor = mix(fragColor.rgb, texColor.rgb, blendFactor);
+    }
+
+    vec3 diffuse = (1.0 - F) * (1.0 - fragMetallic) * baseColor / PI;
 
     // Combine with light
     vec3 lightColor = vec3(5.0); // Intensity of the light source
     vec3 directLight = (diffuse + specular) * NoL * lightColor;
 
     // Ambient light (for non-metals: based on the base color)
-    vec3 ambient = fragColor.rgb * 0.2 * (1.0 - fragMetallic);
+    vec3 ambient = baseColor * 0.2 * (1.0 - fragMetallic);
     
     // Ambient light for metallic materials (based on F0)
     vec3 ambient_metal = F0 * 0.2; // Reflection for metals
@@ -89,7 +140,7 @@ void main() {
     vec3 finalColor = directLight + mix(ambient, ambient_metal, fragMetallic);
 
     // Tonemapping for HDR (Linear to display space)
-    finalColor = finalColor / (finalColor + vec3(1.0)); // simple tonemapping
+    //finalColor = finalColor / (finalColor + vec3(1.0)); // simple tonemapping
 
     // Gamma correction (2.2 gamma)
     finalColor = pow(finalColor, vec3(1.0 / 2.2));
