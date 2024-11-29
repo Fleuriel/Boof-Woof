@@ -21,6 +21,16 @@
 #include <glm/gtx/matrix_decompose.hpp>
 
 
+
+enum s_shader {
+
+	S_FONT,
+	S_INST
+
+
+};
+
+
 namespace fs = std::filesystem;
 
 constexpr float EPSILON = 1e-6f;
@@ -2675,7 +2685,6 @@ void ImGuiEditor::InspectorWindow()
 										material.SetShaderIndex(Material_current_idx);
 
 
-										std::cout << "ay it changed to this shiet!!" << '\n';
 
 										std::cout << material.GetShaderIndex() << '\n';
 

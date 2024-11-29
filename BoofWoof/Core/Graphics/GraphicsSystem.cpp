@@ -209,10 +209,6 @@ void GraphicsSystem::UpdateLoop() {
 		{
 			continue;
 		}
-		if (!g_Coordinator.HaveComponent<GraphicsComponent>(entity))
-		{
-			continue;
-		}
 
 		auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
 
@@ -246,6 +242,10 @@ void GraphicsSystem::UpdateLoop() {
 
 		}
 
+		if (!g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+		{
+			continue;
+		}
 
 		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 
@@ -254,7 +254,7 @@ void GraphicsSystem::UpdateLoop() {
 		auto& ShaderName = material.GetShaderNameRef();
 
 #ifdef _DEBUG
-		std::cout << "ShaderName: " << material.GetShaderName() << '\n';
+//		std::cout << "ShaderName: " << material.GetShaderName() << '\n';
 
 #endif
 
