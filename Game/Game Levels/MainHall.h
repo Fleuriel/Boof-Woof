@@ -9,10 +9,13 @@
 
 class MainHall : public Level
 {
-	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{};
+	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{}, tennisBall{}, bone{};
 	CameraController* cameraController = nullptr;
 	bool sniffa{ false };
 	bool collectedBall{ false }, collectedBone{ false }, chgChecklist{ false };
+	bool playercollided{ false }, tennisBallCollided{ false }, boneCollided{ false };
+	bool boneDestroyed{ false }, tennisBallDestroyed{ false };
+	bool teb_last = false;
 
 	void LoadLevel()
 	{
@@ -45,6 +48,16 @@ class MainHall : public Level
 					BridgeEnt = entity;
 				}
 
+				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Bone")
+				{
+					bone = entity;
+				}
+
+				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "TennisBall")
+				{
+					tennisBall = entity;
+				}
+
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail1")
 				{
 					scentEntity1 = entity;
@@ -72,7 +85,33 @@ class MainHall : public Level
 		g_Checklist.ChangeAsset(g_Checklist.Box4, glm::vec3(0.0f, 0.0f, 0.0f), "");
 	}
 
-	bool teb_last = false;
+	void CheckCollision()
+	{
+		if (g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
+		{
+			playercollided = g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(tennisBall))
+		{
+			tennisBallCollided = g_Coordinator.GetComponent<CollisionComponent>(tennisBall).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(bone))
+		{
+			boneCollided = g_Coordinator.GetComponent<CollisionComponent>(bone).GetIsColliding();
+		}
+
+		if (playercollided && tennisBallCollided && !collectedBall)
+		{
+			collectedBall = true;
+		}
+
+		if (playercollided && boneCollided && !collectedBone)
+		{
+			collectedBone = true;
+		}
+	}
 
 	void UpdateLevel(double deltaTime)
 	{
@@ -86,18 +125,27 @@ class MainHall : public Level
 			g_Checklist.OnUpdate(deltaTime);
 		}
 
-		// If collected Tennis Ball [CHANGE AWAY THE IF CONDITION]
-		if (g_Input.GetKeyState(GLFW_KEY_N) >= 1 && !collectedBall)
+		if (!collectedBall || !collectedBone)
 		{
-			g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
-			collectedBall = true;
+			CheckCollision();
 		}
 
-		// If collected Bone [CHANGE AWAY THE IF CONDITION]
-		if (g_Input.GetKeyState(GLFW_KEY_M) >= 1 && !collectedBone)
+		// If collected Tennis Ball
+		if (collectedBall && !tennisBallDestroyed)
+		{
+			g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
+			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(tennisBall);
+			g_Coordinator.DestroyEntity(tennisBall);
+			tennisBallDestroyed = true;
+		}
+
+		// If collected Bone
+		if (collectedBone && !boneDestroyed)
 		{
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
-			collectedBone = true;
+			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(bone);
+			g_Coordinator.DestroyEntity(bone);
+			boneDestroyed = true;
 		}
 
 		if (collectedBall && collectedBone && !chgChecklist)
