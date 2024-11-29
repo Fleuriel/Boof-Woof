@@ -237,12 +237,19 @@ xcopy /y /d "$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win6
     <ClInclude Include="..\lib\imgui\inc\imstb_truetype.h" />
     <ClInclude Include="DLL_Support.h" />
     <ClInclude Include="ImGuiEditor.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="UndoRedoManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BoofWoof\BoofWoof.vcxproj">
       <Project>{d46d576d-ae16-4baf-aed7-a7224a120107}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EditorPaws.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\BoofWoof\Assets\PawsieAdventureIcon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
