@@ -14,8 +14,6 @@
 
 #include "Serialization.h"
 #include "../EngineCore.h"
-#include <cstdio>
-
 #include "ResourceManager/ResourceManager.h"
 
 // Initialize the static member variable
@@ -175,6 +173,13 @@ bool Serialization::SaveScene(const std::string& filepath) {
             rotation.AddMember("z", transformComp.GetRotation().z, allocator);
             Trans.AddMember("Rotation", rotation, allocator);
 
+            // Serialize Rotation Pivot Offset
+            rapidjson::Value rotationPivotOffset(rapidjson::kObjectType);
+            rotationPivotOffset.AddMember("x", transformComp.GetRotationPivotOffset().x, allocator);
+            rotationPivotOffset.AddMember("y", transformComp.GetRotationPivotOffset().y, allocator);
+            rotationPivotOffset.AddMember("z", transformComp.GetRotationPivotOffset().z, allocator);
+            Trans.AddMember("RotationPivotOffset", rotationPivotOffset, allocator);
+
             // Add the TransformComponent to the entityData
             entityData.AddMember("TransformComponent", Trans, allocator);
         }
@@ -287,6 +292,9 @@ bool Serialization::SaveScene(const std::string& filepath) {
             aabbOffset.AddMember("y", collisionComp.GetAABBOffset().y, allocator);
             aabbOffset.AddMember("z", collisionComp.GetAABBOffset().z, allocator);
             collisionData.AddMember("AABBOffset", aabbOffset, allocator);
+
+            // Save mass
+            collisionData.AddMember("Mass", collisionComp.GetMass(), allocator);
 
             entityData.AddMember("CollisionComponent", collisionData, allocator);
         }
@@ -574,7 +582,7 @@ bool Serialization::LoadScene(const std::string& filepath)
             if (entityData.HasMember("TransformComponent"))
             {
                 const auto& TData = entityData["TransformComponent"];
-                glm::vec3 position(0.0f), scale(1.0f), rotation(0.0f);
+                glm::vec3 position(0.0f), scale(1.0f), rotation(0.0f), rotationPivotOffset(0.0f);
 
                 // Check and load Position
                 if (TData.HasMember("Position")) {
@@ -603,7 +611,16 @@ bool Serialization::LoadScene(const std::string& filepath)
                     );
                 }
 
-                TransformComponent transformComponent(position, scale, rotation, entity);
+                // Deserialize Rotation Pivot Offset
+                if (TData.HasMember("RotationPivotOffset")) {
+                    rotationPivotOffset = glm::vec3(
+                        TData["RotationPivotOffset"]["x"].GetFloat(),
+                        TData["RotationPivotOffset"]["y"].GetFloat(),
+                        TData["RotationPivotOffset"]["z"].GetFloat()
+                    );
+                }
+
+                TransformComponent transformComponent(position, scale, rotation, rotationPivotOffset, entity);
                 g_Coordinator.AddComponent(entity, transformComponent);
             }
 
@@ -706,6 +723,12 @@ bool Serialization::LoadScene(const std::string& filepath)
                         aabbOffset["z"].GetFloat()
                     );
                     collisionComponent.SetAABBOffset(loadedAABBOffset);
+                }
+
+                // Load mass
+                if (collisionData.HasMember("Mass")) {
+                    float mass = collisionData["Mass"].GetFloat();
+                    collisionComponent.SetMass(mass);
                 }
 
                 g_Coordinator.AddComponent(entity, collisionComponent);

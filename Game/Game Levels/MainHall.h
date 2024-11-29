@@ -20,7 +20,7 @@ class MainHall : public Level
 	void LoadLevel()
 	{
 		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainHall.json");
-		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
+		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/BedRoomMusic.wav", true);
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -178,7 +178,7 @@ class MainHall : public Level
 
 		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniffa)
 		{
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiSniff.wav");
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiSniff.wav", false);
 
 			opacity1.setParticleColor(glm::vec4(0.0470588244497776f, 0.6627451181411743f, 0.95686274766922f, 1.0f));
 			opacity2.setParticleColor(glm::vec4(0.7960784435272217f, 0.0470588244497776f, 0.95686274766922f, 1.0f));
@@ -209,6 +209,8 @@ class MainHall : public Level
 
 	void UnloadLevel()
 	{
+		g_Audio.StopSpecificSound("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
+
 		g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();

@@ -58,10 +58,10 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		if (ElapsedTime >= FallDuration) 
 		{
 			isFalling = false;
-			// Ensure final position
-			currentRotation.x = -90.0f;
-			transform.SetRotation(glm::radians(currentRotation));
-			transform.SetPosition(initialPos + TargetPos);
+			//// Ensure final position
+			//currentRotation.x = -90.0f;
+			//transform.SetRotation(glm::radians(currentRotation));
+			//transform.SetPosition(initialPos + TargetPos);
 		}
 	}
 
@@ -101,7 +101,7 @@ void RopeBreaker::DropBridge()
 {
 	if (!bridgeAudio) 
 	{
-		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WoodenBridgeDropping.wav");
+		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WoodenBridgeDropping.wav", false);
 		bridgeAudio = true;
 	}
 
@@ -117,6 +117,7 @@ void RopeBreaker::DropBridge()
 	isFalling = true;
 	ElapsedTime = 0.0f;
 }
+
 
 void RopeBreaker::SpawnBoneCatcher()
 {
@@ -142,7 +143,7 @@ void RopeBreaker::DespawnRope()
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
 				{
-					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav");
+					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav", false);
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					RopeDespawned++;
@@ -154,7 +155,7 @@ void RopeBreaker::DespawnRope()
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
 				{
-					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav");
+					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav", false);
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					RopeDespawned++;

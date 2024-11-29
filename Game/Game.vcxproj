@@ -185,11 +185,18 @@ xcopy /y /d "$(SolutionDir)lib\freetype\freetype.dll" "$(OutDir)"</Command>
     <ClInclude Include="Game Levels\MainMenu.h" />
     <ClInclude Include="Game Levels\Splashscreen.h" />
     <ClInclude Include="Game Levels\TimeRush.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Systems\BoneCatcher\BoneCatcher.h" />
     <ClInclude Include="Systems\CameraController\CameraController.h" />
     <ClInclude Include="Systems\ChangeText\ChangeText.h" />
     <ClInclude Include="Systems\Checklist\Checklist.h" />
     <ClInclude Include="Systems\RopeBreaker\RopeBreaker.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\BoofWoof\Assets\PawsieAdventureIcon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

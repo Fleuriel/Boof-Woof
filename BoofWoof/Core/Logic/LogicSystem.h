@@ -9,7 +9,6 @@ class Script_to_Engine;
 #include "../ECS/System.hpp"
 #include "Behaviour.h"
 #include "BehaviourInterface.h"
-#include <map>
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <wtypes.h>

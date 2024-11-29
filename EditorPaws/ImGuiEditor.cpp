@@ -286,7 +286,7 @@ void ImGuiEditor::ImGuiViewport() {
 					);
 				}
 
-				g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+				g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity, 0.0f);
 			}
 
 			// Update m_WasUsingGizmo for the next frame
@@ -1191,7 +1191,7 @@ void ImGuiEditor::InspectorWindow()
 											transformComponent.SetEditing(false);
 
 											// Update the physics body position immediately
-											g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+											g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity, 0.0f);
 
 											glm::vec3 newValue = vecValue;
 											glm::vec3 oldValue = oldVec3Values[propertyName];
@@ -1214,7 +1214,7 @@ void ImGuiEditor::InspectorWindow()
 														(*propIt)->SetValue(&component, SerializationHelpers::SerializeVec3(newValue));
 													}
 													// Update systems
-													g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(entity);
+													g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(entity, 0.0f);
 												},
 												// Undo Action
 												[entity, propertyName, oldValue]() {
@@ -1229,7 +1229,7 @@ void ImGuiEditor::InspectorWindow()
 														(*propIt)->SetValue(&component, SerializationHelpers::SerializeVec3(oldValue));
 													}
 													// Update systems
-													g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(entity);
+													g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(entity, 0.0f);
 												}
 											);
 										}
@@ -1273,7 +1273,7 @@ void ImGuiEditor::InspectorWindow()
 														(*propIt)->SetValue(&component, std::to_string(newValue));
 													}
 													// Update systems
-													g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(entity);
+													g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(entity, 0.0f);
 												},
 												// Undo Action
 												[entity, propertyName, oldValue]() {
@@ -1288,7 +1288,7 @@ void ImGuiEditor::InspectorWindow()
 														(*propIt)->SetValue(&component, std::to_string(oldValue));
 													}
 													// Update systems
-													g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(entity);
+													g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(entity, 0.0f);
 												}
 											);
 
@@ -2115,7 +2115,7 @@ void ImGuiEditor::InspectorWindow()
 										if (collisionComponent.IsDynamic() != isDynamic) {
 											collisionComponent.SetIsDynamic(isDynamic);
 											// Call UpdateEntityBody instead of removing and adding the entity again
-											g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+											g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity, 0.0f);
 										}
 									}
 
@@ -2134,7 +2134,7 @@ void ImGuiEditor::InspectorWindow()
 											collisionComponent.SetIsDynamic(true);
 										}
 
-										g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+										g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity, 0.0f);
 									}
 
 									// Debugging for player type
@@ -2163,7 +2163,7 @@ void ImGuiEditor::InspectorWindow()
 											collisionComponent.SetAABBSize(graphicsComponent.boundingBox);
 
 											// Update the physics body in real time
-											g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+											g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity, 0.0f);
 										}
 
 										// Debug Output for both unscaled and effective (scaled) AABB
@@ -2177,7 +2177,7 @@ void ImGuiEditor::InspectorWindow()
 										collisionComponent.SetAABBOffset(currentOffset);
 
 										// Update the physics body in real time to reflect the offset
-										g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity);
+										g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity, 0.0f);
 
 									}
 
@@ -2187,6 +2187,18 @@ void ImGuiEditor::InspectorWindow()
 									// Debug for last colliding entity
 									ImGui::Text("Colliding: %s", collisionComponent.GetIsColliding() ? "Yes" : "No");
 									ImGui::Text("Last Collided Object: %s", collisionComponent.GetLastCollidedObjectName().c_str());
+
+									// Mass Editor
+									float currentMass = collisionComponent.GetMass();
+									if (ImGui::DragFloat("Mass", &currentMass, 0.1f, 0.0f, 100.0f, "%.2f")) {
+										collisionComponent.SetMass(currentMass);
+
+										// Update the physics body in real time to reflect the new mass
+										g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity, currentMass);
+									}
+
+									// Debug Output for mass
+									ImGui::Text("Actual Mass: %.2f", collisionComponent.GetActualMass());
 
 								}
 							}

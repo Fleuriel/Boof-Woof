@@ -17,8 +17,6 @@
 #include <rapidjson/istreamwrapper.h>
 #include <rapidjson/ostreamwrapper.h>
 #include <rapidjson/prettywriter.h>
-#include <fstream>
-#include <iostream>
 #include <stdexcept> // For std::runtime_error
 
 bool TextureDescriptor::SaveTextureDescriptor(const std::string& filepath) {

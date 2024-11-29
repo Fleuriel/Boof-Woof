@@ -1,4 +1,5 @@
 #define _CRTDBG_MAP_ALLOC
+#pragma warning(disable : 4005)
 #include <stdlib.h>
 #include <crtdbg.h>
 #include "../BoofWoof/Core/EngineCore.h"

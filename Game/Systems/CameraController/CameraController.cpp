@@ -244,7 +244,7 @@ void CameraController::UpdateShiftingView(CameraComponent& camera)
 
 void CameraController::UpdateShakeView(CameraComponent& camera)
 {
-    shakeTime += g_Core->m_FixedDT;
+    shakeTime += static_cast<float>(g_Core->m_FixedDT);
 	if (shakeTime >= shakeDuration)
 	{
 		currentMode = lastMode;
@@ -269,7 +269,7 @@ void CameraController::UpdateShakeView(CameraComponent& camera)
 void CameraController::UpdateShakePlayer(CameraComponent& camera)
 {
 	
-	shakeTime += g_Core->m_FixedDT;
+	shakeTime += static_cast<float>(g_Core->m_FixedDT);
 	if (shakeTime >= shakeDuration)
 	{
 		

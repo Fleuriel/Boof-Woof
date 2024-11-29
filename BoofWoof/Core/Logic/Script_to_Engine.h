@@ -45,9 +45,9 @@ public:
 
 	virtual void PlaySound(const char* pSoundName) override
 	{
-		UNREFERENCED_PARAMETER(pSoundName);
+		//UNREFERENCED_PARAMETER(pSoundName);
 		// Play sound
-		// g_Audio.PlayFile(pSoundName);
+		 g_Audio.PlayFile(pSoundName);
 	}
 
 	// ENGINE INTERFACE

@@ -2,8 +2,6 @@
 #include "AnimationManager.h"
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
-#include <iostream>
-#include <cmath>
 
 // Animation Constructor
 Animation::Animation(const aiAnimation* assimpAnimation) {

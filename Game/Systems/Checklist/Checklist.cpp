@@ -78,7 +78,7 @@ void Checklist::OnUpdate(double deltaTime)
 			Check2 = true;
 		}
 
-		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) >= 1 && !Check3)
+		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !Check3)
 		{
 			ChangeBoxChecked(Box3);
 			Check3 = true;
@@ -183,7 +183,7 @@ void Checklist::ChangeBoxChecked(Entity ent)
 
 		if (!playAudio) 
 		{
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CheckTheBox.wav");
+			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CheckTheBox.wav", false);
 			playAudio = true;
 		}
 	}

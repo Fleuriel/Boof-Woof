@@ -25,7 +25,8 @@ struct Player final : public Behaviour
 		velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 		isMoving = false;
 
-		double deltaTime = m_Engine.GetDeltaTime(); // Get delta time
+		//double deltaTime = m_Engine.GetDeltaTime(); // Get delta time
+		
 		//std::cout << "[DEBUG] Delta Time: " << deltaTime << std::endl;
 
 		// Debug: Starting state
@@ -150,6 +151,10 @@ struct Player final : public Behaviour
 			}
 
 		}
+		if (isMoving)
+		{
+			m_Engine.getAudioSystem().PlaySound("../BoofWoof/Assets/Audio/Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_01.wav");
+		}
 
 		// Debug: After processing input
 		//std::cout << "[DEBUG] After Input Processing: isMoving = " << std::boolalpha << isMoving << std::endl;
@@ -230,8 +235,7 @@ struct Player final : public Behaviour
 
 		if (m_Engine.getInputSystem().isActionPressed("Bark"))
 		{
-			std::cout << "Bark" << std::endl;
-
+			m_Engine.getAudioSystem().PlaySound("../BoofWoof/Assets/Audio/Corgi/CorgiBark1.wav");
 		}
 	}
 
