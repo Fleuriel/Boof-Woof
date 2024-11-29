@@ -165,7 +165,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -212,7 +211,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -274,7 +272,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -336,7 +333,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -398,7 +394,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -460,7 +455,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -522,7 +516,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -584,7 +577,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -646,7 +638,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -708,7 +699,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -770,7 +760,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -832,7 +821,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -879,7 +867,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -926,7 +913,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -973,7 +959,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1035,7 +1020,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1097,7 +1081,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1159,7 +1142,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1221,7 +1203,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1283,7 +1264,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1345,7 +1325,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1407,7 +1386,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1469,7 +1447,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -1516,7 +1493,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -1563,7 +1539,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1625,7 +1600,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDoor",
-                "Texture": "WallDoor",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1687,7 +1661,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1749,7 +1722,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1811,7 +1783,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -1858,7 +1829,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1920,7 +1890,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1982,7 +1951,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -2029,7 +1997,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -2091,7 +2058,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -2153,7 +2119,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -2215,7 +2180,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -2277,7 +2241,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -2339,7 +2302,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -2401,7 +2363,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDoor",
-                "Texture": "WallDoor",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -2463,7 +2424,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -2525,7 +2485,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -2572,7 +2531,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -2619,7 +2577,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDoor",
-                "Texture": "WallDoor",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -2681,7 +2638,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -2728,7 +2684,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -2775,7 +2730,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -2822,7 +2776,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -2869,7 +2822,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -2916,7 +2868,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -2963,7 +2914,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3010,7 +2960,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3057,7 +3006,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3104,7 +3052,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3151,7 +3098,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3198,7 +3144,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3245,7 +3190,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3292,7 +3236,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3339,7 +3282,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3386,7 +3328,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3433,7 +3374,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3480,7 +3420,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3527,7 +3466,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3574,7 +3512,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3621,7 +3558,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3668,7 +3604,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3715,7 +3650,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3762,7 +3696,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3809,7 +3742,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDoor",
-                "Texture": "WallDoor",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3856,7 +3788,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3903,7 +3834,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3950,7 +3880,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -3997,7 +3926,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4044,7 +3972,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDoor",
-                "Texture": "WallDoor",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4091,7 +4018,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4138,7 +4064,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4185,7 +4110,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4232,7 +4156,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4279,7 +4202,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4326,7 +4248,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4373,7 +4294,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4420,7 +4340,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4467,7 +4386,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4514,7 +4432,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4561,7 +4478,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDoor",
-                "Texture": "WallDoor",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4608,7 +4524,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4655,7 +4570,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDoor",
-                "Texture": "WallDoor",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4702,7 +4616,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4749,7 +4662,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondFloorRailings2",
-                "Texture": "SecondFloorRailings2",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4796,7 +4708,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SeondFloorRailings",
-                "Texture": "SeondFloorRailings",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4843,7 +4754,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SeondFloorRailings",
-                "Texture": "SeondFloorRailings",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4890,7 +4800,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SeondFloorRailings",
-                "Texture": "SeondFloorRailings",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -4983,7 +4892,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SeondFloorRailings",
-                "Texture": "SeondFloorRailings",
                 "FollowCamera": true
             }
         },
@@ -5103,7 +5011,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondFloorRailings2",
-                "Texture": "SecondFloorRailings2",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5150,7 +5057,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SeondFloorRailings",
-                "Texture": "SeondFloorRailings",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5197,7 +5103,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SeondFloorRailings",
-                "Texture": "SeondFloorRailings",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5244,7 +5149,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondFloorRailings2",
-                "Texture": "SecondFloorRailings2",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5291,7 +5195,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SeondFloorRailings",
-                "Texture": "SeondFloorRailings",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5338,7 +5241,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SecondFloorRailings2",
-                "Texture": "SecondFloorRailings2",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5385,7 +5287,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "SeondFloorRailings",
-                "Texture": "SeondFloorRailings",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5432,7 +5333,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5479,7 +5379,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5526,7 +5425,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDoor",
-                "Texture": "WallDoor",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5573,7 +5471,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5620,7 +5517,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5667,7 +5563,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5714,7 +5609,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5761,7 +5655,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5808,7 +5701,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5855,7 +5747,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5902,7 +5793,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5949,7 +5839,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -5996,7 +5885,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6043,7 +5931,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6090,7 +5977,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6137,7 +6023,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6184,7 +6069,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6231,7 +6115,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6278,7 +6161,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6325,7 +6207,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6372,7 +6253,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6419,7 +6299,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6466,7 +6345,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6513,7 +6391,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6560,7 +6437,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6607,7 +6483,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6654,7 +6529,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6701,7 +6575,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDoor",
-                "Texture": "WallDoor",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6748,7 +6621,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6795,7 +6667,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6842,7 +6713,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6889,7 +6759,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6936,7 +6805,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -6983,7 +6851,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7030,7 +6897,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7077,7 +6943,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7124,7 +6989,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7171,7 +7035,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7218,7 +7081,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7265,7 +7127,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7312,7 +7173,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7359,7 +7219,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7406,7 +7265,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7453,7 +7311,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7500,7 +7357,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7547,7 +7403,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDoor",
-                "Texture": "WallDoor",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7594,7 +7449,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7641,7 +7495,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7688,7 +7541,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7735,7 +7587,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7782,7 +7633,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7829,7 +7679,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7876,7 +7725,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7923,7 +7771,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -7970,7 +7817,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -8017,7 +7863,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -8064,7 +7909,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Table2",
-                "Texture": "Table2",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -8111,7 +7955,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Table2",
-                "Texture": "Table2",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -8158,7 +8001,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Table2",
-                "Texture": "Table2",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -8205,7 +8047,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Table2",
-                "Texture": "Table2",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -8252,7 +8093,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Table2",
-                "Texture": "Table2",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -8299,7 +8139,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Table2",
-                "Texture": "Table2",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -8346,7 +8185,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Table2",
-                "Texture": "Table2",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -8393,7 +8231,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Table2",
-                "Texture": "Table2",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -8440,7 +8277,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -8502,7 +8338,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -8564,7 +8399,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -8626,7 +8460,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -8688,7 +8521,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -8750,7 +8582,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -8812,7 +8643,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -8874,7 +8704,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -8936,7 +8765,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -8998,7 +8826,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9060,7 +8887,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9122,7 +8948,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9184,7 +9009,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9246,7 +9070,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9308,7 +9131,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9370,7 +9192,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9432,7 +9253,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9494,7 +9314,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9556,7 +9375,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9618,7 +9436,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9680,7 +9497,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9742,7 +9558,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9804,7 +9619,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9866,7 +9680,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9928,7 +9741,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -9990,7 +9802,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10052,7 +9863,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10114,7 +9924,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10176,7 +9985,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10238,7 +10046,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair",
-                "Texture": "Chair",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10300,7 +10107,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair",
-                "Texture": "Chair",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10362,7 +10168,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair",
-                "Texture": "Chair",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10424,7 +10229,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair",
-                "Texture": "Chair",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10486,7 +10290,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Fireplace",
-                "Texture": "Fireplace",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10548,7 +10351,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Banner",
-                "Texture": "Banner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -10595,7 +10397,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Banner",
-                "Texture": "Banner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -10642,7 +10443,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Banner",
-                "Texture": "Banner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -10689,7 +10489,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10751,7 +10550,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10813,7 +10611,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10875,7 +10672,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10937,7 +10733,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -10999,7 +10794,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11061,7 +10855,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11123,7 +10916,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11185,7 +10977,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDoorLeft",
-                "Texture": "WallDoorLeft",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11247,7 +11038,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDoorRight",
-                "Texture": "WallDoorRight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11309,7 +11099,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDoorTop",
-                "Texture": "WallDoorTop",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11371,7 +11160,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11433,7 +11221,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11495,7 +11282,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -11542,7 +11328,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -11589,7 +11374,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11651,7 +11435,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11713,7 +11496,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11775,7 +11557,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11837,7 +11618,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11899,7 +11679,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -11961,7 +11740,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -12008,7 +11786,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -12055,7 +11832,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -12117,7 +11893,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -12179,7 +11954,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDrawbridgeLeft",
-                "Texture": "WallDrawbridgeLeft",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -12241,7 +12015,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDrawbridgeRight",
-                "Texture": "WallDrawbridgeRight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -12303,7 +12076,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallDrawbridgeTop",
-                "Texture": "WallDrawbridgeTop",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -12350,7 +12122,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "RopeDrawbridge",
-                "Texture": "RopeDrawbridge",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -12412,7 +12183,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "NailDrawbridge",
-                "Texture": "NailDrawbridge",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -12459,7 +12229,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "RopeDrawbridge",
-                "Texture": "RopeDrawbridge",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -12521,7 +12290,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "NailDrawbridge",
-                "Texture": "NailDrawbridge",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -12568,7 +12336,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "DoorDrawbridge",
-                "Texture": "DoorDrawbridge",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -12630,7 +12397,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -12677,7 +12443,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -12724,7 +12489,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -12771,7 +12535,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -12818,7 +12581,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -12865,7 +12627,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -12912,7 +12673,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
-                "Texture": "Ceiling",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -12959,7 +12719,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "DoorDrawbridge",
-                "Texture": "DoorDrawbridge",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -13006,7 +12765,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "DoorDrawbridge",
-                "Texture": "DoorDrawbridge",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -13053,7 +12811,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "DoorDrawbridge",
-                "Texture": "DoorDrawbridge",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -13100,7 +12857,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "DoorDrawbridge",
-                "Texture": "DoorDrawbridge",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -13147,7 +12903,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "DoorDrawbridge",
-                "Texture": "DoorDrawbridge",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -13194,7 +12949,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "DoorDrawbridge",
-                "Texture": "DoorDrawbridge",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -13241,7 +12995,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "DoorDrawbridge",
-                "Texture": "DoorDrawbridge",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -13288,7 +13041,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "DoorDrawbridge",
-                "Texture": "DoorDrawbridge",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -13335,7 +13087,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -13397,7 +13148,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -13459,7 +13209,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -13521,7 +13270,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -13583,7 +13331,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -13645,7 +13392,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -13707,7 +13453,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -13769,7 +13514,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -13831,7 +13575,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -13893,7 +13636,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -13955,7 +13697,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -14017,7 +13758,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -14079,7 +13819,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -14141,7 +13880,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -14203,7 +13941,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -14265,7 +14002,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -14327,7 +14063,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -14389,7 +14124,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -14451,7 +14185,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -14513,7 +14246,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -14575,7 +14307,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -14637,7 +14368,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -14927,7 +14657,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Bone",
-                "Texture": "Bone",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -14989,7 +14718,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "TennisBall",
-                "Texture": "TennisBall",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -15185,7 +14913,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
             },
             "CollisionComponent": {
