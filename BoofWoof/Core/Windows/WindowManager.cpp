@@ -14,12 +14,24 @@
 
 #include "WindowManager.h"
 #include "Input/Input.h"
+#include "Windows.h"
 
 Window* g_Window = nullptr;
 int g_WindowX, g_WindowY;
 int g_DesktopWidth, g_DesktopHeight;
 bool g_WindowClosed;
 
+////////// Settings panel //////////
+float resolutionwidth = 1920;
+float resolutionheight = 1080;
+bool force_resolution = true;
+bool fullscreen_on_start = false;
+bool out_of_focus_minimize = true;
+//bool start_in_game = true;
+////////////////////////////////////
+
+DEVMODE devMode;
+DEVMODE originalDevMode;
 
 static void error_callback(int error, const char* description)
 {
@@ -32,18 +44,18 @@ void SetResolution(int width, int height)
     glfwSetWindowSize(g_Window->GetGLFWWindow(), width, height);;
 }
 
-// When losing focus
-void WindowFocusCallback(GLFWwindow* window, int focused) 
-{
-    static_cast<void>(window);
-    if (focused == GLFW_FALSE) 
-    {
-        SetResolution(g_DesktopWidth, g_DesktopHeight);
-    }
-    else {
-        SetResolution(g_WindowX, g_WindowY); // Set your game resolution here
-    }
-}
+//// When losing focus
+//void WindowFocusCallback(GLFWwindow* window, int focused) 
+//{
+//    static_cast<void>(window);
+//    if (focused == GLFW_FALSE) 
+//    {
+//        SetResolution(g_DesktopWidth, g_DesktopHeight);
+//    }
+//    else {
+//        SetResolution(g_WindowX, g_WindowY); // Set your game resolution here
+//    }
+//}
 
 void Window::OnInitialize()
 {
@@ -75,6 +87,9 @@ void Window::OnInitialize()
     //m_Window = glfwCreateWindow(customVideoMode.width, customVideoMode.height, m_Title, glfwGetPrimaryMonitor(), nullptr); //this is for fullscreen
     m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, nullptr, nullptr);
 
+
+
+
     if (!m_Window)
     {
         glfwTerminate();
@@ -94,12 +109,50 @@ void Window::OnInitialize()
     glfwSetWindowSizeCallback(m_Window, OpenGLWindowResizeCallback);
     glfwSetErrorCallback(error_callback);
 
+
+
+    // Store the original screen settings
+    EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &originalDevMode);
+
+    if (force_resolution) {
+        // Retrieve current display settings
+        if (EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &devMode)) {
+            // Check if the current resolution is already right
+            if (devMode.dmPelsWidth == resolutionwidth && devMode.dmPelsHeight == resolutionheight) {
+                std::cout << "Current resolution is already correct. No change needed." << std::endl;
+            }
+            else {
+                // Change resolution if it is not already 1920x1080
+                devMode.dmPelsWidth = resolutionwidth;
+                devMode.dmPelsHeight = resolutionheight;
+                devMode.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT;
+
+                if (ChangeDisplaySettings(&devMode, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL) {
+                    std::cerr << "Resolution change failed." << std::endl;
+                }
+                else {
+                    std::cout << "Resolution successfully changed." << std::endl;
+                }
+            }
+        }
+        else {
+            std::cerr << "Failed to retrieve current display settings." << std::endl;
+        }
+    }
+
+
+
+    glfwSetWindowFocusCallback(m_Window, windowFocusCallback);
+
     glfwSwapInterval(1); // Enable V-Sync
 
     glEnable(GL_DEPTH_TEST);
     glDepthRange(0.0f, 1.0f);
 
     std::cout << "Window successfully created." << std::endl;
+
+    if (fullscreen_on_start)
+        toggleFullScreen();
 }
 
 void Window::OpenGLWindowResizeCallback(GLFWwindow* window, int width, int height) 
@@ -163,6 +216,11 @@ void Window::OnUpdate()
 
 void Window::OnShutdown()
 {
+
+    if (force_resolution)
+        // Reset the screen resolution to the original settings
+        ChangeDisplaySettings(&originalDevMode, CDS_RESET);
+
     if (m_IsInitialized)
     {
         glfwDestroyWindow(m_Window);
@@ -426,4 +484,41 @@ void Window::ScrollCallBack(GLFWwindow* window, double xOffset, double yOffset) 
 
     //std::cout << g_Input.GetScrollState() << std::endl;
     //std::cout << g_Input.GetScrollTotalYOffset() << std::endl;
+}
+
+/**************************************************************************
+ * @brief Callback function for handling window focus changes.
+ *
+ * This function is registered as a callback to be called when the focus of the
+ * GLFW window changes. It is designed to respond to the window losing or gaining focus,
+ * particularly when the user alt-tabs away from or back to the window.
+ *
+ * If the window loses focus (alt-tabbed away), it checks whether certain conditions
+ * are met (not currently loading assets or the file browser not being open), and
+ * if so, it minimizes the window and pauses all sounds using GLFW's `glfwIconifyWindow`
+ * and a sound manager.
+ *
+ * If the window gains focus (alt-tabbed back), it restores the window using `glfwRestoreWindow`
+ * and resumes all sounds through the sound manager.
+ *
+ * @param window The GLFW window that triggered the callback.
+ * @param focused An integer indicating whether the window has gained (GLFW_TRUE) or lost (GLFW_FALSE) focus.
+ *************************************************************************/
+void Window::windowFocusCallback(GLFWwindow* window, int focused) {
+	window;
+
+	if (out_of_focus_minimize)
+	// If alt tabbed away
+	if (focused == GLFW_FALSE) {
+		// Minimizes window if alt tabbed away
+		if (!(g_AssetManager.Currentlyloading))
+			glfwIconifyWindow(window);
+		ChangeDisplaySettings(&originalDevMode, CDS_RESET);
+	}
+	// If alt tabbed back to window
+	else {
+		// Resores window if alt tabbed back
+		glfwRestoreWindow(window);
+		ChangeDisplaySettings(&devMode, CDS_FULLSCREEN);
+	}
 }

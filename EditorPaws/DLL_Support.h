@@ -33,4 +33,4 @@ void DLL_Support_Unload();
 
 //void StartFocusChecker();
 
-void FocusChecker(GLFWwindow* window, int focused);
+// void FocusChecker(GLFWwindow* window, int focused);

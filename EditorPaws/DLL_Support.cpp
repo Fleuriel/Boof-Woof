@@ -99,47 +99,47 @@ bool IsDLLInUse(const std::wstring& dllPath) {
     return false; // DLL is not in use
 }
 
-void FocusChecker(GLFWwindow* window, int focused) {
-    
-        if (focused) {
-            if (wasPreviouslyUnfocused.exchange(false)) {
-                std::cout << "Window regained focus.\n";
-                /*
-                monitoringThread = false;
-                if (monitorThread.joinable()) {
-                    monitorThread.join();
-                }
-                */
-				// Compare DLL modification times
-				std::filesystem::path dllMainPath = DLL_MAIN_DIRECTORY;
-				std::filesystem::path dllCopyPath = DLL_COPY_DIRECTORY;
-                if (CompareFiles(dllMainPath, dllCopyPath)) {
-                    ChangeDLL();
-                }
-                /*
-				if (!DLL_has_changed) {
-                    std::cout << "DLL has not changed.\n";
-				}
-				else {
-                    ChangeDLL();
-                    DLL_has_changed = false;
-				}
-                */
-            }
-            
-        }
-        else {
-            if (!wasPreviouslyUnfocused.exchange(true)) {
-                std::cout << "Window lost focus 2.\n";
-				//monitoringThread = true;
-                //monitorThread = std::thread(MonitorDirectory); // Trigger directory monitoring
-            }
-        }
-
-
-        // Sleep to avoid excessive CPU usage
-        //std::this_thread::sleep_for(std::chrono::milliseconds(100));
- }
+//void FocusChecker(GLFWwindow* window, int focused) {
+//    
+//        if (focused) {
+//            if (wasPreviouslyUnfocused.exchange(false)) {
+//                std::cout << "Window regained focus.\n";
+//                /*
+//                monitoringThread = false;
+//                if (monitorThread.joinable()) {
+//                    monitorThread.join();
+//                }
+//                */
+//				// Compare DLL modification times
+//				std::filesystem::path dllMainPath = DLL_MAIN_DIRECTORY;
+//				std::filesystem::path dllCopyPath = DLL_COPY_DIRECTORY;
+//                if (CompareFiles(dllMainPath, dllCopyPath)) {
+//                    ChangeDLL();
+//                }
+//                /*
+//				if (!DLL_has_changed) {
+//                    std::cout << "DLL has not changed.\n";
+//				}
+//				else {
+//                    ChangeDLL();
+//                    DLL_has_changed = false;
+//				}
+//                */
+//            }
+//            
+//        }
+//        else {
+//            if (!wasPreviouslyUnfocused.exchange(true)) {
+//                std::cout << "Window lost focus 2.\n";
+//				//monitoringThread = true;
+//                //monitorThread = std::thread(MonitorDirectory); // Trigger directory monitoring
+//            }
+//        }
+//
+//
+//        // Sleep to avoid excessive CPU usage
+//        //std::this_thread::sleep_for(std::chrono::milliseconds(100));
+// }
 
 // Function to compare file modification times
 bool CompareFiles(const std::filesystem::path& build, const std::filesystem::path& copy) {

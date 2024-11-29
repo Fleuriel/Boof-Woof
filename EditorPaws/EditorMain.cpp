@@ -38,7 +38,7 @@ int main()
 	g_ImGuiEditor.ImGuiInit(g_Window);
 
 	
-	glfwSetWindowFocusCallback(g_Window->GetGLFWWindow(), FocusChecker);
+	//glfwSetWindowFocusCallback(g_Window->GetGLFWWindow(), FocusChecker);
 	//StartFocusChecker();
 
 	while (!glfwWindowShouldClose(g_Window->GetGLFWWindow()))
