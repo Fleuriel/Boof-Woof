@@ -24,8 +24,8 @@ bool g_WindowClosed;
 ////////// Settings panel //////////
 float resolutionwidth = 1920;
 float resolutionheight = 1080;
-bool force_resolution = true;
-bool fullscreen_on_start = false;
+bool force_resolution = false;
+bool fullscreen_on_start = true;
 bool out_of_focus_minimize = true;
 //bool start_in_game = true;
 ////////////////////////////////////
