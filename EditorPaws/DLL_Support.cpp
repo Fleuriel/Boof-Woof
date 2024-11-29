@@ -11,11 +11,14 @@ HHOOK hHook = NULL;
 UINT WM_FILE_CHANGED;
 bool toggle;
 
-std::atomic<bool> wasPreviouslyUnfocused(false); // Track window focus state
+//std::atomic<bool> wasPreviouslyUnfocused(false); //Track window focus state
+bool focusChanged; // Track focus change
 //std::atomic<bool> checkDirectoryOnce(false); // Check directory only once per focus regain
 
 //bool monitoringThread;
 bool DLL_has_changed;
+int dllRenameCounter = 0;
+
 //std::thread monitorThread; // Thread for directory monitoring
 
 MSG msg;
@@ -28,7 +31,8 @@ void DLL_Support_Init() {
     SetCustomHook();
 
     //monitoringThread = false;
-	DLL_has_changed = false;
+	focusChanged = false;
+    DLL_has_changed = false;
     toggle = true;
 }
 
@@ -61,7 +65,7 @@ LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam) {
 void FocusChecker(GLFWwindow* window, int focused) {
 
     if (focused) {
-        if (wasPreviouslyUnfocused.exchange(false)) {
+        if (focusChanged) {
             std::cout << "Window regained focus.\n";
             /*
             monitoringThread = false;
@@ -72,10 +76,12 @@ void FocusChecker(GLFWwindow* window, int focused) {
             // Compare DLL modification times
             std::filesystem::path dllMainPath = DLL_MAIN_DIRECTORY;
             std::filesystem::path dllCopyPath;
-            dllCopyPath = toggle ? DLL_COPY_DIRECTORY : OTHER_COPY_DIRECTORY;
+            dllCopyPath = DLL_COPY_DIRECTORY;
             if (CompareFiles(dllMainPath, dllCopyPath)) {
                 ChangeDLL();
             }
+
+			focusChanged = !focusChanged;
             /*
             if (!DLL_has_changed) {
                 std::cout << "DLL has not changed.\n";
@@ -89,10 +95,11 @@ void FocusChecker(GLFWwindow* window, int focused) {
 
     }
     else {
-        if (!wasPreviouslyUnfocused.exchange(true)) {
+        if (!focusChanged) {
             std::cout << "Window lost focus 2.\n";
             //monitoringThread = true;
             //monitorThread = std::thread(MonitorDirectory); // Trigger directory monitoring
+			focusChanged = !focusChanged;
         }
     }
 
@@ -134,7 +141,7 @@ bool IsDLLInUse(const std::wstring& dllPath) {
 bool CopyAndOverwriteDLL(const std::wstring& sourcePath, const std::wstring& destPath) {
     // Attempt to copy the DLL file and overwrite the existing one
 
-	// Prof suggestion : copy file, rename file and load the renamed file.
+    // Prof suggestion : copy file, rename file and load the renamed file.
     // Rename by adding a number behind
     if (CopyFileW(sourcePath.c_str(), destPath.c_str(), FALSE)) {
         std::cout << "Successfully copied and overwritten the DLLs!" << std::endl;
@@ -152,7 +159,7 @@ bool CompareFiles(const std::filesystem::path& build, const std::filesystem::pat
         auto time1 = std::filesystem::last_write_time(build);
         auto time2 = std::filesystem::last_write_time(copy);
 
-		// if time1 is greater than time2, then the build file is newer
+        // if time1 is greater than time2, then the build file is newer
         if (time1 > time2) {
             return true;
         }
@@ -161,17 +168,17 @@ bool CompareFiles(const std::filesystem::path& build, const std::filesystem::pat
         }
     }
     catch (const std::filesystem::filesystem_error& e) {
-		std::cerr << "Error comparing file modification times: " << e.what() << std::endl;
+        std::cerr << "Error comparing file modification times: " << e.what() << std::endl;
         return false;
     }
 }
 
 void ChangeDLL() {
-	// Check if scene is empty
-	bool emptyscene = g_SceneManager.GetAllScenes().empty() ? true : false;
+    // Check if scene is empty
+    bool emptyscene = g_SceneManager.GetAllScenes().empty() ? true : false;
 
     std::string tempfilepath;
-	// If scene is not empty, save the current scene to temp
+    // If scene is not empty, save the current scene to temp
     if (!emptyscene) {
         // Save current scene to temp 
         tempfilepath = "TempScene.json";
@@ -185,29 +192,36 @@ void ChangeDLL() {
     g_SceneManager.ClearSceneList();
 
     std::wstring temp;
-	if (toggle)
-		temp = DLL_COPY_DIRECTORY;
-	else
-		temp = OTHER_COPY_DIRECTORY;
-
-    if (IsDLLInUse(temp)) {
-        std::cout << "DLL is being used by another process. Unloading the DLL..." << std::endl;
-        if (hGetProcIDDLL != nullptr) {
-			g_Coordinator.GetSystem<LogicSystem>()->UnloadDLL();
-            std::cout << "DLL unloaded." << std::endl;
-        }
-        else {
-            std::cerr << "Unable to Free." << std::endl;
-            return;
-        }
+    /*
+    if (toggle)
+        temp = DLL_COPY_DIRECTORY;
+    else
+        temp = OTHER_COPY_DIRECTORY;
+    */
+    if (hGetProcIDDLL != nullptr) {
+        g_Coordinator.GetSystem<LogicSystem>()->UnloadDLL();
+        std::cout << "DLL unloaded." << std::endl;
     }
-	bool result = toggle ? CopyAndOverwriteDLL(DLL_MAIN_DIRECTORY, OTHER_COPY_DIRECTORY) : CopyAndOverwriteDLL(DLL_MAIN_DIRECTORY, DLL_COPY_DIRECTORY);
-    if (result) {
-        if(toggle)
-		    g_Coordinator.GetSystem<LogicSystem>()->LoadDLL(OTHER_COPY_DIRECTORY);
-        else 
-			g_Coordinator.GetSystem<LogicSystem>()->LoadDLL(DLL_COPY_DIRECTORY);
-		toggle = !toggle;
+    else {
+        std::cerr << "Unable to Free." << std::endl;
+        return;
+    }
+
+    // Flush the DLL cache
+    HANDLE hFile = CreateFileW(DLL_COPY_DIRECTORY.c_str(), GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (hFile != INVALID_HANDLE_VALUE) {
+        FlushFileBuffers(hFile);
+        CloseHandle(hFile);
+    }
+
+
+    // Rename the DLL
+    std::wstring newDllName = L"ScriptWoof" + std::to_wstring(++dllRenameCounter) + L".dll";
+    DLL_COPY_DIRECTORY = std::filesystem::path(DLL_COPY_PATH).replace_filename(newDllName);
+    std::wcout << "Renamed DLL to: " << DLL_COPY_DIRECTORY << std::endl;
+
+    if (CopyAndOverwriteDLL(DLL_MAIN_DIRECTORY, DLL_COPY_DIRECTORY)) {
+        g_Coordinator.GetSystem<LogicSystem>()->LoadDLL(DLL_COPY_DIRECTORY);
 
         if (!emptyscene) {
             // Load Temp Scene

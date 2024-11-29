@@ -51,6 +51,10 @@ public:
 	}
 
 	// ENGINE INTERFACE
+	virtual double GetDeltaTime() override
+	{
+		return g_Core ? g_Core->m_DeltaTime : 0.0;
+	}
 
 	virtual void DestroyEntity(Entity entity) override
 	{
@@ -152,11 +156,6 @@ public:
 		if (HaveCollisionComponent(entity)) {
 			g_Coordinator.GetComponent<CollisionComponent>(entity).SetIsGrounded(grounded);
 		}
-	}
-
-	virtual double GetDeltaTime() override
-	{
-		return g_Core ? g_Core->m_DeltaTime : 0.0;
 	}
 
 	//Camera Component

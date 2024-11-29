@@ -235,7 +235,7 @@ struct Player final : public Behaviour
 		if (m_Engine.getInputSystem().isActionPressed("Bark"))
 		{
 			m_Engine.getAudioSystem().PlaySound("../BoofWoof/Assets/Audio/Corgi/CorgiBark1.wav");
-			std::cout << "Bark" << std::endl;
+			std::cout << "Bark1" << std::endl;
 
 		}
 	}

@@ -15,8 +15,8 @@
 
 Entity g_Player = NULL;
 std::wstring DLL_MAIN_DIRECTORY = L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll";
-std::wstring DLL_COPY_DIRECTORY = L"..\\ScriptWoof.dll";
-std::wstring OTHER_COPY_DIRECTORY = L"..\\ScriptWoof1.dll";
+std::wstring DLL_COPY_DIRECTORY = L"..\\ScriptDLL\\ScriptWoof.dll";
+std::wstring DLL_COPY_PATH = L"..\\ScriptDLL\\";
 
 HINSTANCE hGetProcIDDLL = nullptr;
 
@@ -37,7 +37,6 @@ void LogicSystem::Init()
 		std::cout << "Updated DLL" << std::endl;
 	}
 
-	//HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll");
 	hGetProcIDDLL = LoadLibraryW(DLL_COPY_DIRECTORY.c_str());
 
 	if (hGetProcIDDLL == NULL)
@@ -125,6 +124,7 @@ void LogicSystem::Shutdown()
 {
 	// Unload the dynamic library
 	FreeLibrary(hGetProcIDDLL);
+	hGetProcIDDLL = nullptr;
 
 	// Clean up Script_to_Engine object to prevent memory leak
 	delete mScriptEngine;  // Ensure that the dynamically allocated object is deleted
@@ -137,7 +137,8 @@ void LogicSystem::LoadDLL(std::wstring directory)
 {
 	//HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll");
 	std::wcout << directory << std::endl;
-	hGetProcIDDLL = LoadLibraryW(directory.c_str());
+	HINSTANCE tempDLLLoader= LoadLibraryW(directory.c_str());
+	hGetProcIDDLL = tempDLLLoader;
 
 	if (hGetProcIDDLL == NULL)
 	{
@@ -154,8 +155,10 @@ void LogicSystem::LoadDLL(std::wstring directory)
 		}
 		else
 		{
-			// Create Script_to_Engine object dynamically
-			mScriptEngine = new Script_to_Engine();
+			if (mScriptEngine == nullptr) {
+				// Create Script_to_Engine object dynamically
+				mScriptEngine = new Script_to_Engine();
+			}
 			
 			// Get the scripts from the script engine
 			AddBehaviours(GetScripts(mScriptEngine));
@@ -205,9 +208,10 @@ void LogicSystem::UnloadDLL()
 {
 	// Unload the dynamic library
 	FreeLibrary(hGetProcIDDLL);
+	hGetProcIDDLL = nullptr;
+	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 	mBehaviours.clear();
-	mScriptEngine = nullptr;
-	g_Player = NULL;
+	
 }
 
 void LogicSystem::AddBehaviours(void* scriptBehavioursPtr)

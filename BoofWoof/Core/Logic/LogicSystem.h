@@ -36,7 +36,8 @@ private:
 
 extern Entity g_Player;
 extern std::wstring DLL_MAIN_DIRECTORY; //= L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll";
-extern std::wstring DLL_COPY_DIRECTORY; //= L"..\\ScriptWoof.dll";
-extern std::wstring OTHER_COPY_DIRECTORY; //= L"..\\ScriptWoof1.dll";
+extern std::wstring DLL_COPY_DIRECTORY; //= L"..\\ScriptDLL\\ScriptWoof.dll";
+extern std::wstring DLL_COPY_PATH; //= L"..\\ScriptDLL\\";
+//extern std::wstring OTHER_COPY_DIRECTORY; //= L"..\\ScriptWoof1.dll";
 extern HINSTANCE hGetProcIDDLL;
 #endif  // LOGIC_SYSTEM_H
