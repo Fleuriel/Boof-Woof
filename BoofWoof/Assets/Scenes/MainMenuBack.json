@@ -25,8 +25,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Floor3tripleheight",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -53,8 +71,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Floor3tripleheight",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -81,8 +117,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Floor3tripleheight",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -109,8 +163,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Floor3tripleheight",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -137,8 +209,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Floor3tripleheight",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -165,8 +255,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
-                "Texture": "Floor3tripleheight",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Floor3tripleheight",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -193,8 +301,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -221,8 +347,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -249,8 +393,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -277,8 +439,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -305,8 +485,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -333,8 +531,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -361,8 +577,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -389,8 +623,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -417,8 +669,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -445,8 +715,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -473,8 +761,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -501,8 +807,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -529,8 +853,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -557,8 +899,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -585,8 +945,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallCorner",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -613,8 +991,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallCorner",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -641,8 +1037,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -669,8 +1083,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallCorner",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -697,8 +1129,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -725,8 +1175,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -753,8 +1221,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -781,8 +1267,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -809,8 +1313,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -837,8 +1359,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
-                "Texture": "WallCorner",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallCorner",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -865,8 +1405,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Fireplace",
-                "Texture": "Fireplace",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Fireplace",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -893,8 +1451,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Banner",
-                "Texture": "Banner",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Banner",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -921,8 +1497,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Banner",
-                "Texture": "Banner",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Banner",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -949,8 +1543,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Bed2",
-                "Texture": "Bed2",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed2",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -977,8 +1589,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Carpet",
-                "Texture": "Carpet",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Carpet",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1005,8 +1635,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Chair2",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1033,8 +1681,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Table2",
-                "Texture": "Table2",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Table2",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1061,8 +1727,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Wardrobe2",
-                "Texture": "Wardrobe2",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Wardrobe2",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1089,8 +1773,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Table",
-                "Texture": "Table",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Table",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1117,8 +1819,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair",
-                "Texture": "Chair",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Chair",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1145,8 +1865,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Bookshelf1",
-                "Texture": "Bookshelf1",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bookshelf1",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1173,8 +1911,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Bookshelf2",
-                "Texture": "Bookshelf2",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bookshelf2",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1201,8 +1957,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Bookshelf3",
-                "Texture": "Bookshelf3",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bookshelf3",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1229,8 +2003,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Chair2",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1257,8 +2049,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
-                "Texture": "Chair2",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Chair2",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1285,8 +2095,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallTorch",
-                "Texture": "WallTorch",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallTorch",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1313,8 +2141,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1341,8 +2187,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "WallTorch",
-                "Texture": "WallTorch",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallTorch",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1407,8 +2271,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor",
-                "Texture": "Floor",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Floor",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1435,8 +2317,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Carpet",
-                "Texture": "Carpet",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Carpet",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1463,8 +2363,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Couch",
-                "Texture": "Couch",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Couch",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1491,8 +2409,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Banner",
-                "Texture": "Banner",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Banner",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1519,8 +2455,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Banner",
-                "Texture": "Banner",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Banner",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -1547,8 +2501,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Banner",
-                "Texture": "Banner",
                 "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Banner",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
