@@ -24,6 +24,11 @@ uniform sampler2D texture_normal1;
 uniform int textureCount;
 uniform bool lightOn;
 
+
+uniform float finalAlpha;
+uniform vec4 inputColor;
+
+
 struct Light {
     vec3 position;
     vec3 color;
@@ -74,27 +79,37 @@ void main()
 	{
         vec4 textureColor = texture(texture_diffuse1, TexCoords);
         vec3 result = vec3(0.0f,0.0f,0.0f);
+        vec4 baseColor = inputColor;
+
         for(int i = 0; i < numLights; i++){
 		    vec3 lightVector = lights[i].position - FragPos;
             float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
+
+
             textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
             //fragColor = vec4(textureColor.rgb, textureColor.a);
             vec3 ambientColor = vec3(0.0f,0.0f,0.0f);
             vec3 diffuseColor = textureColor.rgb;
 
 
+
             vec3 ambient = ambientColor  * 0.1f;
             vec3 diffuse = diffuseColor  * N_dot_L * lights[i].intensity * lights[i].color;
+
 
             vec3 finalColor = ambient + diffuse; // Combine ambient and diffuse components
             result += finalColor;
         }
-        
+
+        result *= baseColor.rgb;
         
         if(lightOn){
-            fragColor = vec4(result, 1.0);
+            fragColor = vec4(result, finalAlpha);
         }else{
-			fragColor = vec4(textureColor);
+            
+            baseColor.rgb *= textureColor.rgb;
+            baseColor.a = finalAlpha;
+			fragColor = vec4(baseColor);
 		}
         
 	}else{

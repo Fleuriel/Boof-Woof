@@ -23,9 +23,14 @@
 #include <vector>
 #include <algorithm>
 #include <memory>
+#include <thread>
 
 #include <cstdint>
 #include <cassert>
+#include <cstdio>
+#include <cmath>
+#include <cstdlib>
+#include <cstdarg>
 
 #include <functional>
 #include <filesystem>
@@ -44,6 +49,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/vec2.hpp>
+#include <glm/gtc/quaternion.hpp>   // For glm::quat
+#include <glm/gtx/euler_angles.hpp> // For Euler angles
 
 // A simple type alias
 using Entity = std::uint32_t;

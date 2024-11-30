@@ -25,7 +25,8 @@ struct Player final : public Behaviour
 		velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 		isMoving = false;
 
-		double deltaTime = m_Engine.GetDeltaTime(); // Get delta time
+		//double deltaTime = m_Engine.GetDeltaTime(); // Get delta time
+		
 		//std::cout << "[DEBUG] Delta Time: " << deltaTime << std::endl;
 
 		// Debug: Starting state
@@ -235,8 +236,6 @@ struct Player final : public Behaviour
 		if (m_Engine.getInputSystem().isActionPressed("Bark"))
 		{
 			m_Engine.getAudioSystem().PlaySound("../BoofWoof/Assets/Audio/Corgi/CorgiBark1.wav");
-			std::cout << "Bark" << std::endl;
-
 		}
 	}
 

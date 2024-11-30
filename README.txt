@@ -1,5 +1,5 @@
  ===========================================
-		Milestone 2
+		Milestone 3
  ===========================================
 BoofWoof consists of:
 
@@ -30,6 +30,9 @@ BoofWoof consists of:
 
 We do not have BFAs or UXGDs.	
 
+All art assets are drawn by Emery Quek Cheng Kwang.
+All audios taken from Audio Professors & Soundly by Tan Wei Fong.
+
 
  BUILD INSTRUCTIONS ======================
 
@@ -49,13 +52,21 @@ If you try to move using WASD keys and you cannot move the corgi, please clean a
 
  GAME CONTROLS ============================
 
+ > F11 - Fullscreen / Exit Fullscreen
  > W / A / S / D - Move Player
  > Spacebar - Jump
- > RMB - Bark
+ > RMB - Bark (Only needed in starting room for now)
  > R - Scent Trail
  > C - Catch Bone Catcher
  > Left Shift - Sprint 
+ 
+To collect Dog bone & tennis ball, just walk towards it and it will be collected [for now].
+To start Rope breaker, walk and collide with the rope [for now].
+To exit game, please exit out of fullscreen and press close application [for now].
 
  KNOWN PROBLEMS & WILL CHANGE IN M4 ========================== 
 
 >   Able to save archetypes & delete archetypes during runtime.
+>   Will make dog footsteps sound different on different floors [different surface, different sound]
+>   Editor cannot make changes in fullscreen for now.
+>   Unable to exit game via menu [look at game controls section on how to exit].

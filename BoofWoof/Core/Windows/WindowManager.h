@@ -49,15 +49,16 @@ public:
 	bool GetAltStat() { return m_AltTab; };
 
 	static void OpenGLWindowResizeCallback(GLFWwindow* window, int width, int height);
+	void toggleFullScreen();
+
 
 private:
     static void KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void MouseCallBack(GLFWwindow* window, int button, int action, int mods);
 	static void ScrollCallBack(GLFWwindow* window5, double xOffset, double yOffset);
-
+	static void windowFocusCallback(GLFWwindow* window, int focused);
 	void OnUpdateFPS(double interval);
 
-	void toggleFullScreen();
 
 private:
 	int m_Width{};

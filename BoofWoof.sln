@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoofWoof", "BoofWoof\BoofWo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EditorPaws", "EditorPaws\EditorPaws.vcxproj", "{515AD52E-37B2-4945-8A57-249591CD3FAA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{901D14C2-FDE7-4BBD-92CB-14B644E518A1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PawsieAdventure", "PawsieAdventure\PawsieAdventure.vcxproj", "{901D14C2-FDE7-4BBD-92CB-14B644E518A1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D46D576D-AE16-4BAF-AED7-A7224A120107} = {D46D576D-AE16-4BAF-AED7-A7224A120107}
 	EndProjectSection

@@ -99,6 +99,13 @@ public:
         return ongoingCollisions;
 
     }
+
+    float GetMass() const { return mass; }
+    void SetMass(float newMass) { mass = glm::max(newMass, 0.0f); } // Prevent negative mass
+
+    float GetActualMass() const { return m_ActualMass; }
+    void SetActualMass(float actualMass) { m_ActualMass = actualMass; } // Prevent negative mass
+
     // Reflection integration
     REFLECT_COMPONENT(CollisionComponent)
     {
@@ -123,6 +130,8 @@ private:
     bool isColliding = false; // Flag to track collision status
     std::string lastCollidedObjectName = "None"; // Default to no collision
     bool m_IsGrounded = false;  // Track whether the entity is on the ground
+    float mass = 0.0f; // Default mass value
+    float m_ActualMass = 0.0f;
 
 };
 

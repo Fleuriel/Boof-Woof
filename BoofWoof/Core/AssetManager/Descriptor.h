@@ -51,25 +51,40 @@ struct TextureDescriptor {
 
 struct MaterialDescriptor
 {
+    std::string materialName;
+    std::string materialNameMat;
 
-    
+
+
     int shaderIndex;            // Select Shader
     std::string shaderChosen;
-    
+
     float albedoColorRed;       // 0 ~ 1
     float albedoColorGreen;     // 0 ~ 1
     float albedoColorBlue;      // 0 ~ 1
     float albedoColorAlpha;     // 0 ~ 1
+    float finalAlpha;
+
 
     float metallic;             // 0 ~ 1
     float smoothness;           // 0 ~ 1
 
-
     int materialAlpha;          // Select Albedo Stuffs.
 
+    int DiffuseID;
+    int NormalID;
+    int HeightID;
 
-    MaterialDescriptor() : shaderIndex(-1), albedoColorRed(0), albedoColorGreen(0), albedoColorBlue(0), albedoColorAlpha(0),
-        metallic(0), smoothness(0), materialAlpha(0), shaderChosen("nothing"){}
+    std::string textureDiffuse;
+    std::string textureNormal;
+    std::string textureHeight;
+
+
+
+
+    MaterialDescriptor() : shaderIndex(6), albedoColorRed(1.0), albedoColorGreen(1.0), albedoColorBlue(1.0), albedoColorAlpha(1.0), finalAlpha(1),
+        metallic(0), smoothness(0), materialAlpha(0), shaderChosen("Shader3D"), DiffuseID(-1), NormalID(-1), HeightID(-1), textureDiffuse("NothingTexture"),
+        textureNormal("NothingNormal"), textureHeight("NothingHeight") { }
 
 
     // Save the current descriptor to a file

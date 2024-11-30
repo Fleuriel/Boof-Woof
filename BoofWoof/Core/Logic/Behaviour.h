@@ -2,8 +2,6 @@
 #ifndef BEHAVIOUR_H
 #define BEHAVIOUR_H
 
-//#include "../ECS/Coordinator.hpp"
-//#include "LogicSystem.h"
 #include "BehaviourInterface.h"
 
 struct Behaviour : public Behaviour_i
