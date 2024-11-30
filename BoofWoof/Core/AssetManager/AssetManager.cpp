@@ -741,9 +741,9 @@ bool AssetManager::LoadObjects() {
 
                 if (!fs::exists(binFilePath)) {
 #ifdef _DEBUG
-                    runCommand("..\\bin\\Debug-x64\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
+                    runCommand("..\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
 #else
-                    runCommand("..\\bin\\Release-x64\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
+                    runCommand("..\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
 #endif
 
 #ifdef _DEBUG
