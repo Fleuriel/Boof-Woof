@@ -443,25 +443,14 @@ bool Serialization::SaveScene(const std::string& filepath) {
             Material.AddMember("properties", properties, allocator);
 
 
-
-            std::cout << materialComponent.GetMaterialName() << '\n' << materialComponent.GetShaderName() << '\n' << materialComponent.GetShaderIndex() << '\n';
+            //std::cout << materialComponent.GetMaterialName() << '\n' << materialComponent.GetShaderName() << '\n' << materialComponent.GetShaderIndex() << '\n';
 
             //graphicsComponent.material = materialComponent;
 
 
             entityData.AddMember("MaterialComponent", Material, allocator);
 
-
-
-
         }
-
-
-
-
-
-
-
 
 
         entities.PushBack(entityData, allocator);
