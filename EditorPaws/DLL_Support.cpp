@@ -207,6 +207,11 @@ void ChangeDLL() {
         return;
     }
 
+	//Delete the DLL
+	if (!DeleteFileW(DLL_COPY_DIRECTORY.c_str())) {
+		std::cerr << "Failed to delete the DLL." << std::endl;
+	}
+
     // Flush the DLL cache
     HANDLE hFile = CreateFileW(DLL_COPY_DIRECTORY.c_str(), GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (hFile != INVALID_HANDLE_VALUE) {
@@ -216,12 +221,17 @@ void ChangeDLL() {
 
 
     // Rename the DLL
-    std::wstring newDllName = L"ScriptWoof" + std::to_wstring(++dllRenameCounter) + L".dll";
+    std::wstring newDllName = L"CopyScriptWoof" + std::to_wstring(++dllRenameCounter) + L".dll";
     DLL_COPY_DIRECTORY = std::filesystem::path(DLL_COPY_PATH).replace_filename(newDllName);
     std::wcout << "Renamed DLL to: " << DLL_COPY_DIRECTORY << std::endl;
 
     if (CopyAndOverwriteDLL(DLL_MAIN_DIRECTORY, DLL_COPY_DIRECTORY)) {
         g_Coordinator.GetSystem<LogicSystem>()->LoadDLL(DLL_COPY_DIRECTORY);
+
+        WCHAR loadedPath[MAX_PATH];
+        if (GetModuleFileNameW(hGetProcIDDLL, loadedPath, MAX_PATH)) {
+            std::wcout << L"Loaded DLL path: " << loadedPath << std::endl;
+        }
 
         if (!emptyscene) {
             // Load Temp Scene

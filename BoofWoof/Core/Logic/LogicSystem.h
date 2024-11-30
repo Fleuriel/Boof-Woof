@@ -30,7 +30,7 @@ public:
 
 private:
 	// Keep track of all the behaviours
-	 std::map<std::string, std::unique_ptr<Behaviour_i>> mBehaviours;
+	 std::unordered_map<std::string, std::unique_ptr<Behaviour_i>> mBehaviours;
 	 Script_to_Engine* mScriptEngine;
 };
 

@@ -15,7 +15,7 @@
 
 Entity g_Player = NULL;
 std::wstring DLL_MAIN_DIRECTORY = L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll";
-std::wstring DLL_COPY_DIRECTORY = L"..\\ScriptDLL\\ScriptWoof.dll";
+std::wstring DLL_COPY_DIRECTORY = L"..\\ScriptDLL\\CopyScriptWoof.dll";
 std::wstring DLL_COPY_PATH = L"..\\ScriptDLL\\";
 
 HINSTANCE hGetProcIDDLL = nullptr;
@@ -28,14 +28,9 @@ void LogicSystem::Init()
 	std::filesystem::path build = DLL_MAIN_DIRECTORY;
 	std::filesystem::path copy = DLL_COPY_DIRECTORY;
 
-	auto time1 = std::filesystem::last_write_time(build);
-	auto time2 = std::filesystem::last_write_time(copy);
-
-	// if time1 is greater than time2, then the build file is newer
-	if (time1 > time2) {
-		CopyFileW(DLL_MAIN_DIRECTORY.c_str(), DLL_COPY_DIRECTORY.c_str(), FALSE);
-		std::cout << "Updated DLL" << std::endl;
-	}
+	//Copy the DLL to the new directory
+	CopyFileW(DLL_MAIN_DIRECTORY.c_str(), DLL_COPY_DIRECTORY.c_str(), FALSE);
+	std::cout << "Updated DLL" << std::endl;
 
 	hGetProcIDDLL = LoadLibraryW(DLL_COPY_DIRECTORY.c_str());
 
@@ -122,6 +117,9 @@ void LogicSystem::Update()
 
 void LogicSystem::Shutdown()
 {
+	UnloadDLL();
+	delete mScriptEngine;
+	/*
 	// Unload the dynamic library
 	FreeLibrary(hGetProcIDDLL);
 	hGetProcIDDLL = nullptr;
@@ -131,6 +129,7 @@ void LogicSystem::Shutdown()
 
 	// Clear the map to remove all entries
 	mBehaviours.clear();
+	*/
 }
 
 void LogicSystem::LoadDLL(std::wstring directory)
@@ -206,12 +205,17 @@ void LogicSystem::LoadDLL(std::wstring directory)
 
 void LogicSystem::UnloadDLL()
 {
-	// Unload the dynamic library
-	FreeLibrary(hGetProcIDDLL);
-	hGetProcIDDLL = nullptr;
-	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 	mBehaviours.clear();
-	
+
+	// Unload the dynamic library
+	for (auto bSuccess = FreeLibrary(hGetProcIDDLL); bSuccess; bSuccess = FreeLibrary(hGetProcIDDLL) )
+	{
+		std::cerr << "Freeying the dynamic library" << std::endl;
+		//assert(false);
+	}
+
+	hGetProcIDDLL = nullptr;
+	//std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
 void LogicSystem::AddBehaviours(void* scriptBehavioursPtr)
