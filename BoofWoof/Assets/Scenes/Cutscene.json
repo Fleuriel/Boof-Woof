@@ -25,7 +25,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "",
                 "FollowCamera": false
             },
             "MaterialComponent": {
@@ -72,7 +71,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "BullyText1",
                 "FollowCamera": false
             },
             "MaterialComponent": {
@@ -119,7 +117,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "RexTheBully",
                 "FollowCamera": false
             },
             "MaterialComponent": {
