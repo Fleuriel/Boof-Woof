@@ -10,6 +10,10 @@
  * @brief This header file contains all the filepaths to the respective assets
  *************************************************************************/
 
+#ifdef APIENTRY
+#undef APIENTRY
+#endif
+
 #include "pch.h"
 
 #include "WindowManager.h"
@@ -123,8 +127,8 @@ void Window::OnInitialize()
             }
             else {
                 // Change resolution if it is not already 1920x1080
-                devMode.dmPelsWidth = resolutionwidth;
-                devMode.dmPelsHeight = resolutionheight;
+                devMode.dmPelsWidth = static_cast<DWORD>(resolutionwidth);
+                devMode.dmPelsHeight = static_cast<DWORD>(resolutionheight);
                 devMode.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT;
 
                 if (ChangeDisplaySettings(&devMode, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL) {

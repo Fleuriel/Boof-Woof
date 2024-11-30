@@ -667,11 +667,11 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity, float mass)
 
         if (isDynamic) {
             newBody->SetAllowSleeping(false);
-            float mass = collisionComponent.GetMass();
+            float massD = collisionComponent.GetMass();
             bodySettings.mOverrideMassProperties = JPH::EOverrideMassProperties::MassAndInertiaProvided;
             bodySettings.mMassPropertiesOverride.SetMassAndInertiaOfSolidBox(
                 JPH::Vec3(scaledAABB.x, scaledAABB.y, scaledAABB.z),
-                mass // Default mass
+                massD // Default mass
             );
 
             float actualMass = bodySettings.mMassPropertiesOverride.mMass;
