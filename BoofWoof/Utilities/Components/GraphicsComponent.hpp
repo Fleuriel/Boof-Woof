@@ -15,6 +15,11 @@
 #pragma once
 #ifndef GRAPHICS_COMPONENT_H
 #define GRAPHICS_COMPONENT_H
+#ifdef APIENTRY
+#undef APIENTRY
+#endif
+
+
 
 #include "ECS/Coordinator.hpp"
 #include "../Core/Graphics/Model.h"   // Make sure Model is included

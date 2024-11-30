@@ -131,8 +131,14 @@ public:
 
 
     // const std::string& GetShaderName() const { return shaderName; }
-    const glm::vec4& GetColor() const { return glm::vec4(materialDesc.albedoColorRed, materialDesc.albedoColorGreen, materialDesc.albedoColorBlue, materialDesc.albedoColorAlpha); }
-    // int GetTextureID() const { return textureID; }
+    glm::vec4 GetColor() const {
+        return glm::vec4(
+            materialDesc.albedoColorRed,
+            materialDesc.albedoColorGreen,
+            materialDesc.albedoColorBlue,
+            materialDesc.albedoColorAlpha
+        );
+    }    // int GetTextureID() const { return textureID; }
     // float GetShininess() const { return shininess; }
 
 

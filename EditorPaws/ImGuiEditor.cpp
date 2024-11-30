@@ -3057,7 +3057,7 @@ void ImGuiEditor::InspectorWindow()
 									if (ImGui::Combo("##MatCombo2", &MatAlphacurrent_idx, imG_MaterialAlpha, IM_ARRAYSIZE(imG_MaterialAlpha)))
 									{
 
-										material.SetAlpha(MatAlphacurrent_idx);
+										material.SetAlpha(static_cast<float>(MatAlphacurrent_idx));
 									}
 
 
