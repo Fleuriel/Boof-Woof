@@ -1,5 +1,5 @@
  ===========================================
-		Milestone 2
+		Milestone 3
  ===========================================
 BoofWoof consists of:
 
@@ -29,6 +29,9 @@ BoofWoof consists of:
 
 
 We do not have BFAs or UXGDs.	
+
+All art assets are drawn by Emery Quek Cheng Kwang.
+All audios taken from Audio Professors & Soundly by Tan Wei Fong.
 
 
  BUILD INSTRUCTIONS ======================
