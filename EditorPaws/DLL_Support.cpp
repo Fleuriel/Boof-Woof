@@ -62,17 +62,12 @@ LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam) {
     return CallNextHookEx(hHook, nCode, wParam, lParam);
 }
 
+/*
 void FocusChecker(GLFWwindow* window, int focused) {
 
     if (focused) {
         if (focusChanged) {
             std::cout << "Window regained focus.\n";
-            /*
-            monitoringThread = false;
-            if (monitorThread.joinable()) {
-                monitorThread.join();
-            }
-            */
             // Compare DLL modification times
             std::filesystem::path dllMainPath = DLL_MAIN_DIRECTORY;
             std::filesystem::path dllCopyPath;
@@ -82,15 +77,6 @@ void FocusChecker(GLFWwindow* window, int focused) {
             }
 
 			focusChanged = !focusChanged;
-            /*
-            if (!DLL_has_changed) {
-                std::cout << "DLL has not changed.\n";
-            }
-            else {
-                ChangeDLL();
-                DLL_has_changed = false;
-            }
-            */
         }
 
     }
@@ -107,6 +93,7 @@ void FocusChecker(GLFWwindow* window, int focused) {
     // Sleep to avoid excessive CPU usage
     //std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
+*/
 
 bool IsDLLInUse(const std::wstring& dllPath) {
     HANDLE hFile = CreateFileW(
