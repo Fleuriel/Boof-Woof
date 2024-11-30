@@ -359,6 +359,12 @@ void GraphicsSystem::UpdateLoop() {
 			}
 			g_AssetManager.GetShader(ShaderName).SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
 
+			g_AssetManager.GetShader(ShaderName).SetUniform("finalAlpha", material.GetFinalAlpha());
+			g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", material.GetColor());
+
+			std::cout << material.GetColor().r << material.GetColor().g << material.GetColor().b << '\t' << material.GetColor().a << '\n';
+
+
 			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader(ShaderName));
 
 		}

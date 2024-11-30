@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "43e3b618-fd4c-4f08-a0e0-88a75f0e4c0e",
+    "SceneGUID": "4493d0c3-2229-482f-91d9-0d25df0eba37",
     "Entities": [
         {
             "MetadataComponent": {
@@ -30,7 +30,7 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Bookshelf1",
-                "Texture": "Bookshelf1",
+                "Texture": "Bookshelf2",
                 "FollowCamera": true
             },
             "MaterialComponent": {
@@ -45,7 +45,7 @@
                         1.0
                     ],
                     "finalAlpha": 1.0,
-                    "Diffuse": "Bookshelf1",
+                    "Diffuse": "Bookshelf2",
                     "Normal": "NothingNormal",
                     "Height": "NothingHeight",
                     "metallic": 0.0,
