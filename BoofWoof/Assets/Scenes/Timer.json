@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "faab44f3-eedb-4e12-a9b1-aa5a537212af",
+    "SceneGUID": "07e8fd08-6f66-4c91-af66-55336680f56f",
     "Entities": [
         {
             "MetadataComponent": {
@@ -21,12 +21,36 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
                 "Texture": "Group53",
                 "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Group53",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         }
     ]

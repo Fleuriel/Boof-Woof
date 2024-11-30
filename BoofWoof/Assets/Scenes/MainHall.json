@@ -16382,54 +16382,6 @@
     },
     {
       "MetadataComponent": {
-        "EntityName": "Floor",
-        "EntityID": 283
-      },
-      "TransformComponent": {
-        "Position": {
-          "x": 25.59815788269043,
-          "y": -0.2638061046600342,
-          "z": -77.80000305175781
-        },
-        "Scale": {
-          "x": 1.0,
-          "y": 1.0,
-          "z": 1.0
-        },
-        "Rotation": {
-          "x": 0.0,
-          "y": -0.0,
-          "z": 0.0
-        },
-        "RotationPivotOffset": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        }
-      },
-      "GraphicsComponent": {
-        "ModelName": "Floor3tripleheight",
-        "FollowCamera": true
-      },
-      "CollisionComponent": {
-        "CollisionLayer": 0,
-        "IsDynamic": false,
-        "IsPlayer": false,
-        "AABBSize": {
-          "x": 5.199999809265137,
-          "y": 0.4000000059604645,
-          "z": 4.900000095367432
-        },
-        "AABBOffset": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "Mass": 0.0
-      }
-    },
-    {
-      "MetadataComponent": {
         "EntityName": "WhiteParticle",
         "EntityID": 278
       },
@@ -16493,7 +16445,7 @@
     {
       "MetadataComponent": {
         "EntityName": "WhiteParticle",
-        "EntityID": 284
+        "EntityID": 283
       },
       "TransformComponent": {
         "Position": {
@@ -16555,7 +16507,7 @@
     {
       "MetadataComponent": {
         "EntityName": "WhiteParticle",
-        "EntityID": 285
+        "EntityID": 284
       },
       "TransformComponent": {
         "Position": {
@@ -16617,7 +16569,7 @@
     {
       "MetadataComponent": {
         "EntityName": "YellowParticle",
-        "EntityID": 286
+        "EntityID": 285
       },
       "TransformComponent": {
         "Position": {
@@ -16679,7 +16631,7 @@
     {
       "MetadataComponent": {
         "EntityName": "YellowParticle",
-        "EntityID": 287
+        "EntityID": 286
       },
       "TransformComponent": {
         "Position": {
@@ -16741,7 +16693,7 @@
     {
       "MetadataComponent": {
         "EntityName": "YellowParticle",
-        "EntityID": 288
+        "EntityID": 287
       },
       "TransformComponent": {
         "Position": {
@@ -16803,7 +16755,7 @@
     {
       "MetadataComponent": {
         "EntityName": "left particle",
-        "EntityID": 289
+        "EntityID": 288
       },
       "TransformComponent": {
         "Position": {
@@ -16865,7 +16817,7 @@
     {
       "MetadataComponent": {
         "EntityName": "right particle",
-        "EntityID": 290
+        "EntityID": 289
       },
       "TransformComponent": {
         "Position": {
@@ -16927,7 +16879,7 @@
     {
       "MetadataComponent": {
         "EntityName": "RedParticle",
-        "EntityID": 291
+        "EntityID": 290
       },
       "TransformComponent": {
         "Position": {
@@ -16989,7 +16941,7 @@
     {
       "MetadataComponent": {
         "EntityName": "RedParticle",
-        "EntityID": 292
+        "EntityID": 291
       },
       "TransformComponent": {
         "Position": {
@@ -17051,7 +17003,7 @@
     {
       "MetadataComponent": {
         "EntityName": "RedParticle",
-        "EntityID": 293
+        "EntityID": 292
       },
       "TransformComponent": {
         "Position": {

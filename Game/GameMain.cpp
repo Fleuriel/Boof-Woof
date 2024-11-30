@@ -14,49 +14,68 @@
 
 EngineCore* g_Core = nullptr;
 
-void InitializeLevels() 
+void InitializeLevels()
 {
-	// Register your levels here
-	g_LevelManager.RegisterLevel("Splashscreen", new(Splashscreen));
-	g_LevelManager.RegisterLevel("MainMenu", new(MainMenu));
-	g_LevelManager.RegisterLevel("Cutscene", new(Cutscene));
-	g_LevelManager.RegisterLevel("StartingRoom", new(StartingRoom));
-	g_LevelManager.RegisterLevel("TimeRush", new(TimeRush));
-	g_LevelManager.RegisterLevel("MainHall", new(MainHall));
+    g_Window->toggleFullScreen();
+    // Register your levels here
+    g_LevelManager.RegisterLevel("Splashscreen", new Splashscreen());
+    g_LevelManager.RegisterLevel("MainMenu", new MainMenu());
+    g_LevelManager.RegisterLevel("Cutscene", new Cutscene());
+    g_LevelManager.RegisterLevel("StartingRoom", new StartingRoom());
+    g_LevelManager.RegisterLevel("TimeRush", new TimeRush());
+    g_LevelManager.RegisterLevel("MainHall", new MainHall());
 
-	// Set the initial level
-	g_LevelManager.Initialize("Splashscreen");
-	g_LevelManager.SetNextLevel("Splashscreen");
-	g_LevelManager.SetPreviousLevel("Splashscreen");
+    // Set the initial level
+    g_LevelManager.Initialize("Splashscreen");
+    g_LevelManager.SetNextLevel("Splashscreen");
+    g_LevelManager.SetPreviousLevel("Splashscreen");
 }
 
-int main()
+int RunGame()
 {
-
-#if defined(DEBUG) | defined(_DEBUG)
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
+#if defined(DEBUG) || defined(_DEBUG)
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
 #endif
 
-	//for use with debugging, change the value to the location of the mem leak per the crt debug info from the console
-	// refer to stack frame and see where it all went wrong
-	//_crtBreakAlloc = 372;
+    // Uncomment and set the allocation number if debugging memory leaks
+    //_crtBreakAlloc = 372;
 
-	g_Core = new EngineCore();
-	g_Core->OnInit();
+    g_Core = new EngineCore();
+    g_Core->OnInit();
 
-	InitializeLevels();
-	UpdateGSM();
+    InitializeLevels();
+    UpdateGSM();
 
-	// idk why if i comment out line 41, it crashes .-.
-	while (!glfwWindowShouldClose(g_Window->GetGLFWWindow()))
-	{
-		//g_Core->OnUpdate();
-	}
+    // Main game loop
+    while (!glfwWindowShouldClose(g_Window->GetGLFWWindow()))
+    {
+        // Uncomment if the core update logic is required
+        // g_Core->OnUpdate();
+    }
 
-	g_Core->OnShutdown();
+    g_Core->OnShutdown();
 
-	delete g_Core;
+    delete g_Core;
 
-	return 0;
+    return 0;
 }
+
+#ifdef _DEBUG
+// Use `main` in debug mode
+int main()
+{
+    return RunGame();
+}
+#else
+#include <windows.h>
+// Use `WinMain` in release mode
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+{
+    (void)hInstance;
+    (void)hPrevInstance;
+    (void)lpCmdLine;
+    (void)nCmdShow;
+    return RunGame();
+}
+#endif
