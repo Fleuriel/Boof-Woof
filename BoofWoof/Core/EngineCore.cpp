@@ -20,7 +20,7 @@ void EngineCore::OnInit()
 	// tempo b4 serialization
 	g_WindowX = 1920;
 	g_WindowY = 1080;
-	g_Window = new Window(g_WindowX, g_WindowY, "Boof Woof");
+	g_Window = new Window(g_WindowX, g_WindowY, "Pawsie Adventure");
 	g_Window->SetWindowWidth(g_WindowX);
 	g_Window->SetWindowHeight(g_WindowY);
 
