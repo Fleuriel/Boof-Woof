@@ -18,8 +18,9 @@ uniform sampler2D uTex2d;
 //uniform int player;
 //uniform float opacity;
 
-
-
+//uniform vec4 inputColor;
+//uniform float finalAlpha;
+//uniform bool useColor;
 
 void main () {
 
@@ -27,7 +28,11 @@ void main () {
 	setColor = texture(uTex2d, vTexCoord);	
 	//setColor = setColor * vec4(1.0f,1.0f,1.0f, opacity);
 
-
+//	if(useColor)
+//	{
+//		setColor.rgb *= inputColor.rgb;
+//		setColor.a = finalAlpha;
+//	}
 	fFragColor = setColor;
 	//fontColor = vec4(textColor,1.0) * setColor;
 

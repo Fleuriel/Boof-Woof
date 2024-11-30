@@ -362,7 +362,6 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader(ShaderName).SetUniform("finalAlpha", material.GetFinalAlpha());
 			g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", material.GetColor());
 
-			std::cout << material.GetColor().r << material.GetColor().g << material.GetColor().b << '\t' << material.GetColor().a << '\n';
 
 
 			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader(ShaderName));
@@ -392,6 +391,26 @@ void GraphicsSystem::UpdateLoop() {
 
 			// Set texture uniform before drawing
 			g_AssetManager.GetShader(ShaderName).SetUniform("uTex2d", 6);
+			std::cout << material.GetDiffuseName() << '\n';
+
+			//if (material.GetDiffuseName() != "Digipen_Logo")
+			//{
+			//	std::cout << "eleg\n";
+			//
+			//	g_AssetManager.GetShader(ShaderName).SetUniform("useColor", true);
+			//
+			//	g_AssetManager.GetShader(ShaderName).SetUniform("finalAlpha", material.GetFinalAlpha());
+			//	g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", material.GetColor());
+			//
+			//}
+			//else
+			//{
+			//	g_AssetManager.GetShader(ShaderName).SetUniform("useColor", false);
+			//}
+			
+
+
+
 
 			// Draw the model
 			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader(ShaderName));
