@@ -17,22 +17,83 @@ Entity g_Player = NULL;
 //DLL_MAIN_DIRECTORY = L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll";
 //DLL_COPY_DIRECTORY = L"..\\ScriptWoof.dll";
 //const std::wstring DLL_PATH = L"..\\ScriptWoof.dll";
+std::string dllpath = "ScriptWoof\\x64\\Debug";
+std::string dllname = "ScriptWoof.dll";
+std::string dllname2 = "CopyScriptWoof.dll";
 HINSTANCE hGetProcIDDLL = nullptr;
+
+std::filesystem::path FindDllPath(std::string targetPath,std::string targetName) {
+	std::filesystem::path currentPath = std::filesystem::current_path();
+	//std::cout << "Current Path: " << currentPath << '\n';
+
+	// Specify the name of the file or directory you're looking for
+	bool found = false;
+	int counter = 0;
+
+	// Iterate through the parent directory to find the file or directory
+	while (!found) {
+		//Go to Parent Directory
+		std::filesystem::path parentPath = currentPath.parent_path();
+		//std::cout << "Parent Path: " << parentPath << '\n';
+
+		// Add the target name to the parent path
+		std::filesystem::path tempPath = parentPath / targetPath;
+		//std::cout << "Target Path: " << tempPath << '\n';
+
+		// Check if the target exists
+		if (std::filesystem::exists(tempPath)) {
+			//std::cout << targetName << " found in the parent directory.\n";
+			//Check if dll exists
+			if (std::filesystem::exists(tempPath / dllname)) {
+				//std::cout << dllname << " found in the parent directory.\n";
+				currentPath = tempPath / dllname;
+				found = true;
+				break;
+			}
+		}
+
+		
+		currentPath = parentPath;
+		if (counter > 5) {
+			break;
+		}
+		counter++;
+	}
+
+	if (!found) {
+		std::cout << targetName << " not found in the parent directory.\n";
+		return "";
+	}
+	else {
+		return currentPath;
+	}
+}
 
 void LogicSystem::Init()
 {
 	std::cout << std::endl << "Logic System Initialized" << std::endl;
 
-	std::filesystem::path build = DLL_MAIN_DIRECTORY;
-	std::filesystem::path copy = DLL_COPY_DIRECTORY;
+	// Find the path of the DLL
+	DLL_MAIN_DIRECTORY = FindDllPath(dllpath, dllname);
+	//DLL_COPY_DIRECTORY = std::filesystem::current_path() / dllname;
+	DLL_COPY_DIRECTORY = L"..\\CopyScriptWoof.dll";
+	std::wcout << "DLL Main Directory: " << DLL_MAIN_DIRECTORY.c_str() << std::endl;
+	std::wcout << "DLL Copy Directory: " << DLL_COPY_DIRECTORY.c_str() << std::endl;
 
-	auto time1 = std::filesystem::last_write_time(build);
-	auto time2 = std::filesystem::last_write_time(copy);
-
-	// if time1 is greater than time2, then the build file is newer
-	if (time1 > time2) {
-		CopyFileW(DLL_MAIN_DIRECTORY.c_str(), DLL_COPY_DIRECTORY.c_str(), FALSE);
-		std::cout << "Updated DLL" << std::endl;
+	// Check if the DLL exists
+	if (!std::filesystem::exists(DLL_MAIN_DIRECTORY)) {
+		std::cerr << "DLL not found" << std::endl;
+		throw std::runtime_error("DLL not found");
+		return;
+	}else
+	{
+		bool bSuccess = CopyFileW(DLL_MAIN_DIRECTORY.c_str(), DLL_COPY_DIRECTORY.c_str(), FALSE);
+		if(bSuccess)
+			std::cout << "Updated DLL" << std::endl;
+		else {
+			DWORD dwError = GetLastError();
+			std::cerr << "Failed to copy DLL. Error code: " << dwError << std::endl;
+		}
 	}
 
 	//HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll");

@@ -172,7 +172,7 @@ void ChangeDLL() {
     g_Coordinator.ResetEntities();
     g_SceneManager.ClearSceneList();
 
-    if (IsDLLInUse(DLL_COPY_DIRECTORY)) {
+    if (IsDLLInUse(g_Coordinator.GetSystem<LogicSystem>()->GetDLLCopyDirectory())) {
         std::cout << "DLL is being used by another process. Unloading the DLL..." << std::endl;
         if (hGetProcIDDLL != nullptr) {
             FreeLibrary(hGetProcIDDLL);
@@ -183,9 +183,9 @@ void ChangeDLL() {
             return;
         }
     }
-    if (CopyAndOverwriteDLL(DLL_MAIN_DIRECTORY, DLL_COPY_DIRECTORY)) {
+    if (CopyAndOverwriteDLL(g_Coordinator.GetSystem<LogicSystem>()->GetDLLMainDirectory(), g_Coordinator.GetSystem<LogicSystem>()->GetDLLCopyDirectory())) {
         std::cout << "DLL copied and overwritten successfully!" << std::endl;
-        hGetProcIDDLL = LoadLibraryW(DLL_COPY_DIRECTORY.c_str());
+        hGetProcIDDLL = LoadLibraryW(g_Coordinator.GetSystem<LogicSystem>()->GetDLLCopyDirectory().c_str());
         // Load Temp Scene
 		tempfilepath = GetScenesDir() + "/" + tempfilepath;
         g_SceneManager.LoadScene(tempfilepath);
