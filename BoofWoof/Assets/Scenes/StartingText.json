@@ -27,6 +27,25 @@
                 "ModelName": "Square",
                 "Texture": "CorgiText5",
                 "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "CorgiText5",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         }
     ]

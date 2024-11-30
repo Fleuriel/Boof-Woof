@@ -25,8 +25,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "Checklist",
                 "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Checklist",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -53,8 +71,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "",
                 "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Do1",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -81,8 +117,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "",
                 "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Do2",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -109,8 +163,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "",
                 "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Do3",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -139,6 +211,25 @@
                 "ModelName": "Square",
                 "Texture": "",
                 "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Do4",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -165,8 +256,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "Box",
                 "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Box",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -193,8 +302,26 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
-                "Texture": "Box",
                 "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Box",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -223,6 +350,25 @@
                 "ModelName": "Square",
                 "Texture": "Box",
                 "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Box",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -251,6 +397,25 @@
                 "ModelName": "Square",
                 "Texture": "Box",
                 "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Box",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         }
     ]
