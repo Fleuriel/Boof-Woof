@@ -894,8 +894,8 @@ bool Serialization::LoadScene(const std::string& filepath)
 
 
 
-                std::cout << materialName << '\t' << shaderName << '\t' << shaderIndex << '\t' << diffuseName << '\t' << normalName << '\n' << heightName << '\t' << metallic << '\t' << shininess << '\t' << finalAlpha << '\t' << diffuseName << '\n' <<
-                    normalName << '\t' << heightName << '\t' << metallic << '\t' << shininess << '\n';
+                //std::cout << materialName << '\t' << shaderName << '\t' << shaderIndex << '\t' << diffuseName << '\t' << normalName << '\n' << heightName << '\t' << metallic << '\t' << shininess << '\t' << finalAlpha << '\t' << diffuseName << '\n' <<
+                //    normalName << '\t' << heightName << '\t' << metallic << '\t' << shininess << '\n';
 
 
 
@@ -942,10 +942,10 @@ bool Serialization::LoadScene(const std::string& filepath)
 
                                        // graphicsComp.material.SetDiffuseID(g_ResourceManager.GetTextureDDS(graphicsComp.material.GetDiffuseName()));
                                        // graphicsComp.material.SetDiffuseName(graphicsComp.material.GetDiffuseName());
-                    ;
+                //    ;
 
-                    std::cout << graphicsComp.material.GetMaterialName() << '\t' << graphicsComp.material.GetShaderName() << '\t' << graphicsComp.material.GetShaderIndex() << '\t' << '\n';
-
+               //     std::cout << graphicsComp.material.GetMaterialName() << '\t' << graphicsComp.material.GetShaderName() << '\t' << graphicsComp.material.GetShaderIndex() << '\t' << '\n';
+                    
                 }
 
 
