@@ -391,7 +391,7 @@ void GraphicsSystem::UpdateLoop() {
 
 			// Set texture uniform before drawing
 			g_AssetManager.GetShader(ShaderName).SetUniform("uTex2d", 6);
-			std::cout << material.GetDiffuseName() << '\n';
+			//std::cout << material.GetDiffuseName() << '\n';
 
 			//if (material.GetDiffuseName() != "Digipen_Logo")
 			//{
