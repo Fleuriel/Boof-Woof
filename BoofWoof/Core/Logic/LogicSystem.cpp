@@ -72,13 +72,17 @@ std::filesystem::path FindDllPath(std::string targetPath, std::string targetName
 void LogicSystem::Init()
 {
 	std::cout << std::endl << "Logic System Initialized" << std::endl;
+	DLL_COPY_DIRECTORY = L"..\\CopyScriptWoof.dll";
 
+#ifdef _DEBUG
 	// Find the path of the DLL
 	DLL_MAIN_DIRECTORY = FindDllPath(dllpath, dllname);
 	//DLL_COPY_DIRECTORY = std::filesystem::current_path() / dllname;
-	DLL_COPY_DIRECTORY = L"..\\CopyScriptWoof.dll";
+	
 	std::wcout << "DLL Main Directory: " << DLL_MAIN_DIRECTORY.c_str() << std::endl;
 	std::wcout << "DLL Copy Directory: " << DLL_COPY_DIRECTORY.c_str() << std::endl;
+
+
 
 	// Check if the DLL exists
 	if (!std::filesystem::exists(DLL_MAIN_DIRECTORY)) {
@@ -96,6 +100,7 @@ void LogicSystem::Init()
 			std::cerr << "Failed to copy DLL. Error code: " << dwError << std::endl;
 		}
 	}
+#endif
 
 	//HINSTANCE hGetProcIDDLL = LoadLibrary(L"..\\ScriptWoof\\x64\\Debug\\ScriptWoof.dll");
 	hGetProcIDDLL = LoadLibraryW(DLL_COPY_DIRECTORY.c_str());
