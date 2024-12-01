@@ -1,5 +1,7 @@
 #include "RopeBreaker.h"
 #include "../Checklist/Checklist.h"
+#include "../Core/AssetManager/FilePaths.h"
+
 
 RopeBreaker g_RopeBreaker;
 
@@ -23,7 +25,7 @@ void RopeBreaker::OnUpdate(double deltaTime)
 	}
 
 	// Drawbridge
-	if (!isFalling) 
+	if (!isFalling)
 	{
 		return; // do nothing
 
@@ -31,7 +33,7 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		//PlayerCollidedRope1 = PlayerCollidedRope2 = true;
 		//RopeDespawned = 2;
 	}
-	else 
+	else
 	{
 		ElapsedTime += static_cast<float>(deltaTime);
 
@@ -55,7 +57,7 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		transform.SetRotation(glm::radians(currentRotation));
 
 		// Stop animation when complete
-		if (ElapsedTime >= FallDuration) 
+		if (ElapsedTime >= FallDuration)
 		{
 			isFalling = false;
 			//// Ensure final position
@@ -69,12 +71,12 @@ void RopeBreaker::OnUpdate(double deltaTime)
 
 void RopeBreaker::CheckCollision()
 {
-	if (g_Coordinator.HaveComponent<CollisionComponent>(player)) 
+	if (g_Coordinator.HaveComponent<CollisionComponent>(player))
 	{
 		PlayerColliding = g_Coordinator.GetComponent<CollisionComponent>(player).GetIsColliding();
 	}
 
-	if (g_Coordinator.HaveComponent<CollisionComponent>(rope1)) 
+	if (g_Coordinator.HaveComponent<CollisionComponent>(rope1))
 	{
 		Rope1Colliding = g_Coordinator.GetComponent<CollisionComponent>(rope1).GetIsColliding();
 	}
@@ -99,9 +101,9 @@ void RopeBreaker::CheckCollision()
 
 void RopeBreaker::DropBridge()
 {
-	if (!bridgeAudio) 
+	if (!bridgeAudio)
 	{
-		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WoodenBridgeDropping.wav", false);
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO +"/WoodenBridgeDropping.wav", false);
 		bridgeAudio = true;
 	}
 
@@ -143,8 +145,8 @@ void RopeBreaker::DespawnRope()
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
 				{
-					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav", false);
-					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/BedRoomMusic.wav", true);
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/RopeSnap.wav", false);
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true);
 
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
@@ -152,13 +154,13 @@ void RopeBreaker::DespawnRope()
 					deletedRope1 = true;
 				}
 			}
-			
+
 			if (PlayerCollidedRope2 && !deletedRope2)
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
 				{
-					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/RopeSnap.wav", false);
-					g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/BedRoomMusic.wav", true);
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+ "/RopeSnap.wav", false);
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true);
 
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
@@ -166,6 +168,6 @@ void RopeBreaker::DespawnRope()
 					deletedRope2 = true;
 				}
 			}
-		}		
+		}
 	}
 }

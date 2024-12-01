@@ -188,6 +188,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\AssetManager\AssetManager.cpp" />
     <ClCompile Include="Core\AssetManager\Compressonator.cpp" />
     <ClCompile Include="Core\AssetManager\Descriptor.cpp" />
+    <ClCompile Include="Core\AssetManager\FilePaths.cpp" />
     <ClCompile Include="Core\Audio\AudioSystem.cpp" />
     <ClCompile Include="Core\AssetManager\Sprite.cpp" />
     <ClCompile Include="Core\ECS\pch.cpp">

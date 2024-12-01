@@ -15,6 +15,7 @@
 #include "Serialization.h"
 #include "../EngineCore.h"
 #include "ResourceManager/ResourceManager.h"
+#include "AssetManager/FilePaths.h"
 
 // Initialize the static member variable
 std::string Serialization::currentSceneGUID = "";
@@ -32,11 +33,21 @@ std::vector<Entity> Serialization::storedEnt;
  *************************************************************************/
 
 std::string GetScenesPath() {
+    // Get the current executable directory
     std::filesystem::path currentPath = std::filesystem::current_path();
-    std::filesystem::path projectRoot = currentPath.parent_path();
-    std::filesystem::path scenesPath = projectRoot / "BoofWoof" / "Assets" / "Scenes";
 
-    return scenesPath.string();
+    // Check if "Assets" folder exists in the executable's directory
+    std::filesystem::path assetsPath = currentPath / "Assets";
+    if (FilePaths::GameCheck == true) {
+        // Use the "Assets/Scenes" folder in the current executable directory
+        std::filesystem::path scenesPath = assetsPath / "Scenes";
+        return scenesPath.string();
+    }
+
+    // If no "Assets" folder is found, fallback to navigating to the project root
+    std::filesystem::path projectRoot = currentPath.parent_path();
+    std::filesystem::path fallbackScenesPath = projectRoot / "BoofWoof" / "Assets" / "Scenes";
+    return fallbackScenesPath.string();
 }
 
 
@@ -939,7 +950,7 @@ bool Serialization::LoadScene(const std::string& filepath)
 
 
                 g_Coordinator.AddComponent(entity, materialComponent);
-
+                std::cout << "material component deserialized" << std::endl;;
 
             }
 

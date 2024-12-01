@@ -6,6 +6,7 @@
 #include "../Systems/RopeBreaker/RopeBreaker.h"
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
+#include "../BoofWoof/Core/AssetManager/FilePaths.h"
 
 class MainHall : public Level
 {
@@ -19,8 +20,8 @@ class MainHall : public Level
 
 	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainHall.json");
-		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/BedRoomMusic.wav", true);
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHall.json");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true);
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -178,14 +179,14 @@ class MainHall : public Level
 
 		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniffa)
 		{
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiSniff.wav", false);
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false);
 
 			opacity1.setParticleColor(glm::vec4(0.0470588244497776f, 0.6627451181411743f, 0.95686274766922f, 1.0f));
 			opacity2.setParticleColor(glm::vec4(0.7960784435272217f, 0.0470588244497776f, 0.95686274766922f, 1.0f));
 			sniffa = true;
 		}
 
-		if (g_Input.GetKeyState(GLFW_KEY_R) == 0) 
+		if (g_Input.GetKeyState(GLFW_KEY_R) == 0)
 		{
 			sniffa = false;
 		}
@@ -209,7 +210,7 @@ class MainHall : public Level
 
 	void UnloadLevel()
 	{
-		g_Audio.StopSpecificSound("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav");
 
 		g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();

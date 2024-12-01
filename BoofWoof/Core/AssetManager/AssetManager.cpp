@@ -165,7 +165,7 @@ void AssetManager::LoadAll() {
         loadShaders = AssetManager::LoadShaders(),
         //loadAnimations = AssetManager::LoadAnimations(),
         loadMaterial = AssetManager::LoadMaterials();
-
+    UNREFERENCED_PARAMETER(loadMaterial);
     std::cout
         << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
         //<< ((loadSprites) ? "Sprites loaded successfully" : "Failed to load sprites") << std::endl
@@ -1342,38 +1342,45 @@ bool AssetManager::CheckFiles(const std::wstring& path) {
     // Create a set to hold the current detected files
     std::set<std::wstring> currentFiles;
 
-    // Iterate through the directory and add the file names to the set
-    for (const auto& entry : fs::directory_iterator(path)) {
-        if (entry.is_regular_file()) {
-            currentFiles.insert(entry.path().wstring());
+    try {
+        // Iterate through the directory and add the file names to the set
+        for (const auto& entry : std::filesystem::directory_iterator(path)) {
+            if (entry.is_regular_file()) {
+                currentFiles.insert(entry.path().wstring());
+            }
         }
     }
-
+    catch (const std::filesystem::filesystem_error& e) {
+        std::wcerr << L"Filesystem error: " << e.what() << L"\n";
+        return false; // Or handle the error as appropriate
+    }
 
     bool hasChanges = false;
 
-    if (path == L"..\\BoofWoof\\Assets\\Art\\Textures") {
+    if (path == FILEPATH_ASSET_TEXTURES_W) {
         // Compare currentFiles with the existing TextureFiles
         hasChanges = (currentFiles != TextureFiles);
 
         // Update TextureFiles with currentFiles
         TextureFiles = std::move(currentFiles); // Efficiently swap the content
     }
-    //else if (path == L"..\\BoofWoof\\Assets\\Art\\Sprites") {
-    //    // Compare currentFiles with the existing SpriteFiles
-    //    hasChanges = (currentFiles != SpriteFiles);
+    /*
+    else if (path == FILEPATH_ASSET_SPRITES_W) {
+        // Compare currentFiles with the existing SpriteFiles
+        hasChanges = (currentFiles != SpriteFiles);
 
-    //    // Update SpriteFiles with currentFiles
-    //    SpriteFiles = std::move(currentFiles); // Efficiently swap the content
-    //}
-    else if (path == L"..\\BoofWoof\\Assets\\Scenes") {
+        // Update SpriteFiles with currentFiles
+        SpriteFiles = std::move(currentFiles); // Efficiently swap the content
+    }
+    */
+    else if (path == FILEPATH_ASSET_SCENES_W) {
         // Compare currentFiles with the existing SceneFiles
         hasChanges = (currentFiles != SceneFiles);
 
         // Update SceneFiles with currentFiles
         SceneFiles = std::move(currentFiles); // Efficiently swap the content
     }
-    else if (path == L"..\\BoofWoof\\Assets\\Objects") {
+    else if (path == FILEPATH_ASSET_OBJECTS_W) {
         // Compare currentFiles with the existing ObjectFiles
         hasChanges = (currentFiles != ObjectFiles);
 
@@ -1389,18 +1396,17 @@ bool AssetManager::CheckFiles(const std::wstring& path) {
             }
         }
 
-
         // Update ObjectFiles with currentFiles
         ObjectFiles = std::move(currentFiles); // Efficiently swap the content
     }
-    else if (path == L"..\\BoofWoof\\Assets\\Shaders") {
+    else if (path == FILEPATH_ASSET_SHADERS_W) {
         // Compare currentFiles with the existing ShaderFiles
         hasChanges = (currentFiles != ShaderFiles);
 
         // Update ShaderFiles with currentFiles
         ShaderFiles = std::move(currentFiles); // Efficiently swap the content
     }
-    else if (path == L"..\\BoofWoof\\Assets\\Fonts") {
+    else if (path == FILEPATH_ASSET_FONTS_W) {
         // Compare currentFiles with the existing FontFiles
         hasChanges = (currentFiles != FontFiles);
 
@@ -1415,27 +1421,30 @@ bool AssetManager::CheckFiles(const std::wstring& path) {
 // Function to monitor texture files in a polling loop
 void AssetManager::MonitorFiles(const std::wstring& path) {
     if (CheckFiles(path) && !Currentlyloading) {
-        if (path == L"..\\BoofWoof\\Assets\\Art\\Textures") {
-            //std::wcout << L"Changes detected." << std::endl;
+        if (path == FILEPATH_ASSET_TEXTURES_W) {
+            //std::wcout << L"Changes detected in Textures." << std::endl;
             ReloadTextures();
         }
-        /*else if (path == L"..\\BoofWoof\\Assets\\Art\\Sprites") {
-            
-        }*/
-        else if (path == L"..\\BoofWoof\\Assets\\Scenes") {
-            //std::wcout << L"Changes detected." << std::endl;
+        /*
+        else if (path == FILEPATH_ASSET_SPRITES_W) {
+            // Handle sprite changes if needed
+            ReloadSprites();
+        }
+        */
+        else if (path == FILEPATH_ASSET_SCENES_W) {
+            //std::wcout << L"Changes detected in Scenes." << std::endl;
             ReloadScenes();
         }
-        else if (path == L"..\\BoofWoof\\Assets\\Objects") {
-            //std::wcout << L"Changes detected." << std::endl;
+        else if (path == FILEPATH_ASSET_OBJECTS_W) {
+            //std::wcout << L"Changes detected in Objects." << std::endl;
             ReloadObjects();
         }
-        else if (path == L"..\\BoofWoof\\Assets\\Shaders") {
-            //std::wcout << L"Changes detected." << std::endl;
+        else if (path == FILEPATH_ASSET_SHADERS_W) {
+            //std::wcout << L"Changes detected in Shaders." << std::endl;
             ReloadShaders();
         }
-        else if (path == L"..\\BoofWoof\\Assets\\Fonts") {
-            //std::wcout << L"Changes detected." << std::endl;
+        else if (path == FILEPATH_ASSET_FONTS_W) {
+            //std::wcout << L"Changes detected in Fonts." << std::endl;
             ReloadFonts();
         }
     }

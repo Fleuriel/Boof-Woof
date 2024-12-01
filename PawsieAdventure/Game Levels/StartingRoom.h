@@ -1,6 +1,7 @@
 #pragma once
 #include "Level Manager/Level.h"
 #include "ECS/Coordinator.hpp"
+#include "../BoofWoof/Core/AssetManager/FilePaths.h"
 #include "../Systems/CameraController/CameraController.h"
 #include "../Systems/BoneCatcher/BoneCatcher.h"
 #include "../Systems/RopeBreaker/RopeBreaker.h"
@@ -16,8 +17,8 @@ public:
 
 	void LoadLevel()
 	{
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/StartingRoom.json");		
-		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/BedRoomMusic.wav", true);	
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom.json");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true);
 
 		g_ChangeText.OnInitialize();
 
@@ -63,7 +64,7 @@ public:
 
 		auto& opacity = g_Coordinator.GetComponent<ParticleComponent>(scentEntity);
 
-		if (!g_ChangeText.shutted) 
+		if (!g_ChangeText.shutted)
 		{
 			g_ChangeText.OnUpdate(deltaTime);
 		}
@@ -93,28 +94,28 @@ public:
 
 		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
 		{
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiBark1.wav", false);
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiBark1.wav", false);
 			bark = true;
 		}
 
-		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 0) 
+		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 0)
 		{
 			bark = false;
 		}
 
 		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniff)
 		{
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorgiSniff.wav", false);
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false);
 			opacity.setParticleColor(glm::vec4(0.09019608050584793f, 0.7843137383460999f, 0.8549019694328308f, 1.0f));
 			sniff = true;
 		}
 
-		if (g_Input.GetKeyState(GLFW_KEY_R) == 0) 
+		if (g_Input.GetKeyState(GLFW_KEY_R) == 0)
 		{
 			sniff = false;
 		}
 
-		if (g_Checklist.shutted) 
+		if (g_Checklist.shutted)
 		{
 			if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
 			{
@@ -141,7 +142,7 @@ public:
 
 	void UnloadLevel()
 	{
-		g_Audio.StopSpecificSound("../BoofWoof/Assets/Audio/BedRoomMusic.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav");
 		g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();

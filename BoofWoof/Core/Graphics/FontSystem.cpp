@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "FontSystem.h"
 #include <stb_image.h>
+#include "AssetManager/FilePaths.h"
 
 #pragma warning(push)
 #pragma warning(disable: 5054)
@@ -23,7 +24,7 @@ void FontSystem::init()
     }
 
     // find path to font
-    std::string font_name = "../BoofWoof/Assets/Fonts/arial.ttf";
+    std::string font_name = FILEPATH_RESOURCE_FONTS+"/arial.ttf";
     if (font_name.empty())
     {
         std::cout << "ERROR::FREETYPE: Failed to load font_name" << std::endl;
@@ -169,7 +170,7 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
 void FontSystem::init_font()
 {
 	// Load font metadata from JSON file
-	glyphs = loadFontMetadata("../BoofWoof/Resources/Fonts/arial.json");
+	glyphs = loadFontMetadata(FILEPATH_RESOURCE_FONTS +"/arial.json");
 
     // get texture id
 	font_textureid = g_ResourceManager.GetTextureDDS("arial");

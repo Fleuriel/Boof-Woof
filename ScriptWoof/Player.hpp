@@ -153,8 +153,9 @@ struct Player final : public Behaviour
 		}
 		if (isMoving)
 		{
-			m_Engine.getAudioSystem().PlaySound("../BoofWoof/Assets/Audio/Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_01.wav");
+			m_Engine.getAudioSystem().PlaySoundById("Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_01.wav");
 		}
+
 
 		// Debug: After processing input
 		//std::cout << "[DEBUG] After Input Processing: isMoving = " << std::boolalpha << isMoving << std::endl;
@@ -235,7 +236,7 @@ struct Player final : public Behaviour
 
 		if (m_Engine.getInputSystem().isActionPressed("Bark"))
 		{
-			m_Engine.getAudioSystem().PlaySound("../BoofWoof/Assets/Audio/Corgi/CorgiBark1.wav");
+			m_Engine.getAudioSystem().PlaySoundById("Corgi/CorgiBark1.wav");
 		}
 	}
 

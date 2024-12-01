@@ -1,13 +1,14 @@
 #include "Checklist.h"
 #include "ResourceManager/ResourceManager.h"
 #include "../ChangeText/ChangeText.h"
+#include "../Core/AssetManager/FilePaths.h"
 
 Checklist g_Checklist;
 Serialization serialChecklist;
 
 void Checklist::OnInitialize()
 {
-	g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/Checklist.json");
+	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/Checklist.json");
 	storage = serialChecklist.GetStored();
 
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -64,7 +65,7 @@ void Checklist::OnInitialize()
 
 void Checklist::OnUpdate(double deltaTime)
 {
-	if (g_ChangeText.shutted) 
+	if (g_ChangeText.shutted)
 	{
 		if (CheckWASD() && !Check1)
 		{
@@ -90,7 +91,7 @@ void Checklist::OnUpdate(double deltaTime)
 			Check4 = true;
 		}
 	}
-	
+
 	if (Check4 && !corgiText)
 	{
 		AddCorgiText();
@@ -101,14 +102,14 @@ void Checklist::OnUpdate(double deltaTime)
 	{
 		clTimer += deltaTime;
 
-		if (clTimer >= clLimit) 
+		if (clTimer >= clLimit)
 		{
 			OnShutdown();
 		}
 	}
 }
 
-bool Checklist::CheckWASD() 
+bool Checklist::CheckWASD()
 {
 	if (g_Input.GetKeyState(GLFW_KEY_W) >= 1)
 	{
@@ -130,11 +131,11 @@ bool Checklist::CheckWASD()
 		d = true;
 	}
 
-	if (w && a && s && d) 
+	if (w && a && s && d)
 	{
 		WASDChecked = true;
 	}
-	else 
+	else
 	{
 		WASDChecked = false;
 	}
@@ -181,9 +182,9 @@ void Checklist::ChangeBoxChecked(Entity ent)
 		text.AddTexture(textureId);
 		text.setTexture("BoxChecked");
 
-		if (!playAudio) 
+		if (!playAudio)
 		{
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CheckTheBox.wav", false);
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CheckTheBox.wav", false);
 			playAudio = true;
 		}
 	}
@@ -210,13 +211,13 @@ void Checklist::ChangeAsset(Entity ent, glm::vec3 scale, std::string textureName
 	int oldTextureId = g_ResourceManager.GetTextureDDS(text.getTextureName());
 
 	text.RemoveTexture(oldTextureId);
-	
+
 	// remove old texture & add new one
 	text.clearTextures();
 
 	int textureId = g_ResourceManager.GetTextureDDS(textureName);
 	text.AddTexture(textureId);
-	text.setTexture(textureName);	
+	text.setTexture(textureName);
 
 	if (!g_Coordinator.HaveComponent<TransformComponent>(ent)) return;
 
@@ -224,7 +225,7 @@ void Checklist::ChangeAsset(Entity ent, glm::vec3 scale, std::string textureName
 
 	auto& pos = g_Coordinator.GetComponent<TransformComponent>(ent).GetPosition();
 
-	if (textureName == "Do6") 
+	if (textureName == "Do6")
 	{
 		g_Coordinator.GetComponent<TransformComponent>(ent).SetPosition(glm::vec3(pos.x + 0.02f, pos.y, pos.z));
 	}
@@ -233,8 +234,8 @@ void Checklist::ChangeAsset(Entity ent, glm::vec3 scale, std::string textureName
 	{
 		g_Coordinator.GetComponent<TransformComponent>(ent).SetPosition(glm::vec3(pos.x, pos.y - 0.01f, pos.z));
 	}
-	
-	if (textureName == "Do8") 
+
+	if (textureName == "Do8")
 	{
 		g_Coordinator.GetComponent<TransformComponent>(ent).SetPosition(glm::vec3(pos.x - 0.02f, pos.y, pos.z));
 	}

@@ -38,6 +38,7 @@
     <ClCompile Include="Utilities\Components\MaterialComponent.cpp" />
     <ClCompile Include="Utilities\Components\HierarchyComponent.cpp" />
     <ClCompile Include="Utilities\Components\LightComponent.cpp" />
+    <ClCompile Include="Core\AssetManager\FilePaths.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />

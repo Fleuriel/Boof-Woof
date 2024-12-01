@@ -24,6 +24,7 @@ struct input_interface
 struct audio_interface
 {
 	virtual void PlaySound(const char* pSoundName) = 0;
+	virtual void PlaySoundById(const char* soundId) = 0;
 };
 
 struct engine_interface

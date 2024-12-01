@@ -1,5 +1,6 @@
 #include "BoneCatcher.h"
 #include "../RopeBreaker/RopeBreaker.h"
+#include "../Core/AssetManager/FilePaths.h"
 
 BoneCatcher g_BoneCatcher;
 Serialization serial;
@@ -9,7 +10,7 @@ std::uniform_real_distribution<float> dist;  // Default distribution range
 
 void BoneCatcher::OnInitialize()
 {
-	g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/BoneCatcher.json");
+	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/BoneCatcher.json");
 
 	storage = serial.GetStored();
 
@@ -71,7 +72,7 @@ void BoneCatcher::OnUpdate(double deltaTime)
 {
 	ClearBoneCatcherTimer += deltaTime;
 
-	if (m_HitCount <= 4) 
+	if (m_HitCount <= 4)
 	{
 		if (g_Input.GetKeyState(GLFW_KEY_C) >= 1)
 		{
@@ -87,12 +88,12 @@ void BoneCatcher::OnUpdate(double deltaTime)
 		{
 			BiteDown(deltaTime);
 		}
-	}		
+	}
 
 	// Play for as long bonecatcher lasts.
 	if (AudioTimer <= ClearBoneCatcherTimer && !isAudioPlaying)
 	{
-		g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CreakingRope2.wav", true);
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav", true);
 		isAudioPlaying = true;
 	}
 
@@ -105,7 +106,7 @@ void BoneCatcher::Stop(double deltaTime)
 	// After 5 times, no more
 	if (m_HitCount == 5 && !m_ShouldDestroy)
 	{
-		g_Audio.StopSpecificSound("../BoofWoof/Assets/Audio/CreakingRope2.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav");
 		m_DestroyTimer = 2.0f;
 		m_ShouldDestroy = true;
 	}
@@ -120,9 +121,9 @@ void BoneCatcher::Stop(double deltaTime)
 			m_ShouldDestroy = false; // reset
 			m_HitCount = 0;
 
-			if (g_RopeBreaker.RopeCount != 0) 
+			if (g_RopeBreaker.RopeCount != 0)
 			{
-				g_RopeBreaker.RopeCount -= 1;		
+				g_RopeBreaker.RopeCount -= 1;
 
 				// Despawn the rope
 				g_RopeBreaker.DespawnRope();
@@ -179,7 +180,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 		m_DownTimer = 2.0f;
 
 		// Check for collision 
-		if (isInRange && !m_HitDetected) 
+		if (isInRange && !m_HitDetected)
 		{
 			//std::cout << "Hit detected!" << std::endl;
 			m_HitDetected = true;
@@ -187,7 +188,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 			//std::cout << "m_HitCount: " << m_HitCount  << std::endl;
 
 			// Play YAY sound
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/CorrectSound.wav", false);
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorrectSound.wav", false);
 
 			// Hit = Pass = Randomize Catchzone position & Faster DogHead Speed.
 			m_Speed += 0.2f;
@@ -202,7 +203,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 		}
 		else {
 			// Play BOO sound
-			g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/WrongSound.wav", false);
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/WrongSound.wav", false);
 			// Failed to hit - nothing changes, play the same level.
 		}
 	}
@@ -224,7 +225,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 
 			if (m_HitDetected)
 			{
-				if (g_Coordinator.HaveComponent<TransformComponent>(m_CatchZone)) 
+				if (g_Coordinator.HaveComponent<TransformComponent>(m_CatchZone))
 				{
 					g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetPosition(CatchZonePos);
 					//g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetScale(CatchZoneScale);
@@ -243,10 +244,10 @@ void BoneCatcher::ClearBoneCatcher()
 
 
 	// Stop the audio when bonecatcher is cleared
-	if (isAudioPlaying) 
+	if (isAudioPlaying)
 	{
 		std::cout << "Entered audioplaying" << std::endl;
-		g_Audio.StopSpecificSound("../BooFwoof/Assets/Audio/CreakingRope2.wav"); // Stop the specific file path
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav"); // Stop the specific file path
 		isAudioPlaying = false;  // Reset the flag
 	}
 

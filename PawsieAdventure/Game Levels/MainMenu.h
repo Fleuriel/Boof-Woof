@@ -2,7 +2,7 @@
 
 #include "Level Manager/Level.h"
 #include "ECS/Coordinator.hpp"
-
+#include "../BoofWoof/Core/AssetManager/FilePaths.h"
 
 Entity BackCamera{};  // Entity for the back camera
 
@@ -15,11 +15,11 @@ class MainMenu : public Level
 	void LoadLevel()
 	{
 		// Load the main menu scenes
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainMenuBack.json");
-		g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/MainMenuFront.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainMenuBack.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainMenuFront.json");
 
 		// Play background music
-		g_Audio.PlayBGM("../BoofWoof/Assets/Audio/mainmenu music.wav"); 
+		g_Audio.PlayBGM(FILEPATH_ASSET_AUDIO+"/mainmenu music.wav");
 
 		// Find the "BackCamera" entity
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -62,7 +62,7 @@ class MainMenu : public Level
 				//g_Audio.StopBGM();
 
 				// Play the button click sound
-				g_Audio.PlayFileOnNewChannel("../BoofWoof/Assets/Audio/(MenuButtonClick).wav", false);
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/(MenuButtonClick).wav", false);
 
 				// Mark space as pressed and reset elapsed time
 				spacePressed = true;
@@ -70,7 +70,7 @@ class MainMenu : public Level
 				g_Window->HideMouseCursor();
 			}
 		}
-		else 
+		else
 		{
 			MenuelapsedTime += deltaTime;
 			if (MenuelapsedTime >= delayAfterSpace)

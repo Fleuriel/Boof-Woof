@@ -8,11 +8,14 @@
 #endif
 #include "ImGuiEditor.h"
 #include "../BoofWoof/Core/EngineCore.h"
+#include "../BoofWoof/Core/AssetManager/FilePaths.h"
+
 
 EngineCore* g_Core = nullptr;
 
 int main()
 {
+	FilePaths::InitPaths();
 
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);

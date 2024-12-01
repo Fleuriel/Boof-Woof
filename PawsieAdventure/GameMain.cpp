@@ -11,12 +11,12 @@
 #include "Game Levels/StartingRoom.h"
 #include "Game Levels/TimeRush.h"
 #include "Game Levels/MainHall.h"
+#include "../BoofWoof/Core/AssetManager/FilePaths.h"
 
 EngineCore* g_Core = nullptr;
 
 void InitializeLevels()
 {
-    g_Window->toggleFullScreen();
     // Register your levels here
     g_LevelManager.RegisterLevel("Splashscreen", new Splashscreen());
     g_LevelManager.RegisterLevel("MainMenu", new MainMenu());
@@ -40,9 +40,15 @@ int RunGame()
 
     // Uncomment and set the allocation number if debugging memory leaks
     //_crtBreakAlloc = 372;
+    FilePaths::InitPaths();
 
     g_Core = new EngineCore();
     g_Core->OnInit();
+
+#ifndef _DEBUG
+    // Only toggle full screen in release mode
+    g_Window->toggleFullScreen();
+#endif
 
     InitializeLevels();
     UpdateGSM();
@@ -60,6 +66,7 @@ int RunGame()
 
     return 0;
 }
+
 
 #ifdef _DEBUG
 // Use `main` in debug mode

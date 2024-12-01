@@ -19,6 +19,7 @@
 #include "WindowManager.h"
 #include "Input/Input.h"
 #include "Windows.h"
+#include "AssetManager/FilePaths.h"
 
 Window* g_Window = nullptr;
 int g_WindowX, g_WindowY;
@@ -206,15 +207,18 @@ void Window::OnUpdate()
 
     m_AssetManagerMonitoringTimer += static_cast<float>(m_DeltaTime);
 
-    if (g_AssetManager.Currentlyloading == false && m_AssetManagerMonitoringTimer > 1.f){
-        g_AssetManager.MonitorFiles(L"..\\BoofWoof\\Assets\\Art\\Textures");
-        //g_AssetManager.MonitorFiles(L"..\\BoofWoof\\Assets\\Art\\Sprites");
-        g_AssetManager.MonitorFiles(L"..\\BoofWoof\\Assets\\Scenes");
-        g_AssetManager.MonitorFiles(L"..\\BoofWoof\\Assets\\Objects");
-        g_AssetManager.MonitorFiles(L"..\\BoofWoof\\Assets\\Shaders");
-        g_AssetManager.MonitorFiles(L"..\\BoofWoof\\Assets\\Fonts");
+    if (g_AssetManager.Currentlyloading == false && m_AssetManagerMonitoringTimer > 1.f) {
+        // Use the defined wide string paths
+        g_AssetManager.MonitorFiles(FILEPATH_ASSET_TEXTURES_W);
+        //g_AssetManager.MonitorFiles(FILEPATH_ASSET_SPRITES_W);
+        g_AssetManager.MonitorFiles(FILEPATH_ASSET_SCENES_W);
+        g_AssetManager.MonitorFiles(FILEPATH_ASSET_OBJECTS_W);
+        g_AssetManager.MonitorFiles(FILEPATH_ASSET_SHADERS_W);
+        g_AssetManager.MonitorFiles(FILEPATH_ASSET_FONTS_W);
+
         m_AssetManagerMonitoringTimer = 0.f;
     }
+
 
 }
 

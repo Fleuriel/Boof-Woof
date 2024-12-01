@@ -9,6 +9,7 @@
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/CameraComponent.hpp"
 #include "../Core/EngineCore.h"
+#include "../Core/AssetManager/FilePaths.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
@@ -187,6 +188,13 @@ public:
 	{
 		return g_Coordinator.GetComponent<CameraComponent>(entity).GetCameraUp();
 	}
+
+	virtual void PlaySoundById(const char* soundId) override
+	{
+		std::string fullPath = std::string(FILEPATH_ASSET_AUDIO) + "/" + soundId;
+		g_Audio.PlayFile(fullPath.c_str());
+	}
+
 
 };
 

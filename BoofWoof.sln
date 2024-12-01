@@ -6,9 +6,13 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoofWoof", "BoofWoof\BoofWoof.vcxproj", "{D46D576D-AE16-4BAF-AED7-A7224A120107}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EditorPaws", "EditorPaws\EditorPaws.vcxproj", "{515AD52E-37B2-4945-8A57-249591CD3FAA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CB525F24-3067-450D-AD27-A973E573721C} = {CB525F24-3067-450D-AD27-A973E573721C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PawsieAdventure", "PawsieAdventure\PawsieAdventure.vcxproj", "{901D14C2-FDE7-4BBD-92CB-14B644E518A1}"
 	ProjectSection(ProjectDependencies) = postProject
+		{CB525F24-3067-450D-AD27-A973E573721C} = {CB525F24-3067-450D-AD27-A973E573721C}
 		{D46D576D-AE16-4BAF-AED7-A7224A120107} = {D46D576D-AE16-4BAF-AED7-A7224A120107}
 	EndProjectSection
 EndProject

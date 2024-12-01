@@ -1,13 +1,18 @@
 #include "ChangeText.h"
 #include "ResourceManager/ResourceManager.h"
 #include "../Checklist/Checklist.h"
+#include "../Core/AssetManager/FilePaths.h"
+
+#include "ChangeText.h"
+#include "ResourceManager/ResourceManager.h"
+#include "../Checklist/Checklist.h"
 
 ChangeText g_ChangeText;
 Serialization serialText;
 
 void ChangeText::OnInitialize()
 {
-	g_SceneManager.LoadScene("../BoofWoof/Assets/Scenes/StartingText.json");
+	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingText.json");
 	storage = serialText.GetStored();
 
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -20,7 +25,7 @@ void ChangeText::OnInitialize()
 			{
 				m_Text = entity;
 				break;
-			}			
+			}
 		}
 	}
 
@@ -36,7 +41,7 @@ void ChangeText::OnUpdate(double deltaTime)
 	auto& text = g_Coordinator.GetComponent<GraphicsComponent>(m_Text);
 
 	// If it's time to change the texture
-	if (cdTimer >= cdLimit && textureIndex < indexLimit) 
+	if (cdTimer >= cdLimit && textureIndex < indexLimit)
 	{
 		std::string newTextureName = "CorgiText" + std::to_string(textureIndex + 1);
 
@@ -79,7 +84,7 @@ void ChangeText::OnShutdown()
 	}
 
 	// Just for StartingRoom.h
-	if (!g_Checklist.shutted) 
+	if (!g_Checklist.shutted)
 	{
 		g_Checklist.OnInitialize();
 		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec3(0.25f, 0.08f, 1.0f), "Do1");
