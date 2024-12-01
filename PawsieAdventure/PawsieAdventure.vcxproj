@@ -131,14 +131,14 @@
       <AdditionalOptions>/IGNORE:4217 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy"$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64\*.dll" "$(OutDir)"
+      <Command>xcopy /y /d "$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64\*.dll" "$(OutDir)"
 xcopy /y /d "$(SolutionDir)lib\assimp\lib\*.dll" "$(OutDir)"
 xcopy /y /d "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(OutDir)"
 xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"
 xcopy /y /d "$(SolutionDir)lib\freetype\freetype.dll" "$(OutDir)"
-xcopy "$(SolutionDir)bin\Debug-x64\BoofWoof\BoofWoof.lib" "$(TargetDir)" /Y
-xcopy "$(SolutionDir)ScriptWoof\x64\Debug\ScriptWoof.dll" "$(TargetDir)" /Y
-xcopy "$(SolutionDir)bin\Debug-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDir)" /Y</Command>
+xcopy "$(SolutionDir)bin\Release-x64\BoofWoof\BoofWoof.lib" "$(TargetDir)" /Y
+xcopy "$(SolutionDir)ScriptWoof\x64\Release\ScriptWoof.dll" "$(TargetDir)" /Y
+xcopy "$(SolutionDir)bin\Release-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
