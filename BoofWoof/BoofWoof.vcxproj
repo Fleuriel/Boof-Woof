@@ -206,6 +206,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\Level Manager\LevelManager.cpp" />
     <ClCompile Include="Core\GSM\GameStateMachine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
+    <ClCompile Include="Core\Pathfinding\PathfindingSystem.cpp" />
     <ClCompile Include="Core\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Core\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Core\Reflection\ReflectionManager.cpp" />
@@ -257,6 +258,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Logic\Script_to_Engine.h" />
     <ClInclude Include="Core\Level Manager\Level.h" />
     <ClInclude Include="Core\Level Manager\LevelManager.h" />
+    <ClInclude Include="Core\Pathfinding\PathfindingSystem.h" />
     <ClInclude Include="Core\Physics\CollisionSystem.h" />
     <ClInclude Include="Core\Physics\PhysicsSystem.h" />
     <ClInclude Include="Core\Reflection\ReflectionManager.hpp" />
