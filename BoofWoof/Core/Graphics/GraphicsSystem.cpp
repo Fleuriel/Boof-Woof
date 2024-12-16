@@ -301,6 +301,10 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
 
+
+			g_AssetManager.GetShader(ShaderName).SetUniform("roughness",  material.GetSmoothness());
+			g_AssetManager.GetShader(ShaderName).SetUniform("metallic", material.GetMetallic());
+
 			/*std::cout << "entity "<< entity << "\n";
 			std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
 			std::cout << "comp tetx cnt "<<graphicsComp.getTextureNumber() << "\n";*/
