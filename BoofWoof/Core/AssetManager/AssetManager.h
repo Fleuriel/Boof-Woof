@@ -98,7 +98,7 @@ public:
 
 	bool Currentlyloading{ false };
 
-	MaterialComponent LoadMaterialFromFile(const std::string& filePath);
+	//MaterialComponent LoadMaterialFromFile(const std::string& filePath);
 
 	std::vector<std::string> AnimationFiles;												//Container to store animation file names
 //	std::vector<std::string> MaterialFiles;													//Container to store animation file names

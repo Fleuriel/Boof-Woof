@@ -37,9 +37,9 @@ public:
 
 // Enum for animation types
 enum class AnimationType {
-    Idle,
-    Moving,
-    Action
+    Idle = 0,
+    Moving = 1,
+    Action = 2
 };
 
 // Entity-specific animation state
