@@ -877,6 +877,25 @@ void ImGuiEditor::InspectorWindow()
 
 						}
 					}
+
+					if (ImGui::Selectable("UI Component"))
+					{
+						if (!g_Coordinator.HaveComponent<UIComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<UIComponent>(g_SelectedEntity, UIComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<UIComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<UIComponent>(g_SelectedEntity, UIComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<UIComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<UIComponent>(g_SelectedEntity);
+								}
+							);
+
+						}
+					}
 					
 
 					ImGui::EndPopup();
@@ -1065,6 +1084,24 @@ void ImGuiEditor::InspectorWindow()
 								[this, componentData]() {
 									if (!g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
 										g_Coordinator.AddComponent<LightComponent>(g_SelectedEntity, componentData);
+								}
+							);
+						}
+					}
+					if (g_Coordinator.HaveComponent<UIComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("UI Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<UIComponent>(g_SelectedEntity);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<UIComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<UIComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<UIComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<UIComponent>(g_SelectedEntity, componentData);
 								}
 							);
 						}
@@ -3357,6 +3394,83 @@ void ImGuiEditor::InspectorWindow()
 
 							}
 
+						}
+						else if (className == "UIComponent") {
+							if (ImGui::CollapsingHeader("UI", ImGuiTreeNodeFlags_None))
+							{
+								auto& uiComponent = g_Coordinator.GetComponent<UIComponent>(g_SelectedEntity);
+								
+								// set texture ID 
+								int textureID = uiComponent.get_textureid();
+								ImGui::Text("Texture ID");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("TextureID");
+
+								if (ImGui::Button("Set Texture"))
+								{
+									//oldTextureName = currentTextureName; // Capture the old value
+									ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+
+								}
+
+								if (ImGuiFileDialog::Instance()->Display("SetTexture"))
+								{
+									if (ImGuiFileDialog::Instance()->IsOk())
+									{
+										// User selected a file
+										std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+										size_t lastDotPos = selectedFile.find_last_of(".");
+										if (lastDotPos != std::string::npos)
+										{
+											selectedFile = selectedFile.substr(0, lastDotPos);
+										}
+
+										int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
+
+										uiComponent.set_textureid(textureId);
+										
+
+									}
+									ImGuiFileDialog::Instance()->Close();
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// set top_left
+								glm::vec2 top_left = uiComponent.get_topleft();
+								ImGui::Text("Top Left");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("TopLeft");
+
+								if (ImGui::DragFloat2("##TopLeft", &top_left.x, 0.1f))
+								{
+									uiComponent.set_topleft(top_left);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// set bot_right
+								glm::vec2 bot_right = uiComponent.get_bottomright();
+								ImGui::Text("Bot Right");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("BotRight");
+
+								if (ImGui::DragFloat2("##BotRight", &bot_right.x, 0.1f))
+								{
+									uiComponent.set_bottomright(bot_right);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+
+
+							}
 						}
 					}
 				}
