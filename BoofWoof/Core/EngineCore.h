@@ -31,6 +31,7 @@
 #include "Physics/PhysicsSystem.h"
 #include "Physics/CollisionSystem.h"
 #include "Graphics/TransformSystem.hpp"
+#include "Pathfinding/PathfindingSystem.h"
 
 
 #include "Serialization/Serialization.h"

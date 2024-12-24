@@ -10,7 +10,10 @@ std::shared_ptr<FontSystem> mFontSys;
 std::shared_ptr<MyPhysicsSystem> mPhysicSys;
 std::shared_ptr<ParticleComponent> mParticleSys;
 std::shared_ptr<TransformSystem> mTransformSys;
+std::shared_ptr<PathfindingSystem> mPathfindingSys;
 
+GridPos3D start = { 0, 0, 0 };
+GridPos3D goal = { 5, 5, 5 };
 
 void EngineCore::OnInit()
 {
@@ -98,6 +101,20 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<TransformSystem>(signature);
 	}
 
+	mPathfindingSys = g_Coordinator.RegisterSystem<PathfindingSystem>();
+	{
+		Signature signature;
+		// Add components needed for pathfinding (e.g., TransformComponent, PathComponent)
+		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		g_Coordinator.SetSystemSignature<PathfindingSystem>(signature);
+	}
+
+	// Initialize the PathfindingSystem
+	mPathfindingSys->SetupGrid(10, 10, 10); // Example grid dimensions
+
+	// Define start and goal positions
+	start = { 0, 0, 0 }; // Global or member variable in EngineCore
+	goal = { 5, 5, 5 }; // Global or member variable in EngineCore
 
 	// init system
 	mLogicSys->Init();
@@ -152,6 +169,19 @@ void EngineCore::OnUpdate()
 
 	//Transition
 	g_SceneManager.Update((float)m_DeltaTime);
+
+	// Test pathfinding system here
+	std::vector<GridPos3D> path;
+
+	if (mPathfindingSys->FindPath(start, goal, path)) {
+		std::cout << "Path found:\n";
+		for (const auto& pos : path) {
+			std::cout << "(" << pos.x << ", " << pos.y << ", " << pos.z << ")\n";
+		}
+	}
+	else {
+		std::cout << "no path found.\n";
+	}
 
 	// system updates
 	{
