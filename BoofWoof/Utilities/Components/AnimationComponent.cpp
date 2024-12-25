@@ -1,21 +1,11 @@
 #include "pch.h"
-
 #include "AnimationComponent.h"
 #include <iostream>
 
-#define UNREFERENCED_PARAMETER(P)          (P)
-
-
-// Constructor
-AnimationComponent::AnimationComponent(std::shared_ptr<AnimationManager> animManager)
-    : animationManager(std::move(animManager)) {}
+#define UNREFERENCED_PARAMETER(P) (P)
 
 // Set an animation for the entity
 void AnimationComponent::SetAnimation(const std::string& animationName) {
-    if (!animationManager->IsAnimationLoaded(animationName)) {
-        std::cerr << "Animation not found: " << animationName << std::endl;
-        return;
-    }
     state.activeAnimation = animationName;
     state.currentTime = 0.0; // Reset animation playback
 }
@@ -32,10 +22,9 @@ void AnimationComponent::Stop() {
 
 // Update animation playback
 void AnimationComponent::Update(double deltaTime) {
-    if (!state.isPlaying) return;
+    if (!state.isPlaying || state.activeAnimation.empty()) return;
 
-    const auto& animation = animationManager->GetAnimation(state.activeAnimation);
-    state.Update(deltaTime, animation);
+    state.Update(deltaTime);
 
     // Apply transformations (interpolation logic can go here if needed)
 }
@@ -58,10 +47,6 @@ void AnimationComponent::GetCurrentTransform(const std::string& nodeName, aiMatr
 
 // Set an animation for a specific type
 void AnimationComponent::SetAnimation(AnimationType type, const std::string& animationName) {
-    if (!animationManager->IsAnimationLoaded(animationName)) {
-        std::cerr << "Animation not found: " << animationName << std::endl;
-        return;
-    }
     animationMap[type] = animationName;
 }
 

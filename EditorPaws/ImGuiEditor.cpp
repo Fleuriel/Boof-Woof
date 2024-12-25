@@ -747,13 +747,13 @@ void ImGuiEditor::InspectorWindow()
 							std::cout << "enter1\n";
 
 
-							g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
+							g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
 
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
 									if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
-										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
+										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
 									}
 								},
 								[this]() {

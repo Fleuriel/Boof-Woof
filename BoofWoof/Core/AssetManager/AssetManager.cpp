@@ -24,6 +24,7 @@
 #include "Graphics/GraphicsSystem.h" //temporary
 
 #include "Descriptor.h"
+#include "Animation/Animation.h"
 
 AssetManager g_AssetManager;
 
@@ -163,7 +164,7 @@ void AssetManager::LoadAll() {
         loadScenes = AssetManager::LoadScenes(),
         //loadPrefabs   = AssetManager::LoadPrefabs(),
         loadShaders = AssetManager::LoadShaders(),
-        //loadAnimations = AssetManager::LoadAnimations(),
+        loadAnimations = AssetManager::LoadAnimations(),
         loadMaterial = AssetManager::LoadMaterials();
     UNREFERENCED_PARAMETER(loadMaterial);
     std::cout
@@ -1231,69 +1232,66 @@ bool AssetManager::LoadAnimations() {
 
     if (fs::is_directory(filepath)) {
         for (const auto& entry : fs::directory_iterator(filepath)) {
-
-
-            std::string FilePath = filepath + "\\" + entry.path().filename().string();
-            //std::cout << "Font file " << FilePath << " Found." << std::endl;
+            std::string filePath = filepath + "\\" + entry.path().filename().string();
 
             size_t pos = entry.path().filename().string().find_last_of('.');
             if (pos != std::string::npos) {
-
-                std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
-                //std::cout << nameWithoutExtension << std::endl;
-
-                std::string Extension = entry.path().filename().string().substr(pos);
-                //std::cout << Extension;
+                std::string extension = entry.path().filename().string().substr(pos);
                 std::string allowedExtensions = ".fbx";
 
-                // Check if the substring exists in the full string
-                size_t found = allowedExtensions.find(toLowerCase(Extension));
-
-                if (found == std::string::npos) {
+                if (allowedExtensions.find(toLowerCase(extension)) == std::string::npos) {
                     DiscardToTrashBin(entry.path().string(), FILEPATH_ASSET_ANIMATIONS);
                     continue;
                 }
 
-                AnimationFiles.push_back(entry.path().filename().string());
+                Animation animation;
+                Assimp::Importer importer;
+                const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_LimitBoneWeights);
 
-#ifdef _DEBUG
-                std::cout << "\n**************************************************************************************\n";
-                std::cout << nameWithoutExtension << " detected successfully!\n";
-#endif // DEBUG
+                if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+                    std::cerr << "Error loading animation file: " << importer.GetErrorString() << std::endl;
+                    continue;
+                }
 
+                std::cout << "\n\n\n\n\n\nPing\n\n\n\n\n\n";
 
-                
-
+                if (animation.LoadFromScene(scene)) {
+                    AnimationFiles.push_back(filePath);
+                }
             }
-            else
-            {
-#ifdef _DEBUG
-                std::cout << "File " << entry.path().filename().string() << " is missing file extension.\n";
-#endif // DEBUG
-            }
-
         }
         Currentlyloading = false;
         return true;
     }
     else {
-        // Print error
-#ifdef _DEBUG
-        std::cout << "The specified path is not a directory." << std::endl;
-#endif // DEBUG
+        std::cerr << "The specified path is not a directory." << std::endl;
         Currentlyloading = false;
         return false;
     }
-
 }
 
 bool AssetManager::FreeAnimations() {
-    return 0;
+    AnimationFiles.clear(); // Remove all stored animation file paths
+    std::cout << "All animations have been freed." << std::endl;
+    return true;
 }
 
+
 bool AssetManager::ReloadAnimations() {
-    return 0;
+    if (!FreeAnimations()) {
+        std::cerr << "Error freeing animations during reload." << std::endl;
+        return false;
+    }
+
+    if (!LoadAnimations()) {
+        std::cerr << "Error loading animations during reload." << std::endl;
+        return false;
+    }
+
+    std::cout << "Animations successfully reloaded." << std::endl;
+    return true;
 }
+
 
 
 

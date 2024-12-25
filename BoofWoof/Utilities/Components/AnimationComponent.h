@@ -2,17 +2,36 @@
 #define ANIMATION_COMPONENT_H
 
 #include <string>
-#include <memory>
 #include <unordered_map>
-#include "../Core/Animation/AnimationManager.h"
+#include "../Core/Animation/Animation.h"
 
+enum AnimationType {
+    Idle = 0,
+    Moving,
+    Action
+};
+
+class EntityAnimationState {
+public:
+    EntityAnimationState()
+        : currentTime(0.0), isPlaying(false) {}
+
+    void Update(double deltaTime) {
+        if (isPlaying) {
+            currentTime += deltaTime;
+        }
+    }
+
+    std::string activeAnimation; // The currently active animation
+    double currentTime;          // Current time in the animation
+    bool isPlaying;              // Playback status
+};
 
 class AnimationComponent {
 public:
     AnimationComponent() = default;
 
-    explicit AnimationComponent(std::shared_ptr<AnimationManager> animManager);
-
+    // Set an animation for the component
     void SetAnimation(const std::string& animationName);
     void Play();
     void Stop();
@@ -29,9 +48,7 @@ public:
     std::string GetAnimation(AnimationType type) const;
 
 private:
-    std::shared_ptr<AnimationManager> animationManager; // Shared animation manager
     EntityAnimationState state;                         // Entity-specific playback state
-    std::string entityId;                               // Unique identifier for the entity
 
     // Map to store animations by type
     std::unordered_map<AnimationType, std::string> animationMap;
