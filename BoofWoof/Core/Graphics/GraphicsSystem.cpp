@@ -508,6 +508,7 @@ void GraphicsSystem::UpdateLoop() {
 
 
 	//render UI
+	g_AssetManager.GetShader("Shader2D").Use();
 	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
 	{
 		if (g_Coordinator.HaveComponent<UIComponent>(entity)){
@@ -518,12 +519,14 @@ void GraphicsSystem::UpdateLoop() {
 			glm::vec2 UI_top_left = UICompt.get_topleft();
 			glm::vec2 UI_bot_right = UICompt.get_bottomright();
 
-			glm::vec2 UI_center = { (UI_top_left.x - UI_bot_right.x) / 2.0f + UI_top_left.x, 
-				(UI_bot_right.y - UI_top_left.y) / 2.0f + UI_top_left.y };
-			glm::vec2 UI_scale = { (UI_top_left.x - UI_bot_right.x) / 2.0f, (UI_bot_right.y - UI_top_left.y) / 2.0f };
+			glm::vec2 UI_center = { (UI_top_left.x + UI_bot_right.x) / 2.0f , 
+				(UI_bot_right.y + UI_top_left.y) / 2.0f };
+			glm::vec2 UI_scale = { std::abs((UI_top_left.x - UI_bot_right.x)) / 2.0f,  std::abs((UI_bot_right.y - UI_top_left.y)) / 2.0f};
 
-			transCompt.SetPosition({ UI_center,0.f });
-			transCompt.SetScale({ UI_scale,1.f });
+			transCompt.SetPosition({ UI_center , 0.f });
+			transCompt.SetScale({ UI_scale , 1.f });
+			std::cout << "UI Center: " << UI_center.x << " " << UI_center.y << "\n";
+			std::cout << "UI Scale: " << UI_scale.x << " " << UI_scale.y << "\n";
 
 			// call 2d render
 			g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", transCompt.GetWorldMatrix());
@@ -537,6 +540,9 @@ void GraphicsSystem::UpdateLoop() {
 			g_ResourceManager.getModel("Square")->Draw2D(g_AssetManager.GetShader("Shader2D"));
 		}
 	}
+
+	g_AssetManager.GetShader("Shader2D").UnUse();
+
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
 
 
