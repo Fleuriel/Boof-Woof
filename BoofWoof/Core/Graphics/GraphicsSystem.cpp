@@ -525,8 +525,8 @@ void GraphicsSystem::UpdateLoop() {
 
 			transCompt.SetPosition({ UI_center , 0.f });
 			transCompt.SetScale({ UI_scale , 1.f });
-			std::cout << "UI Center: " << UI_center.x << " " << UI_center.y << "\n";
-			std::cout << "UI Scale: " << UI_scale.x << " " << UI_scale.y << "\n";
+			//std::cout << "UI Center: " << UI_center.x << " " << UI_center.y << "\n";
+			//std::cout << "UI Scale: " << UI_scale.x << " " << UI_scale.y << "\n";
 
 			// call 2d render
 			g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", transCompt.GetWorldMatrix());
