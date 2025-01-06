@@ -3395,6 +3395,7 @@ void ImGuiEditor::InspectorWindow()
 							}
 
 						}
+						//UI Component editor
 						else if (className == "UIComponent") {
 							if (ImGui::CollapsingHeader("UI", ImGuiTreeNodeFlags_None))
 							{
