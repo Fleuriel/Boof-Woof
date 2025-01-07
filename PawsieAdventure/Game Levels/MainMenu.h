@@ -5,6 +5,10 @@
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 
 Entity BackCamera{};  // Entity for the back camera
+Entity MenuMusic{}, MenuMusic1;
+
+
+
 
 double MenuelapsedTime = 0.0;  // Tracks the elapsed time
 double delayAfterSpace = 0.5;  // Set the delay to 1 second
@@ -19,7 +23,7 @@ class MainMenu : public Level
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainMenuFront.json");
 
 		// Play background music
-		g_Audio.PlayBGM(FILEPATH_ASSET_AUDIO+"/mainmenu music.wav");
+		//g_Audio.PlayBGM(FILEPATH_ASSET_AUDIO+"/mainmenu music.wav");
 
 		// Find the "BackCamera" entity
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -27,13 +31,49 @@ class MainMenu : public Level
 		{
 			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "BackCamera")
+				auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+				if (metadata.GetName() == "BackCamera")
 				{
 					BackCamera = entity;
+				}
+				else if (metadata.GetName() == "Music")
+				{
+					MenuMusic = entity;
+					
+				}
+				else if (metadata.GetName() == "Music1")
+				{
+					MenuMusic1 = entity;
 					break;
 				}
+
+				
 			}
 		}
+
+		
+		// Ensure the AudioComponent is linked to the AudioSystem
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
+
+			// Set the AudioSystem for the AudioComponent
+			music.SetAudioSystem(&g_Audio); // Or pass another instance of AudioSystem if preferred
+
+			// Play the audio directly from the component
+			
+			 music.PlayAudio();
+		
+		
+
+		
+
+			auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuMusic1);
+			music1.SetAudioSystem(&g_Audio); // Or pass another instance of AudioSystem if preferred
+
+			music1.PlayAudio();
+		
+
+		
+
 	}
 
 	void InitLevel() { /* Empty by design */ }
@@ -89,5 +129,19 @@ class MainMenu : public Level
 		g_Coordinator.ResetEntities();
 		MenuelapsedTime = 0.0;
 		spacePressed = false;
+
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic))
+		{
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
+			music.StopAudio();
+		}
+
+		// Check if MenuMusic1 has an AudioComponent before accessing it
+		if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic1))
+		{
+			auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuMusic1);
+			music1.StopAudio();
+		}
 	}
 };

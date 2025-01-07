@@ -675,7 +675,7 @@ bool Serialization::LoadScene(const std::string& filepath)
                     float volume = AData["Volume"].GetFloat();
                     bool shouldLoop = AData["ShouldLoop"].GetBool();
 
-                    AudioComponent audioComponent(filePath, volume, shouldLoop, entity);
+                    AudioComponent audioComponent(filePath, volume, shouldLoop, entity, nullptr);
                     g_Coordinator.AddComponent(entity, audioComponent);
                 }
             }

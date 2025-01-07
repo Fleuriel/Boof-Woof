@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "403b8d12-74b6-4e95-88e9-852926f54288",
+    "SceneGUID": "4ec30730-6d5a-4b82-b45f-9f2df8d69314",
     "Entities": [
         {
             "MetadataComponent": {
@@ -21,14 +21,20 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
+                "Texture": "PawsieAdventure",
                 "FollowCamera": false
             },
             "MaterialComponent": {
-                "name": "",
+                "name": "Default Material",
                 "shader": "Shader2D",
                 "shaderIdx": 4,
                 "properties": {
@@ -67,14 +73,20 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
+                "Texture": "SpaceToStart",
                 "FollowCamera": false
             },
             "MaterialComponent": {
-                "name": "",
+                "name": "Default Material",
                 "shader": "Shader2D",
                 "shaderIdx": 4,
                 "properties": {
@@ -91,6 +103,72 @@
                     "metallic": 0.0,
                     "shininess": 0.0
                 }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Music",
+                "EntityID": 2
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/TimeRushBGM.wav",
+                "Volume": 1.0,
+                "ShouldLoop": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Music1",
+                "EntityID": 3
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/mainmenu music.wav",
+                "Volume": 1.0,
+                "ShouldLoop": true
             }
         }
     ]
