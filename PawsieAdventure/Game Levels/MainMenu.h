@@ -99,8 +99,11 @@ class MainMenu : public Level
 		{
 			if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
 			{
-				//g_Audio.StopBGM();
-
+				if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic))
+				{
+					auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
+					music.StopAudio();
+				}
 				// Play the button click sound
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/(MenuButtonClick).wav", false);
 
@@ -124,13 +127,6 @@ class MainMenu : public Level
 
 	void UnloadLevel()
 	{
-		g_Audio.StopBGM();
-		// Reset all entities
-		g_Coordinator.ResetEntities();
-		MenuelapsedTime = 0.0;
-		spacePressed = false;
-
-
 		if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic))
 		{
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
@@ -143,5 +139,12 @@ class MainMenu : public Level
 			auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuMusic1);
 			music1.StopAudio();
 		}
+		g_Audio.StopBGM();
+		// Reset all entities
+		g_Coordinator.ResetEntities();
+		MenuelapsedTime = 0.0;
+		spacePressed = false;
+
+
 	}
 };

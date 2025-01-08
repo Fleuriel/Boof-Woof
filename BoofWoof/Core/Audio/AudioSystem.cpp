@@ -657,24 +657,30 @@ void AudioSystem::PlayFileOnNewChannel(const std::string& filePath, bool loop)
     // Set volume and other settings for the new channel
     newChannel->setVolume(1.0f); // Set to full volume
 
-    // Store the new channel to manage it later if needed
+    // Associate the channel with the file path
+    channelToFileMap[newChannel] = filePath;
+
+    // Store the new channel
     additionalChannels.push_back(newChannel);
 
-    // Update the FMOD system to process audio
+    // Update the FMOD system
     system->update();
 }
+void AudioSystem::StopSpecificSound(const std::string& filePath)
+{
+    for (auto it = channelToFileMap.begin(); it != channelToFileMap.end(); ++it) {
+        if (it->second == filePath) {
+            FMOD::Channel* channel = it->first;
+            if (channel) {
+                bool isPlaying = false;
+                channel->isPlaying(&isPlaying);
 
+                if (isPlaying) {
+                    channel->stop(); // Stop the specific sound
+                }
 
-void AudioSystem::StopSpecificSound(const std::string& filePath) {
-    UNREFERENCED_PARAMETER(filePath);
-    for (auto it = additionalChannels.begin(); it != additionalChannels.end(); ++it) {
-        if (*it) {
-            bool isPlaying = false;
-            (*it)->isPlaying(&isPlaying);
-
-            if (isPlaying) {
-                (*it)->stop(); 
-                additionalChannels.erase(it); 
+                // Remove the mapping and break
+                channelToFileMap.erase(it);
                 break;
             }
         }

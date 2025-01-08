@@ -61,5 +61,7 @@ private:
     std::unordered_map<std::string, std::shared_ptr<FMOD::Sound>> soundCache;  // Cached sounds
     std::unordered_map<Entity, float> volumeMap;  // Volume per entity
     std::vector<FMOD::Channel*> additionalChannels;
+    std::unordered_map<FMOD::Channel*, std::string> channelToFileMap;
+
 
 };
