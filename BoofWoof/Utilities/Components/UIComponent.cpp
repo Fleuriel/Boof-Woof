@@ -1,7 +1,7 @@
 #include <pch.h>
-#include "TransformComponent.hpp"
+#include "UIComponent.hpp"
 
-void TransformComponent::RegisterProperties()
+void UIComponent::RegisterProperties()
 {
 	static bool registered = false;
 	if (!registered)
