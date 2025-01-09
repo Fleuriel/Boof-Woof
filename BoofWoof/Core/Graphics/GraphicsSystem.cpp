@@ -525,14 +525,18 @@ void GraphicsSystem::UpdateLoop() {
 
 			transCompt.SetPosition({ UI_center , 0.f });
 			transCompt.SetScale({ UI_scale , 1.f });
-			//std::cout << "UI Center: " << UI_center.x << " " << UI_center.y << "\n";
-			//std::cout << "UI Scale: " << UI_scale.x << " " << UI_scale.y << "\n";
 
+
+			glm::vec2 mouse_pos = { (g_Input.GetMousePosition().x / g_WindowX) * 2.0f - 1.0f, 1.0f - 2.0f * (g_Input.GetMousePosition().y / g_WindowY) };
+
+			UICompt.checkclick(mouse_pos);
+			//print mouse pos
+			//std::cout << "Mouse Pos: " << mouse_pos.x << " " << mouse_pos.y << '\n';
 			// call 2d render
 			g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", transCompt.GetWorldMatrix());
 			g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
 			g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
-
+			g_AssetManager.GetShader("Shader2D").SetUniform("opacity", UICompt.get_UI_opacity());
 			glBindTextureUnit(6, UICompt.get_textureid());
 
 			g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);

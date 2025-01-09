@@ -8,6 +8,7 @@
 class UIComponent {
 public:
     UIComponent() {};
+	UIComponent(int tid, glm::vec2 tl, glm::vec2 br) : textureid(tid), topleft(tl), bottomright(br) {};
     ~UIComponent() {};
 
 
@@ -17,13 +18,23 @@ public:
 
 	glm::vec2 get_topleft() { return topleft; }
 	glm::vec2 get_bottomright() { return bottomright; }
+	bool get_selected() { return selected; }
+	float get_UI_opacity() { return UI_opacity; }
 	int get_textureid() { return textureid; }
 
 
-    bool checkclick(glm::vec2 mousepos) {
-		if (mousepos.x > topleft.x && mousepos.x < bottomright.x && mousepos.y > topleft.y && mousepos.y < bottomright.y)
-			return true;
-		return false;
+
+    void checkclick(glm::vec2 mousepos) {
+		if (mousepos.x > topleft.x && mousepos.x < bottomright.x && mousepos.y < topleft.y && mousepos.y > bottomright.y) {
+			selected = true;
+			UI_opacity = 0.5f;
+			//std::cout << "UI Component select\n";
+		}
+		else {
+			selected = false;
+			UI_opacity = 1.f;
+			//std::cout << "UI Component deselect\n";
+		}
     }
 	REFLECT_COMPONENT(UIComponent) 
 	{}
@@ -34,6 +45,9 @@ private:
     std::string text{};
 	glm::vec2 topleft{ -1.f,1.f };
 	glm::vec2 bottomright{ 1.f,-1.f };
+
+	bool selected{ false };
+	float UI_opacity{ 1.f };
 };
 
 #endif // UICOMPONENT_HPP

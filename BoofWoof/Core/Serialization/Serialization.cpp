@@ -462,7 +462,21 @@ bool Serialization::SaveScene(const std::string& filepath) {
             entityData.AddMember("MaterialComponent", Material, allocator);
 
         }
+		// Serialize UIComponent
+        if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
+			rapidjson::Value UI(rapidjson::kObjectType);
 
+			auto& uiComp = g_Coordinator.GetComponent<UIComponent>(entity);
+
+			UI.AddMember("TextureID", uiComp.get_textureid(), allocator);
+			UI.AddMember("TopLeftX", uiComp.get_topleft().x, allocator);
+			UI.AddMember("TopLeftY", uiComp.get_topleft().y, allocator);
+			UI.AddMember("BottomRightX", uiComp.get_bottomright().x, allocator);
+			UI.AddMember("BottomRightY", uiComp.get_bottomright().y, allocator);
+
+			entityData.AddMember("UIComponent", UI, allocator);
+
+        }
 
         entities.PushBack(entityData, allocator);
     }
@@ -953,6 +967,18 @@ bool Serialization::LoadScene(const std::string& filepath)
                 std::cout << "material component deserialized" << std::endl;;
 
             }
+			// Deserialize UIComponent
+			if (entityData.HasMember("UIComponent")) {
+				const auto& UIData = entityData["UIComponent"];
+				if (UIData.HasMember("TextureID")) {
+					int textureID = UIData["TextureID"].GetInt();
+					glm::vec2 topLeft(UIData["TopLeftX"].GetFloat(), UIData["TopLeftY"].GetFloat());
+					glm::vec2 bottomRight(UIData["BottomRightX"].GetFloat(), UIData["BottomRightY"].GetFloat());
+
+					UIComponent uiComponent(textureID, topLeft, bottomRight);
+					g_Coordinator.AddComponent(entity, uiComponent);
+				}
+			}
 
 
 
