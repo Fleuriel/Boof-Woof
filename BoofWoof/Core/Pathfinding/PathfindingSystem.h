@@ -133,38 +133,6 @@ private:
     void ReconstructPath(const std::shared_ptr<Node3D>& goalNode, std::vector<GridPos3D>& outPath);
 };
 
-//// Class to interface with JoltPhysics
-//class PathfindingSystem : public System {
-//public:
-//
-//    PathfindingSystem() : grid(0, 0, 0) {} // Default dimensions
-//
-//    /**************************************************************************/
-//    /*!
-//    \brief Updates the Pathfinding coordinates.
-//    */
-//    /**************************************************************************/
-//    void OnUpdate();
-//
-//    void Cleanup();
-//
-//    // Core pathfinding function
-//    bool FindPath(const GridPos3D& start, const GridPos3D& goal, std::vector<GridPos3D>& outPath);
-//
-//    void SetupGrid(int width, int height, int depth);
-//
-//private:
-//    Grid3D grid; // Declare the grid as a member variable
-//    std::vector<Node3D*> GetNeighbors(const Node3D& node);
-//
-//    // List of nodes
-//    std::priority_queue<std::shared_ptr<Node3D>, std::vector<std::shared_ptr<Node3D>>, NodeComparator3D> openList;
-//    std::unordered_set<GridPos3D> closedList;
-//
-//    float GetCost(const GridPos3D& from, const GridPos3D& to);
-//    float Heuristic(const GridPos3D& a, const GridPos3D& b);
-//};
-
 
 
 #endif // PATHFINDINGSYSTEM_H

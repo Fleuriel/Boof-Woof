@@ -44,6 +44,7 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<HierarchyComponent>();
 	g_Coordinator.RegisterComponent<LightComponent>();
 	g_Coordinator.RegisterComponent<UIComponent>();
+	g_Coordinator.RegisterComponent<PathfindingComponent>();
 
 	// setting global pointer
 	g_Core = this;
@@ -108,6 +109,7 @@ void EngineCore::OnInit()
 		Signature signature;
 		// Add components needed for pathfinding (e.g., TransformComponent, PathComponent)
 		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		signature.set(g_Coordinator.GetComponentType<PathfindingComponent>());
 		g_Coordinator.SetSystemSignature<PathfindingSystem>(signature);
 	}
 
@@ -142,6 +144,7 @@ void EngineCore::OnInit()
 	ReflectionManager::Instance().RegisterComponentType<HierarchyComponent>("HierarchyComponent");
 	ReflectionManager::Instance().RegisterComponentType<LightComponent>("LightComponent");
 	ReflectionManager::Instance().RegisterComponentType<UIComponent>("UIComponent");
+	ReflectionManager::Instance().RegisterComponentType<UIComponent>("PathfindingComponent");
 }
 
 void EngineCore::OnUpdate()
