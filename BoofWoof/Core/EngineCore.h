@@ -21,6 +21,7 @@
 #include "../Utilities/Components/CameraComponent.hpp"
 #include "../Utilities/Components/ParticleComponent.hpp"
 #include "../Utilities/Components/LightComponent.hpp"
+#include "../Utilities/Components/UIComponent.hpp"
 
 #include "Windows/WindowManager.h"
 #include "AssetManager/AssetManager.h"

@@ -226,6 +226,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Utilities\Components\MetaData.cpp" />
     <ClCompile Include="Utilities\Components\ParticleComponent.cpp" />
     <ClCompile Include="Utilities\Components\TransformComponent.cpp" />
+    <ClCompile Include="Utilities\Components\UIComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Animation\AnimationManager.h" />
@@ -280,6 +281,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Utilities\Components\MetaData.hpp" />
     <ClInclude Include="Utilities\Components\ParticleComponent.hpp" />
     <ClInclude Include="Utilities\Components\TransformComponent.hpp" />
+    <ClInclude Include="Utilities\Components\UIComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scenes\engine_state.json" />

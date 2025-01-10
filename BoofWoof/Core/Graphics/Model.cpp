@@ -72,10 +72,10 @@ Model SquareModel(glm::vec3 color)
 
 	// Define the vertices of a textured square
 	std::vector<Vertex> vertices{
-		 { glm::vec2(0.5f,  -0.5f), color, glm::vec2(1.0f, 1.0f) }, // Bottom-right
-		 { glm::vec2(0.5f,   0.5f), color, glm::vec2(1.0f, 0.0f) }, // Top-right
-		 { glm::vec2(-0.5f,  0.5f), color, glm::vec2(0.0f, 0.0f) }, // Top-left
-		 { glm::vec2(-0.5f, -0.5f), color, glm::vec2(0.0f, 1.0f) }  // Bottom-left
+		 { glm::vec2(1.0f,  -1.0f), color, glm::vec2(1.0f, 1.0f) }, // Bottom-right
+		 { glm::vec2(1.0f,   1.0f), color, glm::vec2(1.0f, 0.0f) }, // Top-right
+		 { glm::vec2(-1.0f,  1.0f), color, glm::vec2(0.0f, 0.0f) }, // Top-left
+		 { glm::vec2(-1.0f, -1.0f), color, glm::vec2(0.0f, 1.0f) }  // Bottom-left
 	};
 
 	// Create Model.
