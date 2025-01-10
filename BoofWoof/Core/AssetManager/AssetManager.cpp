@@ -1253,8 +1253,6 @@ bool AssetManager::LoadAnimations() {
                     continue;
                 }
 
-                std::cout << "\n\n\n\n\n\nPing\n\n\n\n\n\n";
-
                 if (animation.LoadFromScene(scene)) {
                     AnimationFiles.push_back(filePath);
                 }
