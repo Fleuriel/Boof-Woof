@@ -46,6 +46,7 @@ private:
 	glm::vec2 topleft{ -1.f,1.f };
 	glm::vec2 bottomright{ 1.f,-1.f };
 
+
 	bool selected{ false };
 	float UI_opacity{ 1.f };
 };

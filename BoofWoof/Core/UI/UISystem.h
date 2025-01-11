@@ -27,6 +27,9 @@ class UISystem : public System {
 public:
 	void UI_init();
 	void UI_update();
+	void UI_render();
+
+
 
 private:
 	Entity mSelectedEntity;

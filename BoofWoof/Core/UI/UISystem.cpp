@@ -3,6 +3,7 @@
 
 #include "../Utilities/Components/UIComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
+#include "../Utilities/Components/MetaData.hpp"
 
 #include "../Graphics/FontSystem.h"
 #include "AssetManager/AssetManager.h"
@@ -19,7 +20,27 @@ void UISystem::UI_init() {
 }
 
 void UISystem::UI_update() {
-	std::cout << "UI System Update\n";
+	// if mouse click
+	if (g_Input.GetMouseState(0) == 1) {
+		for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
+		{
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "folder UI")
+			{
+				if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(entity);
+					if (UICompt.get_selected()) {
+						std::cout << "folder UI is clicked \n";
+					}
+				}
+			}
+		}
+	}
+
+	UI_render();
+}
+
+void UISystem::UI_render()
+{
 	//render UI
 	g_AssetManager.GetShader("Shader2D").Use();
 	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
@@ -60,7 +81,7 @@ void UISystem::UI_update() {
 
 	g_AssetManager.GetShader("Shader2D").UnUse();
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);  
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 
