@@ -53,7 +53,7 @@ void UISystem::UI_render()
 			transCompt.SetPosition({ UICompt.get_position() , 0.f});
 			transCompt.SetScale({ UICompt.get_scale() , 1.f});
 
-			glm::vec2 mouse_pos = { (g_Input.GetMousePosition().x / g_WindowX) * 2.0f - 1.0f, 1.0f - 2.0f * (g_Input.GetMousePosition().y / g_WindowY) };
+			glm::vec2 mouse_pos = { (g_Input.GetMousePositionUI().x / g_WindowX) * 2.0f - 1.0f, 1.0f - 2.0f * (g_Input.GetMousePositionUI().y / g_WindowY) };
 
 			UICompt.checkclick(mouse_pos);
 

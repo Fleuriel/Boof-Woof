@@ -301,9 +301,13 @@ void ImGuiEditor::ImGuiViewport() {
 				mCurrentGizmoOperation = ImGuizmo::SCALE;
 		}
 
+		glm::vec2 scaling = { g_WindowX / viewportPanelSize.x, g_WindowY / viewportPanelSize.y };
 
-
-
+		glm::vec2 mouse_pos_ = { (ImGui::GetMousePos().x - viewportPanelPos.x) *scaling.x
+			,(ImGui::GetMousePos().y - viewportPanelPos.y)*scaling.y };
+		
+		g_Input.SetMousePositionUI({ mouse_pos_.x , mouse_pos_.y });
+		
 		// Object picking
 		if (!ImGuizmo::IsUsing() && ImGui::IsWindowFocused() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 		{
@@ -315,7 +319,7 @@ void ImGuiEditor::ImGuiViewport() {
 
 			if (mouseX >= 0 && mouseY >= 0 && mouseX < viewportPanelSize.x && mouseY < viewportPanelSize.y)
 			{
-
+				
 				// Request picking render
 				g_Coordinator.GetSystem<GraphicsSystem>()->SetPickingRenderer(true);
 

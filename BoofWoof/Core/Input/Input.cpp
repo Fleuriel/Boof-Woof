@@ -97,6 +97,7 @@ float InputSystem::GetScrollTotalYOffset() {
 /**************************************************************************
  * @brief Updates the states of keyboard keys and mouse scroll for the next frame.
  *************************************************************************/
+glm::vec2 last_mouse_pos = {};
 void InputSystem::UpdateStatesForNextFrame() {
     for (size_t i = 0; i < GLFW_KEY_LAST + 1; ++i) {
         keyStates[i] = (keyStates[i] == 1) ? 2 : keyStates[i];
@@ -107,6 +108,17 @@ void InputSystem::UpdateStatesForNextFrame() {
     double x, y;
     glfwGetCursorPos(g_Window->GetGLFWWindow(), &x, &y);
     mouse_position = glm::vec2(x, y);
+	static bool first = true;
+	if (first) {
+        mouse_pos_UI = mouse_position;
+		first = false;
+	}
+    if (mouse_pos_UI == last_mouse_pos) {
+        mouse_pos_UI = mouse_position;
+		
+    }
+    last_mouse_pos = mouse_position;
+	
 }
 
 /**************************************************************************

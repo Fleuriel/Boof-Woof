@@ -1,20 +1,20 @@
 {
-    "SceneGUID": "4eabb937-e993-4eca-aaea-6db236498d82",
+    "SceneGUID": "308ddc4b-a420-4816-a270-48afb47d2692",
     "Entities": [
         {
             "MetadataComponent": {
-                "EntityName": "folder UI",
+                "EntityName": "folder_UI",
                 "EntityID": 0
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.6000000238418579,
-                    "y": 0.44999998807907107,
+                    "x": -0.5,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Scale": {
-                    "x": 0.29999998211860659,
-                    "y": 0.550000011920929,
+                    "x": 0.30000001192092898,
+                    "y": 0.4000000059604645,
                     "z": 1.0
                 },
                 "Rotation": {
@@ -30,26 +30,26 @@
             },
             "UIComponent": {
                 "TextureID": 51,
-                "TopLeftX": -0.8999999761581421,
-                "TopLeftY": 1.0,
-                "BottomRightX": -0.30000001192092898,
-                "BottomRightY": -0.10000000149011612
+                "PositionX": -0.5,
+                "PositionY": 0.0,
+                "ScaleX": 0.30000001192092898,
+                "ScaleY": 0.4000000059604645
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "otherUI",
                 "EntityID": 1
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.6499999761581421,
-                    "y": -0.4000000059604645,
+                    "x": 0.5,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Scale": {
-                    "x": 0.15000000596046449,
-                    "y": 0.20000001788139344,
+                    "x": 0.30000001192092898,
+                    "y": 0.30000001192092898,
                     "z": 1.0
                 },
                 "Rotation": {
@@ -64,11 +64,11 @@
                 }
             },
             "UIComponent": {
-                "TextureID": 3,
-                "TopLeftX": 0.5,
-                "TopLeftY": -0.20000000298023225,
-                "BottomRightX": 0.800000011920929,
-                "BottomRightY": -0.6000000238418579
+                "TextureID": 5,
+                "PositionX": 0.5,
+                "PositionY": 0.0,
+                "ScaleX": 0.30000001192092898,
+                "ScaleY": 0.30000001192092898
             }
         }
     ]
