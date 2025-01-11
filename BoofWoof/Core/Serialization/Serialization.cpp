@@ -469,10 +469,10 @@ bool Serialization::SaveScene(const std::string& filepath) {
 			auto& uiComp = g_Coordinator.GetComponent<UIComponent>(entity);
 
 			UI.AddMember("TextureID", uiComp.get_textureid(), allocator);
-			UI.AddMember("TopLeftX", uiComp.get_topleft().x, allocator);
-			UI.AddMember("TopLeftY", uiComp.get_topleft().y, allocator);
-			UI.AddMember("BottomRightX", uiComp.get_bottomright().x, allocator);
-			UI.AddMember("BottomRightY", uiComp.get_bottomright().y, allocator);
+			UI.AddMember("PositionX", uiComp.get_position().x, allocator);
+			UI.AddMember("PositionY", uiComp.get_position().y, allocator);
+			UI.AddMember("ScaleX", uiComp.get_scale().x, allocator);
+			UI.AddMember("ScaleY", uiComp.get_scale().y, allocator);
 
 			entityData.AddMember("UIComponent", UI, allocator);
 
@@ -972,10 +972,10 @@ bool Serialization::LoadScene(const std::string& filepath)
 				const auto& UIData = entityData["UIComponent"];
 				if (UIData.HasMember("TextureID")) {
 					int textureID = UIData["TextureID"].GetInt();
-					glm::vec2 topLeft(UIData["TopLeftX"].GetFloat(), UIData["TopLeftY"].GetFloat());
-					glm::vec2 bottomRight(UIData["BottomRightX"].GetFloat(), UIData["BottomRightY"].GetFloat());
+					glm::vec2 position(UIData["PositionX"].GetFloat(), UIData["PositionY"].GetFloat());
+					glm::vec2 scale(UIData["ScaleX"].GetFloat(), UIData["ScaleY"].GetFloat());
 
-					UIComponent uiComponent(textureID, topLeft, bottomRight);
+					UIComponent uiComponent(textureID, position, scale);
 					g_Coordinator.AddComponent(entity, uiComponent);
 				}
 			}

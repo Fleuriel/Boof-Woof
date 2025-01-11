@@ -8,16 +8,16 @@
 class UIComponent {
 public:
     UIComponent() {};
-	UIComponent(int tid, glm::vec2 tl, glm::vec2 br) : textureid(tid), topleft(tl), bottomright(br) {};
+	UIComponent(int tid, glm::vec2 pos, glm::vec2 s) : textureid(tid), position(pos), scale(s) {};
     ~UIComponent() {};
 
 
-	void set_topleft(glm::vec2 tl) { topleft = tl; }
-	void set_bottomright(glm::vec2 br) { bottomright = br; }
+	void set_position(glm::vec2 pos) { position = pos; }
+	void set_scale(glm::vec2 s) { scale = s; }
 	void set_textureid(int tid) { textureid = tid; }
 
-	glm::vec2 get_topleft() { return topleft; }
-	glm::vec2 get_bottomright() { return bottomright; }
+	glm::vec2 get_position() { return position; }
+	glm::vec2 get_scale() { return scale; }
 	bool get_selected() { return selected; }
 	float get_UI_opacity() { return UI_opacity; }
 	int get_textureid() { return textureid; }
@@ -25,15 +25,17 @@ public:
 
 
     void checkclick(glm::vec2 mousepos) {
-		if (mousepos.x > topleft.x && mousepos.x < bottomright.x && mousepos.y < topleft.y && mousepos.y > bottomright.y) {
+		float left_limit = position.x - scale.x;
+		float right_limit = position.x + scale.x;
+		float top_limit = position.y + scale.y;
+		float bottom_limit = position.y - scale.y;
+		if (mousepos.x > left_limit && mousepos.x < right_limit && mousepos.y < top_limit && mousepos.y > bottom_limit) {
 			selected = true;
 			UI_opacity = 0.5f;
-			//std::cout << "UI Component select\n";
 		}
 		else {
 			selected = false;
 			UI_opacity = 1.f;
-			//std::cout << "UI Component deselect\n";
 		}
     }
 	REFLECT_COMPONENT(UIComponent) 
@@ -43,9 +45,9 @@ private:
     //std::string name;
     int textureid{};
     std::string text{};
-	glm::vec2 topleft{ -1.f,1.f };
-	glm::vec2 bottomright{ 1.f,-1.f };
 
+	glm::vec2 position{ 0.f, 0.f };
+	glm::vec2 scale{ 1.f, 1.f };
 
 	bool selected{ false };
 	float UI_opacity{ 1.f };

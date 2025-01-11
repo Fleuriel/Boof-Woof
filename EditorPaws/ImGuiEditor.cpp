@@ -3439,31 +3439,32 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
-								// set top_left
-								glm::vec2 top_left = uiComponent.get_topleft();
-								ImGui::Text("Top Left");
+								
+								//set position
+								glm::vec2 position = uiComponent.get_position();
+								ImGui::Text("Position");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("TopLeft");
+								ImGui::PushID("Position");
 
-								if (ImGui::DragFloat2("##TopLeft", &top_left.x, 0.1f))
+								if (ImGui::DragFloat2("##Position", &position.x, 0.1f))
 								{
-									uiComponent.set_topleft(top_left);
+									uiComponent.set_position(position);
 								}
 
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
-								// set bot_right
-								glm::vec2 bot_right = uiComponent.get_bottomright();
-								ImGui::Text("Bot Right");
+								//set scale
+								glm::vec2 scale = uiComponent.get_scale();
+								ImGui::Text("Scale");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("BotRight");
+								ImGui::PushID("Scale");
 
-								if (ImGui::DragFloat2("##BotRight", &bot_right.x, 0.1f))
+								if (ImGui::DragFloat2("##Scale", &scale.x, 0.1f))
 								{
-									uiComponent.set_bottomright(bot_right);
+									uiComponent.set_scale(scale);
 								}
 
 								ImGui::PopID();
