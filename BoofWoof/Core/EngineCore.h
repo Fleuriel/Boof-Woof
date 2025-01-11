@@ -32,6 +32,7 @@
 #include "Physics/PhysicsSystem.h"
 #include "Physics/CollisionSystem.h"
 #include "Graphics/TransformSystem.hpp"
+#include "UI/UISystem.h"
 
 
 #include "Serialization/Serialization.h"
