@@ -21,6 +21,7 @@
 #include "../Utilities/Components/CameraComponent.hpp"
 #include "../Utilities/Components/ParticleComponent.hpp"
 #include "../Utilities/Components/LightComponent.hpp"
+#include "../Utilities/Components/UIComponent.hpp"
 
 #include "Windows/WindowManager.h"
 #include "AssetManager/AssetManager.h"
@@ -31,6 +32,7 @@
 #include "Physics/PhysicsSystem.h"
 #include "Physics/CollisionSystem.h"
 #include "Graphics/TransformSystem.hpp"
+#include "UI/UISystem.h"
 
 
 #include "Serialization/Serialization.h"

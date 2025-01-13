@@ -301,6 +301,10 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
 
+
+			g_AssetManager.GetShader(ShaderName).SetUniform("roughness",  material.GetSmoothness());
+			g_AssetManager.GetShader(ShaderName).SetUniform("metallic", material.GetMetallic());
+
 			/*std::cout << "entity "<< entity << "\n";
 			std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
 			std::cout << "comp tetx cnt "<<graphicsComp.getTextureNumber() << "\n";*/
@@ -501,9 +505,7 @@ void GraphicsSystem::UpdateLoop() {
 
 	}
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
-
-
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
 
 	// 2. Picking Rendering Pass (only when needed)
 	if (needsPickingRender) {

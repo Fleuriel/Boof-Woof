@@ -301,9 +301,13 @@ void ImGuiEditor::ImGuiViewport() {
 				mCurrentGizmoOperation = ImGuizmo::SCALE;
 		}
 
+		glm::vec2 scaling = { g_WindowX / viewportPanelSize.x, g_WindowY / viewportPanelSize.y };
 
-
-
+		glm::vec2 mouse_pos_ = { (ImGui::GetMousePos().x - viewportPanelPos.x) *scaling.x
+			,(ImGui::GetMousePos().y - viewportPanelPos.y)*scaling.y };
+		
+		g_Input.SetMousePositionUI({ mouse_pos_.x , mouse_pos_.y });
+		
 		// Object picking
 		if (!ImGuizmo::IsUsing() && ImGui::IsWindowFocused() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 		{
@@ -315,7 +319,7 @@ void ImGuiEditor::ImGuiViewport() {
 
 			if (mouseX >= 0 && mouseY >= 0 && mouseX < viewportPanelSize.x && mouseY < viewportPanelSize.y)
 			{
-
+				
 				// Request picking render
 				g_Coordinator.GetSystem<GraphicsSystem>()->SetPickingRenderer(true);
 
@@ -877,6 +881,25 @@ void ImGuiEditor::InspectorWindow()
 
 						}
 					}
+
+					if (ImGui::Selectable("UI Component"))
+					{
+						if (!g_Coordinator.HaveComponent<UIComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<UIComponent>(g_SelectedEntity, UIComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<UIComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<UIComponent>(g_SelectedEntity, UIComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<UIComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<UIComponent>(g_SelectedEntity);
+								}
+							);
+
+						}
+					}
 					
 
 					ImGui::EndPopup();
@@ -1065,6 +1088,24 @@ void ImGuiEditor::InspectorWindow()
 								[this, componentData]() {
 									if (!g_Coordinator.HaveComponent<LightComponent>(g_SelectedEntity))
 										g_Coordinator.AddComponent<LightComponent>(g_SelectedEntity, componentData);
+								}
+							);
+						}
+					}
+					if (g_Coordinator.HaveComponent<UIComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("UI Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<UIComponent>(g_SelectedEntity);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<UIComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<UIComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<UIComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<UIComponent>(g_SelectedEntity, componentData);
 								}
 							);
 						}
@@ -3357,6 +3398,85 @@ void ImGuiEditor::InspectorWindow()
 
 							}
 
+						}
+						//UI Component editor
+						else if (className == "UIComponent") {
+							if (ImGui::CollapsingHeader("UI", ImGuiTreeNodeFlags_None))
+							{
+								auto& uiComponent = g_Coordinator.GetComponent<UIComponent>(g_SelectedEntity);
+								
+								// set texture ID 
+								int textureID = uiComponent.get_textureid();
+								ImGui::Text("Texture ID");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("TextureID");
+
+								if (ImGui::Button("Set Texture"))
+								{
+									//oldTextureName = currentTextureName; // Capture the old value
+									ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+
+								}
+
+								if (ImGuiFileDialog::Instance()->Display("SetTexture"))
+								{
+									if (ImGuiFileDialog::Instance()->IsOk())
+									{
+										// User selected a file
+										std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+										size_t lastDotPos = selectedFile.find_last_of(".");
+										if (lastDotPos != std::string::npos)
+										{
+											selectedFile = selectedFile.substr(0, lastDotPos);
+										}
+
+										int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
+
+										uiComponent.set_textureid(textureId);
+										
+
+									}
+									ImGuiFileDialog::Instance()->Close();
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								
+								//set position
+								glm::vec2 position = uiComponent.get_position();
+								ImGui::Text("Position");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Position");
+
+								if (ImGui::DragFloat2("##Position", &position.x, 0.1f))
+								{
+									uiComponent.set_position(position);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								//set scale
+								glm::vec2 scale = uiComponent.get_scale();
+								ImGui::Text("Scale");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Scale");
+
+								if (ImGui::DragFloat2("##Scale", &scale.x, 0.1f))
+								{
+									uiComponent.set_scale(scale);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+
+
+							}
 						}
 					}
 				}

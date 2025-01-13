@@ -56,6 +56,11 @@ public:
     void SetMouseState(int index, int value);                        // Set MouseStates
     glm::vec2 GetMousePosition() { return mouse_position; };         // Get Mouse Position
 
+	// UI Mouse Position
+	void SetMousePositionUI(glm::vec2 pos) { mouse_pos_UI = pos; };  // Set Mouse Position for UI
+	glm::vec2 GetMousePositionUI() { return mouse_pos_UI; };         // Get Mouse Position for UI
+
+
     /**************************************************************************
      * @brief Retrieves the state of the mouse scroll wheel.
      * @return An integer representing the scroll state: 1 for scrolling up, 0 for no scrolling, -1 for scrolling down.
@@ -102,6 +107,7 @@ private:
     float mouse_scroll_total_Y_offset{ 0 };                          // Keeps track of total vertical scrolling
     glm::vec2 mouse_position{ 0, 0 };                                // Stores mouse position
     
+	glm::vec2 mouse_pos_UI{ 0, 0 };                                  // Stores mouse position for UI
 };
 
 #endif
