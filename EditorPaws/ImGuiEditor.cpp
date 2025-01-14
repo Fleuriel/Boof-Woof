@@ -505,6 +505,21 @@ void ImGuiEditor::WorldHierarchy()
 			{
 				DrawEntityNode(entity);
 			}
+
+
+			// Need this part to have selected entity working properly.
+			auto& name = g_Coordinator.GetComponent<MetadataComponent>(entity).GetName();
+			if (name == "Player") m_PlayerExist = true;
+
+			ImGuiTreeNodeFlags nodeFlags = ((g_SelectedEntity == entity) ? ImGuiTreeNodeFlags_Selected : 0) | (ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen);
+
+			if (ImGui::IsItemClicked())
+			{
+				m_IsSelected = true;
+				g_SelectedEntity = entity;
+			}
+
+			g_GettingDeletedEntity = entity;
 		}
 	}
 	ImGui::End();
