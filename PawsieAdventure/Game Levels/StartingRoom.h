@@ -18,7 +18,7 @@ public:
 	void LoadLevel()
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom.json");
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true);
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true, "BGM");
 
 		g_ChangeText.OnInitialize();
 
@@ -94,7 +94,7 @@ public:
 
 		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
 		{
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiBark1.wav", false);
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiBark1.wav", false, "SFX");
 			bark = true;
 		}
 
@@ -105,7 +105,7 @@ public:
 
 		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniff)
 		{
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false);
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false, "SFX");
 			opacity.setParticleColor(glm::vec4(0.09019608050584793f, 0.7843137383460999f, 0.8549019694328308f, 1.0f));
 			sniff = true;
 		}

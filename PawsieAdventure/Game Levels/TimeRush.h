@@ -26,8 +26,8 @@ class TimeRush : public Level
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/TimeRushPuzzle.json");
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/Timer.json");
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/TimeRushBGM.wav", true);
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/AggressiveDogBarking.wav", false);
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/TimeRushBGM.wav", true, "BGM");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/AggressiveDogBarking.wav", false, "SFX");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 		for (auto entity : entities)
@@ -137,7 +137,7 @@ class TimeRush : public Level
 
 		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && cooldownTimer >= cooldownDuration)
 		{
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false);
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false, "SFX");
 
 			glm::vec4 newColor(0.3529411852359772f, 0.7058823704719544f, 0.03921568766236305f, 1.0f);
 			opacity1.setParticleColor(newColor);

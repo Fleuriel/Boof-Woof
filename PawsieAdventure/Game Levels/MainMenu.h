@@ -68,10 +68,9 @@ class MainMenu : public Level
 
 			auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuMusic1);
 			music1.SetAudioSystem(&g_Audio); // Or pass another instance of AudioSystem if preferred
+			
 
 			music1.PlayAudio();
-		
-
 		
 
 	}
@@ -105,7 +104,7 @@ class MainMenu : public Level
 					music.StopAudio();
 				}
 				// Play the button click sound
-				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/(MenuButtonClick).wav", false);
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/(MenuButtonClick).wav", false, "SFX");
 
 				// Mark space as pressed and reset elapsed time
 				spacePressed = true;
@@ -119,6 +118,32 @@ class MainMenu : public Level
 			if (MenuelapsedTime >= delayAfterSpace)
 			{
 				g_LevelManager.SetNextLevel("Cutscene");
+			}
+		}
+
+		if (g_Input.GetKeyState(GLFW_KEY_1) >= 1) {
+			if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic)) {
+				auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
+
+				// Decrease volume
+				music.SetVolume(0.5f);
+				std::cout << "Decreased volume for MenuMusic to: "  << std::endl;
+			}
+		}
+
+		if (g_Input.GetKeyState(GLFW_KEY_2) >= 1) {
+			if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic)) {
+				auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
+				music.StopAudio(); // Stop specific entity audio
+				std::cout << "Stopped audio for MenuMusic." << std::endl;
+			}
+		}
+
+		if (g_Input.GetKeyState(GLFW_KEY_3) >= 1) {
+			if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic)) {
+				auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
+				music.PlayAudio(); // Stop specific entity audio
+				std::cout << "paly audio for MenuMusic." << std::endl;
 			}
 		}
 	}

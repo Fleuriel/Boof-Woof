@@ -3,6 +3,11 @@
 #include "ECS/Coordinator.hpp"
 #include "../Core/Reflection/ReflectionManager.hpp" 
 
+enum class AudioType {
+    BGM,  // Background Music
+    SFX   // Sound Effect
+};
+
 class AudioSystem;
 
 class AudioComponent {
@@ -12,14 +17,18 @@ public:
 
     // Parameterized constructor
 
-    AudioComponent(const std::string& filePath, float volume, bool shouldLoop, Entity entity, AudioSystem* audioSystem)
-        : m_FilePath(filePath), m_Volume(volume), m_ShouldLoop(shouldLoop), m_EntityID(entity), m_AudioSystem(audioSystem) {}
+    AudioComponent(const std::string& filePath, float volume, bool shouldLoop, Entity entity, AudioSystem* audioSystem, AudioType type)
+        : m_FilePath(filePath), m_Volume(volume), m_ShouldLoop(shouldLoop), m_EntityID(entity), m_AudioSystem(audioSystem), m_Type(type) {}
+
+    void SetType(AudioType type) { m_Type = type; }
+    AudioType GetType() const { return m_Type; }
 
     void SetAudioSystem(AudioSystem* audioSystem);
 
     void PlayAudio() const;
 
     void StopAudio() const;
+    void SetVolume(float volume) const;
 
 
 
@@ -33,7 +42,6 @@ public:
 
     // Setters
     void SetFilePath(const std::string& filePath) { m_FilePath = filePath; }
-    void SetVolume(float volume) { m_Volume = volume; }
     void SetLoop(bool loop) { m_ShouldLoop = loop; }
 
     // Reflection integration
@@ -50,5 +58,7 @@ private:
     bool m_ShouldLoop;       // Whether the sound should loop or not
     Entity m_EntityID;       // Associated entity ID
     AudioSystem* m_AudioSystem; // Pointer to the AudioSystem instance
+    AudioType m_Type;        // Type of the audio (BGM or SFX)
+
 
 };
