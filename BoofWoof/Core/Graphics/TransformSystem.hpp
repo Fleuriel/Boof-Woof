@@ -44,24 +44,27 @@ public:
 private:
     void UpdateTransformRecursive(Entity entity, const glm::mat4& parentWorldMatrix)
     {
-        auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+        if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
 
-        // Calculate local matrix using existing GetWorldMatrix()
-        glm::mat4 localMatrix = transform.GetWorldMatrix();
+            auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
 
-        // Combine with parent's world matrix to get this entity's world matrix
-        glm::mat4 worldMatrix = parentWorldMatrix * localMatrix;
+            // Calculate local matrix using existing GetWorldMatrix()
+            glm::mat4 localMatrix = transform.GetWorldMatrix();
 
-        // Store the calculated world matrix
-        worldMatrices[entity] = worldMatrix;
+            // Combine with parent's world matrix to get this entity's world matrix
+            glm::mat4 worldMatrix = parentWorldMatrix * localMatrix;
 
-        // Recursively update children
-        if (g_Coordinator.HaveComponent<HierarchyComponent>(entity))
-        {
-            auto& hierarchy = g_Coordinator.GetComponent<HierarchyComponent>(entity);
-            for (auto child : hierarchy.children)
+            // Store the calculated world matrix
+            worldMatrices[entity] = worldMatrix;
+
+            // Recursively update children
+            if (g_Coordinator.HaveComponent<HierarchyComponent>(entity))
             {
-                UpdateTransformRecursive(child, worldMatrix);
+                auto& hierarchy = g_Coordinator.GetComponent<HierarchyComponent>(entity);
+                for (auto child : hierarchy.children)
+                {
+                    UpdateTransformRecursive(child, worldMatrix);
+                }
             }
         }
     }

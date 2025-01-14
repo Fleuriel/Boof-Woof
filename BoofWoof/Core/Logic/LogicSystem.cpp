@@ -107,37 +107,41 @@ void LogicSystem::Init()
     }
 
     // Initialize entities and behaviours
-    for (auto const& entity : mEntities) {
+    for (auto const& entity : mEntities) 
+    {
         // Get the logic component of the entity
-        BehaviourComponent behaviourComponent = g_Coordinator.GetComponent<BehaviourComponent>(entity);
-        std::string behaviourName = behaviourComponent.GetBehaviourName();
+        if (g_Coordinator.HaveComponent<BehaviourComponent>(entity))
+        {
+            BehaviourComponent behaviourComponent = g_Coordinator.GetComponent<BehaviourComponent>(entity);
+            std::string behaviourName = behaviourComponent.GetBehaviourName();
 
-        // Check if behaviour exists
-        if (mBehaviours.find(behaviourName) == mBehaviours.end()) {
-            std::cout << "Behaviour not found" << std::endl;
-            continue;
-        }
-        else if (behaviourName == "Player" && g_Player == NULL) {
-            g_Player = entity;
-            std::cout << "Player entity found" << std::endl;
-        }
-        else if (behaviourName == "Player" && g_Player != NULL) {
-            std::cerr << "Multiple Player entities found!" << std::endl;
-            continue;
-        }
-        else {
-            std::cout << "Behaviour Name: " << behaviourName << " exists" << std::endl;
-        }
+            // Check if behaviour exists
+            if (mBehaviours.find(behaviourName) == mBehaviours.end()) {
+                std::cout << "Behaviour not found" << std::endl;
+                continue;
+            }
+            else if (behaviourName == "Player" && g_Player == NULL) {
+                g_Player = entity;
+                std::cout << "Player entity found" << std::endl;
+            }
+            else if (behaviourName == "Player" && g_Player != NULL) {
+                std::cerr << "Multiple Player entities found!" << std::endl;
+                continue;
+            }
+            else {
+                std::cout << "Behaviour Name: " << behaviourName << " exists" << std::endl;
+            }
 
-        // Print all the behaviours
-        std::cout << "All Behaviours: " << std::endl;
-        for (auto const& behaviour : mBehaviours) {
-            std::cout << behaviour.first << std::endl;
-        }
-        std::cout << std::endl;
+            // Print all the behaviours
+            std::cout << "All Behaviours: " << std::endl;
+            for (auto const& behaviour : mBehaviours) {
+                std::cout << behaviour.first << std::endl;
+            }
+            std::cout << std::endl;
 
-        // Initialize the behaviour
-        mBehaviours[behaviourComponent.GetBehaviourName()]->Init(entity);
+            // Initialize the behaviour
+            mBehaviours[behaviourComponent.GetBehaviourName()]->Init(entity);
+        }
     }
 }
 

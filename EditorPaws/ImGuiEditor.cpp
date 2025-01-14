@@ -919,7 +919,7 @@ void ImGuiEditor::InspectorWindow()
 						if (ImGui::Selectable("Transform Component"))
 						{
 							// Capture the component data before deletion
-							auto componentData = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -939,11 +939,11 @@ void ImGuiEditor::InspectorWindow()
 					if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 					{
 
-						auto graphics = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+						auto& graphics = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+						auto& material = g_Coordinator.GetComponent<MaterialComponent>(g_SelectedEntity);
+
 						if (ImGui::Selectable("Graphics Component"))
 						{
-
-
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
 									if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
@@ -954,18 +954,25 @@ void ImGuiEditor::InspectorWindow()
 										g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, graphics);
 								}
 							);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<MaterialComponent>(g_SelectedEntity);
+								},
+								[this, material]() {
+									if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, material);
+								}
+							);
 						}
-
-
-
-
 					}
 
 					if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
 					{
 						if (ImGui::Selectable("Animation Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -984,7 +991,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("Audio Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -1003,7 +1010,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("Behaviour Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -1022,7 +1029,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("Collision Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<CollisionComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<CollisionComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -1041,7 +1048,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("Camera Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<CameraComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<CameraComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -1060,7 +1067,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("Particle Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -1078,7 +1085,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("Light Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<LightComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<LightComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -1096,7 +1103,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("UI Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<UIComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<UIComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
