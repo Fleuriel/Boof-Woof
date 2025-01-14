@@ -12,7 +12,6 @@
 
 #include "Input/Input.h"
 
-
 UISystem uiSystem;
 
 void UISystem::UI_init() {
@@ -76,4 +75,3 @@ void UISystem::UI_render()
 }
 
 
-#pragma warning(pop)
