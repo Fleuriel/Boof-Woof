@@ -474,6 +474,8 @@ bool Serialization::SaveScene(const std::string& filepath) {
 			UI.AddMember("ScaleX", uiComp.get_scale().x, allocator);
 			UI.AddMember("ScaleY", uiComp.get_scale().y, allocator);
 			UI.AddMember("Layer", uiComp.get_UI_layer(), allocator);
+			UI.AddMember("Selectable", uiComp.get_selectable(), allocator);
+			UI.AddMember("Opcaity", uiComp.get_opacity(), allocator);
 
 			entityData.AddMember("UIComponent", UI, allocator);
 
@@ -972,12 +974,32 @@ bool Serialization::LoadScene(const std::string& filepath)
 			if (entityData.HasMember("UIComponent")) {
 				const auto& UIData = entityData["UIComponent"];
 				if (UIData.HasMember("TextureID")) {
-					int textureID = UIData["TextureID"].GetInt();
-					glm::vec2 position(UIData["PositionX"].GetFloat(), UIData["PositionY"].GetFloat());
-					glm::vec2 scale(UIData["ScaleX"].GetFloat(), UIData["ScaleY"].GetFloat());
-					float layer = UIData["Layer"].GetFloat();
+                    int textureID{};
+					if (UIData.HasMember("TextureID"))
+						textureID = UIData["TextureID"].GetInt();
 
-					UIComponent uiComponent(textureID, position, scale, layer);
+					glm::vec2 position = glm::vec2(0.0f);
+					if (UIData.HasMember("PositionX") && UIData.HasMember("PositionY"))
+						position = glm::vec2(UIData["PositionX"].GetFloat(), UIData["PositionY"].GetFloat());
+
+					glm::vec2 scale = glm::vec2(1.0f);
+					if (UIData.HasMember("ScaleX") && UIData.HasMember("ScaleY"))
+						scale = glm::vec2(UIData["ScaleX"].GetFloat(), UIData["ScaleY"].GetFloat());
+
+
+					float layer = 0.0f;
+					if (UIData.HasMember("Layer"))
+						layer = UIData["Layer"].GetFloat();
+
+					bool selectable = false;
+					if (UIData.HasMember("Selectable"))
+						selectable = UIData["Selectable"].GetBool();
+
+					float opacity = 1.0f;
+					if (UIData.HasMember("Opcaity"))
+						opacity = UIData["Opcaity"].GetFloat();
+
+					UIComponent uiComponent(textureID, position, scale, layer, selectable, opacity);
 					g_Coordinator.AddComponent(entity, uiComponent);
 				}
 			}

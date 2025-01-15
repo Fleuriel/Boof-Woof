@@ -3429,11 +3429,17 @@ void ImGuiEditor::InspectorWindow()
 								
 								// set texture ID 
 								int textureID = uiComponent.get_textureid();
-								ImGui::Text("Texture ID");
+								ImGui::Text("Texture :");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("TextureID");
 
+								std::string currentTextureName = g_ResourceManager.GetTextureDDSFileName(textureID);
+								ImGui::Text("%s", currentTextureName.c_str());
+								
+								ImGui::SameLine();
+								ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);
+
+								ImGui::PushID("TextureID");
 								if (ImGui::Button("Set Texture"))
 								{
 									//oldTextureName = currentTextureName; // Capture the old value
@@ -3511,8 +3517,25 @@ void ImGuiEditor::InspectorWindow()
 									uiComponent.set_UI_layer(uiComponent.get_UI_layer() + 0.01f);
 								}
 
+								// check box for selectablity
+								bool selectable = uiComponent.get_selectable();
+								ImGui::Checkbox("Selectable", &selectable);
+								uiComponent.set_selectable(selectable);
 
+								// opacity
+								float opacity = uiComponent.get_opacity();
+								ImGui::Text("Opacity");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Opacity");
 
+								if (ImGui::DragFloat("##Opacity", &opacity, 0.1f))
+								{
+									uiComponent.set_opacity(opacity);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
 
 							}
 						}
