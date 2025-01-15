@@ -48,17 +48,21 @@ void UISystem::UI_render()
 		if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
 			auto& UICompt = g_Coordinator.GetComponent<UIComponent>(entity);
 
-			auto& transCompt = g_Coordinator.GetComponent<TransformComponent>(entity);
-
-			transCompt.SetPosition({ UICompt.get_position() , UICompt.get_UI_layer() });
-			transCompt.SetScale({ UICompt.get_scale() , 1.f});
 
 			glm::vec2 mouse_pos = { (g_Input.GetMousePositionUI().x / g_WindowX) * 2.0f - 1.0f, 1.0f - 2.0f * (g_Input.GetMousePositionUI().y / g_WindowY) };
-
 			UICompt.checkclick(mouse_pos);
 
+
+			// set up model matrix
+			glm::vec3 UI_pos = { UICompt.get_position() , UICompt.get_UI_layer() };
+			glm::vec3 UI_scale = { UICompt.get_scale() , 1.f };
+			
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, UI_pos);
+			model = glm::scale(model, { UI_scale.x, UI_scale.y, 1.0f });
+
 			// call 2d render
-			g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", transCompt.GetWorldMatrix());
+			g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", model);
 			g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
 			g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
 			g_AssetManager.GetShader("Shader2D").SetUniform("opacity", UICompt.get_UI_opacity());
