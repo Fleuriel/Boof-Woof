@@ -19,6 +19,10 @@
 
 enum class GameStates
 {
+	SPLASHSCREEN,
+	MAINMENU,
+	LEVEL1,
+
 	RESTART,
 	QUIT
 };
