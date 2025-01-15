@@ -38,8 +38,9 @@ void UISystem::UI_update() {
 			}
 		}
 	}
-
+	g_AssetManager.GetShader("Shader2D").Use();
 	UI_render();
+	g_AssetManager.GetShader("Shader2D").UnUse();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -47,7 +48,7 @@ void UISystem::UI_render()
 {
 	
 	//render UI
-	g_AssetManager.GetShader("Shader2D").Use();
+	
 	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
 	{
 		if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
@@ -79,7 +80,7 @@ void UISystem::UI_render()
 		}
 	}
 
-	g_AssetManager.GetShader("Shader2D").UnUse();
+	
 
 }
 
