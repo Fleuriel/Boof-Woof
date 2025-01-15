@@ -8,7 +8,7 @@
 class UIComponent {
 public:
     UIComponent() {};
-	UIComponent(int tid, glm::vec2 pos, glm::vec2 s) : textureid(tid), position(pos), scale(s) {};
+	UIComponent(int tid, glm::vec2 pos, glm::vec2 s, float layer) : textureid(tid), position(pos), scale(s), layer(layer) {};
     ~UIComponent() {};
 
 	// setters

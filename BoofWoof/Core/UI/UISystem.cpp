@@ -20,7 +20,10 @@ void UISystem::UI_init() {
 }
 
 void UISystem::UI_update() {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	// if mouse click
+	
 	if (g_Input.GetMouseState(0) == 1) {
 		for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
 		{
@@ -37,10 +40,12 @@ void UISystem::UI_update() {
 	}
 
 	UI_render();
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void UISystem::UI_render()
 {
+	
 	//render UI
 	g_AssetManager.GetShader("Shader2D").Use();
 	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
@@ -76,7 +81,6 @@ void UISystem::UI_render()
 
 	g_AssetManager.GetShader("Shader2D").UnUse();
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 

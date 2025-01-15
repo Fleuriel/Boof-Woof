@@ -473,6 +473,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
 			UI.AddMember("PositionY", uiComp.get_position().y, allocator);
 			UI.AddMember("ScaleX", uiComp.get_scale().x, allocator);
 			UI.AddMember("ScaleY", uiComp.get_scale().y, allocator);
+			UI.AddMember("Layer", uiComp.get_UI_layer(), allocator);
 
 			entityData.AddMember("UIComponent", UI, allocator);
 
@@ -974,8 +975,9 @@ bool Serialization::LoadScene(const std::string& filepath)
 					int textureID = UIData["TextureID"].GetInt();
 					glm::vec2 position(UIData["PositionX"].GetFloat(), UIData["PositionY"].GetFloat());
 					glm::vec2 scale(UIData["ScaleX"].GetFloat(), UIData["ScaleY"].GetFloat());
+					float layer = UIData["Layer"].GetFloat();
 
-					UIComponent uiComponent(textureID, position, scale);
+					UIComponent uiComponent(textureID, position, scale, layer);
 					g_Coordinator.AddComponent(entity, uiComponent);
 				}
 			}
