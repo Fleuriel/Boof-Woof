@@ -3474,6 +3474,22 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
+								// display layer number
+								ImGui::Text("Layer: %f" , uiComponent.get_UI_layer());
+								ImGui::SameLine();
+							
+								//move forward or backward button
+								if (ImGui::Button("Move Forward"))
+								{
+									uiComponent.set_UI_layer(uiComponent.get_UI_layer() - 0.01f);
+								}
+								ImGui::SameLine();
+								if (ImGui::Button("Move Backward"))
+								{
+									uiComponent.set_UI_layer(uiComponent.get_UI_layer() + 0.01f);
+								}
+
+
 
 
 							}

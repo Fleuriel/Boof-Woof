@@ -50,7 +50,7 @@ void UISystem::UI_render()
 
 			auto& transCompt = g_Coordinator.GetComponent<TransformComponent>(entity);
 
-			transCompt.SetPosition({ UICompt.get_position() , 0.f});
+			transCompt.SetPosition({ UICompt.get_position() , UICompt.get_UI_layer() });
 			transCompt.SetScale({ UICompt.get_scale() , 1.f});
 
 			glm::vec2 mouse_pos = { (g_Input.GetMousePositionUI().x / g_WindowX) * 2.0f - 1.0f, 1.0f - 2.0f * (g_Input.GetMousePositionUI().y / g_WindowY) };

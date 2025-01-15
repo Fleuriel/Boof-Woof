@@ -11,16 +11,23 @@ public:
 	UIComponent(int tid, glm::vec2 pos, glm::vec2 s) : textureid(tid), position(pos), scale(s) {};
     ~UIComponent() {};
 
-
+	// setters
 	void set_position(glm::vec2 pos) { position = pos; }
 	void set_scale(glm::vec2 s) { scale = s; }
 	void set_textureid(int tid) { textureid = tid; }
+	void set_UI_layer(float l) { layer = l; }
 
+
+	// getters
 	glm::vec2 get_position() { return position; }
 	glm::vec2 get_scale() { return scale; }
+	int get_textureid() { return textureid; }
+	float get_UI_layer() { return layer; }
+
+
+	// UI interaction
 	bool get_selected() { return selected; }
 	float get_UI_opacity() { return UI_opacity; }
-	int get_textureid() { return textureid; }
 
 
 
@@ -51,6 +58,8 @@ private:
 
 	bool selected{ false };
 	float UI_opacity{ 1.f };
+
+	float layer = 0.5f;
 };
 
 #endif // UICOMPONENT_HPP
