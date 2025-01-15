@@ -12,7 +12,6 @@
 
 #include "Input/Input.h"
 
-
 UISystem uiSystem;
 
 void UISystem::UI_init() {
@@ -55,7 +54,8 @@ void UISystem::UI_render()
 	
 	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
 	{
-		if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
+		if (g_Coordinator.HaveComponent<UIComponent>(entity)) 
+		{
 			auto& UICompt = g_Coordinator.GetComponent<UIComponent>(entity);
 
 
@@ -89,4 +89,3 @@ void UISystem::UI_render()
 }
 
 
-#pragma warning(pop)
