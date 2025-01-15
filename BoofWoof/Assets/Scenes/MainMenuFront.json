@@ -1,50 +1,18 @@
 {
-    "SceneGUID": "403b8d12-74b6-4e95-88e9-852926f54288",
+    "SceneGUID": "a00701c4-6eed-4032-bde4-db3b3b53d22a",
     "Entities": [
         {
             "MetadataComponent": {
                 "EntityName": "Title",
                 "EntityID": 0
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.4000000059604645,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.5,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "FollowCamera": false
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader2D",
-                "shaderIdx": 4,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "PawsieAdventure",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
+            "UIComponent": {
+                "TextureID": 236,
+                "PositionX": 0.0,
+                "PositionY": 0.4000000059604645,
+                "ScaleX": 0.699999988079071,
+                "ScaleY": 0.5,
+                "Layer": 0.5
             }
         },
         {
@@ -52,45 +20,13 @@
                 "EntityName": "SpaceToStart",
                 "EntityID": 1
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": -0.4000000059604645,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 0.5,
-                    "y": 0.5,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "FollowCamera": false
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader2D",
-                "shaderIdx": 4,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "SpaceToStart",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
+            "UIComponent": {
+                "TextureID": 247,
+                "PositionX": 0.0,
+                "PositionY": -0.5,
+                "ScaleX": 0.30000001192092898,
+                "ScaleY": 0.30000001192092898,
+                "Layer": 0.5
             }
         }
     ]
