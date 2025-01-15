@@ -22,6 +22,8 @@ void UISystem::UI_init() {
 void UISystem::UI_update() {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glDisable(GL_DEPTH_TEST);
+	
 	// if mouse click
 	
 	if (g_Input.GetMouseState(0) == 1) {
@@ -41,6 +43,8 @@ void UISystem::UI_update() {
 	g_AssetManager.GetShader("Shader2D").Use();
 	UI_render();
 	g_AssetManager.GetShader("Shader2D").UnUse();
+
+	//glEnable(GL_DEPTH_TEST);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
