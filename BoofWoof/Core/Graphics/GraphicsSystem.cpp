@@ -505,9 +505,7 @@ void GraphicsSystem::UpdateLoop() {
 
 	}
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
-
-
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
 
 	// 2. Picking Rendering Pass (only when needed)
 	if (needsPickingRender) {

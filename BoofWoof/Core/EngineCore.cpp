@@ -10,6 +10,7 @@ std::shared_ptr<FontSystem> mFontSys;
 std::shared_ptr<MyPhysicsSystem> mPhysicSys;
 std::shared_ptr<ParticleComponent> mParticleSys;
 std::shared_ptr<TransformSystem> mTransformSys;
+std::shared_ptr<UISystem> mUISys;
 
 
 void EngineCore::OnInit()
@@ -40,6 +41,7 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<ParticleComponent>();
 	g_Coordinator.RegisterComponent<HierarchyComponent>();
 	g_Coordinator.RegisterComponent<LightComponent>();
+	g_Coordinator.RegisterComponent<UIComponent>();
 
 	// setting global pointer
 	g_Core = this;
@@ -67,6 +69,7 @@ void EngineCore::OnInit()
 		signature.set(g_Coordinator.GetComponentType<CameraComponent>());
 		signature.set(g_Coordinator.GetComponentType<ParticleComponent>());
 		signature.set(g_Coordinator.GetComponentType<LightComponent>());
+		signature.set(g_Coordinator.GetComponentType<UIComponent>());
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
 
@@ -98,12 +101,20 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<TransformSystem>(signature);
 	}
 
+	mUISys = g_Coordinator.RegisterSystem<UISystem>(); {
+		Signature signature;
+		signature.set(g_Coordinator.GetComponentType<UIComponent>());
+		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		g_Coordinator.SetSystemSignature<UISystem>(signature);
+	}
+
 
 	// init system
 	mLogicSys->Init();
 	mGraphicsSys->initGraphicsPipeline();
 	mPhysicSys->InitializeJolt();
 	//mFontSys->init();
+	mUISys->UI_init();
 		
 
 	// Just leave this part at the most bottom
@@ -122,6 +133,7 @@ void EngineCore::OnInit()
 	ReflectionManager::Instance().RegisterComponentType<MaterialComponent>("MaterialComponent");
 	ReflectionManager::Instance().RegisterComponentType<HierarchyComponent>("HierarchyComponent");
 	ReflectionManager::Instance().RegisterComponentType<LightComponent>("LightComponent");
+	ReflectionManager::Instance().RegisterComponentType<UIComponent>("UIComponent");
 }
 
 void EngineCore::OnUpdate()
@@ -182,6 +194,11 @@ void EngineCore::OnUpdate()
 		Timer graphicsTimer;
 		mGraphicsSys->UpdateLoop();
 		m_GraphicsDT = graphicsTimer.GetElapsedTime();
+	}
+
+	{
+		// UI
+		mUISys->UI_update();
 	}
 
 
