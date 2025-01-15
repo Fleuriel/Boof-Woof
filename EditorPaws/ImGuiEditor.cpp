@@ -896,6 +896,25 @@ void ImGuiEditor::InspectorWindow()
 
 						}
 					}
+
+					if (ImGui::Selectable("Pathfinding Component"))
+					{
+						if (!g_Coordinator.HaveComponent<PathfindingComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<PathfindingComponent>(g_SelectedEntity, PathfindingComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<PathfindingComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<PathfindingComponent>(g_SelectedEntity, PathfindingComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<PathfindingComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<PathfindingComponent>(g_SelectedEntity);
+								}
+								);
+							
+						}
+					}
 					
 
 					ImGui::EndPopup();
@@ -1107,6 +1126,25 @@ void ImGuiEditor::InspectorWindow()
 						}
 					}
 
+					if (g_Coordinator.HaveComponent<PathfindingComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("Pathfinding Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<PathfindingComponent>(g_SelectedEntity);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<PathfindingComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<PathfindingComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<PathfindingComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<PathfindingComponent>(g_SelectedEntity, componentData);
+								}
+								);
+						}
+					}
+
 					ImGui::EndPopup();
 				}
 
@@ -1118,7 +1156,7 @@ void ImGuiEditor::InspectorWindow()
 
 				// Use Reflection to Iterate Over All Components
 				const auto& componentTypes = g_Coordinator.GetTotalRegisteredComponents();
-
+				
 				for (ComponentType type = 0; type < componentTypes; ++type)
 				{
 					if (g_Coordinator.GetEntitySignature(g_SelectedEntity).test(type))
@@ -3470,6 +3508,14 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopItemWidth();
 
 
+
+							}
+						}
+						//Pathfinding Component editor
+						else if (className == "PathfindingComponent") {
+							if (ImGui::CollapsingHeader("Pathfinding", ImGuiTreeNodeFlags_None))
+							{
+								auto& pathfindingComponent = g_Coordinator.GetComponent<PathfindingComponent>(g_SelectedEntity);
 
 							}
 						}

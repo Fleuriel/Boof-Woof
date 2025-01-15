@@ -144,7 +144,7 @@ void EngineCore::OnInit()
 	ReflectionManager::Instance().RegisterComponentType<HierarchyComponent>("HierarchyComponent");
 	ReflectionManager::Instance().RegisterComponentType<LightComponent>("LightComponent");
 	ReflectionManager::Instance().RegisterComponentType<UIComponent>("UIComponent");
-	ReflectionManager::Instance().RegisterComponentType<UIComponent>("PathfindingComponent");
+	ReflectionManager::Instance().RegisterComponentType<PathfindingComponent>("PathfindingComponent");
 }
 
 void EngineCore::OnUpdate()
@@ -186,7 +186,7 @@ void EngineCore::OnUpdate()
 		}
 	}
 	else {
-		std::cout << "no path found.\n";
+		//std::cout << "no path found.\n";
 	}
 
 	// system updates
