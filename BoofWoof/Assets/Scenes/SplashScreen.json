@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "e72b0bf6-9e9c-450c-848a-f8db307f85ad",
+    "SceneGUID": "fed98a12-3e3e-4286-83e9-ffd9f1fd1677",
     "Entities": [
         {
             "MetadataComponent": {
@@ -7,12 +7,14 @@
                 "EntityID": 0
             },
             "UIComponent": {
-                "TextureID": 0,
+                "TextureID": 6,
                 "PositionX": 0.0,
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.5
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0
             }
         },
         {
@@ -26,7 +28,9 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0
             }
         }
     ]
