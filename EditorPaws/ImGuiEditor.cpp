@@ -913,6 +913,17 @@ void ImGuiEditor::InspectorWindow()
 								}
 							);
 
+							// If got UI Component, remove Transform & Graphics Component
+							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) 
+							{
+								g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+							}
+
+							if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+							{
+								g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
+								g_Coordinator.RemoveComponent<MaterialComponent>(g_SelectedEntity);
+							}
 						}
 					}
 					
