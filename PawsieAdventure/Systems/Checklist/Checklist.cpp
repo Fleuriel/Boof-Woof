@@ -17,6 +17,11 @@ void Checklist::OnInitialize()
 	{
 		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 		{
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Paper")
+			{
+				Paper = entity;
+			}
+
 			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Do1")
 			{
 				Do1 = entity;
@@ -200,7 +205,7 @@ void Checklist::ChangeAsset(Entity ent, glm::vec2 scale, std::string textureName
 
 	auto& text = g_Coordinator.GetComponent<UIComponent>(ent);
 
-	int oldTextureId = text.get_textureid();
+	//int oldTextureId = text.get_textureid();
 	int textureId = g_ResourceManager.GetTextureDDS(textureName);
 	text.set_textureid(textureId);
 

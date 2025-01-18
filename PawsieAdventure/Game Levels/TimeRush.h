@@ -91,6 +91,11 @@ class TimeRush : public Level
 		g_Checklist.ChangeAsset(g_Checklist.Box2, glm::vec2(0.0f, 0.0f), "");
 		g_Checklist.ChangeAsset(g_Checklist.Box3, glm::vec2(0.0f, 0.0f), "");
 		g_Checklist.ChangeAsset(g_Checklist.Box4, glm::vec2(0.0f, 0.0f), "");
+		
+		if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
+		{
+			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.165f));
+		}
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -100,9 +105,9 @@ class TimeRush : public Level
 		timer += deltaTime;
 		cooldownTimer += deltaTime;
 
-		if (!g_Coordinator.HaveComponent<GraphicsComponent>(timerTextEntity)) return;
+		if (!g_Coordinator.HaveComponent<UIComponent>(timerTextEntity)) return;
 
-		auto& text = g_Coordinator.GetComponent<GraphicsComponent>(timerTextEntity);
+		auto& text = g_Coordinator.GetComponent<UIComponent>(timerTextEntity);
 
 		auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
 		auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);
@@ -114,20 +119,10 @@ class TimeRush : public Level
 		// Change the texture every second
 		if (timer >= interval && currentTextureIndex <= 233)
 		{
-			std::string currentTextureName = "Group" + std::to_string(currentTextureIndex);
 			std::string nextTextureName = "Group" + std::to_string(currentTextureIndex + 1);
 
-			int currentTextureId = g_ResourceManager.GetTextureDDS(currentTextureName);
-
-			// Remove the current texture and add the next one
-			if (text.RemoveTexture(currentTextureId))
-			{
-				text.clearTextures();
-
-				int nextTextureId = g_ResourceManager.GetTextureDDS(nextTextureName);
-				text.AddTexture(nextTextureId);
-				text.setTexture(nextTextureName);
-			}
+			int nextTextureId = g_ResourceManager.GetTextureDDS(nextTextureName);
+			text.set_textureid(nextTextureId);
 
 			timer = 0.0; // Reset timer
 			currentTextureIndex++; // Move to the next texture
