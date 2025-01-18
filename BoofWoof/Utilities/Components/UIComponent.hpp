@@ -23,10 +23,10 @@ public:
 	// getters
 	glm::vec2 get_position() { return position; }
 	glm::vec2 get_scale() { return scale; }
-	int get_textureid() { return textureid; }
-	float get_UI_layer() { return layer; }
-	float get_opacity() { return UI_opacity; }
-	bool get_selectable() { return selectable; }
+	int get_textureid() const { return textureid; }
+	float get_UI_layer() const { return layer; }
+	float get_opacity() const { return UI_opacity; }
+	bool get_selectable() const { return selectable; }
 
 
 	// UI interaction

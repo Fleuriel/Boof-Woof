@@ -36,25 +36,18 @@ void ChangeText::OnUpdate(double deltaTime)
 {
 	cdTimer += deltaTime;
 
-	if (!g_Coordinator.HaveComponent<GraphicsComponent>(m_Text)) return;
+	if (!g_Coordinator.HaveComponent<UIComponent>(m_Text)) return;
 
-	auto& text = g_Coordinator.GetComponent<GraphicsComponent>(m_Text);
+	auto& text = g_Coordinator.GetComponent<UIComponent>(m_Text);
 
 	// If it's time to change the texture
 	if (cdTimer >= cdLimit && textureIndex < indexLimit)
 	{
 		std::string newTextureName = "CorgiText" + std::to_string(textureIndex + 1);
 
-		int oldTextureId = g_ResourceManager.GetTextureDDS(text.getTextureName());
-		if (text.RemoveTexture(oldTextureId))
-		{
-			// remove old texture & add new one
-			text.clearTextures();
-
-			int textureId = g_ResourceManager.GetTextureDDS(newTextureName);
-			text.AddTexture(textureId);
-			text.setTexture(newTextureName);
-		}
+		int oldTextureId = text.get_textureid();
+		int textureId = g_ResourceManager.GetTextureDDS(newTextureName);
+		text.set_textureid(textureId);
 
 		cdTimer = 0.0;  // Reset the timer after each texture change
 		textureIndex++;  // Move to the next texture
@@ -87,10 +80,10 @@ void ChangeText::OnShutdown()
 	if (!g_Checklist.shutted)
 	{
 		g_Checklist.OnInitialize();
-		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec3(0.25f, 0.08f, 1.0f), "Do1");
-		g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec3(0.25f, 0.09f, 1.0f), "Do2");
-		g_Checklist.ChangeAsset(g_Checklist.Do3, glm::vec3(0.25f, 0.075f, 1.0f), "Do3");
-		g_Checklist.ChangeAsset(g_Checklist.Do4, glm::vec3(0.26f, 0.08f, 1.0f), "Do4");
+		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do1");
+		g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.15f, 0.05f), "Do2");
+		g_Checklist.ChangeAsset(g_Checklist.Do3, glm::vec2(0.15f, 0.05f), "Do3");
+		g_Checklist.ChangeAsset(g_Checklist.Do4, glm::vec2(0.15f, 0.05f), "Do4");
 	}
 
 	shutted = true;
