@@ -1,0 +1,101 @@
+{
+    "SceneGUID": "962d7475-930e-44f8-9efc-a2930d07be67",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Black Cover",
+                "EntityID": 0
+            },
+            "UIComponent": {
+                "TextureID": 6,
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.100000023841858,
+                "ScaleY": 1.0,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Panel1",
+                "EntityID": 1
+            },
+            "UIComponent": {
+                "TextureID": 235,
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Panel2",
+                "EntityID": 2
+            },
+            "UIComponent": {
+                "TextureID": 239,
+                "PositionX": 0.0,
+                "PositionY": -1.2999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Panel4",
+                "EntityID": 3
+            },
+            "UIComponent": {
+                "TextureID": 241,
+                "PositionX": 0.0,
+                "PositionY": -1.2999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Panel3",
+                "EntityID": 4
+            },
+            "UIComponent": {
+                "TextureID": 240,
+                "PositionX": -0.03999999910593033,
+                "PositionY": -2.1500000953674318,
+                "ScaleX": 0.699999988079071,
+                "ScaleY": 0.699999988079071,
+                "Layer": 0.4700000286102295,
+                "Selectable": false,
+                "Opcaity": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Panel5",
+                "EntityID": 5
+            },
+            "UIComponent": {
+                "TextureID": 242,
+                "PositionX": 0.0,
+                "PositionY": -1.2999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.48000001907348635,
+                "Selectable": false,
+                "Opcaity": 0.0
+            }
+        }
+    ]
+}

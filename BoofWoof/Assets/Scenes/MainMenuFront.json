@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "a00701c4-6eed-4032-bde4-db3b3b53d22a",
+    "SceneGUID": "52a67958-80cc-4d9b-bc85-9099fba87133",
     "Entities": [
         {
             "MetadataComponent": {
@@ -7,12 +7,14 @@
                 "EntityID": 0
             },
             "UIComponent": {
-                "TextureID": 236,
+                "TextureID": 248,
                 "PositionX": 0.0,
                 "PositionY": 0.4000000059604645,
                 "ScaleX": 0.699999988079071,
                 "ScaleY": 0.5,
-                "Layer": 0.5
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0
             }
         },
         {
@@ -21,12 +23,14 @@
                 "EntityID": 1
             },
             "UIComponent": {
-                "TextureID": 247,
+                "TextureID": 259,
                 "PositionX": 0.0,
                 "PositionY": -0.5,
                 "ScaleX": 0.30000001192092898,
                 "ScaleY": 0.30000001192092898,
-                "Layer": 0.5
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0
             }
         }
     ]
