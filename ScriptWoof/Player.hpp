@@ -97,7 +97,10 @@ struct Player final : public Behaviour
 						0.0f, 1.0f, 0.0f,
 						1.0f, 0.0f, 0.0f
 					);
-					velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
+					//velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
+					
+					
+					velocity += glm::cross(m_Engine.GetCameraDirection(entity), glm::vec3(0.0f, -1.0f, 0.0f)) * speed;
 					isMoving = true;
 				}
 
@@ -112,7 +115,7 @@ struct Player final : public Behaviour
 				if (m_Engine.getInputSystem().isActionPressed("MoveRight"))
 				{
 					//std::cout << "movingD" << std::endl;
-
+					
 					// Rotate the velocity 90 degrees to the right
 					glm::mat3 rotation = glm::mat3(
 						0.0f, 0.0f, 1.0f,
@@ -121,6 +124,10 @@ struct Player final : public Behaviour
 					);
 
 					velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
+					isMoving = true;
+					
+
+					velocity += glm::cross(m_Engine.GetCameraDirection(entity), glm::vec3(0.0f, 1.0f, 0.0f)) * speed;
 					isMoving = true;
 				}
 			}
