@@ -301,9 +301,13 @@ void ImGuiEditor::ImGuiViewport() {
 				mCurrentGizmoOperation = ImGuizmo::SCALE;
 		}
 
+		glm::vec2 scaling = { g_WindowX / viewportPanelSize.x, g_WindowY / viewportPanelSize.y };
 
-
-
+		glm::vec2 mouse_pos_ = { (ImGui::GetMousePos().x - viewportPanelPos.x) *scaling.x
+			,(ImGui::GetMousePos().y - viewportPanelPos.y)*scaling.y };
+		
+		g_Input.SetMousePositionUI({ mouse_pos_.x , mouse_pos_.y });
+		
 		// Object picking
 		if (!ImGuizmo::IsUsing() && ImGui::IsWindowFocused() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 		{
@@ -315,7 +319,7 @@ void ImGuiEditor::ImGuiViewport() {
 
 			if (mouseX >= 0 && mouseY >= 0 && mouseX < viewportPanelSize.x && mouseY < viewportPanelSize.y)
 			{
-
+				
 				// Request picking render
 				g_Coordinator.GetSystem<GraphicsSystem>()->SetPickingRenderer(true);
 
@@ -501,6 +505,21 @@ void ImGuiEditor::WorldHierarchy()
 			{
 				DrawEntityNode(entity);
 			}
+
+
+			// Need this part to have selected entity working properly.
+			auto& name = g_Coordinator.GetComponent<MetadataComponent>(entity).GetName();
+			if (name == "Player") m_PlayerExist = true;
+
+			ImGuiTreeNodeFlags nodeFlags = ((g_SelectedEntity == entity) ? ImGuiTreeNodeFlags_Selected : 0) | (ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen);
+
+			if (ImGui::IsItemClicked())
+			{
+				m_IsSelected = true;
+				g_SelectedEntity = entity;
+			}
+
+			g_GettingDeletedEntity = entity;
 		}
 	}
 	ImGui::End();
@@ -894,6 +913,17 @@ void ImGuiEditor::InspectorWindow()
 								}
 							);
 
+							// If got UI Component, remove Transform & Graphics Component
+							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) 
+							{
+								g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+							}
+
+							if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+							{
+								g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
+								g_Coordinator.RemoveComponent<MaterialComponent>(g_SelectedEntity);
+							}
 						}
 					}
 
@@ -934,7 +964,7 @@ void ImGuiEditor::InspectorWindow()
 						if (ImGui::Selectable("Transform Component"))
 						{
 							// Capture the component data before deletion
-							auto componentData = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -954,11 +984,11 @@ void ImGuiEditor::InspectorWindow()
 					if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 					{
 
-						auto graphics = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+						auto& graphics = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+						auto& material = g_Coordinator.GetComponent<MaterialComponent>(g_SelectedEntity);
+
 						if (ImGui::Selectable("Graphics Component"))
 						{
-
-
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
 									if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
@@ -969,18 +999,25 @@ void ImGuiEditor::InspectorWindow()
 										g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, graphics);
 								}
 							);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<MaterialComponent>(g_SelectedEntity);
+								},
+								[this, material]() {
+									if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, material);
+								}
+							);
 						}
-
-
-
-
 					}
 
 					if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
 					{
 						if (ImGui::Selectable("Animation Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -999,7 +1036,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("Audio Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<AudioComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -1018,7 +1055,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("Behaviour Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<BehaviourComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -1037,7 +1074,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("Collision Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<CollisionComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<CollisionComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -1056,7 +1093,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("Camera Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<CameraComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<CameraComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -1075,7 +1112,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("Particle Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -1093,7 +1130,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("Light Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<LightComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<LightComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -1111,7 +1148,7 @@ void ImGuiEditor::InspectorWindow()
 					{
 						if (ImGui::Selectable("UI Component"))
 						{
-							auto componentData = g_Coordinator.GetComponent<UIComponent>(g_SelectedEntity);
+							auto& componentData = g_Coordinator.GetComponent<UIComponent>(g_SelectedEntity);
 
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
@@ -3441,11 +3478,17 @@ void ImGuiEditor::InspectorWindow()
 								
 								// set texture ID 
 								int textureID = uiComponent.get_textureid();
-								ImGui::Text("Texture ID");
+								ImGui::Text("Texture :");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("TextureID");
 
+								std::string currentTextureName = g_ResourceManager.GetTextureDDSFileName(textureID);
+								ImGui::Text("%s", currentTextureName.c_str());
+								
+								ImGui::SameLine();
+								ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);
+
+								ImGui::PushID("TextureID");
 								if (ImGui::Button("Set Texture"))
 								{
 									//oldTextureName = currentTextureName; // Capture the old value
@@ -3477,37 +3520,71 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
-								// set top_left
-								glm::vec2 top_left = uiComponent.get_topleft();
-								ImGui::Text("Top Left");
+								
+								//set position
+								glm::vec2 position = uiComponent.get_position();
+								ImGui::Text("Position");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("TopLeft");
+								ImGui::PushID("Position");
 
-								if (ImGui::DragFloat2("##TopLeft", &top_left.x, 0.1f))
+								if (ImGui::DragFloat2("##Position", &position.x, 0.1f))
 								{
-									uiComponent.set_topleft(top_left);
+									uiComponent.set_position(position);
 								}
 
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
-								// set bot_right
-								glm::vec2 bot_right = uiComponent.get_bottomright();
-								ImGui::Text("Bot Right");
+								//set scale
+								glm::vec2 scale = uiComponent.get_scale();
+								ImGui::Text("Scale");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("BotRight");
+								ImGui::PushID("Scale");
 
-								if (ImGui::DragFloat2("##BotRight", &bot_right.x, 0.1f))
+								if (ImGui::DragFloat2("##Scale", &scale.x, 0.1f))
 								{
-									uiComponent.set_bottomright(bot_right);
+									uiComponent.set_scale(scale);
 								}
 
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
+								// display layer number
+								ImGui::Text("Layer: %f" , uiComponent.get_UI_layer());
+								ImGui::SameLine();
+							
+								//move forward or backward button
+								if (ImGui::Button("Move Forward"))
+								{
+									uiComponent.set_UI_layer(uiComponent.get_UI_layer() - 0.01f);
+								}
+								ImGui::SameLine();
+								if (ImGui::Button("Move Backward"))
+								{
+									uiComponent.set_UI_layer(uiComponent.get_UI_layer() + 0.01f);
+								}
 
+								// check box for selectablity
+								bool selectable = uiComponent.get_selectable();
+								ImGui::Checkbox("Selectable", &selectable);
+								uiComponent.set_selectable(selectable);
+
+								// opacity
+								float opacity = uiComponent.get_opacity();
+								ImGui::Text("Opacity");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Opacity");
+
+								if (ImGui::DragFloat("##Opacity", &opacity, 0.1f))
+								{
+									uiComponent.set_opacity(opacity);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
 
 							}
 						}

@@ -214,6 +214,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Core\Logic\LogicSystem.cpp" />
     <ClCompile Include="Core\Serialization\Serialization.cpp" />
+    <ClCompile Include="Core\UI\UISystem.cpp" />
     <ClCompile Include="Core\Windows\WindowManager.cpp" />
     <ClCompile Include="Utilities\Components\AnimationComponent.cpp" />
     <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
@@ -268,6 +269,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Logic\Behaviour.h" />
     <ClInclude Include="Core\Logic\LogicSystem.h" />
     <ClInclude Include="Core\Serialization\Serialization.h" />
+    <ClInclude Include="Core\UI\UISystem.h" />
     <ClInclude Include="Core\Windows\WindowManager.h" />
     <ClInclude Include="Utilities\Components\AnimationComponent.h" />
     <ClInclude Include="Utilities\Components\AudioComponent.hpp" />

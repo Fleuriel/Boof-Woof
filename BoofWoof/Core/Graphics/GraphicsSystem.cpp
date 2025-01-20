@@ -105,7 +105,6 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glCullFace(GL_BACK);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	//fontSystem.init_font();
 
 
@@ -505,47 +504,7 @@ void GraphicsSystem::UpdateLoop() {
 
 	}
 
-
-
-	//render UI
-	g_AssetManager.GetShader("Shader2D").Use();
-	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
-	{
-		if (g_Coordinator.HaveComponent<UIComponent>(entity)){
-			auto& UICompt = g_Coordinator.GetComponent<UIComponent>(entity);
-
-			auto& transCompt = g_Coordinator.GetComponent<TransformComponent>(entity);
-
-			glm::vec2 UI_top_left = UICompt.get_topleft();
-			glm::vec2 UI_bot_right = UICompt.get_bottomright();
-
-			glm::vec2 UI_center = { (UI_top_left.x + UI_bot_right.x) / 2.0f , 
-				(UI_bot_right.y + UI_top_left.y) / 2.0f };
-			glm::vec2 UI_scale = { std::abs((UI_top_left.x - UI_bot_right.x)) / 2.0f,  std::abs((UI_bot_right.y - UI_top_left.y)) / 2.0f};
-
-			transCompt.SetPosition({ UI_center , 0.f });
-			transCompt.SetScale({ UI_scale , 1.f });
-			//std::cout << "UI Center: " << UI_center.x << " " << UI_center.y << "\n";
-			//std::cout << "UI Scale: " << UI_scale.x << " " << UI_scale.y << "\n";
-
-			// call 2d render
-			g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", transCompt.GetWorldMatrix());
-			g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
-			g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
-
-			glBindTextureUnit(6, UICompt.get_textureid());
-
-			g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
-
-			g_ResourceManager.getModel("Square")->Draw2D(g_AssetManager.GetShader("Shader2D"));
-		}
-	}
-
-	g_AssetManager.GetShader("Shader2D").UnUse();
-
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
-
-
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
 
 	// 2. Picking Rendering Pass (only when needed)
 	if (needsPickingRender) {

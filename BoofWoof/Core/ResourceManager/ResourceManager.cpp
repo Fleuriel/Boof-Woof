@@ -557,6 +557,18 @@ int ResourceManager::GetTextureDDSHeight(std::string textureName)
     }
 }
 
+std::string ResourceManager::GetTextureDDSFileName(int textureID)
+{
+	for (auto& it : textureDDS)
+	{
+		if (it.second.ID == textureID)
+		{
+			return it.first;
+		}
+	}
+	return "";
+}
+
 
 
 

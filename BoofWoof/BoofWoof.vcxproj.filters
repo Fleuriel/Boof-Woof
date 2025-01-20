@@ -41,6 +41,7 @@
     <ClCompile Include="Core\AssetManager\FilePaths.cpp" />
     <ClCompile Include="Core\Pathfinding\PathfindingSystem.cpp" />
     <ClCompile Include="Utilities\Components\UIComponent.cpp" />
+    <ClCompile Include="Core\UI\UISystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -97,6 +98,7 @@
     <ClInclude Include="Core\Pathfinding\PathfindingSystem.h" />
     <ClInclude Include="Utilities\Components\UIComponent.hpp" />
     <ClInclude Include="Utilities\Components\PathfindingComponent.hpp" />
+    <ClInclude Include="Core\UI\UISystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

@@ -1,0 +1,77 @@
+{
+    "SceneGUID": "44002d75-25ae-4caf-907f-76a082dc5919",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "UI1",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "UIComponent": {
+                "TextureID": 51,
+                "PositionX": -0.4000000059604645,
+                "PositionY": 0.0,
+                "ScaleX": 0.4000000059604645,
+                "ScaleY": 0.5,
+                "Layer": 0.5
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "UI2",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "UIComponent": {
+                "TextureID": 3,
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 0.4000000059604645,
+                "ScaleY": 0.6000000238418579,
+                "Layer": 0.5
+            }
+        }
+    ]
+}

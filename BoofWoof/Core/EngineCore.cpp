@@ -11,6 +11,7 @@ std::shared_ptr<MyPhysicsSystem> mPhysicSys;
 std::shared_ptr<ParticleComponent> mParticleSys;
 std::shared_ptr<TransformSystem> mTransformSys;
 std::shared_ptr<PathfindingSystem> mPathfindingSys;
+std::shared_ptr<UISystem> mUISys;
 
 GridPos3D start = { 0, 0, 0 };
 GridPos3D goal = { 5, 5, 5 };
@@ -104,6 +105,13 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<TransformSystem>(signature);
 	}
 
+	mUISys = g_Coordinator.RegisterSystem<UISystem>(); {
+		Signature signature;
+		signature.set(g_Coordinator.GetComponentType<UIComponent>());
+		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		g_Coordinator.SetSystemSignature<UISystem>(signature);
+	}
+
 	mPathfindingSys = g_Coordinator.RegisterSystem<PathfindingSystem>();
 	{
 		Signature signature;
@@ -120,11 +128,13 @@ void EngineCore::OnInit()
 	start = { 0, 0, 0 }; // Global or member variable in EngineCore
 	goal = { 5, 5, 5 }; // Global or member variable in EngineCore
 
+
 	// init system
 	mLogicSys->Init();
 	mGraphicsSys->initGraphicsPipeline();
 	mPhysicSys->InitializeJolt();
 	//mFontSys->init();
+	mUISys->UI_init();
 		
 
 	// Just leave this part at the most bottom
@@ -218,6 +228,11 @@ void EngineCore::OnUpdate()
 		Timer graphicsTimer;
 		mGraphicsSys->UpdateLoop();
 		m_GraphicsDT = graphicsTimer.GetElapsedTime();
+	}
+
+	{
+		// UI
+		mUISys->UI_update();
 	}
 
 
