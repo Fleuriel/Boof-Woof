@@ -41,6 +41,7 @@
     <ClCompile Include="Core\AssetManager\FilePaths.cpp" />
     <ClCompile Include="Utilities\Components\UIComponent.cpp" />
     <ClCompile Include="Core\UI\UISystem.cpp" />
+    <ClCompile Include="Utilities\Components\FontComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -96,6 +97,7 @@
     <ClInclude Include="Utilities\Components\LightComponent.hpp" />
     <ClInclude Include="Utilities\Components\UIComponent.hpp" />
     <ClInclude Include="Core\UI\UISystem.h" />
+    <ClInclude Include="Utilities\Components\FontComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

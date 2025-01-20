@@ -22,6 +22,7 @@
 #include "../Utilities/Components/ParticleComponent.hpp"
 #include "../Utilities/Components/LightComponent.hpp"
 #include "../Utilities/Components/UIComponent.hpp"
+#include "../Utilities/Components/FontComponent.hpp"
 
 #include "Windows/WindowManager.h"
 #include "AssetManager/AssetManager.h"

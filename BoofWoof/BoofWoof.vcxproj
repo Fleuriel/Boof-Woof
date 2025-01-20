@@ -219,6 +219,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
     <ClCompile Include="Utilities\Components\CameraComponent.cpp" />
+    <ClCompile Include="Utilities\Components\FontComponent.cpp" />
     <ClCompile Include="Utilities\Components\GraphicsComponent.cpp" />
     <ClCompile Include="Utilities\Components\HierarchyComponent.cpp" />
     <ClCompile Include="Utilities\Components\LightComponent.cpp" />
@@ -274,6 +275,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Utilities\Components\BehaviourComponent.hpp" />
     <ClInclude Include="Utilities\Components\CameraComponent.hpp" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
+    <ClInclude Include="Utilities\Components\FontComponent.hpp" />
     <ClInclude Include="Utilities\Components\GraphicsComponent.hpp" />
     <ClInclude Include="Utilities\Components\HierarchyComponent.hpp" />
     <ClInclude Include="Utilities\Components\LightComponent.hpp" />

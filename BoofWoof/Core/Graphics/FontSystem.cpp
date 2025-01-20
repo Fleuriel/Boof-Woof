@@ -166,6 +166,12 @@ void FontSystem::saveBin()
 
 }
 
+void FontSystem::update()
+{
+    RenderText(g_AssetManager.GetShader("Font"), "Hello World", 0.0f, 0.0f, 0.001f, glm::vec3(1.0f, 1.0f, 1.0f));
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color)
 {
 	static bool init = true;
