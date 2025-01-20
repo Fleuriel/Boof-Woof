@@ -17,80 +17,66 @@ FontSystem fontSystem;
 
 void FontSystem::init()
 {
-    FT_Library ft;
-    // All functions return a value different than 0 whenever an error occurred
-    if (FT_Init_FreeType(&ft))
+	saveBin();
+    
+	// open bin file
+	std::ifstream ifs("font.bin", std::ios::binary);
+	if (!ifs.is_open())
+	{
+		std::cout << "ERROR::FREETYPE: Failed to open file" << std::endl;
+		return; 
+	}
+
+    
+
+    // disable byte-alignment restriction
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    // load first 128 characters of ASCII set
+    for (unsigned char c = 0; c < 128; c++)
     {
-        std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
-        return ;
+        int width{}, height{}, left, top;
+		unsigned int advance;
+		ifs.read((char*)&width, sizeof(int));
+		ifs.read((char*)&height, sizeof(int));
+		ifs.read((char*)&left, sizeof(int));
+		ifs.read((char*)&top, sizeof(int));
+		ifs.read((char*)&advance, sizeof(unsigned int));
+        char* buffer = new char[width * height];
+		ifs.read(buffer, width * height);
+
+        // generate texture
+        unsigned int texture;
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glTexImage2D(
+            GL_TEXTURE_2D,
+            0,
+            GL_RED,
+			width,
+			height,
+            0,
+            GL_RED,
+            GL_UNSIGNED_BYTE,
+            buffer
+        );
+        // set texture options
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        // now store character for later use
+        Character character = {
+            texture,
+			glm::ivec2(width, height),
+			glm::ivec2(left, top),
+			static_cast<unsigned int>(advance)
+        };
+        Characters.insert(std::pair<char, Character>(c, character));
+        //std::cout << "Loaded Glyph: " << c << ", Size: " << face->glyph->bitmap.width << "x" << face->glyph->bitmap.rows << std::endl;
     }
-
-    // find path to font
-    std::string font_name = FILEPATH_RESOURCE_FONTS+"/arial.ttf";
-    if (font_name.empty())
-    {
-        std::cout << "ERROR::FREETYPE: Failed to load font_name" << std::endl;
-        return ;
-    }
-
-    // load font as face
-    FT_Face face;
-    if (FT_New_Face(ft, font_name.c_str(), 0, &face)) {
-        std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
-        return ;
-    }
-    else {
-        // set size to load glyphs as
-        FT_Set_Pixel_Sizes(face, 0, 48);
-
-        // disable byte-alignment restriction
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-        // load first 128 characters of ASCII set
-        for (unsigned char c = 0; c < 128; c++)
-        {
-            // Load character glyph  
-            if (FT_Load_Char(face, c, FT_LOAD_RENDER))
-            {
-                std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
-                continue;
-            }
-            // generate texture
-            unsigned int texture;
-            glGenTextures(1, &texture);
-            glBindTexture(GL_TEXTURE_2D, texture);
-            glTexImage2D(
-                GL_TEXTURE_2D,
-                0,
-                GL_RED,
-                face->glyph->bitmap.width,
-                face->glyph->bitmap.rows,
-                0,
-                GL_RED,
-                GL_UNSIGNED_BYTE,
-                face->glyph->bitmap.buffer
-            );
-            // set texture options
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            // now store character for later use
-            Character character = {
-                texture,
-                glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-                glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-                static_cast<unsigned int>(face->glyph->advance.x)
-            };
-            Characters.insert(std::pair<char, Character>(c, character));
-            //std::cout << "Loaded Glyph: " << c << ", Size: " << face->glyph->bitmap.width << "x" << face->glyph->bitmap.rows << std::endl;
-        }
-        glBindTexture(GL_TEXTURE_2D, 0);
-    }
-    // destroy FreeType once we're finished
-    FT_Done_Face(face);
-    FT_Done_FreeType(ft);
-
+    glBindTexture(GL_TEXTURE_2D, 0);
+    
 
     // configure VAO/VBO for texture quads
     // -----------------------------------
@@ -105,6 +91,78 @@ void FontSystem::init()
     glBindVertexArray(0);
 
 	std::cout << "Font System Initialized" << std::endl;    
+
+}
+
+void FontSystem::saveBin()
+{
+    FT_Library ft;
+    // All functions return a value different than 0 whenever an error occurred
+    if (FT_Init_FreeType(&ft))
+    {
+        std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+        return;
+    }
+
+    // find path to font
+    std::string font_name = FILEPATH_RESOURCE_FONTS + "/arial.ttf";
+    if (font_name.empty())
+    {
+        std::cout << "ERROR::FREETYPE: Failed to load font_name" << std::endl;
+        return;
+    }
+
+	// create bin file
+    
+	std::ofstream ofs("font.bin", std::ios::binary);
+	if (!ofs.is_open())
+	{
+		std::cout << "ERROR::FREETYPE: Failed to open file" << std::endl;
+		return;
+	}
+
+    // load font as face
+    FT_Face face;
+    if (FT_New_Face(ft, font_name.c_str(), 0, &face)) {
+        std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+        return;
+    }
+    else {
+        // set size to load glyphs as
+        FT_Set_Pixel_Sizes(face, 0, 48);
+
+        
+        // load first 128 characters of ASCII set
+        for (unsigned char c = 0; c < 128; c++)
+        {
+            // Load character glyph  
+            if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+            {
+                std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+                continue;
+            }
+            int width = face->glyph->bitmap.width;
+            int height = face->glyph->bitmap.rows;
+            int left = face->glyph->bitmap_left;
+            int top = face->glyph->bitmap_top;
+            unsigned int advance = face->glyph->advance.x;
+			char* buffer = (char*)face->glyph->bitmap.buffer;
+
+			// write to file
+			ofs.write((char*)&width, sizeof(int));
+			ofs.write((char*)&height, sizeof(int));
+			ofs.write((char*)&left, sizeof(int));
+			ofs.write((char*)&top, sizeof(int));
+			ofs.write((char*)&advance, sizeof(unsigned int));
+			ofs.write(buffer, width * height);
+			
+
+        }
+        FT_Done_Face(face);
+        FT_Done_FreeType(ft);
+
+    }
+	std::cout << "Font System Saved" << std::endl;
 
 }
 

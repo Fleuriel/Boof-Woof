@@ -42,6 +42,7 @@ struct Character {
 class FontSystem : public System {
 public:
     void init();
+	void saveBin();
     void RenderText(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color);
 
 
