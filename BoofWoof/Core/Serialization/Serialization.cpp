@@ -480,6 +480,25 @@ bool Serialization::SaveScene(const std::string& filepath) {
 			entityData.AddMember("UIComponent", UI, allocator);
 
         }
+		// Serialize FontComponent
+        if (g_Coordinator.HaveComponent<FontComponent>(entity)) {
+            rapidjson::Value Font(rapidjson::kObjectType);
+
+            auto& fontComp = g_Coordinator.GetComponent<FontComponent>(entity);
+
+
+            Font.AddMember("Family", rapidjson::Value(fontComp.get_family().c_str(), allocator), allocator);
+            Font.AddMember("PositionX", fontComp.get_pos().x, allocator);
+            Font.AddMember("PositionY", fontComp.get_pos().y, allocator);
+            Font.AddMember("Scale", fontComp.get_scale(), allocator);
+            Font.AddMember("ColorR", fontComp.get_color().x, allocator);
+            Font.AddMember("ColorG", fontComp.get_color().y, allocator);
+            Font.AddMember("ColorB", fontComp.get_color().z, allocator);
+            Font.AddMember("Text", rapidjson::Value(fontComp.get_text().c_str(), allocator), allocator);
+
+            entityData.AddMember("FontComponent", Font, allocator);
+        }
+
 
         entities.PushBack(entityData, allocator);
     }
@@ -1004,6 +1023,33 @@ bool Serialization::LoadScene(const std::string& filepath)
 				}
 			}
 
+			if (entityData.IsObject() && entityData.HasMember("FontComponent"))
+			{
+				const auto& fontData = entityData["FontComponent"];
+
+
+                std::string family = "Arial";
+				if (fontData.HasMember("Family"))
+                    family = fontData["Family"].GetString();
+
+                glm::vec2 pos{};
+				if (fontData.HasMember("PositionX") && fontData.HasMember("PositionY"))
+                    pos = glm::vec2(fontData["PositionX"].GetFloat(), fontData["PositionY"].GetFloat());
+
+                float scale{};
+				if (fontData.HasMember("Scale"))
+                    scale= fontData["Scale"].GetFloat();
+
+                glm::vec3 color = { 1.0f, 1.0f, 1.0f };
+				if (fontData.HasMember("ColorR") && fontData.HasMember("ColorG") && fontData.HasMember("ColorB"))
+                    color= glm::vec3(fontData["ColorR"].GetFloat(), fontData["ColorG"].GetFloat(), fontData["ColorB"].GetFloat());
+                std::string text{};
+				if (fontData.HasMember("Text"))
+                    text= fontData["Text"].GetString();
+
+				FontComponent fontComponent(family, pos, scale, color, text);
+				g_Coordinator.AddComponent(entity, fontComponent);
+			}
 
 
 

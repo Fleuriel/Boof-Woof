@@ -8,6 +8,8 @@
 class FontComponent {
 public:
 	FontComponent() {};
+	FontComponent(const std::string& family, const glm::vec2& pos, const float& scale, const glm::vec3& color , const std::string& text)
+		: family(family), pos(pos), scale(scale), color(color), text(text) {};
 	~FontComponent() {};
 
 	// getters
