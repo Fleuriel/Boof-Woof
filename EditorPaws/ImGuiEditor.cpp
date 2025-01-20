@@ -3399,6 +3399,36 @@ void ImGuiEditor::InspectorWindow()
 							}
 
 						}
+
+						else if (className == "LightComponent")
+						{
+							if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_None))
+							{
+								auto& lightComponent = g_Coordinator.GetComponent<LightComponent>(g_SelectedEntity);
+								float lightIntensity = lightComponent.getIntensity();
+								ImGui::Text("Intensity");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Intensity");
+								if (ImGui::DragFloat("##Intensity", &lightIntensity, 0.1f))
+								{
+									lightComponent.setIntensity(lightIntensity);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								glm::vec3 lightColor = lightComponent.getColor();
+								ImGui::Text("Color");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Color");
+								if (ImGui::ColorEdit3("##Color", &lightColor.x))
+								{
+									lightComponent.setColor(lightColor);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+							}
+						}
 else if (className == "UIComponent")
 {
 	if (ImGui::CollapsingHeader("UI", ImGuiTreeNodeFlags_None))
@@ -3683,13 +3713,13 @@ else if (className == "UIComponent")
 						comp.set_opacity(oldValue);
 					}
 				);
-			}
+					}
 
 			ImGui::PopID();
 			ImGui::PopItemWidth();
 		}
 	}
-	}
+					}
 
 					}
 				}
