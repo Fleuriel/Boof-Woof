@@ -9,6 +9,9 @@
 #include <rapidjson/document.h>
 #include <rapidjson/istreamwrapper.h>
 #include "ResourceManager/ResourceManager.h"
+#include "AssetManager/AssetManager.h"
+
+#include "../Utilities/Components/FontComponent.hpp"
 #include <fstream>
 
 FontSystem fontSystem;
@@ -168,12 +171,25 @@ void FontSystem::saveBin()
 
 void FontSystem::update()
 {
-    RenderText(g_AssetManager.GetShader("Font"), "Hello World", 0.0f, 0.0f, 0.001f, glm::vec3(1.0f, 1.0f, 1.0f));
+	for (auto entity : g_Coordinator.GetAliveEntitiesSet())
+	{
+        if (g_Coordinator.HaveComponent<FontComponent>(entity))
+        {
+            auto& fontComponent = g_Coordinator.GetComponent<FontComponent>(entity);
+
+
+            // render text
+            RenderText(g_AssetManager.GetShader("Font"), fontComponent.get_text(), fontComponent.get_pos().x, fontComponent.get_pos().y, fontComponent.get_scale(), fontComponent.get_color());
+        }
+	}
+    RenderText(g_AssetManager.GetShader("Font"), "Hello World", 0.0f, 0.0f, 1.f, glm::vec3(1.0f, 1.0f, 1.0f));
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color)
 {
+    scale /= 1000.f;
+
 	static bool init = true;
     // activate corresponding render state	
     shader.Use();

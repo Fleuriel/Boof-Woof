@@ -43,8 +43,7 @@ void UISystem::UI_update() {
 	UI_render();
 	g_AssetManager.GetShader("Shader2D").UnUse();
 
-	//glEnable(GL_DEPTH_TEST);
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	
 }
 
 void UISystem::UI_render()

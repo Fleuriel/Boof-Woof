@@ -930,6 +930,36 @@ void ImGuiEditor::InspectorWindow()
 							}
 						}
 					}
+					if (ImGui::Selectable("Font Component"))
+					{
+						if (!g_Coordinator.HaveComponent<FontComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<FontComponent>(g_SelectedEntity, FontComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<FontComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<FontComponent>(g_SelectedEntity, FontComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<FontComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<FontComponent>(g_SelectedEntity);
+								}
+							);
+
+							// If got Font Component, remove Transform & Graphics Component
+							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+							{
+								g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+							}
+
+							if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+							{
+								g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
+								g_Coordinator.RemoveComponent<MaterialComponent>(g_SelectedEntity);
+							}
+
+						}
+					}
 					
 
 					ImGui::EndPopup();
@@ -1143,6 +1173,24 @@ void ImGuiEditor::InspectorWindow()
 								[this, componentData]() {
 									if (!g_Coordinator.HaveComponent<UIComponent>(g_SelectedEntity))
 										g_Coordinator.AddComponent<UIComponent>(g_SelectedEntity, componentData);
+								}
+							);
+						}
+					}
+					if (g_Coordinator.HaveComponent<FontComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("Font Component"))
+						{
+							auto& componentData = g_Coordinator.GetComponent<FontComponent>(g_SelectedEntity);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<FontComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<FontComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<FontComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<FontComponent>(g_SelectedEntity, componentData);
 								}
 							);
 						}
@@ -3429,301 +3477,380 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopItemWidth();
 							}
 						}
-else if (className == "UIComponent")
-{
-	if (ImGui::CollapsingHeader("UI", ImGuiTreeNodeFlags_None))
-	{
-		// Grab the UIComponent from the selected entity
-		auto& uiComponent = g_Coordinator.GetComponent<UIComponent>(g_SelectedEntity);
-		Entity entity = g_SelectedEntity; // for lambda captures
+						else if (className == "UIComponent")
+						{
+							if (ImGui::CollapsingHeader("UI", ImGuiTreeNodeFlags_None))
+							{
+								// Grab the UIComponent from the selected entity
+								auto& uiComponent = g_Coordinator.GetComponent<UIComponent>(g_SelectedEntity);
+								Entity entity = g_SelectedEntity; // for lambda captures
 
-		// -------------------------------------------------------------
-		// 1) Texture ID Editing (File Dialog) with Undo/Redo
-		// -------------------------------------------------------------
-		int textureID = uiComponent.get_textureid();
-		ImGui::Text("Texture :");
-		ImGui::SameLine();
-		ImGui::PushItemWidth(125.0f);
+								// -------------------------------------------------------------
+								// 1) Texture ID Editing (File Dialog) with Undo/Redo
+								// -------------------------------------------------------------
+								int textureID = uiComponent.get_textureid();
+								ImGui::Text("Texture :");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
 
-		std::string currentTextureName = g_ResourceManager.GetTextureDDSFileName(textureID);
-		ImGui::Text("%s", currentTextureName.c_str());
+								std::string currentTextureName = g_ResourceManager.GetTextureDDSFileName(textureID);
+								ImGui::Text("%s", currentTextureName.c_str());
 
-		ImGui::SameLine();
-		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);
+								ImGui::SameLine();
+								ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);
 
-		ImGui::PushID("TextureID");
-		if (ImGui::Button("Set Texture"))
-		{
-			// Open the file dialog
-			ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
-		}
+								ImGui::PushID("TextureID");
+								if (ImGui::Button("Set Texture"))
+								{
+									// Open the file dialog
+									ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+								}
 
-		if (ImGuiFileDialog::Instance()->Display("SetTexture"))
-		{
-			if (ImGuiFileDialog::Instance()->IsOk())
-			{
-				// --- Undo/Redo for texture ---
-				int oldTextureId = textureID;
+								if (ImGuiFileDialog::Instance()->Display("SetTexture"))
+								{
+									if (ImGuiFileDialog::Instance()->IsOk())
+									{
+										// --- Undo/Redo for texture ---
+										int oldTextureId = textureID;
 
-				// User selected a file
-				std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
-				size_t lastDotPos = selectedFile.find_last_of(".");
-				if (lastDotPos != std::string::npos)
-				{
-					selectedFile = selectedFile.substr(0, lastDotPos);
-				}
+										// User selected a file
+										std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+										size_t lastDotPos = selectedFile.find_last_of(".");
+										if (lastDotPos != std::string::npos)
+										{
+											selectedFile = selectedFile.substr(0, lastDotPos);
+										}
 
-				// Retrieve new texture
-				int newTextureId = g_ResourceManager.GetTextureDDS(selectedFile);
+										// Retrieve new texture
+										int newTextureId = g_ResourceManager.GetTextureDDS(selectedFile);
 
-				// Set the new texture ID immediately
-				uiComponent.set_textureid(newTextureId);
+										// Set the new texture ID immediately
+										uiComponent.set_textureid(newTextureId);
 
-				// Now record the change in the Undo/Redo manager
-				g_UndoRedoManager.ExecuteCommand(
-					// Do-lambda
-					[entity, newTextureId]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_textureid(newTextureId);
-					},
-					// Undo-lambda
-					[entity, oldTextureId]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_textureid(oldTextureId);
-					}
-				);
-			}
-			ImGuiFileDialog::Instance()->Close();
-		}
-		ImGui::PopID();
-		ImGui::PopItemWidth();
+										// Now record the change in the Undo/Redo manager
+										g_UndoRedoManager.ExecuteCommand(
+											// Do-lambda
+											[entity, newTextureId]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_textureid(newTextureId);
+											},
+											// Undo-lambda
+											[entity, oldTextureId]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_textureid(oldTextureId);
+											}
+										);
+									}
+									ImGuiFileDialog::Instance()->Close();
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
 
-		// -------------------------------------------------------------
-		// 2) Position
-		// -------------------------------------------------------------
-		{
-			glm::vec2 position = uiComponent.get_position();
-			ImGui::Text("Position");
-			ImGui::SameLine();
-			ImGui::PushItemWidth(125.0f);
-			ImGui::PushID("Position");
+								// -------------------------------------------------------------
+								// 2) Position
+								// -------------------------------------------------------------
+								{
+									glm::vec2 position = uiComponent.get_position();
+									ImGui::Text("Position");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("Position");
 
-			if (ImGui::DragFloat2("##Position", &position.x, 0.1f))
-			{
-				uiComponent.set_position(position);
-			}
+									if (ImGui::DragFloat2("##Position", &position.x, 0.1f))
+									{
+										uiComponent.set_position(position);
+									}
 
-			// Detect activation (start of drag) and store old value
-			if (ImGui::IsItemActivated())
-			{
-				oldUIVec2Values["Position"] = uiComponent.get_position();
-			}
-			// Detect end of drag and create undo/redo command
-			if (ImGui::IsItemDeactivatedAfterEdit())
-			{
-				glm::vec2 newValue = uiComponent.get_position();
-				glm::vec2 oldValue = oldUIVec2Values["Position"];
-				oldUIVec2Values.erase("Position");
+									// Detect activation (start of drag) and store old value
+									if (ImGui::IsItemActivated())
+									{
+										oldUIVec2Values["Position"] = uiComponent.get_position();
+									}
+									// Detect end of drag and create undo/redo command
+									if (ImGui::IsItemDeactivatedAfterEdit())
+									{
+										glm::vec2 newValue = uiComponent.get_position();
+										glm::vec2 oldValue = oldUIVec2Values["Position"];
+										oldUIVec2Values.erase("Position");
 
-				g_UndoRedoManager.ExecuteCommand(
-					// Do-lambda
-					[entity, newValue]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_position(newValue);
-					},
-					// Undo-lambda
-					[entity, oldValue]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_position(oldValue);
-					}
-				);
-			}
+										g_UndoRedoManager.ExecuteCommand(
+											// Do-lambda
+											[entity, newValue]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_position(newValue);
+											},
+											// Undo-lambda
+											[entity, oldValue]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_position(oldValue);
+											}
+										);
+									}
 
-			ImGui::PopID();
-			ImGui::PopItemWidth();
-		}
+									ImGui::PopID();
+									ImGui::PopItemWidth();
+								}
 
-		// -------------------------------------------------------------
-		// 3) Scale
-		// -------------------------------------------------------------
-		{
-			glm::vec2 scale = uiComponent.get_scale();
-			ImGui::Text("Scale");
-			ImGui::SameLine();
-			ImGui::PushItemWidth(125.0f);
-			ImGui::PushID("Scale");
+								// -------------------------------------------------------------
+								// 3) Scale
+								// -------------------------------------------------------------
+								{
+									glm::vec2 scale = uiComponent.get_scale();
+									ImGui::Text("Scale");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("Scale");
 
-			if (ImGui::DragFloat2("##Scale", &scale.x, 0.1f))
-			{
-				uiComponent.set_scale(scale);
-			}
+									if (ImGui::DragFloat2("##Scale", &scale.x, 0.1f))
+									{
+										uiComponent.set_scale(scale);
+									}
 
-			if (ImGui::IsItemActivated())
-			{
-				oldUIVec2Values["Scale"] = uiComponent.get_scale();
-			}
-			if (ImGui::IsItemDeactivatedAfterEdit())
-			{
-				glm::vec2 newValue = uiComponent.get_scale();
-				glm::vec2 oldValue = oldUIVec2Values["Scale"];
-				oldUIVec2Values.erase("Scale");
+									if (ImGui::IsItemActivated())
+									{
+										oldUIVec2Values["Scale"] = uiComponent.get_scale();
+									}
+									if (ImGui::IsItemDeactivatedAfterEdit())
+									{
+										glm::vec2 newValue = uiComponent.get_scale();
+										glm::vec2 oldValue = oldUIVec2Values["Scale"];
+										oldUIVec2Values.erase("Scale");
 
-				g_UndoRedoManager.ExecuteCommand(
-					[entity, newValue]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_scale(newValue);
-					},
-					[entity, oldValue]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_scale(oldValue);
-					}
-				);
-			}
+										g_UndoRedoManager.ExecuteCommand(
+											[entity, newValue]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_scale(newValue);
+											},
+											[entity, oldValue]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_scale(oldValue);
+											}
+										);
+									}
 
-			ImGui::PopID();
-			ImGui::PopItemWidth();
-		}
+									ImGui::PopID();
+									ImGui::PopItemWidth();
+								}
 
-		// -------------------------------------------------------------
-		// 4) Layer
-		// -------------------------------------------------------------
-		{
-			float currentLayer = uiComponent.get_UI_layer();
-			ImGui::Text("Layer: %f", currentLayer);
-			ImGui::SameLine();
+								// -------------------------------------------------------------
+								// 4) Layer
+								// -------------------------------------------------------------
+								{
+									float currentLayer = uiComponent.get_UI_layer();
+									ImGui::Text("Layer: %f", currentLayer);
+									ImGui::SameLine();
 
-			// "Move Forward" -> layer -= 0.01f
-			if (ImGui::Button("Move Forward"))
-			{
-				float oldValue = currentLayer;
-				float newValue = currentLayer - 0.01f;
-				uiComponent.set_UI_layer(newValue);
+									// "Move Forward" -> layer -= 0.01f
+									if (ImGui::Button("Move Forward"))
+									{
+										float oldValue = currentLayer;
+										float newValue = currentLayer - 0.01f;
+										uiComponent.set_UI_layer(newValue);
 
-				// Undo/redo for button press
-				g_UndoRedoManager.ExecuteCommand(
-					[entity, newValue]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_UI_layer(newValue);
-					},
-					[entity, oldValue]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_UI_layer(oldValue);
-					}
-				);
-			}
+										// Undo/redo for button press
+										g_UndoRedoManager.ExecuteCommand(
+											[entity, newValue]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_UI_layer(newValue);
+											},
+											[entity, oldValue]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_UI_layer(oldValue);
+											}
+										);
+									}
 
-			ImGui::SameLine();
+									ImGui::SameLine();
 
-			// "Move Backward" -> layer += 0.01f
-			if (ImGui::Button("Move Backward"))
-			{
-				float oldValue = currentLayer;
-				float newValue = currentLayer + 0.01f;
-				uiComponent.set_UI_layer(newValue);
+									// "Move Backward" -> layer += 0.01f
+									if (ImGui::Button("Move Backward"))
+									{
+										float oldValue = currentLayer;
+										float newValue = currentLayer + 0.01f;
+										uiComponent.set_UI_layer(newValue);
 
-				// Undo/redo for button press
-				g_UndoRedoManager.ExecuteCommand(
-					[entity, newValue]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_UI_layer(newValue);
-					},
-					[entity, oldValue]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_UI_layer(oldValue);
-					}
-				);
-			}
-		}
+										// Undo/redo for button press
+										g_UndoRedoManager.ExecuteCommand(
+											[entity, newValue]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_UI_layer(newValue);
+											},
+											[entity, oldValue]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_UI_layer(oldValue);
+											}
+										);
+									}
+								}
 
-		// -------------------------------------------------------------
-		// 5) Selectable (Checkbox)
-		// -------------------------------------------------------------
-		{
-			bool selectable = uiComponent.get_selectable();
-			if (ImGui::Checkbox("Selectable", &selectable))
-			{
-				// Because a checkbox is a single click, we can do the 
-				// old/new capture right here.
-				bool oldValue = uiComponent.get_selectable();
-				bool newValue = selectable;
+								// -------------------------------------------------------------
+								// 5) Selectable (Checkbox)
+								// -------------------------------------------------------------
+								{
+									bool selectable = uiComponent.get_selectable();
+									if (ImGui::Checkbox("Selectable", &selectable))
+									{
+										// Because a checkbox is a single click, we can do the 
+										// old/new capture right here.
+										bool oldValue = uiComponent.get_selectable();
+										bool newValue = selectable;
 
-				// Apply new value immediately
-				uiComponent.set_selectable(newValue);
+										// Apply new value immediately
+										uiComponent.set_selectable(newValue);
 
-				// Undo/redo
-				g_UndoRedoManager.ExecuteCommand(
-					[entity, newValue]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_selectable(newValue);
-					},
-					[entity, oldValue]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_selectable(oldValue);
-					}
-				);
-			}
-		}
+										// Undo/redo
+										g_UndoRedoManager.ExecuteCommand(
+											[entity, newValue]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_selectable(newValue);
+											},
+											[entity, oldValue]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_selectable(oldValue);
+											}
+										);
+									}
+								}
 
-		// -------------------------------------------------------------
-		// 6) Opacity (Float)
-		// -------------------------------------------------------------
-		{
-			float opacity = uiComponent.get_opacity();
-			ImGui::Text("Opacity");
-			ImGui::SameLine();
-			ImGui::PushItemWidth(125.0f);
-			ImGui::PushID("Opacity");
+								// -------------------------------------------------------------
+								// 6) Opacity (Float)
+								// -------------------------------------------------------------
+								{
+									float opacity = uiComponent.get_opacity();
+									ImGui::Text("Opacity");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("Opacity");
 
-			if (ImGui::DragFloat("##Opacity", &opacity, 0.1f, 0.0f, 1.0f)) // optionally clamp between 0-1
-			{
-				uiComponent.set_opacity(opacity);
-			}
+									if (ImGui::DragFloat("##Opacity", &opacity, 0.1f, 0.0f, 1.0f)) // optionally clamp between 0-1
+									{
+										uiComponent.set_opacity(opacity);
+									}
 
-			if (ImGui::IsItemActivated())
-			{
-				oldUIFloatValues["Opacity"] = uiComponent.get_opacity();
-			}
-			if (ImGui::IsItemDeactivatedAfterEdit())
-			{
-				float newValue = uiComponent.get_opacity();
-				float oldValue = oldUIFloatValues["Opacity"];
-				oldUIFloatValues.erase("Opacity");
+									if (ImGui::IsItemActivated())
+									{
+										oldUIFloatValues["Opacity"] = uiComponent.get_opacity();
+									}
+									if (ImGui::IsItemDeactivatedAfterEdit())
+									{
+										float newValue = uiComponent.get_opacity();
+										float oldValue = oldUIFloatValues["Opacity"];
+										oldUIFloatValues.erase("Opacity");
 
-				g_UndoRedoManager.ExecuteCommand(
-					[entity, newValue]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_opacity(newValue);
-					},
-					[entity, oldValue]()
-					{
-						auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
-						comp.set_opacity(oldValue);
-					}
-				);
-					}
+										g_UndoRedoManager.ExecuteCommand(
+											[entity, newValue]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_opacity(newValue);
+											},
+											[entity, oldValue]()
+											{
+												auto& comp = g_Coordinator.GetComponent<UIComponent>(entity);
+												comp.set_opacity(oldValue);
+											}
+										);
+											}
 
-			ImGui::PopID();
-			ImGui::PopItemWidth();
-		}
-	}
-					}
+									ImGui::PopID();
+									ImGui::PopItemWidth();
+								}
+							}
+						}
+						else if (className == "FontComponent") {
+							if (ImGui::CollapsingHeader("Font", ImGuiTreeNodeFlags_None))
+							{
+								// Grab the FontComponent from the selected entity
+								auto& fontComponent = g_Coordinator.GetComponent<FontComponent>(g_SelectedEntity);
+								Entity entity = g_SelectedEntity; // for lambda captures
 
-					}
-				}
-			}
+								// family
+								char family[128];
+								strcpy_s(family, fontComponent.get_family().c_str());
+								ImGui::Text("Family");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Family");
+								if (ImGui::InputText("##Family", family, 128))
+								{
+									fontComponent.set_family(family);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								// position
+								glm::vec2 position = fontComponent.get_pos();
+								ImGui::Text("Position");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Position");
+								if (ImGui::DragFloat2("##Position", &position.x, 0.1f))
+								{
+									fontComponent.set_pos(position);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								// scale
+								float fontsclae = fontComponent.get_scale();
+								ImGui::Text("Scale");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Scale");
+								if (ImGui::DragFloat("##Scale", &fontsclae, 0.1f))
+								{
+									fontComponent.set_scale(fontsclae);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								// text
+								char text[128]{};
+								strcpy_s(text, fontComponent.get_text().c_str());
+								ImGui::Text("Text");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Text");
+								if (ImGui::InputText("##Text", text, 128))
+								{
+									fontComponent.set_text(text);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								// color
+								glm::vec3 color = fontComponent.get_color();
+								ImGui::Text("Color");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Color");
+								if (ImGui::ColorEdit3("##Color", &color.x))
+								{
+									fontComponent.set_color(color);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+
+
+								
+
+
+							}
+						}
+
+								}
+							}
+						}
 			else
 			{
 				ImGui::Text("No entity selected or invalid entity ID.");
