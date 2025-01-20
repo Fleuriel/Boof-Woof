@@ -10,6 +10,52 @@
 #include <rapidjson/istreamwrapper.h>
 #include "ResourceManager/ResourceManager.h"
 
+#include <fstream>
+
+void saveFaceToBin(FT_Face face, const std::string& outputFilename) {
+    std::ofstream outFile(FILEPATH_ASSET_FONTS + outputFilename, std::ios::binary);
+    if (!outFile) {
+        std::cerr << "ERROR::FREETYPE: Failed to open output file for writing: " << outputFilename << std::endl;
+        return;
+    }
+
+    // Write the number of characters (e.g., ASCII 0-127)
+    unsigned char numCharacters = 128;
+    outFile.write(reinterpret_cast<const char*>(&numCharacters), sizeof(numCharacters));
+
+    // Save glyph data for each character
+    for (unsigned char c = 0; c < numCharacters; c++) {
+        // Load the glyph
+        if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
+            std::cerr << "ERROR::FREETYPE: Failed to load Glyph for character " << c << std::endl;
+            continue;
+        }
+
+        // Save the character code
+        outFile.write(reinterpret_cast<const char*>(&c), sizeof(c));
+
+        // Save glyph bitmap size and offsets
+        int width = face->glyph->bitmap.width;
+        int height = face->glyph->bitmap.rows;
+        int left = face->glyph->bitmap_left;
+        int top = face->glyph->bitmap_top;
+        unsigned int advance = face->glyph->advance.x;
+
+        outFile.write(reinterpret_cast<const char*>(&width), sizeof(width));
+        outFile.write(reinterpret_cast<const char*>(&height), sizeof(height));
+        outFile.write(reinterpret_cast<const char*>(&left), sizeof(left));
+        outFile.write(reinterpret_cast<const char*>(&top), sizeof(top));
+        outFile.write(reinterpret_cast<const char*>(&advance), sizeof(advance));
+
+        // Save the glyph bitmap buffer
+        if (width > 0 && height > 0) {
+            outFile.write(reinterpret_cast<const char*>(face->glyph->bitmap.buffer), width * height);
+        }
+    }
+
+    outFile.close();
+    std::cout << "Face information saved to " << outputFilename << std::endl;
+}
 
 FontSystem fontSystem;
 
@@ -38,6 +84,10 @@ void FontSystem::init()
         return ;
     }
     else {
+
+        // Save the face information to a .bin file
+        saveFaceToBin(face, "font_data.bin");
+
         // set size to load glyphs as
         FT_Set_Pixel_Sizes(face, 0, 48);
 

@@ -295,6 +295,8 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <None Include="Assets\Shaders\Shader2D.vert" />
     <None Include="Assets\Shaders\Shader3D.frag" />
     <None Include="Assets\Shaders\Shader3D.vert" />
+    <None Include="Assets\Shaders\ShaderAnimation.frag" />
+    <None Include="Assets\Shaders\ShaderAnimation.vert" />
     <None Include="Saves\engine_state.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
