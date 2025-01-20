@@ -105,7 +105,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glCullFace(GL_BACK);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//fontSystem.init_font();
+	fontSystem.init();
 
 
 }
@@ -511,6 +511,10 @@ void GraphicsSystem::UpdateLoop() {
 		RenderSceneForPicking();
 		needsPickingRender = false;
 	}
+	//enable blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	fontSystem.RenderText(g_AssetManager.GetShader("Font"), "Hello World", 0.0f, 0.0f, 0.01f, glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
 
