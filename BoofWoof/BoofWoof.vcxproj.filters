@@ -110,5 +110,7 @@
     <None Include="Assets\Shaders\Font.vert" />
     <None Include="Assets\Shaders\instanced.frag" />
     <None Include="Assets\Shaders\instanced.vert" />
+    <None Include="Assets\Shaders\shadow.frag" />
+    <None Include="Assets\Shaders\shadow.vert" />
   </ItemGroup>
 </Project>
