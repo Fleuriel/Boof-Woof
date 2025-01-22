@@ -25,10 +25,10 @@ void BoneCatcher::OnInitialize()
 			{
 				m_DogHead = entity;
 
-				if (g_Coordinator.HaveComponent<TransformComponent>(m_DogHead))
+				if (g_Coordinator.HaveComponent<UIComponent>(m_DogHead))
 				{
-					DogPos = g_Coordinator.GetComponent<TransformComponent>(m_DogHead).GetPosition();
-					DogScale = g_Coordinator.GetComponent<TransformComponent>(m_DogHead).GetScale();
+					DogPos = g_Coordinator.GetComponent<UIComponent>(m_DogHead).get_position();
+					DogScale = g_Coordinator.GetComponent<UIComponent>(m_DogHead).get_scale();
 					initialDogPos = DogPos;
 				}
 			}
@@ -37,18 +37,18 @@ void BoneCatcher::OnInitialize()
 			{
 				m_CatchZone = entity;
 
-				if (g_Coordinator.HaveComponent<TransformComponent>(m_CatchZone))
+				if (g_Coordinator.HaveComponent<UIComponent>(m_CatchZone))
 				{
 					// Get initial position set from level editor first
-					CatchZonePos = g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).GetPosition();
+					CatchZonePos = g_Coordinator.GetComponent<UIComponent>(m_CatchZone).get_position();
 
 					// Randomize the position, set it
 					dist = std::uniform_real_distribution<float>(MinMaxPos.x, MinMaxPos.y);
 					CatchZonePos.x = dist(gen);
-					g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetPosition(CatchZonePos);
+					g_Coordinator.GetComponent<UIComponent>(m_CatchZone).set_position(CatchZonePos);
 
 					// Get initial scale set from level editor first
-					CatchZoneScale = g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).GetScale();
+					CatchZoneScale = g_Coordinator.GetComponent<UIComponent>(m_CatchZone).get_scale();
 
 					// Randomize the scale, set it
 					//dist = std::uniform_real_distribution<float>(MinMaxScale.x, MinMaxScale.y);
@@ -58,7 +58,7 @@ void BoneCatcher::OnInitialize()
 					BoxMin = CatchZonePos - CatchZoneScale * 0.5f;	// Bottom left
 					BoxMax = CatchZonePos + CatchZoneScale * 0.5f;  // Top right
 
-					TeethPos = { DogPos.x - 0.01f, DogPos.y - (DogScale.y / 2) + (TeethScale.y / 2), 0.f };
+					TeethPos = { DogPos.x - 0.02f, DogPos.y - 0.27 };
 				}
 			}
 		}
@@ -137,9 +137,9 @@ void BoneCatcher::MoveLeftRightVisual(double deltaTime)
 	// Update position based on direction and speed
 	DogPos.x += m_Direction * m_Speed * static_cast<float>(deltaTime);
 
-	if (g_Coordinator.HaveComponent<TransformComponent>(m_DogHead))
+	if (g_Coordinator.HaveComponent<UIComponent>(m_DogHead))
 	{
-		g_Coordinator.GetComponent<TransformComponent>(m_DogHead).SetPosition(DogPos);
+		g_Coordinator.GetComponent<UIComponent>(m_DogHead).set_position(DogPos);
 	}
 
 	// Check boundaries and reverse direction if necessary
@@ -162,16 +162,16 @@ void BoneCatcher::BiteDown(double deltaTime)
 	BoxMin = CatchZonePos - CatchZoneScale * 0.5f;	// Bottom left
 	BoxMax = CatchZonePos + CatchZoneScale * 0.5f;  // Top right
 
-	TeethPos = { DogPos.x - 0.01f, DogPos.y - (DogScale.y / 2) + (TeethScale.y / 2), 0.f };
+	TeethPos = { DogPos.x - 0.02f, DogPos.y - 0.27 };
 	bool isInRange = (TeethPos.x >= BoxMin.x && TeethPos.x <= BoxMax.x) && (TeethPos.y >= BoxMin.y && TeethPos.y <= BoxMax.y);
 
 	if (!m_Down)
 	{
 		DogPos.y -= 0.02f;
 
-		if (g_Coordinator.HaveComponent<TransformComponent>(m_DogHead))
+		if (g_Coordinator.HaveComponent<UIComponent>(m_DogHead))
 		{
-			g_Coordinator.GetComponent<TransformComponent>(m_DogHead).SetPosition(DogPos);
+			g_Coordinator.GetComponent<UIComponent>(m_DogHead).set_position(DogPos);
 		}
 
 		m_Down = true;  // prevent moving down again until reset.
@@ -218,16 +218,16 @@ void BoneCatcher::BiteDown(double deltaTime)
 			// Move the dog head back up
 			DogPos.y += 0.02f;
 
-			if (g_Coordinator.HaveComponent<TransformComponent>(m_DogHead))
+			if (g_Coordinator.HaveComponent<UIComponent>(m_DogHead))
 			{
-				g_Coordinator.GetComponent<TransformComponent>(m_DogHead).SetPosition(DogPos);
+				g_Coordinator.GetComponent<UIComponent>(m_DogHead).set_position(DogPos);
 			}
 
 			if (m_HitDetected)
 			{
-				if (g_Coordinator.HaveComponent<TransformComponent>(m_CatchZone))
+				if (g_Coordinator.HaveComponent<UIComponent>(m_CatchZone))
 				{
-					g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetPosition(CatchZonePos);
+					g_Coordinator.GetComponent<UIComponent>(m_CatchZone).set_position(CatchZonePos);
 					//g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetScale(CatchZoneScale);
 				}
 			}
