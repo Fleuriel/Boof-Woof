@@ -12,12 +12,13 @@ public:
 	void ChangeBoxChecked(Entity ent);
 	void AddCorgiText();
 
-	void ChangeAsset(Entity ent, glm::vec3 scale, std::string textureName);
+	void ChangeAsset(Entity ent, glm::vec2 scale, std::string textureName);
 
 public:
 	bool shutted{ false }, finishTR{ false }, finishRB{ false };
 	Entity Do1{}, Do2{}, Do3{}, Do4{};
 	Entity Box1{}, Box2{}, Box3{}, Box4{};
+	Entity Paper{};
 
 private:
 	bool w{ false }, a{ false }, s{ false }, d{ false };

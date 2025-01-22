@@ -64,6 +64,7 @@ public:
 	int GetTextureDDS(std::string);																		//Function to access textures
 	int GetTextureDDSWidth(std::string);
 	int GetTextureDDSHeight(std::string);
+	std::string GetTextureDDSFileName(int);
 
 
 	bool LoadFontsDDS();
