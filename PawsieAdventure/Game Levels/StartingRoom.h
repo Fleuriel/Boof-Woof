@@ -15,10 +15,13 @@ public:
 	CameraController* cameraController = nullptr;
 	bool bark{ false }, sniff{ false };
 
+	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{};
+
+
 	void LoadLevel()
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom.json");
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true);
+		//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true,  "BGM");
 
 		g_ChangeText.OnInitialize();
 
@@ -40,6 +43,56 @@ public:
 				}
 			}
 		}
+
+		for (auto entity : entities)
+		{
+			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+			{
+				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "BedRoomMusic")
+				{
+					BedRoomBGM = entity;
+					break;
+				}
+			}
+		}
+		for (auto entity : entities)
+		{
+			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+			{
+				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "CorgiBark1")
+				{
+					CorgiBark = entity;
+					break;
+				}
+			}
+		}
+		for (auto entity : entities)
+		{
+			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+			{
+				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "CorgiSniff")
+				{
+					CorgiSniff = entity;
+					break;
+				}
+			}
+		}
+
+
+
+		auto& music = g_Coordinator.GetComponent<AudioComponent>(BedRoomBGM);
+		music.SetAudioSystem(&g_Audio);
+		music.PlayAudio();
+
+
+		auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiBark);
+		music1.SetAudioSystem(&g_Audio);
+
+
+		auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
+		music2.SetAudioSystem(&g_Audio);
+
+
 
 		g_Window->HideMouseCursor();
 	}
@@ -94,7 +147,11 @@ public:
 
 		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
 		{
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiBark1.wav", false);
+			//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiBark1.wav", false, "SFX");
+			if (g_Coordinator.HaveComponent<AudioComponent>(CorgiBark)) {
+				auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiBark);
+				music1.PlayAudio();
+			}
 			bark = true;
 		}
 
@@ -105,7 +162,11 @@ public:
 
 		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniff)
 		{
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false);
+			//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false, "SFX");
+			if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
+				auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
+				music2.PlayAudio();
+			}
 			opacity.setParticleColor(glm::vec4(0.09019608050584793f, 0.7843137383460999f, 0.8549019694328308f, 1.0f));
 			sniff = true;
 		}
@@ -142,7 +203,11 @@ public:
 
 	void UnloadLevel()
 	{
-		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav");
+		//g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav");
+		if (g_Coordinator.HaveComponent<AudioComponent>(BedRoomBGM)) {
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(BedRoomBGM);
+			music.StopAudio();
+		}
 		g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();

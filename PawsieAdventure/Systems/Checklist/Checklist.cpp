@@ -183,7 +183,7 @@ void Checklist::ChangeBoxChecked(Entity ent)
 
 	if (!playAudio)
 	{
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CheckTheBox.wav", false);
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CheckTheBox.wav", false, "SFX");
 		playAudio = true;
 	}
 }

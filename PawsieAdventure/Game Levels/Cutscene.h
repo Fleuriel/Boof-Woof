@@ -11,6 +11,8 @@ class Cutscene : public Level
     int textureIndex = 0;  // To track which texture we're currently showing
     double lastBarkTime = 0.0;
     Entity TextEnt{}, DogName{};
+    Entity AggroDog{}, CorgiWhimper{}, corgi12sec{};
+
 
     void LoadLevel()
     {
@@ -23,17 +25,57 @@ class Cutscene : public Level
         {
             if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
             {
-                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Text")
+                const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+                const std::string& name = metadata.GetName();
+
+                if (name == "Text")
                 {
                     TextEnt = entity;
+                    std::cout << "TEXT FOUND" << std::endl;
                 }
-
-                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "DogName")
+                else if (name == "DogName")
                 {
                     DogName = entity;
+                    std::cout << "DOG NAME FOUND" << std::endl;
+                }
+                else if (name == "AggressiveDogBarking")
+                {
+                    AggroDog = entity;
+                    std::cout << "AGGRESSIVE DOG BARKING FOUND" << std::endl;
+                }
+                else if (name == "CorgiWhimper")
+                {
+                    CorgiWhimper = entity;
+                    std::cout << "CORGI WHIMPER FOUND" << std::endl;
+                }
+                else if (name == "12sGrowlBarkCorgi")
+                {
+                    corgi12sec = entity;
+                    std::cout << "12s GROWL BARK CORGI FOUND" << std::endl;
+                }
+
+                // Exit early if all entities are found
+                if (TextEnt && DogName && AggroDog && CorgiWhimper && corgi12sec)
+                {
                     break;
                 }
             }
+        }
+
+
+        if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
+
+            auto& music = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
+            music.SetAudioSystem(&g_Audio);
+        }
+
+        if (g_Coordinator.HaveComponent<AudioComponent>(CorgiWhimper)) {
+            auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiWhimper);
+            music1.SetAudioSystem(&g_Audio);
+        }
+        if (g_Coordinator.HaveComponent<AudioComponent>(corgi12sec)) {
+            auto& music2 = g_Coordinator.GetComponent<AudioComponent>(corgi12sec);
+            music2.SetAudioSystem(&g_Audio);
         }
     }
 
@@ -82,7 +124,12 @@ class Cutscene : public Level
         case 0:
         {
             // Big dog telling you stay in the room
-            g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav");
+            //g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav");
+            if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
+                auto& music = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
+                music.PlayAudio();
+            }
+
             break;
         }
         case 1:
@@ -90,7 +137,11 @@ class Cutscene : public Level
             // I'm scared
             if (cutsceneTimer <= 3.0)
             {
-                g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/CorgiWhimper.wav");
+               // g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/CorgiWhimper.wav");
+                if (g_Coordinator.HaveComponent<AudioComponent>(CorgiWhimper)) {
+                    auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiWhimper);
+                    music1.PlayAudio();
+                }
             }
             break;
         }
@@ -99,7 +150,11 @@ class Cutscene : public Level
             // I can't keep living like this
             // I want to leave this place
             // No.. I WILL LEAVE THE CASTLE
-            g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/12sGrowlBarkCorgi.wav");
+           // g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/12sGrowlBarkCorgi.wav");
+            if (g_Coordinator.HaveComponent<AudioComponent>(corgi12sec)) {
+                auto& music2 = g_Coordinator.GetComponent<AudioComponent>(corgi12sec);
+                music2.PlayAudio();
+            }
             break;
         }
         }
