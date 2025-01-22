@@ -80,18 +80,10 @@ class MainHall : public Level
 		cameraController = new CameraController(playerEnt);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
 		g_Checklist.OnInitialize();
-		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do6");
-		g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.15f, 0.05f), "Do7");
-
-		g_Checklist.ChangeAsset(g_Checklist.Do3, glm::vec2(0.0f, 0.0f), "");
-		g_Checklist.ChangeAsset(g_Checklist.Do4, glm::vec2(0.0f, 0.0f), "");
-		g_Checklist.ChangeAsset(g_Checklist.Box3, glm::vec2(0.0f, 0.0f), "");
-		g_Checklist.ChangeAsset(g_Checklist.Box4, glm::vec2(0.0f, 0.0f), "");
-
-		if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
-		{
-			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.065f));
-		}
+		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec3(0.26f, 0.08f, 0.0f), "Do6");
+		g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec3(0.26f, 0.08f, 0.0f), "Do7");
+		g_Checklist.ChangeAsset(g_Checklist.Box3, glm::vec3(0.0f, 0.0f, 0.0f), "");
+		g_Checklist.ChangeAsset(g_Checklist.Box4, glm::vec3(0.0f, 0.0f, 0.0f), "");
 	}
 
 	void CheckCollision()
@@ -159,15 +151,10 @@ class MainHall : public Level
 
 		if (collectedBall && collectedBone && !chgChecklist)
 		{
-			g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do8");
-			g_Checklist.ChangeAsset(g_Checklist.Box1, glm::vec2(0.04f, 0.06f), "Box");
-			g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.0f, 0.0f), "");
-			g_Checklist.ChangeAsset(g_Checklist.Box2, glm::vec2(0.0f, 0.0f), "");
-
-			if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
-			{
-				g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.165f));
-			}
+			g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec3(0.25f, 0.08f, 0.0f), "Do8");
+			g_Checklist.ChangeAsset(g_Checklist.Box1, glm::vec3(0.04f, 0.06f, 1.0f), "Box");
+			g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec3(0.0f, 0.0f, 0.0f), "");
+			g_Checklist.ChangeAsset(g_Checklist.Box2, glm::vec3(0.0f, 0.0f, 0.0f), "");
 
 			chgChecklist = true;
 		}

@@ -17,11 +17,6 @@ void Checklist::OnInitialize()
 	{
 		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 		{
-			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Paper")
-			{
-				Paper = entity;
-			}
-
 			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Do1")
 			{
 				Do1 = entity;
@@ -173,15 +168,12 @@ void Checklist::ChangeBoxChecked(Entity ent)
 {
 	playAudio = false;
 
-	if (!g_Coordinator.HaveComponent<UIComponent>(ent)) return;
+	if (!g_Coordinator.HaveComponent<GraphicsComponent>(ent)) return;
 
-	auto& text = g_Coordinator.GetComponent<UIComponent>(ent);
+	auto& text = g_Coordinator.GetComponent<GraphicsComponent>(ent);
 
-	int oldTextureId = text.get_textureid();
-	int textureId = g_ResourceManager.GetTextureDDS("BoxChecked");
-	text.set_textureid(textureId);
-
-	if (!playAudio)
+	int oldTextureId = g_ResourceManager.GetTextureDDS(text.getTextureName());
+	if (text.RemoveTexture(oldTextureId))
 	{
 		// remove old texture & add new one
 		text.clearTextures();
@@ -209,32 +201,42 @@ void Checklist::AddCorgiText()
 	}
 }
 
-void Checklist::ChangeAsset(Entity ent, glm::vec2 scale, std::string textureName)
+void Checklist::ChangeAsset(Entity ent, glm::vec3 scale, std::string textureName)
 {
-	if (!g_Coordinator.HaveComponent<UIComponent>(ent)) return;
+	if (!g_Coordinator.HaveComponent<GraphicsComponent>(ent)) return;
 
-	auto& text = g_Coordinator.GetComponent<UIComponent>(ent);
+	auto& text = g_Coordinator.GetComponent<GraphicsComponent>(ent);
 
-	//int oldTextureId = text.get_textureid();
+	// Empty will be -1
+	int oldTextureId = g_ResourceManager.GetTextureDDS(text.getTextureName());
+
+	text.RemoveTexture(oldTextureId);
+
+	// remove old texture & add new one
+	text.clearTextures();
+
 	int textureId = g_ResourceManager.GetTextureDDS(textureName);
-	text.set_textureid(textureId);
+	text.AddTexture(textureId);
+	text.setTexture(textureName);
 
-	g_Coordinator.GetComponent<UIComponent>(ent).set_scale(scale);
+	if (!g_Coordinator.HaveComponent<TransformComponent>(ent)) return;
 
-	auto pos = g_Coordinator.GetComponent<UIComponent>(ent).get_position();
+	g_Coordinator.GetComponent<TransformComponent>(ent).SetScale(scale);
+
+	auto& pos = g_Coordinator.GetComponent<TransformComponent>(ent).GetPosition();
 
 	if (textureName == "Do6")
 	{
-		g_Coordinator.GetComponent<UIComponent>(ent).set_position(glm::vec2(pos.x + 0.02f, pos.y));
+		g_Coordinator.GetComponent<TransformComponent>(ent).SetPosition(glm::vec3(pos.x + 0.02f, pos.y, pos.z));
 	}
 
 	if (textureName == "Do7")
 	{
-		g_Coordinator.GetComponent<UIComponent>(ent).set_position(glm::vec2(pos.x, pos.y - 0.01f));
+		g_Coordinator.GetComponent<TransformComponent>(ent).SetPosition(glm::vec3(pos.x, pos.y - 0.01f, pos.z));
 	}
 
 	if (textureName == "Do8")
 	{
-		g_Coordinator.GetComponent<UIComponent>(ent).set_position(glm::vec2(pos.x - 0.02f, pos.y));
+		g_Coordinator.GetComponent<TransformComponent>(ent).SetPosition(glm::vec3(pos.x - 0.02f, pos.y, pos.z));
 	}
 }

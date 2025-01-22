@@ -10,7 +10,6 @@ struct Player final : public Behaviour
 	float speed;
 	bool isMoving;
 	bool isJumping;
-	bool isGrounded;
 
 	virtual void Init(Entity entity) override
 	{
@@ -18,7 +17,6 @@ struct Player final : public Behaviour
 		previousPosition = m_Engine.GetPosition(entity); // Initialize with the starting position
 		isJumping = false;
 		isMoving = false;
-		isGrounded = true;
 	}
 
 	virtual void Update(Entity entity) override
@@ -39,7 +37,7 @@ struct Player final : public Behaviour
 		//std::cout << "[DEBUG] Start of Update: isMoving = " << std::boolalpha << isMoving << std::endl;
 
 		// Get grounded state from the CollisionComponent
-		isGrounded = m_Engine.IsGrounded(entity);
+		bool isGrounded = m_Engine.HaveCollisionComponent(entity) ? m_Engine.IsGrounded(entity) : false;
 
 		//std::cout << "[DEBUG] isGrounded = " << std::boolalpha << isGrounded << std::endl;
 
@@ -85,8 +83,8 @@ struct Player final : public Behaviour
 					// Get Camera Direction
 					//float yaw = m_Engine.GetCameraYaw();
 
-					velocity.x += m_Engine.GetCameraDirection(entity).x * 1.f;
-					velocity.z += m_Engine.GetCameraDirection(entity).z * 1.f;
+					velocity.x += m_Engine.GetCameraDirection(entity).x * speed;
+					velocity.z += m_Engine.GetCameraDirection(entity).z * speed;
 					isMoving = true;
 
 				}
@@ -94,33 +92,28 @@ struct Player final : public Behaviour
 				if (m_Engine.getInputSystem().isActionPressed("MoveLeft"))
 				{
 					// Rotate the velocity 90 degrees to the left
-					/*
 					glm::mat3 rotation = glm::mat3(
 						0.0f, 0.0f, -1.0f,
 						0.0f, 1.0f, 0.0f,
 						1.0f, 0.0f, 0.0f
 					);
 					velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
-					*/
-					
-					velocity += glm::cross(m_Engine.GetCameraDirection(entity), glm::vec3(0.0f, -1.0f, 0.0f)) * 1.f;
 					isMoving = true;
 				}
 
 				if (m_Engine.getInputSystem().isActionPressed("MoveBackward"))
 				{
 					//std::cout << "movingS" << std::endl;
-					velocity.x += -m_Engine.GetCameraDirection(entity).x * 1.f;
-					velocity.z += -m_Engine.GetCameraDirection(entity).z * 1.f;
+					velocity.x += -m_Engine.GetCameraDirection(entity).x * speed;
+					velocity.z += -m_Engine.GetCameraDirection(entity).z * speed;
 					isMoving = true;
 				}
 
 				if (m_Engine.getInputSystem().isActionPressed("MoveRight"))
 				{
 					//std::cout << "movingD" << std::endl;
-					
+
 					// Rotate the velocity 90 degrees to the right
-					/*
 					glm::mat3 rotation = glm::mat3(
 						0.0f, 0.0f, 1.0f,
 						0.0f, 1.0f, 0.0f,
@@ -129,41 +122,33 @@ struct Player final : public Behaviour
 
 					velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
 					isMoving = true;
-					*/
-					
-
-					velocity += glm::cross(m_Engine.GetCameraDirection(entity), glm::vec3(0.0f, 1.0f, 0.0f)) * 1.f;
-					isMoving = true;
 				}
 			}
 			else {
 				if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
 				{
-					velocity.z -= 1;
+					velocity.z -= speed;
 					isMoving = true;
 				}
 
 				if (m_Engine.getInputSystem().isActionPressed("MoveLeft"))
 				{
-					velocity.x -= 1;
+					velocity.x -= speed;
 					isMoving = true;
 				}
 
 				if (m_Engine.getInputSystem().isActionPressed("MoveBackward"))
 				{
-					velocity.z += 1;
+					velocity.z += speed;
 					isMoving = true;
 				}
 
 				if (m_Engine.getInputSystem().isActionPressed("MoveRight"))
 				{
-					velocity.x += 1;
+					velocity.x += speed;
 					isMoving = true;
 				}
 			}
-
-			// Normalize the velocity
-			velocity *= speed;
 
 		}
 		if (isMoving)

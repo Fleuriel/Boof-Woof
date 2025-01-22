@@ -1,20 +1,50 @@
 {
-    "SceneGUID": "0db44ef9-28b8-479d-8fbe-845d2e7f9eef",
+    "SceneGUID": "e669ff77-8db8-4ce4-8b30-4c8558187050",
     "Entities": [
         {
             "MetadataComponent": {
                 "EntityName": "Paper",
                 "EntityID": 0
             },
-            "UIComponent": {
-                "TextureID": 19,
-                "PositionX": -0.7300000190734863,
-                "PositionY": 0.800000011920929,
-                "ScaleX": 0.3799999952316284,
-                "ScaleY": 0.6000000238418579,
-                "Layer": 0.5,
-                "Selectable": false,
-                "Opcaity": 1.0
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.8999999761581421,
+                    "y": 0.6499999761581421,
+                    "z": -0.10000000149011612
+                },
+                "Scale": {
+                    "x": 0.699999988079071,
+                    "y": 0.699999988079071,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.5700000524520875
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Checklist",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -22,15 +52,45 @@
                 "EntityName": "Do1",
                 "EntityID": 1
             },
-            "UIComponent": {
-                "TextureID": -1,
-                "PositionX": -0.75,
-                "PositionY": 0.8799999952316284,
-                "ScaleX": 0.15000000596046449,
-                "ScaleY": 0.05000000074505806,
-                "Layer": 0.49000000953674319,
-                "Selectable": false,
-                "Opcaity": 1.0
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.8550000190734863,
+                    "y": 0.8149999976158142,
+                    "z": -0.20000000298023225
+                },
+                "Scale": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Do1",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -38,63 +98,184 @@
                 "EntityName": "Do2",
                 "EntityID": 2
             },
-          "UIComponent": {
-            "TextureID": -1,
-            "PositionX": -0.7200000286102295,
-            "PositionY": 0.7799999713897705,
-            "ScaleX": 0.15000000596046449,
-            "ScaleY": 0.05000000074505806,
-            "Layer": 0.49000000953674319,
-            "Selectable": false,
-            "Opcaity": 1.0
-          }
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.828000009059906,
+                    "y": 0.7319999933242798,
+                    "z": -0.20000000298023225
+                },
+                "Scale": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Do2",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Do3",
                 "EntityID": 3
             },
-          "UIComponent": {
-            "TextureID": -1,
-            "PositionX": -0.6899999976158142,
-            "PositionY": 0.6700000166893005,
-            "ScaleX": 0.15000000596046449,
-            "ScaleY": 0.05000000074505806,
-            "Layer": 0.49000000953674319,
-            "Selectable": false,
-            "Opcaity": 1.0
-          }
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.8019999861717224,
+                    "y": 0.6399999856948853,
+                    "z": -0.20000000298023225
+                },
+                "Scale": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Do3",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Do4",
                 "EntityID": 4
             },
-          "UIComponent": {
-            "TextureID": -1,
-            "PositionX": -0.7599999904632568,
-            "PositionY": 0.5649999976158142,
-            "ScaleX": 0.15000000596046449,
-            "ScaleY": 0.05000000074505806,
-            "Layer": 0.49000000953674319,
-            "Selectable": false,
-            "Opcaity": 1.0
-          }
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.8600000143051148,
+                    "y": 0.5550000071525574,
+                    "z": -0.20000000298023225
+                },
+                "Scale": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Do4",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Box1",
                 "EntityID": 5
             },
-            "UIComponent": {
-                "TextureID": 11,
-                "PositionX": -0.550000011920929,
-                "PositionY": 0.8799999952316284,
-                "ScaleX": 0.03999999910593033,
-                "ScaleY": 0.05999999865889549,
-                "Layer": 0.49000000953674319,
-                "Selectable": false,
-                "Opcaity": 4.300000190734863
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.7099999785423279,
+                    "y": 0.8169999718666077,
+                    "z": -0.30000001192092898
+                },
+                "Scale": {
+                    "x": 0.03999999910593033,
+                    "y": 0.05999999865889549,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Box",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -102,15 +283,45 @@
                 "EntityName": "Box2",
                 "EntityID": 6
             },
-            "UIComponent": {
-                "TextureID": 11,
-                "PositionX": -0.550000011920929,
-                "PositionY": 0.7799999713897705,
-                "ScaleX": 0.03999999910593033,
-                "ScaleY": 0.05999999865889549,
-                "Layer": 0.49000000953674319,
-                "Selectable": false,
-                "Opcaity": 4.300000190734863
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.7099999785423279,
+                    "y": 0.7250000238418579,
+                    "z": -0.30000001192092898
+                },
+                "Scale": {
+                    "x": 0.03999999910593033,
+                    "y": 0.05999999865889549,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Box",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -118,15 +329,46 @@
                 "EntityName": "Box3",
                 "EntityID": 7
             },
-            "UIComponent": {
-                "TextureID": 11,
-                "PositionX": -0.550000011920929,
-                "PositionY": 0.6700000166893005,
-                "ScaleX": 0.03999999910593033,
-                "ScaleY": 0.05999999865889549,
-                "Layer": 0.49000000953674319,
-                "Selectable": false,
-                "Opcaity": 4.300000190734863
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.7099999785423279,
+                    "y": 0.6399999856948853,
+                    "z": -0.30000001192092898
+                },
+                "Scale": {
+                    "x": 0.03999999910593033,
+                    "y": 0.05999999865889549,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Box",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Box",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -134,15 +376,46 @@
                 "EntityName": "Box4",
                 "EntityID": 8
             },
-            "UIComponent": {
-                "TextureID": 11,
-                "PositionX": -0.550000011920929,
-                "PositionY": 0.5649999976158142,
-                "ScaleX": 0.03999999910593033,
-                "ScaleY": 0.05999999865889549,
-                "Layer": 0.49000000953674319,
-                "Selectable": false,
-                "Opcaity": 4.300000190734863
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.7099999785423279,
+                    "y": 0.5550000071525574,
+                    "z": -0.30000001192092898
+                },
+                "Scale": {
+                    "x": 0.03999999910593033,
+                    "y": 0.05999999865889549,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "Texture": "Box",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Box",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         }
     ]

@@ -27,11 +27,8 @@ uniform float opacity;
 
 void main () {
 
-	vec4 texColor = texture(uTex2d, vTexCoord) * opacity;
-
-	if(texColor.a < 0.1)
-		discard;
 	
-	fFragColor = texColor;
+	
+	fFragColor = texture(uTex2d, vTexCoord) * opacity;
 
 }

@@ -1,20 +1,20 @@
 {
-    "SceneGUID": "44002d75-25ae-4caf-907f-76a082dc5919",
+    "SceneGUID": "308ddc4b-a420-4816-a270-48afb47d2692",
     "Entities": [
         {
             "MetadataComponent": {
-                "EntityName": "UI1",
+                "EntityName": "folder_UI",
                 "EntityID": 0
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.0,
+                    "x": -0.5,
                     "y": 0.0,
                     "z": 0.0
                 },
                 "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
+                    "x": 0.30000001192092898,
+                    "y": 0.4000000059604645,
                     "z": 1.0
                 },
                 "Rotation": {
@@ -30,27 +30,26 @@
             },
             "UIComponent": {
                 "TextureID": 51,
-                "PositionX": -0.4000000059604645,
+                "PositionX": -0.5,
                 "PositionY": 0.0,
-                "ScaleX": 0.4000000059604645,
-                "ScaleY": 0.5,
-                "Layer": 0.5
+                "ScaleX": 0.30000001192092898,
+                "ScaleY": 0.4000000059604645
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "UI2",
+                "EntityName": "otherUI",
                 "EntityID": 1
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.0,
+                    "x": 0.5,
                     "y": 0.0,
                     "z": 0.0
                 },
                 "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
+                    "x": 0.30000001192092898,
+                    "y": 0.30000001192092898,
                     "z": 1.0
                 },
                 "Rotation": {
@@ -65,12 +64,11 @@
                 }
             },
             "UIComponent": {
-                "TextureID": 3,
-                "PositionX": 0.0,
+                "TextureID": 5,
+                "PositionX": 0.5,
                 "PositionY": 0.0,
-                "ScaleX": 0.4000000059604645,
-                "ScaleY": 0.6000000238418579,
-                "Layer": 0.5
+                "ScaleX": 0.30000001192092898,
+                "ScaleY": 0.30000001192092898
             }
         }
     ]

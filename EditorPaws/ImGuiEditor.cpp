@@ -913,17 +913,6 @@ void ImGuiEditor::InspectorWindow()
 								}
 							);
 
-							// If got UI Component, remove Transform & Graphics Component
-							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) 
-							{
-								g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
-							}
-
-							if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
-							{
-								g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
-								g_Coordinator.RemoveComponent<MaterialComponent>(g_SelectedEntity);
-							}
 						}
 					}
 					
@@ -3440,17 +3429,11 @@ void ImGuiEditor::InspectorWindow()
 								
 								// set texture ID 
 								int textureID = uiComponent.get_textureid();
-								ImGui::Text("Texture :");
+								ImGui::Text("Texture ID");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
-
-								std::string currentTextureName = g_ResourceManager.GetTextureDDSFileName(textureID);
-								ImGui::Text("%s", currentTextureName.c_str());
-								
-								ImGui::SameLine();
-								ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);
-
 								ImGui::PushID("TextureID");
+
 								if (ImGui::Button("Set Texture"))
 								{
 									//oldTextureName = currentTextureName; // Capture the old value
@@ -3513,40 +3496,7 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
-								// display layer number
-								ImGui::Text("Layer: %f" , uiComponent.get_UI_layer());
-								ImGui::SameLine();
-							
-								//move forward or backward button
-								if (ImGui::Button("Move Forward"))
-								{
-									uiComponent.set_UI_layer(uiComponent.get_UI_layer() - 0.01f);
-								}
-								ImGui::SameLine();
-								if (ImGui::Button("Move Backward"))
-								{
-									uiComponent.set_UI_layer(uiComponent.get_UI_layer() + 0.01f);
-								}
 
-								// check box for selectablity
-								bool selectable = uiComponent.get_selectable();
-								ImGui::Checkbox("Selectable", &selectable);
-								uiComponent.set_selectable(selectable);
-
-								// opacity
-								float opacity = uiComponent.get_opacity();
-								ImGui::Text("Opacity");
-								ImGui::SameLine();
-								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("Opacity");
-
-								if (ImGui::DragFloat("##Opacity", &opacity, 0.1f))
-								{
-									uiComponent.set_opacity(opacity);
-								}
-
-								ImGui::PopID();
-								ImGui::PopItemWidth();
 
 							}
 						}
