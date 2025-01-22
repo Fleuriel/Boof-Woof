@@ -3590,12 +3590,64 @@ void ImGuiEditor::InspectorWindow()
 						}
 						//Pathfinding Component editor
 						else if (className == "PathfindingComponent") {
-							if (ImGui::CollapsingHeader("Pathfinding", ImGuiTreeNodeFlags_None))
-							{
-								auto& pathfindingComponent = g_Coordinator.GetComponent<PathfindingComponent>(g_SelectedEntity);
+						if (ImGui::CollapsingHeader("Pathfinding", ImGuiTreeNodeFlags_None)) {
+							auto& pathfindingComponent = g_Coordinator.GetComponent<PathfindingComponent>(g_SelectedEntity);
 
+							// Starting Position
+							glm::vec3 startPosition = pathfindingComponent.GetStartPosition();
+							ImGui::Text("Start Position");
+							ImGui::SameLine();
+							ImGui::PushItemWidth(150.0f);
+							ImGui::PushID("StartPosition");
+
+							if (ImGui::DragFloat3("##StartPosition", &startPosition.x, 0.1f)) {
+								pathfindingComponent.SetStartPosition(startPosition);
 							}
+
+							ImGui::PopID();
+							ImGui::PopItemWidth();
+
+							// Goal Position
+							glm::vec3 goalPosition = pathfindingComponent.GetGoalPosition();
+							ImGui::Text("Goal Position");
+							ImGui::SameLine();
+							ImGui::PushItemWidth(150.0f);
+							ImGui::PushID("GoalPosition");
+
+							if (ImGui::DragFloat3("##GoalPosition", &goalPosition.x, 0.1f)) {
+								pathfindingComponent.SetGoalPosition(goalPosition);
+							}
+
+							ImGui::PopID();
+							ImGui::PopItemWidth();
+
+							//// Is Active Checkbox
+							//bool isActive = pathfindingComponent.IsActive();
+							//ImGui::Checkbox("Active", &isActive);
+							//pathfindingComponent.SetActive(isActive);
+
+							//// Debug Enabled Checkbox
+							//bool debugEnabled = pathfindingComponent.IsDebugEnabled();
+							//ImGui::Checkbox("Debug Enabled", &debugEnabled);
+							//pathfindingComponent.EnableDebug(debugEnabled);
+
+							//// Heuristic Type Selector
+							//static const char* heuristicTypes[] = { "Euclidean", "Manhattan", "Octile" };
+							//int heuristicIndex = static_cast<int>(pathfindingComponent.GetHeuristic());
+							//ImGui::Text("Heuristic");
+							//ImGui::SameLine();
+							//ImGui::PushItemWidth(125.0f);
+							//ImGui::PushID("Heuristic");
+
+							//if (ImGui::Combo("##Heuristic", &heuristicIndex, heuristicTypes, IM_ARRAYSIZE(heuristicTypes))) {
+							//	pathfindingComponent.SetHeuristic(static_cast<HeuristicType>(heuristicIndex));
+							//}
+
+							//ImGui::PopID();
+							//ImGui::PopItemWidth();
 						}
+}
+
 					}
 				}
 			}

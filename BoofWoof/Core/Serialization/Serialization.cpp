@@ -481,6 +481,39 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
         }
 
+        // Serialize PathfindingComponent
+        if (g_Coordinator.HaveComponent<PathfindingComponent>(entity)) {
+            rapidjson::Value pathfindingData(rapidjson::kObjectType);
+
+            auto& pathfindingComp = g_Coordinator.GetComponent<PathfindingComponent>(entity);
+
+            // Save start position
+            rapidjson::Value startPos(rapidjson::kObjectType);
+            startPos.AddMember("x", pathfindingComp.GetStartPosition().x, allocator);
+            startPos.AddMember("y", pathfindingComp.GetStartPosition().y, allocator);
+            startPos.AddMember("z", pathfindingComp.GetStartPosition().z, allocator);
+            pathfindingData.AddMember("StartPosition", startPos, allocator);
+
+            // Save goal position
+            rapidjson::Value goalPos(rapidjson::kObjectType);
+            goalPos.AddMember("x", pathfindingComp.GetGoalPosition().x, allocator);
+            goalPos.AddMember("y", pathfindingComp.GetGoalPosition().y, allocator);
+            goalPos.AddMember("z", pathfindingComp.GetGoalPosition().z, allocator);
+            pathfindingData.AddMember("GoalPosition", goalPos, allocator);
+
+            //// Save isActive
+            //pathfindingData.AddMember("IsActive", pathfindingComp.IsActive(), allocator);
+
+            //// Save debugEnabled
+            //pathfindingData.AddMember("DebugEnabled", pathfindingComp.IsDebugEnabled(), allocator);
+
+            //// Save heuristic type
+            //pathfindingData.AddMember("Heuristic", static_cast<int>(pathfindingComp.GetHeuristic()), allocator);
+
+            // Add the PathfindingComponent to the entityData
+            entityData.AddMember("PathfindingComponent", pathfindingData, allocator);
+        }
+
         entities.PushBack(entityData, allocator);
     }
 
@@ -1032,6 +1065,57 @@ bool Serialization::LoadScene(const std::string& filepath)
 			//if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) {
 			//	std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << std::endl;
 			//}
+
+            // Deserialize PathfindingComponent
+            if (entityData.HasMember("PathfindingComponent")) {
+                const auto& pathfindingData = entityData["PathfindingComponent"];
+
+                glm::vec3 startPos(0.0f), goalPos(0.0f);
+                bool isActive = false;
+                bool debugEnabled = false;
+                HeuristicType heuristic = HeuristicType::EUCLIDEAN;
+
+                // Load start position
+                if (pathfindingData.HasMember("StartPosition")) {
+                    startPos = glm::vec3(
+                        pathfindingData["StartPosition"]["x"].GetFloat(),
+                        pathfindingData["StartPosition"]["y"].GetFloat(),
+                        pathfindingData["StartPosition"]["z"].GetFloat()
+                    );
+                }
+
+                // Load goal position
+                if (pathfindingData.HasMember("GoalPosition")) {
+                    goalPos = glm::vec3(
+                        pathfindingData["GoalPosition"]["x"].GetFloat(),
+                        pathfindingData["GoalPosition"]["y"].GetFloat(),
+                        pathfindingData["GoalPosition"]["z"].GetFloat()
+                    );
+                }
+
+                //// Load isActive
+                //if (pathfindingData.HasMember("IsActive")) {
+                //    isActive = pathfindingData["IsActive"].GetBool();
+                //}
+
+                //// Load debugEnabled
+                //if (pathfindingData.HasMember("DebugEnabled")) {
+                //    debugEnabled = pathfindingData["DebugEnabled"].GetBool();
+                //}
+
+                //// Load heuristic type
+                //if (pathfindingData.HasMember("Heuristic")) {
+                //    heuristic = static_cast<HeuristicType>(pathfindingData["Heuristic"].GetInt());
+                //}
+
+                // Add PathfindingComponent to entity
+                PathfindingComponent pathfindingComp(startPos, goalPos);
+                //pathfindingComp.SetActive(isActive);
+                //pathfindingComp.EnableDebug(debugEnabled);
+                //pathfindingComp.SetHeuristic(heuristic);
+                g_Coordinator.AddComponent(entity, pathfindingComp);
+            }
+
 
             // Store the entity
             storedEnt.push_back(entity);
