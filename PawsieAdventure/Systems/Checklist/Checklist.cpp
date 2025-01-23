@@ -6,6 +6,8 @@
 Checklist g_Checklist;
 Serialization serialChecklist;
 
+Entity CheckBox{};
+
 void Checklist::OnInitialize()
 {
 	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/Checklist.json");
@@ -64,6 +66,22 @@ void Checklist::OnInitialize()
 			}
 		}
 	}
+
+	for (auto entity : entities)
+	{
+		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+		{
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "CheckTheBox")
+			{
+				CheckBox = entity;
+				break;
+			}
+		}
+	}
+
+	auto& music = g_Coordinator.GetComponent<AudioComponent>(CheckBox);
+	music.SetAudioSystem(&g_Audio);
+
 
 	shutted = false;
 }
@@ -183,7 +201,11 @@ void Checklist::ChangeBoxChecked(Entity ent)
 
 	if (!playAudio)
 	{
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CheckTheBox.wav", false, "SFX");
+	//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CheckTheBox.wav", false, "SFX");
+		if (g_Coordinator.HaveComponent<AudioComponent>(CheckBox)) {
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(CheckBox);
+			music.PlayAudio();
+		}
 		playAudio = true;
 	}
 }
