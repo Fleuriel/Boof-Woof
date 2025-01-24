@@ -1,0 +1,177 @@
+{
+    "SceneGUID": "1af656cd-5b36-48ee-a517-95fb5a0d7854",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Player",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -1.2400950193405152,
+                    "y": 1.9853073358535767,
+                    "z": -4.148372650146484
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Corgi2",
+                "Texture": "Corgi2",
+                "FollowCamera": true
+            },
+            "BehaviourComponent": {
+                "BehaviourName": "Player"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": true,
+                "IsPlayer": true,
+                "AABBSize": {
+                    "x": 2.799999952316284,
+                    "y": 1.7999999523162842,
+                    "z": 1.2999999523162842
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -5.640601634979248
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "FloorCastle",
+                "Texture": "FloorCastle",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.20000000298023225,
+                    "z": 4.199999809265137
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Treat",
+                "EntityID": 2
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 2.8981058597564699,
+                    "y": 1.1799997091293336,
+                    "z": -3.1446688175201418
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bone",
+                "Texture": "NothingTexture",
+                "FollowCamera": true
+            },
+            "BehaviourComponent": {
+                "BehaviourName": "Player"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": true,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        }
+    ]
+}

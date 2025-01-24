@@ -18,7 +18,7 @@ struct Treat final : public Behaviour
 			const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
 
 			//Check if the entity is the player
-			if (strcmp(collidingEntityName, "Player") == 0)
+			if (strcmp(collidingEntityName, "Corgi2") == true)
 			{
 				//Play sound
 				m_Engine.getAudioSystem().PlaySound("TreatSound");
