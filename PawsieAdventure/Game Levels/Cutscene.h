@@ -21,37 +21,33 @@ class Cutscene : public Level
 
         std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
+        // Use unordered_map to make it O(1) efficiency
+        std::unordered_map<std::string, std::function<void(Entity)>> nameToAction = 
+        {
+            {"Text", [&](Entity entity) { TextEnt = entity; }},
+            {"DogName", [&](Entity entity) { DogName = entity; }},
+            {"AggressiveDogBarking", [&](Entity entity) { AggroDog = entity; }},
+            {"CorgiWhimper", [&](Entity entity) { CorgiWhimper = entity; }},
+            {"12sGrowlBarkCorgi", [&](Entity entity) { corgi12sec = entity; }}
+        };
+
+
         for (auto entity : entities)
         {
             if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
             {
                 const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
-                const std::string& name = metadata.GetName();
+                auto it = nameToAction.find(metadata.GetName());
 
-                if (name == "Text")
+                if (it != nameToAction.end())
                 {
-                    TextEnt = entity;
-                    std::cout << "TEXT FOUND" << std::endl;
+                    it->second(entity);
                 }
-                else if (name == "DogName")
+
+                if (g_Coordinator.HaveComponent<AudioComponent>(entity))
                 {
-                    DogName = entity;
-                    std::cout << "DOG NAME FOUND" << std::endl;
-                }
-                else if (name == "AggressiveDogBarking")
-                {
-                    AggroDog = entity;
-                    std::cout << "AGGRESSIVE DOG BARKING FOUND" << std::endl;
-                }
-                else if (name == "CorgiWhimper")
-                {
-                    CorgiWhimper = entity;
-                    std::cout << "CORGI WHIMPER FOUND" << std::endl;
-                }
-                else if (name == "12sGrowlBarkCorgi")
-                {
-                    corgi12sec = entity;
-                    std::cout << "12s GROWL BARK CORGI FOUND" << std::endl;
+                    auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
+                    music.SetAudioSystem(&g_Audio);
                 }
 
                 // Exit early if all entities are found
@@ -59,23 +55,7 @@ class Cutscene : public Level
                 {
                     break;
                 }
-            }
-        }
-
-
-        if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
-
-            auto& music = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
-            music.SetAudioSystem(&g_Audio);
-        }
-
-        if (g_Coordinator.HaveComponent<AudioComponent>(CorgiWhimper)) {
-            auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiWhimper);
-            music1.SetAudioSystem(&g_Audio);
-        }
-        if (g_Coordinator.HaveComponent<AudioComponent>(corgi12sec)) {
-            auto& music2 = g_Coordinator.GetComponent<AudioComponent>(corgi12sec);
-            music2.SetAudioSystem(&g_Audio);
+            }       
         }
     }
 

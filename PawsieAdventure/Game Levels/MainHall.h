@@ -25,48 +25,34 @@ class MainHall : public Level
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
+		// Use unordered_map to make it O(1) efficiency
+		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
+		{
+			{"Player", [&](Entity entity) { playerEnt = entity; }},
+			{"Rope1", [&](Entity entity) { RopeEnt = entity; }},
+			{"Rope2", [&](Entity entity) { RopeEnt2 = entity; }},
+			{"DrawBridge", [&](Entity entity) { BridgeEnt = entity; }},
+			{"Bone", [&](Entity entity) { bone = entity; }},
+			{"TennisBall", [&](Entity entity) { tennisBall = entity; }},
+			{"ScentTrail1", [&](Entity entity) { scentEntity1 = entity; }},
+			{"ScentTrail2", [&](Entity entity) { scentEntity2 = entity; }}
+		};
+
 		for (auto entity : entities)
 		{
 			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Player")
+				const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+				auto it = nameToAction.find(metadata.GetName());
+
+				if (it != nameToAction.end())
 				{
-					playerEnt = entity;
+					it->second(entity);
 				}
 
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
+				// Exit early if all entities are found
+				if (playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && bone && tennisBall && scentEntity1 && scentEntity2)
 				{
-					RopeEnt = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
-				{
-					RopeEnt2 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "DrawBridge")
-				{
-					BridgeEnt = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Bone")
-				{
-					bone = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "TennisBall")
-				{
-					tennisBall = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail1")
-				{
-					scentEntity1 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail2")
-				{
-					scentEntity2 = entity;
 					break;
 				}
 			}

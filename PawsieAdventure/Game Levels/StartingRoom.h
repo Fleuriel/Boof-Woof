@@ -21,79 +21,52 @@ public:
 	void LoadLevel()
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom.json");
-		//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true,  "BGM");
-
+		
 		g_ChangeText.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
-		for (auto entity : entities)
+		// Use unordered_map to make it O(1) efficiency
+		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
 		{
-			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
-			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Player")
-				{
-					playerEnt = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail")
-				{
-					scentEntity = entity;
-					break;
-				}
-			}
-		}
+			{"Player", [&](Entity entity) { playerEnt = entity; }},
+			{"ScentTrail", [&](Entity entity) { scentEntity = entity; }},
+			{"BedRoomMusic", [&](Entity entity) { BedRoomBGM = entity; }},
+			{"CorgiBark1", [&](Entity entity) { CorgiBark = entity; }},
+			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }}
+		};
 
 		for (auto entity : entities)
 		{
 			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "BedRoomMusic")
+				const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+				auto it = nameToAction.find(metadata.GetName());
+
+				if (it != nameToAction.end())
 				{
-					BedRoomBGM = entity;
+					it->second(entity);
+				}
+
+
+				if (g_Coordinator.HaveComponent<AudioComponent>(entity))
+				{
+					auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
+					music.SetAudioSystem(&g_Audio);
+
+					if (metadata.GetName() == "BedRoomMusic")
+					{
+						music.PlayAudio();
+					}
+				}
+
+				// Exit early if all entities are found
+				if (playerEnt && scentEntity && BedRoomBGM && CorgiBark && CorgiSniff)
+				{
 					break;
 				}
 			}
 		}
-		for (auto entity : entities)
-		{
-			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
-			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "CorgiBark1")
-				{
-					CorgiBark = entity;
-					break;
-				}
-			}
-		}
-		for (auto entity : entities)
-		{
-			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
-			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "CorgiSniff")
-				{
-					CorgiSniff = entity;
-					break;
-				}
-			}
-		}
-
-
-
-		auto& music = g_Coordinator.GetComponent<AudioComponent>(BedRoomBGM);
-		music.SetAudioSystem(&g_Audio);
-		music.PlayAudio();
-
-
-		auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiBark);
-		music1.SetAudioSystem(&g_Audio);
-
-
-		auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
-		music2.SetAudioSystem(&g_Audio);
-
-
-
 		g_Window->HideMouseCursor();
 	}
 
@@ -147,8 +120,8 @@ public:
 
 		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
 		{
-			//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiBark1.wav", false, "SFX");
-			if (g_Coordinator.HaveComponent<AudioComponent>(CorgiBark)) {
+			if (g_Coordinator.HaveComponent<AudioComponent>(CorgiBark)) 
+			{
 				auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiBark);
 				music1.PlayAudio();
 			}
@@ -162,11 +135,12 @@ public:
 
 		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniff)
 		{
-			//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false, "SFX");
-			if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
+			if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) 
+			{
 				auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
 				music2.PlayAudio();
 			}
+
 			opacity.setParticleColor(glm::vec4(0.09019608050584793f, 0.7843137383460999f, 0.8549019694328308f, 1.0f));
 			sniff = true;
 		}
@@ -204,11 +178,14 @@ public:
 	void UnloadLevel()
 	{
 		//g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav");
-		if (g_Coordinator.HaveComponent<AudioComponent>(BedRoomBGM)) {
-			auto& music = g_Coordinator.GetComponent<AudioComponent>(BedRoomBGM);
-			music.StopAudio();
-		}
-		g_Audio.StopBGM();
+		//if (g_Coordinator.HaveComponent<AudioComponent>(BedRoomBGM)) {
+		//	auto& music = g_Coordinator.GetComponent<AudioComponent>(BedRoomBGM);
+		//	music.StopAudio();
+		//}
+
+		g_Audio.Stop(BedRoomBGM);
+
+		//g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 	}

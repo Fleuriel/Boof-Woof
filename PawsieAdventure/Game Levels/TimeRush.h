@@ -29,107 +29,57 @@ class TimeRush : public Level
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/TimeRushPuzzle.json");
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/Timer.json");
-		//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/TimeRushBGM.wav", true, "BGM");
-		//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/AggressiveDogBarking.wav", false, "SFX");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
-		for (auto entity : entities)
+
+		// Use unordered_map to make it O(1) efficiency
+		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
 		{
-			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
-			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Player")
-				{
-					playerEnt = entity;
-				}
+			{"Player", [&](Entity entity) { playerEnt = entity; }},
+			{"ScentTrail1", [&](Entity entity) { scentEntity1 = entity; }},
+			{"ScentTrail2", [&](Entity entity) { scentEntity2 = entity; }},
+			{"ScentTrail3", [&](Entity entity) { scentEntity3 = entity; }},
+			{"ScentTrail4", [&](Entity entity) { scentEntity4 = entity; }},
+			{"ScentTrail5", [&](Entity entity) { scentEntity5 = entity; }},
+			{"ScentTrail6", [&](Entity entity) { scentEntity6 = entity; }},
+			{"Group", [&](Entity entity) { timerTextEntity = entity; }},
+			{"TimeRushBGM", [&](Entity entity) { TimeRushBGM = entity; }},
+			{"AggressiveDogBarking", [&](Entity entity) { AggroDog = entity; }},
+			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }}
+		};
 
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail1")
-				{
-					scentEntity1 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail2")
-				{
-					scentEntity2 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail3")
-				{
-					scentEntity3 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail4")
-				{
-					scentEntity4 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail5")
-				{
-					scentEntity5 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail6")
-				{
-					scentEntity6 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Group")
-				{
-					timerTextEntity = entity;
-					break;
-				}
-			}
-		}
 
 		for (auto entity : entities)
 		{
 			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "TimeRushBGM")
+				const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+				auto it = nameToAction.find(metadata.GetName());
+
+				if (it != nameToAction.end())
 				{
-					TimeRushBGM = entity;
+					it->second(entity);
+				}
+
+				if (g_Coordinator.HaveComponent<AudioComponent>(entity))
+				{
+					auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
+					music.SetAudioSystem(&g_Audio);
+
+					if (metadata.GetName() == "TimeRushBGM" || metadata.GetName() == "AggressiveDogBarking")
+					{
+						music.PlayAudio();
+					}
+				}
+
+				// Exit early if all entities are found
+				if (playerEnt && scentEntity1 && scentEntity2 && scentEntity3 && scentEntity4 
+					&& scentEntity5 && scentEntity6 && timerTextEntity && TimeRushBGM && AggroDog && CorgiSniff)
+				{
 					break;
 				}
 			}
 		}
-		for (auto entity : entities)
-		{
-			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
-			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "AggressiveDogBarking")
-				{
-					AggroDog = entity;
-					break;
-				}
-			}
-		}
-		for (auto entity : entities)
-		{
-			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
-			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "CorgiSniff")
-				{
-					CorgiSniff = entity;
-					break;
-				}
-			}
-		}
-
-
-
-		auto& music = g_Coordinator.GetComponent<AudioComponent>(TimeRushBGM);
-		music.SetAudioSystem(&g_Audio);
-		music.PlayAudio();
-
-
-		auto& music1 = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
-		music1.SetAudioSystem(&g_Audio);
-		music1.PlayAudio();
-
-
-		auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
-		music2.SetAudioSystem(&g_Audio);
-
-
 		g_Window->HideMouseCursor();
 	}
 

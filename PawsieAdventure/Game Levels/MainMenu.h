@@ -18,63 +18,55 @@ class MainMenu : public Level
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainMenuBack.json");
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainMenuFront.json");
 
-		// Play background music
-		//g_Audio.PlayBGM(FILEPATH_ASSET_AUDIO+"/mainmenu music.wav");
 
 		// Find the "BackCamera" entity
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
-		for (auto entity : entities)
+
+		// Use unordered_map to make it O(1) efficiency
+		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
 		{
-			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
-			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "BackCamera")
-				{
-					BackCamera = entity;
-					break;
-				}
-			}
-		}
-		for (auto entity : entities)
-		{
-			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
-			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "MainMenuBGM")
-				{
-					MenuMusic = entity;
-					break;
-				}
-			}
-		}
+			{"BackCamera", [&](Entity entity) { BackCamera = entity; }},
+			{"MainMenuBGM", [&](Entity entity) { MenuMusic = entity; }},
+			{"MenuButtonClick", [&](Entity entity) { MenuClick = entity; }}
+		};
+
 
 		for (auto entity : entities)
 		{
 			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "MenuButtonClick")
+				const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+				auto it = nameToAction.find(metadata.GetName());
+
+				if (it != nameToAction.end())
 				{
-					MenuClick = entity;
+					it->second(entity);
+				}
+
+				if (g_Coordinator.HaveComponent<AudioComponent>(entity))
+				{
+					auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
+					music.SetAudioSystem(&g_Audio);
+
+					if (metadata.GetName() == "MainMenuBGM") 
+					{
+						music.PlayAudio();
+					}
+				}
+
+				// Exit early if all entities are found
+				if (BackCamera && MenuMusic && MenuClick)
+				{
 					break;
 				}
 			}
 		}
-
-
-		auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
-		music.SetAudioSystem(&g_Audio);
-		music.PlayAudio();
-
-
-
-		auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
-		music1.SetAudioSystem(&g_Audio);
 	}
 
 	void InitLevel() { /* Empty by design */ }
 
 	void UpdateLevel(double deltaTime)
 	{
-
-
 		// Get the current yaw value for the camera
 		float currentYaw = g_Coordinator.GetComponent<CameraComponent>(BackCamera).GetCameraYaw();
 
@@ -94,13 +86,12 @@ class MainMenu : public Level
 		{
 			if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
 			{
-				//g_Audio.StopBGM();
-
 				// Play the button click sound
 				if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
 					auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
 					music1.PlayAudio();
 				}
+				
 				// Mark space as pressed and reset elapsed time
 				spacePressed = true;
 				MenuelapsedTime = 0.0;
@@ -121,10 +112,13 @@ class MainMenu : public Level
 
 	void UnloadLevel()
 	{
-		if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic)) {
+		/*if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic)) {
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
 			music.StopAudio();
-		}
+		}*/
+
+		g_Audio.Stop(MenuMusic);
+
 		// Reset all entities
 		g_Coordinator.ResetEntities();
 		MenuelapsedTime = 0.0;
