@@ -18,6 +18,8 @@
 #include "ResourceManager.h"
 #include "AssetManager/FilePaths.h"
 #include <gli/gli.hpp>
+#include <gli/load_dds.hpp>
+
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -93,6 +95,7 @@ DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
         return ddsData;
     }
 
+
   
     // Get OpenGL texture parameters
     gli::gl GL(gli::gl::PROFILE_GL33);
@@ -100,6 +103,12 @@ DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
     GLenum Target = GL.translate(Texture.target());
     glm::tvec3<GLsizei> extent(Texture.extent());
     //assert(Target == gli::TARGET_2D); // Ensure the target is 2D
+
+
+    if (Target != GL_TEXTURE_2D) {
+        std::cerr << "Error: DDS texture is not 2D!" << std::endl;
+        return ddsData;
+    }
 
     GLuint TextureName = existingTexture;
     if (TextureName == 0)
@@ -110,17 +119,37 @@ DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
     {
         glDeleteTextures(1, &TextureName);
     }
+
+    if (Texture.levels() <= 0) {
+        std::cerr << "Error: DDS texture does not contain mipmaps!" << std::endl;
+        return ddsData;
+    }
+
+    std::cout << "Internal format: " << Format.Internal << std::endl;
+    if (Format.Internal != GL_COMPRESSED_RGBA_S3TC_DXT5_EXT) {
+        std::cerr << "Warning: Internal format mismatch!" << std::endl;
+    }
+    
+    
     glBindTexture(Target, TextureName);
+
+
+    std::cout << "Format Type External Internal: " << Format.Type << '\t' << Format.External << '\t' << Format.Internal << '\n';
+    
+
 
     // Set texture parameters
     glTexParameteri(Target, GL_TEXTURE_BASE_LEVEL, 0);
     glTexParameteri(Target, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(Texture.levels() - 1));
-    glTexParameteriv(Target, GL_TEXTURE_SWIZZLE_RGBA, &Format.Swizzles[0]);
+//    glTexParameteriv(Target, GL_TEXTURE_SWIZZLE_RGBA, &Format.Swizzles[0]);
     //glTexParameteri(Target, GL_TEXTURE_RB, GL_TRUE);
 
     // Allocate storage for the texture
     glTexStorage2D(Target, static_cast<GLint>(Texture.levels()), Format.Internal,
         Texture.extent(0).x, Texture.extent(0).y);
+
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // BC3/DXT5 has 1-byte alignment
 
     // Upload the texture data for each mipmap level
     for (std::size_t Level = 0; Level < Texture.levels(); ++Level) {
@@ -134,7 +163,6 @@ DDSData LoadDDS(const char* filePath, GLuint existingTexture = 0) {
         ddsData.Height = Extent.y;
 
     }
-
 
     // Optionally set additional texture parameters
     glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);

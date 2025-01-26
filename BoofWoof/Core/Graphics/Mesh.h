@@ -67,6 +67,8 @@ public:
 
 
 #ifdef _DEBUG
+        std::cout << "Mesh.h\n";
+
         for (int i = 0; i < textures.size(); ++i)
         {
             std::cout << textures[i].id << '\t' << textures[i].path << '\t' << textures[i].type << '\n';
