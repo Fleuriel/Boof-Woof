@@ -26,13 +26,6 @@
 #include "Descriptor.h"
 #include "Animation/Animation.h"
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include <fstream>
-#include <iostream>
-#include <map>
-
-
 AssetManager g_AssetManager;
 
 namespace fs = std::filesystem;
@@ -182,8 +175,7 @@ void AssetManager::LoadAll() {
         << ((loadScenes) ? "Scenes loaded successfully" : "Failed to load scenes") << std::endl
         //<< ((loadPrefabs) ? "Prefabs loaded successfully" : "Failed to load prefabs") << std::endl
         << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl 
-        << ((loadObjects) ? "Object loaded Successfully" : "failed to load object") << '\n'
-        ;
+        << ((loadObjects) ? "Object loaded Successfully" : "failed to load object") << '\n';
 #else
         AssetManager::LoadTextures(),
         AssetManager::LoadObjects(),
@@ -1116,81 +1108,35 @@ bool AssetManager::ReloadShaders()
 
 
 
-void ExtractCharMapToBin(const char* fontFile, const char* outputBinFile) {
-    FT_Library library;
-    FT_Face face;
 
-    // Initialize FreeType library
-    if (FT_Init_FreeType(&library)) {
-        std::cerr << "Error: Could not initialize FreeType library." << std::endl;
-        return;
-    }
-
-    // Load the font file
-    if (FT_New_Face(library, fontFile, 0, &face)) {
-        std::cerr << "Error: Could not load font file." << std::endl;
-        FT_Done_FreeType(library);
-        return;
-    }
-
-    // Get the character map (cmap)
-    FT_CharMap charmap = face->charmap;
-    if (!charmap) {
-        std::cerr << "Error: No character map found in the font file." << std::endl;
-        FT_Done_Face(face);
-        FT_Done_FreeType(library);
-        return;
-    }
-
-    std::map<FT_ULong, FT_UInt> cmap;
-    FT_ULong charcode;
-    FT_UInt gindex;
-
-    // Iterate through the cmap entries
-    charcode = FT_Get_First_Char(face, &gindex);
-    while (gindex != 0) {
-        cmap[charcode] = gindex;
-        charcode = FT_Get_Next_Char(face, charcode, &gindex);
-    }
-
-    // Write cmap to binary file
-    std::ofstream outFile(outputBinFile, std::ios::binary);
-    if (!outFile) {
-        std::cerr << "Error: Could not open output file." << std::endl;
-        FT_Done_Face(face);
-        FT_Done_FreeType(library);
-        return;
-    }
-
-    for (const auto& entry : cmap) {
-        outFile.write(reinterpret_cast<const char*>(&entry.first), sizeof(entry.first));
-        outFile.write(reinterpret_cast<const char*>(&entry.second), sizeof(entry.second));
-    }
-
-    std::cout << "Character map successfully extracted to " << outputBinFile << std::endl;
-
-    // Clean up
-    outFile.close();
-    FT_Done_Face(face);
-    FT_Done_FreeType(library);
-}
 
 
 bool AssetManager::LoadFonts() {
+
     Currentlyloading = true;
     std::string filepath(FILEPATH_ASSET_FONTS);
 
     if (fs::is_directory(filepath)) {
         for (const auto& entry : fs::directory_iterator(filepath)) {
-            std::string filePath = fs::absolute(entry.path()).string();
+
+
+            std::string FilePath = filepath + "\\" + entry.path().filename().string();
+            //std::cout << "Font file " << FilePath << " Found." << std::endl;
 
             size_t pos = entry.path().filename().string().find_last_of('.');
             if (pos != std::string::npos) {
+
                 std::string nameWithoutExtension = entry.path().filename().string().substr(0, pos);
-                std::string extension = entry.path().filename().string().substr(pos);
+                //std::cout << nameWithoutExtension << std::endl;
+
+                std::string Extension = entry.path().filename().string().substr(pos);
+                //std::cout << Extension;
                 std::string allowedExtensions = ".ttf";
 
-                if (allowedExtensions.find(toLowerCase(extension)) == std::string::npos) {
+                // Check if the substring exists in the full string
+                size_t found = allowedExtensions.find(toLowerCase(Extension));
+
+                if (found == std::string::npos) {
                     DiscardToTrashBin(entry.path().string(), FILEPATH_ASSET_FONTS);
                     continue;
                 }
@@ -1202,64 +1148,55 @@ bool AssetManager::LoadFonts() {
                 std::cout << nameWithoutExtension << " detected successfully!\n";
 #endif // DEBUG
 
-                // Paths for font processing
-                std::string tmpOutputPath = FILEPATH_RESOURCE_FONTS + "/" + nameWithoutExtension + ".bin";
-                ExtractCharMapToBin(filePath.c_str(), tmpOutputPath.c_str());
-
-                // Ensure descriptor directory exists
-                if (!fs::exists(FILEPATH_DESCRIPTOR_FONTS)) {
+                if (!fs::exists(FILEPATH_DESCRIPTOR_FONTS))
                     fs::create_directory(FILEPATH_DESCRIPTOR_FONTS);
-                }
 
-                // Descriptor file path
-                std::string descriptorFilePath = FILEPATH_DESCRIPTOR_FONTS + "/" + nameWithoutExtension + ".json";
+                // Create an output file stream (ofstream) object
+                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_FONTS+ "/" + nameWithoutExtension + ".json" };
+
                 TextureDescriptor desc;
 
-                if (!fs::exists(descriptorFilePath)) {
-                    desc.SaveTextureDescriptor(descriptorFilePath);
+                if (!fs::exists(descriptorFilePath))
+                {
+                    desc.SaveTextureDescriptor(descriptorFilePath);  // Correctly passing as const reference
                 }
 
-                // Ensure resource directory exists
+                // Ensure the directory exists
                 if (!fs::exists(FILEPATH_RESOURCE_FONTS)) {
                     fs::create_directory(FILEPATH_RESOURCE_FONTS);
                 }
 
-                // DDS and JSON output paths
-                fs::path ddsOutputPath = fs::path(FILEPATH_RESOURCE_FONTS  ) / (nameWithoutExtension + ".dds");
-                std::string jsonOutputPath = FILEPATH_RESOURCE_FONTS + "/" + nameWithoutExtension + ".json";
+                // Ensure texFilePath is valid
+                fs::path outputPath = fs::path(FILEPATH_RESOURCE_FONTS) / (nameWithoutExtension + ".dds");
 
-                // Check if DDS or JSON files need to be created
-                if ((!fs::exists(ddsOutputPath)) || (!fs::exists(jsonOutputPath))) {
-                    std::string pngOutputPath = FILEPATH_RESOURCE_FONTS + "/" + nameWithoutExtension + ".png";
+                if ((!fs::exists(outputPath)) || (!fs::exists(FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".json"))) {
 
-                    // Run msdf-atlas-gen command
-                    std::string command = "..\\lib\\msdf-atlas-gen\\msdf-atlas-gen.exe -font " + filePath + " -allglyphs -size 32 -imageout " + pngOutputPath + " -json " + jsonOutputPath;
-                    runCommand(command);
-
-                    // Compress the texture and clean up PNG
-                    CompressTextureWithDescriptor(desc, pngOutputPath, ddsOutputPath.string());
-                    if (std::remove(pngOutputPath.c_str()) == 0) {
-                        std::cout << "File deleted successfully: " << pngOutputPath << "\n";
+                    // Run the compression command
+                    runCommand("..\\lib\\msdf-atlas-gen\\msdf-atlas-gen.exe -font " + FilePath + " -allglyphs -size 32 -imageout " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png" + " -json " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".json");
+                    CompressTextureWithDescriptor(desc, FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png", outputPath.string());
+                    if (std::remove((FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png").c_str()) == 0) {
+                        std::cout << "File deleted successfully.\n";
                     }
                     else {
                         std::perror("Error deleting file");
                     }
                 }
-
                 g_ResourceManager.AddFontDDS(nameWithoutExtension);
 
             }
-            else {
+            else
+            {
 #ifdef _DEBUG
                 std::cout << "File " << entry.path().filename().string() << " is missing file extension.\n";
 #endif // DEBUG
             }
-        }
 
+        }
         Currentlyloading = false;
         return true;
     }
     else {
+        // Print error
 #ifdef _DEBUG
         std::cout << "The specified path is not a directory." << std::endl;
 #endif // DEBUG
@@ -1267,7 +1204,6 @@ bool AssetManager::LoadFonts() {
         return false;
     }
 }
-
 
 bool AssetManager::FreeFonts() {
     FontFiles.clear();
