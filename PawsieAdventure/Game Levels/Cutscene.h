@@ -9,6 +9,7 @@ class Cutscene : public Level
 	double cutsceneTimer = 0.0;
 	double timerLimit = 4.0;
 	double lastBarkTime = 0.0;
+	//Entity AggroDog{}, CorgiWhimper{}, corgi12sec{};
 
 	Entity P1{}, P2{}, P3{}, P4{}, P5{}, P6{}, P7{}, P8{}, P9{}, P10{}, P11{}, P12{};
 	bool rightAppeared{ false }, finishCutscene{ false }, SongOne{ false }, SongTwo{ false }, SongThree{ false };
@@ -19,6 +20,43 @@ class Cutscene : public Level
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Cutscene.json");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
+
+		//// Use unordered_map to make it O(1) efficiency
+		//std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
+		//{
+		//	{"Text", [&](Entity entity) { TextEnt = entity; }},
+		//	{"DogName", [&](Entity entity) { DogName = entity; }},
+		//	{"AggressiveDogBarking", [&](Entity entity) { AggroDog = entity; }},
+		//	{"CorgiWhimper", [&](Entity entity) { CorgiWhimper = entity; }},
+		//	{"12sGrowlBarkCorgi", [&](Entity entity) { corgi12sec = entity; }}
+		//};
+
+
+		//for (auto entity : entities)
+		//{
+		//	if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+		//	{
+		//		const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+		//		auto it = nameToAction.find(metadata.GetName());
+
+		//		if (it != nameToAction.end())
+		//		{
+		//			it->second(entity);
+		//		}
+
+		//		if (g_Coordinator.HaveComponent<AudioComponent>(entity))
+		//		{
+		//			auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
+		//			music.SetAudioSystem(&g_Audio);
+		//		}
+
+		//		// Exit early if all entities are found
+		//		if (TextEnt && DogName && AggroDog && CorgiWhimper && corgi12sec)
+		//		{
+		//			break;
+		//		}
+		//	}
+		//}
 
 		for (auto entity : entities)
 		{
@@ -104,6 +142,12 @@ class Cutscene : public Level
 			if (!SongOne) 
 			{
 				g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav");
+
+				/*if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
+					auto& music = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
+					music.PlayAudio();
+				}*/
+
 				SongOne = true;
 			}
 
@@ -118,6 +162,11 @@ class Cutscene : public Level
 				if (!SongTwo)
 				{
 					g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/CorgiWhimper.wav");
+
+					/*if (g_Coordinator.HaveComponent<AudioComponent>(CorgiWhimper)) {
+						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiWhimper);
+						music1.PlayAudio();
+					}*/
 				}
 
 				// Gradually increase opacity for LeftHalf
@@ -200,6 +249,12 @@ class Cutscene : public Level
 					if (!SongThree)
 					{
 						g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/12sGrowlBarkCorgi.wav");
+
+						/*if (g_Coordinator.HaveComponent<AudioComponent>(corgi12sec)) {
+							auto& music2 = g_Coordinator.GetComponent<AudioComponent>(corgi12sec);
+							music2.PlayAudio();
+						}*/
+
 						SongThree = true;
 					}
 
