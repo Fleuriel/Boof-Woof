@@ -1020,6 +1020,15 @@ void AssetManager::InitShdrpgms(VectorPairString const& vpss)
         shdr_files.emplace_back(std::make_pair(GL_VERTEX_SHADER, x.first));
         shdr_files.emplace_back(std::make_pair(GL_FRAGMENT_SHADER, x.second));
 
+
+		if (x.first == FILEPATH_ASSET_SHADERS+"\\shadow.vert" && x.second == FILEPATH_ASSET_SHADERS+"\\shadow.frag")
+		{
+			shdr_files.emplace_back(std::make_pair(GL_GEOMETRY_SHADER, FILEPATH_ASSET_SHADERS+"\\..\\shadow.geom"));
+			std::cout << "**************************************************************" << '\n';
+			std::cout << "shadow shader added" << '\n';
+            std::cout << "**************************************************************" << '\n';
+		}
+
         // Create Shader
         OpenGLShader shdr_pgm;
         // Validate the shader program (shdr_Files).
