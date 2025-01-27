@@ -103,7 +103,7 @@ void RopeBreaker::DropBridge()
 {
 	if (!bridgeAudio)
 	{
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO +"/WoodenBridgeDropping.wav", false, "SFX");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO +"/BridgeCreak.wav", false, "SFX");
 		bridgeAudio = true;
 	}
 
