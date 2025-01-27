@@ -15,7 +15,7 @@
 #pragma warning(disable: 6385 6386)
 #include <Jolt/Physics/Body/Body.h>
 
-class Script_to_Engine : public engine_interface, public input_interface, public audio_interface
+class Script_to_Engine : public engine_interface, public input_interface, public audio_interface, public physics_interface
 {
 public:
 
@@ -51,10 +51,30 @@ public:
 		 g_Audio.PlayFile(pSoundName);
 	}
 
+	virtual void PlaySoundById(const char* soundId) override
+	{
+		std::string fullPath = std::string(FILEPATH_ASSET_AUDIO) + "/" + soundId;
+		g_Audio.PlayFile(fullPath.c_str());
+	}
+
+	// END OF AUDIO INTERFACE
+
+	// PHYSICS INTERFACE
+	virtual physics_interface& getPhysicsSystem() override
+	{
+		return *this;
+	}
+
+	virtual void RemoveBody(Entity entity) override
+	{
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
+	}
+
 	// ENGINE INTERFACE
 
 	virtual void DestroyEntity(Entity entity) override
 	{
+		
 		g_Coordinator.DestroyEntity(entity);
 	}
 	
@@ -187,12 +207,6 @@ public:
 	virtual glm::vec3 GetCameraUp(Entity entity) override
 	{
 		return g_Coordinator.GetComponent<CameraComponent>(entity).GetCameraUp();
-	}
-
-	virtual void PlaySoundById(const char* soundId) override
-	{
-		std::string fullPath = std::string(FILEPATH_ASSET_AUDIO) + "/" + soundId;
-		g_Audio.PlayFile(fullPath.c_str());
 	}
 
 
