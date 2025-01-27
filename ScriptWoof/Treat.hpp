@@ -11,14 +11,18 @@ struct Treat final : public Behaviour
 
 	virtual void Update(Entity entity) override
 	{
+		std::cout << "Treat Update" << std::endl;
 		//Check if player is colliding with treat
 		if (m_Engine.IsColliding(entity))
 		{
+
 			//Get the name of the entity that is colliding with the treat
 			const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
 
+			std::cout << "Scripted Entity is colliding with" << collidingEntityName << std::endl;
+
 			//Check if the entity is the player
-			if (strcmp(collidingEntityName, "Corgi2") == true)
+			if (strcmp(collidingEntityName, "Player") == 1)
 			{
 				//Play sound
 				m_Engine.getAudioSystem().PlaySound("TreatSound");

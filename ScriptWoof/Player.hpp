@@ -23,7 +23,7 @@ struct Player final : public Behaviour
 
 	virtual void Update(Entity entity) override
 	{
-		UNREFERENCED_PARAMETER(entity);
+		//UNREFERENCED_PARAMETER(entity);
 		velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 		isMoving = false;
 

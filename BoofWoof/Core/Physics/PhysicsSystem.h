@@ -29,6 +29,7 @@
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayerInterfaceMask.h>
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
 #include <../Utilities/Components/TransformComponent.hpp>
+#include <../Utilities/Components/MetaData.hpp>
 
 #include "../ECS/System.hpp"
 
@@ -319,6 +320,8 @@ public:
             auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
             auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
 
+            
+            /*
             if (g_Coordinator.HaveComponent<GraphicsComponent>(entity1)) {
                 auto& graphicsComponent2 = g_Coordinator.GetComponent<GraphicsComponent>(entity2);
 
@@ -329,17 +332,41 @@ public:
                 std::cout << "Entity " << entity1 << " is colliding with: "
                     << graphicsComponent2.getModelName() << std::endl;
             }
+            */
+            if (g_Coordinator.HaveComponent<MetadataComponent>(entity1))
+            {
+                auto& metaComponent = g_Coordinator.GetComponent<MetadataComponent>(entity2);
 
+                // Set entity 1's collided object name to entity 2's name
+                collisionComponent1.SetIsColliding(true);
+				collisionComponent1.SetLastCollidedObjectName(metaComponent.GetName());
+
+				std::cout << "Entity " << entity1 << " is colliding with: "
+					<< metaComponent.GetName() << std::endl;
+            }
+
+            if (g_Coordinator.HaveComponent<MetadataComponent>(entity2))
+            {
+                auto& metaComponent = g_Coordinator.GetComponent<MetadataComponent>(entity1);
+                collisionComponent2.SetIsColliding(true);
+                collisionComponent2.SetLastCollidedObjectName(metaComponent.GetName());
+
+                std::cout << "Entity " << entity2 << " is colliding with: "
+                    << metaComponent.GetName() << std::endl;
+            }
+            /*
             if (g_Coordinator.HaveComponent<GraphicsComponent>(entity2)) {
                 auto& graphicsComponent1 = g_Coordinator.GetComponent<GraphicsComponent>(entity1);
 
                 // Set entity 2's collided object name to entity 1's model name
                 collisionComponent2.SetIsColliding(true);
+                
                 collisionComponent2.SetLastCollidedObjectName(graphicsComponent1.getModelName());
 
                 std::cout << "Entity " << entity2 << " is colliding with: "
                     << graphicsComponent1.getModelName() << std::endl;
             }
+            */
         }
     }
 
