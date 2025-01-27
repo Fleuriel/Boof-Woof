@@ -373,10 +373,15 @@ bool ResourceManager::SetModelMap(const std::string& name, const Model& model) {
 }
 
 Model* ResourceManager::getModel(const std::string& modelName) {
+    std::cout << "entered one\n";
     auto it = ModelMap.find(modelName);
+    std::cout << "entered two\n";
     if (it != ModelMap.end()) {
         return &(it->second);  // Return pointer to the model
+        std::cout << "entered THREE\n";
     }
+    std::cout << "entered Four\n";
+
     return nullptr;  // Return nullptr if not found
 }
 
