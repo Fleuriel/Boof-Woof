@@ -69,6 +69,7 @@ public:
 
 	glm::vec3 GetLightPos() { return lightPos; };
 	void SetLightPos(glm::vec3 pos) { lightPos = pos; };
+    
 
     bool DrawMaterialSphere();
 

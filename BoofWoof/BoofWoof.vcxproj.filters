@@ -112,5 +112,6 @@
     <None Include="Assets\Shaders\instanced.vert" />
     <None Include="Assets\Shaders\shadow.frag" />
     <None Include="Assets\Shaders\shadow.vert" />
+    <None Include="Assets\shadow.geom" />
   </ItemGroup>
 </Project>

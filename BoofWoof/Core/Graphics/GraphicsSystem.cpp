@@ -191,6 +191,7 @@ void GraphicsSystem::UpdateLoop() {
 	}
 
 	lights_infos.clear();
+	g_AssetManager.GetShader("shadow").Use();
 	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
 	{
 		if (g_Coordinator.HaveComponent<LightComponent>(entity))
@@ -205,7 +206,7 @@ void GraphicsSystem::UpdateLoop() {
 
 				lights_infos.push_back(light_info_);
 
-				/*float near_plane = 1.0f;
+				float near_plane = 1.0f;
 				float far_plane = 25.0f;
 				glm::mat4 shadowProj = glm::perspective(glm::radians(90.0f), (float)SHADOW_WIDTH / (float)SHADOW_HEIGHT, near_plane, far_plane);
 				std::vector<glm::mat4> shadowTransforms;
@@ -214,8 +215,21 @@ void GraphicsSystem::UpdateLoop() {
 				shadowTransforms.push_back(shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)));
 				shadowTransforms.push_back(shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
 				shadowTransforms.push_back(shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
-				shadowTransforms.push_back(shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));*/
+				shadowTransforms.push_back(shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
 
+				glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+				glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+				glClear(GL_DEPTH_BUFFER_BIT);
+
+				
+				for (int i = 0; i < 6; i++) {
+					std::string shadowMatrix = "shadowMatrices[" + std::to_string(i) + "]";
+					g_AssetManager.GetShader("shadow").SetUniform(shadowMatrix.c_str(), shadowTransforms[i]);
+				}
+				g_AssetManager.GetShader("shadow").SetUniform("farPlane", far_plane);
+				g_AssetManager.GetShader("shadow").SetUniform("lightPos", light_info_.position);
+				
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 			}
 
@@ -291,6 +305,15 @@ void GraphicsSystem::UpdateLoop() {
 //		std::cout << "ShaderName: " << material.GetShaderName() << '\n';
 
 #endif
+
+
+		g_AssetManager.GetShader("shadow").SetUniform("view", shdrParam.View);
+		g_AssetManager.GetShader("shadow").SetUniform("projection", shdrParam.Projection);
+		g_AssetManager.GetShader("shadow").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+
+		g_ResourceManager.getModel("cubeModel")->Draw(g_AssetManager.GetShader("shadow"));
+		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 
 		g_AssetManager.GetShader(ShaderName).Use();
 
