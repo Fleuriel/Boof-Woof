@@ -18,6 +18,7 @@ class Cutscene : public Level
 	{
 		// Use FILEPATH_ASSET_SCENES to construct the scene file path
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Cutscene.json");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CutsceneBGM3.wav", true, "BGM");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -323,6 +324,8 @@ class Cutscene : public Level
 
 	void UnloadLevel()
 	{
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/CutsceneBGM3.wav");
+
 		g_Coordinator.ResetEntities();
 		cutsceneTimer = 0.0;
 		finishCutscene = false;
