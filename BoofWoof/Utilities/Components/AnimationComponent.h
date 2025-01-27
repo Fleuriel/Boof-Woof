@@ -2,14 +2,9 @@
 #define ANIMATION_COMPONENT_H
 
 #include <string>
-#include <unordered_map>
+#include <vector>
+#include <glm/glm.hpp>
 #include "../Core/Animation/Animation.h"
-
-enum AnimationType {
-    Idle = 0,
-    Moving,
-    Action
-};
 
 class EntityAnimationState {
 public:
@@ -23,7 +18,7 @@ public:
     }
 
     std::string activeAnimation; // The currently active animation
-    double currentTime;          // Current time in the animation
+    double currentTime;          // Current time in the animation (in seconds)
     bool isPlaying;              // Playback status
 };
 
@@ -31,27 +26,34 @@ class AnimationComponent {
 public:
     AnimationComponent() = default;
 
-    // Set an animation for the component
+    // Set the active animation
     void SetAnimation(const std::string& animationName);
+
+    // Control playback
     void Play();
     void Stop();
+
+    // Update the animation state
     void Update(double deltaTime);
 
     // Optional blending of animations
     void BlendTo(const std::string& animationName, double blendDuration);
 
-    // Get the current transformation matrix
+    // Get the current transformation matrix for a specific node (bone)
     void GetCurrentTransform(const std::string& nodeName, aiMatrix4x4& outTransform) const;
 
-    // Set and Get animation by type
-    void SetAnimation(AnimationType type, const std::string& animationName);
-    std::string GetAnimation(AnimationType type) const;
+    // Get the currently active animation name
+    std::string GetActiveAnimation() const;
+
+    // Get bone transformation matrices for the current animation time
+    const std::vector<glm::mat4>& GetBoneTransformsAtTime(float currentTime);
+
+    // Get the current time in ticks
+    float GetTickCount() const;
 
 private:
-    EntityAnimationState state;                         // Entity-specific playback state
-
-    // Map to store animations by type
-    std::unordered_map<AnimationType, std::string> animationMap;
+    EntityAnimationState state; // Entity-specific playback state
+    Animation animation;        // The animation data
 };
 
 #endif // ANIMATION_COMPONENT_H

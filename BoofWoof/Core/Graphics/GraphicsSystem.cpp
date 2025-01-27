@@ -242,6 +242,37 @@ void GraphicsSystem::UpdateLoop() {
 
 		}
 
+		if (g_Coordinator.HaveComponent<AnimationComponent>(entity)) {
+			auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
+			auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+			auto& material = graphicsComp.material;
+
+			// Use the animation shader
+			g_AssetManager.GetShader("ShaderAnimation").Use();
+
+			// Set common shader uniforms (view, projection, world matrix)
+			g_AssetManager.GetShader("ShaderAnimation").SetUniform("view", shdrParam.View);
+			g_AssetManager.GetShader("ShaderAnimation").SetUniform("projection", shdrParam.Projection);
+			g_AssetManager.GetShader("ShaderAnimation").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+
+			// Get bone transformations from the AnimationComponent
+			const auto& boneTransforms = animationComp.GetBoneTransformsAtTime(animationComp.GetCurrentTime());
+
+			// Pass bone transformations to the shader
+			for (size_t i = 0; i < boneTransforms.size(); i++) {
+				std::string uniformName = "uBoneTransforms[" + std::to_string(i) + "]";
+				g_AssetManager.GetShader("ShaderAnimation").SetUniform(uniformName.c_str(), boneTransforms[i]);
+			}
+
+			// Draw the animated model
+			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("ShaderAnimation"));
+
+			// Unbind the shader
+			g_AssetManager.GetShader("ShaderAnimation").UnUse();
+
+			continue; // Skip the rest of the loop for this entity
+		}
+
 		if (!g_Coordinator.HaveComponent<GraphicsComponent>(entity))
 		{
 			continue;
@@ -500,48 +531,6 @@ void GraphicsSystem::UpdateLoop() {
 
 
 		}
-		else if (ShaderName == "ShaderAnimation") {
-			// Set up basic uniforms (camera-following logic)
-			if (graphicsComp.getFollowCamera()) {
-				SetShaderUniforms(g_AssetManager.GetShader(ShaderName), shdrParam);
-			}
-			else {
-				g_AssetManager.GetShader(ShaderName).SetUniform("vertexTransform", shdrParam.WorldMatrix);
-				g_AssetManager.GetShader(ShaderName).SetUniform("view", glm::mat4(1.0f));
-				g_AssetManager.GetShader(ShaderName).SetUniform("projection", glm::mat4(1.0f));
-			}
-
-			// Set lighting uniforms
-			for (int i = 0; i < lights_infos.size(); i++) {
-				std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
-				g_AssetManager.GetShader(ShaderName).SetUniform(lightPosStr.c_str(), lights_infos[i].position);
-
-				std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
-				g_AssetManager.GetShader(ShaderName).SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
-
-				std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
-				g_AssetManager.GetShader(ShaderName).SetUniform(lightColorStr.c_str(), lights_infos[i].color);
-			}
-			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
-
-			// Set additional material or animation-related uniforms
-			g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
-			g_AssetManager.GetShader(ShaderName).SetUniform("roughness", material.GetSmoothness());
-			g_AssetManager.GetShader(ShaderName).SetUniform("metallic", material.GetMetallic());
-			g_AssetManager.GetShader(ShaderName).SetUniform("finalAlpha", material.GetFinalAlpha());
-			g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", material.GetColor());
-
-			// Set bone transformation matrices for the shader
-			const auto& boneTransforms = animation.GetBoneTransformsAtTime(state.currentTime);
-			for (size_t i = 0; i < boneTransforms.size(); ++i) {
-				std::string uniformName = "uBoneTransforms[" + std::to_string(i) + "]";
-				g_AssetManager.GetShader(ShaderName).SetUniform(uniformName.c_str(), boneTransforms[i]);
-			}
-
-			// Draw the model using the ShaderAnimation shader
-			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader(ShaderName));
-		}
-
 		
 		g_AssetManager.GetShader(ShaderName).UnUse();
 
