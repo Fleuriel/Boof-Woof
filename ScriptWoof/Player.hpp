@@ -91,8 +91,8 @@ struct Player final : public Behaviour
 			//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
 		}
 
-		// Allow movement only if the player is grounded && not in RopeBreaker
-		if (isGrounded && !m_Engine.InRopeBreaker())
+		// Allow movement only if the player is grounded
+		if (isGrounded)
 		{
 			if (m_Engine.HaveCameraComponent(entity)) {
 

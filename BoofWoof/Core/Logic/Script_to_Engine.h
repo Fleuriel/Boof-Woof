@@ -10,7 +10,6 @@
 #include "../Utilities/Components/CameraComponent.hpp"
 #include "../Core/EngineCore.h"
 #include "../Core/AssetManager/FilePaths.h"
-#include "../../PawsieAdventure/Systems/RopeBreaker/RopeBreaker.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
@@ -207,11 +206,6 @@ public:
 	virtual glm::vec3 GetCameraUp(Entity entity) override
 	{
 		return g_Coordinator.GetComponent<CameraComponent>(entity).GetCameraUp();
-	}
-
-	virtual bool InRopeBreaker() override 
-	{
-		return g_RopeBreaker.BoneSpawned;
 	}
 };
 
