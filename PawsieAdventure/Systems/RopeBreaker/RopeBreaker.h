@@ -23,14 +23,14 @@ public:
 	void DropBridge();
 
 public:
-	bool PlayerCollidedRope1{ false }, PlayerCollidedRope2{ false };
+	bool PlayerCollidedRope1{ false }, PlayerCollidedRope2{ false }, BoneSpawned{ false };
 	int RopeCount{ 2 };
 
 private:
 
 	// Rope
 	Entity player{}, rope1{}, rope2{};
-	bool PlayerColliding{}, Rope1Colliding{}, Rope2Colliding{}, BoneSpawned{ false };
+	bool PlayerColliding{}, Rope1Colliding{}, Rope2Colliding{};
 	int RopeDespawned{ 0 };
 
 	// Drawbridge

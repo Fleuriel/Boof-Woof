@@ -10,6 +10,7 @@
 #include "../Utilities/Components/CameraComponent.hpp"
 #include "../Core/EngineCore.h"
 #include "../Core/AssetManager/FilePaths.h"
+#include "../../PawsieAdventure/Systems/RopeBreaker/RopeBreaker.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
@@ -195,7 +196,10 @@ public:
 		g_Audio.PlayFile(fullPath.c_str());
 	}
 
-
+	virtual bool InRopeBreaker() override 
+	{
+		return g_RopeBreaker.BoneSpawned;
+	}
 };
 
 #endif // !SCRIPT_TO_ENGINE_H
