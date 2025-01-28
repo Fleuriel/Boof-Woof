@@ -1,6 +1,6 @@
 #include <iostream>
 #define UNREFERENCED_PARAMETER(P)          (P)
-
+#include <random>
 
 struct Player final : public Behaviour
 {
@@ -11,6 +11,23 @@ struct Player final : public Behaviour
 	bool isMoving;
 	bool isJumping;
 	bool isGrounded;
+
+	std::vector<std::string> footstepSounds = {
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_01.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_02.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_03.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_04.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_05.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_06.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_07.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_08.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_09.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_10.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_11.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_12.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_13.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_14.wav"
+	};
 
 	virtual void Init(Entity entity) override
 	{
@@ -23,7 +40,7 @@ struct Player final : public Behaviour
 
 	virtual void Update(Entity entity) override
 	{
-		UNREFERENCED_PARAMETER(entity);
+		//UNREFERENCED_PARAMETER(entity);
 		velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 		isMoving = false;
 
@@ -168,7 +185,16 @@ struct Player final : public Behaviour
 		}
 		if (isMoving)
 		{
-			m_Engine.getAudioSystem().PlaySoundById("Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_01.wav");
+			// Use modern C++ random library to select a random sound
+			static std::random_device rd; // Seed
+			static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+			std::uniform_int_distribution<> dis(0, footstepSounds.size() - 1);
+
+			// Get a random sound ID
+			std::string randomSound = footstepSounds[dis(gen)];
+
+			// Play the randomly chosen sound
+			m_Engine.getAudioSystem().PlaySoundById(randomSound.c_str());
 		}
 
 
@@ -186,6 +212,7 @@ struct Player final : public Behaviour
 			m_Engine.SetGrounded(entity, false);
 
 			//std::cout << "[DEBUG] Player jumped. Jump velocity: " << jumpVelocity << std::endl;
+			//std::cout << "[DEBUG] isGrounded: " << isGrounded << std::endl;
 			isJumping = true;
 			isMoving = true;
 		}

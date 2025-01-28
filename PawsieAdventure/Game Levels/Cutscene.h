@@ -11,6 +11,8 @@ class Cutscene : public Level
     int textureIndex = 0;  // To track which texture we're currently showing
     double lastBarkTime = 0.0;
     Entity TextEnt{}, DogName{};
+    Entity AggroDog{}, CorgiWhimper{}, corgi12sec{};
+
 
     void LoadLevel()
     {
@@ -19,21 +21,41 @@ class Cutscene : public Level
 
         std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
+        // Use unordered_map to make it O(1) efficiency
+        std::unordered_map<std::string, std::function<void(Entity)>> nameToAction = 
+        {
+            {"Text", [&](Entity entity) { TextEnt = entity; }},
+            {"DogName", [&](Entity entity) { DogName = entity; }},
+            {"AggressiveDogBarking", [&](Entity entity) { AggroDog = entity; }},
+            {"CorgiWhimper", [&](Entity entity) { CorgiWhimper = entity; }},
+            {"12sGrowlBarkCorgi", [&](Entity entity) { corgi12sec = entity; }}
+        };
+
+
         for (auto entity : entities)
         {
             if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
             {
-                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Text")
+                const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+                auto it = nameToAction.find(metadata.GetName());
+
+                if (it != nameToAction.end())
                 {
-                    TextEnt = entity;
+                    it->second(entity);
                 }
 
-                if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "DogName")
+                if (g_Coordinator.HaveComponent<AudioComponent>(entity))
                 {
-                    DogName = entity;
+                    auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
+                    music.SetAudioSystem(&g_Audio);
+                }
+
+                // Exit early if all entities are found
+                if (TextEnt && DogName && AggroDog && CorgiWhimper && corgi12sec)
+                {
                     break;
                 }
-            }
+            }       
         }
     }
 
@@ -82,7 +104,12 @@ class Cutscene : public Level
         case 0:
         {
             // Big dog telling you stay in the room
-            g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav");
+            //g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav");
+            if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
+                auto& music = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
+                music.PlayAudio();
+            }
+
             break;
         }
         case 1:
@@ -90,7 +117,11 @@ class Cutscene : public Level
             // I'm scared
             if (cutsceneTimer <= 3.0)
             {
-                g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/CorgiWhimper.wav");
+               // g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/CorgiWhimper.wav");
+                if (g_Coordinator.HaveComponent<AudioComponent>(CorgiWhimper)) {
+                    auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiWhimper);
+                    music1.PlayAudio();
+                }
             }
             break;
         }
@@ -99,7 +130,11 @@ class Cutscene : public Level
             // I can't keep living like this
             // I want to leave this place
             // No.. I WILL LEAVE THE CASTLE
-            g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/12sGrowlBarkCorgi.wav");
+           // g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/12sGrowlBarkCorgi.wav");
+            if (g_Coordinator.HaveComponent<AudioComponent>(corgi12sec)) {
+                auto& music2 = g_Coordinator.GetComponent<AudioComponent>(corgi12sec);
+                music2.PlayAudio();
+            }
             break;
         }
         }

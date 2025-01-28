@@ -465,8 +465,8 @@ void GraphicsSystem::UpdateLoop() {
 
 
 		}
-		else if (ShaderName == "OutlineAndFont")
-		{
+
+		g_AssetManager.GetShader("OutlineAndFont").Use();
 			SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
 			if (debug)
 			{
@@ -501,8 +501,9 @@ void GraphicsSystem::UpdateLoop() {
 				}
 			}
 
+			g_AssetManager.GetShader("OutlineAndFont").Use();
 
-		}
+		
 		
 		
 		g_AssetManager.GetShader(ShaderName).UnUse();

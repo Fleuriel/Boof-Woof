@@ -2169,7 +2169,7 @@ void ImGuiEditor::InspectorWindow()
 									std::string currentBehaviourName = (*behaviourNameProperty)->GetValue(&behaviourComponent);
 									std::string newBehaviourName = currentBehaviourName;
 
-									const char* behaviourNames[] = { "Null", "Player" };
+									const char* behaviourNames[] = { "Null", "Player", "Treat"};
 									int currentItem = 0;
 
 									for (int i = 0; i < IM_ARRAYSIZE(behaviourNames); ++i)

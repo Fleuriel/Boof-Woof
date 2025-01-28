@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "b066b3e7-852e-4478-b98a-29f52a6d66c3",
+    "SceneGUID": "012f18f9-905d-48cf-b58d-11a1e96b23b4",
     "Entities": [
         {
             "MetadataComponent": {
@@ -21,14 +21,20 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
+                "Texture": "BlackScreen",
                 "FollowCamera": false
             },
             "MaterialComponent": {
-                "name": "",
+                "name": "Default Material",
                 "shader": "Shader2D",
                 "shaderIdx": 4,
                 "properties": {
@@ -67,14 +73,20 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
+                "Texture": "BullyText1",
                 "FollowCamera": false
             },
             "MaterialComponent": {
-                "name": "",
+                "name": "Default Material",
                 "shader": "Shader2D",
                 "shaderIdx": 4,
                 "properties": {
@@ -113,14 +125,20 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Square",
+                "Texture": "RexTheBully",
                 "FollowCamera": false
             },
             "MaterialComponent": {
-                "name": "",
+                "name": "Default Material",
                 "shader": "Shader2D",
                 "shaderIdx": 4,
                 "properties": {
@@ -137,6 +155,105 @@
                     "metallic": 0.0,
                     "shininess": 0.0
                 }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "AggressiveDogBarking",
+                "EntityID": 3
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/AggressiveDogBarking.wav",
+                "Volume": 1.0,
+                "ShouldLoop": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CorgiWhimper",
+                "EntityID": 4
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/CorgiWhimper.wav",
+                "Volume": 1.0,
+                "ShouldLoop": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "12sGrowlBarkCorgi",
+                "EntityID": 5
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/12sGrowlBarkCorgi.wav",
+                "Volume": 1.0,
+                "ShouldLoop": false
             }
         }
     ]
