@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "a00701c4-6eed-4032-bde4-db3b3b53d22a",
+    "SceneGUID": "6f208d53-c40b-4941-921d-867fcb2a995c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -12,7 +12,9 @@
                 "PositionY": 0.4000000059604645,
                 "ScaleX": 0.699999988079071,
                 "ScaleY": 0.5,
-                "Layer": 0.5
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0
             }
         },
         {
@@ -26,7 +28,75 @@
                 "PositionY": -0.5,
                 "ScaleX": 0.30000001192092898,
                 "ScaleY": 0.30000001192092898,
-                "Layer": 0.5
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "MainMenuBGM",
+                "EntityID": 2
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/mainmenu music.wav",
+                "Volume": 1.0,
+                "ShouldLoop": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "MenuButtonClick",
+                "EntityID": 3
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/(MenuButtonClick).wav",
+                "Volume": 1.0,
+                "ShouldLoop": false
             }
         }
     ]
