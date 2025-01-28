@@ -11,6 +11,7 @@ struct Player final : public Behaviour
 	bool isMoving;
 	bool isJumping;
 	bool isGrounded;
+	bool inRopeBreaker{ false };
 
 	std::vector<std::string> footstepSounds = {
 	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_01.wav",
@@ -91,8 +92,25 @@ struct Player final : public Behaviour
 			//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
 		}
 
+		if (m_Engine.IsColliding(entity)) 
+		{
+			const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
+			if (std::strcmp(collidingEntityName, "Rope1") == 0) 
+			{
+				inRopeBreaker = true;
+			}
+			else if (std::strcmp(collidingEntityName, "Rope2") == 0) 
+			{
+				inRopeBreaker = true;
+			}
+		}
+		else 
+		{
+			inRopeBreaker = false;
+		}
+
 		// Allow movement only if the player is grounded
-		if (isGrounded)
+		if (isGrounded && !inRopeBreaker)
 		{
 			if (m_Engine.HaveCameraComponent(entity)) {
 
