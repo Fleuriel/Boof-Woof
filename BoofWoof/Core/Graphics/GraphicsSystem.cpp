@@ -24,6 +24,12 @@ bool GraphicsSystem::lightOn = false;
 CameraComponent GraphicsSystem::camera;
 CameraComponent camera_render;
 
+
+std::vector<DebugLine> GraphicsSystem::debugLines = {};
+unsigned int GraphicsSystem::debugLineVAO = 0;
+unsigned int GraphicsSystem::debugLineVBO = 0;
+
+
 struct light_info {
 	glm::vec3 position;
 	glm::vec3 color;
@@ -511,6 +517,10 @@ void GraphicsSystem::UpdateLoop() {
 		RenderSceneForPicking();
 		needsPickingRender = false;
 	}
+
+	glDisable(GL_DEPTH_TEST);
+	RenderDebugLines();
+	glEnable(GL_DEPTH_TEST);
 }
 
 
@@ -801,3 +811,80 @@ Entity GraphicsSystem::DecodeColorToID(unsigned char* data)
 	}
 }
 
+
+void GraphicsSystem::AddDebugLine(const glm::vec3& start, const glm::vec3& end, const glm::vec3& color)
+{
+	debugLines.push_back({ start, end, color });
+}
+
+void GraphicsSystem::RenderDebugLines()
+{
+	if (debugLines.empty())
+		return; // Nothing to draw
+
+	// Step 1: If we haven’t created a VAO/VBO for debug lines yet, create them once:
+	if (debugLineVAO == 0)
+	{
+		glGenVertexArrays(1, &debugLineVAO);
+		glBindVertexArray(debugLineVAO);
+
+		glGenBuffers(1, &debugLineVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, debugLineVBO);
+
+		// Each line has 2 endpoints, each endpoint has 6 floats: (pos.x, pos.y, pos.z, color.r, color.g, color.b)
+		// We’ll enable 2 attributes: location 0 for position, location 1 for color
+		// Position attribute
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+
+		// Color attribute
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	}
+
+	// Step 2: Build the CPU array of line data
+	// For N lines, we have 2*N vertices (start + end)
+	std::vector<float> lineData;
+	lineData.reserve(debugLines.size() * 12); // 2 points * 6 floats
+	for (auto& line : debugLines)
+	{
+		// Start point
+		lineData.push_back(line.start.x);
+		lineData.push_back(line.start.y);
+		lineData.push_back(line.start.z);
+		lineData.push_back(line.color.r);
+		lineData.push_back(line.color.g);
+		lineData.push_back(line.color.b);
+
+		// End point
+		lineData.push_back(line.end.x);
+		lineData.push_back(line.end.y);
+		lineData.push_back(line.end.z);
+		lineData.push_back(line.color.r);
+		lineData.push_back(line.color.g);
+		lineData.push_back(line.color.b);
+	}
+
+	// Step 3: Upload data to the GPU
+	glBindVertexArray(debugLineVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, debugLineVBO);
+	glBufferData(GL_ARRAY_BUFFER, lineData.size() * sizeof(float), lineData.data(), GL_DYNAMIC_DRAW);
+
+	// Step 4: Use a basic line shader (or reuse "Shader3D" if it can do untextured lines)
+	// Suppose we have a "DebugLineShader" loaded in g_AssetManager:
+	OpenGLShader& debugShader = g_AssetManager.GetShader("DebugLineShader");
+	debugShader.Use();
+
+	// We need a camera's view/projection. If you want to use the active camera, do:
+	debugShader.SetUniform("view", camera_render.GetViewMatrix());
+	debugShader.SetUniform("projection",
+		glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f));
+
+	// Step 5: Issue the draw call
+	glDrawArrays(GL_LINES, 0, (GLsizei)(debugLines.size() * 2));
+
+	debugShader.UnUse();
+
+	// Step 6: Clear the debug lines for the next frame
+	debugLines.clear();
+}
