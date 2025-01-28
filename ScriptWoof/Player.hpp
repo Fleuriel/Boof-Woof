@@ -40,7 +40,7 @@ struct Player final : public Behaviour
 
 	virtual void Update(Entity entity) override
 	{
-		UNREFERENCED_PARAMETER(entity);
+		//UNREFERENCED_PARAMETER(entity);
 		velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 		isMoving = false;
 
@@ -212,6 +212,7 @@ struct Player final : public Behaviour
 			m_Engine.SetGrounded(entity, false);
 
 			//std::cout << "[DEBUG] Player jumped. Jump velocity: " << jumpVelocity << std::endl;
+			//std::cout << "[DEBUG] isGrounded: " << isGrounded << std::endl;
 			isJumping = true;
 			isMoving = true;
 		}
