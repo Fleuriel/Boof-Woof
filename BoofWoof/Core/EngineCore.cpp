@@ -13,8 +13,8 @@ std::shared_ptr<TransformSystem> mTransformSys;
 std::shared_ptr<PathfindingSystem> mPathfindingSys;
 std::shared_ptr<UISystem> mUISys;
 
-GridPos3D start = { 0, 0, 0 };
-GridPos3D goal = { 5, 5, 5 };
+//GridPos3D start = { 0, 0, 0 };
+//GridPos3D goal = { 5, 5, 5 };
 
 void EngineCore::OnInit()
 {
@@ -46,6 +46,8 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<LightComponent>();
 	g_Coordinator.RegisterComponent<UIComponent>();
 	g_Coordinator.RegisterComponent<PathfindingComponent>();
+	g_Coordinator.RegisterComponent<EdgeComponent>();
+	g_Coordinator.RegisterComponent<NodeComponent>();
 
 	// setting global pointer
 	g_Core = this;
@@ -121,12 +123,12 @@ void EngineCore::OnInit()
 		g_Coordinator.SetSystemSignature<PathfindingSystem>(signature);
 	}
 
-	// Initialize the PathfindingSystem
-	mPathfindingSys->SetupGrid(10, 10, 10); // Example grid dimensions
+	//// Initialize the PathfindingSystem
+	//mPathfindingSys->SetupGrid(10, 10, 10); // Example grid dimensions
 
-	// Define start and goal positions
-	start = { 0, 0, 0 }; // Global or member variable in EngineCore
-	goal = { 5, 5, 5 }; // Global or member variable in EngineCore
+	//// Define start and goal positions
+	//start = { 0, 0, 0 }; // Global or member variable in EngineCore
+	//goal = { 5, 5, 5 }; // Global or member variable in EngineCore
 
 
 	// init system
@@ -155,6 +157,8 @@ void EngineCore::OnInit()
 	ReflectionManager::Instance().RegisterComponentType<LightComponent>("LightComponent");
 	ReflectionManager::Instance().RegisterComponentType<UIComponent>("UIComponent");
 	ReflectionManager::Instance().RegisterComponentType<PathfindingComponent>("PathfindingComponent");
+	ReflectionManager::Instance().RegisterComponentType<NodeComponent>("NodeComponent");
+	ReflectionManager::Instance().RegisterComponentType<EdgeComponent>("EdgeComponent");
 }
 
 void EngineCore::OnUpdate()
@@ -186,8 +190,8 @@ void EngineCore::OnUpdate()
 	//Transition
 	g_SceneManager.Update((float)m_DeltaTime);
 
-	// Test pathfinding system here
-	std::vector<GridPos3D> path;
+	//// Test pathfinding system here
+	//std::vector<GridPos3D> path;
 
 
 
@@ -224,31 +228,36 @@ void EngineCore::OnUpdate()
 		m_GraphicsDT = graphicsTimer.GetElapsedTime();
 	}
 
-	if (mPathfindingSys->FindPath(start, goal, path)) {
-		// Output path to console
-		std::cout << "Path found:\n";
-		for (auto i = 0u; i < path.size(); ++i) {
-			std::cout << "(" << path[i].x << ", " << path[i].y << ", " << path[i].z << ")\n";
-		}
+	//if (mPathfindingSys->FindPath(start, goal, path)) {
+	//	// Output path to console
+	//	std::cout << "Path found:\n";
+	//	for (auto i = 0u; i < path.size(); ++i) {
+	//		std::cout << "(" << path[i].x << ", " << path[i].y << ", " << path[i].z << ")\n";
+	//	}
 
-		// Visualize path with red lines
-		for (auto i = 0u; i + 1 < path.size(); ++i) {
-			// Convert grid cell to world space if needed
-			glm::vec3 startPos = glm::vec3(path[i].x, path[i].y, path[i].z);
-			glm::vec3 endPos = glm::vec3(path[i + 1].x, path[i + 1].y, path[i + 1].z);
+	//	// Visualize path with red lines
+	//	for (auto i = 0u; i + 1 < path.size(); ++i) {
+	//		// Convert grid cell to world space if needed
+	//		glm::vec3 startPos = glm::vec3(path[i].x, path[i].y, path[i].z);
+	//		glm::vec3 endPos = glm::vec3(path[i + 1].x, path[i + 1].y, path[i + 1].z);
 
-			// Add a red debug line
-			mGraphicsSys->AddDebugLine(startPos, endPos, glm::vec3(1.0f, 0.0f, 0.0f));
-		}
-	}
+	//		// Add a red debug line
+	//		mGraphicsSys->AddDebugLine(startPos, endPos, glm::vec3(1.0f, 0.0f, 0.0f));
+	//	}
+	//}
 
-	else {
-		//std::cout << "no path found.\n";
-	}
+	//else {
+	//	//std::cout << "no path found.\n";
+	//}
 
 	{
 		// UI
 		mUISys->UI_update();
+	}
+
+	{
+		// Pathfinding
+		mPathfindingSys->Update(m_DeltaTime);
 	}
 
 	static bool drawTestLinesOnce = true;

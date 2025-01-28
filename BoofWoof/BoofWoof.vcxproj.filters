@@ -99,6 +99,8 @@
     <ClInclude Include="Utilities\Components\UIComponent.hpp" />
     <ClInclude Include="Utilities\Components\PathfindingComponent.hpp" />
     <ClInclude Include="Core\UI\UISystem.h" />
+    <ClInclude Include="Utilities\Components\EdgeComponent.hpp" />
+    <ClInclude Include="Utilities\Components\NodeComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

@@ -1,0 +1,154 @@
+{
+    "SceneGUID": "17d088b1-2919-4862-a6a4-908063a8da87",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Player",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "PathfindingComponent": {
+                "StartNode": 1,
+                "GoalNode": 2,
+                "Path": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 5.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ]
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node1",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node2",
+                "EntityID": 2
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 5.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 3
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 1,
+                "EndNode": 2,
+                "Cost": 1.0
+            }
+        }
+    ]
+}

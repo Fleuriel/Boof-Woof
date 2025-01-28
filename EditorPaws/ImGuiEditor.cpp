@@ -945,6 +945,44 @@ void ImGuiEditor::InspectorWindow()
 							
 						}
 					}
+
+					if (ImGui::Selectable("Edge Component"))
+					{
+						if (!g_Coordinator.HaveComponent<EdgeComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<EdgeComponent>(g_SelectedEntity, EdgeComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<EdgeComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<EdgeComponent>(g_SelectedEntity, EdgeComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<EdgeComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<EdgeComponent>(g_SelectedEntity);
+								}
+								);
+
+						}
+					}
+
+					if (ImGui::Selectable("Node Component"))
+					{
+						if (!g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<NodeComponent>(g_SelectedEntity, NodeComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<NodeComponent>(g_SelectedEntity, NodeComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<NodeComponent>(g_SelectedEntity);
+								}
+								);
+
+						}
+					}
 					
 
 					ImGui::EndPopup();
@@ -1177,6 +1215,44 @@ void ImGuiEditor::InspectorWindow()
 								[this, componentData]() {
 									if (!g_Coordinator.HaveComponent<PathfindingComponent>(g_SelectedEntity))
 										g_Coordinator.AddComponent<PathfindingComponent>(g_SelectedEntity, componentData);
+								}
+								);
+						}
+					}
+
+					if (g_Coordinator.HaveComponent<EdgeComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("Edge Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<EdgeComponent>(g_SelectedEntity);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<EdgeComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<EdgeComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<EdgeComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<EdgeComponent>(g_SelectedEntity, componentData);
+								}
+								);
+						}
+					}
+
+					if (g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("Node Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<NodeComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<NodeComponent>(g_SelectedEntity, componentData);
 								}
 								);
 						}
@@ -3589,65 +3665,122 @@ void ImGuiEditor::InspectorWindow()
 							}
 						}
 						//Pathfinding Component editor
-						else if (className == "PathfindingComponent") {
-						if (ImGui::CollapsingHeader("Pathfinding", ImGuiTreeNodeFlags_None)) {
-							auto& pathfindingComponent = g_Coordinator.GetComponent<PathfindingComponent>(g_SelectedEntity);
+						else if (className == "PathfindingComponent") 
+						{
+							if (ImGui::CollapsingHeader("Pathfinding", ImGuiTreeNodeFlags_None)) {
+								auto& pathfindingComponent = g_Coordinator.GetComponent<PathfindingComponent>(g_SelectedEntity);
 
-							// Starting Position
-							glm::vec3 startPosition = pathfindingComponent.GetStartPosition();
-							ImGui::Text("Start Position");
-							ImGui::SameLine();
-							ImGui::PushItemWidth(150.0f);
-							ImGui::PushID("StartPosition");
+								// Start Node
+								Entity startNode = pathfindingComponent.GetStartNode();
+								ImGui::Text("Start Node");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("StartNode");
 
-							if (ImGui::DragFloat3("##StartPosition", &startPosition.x, 0.1f)) {
-								pathfindingComponent.SetStartPosition(startPosition);
+								if (ImGui::DragInt("##StartNode", reinterpret_cast<int*>(&startNode), 1.0f, 0, MAX_ENTITIES)) {
+									pathfindingComponent.SetStartNode(startNode);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Goal Node
+								Entity goalNode = pathfindingComponent.GetGoalNode();
+								ImGui::Text("Goal Node");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("GoalNode");
+
+								if (ImGui::DragInt("##GoalNode", reinterpret_cast<int*>(&goalNode), 1.0f, 0, MAX_ENTITIES)) {
+									pathfindingComponent.SetGoalNode(goalNode);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Current Status
+								PathfindingStatus status = pathfindingComponent.GetStatus();
+								ImGui::Text("Status: %s",
+									status == PathfindingStatus::IDLE ? "Idle" :
+									status == PathfindingStatus::PROCESSING ? "Processing" :
+									status == PathfindingStatus::COMPLETE ? "Complete" : "Failed");
 							}
-
-							ImGui::PopID();
-							ImGui::PopItemWidth();
-
-							// Goal Position
-							glm::vec3 goalPosition = pathfindingComponent.GetGoalPosition();
-							ImGui::Text("Goal Position");
-							ImGui::SameLine();
-							ImGui::PushItemWidth(150.0f);
-							ImGui::PushID("GoalPosition");
-
-							if (ImGui::DragFloat3("##GoalPosition", &goalPosition.x, 0.1f)) {
-								pathfindingComponent.SetGoalPosition(goalPosition);
-							}
-
-							ImGui::PopID();
-							ImGui::PopItemWidth();
-
-							//// Is Active Checkbox
-							//bool isActive = pathfindingComponent.IsActive();
-							//ImGui::Checkbox("Active", &isActive);
-							//pathfindingComponent.SetActive(isActive);
-
-							//// Debug Enabled Checkbox
-							//bool debugEnabled = pathfindingComponent.IsDebugEnabled();
-							//ImGui::Checkbox("Debug Enabled", &debugEnabled);
-							//pathfindingComponent.EnableDebug(debugEnabled);
-
-							//// Heuristic Type Selector
-							//static const char* heuristicTypes[] = { "Euclidean", "Manhattan", "Octile" };
-							//int heuristicIndex = static_cast<int>(pathfindingComponent.GetHeuristic());
-							//ImGui::Text("Heuristic");
-							//ImGui::SameLine();
-							//ImGui::PushItemWidth(125.0f);
-							//ImGui::PushID("Heuristic");
-
-							//if (ImGui::Combo("##Heuristic", &heuristicIndex, heuristicTypes, IM_ARRAYSIZE(heuristicTypes))) {
-							//	pathfindingComponent.SetHeuristic(static_cast<HeuristicType>(heuristicIndex));
-							//}
-
-							//ImGui::PopID();
-							//ImGui::PopItemWidth();
 						}
-}
+						// Node Component editor
+						else if (className == "NodeComponent") 
+						{
+							if (ImGui::CollapsingHeader("Node", ImGuiTreeNodeFlags_None)) {
+								auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
 
+								// Node Position
+								glm::vec3 position = nodeComponent.GetPosition();
+								ImGui::Text("Node Position");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("NodePosition");
+
+								if (ImGui::DragFloat3("##NodePosition", &position.x, 0.1f)) {
+									nodeComponent.SetPosition(position);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Is Walkable
+								bool isWalkable = nodeComponent.IsWalkable();
+								ImGui::Checkbox("Is Walkable", &isWalkable);
+								nodeComponent.SetWalkable(isWalkable);
+							}
+						}
+						// Edge Component editor
+						else if (className == "EdgeComponent") 
+						{
+							if (ImGui::CollapsingHeader("Edge", ImGuiTreeNodeFlags_None)) {
+								auto& edgeComponent = g_Coordinator.GetComponent<EdgeComponent>(g_SelectedEntity);
+
+								// Start Node
+								Entity startNode = edgeComponent.GetStartNode();
+								ImGui::Text("Start Node");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("StartNode");
+
+								if (ImGui::DragInt("##StartNode", reinterpret_cast<int*>(&startNode), 1.0f, 0, MAX_ENTITIES)) {
+									edgeComponent.SetStartNode(startNode);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// End Node
+								Entity endNode = edgeComponent.GetEndNode();
+								ImGui::Text("End Node");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("EndNode");
+
+								if (ImGui::DragInt("##EndNode", reinterpret_cast<int*>(&endNode), 1.0f, 0, MAX_ENTITIES)) {
+									edgeComponent.SetEndNode(endNode);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Edge Cost
+								float cost = edgeComponent.GetCost();
+								ImGui::Text("Cost");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("EdgeCost");
+
+								if (ImGui::DragFloat("##EdgeCost", &cost, 0.1f, 0.0f)) {
+									edgeComponent.SetCost(cost);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+							}
+						}
 					}
 				}
 			}

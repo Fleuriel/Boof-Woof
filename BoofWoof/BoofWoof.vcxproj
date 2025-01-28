@@ -276,11 +276,13 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Utilities\Components\BehaviourComponent.hpp" />
     <ClInclude Include="Utilities\Components\CameraComponent.hpp" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
+    <ClInclude Include="Utilities\Components\EdgeComponent.hpp" />
     <ClInclude Include="Utilities\Components\GraphicsComponent.hpp" />
     <ClInclude Include="Utilities\Components\HierarchyComponent.hpp" />
     <ClInclude Include="Utilities\Components\LightComponent.hpp" />
     <ClInclude Include="Utilities\Components\MaterialComponent.hpp" />
     <ClInclude Include="Utilities\Components\MetaData.hpp" />
+    <ClInclude Include="Utilities\Components\NodeComponent.hpp" />
     <ClInclude Include="Utilities\Components\ParticleComponent.hpp" />
     <ClInclude Include="Utilities\Components\PathfindingComponent.hpp" />
     <ClInclude Include="Utilities\Components\TransformComponent.hpp" />

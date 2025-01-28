@@ -481,38 +481,68 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
         }
 
-        // Serialize PathfindingComponent
+        // Serialization for PathfindingComponent
         if (g_Coordinator.HaveComponent<PathfindingComponent>(entity)) {
             rapidjson::Value pathfindingData(rapidjson::kObjectType);
 
-            auto& pathfindingComp = g_Coordinator.GetComponent<PathfindingComponent>(entity);
+            auto& pathfindingComponent = g_Coordinator.GetComponent<PathfindingComponent>(entity);
 
-            // Save start position
-            rapidjson::Value startPos(rapidjson::kObjectType);
-            startPos.AddMember("x", pathfindingComp.GetStartPosition().x, allocator);
-            startPos.AddMember("y", pathfindingComp.GetStartPosition().y, allocator);
-            startPos.AddMember("z", pathfindingComp.GetStartPosition().z, allocator);
-            pathfindingData.AddMember("StartPosition", startPos, allocator);
+            // Serialize start and goal nodes
+            pathfindingData.AddMember("StartNode", static_cast<int>(pathfindingComponent.GetStartNode()), allocator);
+            pathfindingData.AddMember("GoalNode", static_cast<int>(pathfindingComponent.GetGoalNode()), allocator);
 
-            // Save goal position
-            rapidjson::Value goalPos(rapidjson::kObjectType);
-            goalPos.AddMember("x", pathfindingComp.GetGoalPosition().x, allocator);
-            goalPos.AddMember("y", pathfindingComp.GetGoalPosition().y, allocator);
-            goalPos.AddMember("z", pathfindingComp.GetGoalPosition().z, allocator);
-            pathfindingData.AddMember("GoalPosition", goalPos, allocator);
+            // Serialize path (optional, as it might be recalculated at runtime)
+            rapidjson::Value pathArray(rapidjson::kArrayType);
+            for (const auto& point : pathfindingComponent.GetPath()) {
+                rapidjson::Value pointData(rapidjson::kObjectType);
+                pointData.AddMember("x", point.x, allocator);
+                pointData.AddMember("y", point.y, allocator);
+                pointData.AddMember("z", point.z, allocator);
+                pathArray.PushBack(pointData, allocator);
+            }
+            pathfindingData.AddMember("Path", pathArray, allocator);
 
-            //// Save isActive
-            //pathfindingData.AddMember("IsActive", pathfindingComp.IsActive(), allocator);
-
-            //// Save debugEnabled
-            //pathfindingData.AddMember("DebugEnabled", pathfindingComp.IsDebugEnabled(), allocator);
-
-            //// Save heuristic type
-            //pathfindingData.AddMember("Heuristic", static_cast<int>(pathfindingComp.GetHeuristic()), allocator);
-
-            // Add the PathfindingComponent to the entityData
+            // Add PathfindingComponent to entity data
             entityData.AddMember("PathfindingComponent", pathfindingData, allocator);
         }
+
+        // Serialization for NodeComponent
+        if (g_Coordinator.HaveComponent<NodeComponent>(entity)) {
+            rapidjson::Value nodeData(rapidjson::kObjectType);
+
+            auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(entity);
+
+            // Serialize position
+            rapidjson::Value position(rapidjson::kObjectType);
+            position.AddMember("x", nodeComponent.GetPosition().x, allocator);
+            position.AddMember("y", nodeComponent.GetPosition().y, allocator);
+            position.AddMember("z", nodeComponent.GetPosition().z, allocator);
+            nodeData.AddMember("Position", position, allocator);
+
+            // Serialize walkable status
+            nodeData.AddMember("IsWalkable", nodeComponent.IsWalkable(), allocator);
+
+            // Add NodeComponent to entity data
+            entityData.AddMember("NodeComponent", nodeData, allocator);
+        }
+        
+        // Serialization for EdgeComponent
+        if (g_Coordinator.HaveComponent<EdgeComponent>(entity)) {
+            rapidjson::Value edgeData(rapidjson::kObjectType);
+
+            auto& edgeComponent = g_Coordinator.GetComponent<EdgeComponent>(entity);
+
+            // Serialize start and end nodes
+            edgeData.AddMember("StartNode", static_cast<int>(edgeComponent.GetStartNode()), allocator);
+            edgeData.AddMember("EndNode", static_cast<int>(edgeComponent.GetEndNode()), allocator);
+
+            // Serialize cost
+            edgeData.AddMember("Cost", edgeComponent.GetCost(), allocator);
+
+            // Add EdgeComponent to entity data
+            entityData.AddMember("EdgeComponent", edgeData, allocator);
+        }
+
 
         entities.PushBack(entityData, allocator);
     }
@@ -1066,54 +1096,91 @@ bool Serialization::LoadScene(const std::string& filepath)
 			//	std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << std::endl;
 			//}
 
-            // Deserialize PathfindingComponent
+            // Deserialization for PathfindingComponent
             if (entityData.HasMember("PathfindingComponent")) {
                 const auto& pathfindingData = entityData["PathfindingComponent"];
 
-                glm::vec3 startPos(0.0f), goalPos(0.0f);
-                bool isActive = false;
-                bool debugEnabled = false;
-                HeuristicType heuristic = HeuristicType::EUCLIDEAN;
+                Entity startNode = -1;
+                if (pathfindingData.HasMember("StartNode")) {
+                    startNode = static_cast<Entity>(pathfindingData["StartNode"].GetInt());
+                }
 
-                // Load start position
-                if (pathfindingData.HasMember("StartPosition")) {
-                    startPos = glm::vec3(
-                        pathfindingData["StartPosition"]["x"].GetFloat(),
-                        pathfindingData["StartPosition"]["y"].GetFloat(),
-                        pathfindingData["StartPosition"]["z"].GetFloat()
+                Entity goalNode = -1;
+                if (pathfindingData.HasMember("GoalNode")) {
+                    goalNode = static_cast<Entity>(pathfindingData["GoalNode"].GetInt());
+                }
+
+                std::vector<glm::vec3> path;
+                if (pathfindingData.HasMember("Path")) {
+                    const auto& pathArray = pathfindingData["Path"];
+                    for (const auto& pointData : pathArray.GetArray()) {
+                        glm::vec3 point(
+                            pointData["x"].GetFloat(),
+                            pointData["y"].GetFloat(),
+                            pointData["z"].GetFloat()
+                        );
+                        path.push_back(point);
+                    }
+                }
+
+                PathfindingComponent pathfindingComponent;
+                pathfindingComponent.SetStartNode(startNode);
+                pathfindingComponent.SetGoalNode(goalNode);
+                pathfindingComponent.SetPath(path);
+
+                g_Coordinator.AddComponent(entity, pathfindingComponent);
+            }
+
+            // Deserialization for NodeComponent
+            if (entityData.HasMember("NodeComponent")) {
+                const auto& nodeData = entityData["NodeComponent"];
+
+                glm::vec3 position(0.0f);
+                if (nodeData.HasMember("Position")) {
+                    position = glm::vec3(
+                        nodeData["Position"]["x"].GetFloat(),
+                        nodeData["Position"]["y"].GetFloat(),
+                        nodeData["Position"]["z"].GetFloat()
                     );
                 }
 
-                // Load goal position
-                if (pathfindingData.HasMember("GoalPosition")) {
-                    goalPos = glm::vec3(
-                        pathfindingData["GoalPosition"]["x"].GetFloat(),
-                        pathfindingData["GoalPosition"]["y"].GetFloat(),
-                        pathfindingData["GoalPosition"]["z"].GetFloat()
-                    );
+                bool isWalkable = true;
+                if (nodeData.HasMember("IsWalkable")) {
+                    isWalkable = nodeData["IsWalkable"].GetBool();
                 }
 
-                //// Load isActive
-                //if (pathfindingData.HasMember("IsActive")) {
-                //    isActive = pathfindingData["IsActive"].GetBool();
-                //}
+                NodeComponent nodeComponent;
+                nodeComponent.SetPosition(position);
+                nodeComponent.SetWalkable(isWalkable);
 
-                //// Load debugEnabled
-                //if (pathfindingData.HasMember("DebugEnabled")) {
-                //    debugEnabled = pathfindingData["DebugEnabled"].GetBool();
-                //}
+                g_Coordinator.AddComponent(entity, nodeComponent);
+            }
 
-                //// Load heuristic type
-                //if (pathfindingData.HasMember("Heuristic")) {
-                //    heuristic = static_cast<HeuristicType>(pathfindingData["Heuristic"].GetInt());
-                //}
+            // Deserialization for EdgeComponent
+            if (entityData.HasMember("EdgeComponent")) {
+                const auto& edgeData = entityData["EdgeComponent"];
 
-                // Add PathfindingComponent to entity
-                PathfindingComponent pathfindingComp(startPos, goalPos);
-                //pathfindingComp.SetActive(isActive);
-                //pathfindingComp.EnableDebug(debugEnabled);
-                //pathfindingComp.SetHeuristic(heuristic);
-                g_Coordinator.AddComponent(entity, pathfindingComp);
+                Entity startNode = -1;
+                if (edgeData.HasMember("StartNode")) {
+                    startNode = static_cast<Entity>(edgeData["StartNode"].GetInt());
+                }
+
+                Entity endNode = -1;
+                if (edgeData.HasMember("EndNode")) {
+                    endNode = static_cast<Entity>(edgeData["EndNode"].GetInt());
+                }
+
+                float cost = 1.0f;
+                if (edgeData.HasMember("Cost")) {
+                    cost = edgeData["Cost"].GetFloat();
+                }
+
+                EdgeComponent edgeComponent;
+                edgeComponent.SetStartNode(startNode);
+                edgeComponent.SetEndNode(endNode);
+                edgeComponent.SetCost(cost);
+
+                g_Coordinator.AddComponent(entity, edgeComponent);
             }
 
 
