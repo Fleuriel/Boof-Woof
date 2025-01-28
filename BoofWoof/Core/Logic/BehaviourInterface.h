@@ -27,11 +27,17 @@ struct audio_interface
 	virtual void PlaySoundById(const char* soundId) = 0;
 };
 
+struct physics_interface
+{
+	virtual void RemoveBody(Entity entity) = 0;
+};
+
 struct engine_interface
 {
 	virtual ~engine_interface() = default;
 	virtual input_interface& getInputSystem() = 0;
 	virtual audio_interface& getAudioSystem() = 0;
+	virtual physics_interface& getPhysicsSystem() = 0;
 
 	virtual void DestroyEntity(Entity entity) = 0;
 
