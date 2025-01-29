@@ -1,0 +1,12 @@
+File Name: PottedPlant1
+Source File Path: ..\BoofWoof\Assets\Objects\PottedPlant1.obj
+Output File Path: ..\BoofWoof\Resources\Objects\PottedPlant1.bin
+MTL File Exist: 1
+PNG File Exist: 0
+JPG File Exist: 0
+Expected Attributes: 
+ -  Vertices
+ -  Indices
+ -  Normals
+Transform Defauls: 
+ -  Scale: 1.0
