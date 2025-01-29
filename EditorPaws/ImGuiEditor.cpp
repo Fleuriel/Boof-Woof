@@ -3554,7 +3554,6 @@ void ImGuiEditor::InspectorWindow()
 								uiComponent.set_animate(animate);
 
 								if (animate) {
-
 									// Variables to store the rows and cols values
 									int rows = uiComponent.get_rows();
 									int cols = uiComponent.get_cols();
@@ -3570,14 +3569,24 @@ void ImGuiEditor::InspectorWindow()
 									// Ensure cols is at least 1
 									if (cols < 1) cols = 1;
 
+									// Update rows and cols in the UIComponent
 									uiComponent.set_rows(rows);
 									uiComponent.set_cols(cols);
 
 									// Display the current row and column
 									int currRow = uiComponent.get_curr_row();
 									int currCol = uiComponent.get_curr_col();
-
 									ImGui::Text("Current Row: %d, Current Column: %d", currRow, currCol);
+
+									// Add controls for frame interval
+									float frameInterval = uiComponent.get_frame_interval();
+									ImGui::InputFloat("Frame Interval", &frameInterval);
+
+									// Ensure frame interval is positive
+									if (frameInterval < 0.0f) frameInterval = 0.0f;
+
+									// Update frame interval in the UIComponent
+									uiComponent.set_frame_interval(frameInterval);
 								}
 							}
 						}

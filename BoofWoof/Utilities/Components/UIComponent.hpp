@@ -24,6 +24,7 @@ public:
 	void set_cols(int c) { cols = c; }
 	void set_curr_row(int r) { curr_row = r; }
 	void set_curr_col(int c) { curr_col = c; }
+	void set_frame_interval(float i) { frame_interval = i; }
 	void set_timer(float t) { timer = t; }
 
 	// getters
