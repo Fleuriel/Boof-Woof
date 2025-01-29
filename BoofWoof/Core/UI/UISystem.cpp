@@ -49,7 +49,6 @@ void UISystem::UI_update() {
 
 void UISystem::UI_render()
 {
-    // Render UI
     for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
     {
         if (g_Coordinator.HaveComponent<UIComponent>(entity))
@@ -74,30 +73,55 @@ void UISystem::UI_render()
             {
                 // Use default shader
                 auto& shader = g_AssetManager.GetShader("Shader2D");
+                shader.Use(); // **Ensure shader is used before setting uniforms**
+
                 shader.SetUniform("vertexTransform", model);
                 shader.SetUniform("view", glm::mat4(1.0f));
                 shader.SetUniform("projection", glm::mat4(1.0f));
                 shader.SetUniform("opacity", UICompt.get_UI_opacity());
+
+                // Bind texture
                 glBindTextureUnit(6, UICompt.get_textureid());
                 shader.SetUniform("uTex2d", 6);
+
                 g_ResourceManager.getModel("Square")->Draw2D(shader);
+
+                shader.UnUse();
             }
             else
             {
-                // Use new sprite shader
-                auto& spriteShader = g_AssetManager.GetShader("Sprite"); // Load your shader
-                spriteShader.Use();
+                // Use the "sprite" shader
+                auto& shader = g_AssetManager.GetShader("Sprite");
+                shader.Use();
 
-                spriteShader.SetUniform("vertexTransform", model);
-                spriteShader.SetUniform("view", glm::mat4(1.0f));
-                spriteShader.SetUniform("projection", glm::mat4(1.0f));
-                spriteShader.SetUniform("opacity", UICompt.get_UI_opacity());
+                // Compute transformation matrix
+                glm::vec3 UI_pos = { UICompt.get_position(), UICompt.get_UI_layer() };
+                glm::vec3 UI_scale = { UICompt.get_scale(), 1.0f };
 
-                // Bind texture for sprite shader
-                glBindTextureUnit(7, UICompt.get_textureid()); // Different texture unit if needed
-                spriteShader.SetUniform("uTex2d", 7);
+                // Compute transformation matrix
+                glm::mat4 model = glm::mat4(1.0f);
+                model = glm::translate(model, UI_pos);
+                model = glm::scale(model, UI_scale);
 
-                g_ResourceManager.getModel("Square")->Draw2D(spriteShader);
+                // Set the transformation matrix in the shader
+                shader.SetUniform("uModel_to_NDC", glm::mat3(model));
+
+                shader.SetUniform("opacity", UICompt.get_UI_opacity());
+
+                // Animation-related uniforms (if applicable)
+                shader.SetUniform("rows", UICompt.get_rows());
+                shader.SetUniform("cols", UICompt.get_cols());
+                shader.SetUniform("row_To_Draw", 1);
+                shader.SetUniform("col_To_Draw", 1);
+
+                // Bind texture
+                glBindTextureUnit(6, UICompt.get_textureid());
+                shader.SetUniform("uTex2d", 6);
+
+                // Draw the animated sprite
+                g_ResourceManager.getModel("Square")->Draw2D(shader);
+
+                shader.UnUse();
             }
         }
     }
