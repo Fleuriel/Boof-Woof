@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "52a67958-80cc-4d9b-bc85-9099fba87133",
+    "SceneGUID": "b6a53789-5a8e-47b0-b170-51818b86c5fc",
     "Entities": [
         {
             "MetadataComponent": {
@@ -7,7 +7,7 @@
                 "EntityID": 0
             },
             "UIComponent": {
-                "TextureID": 248,
+                "TextureName": "PawsieAdventure",
                 "PositionX": 0.0,
                 "PositionY": 0.4000000059604645,
                 "ScaleX": 0.699999988079071,
@@ -23,7 +23,7 @@
                 "EntityID": 1
             },
             "UIComponent": {
-                "TextureID": 259,
+                "TextureName": "SpaceToStart",
                 "PositionX": 0.0,
                 "PositionY": -0.5,
                 "ScaleX": 0.30000001192092898,

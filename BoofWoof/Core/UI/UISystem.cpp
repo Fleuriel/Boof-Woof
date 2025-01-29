@@ -76,7 +76,7 @@ void UISystem::UI_render()
 			g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
 			g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
 			g_AssetManager.GetShader("Shader2D").SetUniform("opacity", UICompt.get_UI_opacity());
-			glBindTextureUnit(6, UICompt.get_textureid());
+			glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(UICompt.get_texturename()));
 
 			g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
 

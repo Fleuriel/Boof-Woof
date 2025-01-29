@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "5ff79444-c9d7-499f-9a45-335aaf3be774",
+    "SceneGUID": "02883fa2-43b5-40c0-9ee3-5b28cafd33df",
     "Entities": [
         {
             "MetadataComponent": {
@@ -7,7 +7,7 @@
                 "EntityID": 0
             },
             "UIComponent": {
-                "TextureID": 19,
+                "TextureName": "Checklist",
                 "PositionX": -0.7300000190734863,
                 "PositionY": 0.800000011920929,
                 "ScaleX": 0.3799999952316284,
@@ -23,7 +23,7 @@
                 "EntityID": 1
             },
             "UIComponent": {
-                "TextureID": -1,
+                "TextureName": "",
                 "PositionX": -0.75,
                 "PositionY": 0.8799999952316284,
                 "ScaleX": 0.15000000596046449,
@@ -39,7 +39,7 @@
                 "EntityID": 2
             },
             "UIComponent": {
-                "TextureID": -1,
+                "TextureName": "",
                 "PositionX": -0.7200000286102295,
                 "PositionY": 0.7799999713897705,
                 "ScaleX": 0.15000000596046449,
@@ -55,7 +55,7 @@
                 "EntityID": 3
             },
             "UIComponent": {
-                "TextureID": -1,
+                "TextureName": "",
                 "PositionX": -0.6899999976158142,
                 "PositionY": 0.6700000166893005,
                 "ScaleX": 0.15000000596046449,
@@ -71,7 +71,7 @@
                 "EntityID": 4
             },
             "UIComponent": {
-                "TextureID": -1,
+                "TextureName": "",
                 "PositionX": -0.7599999904632568,
                 "PositionY": 0.5649999976158142,
                 "ScaleX": 0.15000000596046449,
@@ -87,7 +87,7 @@
                 "EntityID": 5
             },
             "UIComponent": {
-                "TextureID": 11,
+                "TextureName": "Box",
                 "PositionX": -0.550000011920929,
                 "PositionY": 0.8799999952316284,
                 "ScaleX": 0.03999999910593033,
@@ -103,7 +103,7 @@
                 "EntityID": 6
             },
             "UIComponent": {
-                "TextureID": 11,
+                "TextureName": "Box",
                 "PositionX": -0.550000011920929,
                 "PositionY": 0.7799999713897705,
                 "ScaleX": 0.03999999910593033,
@@ -119,7 +119,7 @@
                 "EntityID": 7
             },
             "UIComponent": {
-                "TextureID": 11,
+                "TextureName": "Box",
                 "PositionX": -0.550000011920929,
                 "PositionY": 0.6700000166893005,
                 "ScaleX": 0.03999999910593033,
@@ -135,7 +135,7 @@
                 "EntityID": 8
             },
             "UIComponent": {
-                "TextureID": 11,
+                "TextureName": "Box",
                 "PositionX": -0.550000011920929,
                 "PositionY": 0.5649999976158142,
                 "ScaleX": 0.03999999910593033,

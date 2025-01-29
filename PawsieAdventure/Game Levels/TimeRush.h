@@ -125,8 +125,9 @@ class TimeRush : public Level
 		{
 			std::string nextTextureName = "Group" + std::to_string(currentTextureIndex + 1);
 
-			int nextTextureId = g_ResourceManager.GetTextureDDS(nextTextureName);
-			text.set_textureid(nextTextureId);
+			//int nextTextureId = g_ResourceManager.GetTextureDDS(nextTextureName);
+			//text.set_textureid(nextTextureId);
+			text.set_texturename(nextTextureName);
 
 			timer = 0.0; // Reset timer
 			currentTextureIndex++; // Move to the next texture

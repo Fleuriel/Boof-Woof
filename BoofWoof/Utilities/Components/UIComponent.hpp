@@ -8,13 +8,13 @@
 class UIComponent {
 public:
 	UIComponent() {};
-	UIComponent(int tid, glm::vec2 pos, glm::vec2 s, float layer, bool selecable, float opacity) : textureid(tid), position(pos), scale(s), layer(layer), selectable(selecable), UI_opacity(opacity) {};
+	UIComponent(std::string tex , glm::vec2 pos, glm::vec2 s, float layer, bool selecable, float opacity) : texturename(tex), position(pos), scale(s), layer(layer), selectable(selecable), UI_opacity(opacity) {};
 	~UIComponent() {};
 
 	// setters
 	void set_position(glm::vec2 pos) { position = pos; }
 	void set_scale(glm::vec2 s) { scale = s; }
-	void set_textureid(int tid) { textureid = tid; }
+	void set_texturename(std::string t) {	texturename = t;}
 	void set_UI_layer(float l) { layer = l; }
 	void set_opacity(float o) { UI_opacity = o; }
 	void set_selectable(bool s) { selectable = s; }
@@ -23,7 +23,7 @@ public:
 	// getters
 	glm::vec2 get_position() { return position; }
 	glm::vec2 get_scale() { return scale; }
-	int get_textureid() const { return textureid; }
+	std::string get_texturename() { return texturename; }
 	float get_UI_layer() const { return layer; }
 	float get_opacity() const { return UI_opacity; }
 	bool get_selectable() const { return selectable; }
@@ -55,7 +55,7 @@ public:
 
 private:
 	//std::string name;
-	int textureid{};
+	std::string texturename;
 	std::string text{};
 
 	glm::vec2 position{ 0.f, 0.f };

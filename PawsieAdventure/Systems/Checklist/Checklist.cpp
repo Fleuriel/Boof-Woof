@@ -195,9 +195,11 @@ void Checklist::ChangeBoxChecked(Entity ent)
 
 	auto& text = g_Coordinator.GetComponent<UIComponent>(ent);
 
-	int oldTextureId = text.get_textureid();
-	int textureId = g_ResourceManager.GetTextureDDS("BoxChecked");
-	text.set_textureid(textureId);
+	//int oldTextureId = text.get_textureid();
+	//int textureId = g_ResourceManager.GetTextureDDS("BoxChecked");
+	//text.set_textureid(textureId);
+
+	text.set_texturename("BoxChecked");
 
 	if (!playAudio)
 	{
@@ -228,8 +230,9 @@ void Checklist::ChangeAsset(Entity ent, glm::vec2 scale, std::string textureName
 	auto& text = g_Coordinator.GetComponent<UIComponent>(ent);
 
 	//int oldTextureId = text.get_textureid();
-	int textureId = g_ResourceManager.GetTextureDDS(textureName);
-	text.set_textureid(textureId);
+	//int textureId = g_ResourceManager.GetTextureDDS(textureName);
+	//text.set_textureid(textureId);
+	text.set_texturename(textureName);
 
 	g_Coordinator.GetComponent<UIComponent>(ent).set_scale(scale);
 

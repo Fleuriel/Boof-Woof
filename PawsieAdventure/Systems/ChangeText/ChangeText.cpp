@@ -46,8 +46,9 @@ void ChangeText::OnUpdate(double deltaTime)
 		std::string newTextureName = "CorgiText" + std::to_string(textureIndex + 1);
 
 		//int oldTextureId = text.get_textureid();
-		int textureId = g_ResourceManager.GetTextureDDS(newTextureName);
-		text.set_textureid(textureId);
+		//int textureId = g_ResourceManager.GetTextureDDS(newTextureName);
+		//text.set_textureid(textureId);
+		text.set_texturename(newTextureName);
 
 		cdTimer = 0.0;  // Reset the timer after each texture change
 		textureIndex++;  // Move to the next texture

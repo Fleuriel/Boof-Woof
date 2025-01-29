@@ -468,7 +468,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
 			auto& uiComp = g_Coordinator.GetComponent<UIComponent>(entity);
 
-			UI.AddMember("TextureID", uiComp.get_textureid(), allocator);
+			UI.AddMember("TextureName", rapidjson::Value(uiComp.get_texturename().c_str(), allocator), allocator);
 			UI.AddMember("PositionX", uiComp.get_position().x, allocator);
 			UI.AddMember("PositionY", uiComp.get_position().y, allocator);
 			UI.AddMember("ScaleX", uiComp.get_scale().x, allocator);
@@ -973,35 +973,42 @@ bool Serialization::LoadScene(const std::string& filepath)
 			// Deserialize UIComponent
 			if (entityData.HasMember("UIComponent")) {
 				const auto& UIData = entityData["UIComponent"];
-				if (UIData.HasMember("TextureID")) {
-                    int textureID{};
-					if (UIData.HasMember("TextureID"))
-						textureID = UIData["TextureID"].GetInt();
+				
+                std::string textureName{};
+                /*if (UIData.HasMember("TextureID")) {
+                    int textureID = UIData["TextureID"].GetInt();
+					textureName = g_ResourceManager.GetTextureDDSFileName(textureID);
+                }*/
 
-					glm::vec2 position = glm::vec2(0.0f);
-					if (UIData.HasMember("PositionX") && UIData.HasMember("PositionY"))
-						position = glm::vec2(UIData["PositionX"].GetFloat(), UIData["PositionY"].GetFloat());
-
-					glm::vec2 scale = glm::vec2(1.0f);
-					if (UIData.HasMember("ScaleX") && UIData.HasMember("ScaleY"))
-						scale = glm::vec2(UIData["ScaleX"].GetFloat(), UIData["ScaleY"].GetFloat());
-
-
-					float layer = 0.0f;
-					if (UIData.HasMember("Layer"))
-						layer = UIData["Layer"].GetFloat();
-
-					bool selectable = false;
-					if (UIData.HasMember("Selectable"))
-						selectable = UIData["Selectable"].GetBool();
-
-					float opacity = 1.0f;
-					if (UIData.HasMember("Opcaity"))
-						opacity = UIData["Opcaity"].GetFloat();
-
-					UIComponent uiComponent(textureID, position, scale, layer, selectable, opacity);
-					g_Coordinator.AddComponent(entity, uiComponent);
+					
+				if (UIData.HasMember("TextureName")) {
+					textureName = UIData["TextureName"].GetString();
 				}
+
+				glm::vec2 position = glm::vec2(0.0f);
+				if (UIData.HasMember("PositionX") && UIData.HasMember("PositionY"))
+					position = glm::vec2(UIData["PositionX"].GetFloat(), UIData["PositionY"].GetFloat());
+
+				glm::vec2 scale = glm::vec2(1.0f);
+				if (UIData.HasMember("ScaleX") && UIData.HasMember("ScaleY"))
+					scale = glm::vec2(UIData["ScaleX"].GetFloat(), UIData["ScaleY"].GetFloat());
+
+
+				float layer = 0.0f;
+				if (UIData.HasMember("Layer"))
+					layer = UIData["Layer"].GetFloat();
+
+				bool selectable = false;
+				if (UIData.HasMember("Selectable"))
+					selectable = UIData["Selectable"].GetBool();
+
+				float opacity = 1.0f;
+				if (UIData.HasMember("Opcaity"))
+					opacity = UIData["Opcaity"].GetFloat();
+
+				UIComponent uiComponent(textureName, position, scale, layer, selectable, opacity);
+				g_Coordinator.AddComponent(entity, uiComponent);
+				
 			}
 
 
