@@ -5,6 +5,7 @@
 #include "ECS/Coordinator.hpp"
 #include "../Core/Reflection/ReflectionManager.hpp" 
 
+
 class UIComponent {
 public:
 	UIComponent() {};
@@ -21,6 +22,9 @@ public:
 	void set_animate(bool a) { animated = a; }
 	void set_rows(int r) { rows = r; }
 	void set_cols(int c) { cols = c; }
+	void set_curr_row(int r) { curr_row = r; }
+	void set_curr_col(int c) { curr_col = c; }
+	void set_timer(float t) { timer = t; }
 
 	// getters
 	glm::vec2 get_position() { return position; }
@@ -32,7 +36,10 @@ public:
 	bool get_animate() const { return animated; }
 	int get_rows() const { return rows; }
 	int get_cols() const { return cols; }
-
+	int get_curr_row() const { return curr_row; }
+	int get_curr_col() const { return curr_col; }
+	float get_frame_interval() const { return frame_interval; }
+	float get_timer() const { return timer; }
 
 	// UI interaction
 	bool get_selected() { return selected; }
@@ -75,6 +82,10 @@ private:
 	bool animated{ false };
 	int rows{ 1 };
 	int cols{ 1 };
+	int curr_row{ 1 };
+	int curr_col{ 1 };
+	float frame_interval{ 0.1 };
+	float timer{ 0.f };
 };
 
 #endif // UICOMPONENT_HPP

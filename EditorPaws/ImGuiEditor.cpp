@@ -3572,6 +3572,12 @@ void ImGuiEditor::InspectorWindow()
 
 									uiComponent.set_rows(rows);
 									uiComponent.set_cols(cols);
+
+									// Display the current row and column
+									int currRow = uiComponent.get_curr_row();
+									int currCol = uiComponent.get_curr_col();
+
+									ImGui::Text("Current Row: %d, Current Column: %d", currRow, currCol);
 								}
 							}
 						}
