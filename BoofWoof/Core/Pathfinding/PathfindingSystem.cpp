@@ -33,13 +33,20 @@ void PathfindingSystem::BuildGraph() {
     for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
         if (g_Coordinator.HaveComponent<NodeComponent>(entity)) {
             auto& nodeComp = g_Coordinator.GetComponent<NodeComponent>(entity);
+            glm::vec3 nodePosition = nodeComp.GetPosition(); // Default to NodeComponent's position
+
+            // Check if the entity has a TransformComponent and use its position
+            if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+                auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+                nodePosition = transformComp.GetPosition(); // Override with TransformComponent's position
+            }
 
             // Store the node with its entity reference
-            graphNodes[entity] = std::make_shared<Node3D>(entity, nodeComp.GetPosition(), nodeComp.IsWalkable());
+            graphNodes[entity] = std::make_shared<Node3D>(entity, nodePosition, nodeComp.IsWalkable());
 
             std::cout << "[PathfindingSystem] Added Node: " << entity
-                << " | Position: (" << nodeComp.GetPosition().x << ", "
-                << nodeComp.GetPosition().y << ", " << nodeComp.GetPosition().z << ")"
+                << " | Position: (" << nodePosition.x << ", "
+                << nodePosition.y << ", " << nodePosition.z << ")"
                 << " | Walkable: " << nodeComp.IsWalkable() << "\n";
         }
     }
@@ -77,6 +84,7 @@ void PathfindingSystem::BuildGraph() {
     std::cout << "[PathfindingSystem] Graph built with " << graphNodes.size()
         << " nodes and " << graphEdges.size() << " edges.\n";
 }
+
 
 
 void PathfindingSystem::Update(float deltaTime) {

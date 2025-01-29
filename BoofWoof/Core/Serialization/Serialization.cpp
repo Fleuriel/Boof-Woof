@@ -1100,12 +1100,12 @@ bool Serialization::LoadScene(const std::string& filepath)
             if (entityData.HasMember("PathfindingComponent")) {
                 const auto& pathfindingData = entityData["PathfindingComponent"];
 
-                Entity startNode = -1;
+                Entity startNode = INVALID_ENTITY;
                 if (pathfindingData.HasMember("StartNode")) {
                     startNode = static_cast<Entity>(pathfindingData["StartNode"].GetInt());
                 }
 
-                Entity goalNode = -1;
+                Entity goalNode = INVALID_ENTITY;
                 if (pathfindingData.HasMember("GoalNode")) {
                     goalNode = static_cast<Entity>(pathfindingData["GoalNode"].GetInt());
                 }
@@ -1160,12 +1160,12 @@ bool Serialization::LoadScene(const std::string& filepath)
             if (entityData.HasMember("EdgeComponent")) {
                 const auto& edgeData = entityData["EdgeComponent"];
 
-                Entity startNode = -1;
+                Entity startNode = INVALID_ENTITY;
                 if (edgeData.HasMember("StartNode")) {
                     startNode = static_cast<Entity>(edgeData["StartNode"].GetInt());
                 }
 
-                Entity endNode = -1;
+                Entity endNode = INVALID_ENTITY;
                 if (edgeData.HasMember("EndNode")) {
                     endNode = static_cast<Entity>(edgeData["EndNode"].GetInt());
                 }

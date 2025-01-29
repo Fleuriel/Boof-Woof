@@ -3707,31 +3707,50 @@ void ImGuiEditor::InspectorWindow()
 							}
 						}
 						// Node Component editor
-						else if (className == "NodeComponent") 
-						{
-							if (ImGui::CollapsingHeader("Node", ImGuiTreeNodeFlags_None)) {
-								auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
+						else if (className == "NodeComponent") {
+						if (ImGui::CollapsingHeader("Node Component", ImGuiTreeNodeFlags_None)) {
+							auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
 
-								// Node Position
-								glm::vec3 position = nodeComponent.GetPosition();
-								ImGui::Text("Node Position");
-								ImGui::SameLine();
-								ImGui::PushItemWidth(150.0f);
-								ImGui::PushID("NodePosition");
+							glm::vec3 nodePosition = nodeComponent.GetPosition();
+							bool isWalkable = nodeComponent.IsWalkable();
 
-								if (ImGui::DragFloat3("##NodePosition", &position.x, 0.1f)) {
-									nodeComponent.SetPosition(position);
-								}
-
-								ImGui::PopID();
-								ImGui::PopItemWidth();
-
-								// Is Walkable
-								bool isWalkable = nodeComponent.IsWalkable();
-								ImGui::Checkbox("Is Walkable", &isWalkable);
-								nodeComponent.SetWalkable(isWalkable);
+							// Check if the entity has a TransformComponent
+							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) {
+								auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+								nodePosition = transformComp.GetPosition(); // Override position
+								ImGui::Text("Node Position (From Transform)");
 							}
+							else {
+								ImGui::Text("Node Position (Manual)");
+							}
+
+							ImGui::SameLine();
+							ImGui::PushItemWidth(150.0f);
+							ImGui::PushID("NodePosition");
+
+							// If there's a TransformComponent, display the position but disable editing
+							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) {
+								ImGui::InputFloat3("##NodePosition", &nodePosition.x, "%.3f", ImGuiInputTextFlags_ReadOnly);
+							}
+							else {
+								// Allow manual setting if no TransformComponent
+								if (ImGui::DragFloat3("##NodePosition", &nodePosition.x, 0.1f)) {
+									nodeComponent.SetPosition(nodePosition);
+								}
+							}
+
+							ImGui::PopID();
+							ImGui::PopItemWidth();
+
+							// Walkable Checkbox
+							bool walkable = nodeComponent.IsWalkable();
+							ImGui::Text("Walkable");
+							ImGui::SameLine();
+							ImGui::Checkbox("##Walkable", &walkable);
+							nodeComponent.SetWalkable(walkable);
 						}
+}
+
 						// Edge Component editor
 						else if (className == "EdgeComponent") 
 						{

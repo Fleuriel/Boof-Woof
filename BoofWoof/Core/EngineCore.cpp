@@ -257,7 +257,7 @@ void EngineCore::OnUpdate()
 
 	{
 		// Pathfinding
-		mPathfindingSys->Update(m_DeltaTime);
+		mPathfindingSys->Update(static_cast<float>(m_DeltaTime));
 	}
 
 	static bool drawTestLinesOnce = true;

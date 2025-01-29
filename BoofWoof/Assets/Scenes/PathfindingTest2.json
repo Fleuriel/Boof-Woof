@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "bb12d57d-5920-4761-8b3f-7936981d9452",
+    "SceneGUID": "d27b07c2-36dc-4f82-8f8b-ab7a4773028f",
     "Entities": [
         {
             "MetadataComponent": {
@@ -39,6 +39,11 @@
                     },
                     {
                         "x": 5.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 10.0,
                         "y": 0.0,
                         "z": 0.0
                     }
@@ -88,7 +93,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.0,
+                    "x": 5.0,
                     "y": 0.0,
                     "z": 0.0
                 },
@@ -190,7 +195,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.0,
+                    "x": 10.0,
                     "y": 0.0,
                     "z": 0.0
                 },

@@ -147,6 +147,7 @@
 #include "../Utilities/Components/EdgeComponent.hpp"
 #include "../Utilities/Components/NodeComponent.hpp"
 #include "../Utilities/Components/PathfindingComponent.hpp"
+#include <../Utilities/Components/TransformComponent.hpp>
 #include <unordered_map>
 #include <unordered_set>
 #include <queue>
