@@ -140,10 +140,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 void GraphicsSystem::UpdateLoop() {
 
 
-	//if (g_Input.IsActionPressed(ActionType::Jump)) {
-	//	std::cout << "Jump\n";
-	//}
-
+	
 	// Get the current time
 	auto currentTime = std::chrono::high_resolution_clock::now();
 
@@ -156,7 +153,7 @@ void GraphicsSystem::UpdateLoop() {
 
 	// Bind the framebuffer for rendering
 	if (editorMode == true)
-		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 	else
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -192,6 +189,7 @@ void GraphicsSystem::UpdateLoop() {
 
 	lights_infos.clear();
 	g_AssetManager.GetShader("shadow").Use();
+	glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
 	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
 	{
 		if (g_Coordinator.HaveComponent<LightComponent>(entity))
@@ -217,8 +215,7 @@ void GraphicsSystem::UpdateLoop() {
 				shadowTransforms.push_back(shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
 				shadowTransforms.push_back(shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
 
-				glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
-				glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+				
 				glClear(GL_DEPTH_BUFFER_BIT);
 
 				
@@ -229,7 +226,7 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader("shadow").SetUniform("farPlane", far_plane);
 				g_AssetManager.GetShader("shadow").SetUniform("lightPos", light_info_.position);
 				
-				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				
 
 			}
 
@@ -312,21 +309,10 @@ void GraphicsSystem::UpdateLoop() {
 		g_AssetManager.GetShader("shadow").SetUniform("vertexTransform", shdrParam.WorldMatrix);
 
 		g_ResourceManager.getModel("cubeModel")->Draw(g_AssetManager.GetShader("shadow"));
-		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-
+		
 		g_AssetManager.GetShader(ShaderName).Use();
 
-		if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
-		{
-			/* We do not need these anymore */
-
-			// std::cout << "Model is null" << std::endl;
-			//graphicsComp.setModelName("cubeModel");
-			//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
-			continue;
-		}
-
+		
 
 
 		if (ShaderName == "Shader3D")
