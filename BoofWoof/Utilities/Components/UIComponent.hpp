@@ -18,7 +18,9 @@ public:
 	void set_UI_layer(float l) { layer = l; }
 	void set_opacity(float o) { UI_opacity = o; }
 	void set_selectable(bool s) { selectable = s; }
-
+	void set_animate(bool a) { animated = a; }
+	void set_rows(int r) { rows = r; }
+	void set_cols(int c) { cols = c; }
 
 	// getters
 	glm::vec2 get_position() { return position; }
@@ -27,12 +29,14 @@ public:
 	float get_UI_layer() const { return layer; }
 	float get_opacity() const { return UI_opacity; }
 	bool get_selectable() const { return selectable; }
+	bool get_animate() const { return animated; }
+	int get_rows() const { return rows; }
+	int get_cols() const { return cols; }
 
 
 	// UI interaction
 	bool get_selected() { return selected; }
 	float get_UI_opacity() { return UI_opacity; }
-
 
 
 	void checkclick(glm::vec2 mousepos) {
@@ -67,6 +71,10 @@ private:
 
 
 	bool selected{ false };
+
+	bool animated{ false };
+	int rows{ 1 };
+	int cols{ 1 };
 };
 
 #endif // UICOMPONENT_HPP

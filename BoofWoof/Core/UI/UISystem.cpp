@@ -49,43 +49,58 @@ void UISystem::UI_update() {
 
 void UISystem::UI_render()
 {
-	
-	//render UI
-	
-	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
-	{
-		if (g_Coordinator.HaveComponent<UIComponent>(entity)) 
-		{
-			auto& UICompt = g_Coordinator.GetComponent<UIComponent>(entity);
+    // Render UI
+    for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
+    {
+        if (g_Coordinator.HaveComponent<UIComponent>(entity))
+        {
+            auto& UICompt = g_Coordinator.GetComponent<UIComponent>(entity);
 
+            glm::vec2 mouse_pos = {
+                (g_Input.GetMousePositionUI().x / g_WindowX) * 2.0f - 1.0f,
+                1.0f - 2.0f * (g_Input.GetMousePositionUI().y / g_WindowY)
+            };
+            UICompt.checkclick(mouse_pos);
 
-			glm::vec2 mouse_pos = { (g_Input.GetMousePositionUI().x / g_WindowX) * 2.0f - 1.0f, 1.0f - 2.0f * (g_Input.GetMousePositionUI().y / g_WindowY) };
-			UICompt.checkclick(mouse_pos);
+            // Set up model matrix
+            glm::vec3 UI_pos = { UICompt.get_position(), UICompt.get_UI_layer() };
+            glm::vec3 UI_scale = { UICompt.get_scale(), 1.f };
 
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::translate(model, UI_pos);
+            model = glm::scale(model, { UI_scale.x, UI_scale.y, 1.0f });
 
-			// set up model matrix
-			glm::vec3 UI_pos = { UICompt.get_position() , UICompt.get_UI_layer() };
-			glm::vec3 UI_scale = { UICompt.get_scale() , 1.f };
-			
-			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, UI_pos);
-			model = glm::scale(model, { UI_scale.x, UI_scale.y, 1.0f });
+            if (UICompt.get_animate() == false)
+            {
+                // Use default shader
+                auto& shader = g_AssetManager.GetShader("Shader2D");
+                shader.SetUniform("vertexTransform", model);
+                shader.SetUniform("view", glm::mat4(1.0f));
+                shader.SetUniform("projection", glm::mat4(1.0f));
+                shader.SetUniform("opacity", UICompt.get_UI_opacity());
+                glBindTextureUnit(6, UICompt.get_textureid());
+                shader.SetUniform("uTex2d", 6);
+                g_ResourceManager.getModel("Square")->Draw2D(shader);
+            }
+            else
+            {
+                // Use new sprite shader
+                auto& spriteShader = g_AssetManager.GetShader("Sprite"); // Load your shader
+                spriteShader.Use();
 
-			// call 2d render
-			g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", model);
-			g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
-			g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
-			g_AssetManager.GetShader("Shader2D").SetUniform("opacity", UICompt.get_UI_opacity());
-			glBindTextureUnit(6, UICompt.get_textureid());
+                spriteShader.SetUniform("vertexTransform", model);
+                spriteShader.SetUniform("view", glm::mat4(1.0f));
+                spriteShader.SetUniform("projection", glm::mat4(1.0f));
+                spriteShader.SetUniform("opacity", UICompt.get_UI_opacity());
 
-			g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
+                // Bind texture for sprite shader
+                glBindTextureUnit(7, UICompt.get_textureid()); // Different texture unit if needed
+                spriteShader.SetUniform("uTex2d", 7);
 
-			g_ResourceManager.getModel("Square")->Draw2D(g_AssetManager.GetShader("Shader2D"));
-		}
-	}
-
-	
-
+                g_ResourceManager.getModel("Square")->Draw2D(spriteShader);
+            }
+        }
+    }
 }
 
 
