@@ -37,7 +37,7 @@ void UISystem::UI_update() {
     }
 
     // Use GetDeltaTime() instead of GetElapsedTime()
-    float currentTime = g_Window->GetDeltaTime(); // This gives you the time since the last frame
+    float currentTime = static_cast<float>(g_Window->GetDeltaTime()); // This gives you the time since the last frame
 
     // Loop through all UI components
     for (auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
@@ -100,7 +100,7 @@ void UISystem::UI_render()
 
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, UI_pos);
-            model = glm::scale(model, { UI_scale.x, UI_scale.y, 1.0f });
+            model = glm::scale(model, UI_scale);
 
             if (UICompt.get_animate() == false)
             {
@@ -126,15 +126,6 @@ void UISystem::UI_render()
                 // Use the "sprite" shader
                 auto& shader = g_AssetManager.GetShader("Sprite");
                 shader.Use();
-
-                // Compute transformation matrix
-                glm::vec3 UI_pos = { UICompt.get_position(), UICompt.get_UI_layer() };
-                glm::vec3 UI_scale = { UICompt.get_scale(), 1.0f };
-
-                // Compute transformation matrix
-                glm::mat4 model = glm::mat4(1.0f);
-                model = glm::translate(model, UI_pos);
-                model = glm::scale(model, UI_scale);
 
                 // Set the transformation matrix in the shader
                 shader.SetUniform("uModel_to_NDC", glm::mat3(model));
