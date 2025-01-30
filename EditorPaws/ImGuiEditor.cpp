@@ -2152,24 +2152,28 @@ void ImGuiEditor::InspectorWindow()
 
 									if (ImGui::Combo("##NameCombo", &currentItem, behaviourNames, IM_ARRAYSIZE(behaviourNames)))
 									{
-										newBehaviourName = behaviourNames[currentItem];
-										(*behaviourNameProperty)->SetValue(&behaviourComponent, newBehaviourName);
 
-										Entity entity = g_SelectedEntity;
+										
+											newBehaviourName = behaviourNames[currentItem];
+											(*behaviourNameProperty)->SetValue(&behaviourComponent, newBehaviourName);
+											if (g_Coordinator.GetSystem<LogicSystem>()->ApprovingScriptChange(g_SelectedEntity)) {
+												Entity entity = g_SelectedEntity;
+												g_Coordinator.GetSystem<LogicSystem>()->InitScript(entity);
 
-										g_UndoRedoManager.ExecuteCommand(
-											[entity, newBehaviourName]() {
-												auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
-												component.SetBehaviourName(newBehaviourName);
-											},
-											[entity, oldBehaviourName]() {
-												auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
-												component.SetBehaviourName(oldBehaviourName);
-											}
-										);
+												g_UndoRedoManager.ExecuteCommand(
+													[entity, newBehaviourName]() {
+														auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
+														component.SetBehaviourName(newBehaviourName);
+													},
+													[entity, oldBehaviourName]() {
+														auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
+														component.SetBehaviourName(oldBehaviourName);
+													}
+												);
+											}								
 									}
 
-									ImGui::PopID();
+									ImGui::PopID();								
 								}
 							}
 						}
@@ -4907,6 +4911,7 @@ void ImGuiEditor::Scenes()
 				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
 				m_LastOpenedFile = filePathName;
 				g_SceneManager.LoadScene(filePathName);
+				g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 			}
 			ImGuiFileDialog::Instance()->Close();
 		}

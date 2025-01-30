@@ -1,4 +1,3 @@
-
 struct Treat final : public Behaviour
 {
 	using Behaviour::Behaviour;

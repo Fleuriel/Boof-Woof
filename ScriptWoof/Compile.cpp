@@ -4,6 +4,7 @@
 
 #include "Player.hpp"
 #include "Treat.hpp"
+#include "Null.hpp"
 
 extern "C"
 {
@@ -17,7 +18,7 @@ extern "C"
 		// Add all the scripts here
 		pBehaviours->emplace_back(std::make_unique<Player>(EP));	// using std::make_unique that automatically allocates and manages memory instead of new
 		pBehaviours->emplace_back(std::make_unique<Treat>(EP));	// using std::make_unique that automatically allocates and manages memory instead of new
-
+		pBehaviours->emplace_back(std::make_unique<Null>(EP));	// using std::make_unique that automatically allocates and manages memory instead of new
 
 		// release ownership of pointer and cast to void*
 		return pBehaviours.release(); // Return raw pointer as void*, caller is responsible for cleanup (need to delete the vector to free memory by urself)
