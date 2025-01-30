@@ -192,6 +192,9 @@ class MainMenu : public Level
 						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
 						music1.PlayAudio();
 					}
+
+					MenuPauser->OnExit();
+					exit(0);
 				}
 			}
 		}

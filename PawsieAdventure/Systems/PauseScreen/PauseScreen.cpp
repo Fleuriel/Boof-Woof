@@ -1,5 +1,6 @@
 #include "PauseScreen.h"
 #include "../Core/AssetManager/FilePaths.h"
+#include <Level Manager/LevelManager.h>
 
 std::unique_ptr<PauseMenu> pauser = CreatePausedMenu(PauseState::Paused);
 Serialization serialPause;
@@ -194,7 +195,11 @@ namespace pauseLogic
 			g_IsPaused = true;
 			pauser->OnLoad();
 			g_Window->ShowMouseCursor();
+
+			std::cout << "Paused\n";
 		}
+
+		static bool wasMousePressed = false;
 
 		if (g_IsPaused)
 		{
@@ -204,6 +209,8 @@ namespace pauseLogic
 				pauser = CreatePausedMenu(PauseState::Paused);
 				pauser->OnLoad();
 				inSmthAgain = false;
+
+				std::cout << "came out from something\n";
 			}
 
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && !inSmthAgain)
@@ -219,6 +226,8 @@ namespace pauseLogic
 						g_Window->HideMouseCursor();
 						pauser->OnExit();
 						g_IsPaused = false;
+
+						std::cout << "resume game\n";
 					}
 				}
 
@@ -235,6 +244,9 @@ namespace pauseLogic
 						pauser->OnExit();
 						pauser = CreatePausedMenu(PauseState::Settings);
 						pauser->OnLoad();
+
+						std::cout << "setting\n";
+
 					}
 				}
 
@@ -252,6 +264,9 @@ namespace pauseLogic
 						pauser->OnExit();
 						pauser = CreatePausedMenu(PauseState::HowToPlay);
 						pauser->OnLoad();
+
+						std::cout << "htp\n";
+
 					}
 				}
 
@@ -267,10 +282,59 @@ namespace pauseLogic
 
 
 						pauser->OnExit();
-						pauser = CreatePausedMenu(PauseState::QuitGame);
-						pauser->OnLoad();
+						g_LevelManager.SetNextLevel("MainMenu");
+
+						/*pauser = CreatePausedMenu(PauseState::QuitGame);
+						pauser->OnLoad();*/
 					}
 				}
+			}
+
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && !wasMousePressed && inSmthAgain)
+			{
+				wasMousePressed = true;
+
+				// For Settings Page
+				if (g_Coordinator.HaveComponent<UIComponent>(pauser->SFXLeft))
+				{
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->SFXLeft);
+					if (UICompt.get_selected())
+					{
+						std::cout << "decrease SFX\n";
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<UIComponent>(pauser->SFXRight))
+				{
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->SFXRight);
+					if (UICompt.get_selected())
+					{
+						std::cout << "increase SFX\n";
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<UIComponent>(pauser->BGMLeft))
+				{
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->BGMLeft);
+					if (UICompt.get_selected())
+					{
+						std::cout << "decrease BGM\n";
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<UIComponent>(pauser->BGMRight))
+				{
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->BGMRight);
+					if (UICompt.get_selected())
+					{
+						std::cout << "increase BGM\n";
+					}
+				}
+			}
+			else if (!g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT))
+			{
+				// Reset the mouse press state when the mouse button is released
+				wasMousePressed = false;
 			}
 		}
 	}

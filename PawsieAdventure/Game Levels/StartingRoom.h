@@ -18,7 +18,7 @@ public:
 	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{};
 
 
-	void LoadLevel()
+	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom.json");
 		
@@ -70,7 +70,7 @@ public:
 		g_Window->HideMouseCursor();
 	}
 
-	void InitLevel()
+	void InitLevel() override
 	{
 		// Ensure player entity is valid
 		cameraController = new CameraController(playerEnt);
@@ -79,7 +79,7 @@ public:
 
 	bool teb_last = false;
 
-	void UpdateLevel(double deltaTime)
+	void UpdateLevel(double deltaTime) override
 	{
 		pauseLogic::OnUpdate();
 
@@ -164,7 +164,7 @@ public:
 		}	
 	}
 
-	void FreeLevel()
+	void FreeLevel() override
 	{
 		if (cameraController)
 		{
@@ -173,7 +173,7 @@ public:
 		}
 	}
 
-	void UnloadLevel()
+	void UnloadLevel() override
 	{
 		//g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav");
 		//if (g_Coordinator.HaveComponent<AudioComponent>(BedRoomBGM)) {
