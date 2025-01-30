@@ -160,8 +160,6 @@ void EngineCore::OnUpdate()
 	g_Window->OnUpdate();
 
 
-	// input update
-	g_Input.UpdateStatesForNextFrame();
 	
 
 	//Transition
@@ -209,6 +207,8 @@ void EngineCore::OnUpdate()
 	m_ElapsedDT = m_LogicDT + m_PhysicsDT + m_GraphicsDT; // to add more DT when more systems comes up
 	m_EndTime = GetCurrentTime();
 
+	// input update
+	g_Input.UpdateStatesForNextFrame();
 }
 
 void EngineCore::OnShutdown()

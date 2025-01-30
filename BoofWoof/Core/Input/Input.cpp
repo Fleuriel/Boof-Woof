@@ -49,7 +49,7 @@ void InputSystem::SetKeyState(int index, int value) {
  * @param index The index of the mouse button.
  * @return Boolean representing the mouse button's state.
  *************************************************************************/
-bool InputSystem::GetMouseState(int index) {
+int InputSystem::GetMouseState(int index) {
     return mouseButtonStates[index];
 }
 
@@ -103,12 +103,24 @@ void InputSystem::UpdateStatesForNextFrame() {
     for (size_t i = 0; i < GLFW_KEY_LAST + 1; ++i) {
         //keyStates[i] = ((keyStates[i] == 1) ? 2 : keyStates[i]);
         if (GetKeyState(i) == 1) {
-            //std::cout << "Press";
+            //std::cout << "Press\n";
             SetKeyState(i,2);
             continue;
         }
         if (GetKeyState(i) == 2) {
-            //std::cout << "Hold";
+            //std::cout << "Hold\n";
+            continue;
+        }
+    }
+
+    for (size_t i = 0; i < GLFW_MOUSE_BUTTON_LAST + 1; ++i) {
+        if (GetMouseState(i) == 1) {
+            std::cout << "Click\n";
+            SetMouseState(i, 2);
+            continue;
+        }
+        if (GetMouseState(i) == 2) {
+            std::cout << "Hold\n";
             continue;
         }
     }
