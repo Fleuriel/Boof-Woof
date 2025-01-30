@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "3b6cdd94-85c6-4a79-abe6-fa83ec2aeff0",
+    "SceneGUID": "024ce9e1-29a1-4866-81b5-9ed3e2d70815",
     "Entities": [
         {
             "MetadataComponent": {
@@ -12,7 +12,7 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.48000001907348635,
+                "Layer": 0.4500000476837158,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -28,7 +28,7 @@
                 "PositionY": 0.30000001192092898,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
-                "Layer": 0.4700000286102295,
+                "Layer": 0.440000057220459,
                 "Selectable": true,
                 "Opcaity": 1.0
             }
@@ -44,7 +44,7 @@
                 "PositionY": 0.30000001192092898,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
-                "Layer": 0.4700000286102295,
+                "Layer": 0.440000057220459,
                 "Selectable": true,
                 "Opcaity": 1.0
             }
@@ -60,7 +60,7 @@
                 "PositionY": -0.20000000298023225,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
-                "Layer": 0.4700000286102295,
+                "Layer": 0.440000057220459,
                 "Selectable": true,
                 "Opcaity": 1.0
             }
@@ -76,7 +76,7 @@
                 "PositionY": -0.20000000298023225,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
-                "Layer": 0.4700000286102295,
+                "Layer": 0.440000057220459,
                 "Selectable": true,
                 "Opcaity": 1.0
             }
@@ -92,7 +92,7 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.100000023841858,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.46000003814697268,
                 "Selectable": false,
                 "Opcaity": 0.949999988079071
             }

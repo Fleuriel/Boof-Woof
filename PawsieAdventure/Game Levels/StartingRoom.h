@@ -81,10 +81,10 @@ public:
 
 	void UpdateLevel(double deltaTime)
 	{
+		pauseLogic::OnUpdate();
+
 		if (!g_IsPaused) 
 		{
-			pauseLogic::OnUpdate();
-
 			if (!camerachange)
 			{
 				cameraController->ChangeToFirstPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));

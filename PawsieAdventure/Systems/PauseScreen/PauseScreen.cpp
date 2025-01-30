@@ -4,6 +4,7 @@
 std::unique_ptr<PauseMenu> pauser = CreatePausedMenu(PauseState::Paused);
 Serialization serialPause;
 Entity ResumeGame{}, SettingsBtn{}, HTPBtn{}, ExitGame{};
+bool inSmthAgain{ false };
 
 void PausedScreen::OnLoad()
 {
@@ -12,10 +13,10 @@ void PausedScreen::OnLoad()
 
 	std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
 	{
-		{"SFXLeft", [&](Entity entity) { SFXLeft = entity; }},
-		{"SFXRight", [&](Entity entity) { SFXRight = entity; }},
-		{"BGMLeft", [&](Entity entity) { BGMLeft = entity; }},
-		{ "BGMRight", [&](Entity entity) { BGMRight = entity; } }
+		{"Resume", [&](Entity entity) { ResumeGame = entity; }},
+		{"HTP", [&](Entity entity) { HTPBtn = entity; }},
+		{"Settings", [&](Entity entity) { SettingsBtn = entity; }},
+		{ "Exit", [&](Entity entity) { ExitGame = entity; } }
 	};
 
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -30,7 +31,7 @@ void PausedScreen::OnLoad()
 		}
 
 		// Exit early if all entities are found
-		if (SFXLeft && SFXRight && BGMLeft && BGMRight)
+		if (ResumeGame && HTPBtn && SettingsBtn && ExitGame)
 		{
 			break;
 		}
@@ -188,28 +189,89 @@ namespace pauseLogic
 {
 	void OnUpdate()
 	{
-		if (!g_IsPaused && g_Input.GetKeyState(GLFW_KEY_ESCAPE)) 
+		if (!g_IsPaused && g_Input.GetKeyState(GLFW_KEY_ESCAPE))
 		{
 			g_IsPaused = true;
 			pauser->OnLoad();
 			g_Window->ShowMouseCursor();
-
-			std::cout << "entered paused screen" << std::endl;
 		}
 
-		/*if (g_IsPaused && g_Input.GetKeyState(GLFW_KEY_ESCAPE)) 
+		if (g_IsPaused)
 		{
-			pauser->OnExit();
-			g_IsPaused = true;
+			if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) && inSmthAgain)
+			{
+				pauser->OnExit();
+				pauser = CreatePausedMenu(PauseState::Paused);
+				pauser->OnLoad();
+				inSmthAgain = false;
+			}
 
-			std::cout << "unpaused" << std::endl;
-		}*/
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && !inSmthAgain)
+			{
+				if (g_Coordinator.HaveComponent<UIComponent>(ResumeGame))
+				{
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(ResumeGame);
+					if (UICompt.get_selected())
+					{
+						// Add in audio feedback
 
-		if (g_IsPaused) 
-		{
-			// player cannot move
 
-			// click the other buttons, need wait Interactive UI System.
+						g_Window->HideMouseCursor();
+						pauser->OnExit();
+						g_IsPaused = false;
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<UIComponent>(SettingsBtn))
+				{
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(SettingsBtn);
+					if (UICompt.get_selected())
+					{
+						inSmthAgain = true;
+
+						// Add in audio feedback
+
+
+						pauser->OnExit();
+						pauser = CreatePausedMenu(PauseState::Settings);
+						pauser->OnLoad();
+					}
+				}
+
+				// How To Play button
+				if (g_Coordinator.HaveComponent<UIComponent>(HTPBtn))
+				{
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(HTPBtn);
+					if (UICompt.get_selected())
+					{
+						inSmthAgain = true;
+
+						// Add in audio feedback
+
+
+						pauser->OnExit();
+						pauser = CreatePausedMenu(PauseState::HowToPlay);
+						pauser->OnLoad();
+					}
+				}
+
+				// Exit game button
+				if (g_Coordinator.HaveComponent<UIComponent>(ExitGame))
+				{
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(ExitGame);
+					if (UICompt.get_selected())
+					{
+						inSmthAgain = true;
+
+						// Add in audio feedback
+
+
+						pauser->OnExit();
+						pauser = CreatePausedMenu(PauseState::QuitGame);
+						pauser->OnLoad();
+					}
+				}
+			}
 		}
 	}
 }
