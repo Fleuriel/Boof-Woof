@@ -209,6 +209,24 @@ public:
 		return g_Coordinator.GetComponent<CameraComponent>(entity).GetCameraUp();
 	}
 
+	// Pathfinding Component Functions
+	virtual bool HavePathfindingComponent(Entity entity) override {
+		bool hasComponent = g_Coordinator.HaveComponent<PathfindingComponent>(entity);
+		std::cout << "[Engine] Checking PathfindingComponent for Entity " << entity << ": "
+			<< (hasComponent ? "Exists" : "Does Not Exist") << std::endl;
+		return hasComponent;
+	}
+
+	virtual std::vector<glm::vec3> GetPath(Entity entity) override {
+		if (HavePathfindingComponent(entity)) {
+			auto& path = g_Coordinator.GetComponent<PathfindingComponent>(entity).GetPath();
+			std::cout << "[Engine] Retrieved path of length " << path.size() << " for Entity " << entity << std::endl;
+			return path;
+		}
+		std::cout << "[Engine] No path found for Entity " << entity << std::endl;
+		return {};
+	}
+
 
 };
 

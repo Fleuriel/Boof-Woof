@@ -4,6 +4,7 @@
 
 #include "Player.hpp"
 #include "Treat.hpp"
+#include "Rex.hpp"
 
 extern "C"
 {
@@ -17,6 +18,7 @@ extern "C"
 		// Add all the scripts here
 		pBehaviours->emplace_back(std::make_unique<Player>(EP));	// using std::make_unique that automatically allocates and manages memory instead of new
 		pBehaviours->emplace_back(std::make_unique<Treat>(EP));	// using std::make_unique that automatically allocates and manages memory instead of new
+		pBehaviours->emplace_back(std::make_unique<Rex>(EP));	// using std::make_unique that automatically allocates and manages memory instead of new
 
 
 		// release ownership of pointer and cast to void*

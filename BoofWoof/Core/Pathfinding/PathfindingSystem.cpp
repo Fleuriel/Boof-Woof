@@ -27,7 +27,7 @@ void PathfindingSystem::BuildGraph() {
     graphNodes.clear();
     graphEdges.clear();
 
-    std::cout << "[PathfindingSystem] Building graph...\n";
+    //std::cout << "[PathfindingSystem] Building graph...\n";
 
     // Step 1: Process all NodeComponents first
     for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
@@ -44,10 +44,10 @@ void PathfindingSystem::BuildGraph() {
             // Store the node with its entity reference
             graphNodes[entity] = std::make_shared<Node3D>(entity, nodePosition, nodeComp.IsWalkable());
 
-            std::cout << "[PathfindingSystem] Added Node: " << entity
-                << " | Position: (" << nodePosition.x << ", "
-                << nodePosition.y << ", " << nodePosition.z << ")"
-                << " | Walkable: " << nodeComp.IsWalkable() << "\n";
+            //std::cout << "[PathfindingSystem] Added Node: " << entity
+            //    << " | Position: (" << nodePosition.x << ", "
+            //    << nodePosition.y << ", " << nodePosition.z << ")"
+            //    << " | Walkable: " << nodeComp.IsWalkable() << "\n";
         }
     }
 
@@ -58,14 +58,14 @@ void PathfindingSystem::BuildGraph() {
 
             // Ensure both start and end nodes exist before adding the edge
             if (graphNodes.find(edgeComp.GetStartNode()) == graphNodes.end()) {
-                std::cout << "[PathfindingSystem] WARNING: Start Node " << edgeComp.GetStartNode()
-                    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
+                //std::cout << "[PathfindingSystem] WARNING: Start Node " << edgeComp.GetStartNode()
+                //    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
                 continue;
             }
 
             if (graphNodes.find(edgeComp.GetEndNode()) == graphNodes.end()) {
-                std::cout << "[PathfindingSystem] WARNING: End Node " << edgeComp.GetEndNode()
-                    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
+                //std::cout << "[PathfindingSystem] WARNING: End Node " << edgeComp.GetEndNode()
+                //    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
                 continue;
             }
 
@@ -74,15 +74,15 @@ void PathfindingSystem::BuildGraph() {
                 edgeComp.GetStartNode(), edgeComp.GetEndNode(), edgeComp.GetCost()
                 );
 
-            std::cout << "[PathfindingSystem] Added Edge: " << entity
-                << " | Start Node: " << edgeComp.GetStartNode()
-                << " | End Node: " << edgeComp.GetEndNode()
-                << " | Cost: " << edgeComp.GetCost() << "\n";
+            //std::cout << "[PathfindingSystem] Added Edge: " << entity
+            //    << " | Start Node: " << edgeComp.GetStartNode()
+            //    << " | End Node: " << edgeComp.GetEndNode()
+            //    << " | Cost: " << edgeComp.GetCost() << "\n";
         }
     }
 
-    std::cout << "[PathfindingSystem] Graph built with " << graphNodes.size()
-        << " nodes and " << graphEdges.size() << " edges.\n";
+    //std::cout << "[PathfindingSystem] Graph built with " << graphNodes.size()
+    //    << " nodes and " << graphEdges.size() << " edges.\n";
 }
 
 
@@ -101,19 +101,19 @@ void PathfindingSystem::Update(float deltaTime) {
         Entity startNode = pathfindingComp.GetStartNode();
         Entity goalNode = pathfindingComp.GetGoalNode();
 
-        std::cout << "[PathfindingSystem] Processing entity " << entity
-            << " | Start Node: " << startNode
-            << " | Goal Node: " << goalNode << "\n";
+        //std::cout << "[PathfindingSystem] Processing entity " << entity
+        //    << " | Start Node: " << startNode
+        //    << " | Goal Node: " << goalNode << "\n";
 
         // Check if start and goal nodes exist in the graph
         if (graphNodes.find(startNode) == graphNodes.end()) {
-            std::cout << "[PathfindingSystem] ERROR: Start node " << startNode << " not found in graph!\n";
+            //std::cout << "[PathfindingSystem] ERROR: Start node " << startNode << " not found in graph!\n";
             pathfindingComp.SetStatus(PathfindingStatus::FAILED);
             continue;
         }
 
         if (graphNodes.find(goalNode) == graphNodes.end()) {
-            std::cout << "[PathfindingSystem] ERROR: Goal node " << goalNode << " not found in graph!\n";
+            //std::cout << "[PathfindingSystem] ERROR: Goal node " << goalNode << " not found in graph!\n";
             pathfindingComp.SetStatus(PathfindingStatus::FAILED);
             continue;
         }
@@ -124,25 +124,25 @@ void PathfindingSystem::Update(float deltaTime) {
         if (success) {
             pathfindingComp.SetPath(path);
             pathfindingComp.SetStatus(PathfindingStatus::COMPLETE);
-            std::cout << "[PathfindingSystem] Path found for entity " << entity << " | Path Length: " << path.size() << "\n";
+            //std::cout << "[PathfindingSystem] Path found for entity " << entity << " | Path Length: " << path.size() << "\n";
 
-            // Print Full Path
-            for (size_t i = 0; i < path.size(); ++i) {
-                std::cout << "[PathfindingSystem] Step " << i + 1
-                    << " | Position: (" << path[i].x << ", "
-                    << path[i].y << ", " << path[i].z << ")\n";
-            }
+            //// Print Full Path
+            //for (size_t i = 0; i < path.size(); ++i) {
+            //    std::cout << "[PathfindingSystem] Step " << i + 1
+            //        << " | Position: (" << path[i].x << ", "
+            //        << path[i].y << ", " << path[i].z << ")\n";
+            //}
         }
         else {
             pathfindingComp.SetStatus(PathfindingStatus::FAILED);
-            std::cout << "[PathfindingSystem] ERROR: No valid path found for entity " << entity << "!\n";
+            //std::cout << "[PathfindingSystem] ERROR: No valid path found for entity " << entity << "!\n";
         }
     }
 }
 
 bool PathfindingSystem::FindPath(Entity startNode, Entity goalNode, std::vector<glm::vec3>& outPath) {
     if (graphNodes.find(startNode) == graphNodes.end() || graphNodes.find(goalNode) == graphNodes.end()) {
-        std::cout << "[PathfindingSystem] ERROR: Start or Goal Node not in graph!\n";
+        //std::cout << "[PathfindingSystem] ERROR: Start or Goal Node not in graph!\n";
         return false;
     }
 
@@ -160,7 +160,7 @@ bool PathfindingSystem::FindPath(Entity startNode, Entity goalNode, std::vector<
         auto currentNode = open_list.top();
         open_list.pop();
 
-        std::cout << "[PathfindingSystem] Expanding Node: " << currentNode->position.x << ", " << currentNode->position.y << ", " << currentNode->position.z << "\n";
+        //std::cout << "[PathfindingSystem] Expanding Node: " << currentNode->position.x << ", " << currentNode->position.y << ", " << currentNode->position.z << "\n";
 
         if (currentNode->position == goal->position) {
             ReconstructPath(currentNode, outPath);
@@ -187,7 +187,7 @@ bool PathfindingSystem::FindPath(Entity startNode, Entity goalNode, std::vector<
         }
     }
 
-    std::cout << "[PathfindingSystem] ERROR: No path found from Node " << startNode << " to " << goalNode << "!\n";
+    //std::cout << "[PathfindingSystem] ERROR: No path found from Node " << startNode << " to " << goalNode << "!\n";
     return false;
 }
 
@@ -242,12 +242,12 @@ bool PathfindingSystem::FindPath(Entity startNode, Entity goalNode, std::vector<
 std::vector<Entity> PathfindingSystem::GetNeighbors(Entity node) {
     std::vector<Entity> neighbors;
 
-    std::cout << "[PathfindingSystem] Checking neighbors for Node " << node << ":\n";
+    //std::cout << "[PathfindingSystem] Checking neighbors for Node " << node << ":\n";
 
     for (const auto& [edgeEntity, edge] : graphEdges) {
         if (edge->GetStartNode() == node) {
             neighbors.push_back(edge->GetEndNode());
-            std::cout << "[PathfindingSystem]   Found neighbor: " << edge->GetEndNode() << " via Edge " << edgeEntity << "\n";
+            //std::cout << "[PathfindingSystem]   Found neighbor: " << edge->GetEndNode() << " via Edge " << edgeEntity << "\n";
         }
     }
 
