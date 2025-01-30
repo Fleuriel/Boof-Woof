@@ -214,6 +214,8 @@ public:
 
     void Update(float deltaTime);
 
+    void ResetPathfinding();
+
 private:
     std::unordered_map<Entity, std::shared_ptr<Node3D>> graphNodes;  // Nodes in the graph
     std::unordered_map<Entity, std::shared_ptr<EdgeComponent>> graphEdges; // Edges in the graph

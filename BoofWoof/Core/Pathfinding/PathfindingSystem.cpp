@@ -275,6 +275,19 @@ void PathfindingSystem::ReconstructPath(const std::shared_ptr<Node3D>& goalNode,
     std::reverse(outPath.begin(), outPath.end());
 }
 
+void PathfindingSystem::ResetPathfinding() {
+    std::cout << "[PathfindingSystem] Resetting pathfinding system..." << std::endl;
+
+    graphNodes.clear();
+    graphEdges.clear();
+
+    std::cout << "[PathfindingSystem] Graph cleared. Rebuilding..." << std::endl;
+    BuildGraph(); // Rebuild the graph with fresh entities
+
+    std::cout << "[PathfindingSystem] Pathfinding system reset successfully!" << std::endl;
+}
+
+
 //PathfindingSystem::PathfindingSystem() : gridWidth(0), gridHeight(0), gridDepth(0) {
 //    // Default initialization for grid dimensions.
 //}

@@ -3679,6 +3679,7 @@ void ImGuiEditor::InspectorWindow()
 
 								if (ImGui::DragInt("##StartNode", reinterpret_cast<int*>(&startNode), 1.0f, 0, MAX_ENTITIES)) {
 									pathfindingComponent.SetStartNode(startNode);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
 								}
 
 								ImGui::PopID();
@@ -3693,6 +3694,7 @@ void ImGuiEditor::InspectorWindow()
 
 								if (ImGui::DragInt("##GoalNode", reinterpret_cast<int*>(&goalNode), 1.0f, 0, MAX_ENTITIES)) {
 									pathfindingComponent.SetGoalNode(goalNode);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
 								}
 
 								ImGui::PopID();
