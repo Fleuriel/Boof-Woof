@@ -189,7 +189,7 @@ void main()
 	}
 
 
-    fragColor = vec4(TexCoords,0.0, 1.0f);
+//    fragColor = vec4(TexCoords,0.0, 1.0f);
 
        
    

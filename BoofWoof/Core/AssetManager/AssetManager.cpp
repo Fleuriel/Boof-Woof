@@ -664,27 +664,27 @@ bool AssetManager::LoadObjects() {
 
                 
 
-                for (int i = 0; i < ignoredExtensions.size(); ++i)
-                {
-                    if (Extension == ignoredExtensions[0])
-                    {
-                        MTLCheck = true;
-                    }
-                    if (Extension == ignoredExtensions[1])
-                    {
-                        PNGCheck = true;
-                    }
-                    if (Extension == ignoredExtensions[2])
-                    {
-                        JPGCheck = true;
-                    }
-                }
+                //for (int i = 0; i < ignoredExtensions.size(); ++i)
+                //{
+                //    if (Extension == ignoredExtensions[0])
+                //    {
+                //        MTLCheck = true;
+                //    }
+                //    if (Extension == ignoredExtensions[1])
+                //    {
+                //        PNGCheck = true;
+                //    }
+                //    if (Extension == ignoredExtensions[2])
+                //    {
+                //        JPGCheck = true;
+                //    }
+                //}
 
-                
-
-#ifdef _DEBUG
-                std::cout << MTLCheck << '\t' << PNGCheck << '\t' << JPGCheck << '\n';
-#endif
+                //
+//
+//#ifdef _DEBUG
+//                std::cout << MTLCheck << '\t' << PNGCheck << '\t' << JPGCheck << '\n';
+//#endif
 
 #ifdef _DEBUG
                 std::cout << "\n**************************************************************************************\n";
@@ -739,17 +739,23 @@ bool AssetManager::LoadObjects() {
 
                 }
 
-                if (!fs::exists(binFilePath)) {
-#ifdef _DEBUG
-                    runCommand("..\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
-#else
-                    runCommand("..\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
-#endif
+//                if (!fs::exists(binFilePath)) {
+//#ifdef _DEBUG
+//                    runCommand("..\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
+//#else
+//                    runCommand("..\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
+//#endif
+//
+//#ifdef _DEBUG
+//                    std::cout << "Binary file created: " << binFilePath << std::endl;
+//#endif
+//                }
 
-#ifdef _DEBUG
-                    std::cout << "Binary file created: " << binFilePath << std::endl;
-#endif
-                }
+                Model addMdl;
+                
+                std::cout << "model is added here\n\n\n\n\n\n\n\n\n";
+                addMdl.loadModel(objFilePath, GL_TRIANGLES);
+                if(g_ResourceManager.SetModelMap(nameWithoutExtension, addMdl))
                     g_ResourceManager.AddModelBinary(nameWithoutExtension);
             }
             else {

@@ -461,9 +461,10 @@ void GraphicsSystem::UpdateLoop() {
 		}
 
 		g_AssetManager.GetShader("OutlineAndFont").Use();
-			SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
+			
 			if (debug)
 			{
+				SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
 				if (D2)
 				{
 					Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
