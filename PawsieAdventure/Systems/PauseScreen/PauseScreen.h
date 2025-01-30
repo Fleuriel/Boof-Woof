@@ -1,7 +1,6 @@
 #pragma once
 #include <EngineCore.h>
-
-extern bool g_IsPaused;
+#include "../GSM/GameStateMachine.h" // for g_IsPaused
 
 enum class PauseState
 {

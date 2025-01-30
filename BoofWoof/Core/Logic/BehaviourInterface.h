@@ -64,6 +64,7 @@ struct engine_interface
 	virtual glm::vec3 GetCameraUp(Entity entity) = 0;
 
 	virtual double GetDeltaTime() = 0;
+	virtual bool IsGamePaused() = 0;
 };
 
 #ifdef GAME_ENGINE

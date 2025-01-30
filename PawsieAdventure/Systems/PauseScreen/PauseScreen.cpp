@@ -3,17 +3,34 @@
 
 std::unique_ptr<PauseMenu> pauser = CreatePausedMenu(PauseState::Paused);
 Serialization serialPause;
-bool g_IsPaused = false;
+Entity ResumeGame{}, SettingsBtn{}, HTPBtn{}, ExitGame{};
 
 void PausedScreen::OnLoad()
 {
 	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/PausedScreen.json");
 	spawnedEntities = serialPause.GetStored();
 
+	std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
+	{
+		{"SFXLeft", [&](Entity entity) { SFXLeft = entity; }},
+		{"SFXRight", [&](Entity entity) { SFXRight = entity; }},
+		{"BGMLeft", [&](Entity entity) { BGMLeft = entity; }},
+		{ "BGMRight", [&](Entity entity) { BGMRight = entity; } }
+	};
+
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto entity : entities)
 	{
-		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+		const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+		auto it = nameToAction.find(metadata.GetName());
+
+		if (it != nameToAction.end())
+		{
+			it->second(entity);
+		}
+
+		// Exit early if all entities are found
+		if (SFXLeft && SFXRight && BGMLeft && BGMRight)
 		{
 			break;
 		}
@@ -175,17 +192,18 @@ namespace pauseLogic
 		{
 			g_IsPaused = true;
 			pauser->OnLoad();
+			g_Window->ShowMouseCursor();
 
 			std::cout << "entered paused screen" << std::endl;
 		}
 
-		if (g_IsPaused && g_Input.GetKeyState(GLFW_KEY_ESCAPE)) 
+		/*if (g_IsPaused && g_Input.GetKeyState(GLFW_KEY_ESCAPE)) 
 		{
 			pauser->OnExit();
 			g_IsPaused = true;
 
 			std::cout << "unpaused" << std::endl;
-		}
+		}*/
 
 		if (g_IsPaused) 
 		{

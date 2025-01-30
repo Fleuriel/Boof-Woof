@@ -81,89 +81,87 @@ public:
 
 	void UpdateLevel(double deltaTime)
 	{
-		if (!camerachange)
+		if (!g_IsPaused) 
 		{
-			cameraController->ChangeToFirstPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
-			camerachange = true;
-		}
-		cameraController->Update(static_cast<float>(deltaTime));
+			pauseLogic::OnUpdate();
 
-		auto& opacity = g_Coordinator.GetComponent<ParticleComponent>(scentEntity);
-
-		if (!g_ChangeText.shutted)
-		{
-			g_ChangeText.OnUpdate(deltaTime);
-		}
-
-		if (!g_Checklist.shutted)
-		{
-			g_Checklist.OnUpdate(deltaTime);
-		}
-
-		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
-		{
-			if (!teb_last)
+			if (!camerachange)
 			{
-				teb_last = true;
-				cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
+				cameraController->ChangeToFirstPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
+				camerachange = true;
 			}
-		}
-		else
-		{
-			teb_last = false;
-		}
+			cameraController->Update(static_cast<float>(deltaTime));
 
-		//if (g_Input.GetKeyState(GLFW_KEY_O) >= 1) 
-		//{
-		//	cameraController->ShakeCamera(1.0f, glm::vec3(0.1f,0.1f,0.1f));
-		//}
+			auto& opacity = g_Coordinator.GetComponent<ParticleComponent>(scentEntity);
 
-		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
-		{
-			if (g_Coordinator.HaveComponent<AudioComponent>(CorgiBark)) 
+			if (!g_ChangeText.shutted)
 			{
-				auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiBark);
-				music1.PlayAudio();
-			}
-			bark = true;
-		}
-
-		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 0)
-		{
-			bark = false;
-		}
-
-		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniff)
-		{
-			if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) 
-			{
-				auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
-				music2.PlayAudio();
+				g_ChangeText.OnUpdate(deltaTime);
 			}
 
-			opacity.setParticleColor(glm::vec4(0.09019608050584793f, 0.7843137383460999f, 0.8549019694328308f, 1.0f));
-			sniff = true;
-		}
-
-		if (g_Input.GetKeyState(GLFW_KEY_R) == 0)
-		{
-			sniff = false;
-		}
-
-		if (g_Checklist.shutted)
-		{
-			if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
+			if (!g_Checklist.shutted)
 			{
-				g_LevelManager.SetNextLevel("TimeRush");
+				g_Checklist.OnUpdate(deltaTime);
 			}
-		}
 
-		//// Space to go back mainmenu
-		//if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
-		//{
-		//	g_LevelManager.SetNextLevel("MainMenu");
-		//	g_Window->ShowMouseCursor();
-		//}
+			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
+			{
+				if (!teb_last)
+				{
+					teb_last = true;
+					cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
+				}
+			}
+			else
+			{
+				teb_last = false;
+			}
+
+			//if (g_Input.GetKeyState(GLFW_KEY_O) >= 1) 
+			//{
+			//	cameraController->ShakeCamera(1.0f, glm::vec3(0.1f,0.1f,0.1f));
+			//}
+
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
+			{
+				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiBark))
+				{
+					auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiBark);
+					music1.PlayAudio();
+				}
+				bark = true;
+			}
+
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 0)
+			{
+				bark = false;
+			}
+
+			if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniff)
+			{
+				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff))
+				{
+					auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
+					music2.PlayAudio();
+				}
+
+				opacity.setParticleColor(glm::vec4(0.09019608050584793f, 0.7843137383460999f, 0.8549019694328308f, 1.0f));
+				sniff = true;
+			}
+
+			if (g_Input.GetKeyState(GLFW_KEY_R) == 0)
+			{
+				sniff = false;
+			}
+
+			if (g_Checklist.shutted)
+			{
+				if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
+				{
+					g_LevelManager.SetNextLevel("TimeRush");
+				}
+			}
+		}	
 	}
 
 	void FreeLevel()
