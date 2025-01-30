@@ -190,8 +190,8 @@ void GraphicsSystem::UpdateLoop() {
 	shdrParam.View = camera_render.GetViewMatrix();
 	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
 
-
-
+	glm::mat4 view_ = camera.GetViewMatrix();
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
 	{/*
@@ -275,96 +275,39 @@ void GraphicsSystem::UpdateLoop() {
 		{
 
 			// START OF 3D
-			if (graphicsComp.getFollowCamera()) {
-				SetShaderUniforms(g_AssetManager.GetShader(ShaderName), shdrParam);
-			}
-			else {
-				g_AssetManager.GetShader(ShaderName).SetUniform("vertexTransform", shdrParam.WorldMatrix);
-				g_AssetManager.GetShader(ShaderName).SetUniform("view", glm::mat4(1.0f));
-				g_AssetManager.GetShader(ShaderName).SetUniform("projection", glm::mat4(1.0f));
-
-			}
-			g_AssetManager.GetShader(ShaderName).SetUniform("objectColor", shdrParam.Color);
-			for (int i = 0; i < lights_infos.size(); i++)
-			{
-				std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
-				g_AssetManager.GetShader(ShaderName).SetUniform(lightPosStr.c_str(), lights_infos[i].position);
-				std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
-				g_AssetManager.GetShader(ShaderName).SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
-				std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
-				g_AssetManager.GetShader(ShaderName).SetUniform(lightColorStr.c_str(), lights_infos[i].color);
-			}
-			/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
-			g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
-			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
-			g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
-			g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
-
-
-			g_AssetManager.GetShader(ShaderName).SetUniform("roughness",  material.GetSmoothness());
-			g_AssetManager.GetShader(ShaderName).SetUniform("metallic", material.GetMetallic());
-
-			/*std::cout << "entity "<< entity << "\n";
-			std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
-			std::cout << "comp tetx cnt "<<graphicsComp.getTextureNumber() << "\n";*/
-
-
-			//if (graphicsComp.getTextureNumber() == 0) {
-			for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
-				mesh.textures.clear();
-			}
-
-			g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt = 0;
+			//if (graphicsComp.getFollowCamera()) {
+			//	SetShaderUniforms(g_AssetManager.GetShader(ShaderName), shdrParam);
 			//}
+			//else {
+			//	g_AssetManager.GetShader(ShaderName).SetUniform("vertexTransform", shdrParam.WorldMatrix);
+			//	g_AssetManager.GetShader(ShaderName).SetUniform("view", glm::mat4(1.0f));
+			//	g_AssetManager.GetShader(ShaderName).SetUniform("projection", glm::mat4(1.0f));
+			//
+			//}
+			//g_AssetManager.GetShader(ShaderName).SetUniform("objectColor", glm::vec3{1.0f});
+			//for (int i = 0; i < lights_infos.size(); i++)
+			//{
+			//	std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
+			//	g_AssetManager.GetShader(ShaderName).SetUniform(lightPosStr.c_str(), lights_infos[i].position);
+			//	std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
+			//	g_AssetManager.GetShader(ShaderName).SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
+			//	std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
+			//	g_AssetManager.GetShader(ShaderName).SetUniform(lightColorStr.c_str(), lights_infos[i].color);
+			//}
+			///*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
+			//g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
+			//g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
+			//g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
+			//g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
+			//
+			//
+			//g_AssetManager.GetShader(ShaderName).SetUniform("roughness",  material.GetSmoothness());
+			//g_AssetManager.GetShader(ShaderName).SetUniform("metallic", material.GetMetallic());
 
-
-			while (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()) {
-
-
-#ifdef _DEBUG
-				//std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->name << '\n';
-
-				//std::cout << graphicsComp.getModelName() << '\n';
-
-				//std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << '\t' << g_ResourceManager.getModel(graphicsComp.getModelName())->textures_loaded.size() << '\n';
-#endif
-
-					// add texture to mesh
-				Texture texture_add;
-
-				//if(graphicsComp.getModelName() == "sphere")
-				texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
-				//else
-					//texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName());
-
-				//std::cout << texture_add.id << "\n";
-
-				if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 0)
-					texture_add.type = "texture_diffuse";
-				else if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 1)
-					texture_add.type = "texture_normal";
-				else
-					texture_add.type = "texture_specular";
-
-				//std::cout << texture_add.type << '\n';
-
-				//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
-
-				for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
-					//	std::cout << "texture size before adding: " << mesh.textures.size() << "\n";
-						//mesh.textures.clear();
-					mesh.textures.push_back(texture_add);
-					//	std::cout << "entered\n";
-				}
-
-				g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
-
-			}
-			g_AssetManager.GetShader(ShaderName).SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
-
-			g_AssetManager.GetShader(ShaderName).SetUniform("finalAlpha", material.GetFinalAlpha());
-			g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", material.GetColor());
-
+			g_AssetManager.GetShader("Shader3D").SetUniform("vertexTransform", transformComp.GetWorldMatrix());
+			g_AssetManager.GetShader("Shader3D").SetUniform("view", view_);
+			g_AssetManager.GetShader("Shader3D").SetUniform("projection", projection);
+			g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", glm::vec3{ 1.0f });
 
 
 			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader(ShaderName));

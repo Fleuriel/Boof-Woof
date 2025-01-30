@@ -388,7 +388,7 @@ bool ResourceManager::SetModelMap(const std::string& name, const Model& model) {
 
 
     
-    ModelMap.insert(std::make_pair(name, model));
+    ModelMap.insert(std::pair<std::string, Model>(name, model));
 
 #ifdef _DEBUG
 
@@ -456,6 +456,8 @@ bool ResourceManager::AddModelBinary(std::string fileName)
 
     return true;
 }
+
+
 
 
 

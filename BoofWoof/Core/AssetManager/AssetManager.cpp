@@ -626,6 +626,15 @@ bool AssetManager::LoadObjects() {
                 std::vector<std::string> ignoredExtensions = { ".mtl", ".png", ".jpg" };
 
 
+
+
+               // if (Extension == ".mtl" || Extension == ".jpg" || Extension == ".png")
+               // {
+               //
+               //     std::cout << "EXTENSION: " << Extension << '\n';
+               //     continue;
+               // }
+
                 std::string mtlFileName = nameWithoutExtension + ".mtl";
                 std::string pngFileName = nameWithoutExtension + ".png";
                 std::string jpgFileName = nameWithoutExtension + ".jpg";
@@ -751,10 +760,31 @@ bool AssetManager::LoadObjects() {
 //#endif
 //                }
 
-                Model addMdl;
+                if (!g_ResourceManager.getModelNames().empty())
+                {
+                    for (int i = 0; i < g_ResourceManager.getModelNames().size(); ++i)
+                    {
+                        if (nameWithoutExtension == g_ResourceManager.getModelNames()[i])
+                        {
+                            continue;
+                        }
+                    }
+                }
+                std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+                std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+
                 
-                std::cout << "model is added here\n\n\n\n\n\n\n\n\n";
+                Model addMdl;
+                std::cout << "OLD MEHTOD LOADING || || || || Loading: \t" << objFilePath << '\n';
+                std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+
+                std::cout << objFilePath << '\t' << nameWithoutExtension << '\n';
+
+                std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
                 addMdl.loadModel(objFilePath, GL_TRIANGLES);
+
+                std::cout << "stuffs\t" << addMdl.name << '\t' << addMdl.meshes.size() << '\n';
+
                 if(g_ResourceManager.SetModelMap(nameWithoutExtension, addMdl))
                     g_ResourceManager.AddModelBinary(nameWithoutExtension);
             }
