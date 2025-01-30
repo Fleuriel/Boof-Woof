@@ -81,8 +81,6 @@ public:
 
 	void UpdateLevel(double deltaTime) override
 	{
-		pauseLogic::OnUpdate();
-
 		if (!g_IsPaused) 
 		{
 			if (!camerachange)
@@ -97,6 +95,11 @@ public:
 			if (!g_ChangeText.shutted)
 			{
 				g_ChangeText.OnUpdate(deltaTime);
+			}
+			else 
+			{
+				// let the change text finish first then allow pauseLogic
+				pauseLogic::OnUpdate();
 			}
 
 			if (!g_Checklist.shutted)
@@ -162,6 +165,11 @@ public:
 				}
 			}
 		}	
+
+		if (g_ChangeText.shutted) 
+		{
+			pauseLogic::OnUpdate();
+		}
 	}
 
 	void FreeLevel() override
