@@ -230,7 +230,6 @@ void GraphicsSystem::UpdateLoop() {
 
 				RenderScene(g_AssetManager.GetShader("shadow"));
 
-				g_ResourceManager.getModel("cubeModel")->Draw(g_AssetManager.GetShader("shadow"));
 				g_AssetManager.GetShader("shadow").UnUse();
 				glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -320,7 +319,15 @@ void GraphicsSystem::UpdateLoop() {
 #endif
 
 
-		
+		if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
+		{
+			/* We do not need these anymore */
+
+			// std::cout << "Model is null" << std::endl;
+			//graphicsComp.setModelName("cubeModel");
+			//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
+			continue;
+		}
 		
 		g_AssetManager.GetShader(ShaderName).Use();
 
@@ -702,13 +709,14 @@ void GraphicsSystem::RenderScene(OpenGLShader& shader)
 			{
 				auto shaderName = g_Coordinator.GetComponent<GraphicsComponent>(entity).material.GetShaderName();
 				if (shaderName != "Shader3D") continue;
+				
 				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-
+				if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))continue;
 				// Set the world matrix for the current entity
 				shader.SetUniform("vertexTransform", worldMatrix);
 
 				// Draw the model
-				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(shader);
+				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw_depth();
 			}
 		}
 	}
