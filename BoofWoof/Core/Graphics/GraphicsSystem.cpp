@@ -248,7 +248,7 @@ void GraphicsSystem::UpdateLoop() {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
-	glViewport(0, 0, g_WindowX, g_WindowY);
+	//glViewport(0, 0, g_WindowX, g_WindowY);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear framebuffer
 
 
@@ -416,6 +416,7 @@ void GraphicsSystem::UpdateLoop() {
 				g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
 
 			}
+			
 			g_AssetManager.GetShader(ShaderName).SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
 
 			g_AssetManager.GetShader(ShaderName).SetUniform("finalAlpha", material.GetFinalAlpha());
@@ -699,6 +700,8 @@ void GraphicsSystem::RenderScene(OpenGLShader& shader)
 
 			if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
 			{
+				auto shaderName = g_Coordinator.GetComponent<GraphicsComponent>(entity).material.GetShaderName();
+				if (shaderName != "Shader3D") continue;
 				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 
 				// Set the world matrix for the current entity
