@@ -19,63 +19,145 @@ void UISystem::UI_init() {
 }
 
 void UISystem::UI_update() {
-	// if mouse click
-	if (g_Input.GetMouseState(0) == 1) {
-		for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
-		{
-			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "folder UI")
-			{
-				if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
-					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(entity);
-					if (UICompt.get_selected()) {
-						std::cout << "folder UI is clicked \n";
-					}
-				}
-			}
-		}
-	}
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	UI_render();
+    // if mouse click
+    if (g_Input.GetMouseState(0) == 1) {
+        for (auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
+            if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "folder UI") {
+                if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
+                    auto& UICompt = g_Coordinator.GetComponent<UIComponent>(entity);
+                    if (UICompt.get_selected()) {
+                        std::cout << "folder UI is clicked \n";
+                    }
+                }
+            }
+        }
+    }
+
+    // Use GetDeltaTime() instead of GetElapsedTime()
+    float currentTime = g_Window->GetDeltaTime(); // This gives you the time since the last frame
+
+    // Loop through all UI components
+    for (auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
+        if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
+            auto& UICompt = g_Coordinator.GetComponent<UIComponent>(entity);
+
+            // Update the timer
+            UICompt.set_timer(UICompt.get_timer() + currentTime);
+
+            // Check if it's time to update the animation frame
+            if (UICompt.get_timer() >= UICompt.get_frame_interval()) {
+                // Increment the current row/column for animation
+                int curr_row = UICompt.get_curr_row();
+                int curr_col = UICompt.get_curr_col();
+                int rows = UICompt.get_rows();
+                int cols = UICompt.get_cols();
+
+                // Increment column, and reset row if column exceeds the maximum
+                if (++curr_col >= cols) {
+                    curr_col = 0;
+                    if (++curr_row >= rows) {
+                        curr_row = 0;  // Reset row after exceeding max rows
+                    }
+                }
+
+                // Update current row/column
+                UICompt.set_curr_row(curr_row);
+                UICompt.set_curr_col(curr_col);
+
+                // Reset the timer
+                UICompt.set_timer(0.f);
+            }
+
+            UI_render();
+
+        }
+    }
+
+    //glEnable(GL_DEPTH_TEST);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void UISystem::UI_render()
 {
-	//render UI
-	g_AssetManager.GetShader("Shader2D").Use();
-	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
-	{
-		if (g_Coordinator.HaveComponent<UIComponent>(entity)) 
-		{
-			auto& UICompt = g_Coordinator.GetComponent<UIComponent>(entity);
+    for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
+    {
+        if (g_Coordinator.HaveComponent<UIComponent>(entity))
+        {
+            auto& UICompt = g_Coordinator.GetComponent<UIComponent>(entity);
 
-			if (g_Coordinator.HaveComponent<TransformComponent>(entity)) 
-			{
-				auto& transCompt = g_Coordinator.GetComponent<TransformComponent>(entity);
+            glm::vec2 mouse_pos = {
+                (g_Input.GetMousePositionUI().x / g_WindowX) * 2.0f - 1.0f,
+                1.0f - 2.0f * (g_Input.GetMousePositionUI().y / g_WindowY)
+            };
+            UICompt.checkclick(mouse_pos);
 
-				transCompt.SetPosition({ UICompt.get_position() , 0.f});
-				transCompt.SetScale({ UICompt.get_scale() , 1.f});
+            // Set up model matrix
+            glm::vec3 UI_pos = { UICompt.get_position(), UICompt.get_UI_layer() };
+            glm::vec3 UI_scale = { UICompt.get_scale(), 1.f };
 
-				glm::vec2 mouse_pos = { (g_Input.GetMousePositionUI().x / g_WindowX) * 2.0f - 1.0f, 1.0f - 2.0f * (g_Input.GetMousePositionUI().y / g_WindowY) };
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::translate(model, UI_pos);
+            model = glm::scale(model, { UI_scale.x, UI_scale.y, 1.0f });
 
-				UICompt.checkclick(mouse_pos);
+            if (UICompt.get_animate() == false)
+            {
+                // Use default shader
+                auto& shader = g_AssetManager.GetShader("Shader2D");
+                shader.Use(); // **Ensure shader is used before setting uniforms**
 
-				// call 2d render
-				g_AssetManager.GetShader("Shader2D").SetUniform("vertexTransform", transCompt.GetWorldMatrix());
-				g_AssetManager.GetShader("Shader2D").SetUniform("view", glm::mat4(1.0f));
-				g_AssetManager.GetShader("Shader2D").SetUniform("projection", glm::mat4(1.0f));
-				g_AssetManager.GetShader("Shader2D").SetUniform("opacity", UICompt.get_UI_opacity());
-				glBindTextureUnit(6, UICompt.get_textureid());
+                shader.SetUniform("vertexTransform", model);
+                shader.SetUniform("view", glm::mat4(1.0f));
+                shader.SetUniform("projection", glm::mat4(1.0f));
+                shader.SetUniform("opacity", UICompt.get_UI_opacity());
 
-				g_AssetManager.GetShader("Shader2D").SetUniform("uTex2d", 6);
+                // Bind texture
+                glBindTextureUnit(6, UICompt.get_textureid());
+                shader.SetUniform("uTex2d", 6);
 
-				g_ResourceManager.getModel("Square")->Draw2D(g_AssetManager.GetShader("Shader2D"));
-			}
-		}
-	}
+                g_ResourceManager.getModel("Square")->Draw2D(shader);
 
-	g_AssetManager.GetShader("Shader2D").UnUse();
+                shader.UnUse();
+            }
+            else
+            {
+                // Use the "sprite" shader
+                auto& shader = g_AssetManager.GetShader("Sprite");
+                shader.Use();
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+                // Compute transformation matrix
+                glm::vec3 UI_pos = { UICompt.get_position(), UICompt.get_UI_layer() };
+                glm::vec3 UI_scale = { UICompt.get_scale(), 1.0f };
+
+                // Compute transformation matrix
+                glm::mat4 model = glm::mat4(1.0f);
+                model = glm::translate(model, UI_pos);
+                model = glm::scale(model, UI_scale);
+
+                // Set the transformation matrix in the shader
+                shader.SetUniform("uModel_to_NDC", glm::mat3(model));
+
+                shader.SetUniform("opacity", UICompt.get_UI_opacity());
+
+                // Animation-related uniforms (if applicable)
+                shader.SetUniform("rows", UICompt.get_rows());
+                shader.SetUniform("cols", UICompt.get_cols());
+                shader.SetUniform("row_To_Draw", UICompt.get_curr_row());
+                shader.SetUniform("col_To_Draw", UICompt.get_curr_col());
+
+                // Bind texture
+                glBindTextureUnit(6, UICompt.get_textureid());
+                shader.SetUniform("uTex2d", 6);
+
+                // Draw the animated sprite
+                g_ResourceManager.getModel("Square")->Draw2D(shader);
+
+                shader.UnUse();
+            }
+        }
+    }
 }
 
 

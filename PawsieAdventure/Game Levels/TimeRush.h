@@ -12,6 +12,9 @@ class TimeRush : public Level
 	Entity timerTextEntity{}, playerEnt{}, scentEntity1{}, scentEntity2{}, scentEntity3{}, scentEntity4{}, scentEntity5{}, scentEntity6{};
 	CameraController* cameraController = nullptr;
 
+	Entity TimeRushBGM{}, AggroDog{}, CorgiSniff{};
+
+
 	double colorChangeTimer = 0.0;
 	double colorChangeDuration = 3.0; // Duration for which the color change lasts
 	double cooldownTimer = 10.0;
@@ -26,52 +29,53 @@ class TimeRush : public Level
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/TimeRushPuzzle.json");
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/Timer.json");
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/TimeRushBGM.wav", true);
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/AggressiveDogBarking.wav", false);
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
+
+		// Use unordered_map to make it O(1) efficiency
+		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
+		{
+			{"Player", [&](Entity entity) { playerEnt = entity; }},
+			{"ScentTrail1", [&](Entity entity) { scentEntity1 = entity; }},
+			{"ScentTrail2", [&](Entity entity) { scentEntity2 = entity; }},
+			{"ScentTrail3", [&](Entity entity) { scentEntity3 = entity; }},
+			{"ScentTrail4", [&](Entity entity) { scentEntity4 = entity; }},
+			{"ScentTrail5", [&](Entity entity) { scentEntity5 = entity; }},
+			{"ScentTrail6", [&](Entity entity) { scentEntity6 = entity; }},
+			{"Group", [&](Entity entity) { timerTextEntity = entity; }},
+			{"TimeRushBGM", [&](Entity entity) { TimeRushBGM = entity; }},
+			{"AggressiveDogBarking", [&](Entity entity) { AggroDog = entity; }},
+			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }}
+		};
+
+
 		for (auto entity : entities)
 		{
 			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Player")
+				const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+				auto it = nameToAction.find(metadata.GetName());
+
+				if (it != nameToAction.end())
 				{
-					playerEnt = entity;
+					it->second(entity);
 				}
 
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail1")
+				if (g_Coordinator.HaveComponent<AudioComponent>(entity))
 				{
-					scentEntity1 = entity;
+					auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
+					music.SetAudioSystem(&g_Audio);
+
+					if (metadata.GetName() == "TimeRushBGM" || metadata.GetName() == "AggressiveDogBarking")
+					{
+						music.PlayAudio();
+					}
 				}
 
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail2")
+				// Exit early if all entities are found
+				if (playerEnt && scentEntity1 && scentEntity2 && scentEntity3 && scentEntity4 
+					&& scentEntity5 && scentEntity6 && timerTextEntity && TimeRushBGM && AggroDog && CorgiSniff)
 				{
-					scentEntity2 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail3")
-				{
-					scentEntity3 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail4")
-				{
-					scentEntity4 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail5")
-				{
-					scentEntity5 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail6")
-				{
-					scentEntity6 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Group")
-				{
-					timerTextEntity = entity;
 					break;
 				}
 			}
@@ -83,10 +87,19 @@ class TimeRush : public Level
 	{
 		cameraController = new CameraController(playerEnt);
 		g_Checklist.OnInitialize();
-		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec3(0.3f, 0.09f, 0.0f), "Do5");
-		g_Checklist.ChangeAsset(g_Checklist.Box2, glm::vec3(0.0f, 0.0f, 0.0f), "");
-		g_Checklist.ChangeAsset(g_Checklist.Box3, glm::vec3(0.0f, 0.0f, 0.0f), "");
-		g_Checklist.ChangeAsset(g_Checklist.Box4, glm::vec3(0.0f, 0.0f, 0.0f), "");
+		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do5");
+		g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.0f, 0.0f), "");
+		g_Checklist.ChangeAsset(g_Checklist.Do3, glm::vec2(0.0f, 0.0f), "");
+		g_Checklist.ChangeAsset(g_Checklist.Do4, glm::vec2(0.0f, 0.0f), "");
+
+		g_Checklist.ChangeAsset(g_Checklist.Box2, glm::vec2(0.0f, 0.0f), "");
+		g_Checklist.ChangeAsset(g_Checklist.Box3, glm::vec2(0.0f, 0.0f), "");
+		g_Checklist.ChangeAsset(g_Checklist.Box4, glm::vec2(0.0f, 0.0f), "");
+		
+		if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
+		{
+			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.165f));
+		}
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -96,9 +109,9 @@ class TimeRush : public Level
 		timer += deltaTime;
 		cooldownTimer += deltaTime;
 
-		if (!g_Coordinator.HaveComponent<GraphicsComponent>(timerTextEntity)) return;
+		if (!g_Coordinator.HaveComponent<UIComponent>(timerTextEntity)) return;
 
-		auto& text = g_Coordinator.GetComponent<GraphicsComponent>(timerTextEntity);
+		auto& text = g_Coordinator.GetComponent<UIComponent>(timerTextEntity);
 
 		auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
 		auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);
@@ -110,20 +123,10 @@ class TimeRush : public Level
 		// Change the texture every second
 		if (timer >= interval && currentTextureIndex <= 233)
 		{
-			std::string currentTextureName = "Group" + std::to_string(currentTextureIndex);
 			std::string nextTextureName = "Group" + std::to_string(currentTextureIndex + 1);
 
-			int currentTextureId = g_ResourceManager.GetTextureDDS(currentTextureName);
-
-			// Remove the current texture and add the next one
-			if (text.RemoveTexture(currentTextureId))
-			{
-				text.clearTextures();
-
-				int nextTextureId = g_ResourceManager.GetTextureDDS(nextTextureName);
-				text.AddTexture(nextTextureId);
-				text.setTexture(nextTextureName);
-			}
+			int nextTextureId = g_ResourceManager.GetTextureDDS(nextTextureName);
+			text.set_textureid(nextTextureId);
 
 			timer = 0.0; // Reset timer
 			currentTextureIndex++; // Move to the next texture
@@ -137,7 +140,11 @@ class TimeRush : public Level
 
 		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && cooldownTimer >= cooldownDuration)
 		{
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false);
+		//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false, "SFX");
+			if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
+				auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
+				music2.PlayAudio();
+			}
 
 			glm::vec4 newColor(0.3529411852359772f, 0.7058823704719544f, 0.03921568766236305f, 1.0f);
 			opacity1.setParticleColor(newColor);
@@ -200,8 +207,14 @@ class TimeRush : public Level
 
 	void UnloadLevel() override
 	{
-		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/TimeRushBGM.wav");
-		g_Audio.StopBGM();
+		//g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/TimeRushBGM.wav");
+		//g_Audio.StopBGM();
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(TimeRushBGM);
+			music.StopAudio();
+		}
+
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 		timer = 0.0;

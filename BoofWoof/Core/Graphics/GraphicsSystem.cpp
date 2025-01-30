@@ -105,7 +105,6 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glCullFace(GL_BACK);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	//fontSystem.init_font();
 
 
@@ -460,8 +459,8 @@ void GraphicsSystem::UpdateLoop() {
 
 
 		}
-		else if (ShaderName == "OutlineAndFont")
-		{
+
+		g_AssetManager.GetShader("OutlineAndFont").Use();
 			SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
 			if (debug)
 			{
@@ -496,8 +495,9 @@ void GraphicsSystem::UpdateLoop() {
 				}
 			}
 
+			g_AssetManager.GetShader("OutlineAndFont").Use();
 
-		}
+		
 		
 		
 		g_AssetManager.GetShader(ShaderName).UnUse();

@@ -473,6 +473,17 @@ bool Serialization::SaveScene(const std::string& filepath) {
 			UI.AddMember("PositionY", uiComp.get_position().y, allocator);
 			UI.AddMember("ScaleX", uiComp.get_scale().x, allocator);
 			UI.AddMember("ScaleY", uiComp.get_scale().y, allocator);
+			UI.AddMember("Layer", uiComp.get_UI_layer(), allocator);
+			UI.AddMember("Selectable", uiComp.get_selectable(), allocator);
+			UI.AddMember("Opcaity", uiComp.get_opacity(), allocator);
+            
+            UI.AddMember("Animated", uiComp.get_animate(), allocator);
+            UI.AddMember("Rows", uiComp.get_rows(), allocator);
+            UI.AddMember("Cols", uiComp.get_cols(), allocator);
+            // UI.AddMember("CurrentRow", uiComp.get_curr_row(), allocator);
+            // UI.AddMember("CurrentCol", uiComp.get_curr_col(), allocator);
+            UI.AddMember("FrameInterval", uiComp.get_frame_interval(), allocator);
+            // UI.AddMember("Timer", uiComp.get_timer(), allocator);
 
 			entityData.AddMember("UIComponent", UI, allocator);
 
@@ -689,7 +700,7 @@ bool Serialization::LoadScene(const std::string& filepath)
                     float volume = AData["Volume"].GetFloat();
                     bool shouldLoop = AData["ShouldLoop"].GetBool();
 
-                    AudioComponent audioComponent(filePath, volume, shouldLoop, entity);
+                    AudioComponent audioComponent(filePath, volume, shouldLoop, entity,nullptr, AudioType::SFX);
                     g_Coordinator.AddComponent(entity, audioComponent);
                 }
             }
@@ -971,11 +982,45 @@ bool Serialization::LoadScene(const std::string& filepath)
 			if (entityData.HasMember("UIComponent")) {
 				const auto& UIData = entityData["UIComponent"];
 				if (UIData.HasMember("TextureID")) {
-					int textureID = UIData["TextureID"].GetInt();
-					glm::vec2 position(UIData["PositionX"].GetFloat(), UIData["PositionY"].GetFloat());
-					glm::vec2 scale(UIData["ScaleX"].GetFloat(), UIData["ScaleY"].GetFloat());
+                    int textureID{};
+					if (UIData.HasMember("TextureID"))
+						textureID = UIData["TextureID"].GetInt();
 
-					UIComponent uiComponent(textureID, position, scale);
+					glm::vec2 position = glm::vec2(0.0f);
+					if (UIData.HasMember("PositionX") && UIData.HasMember("PositionY"))
+						position = glm::vec2(UIData["PositionX"].GetFloat(), UIData["PositionY"].GetFloat());
+
+					glm::vec2 scale = glm::vec2(1.0f);
+					if (UIData.HasMember("ScaleX") && UIData.HasMember("ScaleY"))
+						scale = glm::vec2(UIData["ScaleX"].GetFloat(), UIData["ScaleY"].GetFloat());
+
+
+					float layer = 0.0f;
+					if (UIData.HasMember("Layer"))
+						layer = UIData["Layer"].GetFloat();
+
+					bool selectable = false;
+					if (UIData.HasMember("Selectable"))
+						selectable = UIData["Selectable"].GetBool();
+
+					float opacity = 1.0f;
+					if (UIData.HasMember("Opcaity"))
+						opacity = UIData["Opcaity"].GetFloat();
+
+					UIComponent uiComponent(textureID, position, scale, layer, selectable, opacity);
+
+                    if (UIData.HasMember("Animated"))
+                        uiComponent.set_animate(UIData["Animated"].GetBool());
+
+                    if (UIData.HasMember("Rows"))
+                        uiComponent.set_rows(UIData["Rows"].GetInt());
+
+                    if (UIData.HasMember("Cols"))
+                        uiComponent.set_cols(UIData["Cols"].GetInt());
+
+                    if (UIData.HasMember("FrameInterval"))
+                        uiComponent.set_frame_interval(UIData["FrameInterval"].GetFloat());
+
 					g_Coordinator.AddComponent(entity, uiComponent);
 				}
 			}

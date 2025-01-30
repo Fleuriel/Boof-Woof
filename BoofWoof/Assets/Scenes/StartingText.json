@@ -1,51 +1,20 @@
 {
-    "SceneGUID": "5e4fc73a-59d0-45d4-ae2d-3d8729100205",
+    "SceneGUID": "af2825b7-52a7-46e4-a2d5-5e59b33a0768",
     "Entities": [
         {
             "MetadataComponent": {
                 "EntityName": "StartingText",
                 "EntityID": 0
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.10000000149011612,
-                    "z": -0.10000000149011612
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 0.20000000298023225,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "Texture": "CorgiText5",
-                "FollowCamera": false
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader2D",
-                "shaderIdx": 4,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "CorgiText5",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
+            "UIComponent": {
+                "TextureID": 26,
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 0.5,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0
             }
         }
     ]

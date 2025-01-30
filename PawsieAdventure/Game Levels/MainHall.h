@@ -21,52 +21,38 @@ class MainHall : public Level
 	void LoadLevel()
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHall.json");
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true);
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true, "BGM");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
+
+		// Use unordered_map to make it O(1) efficiency
+		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
+		{
+			{"Player", [&](Entity entity) { playerEnt = entity; }},
+			{"Rope1", [&](Entity entity) { RopeEnt = entity; }},
+			{"Rope2", [&](Entity entity) { RopeEnt2 = entity; }},
+			{"DrawBridge", [&](Entity entity) { BridgeEnt = entity; }},
+			{"Bone", [&](Entity entity) { bone = entity; }},
+			{"TennisBall", [&](Entity entity) { tennisBall = entity; }},
+			{"ScentTrail1", [&](Entity entity) { scentEntity1 = entity; }},
+			{"ScentTrail2", [&](Entity entity) { scentEntity2 = entity; }}
+		};
 
 		for (auto entity : entities)
 		{
 			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Player")
+				const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+				auto it = nameToAction.find(metadata.GetName());
+
+				if (it != nameToAction.end())
 				{
-					playerEnt = entity;
+					it->second(entity);
 				}
 
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
+				// Exit early if all entities are found
+				if (playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && bone && tennisBall && scentEntity1 && scentEntity2)
 				{
-					RopeEnt = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
-				{
-					RopeEnt2 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "DrawBridge")
-				{
-					BridgeEnt = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Bone")
-				{
-					bone = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "TennisBall")
-				{
-					tennisBall = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail1")
-				{
-					scentEntity1 = entity;
-				}
-
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail2")
-				{
-					scentEntity2 = entity;
 					break;
 				}
 			}
@@ -80,10 +66,18 @@ class MainHall : public Level
 		cameraController = new CameraController(playerEnt);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
 		g_Checklist.OnInitialize();
-		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec3(0.26f, 0.08f, 0.0f), "Do6");
-		g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec3(0.26f, 0.08f, 0.0f), "Do7");
-		g_Checklist.ChangeAsset(g_Checklist.Box3, glm::vec3(0.0f, 0.0f, 0.0f), "");
-		g_Checklist.ChangeAsset(g_Checklist.Box4, glm::vec3(0.0f, 0.0f, 0.0f), "");
+		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do6");
+		g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.15f, 0.05f), "Do7");
+
+		g_Checklist.ChangeAsset(g_Checklist.Do3, glm::vec2(0.0f, 0.0f), "");
+		g_Checklist.ChangeAsset(g_Checklist.Do4, glm::vec2(0.0f, 0.0f), "");
+		g_Checklist.ChangeAsset(g_Checklist.Box3, glm::vec2(0.0f, 0.0f), "");
+		g_Checklist.ChangeAsset(g_Checklist.Box4, glm::vec2(0.0f, 0.0f), "");
+
+		if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
+		{
+			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.065f));
+		}
 	}
 
 	void CheckCollision()
@@ -151,10 +145,15 @@ class MainHall : public Level
 
 		if (collectedBall && collectedBone && !chgChecklist)
 		{
-			g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec3(0.25f, 0.08f, 0.0f), "Do8");
-			g_Checklist.ChangeAsset(g_Checklist.Box1, glm::vec3(0.04f, 0.06f, 1.0f), "Box");
-			g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec3(0.0f, 0.0f, 0.0f), "");
-			g_Checklist.ChangeAsset(g_Checklist.Box2, glm::vec3(0.0f, 0.0f, 0.0f), "");
+			g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do8");
+			g_Checklist.ChangeAsset(g_Checklist.Box1, glm::vec2(0.04f, 0.06f), "Box");
+			g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.0f, 0.0f), "");
+			g_Checklist.ChangeAsset(g_Checklist.Box2, glm::vec2(0.0f, 0.0f), "");
+
+			if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
+			{
+				g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.165f));
+			}
 
 			chgChecklist = true;
 		}
@@ -179,7 +178,7 @@ class MainHall : public Level
 
 		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniffa)
 		{
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false);
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false, "SFX");
 
 			opacity1.setParticleColor(glm::vec4(0.0470588244497776f, 0.6627451181411743f, 0.95686274766922f, 1.0f));
 			opacity2.setParticleColor(glm::vec4(0.7960784435272217f, 0.0470588244497776f, 0.95686274766922f, 1.0f));
