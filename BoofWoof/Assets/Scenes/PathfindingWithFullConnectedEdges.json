@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "45bc94e7-28fe-4e26-8f5b-fe0378ad400e",
+    "SceneGUID": "bedbf374-cc30-46e7-b5f6-e7045d5047f2",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 7.453511443600291e-7,
-                    "y": -0.050000421702861789,
-                    "z": -0.000017352042050333695
+                    "x": 0.0000036127219118498035,
+                    "y": -0.05000082775950432,
+                    "z": -0.000001250496552529512
                 },
                 "Scale": {
                     "x": 1.0,
@@ -79,26 +79,6 @@
                         "x": 0.0,
                         "y": 0.0,
                         "z": 0.0
-                    },
-                    {
-                        "x": 5.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 10.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 10.0,
-                        "y": 0.0,
-                        "z": 5.0
-                    },
-                    {
-                        "x": 5.0,
-                        "y": 0.0,
-                        "z": 5.0
                     },
                     {
                         "x": 0.0,
@@ -311,7 +291,7 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor",
-                "Texture": "NothingTexture",
+                "Texture": "Floor",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -555,6 +535,39 @@
                 "StartNode": 8,
                 "EndNode": 9,
                 "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge6",
+                "EntityID": 13
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 1,
+                "EndNode": 9,
+                "Cost": 2.0
             }
         }
     ]
