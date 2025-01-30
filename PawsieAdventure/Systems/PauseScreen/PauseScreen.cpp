@@ -1,6 +1,7 @@
 #include "PauseScreen.h"
 #include "../Core/AssetManager/FilePaths.h"
 #include <Level Manager/LevelManager.h>
+#include "../GSM/GameStateMachine.h" // for g_IsPaused
 
 std::unique_ptr<PauseMenu> pauser = CreatePausedMenu(PauseState::Paused);
 Serialization serialPause;
