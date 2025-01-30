@@ -243,7 +243,7 @@ void GraphicsSystem::UpdateLoop() {
 
 	// Bind the framebuffer for rendering
 	if (editorMode == true)
-		glBindFramebuffer(GL_FRAMEBUFFER, rbo);
+		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 	else
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
