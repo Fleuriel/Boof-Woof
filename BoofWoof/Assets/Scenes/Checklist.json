@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "02883fa2-43b5-40c0-9ee3-5b28cafd33df",
+    "SceneGUID": "fa06802c-ff18-44a8-ae45-94d54d9f66bf",
     "Entities": [
         {
             "MetadataComponent": {
@@ -23,7 +23,7 @@
                 "EntityID": 1
             },
             "UIComponent": {
-                "TextureName": "",
+                "TextureName": "Do1",
                 "PositionX": -0.75,
                 "PositionY": 0.8799999952316284,
                 "ScaleX": 0.15000000596046449,
@@ -39,7 +39,7 @@
                 "EntityID": 2
             },
             "UIComponent": {
-                "TextureName": "",
+                "TextureName": "Do2",
                 "PositionX": -0.7200000286102295,
                 "PositionY": 0.7799999713897705,
                 "ScaleX": 0.15000000596046449,
@@ -55,7 +55,7 @@
                 "EntityID": 3
             },
             "UIComponent": {
-                "TextureName": "",
+                "TextureName": "Do3",
                 "PositionX": -0.6899999976158142,
                 "PositionY": 0.6700000166893005,
                 "ScaleX": 0.15000000596046449,
@@ -71,7 +71,7 @@
                 "EntityID": 4
             },
             "UIComponent": {
-                "TextureName": "",
+                "TextureName": "Do4",
                 "PositionX": -0.7599999904632568,
                 "PositionY": 0.5649999976158142,
                 "ScaleX": 0.15000000596046449,

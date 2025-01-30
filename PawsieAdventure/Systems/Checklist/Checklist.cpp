@@ -108,7 +108,7 @@ void Checklist::OnUpdate(double deltaTime)
 			Check3 = true;
 		}
 
-		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !Check4)
+		if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !Check4)
 		{
 			ChangeBoxChecked(Box4);
 			Check4 = true;
