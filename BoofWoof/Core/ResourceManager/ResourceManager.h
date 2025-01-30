@@ -75,11 +75,11 @@ public:
 	int GetFontDDS(std::string);
 
 
+	std::map <std::string, Model> ModelMap;
 	
 private:
 	
 
-	std::map <std::string, Model> ModelMap;
 
 	std::vector<std::string> ModelNames;
 

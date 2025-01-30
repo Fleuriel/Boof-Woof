@@ -58,7 +58,7 @@ public:
 
     GLuint GetFramebufferTexture() const { return textureColorbuffer; }  // Getter function
 
-    //void AddModel_3D(std::string const& path);
+    void AddModel_3D(std::string const& path);
     void AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model);
 
     void AddModel_2D();

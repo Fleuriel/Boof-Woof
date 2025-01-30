@@ -83,6 +83,8 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
+	std::cout << "Current directory: " << std::filesystem::current_path() << std::endl;
+
 	InitializePickingFramebuffer(g_WindowX, g_WindowY);
 
 	// load shaders and models
@@ -91,7 +93,8 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 
 	AddModel_2D();
-
+	std::cout << "uhee\n\n\n\n\n\n";
+	AddModel_3D("../BoofWoof/Assets/Objects/Bed2.obj");
 	//fontSystem.init();
 
 	shdrParam.Color = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -459,7 +462,22 @@ void GraphicsSystem::UpdateLoop() {
 }
 
 
+void GraphicsSystem::AddModel_3D(std::string const& path)
+{
+	Model model;
+	std::cout << "Loading: " << path << '\n';
 
+	model.loadModel(path, GL_TRIANGLES);
+
+	std::string name = path.substr(path.find_last_of('/') + 1);
+	//remove .obj from name
+	name = name.substr(0, name.find_last_of('.'));
+
+	g_ResourceManager.ModelMap.insert(std::pair<std::string, Model>(name, model));
+
+
+	std::cout << "Loaded: " << path << " with name: " << name << " [Models Reference: " << g_ResourceManager.ModelMap.size() - 1 << "]" << '\n';
+}
 
 void GraphicsSystem::Draw(std::vector<GraphicsComponent>& components) {
 	// Loop through components and draw them

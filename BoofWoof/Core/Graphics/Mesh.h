@@ -66,18 +66,18 @@ public:
         this->textures = textures;
 
 
-#ifdef _DEBUG
-        std::cout << "Mesh.h\n";
-
-        for (int i = 0; i < textures.size(); ++i)
-        {
-            std::cout << textures[i].id << '\t' << textures[i].path << '\t' << textures[i].type << '\n';
-        }
-
-
-        std::cout << "Vertices Size " << vertices.size() << " Indices Size " << indices.size() << " Tex Size " << textures.size() << '\n';
-
-#endif
+// #ifdef _DEBUG
+//         std::cout << "Mesh.h\n";
+// 
+//         for (int i = 0; i < textures.size(); ++i)
+//         {
+//             std::cout << textures[i].id << '\t' << textures[i].path << '\t' << textures[i].type << '\n';
+//         }
+// 
+// 
+//         std::cout << "Vertices Size " << vertices.size() << " Indices Size " << indices.size() << " Tex Size " << textures.size() << '\n';
+// 
+// #endif
        // AddTexture("Bed");
         // now that we have all the required data, set the vertex buffers and its attribute pointers.
         setupMesh();       
