@@ -1008,6 +1008,19 @@ bool Serialization::LoadScene(const std::string& filepath)
 						opacity = UIData["Opcaity"].GetFloat();
 
 					UIComponent uiComponent(textureID, position, scale, layer, selectable, opacity);
+
+                    if (UIData.HasMember("Animated"))
+                        uiComponent.set_animate(UIData["Animated"].GetBool());
+
+                    if (UIData.HasMember("Rows"))
+                        uiComponent.set_rows(UIData["Rows"].GetInt());
+
+                    if (UIData.HasMember("Cols"))
+                        uiComponent.set_cols(UIData["Cols"].GetInt());
+
+                    if (UIData.HasMember("FrameInterval"))
+                        uiComponent.set_frame_interval(UIData["FrameInterval"].GetFloat());
+
 					g_Coordinator.AddComponent(entity, uiComponent);
 				}
 			}
