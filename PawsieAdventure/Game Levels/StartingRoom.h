@@ -140,7 +140,7 @@ public:
 				bark = false;
 			}
 
-			if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniff)
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !sniff)
 			{
 				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff))
 				{
@@ -152,7 +152,7 @@ public:
 				sniff = true;
 			}
 
-			if (g_Input.GetKeyState(GLFW_KEY_R) == 0)
+			if (g_Input.GetKeyState(GLFW_KEY_E) == 0)
 			{
 				sniff = false;
 			}

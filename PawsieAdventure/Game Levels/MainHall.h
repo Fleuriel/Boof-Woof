@@ -180,7 +180,7 @@ class MainHall : public Level
 				teb_last = false;
 			}
 
-			if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniffa)
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !sniffa)
 			{
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiSniff.wav", false, "SFX");
 
@@ -189,7 +189,7 @@ class MainHall : public Level
 				sniffa = true;
 			}
 
-			if (g_Input.GetKeyState(GLFW_KEY_R) == 0)
+			if (g_Input.GetKeyState(GLFW_KEY_E) == 0)
 			{
 				sniffa = false;
 			}

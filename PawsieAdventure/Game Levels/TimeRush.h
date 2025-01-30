@@ -143,7 +143,7 @@ class TimeRush : public Level
 				std::cout << "End of timer" << std::endl;
 			}
 
-			if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && cooldownTimer >= cooldownDuration)
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && cooldownTimer >= cooldownDuration)
 			{
 				//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false, "SFX");
 				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
