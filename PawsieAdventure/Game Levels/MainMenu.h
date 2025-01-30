@@ -201,13 +201,17 @@ class MainMenu : public Level
 		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && !wasMousePressed && inSmth)
 		{
 			wasMousePressed = true;
+			const float volumeStep = 0.1f; // Step size for volume change
+
 
 			// For Settings Page
 			if (g_Coordinator.HaveComponent<UIComponent>(MenuPauser->SFXLeft))
 			{
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->SFXLeft);
 				if (UICompt.get_selected())
-				{				
+				{	
+					float newVolume = std::max(0.0f,(float)( g_Audio.GetSFXVolume() -  volumeStep));
+					g_Audio.SetSFXVolume(newVolume);
 					std::cout << "decrease SFX\n";
 				}
 			}
@@ -217,6 +221,8 @@ class MainMenu : public Level
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->SFXRight);
 				if (UICompt.get_selected())
 				{
+					float newVolume = std::min(1.0f,(float)( g_Audio.GetSFXVolume() + volumeStep));
+					g_Audio.SetSFXVolume(newVolume);
 					std::cout << "increase SFX\n";
 				}
 			}
@@ -226,6 +232,8 @@ class MainMenu : public Level
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->BGMLeft);
 				if (UICompt.get_selected())
 				{
+					float newVolume = std::max(0.0f, (float)(g_Audio.GetBGMVolume() - volumeStep));
+					g_Audio.SetBGMVolume(newVolume);
 					std::cout << "decrease BGM\n";
 				}
 			}
@@ -235,6 +243,9 @@ class MainMenu : public Level
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->BGMRight);
 				if (UICompt.get_selected())
 				{
+					float newVolume = std::min(1.0f, (float)(g_Audio.GetBGMVolume() + volumeStep));
+					g_Audio.SetBGMVolume(newVolume);
+
 					std::cout << "increase BGM\n";
 				}
 			}

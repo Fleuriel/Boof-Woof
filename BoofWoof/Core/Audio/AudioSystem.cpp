@@ -682,10 +682,12 @@ void AudioSystem::StopSpecificSound(const std::string& filePath) {
 void AudioSystem::SetBGMVolume(float volume) {
     bgmVolume = volume;
 
-    // Update the volume for all BGM channels
-    for (auto it : channelToFileMap) {
-        if (it.second == "BGM") { // Assuming a BGM identifier
-            it.first->setVolume(bgmVolume);
+    // Update all channels currently playing BGM
+    for (auto& [entity, channels] : channelMap) {
+        for (auto* channel : channels) {
+            if (channel) {
+                channel->setVolume(bgmVolume);
+            }
         }
     }
 
@@ -695,15 +697,18 @@ void AudioSystem::SetBGMVolume(float volume) {
 void AudioSystem::SetSFXVolume(float volume) {
     sfxVolume = volume;
 
-    // Update the volume for all SFX channels
-    for (auto it : channelToFileMap) {
-        if (it.second == "SFX") { // Assuming an SFX identifier
-            it.first->setVolume(sfxVolume);
+    // Update all channels currently playing SFX
+    for (auto& [entity, channels] : channelMap) {
+        for (auto* channel : channels) {
+            if (channel) {
+                channel->setVolume(sfxVolume);
+            }
         }
     }
 
     std::cout << "SFX volume set to: " << sfxVolume << std::endl;
 }
+
 
 float AudioSystem::GetBGMVolume() const {
     return bgmVolume;
