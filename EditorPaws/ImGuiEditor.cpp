@@ -3768,6 +3768,7 @@ void ImGuiEditor::InspectorWindow()
 
 								if (ImGui::DragInt("##StartNode", reinterpret_cast<int*>(&startNode), 1.0f, 0, MAX_ENTITIES)) {
 									edgeComponent.SetStartNode(startNode);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
 								}
 
 								ImGui::PopID();
@@ -3782,6 +3783,7 @@ void ImGuiEditor::InspectorWindow()
 
 								if (ImGui::DragInt("##EndNode", reinterpret_cast<int*>(&endNode), 1.0f, 0, MAX_ENTITIES)) {
 									edgeComponent.SetEndNode(endNode);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
 								}
 
 								ImGui::PopID();
@@ -3796,6 +3798,7 @@ void ImGuiEditor::InspectorWindow()
 
 								if (ImGui::DragFloat("##EdgeCost", &cost, 0.1f, 0.0f)) {
 									edgeComponent.SetCost(cost);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
 								}
 
 								ImGui::PopID();

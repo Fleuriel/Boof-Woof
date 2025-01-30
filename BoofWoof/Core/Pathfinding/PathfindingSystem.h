@@ -224,7 +224,8 @@ private:
     //std::unordered_set<Entity> closed_list;
     std::unordered_set<glm::vec3> closed_list;
 
-    float GetCost(const glm::vec3& from, const glm::vec3& to) const;
+    //float GetCost(const glm::vec3& from, const glm::vec3& to) const;
+    float GetCost(Entity start, Entity end) const;
     float Heuristic(const glm::vec3& a, const glm::vec3& b) const;
     void ReconstructPath(const std::shared_ptr<Node3D>& goalNode, std::vector<glm::vec3>& outPath);
     std::vector<Entity> GetNeighbors(Entity node);
