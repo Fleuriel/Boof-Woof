@@ -11,7 +11,7 @@ double MenuelapsedTime = 0.0;  // Tracks the elapsed time
 double delayAfterSpace = 0.5;  // Set the delay to 1 second
 bool spacePressed = false;  // Tracks whether the space bar has been pressed
 
-bool inSmth{ false }, settingsPage{ false };
+bool inSmth{ false };
 
 class MainMenu : public Level
 {
@@ -192,6 +192,9 @@ class MainMenu : public Level
 						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
 						music1.PlayAudio();
 					}
+
+					MenuPauser->OnExit();
+					exit(0);
 				}
 			}
 		}
