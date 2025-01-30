@@ -38,6 +38,7 @@ glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 // shadow mapping
 const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
 unsigned int depthMapFBO;
+unsigned int depthFBO;
 
 //int GraphicsSystem::set_Texture_ = 0;
 //std::vector<Model2D> models;
@@ -66,6 +67,8 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glGenFramebuffers(1, &fbo);
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
+
+	///////////////////////////////////////////for picker///////////////////////////////////////////
 	// Create a texture for the framebuffer
 	glGenTextures(1, &textureColorbuffer);
 	glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
@@ -87,8 +90,11 @@ void GraphicsSystem::initGraphicsPipeline() {
 	// Unbind the framebuffer to render to the default framebuffer initially
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-
 	InitializePickingFramebuffer(g_WindowX, g_WindowY);
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	
 
 	// load shaders and models
 	g_AssetManager.LoadAll();
@@ -104,7 +110,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	// Initialize camera
 	camera = CameraComponent(glm::vec3(0.f, 2.f, 10.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f, false);
 
-	glGenFramebuffers(1, &depthMapFBO);
+	
 	// create depth cubemap texture
 	unsigned int depthCubemap;
 	glGenTextures(1, &depthCubemap);
@@ -117,6 +123,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 	// attach depth texture as FBO's depth buffer
+	glGenFramebuffers(1, &depthMapFBO);
 	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthCubemap, 0);
 	glDrawBuffer(GL_NONE);
@@ -151,18 +158,6 @@ void GraphicsSystem::UpdateLoop() {
 	previousTime = currentTime;
 
 
-	// Bind the framebuffer for rendering
-	if (editorMode == true)
-		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-	else
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear framebuffer
-
-
-
 	
 
 
@@ -186,10 +181,12 @@ void GraphicsSystem::UpdateLoop() {
 			}
 		}
 	}
+	shdrParam.View = camera_render.GetViewMatrix();
+	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
 
 	lights_infos.clear();
-	g_AssetManager.GetShader("shadow").Use();
-	glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+	
+	//glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
 	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
 	{
 		if (g_Coordinator.HaveComponent<LightComponent>(entity))
@@ -216,25 +213,44 @@ void GraphicsSystem::UpdateLoop() {
 				shadowTransforms.push_back(shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
 
 				
+				glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 				glClear(GL_DEPTH_BUFFER_BIT);
+				glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+				glCullFace(GL_FRONT);
 
-				
+				g_AssetManager.GetShader("shadow").Use();
 				for (int i = 0; i < 6; i++) {
 					std::string shadowMatrix = "shadowMatrices[" + std::to_string(i) + "]";
 					g_AssetManager.GetShader("shadow").SetUniform(shadowMatrix.c_str(), shadowTransforms[i]);
 				}
 				g_AssetManager.GetShader("shadow").SetUniform("farPlane", far_plane);
 				g_AssetManager.GetShader("shadow").SetUniform("lightPos", light_info_.position);
-				
-				
+				g_AssetManager.GetShader("shadow").SetUniform("view", shdrParam.View);
+				g_AssetManager.GetShader("shadow").SetUniform("projection", shdrParam.Projection);
+
+				RenderScene(g_AssetManager.GetShader("shadow"));
+
+				g_ResourceManager.getModel("cubeModel")->Draw(g_AssetManager.GetShader("shadow"));
+				g_AssetManager.GetShader("shadow").UnUse();
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 			}
 
 		}
 	}
 	
-	shdrParam.View = camera_render.GetViewMatrix();
-	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
+	
+
+	// Bind the framebuffer for rendering
+	if (editorMode == true)
+		glBindFramebuffer(GL_FRAMEBUFFER, rbo);
+	else
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+	glViewport(0, 0, g_WindowX, g_WindowY);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear framebuffer
+
 
 
 
@@ -304,11 +320,7 @@ void GraphicsSystem::UpdateLoop() {
 #endif
 
 
-		g_AssetManager.GetShader("shadow").SetUniform("view", shdrParam.View);
-		g_AssetManager.GetShader("shadow").SetUniform("projection", shdrParam.Projection);
-		g_AssetManager.GetShader("shadow").SetUniform("vertexTransform", shdrParam.WorldMatrix);
-
-		g_ResourceManager.getModel("cubeModel")->Draw(g_AssetManager.GetShader("shadow"));
+		
 		
 		g_AssetManager.GetShader(ShaderName).Use();
 
@@ -555,7 +567,7 @@ void GraphicsSystem::UpdateLoop() {
 		RenderSceneForPicking();
 		needsPickingRender = false;
 	}
-	//enable blending
+
 	
 }
 
@@ -669,6 +681,34 @@ void GraphicsSystem::UpdateViewportSize(int width, int height) {
 		std::cout << "Picking framebuffer is not complete!" << std::endl;
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void GraphicsSystem::RenderScene(OpenGLShader& shader)
+{
+	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+	for (auto& entity : allEntities)
+	{
+		if (g_Coordinator.HaveComponent<TransformComponent>(entity))
+		{
+			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+			// Get the TransformSystem instance
+			std::shared_ptr<TransformSystem> transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+
+			// Retrieve the world matrix for the current entity
+			glm::mat4 worldMatrix = transformSystem->GetWorldMatrix(entity);
+
+			if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+			{
+				auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+
+				// Set the world matrix for the current entity
+				shader.SetUniform("vertexTransform", worldMatrix);
+
+				// Draw the model
+				g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(shader);
+			}
+		}
+	}
 }
 
 bool GraphicsSystem::DrawMaterialSphere()
