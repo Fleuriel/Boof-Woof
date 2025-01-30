@@ -195,8 +195,6 @@ namespace pauseLogic
 			g_IsPaused = true;
 			pauser->OnLoad();
 			g_Window->ShowMouseCursor();
-
-			std::cout << "Paused\n";
 		}
 
 		static bool wasMousePressed = false;
@@ -205,12 +203,12 @@ namespace pauseLogic
 		{
 			if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) && inSmthAgain)
 			{
+				// Add in audio feedback
+
 				pauser->OnExit();
 				pauser = CreatePausedMenu(PauseState::Paused);
 				pauser->OnLoad();
 				inSmthAgain = false;
-
-				std::cout << "came out from something\n";
 			}
 
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && !inSmthAgain)
@@ -226,8 +224,6 @@ namespace pauseLogic
 						g_Window->HideMouseCursor();
 						pauser->OnExit();
 						g_IsPaused = false;
-
-						std::cout << "resume game\n";
 					}
 				}
 
@@ -244,9 +240,6 @@ namespace pauseLogic
 						pauser->OnExit();
 						pauser = CreatePausedMenu(PauseState::Settings);
 						pauser->OnLoad();
-
-						std::cout << "setting\n";
-
 					}
 				}
 
@@ -264,9 +257,6 @@ namespace pauseLogic
 						pauser->OnExit();
 						pauser = CreatePausedMenu(PauseState::HowToPlay);
 						pauser->OnLoad();
-
-						std::cout << "htp\n";
-
 					}
 				}
 
