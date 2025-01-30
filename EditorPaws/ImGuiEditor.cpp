@@ -1289,6 +1289,9 @@ void ImGuiEditor::InspectorWindow()
 								std::string oldValue = metadataComponent.GetName();
 								std::string newValue = oldValue;
 
+								// Display Entity ID
+								ImGui::Text("Entity ID: %d", g_SelectedEntity);
+
 								ImGui::Text("Name    ");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
