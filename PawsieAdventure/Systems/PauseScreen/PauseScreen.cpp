@@ -7,7 +7,7 @@ bool g_IsPaused = false;
 
 void PausedScreen::OnLoad()
 {
-	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/PauseScreen.json");
+	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/PausedScreen.json");
 	spawnedEntities = serialPause.GetStored();
 
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -75,13 +75,30 @@ void Settings::OnLoad()
 	// might need to separate the setting json based 
 	// on whether it's pausedscreen's or mainmenu's ?
 
-	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Settings.json");
+	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/SettingsScreen.json");
 	spawnedEntities = serialPause.GetStored();
+
+	std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
+	{
+		{"SFXLeft", [&](Entity entity) { SFXLeft = entity; }},
+		{"SFXRight", [&](Entity entity) { SFXRight = entity; }},
+		{"BGMLeft", [&](Entity entity) { BGMLeft = entity; }},
+		{ "BGMRight", [&](Entity entity) { BGMRight = entity; } }
+	};
 
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto entity : entities)
 	{
-		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+		const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+		auto it = nameToAction.find(metadata.GetName());
+
+		if (it != nameToAction.end())
+		{
+			it->second(entity);
+		}
+
+		// Exit early if all entities are found
+		if (SFXLeft && SFXRight && BGMLeft && BGMRight)
 		{
 			break;
 		}
@@ -109,17 +126,8 @@ void HowToPlay::OnLoad()
 	// might need to separate the setting json based 
 	// on whether it's pausedscreen's or mainmenu's ?
 
-	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/HowToPlay.json");
+	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/HTPScreen.json");
 	spawnedEntities = serialPause.GetStored();
-
-	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
-	for (auto entity : entities)
-	{
-		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
-		{
-			break;
-		}
-	}
 }
 
 void HowToPlay::OnExit()

@@ -20,6 +20,9 @@ public:
 
 protected:
 	std::vector<Entity> spawnedEntities;
+
+public:
+	Entity SFXLeft{}, SFXRight{}, BGMLeft{}, BGMRight{};
 };
 
 // Main Pause Screen

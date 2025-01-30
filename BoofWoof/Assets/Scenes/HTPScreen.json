@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "5fd93993-b468-4e7e-b469-a8c712f7ad7f",
+    "SceneGUID": "db2c6350-15c3-45e9-90f5-1db8f79d9b78",
     "Entities": [
         {
             "MetadataComponent": {
@@ -12,7 +12,7 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.5,
+                "Layer": 0.48000001907348635,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -28,7 +28,7 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -44,7 +44,7 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -60,7 +60,7 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -76,7 +76,7 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -92,7 +92,7 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -108,7 +108,7 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -124,7 +124,7 @@
                 "PositionY": -0.029999999329447748,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -140,7 +140,7 @@
                 "PositionY": -0.029999999329447748,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -156,7 +156,7 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -172,7 +172,7 @@
                 "PositionY": -0.07999999821186066,
                 "ScaleX": 0.8999999761581421,
                 "ScaleY": 0.8999999761581421,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -188,7 +188,7 @@
                 "PositionY": 0.14000000059604646,
                 "ScaleX": 0.8999999761581421,
                 "ScaleY": 0.8999999761581421,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -204,7 +204,7 @@
                 "PositionY": 0.10000000149011612,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -220,7 +220,7 @@
                 "PositionY": 0.05000000074505806,
                 "ScaleX": 0.8999999761581421,
                 "ScaleY": 0.8999999761581421,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -236,7 +236,7 @@
                 "PositionY": 0.05999999865889549,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -252,7 +252,7 @@
                 "PositionY": 0.05000000074505806,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -268,9 +268,25 @@
                 "PositionY": 0.03999999910593033,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.49000000953674319,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BlackScreenCover",
+                "EntityID": 17
+            },
+            "UIComponent": {
+                "TextureName": "BlackScreen",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.100000023841858,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 0.949999988079071
             }
         }
     ]

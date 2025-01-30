@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "11087f4c-2340-4a82-a59e-b255a3e23953",
+    "SceneGUID": "3b6cdd94-85c6-4a79-abe6-fa83ec2aeff0",
     "Entities": [
         {
             "MetadataComponent": {
@@ -12,7 +12,7 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.5,
+                "Layer": 0.48000001907348635,
                 "Selectable": false,
                 "Opcaity": 1.0
             }
@@ -28,8 +28,8 @@
                 "PositionY": 0.30000001192092898,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
-                "Layer": 0.49000000953674319,
-                "Selectable": false,
+                "Layer": 0.4700000286102295,
+                "Selectable": true,
                 "Opcaity": 1.0
             }
         },
@@ -44,8 +44,8 @@
                 "PositionY": 0.30000001192092898,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
-                "Layer": 0.49000000953674319,
-                "Selectable": false,
+                "Layer": 0.4700000286102295,
+                "Selectable": true,
                 "Opcaity": 1.0
             }
         },
@@ -60,8 +60,8 @@
                 "PositionY": -0.20000000298023225,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
-                "Layer": 0.49000000953674319,
-                "Selectable": false,
+                "Layer": 0.4700000286102295,
+                "Selectable": true,
                 "Opcaity": 1.0
             }
         },
@@ -76,9 +76,25 @@
                 "PositionY": -0.20000000298023225,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
+                "Layer": 0.4700000286102295,
+                "Selectable": true,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BlackScreenCover",
+                "EntityID": 5
+            },
+            "UIComponent": {
+                "TextureName": "BlackScreen",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.100000023841858,
+                "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 0.949999988079071
             }
         }
     ]
