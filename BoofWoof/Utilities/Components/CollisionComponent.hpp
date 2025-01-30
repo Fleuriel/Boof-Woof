@@ -55,6 +55,7 @@ public:
     void SetIsColliding(bool value) { isColliding = value; }
 
     // Getters
+	Entity GetEntityID() const { return m_EntityID; }
     JPH::Body* GetPhysicsBody() const { return m_PhysicsBody; }
     int GetCollisionLayer() const { return m_CollisionLayer; }
     bool HasBodyAdded() const { return m_HasBodyAdded; }

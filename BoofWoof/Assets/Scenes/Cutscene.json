@@ -1,259 +1,212 @@
 {
-    "SceneGUID": "012f18f9-905d-48cf-b58d-11a1e96b23b4",
+    "SceneGUID": "4dc79f19-87e2-477e-93ad-da26946dcc17",
     "Entities": [
         {
             "MetadataComponent": {
-                "EntityName": "BlackScreenBack",
+                "EntityName": "Black Cover",
                 "EntityID": 0
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 2.0999999046325685,
-                    "y": 2.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "Texture": "BlackScreen",
-                "FollowCamera": false
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader2D",
-                "shaderIdx": 4,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "BlackScreen",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
+            "UIComponent": {
+                "TextureID": 6,
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.100000023841858,
+                "ScaleY": 1.0,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "Text",
+                "EntityName": "Panel1",
                 "EntityID": 1
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": -0.10000000149011612
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 0.25,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "Texture": "BullyText1",
-                "FollowCamera": false
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader2D",
-                "shaderIdx": 4,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "BullyText1",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
+            "UIComponent": {
+                "TextureID": 235,
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "DogName",
+                "EntityName": "Panel2",
                 "EntityID": 2
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": -0.5,
-                    "y": 0.30000001192092898,
-                    "z": -0.10000000149011612
-                },
-                "Scale": {
-                    "x": 0.4000000059604645,
-                    "y": 0.15000000596046449,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "Texture": "RexTheBully",
-                "FollowCamera": false
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader2D",
-                "shaderIdx": 4,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "RexTheBully",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
+            "UIComponent": {
+                "TextureID": 239,
+                "PositionX": 0.0,
+                "PositionY": -1.2999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 0.0
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "AggressiveDogBarking",
+                "EntityName": "Panel4",
                 "EntityID": 3
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "AudioComponent": {
-                "AudioFilePath": "../BoofWoof/Assets/Audio/AggressiveDogBarking.wav",
-                "Volume": 1.0,
-                "ShouldLoop": false
+            "UIComponent": {
+                "TextureID": 241,
+                "PositionX": 0.0,
+                "PositionY": -1.2999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 0.0
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "CorgiWhimper",
+                "EntityName": "Panel3",
                 "EntityID": 4
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "AudioComponent": {
-                "AudioFilePath": "../BoofWoof/Assets/Audio/CorgiWhimper.wav",
-                "Volume": 1.0,
-                "ShouldLoop": false
+            "UIComponent": {
+                "TextureID": 240,
+                "PositionX": -0.03999999910593033,
+                "PositionY": -2.1500000953674318,
+                "ScaleX": 0.699999988079071,
+                "ScaleY": 0.699999988079071,
+                "Layer": 0.4700000286102295,
+                "Selectable": false,
+                "Opcaity": 0.0
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "12sGrowlBarkCorgi",
+                "EntityName": "Panel5",
                 "EntityID": 5
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
+            "UIComponent": {
+                "TextureID": 242,
+                "PositionX": 0.0,
+                "PositionY": -1.2999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Panel6",
+                "EntityID": 6
             },
-            "AudioComponent": {
-                "AudioFilePath": "../BoofWoof/Assets/Audio/12sGrowlBarkCorgi.wav",
-                "Volume": 1.0,
-                "ShouldLoop": false
+            "UIComponent": {
+                "TextureID": 243,
+                "PositionX": 0.30000001192092898,
+                "PositionY": -0.9300000071525574,
+                "ScaleX": 0.699999988079071,
+                "ScaleY": 0.699999988079071,
+                "Layer": 0.4700000286102295,
+                "Selectable": false,
+                "Opcaity": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Panel7",
+                "EntityID": 7
+            },
+            "UIComponent": {
+                "TextureID": 244,
+                "PositionX": 0.0,
+                "PositionY": -1.2999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Panel8",
+                "EntityID": 8
+            },
+            "UIComponent": {
+                "TextureID": 245,
+                "PositionX": 0.0,
+                "PositionY": -1.2999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Panel9",
+                "EntityID": 9
+            },
+            "UIComponent": {
+                "TextureID": 246,
+                "PositionX": 0.0,
+                "PositionY": -1.2999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Panel10",
+                "EntityID": 10
+            },
+            "UIComponent": {
+                "TextureID": 236,
+                "PositionX": 0.0,
+                "PositionY": -1.2999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Panel11",
+                "EntityID": 11
+            },
+            "UIComponent": {
+                "TextureID": 237,
+                "PositionX": 0.0,
+                "PositionY": -1.2999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Panel12",
+                "EntityID": 12
+            },
+            "UIComponent": {
+                "TextureID": 238,
+                "PositionX": 0.0,
+                "PositionY": -1.2999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 0.0
             }
         }
     ]

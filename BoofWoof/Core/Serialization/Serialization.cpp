@@ -476,6 +476,14 @@ bool Serialization::SaveScene(const std::string& filepath) {
 			UI.AddMember("Layer", uiComp.get_UI_layer(), allocator);
 			UI.AddMember("Selectable", uiComp.get_selectable(), allocator);
 			UI.AddMember("Opcaity", uiComp.get_opacity(), allocator);
+            
+            UI.AddMember("Animated", uiComp.get_animate(), allocator);
+            UI.AddMember("Rows", uiComp.get_rows(), allocator);
+            UI.AddMember("Cols", uiComp.get_cols(), allocator);
+            // UI.AddMember("CurrentRow", uiComp.get_curr_row(), allocator);
+            // UI.AddMember("CurrentCol", uiComp.get_curr_col(), allocator);
+            UI.AddMember("FrameInterval", uiComp.get_frame_interval(), allocator);
+            // UI.AddMember("Timer", uiComp.get_timer(), allocator);
 
 			entityData.AddMember("UIComponent", UI, allocator);
 
@@ -1000,6 +1008,19 @@ bool Serialization::LoadScene(const std::string& filepath)
 						opacity = UIData["Opcaity"].GetFloat();
 
 					UIComponent uiComponent(textureID, position, scale, layer, selectable, opacity);
+
+                    if (UIData.HasMember("Animated"))
+                        uiComponent.set_animate(UIData["Animated"].GetBool());
+
+                    if (UIData.HasMember("Rows"))
+                        uiComponent.set_rows(UIData["Rows"].GetInt());
+
+                    if (UIData.HasMember("Cols"))
+                        uiComponent.set_cols(UIData["Cols"].GetInt());
+
+                    if (UIData.HasMember("FrameInterval"))
+                        uiComponent.set_frame_interval(UIData["FrameInterval"].GetFloat());
+
 					g_Coordinator.AddComponent(entity, uiComponent);
 				}
 			}

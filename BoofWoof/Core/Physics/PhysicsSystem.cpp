@@ -266,6 +266,8 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
     // Iterate through all entities that match the PhysicsSystem signature
     auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 
+    bool isGrounded = false;
+
     for (auto& entity : allEntities) {
         if (g_Coordinator.HaveComponent<TransformComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(entity) 
             && g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
@@ -309,29 +311,28 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
                         collisionComponent.SetIsColliding(true);
                     }
                     else {
-                        collisionComponent.SetIsColliding(false);
+                        //collisionComponent.SetIsColliding(false);
                     }
 
                     float currentYPosition = transform.GetPosition().y;
 
                     // Check if the Y-position has minimal change and the entity is colliding
-                    bool isGrounded = false;
                     if (previousYPositions.find(entity) != previousYPositions.end()) {
                         float previousYPosition = previousYPositions[entity];
                         float yChange = std::abs(currentYPosition - previousYPosition);
 
-                        //if (yChange < 0.01f && collisionComponent.GetIsColliding()) {
-                        //    isGrounded = true;
-                        //}
-                        if (yChange < 0.01f) {
+                        if (yChange < 0.000001f && collisionComponent.GetIsColliding()) {
+                            isGrounded = true;       
+                        }
+                        if (yChange < 0.000001f) {
                             isGrounded = true;
                         }
                     }
 
-                    // Check if still colliding with the floor
-                    if (collisionComponent.GetLastCollidedObjectName() == "FloorCastle") {
-                        isGrounded = true;
-                    }
+                    //// Check if still colliding with the floor
+                    //if (collisionComponent.GetLastCollidedObjectName() == "FloorCastle") {
+                    //    isGrounded = true;
+                    //}
 
                     // Update `isGrounded` status
                     collisionComponent.SetIsGrounded(isGrounded);

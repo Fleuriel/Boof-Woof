@@ -646,31 +646,34 @@ void AudioSystem::PlayFileOnNewChannel(const std::string& filePath, bool loop, c
         newChannel->setVolume(sfxVolume);
     }
 
-    // Map channel to its type
-    channelToFileMap[newChannel] = soundType;
+    // Map channel to the file path (instead of sound type)
+    channelToFileMap[newChannel] = filePath;
 
     additionalChannels.push_back(newChannel);
     system->update();
 }
 
 
-void AudioSystem::StopSpecificSound(const std::string& filePath)
-{
-    for (auto it = channelToFileMap.begin(); it != channelToFileMap.end(); ++it) {
+void AudioSystem::StopSpecificSound(const std::string& filePath) {
+    auto it = channelToFileMap.begin();
+    while (it != channelToFileMap.end()) {
+        // Check if the file path matches
         if (it->second == filePath) {
             FMOD::Channel* channel = it->first;
+
             if (channel) {
                 bool isPlaying = false;
-                channel->isPlaying(&isPlaying);
-
-                if (isPlaying) {
+                FMOD_RESULT result = channel->isPlaying(&isPlaying);
+                if (result == FMOD_OK && isPlaying) {
                     channel->stop(); // Stop the specific sound
                 }
-
-                // Remove the mapping and break
-                channelToFileMap.erase(it);
-                break;
             }
+
+            // Safely erase the mapping and continue iteration
+            it = channelToFileMap.erase(it);
+        }
+        else {
+            ++it; // Move to the next item
         }
     }
 }
