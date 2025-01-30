@@ -476,6 +476,14 @@ bool Serialization::SaveScene(const std::string& filepath) {
 			UI.AddMember("Layer", uiComp.get_UI_layer(), allocator);
 			UI.AddMember("Selectable", uiComp.get_selectable(), allocator);
 			UI.AddMember("Opcaity", uiComp.get_opacity(), allocator);
+            
+            UI.AddMember("Animated", uiComp.get_animate(), allocator);
+            UI.AddMember("Rows", uiComp.get_rows(), allocator);
+            UI.AddMember("Cols", uiComp.get_cols(), allocator);
+            // UI.AddMember("CurrentRow", uiComp.get_curr_row(), allocator);
+            // UI.AddMember("CurrentCol", uiComp.get_curr_col(), allocator);
+            UI.AddMember("FrameInterval", uiComp.get_frame_interval(), allocator);
+            // UI.AddMember("Timer", uiComp.get_timer(), allocator);
 
 			entityData.AddMember("UIComponent", UI, allocator);
 
