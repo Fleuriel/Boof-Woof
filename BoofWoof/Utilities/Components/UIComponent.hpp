@@ -43,7 +43,7 @@ public:
 		float bottom_limit = position.y - scale.y;
 		if (mousepos.x > left_limit && mousepos.x < right_limit && mousepos.y < top_limit && mousepos.y > bottom_limit) {
 			selected = true;
-			UI_opacity = 0.5f;
+			UI_opacity = 0.8f;
 		}
 		else {
 			selected = false;

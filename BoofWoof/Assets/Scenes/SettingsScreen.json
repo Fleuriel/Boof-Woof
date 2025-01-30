@@ -1,0 +1,85 @@
+{
+    "SceneGUID": "11087f4c-2340-4a82-a59e-b255a3e23953",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Background",
+                "EntityID": 0
+            },
+            "UIComponent": {
+                "TextureName": "SettingsBG",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "SFXLeft",
+                "EntityID": 1
+            },
+            "UIComponent": {
+                "TextureName": "LeftArrow",
+                "PositionX": -0.10000000149011612,
+                "PositionY": 0.30000001192092898,
+                "ScaleX": 0.10000000149011612,
+                "ScaleY": 0.20000000298023225,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "SFXRight",
+                "EntityID": 2
+            },
+            "UIComponent": {
+                "TextureName": "RightArrow",
+                "PositionX": 0.4000000059604645,
+                "PositionY": 0.30000001192092898,
+                "ScaleX": 0.10000000149011612,
+                "ScaleY": 0.20000000298023225,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BGMLeft",
+                "EntityID": 3
+            },
+            "UIComponent": {
+                "TextureName": "LeftArrow",
+                "PositionX": -0.10000000149011612,
+                "PositionY": -0.20000000298023225,
+                "ScaleX": 0.10000000149011612,
+                "ScaleY": 0.20000000298023225,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BGMRight",
+                "EntityID": 4
+            },
+            "UIComponent": {
+                "TextureName": "RightArrow",
+                "PositionX": 0.4000000059604645,
+                "PositionY": -0.20000000298023225,
+                "ScaleX": 0.10000000149011612,
+                "ScaleY": 0.20000000298023225,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        }
+    ]
+}

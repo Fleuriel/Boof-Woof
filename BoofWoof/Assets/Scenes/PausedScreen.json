@@ -1,0 +1,85 @@
+{
+    "SceneGUID": "e27a2504-f5cc-4a3b-bb54-7c3974ff4ec4",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Background",
+                "EntityID": 0
+            },
+            "UIComponent": {
+                "TextureName": "PausedBG",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Resume",
+                "EntityID": 1
+            },
+            "UIComponent": {
+                "TextureName": "ResumeGame",
+                "PositionX": 0.0,
+                "PositionY": 0.20000000298023225,
+                "ScaleX": 0.20000000298023225,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.49000000953674319,
+                "Selectable": true,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Settings",
+                "EntityID": 2
+            },
+            "UIComponent": {
+                "TextureName": "Settings",
+                "PositionX": 0.0,
+                "PositionY": -0.10000000149011612,
+                "ScaleX": 0.20000000298023225,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.49000000953674319,
+                "Selectable": true,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "HTP",
+                "EntityID": 3
+            },
+            "UIComponent": {
+                "TextureName": "HTP",
+                "PositionX": 0.0,
+                "PositionY": -0.4000000059604645,
+                "ScaleX": 0.20000000298023225,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.49000000953674319,
+                "Selectable": true,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Exit",
+                "EntityID": 4
+            },
+            "UIComponent": {
+                "TextureName": "ExitGame",
+                "PositionX": 0.0,
+                "PositionY": -0.699999988079071,
+                "ScaleX": 0.20000000298023225,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.49000000953674319,
+                "Selectable": true,
+                "Opcaity": 1.0
+            }
+        }
+    ]
+}
