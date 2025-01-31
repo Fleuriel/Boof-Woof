@@ -85,7 +85,7 @@ private:
 	int cols{ 1 };
 	int curr_row{ 1 };
 	int curr_col{ 1 };
-	float frame_interval{ 0.1 };
+	float frame_interval{ 0.1f };
 	float timer{ 0.f };
 };
 

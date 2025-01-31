@@ -37,7 +37,7 @@ void UISystem::UI_update() {
     }
 
     // Use GetDeltaTime() instead of GetElapsedTime()
-    float currentTime = g_Window->GetDeltaTime(); // This gives you the time since the last frame
+    float currentTime = static_cast<float>(g_Window->GetDeltaTime()); // This gives you the time since the last frame
 
     // Loop through all UI components
     for (auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
@@ -128,16 +128,16 @@ void UISystem::UI_render()
                 shader.Use();
 
                 // Compute transformation matrix
-                glm::vec3 UI_pos = { UICompt.get_position(), UICompt.get_UI_layer() };
-                glm::vec3 UI_scale = { UICompt.get_scale(), 1.0f };
+                glm::vec3 UI_pos1 = { UICompt.get_position(), UICompt.get_UI_layer() };
+                glm::vec3 UI_scale1 = { UICompt.get_scale(), 1.0f };
 
                 // Compute transformation matrix
-                glm::mat4 model = glm::mat4(1.0f);
-                model = glm::translate(model, UI_pos);
-                model = glm::scale(model, UI_scale);
+                glm::mat4 model1 = glm::mat4(1.0f);
+                model1 = glm::translate(model1, UI_pos1);
+                model1 = glm::scale(model1, UI_scale1);
 
                 // Set the transformation matrix in the shader
-                shader.SetUniform("uModel_to_NDC", glm::mat3(model));
+                shader.SetUniform("uModel_to_NDC", glm::mat3(model1));
 
                 shader.SetUniform("opacity", UICompt.get_UI_opacity());
 

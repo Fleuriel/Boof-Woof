@@ -378,7 +378,63 @@ void SceneManager::Update(float deltaTime)
             CompleteTransition();
         }
     }
+
+    // Handle asynchronous scene loading
+    if (m_IsAsyncLoading)
+    {
+        // Check if the background thread is done
+        if (m_AsyncLoader.IsDone())
+        {
+            // Retrieve the parsed data
+            m_PendingSceneData = m_AsyncLoader.GetLoadedData();
+
+            // Now we have the JSON data, we must finalize ECS creation
+            m_IsAsyncLoading = false;   // No longer loading in background
+            m_NeedsFinalize = true;     // We need to finalize
+        }
+        else
+        {
+            // We’re still loading in the background. Render "Loading..." or update a progress bar
+            // Possibly you can poll partial progress. 
+            // e.g. float progress = approximate / total
+        }
+    }
+
+    // If we have data ready to finalize...
+    if (m_NeedsFinalize)
+    {
+        if (!m_ChunkFinalize)
+        {
+            // One-shot finalize
+            FinalizeSceneData(m_PendingSceneData);
+            m_NeedsFinalize = false;
+
+            // If you have a callback or something
+            currentScene = m_PendingSceneData.sceneGUID; // Or the filepath
+            if (onSceneLoadedCallback)
+                onSceneLoadedCallback(currentScene);
+        }
+        else
+        {
+            // Chunk-based finalize each frame
+            const int chunkSize = 10; // e.g., finalize 10 entities per frame
+            FinalizeSceneDataChunked(m_PendingSceneData, m_FinalizeIndex, chunkSize);
+
+            // If we’re done finalizing
+            if (m_FinalizeIndex >= m_PendingSceneData.entityList.size())
+            {
+                m_NeedsFinalize = false;
+                m_ChunkFinalize = false;
+
+                // e.g. set currentScene to something
+                currentScene = m_PendingSceneData.sceneGUID;
+                if (onSceneLoadedCallback)
+                    onSceneLoadedCallback(currentScene);
+            }
+        }
+    }
 }
+
 /**************************************************************************
  * @brief Sets the callback function to be invoked when a scene is loaded.
  *
@@ -398,4 +454,62 @@ void SceneManager::Update(float deltaTime)
 void SceneManager::SetSceneLoadedCallback(std::function<void(const std::string&)> callback)
 {
     onSceneLoadedCallback = callback;
+}
+
+
+void SceneManager::BeginAsyncLoad(const std::string& filepath)
+{
+    // 1. Clear the current scene if needed
+    g_Coordinator.ResetEntities();
+
+    // 2. Start the background parse
+    m_AsyncLoader.BeginLoad(filepath);
+    m_IsAsyncLoading = true;
+    m_NeedsFinalize = false;
+    m_ChunkFinalize = true; // or false if you want instant finalize
+    m_FinalizeIndex = 0;
+
+    // If you want to show a “loading” UI, set transitioning = true or something similar
+    // Or set up a "LoadingLevel" with a separate flow
+}
+
+
+void SceneManager::FinalizeSceneData(const SceneData& data)
+{
+    // If you want to do the entire finalize in one function call:
+    Serialization::FinalizeEntitiesFromSceneData(data);
+    // Also handle any post-processing
+}
+
+void SceneManager::FinalizeSceneDataChunked(const SceneData& data, size_t& index, int chunkSize)
+{
+    // Step through entityList from index -> index+chunkSize
+    for (int i = 0; i < chunkSize && index < data.entityList.size(); ++i, ++index)
+    {
+        const auto& ed = data.entityList[index];
+        // If you haven’t created the entity yet, do it earlier or do it lazily
+        // We can do that in two passes. For simplicity, do a single pass example:
+
+        // 1) If index == 0, first pass create all ECS entities
+        //    But that’s complicated. Let's assume we already created them in BeginAsyncLoad
+        //    or do partial approach. It's up to you.
+
+        // The simpler approach is a 2-pass chunk approach:
+        //   pass 1: create all ECS entities
+        //   pass 2: attach components in chunks
+        // For brevity, let's do everything at once if they exist:
+        Entity newE = g_Coordinator.CreateEntity();
+        
+
+        // oldEntityID? If we truly need oldEntityID -> newE mapping, we store it in a container
+        // But let's assume we do not have references for this example or we do a second pass after.
+
+        auto& jsonObj = ed.entityJSON;
+        // Attach each component as you do in your “LoadScene” code:
+        if (jsonObj.HasMember("TransformComponent"))
+        {
+            // ...
+        }
+        // ... etc ...
+    }
 }

@@ -188,7 +188,7 @@ struct Player final : public Behaviour
 			// Use modern C++ random library to select a random sound
 			static std::random_device rd; // Seed
 			static std::mt19937 gen(rd()); // Mersenne Twister PRNG
-			std::uniform_int_distribution<> dis(0, footstepSounds.size() - 1);
+			std::uniform_int_distribution<std::size_t> dis(0, footstepSounds.size() - 1);
 
 			// Get a random sound ID
 			std::string randomSound = footstepSounds[dis(gen)];

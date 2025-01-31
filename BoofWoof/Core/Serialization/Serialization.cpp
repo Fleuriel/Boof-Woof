@@ -1142,3 +1142,67 @@ bool Serialization::LoadScene(const std::string& filepath)
 
     return true;
 }
+
+
+void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
+{
+    // Clear your ECS if needed, or do it outside:
+    // g_Coordinator.ResetEntities();
+
+    // 1) We need a map from oldEntityID -> new ECS entity
+    std::unordered_map<int, Entity> oldToNewEntityMap;
+
+    // First pass: create all the new entities
+    for (auto& ed : data.entityList)
+    {
+        Entity newE = g_Coordinator.CreateEntity();
+        oldToNewEntityMap[ed.oldEntityID] = newE;
+    }
+
+    // 2) Attach components
+    for (auto& ed : data.entityList)
+    {
+        Entity newE = oldToNewEntityMap[ed.oldEntityID];
+        auto& jsonObj = ed.entityJSON; // The JSON object for this entity
+
+        if (jsonObj.HasMember("MetadataComponent"))
+        {
+            auto& meta = jsonObj["MetadataComponent"];
+            std::string name = meta["EntityName"].GetString();
+            MetadataComponent mcomp(name, newE);
+            g_Coordinator.AddComponent(newE, mcomp);
+        }
+
+        // Transform
+        if (jsonObj.HasMember("TransformComponent"))
+        {
+            // ... your same logic as before ...
+        }
+
+        // Graphics
+        if (jsonObj.HasMember("GraphicsComponent"))
+        {
+            // ...
+        }
+
+        // Audio
+        if (jsonObj.HasMember("AudioComponent"))
+        {
+            // ...
+        }
+
+        // etc...
+    }
+
+    // 3) Second pass for Hierarchy or references to other entities
+    for (auto& ed : data.entityList)
+    {
+        Entity newE = oldToNewEntityMap[ed.oldEntityID];
+        auto& jsonObj = ed.entityJSON;
+
+        if (jsonObj.HasMember("HierarchyComponent"))
+        {
+            // ...
+        }
+    }
+}
