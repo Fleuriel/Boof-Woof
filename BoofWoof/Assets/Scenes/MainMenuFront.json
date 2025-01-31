@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "6566059d-c4df-403a-847a-bb3d936c28e7",
+    "SceneGUID": "61c86a10-03f7-49ad-b1a4-5b12efcfee3b",
     "Entities": [
         {
             "MetadataComponent": {
@@ -61,7 +61,7 @@
                 }
             },
             "AudioComponent": {
-                "AudioFilePath": "../BoofWoof/Assets/Audio/mainmenu music.wav",
+                "AudioFilePath": "../BoofWoof/Assets/Audio/mainmenu musicBGM.wav",
                 "Volume": 1.0,
                 "ShouldLoop": true
             }
@@ -128,7 +128,7 @@
                 "ScaleY": 0.15000000596046449,
                 "Layer": 0.5,
                 "Selectable": true,
-                "Opcaity": 0.5
+                "Opcaity": 0.800000011920929
             }
         },
         {

@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "4bbe1215-2005-47e3-aadc-6c35a360fc57",
+    "SceneGUID": "fc6a153e-258b-4b63-b1c5-23db6b0b4556",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.6534621119499207,
+                    "x": 0.2752450406551361,
                     "y": 1.2000000476837159,
-                    "z": -0.523012101650238
+                    "z": -0.8799546957015991
                 },
                 "Scale": {
                     "x": 0.5,
@@ -3619,7 +3619,7 @@
                 }
             },
             "AudioComponent": {
-                "AudioFilePath": "../BoofWoof/Assets/Audio/BedRoomMusic.wav",
+                "AudioFilePath": "../BoofWoof/Assets/Audio/BedRoomMusicBGM.wav",
                 "Volume": 1.0,
                 "ShouldLoop": true
             }

@@ -296,10 +296,10 @@ struct Player final : public Behaviour
 			// Comment for fun
 
 
-			if (m_Engine.getInputSystem().isActionPressed("Bark"))
-			{
-				m_Engine.getAudioSystem().PlaySoundById("Corgi/CorgiBark1.wav");
-			}
+			//if (m_Engine.getInputSystem().isActionPressed("Bark"))
+			//{
+			//	m_Engine.getAudioSystem().PlaySoundById("Corgi/CorgiBark1.wav");
+			//}
 		}
 	}
 

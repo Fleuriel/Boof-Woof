@@ -167,13 +167,16 @@ class Cutscene : public Level
 
 				if (!SongTwo)
 				{
-					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiWhimper.wav", false, "SFX");
 
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiWhimper.wav", false, "SFX");
 
 					/*if (g_Coordinator.HaveComponent<AudioComponent>(CorgiWhimper)) {
 						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiWhimper);
 						music1.PlayAudio();
+
 					}*/
+					SongTwo = true; //Now it only plays once
+
 				}
 
 				// Gradually increase opacity for LeftHalf

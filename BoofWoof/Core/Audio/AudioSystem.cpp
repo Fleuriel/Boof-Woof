@@ -1,4 +1,4 @@
-/**************************************************************************
+﻿/**************************************************************************
  * @file AudioSystem.cpp
  * @author 	Liu Xujie
  * @param DP email: l.xujie@digipen.edu [2203183]
@@ -474,7 +474,7 @@ void AudioSystem::PlayFile(const std::string& filePath) {
 
     // Check if the sound is already cached
     if (soundCache.find(filePath) == soundCache.end()) {
-        // Load the sound as it�s not already in the cache
+        // Load the sound as it’s not already in the cache
         FMOD::Sound* sound = nullptr;
         FMOD_RESULT result = system->createSound(filePath.c_str(), FMOD_DEFAULT, nullptr, &sound);
 
@@ -682,9 +682,8 @@ void AudioSystem::StopSpecificSound(const std::string& filePath) {
 void AudioSystem::SetBGMVolume(float volume) {
     bgmVolume = volume;
 
-    // Update all channels currently playing BGM
-    for (auto& [entity, channels] : channelMap) {
-        for (auto* channel : channels) {
+    for (auto& [channel, filePath] : channelToFileMap) {
+        if (filePath.find("BGM") != std::string::npos) {  // ✅ Only update BGM sounds
             if (channel) {
                 channel->setVolume(bgmVolume);
             }
@@ -697,9 +696,8 @@ void AudioSystem::SetBGMVolume(float volume) {
 void AudioSystem::SetSFXVolume(float volume) {
     sfxVolume = volume;
 
-    // Update all channels currently playing SFX
-    for (auto& [entity, channels] : channelMap) {
-        for (auto* channel : channels) {
+    for (auto& [channel, filePath] : channelToFileMap) {
+        if (filePath.find("BGM") == std::string::npos) {  // ✅ Only update SFX sounds
             if (channel) {
                 channel->setVolume(sfxVolume);
             }
@@ -708,6 +706,8 @@ void AudioSystem::SetSFXVolume(float volume) {
 
     std::cout << "SFX volume set to: " << sfxVolume << std::endl;
 }
+
+
 
 
 float AudioSystem::GetBGMVolume() const {
@@ -763,8 +763,18 @@ void AudioSystem::PlayEntityAudio(Entity entity, const std::string& filePath, bo
     // Store the channel in the entity's channel map
     channelMap[entity].push_back(newChannel);
 
-    // Set default volume for the channel
-    newChannel->setVolume(1.0f);
+    //  Apply correct volume
+    if (filePath.find("BGM") != std::string::npos) {
+        newChannel->setVolume(bgmVolume);
+        std::cout << "Applied BGM volume: " << bgmVolume << "\n";
+    }
+    else {
+        newChannel->setVolume(sfxVolume);
+        std::cout << "Applied SFX volume: " << sfxVolume << "\n";
+    }
+
+    //  Store channel mapping for future volume updates
+    channelToFileMap[newChannel] = filePath;
 
     // Log the channel association
     std::cout << "Entity " << entity << " now mapped to channel." << std::endl;
