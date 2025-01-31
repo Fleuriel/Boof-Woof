@@ -3587,6 +3587,13 @@ void ImGuiEditor::InspectorWindow()
 
 									// Update frame interval in the UIComponent
 									uiComponent.set_frame_interval(frameInterval);
+
+									// Play/Pause buttons
+									bool isPlaying = uiComponent.get_playing(); // Assuming you have a method to get animation state
+
+									if (ImGui::Button(isPlaying ? "Pause" : "Play")) {
+										uiComponent.set_playing(!isPlaying); // Toggle play/pause state
+									}
 								}
 							}
 						}

@@ -26,6 +26,7 @@ public:
 	void set_curr_col(int c) { curr_col = c; }
 	void set_frame_interval(float i) { frame_interval = i; }
 	void set_timer(float t) { timer = t; }
+	void set_playing(bool p) { playing = p; }
 
 	// getters
 	glm::vec2 get_position() { return position; }
@@ -41,6 +42,7 @@ public:
 	int get_curr_col() const { return curr_col; }
 	float get_frame_interval() const { return frame_interval; }
 	float get_timer() const { return timer; }
+	bool get_playing() const { return playing; }
 
 	// UI interaction
 	bool get_selected() { return selected; }
@@ -87,6 +89,7 @@ private:
 	int curr_col{ 1 };
 	float frame_interval{ 0.1f };
 	float timer{ 0.f };
+	bool playing{ true };
 };
 
 #endif // UICOMPONENT_HPP
