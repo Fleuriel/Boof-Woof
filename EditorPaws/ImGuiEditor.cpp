@@ -3681,33 +3681,52 @@ void ImGuiEditor::InspectorWindow()
 
 									// Textbox for inputting rows
 									ImGui::InputInt("Rows", &rows);
-
-									// Ensure rows is at least 1
-									if (rows < 1) rows = 1;
+									if (rows < 1) rows = 1; // Ensure rows is at least 1
 
 									// Textbox for inputting cols
 									ImGui::InputInt("Columns", &cols);
-									// Ensure cols is at least 1
-									if (cols < 1) cols = 1;
+									if (cols < 1) cols = 1; // Ensure cols is at least 1
 
 									// Update rows and cols in the UIComponent
 									uiComponent.set_rows(rows);
 									uiComponent.set_cols(cols);
 
-									// Display the current row and column
+									// Modify current row and column
 									int currRow = uiComponent.get_curr_row();
 									int currCol = uiComponent.get_curr_col();
-									ImGui::Text("Current Row: %d, Current Column: %d", currRow, currCol);
+
+									// Input fields for changing the current row/column
+									if (ImGui::InputInt("Current Row", &currRow)) {
+										// Clamp row value to stay within valid range
+										if (currRow < 0) currRow = 0;
+										if (currRow >= rows) currRow = rows - 1;
+										uiComponent.set_curr_row(currRow);
+									}
+
+									if (ImGui::InputInt("Current Column", &currCol)) {
+										// Clamp column value to stay within valid range
+										if (currCol < 0) currCol = 0;
+										if (currCol >= cols) currCol = cols - 1;
+										uiComponent.set_curr_col(currCol);
+									}
 
 									// Add controls for frame interval
 									float frameInterval = uiComponent.get_frame_interval();
 									ImGui::InputFloat("Frame Interval", &frameInterval);
-
-									// Ensure frame interval is positive
-									if (frameInterval < 0.0f) frameInterval = 0.0f;
-
-									// Update frame interval in the UIComponent
+									if (frameInterval < 0.0f) frameInterval = 0.0f; // Ensure positive value
 									uiComponent.set_frame_interval(frameInterval);
+
+									// Checkbox for "Stay on Row"
+									bool stayOnRow = uiComponent.get_stay_on_row();
+									if (ImGui::Checkbox("Stay on Row", &stayOnRow)) {
+										uiComponent.set_stay_on_row(stayOnRow);
+									}
+
+									// Play/Pause buttons
+									bool isPlaying = uiComponent.get_playing(); // Get animation state
+									if (ImGui::Button(isPlaying ? "Pause" : "Play")) {
+										uiComponent.set_playing(!isPlaying); // Toggle play/pause state
+									}
 								}
 							}
 						}

@@ -44,31 +44,41 @@ void UISystem::UI_update() {
         if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
             auto& UICompt = g_Coordinator.GetComponent<UIComponent>(entity);
 
-            // Update the timer
-            UICompt.set_timer(UICompt.get_timer() + currentTime);
+            if (UICompt.get_playing()){
+                // Update the timer
+                UICompt.set_timer(UICompt.get_timer() + currentTime);
 
-            // Check if it's time to update the animation frame
-            if (UICompt.get_timer() >= UICompt.get_frame_interval()) {
-                // Increment the current row/column for animation
-                int curr_row = UICompt.get_curr_row();
-                int curr_col = UICompt.get_curr_col();
-                int rows = UICompt.get_rows();
-                int cols = UICompt.get_cols();
+                // Check if it's time to update the animation frame
+                if (UICompt.get_timer() >= UICompt.get_frame_interval()) {
+                    // Increment the current row/column for animation
+                    int curr_row = UICompt.get_curr_row();
+                    int curr_col = UICompt.get_curr_col();
+                    int rows = UICompt.get_rows();
+                    int cols = UICompt.get_cols();
+                    bool stayOnRow = UICompt.get_stay_on_row();
 
-                // Increment column, and reset row if column exceeds the maximum
-                if (++curr_col >= cols) {
-                    curr_col = 0;
-                    if (++curr_row >= rows) {
-                        curr_row = 0;  // Reset row after exceeding max rows
+                    // Handle animation logic
+                    if (stayOnRow) {
+                        // Increment column, reset if it exceeds max
+                        curr_col = (curr_col + 1) % cols;
                     }
+                    else {
+                        // Increment column, and move to the next row if needed
+                        if (++curr_col >= cols) {
+                            curr_col = 0;
+                            if (++curr_row >= rows) {
+                                curr_row = 0;  // Reset row after exceeding max rows
+                            }
+                        }
+                    }
+
+                    // Update current row/column
+                    UICompt.set_curr_row(curr_row);
+                    UICompt.set_curr_col(curr_col);
+
+                    // Reset the timer
+                    UICompt.set_timer(0.f);
                 }
-
-                // Update current row/column
-                UICompt.set_curr_row(curr_row);
-                UICompt.set_curr_col(curr_col);
-
-                // Reset the timer
-                UICompt.set_timer(0.f);
             }
 
             UI_render();
