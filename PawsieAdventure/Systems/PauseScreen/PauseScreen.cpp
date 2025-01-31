@@ -197,7 +197,7 @@ namespace pauseLogic
 {
 	void OnUpdate()
 	{
-		if (!g_IsPaused && g_Input.GetKeyState(GLFW_KEY_ESCAPE))
+		if (!g_IsPaused && g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1)
 		{
 			g_IsPaused = true;
 			pauser->OnLoad();
@@ -208,7 +208,7 @@ namespace pauseLogic
 
 		if (g_IsPaused)
 		{
-			if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) && inSmthAgain)
+			if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1 && inSmthAgain)
 			{
 				// Add in audio feedback
 
@@ -218,7 +218,7 @@ namespace pauseLogic
 				inSmthAgain = false;
 			}
 
-			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && !inSmthAgain)
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 1 && !inSmthAgain)
 			{
 				if (g_Coordinator.HaveComponent<UIComponent>(ResumeGame))
 				{
@@ -291,7 +291,7 @@ namespace pauseLogic
 				}
 			}
 
-			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && !wasMousePressed && inSmthAgain)
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 1 && !wasMousePressed && inSmthAgain)
 			{
 				wasMousePressed = true;
 				const float volumeStep = 0.1f; // Step size for volume change
@@ -347,7 +347,7 @@ namespace pauseLogic
 					}
 				}
 			}
-			else if (!g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT))
+			else if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 0)
 			{
 				// Reset the mouse press state when the mouse button is released
 				wasMousePressed = false;

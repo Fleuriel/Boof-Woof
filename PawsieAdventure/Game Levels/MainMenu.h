@@ -96,7 +96,7 @@ class MainMenu : public Level
 			}
 		}
 
-		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && !inSmth)
+		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 1 && !inSmth)
 		{
 			if (g_Coordinator.HaveComponent<UIComponent>(StartGame)) 
 			{
@@ -171,7 +171,7 @@ class MainMenu : public Level
 
 		static bool wasMousePressed = false;
 
-		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && !wasMousePressed && inSmth)
+		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 1 && !wasMousePressed && inSmth)
 		{
 			wasMousePressed = true;
 			const float volumeStep = 0.1f; // Step size for volume change
@@ -233,7 +233,7 @@ class MainMenu : public Level
 				}
 			}
 		}
-		else if (!g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT))
+		else if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 0)
 		{
 			// Reset the mouse press state when the mouse button is released
 			wasMousePressed = false;
