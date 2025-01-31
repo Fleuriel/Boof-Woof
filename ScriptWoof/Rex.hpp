@@ -17,7 +17,7 @@ struct Rex final : public Behaviour
 
     virtual void Init(Entity entity) override
     {
-        std::cout << "[Rex] Initializing Pathfinding Component..." << std::endl;
+        //std::cout << "[Rex] Initializing Pathfinding Component..." << std::endl;
         pathInitialized = false;
         followingPath = false;
         isMovingRex = false;
@@ -27,36 +27,36 @@ struct Rex final : public Behaviour
     virtual void Update(Entity entity) override
     {
         glm::vec3 currentPos = m_Engine.GetPosition(entity);
-        std::cout << "[Pathfinding] Entity " << entity << " is currently at Position: ("
-            << currentPos.x << ", " << currentPos.y << ", " << currentPos.z << ")" << std::endl;
+        //std::cout << "[Pathfinding] Entity " << entity << " is currently at Position: ("
+        //    << currentPos.x << ", " << currentPos.y << ", " << currentPos.z << ")" << std::endl;
 
         glm::vec3 velocity(0.0f);
 
         // Ensure path is properly initialized after resetting the scene
         if (!pathInitialized)
         {
-            std::cout << "[Pathfinding] Checking if entity " << entity << " has a pathfinding component..." << std::endl;
+            //std::cout << "[Pathfinding] Checking if entity " << entity << " has a pathfinding component..." << std::endl;
 
             if (m_Engine.HavePathfindingComponent(entity))
             {
                 path = m_Engine.GetPath(entity);
-                std::cout << "[Pathfinding] Retrieved path of length " << path.size() << std::endl;
+                //std::cout << "[Pathfinding] Retrieved path of length " << path.size() << std::endl;
 
                 if (!path.empty())
                 {
                     currentPathIndex = 0;
                     followingPath = true; // <-- This was missing before
-                    std::cout << "[Pathfinding] Path successfully retrieved! Entity " << entity
-                        << " will start moving." << std::endl;
+                    //std::cout << "[Pathfinding] Path successfully retrieved! Entity " << entity
+                    //    << " will start moving." << std::endl;
                 }
                 else
                 {
-                    std::cout << "[Pathfinding] ERROR: Path is empty after scene reload!" << std::endl;
+                    //std::cout << "[Pathfinding] ERROR: Path is empty after scene reload!" << std::endl;
                 }
             }
             else
             {
-                std::cout << "[Pathfinding] ERROR: No pathfinding component found!" << std::endl;
+                //std::cout << "[Pathfinding] ERROR: No pathfinding component found!" << std::endl;
             }
 
             pathInitialized = true; // Set after we have attempted to load the path
@@ -65,7 +65,7 @@ struct Rex final : public Behaviour
         // Fix: Ensure followingPath is set to true if the path is valid
         if (path.size() > 0 && !followingPath)
         {
-            std::cout << "[Pathfinding] WARNING: Path exists but followingPath is FALSE! Fixing..." << std::endl;
+            //std::cout << "[Pathfinding] WARNING: Path exists but followingPath is FALSE! Fixing..." << std::endl;
             followingPath = true;
         }
 
@@ -79,9 +79,9 @@ struct Rex final : public Behaviour
 
             glm::vec3 direction = glm::normalize(targetPos - currentPos);
 
-            // Debugging direction calculation
-            std::cout << "[Pathfinding] Calculated direction vector: ("
-                << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
+            //// Debugging direction calculation
+            //std::cout << "[Pathfinding] Calculated direction vector: ("
+            //    << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
 
             // Ensure no division by zero and check if movement is happening
             if (glm::length(direction) > 0.0001f)
@@ -90,19 +90,19 @@ struct Rex final : public Behaviour
             }
             else
             {
-                std::cout << "[Pathfinding] WARNING: Direction vector too small, setting velocity to zero." << std::endl;
+                //std::cout << "[Pathfinding] WARNING: Direction vector too small, setting velocity to zero." << std::endl;
                 velocity = glm::vec3(0.0f);
             }
 
             float distance = glm::length(targetPos - currentPos);
-            std::cout << "[Pathfinding] Moving towards waypoint " << currentPathIndex + 1
-                << " at (" << targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << std::endl;
-            std::cout << "[Pathfinding] Distance to next waypoint: " << distance << std::endl;
+            //std::cout << "[Pathfinding] Moving towards waypoint " << currentPathIndex + 1
+            //    << " at (" << targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << std::endl;
+            //std::cout << "[Pathfinding] Distance to next waypoint: " << distance << std::endl;
 
             // Check if the entity has reached the waypoint
             if (distance <= pathThreshold)
             {
-                std::cout << "[Pathfinding] Reached waypoint " << currentPathIndex + 1 << std::endl;
+                //std::cout << "[Pathfinding] Reached waypoint " << currentPathIndex + 1 << std::endl;
                 currentPathIndex++;
 
                 if (currentPathIndex >= path.size())
@@ -110,16 +110,16 @@ struct Rex final : public Behaviour
                     followingPath = false;
                     // currentPathIndex = 0;
                     velocity = glm::vec3(0.0f);
-                    std::cout << "[Pathfinding] Entity " << entity << " has reached the final destination!" << std::endl;
+                    //std::cout << "[Pathfinding] Entity " << entity << " has reached the final destination!" << std::endl;
                 }
             }
             isMovingRex = true;
         }
         else if (!followingPath)
         {
-            std::cout << "[Pathfinding] No path to follow or already at the destination." << std::endl;
-            std::cout << "[Pathfinding] Debugging: pathInitialized = " << pathInitialized
-                << ", followingPath = " << followingPath << ", path size = " << path.size() << std::endl;
+            //std::cout << "[Pathfinding] No path to follow or already at the destination." << std::endl;
+            //std::cout << "[Pathfinding] Debugging: pathInitialized = " << pathInitialized
+            //    << ", followingPath = " << followingPath << ", path size = " << path.size() << std::endl;
         }
 
         // Apply velocity correctly
@@ -132,19 +132,19 @@ struct Rex final : public Behaviour
                 velocity = glm::normalize(velocity) * maxAllowedSpeed;
             }
 
-            std::cout << "[Pathfinding] Applying velocity to Entity " << entity
-                << " (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
+            //std::cout << "[Pathfinding] Applying velocity to Entity " << entity
+            //    << " (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
 
             m_Engine.SetVelocity(entity, velocity);
 
-            // Print new position after applying velocity
-            glm::vec3 newPos = m_Engine.GetPosition(entity);
-            std::cout << "[Pathfinding] Entity " << entity << " new position after velocity applied: ("
-                << newPos.x << ", " << newPos.y << ", " << newPos.z << ")" << std::endl;
+            //// Print new position after applying velocity
+            //glm::vec3 newPos = m_Engine.GetPosition(entity);
+            //std::cout << "[Pathfinding] Entity " << entity << " new position after velocity applied: ("
+            //    << newPos.x << ", " << newPos.y << ", " << newPos.z << ")" << std::endl;
         }
         else
         {
-            std::cout << "[Pathfinding] Entity " << entity << " is not moving." << std::endl;
+            //std::cout << "[Pathfinding] Entity " << entity << " is not moving." << std::endl;
         }
     }
 
