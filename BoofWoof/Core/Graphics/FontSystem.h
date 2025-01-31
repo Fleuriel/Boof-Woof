@@ -42,11 +42,10 @@ struct Character {
 class FontSystem : public System {
 public:
     void init();
+	void saveBin();
+	void update();
     void RenderText(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color);
 
-    void init_font();
-    std::unordered_map<GLchar, Glyph> loadFontMetadata(const std::string& jsonPath);
-	void render_text(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color);
 
 private:
     std::map<GLchar, Character> Characters;
