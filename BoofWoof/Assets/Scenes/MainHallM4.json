@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "63864c33-ad1d-4fd9-8733-aebac0f1bdf1",
+    "SceneGUID": "9a46497d-d606-4eea-9a19-35a4c38ef547",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.9837194681167603,
+                    "x": -0.9837185144424439,
                     "y": 1.180399775505066,
-                    "z": -8.374909400939942
+                    "z": -8.832388877868653
                 },
                 "Scale": {
                     "x": 0.5,
@@ -9960,7 +9960,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 160
+                "EntityID": 158
             },
             "TransformComponent": {
                 "Position": {
@@ -10012,7 +10012,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 161
+                "EntityID": 159
             },
             "TransformComponent": {
                 "Position": {
@@ -10080,7 +10080,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 162
+                "EntityID": 160
             },
             "TransformComponent": {
                 "Position": {
@@ -10132,7 +10132,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 163
+                "EntityID": 161
             },
             "TransformComponent": {
                 "Position": {
@@ -10200,7 +10200,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 164
+                "EntityID": 162
             },
             "TransformComponent": {
                 "Position": {
@@ -10268,7 +10268,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 165
+                "EntityID": 163
             },
             "TransformComponent": {
                 "Position": {
@@ -10320,7 +10320,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 166
+                "EntityID": 164
             },
             "TransformComponent": {
                 "Position": {
@@ -10372,7 +10372,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 167
+                "EntityID": 165
             },
             "TransformComponent": {
                 "Position": {
@@ -10424,7 +10424,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 168
+                "EntityID": 166
             },
             "TransformComponent": {
                 "Position": {
@@ -10476,7 +10476,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 170
+                "EntityID": 167
             },
             "TransformComponent": {
                 "Position": {
@@ -10528,7 +10528,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 172
+                "EntityID": 168
             },
             "TransformComponent": {
                 "Position": {
@@ -10596,7 +10596,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 173
+                "EntityID": 169
             },
             "TransformComponent": {
                 "Position": {
@@ -10664,7 +10664,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 174
+                "EntityID": 170
             },
             "TransformComponent": {
                 "Position": {
@@ -10716,7 +10716,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 175
+                "EntityID": 171
             },
             "TransformComponent": {
                 "Position": {
@@ -10768,7 +10768,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 176
+                "EntityID": 172
             },
             "TransformComponent": {
                 "Position": {
@@ -10820,7 +10820,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 177
+                "EntityID": 173
             },
             "TransformComponent": {
                 "Position": {
@@ -10872,7 +10872,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 178
+                "EntityID": 174
             },
             "TransformComponent": {
                 "Position": {
@@ -10924,7 +10924,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 179
+                "EntityID": 175
             },
             "TransformComponent": {
                 "Position": {
@@ -10976,7 +10976,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 180
+                "EntityID": 176
             },
             "TransformComponent": {
                 "Position": {
@@ -11028,7 +11028,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 181
+                "EntityID": 177
             },
             "TransformComponent": {
                 "Position": {
@@ -11080,7 +11080,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 182
+                "EntityID": 178
             },
             "TransformComponent": {
                 "Position": {
@@ -11132,7 +11132,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 183
+                "EntityID": 179
             },
             "TransformComponent": {
                 "Position": {
@@ -11200,7 +11200,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 184
+                "EntityID": 180
             },
             "TransformComponent": {
                 "Position": {
@@ -11268,7 +11268,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 185
+                "EntityID": 181
             },
             "TransformComponent": {
                 "Position": {
@@ -11336,7 +11336,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 186
+                "EntityID": 182
             },
             "TransformComponent": {
                 "Position": {
@@ -11404,7 +11404,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 187
+                "EntityID": 183
             },
             "TransformComponent": {
                 "Position": {
@@ -11456,7 +11456,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 188
+                "EntityID": 184
             },
             "TransformComponent": {
                 "Position": {
@@ -11508,7 +11508,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 189
+                "EntityID": 185
             },
             "TransformComponent": {
                 "Position": {
@@ -11560,7 +11560,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 190
+                "EntityID": 186
             },
             "TransformComponent": {
                 "Position": {
@@ -11612,7 +11612,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 191
+                "EntityID": 187
             },
             "TransformComponent": {
                 "Position": {
@@ -11664,7 +11664,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 192
+                "EntityID": 188
             },
             "TransformComponent": {
                 "Position": {
@@ -11716,7 +11716,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 193
+                "EntityID": 189
             },
             "TransformComponent": {
                 "Position": {
@@ -11768,7 +11768,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 194
+                "EntityID": 190
             },
             "TransformComponent": {
                 "Position": {
@@ -11820,7 +11820,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 195
+                "EntityID": 191
             },
             "TransformComponent": {
                 "Position": {
@@ -11872,7 +11872,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 196
+                "EntityID": 192
             },
             "TransformComponent": {
                 "Position": {
@@ -11924,7 +11924,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 197
+                "EntityID": 193
             },
             "TransformComponent": {
                 "Position": {
@@ -11976,7 +11976,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 198
+                "EntityID": 194
             },
             "TransformComponent": {
                 "Position": {
@@ -12028,7 +12028,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 199
+                "EntityID": 195
             },
             "TransformComponent": {
                 "Position": {
@@ -12080,7 +12080,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 200
+                "EntityID": 196
             },
             "TransformComponent": {
                 "Position": {
@@ -12132,7 +12132,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 201
+                "EntityID": 197
             },
             "TransformComponent": {
                 "Position": {
@@ -12184,7 +12184,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 202
+                "EntityID": 198
             },
             "TransformComponent": {
                 "Position": {
@@ -12236,7 +12236,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 203
+                "EntityID": 199
             },
             "TransformComponent": {
                 "Position": {
@@ -12288,7 +12288,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 204
+                "EntityID": 200
             },
             "TransformComponent": {
                 "Position": {
@@ -12340,7 +12340,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 205
+                "EntityID": 201
             },
             "TransformComponent": {
                 "Position": {
@@ -12392,7 +12392,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 206
+                "EntityID": 202
             },
             "TransformComponent": {
                 "Position": {
@@ -12444,7 +12444,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 207
+                "EntityID": 203
             },
             "TransformComponent": {
                 "Position": {
@@ -12496,7 +12496,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 208
+                "EntityID": 204
             },
             "TransformComponent": {
                 "Position": {
@@ -12548,7 +12548,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 209
+                "EntityID": 205
             },
             "TransformComponent": {
                 "Position": {
@@ -12600,7 +12600,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 210
+                "EntityID": 206
             },
             "TransformComponent": {
                 "Position": {
@@ -12652,7 +12652,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 211
+                "EntityID": 207
             },
             "TransformComponent": {
                 "Position": {
@@ -12704,7 +12704,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 212
+                "EntityID": 208
             },
             "TransformComponent": {
                 "Position": {
@@ -12756,7 +12756,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 213
+                "EntityID": 209
             },
             "TransformComponent": {
                 "Position": {
@@ -12808,7 +12808,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 214
+                "EntityID": 210
             },
             "TransformComponent": {
                 "Position": {
@@ -12860,7 +12860,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 215
+                "EntityID": 211
             },
             "TransformComponent": {
                 "Position": {
@@ -12912,7 +12912,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 216
+                "EntityID": 212
             },
             "TransformComponent": {
                 "Position": {
@@ -12964,7 +12964,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 217
+                "EntityID": 213
             },
             "TransformComponent": {
                 "Position": {
@@ -13016,7 +13016,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 218
+                "EntityID": 214
             },
             "TransformComponent": {
                 "Position": {
@@ -13068,7 +13068,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 219
+                "EntityID": 215
             },
             "TransformComponent": {
                 "Position": {
@@ -13120,7 +13120,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 220
+                "EntityID": 216
             },
             "TransformComponent": {
                 "Position": {
@@ -13172,7 +13172,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 221
+                "EntityID": 217
             },
             "TransformComponent": {
                 "Position": {
@@ -13224,7 +13224,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 222
+                "EntityID": 218
             },
             "TransformComponent": {
                 "Position": {
@@ -13276,7 +13276,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 223
+                "EntityID": 219
             },
             "TransformComponent": {
                 "Position": {
@@ -13328,7 +13328,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 224
+                "EntityID": 220
             },
             "TransformComponent": {
                 "Position": {
@@ -13380,7 +13380,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 225
+                "EntityID": 221
             },
             "TransformComponent": {
                 "Position": {
@@ -13432,7 +13432,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 226
+                "EntityID": 222
             },
             "TransformComponent": {
                 "Position": {
@@ -13484,7 +13484,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 227
+                "EntityID": 223
             },
             "TransformComponent": {
                 "Position": {
@@ -13536,7 +13536,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 228
+                "EntityID": 224
             },
             "TransformComponent": {
                 "Position": {
@@ -13588,7 +13588,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 229
+                "EntityID": 225
             },
             "TransformComponent": {
                 "Position": {
@@ -13640,7 +13640,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 230
+                "EntityID": 226
             },
             "TransformComponent": {
                 "Position": {
@@ -13692,7 +13692,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 231
+                "EntityID": 227
             },
             "TransformComponent": {
                 "Position": {
@@ -13744,7 +13744,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 232
+                "EntityID": 228
             },
             "TransformComponent": {
                 "Position": {
@@ -13796,7 +13796,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 233
+                "EntityID": 229
             },
             "TransformComponent": {
                 "Position": {
@@ -13848,7 +13848,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 234
+                "EntityID": 230
             },
             "TransformComponent": {
                 "Position": {
@@ -13900,7 +13900,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 235
+                "EntityID": 231
             },
             "TransformComponent": {
                 "Position": {
@@ -13952,7 +13952,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 236
+                "EntityID": 232
             },
             "TransformComponent": {
                 "Position": {
@@ -14004,7 +14004,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 237
+                "EntityID": 233
             },
             "TransformComponent": {
                 "Position": {
@@ -14056,7 +14056,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 238
+                "EntityID": 234
             },
             "TransformComponent": {
                 "Position": {
@@ -14108,7 +14108,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 239
+                "EntityID": 235
             },
             "TransformComponent": {
                 "Position": {
@@ -14176,7 +14176,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 240
+                "EntityID": 236
             },
             "TransformComponent": {
                 "Position": {
@@ -14244,7 +14244,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 241
+                "EntityID": 237
             },
             "TransformComponent": {
                 "Position": {
@@ -14312,7 +14312,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 242
+                "EntityID": 238
             },
             "TransformComponent": {
                 "Position": {
@@ -14380,7 +14380,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 243
+                "EntityID": 239
             },
             "TransformComponent": {
                 "Position": {
@@ -14448,7 +14448,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 244
+                "EntityID": 240
             },
             "TransformComponent": {
                 "Position": {
@@ -14516,7 +14516,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 245
+                "EntityID": 241
             },
             "TransformComponent": {
                 "Position": {
@@ -14584,7 +14584,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 246
+                "EntityID": 242
             },
             "TransformComponent": {
                 "Position": {
@@ -14652,7 +14652,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 247
+                "EntityID": 243
             },
             "TransformComponent": {
                 "Position": {
@@ -14720,7 +14720,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 248
+                "EntityID": 244
             },
             "TransformComponent": {
                 "Position": {
@@ -14788,7 +14788,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 249
+                "EntityID": 245
             },
             "TransformComponent": {
                 "Position": {
@@ -14840,7 +14840,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 250
+                "EntityID": 246
             },
             "TransformComponent": {
                 "Position": {
@@ -14892,7 +14892,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 251
+                "EntityID": 247
             },
             "TransformComponent": {
                 "Position": {
@@ -14944,7 +14944,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 252
+                "EntityID": 248
             },
             "TransformComponent": {
                 "Position": {
@@ -14996,7 +14996,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 253
+                "EntityID": 249
             },
             "TransformComponent": {
                 "Position": {
@@ -15048,7 +15048,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 254
+                "EntityID": 250
             },
             "TransformComponent": {
                 "Position": {
@@ -15100,7 +15100,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 255
+                "EntityID": 251
             },
             "TransformComponent": {
                 "Position": {
@@ -15152,7 +15152,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 256
+                "EntityID": 252
             },
             "TransformComponent": {
                 "Position": {
@@ -15204,7 +15204,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 257
+                "EntityID": 253
             },
             "TransformComponent": {
                 "Position": {
@@ -15256,7 +15256,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 258
+                "EntityID": 254
             },
             "TransformComponent": {
                 "Position": {
@@ -15308,7 +15308,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 259
+                "EntityID": 255
             },
             "TransformComponent": {
                 "Position": {
@@ -15360,7 +15360,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 260
+                "EntityID": 256
             },
             "TransformComponent": {
                 "Position": {
@@ -15412,7 +15412,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 261
+                "EntityID": 257
             },
             "TransformComponent": {
                 "Position": {
@@ -15464,7 +15464,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 262
+                "EntityID": 258
             },
             "TransformComponent": {
                 "Position": {
@@ -15516,7 +15516,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 263
+                "EntityID": 259
             },
             "TransformComponent": {
                 "Position": {
@@ -15568,7 +15568,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 264
+                "EntityID": 260
             },
             "TransformComponent": {
                 "Position": {
@@ -15620,7 +15620,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 265
+                "EntityID": 261
             },
             "TransformComponent": {
                 "Position": {
@@ -15672,7 +15672,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 266
+                "EntityID": 262
             },
             "TransformComponent": {
                 "Position": {
@@ -15724,7 +15724,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 267
+                "EntityID": 263
             },
             "TransformComponent": {
                 "Position": {
@@ -15776,7 +15776,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 268
+                "EntityID": 264
             },
             "TransformComponent": {
                 "Position": {
@@ -15828,7 +15828,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 269
+                "EntityID": 265
             },
             "TransformComponent": {
                 "Position": {
@@ -15880,7 +15880,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 270
+                "EntityID": 266
             },
             "TransformComponent": {
                 "Position": {
@@ -15932,7 +15932,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 271
+                "EntityID": 267
             },
             "TransformComponent": {
                 "Position": {
@@ -15984,7 +15984,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 272
+                "EntityID": 268
             },
             "TransformComponent": {
                 "Position": {
@@ -16036,7 +16036,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 273
+                "EntityID": 269
             },
             "TransformComponent": {
                 "Position": {
@@ -16088,7 +16088,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 274
+                "EntityID": 270
             },
             "TransformComponent": {
                 "Position": {
@@ -16140,7 +16140,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 275
+                "EntityID": 271
             },
             "TransformComponent": {
                 "Position": {
@@ -16192,7 +16192,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 276
+                "EntityID": 272
             },
             "TransformComponent": {
                 "Position": {
@@ -16244,7 +16244,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 277
+                "EntityID": 273
             },
             "TransformComponent": {
                 "Position": {
@@ -16296,7 +16296,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 278
+                "EntityID": 274
             },
             "TransformComponent": {
                 "Position": {
@@ -16348,7 +16348,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 279
+                "EntityID": 275
             },
             "TransformComponent": {
                 "Position": {
@@ -16400,7 +16400,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 280
+                "EntityID": 276
             },
             "TransformComponent": {
                 "Position": {
@@ -16452,7 +16452,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 281
+                "EntityID": 277
             },
             "TransformComponent": {
                 "Position": {
@@ -16504,7 +16504,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 282
+                "EntityID": 278
             },
             "TransformComponent": {
                 "Position": {
@@ -16556,7 +16556,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 283
+                "EntityID": 279
             },
             "TransformComponent": {
                 "Position": {
@@ -16608,7 +16608,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 284
+                "EntityID": 280
             },
             "TransformComponent": {
                 "Position": {
@@ -16660,7 +16660,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 285
+                "EntityID": 281
             },
             "TransformComponent": {
                 "Position": {
@@ -16712,7 +16712,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 286
+                "EntityID": 282
             },
             "TransformComponent": {
                 "Position": {
@@ -16764,7 +16764,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 287
+                "EntityID": 283
             },
             "TransformComponent": {
                 "Position": {
@@ -16816,7 +16816,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 288
+                "EntityID": 284
             },
             "TransformComponent": {
                 "Position": {
@@ -16868,7 +16868,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 289
+                "EntityID": 285
             },
             "TransformComponent": {
                 "Position": {
@@ -16920,7 +16920,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 290
+                "EntityID": 286
             },
             "TransformComponent": {
                 "Position": {
@@ -16972,7 +16972,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 291
+                "EntityID": 287
             },
             "TransformComponent": {
                 "Position": {
@@ -17024,7 +17024,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 292
+                "EntityID": 288
             },
             "TransformComponent": {
                 "Position": {
@@ -17076,7 +17076,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 293
+                "EntityID": 289
             },
             "TransformComponent": {
                 "Position": {
@@ -17128,7 +17128,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 294
+                "EntityID": 290
             },
             "TransformComponent": {
                 "Position": {
@@ -17180,7 +17180,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 295
+                "EntityID": 291
             },
             "TransformComponent": {
                 "Position": {
@@ -17232,7 +17232,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 296
+                "EntityID": 292
             },
             "TransformComponent": {
                 "Position": {
@@ -17284,7 +17284,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 297
+                "EntityID": 293
             },
             "TransformComponent": {
                 "Position": {
@@ -17336,7 +17336,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 298
+                "EntityID": 294
             },
             "TransformComponent": {
                 "Position": {
@@ -17388,7 +17388,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 299
+                "EntityID": 295
             },
             "TransformComponent": {
                 "Position": {
@@ -17440,7 +17440,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 300
+                "EntityID": 296
             },
             "TransformComponent": {
                 "Position": {
@@ -17492,7 +17492,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 301
+                "EntityID": 297
             },
             "TransformComponent": {
                 "Position": {
@@ -17544,7 +17544,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 302
+                "EntityID": 298
             },
             "TransformComponent": {
                 "Position": {
@@ -17596,7 +17596,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 303
+                "EntityID": 299
             },
             "TransformComponent": {
                 "Position": {
@@ -17648,7 +17648,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 304
+                "EntityID": 300
             },
             "TransformComponent": {
                 "Position": {
@@ -17700,7 +17700,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 305
+                "EntityID": 301
             },
             "TransformComponent": {
                 "Position": {
@@ -17752,7 +17752,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 306
+                "EntityID": 302
             },
             "TransformComponent": {
                 "Position": {
@@ -17804,7 +17804,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 307
+                "EntityID": 303
             },
             "TransformComponent": {
                 "Position": {
@@ -17856,7 +17856,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 308
+                "EntityID": 304
             },
             "TransformComponent": {
                 "Position": {
@@ -17908,7 +17908,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 309
+                "EntityID": 305
             },
             "TransformComponent": {
                 "Position": {
@@ -17960,7 +17960,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 310
+                "EntityID": 306
             },
             "TransformComponent": {
                 "Position": {
@@ -18012,7 +18012,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 311
+                "EntityID": 307
             },
             "TransformComponent": {
                 "Position": {
@@ -18064,7 +18064,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 312
+                "EntityID": 308
             },
             "TransformComponent": {
                 "Position": {
@@ -18116,7 +18116,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 313
+                "EntityID": 309
             },
             "TransformComponent": {
                 "Position": {
@@ -18168,7 +18168,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 314
+                "EntityID": 310
             },
             "TransformComponent": {
                 "Position": {
@@ -18220,7 +18220,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 315
+                "EntityID": 311
             },
             "TransformComponent": {
                 "Position": {
@@ -18272,7 +18272,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 316
+                "EntityID": 312
             },
             "TransformComponent": {
                 "Position": {
@@ -18324,7 +18324,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 317
+                "EntityID": 313
             },
             "TransformComponent": {
                 "Position": {
@@ -18376,7 +18376,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 318
+                "EntityID": 314
             },
             "TransformComponent": {
                 "Position": {
@@ -18428,7 +18428,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 319
+                "EntityID": 315
             },
             "TransformComponent": {
                 "Position": {
@@ -18480,7 +18480,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 320
+                "EntityID": 316
             },
             "TransformComponent": {
                 "Position": {
@@ -18532,7 +18532,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 321
+                "EntityID": 317
             },
             "TransformComponent": {
                 "Position": {
@@ -18584,7 +18584,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 322
+                "EntityID": 318
             },
             "TransformComponent": {
                 "Position": {
@@ -18636,7 +18636,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 323
+                "EntityID": 319
             },
             "TransformComponent": {
                 "Position": {
@@ -18688,7 +18688,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 324
+                "EntityID": 320
             },
             "TransformComponent": {
                 "Position": {
@@ -18740,7 +18740,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 325
+                "EntityID": 321
             },
             "TransformComponent": {
                 "Position": {
@@ -18792,7 +18792,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 326
+                "EntityID": 322
             },
             "TransformComponent": {
                 "Position": {
@@ -18844,7 +18844,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 327
+                "EntityID": 323
             },
             "TransformComponent": {
                 "Position": {
@@ -18896,7 +18896,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 328
+                "EntityID": 324
             },
             "TransformComponent": {
                 "Position": {
@@ -18948,7 +18948,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 329
+                "EntityID": 325
             },
             "TransformComponent": {
                 "Position": {
@@ -19000,7 +19000,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 330
+                "EntityID": 326
             },
             "TransformComponent": {
                 "Position": {
@@ -19052,7 +19052,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 331
+                "EntityID": 327
             },
             "TransformComponent": {
                 "Position": {
@@ -19104,7 +19104,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 332
+                "EntityID": 328
             },
             "TransformComponent": {
                 "Position": {
@@ -19156,7 +19156,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 333
+                "EntityID": 329
             },
             "TransformComponent": {
                 "Position": {
@@ -19208,7 +19208,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 334
+                "EntityID": 330
             },
             "TransformComponent": {
                 "Position": {
@@ -19260,7 +19260,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 335
+                "EntityID": 331
             },
             "TransformComponent": {
                 "Position": {
@@ -19312,7 +19312,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 336
+                "EntityID": 332
             },
             "TransformComponent": {
                 "Position": {
@@ -19364,7 +19364,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 337
+                "EntityID": 333
             },
             "TransformComponent": {
                 "Position": {
@@ -19416,7 +19416,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 338
+                "EntityID": 334
             },
             "TransformComponent": {
                 "Position": {
@@ -19468,7 +19468,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 339
+                "EntityID": 335
             },
             "TransformComponent": {
                 "Position": {
@@ -19520,7 +19520,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 340
+                "EntityID": 336
             },
             "TransformComponent": {
                 "Position": {
@@ -19572,7 +19572,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 341
+                "EntityID": 337
             },
             "TransformComponent": {
                 "Position": {
@@ -19624,7 +19624,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 342
+                "EntityID": 338
             },
             "TransformComponent": {
                 "Position": {
@@ -19676,7 +19676,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 343
+                "EntityID": 339
             },
             "TransformComponent": {
                 "Position": {
@@ -19728,7 +19728,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 344
+                "EntityID": 340
             },
             "TransformComponent": {
                 "Position": {
@@ -19780,7 +19780,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 345
+                "EntityID": 341
             },
             "TransformComponent": {
                 "Position": {
@@ -19832,7 +19832,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 346
+                "EntityID": 342
             },
             "TransformComponent": {
                 "Position": {
@@ -19884,7 +19884,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 347
+                "EntityID": 343
             },
             "TransformComponent": {
                 "Position": {
@@ -19936,7 +19936,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 348
+                "EntityID": 344
             },
             "TransformComponent": {
                 "Position": {
@@ -19988,7 +19988,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 349
+                "EntityID": 345
             },
             "TransformComponent": {
                 "Position": {
@@ -20040,7 +20040,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 350
+                "EntityID": 346
             },
             "TransformComponent": {
                 "Position": {
@@ -20092,7 +20092,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 351
+                "EntityID": 347
             },
             "TransformComponent": {
                 "Position": {
@@ -20144,7 +20144,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 352
+                "EntityID": 348
             },
             "TransformComponent": {
                 "Position": {
@@ -20196,7 +20196,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 353
+                "EntityID": 349
             },
             "TransformComponent": {
                 "Position": {
@@ -20248,7 +20248,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 354
+                "EntityID": 350
             },
             "TransformComponent": {
                 "Position": {
@@ -20300,7 +20300,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 355
+                "EntityID": 351
             },
             "TransformComponent": {
                 "Position": {
@@ -20352,7 +20352,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 356
+                "EntityID": 352
             },
             "TransformComponent": {
                 "Position": {
@@ -20404,7 +20404,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 357
+                "EntityID": 353
             },
             "TransformComponent": {
                 "Position": {
@@ -20456,7 +20456,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 358
+                "EntityID": 354
             },
             "TransformComponent": {
                 "Position": {
@@ -20508,7 +20508,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 359
+                "EntityID": 355
             },
             "TransformComponent": {
                 "Position": {
@@ -20560,7 +20560,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 360
+                "EntityID": 356
             },
             "TransformComponent": {
                 "Position": {
@@ -20612,7 +20612,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 361
+                "EntityID": 357
             },
             "TransformComponent": {
                 "Position": {
@@ -20664,7 +20664,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 362
+                "EntityID": 358
             },
             "TransformComponent": {
                 "Position": {
@@ -20716,7 +20716,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 363
+                "EntityID": 359
             },
             "TransformComponent": {
                 "Position": {
@@ -20768,7 +20768,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 364
+                "EntityID": 360
             },
             "TransformComponent": {
                 "Position": {
@@ -20820,7 +20820,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 365
+                "EntityID": 361
             },
             "TransformComponent": {
                 "Position": {
@@ -20872,7 +20872,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 366
+                "EntityID": 362
             },
             "TransformComponent": {
                 "Position": {
@@ -20924,7 +20924,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 367
+                "EntityID": 363
             },
             "TransformComponent": {
                 "Position": {
@@ -20976,7 +20976,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 368
+                "EntityID": 364
             },
             "TransformComponent": {
                 "Position": {
@@ -21028,7 +21028,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 369
+                "EntityID": 365
             },
             "TransformComponent": {
                 "Position": {
@@ -21080,7 +21080,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 370
+                "EntityID": 366
             },
             "TransformComponent": {
                 "Position": {
@@ -21132,7 +21132,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 371
+                "EntityID": 367
             },
             "TransformComponent": {
                 "Position": {
@@ -21184,7 +21184,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 372
+                "EntityID": 368
             },
             "TransformComponent": {
                 "Position": {
@@ -21236,7 +21236,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 373
+                "EntityID": 369
             },
             "TransformComponent": {
                 "Position": {
@@ -21288,7 +21288,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 374
+                "EntityID": 370
             },
             "TransformComponent": {
                 "Position": {
@@ -21340,7 +21340,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 375
+                "EntityID": 371
             },
             "TransformComponent": {
                 "Position": {
@@ -21392,7 +21392,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 376
+                "EntityID": 372
             },
             "TransformComponent": {
                 "Position": {
@@ -21444,7 +21444,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 377
+                "EntityID": 373
             },
             "TransformComponent": {
                 "Position": {
@@ -21496,7 +21496,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 378
+                "EntityID": 374
             },
             "TransformComponent": {
                 "Position": {
@@ -21548,7 +21548,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 379
+                "EntityID": 375
             },
             "TransformComponent": {
                 "Position": {
@@ -21600,7 +21600,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 380
+                "EntityID": 376
             },
             "TransformComponent": {
                 "Position": {
@@ -21652,7 +21652,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 381
+                "EntityID": 377
             },
             "TransformComponent": {
                 "Position": {
@@ -21704,7 +21704,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 382
+                "EntityID": 378
             },
             "TransformComponent": {
                 "Position": {
@@ -21756,7 +21756,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
-                "EntityID": 383
+                "EntityID": 379
             },
             "TransformComponent": {
                 "Position": {
@@ -21808,7 +21808,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 384
+                "EntityID": 380
             },
             "TransformComponent": {
                 "Position": {
@@ -21860,7 +21860,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodFloor",
-                "EntityID": 385
+                "EntityID": 381
             },
             "TransformComponent": {
                 "Position": {
@@ -21912,7 +21912,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 386
+                "EntityID": 382
             },
             "TransformComponent": {
                 "Position": {
@@ -21964,7 +21964,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 387
+                "EntityID": 383
             },
             "TransformComponent": {
                 "Position": {
@@ -22016,7 +22016,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 388
+                "EntityID": 384
             },
             "TransformComponent": {
                 "Position": {
@@ -22068,7 +22068,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 389
+                "EntityID": 385
             },
             "TransformComponent": {
                 "Position": {
@@ -22120,7 +22120,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 390
+                "EntityID": 386
             },
             "TransformComponent": {
                 "Position": {
@@ -22172,7 +22172,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 169
+                "EntityID": 387
             },
             "TransformComponent": {
                 "Position": {
@@ -22224,7 +22224,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 171
+                "EntityID": 388
             },
             "TransformComponent": {
                 "Position": {
@@ -22276,7 +22276,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 391
+                "EntityID": 389
             },
             "TransformComponent": {
                 "Position": {
@@ -22328,13 +22328,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 158
+                "EntityID": 390
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -20.930784225463868,
+                    "x": -20.93081283569336,
                     "y": 12.666138648986817,
-                    "z": 15.094364166259766
+                    "z": 15.124651908874512
                 },
                 "Scale": {
                     "x": 1.699971318244934,
@@ -22380,13 +22380,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 159
+                "EntityID": 391
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -20.85546875,
+                    "x": -20.855449676513673,
                     "y": 8.47927188873291,
-                    "z": 18.395055770874025
+                    "z": 18.441484451293947
                 },
                 "Scale": {
                     "x": 1.6999999284744263,
@@ -22734,6 +22734,2294 @@
                     ],
                     "finalAlpha": 1.0,
                     "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 398
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -25.84541893005371,
+                    "y": 10.130059242248536,
+                    "z": 21.00146484375
+                },
+                "Scale": {
+                    "x": 1.7999999523162842,
+                    "y": 1.399999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 399
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -34.49198913574219,
+                    "y": 10.130059242248536,
+                    "z": 21.00146484375
+                },
+                "Scale": {
+                    "x": 1.7999999523162842,
+                    "y": 1.399999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 400
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.078025817871097,
+                    "y": 10.130059242248536,
+                    "z": 21.00146484375
+                },
+                "Scale": {
+                    "x": 1.7999999523162842,
+                    "y": 1.399999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCorner",
+                "EntityID": 401
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -48.144527435302737,
+                    "y": 10.149696350097657,
+                    "z": 20.959842681884767
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.399999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000023175434762379156,
+                    "y": 1.5701000690460206,
+                    "z": -0.000023175469323177823
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "Texture": "WallCorner",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallCorner",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 402
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -48.112152099609378,
+                    "y": 10.165905952453614,
+                    "z": 16.413623809814454
+                },
+                "Scale": {
+                    "x": 1.600000023841858,
+                    "y": 1.399999976158142,
+                    "z": 0.9998279213905335
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": -1.569718837738037,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 403
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -48.10386276245117,
+                    "y": 10.165905952453614,
+                    "z": 8.735316276550293
+                },
+                "Scale": {
+                    "x": 1.600000023841858,
+                    "y": 1.399999976158142,
+                    "z": 0.9998279213905335
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": -1.569718837738037,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 404
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -48.09553146362305,
+                    "y": 10.165905952453614,
+                    "z": 1.0246930122375489
+                },
+                "Scale": {
+                    "x": 1.600000023841858,
+                    "y": 1.399999976158142,
+                    "z": 0.9998279213905335
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": -1.569718837738037,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 405
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -48.08726119995117,
+                    "y": 10.165905952453614,
+                    "z": -6.655884742736816
+                },
+                "Scale": {
+                    "x": 1.600000023841858,
+                    "y": 1.399999976158142,
+                    "z": 0.9998279213905335
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": -1.569718837738037,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 406
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -48.07899475097656,
+                    "y": 10.165905952453614,
+                    "z": -14.325063705444336
+                },
+                "Scale": {
+                    "x": 1.600000023841858,
+                    "y": 1.399999976158142,
+                    "z": 0.9998279213905335
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": -1.569718837738037,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 407
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -48.07072830200195,
+                    "y": 10.165905952453614,
+                    "z": -22.012401580810548
+                },
+                "Scale": {
+                    "x": 1.600000023841858,
+                    "y": 1.399999976158142,
+                    "z": 0.9998279213905335
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": -1.569718837738037,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 408
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -48.06245803833008,
+                    "y": 10.165905952453614,
+                    "z": -29.68353843688965
+                },
+                "Scale": {
+                    "x": 1.600000023841858,
+                    "y": 1.399999976158142,
+                    "z": 0.9998279213905335
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": -1.569718837738037,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 409
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -48.05470657348633,
+                    "y": 10.165905952453614,
+                    "z": -36.876747131347659
+                },
+                "Scale": {
+                    "x": 1.399999976158142,
+                    "y": 1.399999976158142,
+                    "z": 0.9998279213905335
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": -1.569718837738037,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCorner",
+                "EntityID": 410
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -48.096107482910159,
+                    "y": 10.149696350097657,
+                    "z": -40.810523986816409
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.399999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000023175434762379156,
+                    "y": 1.5701000690460206,
+                    "z": -0.000023175469323177823
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "Texture": "WallCorner",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallCorner",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 411
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -25.84541893005371,
+                    "y": 10.130059242248536,
+                    "z": -40.780479431152347
+                },
+                "Scale": {
+                    "x": 1.7999999523162842,
+                    "y": 1.399999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 412
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -34.48748016357422,
+                    "y": 10.130059242248536,
+                    "z": -40.780479431152347
+                },
+                "Scale": {
+                    "x": 1.7999999523162842,
+                    "y": 1.399999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 413
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.124813079833987,
+                    "y": 10.130059242248536,
+                    "z": -40.780479431152347
+                },
+                "Scale": {
+                    "x": 1.7999999523162842,
+                    "y": 1.399999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WoodFloor",
+                "EntityID": 414
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -27.129825592041017,
+                    "y": 6.239960193634033,
+                    "z": -33.0971794128418
+                },
+                "Scale": {
+                    "x": 1.399999976158142,
+                    "y": 1.0,
+                    "z": 1.399999976158142
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "SecondfloorTiles",
+                "Texture": "SecondfloorTiles",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SecondfloorTiles",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WoodFloor",
+                "EntityID": 415
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -41.07069778442383,
+                    "y": 6.239960193634033,
+                    "z": -33.0971794128418
+                },
+                "Scale": {
+                    "x": 1.399999976158142,
+                    "y": 1.0,
+                    "z": 1.399999976158142
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "SecondfloorTiles",
+                "Texture": "SecondfloorTiles",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SecondfloorTiles",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WoodFloor",
+                "EntityID": 416
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -27.129825592041017,
+                    "y": 6.239960193634033,
+                    "z": -19.11295509338379
+                },
+                "Scale": {
+                    "x": 1.399999976158142,
+                    "y": 1.0,
+                    "z": 1.399999976158142
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "SecondfloorTiles",
+                "Texture": "SecondfloorTiles",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SecondfloorTiles",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WoodFloor",
+                "EntityID": 417
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -41.07069778442383,
+                    "y": 6.239960193634033,
+                    "z": -19.098154067993165
+                },
+                "Scale": {
+                    "x": 1.399999976158142,
+                    "y": 1.0,
+                    "z": 1.399999976158142
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "SecondfloorTiles",
+                "Texture": "SecondfloorTiles",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SecondfloorTiles",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WoodFloor",
+                "EntityID": 418
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -27.129825592041017,
+                    "y": 6.239960193634033,
+                    "z": -5.128747940063477
+                },
+                "Scale": {
+                    "x": 1.399999976158142,
+                    "y": 1.0,
+                    "z": 1.399999976158142
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "SecondfloorTiles",
+                "Texture": "SecondfloorTiles",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SecondfloorTiles",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WoodFloor",
+                "EntityID": 419
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -41.07069778442383,
+                    "y": 6.239960193634033,
+                    "z": -5.126206398010254
+                },
+                "Scale": {
+                    "x": 1.399999976158142,
+                    "y": 1.0,
+                    "z": 1.399999976158142
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "SecondfloorTiles",
+                "Texture": "SecondfloorTiles",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SecondfloorTiles",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WoodFloor",
+                "EntityID": 420
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -27.129825592041017,
+                    "y": 6.239960193634033,
+                    "z": 11.365172386169434
+                },
+                "Scale": {
+                    "x": 1.399999976158142,
+                    "y": 1.0,
+                    "z": 1.899999976158142
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "SecondfloorTiles",
+                "Texture": "SecondfloorTiles",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SecondfloorTiles",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WoodFloor",
+                "EntityID": 421
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -41.07069778442383,
+                    "y": 6.239960193634033,
+                    "z": 11.371419906616211
+                },
+                "Scale": {
+                    "x": 1.399999976158142,
+                    "y": 1.0,
+                    "z": 1.899999976158142
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "SecondfloorTiles",
+                "Texture": "SecondfloorTiles",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SecondfloorTiles",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 422
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -25.70138168334961,
+                    "y": 7.805121421813965,
+                    "z": 7.418247222900391
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 2.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 423
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.188716888427737,
+                    "y": 7.8051438331604,
+                    "z": 6.759184837341309
+                },
+                "Scale": {
+                    "x": 1.9999971389770508,
+                    "y": 2.0,
+                    "z": 1.9999971389770508
+                },
+                "Rotation": {
+                    "x": 3.1415908336639406,
+                    "y": 0.0015431272331625224,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 424
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.17438888549805,
+                    "y": 7.805160045623779,
+                    "z": -2.5287513732910158
+                },
+                "Scale": {
+                    "x": 1.9999971389770508,
+                    "y": 2.0,
+                    "z": 1.9999971389770508
+                },
+                "Rotation": {
+                    "x": 3.1415908336639406,
+                    "y": 0.0015431272331625224,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 425
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.147613525390628,
+                    "y": 7.805190563201904,
+                    "z": -19.887401580810548
+                },
+                "Scale": {
+                    "x": 1.9999971389770508,
+                    "y": 2.0,
+                    "z": 1.9999971389770508
+                },
+                "Rotation": {
+                    "x": 3.1415908336639406,
+                    "y": 0.0015431272331625224,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 426
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.133514404296878,
+                    "y": 7.805206775665283,
+                    "z": -29.02178192138672
+                },
+                "Scale": {
+                    "x": 1.9999971389770508,
+                    "y": 2.0,
+                    "z": 1.9999971389770508
+                },
+                "Rotation": {
+                    "x": 3.1415908336639406,
+                    "y": 0.0015431272331625224,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 427
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.12055969238281,
+                    "y": 7.805222034454346,
+                    "z": -37.41824722290039
+                },
+                "Scale": {
+                    "x": 1.9999971389770508,
+                    "y": 2.0,
+                    "z": 1.9999971389770508
+                },
+                "Rotation": {
+                    "x": 3.1415908336639406,
+                    "y": 0.0015431272331625224,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 428
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.205604553222659,
+                    "y": 7.8051252365112309,
+                    "z": 17.710914611816408
+                },
+                "Scale": {
+                    "x": 1.9999971389770508,
+                    "y": 2.0,
+                    "z": 1.9999971389770508
+                },
+                "Rotation": {
+                    "x": 3.1415908336639406,
+                    "y": 0.0015431272331625224,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 429
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -25.70138168334961,
+                    "y": 7.805121421813965,
+                    "z": -2.591207504272461
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 2.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 430
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -25.70138168334961,
+                    "y": 7.805121421813965,
+                    "z": -29.167661666870118
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 2.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 431
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -25.70138168334961,
+                    "y": 7.805121421813965,
+                    "z": -19.857271194458009
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 2.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 432
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -25.70138168334961,
+                    "y": 10.485298156738282,
+                    "z": -29.167661666870118
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 2.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 433
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -25.70138168334961,
+                    "y": 10.49471378326416,
+                    "z": -19.857271194458009
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 2.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 434
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -25.70138168334961,
+                    "y": 10.493868827819825,
+                    "z": -2.591207504272461
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 2.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 435
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -25.70138168334961,
+                    "y": 10.516193389892579,
+                    "z": 7.418247222900391
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 2.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 436
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.205604553222659,
+                    "y": 10.423295974731446,
+                    "z": 17.710914611816408
+                },
+                "Scale": {
+                    "x": 1.9999971389770508,
+                    "y": 2.0,
+                    "z": 1.9999971389770508
+                },
+                "Rotation": {
+                    "x": 3.1415908336639406,
+                    "y": 0.0015431272331625224,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 437
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.188716888427737,
+                    "y": 10.46599292755127,
+                    "z": 6.759187698364258
+                },
+                "Scale": {
+                    "x": 1.9999971389770508,
+                    "y": 2.0,
+                    "z": 1.9999971389770508
+                },
+                "Rotation": {
+                    "x": 3.1415908336639406,
+                    "y": 0.0015431272331625224,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 438
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.17438888549805,
+                    "y": 10.516374588012696,
+                    "z": -2.528748035430908
+                },
+                "Scale": {
+                    "x": 1.9999971389770508,
+                    "y": 2.0,
+                    "z": 1.9999971389770508
+                },
+                "Rotation": {
+                    "x": 3.1415908336639406,
+                    "y": 0.0015431272331625224,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 439
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.147613525390628,
+                    "y": 10.56053352355957,
+                    "z": -19.887401580810548
+                },
+                "Scale": {
+                    "x": 1.9999971389770508,
+                    "y": 2.0,
+                    "z": 1.9999971389770508
+                },
+                "Rotation": {
+                    "x": 3.1415908336639406,
+                    "y": 0.0015431272331625224,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 440
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.133514404296878,
+                    "y": 10.53713321685791,
+                    "z": -29.02178192138672
+                },
+                "Scale": {
+                    "x": 1.9999971389770508,
+                    "y": 2.0,
+                    "z": 1.9999971389770508
+                },
+                "Rotation": {
+                    "x": 3.1415908336639406,
+                    "y": 0.0015431272331625224,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 441
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.12055969238281,
+                    "y": 10.539609909057618,
+                    "z": -37.41824722290039
+                },
+                "Scale": {
+                    "x": 1.9999971389770508,
+                    "y": 2.0,
+                    "z": 1.9999971389770508
+                },
+                "Rotation": {
+                    "x": 3.1415908336639406,
+                    "y": 0.0015431272331625224,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Bed",
                     "Normal": "NothingNormal",
                     "Height": "NothingHeight",
                     "metallic": 0.0,
