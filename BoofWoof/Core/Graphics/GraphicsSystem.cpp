@@ -173,25 +173,25 @@ void GraphicsSystem::UpdateLoop() {
 		}
 	}
 
-	//lights_infos.clear();
-	//for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
-	//{
-	//	if (g_Coordinator.HaveComponent<LightComponent>(entity))
-	//	{
-	//		if (g_Coordinator.HaveComponent<TransformComponent>(entity))
-	//		{
-	//			auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
-	//			light_info light_info_;
-	//			light_info_.position = transformComp.GetPosition();
-	//			light_info_.intensity = g_Coordinator.GetComponent<LightComponent>(entity).getIntensity();
-	//			light_info_.color = g_Coordinator.GetComponent<LightComponent>(entity).getColor();
-	//
-	//			lights_infos.push_back(light_info_);
-	//
-	//		}
-	//
-	//	}
-	//}
+	lights_infos.clear();
+	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
+	{
+		if (g_Coordinator.HaveComponent<LightComponent>(entity))
+		{
+			if (g_Coordinator.HaveComponent<TransformComponent>(entity))
+			{
+				auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+				light_info light_info_;
+				light_info_.position = transformComp.GetPosition();
+				light_info_.intensity = g_Coordinator.GetComponent<LightComponent>(entity).getIntensity();
+				light_info_.color = g_Coordinator.GetComponent<LightComponent>(entity).getColor();
+	
+				lights_infos.push_back(light_info_);
+	
+			}
+	
+		}
+	}
 	
 	shdrParam.View = camera_render.GetViewMatrix();
 	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
@@ -289,44 +289,36 @@ void GraphicsSystem::UpdateLoop() {
 		{
 
 			// START OF 3D
-			//if (graphicsComp.getFollowCamera()) {
-			//	SetShaderUniforms(g_AssetManager.GetShader(ShaderName), shdrParam);
-			//}
-			//else {
-			//	g_AssetManager.GetShader(ShaderName).SetUniform("vertexTransform", shdrParam.WorldMatrix);
-			//	g_AssetManager.GetShader(ShaderName).SetUniform("view", glm::mat4(1.0f));
-			//	g_AssetManager.GetShader(ShaderName).SetUniform("projection", glm::mat4(1.0f));
-			//
-			//}
-			//g_AssetManager.GetShader(ShaderName).SetUniform("objectColor", glm::vec3{1.0f});
-			//for (int i = 0; i < lights_infos.size(); i++)
-			//{
-			//	std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
-			//	g_AssetManager.GetShader(ShaderName).SetUniform(lightPosStr.c_str(), lights_infos[i].position);
-			//	std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
-			//	g_AssetManager.GetShader(ShaderName).SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
-			//	std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
-			//	g_AssetManager.GetShader(ShaderName).SetUniform(lightColorStr.c_str(), lights_infos[i].color);
-			//}
-			///*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
-			//g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
-			//g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
-			//g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
-			//g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
-			//
-			//
-			//g_AssetManager.GetShader(ShaderName).SetUniform("roughness",  material.GetSmoothness());
-			//g_AssetManager.GetShader(ShaderName).SetUniform("metallic", material.GetMetallic());
+			if (graphicsComp.getFollowCamera()) {
+				SetShaderUniforms(g_AssetManager.GetShader(ShaderName), shdrParam);
+			}
+			else {
+				g_AssetManager.GetShader(ShaderName).SetUniform("vertexTransform", shdrParam.WorldMatrix);
+				g_AssetManager.GetShader(ShaderName).SetUniform("view", glm::mat4(1.0f));
+				g_AssetManager.GetShader(ShaderName).SetUniform("projection", glm::mat4(1.0f));
+			
+			}
+			
+			g_AssetManager.GetShader(ShaderName).SetUniform("objectColor", glm::vec3{1.0f});
 
-		
-//			std::cout << graphicsComp.material.GetMaterial().shaderChosen << '\n';
+
+			for (int i = 0; i < lights_infos.size(); i++)
+			{
+				std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
+				g_AssetManager.GetShader(ShaderName).SetUniform(lightPosStr.c_str(), lights_infos[i].position);
+				std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
+				g_AssetManager.GetShader(ShaderName).SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
+				std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
+				g_AssetManager.GetShader(ShaderName).SetUniform(lightColorStr.c_str(), lights_infos[i].color);
+			}
 
 
 
-			g_AssetManager.GetShader("Shader3D").SetUniform("vertexTransform", transformComp.GetWorldMatrix());
-			g_AssetManager.GetShader("Shader3D").SetUniform("view", view_);
-			g_AssetManager.GetShader("Shader3D").SetUniform("projection", projection);
-			g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", glm::vec3{ 1.0f });
+			/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
+			g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
+			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
+			g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
+			g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
 
 
 
@@ -358,25 +350,9 @@ void GraphicsSystem::UpdateLoop() {
 //			glBindTextureUnit(6, graphicsComp.getTexture(0)); // Texture with transparency
 //		}
 
+
 			// Set texture uniform before drawing
 			g_AssetManager.GetShader(ShaderName).SetUniform("uTex2d", 6);
-			//std::cout << material.GetDiffuseName() << '\n';
-
-			//if (material.GetDiffuseName() != "Digipen_Logo")
-			//{
-			//	std::cout << "eleg\n";
-			//
-			//	g_AssetManager.GetShader(ShaderName).SetUniform("useColor", true);
-			//
-			//	g_AssetManager.GetShader(ShaderName).SetUniform("finalAlpha", material.GetFinalAlpha());
-			//	g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", material.GetColor());
-			//
-			//}
-			//else
-			//{
-			//	g_AssetManager.GetShader(ShaderName).SetUniform("useColor", false);
-			//}
-			
 
 
 

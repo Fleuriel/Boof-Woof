@@ -91,13 +91,13 @@ private:
 	std::vector<std::string> ModelNames;
 
 	std::map <std::string, DDSData> textureDDS{};															//Container to store textures
-	//std::vector<std::string> textureDDSFileNames{};														//Container to store texture DDS file names
+	std::vector<std::string> textureDDSFileNames{};														//Container to store texture DDS file names
 
 	std::map<std::string, int> fontDDS{};																//Container to store textures
 	std::vector<std::string> fontDDSFileNames{};														//Container to store texture DDS file names
 
 
-	//std::vector<DDSData> textureDDS_WidthHeight;
+	std::vector<DDSData> textureDDS_WidthHeight;
 
 };
 

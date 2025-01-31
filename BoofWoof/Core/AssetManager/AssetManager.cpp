@@ -813,7 +813,7 @@ bool AssetManager::FreeObjects() {
 }
 
 bool AssetManager::ReloadObjects() {
-    return (FreeObjects() && LoadObjects());
+    return (FreeObjects()); //&& LoadObjects());
 }
 
 
