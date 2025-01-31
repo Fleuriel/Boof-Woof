@@ -24,9 +24,12 @@ uniform sampler2D texture_normal1;
 uniform int textureCount;
 uniform bool lightOn;
 
+uniform samplerCube depthMap;
+uniform float far_plane;
 
 uniform float finalAlpha;
 uniform vec4 inputColor;
+
 
 
 
@@ -93,6 +96,26 @@ float GeometrySchlickGGX(float NdotV, float roughness) {
 // Fresnel Equation (Schlick's approximation)
 vec3 FresnelSchlick(float cosTheta, vec3 F0) {
     return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
+}
+
+float ShadowCalculation(vec3 fragPos, vec3 lightPos)
+{
+    // get vector between fragment position and light position
+    vec3 fragToLight = fragPos - lightPos;
+    // ise the fragment to light vector to sample from the depth map    
+    float closestDepth = texture(depthMap, fragToLight).r;
+    // it is currently in linear range between [0,1], let's re-transform it back to original depth value
+    closestDepth *= far_plane;
+    // now get current linear depth as the length between the fragment and light position
+    float currentDepth = length(fragToLight);
+    // test for shadows
+    float bias = 0.05; // we use a much larger bias since depth is now in [near_plane, far_plane] range
+    float shadow = currentDepth -  bias > closestDepth ? 1.0 : 0.0;        
+    
+    // display closestDepth as debug (to visualize depth cubemap)
+    // FragColor = vec4(vec3(closestDepth / far_plane), 1.0);    
+        
+    return shadow;
 }
 
 void main()
@@ -163,10 +186,13 @@ void main()
             // Combine lighting components
             vec3 diffuse = kD * textureColor.rgb / PI;
 
+            float shadow =  ShadowCalculation(fs_in.FragPos,lights[i].position);
+
             vec3 finalColor = (diffuse + specular) 
                 * lights[i].color 
                 * lights[i].intensity 
-                * NdotL;
+                * NdotL
+                *(1.0-shadow);
 
             result += finalColor;
         }

@@ -39,6 +39,7 @@ glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
 unsigned int depthMapFBO;
 unsigned int depthFBO;
+unsigned int depthCubemap;
 
 //int GraphicsSystem::set_Texture_ = 0;
 //std::vector<Model2D> models;
@@ -112,7 +113,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 	
 	// create depth cubemap texture
-	unsigned int depthCubemap;
+	
 	glGenTextures(1, &depthCubemap);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubemap);
 	for (unsigned int i = 0; i < 6; ++i)
@@ -247,10 +248,10 @@ void GraphicsSystem::UpdateLoop() {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
-	//glViewport(0, 0, g_WindowX, g_WindowY);
+	glViewport(0, 0, g_WindowX, g_WindowY);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear framebuffer
 
-
+	
 
 
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
@@ -362,6 +363,13 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
 			g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
+
+
+			g_AssetManager.GetShader(ShaderName).SetUniform("far_plane", 25.f);
+			// active a texture unit
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubemap);
+			g_AssetManager.GetShader(ShaderName).SetUniform("depthMap", 0);
 
 
 			g_AssetManager.GetShader(ShaderName).SetUniform("roughness",  material.GetSmoothness());
