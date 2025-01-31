@@ -39,10 +39,10 @@ void PausedScreen::OnLoad()
 		}
 
 		// Exit early if all entities are found
-		if (ResumeGame && HTPBtn && SettingsBtn && ExitGame)
+		/*if (ResumeGame && HTPBtn && SettingsBtn && ExitGame)
 		{
 			break;
-		}
+		}*/
 	}
 }
 
@@ -353,6 +353,7 @@ namespace pauseLogic
 	void ResetGame()
 	{
 		g_IsPaused = false;
+		inSmthAgain = false;
 		g_ChangeText.Reset();
 		g_Checklist.Reset();
 		g_RopeBreaker.ResetRB();

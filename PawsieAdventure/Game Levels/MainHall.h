@@ -215,6 +215,11 @@ class MainHall : public Level
 		g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
+
+		// Ensure RESET for game to be replayable
 		g_Checklist.shutted = false;
+		sniffa = collectedBall = collectedBone = chgChecklist = false;
+		playercollided = tennisBallCollided = boneCollided = false;
+		boneDestroyed = tennisBallDestroyed = false;
 	}
 };
