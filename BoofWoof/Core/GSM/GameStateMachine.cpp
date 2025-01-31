@@ -46,6 +46,8 @@ void UpdateGSM()
 
 			g_LevelManager.UpdateLevel(g_Core->m_DeltaTime);
 
+			g_Input.UpdateStatesForNextFrame();
+
 			if (g_WindowClosed || glfwWindowShouldClose(g_Window->GetGLFWWindow()) || g_LevelManager.GetNextLevel() == nullptr)
 			{
 				g_CurrentState = GameStates::QUIT;
