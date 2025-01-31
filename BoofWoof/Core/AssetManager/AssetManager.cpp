@@ -156,16 +156,16 @@ void AssetManager::LoadAll() {
 
 #ifdef _DEBUG
     bool loadTextures = AssetManager::LoadTextures(),
-        loadObjects = AssetManager::LoadObjects(),
-        //loadSprites   = AssetManager::LoadSprites(),
-        //loadSounds    = AssetManager::LoadSounds(),
+        //   loadObjects = AssetManager::LoadObjects(),
+           //loadSprites   = AssetManager::LoadSprites(),
+           //loadSounds    = AssetManager::LoadSounds(),
         loadFonts = AssetManager::LoadFonts(),
         loadScenes = AssetManager::LoadScenes(),
         //loadPrefabs   = AssetManager::LoadPrefabs(),
-        loadShaders = AssetManager::LoadShaders(),
+        loadShaders = AssetManager::LoadShaders();
         //loadAnimations = AssetManager::LoadAnimations(),
-        loadMaterial = AssetManager::LoadMaterials();
-    UNREFERENCED_PARAMETER(loadMaterial);
+//        loadMaterial = AssetManager::LoadMaterials();
+//    UNREFERENCED_PARAMETER(loadMaterial);
     std::cout
         << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
         //<< ((loadSprites) ? "Sprites loaded successfully" : "Failed to load sprites") << std::endl
@@ -173,11 +173,11 @@ void AssetManager::LoadAll() {
         << ((loadFonts) ? "Fonts loaded successfully" : "Failed to load fonts") << std::endl
         << ((loadScenes) ? "Scenes loaded successfully" : "Failed to load scenes") << std::endl
         //<< ((loadPrefabs) ? "Prefabs loaded successfully" : "Failed to load prefabs") << std::endl
-        << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl 
-        << ((loadObjects) ? "Object loaded Successfully" : "failed to load object") << '\n';
+        << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl
+        ;// << ((loadObjects) ? "Object loaded Successfully" : "failed to load object") << '\n';
 #else
         AssetManager::LoadTextures(),
-        AssetManager::LoadObjects(),
+       // AssetManager::LoadObjects(),
         //AssetManager::LoadSprites(),
         //AssetManager::LoadSounds(),
         AssetManager::LoadFonts(),

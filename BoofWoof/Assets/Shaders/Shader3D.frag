@@ -8,7 +8,7 @@ layout(location = 3) in vec2 TexCoords;
 
 
 uniform sampler2D texture_diffuse1;
-uniform bool lineRender;
+//uniform bool lineRender;
 
 out vec4 fragColor;
 
@@ -20,9 +20,16 @@ void main()
         //fragColor = vertColor;
         
     //}else{
-        vec3 lightVector = vec3(-2567, 44448, 91008)-FragPos;
-        float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
-        vec4 textureColor = texture(texture_diffuse1, TexCoords);
-        fragColor = vec4(textureColor.rgb * N_dot_L, textureColor.a);
-    //}
+//        vec3 lightVector = vec3(-2567, 44448, 91008)-FragPos;
+//        float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
+        
+
+
+	vec4 textureColor = texture(texture_diffuse1, TexCoords);
+        //fragColor = vec4(textureColor.rgb, 1.0f);
+    fragColor = textureColor;
+    
+
+
+	//}
 }

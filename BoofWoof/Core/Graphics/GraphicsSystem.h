@@ -52,12 +52,15 @@ public:
     static int set_Texture_;
 
 
+
     std::string textureNameInput;
 
     void SetShaderUniforms(OpenGLShader& shader, const ShaderParams& shdrParam);
 
     GLuint GetFramebufferTexture() const { return textureColorbuffer; }  // Getter function
 
+
+    void AddEntireModel3D(const std::string& directory);
     void AddModel_3D(std::string const& path);
     void AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model);
 

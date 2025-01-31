@@ -86,7 +86,7 @@ public:
     }
 
     // render the mesh
-void Draw(OpenGLShader& shader)
+    void Draw(OpenGLShader& shader)
     {
         
         // bind appropriate textures
@@ -108,6 +108,9 @@ void Draw(OpenGLShader& shader)
                 number = std::to_string(normalNr++); // transfer unsigned int to string
             else if (name == "texture_height")
                 number = std::to_string(heightNr++); // transfer unsigned int to string
+
+
+            std::cout << name + number << '\t' << i << '\n';
 
             // now set the sampler to the correct texture unit
             glUniform1i(glGetUniformLocation(shader.GetHandle(), (name + number).c_str()), i);

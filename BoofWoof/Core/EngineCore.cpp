@@ -33,7 +33,7 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<TransformComponent>();
 	g_Coordinator.RegisterComponent<GraphicsComponent>();
 	g_Coordinator.RegisterComponent<AnimationComponent>();
-	g_Coordinator.RegisterComponent<MaterialComponent>();
+//	g_Coordinator.RegisterComponent<MaterialComponent>();
 	g_Coordinator.RegisterComponent<AudioComponent>();
 	g_Coordinator.RegisterComponent<CollisionComponent>();
 	g_Coordinator.RegisterComponent<BehaviourComponent>();
@@ -64,7 +64,7 @@ void EngineCore::OnInit()
 		Signature signature;
 		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
 		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
-		signature.set(g_Coordinator.GetComponentType<MaterialComponent>());
+//		signature.set(g_Coordinator.GetComponentType<MaterialComponent>());
 		signature.set(g_Coordinator.GetComponentType<AnimationComponent>());
 		signature.set(g_Coordinator.GetComponentType<CameraComponent>());
 		signature.set(g_Coordinator.GetComponentType<ParticleComponent>());
@@ -130,7 +130,7 @@ void EngineCore::OnInit()
 	ReflectionManager::Instance().RegisterComponentType<CollisionComponent>("CollisionComponent");
 	ReflectionManager::Instance().RegisterComponentType<CameraComponent>("CameraComponent");
 	ReflectionManager::Instance().RegisterComponentType<ParticleComponent>("ParticleComponent");
-	ReflectionManager::Instance().RegisterComponentType<MaterialComponent>("MaterialComponent");
+//	ReflectionManager::Instance().RegisterComponentType<MaterialComponent>("MaterialComponent");
 	ReflectionManager::Instance().RegisterComponentType<HierarchyComponent>("HierarchyComponent");
 	ReflectionManager::Instance().RegisterComponentType<LightComponent>("LightComponent");
 	ReflectionManager::Instance().RegisterComponentType<UIComponent>("UIComponent");
