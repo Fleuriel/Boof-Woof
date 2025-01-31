@@ -25,6 +25,9 @@ public:
 		g_ChangeText.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
+		//g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
+		//g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
+
 
 		// Use unordered_map to make it O(1) efficiency
 		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
@@ -57,6 +60,9 @@ public:
 					if (metadata.GetName() == "BedRoomMusic")
 					{
 						music.PlayAudio();
+					//	g_Audio.SetBGMVolume(g_Audio.GetSFXVolume());
+
+
 					}
 				}
 
@@ -75,6 +81,8 @@ public:
 		// Ensure player entity is valid
 		cameraController = new CameraController(playerEnt);
 		camerachange = false;
+		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
+		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
 	}
 
 	bool teb_last = false;

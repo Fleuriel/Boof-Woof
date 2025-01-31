@@ -100,6 +100,9 @@ class TimeRush : public Level
 		{
 			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.165f));
 		}
+
+		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
+		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
 	}
 
 	void UpdateLevel(double deltaTime) override

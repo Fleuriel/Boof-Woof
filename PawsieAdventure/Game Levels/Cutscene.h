@@ -126,7 +126,10 @@ class Cutscene : public Level
 		}
 	}
 
-	void InitLevel() { /* Empty by design */ }
+	void InitLevel() { /* Empty by design */ 
+		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
+		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
+	}
 
 	void UpdateLevel(double deltaTime)
 	{
@@ -142,7 +145,9 @@ class Cutscene : public Level
 
 			if (!SongOne) 
 			{
-				g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav");
+				//g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav");
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav", false, "SFX");
+
 
 				/*if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
 					auto& music = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
@@ -162,7 +167,8 @@ class Cutscene : public Level
 
 				if (!SongTwo)
 				{
-					g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/CorgiWhimper.wav");
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiWhimper.wav", false, "SFX");
+
 
 					/*if (g_Coordinator.HaveComponent<AudioComponent>(CorgiWhimper)) {
 						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiWhimper);
@@ -249,7 +255,7 @@ class Cutscene : public Level
 					
 					if (!SongThree)
 					{
-						g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/12sGrowlBarkCorgi.wav");
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/12sGrowlBarkCorgi.wav", false, "SFX");
 
 						/*if (g_Coordinator.HaveComponent<AudioComponent>(corgi12sec)) {
 							auto& music2 = g_Coordinator.GetComponent<AudioComponent>(corgi12sec);
