@@ -173,11 +173,8 @@ void FontSystem::saveBin()
 void FontSystem::update()
 {
     
-	for (auto entity : g_Coordinator.GetAliveEntitiesSet())
-	{
-        if (g_Coordinator.HaveComponent<FontComponent>(entity))
-        {
-            auto& fontComponent = g_Coordinator.GetComponent<FontComponent>(entity);
+	for (auto entity : g_Coordinator.GetAliveEntitiesSet()){
+        if (g_Coordinator.HaveComponent<FontComponent>(entity)){
 
 
             // render text
