@@ -14,6 +14,7 @@ public:
 	void BiteDown(double deltaTime);	// Check whether collided with catchzone + visual feedback
 	void ClearBoneCatcher();
 
+	void ResetBC();
 
 private:
 	Entity m_DogHead{}, m_CatchZone{};
@@ -21,7 +22,7 @@ private:
 
 	// Dog
 	glm::vec2 initialDogPos{}, DogPos{}, DogScale{};
-	float m_Speed{ 0.5f }, m_DestroyTimer{ 0.f }, m_DownTimer{};
+	float m_Speed{ 0.5f }, m_DestroyTimer{ 0.f }, m_DownTimer{ 2.0f };
 	bool m_IsMoving{ true }, m_ShouldDestroy{ false }, m_Down{ false }, m_Up{ false };
 	int m_Direction{ 1 }; // 1 for right, -1 for left
 	float m_MinPos{ -0.335f }, m_MaxPos{ 0.395f };

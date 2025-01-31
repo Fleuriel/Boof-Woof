@@ -8,6 +8,7 @@ public:
 	void OnInitialize();
 	void OnUpdate(double deltaTime);
 	void OnShutdown();
+	void Reset();
 
 public:
 	bool shutted{ false };

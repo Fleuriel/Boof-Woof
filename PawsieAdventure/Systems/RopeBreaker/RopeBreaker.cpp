@@ -120,6 +120,20 @@ void RopeBreaker::DropBridge()
 	ElapsedTime = 0.0f;
 }
 
+void RopeBreaker::ResetRB()
+{
+	PlayerCollidedRope1 = PlayerCollidedRope2 = BoneSpawned = false;
+	RopeCount = 2;
+
+	PlayerColliding = Rope1Colliding = Rope2Colliding = false;
+	RopeDespawned = 0;
+	bridgeAudio = deletedRope1 = deletedRope2 = false;
+
+	ElapsedTime = 0.0f;
+	FallDuration = 2.0f;
+	isFalling = false;
+}
+
 
 void RopeBreaker::SpawnBoneCatcher()
 {

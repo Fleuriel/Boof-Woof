@@ -226,6 +226,14 @@ void Checklist::AddCorgiText()
 	}
 }
 
+void Checklist::Reset()
+{
+	shutted = false;
+	finishTR = finishRB = false;
+	w = a = s = d = WASDChecked = false;
+	Check1 = Check2 = Check3 = Check4 = corgiText = false;
+}
+
 void Checklist::ChangeAsset(Entity ent, glm::vec2 scale, std::string textureName)
 {
 	if (!g_Coordinator.HaveComponent<UIComponent>(ent)) return;

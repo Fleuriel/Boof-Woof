@@ -3,6 +3,12 @@
 #include <Level Manager/LevelManager.h>
 #include "../GSM/GameStateMachine.h" // for g_IsPaused
 
+// Reset purposes
+#include "../ChangeText/ChangeText.h" 
+#include "../Checklist/Checklist.h" 
+#include "../RopeBreaker/RopeBreaker.h" 
+#include "../BoneCatcher/BoneCatcher.h" 
+
 std::unique_ptr<PauseMenu> pauser = CreatePausedMenu(PauseState::Paused);
 Serialization serialPause;
 Entity ResumeGame{}, SettingsBtn{}, HTPBtn{}, ExitGame{};
@@ -273,6 +279,8 @@ namespace pauseLogic
 
 
 						pauser->OnExit();
+						ResetGame();
+
 						g_LevelManager.SetNextLevel("MainMenu");
 
 						/*pauser = CreatePausedMenu(PauseState::QuitGame);
@@ -328,5 +336,12 @@ namespace pauseLogic
 				wasMousePressed = false;
 			}
 		}
+	}
+	void ResetGame()
+	{
+		g_ChangeText.Reset();
+		g_Checklist.Reset();
+		g_RopeBreaker.ResetRB();
+		g_BoneCatcher.ResetBC();
 	}
 }

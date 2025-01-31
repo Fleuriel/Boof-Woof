@@ -57,4 +57,5 @@ std::unique_ptr<PauseMenu> CreatePausedMenu(PauseState state);
 namespace pauseLogic 
 {
 	void OnUpdate();
+	void ResetGame();
 }

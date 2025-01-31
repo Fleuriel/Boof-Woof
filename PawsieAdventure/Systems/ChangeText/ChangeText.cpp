@@ -3,10 +3,6 @@
 #include "../Checklist/Checklist.h"
 #include "../Core/AssetManager/FilePaths.h"
 
-#include "ChangeText.h"
-#include "ResourceManager/ResourceManager.h"
-#include "../Checklist/Checklist.h"
-
 ChangeText g_ChangeText;
 Serialization serialText;
 
@@ -88,4 +84,12 @@ void ChangeText::OnShutdown()
 	}
 
 	shutted = true;
+}
+
+void ChangeText::Reset()
+{
+	shutted = false;
+	textureIndex = 5;
+	indexLimit = 6;
+	startingRoomOnly = false;
 }
