@@ -998,7 +998,11 @@ void ImGuiEditor::InspectorWindow()
 										g_Coordinator.RemoveComponent<FontComponent>(g_SelectedEntity);
 								}
 							);
-
+							// If got UI Component, remove Transform & Graphics Component
+							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+							{
+								g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+							}
 						}
 					}
 
@@ -3959,10 +3963,6 @@ void ImGuiEditor::InspectorWindow()
 								}
 								ImGui::PopID();
 								ImGui::PopItemWidth();
-
-
-
-
 
 
 							}
