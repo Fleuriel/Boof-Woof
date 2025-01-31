@@ -339,6 +339,7 @@ namespace pauseLogic
 	}
 	void ResetGame()
 	{
+		g_IsPaused = false;
 		g_ChangeText.Reset();
 		g_Checklist.Reset();
 		g_RopeBreaker.ResetRB();
