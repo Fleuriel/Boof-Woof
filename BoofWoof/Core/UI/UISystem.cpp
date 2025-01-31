@@ -149,7 +149,7 @@ void UISystem::UI_render()
                 shader.SetUniform("col_To_Draw", UICompt.get_curr_col());
 
                 // Bind texture
-                glBindTextureUnit(6, UICompt.get_textureid());
+                glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(UICompt.get_texturename()));
                 shader.SetUniform("uTex2d", 6);
 
                 // Draw the animated sprite

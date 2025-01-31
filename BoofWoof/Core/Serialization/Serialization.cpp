@@ -1043,7 +1043,8 @@ bool Serialization::LoadScene(const std::string& filepath)
 
             }
 			// Deserialize UIComponent
-			if (entityData.HasMember("UIComponent")) {
+			if (entityData.HasMember("UIComponent")) 
+            {
 				const auto& UIData = entityData["UIComponent"];
 				
                 std::string textureName{};
@@ -1075,60 +1076,33 @@ bool Serialization::LoadScene(const std::string& filepath)
 					selectable = UIData["Selectable"].GetBool();
 
 				float opacity = 1.0f;
-				if (UIData.HasMember("Opcaity"))
+				if (UIData.HasMember("Opcaity"))                
 					opacity = UIData["Opcaity"].GetFloat();
-					UIComponent uiComponent(textureName, position, scale, layer, selectable, opacity);
 
-                    if (UIData.HasMember("Animated"))
-                        uiComponent.set_animate(UIData["Animated"].GetBool());
+				UIComponent uiComponent(textureName, position, scale, layer, selectable, opacity);
 
-                    if (UIData.HasMember("Rows"))
-                        uiComponent.set_rows(UIData["Rows"].GetInt());
+				if (UIData.HasMember("Animated"))
+					uiComponent.set_animate(UIData["Animated"].GetBool());
 
-                    if (UIData.HasMember("Cols"))
-                        uiComponent.set_cols(UIData["Cols"].GetInt());
+				if (UIData.HasMember("Rows"))
+					uiComponent.set_rows(UIData["Rows"].GetInt());
 
-                    if (UIData.HasMember("FrameInterval"))
-                        uiComponent.set_frame_interval(UIData["FrameInterval"].GetFloat());
+				if (UIData.HasMember("Cols"))
+					uiComponent.set_cols(UIData["Cols"].GetInt());
 
-                    if (UIData.HasMember("StayOnRow"))
-                        uiComponent.set_stay_on_row(UIData["StayOnRow"].GetBool());
+				if (UIData.HasMember("FrameInterval"))
+					uiComponent.set_frame_interval(UIData["FrameInterval"].GetFloat());
 
-					g_Coordinator.AddComponent(entity, uiComponent);
-				}
+				if (UIData.HasMember("StayOnRow"))
+					uiComponent.set_stay_on_row(UIData["StayOnRow"].GetBool());
+
+				g_Coordinator.AddComponent(entity, uiComponent);
+				
 			}
 
-
-
-
-
-
-
-
-            // Print out all entity components
-			//std::cout << "Entity: " << g_Coordinator.GetEntityId(entity) << std::endl;
-			//if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) {
-			//	std::cout << "MetadataComponent: " << g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() << std::endl;
-			//}
-   //         if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
-   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().x << std::endl;
-   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().y << std::endl;
-   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().z << std::endl;
-   //         }
-   //         if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
-   //             std::cout << "GraphicsComponent: " << g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelID() << std::endl;
-   //         }
-			//if (g_Coordinator.HaveComponent<AudioComponent>(entity)) {
-			//	std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetFilePath().c_str() << std::endl;
-			//	std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetVolume() << std::endl;
-   //             std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).ShouldLoop() << std::endl;
-			//}
-			//if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) {
-			//	std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << std::endl;
-			//}
-
             // Deserialization for PathfindingComponent
-            if (entityData.HasMember("PathfindingComponent")) {
+            if (entityData.HasMember("PathfindingComponent")) 
+            {
                 const auto& pathfindingData = entityData["PathfindingComponent"];
 
                 Entity startNode = INVALID_ENTITY;
@@ -1220,7 +1194,8 @@ bool Serialization::LoadScene(const std::string& filepath)
         }
 
         // Second pass: Deserialize components that reference other entities
-        for (const auto& entityData : entities.GetArray()) {
+        for (const auto& entityData : entities.GetArray()) 
+        {
             // Get the old EntityID
             int oldEntityID = -1;
             if (entityData.HasMember("MetadataComponent"))
