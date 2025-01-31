@@ -22,6 +22,8 @@ public:
 	// Drawbridge
 	void DropBridge();
 
+	void ResetRB();
+
 public:
 	bool PlayerCollidedRope1{ false }, PlayerCollidedRope2{ false }, BoneSpawned{ false };
 	int RopeCount{ 2 };

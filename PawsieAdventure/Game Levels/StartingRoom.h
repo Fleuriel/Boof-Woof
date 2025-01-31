@@ -17,7 +17,6 @@ public:
 
 	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{};
 
-
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom.json");
@@ -89,6 +88,8 @@ public:
 
 	void UpdateLevel(double deltaTime) override
 	{
+		g_ChangeText.startingRoomOnly = true;
+
 		if (!g_IsPaused) 
 		{
 			if (!camerachange)
@@ -165,7 +166,7 @@ public:
 				sniff = false;
 			}
 
-			if (g_Checklist.shutted)
+			if (g_Checklist.shutted && g_ChangeText.shutted)
 			{
 				if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
 				{
@@ -196,6 +197,8 @@ public:
 		//	auto& music = g_Coordinator.GetComponent<AudioComponent>(BedRoomBGM);
 		//	music.StopAudio();
 		//}
+
+		g_ChangeText.startingRoomOnly = false;
 
 		g_Audio.Stop(BedRoomBGM);
 

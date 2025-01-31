@@ -11,6 +11,7 @@ public:
 	void OnShutdown();
 	void ChangeBoxChecked(Entity ent);
 	void AddCorgiText();
+	void Reset();
 
 	void ChangeAsset(Entity ent, glm::vec2 scale, std::string textureName);
 

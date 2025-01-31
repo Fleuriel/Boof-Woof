@@ -7,20 +7,16 @@
 
 Entity BackCamera{}, MenuMusic{}, MenuClick{}, StartGame{}, X{}, HTP{}, Cog{};
 std::unique_ptr<PauseMenu> MenuPauser = CreatePausedMenu(PauseState::Paused);
-double MenuelapsedTime = 0.0;  // Tracks the elapsed time
-double delayAfterSpace = 0.5;  // Set the delay to 1 second
-bool spacePressed = false;  // Tracks whether the space bar has been pressed
 
 bool inSmth{ false };
 
 class MainMenu : public Level
 {
-	void LoadLevel()
+	void LoadLevel() override
 	{
 		// Load the main menu scenes
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainMenuBack.json");
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainMenuFront.json");
-
 
 		// Find the "BackCamera" entity
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -36,7 +32,6 @@ class MainMenu : public Level
 			{ "Cog", [&](Entity entity) { Cog = entity; } },
 			{ "X", [&](Entity entity) { X = entity; } }
 		};
-
 
 		for (auto entity : entities)
 		{
@@ -70,9 +65,9 @@ class MainMenu : public Level
 		}
 	}
 
-	void InitLevel() { /* Empty by design */ }
+	void InitLevel() override { /*Empty by design*/ }
 
-	void UpdateLevel(double deltaTime)
+	void UpdateLevel(double deltaTime) override
 	{
 		// Get the current yaw value for the camera
 		float currentYaw = g_Coordinator.GetComponent<CameraComponent>(BackCamera).GetCameraYaw();
@@ -88,31 +83,6 @@ class MainMenu : public Level
 
 		// Update the yaw value in the camera component
 		g_Coordinator.GetComponent<CameraComponent>(BackCamera).SetCameraYaw(currentYaw);
-
-		//if (!spacePressed)
-		//{
-		//	if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
-		//	{
-		//		// Play the button click sound
-		//		if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
-		//			auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
-		//			music1.PlayAudio();
-		//		}
-		//		
-		//		// Mark space as pressed and reset elapsed time
-		//		spacePressed = true;
-		//		MenuelapsedTime = 0.0;
-		//		g_Window->HideMouseCursor();
-		//	}
-		//}
-		//else
-		//{
-		//	MenuelapsedTime += deltaTime;
-		//	if (MenuelapsedTime >= delayAfterSpace)
-		//	{
-		//		g_LevelManager.SetNextLevel("Cutscene");
-		//	}
-		//}
 
 		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
 		{
@@ -260,9 +230,9 @@ class MainMenu : public Level
 		}
 	}
 
-	void FreeLevel() { /* Empty by design */ }
+	void FreeLevel() override { /* Empty by design */ }
 
-	void UnloadLevel()
+	void UnloadLevel() override
 	{
 		/*if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic)) {
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
@@ -273,7 +243,7 @@ class MainMenu : public Level
 
 		// Reset all entities
 		g_Coordinator.ResetEntities();
-		MenuelapsedTime = 0.0;
-		spacePressed = false;
+
+		inSmth = false;
 	}
 };
