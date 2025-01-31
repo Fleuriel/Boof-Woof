@@ -2269,24 +2269,28 @@ void ImGuiEditor::InspectorWindow()
 
 									if (ImGui::Combo("##NameCombo", &currentItem, behaviourNames, IM_ARRAYSIZE(behaviourNames)))
 									{
-										newBehaviourName = behaviourNames[currentItem];
-										(*behaviourNameProperty)->SetValue(&behaviourComponent, newBehaviourName);
 
-										Entity entity = g_SelectedEntity;
+										
+											newBehaviourName = behaviourNames[currentItem];
+											(*behaviourNameProperty)->SetValue(&behaviourComponent, newBehaviourName);
+											if (g_Coordinator.GetSystem<LogicSystem>()->ApprovingScriptChange(g_SelectedEntity)) {
+												Entity entity = g_SelectedEntity;
+												g_Coordinator.GetSystem<LogicSystem>()->InitScript(entity);
 
-										g_UndoRedoManager.ExecuteCommand(
-											[entity, newBehaviourName]() {
-												auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
-												component.SetBehaviourName(newBehaviourName);
-											},
-											[entity, oldBehaviourName]() {
-												auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
-												component.SetBehaviourName(oldBehaviourName);
-											}
-										);
+												g_UndoRedoManager.ExecuteCommand(
+													[entity, newBehaviourName]() {
+														auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
+														component.SetBehaviourName(newBehaviourName);
+													},
+													[entity, oldBehaviourName]() {
+														auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
+														component.SetBehaviourName(oldBehaviourName);
+													}
+												);
+											}								
 									}
 
-									ImGui::PopID();
+									ImGui::PopID();								
 								}
 							}
 						}
@@ -3665,6 +3669,46 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
+								// animated
+								bool animate = uiComponent.get_animate();
+								ImGui::Checkbox("Animated", &animate);
+								uiComponent.set_animate(animate);
+
+								if (animate) {
+									// Variables to store the rows and cols values
+									int rows = uiComponent.get_rows();
+									int cols = uiComponent.get_cols();
+
+									// Textbox for inputting rows
+									ImGui::InputInt("Rows", &rows);
+
+									// Ensure rows is at least 1
+									if (rows < 1) rows = 1;
+
+									// Textbox for inputting cols
+									ImGui::InputInt("Columns", &cols);
+									// Ensure cols is at least 1
+									if (cols < 1) cols = 1;
+
+									// Update rows and cols in the UIComponent
+									uiComponent.set_rows(rows);
+									uiComponent.set_cols(cols);
+
+									// Display the current row and column
+									int currRow = uiComponent.get_curr_row();
+									int currCol = uiComponent.get_curr_col();
+									ImGui::Text("Current Row: %d, Current Column: %d", currRow, currCol);
+
+									// Add controls for frame interval
+									float frameInterval = uiComponent.get_frame_interval();
+									ImGui::InputFloat("Frame Interval", &frameInterval);
+
+									// Ensure frame interval is positive
+									if (frameInterval < 0.0f) frameInterval = 0.0f;
+
+									// Update frame interval in the UIComponent
+									uiComponent.set_frame_interval(frameInterval);
+								}
 							}
 						}
 						//Pathfinding Component editor
@@ -5125,6 +5169,7 @@ void ImGuiEditor::Scenes()
 				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
 				m_LastOpenedFile = filePathName;
 				g_SceneManager.LoadScene(filePathName);
+				g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 			}
 			ImGuiFileDialog::Instance()->Close();
 		}

@@ -161,6 +161,7 @@ void EngineCore::OnInit()
 	ReflectionManager::Instance().RegisterComponentType<EdgeComponent>("EdgeComponent");
 }
 
+
 void EngineCore::OnUpdate()
 {
 	m_CurrNumSteps = 0;
@@ -184,8 +185,7 @@ void EngineCore::OnUpdate()
 	g_Window->OnUpdate();
 
 
-	// input update
-	g_Input.UpdateStatesForNextFrame();
+	
 
 	//Transition
 	g_SceneManager.Update((float)m_DeltaTime);
