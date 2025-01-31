@@ -74,6 +74,7 @@ public:
     void AddSceneToList(const std::string& sceneName, const std::string& sceneGUID);
     inline void ClearSceneList() { sceneList.clear(); };
 
+    bool AsyncLoadIsComplete() const;
 private:
     // Timing for transitions
     bool transitioning;
@@ -117,7 +118,7 @@ private:
     void LoadLoadingScreen(const std::string& scene);
 
     std::unordered_map<int, Entity> m_OldToNewMap;
-    std::vector<rapidjson::Value> m_DeferredRefData; // or vector of references if needed
+    std::vector<DeferredHierarchy> m_DeferredRefData;
 
     void FinalizeReferences();
 

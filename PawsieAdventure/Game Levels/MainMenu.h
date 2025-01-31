@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Level Manager/Level.h"
+#include "LoadingLevel.h"
 #include "ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 
@@ -103,9 +104,17 @@ class MainMenu : public Level
 			MenuelapsedTime += deltaTime;
 			if (MenuelapsedTime >= delayAfterSpace)
 			{
-				g_LevelManager.SetNextLevel("Cutscene");
+				// Instead of going directly to "Cutscene", go via "LoadingLevel"
+				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+				if (loading)
+				{
+					// Pass in the name of the real scene we want AFTER the loading screen
+					loading->m_NextScene = "Cutscene";
+					g_LevelManager.SetNextLevel("LoadingLevel");
+				}
 			}
 		}
+
 	}
 
 	void FreeLevel() { /* Empty by design */ }

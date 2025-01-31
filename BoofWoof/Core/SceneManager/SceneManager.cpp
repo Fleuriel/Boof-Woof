@@ -15,6 +15,9 @@
 #include "SceneManager.h"
 #include "ECS/Coordinator.hpp"  // Assuming the coordinator handles entities
 #include "Serialization/Serialization.h"
+#include "../EngineCore.h"
+#include "ResourceManager/ResourceManager.h"
+#include "../Core/AssetManager/FilePaths.h"
 
  /**************************************************************************
   * @brief Constructor for the SceneManager class.
@@ -382,22 +385,13 @@ void SceneManager::Update(float deltaTime)
     // Handle asynchronous scene loading
     if (m_IsAsyncLoading)
     {
-        // Check if the background thread is done
-        if (m_AsyncLoader.IsDone())
+        if (AsyncLoadIsComplete())
         {
-            // Retrieve the parsed data
             m_PendingSceneData = m_AsyncLoader.GetLoadedData();
-
-            // Now we have the JSON data, we must finalize ECS creation
             m_IsAsyncLoading = false;   // No longer loading in background
-            m_NeedsFinalize = true;     // We need to finalize
+            m_NeedsFinalize = true;     // We need to finalize the scene
         }
-        else
-        {
-            // We’re still loading in the background. Render "Loading..." or update a progress bar
-            // Possibly you can poll partial progress. 
-            // e.g. float progress = approximate / total
-        }
+        // Else, you might update a loading progress bar here.
     }
 
     // If we have data ready to finalize...
@@ -483,33 +477,496 @@ void SceneManager::FinalizeSceneData(const SceneData& data)
 
 void SceneManager::FinalizeSceneDataChunked(const SceneData& data, size_t& index, int chunkSize)
 {
-    // Step through entityList from index -> index+chunkSize
+    // Step through entityList from index to index+chunkSize
     for (int i = 0; i < chunkSize && index < data.entityList.size(); ++i, ++index)
     {
         const auto& ed = data.entityList[index];
-        // If you haven’t created the entity yet, do it earlier or do it lazily
-        // We can do that in two passes. For simplicity, do a single pass example:
-
-        // 1) If index == 0, first pass create all ECS entities
-        //    But that’s complicated. Let's assume we already created them in BeginAsyncLoad
-        //    or do partial approach. It's up to you.
-
-        // The simpler approach is a 2-pass chunk approach:
-        //   pass 1: create all ECS entities
-        //   pass 2: attach components in chunks
-        // For brevity, let's do everything at once if they exist:
-        Entity newE = g_Coordinator.CreateEntity();
-        
-
-        // oldEntityID? If we truly need oldEntityID -> newE mapping, we store it in a container
-        // But let's assume we do not have references for this example or we do a second pass after.
-
         auto& jsonObj = ed.entityJSON;
-        // Attach each component as you do in your “LoadScene” code:
+        int oldID = ed.oldEntityID;
+
+        // 1) Create new ECS entity
+        Entity newE = g_Coordinator.CreateEntity();
+
+        // 2) Store the mapping from oldID to newE (for references later)
+        m_OldToNewMap[oldID] = newE;
+
+        // 2) Attach components (single pass). 
+        //    This is basically a subset of your LoadScene logic.
+
+        // -- MetadataComponent --
+        if (jsonObj.HasMember("MetadataComponent"))
+        {
+            const auto& metaData = jsonObj["MetadataComponent"];
+            if (metaData.HasMember("EntityName"))
+            {
+                std::string name = metaData["EntityName"].GetString();
+                MetadataComponent metaComp(name, newE);
+                g_Coordinator.AddComponent(newE, metaComp);
+            }
+        }
+
+        // -- TransformComponent --
         if (jsonObj.HasMember("TransformComponent"))
         {
-            // ...
+            const auto& TData = jsonObj["TransformComponent"];
+            glm::vec3 position(0.0f), scale(1.0f), rotation(0.0f), rotationPivot(0.0f);
+
+            if (TData.HasMember("Position"))
+            {
+                position.x = TData["Position"]["x"].GetFloat();
+                position.y = TData["Position"]["y"].GetFloat();
+                position.z = TData["Position"]["z"].GetFloat();
+            }
+
+            if (TData.HasMember("Scale"))
+            {
+                scale.x = TData["Scale"]["x"].GetFloat();
+                scale.y = TData["Scale"]["y"].GetFloat();
+                scale.z = TData["Scale"]["z"].GetFloat();
+            }
+
+            if (TData.HasMember("Rotation"))
+            {
+                rotation.x = TData["Rotation"]["x"].GetFloat();
+                rotation.y = TData["Rotation"]["y"].GetFloat();
+                rotation.z = TData["Rotation"]["z"].GetFloat();
+            }
+
+            if (TData.HasMember("RotationPivotOffset"))
+            {
+                rotationPivot.x = TData["RotationPivotOffset"]["x"].GetFloat();
+                rotationPivot.y = TData["RotationPivotOffset"]["y"].GetFloat();
+                rotationPivot.z = TData["RotationPivotOffset"]["z"].GetFloat();
+            }
+
+            TransformComponent transComp(position, scale, rotation, rotationPivot, newE);
+            g_Coordinator.AddComponent(newE, transComp);
         }
-        // ... etc ...
+
+        // -- GraphicsComponent --
+        if (jsonObj.HasMember("GraphicsComponent"))
+        {
+            const auto& GData = jsonObj["GraphicsComponent"];
+            std::string modelName, textureName;
+            bool followCam = false;
+
+            if (GData.HasMember("ModelName"))
+                modelName = GData["ModelName"].GetString();
+            if (GData.HasMember("Texture"))
+                textureName = GData["Texture"].GetString();
+            if (GData.HasMember("FollowCamera"))
+                followCam = GData["FollowCamera"].GetBool();
+
+            GraphicsComponent gComp(modelName, newE, textureName, followCam);
+
+            // Load the texture from ResourceManager
+            int texID = g_ResourceManager.GetTextureDDS(textureName);
+            if (texID > 0)
+                gComp.AddTexture(texID);
+
+            g_Coordinator.AddComponent(newE, gComp);
+        }
+
+        // -- AudioComponent --
+        if (jsonObj.HasMember("AudioComponent"))
+        {
+            const auto& AData = jsonObj["AudioComponent"];
+            if (AData.HasMember("AudioFilePath"))
+            {
+                std::string audioPath = AData["AudioFilePath"].GetString();
+                float volume = AData["Volume"].GetFloat();
+                bool loop = AData["ShouldLoop"].GetBool();
+
+                AudioComponent audioC(audioPath, volume, loop, newE, nullptr, AudioType::SFX);
+                g_Coordinator.AddComponent(newE, audioC);
+            }
+        }
+
+        // -- BehaviourComponent --
+        if (jsonObj.HasMember("BehaviourComponent"))
+        {
+            const auto& BData = jsonObj["BehaviourComponent"];
+            if (BData.HasMember("BehaviourName"))
+            {
+                std::string behaviourName = BData["BehaviourName"].GetString();
+                BehaviourComponent bc(behaviourName, newE);
+                g_Coordinator.AddComponent(newE, bc);
+            }
+        }
+
+        // -- CollisionComponent --
+        if (jsonObj.HasMember("CollisionComponent"))
+        {
+            const auto& CData = jsonObj["CollisionComponent"];
+            int layer = CData["CollisionLayer"].GetInt();
+            bool isDynamic = CData["IsDynamic"].GetBool();
+            bool isPlayer = CData["IsPlayer"].GetBool();
+
+            CollisionComponent colComp(layer);
+            colComp.SetIsDynamic(isDynamic);
+            colComp.SetIsPlayer(isPlayer);
+
+            if (CData.HasMember("AABBSize"))
+            {
+                glm::vec3 sz;
+                sz.x = CData["AABBSize"]["x"].GetFloat();
+                sz.y = CData["AABBSize"]["y"].GetFloat();
+                sz.z = CData["AABBSize"]["z"].GetFloat();
+                colComp.SetAABBSize(sz);
+            }
+
+            if (CData.HasMember("AABBOffset"))
+            {
+                glm::vec3 off;
+                off.x = CData["AABBOffset"]["x"].GetFloat();
+                off.y = CData["AABBOffset"]["y"].GetFloat();
+                off.z = CData["AABBOffset"]["z"].GetFloat();
+                colComp.SetAABBOffset(off);
+            }
+
+            if (CData.HasMember("Mass"))
+            {
+                float mass = CData["Mass"].GetFloat();
+                colComp.SetMass(mass);
+            }
+
+            g_Coordinator.AddComponent(newE, colComp);
+        }
+
+        // -- CameraComponent --
+        if (jsonObj.HasMember("CameraComponent"))
+        {
+            const auto& CCData = jsonObj["CameraComponent"];
+            glm::vec3 camPos(0.f), camUp(0.f, 1.f, 0.f);
+            float yaw = 0.f, pitch = 0.f;
+            bool active = false;
+
+            if (CCData.HasMember("Position"))
+            {
+                camPos.x = CCData["Position"]["x"].GetFloat();
+                camPos.y = CCData["Position"]["y"].GetFloat();
+                camPos.z = CCData["Position"]["z"].GetFloat();
+            }
+
+            if (CCData.HasMember("Up"))
+            {
+                camUp.x = CCData["Up"]["x"].GetFloat();
+                camUp.y = CCData["Up"]["y"].GetFloat();
+                camUp.z = CCData["Up"]["z"].GetFloat();
+            }
+            if (CCData.HasMember("Yaw"))
+                yaw = CCData["Yaw"].GetFloat();
+            if (CCData.HasMember("Pitch"))
+                pitch = CCData["Pitch"].GetFloat();
+            if (CCData.HasMember("Active"))
+                active = CCData["Active"].GetBool();
+
+            CameraComponent camC(camPos, camUp, yaw, pitch, active);
+            g_Coordinator.AddComponent(newE, camC);
+        }
+
+        // -- ParticleComponent --
+        if (jsonObj.HasMember("ParticleComponent"))
+        {
+            const auto& PData = jsonObj["ParticleComponent"];
+            glm::vec3 posMin(0), posMax(0);
+            float density = 1.0f;
+            float velMin = 0.f;
+            float velMax = 0.f;
+            float size = 1.f;
+            glm::vec4 color(1.f);
+
+            std::vector<glm::vec3> targetPositions;
+
+            if (PData.HasMember("PositionMin"))
+            {
+                posMin.x = PData["PositionMin"]["x"].GetFloat();
+                posMin.y = PData["PositionMin"]["y"].GetFloat();
+                posMin.z = PData["PositionMin"]["z"].GetFloat();
+            }
+            if (PData.HasMember("PositionMax"))
+            {
+                posMax.x = PData["PositionMax"]["x"].GetFloat();
+                posMax.y = PData["PositionMax"]["y"].GetFloat();
+                posMax.z = PData["PositionMax"]["z"].GetFloat();
+            }
+            if (PData.HasMember("Density"))
+            {
+                density = PData["Density"].GetFloat();
+            }
+            if (PData.HasMember("VelocityMin"))
+            {
+                velMin = PData["VelocityMin"].GetFloat();
+            }
+            if (PData.HasMember("VelocityMax"))
+            {
+                velMax = PData["VelocityMax"].GetFloat();
+            }
+            if (PData.HasMember("TargetPositions"))
+            {
+                const auto& arr = PData["TargetPositions"].GetArray();
+                for (auto& item : arr)
+                {
+                    glm::vec3 temp(
+                        item["x"].GetFloat(),
+                        item["y"].GetFloat(),
+                        item["z"].GetFloat()
+                    );
+                    targetPositions.push_back(temp);
+                }
+            }
+            if (PData.HasMember("ParticleSize"))
+            {
+                size = PData["ParticleSize"].GetFloat();
+            }
+            if (PData.HasMember("ParticleColor"))
+            {
+                const auto& cObj = PData["ParticleColor"];
+                color.r = cObj["r"].GetFloat();
+                color.g = cObj["g"].GetFloat();
+                color.b = cObj["b"].GetFloat();
+                color.a = cObj["a"].GetFloat();
+            }
+
+            ParticleComponent partC(density, posMin, posMax, velMin, velMax, targetPositions, size, color);
+            g_Coordinator.AddComponent(newE, partC);
+        }
+
+        // -- LightComponent --
+        if (jsonObj.HasMember("LightComponent"))
+        {
+            const auto& LData = jsonObj["LightComponent"];
+            float intensity = 1.f;
+            glm::vec3 col(1.f);
+
+            if (LData.HasMember("LightIntensity"))
+                intensity = LData["LightIntensity"].GetFloat();
+            if (LData.HasMember("LightColor"))
+            {
+                col.x = LData["LightColor"]["r"].GetFloat();
+                col.y = LData["LightColor"]["g"].GetFloat();
+                col.z = LData["LightColor"]["b"].GetFloat();
+            }
+
+            LightComponent lightC(intensity, col);
+            g_Coordinator.AddComponent(newE, lightC);
+        }
+
+        // -- MaterialComponent --
+        if (jsonObj.HasMember("MaterialComponent"))
+        {
+            const auto& MatData = jsonObj["MaterialComponent"];
+            std::string matName, shaderName;
+            int shaderIdx = 0;
+
+            if (MatData.HasMember("name"))
+                matName = MatData["name"].GetString();
+            if (MatData.HasMember("shader"))
+                shaderName = MatData["shader"].GetString();
+            if (MatData.HasMember("shaderIdx"))
+                shaderIdx = MatData["shaderIdx"].GetInt();
+
+            MaterialComponent matC;
+            matC.SetMaterialName(matName);
+            matC.SetShaderName(shaderName);
+            matC.SetShaderIndex(shaderIdx);
+
+            if (MatData.HasMember("properties"))
+            {
+                const auto& props = MatData["properties"];
+
+                // color
+                if (props.HasMember("color"))
+                {
+                    const auto& cArr = props["color"].GetArray();
+                    glm::vec4 col(
+                        cArr[0].GetFloat(),
+                        cArr[1].GetFloat(),
+                        cArr[2].GetFloat(),
+                        cArr[3].GetFloat()
+                    );
+                    matC.SetColor(col);
+                }
+                // finalAlpha
+                if (props.HasMember("finalAlpha"))
+                {
+                    matC.SetFinalAlpha(props["finalAlpha"].GetFloat());
+                }
+                // Diffuse / Normal / Height
+                if (props.HasMember("Diffuse"))
+                {
+                    std::string diff = props["Diffuse"].GetString();
+                    matC.SetDiffuseName(diff);
+                    matC.SetDiffuseID(g_ResourceManager.GetTextureDDS(diff));
+                }
+                if (props.HasMember("Normal"))
+                {
+                    std::string norm = props["Normal"].GetString();
+                    matC.SetNormalName(norm);
+                }
+                if (props.HasMember("Height"))
+                {
+                    std::string hgt = props["Height"].GetString();
+                    matC.SetHeightName(hgt);
+                }
+                // metallic
+                if (props.HasMember("metallic"))
+                {
+                    matC.SetMetallic(props["metallic"].GetFloat());
+                }
+                // shininess
+                if (props.HasMember("shininess"))
+                {
+                    matC.SetSmoothness(props["shininess"].GetFloat());
+                }
+            }
+            if (g_Coordinator.HaveComponent<GraphicsComponent>(newE))
+            {
+                auto& gComp = g_Coordinator.GetComponent<GraphicsComponent>(newE);
+                gComp.material = matC;
+                // If there's a diffuse name, set the texture
+                gComp.setTexture(matC.GetDiffuseName());
+                gComp.SetDiffuse(matC.GetDiffuseID());
+            }
+
+            g_Coordinator.AddComponent(newE, matC);
+        }
+
+        // -- UIComponent --
+        if (jsonObj.HasMember("UIComponent"))
+        {
+            const auto& UIData = jsonObj["UIComponent"];
+            int textureID = 0;
+            glm::vec2 pos(0.f), scl(1.f);
+            float layer = 0.f;
+            bool selectable = false;
+            float opacity = 1.f;
+            bool animated = false;
+            int rows = 1;
+            int cols = 1;
+            float frameInt = 0.f;
+
+            if (UIData.HasMember("TextureID"))
+                textureID = UIData["TextureID"].GetInt();
+            if (UIData.HasMember("PositionX") && UIData.HasMember("PositionY"))
+            {
+                pos.x = UIData["PositionX"].GetFloat();
+                pos.y = UIData["PositionY"].GetFloat();
+            }
+            if (UIData.HasMember("ScaleX") && UIData.HasMember("ScaleY"))
+            {
+                scl.x = UIData["ScaleX"].GetFloat();
+                scl.y = UIData["ScaleY"].GetFloat();
+            }
+            if (UIData.HasMember("Layer"))
+                layer = UIData["Layer"].GetFloat();
+            if (UIData.HasMember("Selectable"))
+                selectable = UIData["Selectable"].GetBool();
+            if (UIData.HasMember("Opcaity"))
+                opacity = UIData["Opcaity"].GetFloat();
+            if (UIData.HasMember("Animated"))
+                animated = UIData["Animated"].GetBool();
+            if (UIData.HasMember("Rows"))
+                rows = UIData["Rows"].GetInt();
+            if (UIData.HasMember("Cols"))
+                cols = UIData["Cols"].GetInt();
+            if (UIData.HasMember("FrameInterval"))
+                frameInt = UIData["FrameInterval"].GetFloat();
+
+            UIComponent uiC(textureID, pos, scl, layer, selectable, opacity);
+            uiC.set_animate(animated);
+            uiC.set_rows(rows);
+            uiC.set_cols(cols);
+            uiC.set_frame_interval(frameInt);
+
+            g_Coordinator.AddComponent(newE, uiC);
+        }
+
+        if (jsonObj.HasMember("HierarchyComponent"))
+        {
+            // Instead of attaching it now, we store it for the final pass
+            DeferredHierarchy deferred;
+            deferred.oldEntityID = oldID;
+
+            // Copy the subobject into a new rapidjson::Document
+            deferred.hierarchyJson.SetObject();
+            deferred.hierarchyJson.CopyFrom(jsonObj["HierarchyComponent"], deferred.hierarchyJson.GetAllocator());
+
+            m_DeferredRefData.push_back(std::move(deferred));
+        }
     }
+
+    if (index >= data.entityList.size())
+    {
+        // Done creating chunked entities, now do final references
+        FinalizeReferences();
+    }
+
+}
+
+void SceneManager::FinalizeReferences()
+{
+    // For each deferred Hierarchy reference
+    for (auto& deferred : m_DeferredRefData)
+    {
+        int oldEntID = deferred.oldEntityID;
+        // The new ECS entity
+        Entity newE = m_OldToNewMap[oldEntID];
+
+        // The subobject describing "HierarchyComponent"
+        const rapidjson::Document& hJson = deferred.hierarchyJson;
+
+        // Parse the "Parent"
+        Entity parentEntity = MAX_ENTITIES;
+        if (hJson.HasMember("Parent"))
+        {
+            int oldParentID = hJson["Parent"].GetInt();
+            if (oldParentID != MAX_ENTITIES)
+            {
+                parentEntity = m_OldToNewMap[oldParentID];
+            }
+        }
+
+        // Parse the "Children" array
+        std::vector<Entity> children;
+        if (hJson.HasMember("Children") && hJson["Children"].IsArray())
+        {
+            for (auto& childIDValue : hJson["Children"].GetArray())
+            {
+                int oldChildID = childIDValue.GetInt();
+                Entity childE = m_OldToNewMap[oldChildID];
+                children.push_back(childE);
+            }
+        }
+
+        // Now create the HierarchyComponent with correct references
+        HierarchyComponent hComp;
+        hComp.parent = parentEntity;
+        hComp.children = children;
+
+        // Attach to the entity
+        g_Coordinator.AddComponent(newE, hComp);
+    }
+
+    // Done. Clear the reference data and mapping
+    m_DeferredRefData.clear();
+    m_OldToNewMap.clear();
+}
+
+
+// In your code, maybe you have a function:
+void SceneManager::LoadLoadingScreen(const std::string& scene)
+{
+    // 1) Load the loading screen (small + synchronous)
+    LoadScene(FILEPATH_ASSET_SCENES +"/LoadingScreen.json");
+
+    // 2) Begin asynchronous load for the real big scene
+    BeginAsyncLoad(scene);
+}
+
+
+bool SceneManager::AsyncLoadIsComplete() const
+{
+    // This simply returns the done status of the async loader.
+    return m_AsyncLoader.IsDone();
 }
