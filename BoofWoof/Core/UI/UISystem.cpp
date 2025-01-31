@@ -55,12 +55,20 @@ void UISystem::UI_update() {
                     int curr_col = UICompt.get_curr_col();
                     int rows = UICompt.get_rows();
                     int cols = UICompt.get_cols();
+                    bool stayOnRow = UICompt.get_stay_on_row();
 
-                    // Increment column, and reset row if column exceeds the maximum
-                    if (++curr_col >= cols) {
-                        curr_col = 0;
-                        if (++curr_row >= rows) {
-                            curr_row = 0;  // Reset row after exceeding max rows
+                    // Handle animation logic
+                    if (stayOnRow) {
+                        // Increment column, reset if it exceeds max
+                        curr_col = (curr_col + 1) % cols;
+                    }
+                    else {
+                        // Increment column, and move to the next row if needed
+                        if (++curr_col >= cols) {
+                            curr_col = 0;
+                            if (++curr_row >= rows) {
+                                curr_row = 0;  // Reset row after exceeding max rows
+                            }
                         }
                     }
 

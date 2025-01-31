@@ -27,6 +27,7 @@ public:
 	void set_frame_interval(float i) { frame_interval = i; }
 	void set_timer(float t) { timer = t; }
 	void set_playing(bool p) { playing = p; }
+	void set_stay_on_row(bool s) { stay_on_row = s; }
 
 	// getters
 	glm::vec2 get_position() { return position; }
@@ -43,6 +44,7 @@ public:
 	float get_frame_interval() const { return frame_interval; }
 	float get_timer() const { return timer; }
 	bool get_playing() const { return playing; }
+	bool get_stay_on_row() const { return stay_on_row; }
 
 	// UI interaction
 	bool get_selected() { return selected; }
@@ -90,6 +92,7 @@ private:
 	float frame_interval{ 0.1f };
 	float timer{ 0.f };
 	bool playing{ true };
+	bool stay_on_row{ true };
 };
 
 #endif // UICOMPONENT_HPP

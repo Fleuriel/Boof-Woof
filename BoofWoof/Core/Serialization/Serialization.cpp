@@ -484,6 +484,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
             // UI.AddMember("CurrentCol", uiComp.get_curr_col(), allocator);
             UI.AddMember("FrameInterval", uiComp.get_frame_interval(), allocator);
             // UI.AddMember("Timer", uiComp.get_timer(), allocator);
+            UI.AddMember("StayOnRow", uiComp.get_stay_on_row(), allocator);
 
 			entityData.AddMember("UIComponent", UI, allocator);
 
@@ -1020,6 +1021,9 @@ bool Serialization::LoadScene(const std::string& filepath)
 
                     if (UIData.HasMember("FrameInterval"))
                         uiComponent.set_frame_interval(UIData["FrameInterval"].GetFloat());
+
+                    if (UIData.HasMember("StayOnRow"))
+                        uiComponent.set_stay_on_row(UIData["StayOnRow"].GetBool());
 
 					g_Coordinator.AddComponent(entity, uiComponent);
 				}
