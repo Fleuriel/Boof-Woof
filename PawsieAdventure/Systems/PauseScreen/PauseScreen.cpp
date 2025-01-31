@@ -306,6 +306,8 @@ namespace pauseLogic
 						std::cout << "decrease SFX\n";
 						float newVolume = std::max(0.0f, (float)(g_Audio.GetSFXVolume() - volumeStep));
 						g_Audio.SetSFXVolume(newVolume);
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
+
 					}
 				}
 
@@ -317,6 +319,8 @@ namespace pauseLogic
 						std::cout << "increase SFX\n";
 						float newVolume = std::min(1.0f, (float)(g_Audio.GetSFXVolume() + volumeStep));
 						g_Audio.SetSFXVolume(newVolume);
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
+
 					}
 				}
 
