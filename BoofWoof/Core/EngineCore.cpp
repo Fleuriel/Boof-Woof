@@ -287,6 +287,9 @@ void EngineCore::OnUpdate()
 	// keep this at the end
 	m_ElapsedDT = m_LogicDT + m_PhysicsDT + m_GraphicsDT; // to add more DT when more systems comes up
 	m_EndTime = GetCurrentTime();
+
+	g_Input.UpdateStatesForNextFrame();
+
 }
 
 void EngineCore::OnShutdown()
