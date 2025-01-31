@@ -50,8 +50,17 @@ public:
 			UI_opacity = 1.f;
 		}
 	}
+
+
 	REFLECT_COMPONENT(UIComponent)
-	{}
+	{
+		REGISTER_PROPERTY(UIComponent, TextureName, std::string, set_texturename, get_texturename);
+		REGISTER_PROPERTY(UIComponent, Position, glm::vec2, set_position, get_position);
+		REGISTER_PROPERTY(UIComponent, Scale, glm::vec2, set_scale, get_scale);
+		REGISTER_PROPERTY(UIComponent, Layer, float, set_UI_layer, get_UI_layer);
+		REGISTER_PROPERTY(UIComponent, Selectable, bool, set_selectable, get_selectable);
+		REGISTER_PROPERTY(UIComponent, Opacity, float, set_opacity, get_opacity);
+	}
 
 private:
 	//std::string name;
