@@ -253,7 +253,7 @@ void GraphicsSystem::UpdateLoop() {
 		}
 
 		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-
+		 
 		//auto& material = graphicsComp.material;
 
 		auto& ShaderName = "Shader3D";
