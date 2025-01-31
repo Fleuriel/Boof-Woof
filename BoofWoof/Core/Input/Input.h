@@ -52,7 +52,7 @@ public:
     // Key and Mouse State Methods
     int GetKeyState(int index);                                      // Get KeyStates
     void SetKeyState(int index, int value);                          // Set KeyStates
-    bool GetMouseState(int index);                                   // Get MouseStates
+    int GetMouseState(int index);                                   // Get MouseStates
     void SetMouseState(int index, int value);                        // Set MouseStates
     glm::vec2 GetMousePosition() { return mouse_position; };         // Get Mouse Position
 
