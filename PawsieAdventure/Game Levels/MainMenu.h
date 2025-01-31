@@ -184,8 +184,12 @@ class MainMenu : public Level
 				if (UICompt.get_selected())
 				{	
 					float newVolume = std::max(0.0f,(float)( g_Audio.GetSFXVolume() -  volumeStep));
+				
 					g_Audio.SetSFXVolume(newVolume);
 					std::cout << "decrease SFX\n";
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
+
+
 				}
 			}
 
@@ -197,6 +201,12 @@ class MainMenu : public Level
 					float newVolume = std::min(1.0f,(float)( g_Audio.GetSFXVolume() + volumeStep));
 					g_Audio.SetSFXVolume(newVolume);
 					std::cout << "increase SFX\n";
+
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
+
+
+			
+
 				}
 			}
 
