@@ -14,7 +14,7 @@ class Cutscene : public Level
 	Entity P1{}, P2{}, P3{}, P4{}, P5{}, P6{}, P7{}, P8{}, P9{}, P10{}, P11{}, P12{};
 	bool rightAppeared{ false }, finishCutscene{ false }, SongOne{ false }, SongTwo{ false }, SongThree{ false };
 
-	void LoadLevel()
+	void LoadLevel() override
 	{
 		// Use FILEPATH_ASSET_SCENES to construct the scene file path
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Cutscene.json");
@@ -126,9 +126,9 @@ class Cutscene : public Level
 		}
 	}
 
-	void InitLevel() { /* Empty by design */ }
+	void InitLevel() override { /* Empty by design */ }
 
-	void UpdateLevel(double deltaTime)
+	void UpdateLevel(double deltaTime) override
 	{
 		// Whole panel panning upwards
 		if (g_Coordinator.HaveComponent<UIComponent>(P1) && !finishCutscene)
@@ -328,9 +328,9 @@ class Cutscene : public Level
 		}
 	}
 
-	void FreeLevel() { /* Empty by design */ }
+	void FreeLevel() override { /* Empty by design */ }
 
-	void UnloadLevel()
+	void UnloadLevel() override
 	{
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/CutsceneBGM3.wav");
 
@@ -338,5 +338,6 @@ class Cutscene : public Level
 		cutsceneTimer = 0.0;
 		finishCutscene = false;
 		rightAppeared = false;
-	}
+		SongOne = SongTwo = SongThree = false;
+	}	
 };
