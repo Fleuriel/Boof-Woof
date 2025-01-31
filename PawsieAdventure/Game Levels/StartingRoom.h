@@ -157,7 +157,7 @@ public:
 				sniff = false;
 			}
 
-			if (g_Checklist.shutted)
+			if (g_Checklist.shutted && g_ChangeText.shutted)
 			{
 				if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
 				{
