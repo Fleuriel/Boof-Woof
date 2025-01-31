@@ -50,10 +50,10 @@ class MainMenu : public Level
 					auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
 					music.SetAudioSystem(&g_Audio);
 
-					if (metadata.GetName() == "MainMenuBGM") 
+					/*if (metadata.GetName() == "MainMenuBGM") 
 					{
 						music.PlayAudio();
-					}
+					}*/
 				}
 
 				// Exit early if all entities are found
@@ -65,7 +65,15 @@ class MainMenu : public Level
 		}
 	}
 
-	void InitLevel() override { /*Empty by design*/ }
+	void InitLevel() override { 
+		//if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic)) {
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
+			music.SetAudioSystem(&g_Audio);
+
+			music.PlayAudio();
+	//	}
+		
+		/*Empty by design*/ }
 
 	void UpdateLevel(double deltaTime) override
 	{

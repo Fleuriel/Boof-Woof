@@ -211,6 +211,8 @@ namespace pauseLogic
 			if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1 && inSmthAgain)
 			{
 				// Add in audio feedback
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
+
 
 				pauser->OnExit();
 				pauser = CreatePausedMenu(PauseState::Paused);
@@ -226,6 +228,8 @@ namespace pauseLogic
 					if (UICompt.get_selected())
 					{
 						// Add in audio feedback
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
+
 
 
 						g_Window->HideMouseCursor();
@@ -242,6 +246,8 @@ namespace pauseLogic
 						inSmthAgain = true;
 
 						// Add in audio feedback
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
+
 
 
 						pauser->OnExit();
@@ -261,6 +267,8 @@ namespace pauseLogic
 						inSmthAgain = true;
 
 						// Add in audio feedback
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
+
 
 
 						pauser->OnExit();
@@ -278,6 +286,8 @@ namespace pauseLogic
 						inSmthAgain = true;
 
 						// Add in audio feedback
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
+
 
 
 						pauser->OnExit();
