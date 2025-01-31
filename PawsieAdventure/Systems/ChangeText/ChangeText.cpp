@@ -89,7 +89,7 @@ void ChangeText::OnShutdown()
 void ChangeText::Reset()
 {
 	shutted = false;
-	textureIndex = 5;
+	textureIndex = 4;
 	indexLimit = 6;
 	startingRoomOnly = false;
 }

@@ -171,11 +171,6 @@ public:
 		{
 			pauseLogic::OnUpdate();
 		}
-
-		//if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT))
-		//{
-		//	std::cout << "click";
-		//}
 	}
 
 	void FreeLevel() override
@@ -196,6 +191,7 @@ public:
 		//}
 
 		g_ChangeText.startingRoomOnly = false;
+
 		g_Audio.Stop(BedRoomBGM);
 
 		//g_Audio.StopBGM();
