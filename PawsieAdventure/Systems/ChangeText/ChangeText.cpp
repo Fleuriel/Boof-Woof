@@ -78,7 +78,7 @@ void ChangeText::OnShutdown()
 	}
 
 	// Just for StartingRoom.h
-	if (!g_Checklist.shutted)
+	if (!g_Checklist.shutted && startingRoomOnly)
 	{
 		g_Checklist.OnInitialize();
 		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do1");

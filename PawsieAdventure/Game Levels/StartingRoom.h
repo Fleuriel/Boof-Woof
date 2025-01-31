@@ -17,7 +17,6 @@ public:
 
 	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{};
 
-
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom.json");
@@ -81,6 +80,8 @@ public:
 
 	void UpdateLevel(double deltaTime) override
 	{
+		g_ChangeText.startingRoomOnly = true;
+
 		if (!g_IsPaused) 
 		{
 			if (!camerachange)
@@ -170,6 +171,11 @@ public:
 		{
 			pauseLogic::OnUpdate();
 		}
+
+		//if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT))
+		//{
+		//	std::cout << "click";
+		//}
 	}
 
 	void FreeLevel() override
@@ -189,6 +195,7 @@ public:
 		//	music.StopAudio();
 		//}
 
+		g_ChangeText.startingRoomOnly = false;
 		g_Audio.Stop(BedRoomBGM);
 
 		//g_Audio.StopBGM();
