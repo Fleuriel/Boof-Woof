@@ -958,6 +958,60 @@ void ImGuiEditor::InspectorWindow()
 								g_Coordinator.RemoveComponent<MaterialComponent>(g_SelectedEntity);
 							}
 
+					if (ImGui::Selectable("Pathfinding Component"))
+					{
+						if (!g_Coordinator.HaveComponent<PathfindingComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<PathfindingComponent>(g_SelectedEntity, PathfindingComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<PathfindingComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<PathfindingComponent>(g_SelectedEntity, PathfindingComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<PathfindingComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<PathfindingComponent>(g_SelectedEntity);
+								}
+								);
+							
+						}
+					}
+
+					if (ImGui::Selectable("Edge Component"))
+					{
+						if (!g_Coordinator.HaveComponent<EdgeComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<EdgeComponent>(g_SelectedEntity, EdgeComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<EdgeComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<EdgeComponent>(g_SelectedEntity, EdgeComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<EdgeComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<EdgeComponent>(g_SelectedEntity);
+								}
+								);
+
+						}
+					}
+
+					if (ImGui::Selectable("Node Component"))
+					{
+						if (!g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<NodeComponent>(g_SelectedEntity, NodeComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<NodeComponent>(g_SelectedEntity, NodeComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<NodeComponent>(g_SelectedEntity);
+								}
+								);
+
 						}
 					}
 					
@@ -1196,6 +1250,63 @@ void ImGuiEditor::InspectorWindow()
 						}
 					}
 
+					if (g_Coordinator.HaveComponent<PathfindingComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("Pathfinding Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<PathfindingComponent>(g_SelectedEntity);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<PathfindingComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<PathfindingComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<PathfindingComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<PathfindingComponent>(g_SelectedEntity, componentData);
+								}
+								);
+						}
+					}
+
+					if (g_Coordinator.HaveComponent<EdgeComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("Edge Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<EdgeComponent>(g_SelectedEntity);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<EdgeComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<EdgeComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<EdgeComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<EdgeComponent>(g_SelectedEntity, componentData);
+								}
+								);
+						}
+					}
+
+					if (g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("Node Component"))
+						{
+							auto componentData = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<NodeComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<NodeComponent>(g_SelectedEntity, componentData);
+								}
+								);
+						}
+					}
+
 					ImGui::EndPopup();
 				}
 
@@ -1207,7 +1318,7 @@ void ImGuiEditor::InspectorWindow()
 
 				// Use Reflection to Iterate Over All Components
 				const auto& componentTypes = g_Coordinator.GetTotalRegisteredComponents();
-
+				
 				for (ComponentType type = 0; type < componentTypes; ++type)
 				{
 					if (g_Coordinator.GetEntitySignature(g_SelectedEntity).test(type))
@@ -1226,6 +1337,9 @@ void ImGuiEditor::InspectorWindow()
 								std::string propertyName = "Name";
 								std::string oldValue = metadataComponent.GetName();
 								std::string newValue = oldValue;
+
+								// Display Entity ID
+								ImGui::Text("Entity ID: %d", g_SelectedEntity);
 
 								ImGui::Text("Name    ");
 								ImGui::SameLine();
@@ -2183,7 +2297,7 @@ void ImGuiEditor::InspectorWindow()
 									std::string currentBehaviourName = (*behaviourNameProperty)->GetValue(&behaviourComponent);
 									std::string newBehaviourName = currentBehaviourName;
 
-									const char* behaviourNames[] = { "Null", "Player" };
+									const char* behaviourNames[] = { "Null", "Player", "Treat", "Rex"};
 									int currentItem = 0;
 
 									for (int i = 0; i < IM_ARRAYSIZE(behaviourNames); ++i)
@@ -2204,24 +2318,28 @@ void ImGuiEditor::InspectorWindow()
 
 									if (ImGui::Combo("##NameCombo", &currentItem, behaviourNames, IM_ARRAYSIZE(behaviourNames)))
 									{
-										newBehaviourName = behaviourNames[currentItem];
-										(*behaviourNameProperty)->SetValue(&behaviourComponent, newBehaviourName);
 
-										Entity entity = g_SelectedEntity;
+										
+											newBehaviourName = behaviourNames[currentItem];
+											(*behaviourNameProperty)->SetValue(&behaviourComponent, newBehaviourName);
+											if (g_Coordinator.GetSystem<LogicSystem>()->ApprovingScriptChange(g_SelectedEntity)) {
+												Entity entity = g_SelectedEntity;
+												g_Coordinator.GetSystem<LogicSystem>()->InitScript(entity);
 
-										g_UndoRedoManager.ExecuteCommand(
-											[entity, newBehaviourName]() {
-												auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
-												component.SetBehaviourName(newBehaviourName);
-											},
-											[entity, oldBehaviourName]() {
-												auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
-												component.SetBehaviourName(oldBehaviourName);
-											}
-										);
+												g_UndoRedoManager.ExecuteCommand(
+													[entity, newBehaviourName]() {
+														auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
+														component.SetBehaviourName(newBehaviourName);
+													},
+													[entity, oldBehaviourName]() {
+														auto& component = g_Coordinator.GetComponent<BehaviourComponent>(entity);
+														component.SetBehaviourName(oldBehaviourName);
+													}
+												);
+											}								
 									}
 
-									ImGui::PopID();
+									ImGui::PopID();								
 								}
 							}
 						}
@@ -3845,6 +3963,206 @@ void ImGuiEditor::InspectorWindow()
 								
 
 
+								// animated
+								bool animate = uiComponent.get_animate();
+								ImGui::Checkbox("Animated", &animate);
+								uiComponent.set_animate(animate);
+
+								if (animate) {
+									// Variables to store the rows and cols values
+									int rows = uiComponent.get_rows();
+									int cols = uiComponent.get_cols();
+
+									// Textbox for inputting rows
+									ImGui::InputInt("Rows", &rows);
+									if (rows < 1) rows = 1; // Ensure rows is at least 1
+
+									// Textbox for inputting cols
+									ImGui::InputInt("Columns", &cols);
+									if (cols < 1) cols = 1; // Ensure cols is at least 1
+
+									// Update rows and cols in the UIComponent
+									uiComponent.set_rows(rows);
+									uiComponent.set_cols(cols);
+
+									// Modify current row and column
+									int currRow = uiComponent.get_curr_row();
+									int currCol = uiComponent.get_curr_col();
+
+									// Input fields for changing the current row/column
+									if (ImGui::InputInt("Current Row", &currRow)) {
+										// Clamp row value to stay within valid range
+										if (currRow < 0) currRow = 0;
+										if (currRow >= rows) currRow = rows - 1;
+										uiComponent.set_curr_row(currRow);
+									}
+
+									if (ImGui::InputInt("Current Column", &currCol)) {
+										// Clamp column value to stay within valid range
+										if (currCol < 0) currCol = 0;
+										if (currCol >= cols) currCol = cols - 1;
+										uiComponent.set_curr_col(currCol);
+									}
+
+									// Add controls for frame interval
+									float frameInterval = uiComponent.get_frame_interval();
+									ImGui::InputFloat("Frame Interval", &frameInterval);
+									if (frameInterval < 0.0f) frameInterval = 0.0f; // Ensure positive value
+									uiComponent.set_frame_interval(frameInterval);
+
+									// Checkbox for "Stay on Row"
+									bool stayOnRow = uiComponent.get_stay_on_row();
+									if (ImGui::Checkbox("Stay on Row", &stayOnRow)) {
+										uiComponent.set_stay_on_row(stayOnRow);
+									}
+
+									// Play/Pause buttons
+									bool isPlaying = uiComponent.get_playing(); // Get animation state
+									if (ImGui::Button(isPlaying ? "Pause" : "Play")) {
+										uiComponent.set_playing(!isPlaying); // Toggle play/pause state
+									}
+								}
+							}
+						}
+						//Pathfinding Component editor
+						else if (className == "PathfindingComponent") 
+						{
+							if (ImGui::CollapsingHeader("Pathfinding", ImGuiTreeNodeFlags_None)) {
+								auto& pathfindingComponent = g_Coordinator.GetComponent<PathfindingComponent>(g_SelectedEntity);
+
+								// Start Node
+								Entity startNode = pathfindingComponent.GetStartNode();
+								ImGui::Text("Start Node");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("StartNode");
+
+								if (ImGui::DragInt("##StartNode", reinterpret_cast<int*>(&startNode), 1.0f, 0, MAX_ENTITIES)) {
+									pathfindingComponent.SetStartNode(startNode);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Goal Node
+								Entity goalNode = pathfindingComponent.GetGoalNode();
+								ImGui::Text("Goal Node");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("GoalNode");
+
+								if (ImGui::DragInt("##GoalNode", reinterpret_cast<int*>(&goalNode), 1.0f, 0, MAX_ENTITIES)) {
+									pathfindingComponent.SetGoalNode(goalNode);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Current Status
+								PathfindingStatus status = pathfindingComponent.GetStatus();
+								ImGui::Text("Status: %s",
+									status == PathfindingStatus::IDLE ? "Idle" :
+									status == PathfindingStatus::PROCESSING ? "Processing" :
+									status == PathfindingStatus::COMPLETE ? "Complete" : "Failed");
+							}
+						}
+						// Node Component editor
+						else if (className == "NodeComponent") {
+						if (ImGui::CollapsingHeader("Node Component", ImGuiTreeNodeFlags_None)) {
+							auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
+
+							glm::vec3 nodePosition = nodeComponent.GetPosition();
+							bool isWalkable = nodeComponent.IsWalkable();
+
+							// Check if the entity has a TransformComponent
+							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) {
+								auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+								nodePosition = transformComp.GetPosition(); // Override position
+								ImGui::Text("Node Position (From Transform)");
+							}
+							else {
+								ImGui::Text("Node Position (Manual)");
+							}
+
+							ImGui::SameLine();
+							ImGui::PushItemWidth(150.0f);
+							ImGui::PushID("NodePosition");
+
+							// If there's a TransformComponent, display the position but disable editing
+							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) {
+								ImGui::InputFloat3("##NodePosition", &nodePosition.x, "%.3f", ImGuiInputTextFlags_ReadOnly);
+							}
+							else {
+								// Allow manual setting if no TransformComponent
+								if (ImGui::DragFloat3("##NodePosition", &nodePosition.x, 0.1f)) {
+									nodeComponent.SetPosition(nodePosition);
+								}
+							}
+
+							ImGui::PopID();
+							ImGui::PopItemWidth();
+
+							// Walkable Checkbox
+							bool walkable = nodeComponent.IsWalkable();
+							ImGui::Text("Walkable");
+							ImGui::SameLine();
+							ImGui::Checkbox("##Walkable", &walkable);
+							nodeComponent.SetWalkable(walkable);
+						}
+}
+
+						// Edge Component editor
+						else if (className == "EdgeComponent") 
+						{
+							if (ImGui::CollapsingHeader("Edge", ImGuiTreeNodeFlags_None)) {
+								auto& edgeComponent = g_Coordinator.GetComponent<EdgeComponent>(g_SelectedEntity);
+
+								// Start Node
+								Entity startNode = edgeComponent.GetStartNode();
+								ImGui::Text("Start Node");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("StartNode");
+
+								if (ImGui::DragInt("##StartNode", reinterpret_cast<int*>(&startNode), 1.0f, 0, MAX_ENTITIES)) {
+									edgeComponent.SetStartNode(startNode);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// End Node
+								Entity endNode = edgeComponent.GetEndNode();
+								ImGui::Text("End Node");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("EndNode");
+
+								if (ImGui::DragInt("##EndNode", reinterpret_cast<int*>(&endNode), 1.0f, 0, MAX_ENTITIES)) {
+									edgeComponent.SetEndNode(endNode);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Edge Cost
+								float cost = edgeComponent.GetCost();
+								ImGui::Text("Cost");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("EdgeCost");
+
+								if (ImGui::DragFloat("##EdgeCost", &cost, 0.1f, 0.0f)) {
+									edgeComponent.SetCost(cost);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
 							}
 						}
 
@@ -5165,6 +5483,7 @@ void ImGuiEditor::Scenes()
 				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
 				m_LastOpenedFile = filePathName;
 				g_SceneManager.LoadScene(filePathName);
+				g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 			}
 			ImGuiFileDialog::Instance()->Close();
 		}

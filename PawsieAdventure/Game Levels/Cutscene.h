@@ -9,16 +9,55 @@ class Cutscene : public Level
 	double cutsceneTimer = 0.0;
 	double timerLimit = 4.0;
 	double lastBarkTime = 0.0;
+	//Entity AggroDog{}, CorgiWhimper{}, corgi12sec{};
 
 	Entity P1{}, P2{}, P3{}, P4{}, P5{}, P6{}, P7{}, P8{}, P9{}, P10{}, P11{}, P12{};
-	bool rightAppeared{ false }, finishCutscene{ false };
+	bool rightAppeared{ false }, finishCutscene{ false }, SongOne{ false }, SongTwo{ false }, SongThree{ false };
 
 	void LoadLevel()
 	{
 		// Use FILEPATH_ASSET_SCENES to construct the scene file path
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Cutscene.json");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CutsceneBGM3.wav", true, "BGM");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
+
+		//// Use unordered_map to make it O(1) efficiency
+		//std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
+		//{
+		//	{"Text", [&](Entity entity) { TextEnt = entity; }},
+		//	{"DogName", [&](Entity entity) { DogName = entity; }},
+		//	{"AggressiveDogBarking", [&](Entity entity) { AggroDog = entity; }},
+		//	{"CorgiWhimper", [&](Entity entity) { CorgiWhimper = entity; }},
+		//	{"12sGrowlBarkCorgi", [&](Entity entity) { corgi12sec = entity; }}
+		//};
+
+
+		//for (auto entity : entities)
+		//{
+		//	if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+		//	{
+		//		const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+		//		auto it = nameToAction.find(metadata.GetName());
+
+		//		if (it != nameToAction.end())
+		//		{
+		//			it->second(entity);
+		//		}
+
+		//		if (g_Coordinator.HaveComponent<AudioComponent>(entity))
+		//		{
+		//			auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
+		//			music.SetAudioSystem(&g_Audio);
+		//		}
+
+		//		// Exit early if all entities are found
+		//		if (TextEnt && DogName && AggroDog && CorgiWhimper && corgi12sec)
+		//		{
+		//			break;
+		//		}
+		//	}
+		//}
 
 		for (auto entity : entities)
 		{
@@ -101,6 +140,18 @@ class Cutscene : public Level
 
 			onePiece.set_position(glm::vec2(onePiece.get_position().x, onePiece.get_position().y + (0.2f * static_cast<float>(deltaTime))));		
 
+			if (!SongOne) 
+			{
+				g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav");
+
+				/*if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
+					auto& music = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
+					music.PlayAudio();
+				}*/
+
+				SongOne = true;
+			}
+
 			if (onePiece.get_position().y >= 0.6f)
 			{
 				// Left half & Right will pan upwards tgt but Right will appear later
@@ -109,10 +160,20 @@ class Cutscene : public Level
 				quote.set_position(glm::vec2(quote.get_position().x, quote.get_position().y + (0.2f * static_cast<float>(deltaTime))));
 				rightHalf.set_position(glm::vec2(rightHalf.get_position().x, rightHalf.get_position().y + (0.2f * static_cast<float>(deltaTime))));
 
+				if (!SongTwo)
+				{
+					g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/CorgiWhimper.wav");
+
+					/*if (g_Coordinator.HaveComponent<AudioComponent>(CorgiWhimper)) {
+						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiWhimper);
+						music1.PlayAudio();
+					}*/
+				}
+
 				// Gradually increase opacity for LeftHalf
 				if (leftHalf.get_opacity() < 1.0f)
 				{
-					leftHalf.set_opacity(leftHalf.get_opacity() + 0.3f * static_cast<float>(deltaTime));
+					leftHalf.set_opacity(leftHalf.get_opacity() + 0.3f * static_cast<float>(deltaTime));					
 				}
 
 				if (leftHalf.get_opacity() >= 0.8f)
@@ -133,9 +194,9 @@ class Cutscene : public Level
 
 				if (rightHalf.get_position().y >= 0.6f && !rightAppeared)
 				{
+					SongTwo = true;
 					rightAppeared = true;
 				}
-
 			}
 
 			if (g_Coordinator.HaveComponent<UIComponent>(P5) && rightAppeared)
@@ -186,6 +247,18 @@ class Cutscene : public Level
 					Left8.set_position(glm::vec2(Left8.get_position().x, Left8.get_position().y + (0.2f * static_cast<float>(deltaTime))));
 					Right9.set_position(glm::vec2(Right9.get_position().x, Right9.get_position().y + (0.2f * static_cast<float>(deltaTime))));
 					
+					if (!SongThree)
+					{
+						g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/12sGrowlBarkCorgi.wav");
+
+						/*if (g_Coordinator.HaveComponent<AudioComponent>(corgi12sec)) {
+							auto& music2 = g_Coordinator.GetComponent<AudioComponent>(corgi12sec);
+							music2.PlayAudio();
+						}*/
+
+						SongThree = true;
+					}
+
 					if (Left8.get_opacity() < 1.0f)
 					{
 						Left8.set_opacity(Left8.get_opacity() + 0.3f * static_cast<float>(deltaTime));
@@ -245,73 +318,14 @@ class Cutscene : public Level
 				g_LevelManager.SetNextLevel("StartingRoom");
 			}
 		}
-
-		//if (!g_Coordinator.HaveComponent<GraphicsComponent>(TextEnt)) return;
-
-		//auto& text = g_Coordinator.GetComponent<GraphicsComponent>(TextEnt);
-		//auto& dogName = g_Coordinator.GetComponent<GraphicsComponent>(DogName);
-
-		//// If it's time to change the texture
-		//if (cutsceneTimer >= timerLimit && textureIndex < 4) // Only switch to CorgiText1, CorgiText2, CorgiText3, CorgiText4
-		//{
-		//    int oldNameTextureId = g_ResourceManager.GetTextureDDS(dogName.getTextureName());
-		//    if (dogName.RemoveTexture(oldNameTextureId))
-		//    {
-		//        dogName.clearTextures();
-		//        int textureIdD = g_ResourceManager.GetTextureDDS("ScruffyTheCorgi");
-		//        dogName.AddTexture(textureIdD);
-		//        dogName.setTexture("ScruffyTheCorgi");
-		//    }
-
-		//    std::string newTextureName = "CorgiText" + std::to_string(textureIndex + 1);
-
-		//    int oldTextureId = g_ResourceManager.GetTextureDDS(text.getTextureName());
-		//    if (text.RemoveTexture(oldTextureId))
-		//    {
-		//        // Remove old texture & add new one
-		//        text.clearTextures();
-
-		//        int textureId = g_ResourceManager.GetTextureDDS(newTextureName);
-		//        text.AddTexture(textureId);
-		//        text.setTexture(newTextureName);
-		//    }
-
-		//    cutsceneTimer = 0.0;  // Reset the timer after each texture change
-		//    textureIndex++;       // Move to the next texture
-		//}
-
-		//switch (textureIndex)
-		//{
-		//case 0:
-		//{
-		//    // Big dog telling you stay in the room
-		//    g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav");
-		//    break;
-		//}
-		//case 1:
-		//{
-		//    // I'm scared
-		//    if (cutsceneTimer <= 3.0)
-		//    {
-		//        g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/CorgiWhimper.wav");
-		//    }
-		//    break;
-		//}
-		//case 2:
-		//{
-		//    // I can't keep living like this
-		//    // I want to leave this place
-		//    // No.. I WILL LEAVE THE CASTLE
-		//    g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/12sGrowlBarkCorgi.wav");
-		//    break;
-		//}
-		//}
 	}
 
 	void FreeLevel() { /* Empty by design */ }
 
 	void UnloadLevel()
 	{
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/CutsceneBGM3.wav");
+
 		g_Coordinator.ResetEntities();
 		cutsceneTimer = 0.0;
 		finishCutscene = false;

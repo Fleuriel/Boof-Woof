@@ -103,7 +103,7 @@ void RopeBreaker::DropBridge()
 {
 	if (!bridgeAudio)
 	{
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO +"/WoodenBridgeDropping.wav", false);
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO +"/BridgeCreak.wav", false, "SFX");
 		bridgeAudio = true;
 	}
 
@@ -145,8 +145,8 @@ void RopeBreaker::DespawnRope()
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
 				{
-					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/RopeSnap.wav", false);
-					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true);
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/RopeSnap.wav", false, "SFX");
+				//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true, "BGM");
 
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
@@ -159,8 +159,8 @@ void RopeBreaker::DespawnRope()
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
 				{
-					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+ "/RopeSnap.wav", false);
-					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true);
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+ "/RopeSnap.wav", false, "SFX");
+					//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true, "BGM");
 
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
