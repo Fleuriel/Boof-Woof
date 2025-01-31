@@ -241,6 +241,8 @@ namespace pauseLogic
 						pauser->OnExit();
 						pauser = CreatePausedMenu(PauseState::Settings);
 						pauser->OnLoad();
+						g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
+						g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
 					}
 				}
 
@@ -284,6 +286,8 @@ namespace pauseLogic
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && !wasMousePressed && inSmthAgain)
 			{
 				wasMousePressed = true;
+				const float volumeStep = 0.1f; // Step size for volume change
+
 
 				// For Settings Page
 				if (g_Coordinator.HaveComponent<UIComponent>(pauser->SFXLeft))
@@ -292,6 +296,8 @@ namespace pauseLogic
 					if (UICompt.get_selected())
 					{
 						std::cout << "decrease SFX\n";
+						float newVolume = std::max(0.0f, (float)(g_Audio.GetSFXVolume() - volumeStep));
+						g_Audio.SetSFXVolume(newVolume);
 					}
 				}
 
@@ -301,6 +307,8 @@ namespace pauseLogic
 					if (UICompt.get_selected())
 					{
 						std::cout << "increase SFX\n";
+						float newVolume = std::min(1.0f, (float)(g_Audio.GetSFXVolume() + volumeStep));
+						g_Audio.SetSFXVolume(newVolume);
 					}
 				}
 
@@ -310,6 +318,8 @@ namespace pauseLogic
 					if (UICompt.get_selected())
 					{
 						std::cout << "decrease BGM\n";
+						float newVolume = std::max(0.0f, (float)(g_Audio.GetBGMVolume() - volumeStep));
+						g_Audio.SetBGMVolume(newVolume);
 					}
 				}
 
@@ -319,6 +329,9 @@ namespace pauseLogic
 					if (UICompt.get_selected())
 					{
 						std::cout << "increase BGM\n";
+						float newVolume = std::min(1.0f, (float)(g_Audio.GetBGMVolume() + volumeStep));
+						g_Audio.SetBGMVolume(newVolume);
+
 					}
 				}
 			}
