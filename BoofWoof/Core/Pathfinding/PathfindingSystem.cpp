@@ -1,5 +1,5 @@
 /**************************************************************************
- * @file PhysicsSystem.cpp
+ * @file PathfindingSystem.cpp
  * @author 	Ang Jun Sheng Aloysius
  * @param DP email: a.junshengaloysius@digipen.edu [2201807]
  * @param Course: CS 3401
@@ -89,53 +89,57 @@ void PathfindingSystem::BuildGraph() {
 
 void PathfindingSystem::Update(float deltaTime) {
 
-    // Ensure the graph is built before processing entities
-    BuildGraph();
-
     for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
         if (!g_Coordinator.HaveComponent<PathfindingComponent>(entity))
             continue;
 
         auto& pathfindingComp = g_Coordinator.GetComponent<PathfindingComponent>(entity);
 
-        Entity startNode = pathfindingComp.GetStartNode();
-        Entity goalNode = pathfindingComp.GetGoalNode();
+        // Ensure the graph is built before processing entities
+        if (!pathfindingComp.GetBuilt()) {
+            BuildGraph();
+            pathfindingComp.SetBuilt(true);
 
-        //std::cout << "[PathfindingSystem] Processing entity " << entity
-        //    << " | Start Node: " << startNode
-        //    << " | Goal Node: " << goalNode << "\n";
 
-        // Check if start and goal nodes exist in the graph
-        if (graphNodes.find(startNode) == graphNodes.end()) {
-            //std::cout << "[PathfindingSystem] ERROR: Start node " << startNode << " not found in graph!\n";
-            pathfindingComp.SetStatus(PathfindingStatus::FAILED);
-            continue;
-        }
+            Entity startNode = pathfindingComp.GetStartNode();
+            Entity goalNode = pathfindingComp.GetGoalNode();
 
-        if (graphNodes.find(goalNode) == graphNodes.end()) {
-            //std::cout << "[PathfindingSystem] ERROR: Goal node " << goalNode << " not found in graph!\n";
-            pathfindingComp.SetStatus(PathfindingStatus::FAILED);
-            continue;
-        }
+            //std::cout << "[PathfindingSystem] Processing entity " << entity
+            //    << " | Start Node: " << startNode
+            //    << " | Goal Node: " << goalNode << "\n";
 
-        std::vector<glm::vec3> path;
-        bool success = FindPath(startNode, goalNode, path);
+            // Check if start and goal nodes exist in the graph
+            if (graphNodes.find(startNode) == graphNodes.end()) {
+                //std::cout << "[PathfindingSystem] ERROR: Start node " << startNode << " not found in graph!\n";
+                pathfindingComp.SetStatus(PathfindingStatus::FAILED);
+                continue;
+            }
 
-        if (success) {
-            pathfindingComp.SetPath(path);
-            pathfindingComp.SetStatus(PathfindingStatus::COMPLETE);
-            //std::cout << "[PathfindingSystem] Path found for entity " << entity << " | Path Length: " << path.size() << "\n";
+            if (graphNodes.find(goalNode) == graphNodes.end()) {
+                //std::cout << "[PathfindingSystem] ERROR: Goal node " << goalNode << " not found in graph!\n";
+                pathfindingComp.SetStatus(PathfindingStatus::FAILED);
+                continue;
+            }
 
-            //// Print Full Path
-            //for (size_t i = 0; i < path.size(); ++i) {
-            //    std::cout << "[PathfindingSystem] Step " << i + 1
-            //        << " | Position: (" << path[i].x << ", "
-            //        << path[i].y << ", " << path[i].z << ")\n";
-            //}
-        }
-        else {
-            pathfindingComp.SetStatus(PathfindingStatus::FAILED);
-            //std::cout << "[PathfindingSystem] ERROR: No valid path found for entity " << entity << "!\n";
+            std::vector<glm::vec3> path;
+            bool success = FindPath(startNode, goalNode, path);
+
+            if (success) {
+                pathfindingComp.SetPath(path);
+                pathfindingComp.SetStatus(PathfindingStatus::COMPLETE);
+                //std::cout << "[PathfindingSystem] Path found for entity " << entity << " | Path Length: " << path.size() << "\n";
+
+                //// Print Full Path
+                //for (size_t i = 0; i < path.size(); ++i) {
+                //    std::cout << "[PathfindingSystem] Step " << i + 1
+                //        << " | Position: (" << path[i].x << ", "
+                //        << path[i].y << ", " << path[i].z << ")\n";
+                //}
+            }
+            else {
+                pathfindingComp.SetStatus(PathfindingStatus::FAILED);
+                //std::cout << "[PathfindingSystem] ERROR: No valid path found for entity " << entity << "!\n";
+            }
         }
     }
 }
@@ -239,15 +243,14 @@ void PathfindingSystem::ReconstructPath(const std::shared_ptr<Node3D>& goalNode,
 }
 
 void PathfindingSystem::ResetPathfinding() {
-    //std::cout << "[PathfindingSystem] Resetting pathfinding system..." << std::endl;
 
-    graphNodes.clear();
-    graphEdges.clear();
+    for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
+        if (!g_Coordinator.HaveComponent<PathfindingComponent>(entity))
+            continue;
+        auto& pathfindingComp = g_Coordinator.GetComponent<PathfindingComponent>(entity);
+        pathfindingComp.SetBuilt(false);
+    }
 
-    //std::cout << "[PathfindingSystem] Graph cleared. Rebuilding..." << std::endl;
-    BuildGraph(); // Rebuild the graph with fresh entities
-
-    //std::cout << "[PathfindingSystem] Pathfinding system reset successfully!" << std::endl;
 }
 
 
