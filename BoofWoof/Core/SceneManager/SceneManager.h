@@ -1,5 +1,5 @@
 /**************************************************************************
- * @file SceneManager.cpp
+ * @file SceneManager.h
  * @author 	Liu Xujie
  * @param DP email: l.xujie@digipen.edu [2203183]
  * @param Course: CS 3401
@@ -16,6 +16,12 @@
 #define g_SceneManager SceneManager::GetInstance()
 
 #include "../Serialization/SerializationAsync.h" 
+
+struct DeferredHierarchy
+{
+    int oldEntityID;             // The old ID of the entity that needs Hierarchy attached
+    rapidjson::Document hierarchyJson; // The JSON subobject for "HierarchyComponent"
+};
 
 class SceneManager
 {
@@ -107,6 +113,13 @@ private:
     // A function to do chunk-based or immediate finalization
     void FinalizeSceneData(const SceneData& data);
     void FinalizeSceneDataChunked(const SceneData& data, size_t& index, int chunkSize);
+
+    void LoadLoadingScreen(const std::string& scene);
+
+    std::unordered_map<int, Entity> m_OldToNewMap;
+    std::vector<rapidjson::Value> m_DeferredRefData; // or vector of references if needed
+
+    void FinalizeReferences();
 
 };
 
