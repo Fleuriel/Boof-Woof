@@ -212,8 +212,8 @@ public:
 	// Pathfinding Component Functions
 	virtual bool HavePathfindingComponent(Entity entity) override {
 		bool hasComponent = g_Coordinator.HaveComponent<PathfindingComponent>(entity);
-		std::cout << "[Engine] Checking PathfindingComponent for Entity " << entity << ": "
-			<< (hasComponent ? "Exists" : "Does Not Exist") << std::endl;
+		//std::cout << "[Engine] Checking PathfindingComponent for Entity " << entity << ": "
+		//	<< (hasComponent ? "Exists" : "Does Not Exist") << std::endl;
 		return hasComponent;
 	}
 

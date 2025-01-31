@@ -100,7 +100,7 @@ float InputSystem::GetScrollTotalYOffset() {
 glm::vec2 last_mouse_pos = {};
 void InputSystem::UpdateStatesForNextFrame() {
 
-    for (size_t i = 0; i < GLFW_KEY_LAST + 1; ++i) {
+    for (int i = 0; i < GLFW_KEY_LAST + 1; ++i) {
         //keyStates[i] = ((keyStates[i] == 1) ? 2 : keyStates[i]);
         if (GetKeyState(i) == 1) {
             //std::cout << "Press\n";
@@ -113,7 +113,7 @@ void InputSystem::UpdateStatesForNextFrame() {
         }
     }
 
-    for (size_t i = 0; i < GLFW_MOUSE_BUTTON_LAST + 1; ++i) {
+    for (int i = 0; i < GLFW_MOUSE_BUTTON_LAST + 1; ++i) {
         if (GetMouseState(i) == 1) {
             //std::cout << "Click\n";
             SetMouseState(i, 2);

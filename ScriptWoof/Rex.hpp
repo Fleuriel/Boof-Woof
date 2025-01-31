@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#define UNUSED(x) (void)(x)  // Define macro to suppress warnings
 #include <vector>
 #include <glm/glm.hpp>
 
@@ -18,6 +19,7 @@ struct Rex final : public Behaviour
     virtual void Init(Entity entity) override
     {
         //std::cout << "[Rex] Initializing Pathfinding Component..." << std::endl;
+        UNUSED(entity);
         pathInitialized = false;
         followingPath = false;
         isMovingRex = false;
