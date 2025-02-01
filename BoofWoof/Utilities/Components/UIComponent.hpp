@@ -48,7 +48,7 @@ public:
 	float get_timer() const { return timer; }
 	bool get_playing() const { return playing; }
 	bool get_stay_on_row() const { return stay_on_row; }
-    float get_rotation() const {return rotation}
+	float get_rotation() const { return rotation; }
 
 
     // UI interaction

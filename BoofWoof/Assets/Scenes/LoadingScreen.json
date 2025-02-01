@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "b29bd3fb-14c3-499b-8e53-419afda09a4b",
+    "SceneGUID": "17bbe30b-f020-4dba-a3c7-8e82feda19b6",
     "Entities": [
         {
             "MetadataComponent": {
@@ -7,7 +7,7 @@
                 "EntityID": 0
             },
             "UIComponent": {
-                "TextureID": 6,
+                "TextureName": "BlackScreen",
                 "PositionX": 0.0,
                 "PositionY": 0.0,
                 "ScaleX": 1.100000023841858,
@@ -18,7 +18,8 @@
                 "Animated": false,
                 "Rows": 1,
                 "Cols": 1,
-                "FrameInterval": 0.10000000149011612
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -27,18 +28,19 @@
                 "EntityID": 1
             },
             "UIComponent": {
-                "TextureID": 42,
+                "TextureName": "DogHead",
                 "PositionX": 0.0,
                 "PositionY": 0.0,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.10000000149011612,
-                "Layer": 0.43000006675720217,
+                "Layer": 0.4100000858306885,
                 "Selectable": false,
                 "Opcaity": 1.0,
                 "Animated": false,
                 "Rows": 1,
                 "Cols": 1,
-                "FrameInterval": 0.10000000149011612
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         }
     ]

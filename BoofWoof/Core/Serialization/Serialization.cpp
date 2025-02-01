@@ -1697,7 +1697,9 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
             if (UIData.HasMember("FrameInterval"))
                 frameInt = UIData["FrameInterval"].GetFloat();
 
-            UIComponent uiC(textureID, pos, scl, layer, selectable, opacity);
+            std::string textureName = g_ResourceManager.GetTextureDDSFileName(textureID);
+
+            UIComponent uiC(textureName, pos, scl, layer, selectable, opacity);
             uiC.set_animate(animated);
             uiC.set_rows(rows);
             uiC.set_cols(cols);

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Level Manager/Level.h"
-#include "LoadingLevel.h"
 #include "ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 #include "../Systems/PauseScreen/PauseScreen.h"
@@ -16,8 +15,8 @@ class MainMenu : public Level
 	void LoadLevel() override
 	{
 		// Load the main menu scenes
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainMenuBack.json");
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainMenuFront.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/MainMenuBack.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/MainMenuFront.json");
 
 		// Find the "BackCamera" entity
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -51,7 +50,7 @@ class MainMenu : public Level
 					auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
 					music.SetAudioSystem(&g_Audio);
 
-					if (metadata.GetName() == "MainMenuBGM") 
+					if (metadata.GetName() == "MainMenuBGM")
 					{
 						music.PlayAudio();
 					}
@@ -99,9 +98,8 @@ class MainMenu : public Level
 
 		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 1 && !inSmth)
 		{
-			if (g_Coordinator.HaveComponent<UIComponent>(StartGame)) 
+			if (g_Coordinator.HaveComponent<UIComponent>(StartGame))
 			{
-
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(StartGame);
 				if (UICompt.get_selected())
 				{
@@ -114,13 +112,7 @@ class MainMenu : public Level
 					}
 
 					g_Window->HideMouseCursor();
-				// Instead of going directly to "Cutscene", go via "LoadingLevel"
-				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
-				if (loading)
-				{
-					// Pass in the name of the real scene we want AFTER the loading screen
-					loading->m_NextScene = "Cutscene";
-					g_LevelManager.SetNextLevel("LoadingLevel");
+					g_LevelManager.SetNextLevel("Cutscene");
 				}
 			}
 
@@ -190,9 +182,9 @@ class MainMenu : public Level
 			{
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->SFXLeft);
 				if (UICompt.get_selected())
-				{	
-					float newVolume = std::max(0.0f,(float)( g_Audio.GetSFXVolume() -  volumeStep));
-				
+				{
+					float newVolume = std::max(0.0f, (float)(g_Audio.GetSFXVolume() - volumeStep));
+
 					g_Audio.SetSFXVolume(newVolume);
 					std::cout << "decrease SFX\n";
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
@@ -206,14 +198,14 @@ class MainMenu : public Level
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->SFXRight);
 				if (UICompt.get_selected())
 				{
-					float newVolume = std::min(1.0f,(float)( g_Audio.GetSFXVolume() + volumeStep));
+					float newVolume = std::min(1.0f, (float)(g_Audio.GetSFXVolume() + volumeStep));
 					g_Audio.SetSFXVolume(newVolume);
 					std::cout << "increase SFX\n";
 
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 
 
-			
+
 
 				}
 			}
@@ -246,7 +238,6 @@ class MainMenu : public Level
 			// Reset the mouse press state when the mouse button is released
 			wasMousePressed = false;
 		}
-
 	}
 
 	void FreeLevel() override { /* Empty by design */ }
