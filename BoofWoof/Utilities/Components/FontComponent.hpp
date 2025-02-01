@@ -20,11 +20,11 @@ public:
 	glm::vec3 get_color() const { return color; }
 
 	// setters
-	void set_family(const std::string& family) { this->family = family; }
-	void set_pos(const glm::vec2& pos) { this->pos = pos; }
-	void set_scale(const float& scale) { this->scale = scale; }
-	void set_text(const std::string& text) { this->text = text; }
-	void set_color(const glm::vec3& color) { this->color = color; }
+	void set_family(const std::string& fam) { this->family = fam; }
+	void set_pos(const glm::vec2& p) { this->pos = p; }
+	void set_scale(const float& s) { this->scale = s; }
+	void set_text(const std::string& txt) { this->text = txt; }
+	void set_color(const glm::vec3& clr) { this->color = clr; }
 
 
 	REFLECT_COMPONENT(FontComponent)

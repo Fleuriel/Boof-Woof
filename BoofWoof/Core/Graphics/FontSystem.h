@@ -49,10 +49,10 @@ public:
 
 private:
     std::map<GLchar, Character> Characters;
-    GLuint font_textureid;
+    GLuint font_textureid{};
 	std::unordered_map<GLchar, Glyph> glyphs;
     unsigned int VAO_FONT{}, VBO_FONT{};
-	float altasWidth, altasHeight;
+    float altasWidth{}, altasHeight{};
 
 };
 extern FontSystem fontSystem;

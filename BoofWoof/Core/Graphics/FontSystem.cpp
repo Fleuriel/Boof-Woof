@@ -38,8 +38,8 @@ void FontSystem::init()
     // load first 128 characters of ASCII set
     for (unsigned char c = 0; c < 128; c++)
     {
-        int width{}, height{}, left, top;
-		unsigned int advance;
+        int width{}, height{}, left{}, top{};
+        unsigned int advance{};
 		ifs.read((char*)&width, sizeof(int));
 		ifs.read((char*)&height, sizeof(int));
 		ifs.read((char*)&left, sizeof(int));
