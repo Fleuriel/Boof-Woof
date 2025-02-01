@@ -1874,7 +1874,6 @@ void ImGuiEditor::InspectorWindow()
 										{
 											(*FollowCameraProperty)->SetValue(&graphicsComponent, isFollowCamera ? "true" : "false");
 										}
-
 										if (ImGui::IsItemActivated())
 										{
 											oldBoolValues[propertyName] = isFollowCamera;

@@ -45,6 +45,8 @@ public:
      */
     void LoadLevel() override
     {
+        g_Coordinator.ResetEntities();
+
         // Load the loading screen scene.
         g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/LoadingScreen.json");
 
