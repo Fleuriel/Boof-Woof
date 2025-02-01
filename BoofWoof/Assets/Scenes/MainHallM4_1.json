@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "1a082b1e-e7cd-4c69-9e82-18289b9554be",
+    "SceneGUID": "1fbbf93b-c5a2-47a6-95c2-0d7f878c7254",
     "Entities": [
         {
             "MetadataComponent": {
@@ -25036,8 +25036,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 22,
-                    "y": 9,
+                    "x": 19.999998092651368,
+                    "y": 7.519956111907959,
                     "z": -31.999967575073243
                 },
                 "Scale": {
