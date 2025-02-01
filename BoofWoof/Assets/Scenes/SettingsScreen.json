@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "bdbc2df3-1b2f-4384-8eb1-22804ae244ec",
+    "SceneGUID": "e67a3d22-819c-4e0a-adea-3a90bae91c43",
     "Entities": [
         {
             "MetadataComponent": {
@@ -134,9 +134,10 @@
             },
             "FontComponent": {
                 "Family": "Arial",
-                "PositionX": -0.5,
+                "PositionX": -0.4300000071525574,
                 "PositionY": 0.25,
-                "Scale": 3.5,
+                "ScaleX": 2.5,
+                "ScaleY": 4.0,
                 "ColorR": 1.0,
                 "ColorG": 1.0,
                 "ColorB": 1.0,
@@ -150,9 +151,10 @@
             },
             "FontComponent": {
                 "Family": "Arial",
-                "PositionX": -0.550000011920929,
+                "PositionX": -0.4699999988079071,
                 "PositionY": -0.25,
-                "Scale": 3.5,
+                "ScaleX": 2.5,
+                "ScaleY": 4.0,
                 "ColorR": 1.0,
                 "ColorG": 1.0,
                 "ColorB": 1.0,
@@ -166,9 +168,10 @@
             },
             "FontComponent": {
                 "Family": "Arial",
-                "PositionX": 0.10999999940395355,
+                "PositionX": 0.14000000059604646,
                 "PositionY": -0.25,
-                "Scale": 3.5,
+                "ScaleX": 2.5,
+                "ScaleY": 4.0,
                 "ColorR": 1.0,
                 "ColorG": 1.0,
                 "ColorB": 1.0,
@@ -182,9 +185,10 @@
             },
             "FontComponent": {
                 "Family": "Arial",
-                "PositionX": 0.10999999940395355,
+                "PositionX": 0.14000000059604646,
                 "PositionY": 0.25,
-                "Scale": 3.5,
+                "ScaleX": 2.5,
+                "ScaleY": 4.0,
                 "ColorR": 1.0,
                 "ColorG": 1.0,
                 "ColorB": 1.0,

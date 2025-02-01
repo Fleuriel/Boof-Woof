@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "95f7205f-b0cc-4e11-99d5-6dd2bcd9bfef",
+    "SceneGUID": "9295c030-0518-4fd4-af1b-3848f192d0e2",
     "Entities": [
         {
             "MetadataComponent": {
@@ -283,7 +283,8 @@
                 "Family": "Arial",
                 "PositionX": -0.9700000286102295,
                 "PositionY": 0.8999999761581421,
-                "Scale": 0.800000011920929,
+                "ScaleX": 0.800000011920929,
+                "ScaleY": 1.2000000476837159,
                 "ColorR": 1.0,
                 "ColorG": 1.0,
                 "ColorB": 1.0,
