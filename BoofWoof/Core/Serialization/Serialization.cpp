@@ -499,7 +499,8 @@ bool Serialization::SaveScene(const std::string& filepath) {
             Font.AddMember("Family", rapidjson::Value(fontComp.get_family().c_str(), allocator), allocator);
             Font.AddMember("PositionX", fontComp.get_pos().x, allocator);
             Font.AddMember("PositionY", fontComp.get_pos().y, allocator);
-            Font.AddMember("Scale", fontComp.get_scale(), allocator);
+            Font.AddMember("ScaleX", fontComp.get_scale().x, allocator);
+			Font.AddMember("ScaleY", fontComp.get_scale().y, allocator);
             Font.AddMember("ColorR", fontComp.get_color().x, allocator);
             Font.AddMember("ColorG", fontComp.get_color().y, allocator);
             Font.AddMember("ColorB", fontComp.get_color().z, allocator);
@@ -1132,9 +1133,9 @@ bool Serialization::LoadScene(const std::string& filepath)
 				if (fontData.HasMember("PositionX") && fontData.HasMember("PositionY"))
                     pos = glm::vec2(fontData["PositionX"].GetFloat(), fontData["PositionY"].GetFloat());
 
-                float scale{};
-				if (fontData.HasMember("Scale"))
-                    scale= fontData["Scale"].GetFloat();
+				glm::vec2 scale = { 1.0f, 1.0f };
+				if (fontData.HasMember("ScaleX") && fontData.HasMember("ScaleY"))
+					scale = glm::vec2(fontData["ScaleX"].GetFloat(), fontData["ScaleY"].GetFloat());
 
                 glm::vec3 color = { 1.0f, 1.0f, 1.0f };
 				if (fontData.HasMember("ColorR") && fontData.HasMember("ColorG") && fontData.HasMember("ColorB"))
