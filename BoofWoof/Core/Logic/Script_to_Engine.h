@@ -10,6 +10,7 @@
 #include "../Utilities/Components/CameraComponent.hpp"
 #include "../Core/EngineCore.h"
 #include "../Core/AssetManager/FilePaths.h"
+#include "../GSM/GameStateMachine.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
@@ -74,7 +75,6 @@ public:
 
 	virtual void DestroyEntity(Entity entity) override
 	{
-		
 		g_Coordinator.DestroyEntity(entity);
 	}
 	
@@ -228,6 +228,10 @@ public:
 	}
 
 
+	virtual bool IsGamePaused() override
+	{
+		return g_IsPaused;
+	}
 };
 
 #endif // !SCRIPT_TO_ENGINE_H

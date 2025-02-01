@@ -42,6 +42,7 @@
     <ClCompile Include="Core\Pathfinding\PathfindingSystem.cpp" />
     <ClCompile Include="Utilities\Components\UIComponent.cpp" />
     <ClCompile Include="Core\UI\UISystem.cpp" />
+    <ClCompile Include="Core\Serialization\SerializationAsync.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -99,6 +100,8 @@
     <ClInclude Include="Utilities\Components\UIComponent.hpp" />
     <ClInclude Include="Utilities\Components\PathfindingComponent.hpp" />
     <ClInclude Include="Core\UI\UISystem.h" />
+    <ClInclude Include="Core\SceneManager\SceneData.h" />
+    <ClInclude Include="Core\Serialization\SerializationAsync.h" />
     <ClInclude Include="Utilities\Components\EdgeComponent.hpp" />
     <ClInclude Include="Utilities\Components\NodeComponent.hpp" />
   </ItemGroup>

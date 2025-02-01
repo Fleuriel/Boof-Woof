@@ -217,11 +217,13 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
             // Add the TransformComponent to the entityData
             entityData.AddMember("GraphicsComponent", Grafics, allocator);
+
         }
 
         // Serialize AudioComponent
         if (g_Coordinator.HaveComponent<AudioComponent>(entity)) 
         {
+
             rapidjson::Value Aud(rapidjson::kObjectType);
 
             auto& audioComp = g_Coordinator.GetComponent<AudioComponent>(entity);
@@ -239,6 +241,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
             // Add the AudioComponent to the entityData
             entityData.AddMember("AudioComponent", Aud, allocator);
+
         }
 
         // Serialize BehaviorComponent
@@ -283,6 +286,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
         // Serialize CollisionComponent
         if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) 
         {
+
             auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
 
             rapidjson::Value collisionData(rapidjson::kObjectType);
@@ -308,11 +312,13 @@ bool Serialization::SaveScene(const std::string& filepath) {
             collisionData.AddMember("Mass", collisionComp.GetMass(), allocator);
 
             entityData.AddMember("CollisionComponent", collisionData, allocator);
+
         }
 
         // Serialize CameraComponent
         if (g_Coordinator.HaveComponent<CameraComponent>(entity))
         {
+
             rapidjson::Value Cam(rapidjson::kObjectType);
 
             auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
@@ -339,10 +345,12 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
             // Add the CameraComponent to the entityData
             entityData.AddMember("CameraComponent", Cam, allocator);
+
         }
 
         if (g_Coordinator.HaveComponent<ParticleComponent>(entity))
         {
+
             rapidjson::Value particles(rapidjson::kObjectType);
 
             auto& particleComp = g_Coordinator.GetComponent<ParticleComponent>(entity);
@@ -409,6 +417,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
 		}
         if (g_Coordinator.HaveComponent<MaterialComponent>(entity))
         {
+
             rapidjson::Value Material(rapidjson::kObjectType);
 
             auto& materialComponent = g_Coordinator.GetComponent<MaterialComponent>(entity);
@@ -460,15 +469,16 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
 
             entityData.AddMember("MaterialComponent", Material, allocator);
-
         }
+
+
 		// Serialize UIComponent
         if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
 			rapidjson::Value UI(rapidjson::kObjectType);
 
 			auto& uiComp = g_Coordinator.GetComponent<UIComponent>(entity);
 
-			UI.AddMember("TextureID", uiComp.get_textureid(), allocator);
+			UI.AddMember("TextureName", rapidjson::Value(uiComp.get_texturename().c_str(), allocator), allocator);
 			UI.AddMember("PositionX", uiComp.get_position().x, allocator);
 			UI.AddMember("PositionY", uiComp.get_position().y, allocator);
 			UI.AddMember("ScaleX", uiComp.get_scale().x, allocator);
@@ -1043,86 +1053,66 @@ bool Serialization::LoadScene(const std::string& filepath)
 
             }
 			// Deserialize UIComponent
-			if (entityData.HasMember("UIComponent")) {
+			if (entityData.HasMember("UIComponent")) 
+            {
 				const auto& UIData = entityData["UIComponent"];
-				if (UIData.HasMember("TextureID")) {
-                    int textureID{};
-					if (UIData.HasMember("TextureID"))
-						textureID = UIData["TextureID"].GetInt();
+				
+                std::string textureName{};
+                /*if (UIData.HasMember("TextureID")) {
+                    int textureID = UIData["TextureID"].GetInt();
+					textureName = g_ResourceManager.GetTextureDDSFileName(textureID);
+                }*/
 
-					glm::vec2 position = glm::vec2(0.0f);
-					if (UIData.HasMember("PositionX") && UIData.HasMember("PositionY"))
-						position = glm::vec2(UIData["PositionX"].GetFloat(), UIData["PositionY"].GetFloat());
-
-					glm::vec2 scale = glm::vec2(1.0f);
-					if (UIData.HasMember("ScaleX") && UIData.HasMember("ScaleY"))
-						scale = glm::vec2(UIData["ScaleX"].GetFloat(), UIData["ScaleY"].GetFloat());
-
-
-					float layer = 0.0f;
-					if (UIData.HasMember("Layer"))
-						layer = UIData["Layer"].GetFloat();
-
-					bool selectable = false;
-					if (UIData.HasMember("Selectable"))
-						selectable = UIData["Selectable"].GetBool();
-
-					float opacity = 1.0f;
-					if (UIData.HasMember("Opcaity"))
-						opacity = UIData["Opcaity"].GetFloat();
-
-					UIComponent uiComponent(textureID, position, scale, layer, selectable, opacity);
-
-                    if (UIData.HasMember("Animated"))
-                        uiComponent.set_animate(UIData["Animated"].GetBool());
-
-                    if (UIData.HasMember("Rows"))
-                        uiComponent.set_rows(UIData["Rows"].GetInt());
-
-                    if (UIData.HasMember("Cols"))
-                        uiComponent.set_cols(UIData["Cols"].GetInt());
-
-                    if (UIData.HasMember("FrameInterval"))
-                        uiComponent.set_frame_interval(UIData["FrameInterval"].GetFloat());
-
-                    if (UIData.HasMember("StayOnRow"))
-                        uiComponent.set_stay_on_row(UIData["StayOnRow"].GetBool());
-
-					g_Coordinator.AddComponent(entity, uiComponent);
+					
+				if (UIData.HasMember("TextureName")) {
+					textureName = UIData["TextureName"].GetString();
 				}
+
+				glm::vec2 position = glm::vec2(0.0f);
+				if (UIData.HasMember("PositionX") && UIData.HasMember("PositionY"))
+					position = glm::vec2(UIData["PositionX"].GetFloat(), UIData["PositionY"].GetFloat());
+
+				glm::vec2 scale = glm::vec2(1.0f);
+				if (UIData.HasMember("ScaleX") && UIData.HasMember("ScaleY"))
+					scale = glm::vec2(UIData["ScaleX"].GetFloat(), UIData["ScaleY"].GetFloat());
+
+
+				float layer = 0.0f;
+				if (UIData.HasMember("Layer"))
+					layer = UIData["Layer"].GetFloat();
+
+				bool selectable = false;
+				if (UIData.HasMember("Selectable"))
+					selectable = UIData["Selectable"].GetBool();
+
+				float opacity = 1.0f;
+				if (UIData.HasMember("Opcaity"))                
+					opacity = UIData["Opcaity"].GetFloat();
+
+				UIComponent uiComponent(textureName, position, scale, layer, selectable, opacity);
+
+				if (UIData.HasMember("Animated"))
+					uiComponent.set_animate(UIData["Animated"].GetBool());
+
+				if (UIData.HasMember("Rows"))
+					uiComponent.set_rows(UIData["Rows"].GetInt());
+
+				if (UIData.HasMember("Cols"))
+					uiComponent.set_cols(UIData["Cols"].GetInt());
+
+				if (UIData.HasMember("FrameInterval"))
+					uiComponent.set_frame_interval(UIData["FrameInterval"].GetFloat());
+
+				if (UIData.HasMember("StayOnRow"))
+					uiComponent.set_stay_on_row(UIData["StayOnRow"].GetBool());
+
+				g_Coordinator.AddComponent(entity, uiComponent);
+				
 			}
 
-
-
-
-
-
-
-
-            // Print out all entity components
-			//std::cout << "Entity: " << g_Coordinator.GetEntityId(entity) << std::endl;
-			//if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) {
-			//	std::cout << "MetadataComponent: " << g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() << std::endl;
-			//}
-   //         if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
-   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().x << std::endl;
-   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().y << std::endl;
-   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().z << std::endl;
-   //         }
-   //         if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
-   //             std::cout << "GraphicsComponent: " << g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelID() << std::endl;
-   //         }
-			//if (g_Coordinator.HaveComponent<AudioComponent>(entity)) {
-			//	std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetFilePath().c_str() << std::endl;
-			//	std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetVolume() << std::endl;
-   //             std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).ShouldLoop() << std::endl;
-			//}
-			//if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) {
-			//	std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << std::endl;
-			//}
-
             // Deserialization for PathfindingComponent
-            if (entityData.HasMember("PathfindingComponent")) {
+            if (entityData.HasMember("PathfindingComponent")) 
+            {
                 const auto& pathfindingData = entityData["PathfindingComponent"];
 
                 Entity startNode = INVALID_ENTITY;
@@ -1214,7 +1204,8 @@ bool Serialization::LoadScene(const std::string& filepath)
         }
 
         // Second pass: Deserialize components that reference other entities
-        for (const auto& entityData : entities.GetArray()) {
+        for (const auto& entityData : entities.GetArray()) 
+        {
             // Get the old EntityID
             int oldEntityID = -1;
             if (entityData.HasMember("MetadataComponent"))
@@ -1296,4 +1287,484 @@ bool Serialization::LoadScene(const std::string& filepath)
     }
 
     return true;
+}
+
+
+void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
+{
+    // If you want to clear the current ECS entities before finalizing:
+    // g_Coordinator.ResetEntities();
+
+    // 1) Map from oldEntityID -> new ECS Entity
+    std::unordered_map<int, Entity> oldToNewEntityMap;
+
+    // First pass: create all ECS entities
+    // -----------------------------------
+    for (auto& ed : data.entityList)
+    {
+        const int oldID = ed.oldEntityID;
+        Entity newE = g_Coordinator.CreateEntity();
+        oldToNewEntityMap[oldID] = newE;
+    }
+
+    // 2) Attach non-hierarchy components (second pass)
+    // ------------------------------------------------
+    // (This is analogous to the “for each entityData in doc['Entities']” part
+    //  in your original LoadScene, except we read from ed.entityJSON here.)
+    for (auto& ed : data.entityList)
+    {
+        Entity newE = oldToNewEntityMap[ed.oldEntityID];
+        auto& jsonObj = ed.entityJSON;
+
+        // -- MetadataComponent --
+        if (jsonObj.HasMember("MetadataComponent"))
+        {
+            const auto& metaData = jsonObj["MetadataComponent"];
+            if (metaData.HasMember("EntityName"))
+            {
+                std::string name = metaData["EntityName"].GetString();
+                MetadataComponent metaComp(name, newE);
+                g_Coordinator.AddComponent(newE, metaComp);
+            }
+        }
+
+        // -- TransformComponent --
+        if (jsonObj.HasMember("TransformComponent"))
+        {
+            const auto& TData = jsonObj["TransformComponent"];
+            glm::vec3 position(0.0f), scale(1.0f), rotation(0.0f), rotPivot(0.0f);
+
+            if (TData.HasMember("Position"))
+            {
+                position.x = TData["Position"]["x"].GetFloat();
+                position.y = TData["Position"]["y"].GetFloat();
+                position.z = TData["Position"]["z"].GetFloat();
+            }
+
+            if (TData.HasMember("Scale"))
+            {
+                scale.x = TData["Scale"]["x"].GetFloat();
+                scale.y = TData["Scale"]["y"].GetFloat();
+                scale.z = TData["Scale"]["z"].GetFloat();
+            }
+
+            if (TData.HasMember("Rotation"))
+            {
+                rotation.x = TData["Rotation"]["x"].GetFloat();
+                rotation.y = TData["Rotation"]["y"].GetFloat();
+                rotation.z = TData["Rotation"]["z"].GetFloat();
+            }
+
+            if (TData.HasMember("RotationPivotOffset"))
+            {
+                rotPivot.x = TData["RotationPivotOffset"]["x"].GetFloat();
+                rotPivot.y = TData["RotationPivotOffset"]["y"].GetFloat();
+                rotPivot.z = TData["RotationPivotOffset"]["z"].GetFloat();
+            }
+
+            TransformComponent transform(position, scale, rotation, rotPivot, newE);
+            g_Coordinator.AddComponent(newE, transform);
+        }
+
+        // -- GraphicsComponent --
+        if (jsonObj.HasMember("GraphicsComponent"))
+        {
+            const auto& GData = jsonObj["GraphicsComponent"];
+            std::string modelName;
+            std::string textureName;
+            bool followCam = false;
+
+            if (GData.HasMember("ModelName"))
+            {
+                modelName = GData["ModelName"].GetString();
+            }
+            if (GData.HasMember("Texture"))
+            {
+                textureName = GData["Texture"].GetString();
+            }
+            if (GData.HasMember("FollowCamera"))
+            {
+                followCam = GData["FollowCamera"].GetBool();
+            }
+
+            GraphicsComponent graphicsComp(modelName, newE, textureName, followCam);
+            // If you want to retrieve textureID from ResourceManager:
+            int textureID = g_ResourceManager.GetTextureDDS(textureName);
+            if (textureID > 0)
+            {
+                graphicsComp.AddTexture(textureID);
+            }
+
+            g_Coordinator.AddComponent(newE, graphicsComp);
+        }
+
+        // -- AudioComponent --
+        if (jsonObj.HasMember("AudioComponent"))
+        {
+            const auto& AData = jsonObj["AudioComponent"];
+            if (AData.HasMember("AudioFilePath"))
+            {
+                std::string filePath = AData["AudioFilePath"].GetString();
+                float volume = AData["Volume"].GetFloat();
+                bool loop = AData["ShouldLoop"].GetBool();
+
+                AudioComponent audioC(filePath, volume, loop, newE, nullptr, AudioType::SFX);
+                g_Coordinator.AddComponent(newE, audioC);
+            }
+        }
+
+        // -- BehaviourComponent --
+        if (jsonObj.HasMember("BehaviourComponent"))
+        {
+            const auto& BData = jsonObj["BehaviourComponent"];
+            if (BData.HasMember("BehaviourName"))
+            {
+                std::string behaviour = BData["BehaviourName"].GetString();
+                BehaviourComponent bComp(behaviour, newE);
+                g_Coordinator.AddComponent(newE, bComp);
+            }
+        }
+
+        // -- CollisionComponent --
+        if (jsonObj.HasMember("CollisionComponent"))
+        {
+            const auto& CData = jsonObj["CollisionComponent"];
+            int layer = CData["CollisionLayer"].GetInt();
+            bool isDynamic = CData["IsDynamic"].GetBool();
+            bool isPlayer = CData["IsPlayer"].GetBool();
+
+            CollisionComponent colComp(layer);
+            colComp.SetIsDynamic(isDynamic);
+            colComp.SetIsPlayer(isPlayer);
+
+            if (CData.HasMember("AABBSize"))
+            {
+                glm::vec3 sz;
+                sz.x = CData["AABBSize"]["x"].GetFloat();
+                sz.y = CData["AABBSize"]["y"].GetFloat();
+                sz.z = CData["AABBSize"]["z"].GetFloat();
+                colComp.SetAABBSize(sz);
+            }
+
+            if (CData.HasMember("AABBOffset"))
+            {
+                glm::vec3 off;
+                off.x = CData["AABBOffset"]["x"].GetFloat();
+                off.y = CData["AABBOffset"]["y"].GetFloat();
+                off.z = CData["AABBOffset"]["z"].GetFloat();
+                colComp.SetAABBOffset(off);
+            }
+
+            if (CData.HasMember("Mass"))
+            {
+                float mass = CData["Mass"].GetFloat();
+                colComp.SetMass(mass);
+            }
+
+            g_Coordinator.AddComponent(newE, colComp);
+        }
+
+        // -- CameraComponent --
+        if (jsonObj.HasMember("CameraComponent"))
+        {
+            const auto& CC = jsonObj["CameraComponent"];
+            glm::vec3 pos(0), up(0, 1, 0);
+            float yaw = 0.f;
+            float pitch = 0.f;
+            bool active = false;
+
+            if (CC.HasMember("Position"))
+            {
+                pos.x = CC["Position"]["x"].GetFloat();
+                pos.y = CC["Position"]["y"].GetFloat();
+                pos.z = CC["Position"]["z"].GetFloat();
+            }
+
+            if (CC.HasMember("Up"))
+            {
+                up.x = CC["Up"]["x"].GetFloat();
+                up.y = CC["Up"]["y"].GetFloat();
+                up.z = CC["Up"]["z"].GetFloat();
+            }
+
+            if (CC.HasMember("Yaw"))   yaw = CC["Yaw"].GetFloat();
+            if (CC.HasMember("Pitch")) pitch = CC["Pitch"].GetFloat();
+            if (CC.HasMember("Active")) active = CC["Active"].GetBool();
+
+            CameraComponent camC(pos, up, yaw, pitch, active);
+            g_Coordinator.AddComponent(newE, camC);
+        }
+
+        // -- ParticleComponent --
+        if (jsonObj.HasMember("ParticleComponent"))
+        {
+            const auto& PData = jsonObj["ParticleComponent"];
+            glm::vec3 posMin(0), posMax(0);
+            float density = 1.0f;
+            float velMin = 0.f;
+            float velMax = 0.f;
+            float size = 1.f;
+            glm::vec4 color(1.f);
+
+            std::vector<glm::vec3> targetPositions;
+
+            if (PData.HasMember("PositionMin"))
+            {
+                posMin.x = PData["PositionMin"]["x"].GetFloat();
+                posMin.y = PData["PositionMin"]["y"].GetFloat();
+                posMin.z = PData["PositionMin"]["z"].GetFloat();
+            }
+            if (PData.HasMember("PositionMax"))
+            {
+                posMax.x = PData["PositionMax"]["x"].GetFloat();
+                posMax.y = PData["PositionMax"]["y"].GetFloat();
+                posMax.z = PData["PositionMax"]["z"].GetFloat();
+            }
+            if (PData.HasMember("Density"))
+            {
+                density = PData["Density"].GetFloat();
+            }
+            if (PData.HasMember("VelocityMin"))
+            {
+                velMin = PData["VelocityMin"].GetFloat();
+            }
+            if (PData.HasMember("VelocityMax"))
+            {
+                velMax = PData["VelocityMax"].GetFloat();
+            }
+            if (PData.HasMember("TargetPositions"))
+            {
+                const auto& arr = PData["TargetPositions"].GetArray();
+                for (auto& item : arr)
+                {
+                    glm::vec3 temp(
+                        item["x"].GetFloat(),
+                        item["y"].GetFloat(),
+                        item["z"].GetFloat()
+                    );
+                    targetPositions.push_back(temp);
+                }
+            }
+            if (PData.HasMember("ParticleSize"))
+            {
+                size = PData["ParticleSize"].GetFloat();
+            }
+            if (PData.HasMember("ParticleColor"))
+            {
+                const auto& cObj = PData["ParticleColor"];
+                color.r = cObj["r"].GetFloat();
+                color.g = cObj["g"].GetFloat();
+                color.b = cObj["b"].GetFloat();
+                color.a = cObj["a"].GetFloat();
+            }
+
+            ParticleComponent partC(density, posMin, posMax, velMin, velMax, targetPositions, size, color);
+            g_Coordinator.AddComponent(newE, partC);
+        }
+
+        // -- LightComponent --
+        if (jsonObj.HasMember("LightComponent"))
+        {
+            const auto& LData = jsonObj["LightComponent"];
+            float intensity = 1.f;
+            glm::vec3 lightCol(1.f);
+
+            if (LData.HasMember("LightIntensity"))
+            {
+                intensity = LData["LightIntensity"].GetFloat();
+            }
+            if (LData.HasMember("LightColor"))
+            {
+                lightCol.x = LData["LightColor"]["r"].GetFloat();
+                lightCol.y = LData["LightColor"]["g"].GetFloat();
+                lightCol.z = LData["LightColor"]["b"].GetFloat();
+            }
+
+            LightComponent lightC(intensity, lightCol);
+            g_Coordinator.AddComponent(newE, lightC);
+        }
+
+        // -- MaterialComponent --
+        if (jsonObj.HasMember("MaterialComponent"))
+        {
+            const auto& MatData = jsonObj["MaterialComponent"];
+            std::string matName, shaderName;
+            int shaderIdx = 0;
+
+            if (MatData.HasMember("name"))
+                matName = MatData["name"].GetString();
+            if (MatData.HasMember("shader"))
+                shaderName = MatData["shader"].GetString();
+            if (MatData.HasMember("shaderIdx"))
+                shaderIdx = MatData["shaderIdx"].GetInt();
+
+            MaterialComponent matC;
+            matC.SetMaterialName(matName);
+            matC.SetShaderName(shaderName);
+            matC.SetShaderIndex(shaderIdx);
+
+            if (MatData.HasMember("properties"))
+            {
+                const auto& props = MatData["properties"];
+
+                // color
+                if (props.HasMember("color"))
+                {
+                    const auto& cArr = props["color"].GetArray();
+                    glm::vec4 col(
+                        cArr[0].GetFloat(),
+                        cArr[1].GetFloat(),
+                        cArr[2].GetFloat(),
+                        cArr[3].GetFloat()
+                    );
+                    matC.SetColor(col);
+                }
+                // finalAlpha
+                if (props.HasMember("finalAlpha"))
+                {
+                    matC.SetFinalAlpha(props["finalAlpha"].GetFloat());
+                }
+                // Diffuse / Normal / Height
+                if (props.HasMember("Diffuse"))
+                {
+                    std::string diff = props["Diffuse"].GetString();
+                    matC.SetDiffuseName(diff);
+                    matC.SetDiffuseID(g_ResourceManager.GetTextureDDS(diff));
+                }
+                if (props.HasMember("Normal"))
+                {
+                    std::string norm = props["Normal"].GetString();
+                    matC.SetNormalName(norm);
+                }
+                if (props.HasMember("Height"))
+                {
+                    std::string hgt = props["Height"].GetString();
+                    matC.SetHeightName(hgt);
+                }
+                // metallic
+                if (props.HasMember("metallic"))
+                {
+                    matC.SetMetallic(props["metallic"].GetFloat());
+                }
+                // shininess
+                if (props.HasMember("shininess"))
+                {
+                    matC.SetSmoothness(props["shininess"].GetFloat());
+                }
+            }
+
+            // If the entity also has a GraphicsComponent, attach the mat
+            if (g_Coordinator.HaveComponent<GraphicsComponent>(newE))
+            {
+                auto& gComp = g_Coordinator.GetComponent<GraphicsComponent>(newE);
+                gComp.material = matC;
+                // If there's a diffuse name, set the texture
+                gComp.setTexture(matC.GetDiffuseName());
+                gComp.SetDiffuse(matC.GetDiffuseID());
+            }
+
+            g_Coordinator.AddComponent(newE, matC);
+        }
+
+        // -- UIComponent --
+        if (jsonObj.HasMember("UIComponent"))
+        {
+            const auto& UIData = jsonObj["UIComponent"];
+            std::string textureName;
+            // Prefer the string key:
+            if (UIData.HasMember("TextureName"))
+            {
+                textureName = UIData["TextureName"].GetString();
+            }
+            else if (UIData.HasMember("TextureID"))
+            {
+                int textureID = UIData["TextureID"].GetInt();
+                textureName = g_ResourceManager.GetTextureDDSFileName(textureID);
+            }
+
+            glm::vec2 pos(0.f), scl(1.f);
+            float layer = 0.f;
+            bool selectable = false;
+            float opacity = 1.f;
+            bool animated = false;
+            int rows = 1;
+            int cols = 1;
+            float frameInt = 0.f;
+
+            if (UIData.HasMember("PositionX") && UIData.HasMember("PositionY"))
+            {
+                pos.x = UIData["PositionX"].GetFloat();
+                pos.y = UIData["PositionY"].GetFloat();
+            }
+            if (UIData.HasMember("ScaleX") && UIData.HasMember("ScaleY"))
+            {
+                scl.x = UIData["ScaleX"].GetFloat();
+                scl.y = UIData["ScaleY"].GetFloat();
+            }
+            if (UIData.HasMember("Layer"))
+                layer = UIData["Layer"].GetFloat();
+            if (UIData.HasMember("Selectable"))
+                selectable = UIData["Selectable"].GetBool();
+            if (UIData.HasMember("Opcaity"))
+                opacity = UIData["Opcaity"].GetFloat();
+            if (UIData.HasMember("Animated"))
+                animated = UIData["Animated"].GetBool();
+            if (UIData.HasMember("Rows"))
+                rows = UIData["Rows"].GetInt();
+            if (UIData.HasMember("Cols"))
+                cols = UIData["Cols"].GetInt();
+            if (UIData.HasMember("FrameInterval"))
+                frameInt = UIData["FrameInterval"].GetFloat();
+
+            UIComponent uiC(textureName, pos, scl, layer, selectable, opacity);
+            uiC.set_animate(animated);
+            uiC.set_rows(rows);
+            uiC.set_cols(cols);
+            uiC.set_frame_interval(frameInt);
+
+            g_Coordinator.AddComponent(newE, uiC);
+        }
+    }
+
+    // 3) Third pass: Hierarchy references or other entity references
+    // --------------------------------------------------------------
+    for (auto& ed : data.entityList)
+    {
+        Entity newE = oldToNewEntityMap[ed.oldEntityID];
+        auto& jsonObj = ed.entityJSON;
+
+        if (jsonObj.HasMember("HierarchyComponent"))
+        {
+            const auto& HCData = jsonObj["HierarchyComponent"];
+            Entity parentEntity = MAX_ENTITIES;
+
+            if (HCData.HasMember("Parent"))
+            {
+                int oldParentID = HCData["Parent"].GetInt();
+                if (oldParentID != MAX_ENTITIES)
+                {
+                    parentEntity = oldToNewEntityMap[oldParentID];
+                }
+            }
+
+            std::vector<Entity> childrenEntities;
+            if (HCData.HasMember("Children") && HCData["Children"].IsArray())
+            {
+                for (auto& childVal : HCData["Children"].GetArray())
+                {
+                    int oldChildID = childVal.GetInt();
+                    Entity childE = oldToNewEntityMap[oldChildID];
+                    childrenEntities.push_back(childE);
+                }
+            }
+
+            HierarchyComponent hierC;
+            hierC.parent = parentEntity;
+            hierC.children = childrenEntities;
+            g_Coordinator.AddComponent(newE, hierC);
+        }
+
+        // If you have other components that store references to old entity IDs,
+        // handle them here as well, using oldToNewEntityMap to convert.
+    }
 }

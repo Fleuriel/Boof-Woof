@@ -14,7 +14,7 @@ class Cutscene : public Level
 	Entity P1{}, P2{}, P3{}, P4{}, P5{}, P6{}, P7{}, P8{}, P9{}, P10{}, P11{}, P12{};
 	bool rightAppeared{ false }, finishCutscene{ false }, SongOne{ false }, SongTwo{ false }, SongThree{ false };
 
-	void LoadLevel()
+	void LoadLevel() override
 	{
 		// Use FILEPATH_ASSET_SCENES to construct the scene file path
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Cutscene.json");
@@ -126,9 +126,12 @@ class Cutscene : public Level
 		}
 	}
 
-	void InitLevel() { /* Empty by design */ }
+	void InitLevel() override { /* Empty by design */ 
+		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
+		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
+	}
 
-	void UpdateLevel(double deltaTime)
+	void UpdateLevel(double deltaTime) override
 	{
 		// Whole panel panning upwards
 		if (g_Coordinator.HaveComponent<UIComponent>(P1) && !finishCutscene)
@@ -142,7 +145,9 @@ class Cutscene : public Level
 
 			if (!SongOne) 
 			{
-				g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav");
+				//g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav");
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav", false, "SFX");
+
 
 				/*if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
 					auto& music = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
@@ -162,12 +167,16 @@ class Cutscene : public Level
 
 				if (!SongTwo)
 				{
-					g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/CorgiWhimper.wav");
+
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiWhimper.wav", false, "SFX");
 
 					/*if (g_Coordinator.HaveComponent<AudioComponent>(CorgiWhimper)) {
 						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiWhimper);
 						music1.PlayAudio();
+
 					}*/
+					SongTwo = true; //Now it only plays once
+
 				}
 
 				// Gradually increase opacity for LeftHalf
@@ -249,7 +258,7 @@ class Cutscene : public Level
 					
 					if (!SongThree)
 					{
-						g_Audio.PlayFile(FILEPATH_ASSET_AUDIO + "/12sGrowlBarkCorgi.wav");
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/12sGrowlBarkCorgi.wav", false, "SFX");
 
 						/*if (g_Coordinator.HaveComponent<AudioComponent>(corgi12sec)) {
 							auto& music2 = g_Coordinator.GetComponent<AudioComponent>(corgi12sec);
@@ -318,11 +327,19 @@ class Cutscene : public Level
 				g_LevelManager.SetNextLevel("StartingRoom");
 			}
 		}
+		else
+		{
+			// Space to skip cutscene - zero feedback as of now.
+			if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
+			{
+				g_LevelManager.SetNextLevel("StartingRoom");
+			}
+		}
 	}
 
-	void FreeLevel() { /* Empty by design */ }
+	void FreeLevel() override { /* Empty by design */ }
 
-	void UnloadLevel()
+	void UnloadLevel() override
 	{
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/CutsceneBGM3.wav");
 
@@ -330,5 +347,6 @@ class Cutscene : public Level
 		cutsceneTimer = 0.0;
 		finishCutscene = false;
 		rightAppeared = false;
-	}
+		SongOne = SongTwo = SongThree = false;
+	}	
 };

@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "cbaec6de-bb18-46e6-8e13-2a023c6decf9",
+    "SceneGUID": "cd938991-1342-40d1-b076-bc7313dec39f",
     "Entities": [
         {
             "MetadataComponent": {
@@ -7,7 +7,7 @@
                 "EntityID": 0
             },
             "UIComponent": {
-                "TextureID": 41,
+                "TextureName": "DogBone",
                 "PositionX": 0.0,
                 "PositionY": 0.0,
                 "ScaleX": 0.800000011920929,
@@ -23,7 +23,7 @@
                 "EntityID": 1
             },
             "UIComponent": {
-                "TextureID": 15,
+                "TextureName": "CatchZone",
                 "PositionX": 0.0,
                 "PositionY": 0.05000000074505806,
                 "ScaleX": 0.10000000149011612,
@@ -39,7 +39,7 @@
                 "EntityID": 2
             },
             "UIComponent": {
-                "TextureID": 42,
+                "TextureName": "DogHead",
                 "PositionX": 0.0,
                 "PositionY": 0.3199999928474426,
                 "ScaleX": 0.20000000298023225,

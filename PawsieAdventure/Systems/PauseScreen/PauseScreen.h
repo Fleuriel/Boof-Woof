@@ -1,8 +1,6 @@
 #pragma once
 #include <EngineCore.h>
 
-extern bool g_IsPaused;
-
 enum class PauseState
 {
 	Paused,
@@ -20,6 +18,9 @@ public:
 
 protected:
 	std::vector<Entity> spawnedEntities;
+
+public:
+	Entity SFXLeft{}, SFXRight{}, BGMLeft{}, BGMRight{};
 };
 
 // Main Pause Screen
@@ -56,4 +57,5 @@ std::unique_ptr<PauseMenu> CreatePausedMenu(PauseState state);
 namespace pauseLogic 
 {
 	void OnUpdate();
+	void ResetGame();
 }

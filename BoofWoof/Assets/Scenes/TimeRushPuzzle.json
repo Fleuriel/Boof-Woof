@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "7d6602c5-c056-4e89-95f2-27dc20fbdf24",
+    "SceneGUID": "5d89a258-1a2b-486c-a0d8-6eac04e8d904",
     "Entities": [
         {
             "MetadataComponent": {
@@ -280,9 +280,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 19.06667709350586,
-                    "y": 0.9998612403869629,
-                    "z": 0.5978029370307922
+                    "x": 18.894367218017579,
+                    "y": 0.999845027923584,
+                    "z": 6.111365795135498
                 },
                 "Scale": {
                     "x": 0.5,
@@ -831,8 +831,8 @@
             "TransformComponent": {
                 "Position": {
                     "x": 19.399999618530275,
-                    "y": 4.199999809265137,
-                    "z": 8.600000381469727
+                    "y": 4.199997901916504,
+                    "z": 8.599997520446778
                 },
                 "Scale": {
                     "x": 1.350000023841858,
@@ -854,22 +854,6 @@
                 "ModelName": "WallDoor",
                 "Texture": "WallDoor",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 2.5,
-                    "y": 3.0,
-                    "z": 0.800000011920929
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -974,6 +958,22 @@
                 "ModelName": "Wall",
                 "Texture": "Wall",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 2.950000047683716,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 2.8499999046325685,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -1214,6 +1214,22 @@
                 "ModelName": "Wall",
                 "Texture": "Wall",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0999999046325685,
+                    "y": 2.950000047683716,
+                    "z": 0.8999999761581421
+                },
+                "AABBOffset": {
+                    "x": -2.75,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -19911,6 +19927,74 @@
                 "AudioFilePath": "../BoofWoof/Assets/Audio/CorgiSniff.wav",
                 "Volume": 1.0,
                 "ShouldLoop": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 310
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 19.399999618530275,
+                    "y": 2.9000000953674318,
+                    "z": 8.5
+                },
+                "Scale": {
+                    "x": 1.2000000476837159,
+                    "y": 1.2000000476837159,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "DoorDrawbridge",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.6500000953674318,
+                    "z": 0.20000000298023225
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "DoorDrawbridge",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         }
     ]

@@ -214,6 +214,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Core\Logic\LogicSystem.cpp" />
     <ClCompile Include="Core\Serialization\Serialization.cpp" />
+    <ClCompile Include="Core\Serialization\SerializationAsync.cpp" />
     <ClCompile Include="Core\UI\UISystem.cpp" />
     <ClCompile Include="Core\Windows\WindowManager.cpp" />
     <ClCompile Include="Utilities\Components\AnimationComponent.cpp" />
@@ -265,10 +266,12 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Physics\PhysicsSystem.h" />
     <ClInclude Include="Core\Reflection\ReflectionManager.hpp" />
     <ClInclude Include="Core\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="Core\SceneManager\SceneData.h" />
     <ClInclude Include="Core\SceneManager\SceneManager.h" />
     <ClInclude Include="Core\Logic\Behaviour.h" />
     <ClInclude Include="Core\Logic\LogicSystem.h" />
     <ClInclude Include="Core\Serialization\Serialization.h" />
+    <ClInclude Include="Core\Serialization\SerializationAsync.h" />
     <ClInclude Include="Core\UI\UISystem.h" />
     <ClInclude Include="Core\Windows\WindowManager.h" />
     <ClInclude Include="Utilities\Components\AnimationComponent.h" />
