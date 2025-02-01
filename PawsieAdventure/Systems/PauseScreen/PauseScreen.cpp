@@ -13,6 +13,7 @@ std::unique_ptr<PauseMenu> pauser = CreatePausedMenu(PauseState::Paused);
 Serialization serialPause;
 Entity ResumeGame{}, SettingsBtn{}, HTPBtn{}, ExitGame{};
 bool inSmthAgain{ false };
+float sfVolume{ 1.f }, bgVolume{ 1.f };
 
 void PausedScreen::OnLoad()
 {
@@ -109,7 +110,9 @@ void Settings::OnLoad()
 		{"SFXLeft", [&](Entity entity) { SFXLeft = entity; }},
 		{"SFXRight", [&](Entity entity) { SFXRight = entity; }},
 		{"BGMLeft", [&](Entity entity) { BGMLeft = entity; }},
-		{ "BGMRight", [&](Entity entity) { BGMRight = entity; } }
+		{"BGMRight", [&](Entity entity) { BGMRight = entity; } },
+		{"BGMVol", [&](Entity entity) { BGMVol = entity; }},
+		{"SFXVol", [&](Entity entity) { SFXVol = entity; }}
 	};
 
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -124,7 +127,7 @@ void Settings::OnLoad()
 		}
 
 		// Exit early if all entities are found
-		if (SFXLeft && SFXRight && BGMLeft && BGMRight)
+		if (SFXLeft && SFXRight && BGMLeft && BGMRight && SFXVol && BGMVol)
 		{
 			break;
 		}
@@ -213,7 +216,6 @@ namespace pauseLogic
 				// Add in audio feedback
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
 
-
 				pauser->OnExit();
 				pauser = CreatePausedMenu(PauseState::Paused);
 				pauser->OnLoad();
@@ -229,8 +231,6 @@ namespace pauseLogic
 					{
 						// Add in audio feedback
 						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
-
-
 
 						g_Window->HideMouseCursor();
 						pauser->OnExit();
@@ -248,11 +248,10 @@ namespace pauseLogic
 						// Add in audio feedback
 						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
 
-
-
 						pauser->OnExit();
 						pauser = CreatePausedMenu(PauseState::Settings);
 						pauser->OnLoad();
+
 						g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 						g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
 					}
@@ -268,8 +267,6 @@ namespace pauseLogic
 
 						// Add in audio feedback
 						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
-
-
 
 						pauser->OnExit();
 						pauser = CreatePausedMenu(PauseState::HowToPlay);
@@ -287,8 +284,6 @@ namespace pauseLogic
 
 						// Add in audio feedback
 						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
-
-
 
 						pauser->OnExit();
 						ResetGame();
@@ -313,9 +308,8 @@ namespace pauseLogic
 					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->SFXLeft);
 					if (UICompt.get_selected())
 					{
-						std::cout << "decrease SFX\n";
-						float newVolume = std::max(0.0f, (float)(g_Audio.GetSFXVolume() - volumeStep));
-						g_Audio.SetSFXVolume(newVolume);
+						sfVolume = std::max(0.0f, (float)(g_Audio.GetSFXVolume() - volumeStep));
+						g_Audio.SetSFXVolume(sfVolume);
 						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 
 					}
@@ -326,11 +320,25 @@ namespace pauseLogic
 					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->SFXRight);
 					if (UICompt.get_selected())
 					{
-						std::cout << "increase SFX\n";
-						float newVolume = std::min(1.0f, (float)(g_Audio.GetSFXVolume() + volumeStep));
-						g_Audio.SetSFXVolume(newVolume);
+						sfVolume = std::min(1.0f, (float)(g_Audio.GetSFXVolume() + volumeStep));
+						g_Audio.SetSFXVolume(sfVolume);
 						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
+					}
+				}
 
+				if (g_Coordinator.HaveComponent<FontComponent>(pauser->SFXVol))
+				{
+					int volDisplay = static_cast<int>(sfVolume * 10);
+					if (volDisplay >= 0 && volDisplay < 10)
+					{
+						std::stringstream ss;
+						ss << std::setfill('0') << std::setw(2) << volDisplay;
+						std::string text = ss.str();
+						g_Coordinator.GetComponent<FontComponent>(pauser->SFXVol).set_text(text);
+					}
+					else
+					{
+						g_Coordinator.GetComponent<FontComponent>(pauser->SFXVol).set_text("10");
 					}
 				}
 
@@ -339,9 +347,8 @@ namespace pauseLogic
 					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->BGMLeft);
 					if (UICompt.get_selected())
 					{
-						std::cout << "decrease BGM\n";
-						float newVolume = std::max(0.0f, (float)(g_Audio.GetBGMVolume() - volumeStep));
-						g_Audio.SetBGMVolume(newVolume);
+						bgVolume = std::max(0.0f, (float)(g_Audio.GetBGMVolume() - volumeStep));
+						g_Audio.SetBGMVolume(bgVolume);
 					}
 				}
 
@@ -350,10 +357,24 @@ namespace pauseLogic
 					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->BGMRight);
 					if (UICompt.get_selected())
 					{
-						std::cout << "increase BGM\n";
-						float newVolume = std::min(1.0f, (float)(g_Audio.GetBGMVolume() + volumeStep));
-						g_Audio.SetBGMVolume(newVolume);
+						bgVolume = std::min(1.0f, (float)(g_Audio.GetBGMVolume() + volumeStep));
+						g_Audio.SetBGMVolume(bgVolume);
+					}
+				}
 
+				if (g_Coordinator.HaveComponent<FontComponent>(pauser->BGMVol))
+				{
+					int volDisplay = static_cast<int>(bgVolume * 10);
+					if (volDisplay >= 0 && volDisplay < 10)
+					{
+						std::stringstream ss;
+						ss << std::setfill('0') << std::setw(2) << volDisplay;
+						std::string text = ss.str();
+						g_Coordinator.GetComponent<FontComponent>(pauser->BGMVol).set_text(text);
+					}
+					else
+					{
+						g_Coordinator.GetComponent<FontComponent>(pauser->BGMVol).set_text("10");
 					}
 				}
 			}

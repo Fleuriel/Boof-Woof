@@ -185,7 +185,7 @@ void FontSystem::update()
             RenderText(g_AssetManager.GetShader("Font"), fontComponent.get_text(), fontComponent.get_pos().x, fontComponent.get_pos().y, fontComponent.get_scale(), fontComponent.get_color());
         }
 	}
-    RenderText(g_AssetManager.GetShader("Font"), "Hello World", 0.0f, 0.0f, { 1.f, 1.2f }, glm::vec3(1.0f, 1.0f, 1.0f));
+    //RenderText(g_AssetManager.GetShader("Font"), "Hello World", 0.0f, 0.0f, { 1.f, 1.2f }, glm::vec3(1.0f, 1.0f, 1.0f));
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 

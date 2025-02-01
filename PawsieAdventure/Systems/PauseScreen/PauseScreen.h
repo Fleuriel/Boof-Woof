@@ -21,6 +21,7 @@ protected:
 
 public:
 	Entity SFXLeft{}, SFXRight{}, BGMLeft{}, BGMRight{};
+	Entity BGMVol{}, SFXVol{};
 };
 
 // Main Pause Screen
