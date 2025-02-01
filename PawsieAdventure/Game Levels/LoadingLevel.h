@@ -1,6 +1,5 @@
 #pragma once
 
-// Adjust includes to your project's structure:
 #include "Level Manager/Level.h"            // Base class "Level"
 #include "SceneManager/SceneManager.h"      // For g_SceneManager, if you have it
 #include "Serialization/SerializationAsync.h" // If you use an async loader
@@ -8,22 +7,11 @@
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 #include <string>
 #include <iostream>
+#include <chrono>   // For steady_clock
 
-/**
- * @brief A special Level that displays a "Loading..." screen and asynchronously
- *        loads the next real scene in the background.
- *
- * Usage:
- *   1) Register "LoadingLevel" with the LevelManager:
- *      g_LevelManager.RegisterLevel("LoadingLevel", new LoadingLevel());
- *   2) When you want to load "Cutscene" or another big scene:
- *      auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
- *      loading->m_NextScene = "Cutscene"; // or a file path
- *      g_LevelManager.SetNextLevel("LoadingLevel");   // Switch to the loading screen
- *   3) The LoadingLevel will show a simple UI or text while it calls SceneManager's
- *      BeginAsyncLoad() or chunk-based finalization. Once done, it transitions
- *      to the real scene.
- */
+// (Assuming that "Entity" and MAX_ENTITIES are defined in your ECS system.)
+// For example, you might have: using Entity = unsigned int; and a constant MAX_ENTITIES.
+
 class LoadingLevel : public Level
 {
 public:
@@ -36,8 +24,14 @@ public:
     std::string m_NextScene;
 
 private:
-    bool m_LoadingStarted = false; ///< Tracks whether we've initiated async load
-    bool m_LoadComplete = false; ///< Tracks whether load is done
+    bool m_LoadingStarted = false;  ///< Tracks whether we've initiated async load
+    bool m_LoadComplete = false;      ///< Tracks whether async load is done
+    std::chrono::steady_clock::time_point m_StartTime; ///< Time point when loading started
+    const double m_MinimumLoadingDuration = 2.0; ///< Minimum time (in seconds) for the loading screen
+
+    // Cache the "Loading" entity that should rotate.
+    // We use MAX_ENTITIES as an invalid/sentinel value.
+    Entity m_LoadingEntity = MAX_ENTITIES;
 
 public:
     LoadingLevel() = default;
@@ -51,18 +45,16 @@ public:
      */
     void LoadLevel() override
     {
-        // Load a minimal loading screen scene:
-        // e.g. g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/LoadingScreen.json");
-
-        // If you have a small scene with "LoadingUI" or "Spinner" entities,
-        // you can load them here. Something like:
+        // Load the loading screen scene.
         g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/LoadingScreen.json");
 
-        // Reset flags
+        // Reset flags, timer, and cached loading entity.
         m_LoadingStarted = false;
         m_LoadComplete = false;
+        m_LoadingEntity = MAX_ENTITIES;
 
-        std::cout << "[LoadingLevel] LoadLevel: Loaded the loading screen.\n";
+        // Optionally, print a debug message.
+        // std::cout << "[LoadingLevel] LoadLevel: Loaded the loading screen.\n";
     }
 
     /**
@@ -70,47 +62,73 @@ public:
      */
     void InitLevel() override
     {
-        // You might do nothing here. Or if you prefer to start the async load now,
-        // you could. For example:
-        // g_SceneManager.BeginAsyncLoad(m_NextScene);
-        // m_LoadingStarted = true;
-        std::cout << "[LoadingLevel] InitLevel: Optionally do something.\n";
+        // Optionally, you can initiate further setup here.
+        // std::cout << "[LoadingLevel] InitLevel: Optionally do something.\n";
     }
 
     /**
      * @brief Per-frame update: handle asynchronous loading logic,
-     *        display "Loading..." UI, etc.
+     *        enforce minimum display duration, and update the "Loading" rotation.
      *
      * @param deltaTime The time elapsed since last frame, in seconds.
      */
     void UpdateLevel(double deltaTime) override
     {
+        // (1) Start async load if not started yet.
         if (!m_LoadingStarted)
         {
             std::cout << "[LoadingLevel] Update: Kick off async load for: " << m_NextScene << "\n";
             g_SceneManager.BeginAsyncLoad(FILEPATH_ASSET_SCENES + "/" + m_NextScene + ".json");
             m_LoadingStarted = true;
+            m_StartTime = std::chrono::steady_clock::now();
             return;
         }
 
-        // Check for async load completion (assuming SceneManager sets this flag when done)
-        if (!m_LoadComplete)
+        // (2) Check if asynchronous load is complete.
+        if (!m_LoadComplete && g_SceneManager.AsyncLoadIsComplete())
         {
-            if (g_SceneManager.AsyncLoadIsComplete())  // <-- You might add such a function
-            {
-                m_LoadComplete = true;
-            }
+            m_LoadComplete = true;
+            std::cout << "[LoadingLevel] Update: Async load complete.\n";
         }
-        else
+
+        // (3) Compute elapsed time in seconds since async load started.
+        auto now = std::chrono::steady_clock::now();
+        double elapsedSeconds = std::chrono::duration_cast<std::chrono::duration<double>>(now - m_StartTime).count();
+
+        // (4) Only transition if async load is complete and the minimum duration has passed.
+        if (m_LoadComplete && elapsedSeconds >= m_MinimumLoadingDuration)
         {
-            // Once done, transition to the next level
-            std::cout << "[LoadingLevel] Loading done, transitioning to: " << m_NextScene << "\n";
+            std::cout << "[LoadingLevel] Loading done (elapsed " << elapsedSeconds << "s), transitioning to: " << m_NextScene << "\n";
             g_LevelManager.SetNextLevel(m_NextScene);
         }
 
-        // (Optional) update any loading animations here.
-    }
+        // (5) Animate the "Loading" entity:
+        // First, if we haven't already found the "Loading" entity, search for it.
+        if (m_LoadingEntity == MAX_ENTITIES)
+        {
+            auto entities = g_Coordinator.GetAliveEntitiesSet();
+            for (auto entity : entities)
+            {
+                if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+                {
+                    auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+                    if (metadata.GetName() == "Loading")
+                    {
+                        m_LoadingEntity = entity;
+                        break;
+                    }
+                }
+            }
+        }
 
+        if (m_LoadingEntity != MAX_ENTITIES && g_Coordinator.HaveComponent<UIComponent>(m_LoadingEntity))
+        {
+            auto& ui = g_Coordinator.GetComponent<UIComponent>(m_LoadingEntity);
+            float rotationSpeed = 90.0f; // degrees per second
+            float currentRotation = ui.get_rotation();
+            ui.set_rotation(currentRotation - rotationSpeed * static_cast<float>(deltaTime));
+        }
+    }
 
     /**
      * @brief Clean up any allocated resources for this level.
@@ -118,8 +136,6 @@ public:
     void FreeLevel() override
     {
         std::cout << "[LoadingLevel] FreeLevel.\n";
-        // Typically empty or you can do cleanup. 
-        // The engine might call UnloadLevel() next.
     }
 
     /**
@@ -127,12 +143,13 @@ public:
      */
     void UnloadLevel() override
     {
-        // For example, destroy the "Loading..." UI entities:
+        // Destroy the loading screen UI entities.
         g_Coordinator.ResetEntities();
 
-        // Reset states in case we come back to this loading screen in the future
+        // Reset state in case we come back to this loading screen.
         m_LoadingStarted = false;
         m_LoadComplete = false;
+        m_LoadingEntity = MAX_ENTITIES;
 
         std::cout << "[LoadingLevel] UnloadLevel: Cleanup done.\n";
     }

@@ -3,6 +3,8 @@
 #include "ResourceManager/ResourceManager.h"
 #include "ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
+#include "LoadingLevel.h"
+
 
 class TimeRush : public Level
 {
@@ -192,6 +194,15 @@ class TimeRush : public Level
 
 		if (g_Checklist.finishTR && g_Checklist.shutted)
 		{
+			/*
+			auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+			if (loading)
+			{
+				// Pass in the name of the real scene we want AFTER the loading screen
+				loading->m_NextScene = "MainHall";
+				g_LevelManager.SetNextLevel("LoadingLevel");
+			}
+			*/
 			g_LevelManager.SetNextLevel("MainHall");
 		}
 	}

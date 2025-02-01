@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "fdef615e-c9e9-466f-b5e3-2214e55cad7a",
+    "SceneGUID": "b29bd3fb-14c3-499b-8e53-419afda09a4b",
     "Entities": [
         {
             "MetadataComponent": {
@@ -12,7 +12,7 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.100000023841858,
                 "ScaleY": 1.0,
-                "Layer": 0.5,
+                "Layer": 0.4500000476837158,
                 "Selectable": false,
                 "Opcaity": 1.0,
                 "Animated": false,
@@ -23,7 +23,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Loading",
                 "EntityID": 1
             },
             "UIComponent": {

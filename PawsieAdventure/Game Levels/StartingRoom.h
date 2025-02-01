@@ -7,6 +7,7 @@
 #include "../Systems/RopeBreaker/RopeBreaker.h"
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
+#include "LoadingLevel.h"
 
 class StartingRoom : public Level
 {
@@ -154,7 +155,13 @@ public:
 		{
 			if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
 			{
-				g_LevelManager.SetNextLevel("TimeRush");
+				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+				if (loading)
+				{
+					// Pass in the name of the real scene we want AFTER the loading screen
+					loading->m_NextScene = "TimeRush";
+					g_LevelManager.SetNextLevel("LoadingLevel");
+				}
 			}
 		}
 

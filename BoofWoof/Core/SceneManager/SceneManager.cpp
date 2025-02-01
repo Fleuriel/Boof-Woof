@@ -391,7 +391,6 @@ void SceneManager::Update(float deltaTime)
             m_IsAsyncLoading = false;   // No longer loading in background
             m_NeedsFinalize = true;     // We need to finalize the scene
         }
-        // Else, you might update a loading progress bar here.
     }
 
     // If we have data ready to finalize...
@@ -453,20 +452,18 @@ void SceneManager::SetSceneLoadedCallback(std::function<void(const std::string&)
 
 void SceneManager::BeginAsyncLoad(const std::string& filepath)
 {
-    // 1. Clear the current scene if needed
-    g_Coordinator.ResetEntities();
+    if (currentScene != FILEPATH_ASSET_SCENES + "/LoadingScreen.json")
+    {
+        g_Coordinator.ResetEntities();
+    }
 
-    // 2. Start the background parse
+    // Start the background parse
     m_AsyncLoader.BeginLoad(filepath);
     m_IsAsyncLoading = true;
     m_NeedsFinalize = false;
     m_ChunkFinalize = true; // or false if you want instant finalize
     m_FinalizeIndex = 0;
-
-    // If you want to show a “loading” UI, set transitioning = true or something similar
-    // Or set up a "LoadingLevel" with a separate flow
 }
-
 
 void SceneManager::FinalizeSceneData(const SceneData& data)
 {
