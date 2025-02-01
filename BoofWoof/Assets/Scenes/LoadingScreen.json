@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "17bbe30b-f020-4dba-a3c7-8e82feda19b6",
+    "SceneGUID": "977ff47c-2d4a-4f8c-b321-0380b5c03f07",
     "Entities": [
         {
             "MetadataComponent": {
@@ -28,11 +28,32 @@
                 "EntityID": 1
             },
             "UIComponent": {
-                "TextureName": "DogHead",
-                "PositionX": 0.0,
-                "PositionY": 0.0,
+                "TextureName": "BoneSpin",
+                "PositionX": 0.05000000074505806,
+                "PositionY": 0.5,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.10000000149011612,
+                "Layer": 0.4100000858306885,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "LSTemp",
+                "EntityID": 2
+            },
+            "UIComponent": {
+                "TextureName": "BiteLSTemp",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 0.6000000238418579,
+                "ScaleY": 1.0,
                 "Layer": 0.4100000858306885,
                 "Selectable": false,
                 "Opcaity": 1.0,
