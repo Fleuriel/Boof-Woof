@@ -185,14 +185,14 @@ void FontSystem::update()
             RenderText(g_AssetManager.GetShader("Font"), fontComponent.get_text(), fontComponent.get_pos().x, fontComponent.get_pos().y, fontComponent.get_scale(), fontComponent.get_color());
         }
 	}
-    RenderText(g_AssetManager.GetShader("Font"), "Hello World", 0.0f, 0.0f, 1.f, glm::vec3(1.0f, 1.0f, 1.0f));
+    RenderText(g_AssetManager.GetShader("Font"), "Hello World", 0.0f, 0.0f, { 1.f, 1.2f }, glm::vec3(1.0f, 1.0f, 1.0f));
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color)
+void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, float y, glm::vec2 scale, glm::vec3 color)
 {
-    scale /= 1000.f;
-
+    scale.x /= 1000.f;
+	scale.y /= 1000.f;
 	static bool init = true;
     // activate corresponding render state	
     shader.Use();
@@ -207,11 +207,11 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
     {
         Character ch = Characters[*c];
 
-        float xpos = x + ch.Bearing.x * scale;
-        float ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
+        float xpos = x + ch.Bearing.x * scale.x;
+        float ypos = y - (ch.Size.y - ch.Bearing.y) * scale.y;
 
-        float w = ch.Size.x * scale;
-        float h = ch.Size.y * scale;
+        float w = ch.Size.x * scale.x;
+        float h = ch.Size.y * scale.y;
         // update VBO for each character
         float vertices[6][4] = {
             { xpos,     ypos + h,   0.0f, 0.0f },
@@ -232,7 +232,7 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
         // render quad
         glDrawArrays(GL_TRIANGLES, 0, 6);
         // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-        x += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+        x += (ch.Advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
 
 		//// print the vetices
 		//if (init)

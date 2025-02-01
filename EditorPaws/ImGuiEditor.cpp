@@ -3926,18 +3926,19 @@ void ImGuiEditor::InspectorWindow()
 
 								ImGui::PopID();
 								ImGui::PopItemWidth();
-								// scale
-								float fontsclae = fontComponent.get_scale();
+								// scale_x and scale_y
+								glm::vec2 scale = fontComponent.get_scale();
 								ImGui::Text("Scale");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
 								ImGui::PushID("Scale");
-								if (ImGui::DragFloat("##Scale", &fontsclae, 0.1f))
+								if (ImGui::DragFloat2("##Scale", &scale.x, 0.1f))
 								{
-									fontComponent.set_scale(fontsclae);
+									fontComponent.set_scale(scale);
 								}
 								ImGui::PopID();
 								ImGui::PopItemWidth();
+								
 								// text
 								char text[128]{};
 								strcpy_s(text, fontComponent.get_text().c_str());
