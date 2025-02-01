@@ -1418,22 +1418,22 @@ bool AssetManager::CheckFiles(const std::wstring& path) {
     }
     else if (path == FILEPATH_ASSET_OBJECTS_W) {
         // Compare currentFiles with the existing ObjectFiles
-        hasChanges = (currentFiles != ObjectFiles);
-
-        if (hasChanges) {
-            std::wcout << L"Change detected in directory: " << path << L"\n";
-            std::wcout << L"New state of files:\n";
-            for (const auto& file : currentFiles) {
-                std::wcout << file << L"\n";
-            }
-            std::wcout << L"Previous state of files:\n";
-            for (const auto& file : ObjectFiles) {
-                std::wcout << file << L"\n";
-            }
-        }
+      //  hasChanges = (currentFiles != ObjectFiles);
+      //
+      //  if (hasChanges) {
+      //      std::wcout << L"Change detected in directory: " << path << L"\n";
+      //      std::wcout << L"New state of files:\n";
+      //      for (const auto& file : currentFiles) {
+      //          std::wcout << file << L"\n";
+      //      }
+      //      std::wcout << L"Previous state of files:\n";
+      //      for (const auto& file : ObjectFiles) {
+      //          std::wcout << file << L"\n";
+      //      }
+      //  }
 
         // Update ObjectFiles with currentFiles
-        ObjectFiles = std::move(currentFiles); // Efficiently swap the content
+     //   ObjectFiles = std::move(currentFiles); // Efficiently swap the content
     }
     else if (path == FILEPATH_ASSET_SHADERS_W) {
         // Compare currentFiles with the existing ShaderFiles

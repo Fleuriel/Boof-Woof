@@ -51,13 +51,13 @@ in VS_OUT {
 const float PI = 3.14159265359;
 
 
-uniform float roughness;   // Scalar roughness value (0 to 1)
-uniform float metallic;    // Scalar metallic value (0 to 1)
+// uniform float roughness;   // Scalar roughness value (0 to 1)
+// uniform float metallic;    // Scalar metallic value (0 to 1)
 
-
+uniform float roughness;
 
 // Normal Distribution Function (Trowbridge-Reitz GGX)
-float DistributionGGX(float NdotH, float roughness) {
+float DistributionGGX(float NdotH) {
     float a      = roughness * roughness;
     float a2     = a * a;
     float NdotH2 = NdotH * NdotH;
@@ -70,7 +70,7 @@ float DistributionGGX(float NdotH, float roughness) {
 }
 
 // Geometry Function (Smith's Schlick-GGX)
-float GeometrySchlickGGX(float NdotV, float roughness) {
+float GeometrySchlickGGX(float NdotV) {
     float r = (roughness + 1.0);
     float k = (r * r) / 8.0;
 
@@ -92,6 +92,8 @@ void main()
     vec3 F0 = vec3(0.04f); // Standard for non-metallic surfaces
     F0 = mix(F0, textureColor.rgb, 1.0f);
 
+    vec3 asd = vec3(0.0f,0.0f,0.0f);
+
     for(int i = 0; i < numLights; i++){
         vec3 lightVector = lights[i].position - FragPos;
         vec3 N = normalize(vertNormal);
@@ -106,11 +108,11 @@ void main()
 
         // PBR Calculations
         // Normal Distribution (Specular D)
-        float D = DistributionGGX(NdotH, roughness);
+        float D = DistributionGGX(NdotH);
         
         // Geometry (Specular G)
-        float G = GeometrySchlickGGX(NdotV, roughness) * 
-                  GeometrySchlickGGX(NdotL, roughness);
+        float G = GeometrySchlickGGX(NdotV) * 
+                  GeometrySchlickGGX(NdotL);
         
         // Fresnel (Specular F)
         vec3 F = FresnelSchlick(max(dot(H, V), 0.0), F0);
@@ -123,7 +125,7 @@ void main()
         // Diffuse calculation
         vec3 kS = F; // Fresnel determines specular reflection
         vec3 kD = vec3(1.0) - kS;
-        kD *= 1.0 - metallic; // Reduce diffuse for metals
+        kD *= 1.0; // Reduce diffuse for metals
 
         // Combine lighting components
         vec3 diffuse = kD * textureColor.rgb / PI;
@@ -134,6 +136,8 @@ void main()
             * NdotL;
 
         result += finalColor;
+
+        
     }
 
     result *= baseColor.rgb;
@@ -148,7 +152,7 @@ void main()
     {
         baseColor.rgb *= textureColor.rgb;
         baseColor.a = 1.0f;
-        fragColor = vec4(textureColor.rgb, baseColor.a);
+        fragColor = vec4(baseColor);
     }
 
 

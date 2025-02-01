@@ -319,8 +319,9 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
 			g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
+			g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", glm::vec4(1.0f,1.0f,1.0f,1.0f));
 
-
+			g_AssetManager.GetShader(ShaderName).SetUniform("roughness", 1.0f);
 
 			graphicsComp.getModel()->Draw(g_AssetManager.GetShader(ShaderName));
 
