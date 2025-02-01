@@ -1639,7 +1639,6 @@ void ImGuiEditor::InspectorWindow()
 											(*modelNameProperty)->SetValue(&graphicsComponent, newModelName);
 											
 
-
 											graphicsComponent.SetModel(&g_ResourceManager.ModelMap[newModelName]);
 
 											Entity entity = g_SelectedEntity;

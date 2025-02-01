@@ -677,7 +677,9 @@ bool Serialization::LoadScene(const std::string& filepath)
                         isFollowing = GData["FollowCamera"].GetBool();
                     }
 
-                    GraphicsComponent graphicsComponent(modelName, entity, TextureName, isFollowing);
+                    GraphicsComponent graphicsComponent(modelName, entity, isFollowing);
+
+                    graphicsComponent.SetModel(&g_ResourceManager.ModelMap[modelName]);
 
        //             if (textureID > 0)
        //                 graphicsComponent.AddTexture(textureID);

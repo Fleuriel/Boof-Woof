@@ -133,7 +133,7 @@ public:
 
     GraphicsComponent() : hasMaterial(false), boundingBox(glm::vec3(0.0f)) {}
 
-    GraphicsComponent(std::string modelName, Entity& entity, std::string texName, bool followCam = true)
+    GraphicsComponent(std::string modelName, Entity& entity, bool followCam = true)
         : m_ModelName(modelName),
         m_EntityID(g_Coordinator.GetEntityId(entity)),
  //       textureName(texName),

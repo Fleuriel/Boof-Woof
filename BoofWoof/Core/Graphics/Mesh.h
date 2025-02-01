@@ -110,14 +110,14 @@ public:
                 number = std::to_string(heightNr++); // transfer unsigned int to string
 
 
-            std::cout << name + number << '\t' << i << '\n';
+       //     std::cout << name + number << '\t' << i << '\n';
 
             // now set the sampler to the correct texture unit
             glUniform1i(glGetUniformLocation(shader.GetHandle(), (name + number).c_str()), i);
             // and finally bind the texture
             glBindTexture(GL_TEXTURE_2D, textures[i].id);
 
-			std::cout << "Uniform name: " << (name + number).c_str() << " withn value: " << i << " texture id: " << textures[i].id << std::endl;
+		//	std::cout << "Uniform name: " << (name + number).c_str() << " withn value: " << i << " texture id: " << textures[i].id << std::endl;
         }
 
         // draw mesh
