@@ -24,7 +24,6 @@
 #include "ECS/Coordinator.hpp"
 #include "../Core/Reflection/ReflectionManager.hpp"
 
- // Enum for pathfinding status
 enum class PathfindingStatus {
     IDLE,
     PROCESSING,
@@ -32,61 +31,40 @@ enum class PathfindingStatus {
     FAILED
 };
 
-// Heuristic options
-enum class HeuristicType {
-    EUCLIDEAN,
-    MANHATTAN,
-    OCTILE
-};
-
 class PathfindingComponent
 {
 public:
-    // Constructors
     PathfindingComponent() = default;
-    PathfindingComponent(const glm::vec3& start, const glm::vec3& goal)
-        : startPosition(start), goalPosition(goal), isActive(false), currentStatus(PathfindingStatus::IDLE) {}
 
-    ~PathfindingComponent() = default;
+    void SetStartNode(Entity node) { startNode = node; }
+    Entity GetStartNode() const { return startNode; }
 
-    // Setters
-    void SetStartPosition(const glm::vec3& start) { startPosition = start; }
-    void SetGoalPosition(const glm::vec3& goal) { goalPosition = goal; }
-    void SetActive(bool active) { isActive = active; }
-    void SetHeuristic(HeuristicType heuristic) { heuristicType = heuristic; }
+    void SetGoalNode(Entity node) { goalNode = node; }
+    Entity GetGoalNode() const { return goalNode; }
+
     void SetPath(const std::vector<glm::vec3>& newPath) { path = newPath; }
-    void SetStatus(PathfindingStatus status) { currentStatus = status; }
-    void EnableDebug(bool debug) { debugEnabled = debug; }
-
-    // Getters
-    glm::vec3 GetStartPosition() const { return startPosition; }
-    glm::vec3 GetGoalPosition() const { return goalPosition; }
-    bool IsActive() const { return isActive; }
-    HeuristicType GetHeuristic() const { return heuristicType; }
     const std::vector<glm::vec3>& GetPath() const { return path; }
-    PathfindingStatus GetStatus() const { return currentStatus; }
-    bool IsDebugEnabled() const { return debugEnabled; }
 
-    // Reflection integration
+    void SetStatus(PathfindingStatus status) { currentStatus = status; }
+    PathfindingStatus GetStatus() const { return currentStatus; }
+
+    void SetBuilt(bool built) { m_built = built; }
+    bool GetBuilt() const { return m_built; }
+
     REFLECT_COMPONENT(PathfindingComponent)
     {
-        REGISTER_PROPERTY(PathfindingComponent, StartPosition, glm::vec3, SetStartPosition, GetStartPosition);
-        REGISTER_PROPERTY(PathfindingComponent, GoalPosition, glm::vec3, SetGoalPosition, GetGoalPosition);
-        REGISTER_PROPERTY(PathfindingComponent, Active, bool, SetActive, IsActive);
-        REGISTER_PROPERTY(PathfindingComponent, Heuristic, HeuristicType, SetHeuristic, GetHeuristic);
-        REGISTER_PROPERTY(PathfindingComponent, DebugEnabled, bool, EnableDebug, IsDebugEnabled);
+        REGISTER_PROPERTY(PathfindingComponent, StartNode, Entity, SetStartNode, GetStartNode);
+        REGISTER_PROPERTY(PathfindingComponent, GoalNode, Entity, SetGoalNode, GetGoalNode);
     }
 
 private:
-    glm::vec3 startPosition;                    // Start position for pathfinding
-    glm::vec3 goalPosition;                     // Goal position for pathfinding
-    bool isActive = false;                      // Whether this component is active for pathfinding
-    HeuristicType heuristicType = HeuristicType::EUCLIDEAN;  // Heuristic to use
-    std::vector<glm::vec3> path;                // The calculated path (waypoints)
-    PathfindingStatus currentStatus = PathfindingStatus::IDLE;  // Current status of pathfinding
-    bool debugEnabled = false;                  // Debug flag for visual feedback
+    Entity startNode;
+    Entity goalNode;
+    std::vector<glm::vec3> path;
+    PathfindingStatus currentStatus = PathfindingStatus::IDLE;
+    bool m_built = false;
 };
 
-#endif  // PATHFINDING_COMPONENT_HPP
+#endif // PATHFINDING_COMPONENT_HPP
 
 #pragma warning(pop)

@@ -59,6 +59,9 @@ using Entity = std::uint32_t;
 // Used to define the size of arrays later on
 const Entity MAX_ENTITIES = 5000;
 
+// Define an Invalid Entity (use the maximum possible value for uint32_t)
+constexpr Entity INVALID_ENTITY = std::numeric_limits<Entity>::max();
+
 // A simple type alias
 using ComponentType = std::uint32_t;
 

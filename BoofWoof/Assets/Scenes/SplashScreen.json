@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "fed98a12-3e3e-4286-83e9-ffd9f1fd1677",
+    "SceneGUID": "90ec7c55-c688-4f29-94be-685c43b6c626",
     "Entities": [
         {
             "MetadataComponent": {
@@ -10,7 +10,7 @@
                 "TextureID": 6,
                 "PositionX": 0.0,
                 "PositionY": 0.0,
-                "ScaleX": 1.0,
+                "ScaleX": 1.100000023841858,
                 "ScaleY": 1.0,
                 "Layer": 0.5,
                 "Selectable": false,
