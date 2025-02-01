@@ -46,9 +46,7 @@ void UpdateGSM()
 
 			g_LevelManager.UpdateLevel(g_Core->m_DeltaTime);
 
-#ifndef EDITOR_BUILD
 			g_Input.UpdateStatesForNextFrame();
-#endif
 
 			if (g_WindowClosed || glfwWindowShouldClose(g_Window->GetGLFWWindow()) || g_LevelManager.GetNextLevel() == nullptr)
 			{
