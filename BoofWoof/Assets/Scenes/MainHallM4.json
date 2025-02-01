@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "1a082b1e-e7cd-4c69-9e82-18289b9554be",
+    "SceneGUID": "ae2ad090-6431-42a6-b9e6-1f5f48dd008c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.9835957884788513,
+                    "x": -0.35158246755599978,
                     "y": 1.1800098419189454,
-                    "z": -7.187758445739746
+                    "z": -7.105656147003174
                 },
                 "Scale": {
                     "x": 0.5,
@@ -2759,17 +2759,17 @@
             "TransformComponent": {
                 "Position": {
                     "x": 45.693241119384769,
-                    "y": 10.106639862060547,
+                    "y": 10.054821968078614,
                     "z": 5.6896772384643559
                 },
                 "Scale": {
-                    "x": 1.0002129077911378,
+                    "x": 1.0002186298370362,
                     "y": 1.399999976158142,
-                    "z": 1.0002129077911378
+                    "z": 1.0002186298370362
                 },
                 "Rotation": {
                     "x": -3.1415908336639406,
-                    "y": -0.0004855098086409271,
+                    "y": -0.0004855074221268296,
                     "z": 3.1415908336639406
                 },
                 "RotationPivotOffset": {
@@ -2863,13 +2863,13 @@
             "TransformComponent": {
                 "Position": {
                     "x": 45.723876953125,
-                    "y": 10.102560997009278,
+                    "y": 10.073487281799317,
                     "z": -22.534914016723634
                 },
                 "Scale": {
-                    "x": 0.9999436736106873,
+                    "x": 0.9999421238899231,
                     "y": 1.399999976158142,
-                    "z": 0.9999436736106873
+                    "z": 0.9999421238899231
                 },
                 "Rotation": {
                     "x": -3.1415908336639406,
@@ -3019,13 +3019,13 @@
             "TransformComponent": {
                 "Position": {
                     "x": 45.70844268798828,
-                    "y": 10.103143692016602,
+                    "y": 10.071260452270508,
                     "z": -8.182101249694825
                 },
                 "Scale": {
-                    "x": 0.9999728798866272,
+                    "x": 0.9999685287475586,
                     "y": 1.399999976158142,
-                    "z": 0.9999728798866272
+                    "z": 0.9999685287475586
                 },
                 "Rotation": {
                     "x": -3.1415908336639406,
@@ -3071,13 +3071,13 @@
             "TransformComponent": {
                 "Position": {
                     "x": 45.70323181152344,
-                    "y": 10.100915908813477,
+                    "y": 10.068617820739746,
                     "z": -3.390981674194336
                 },
                 "Scale": {
-                    "x": 0.9999822974205017,
+                    "x": 0.9999788999557495,
                     "y": 1.399999976158142,
-                    "z": 0.9999822974205017
+                    "z": 0.9999788999557495
                 },
                 "Rotation": {
                     "x": -3.1415908336639406,
@@ -3123,13 +3123,13 @@
             "TransformComponent": {
                 "Position": {
                     "x": 45.69741439819336,
-                    "y": 10.095109939575196,
+                    "y": 10.061397552490235,
                     "z": 2.0074455738067629
                 },
                 "Scale": {
                     "x": 1.25,
                     "y": 1.399999976158142,
-                    "z": 0.9999022483825684
+                    "z": 0.9998986721038818
                 },
                 "Rotation": {
                     "x": -3.1415908336639406,
@@ -10772,7 +10772,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 5.851312160491943,
+                    "x": 5.887585163116455,
                     "y": 10.142012596130371,
                     "z": -40.81125259399414
                 },
@@ -11612,221 +11612,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 187
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 64.55553436279297,
-                    "y": 10.138080596923829,
-                    "z": 17.319965362548829
-                },
-                "Scale": {
-                    "x": 1.25,
-                    "y": 1.399999976158142,
-                    "z": 0.9998295903205872
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 188
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 64.56196594238281,
-                    "y": 10.138080596923829,
-                    "z": 11.311752319335938
-                },
-                "Scale": {
-                    "x": 1.25,
-                    "y": 1.399999976158142,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
                 "EntityID": 189
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 64.56839752197266,
+                    "x": 64.57255554199219,
                     "y": 10.138080596923829,
-                    "z": 5.32075309753418
-                },
-                "Scale": {
-                    "x": 1.25,
-                    "y": 1.399999976158142,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 190
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 64.57481384277344,
-                    "y": 10.138080596923829,
-                    "z": -0.6875510215759277
-                },
-                "Scale": {
-                    "x": 1.25,
-                    "y": 1.399999976158142,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 191
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 64.58126068115235,
-                    "y": 10.138080596923829,
-                    "z": -6.695962429046631
+                    "z": 1.3603332042694092
                 },
                 "Scale": {
                     "x": 1.25,
@@ -11876,9 +11668,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 64.58773040771485,
+                    "x": 64.59000396728516,
                     "y": 10.138080596923829,
-                    "z": -12.692066192626954
+                    "z": -14.802767753601075
                 },
                 "Scale": {
                     "x": 1.25,
@@ -11928,9 +11720,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 64.59415435791016,
+                    "x": 64.5964584350586,
                     "y": 10.138080596923829,
-                    "z": -18.686429977416993
+                    "z": -20.8024845123291
                 },
                 "Scale": {
                     "x": 1.25,
@@ -11980,116 +11772,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 64.60057830810547,
+                    "x": 64.6028823852539,
                     "y": 10.138080596923829,
-                    "z": -24.68318748474121
+                    "z": -26.811744689941408
                 },
                 "Scale": {
                     "x": 1.25,
-                    "y": 1.399999976158142,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 195
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 64.6070556640625,
-                    "y": 10.138080596923829,
-                    "z": -30.689632415771486
-                },
-                "Scale": {
-                    "x": 1.25,
-                    "y": 1.399999976158142,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 196
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 64.61369323730469,
-                    "y": 10.138080596923829,
-                    "z": -36.93352127075195
-                },
-                "Scale": {
-                    "x": 1.350000023841858,
                     "y": 1.399999976158142,
                     "z": 0.9998279213905335
                 },
@@ -12444,58 +12132,6 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 203
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 38.12259292602539,
-                    "y": 2.938143253326416,
-                    "z": -39.58216857910156
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
                 "EntityID": 204
             },
             "TransformComponent": {
@@ -12798,994 +12434,6 @@
                     ],
                     "finalAlpha": 1.0,
                     "Diffuse": "WallCorner",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 210
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 38.12777328491211,
-                    "y": 2.938143253326416,
-                    "z": -44.38372802734375
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 211
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 38.13296890258789,
-                    "y": 2.938143253326416,
-                    "z": -49.18955612182617
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 212
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 38.138126373291019,
-                    "y": 2.938143253326416,
-                    "z": -53.97675704956055
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 213
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 38.143272399902347,
-                    "y": 2.938143253326416,
-                    "z": -58.772987365722659
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 214
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 38.14845275878906,
-                    "y": 2.938143253326416,
-                    "z": -63.57914352416992
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 215
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 38.15360641479492,
-                    "y": 2.938143253326416,
-                    "z": -68.36021423339844
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 216
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 38.15877151489258,
-                    "y": 2.938143253326416,
-                    "z": -73.1480484008789
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 217
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 38.163963317871097,
-                    "y": 2.938143253326416,
-                    "z": -77.94871520996094
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 218
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 38.169097900390628,
-                    "y": 2.938143253326416,
-                    "z": -82.71224975585938
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 219
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 13.811823844909668,
-                    "y": 2.938052177429199,
-                    "z": -39.60839080810547
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 220
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 13.816953659057618,
-                    "y": 2.938052177429199,
-                    "z": -44.365013122558597
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 221
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 13.822121620178223,
-                    "y": 2.938052177429199,
-                    "z": -49.16640090942383
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 222
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 13.827290534973145,
-                    "y": 2.938052177429199,
-                    "z": -53.966678619384769
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 223
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 13.832447052001954,
-                    "y": 2.938052177429199,
-                    "z": -58.754669189453128
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 224
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 13.837614059448243,
-                    "y": 2.938052177429199,
-                    "z": -63.55128860473633
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 225
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 13.842785835266114,
-                    "y": 2.938052177429199,
-                    "z": -68.36137390136719
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 226
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 13.847945213317871,
-                    "y": 2.938052177429199,
-                    "z": -73.14507293701172
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 227
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 13.853108406066895,
-                    "y": 2.938052177429199,
-                    "z": -77.92887115478516
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCastle",
-                "EntityID": 228
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 13.858283996582032,
-                    "y": 2.938052177429199,
-                    "z": -82.73318481445313
-                },
-                "Scale": {
-                    "x": 0.9998279213905335,
-                    "y": 1.0,
-                    "z": 0.9998279213905335
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": -1.569718837738037,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "Texture": "WallBothSide",
-                "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
                     "Normal": "NothingNormal",
                     "Height": "NothingHeight",
                     "metallic": 0.0,
@@ -20201,13 +18849,13 @@
             "TransformComponent": {
                 "Position": {
                     "x": 31.697538375854493,
-                    "y": 8.443391799926758,
+                    "y": 8.465058326721192,
                     "z": -37.700408935546878
                 },
                 "Scale": {
-                    "x": 2.399846076965332,
+                    "x": 2.3998165130615236,
                     "y": 1.399999976158142,
-                    "z": 0.999939501285553
+                    "z": 0.9999321103096008
                 },
                 "Rotation": {
                     "x": 3.1407713890075685,
@@ -20460,14 +19108,14 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 35.98591613769531,
+                    "x": 35.985870361328128,
                     "y": 8.399558067321778,
-                    "z": 8.830587387084961
+                    "z": 8.858795166015625
                 },
                 "Scale": {
                     "x": 2.299999475479126,
                     "y": 1.399999976158142,
-                    "z": 0.9999220371246338
+                    "z": 0.9999193549156189
                 },
                 "Rotation": {
                     "x": 3.1407713890075685,
@@ -20512,14 +19160,14 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 35.985389709472659,
+                    "x": 35.98554992675781,
                     "y": 8.3915376663208,
-                    "z": 17.870262145996095
+                    "z": 17.829010009765626
                 },
                 "Scale": {
-                    "x": 2.2999191284179689,
+                    "x": 2.299912691116333,
                     "y": 1.399999976158142,
-                    "z": 0.9998406171798706
+                    "z": 0.9998373985290527
                 },
                 "Rotation": {
                     "x": 3.140434503555298,
@@ -25036,9 +23684,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 22,
-                    "y": 9,
-                    "z": -31.999967575073243
+                    "x": 54.99995803833008,
+                    "y": -713.1845092773438,
+                    "z": -29.875892639160158
                 },
                 "Scale": {
                     "x": 1.0,
@@ -25515,6 +24163,2138 @@
                 "StartNode": 447,
                 "EndNode": 448,
                 "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 454
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.755824089050293,
+                    "y": -0.07028533518314362,
+                    "z": -39.573856353759769
+                },
+                "Scale": {
+                    "x": 0.9999157190322876,
+                    "y": 1.0,
+                    "z": 0.9999157190322876
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 219
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.764892578125,
+                    "y": -0.07028990238904953,
+                    "z": -44.37342834472656
+                },
+                "Scale": {
+                    "x": 0.9999028444290161,
+                    "y": 1.0,
+                    "z": 0.9999028444290161
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 220
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.773944854736329,
+                    "y": -0.07029449194669724,
+                    "z": -49.164886474609378
+                },
+                "Scale": {
+                    "x": 0.9998542070388794,
+                    "y": 1.0,
+                    "z": 0.9998542070388794
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 221
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.782977104187012,
+                    "y": -0.07029900699853897,
+                    "z": -53.945640563964847
+                },
+                "Scale": {
+                    "x": 0.9998390078544617,
+                    "y": 1.0,
+                    "z": 0.9998390078544617
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 222
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.792033195495606,
+                    "y": -0.0703035369515419,
+                    "z": -58.74214172363281
+                },
+                "Scale": {
+                    "x": 0.9998207688331604,
+                    "y": 1.0,
+                    "z": 0.9998207688331604
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 223
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.801101684570313,
+                    "y": -0.07030807435512543,
+                    "z": -63.5418586730957
+                },
+                "Scale": {
+                    "x": 0.9998061060905457,
+                    "y": 1.0,
+                    "z": 0.9998061060905457
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 224
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.810163497924805,
+                    "y": -0.07031258940696717,
+                    "z": -68.33905029296875
+                },
+                "Scale": {
+                    "x": 0.9997862577438355,
+                    "y": 1.0,
+                    "z": 0.9997862577438355
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 225
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.819167137145996,
+                    "y": -0.0703170970082283,
+                    "z": -73.10552978515625
+                },
+                "Scale": {
+                    "x": 0.9997769594192505,
+                    "y": 1.0,
+                    "z": 0.9997769594192505
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 226
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.828235626220704,
+                    "y": -0.07032164931297302,
+                    "z": -77.90538787841797
+                },
+                "Scale": {
+                    "x": 0.9997687339782715,
+                    "y": 1.0,
+                    "z": 0.9997687339782715
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 227
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.837241172790528,
+                    "y": -0.07032615691423416,
+                    "z": -82.671875
+                },
+                "Scale": {
+                    "x": 0.9997587203979492,
+                    "y": 1.0,
+                    "z": 0.9997587203979492
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 228
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 38.09469223022461,
+                    "y": -0.07028540223836899,
+                    "z": -39.60731887817383
+                },
+                "Scale": {
+                    "x": 0.9998753070831299,
+                    "y": 1.0,
+                    "z": 0.9998753070831299
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 203
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 38.10377883911133,
+                    "y": -0.0702899694442749,
+                    "z": -44.40596008300781
+                },
+                "Scale": {
+                    "x": 0.9998568892478943,
+                    "y": 1.0,
+                    "z": 0.9998568892478943
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 210
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 38.11286926269531,
+                    "y": -0.07029449194669724,
+                    "z": -49.212032318115237
+                },
+                "Scale": {
+                    "x": 0.9998438358306885,
+                    "y": 1.0,
+                    "z": 0.9998438358306885
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 211
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 38.12192916870117,
+                    "y": -0.07029902189970017,
+                    "z": -54.008766174316409
+                },
+                "Scale": {
+                    "x": 0.9998255968093872,
+                    "y": 1.0,
+                    "z": 0.9998255968093872
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 212
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 38.131004333496097,
+                    "y": -0.07030361890792847,
+                    "z": -58.80940628051758
+                },
+                "Scale": {
+                    "x": 0.9998010993003845,
+                    "y": 1.0,
+                    "z": 0.9998010993003845
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 213
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 38.14009094238281,
+                    "y": -0.07030817121267319,
+                    "z": -63.61613845825195
+                },
+                "Scale": {
+                    "x": 0.9997869729995728,
+                    "y": 1.0,
+                    "z": 0.9997869729995728
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 214
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 38.149166107177737,
+                    "y": -0.07031270116567612,
+                    "z": -68.41635131835938
+                },
+                "Scale": {
+                    "x": 0.9997739195823669,
+                    "y": 1.0,
+                    "z": 0.9997739195823669
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 215
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 38.158206939697269,
+                    "y": -0.07031720876693726,
+                    "z": -73.20133209228516
+                },
+                "Scale": {
+                    "x": 0.9997644424438477,
+                    "y": 1.0,
+                    "z": 0.9997644424438477
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 216
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 38.16727066040039,
+                    "y": -0.07032174617052078,
+                    "z": -77.99406433105469
+                },
+                "Scale": {
+                    "x": 0.9997501373291016,
+                    "y": 1.0,
+                    "z": 0.9997501373291016
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WindowWall",
+                "EntityID": 217
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 38.17629623413086,
+                    "y": -0.07032626122236252,
+                    "z": -82.77486419677735
+                },
+                "Scale": {
+                    "x": 0.9997419118881226,
+                    "y": 1.0,
+                    "z": 0.9997419118881226
+                },
+                "Rotation": {
+                    "x": -3.141092300415039,
+                    "y": -1.5689070224761963,
+                    "z": 3.141092300415039
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Window",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chandelier",
+                "EntityID": 218
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 10.440081596374512,
+                    "y": 7.610499382019043,
+                    "z": -9.64600944519043
+                },
+                "Scale": {
+                    "x": 1.5,
+                    "y": 1.5,
+                    "z": 1.5
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chandelier",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Chandelier",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chandelier",
+                "EntityID": 455
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 25.44828224182129,
+                    "y": 7.610499382019043,
+                    "z": -9.64600944519043
+                },
+                "Scale": {
+                    "x": 1.5,
+                    "y": 1.5,
+                    "z": 1.5
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chandelier",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "Chandelier",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PottedPlant",
+                "EntityID": 456
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 24.080303192138673,
+                    "y": 0.7818465232849121,
+                    "z": 3.044201135635376
+                },
+                "Scale": {
+                    "x": 1.5,
+                    "y": 1.5,
+                    "z": 1.5
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant1",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "PottedPlant1",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PottedPlant",
+                "EntityID": 457
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 32.11038589477539,
+                    "y": 0.33744877576828005,
+                    "z": -23.941911697387697
+                },
+                "Scale": {
+                    "x": 1.5,
+                    "y": 1.5,
+                    "z": 1.5
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant2",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "PottedPlant2",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PottedPlant",
+                "EntityID": 458
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 18.330427169799806,
+                    "y": 0.3143892288208008,
+                    "z": -23.541397094726564
+                },
+                "Scale": {
+                    "x": 1.5,
+                    "y": 1.5,
+                    "z": 1.5
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant3",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "PottedPlant3",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PottedPlant",
+                "EntityID": 459
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -3.4000728130340578,
+                    "y": 0.6675234436988831,
+                    "z": 3.9433352947235109
+                },
+                "Scale": {
+                    "x": 1.5,
+                    "y": 1.5,
+                    "z": 1.5
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant4",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "PottedPlant4",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallDoorTop",
+                "EntityID": 460
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 64.70574951171875,
+                    "y": 12.666234016418457,
+                    "z": -34.909854888916019
+                },
+                "Scale": {
+                    "x": 1.699971318244934,
+                    "y": 1.399999976158142,
+                    "z": 0.9999656677246094
+                },
+                "Rotation": {
+                    "x": 0.0018910769140347839,
+                    "y": 1.5697927474975587,
+                    "z": 0.0018911263905465603
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoorTop",
+                "Texture": "WallDoorTop",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallDoorTop",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallDoorRight",
+                "EntityID": 195
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 64.72555541992188,
+                    "y": 8.485681533813477,
+                    "z": -38.22590255737305
+                },
+                "Scale": {
+                    "x": 1.699999213218689,
+                    "y": 1.399999976158142,
+                    "z": 0.9999988079071045
+                },
+                "Rotation": {
+                    "x": -0.000045439406676450747,
+                    "y": 1.569219708442688,
+                    "z": -0.00004543952672975138
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoorRight",
+                "Texture": "WallDoorRight",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallDoorRight",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallDoorLeft",
+                "EntityID": 196
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 64.70928192138672,
+                    "y": 8.47927188873291,
+                    "z": -31.603525161743165
+                },
+                "Scale": {
+                    "x": 1.6999999284744263,
+                    "y": 1.399999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -3.1415815353393556,
+                    "y": 1.5703928470611573,
+                    "z": -3.1415815353393556
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoorLeft",
+                "Texture": "WallDoorLeft",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallDoorLeft",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallDoorTop",
+                "EntityID": 190
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 64.67742156982422,
+                    "y": 12.666183471679688,
+                    "z": -6.724888801574707
+                },
+                "Scale": {
+                    "x": 1.699971318244934,
+                    "y": 1.399999976158142,
+                    "z": 0.9999656677246094
+                },
+                "Rotation": {
+                    "x": 0.0018910769140347839,
+                    "y": 1.5697927474975587,
+                    "z": 0.0018911263905465603
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoorTop",
+                "Texture": "WallDoorTop",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallDoorTop",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallDoorRight",
+                "EntityID": 191
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 64.68112182617188,
+                    "y": 8.485681533813477,
+                    "z": -10.040999412536621
+                },
+                "Scale": {
+                    "x": 1.699999213218689,
+                    "y": 1.399999976158142,
+                    "z": 0.9999988079071045
+                },
+                "Rotation": {
+                    "x": -0.000045439406676450747,
+                    "y": 1.569219708442688,
+                    "z": -0.00004543952672975138
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoorRight",
+                "Texture": "WallDoorRight",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallDoorRight",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallDoorLeft",
+                "EntityID": 461
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 64.72065734863281,
+                    "y": 8.47927188873291,
+                    "z": -3.420846939086914
+                },
+                "Scale": {
+                    "x": 1.6999999284744263,
+                    "y": 1.399999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -3.1415815353393556,
+                    "y": 1.5703928470611573,
+                    "z": -3.1415815353393556
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoorLeft",
+                "Texture": "WallDoorLeft",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallDoorLeft",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallDoorTop",
+                "EntityID": 187
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 64.58811950683594,
+                    "y": 12.666143417358399,
+                    "z": 15.195695877075196
+                },
+                "Scale": {
+                    "x": 1.699971318244934,
+                    "y": 1.399999976158142,
+                    "z": 0.9999656677246094
+                },
+                "Rotation": {
+                    "x": 0.0018910769140347839,
+                    "y": 1.5697927474975587,
+                    "z": 0.0018911263905465603
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoorTop",
+                "Texture": "WallDoorTop",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallDoorTop",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallDoorLeft",
+                "EntityID": 188
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 64.59368896484375,
+                    "y": 8.47927188873291,
+                    "z": 18.522043228149415
+                },
+                "Scale": {
+                    "x": 1.6999999284744263,
+                    "y": 1.399999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -3.1415815353393556,
+                    "y": 1.5703928470611573,
+                    "z": -3.1415815353393556
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoorLeft",
+                "Texture": "WallDoorLeft",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallDoorLeft",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallDoorRight",
+                "EntityID": 462
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 64.64656066894531,
+                    "y": 8.485681533813477,
+                    "z": 11.877920150756836
+                },
+                "Scale": {
+                    "x": 1.699999213218689,
+                    "y": 1.399999976158142,
+                    "z": 0.9999988079071045
+                },
+                "Rotation": {
+                    "x": -0.000045439406676450747,
+                    "y": 1.569219708442688,
+                    "z": -0.00004543952672975138
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoorRight",
+                "Texture": "WallDoorRight",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallDoorRight",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 463
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 64.56611633300781,
+                    "y": 10.138080596923829,
+                    "z": 7.36646842956543
+                },
+                "Scale": {
+                    "x": 1.25,
+                    "y": 1.399999976158142,
+                    "z": 0.9998279213905335
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": -1.569718837738037,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "Texture": "WallBothSide",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "WallBothSide",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PottedPlant",
+                "EntityID": 464
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 62.47065353393555,
+                    "y": 6.541524887084961,
+                    "z": -3.4173240661621095
+                },
+                "Scale": {
+                    "x": 1.5000001192092896,
+                    "y": 1.5,
+                    "z": 1.5000001192092896
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 1.4691118001937867,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant4",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "PottedPlant4",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PottedPlant",
+                "EntityID": 465
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 63.05502700805664,
+                    "y": 6.541524887084961,
+                    "z": -10.541515350341797
+                },
+                "Scale": {
+                    "x": 1.5000040531158448,
+                    "y": 1.5,
+                    "z": 1.5000040531158448
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": 1.0510132312774659,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant4",
+                "Texture": "",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "PottedPlant4",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "DrawBridgeDoor",
+                "EntityID": 466
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 64.40056610107422,
+                    "y": 9.025798797607422,
+                    "z": 15.319034576416016
+                },
+                "Scale": {
+                    "x": 0.9999979734420776,
+                    "y": 1.2000000476837159,
+                    "z": 0.9999979734420776
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 1.568808913230896,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "DoorDrawbridge",
+                "Texture": "DoorDrawbridge",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "DoorDrawbridge",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "DrawBridgeDoor",
+                "EntityID": 467
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 64.5003662109375,
+                    "y": 9.025798797607422,
+                    "z": -34.902374267578128
+                },
+                "Scale": {
+                    "x": 0.9999979734420776,
+                    "y": 1.2000000476837159,
+                    "z": 0.9999979734420776
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 1.568808913230896,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "DoorDrawbridge",
+                "Texture": "DoorDrawbridge",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "DoorDrawbridge",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "DrawBridgeDoor",
+                "EntityID": 468
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -2.1747522354125978,
+                    "y": 9.025798797607422,
+                    "z": -40.78285217285156
+                },
+                "Scale": {
+                    "x": 0.9999983310699463,
+                    "y": 1.2000000476837159,
+                    "z": 0.9999983310699463
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.005423838272690773,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "DoorDrawbridge",
+                "Texture": "DoorDrawbridge",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 5,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "DoorDrawbridge",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         }
     ]
