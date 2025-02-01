@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "c3118407-886e-4343-b225-177cb0a03017",
+    "SceneGUID": "e4c47eef-a232-4a03-b6db-08b14b15481f",
     "Entities": [
         {
             "MetadataComponent": {
@@ -14,7 +14,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.4500000476837158,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -30,7 +35,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -46,7 +56,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -62,7 +77,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -78,7 +98,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -94,7 +119,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -110,7 +140,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -126,7 +161,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -142,7 +182,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -158,7 +203,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -174,7 +224,12 @@
                 "ScaleY": 0.8999999761581421,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -184,13 +239,18 @@
             },
             "UIComponent": {
                 "TextureName": "htpLMB",
-                "PositionX": 0.03999999910593033,
+                "PositionX": 0.019999999552965165,
                 "PositionY": 0.14000000059604646,
                 "ScaleX": 0.8999999761581421,
                 "ScaleY": 0.8999999761581421,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -200,13 +260,18 @@
             },
             "UIComponent": {
                 "TextureName": "htpBite",
-                "PositionX": -0.029999999329447748,
-                "PositionY": 0.10000000149011612,
-                "ScaleX": 1.0,
-                "ScaleY": 1.0,
+                "PositionX": 0.009999999776482582,
+                "PositionY": 0.15000000596046449,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 0.8999999761581421,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -216,13 +281,18 @@
             },
             "UIComponent": {
                 "TextureName": "htpRMB",
-                "PositionX": 0.03999999910593033,
-                "PositionY": 0.05000000074505806,
+                "PositionX": 0.019999999552965165,
+                "PositionY": 0.07999999821186066,
                 "ScaleX": 0.8999999761581421,
                 "ScaleY": 0.8999999761581421,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -232,13 +302,18 @@
             },
             "UIComponent": {
                 "TextureName": "htpBark",
-                "PositionX": 0.0,
-                "PositionY": 0.05999999865889549,
-                "ScaleX": 1.0,
-                "ScaleY": 1.0,
+                "PositionX": 0.004999999888241291,
+                "PositionY": 0.09000000357627869,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 0.8999999761581421,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -248,13 +323,18 @@
             },
             "UIComponent": {
                 "TextureName": "htpE",
-                "PositionX": 0.0,
+                "PositionX": -0.027000000700354577,
                 "PositionY": 0.05000000074505806,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -264,13 +344,18 @@
             },
             "UIComponent": {
                 "TextureName": "htpSniffa",
-                "PositionX": -0.009999999776482582,
-                "PositionY": 0.03999999910593033,
-                "ScaleX": 1.0,
-                "ScaleY": 1.0,
+                "PositionX": 0.0,
+                "PositionY": -0.0,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 0.8999999761581421,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -286,7 +371,140 @@
                 "ScaleY": 1.0,
                 "Layer": 0.46000003814697268,
                 "Selectable": false,
-                "Opcaity": 0.949999988079071
+                "Opcaity": 0.949999988079071,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WALK",
+                "EntityID": 18
+            },
+            "FontComponent": {
+                "Family": "Arial",
+                "PositionX": -0.029999999329447748,
+                "PositionY": 0.47999998927116396,
+                "Scale": 1.0,
+                "ColorR": 0.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "WALK"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "JUMP",
+                "EntityID": 19
+            },
+            "FontComponent": {
+                "Family": "Arial",
+                "PositionX": -0.029999999329447748,
+                "PositionY": 0.25,
+                "Scale": 1.0,
+                "ColorR": 0.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "JUMP"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "SPRINT",
+                "EntityID": 20
+            },
+            "FontComponent": {
+                "Family": "Arial",
+                "PositionX": -0.029999999329447748,
+                "PositionY": -0.05999999865889549,
+                "Scale": 1.0,
+                "ColorR": 0.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "SPRINT"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CAMERA",
+                "EntityID": 21
+            },
+            "FontComponent": {
+                "Family": "Arial",
+                "PositionX": -0.09000000357627869,
+                "PositionY": -0.36000001430511477,
+                "Scale": 1.0,
+                "ColorR": 0.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "CAMERA"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CONTROL",
+                "EntityID": 22
+            },
+            "FontComponent": {
+                "Family": "Arial",
+                "PositionX": -0.09000000357627869,
+                "PositionY": -0.41999998688697817,
+                "Scale": 1.0,
+                "ColorR": 0.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "CONTROL"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "SNIFF",
+                "EntityID": 23
+            },
+            "FontComponent": {
+                "Family": "Arial",
+                "PositionX": 0.5950000286102295,
+                "PositionY": -0.20000000298023225,
+                "Scale": 1.0,
+                "ColorR": 0.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "SNIFF"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BARK",
+                "EntityID": 24
+            },
+            "FontComponent": {
+                "Family": "Arial",
+                "PositionX": 0.5950000286102295,
+                "PositionY": 0.10999999940395355,
+                "Scale": 1.0,
+                "ColorR": 0.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "BARK"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BITE",
+                "EntityID": 25
+            },
+            "FontComponent": {
+                "Family": "Arial",
+                "PositionX": 0.5950000286102295,
+                "PositionY": 0.47999998927116396,
+                "Scale": 1.0,
+                "ColorR": 0.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "BITE"
             }
         }
     ]

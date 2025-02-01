@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "024ce9e1-29a1-4866-81b5-9ed3e2d70815",
+    "SceneGUID": "bdbc2df3-1b2f-4384-8eb1-22804ae244ec",
     "Entities": [
         {
             "MetadataComponent": {
@@ -14,7 +14,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.4500000476837158,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -24,13 +29,18 @@
             },
             "UIComponent": {
                 "TextureName": "LeftArrow",
-                "PositionX": -0.10000000149011612,
+                "PositionX": 0.0,
                 "PositionY": 0.30000001192092898,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
                 "Layer": 0.440000057220459,
                 "Selectable": true,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -40,13 +50,18 @@
             },
             "UIComponent": {
                 "TextureName": "RightArrow",
-                "PositionX": 0.4000000059604645,
+                "PositionX": 0.41999998688697817,
                 "PositionY": 0.30000001192092898,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
                 "Layer": 0.440000057220459,
                 "Selectable": true,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -56,13 +71,18 @@
             },
             "UIComponent": {
                 "TextureName": "LeftArrow",
-                "PositionX": -0.10000000149011612,
+                "PositionX": 0.0,
                 "PositionY": -0.20000000298023225,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
                 "Layer": 0.440000057220459,
                 "Selectable": true,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -72,13 +92,18 @@
             },
             "UIComponent": {
                 "TextureName": "RightArrow",
-                "PositionX": 0.4000000059604645,
+                "PositionX": 0.41999998688697817,
                 "PositionY": -0.20000000298023225,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
                 "Layer": 0.440000057220459,
                 "Selectable": true,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -94,7 +119,76 @@
                 "ScaleY": 1.0,
                 "Layer": 0.46000003814697268,
                 "Selectable": false,
-                "Opcaity": 0.949999988079071
+                "Opcaity": 0.949999988079071,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "SFX",
+                "EntityID": 6
+            },
+            "FontComponent": {
+                "Family": "Arial",
+                "PositionX": -0.5,
+                "PositionY": 0.25,
+                "Scale": 3.5,
+                "ColorR": 1.0,
+                "ColorG": 1.0,
+                "ColorB": 1.0,
+                "Text": "SFX"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BGM",
+                "EntityID": 7
+            },
+            "FontComponent": {
+                "Family": "Arial",
+                "PositionX": -0.550000011920929,
+                "PositionY": -0.25,
+                "Scale": 3.5,
+                "ColorR": 1.0,
+                "ColorG": 1.0,
+                "ColorB": 1.0,
+                "Text": "BGM"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BGMVol",
+                "EntityID": 8
+            },
+            "FontComponent": {
+                "Family": "Arial",
+                "PositionX": 0.10999999940395355,
+                "PositionY": -0.25,
+                "Scale": 3.5,
+                "ColorR": 1.0,
+                "ColorG": 1.0,
+                "ColorB": 1.0,
+                "Text": "10"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "SFXVol",
+                "EntityID": 9
+            },
+            "FontComponent": {
+                "Family": "Arial",
+                "PositionX": 0.10999999940395355,
+                "PositionY": 0.25,
+                "Scale": 3.5,
+                "ColorR": 1.0,
+                "ColorG": 1.0,
+                "ColorB": 1.0,
+                "Text": "10"
             }
         }
     ]
