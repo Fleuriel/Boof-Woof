@@ -15,8 +15,8 @@ class MainMenu : public Level
 	void LoadLevel() override
 	{
 		// Load the main menu scenes
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainMenuBack.json");
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainMenuFront.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/MainMenuBack.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/MainMenuFront.json");
 
 		// Find the "BackCamera" entity
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -72,8 +72,7 @@ class MainMenu : public Level
 
 			music.PlayAudio();
 	//	}
-		
-		/*Empty by design*/ }
+	}
 
 	void UpdateLevel(double deltaTime) override
 	{
@@ -106,7 +105,7 @@ class MainMenu : public Level
 
 		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 1 && !inSmth)
 		{
-			if (g_Coordinator.HaveComponent<UIComponent>(StartGame)) 
+			if (g_Coordinator.HaveComponent<UIComponent>(StartGame))
 			{
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(StartGame);
 				if (UICompt.get_selected())
@@ -120,7 +119,7 @@ class MainMenu : public Level
 					}
 
 					g_Window->HideMouseCursor();
-					g_LevelManager.SetNextLevel("Cutscene");				
+					g_LevelManager.SetNextLevel("Cutscene");
 				}
 			}
 

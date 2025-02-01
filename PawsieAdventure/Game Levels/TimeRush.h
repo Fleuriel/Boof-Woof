@@ -27,8 +27,8 @@ class TimeRush : public Level
 
 	void LoadLevel() override
 	{
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/TimeRushPuzzle.json");
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/Timer.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/TimeRushPuzzle.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Timer.json");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -73,7 +73,7 @@ class TimeRush : public Level
 				}
 
 				// Exit early if all entities are found
-				if (playerEnt && scentEntity1 && scentEntity2 && scentEntity3 && scentEntity4 
+				if (playerEnt && scentEntity1 && scentEntity2 && scentEntity3 && scentEntity4
 					&& scentEntity5 && scentEntity6 && timerTextEntity && TimeRushBGM && AggroDog && CorgiSniff)
 				{
 					break;
@@ -95,7 +95,7 @@ class TimeRush : public Level
 		g_Checklist.ChangeAsset(g_Checklist.Box2, glm::vec2(0.0f, 0.0f), "");
 		g_Checklist.ChangeAsset(g_Checklist.Box3, glm::vec2(0.0f, 0.0f), "");
 		g_Checklist.ChangeAsset(g_Checklist.Box4, glm::vec2(0.0f, 0.0f), "");
-		
+
 		if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
 		{
 			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.165f));
@@ -200,7 +200,13 @@ class TimeRush : public Level
 
 			if (g_Checklist.finishTR && g_Checklist.shutted)
 			{
-				g_LevelManager.SetNextLevel("MainHall");
+				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+				if (loading)
+				{
+					// Pass in the name of the real scene we want AFTER the loading screen
+					loading->m_NextScene = "MainHall";
+					g_LevelManager.SetNextLevel("LoadingLevel");
+				}
 			}
 		}
 	}

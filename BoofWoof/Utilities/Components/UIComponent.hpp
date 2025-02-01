@@ -4,7 +4,8 @@
 
 #include "ECS/Coordinator.hpp"
 #include "../Core/Reflection/ReflectionManager.hpp" 
-
+#include <glm/glm.hpp>
+#include <string>
 
 class UIComponent {
 public:
@@ -28,6 +29,8 @@ public:
 	void set_timer(float t) { timer = t; }
 	void set_playing(bool p) { playing = p; }
 	void set_stay_on_row(bool s) { stay_on_row = s; }
+    void set_rotation(float r) { rotation = r; }
+    
 
 	// getters
 	glm::vec2 get_position() { return position; }
@@ -45,10 +48,12 @@ public:
 	float get_timer() const { return timer; }
 	bool get_playing() const { return playing; }
 	bool get_stay_on_row() const { return stay_on_row; }
+	float get_rotation() const { return rotation; }
 
-	// UI interaction
-	bool get_selected() { return selected; }
-	float get_UI_opacity() { return UI_opacity; }
+
+    // UI interaction
+    bool get_selected() { return selected; }
+    float get_UI_opacity() { return UI_opacity; }
 
 
 	void checkclick(glm::vec2 mousepos) {
@@ -83,16 +88,17 @@ private:
 	std::string texturename;
 	std::string text{};
 
-	glm::vec2 position{ 0.f, 0.f };
-	glm::vec2 scale{ 1.f, 1.f };
+    glm::vec2 position{ 0.f, 0.f };
+    glm::vec2 scale{ 1.f, 1.f };
 
-	float layer = 0.5f;
-	bool selectable{ false };
-	float UI_opacity{ 1.f };
+    float layer = 0.5f;
+    bool selectable{ false };
+    float UI_opacity{ 1.f };
 
+    bool selected{ false };
 
-	bool selected{ false };
-
+    // NEW: Add a rotation property
+    float rotation = 0.0f;
 	bool animated{ false };
 	int rows{ 1 };
 	int cols{ 1 };

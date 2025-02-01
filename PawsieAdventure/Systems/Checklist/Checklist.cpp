@@ -10,6 +10,8 @@ Entity CheckBox{};
 
 void Checklist::OnInitialize()
 {
+	Check1 = Check2 = Check3 = Check4 = corgiText = false;
+
 	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/Checklist.json");
 	storage = serialChecklist.GetStored();
 
@@ -171,9 +173,8 @@ bool Checklist::CheckWASD()
 
 void Checklist::OnShutdown()
 {
-	// Just remove whatever we had stored from the current alive entity and destroy them
+	// Loop through all alive entities and destroy those in storage.
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
-
 	for (auto i = entities.begin(); i != entities.end(); i++)
 	{
 		for (auto k = storage.begin(); k != storage.end(); k++)
@@ -185,6 +186,10 @@ void Checklist::OnShutdown()
 		}
 	}
 
+	// Clear the storage vector so old entity IDs are not reused.
+	storage.clear();
+
+	// Reset all checklist flags and timers.
 	shutted = true;
 	clTimer = 0.0;
 	Check1 = Check2 = Check3 = Check4 = corgiText = false;

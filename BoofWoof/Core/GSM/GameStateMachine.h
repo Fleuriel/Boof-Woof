@@ -23,6 +23,7 @@ enum class GameStates
 	MAINMENU,
 	LEVEL1,
 
+	LOADING,
 	RESTART,
 	QUIT
 };

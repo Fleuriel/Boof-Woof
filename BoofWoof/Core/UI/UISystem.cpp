@@ -91,6 +91,7 @@ void UISystem::UI_update() {
     //glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+
 void UISystem::UI_render()
 {
     for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
@@ -110,14 +111,20 @@ void UISystem::UI_render()
             glm::vec3 UI_scale = { UICompt.get_scale(), 1.f };
 
             glm::mat4 model = glm::mat4(1.0f);
+
+            // Apply translation
             model = glm::translate(model, UI_pos);
+            // Apply rotation around the Z-axis.
+            // We use glm::radians() to convert the rotation angle from degrees to radians.
+            model = glm::rotate(model, glm::radians(UICompt.get_rotation()), glm::vec3(0.0f, 0.0f, 1.0f));
+            // Apply scaling
             model = glm::scale(model, UI_scale);
 
+            // Render non-animated UI with the default shader:
             if (UICompt.get_animate() == false)
             {
-                // Use default shader
                 auto& shader = g_AssetManager.GetShader("Shader2D");
-                shader.Use(); // **Ensure shader is used before setting uniforms**
+                shader.Use();
 
                 shader.SetUniform("vertexTransform", model);
                 shader.SetUniform("view", glm::mat4(1.0f));
@@ -129,21 +136,26 @@ void UISystem::UI_render()
                 shader.SetUniform("uTex2d", 6);
 
                 g_ResourceManager.getModel("Square")->Draw2D(shader);
-
                 shader.UnUse();
             }
             else
             {
-                // Use the "sprite" shader
+                // Animated UI branch remains similar but can include rotation in the transformation.
                 auto& shader = g_AssetManager.GetShader("Sprite");
                 shader.Use();
 
-                // Set the transformation matrix in the shader
-                shader.SetUniform("uModel_to_NDC", glm::mat3(model));
+                glm::vec3 UI_pos1 = { UICompt.get_position(), UICompt.get_UI_layer() };
+                glm::vec3 UI_scale1 = { UICompt.get_scale(), 1.0f };
+
+                glm::mat4 model1 = glm::mat4(1.0f);
+                model1 = glm::translate(model1, UI_pos1);
+                model1 = glm::rotate(model1, glm::radians(UICompt.get_rotation()), glm::vec3(0.0f, 0.0f, 1.0f));
+                model1 = glm::scale(model1, UI_scale1);
+
+                // Here we send the 3x3 matrix for 2D transformations.
+                shader.SetUniform("uModel_to_NDC", glm::mat3(model1));
 
                 shader.SetUniform("opacity", UICompt.get_UI_opacity());
-
-                // Animation-related uniforms (if applicable)
                 shader.SetUniform("rows", UICompt.get_rows());
                 shader.SetUniform("cols", UICompt.get_cols());
                 shader.SetUniform("row_To_Draw", UICompt.get_curr_row());
@@ -153,13 +165,9 @@ void UISystem::UI_render()
                 glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(UICompt.get_texturename()));
                 shader.SetUniform("uTex2d", 6);
 
-                // Draw the animated sprite
                 g_ResourceManager.getModel("Square")->Draw2D(shader);
-
                 shader.UnUse();
             }
         }
     }
 }
-
-
