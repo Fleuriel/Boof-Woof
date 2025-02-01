@@ -20,6 +20,7 @@
 
 extern bool g_WindowClosed;
 GameStates g_CurrentState{}, g_PreviousState{}, g_NextState{};
+bool g_IsPaused{ false };
 
 void UpdateGSM()
 {
@@ -44,6 +45,8 @@ void UpdateGSM()
 			g_Core->OnUpdate();	// outside of the above loop to render once per frame for efficiency
 
 			g_LevelManager.UpdateLevel(g_Core->m_DeltaTime);
+
+			g_Input.UpdateStatesForNextFrame();
 
 			if (g_WindowClosed || glfwWindowShouldClose(g_Window->GetGLFWWindow()) || g_LevelManager.GetNextLevel() == nullptr)
 			{

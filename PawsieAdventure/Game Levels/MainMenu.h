@@ -4,21 +4,20 @@
 #include "LoadingLevel.h"
 #include "ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
+#include "../Systems/PauseScreen/PauseScreen.h"
 
-Entity BackCamera{}, MenuMusic{}, MenuClick{};  // Entity for the back camera
+Entity BackCamera{}, MenuMusic{}, MenuClick{}, StartGame{}, X{}, HTP{}, Cog{};
+std::unique_ptr<PauseMenu> MenuPauser = CreatePausedMenu(PauseState::Paused);
 
-double MenuelapsedTime = 0.0;  // Tracks the elapsed time
-double delayAfterSpace = 0.5;  // Set the delay to 1 second
-bool spacePressed = false;  // Tracks whether the space bar has been pressed
+bool inSmth{ false };
 
 class MainMenu : public Level
 {
-	void LoadLevel()
+	void LoadLevel() override
 	{
 		// Load the main menu scenes
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainMenuBack.json");
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainMenuFront.json");
-
 
 		// Find the "BackCamera" entity
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -28,9 +27,12 @@ class MainMenu : public Level
 		{
 			{"BackCamera", [&](Entity entity) { BackCamera = entity; }},
 			{"MainMenuBGM", [&](Entity entity) { MenuMusic = entity; }},
-			{"MenuButtonClick", [&](Entity entity) { MenuClick = entity; }}
+			{"MenuButtonClick", [&](Entity entity) { MenuClick = entity; }},
+			{ "StartGame", [&](Entity entity) { StartGame = entity; } },
+			{ "HTP", [&](Entity entity) { HTP = entity; } },
+			{ "Cog", [&](Entity entity) { Cog = entity; } },
+			{ "X", [&](Entity entity) { X = entity; } }
 		};
-
 
 		for (auto entity : entities)
 		{
@@ -56,7 +58,7 @@ class MainMenu : public Level
 				}
 
 				// Exit early if all entities are found
-				if (BackCamera && MenuMusic && MenuClick)
+				if (BackCamera && MenuMusic && MenuClick && StartGame && HTP && Cog && X)
 				{
 					break;
 				}
@@ -64,9 +66,9 @@ class MainMenu : public Level
 		}
 	}
 
-	void InitLevel() { /* Empty by design */ }
+	void InitLevel() override { /*Empty by design*/ }
 
-	void UpdateLevel(double deltaTime)
+	void UpdateLevel(double deltaTime) override
 	{
 		// Get the current yaw value for the camera
 		float currentYaw = g_Coordinator.GetComponent<CameraComponent>(BackCamera).GetCameraYaw();
@@ -83,27 +85,35 @@ class MainMenu : public Level
 		// Update the yaw value in the camera component
 		g_Coordinator.GetComponent<CameraComponent>(BackCamera).SetCameraYaw(currentYaw);
 
-		if (!spacePressed)
+		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
 		{
-			if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
+			if (inSmth)
 			{
-				// Play the button click sound
-				if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
-					auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
-					music1.PlayAudio();
-				}
-				
-				// Mark space as pressed and reset elapsed time
-				spacePressed = true;
-				MenuelapsedTime = 0.0;
-				g_Window->HideMouseCursor();
+				// need to add in audio feedback for pressing ESC
+
+
+				inSmth = false;
+				MenuPauser->OnExit();
 			}
 		}
-		else
+
+		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 1 && !inSmth)
 		{
-			MenuelapsedTime += deltaTime;
-			if (MenuelapsedTime >= delayAfterSpace)
+			if (g_Coordinator.HaveComponent<UIComponent>(StartGame)) 
 			{
+
+				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(StartGame);
+				if (UICompt.get_selected())
+				{
+					inSmth = true;
+
+					// Play the button click sound
+					if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
+						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
+						music1.PlayAudio();
+					}
+
+					g_Window->HideMouseCursor();
 				// Instead of going directly to "Cutscene", go via "LoadingLevel"
 				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 				if (loading)
@@ -113,13 +123,135 @@ class MainMenu : public Level
 					g_LevelManager.SetNextLevel("LoadingLevel");
 				}
 			}
+
+			if (g_Coordinator.HaveComponent<UIComponent>(HTP))
+			{
+				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(HTP);
+				if (UICompt.get_selected())
+				{
+					inSmth = true;
+
+					// Play the button click sound
+					if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
+						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
+						music1.PlayAudio();
+					}
+					MenuPauser = CreatePausedMenu(PauseState::HowToPlay);
+					MenuPauser->OnLoad();
+				}
+			}
+
+			if (g_Coordinator.HaveComponent<UIComponent>(Cog))
+			{
+				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(Cog);
+				if (UICompt.get_selected())
+				{
+					inSmth = true;
+
+					// Play the button click sound
+					if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
+						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
+						music1.PlayAudio();
+					}
+					MenuPauser = CreatePausedMenu(PauseState::Settings);
+					MenuPauser->OnLoad();
+				}
+			}
+
+			if (g_Coordinator.HaveComponent<UIComponent>(X))
+			{
+				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(X);
+				if (UICompt.get_selected())
+				{
+					inSmth = true;
+
+					// Play the button click sound
+					if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
+						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
+						music1.PlayAudio();
+					}
+
+					MenuPauser->OnExit();
+					exit(0);
+				}
+			}
+		}
+
+		static bool wasMousePressed = false;
+
+		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 1 && !wasMousePressed && inSmth)
+		{
+			wasMousePressed = true;
+			const float volumeStep = 0.1f; // Step size for volume change
+
+
+			// For Settings Page
+			if (g_Coordinator.HaveComponent<UIComponent>(MenuPauser->SFXLeft))
+			{
+				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->SFXLeft);
+				if (UICompt.get_selected())
+				{	
+					float newVolume = std::max(0.0f,(float)( g_Audio.GetSFXVolume() -  volumeStep));
+				
+					g_Audio.SetSFXVolume(newVolume);
+					std::cout << "decrease SFX\n";
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
+
+
+				}
+			}
+
+			if (g_Coordinator.HaveComponent<UIComponent>(MenuPauser->SFXRight))
+			{
+				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->SFXRight);
+				if (UICompt.get_selected())
+				{
+					float newVolume = std::min(1.0f,(float)( g_Audio.GetSFXVolume() + volumeStep));
+					g_Audio.SetSFXVolume(newVolume);
+					std::cout << "increase SFX\n";
+
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
+
+
+			
+
+				}
+			}
+
+			if (g_Coordinator.HaveComponent<UIComponent>(MenuPauser->BGMLeft))
+			{
+				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->BGMLeft);
+				if (UICompt.get_selected())
+				{
+					float newVolume = std::max(0.0f, (float)(g_Audio.GetBGMVolume() - volumeStep));
+					g_Audio.SetBGMVolume(newVolume);
+					std::cout << "decrease BGM\n";
+				}
+			}
+
+			if (g_Coordinator.HaveComponent<UIComponent>(MenuPauser->BGMRight))
+			{
+				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->BGMRight);
+				if (UICompt.get_selected())
+				{
+					float newVolume = std::min(1.0f, (float)(g_Audio.GetBGMVolume() + volumeStep));
+					g_Audio.SetBGMVolume(newVolume);
+
+					std::cout << "increase BGM\n";
+				}
+			}
+		}
+		else if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 0)
+		{
+			// Reset the mouse press state when the mouse button is released
+			wasMousePressed = false;
 		}
 
 	}
 
-	void FreeLevel() { /* Empty by design */ }
+	void FreeLevel() override { /* Empty by design */ }
 
-	void UnloadLevel()
+	void UnloadLevel() override
 	{
 		/*if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic)) {
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
@@ -130,7 +262,7 @@ class MainMenu : public Level
 
 		// Reset all entities
 		g_Coordinator.ResetEntities();
-		MenuelapsedTime = 0.0;
-		spacePressed = false;
+
+		inSmth = false;
 	}
 };

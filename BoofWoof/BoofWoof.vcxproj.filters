@@ -39,6 +39,7 @@
     <ClCompile Include="Utilities\Components\HierarchyComponent.cpp" />
     <ClCompile Include="Utilities\Components\LightComponent.cpp" />
     <ClCompile Include="Core\AssetManager\FilePaths.cpp" />
+    <ClCompile Include="Core\Pathfinding\PathfindingSystem.cpp" />
     <ClCompile Include="Utilities\Components\UIComponent.cpp" />
     <ClCompile Include="Core\UI\UISystem.cpp" />
     <ClCompile Include="Core\Serialization\SerializationAsync.cpp" />
@@ -95,10 +96,14 @@
     <ClInclude Include="Utilities\Components\HierarchyComponent.hpp" />
     <ClInclude Include="Core\Graphics\TransformSystem.hpp" />
     <ClInclude Include="Utilities\Components\LightComponent.hpp" />
+    <ClInclude Include="Core\Pathfinding\PathfindingSystem.h" />
     <ClInclude Include="Utilities\Components\UIComponent.hpp" />
+    <ClInclude Include="Utilities\Components\PathfindingComponent.hpp" />
     <ClInclude Include="Core\UI\UISystem.h" />
     <ClInclude Include="Core\SceneManager\SceneData.h" />
     <ClInclude Include="Core\Serialization\SerializationAsync.h" />
+    <ClInclude Include="Utilities\Components\EdgeComponent.hpp" />
+    <ClInclude Include="Utilities\Components\NodeComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

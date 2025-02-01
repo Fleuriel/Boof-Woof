@@ -468,7 +468,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
 			auto& uiComp = g_Coordinator.GetComponent<UIComponent>(entity);
 
-			UI.AddMember("TextureID", uiComp.get_textureid(), allocator);
+			UI.AddMember("TextureName", rapidjson::Value(uiComp.get_texturename().c_str(), allocator), allocator);
 			UI.AddMember("PositionX", uiComp.get_position().x, allocator);
 			UI.AddMember("PositionY", uiComp.get_position().y, allocator);
 			UI.AddMember("ScaleX", uiComp.get_scale().x, allocator);
@@ -484,10 +484,74 @@ bool Serialization::SaveScene(const std::string& filepath) {
             // UI.AddMember("CurrentCol", uiComp.get_curr_col(), allocator);
             UI.AddMember("FrameInterval", uiComp.get_frame_interval(), allocator);
             // UI.AddMember("Timer", uiComp.get_timer(), allocator);
+            UI.AddMember("StayOnRow", uiComp.get_stay_on_row(), allocator);
 
 			entityData.AddMember("UIComponent", UI, allocator);
 
         }
+
+        // Serialization for PathfindingComponent
+        if (g_Coordinator.HaveComponent<PathfindingComponent>(entity)) {
+            rapidjson::Value pathfindingData(rapidjson::kObjectType);
+
+            auto& pathfindingComponent = g_Coordinator.GetComponent<PathfindingComponent>(entity);
+
+            // Serialize start and goal nodes
+            pathfindingData.AddMember("StartNode", static_cast<int>(pathfindingComponent.GetStartNode()), allocator);
+            pathfindingData.AddMember("GoalNode", static_cast<int>(pathfindingComponent.GetGoalNode()), allocator);
+
+            // Serialize path (optional, as it might be recalculated at runtime)
+            rapidjson::Value pathArray(rapidjson::kArrayType);
+            for (const auto& point : pathfindingComponent.GetPath()) {
+                rapidjson::Value pointData(rapidjson::kObjectType);
+                pointData.AddMember("x", point.x, allocator);
+                pointData.AddMember("y", point.y, allocator);
+                pointData.AddMember("z", point.z, allocator);
+                pathArray.PushBack(pointData, allocator);
+            }
+            pathfindingData.AddMember("Path", pathArray, allocator);
+
+            // Add PathfindingComponent to entity data
+            entityData.AddMember("PathfindingComponent", pathfindingData, allocator);
+        }
+
+        // Serialization for NodeComponent
+        if (g_Coordinator.HaveComponent<NodeComponent>(entity)) {
+            rapidjson::Value nodeData(rapidjson::kObjectType);
+
+            auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(entity);
+
+            // Serialize position
+            rapidjson::Value position(rapidjson::kObjectType);
+            position.AddMember("x", nodeComponent.GetPosition().x, allocator);
+            position.AddMember("y", nodeComponent.GetPosition().y, allocator);
+            position.AddMember("z", nodeComponent.GetPosition().z, allocator);
+            nodeData.AddMember("Position", position, allocator);
+
+            // Serialize walkable status
+            nodeData.AddMember("IsWalkable", nodeComponent.IsWalkable(), allocator);
+
+            // Add NodeComponent to entity data
+            entityData.AddMember("NodeComponent", nodeData, allocator);
+        }
+        
+        // Serialization for EdgeComponent
+        if (g_Coordinator.HaveComponent<EdgeComponent>(entity)) {
+            rapidjson::Value edgeData(rapidjson::kObjectType);
+
+            auto& edgeComponent = g_Coordinator.GetComponent<EdgeComponent>(entity);
+
+            // Serialize start and end nodes
+            edgeData.AddMember("StartNode", static_cast<int>(edgeComponent.GetStartNode()), allocator);
+            edgeData.AddMember("EndNode", static_cast<int>(edgeComponent.GetEndNode()), allocator);
+
+            // Serialize cost
+            edgeData.AddMember("Cost", edgeComponent.GetCost(), allocator);
+
+            // Add EdgeComponent to entity data
+            entityData.AddMember("EdgeComponent", edgeData, allocator);
+        }
+
 
         entities.PushBack(entityData, allocator);
     }
@@ -979,87 +1043,159 @@ bool Serialization::LoadScene(const std::string& filepath)
 
             }
 			// Deserialize UIComponent
-			if (entityData.HasMember("UIComponent")) {
+			if (entityData.HasMember("UIComponent")) 
+            {
 				const auto& UIData = entityData["UIComponent"];
-				if (UIData.HasMember("TextureID")) {
-                    int textureID{};
-					if (UIData.HasMember("TextureID"))
-						textureID = UIData["TextureID"].GetInt();
+				
+                std::string textureName{};
+                /*if (UIData.HasMember("TextureID")) {
+                    int textureID = UIData["TextureID"].GetInt();
+					textureName = g_ResourceManager.GetTextureDDSFileName(textureID);
+                }*/
 
-					glm::vec2 position = glm::vec2(0.0f);
-					if (UIData.HasMember("PositionX") && UIData.HasMember("PositionY"))
-						position = glm::vec2(UIData["PositionX"].GetFloat(), UIData["PositionY"].GetFloat());
-
-					glm::vec2 scale = glm::vec2(1.0f);
-					if (UIData.HasMember("ScaleX") && UIData.HasMember("ScaleY"))
-						scale = glm::vec2(UIData["ScaleX"].GetFloat(), UIData["ScaleY"].GetFloat());
-
-
-					float layer = 0.0f;
-					if (UIData.HasMember("Layer"))
-						layer = UIData["Layer"].GetFloat();
-
-					bool selectable = false;
-					if (UIData.HasMember("Selectable"))
-						selectable = UIData["Selectable"].GetBool();
-
-					float opacity = 1.0f;
-					if (UIData.HasMember("Opcaity"))
-						opacity = UIData["Opcaity"].GetFloat();
-
-					UIComponent uiComponent(textureID, position, scale, layer, selectable, opacity);
-
-                    if (UIData.HasMember("Animated"))
-                        uiComponent.set_animate(UIData["Animated"].GetBool());
-
-                    if (UIData.HasMember("Rows"))
-                        uiComponent.set_rows(UIData["Rows"].GetInt());
-
-                    if (UIData.HasMember("Cols"))
-                        uiComponent.set_cols(UIData["Cols"].GetInt());
-
-                    if (UIData.HasMember("FrameInterval"))
-                        uiComponent.set_frame_interval(UIData["FrameInterval"].GetFloat());
-
-					g_Coordinator.AddComponent(entity, uiComponent);
+					
+				if (UIData.HasMember("TextureName")) {
+					textureName = UIData["TextureName"].GetString();
 				}
+
+				glm::vec2 position = glm::vec2(0.0f);
+				if (UIData.HasMember("PositionX") && UIData.HasMember("PositionY"))
+					position = glm::vec2(UIData["PositionX"].GetFloat(), UIData["PositionY"].GetFloat());
+
+				glm::vec2 scale = glm::vec2(1.0f);
+				if (UIData.HasMember("ScaleX") && UIData.HasMember("ScaleY"))
+					scale = glm::vec2(UIData["ScaleX"].GetFloat(), UIData["ScaleY"].GetFloat());
+
+
+				float layer = 0.0f;
+				if (UIData.HasMember("Layer"))
+					layer = UIData["Layer"].GetFloat();
+
+				bool selectable = false;
+				if (UIData.HasMember("Selectable"))
+					selectable = UIData["Selectable"].GetBool();
+
+				float opacity = 1.0f;
+				if (UIData.HasMember("Opcaity"))                
+					opacity = UIData["Opcaity"].GetFloat();
+
+				UIComponent uiComponent(textureName, position, scale, layer, selectable, opacity);
+
+				if (UIData.HasMember("Animated"))
+					uiComponent.set_animate(UIData["Animated"].GetBool());
+
+				if (UIData.HasMember("Rows"))
+					uiComponent.set_rows(UIData["Rows"].GetInt());
+
+				if (UIData.HasMember("Cols"))
+					uiComponent.set_cols(UIData["Cols"].GetInt());
+
+				if (UIData.HasMember("FrameInterval"))
+					uiComponent.set_frame_interval(UIData["FrameInterval"].GetFloat());
+
+				if (UIData.HasMember("StayOnRow"))
+					uiComponent.set_stay_on_row(UIData["StayOnRow"].GetBool());
+
+				g_Coordinator.AddComponent(entity, uiComponent);
+				
 			}
 
+            // Deserialization for PathfindingComponent
+            if (entityData.HasMember("PathfindingComponent")) 
+            {
+                const auto& pathfindingData = entityData["PathfindingComponent"];
 
+                Entity startNode = INVALID_ENTITY;
+                if (pathfindingData.HasMember("StartNode")) {
+                    startNode = static_cast<Entity>(pathfindingData["StartNode"].GetInt());
+                }
 
+                Entity goalNode = INVALID_ENTITY;
+                if (pathfindingData.HasMember("GoalNode")) {
+                    goalNode = static_cast<Entity>(pathfindingData["GoalNode"].GetInt());
+                }
 
+                std::vector<glm::vec3> path;
+                if (pathfindingData.HasMember("Path")) {
+                    const auto& pathArray = pathfindingData["Path"];
+                    for (const auto& pointData : pathArray.GetArray()) {
+                        glm::vec3 point(
+                            pointData["x"].GetFloat(),
+                            pointData["y"].GetFloat(),
+                            pointData["z"].GetFloat()
+                        );
+                        path.push_back(point);
+                    }
+                }
 
+                PathfindingComponent pathfindingComponent;
+                pathfindingComponent.SetStartNode(startNode);
+                pathfindingComponent.SetGoalNode(goalNode);
+                pathfindingComponent.SetPath(path);
 
+                g_Coordinator.AddComponent(entity, pathfindingComponent);
+            }
 
+            // Deserialization for NodeComponent
+            if (entityData.HasMember("NodeComponent")) {
+                const auto& nodeData = entityData["NodeComponent"];
 
-            // Print out all entity components
-			//std::cout << "Entity: " << g_Coordinator.GetEntityId(entity) << std::endl;
-			//if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) {
-			//	std::cout << "MetadataComponent: " << g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() << std::endl;
-			//}
-   //         if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
-   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().x << std::endl;
-   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().y << std::endl;
-   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().z << std::endl;
-   //         }
-   //         if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
-   //             std::cout << "GraphicsComponent: " << g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelID() << std::endl;
-   //         }
-			//if (g_Coordinator.HaveComponent<AudioComponent>(entity)) {
-			//	std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetFilePath().c_str() << std::endl;
-			//	std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetVolume() << std::endl;
-   //             std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).ShouldLoop() << std::endl;
-			//}
-			//if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) {
-			//	std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << std::endl;
-			//}
+                glm::vec3 position(0.0f);
+                if (nodeData.HasMember("Position")) {
+                    position = glm::vec3(
+                        nodeData["Position"]["x"].GetFloat(),
+                        nodeData["Position"]["y"].GetFloat(),
+                        nodeData["Position"]["z"].GetFloat()
+                    );
+                }
+
+                bool isWalkable = true;
+                if (nodeData.HasMember("IsWalkable")) {
+                    isWalkable = nodeData["IsWalkable"].GetBool();
+                }
+
+                NodeComponent nodeComponent;
+                nodeComponent.SetPosition(position);
+                nodeComponent.SetWalkable(isWalkable);
+
+                g_Coordinator.AddComponent(entity, nodeComponent);
+            }
+
+            // Deserialization for EdgeComponent
+            if (entityData.HasMember("EdgeComponent")) {
+                const auto& edgeData = entityData["EdgeComponent"];
+
+                Entity startNode = INVALID_ENTITY;
+                if (edgeData.HasMember("StartNode")) {
+                    startNode = static_cast<Entity>(edgeData["StartNode"].GetInt());
+                }
+
+                Entity endNode = INVALID_ENTITY;
+                if (edgeData.HasMember("EndNode")) {
+                    endNode = static_cast<Entity>(edgeData["EndNode"].GetInt());
+                }
+
+                float cost = 1.0f;
+                if (edgeData.HasMember("Cost")) {
+                    cost = edgeData["Cost"].GetFloat();
+                }
+
+                EdgeComponent edgeComponent;
+                edgeComponent.SetStartNode(startNode);
+                edgeComponent.SetEndNode(endNode);
+                edgeComponent.SetCost(cost);
+
+                g_Coordinator.AddComponent(entity, edgeComponent);
+            }
+
 
             // Store the entity
             storedEnt.push_back(entity);
         }
 
         // Second pass: Deserialize components that reference other entities
-        for (const auto& entityData : entities.GetArray()) {
+        for (const auto& entityData : entities.GetArray()) 
+        {
             // Get the old EntityID
             int oldEntityID = -1;
             if (entityData.HasMember("MetadataComponent"))

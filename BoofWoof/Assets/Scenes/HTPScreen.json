@@ -1,0 +1,293 @@
+{
+    "SceneGUID": "c3118407-886e-4343-b225-177cb0a03017",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Background",
+                "EntityID": 0
+            },
+            "UIComponent": {
+                "TextureName": "htpBG",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.4500000476837158,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "A",
+                "EntityID": 1
+            },
+            "UIComponent": {
+                "TextureName": "htpA",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "S",
+                "EntityID": 2
+            },
+            "UIComponent": {
+                "TextureName": "htpS",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "D",
+                "EntityID": 3
+            },
+            "UIComponent": {
+                "TextureName": "htpD",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "W",
+                "EntityID": 4
+            },
+            "UIComponent": {
+                "TextureName": "htpW",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "DogWalk",
+                "EntityID": 5
+            },
+            "UIComponent": {
+                "TextureName": "htpWalk",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "DogJump",
+                "EntityID": 6
+            },
+            "UIComponent": {
+                "TextureName": "htpJump",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Space",
+                "EntityID": 7
+            },
+            "UIComponent": {
+                "TextureName": "htpSpace",
+                "PositionX": -0.009999999776482582,
+                "PositionY": -0.029999999329447748,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Shift",
+                "EntityID": 8
+            },
+            "UIComponent": {
+                "TextureName": "htpShift",
+                "PositionX": 0.019999999552965165,
+                "PositionY": -0.029999999329447748,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "DogSprint",
+                "EntityID": 9
+            },
+            "UIComponent": {
+                "TextureName": "htpDash",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "MouseMovement",
+                "EntityID": 10
+            },
+            "UIComponent": {
+                "TextureName": "htpMove",
+                "PositionX": 0.18000000715255738,
+                "PositionY": -0.07999999821186066,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 0.8999999761581421,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "LMB",
+                "EntityID": 11
+            },
+            "UIComponent": {
+                "TextureName": "htpLMB",
+                "PositionX": 0.03999999910593033,
+                "PositionY": 0.14000000059604646,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 0.8999999761581421,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "DogBite",
+                "EntityID": 12
+            },
+            "UIComponent": {
+                "TextureName": "htpBite",
+                "PositionX": -0.029999999329447748,
+                "PositionY": 0.10000000149011612,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "RMB",
+                "EntityID": 13
+            },
+            "UIComponent": {
+                "TextureName": "htpRMB",
+                "PositionX": 0.03999999910593033,
+                "PositionY": 0.05000000074505806,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 0.8999999761581421,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "DogBark",
+                "EntityID": 14
+            },
+            "UIComponent": {
+                "TextureName": "htpBark",
+                "PositionX": 0.0,
+                "PositionY": 0.05999999865889549,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "E",
+                "EntityID": 15
+            },
+            "UIComponent": {
+                "TextureName": "htpE",
+                "PositionX": 0.0,
+                "PositionY": 0.05000000074505806,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "DogSniff",
+                "EntityID": 16
+            },
+            "UIComponent": {
+                "TextureName": "htpSniffa",
+                "PositionX": -0.009999999776482582,
+                "PositionY": 0.03999999910593033,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.440000057220459,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BlackScreenCover",
+                "EntityID": 17
+            },
+            "UIComponent": {
+                "TextureName": "BlackScreen",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.100000023841858,
+                "ScaleY": 1.0,
+                "Layer": 0.46000003814697268,
+                "Selectable": false,
+                "Opcaity": 0.949999988079071
+            }
+        }
+    ]
+}

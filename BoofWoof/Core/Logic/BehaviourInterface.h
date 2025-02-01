@@ -53,6 +53,10 @@ struct engine_interface
 	virtual const char* GetCollidingEntityName(Entity entity) = 0;
 	virtual void SetVelocity(Entity entity, glm::vec3 velocity) = 0;
 
+	// Pathfinding functions
+	virtual bool HavePathfindingComponent(Entity entity) = 0;
+	virtual std::vector<glm::vec3> GetPath(Entity entity) = 0;
+
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) = 0;
 	virtual void SetGrounded(Entity entity, bool grounded) = 0;
@@ -64,7 +68,7 @@ struct engine_interface
 	virtual glm::vec3 GetCameraUp(Entity entity) = 0;
 
 	virtual double GetDeltaTime() = 0;
-
+	virtual bool IsGamePaused() = 0;
 };
 
 #ifdef GAME_ENGINE

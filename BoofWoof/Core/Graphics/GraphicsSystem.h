@@ -31,6 +31,14 @@ struct ShaderParams {
 
 };
 
+struct DebugLine
+{
+    glm::vec3 start;
+    glm::vec3 end;
+    glm::vec3 color;
+};
+
+
 
 class GraphicsSystem : public System
 {
@@ -108,6 +116,10 @@ public:
     int GetViewportHeight() const { return viewportHeight; }
 
 
+    static void AddDebugLine(const glm::vec3& start, const glm::vec3& end, const glm::vec3& color);
+    static void RenderDebugLines();
+
+
 private:
     unsigned int fbo;
     unsigned int textureColorbuffer;  // Store the framebuffer texture ID here
@@ -122,6 +134,9 @@ private:
     int viewportWidth = 0;
     int viewportHeight = 0;
     bool needsPickingRender = false;
+
+    static std::vector<DebugLine> debugLines;
+    static unsigned int debugLineVAO, debugLineVBO;
 
 };
 

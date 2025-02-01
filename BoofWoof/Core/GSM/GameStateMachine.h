@@ -30,6 +30,8 @@ enum class GameStates
 
 void UpdateGSM();
 
+extern bool g_IsPaused;
+
 ///**************************************************************************
 //* @brief STATE Enumeration Class
 //*************************************************************************/

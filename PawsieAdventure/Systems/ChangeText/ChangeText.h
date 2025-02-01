@@ -8,11 +8,13 @@ public:
 	void OnInitialize();
 	void OnUpdate(double deltaTime);
 	void OnShutdown();
+	void Reset();
 
 public:
 	bool shutted{ false };
 	int textureIndex = 5;
 	int indexLimit = 6;
+	bool startingRoomOnly{ false };
 
 private:
 	Entity m_Text{};

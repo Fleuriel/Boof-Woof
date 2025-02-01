@@ -10,6 +10,7 @@
 #include "../Utilities/Components/CameraComponent.hpp"
 #include "../Core/EngineCore.h"
 #include "../Core/AssetManager/FilePaths.h"
+#include "../GSM/GameStateMachine.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
@@ -74,7 +75,6 @@ public:
 
 	virtual void DestroyEntity(Entity entity) override
 	{
-		
 		g_Coordinator.DestroyEntity(entity);
 	}
 	
@@ -209,7 +209,29 @@ public:
 		return g_Coordinator.GetComponent<CameraComponent>(entity).GetCameraUp();
 	}
 
+	// Pathfinding Component Functions
+	virtual bool HavePathfindingComponent(Entity entity) override {
+		bool hasComponent = g_Coordinator.HaveComponent<PathfindingComponent>(entity);
+		//std::cout << "[Engine] Checking PathfindingComponent for Entity " << entity << ": "
+		//	<< (hasComponent ? "Exists" : "Does Not Exist") << std::endl;
+		return hasComponent;
+	}
 
+	virtual std::vector<glm::vec3> GetPath(Entity entity) override {
+		if (HavePathfindingComponent(entity)) {
+			auto& path = g_Coordinator.GetComponent<PathfindingComponent>(entity).GetPath();
+			std::cout << "[Engine] Retrieved path of length " << path.size() << " for Entity " << entity << std::endl;
+			return path;
+		}
+		std::cout << "[Engine] No path found for Entity " << entity << std::endl;
+		return {};
+	}
+
+
+	virtual bool IsGamePaused() override
+	{
+		return g_IsPaused;
+	}
 };
 
 #endif // !SCRIPT_TO_ENGINE_H
