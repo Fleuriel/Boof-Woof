@@ -185,8 +185,6 @@ void EngineCore::OnUpdate()
 	g_Window->OnUpdate();
 
 
-	
-
 	//Transition
 	g_SceneManager.Update((float)m_DeltaTime);
 
@@ -288,7 +286,6 @@ void EngineCore::OnUpdate()
 	m_ElapsedDT = m_LogicDT + m_PhysicsDT + m_GraphicsDT; // to add more DT when more systems comes up
 	m_EndTime = GetCurrentTime();
 
-	//g_Input.UpdateStatesForNextFrame();			// Uncomment this if you wan to right click change camera angle in editor
 
 }
 
