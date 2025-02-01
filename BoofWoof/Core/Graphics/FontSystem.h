@@ -42,7 +42,7 @@ struct Character {
 class FontSystem : public System {
 public:
     void init();
-	void saveBin();
+	std::string saveBin(std::string ttf_filename_noExtension);
 	void update();
     void RenderText(OpenGLShader& shader, std::string text, float x, float y, float scale, glm::vec3 color);
 

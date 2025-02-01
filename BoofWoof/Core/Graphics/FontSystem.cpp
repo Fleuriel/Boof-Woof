@@ -20,10 +20,10 @@ FontSystem fontSystem;
 
 void FontSystem::init()
 {
-	saveBin();
+    
     
 	// open bin file
-	std::ifstream ifs("font.bin", std::ios::binary);
+	std::ifstream ifs(saveBin("arial"), std::ios::binary);
 	if (!ifs.is_open())
 	{
 		std::cout << "ERROR::FREETYPE: Failed to open file" << std::endl;
@@ -97,39 +97,39 @@ void FontSystem::init()
 
 }
 
-void FontSystem::saveBin()
+std::string FontSystem::saveBin(std::string ttf_filename_noExtension)
 {
     FT_Library ft;
     // All functions return a value different than 0 whenever an error occurred
     if (FT_Init_FreeType(&ft))
     {
         std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
-        return;
+        return std::string();
     }
 
     // find path to font
-    std::string font_name = FILEPATH_RESOURCE_FONTS + "/arial.ttf";
+    std::string font_name = FILEPATH_ASSET_FONTS + "/" + ttf_filename_noExtension + ".ttf";
     if (font_name.empty())
     {
         std::cout << "ERROR::FREETYPE: Failed to load font_name" << std::endl;
-        return;
+        return std::string();
     }
 
 	// create bin file
-    std::ofstream ofs("font.bin", std::ios::binary);
+    std::ofstream ofs(ttf_filename_noExtension + ".bin", std::ios::binary);
     // print the full path of font.bin
-    std::cout << "Font.bin path: " << std::filesystem::absolute("font.bin") << std::endl;
+    std::cout << "Font.bin path: " << std::filesystem::absolute(ttf_filename_noExtension + ".bin") << std::endl;
 	if (!ofs.is_open())
 	{
 		std::cout << "ERROR::FREETYPE: Failed to open file" << std::endl;
-		return;
+		return std::string();
 	}
 
     // load font as face
     FT_Face face;
     if (FT_New_Face(ft, font_name.c_str(), 0, &face)) {
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
-        return;
+        return std::string();
     }
     else {
         // set size to load glyphs as
@@ -168,6 +168,7 @@ void FontSystem::saveBin()
     }
 	std::cout << "Font System Saved" << std::endl;
 
+    return ttf_filename_noExtension + ".bin";
 }
 
 void FontSystem::update()
