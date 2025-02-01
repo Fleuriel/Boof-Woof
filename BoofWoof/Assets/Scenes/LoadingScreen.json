@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "977ff47c-2d4a-4f8c-b321-0380b5c03f07",
+    "SceneGUID": "77d8663f-18f7-493b-8811-49ac9758c400",
     "Entities": [
         {
             "MetadataComponent": {
@@ -29,10 +29,10 @@
             },
             "UIComponent": {
                 "TextureName": "BoneSpin",
-                "PositionX": 0.05000000074505806,
-                "PositionY": 0.5,
-                "ScaleX": 0.10000000149011612,
-                "ScaleY": 0.10000000149011612,
+                "PositionX": 0.03500000014901161,
+                "PositionY": 0.44999998807907107,
+                "ScaleX": 0.07999999821186066,
+                "ScaleY": 0.03500000014901161,
                 "Layer": 0.4100000858306885,
                 "Selectable": false,
                 "Opcaity": 1.0,
@@ -51,9 +51,9 @@
             "UIComponent": {
                 "TextureName": "BiteLSTemp",
                 "PositionX": 0.0,
-                "PositionY": 0.0,
-                "ScaleX": 0.6000000238418579,
-                "ScaleY": 1.0,
+                "PositionY": 0.10000000149011612,
+                "ScaleX": 0.4000000059604645,
+                "ScaleY": 0.699999988079071,
                 "Layer": 0.4100000858306885,
                 "Selectable": false,
                 "Opcaity": 1.0,
