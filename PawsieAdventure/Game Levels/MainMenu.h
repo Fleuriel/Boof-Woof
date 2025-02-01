@@ -7,7 +7,7 @@
 
 Entity BackCamera{}, MenuMusic{}, MenuClick{}, StartGame{}, X{}, HTP{}, Cog{};
 std::unique_ptr<PauseMenu> MenuPauser = CreatePausedMenu(PauseState::Paused);
-
+float sfxVolume{ 1.f }, bgmVolume{ 1.f };
 bool inSmth{ false };
 
 class MainMenu : public Level
@@ -50,10 +50,10 @@ class MainMenu : public Level
 					auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
 					music.SetAudioSystem(&g_Audio);
 
-					if (metadata.GetName() == "MainMenuBGM")
+					/*if (metadata.GetName() == "MainMenuBGM") 
 					{
 						music.PlayAudio();
-					}
+					}*/
 				}
 
 				// Exit early if all entities are found
@@ -65,7 +65,14 @@ class MainMenu : public Level
 		}
 	}
 
-	void InitLevel() override { /*Empty by design*/ }
+	void InitLevel() override { 
+		//if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic)) {
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
+			music.SetAudioSystem(&g_Audio);
+
+			music.PlayAudio();
+	//	}
+	}
 
 	void UpdateLevel(double deltaTime) override
 	{
@@ -176,20 +183,15 @@ class MainMenu : public Level
 			wasMousePressed = true;
 			const float volumeStep = 0.1f; // Step size for volume change
 
-
 			// For Settings Page
 			if (g_Coordinator.HaveComponent<UIComponent>(MenuPauser->SFXLeft))
 			{
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->SFXLeft);
 				if (UICompt.get_selected())
-				{
-					float newVolume = std::max(0.0f, (float)(g_Audio.GetSFXVolume() - volumeStep));
-
-					g_Audio.SetSFXVolume(newVolume);
-					std::cout << "decrease SFX\n";
+				{	
+					sfxVolume = std::max(0.0f,(float)( g_Audio.GetSFXVolume() -  volumeStep));				
+					g_Audio.SetSFXVolume(sfxVolume);
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
-
-
 				}
 			}
 
@@ -198,15 +200,25 @@ class MainMenu : public Level
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->SFXRight);
 				if (UICompt.get_selected())
 				{
-					float newVolume = std::min(1.0f, (float)(g_Audio.GetSFXVolume() + volumeStep));
-					g_Audio.SetSFXVolume(newVolume);
-					std::cout << "increase SFX\n";
-
+					sfxVolume = std::min(1.0f,(float)( g_Audio.GetSFXVolume() + volumeStep));
+					g_Audio.SetSFXVolume(sfxVolume);
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
+				}
+			}
 
-
-
-
+			if (g_Coordinator.HaveComponent<FontComponent>(MenuPauser->SFXVol))
+			{
+				int volDisplay = static_cast<int>(sfxVolume * 10);
+				if (volDisplay >= 0 && volDisplay < 10)
+				{
+					std::stringstream ss;
+					ss << std::setfill('0') << std::setw(2) << volDisplay;
+					std::string text = ss.str();
+					g_Coordinator.GetComponent<FontComponent>(MenuPauser->SFXVol).set_text(text);
+				}
+				else
+				{
+					g_Coordinator.GetComponent<FontComponent>(MenuPauser->SFXVol).set_text("10");
 				}
 			}
 
@@ -215,9 +227,8 @@ class MainMenu : public Level
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->BGMLeft);
 				if (UICompt.get_selected())
 				{
-					float newVolume = std::max(0.0f, (float)(g_Audio.GetBGMVolume() - volumeStep));
-					g_Audio.SetBGMVolume(newVolume);
-					std::cout << "decrease BGM\n";
+					bgmVolume = std::max(0.0f, (float)(g_Audio.GetBGMVolume() - volumeStep));
+					g_Audio.SetBGMVolume(bgmVolume);
 				}
 			}
 
@@ -226,10 +237,24 @@ class MainMenu : public Level
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->BGMRight);
 				if (UICompt.get_selected())
 				{
-					float newVolume = std::min(1.0f, (float)(g_Audio.GetBGMVolume() + volumeStep));
-					g_Audio.SetBGMVolume(newVolume);
+					bgmVolume = std::min(1.0f, (float)(g_Audio.GetBGMVolume() + volumeStep));
+					g_Audio.SetBGMVolume(bgmVolume);
+				}
+			}
 
-					std::cout << "increase BGM\n";
+			if (g_Coordinator.HaveComponent<FontComponent>(MenuPauser->BGMVol))
+			{
+				int volDisplay = static_cast<int>(bgmVolume * 10);
+				if (volDisplay >= 0 && volDisplay < 10)
+				{
+					std::stringstream ss;
+					ss << std::setfill('0') << std::setw(2) << volDisplay;
+					std::string text = ss.str();
+					g_Coordinator.GetComponent<FontComponent>(MenuPauser->BGMVol).set_text(text);
+				}
+				else
+				{
+					g_Coordinator.GetComponent<FontComponent>(MenuPauser->BGMVol).set_text("10");
 				}
 			}
 		}

@@ -22,6 +22,7 @@ void UISystem::UI_update() {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	
     // if mouse click
     if (g_Input.GetMouseState(0) == 1) {
         for (auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
@@ -87,7 +88,7 @@ void UISystem::UI_update() {
     }
 
     //glEnable(GL_DEPTH_TEST);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    //glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 

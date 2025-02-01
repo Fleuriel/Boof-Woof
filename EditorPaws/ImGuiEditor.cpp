@@ -983,7 +983,28 @@ void ImGuiEditor::InspectorWindow()
 
 						}
 					}
-					
+					if (ImGui::Selectable("Font Component"))
+					{
+						if (!g_Coordinator.HaveComponent<FontComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<FontComponent>(g_SelectedEntity, FontComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<FontComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<FontComponent>(g_SelectedEntity, FontComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<FontComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<FontComponent>(g_SelectedEntity);
+								}
+							);
+							// If got UI Component, remove Transform & Graphics Component
+							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity))
+							{
+								g_Coordinator.RemoveComponent<TransformComponent>(g_SelectedEntity);
+							}
+						}
+					}
 
 					ImGui::EndPopup();
 				}
@@ -3863,6 +3884,82 @@ void ImGuiEditor::InspectorWindow()
 
 								ImGui::PopID();
 								ImGui::PopItemWidth();
+							}
+						}
+						else if (className == "FontComponent") {
+							if (ImGui::CollapsingHeader("Font", ImGuiTreeNodeFlags_None))
+							{
+								// Grab the FontComponent from the selected entity
+								auto& fontComponent = g_Coordinator.GetComponent<FontComponent>(g_SelectedEntity);
+								Entity entity = g_SelectedEntity; // for lambda captures
+
+								// family
+								char family[128];
+								strcpy_s(family, fontComponent.get_family().c_str());
+								ImGui::Text("Family");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Family");
+								if (ImGui::InputText("##Family", family, 128))
+								{
+									fontComponent.set_family(family);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								// position
+								glm::vec2 position = fontComponent.get_pos();
+								ImGui::Text("Position");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Position");
+								if (ImGui::DragFloat2("##Position", &position.x, 0.1f))
+								{
+									fontComponent.set_pos(position);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								// scale_x and scale_y
+								glm::vec2 scale = fontComponent.get_scale();
+								ImGui::Text("Scale");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Scale");
+								if (ImGui::DragFloat2("##Scale", &scale.x, 0.1f))
+								{
+									fontComponent.set_scale(scale);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								
+								// text
+								char text[128]{};
+								strcpy_s(text, fontComponent.get_text().c_str());
+								ImGui::Text("Text");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Text");
+								if (ImGui::InputText("##Text", text, 128))
+								{
+									fontComponent.set_text(text);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								// color
+								glm::vec3 color = fontComponent.get_color();
+								ImGui::Text("Color");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Color");
+								if (ImGui::ColorEdit3("##Color", &color.x))
+								{
+									fontComponent.set_color(color);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+
 							}
 						}
 					}

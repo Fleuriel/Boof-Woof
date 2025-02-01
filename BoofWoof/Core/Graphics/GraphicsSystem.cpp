@@ -111,8 +111,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glCullFace(GL_BACK);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//fontSystem.init_font();
-
+	
 
 }
 
@@ -518,7 +517,7 @@ void GraphicsSystem::UpdateLoop() {
 		RenderSceneForPicking();
 		needsPickingRender = false;
 	}
-
+	
 	glDisable(GL_DEPTH_TEST);
 	RenderDebugLines();
 	glEnable(GL_DEPTH_TEST);
@@ -823,7 +822,7 @@ void GraphicsSystem::RenderDebugLines()
 	if (debugLines.empty())
 		return; // Nothing to draw
 
-	// Step 1: If we haven’t created a VAO/VBO for debug lines yet, create them once:
+	// Step 1: If we havenï¿½t created a VAO/VBO for debug lines yet, create them once:
 	if (debugLineVAO == 0)
 	{
 		glGenVertexArrays(1, &debugLineVAO);
@@ -833,7 +832,7 @@ void GraphicsSystem::RenderDebugLines()
 		glBindBuffer(GL_ARRAY_BUFFER, debugLineVBO);
 
 		// Each line has 2 endpoints, each endpoint has 6 floats: (pos.x, pos.y, pos.z, color.r, color.g, color.b)
-		// We’ll enable 2 attributes: location 0 for position, location 1 for color
+		// Weï¿½ll enable 2 attributes: location 0 for position, location 1 for color
 		// Position attribute
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);

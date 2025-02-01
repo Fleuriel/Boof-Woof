@@ -499,6 +499,26 @@ bool Serialization::SaveScene(const std::string& filepath) {
 			entityData.AddMember("UIComponent", UI, allocator);
 
         }
+		// Serialize FontComponent
+        if (g_Coordinator.HaveComponent<FontComponent>(entity)) {
+            rapidjson::Value Font(rapidjson::kObjectType);
+
+            auto& fontComp = g_Coordinator.GetComponent<FontComponent>(entity);
+
+
+            Font.AddMember("Family", rapidjson::Value(fontComp.get_family().c_str(), allocator), allocator);
+            Font.AddMember("PositionX", fontComp.get_pos().x, allocator);
+            Font.AddMember("PositionY", fontComp.get_pos().y, allocator);
+            Font.AddMember("ScaleX", fontComp.get_scale().x, allocator);
+			Font.AddMember("ScaleY", fontComp.get_scale().y, allocator);
+            Font.AddMember("ColorR", fontComp.get_color().x, allocator);
+            Font.AddMember("ColorG", fontComp.get_color().y, allocator);
+            Font.AddMember("ColorB", fontComp.get_color().z, allocator);
+            Font.AddMember("Text", rapidjson::Value(fontComp.get_text().c_str(), allocator), allocator);
+
+            entityData.AddMember("FontComponent", Font, allocator);
+        }
+
 
         // Serialization for PathfindingComponent
         if (g_Coordinator.HaveComponent<PathfindingComponent>(entity)) {
@@ -1109,6 +1129,62 @@ bool Serialization::LoadScene(const std::string& filepath)
 				g_Coordinator.AddComponent(entity, uiComponent);
 				
 			}
+
+			if (entityData.IsObject() && entityData.HasMember("FontComponent"))
+			{
+				const auto& fontData = entityData["FontComponent"];
+
+
+                std::string family = "Arial";
+				if (fontData.HasMember("Family"))
+                    family = fontData["Family"].GetString();
+
+                glm::vec2 pos{};
+				if (fontData.HasMember("PositionX") && fontData.HasMember("PositionY"))
+                    pos = glm::vec2(fontData["PositionX"].GetFloat(), fontData["PositionY"].GetFloat());
+
+				glm::vec2 scale = { 1.0f, 1.0f };
+				if (fontData.HasMember("ScaleX") && fontData.HasMember("ScaleY"))
+					scale = glm::vec2(fontData["ScaleX"].GetFloat(), fontData["ScaleY"].GetFloat());
+
+                glm::vec3 color = { 1.0f, 1.0f, 1.0f };
+				if (fontData.HasMember("ColorR") && fontData.HasMember("ColorG") && fontData.HasMember("ColorB"))
+                    color= glm::vec3(fontData["ColorR"].GetFloat(), fontData["ColorG"].GetFloat(), fontData["ColorB"].GetFloat());
+                std::string text{};
+				if (fontData.HasMember("Text"))
+                    text= fontData["Text"].GetString();
+
+				FontComponent fontComponent(family, pos, scale, color, text);
+				g_Coordinator.AddComponent(entity, fontComponent);
+			}
+
+
+
+
+
+
+
+            // Print out all entity components
+			//std::cout << "Entity: " << g_Coordinator.GetEntityId(entity) << std::endl;
+			//if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) {
+			//	std::cout << "MetadataComponent: " << g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() << std::endl;
+			//}
+   //         if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().x << std::endl;
+   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().y << std::endl;
+   //             std::cout << "TransformComponent: " << g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition().z << std::endl;
+   //         }
+   //         if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) {
+   //             std::cout << "GraphicsComponent: " << g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelID() << std::endl;
+   //         }
+			//if (g_Coordinator.HaveComponent<AudioComponent>(entity)) {
+			//	std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetFilePath().c_str() << std::endl;
+			//	std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).GetVolume() << std::endl;
+   //             std::cout << "AudioComponent: " << g_Coordinator.GetComponent<AudioComponent>(entity).ShouldLoop() << std::endl;
+			//}
+			//if (g_Coordinator.HaveComponent<BehaviourComponent>(entity)) {
+			//	std::cout << "BehaviourComponent: " << g_Coordinator.GetComponent<BehaviourComponent>(entity).GetBehaviourName() << std::endl;
+			//}
 
             // Deserialization for PathfindingComponent
             if (entityData.HasMember("PathfindingComponent")) 
