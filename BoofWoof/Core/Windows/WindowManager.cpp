@@ -221,6 +221,16 @@ void Window::OnUpdate()
 
         m_AssetManagerMonitoringTimer = 0.f;
     }
+
+	//check if the window is fullscreen
+	if (isFullScreen(m_Window)) {
+		m_FullScreen = true;
+		// update the window size
+		glfwGetWindowSize(m_Window, &g_WindowX, &g_WindowY);
+
+	}
+	
+
 }
 
 void Window::OnShutdown()
@@ -280,7 +290,7 @@ float Window::GetAspectRatio()
  * @brief This function checks if the GLFW window is currently in
           fullscreen mode.
  *************************************************************************/
-bool isFullScreen(GLFWwindow* widow) {
+bool Window::isFullScreen(GLFWwindow* widow) {
     return (glfwGetWindowMonitor(widow) != nullptr);
 }
 
