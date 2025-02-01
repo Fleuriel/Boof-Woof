@@ -16,6 +16,8 @@
 #define RESOURCEMANAGER_H
 
 #include "../Core/Graphics/Model.h"
+#include "../Core/Graphics/FontSystem.h"
+
 
 struct DDSData {
 
@@ -70,6 +72,11 @@ public:
 	bool LoadFontsDDS();
 	bool FreeFontsDDS();
 	bool ReloadFontsDDS();
+	/// for loading font resources
+	// read the .bin file and create the FontResources
+	// add the FontResources to the fontResources map
+	// similar to FontSystem::init() function
+
 
 	bool AddFontDDS(std::string);
 	int GetFontDDS(std::string);
@@ -86,9 +93,13 @@ private:
 	std::map <std::string, DDSData> textureDDS{};															//Container to store textures
 	std::vector<std::string> textureDDSFileNames{};														//Container to store texture DDS file names
 
+
+	// no need these anymore
 	std::map<std::string, int> fontDDS{};																//Container to store textures
 	std::vector<std::string> fontDDSFileNames{};														//Container to store texture DDS file names
 
+	// store font resources here and I will use this to render text
+	std::map<std::string, FontResources> fontResources{};												//Container to store font resources
 
 	std::vector<DDSData> textureDDS_WidthHeight;
 

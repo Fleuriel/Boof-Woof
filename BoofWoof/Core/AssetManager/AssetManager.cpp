@@ -1105,8 +1105,11 @@ bool AssetManager::ReloadShaders()
 
 
 
-
-
+//////////////////////////////////////////
+// so here you convert the .ttf file to .bin file
+// similar to  FontSystem::saveBin(std::string ttf_filename_noExtension) function
+// 
+//////////////////////////////////////////
 
 
 
