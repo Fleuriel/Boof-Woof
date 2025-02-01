@@ -27,7 +27,7 @@ private:
     bool m_LoadingStarted = false;  ///< Tracks whether we've initiated async load
     bool m_LoadComplete = false;      ///< Tracks whether async load is done
     std::chrono::steady_clock::time_point m_StartTime; ///< Time point when loading started
-    const double m_MinimumLoadingDuration = 2.0; ///< Minimum time (in seconds) for the loading screen
+    const double m_MinimumLoadingDuration = 1.5; ///< Minimum time (in seconds) for the loading screen
 
     // Cache the "Loading" entity that should rotate.
     // We use MAX_ENTITIES as an invalid/sentinel value.
@@ -144,6 +144,7 @@ public:
     void UnloadLevel() override
     {
         // Destroy the loading screen UI entities.
+        g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
         g_Coordinator.ResetEntities();
 
         // Reset state in case we come back to this loading screen.

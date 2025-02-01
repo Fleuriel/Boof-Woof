@@ -217,11 +217,13 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
             // Add the TransformComponent to the entityData
             entityData.AddMember("GraphicsComponent", Grafics, allocator);
+
         }
 
         // Serialize AudioComponent
         if (g_Coordinator.HaveComponent<AudioComponent>(entity)) 
         {
+
             rapidjson::Value Aud(rapidjson::kObjectType);
 
             auto& audioComp = g_Coordinator.GetComponent<AudioComponent>(entity);
@@ -239,6 +241,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
             // Add the AudioComponent to the entityData
             entityData.AddMember("AudioComponent", Aud, allocator);
+
         }
 
         // Serialize BehaviorComponent
@@ -283,6 +286,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
         // Serialize CollisionComponent
         if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) 
         {
+
             auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
 
             rapidjson::Value collisionData(rapidjson::kObjectType);
@@ -308,11 +312,13 @@ bool Serialization::SaveScene(const std::string& filepath) {
             collisionData.AddMember("Mass", collisionComp.GetMass(), allocator);
 
             entityData.AddMember("CollisionComponent", collisionData, allocator);
+
         }
 
         // Serialize CameraComponent
         if (g_Coordinator.HaveComponent<CameraComponent>(entity))
         {
+
             rapidjson::Value Cam(rapidjson::kObjectType);
 
             auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
@@ -339,10 +345,12 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
             // Add the CameraComponent to the entityData
             entityData.AddMember("CameraComponent", Cam, allocator);
+
         }
 
         if (g_Coordinator.HaveComponent<ParticleComponent>(entity))
         {
+
             rapidjson::Value particles(rapidjson::kObjectType);
 
             auto& particleComp = g_Coordinator.GetComponent<ParticleComponent>(entity);
@@ -409,6 +417,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
 		}
         if (g_Coordinator.HaveComponent<MaterialComponent>(entity))
         {
+
             rapidjson::Value Material(rapidjson::kObjectType);
 
             auto& materialComponent = g_Coordinator.GetComponent<MaterialComponent>(entity);
@@ -460,8 +469,9 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
 
             entityData.AddMember("MaterialComponent", Material, allocator);
-
         }
+
+
 		// Serialize UIComponent
         if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
 			rapidjson::Value UI(rapidjson::kObjectType);
@@ -1660,7 +1670,18 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
         if (jsonObj.HasMember("UIComponent"))
         {
             const auto& UIData = jsonObj["UIComponent"];
-            int textureID = 0;
+            std::string textureName;
+            // Prefer the string key:
+            if (UIData.HasMember("TextureName"))
+            {
+                textureName = UIData["TextureName"].GetString();
+            }
+            else if (UIData.HasMember("TextureID"))
+            {
+                int textureID = UIData["TextureID"].GetInt();
+                textureName = g_ResourceManager.GetTextureDDSFileName(textureID);
+            }
+
             glm::vec2 pos(0.f), scl(1.f);
             float layer = 0.f;
             bool selectable = false;
@@ -1670,8 +1691,6 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
             int cols = 1;
             float frameInt = 0.f;
 
-            if (UIData.HasMember("TextureID"))
-                textureID = UIData["TextureID"].GetInt();
             if (UIData.HasMember("PositionX") && UIData.HasMember("PositionY"))
             {
                 pos.x = UIData["PositionX"].GetFloat();
@@ -1696,8 +1715,6 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
                 cols = UIData["Cols"].GetInt();
             if (UIData.HasMember("FrameInterval"))
                 frameInt = UIData["FrameInterval"].GetFloat();
-
-            std::string textureName = g_ResourceManager.GetTextureDDSFileName(textureID);
 
             UIComponent uiC(textureName, pos, scl, layer, selectable, opacity);
             uiC.set_animate(animated);

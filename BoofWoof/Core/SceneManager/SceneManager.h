@@ -115,8 +115,6 @@ private:
     void FinalizeSceneData(const SceneData& data);
     void FinalizeSceneDataChunked(const SceneData& data, size_t& index, int chunkSize);
 
-    void LoadLoadingScreen(const std::string& scene);
-
     std::unordered_map<int, Entity> m_OldToNewMap;
     std::vector<DeferredHierarchy> m_DeferredRefData;
 

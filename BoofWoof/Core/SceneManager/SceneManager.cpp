@@ -952,18 +952,6 @@ void SceneManager::FinalizeReferences()
     m_OldToNewMap.clear();
 }
 
-
-// In your code, maybe you have a function:
-void SceneManager::LoadLoadingScreen(const std::string& scene)
-{
-    // 1) Load the loading screen (small + synchronous)
-    LoadScene(FILEPATH_ASSET_SCENES +"/LoadingScreen.json");
-
-    // 2) Begin asynchronous load for the real big scene
-    BeginAsyncLoad(scene);
-}
-
-
 bool SceneManager::AsyncLoadIsComplete() const
 {
     // This simply returns the done status of the async loader.
