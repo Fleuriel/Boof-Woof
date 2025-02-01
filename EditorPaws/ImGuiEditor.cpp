@@ -5147,7 +5147,7 @@ void ImGuiEditor::Settings()
 
 
 	static glm::vec2 lastMousePos = glm::vec2(0.0f);
-	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1)
+	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT))
 	{
 
 		glm::vec2 offset = g_Input.GetMousePosition() - lastMousePos;
