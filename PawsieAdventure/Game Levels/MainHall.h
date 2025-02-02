@@ -27,6 +27,9 @@ class MainHall : public Level
 	bool peeMarked{ false }; // Smell Avoidance
 	bool teb_last = false;
 
+	bool peeSoundPlayed = false;
+	bool waterSoundPlayed = false;
+
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM4.json");
@@ -153,15 +156,23 @@ class MainHall : public Level
 			waterBucketcollided = g_Coordinator.GetComponent<CollisionComponent>(WaterBucket).GetIsColliding();
 		}
 
-		if (playercollided && (rexPee1collided || rexPee2collided || rexPee3collided || rexPee4collided || rexPee5collided) && !peeMarked)
+		if (playercollided && (rexPee1collided || rexPee2collided || rexPee3collided || rexPee4collided || rexPee5collided) && !peeMarked && !peeSoundPlayed)
 		{
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PeePuddle.wav", false, "SFX");
 			peeMarked = true;
+			peeSoundPlayed = true;  // Ensure the sound plays only once
+
 		}
 
-		if (playercollided && waterBucketcollided)
+		if (playercollided && waterBucketcollided && !waterSoundPlayed)
 		{
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WaterPuddle.wav", false, "SFX");
 			peeMarked = false;
 			timer = 0.0;
+
+			// Reset sound state
+			peeSoundPlayed = false;
+			waterSoundPlayed = true; // Ensure water sound plays only once
 		}
 		//////////////////////////////////////////////////////////////////////////
 
