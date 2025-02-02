@@ -2791,11 +2791,11 @@ void ImGuiEditor::InspectorWindow()
 										graphicsComponent.material.SetShaderName(g_AssetManager.shdrpgmOrder[material.GetShaderIndex()]);
 									}
 							
-									//graphicsComponent.material.SetDiffuseName(graphicsComponent.getModelName());
-									//graphicsComponent.material.SetDiffuseID(g_ResourceManager.GetTextureDDS(graphicsComponent.getModelName()));
+	//								graphicsComponent.material.SetDiffuseName(graphicsComponent.getModelName());
+	//								graphicsComponent.material.SetDiffuseID(g_ResourceManager.GetTextureDDS(graphicsComponent.getModelName()));
 							
 							
-									//std::cout << materialComp.GetDiffuseName() << '\t' << material.GetDiffuseName() << '\t' << materialComp.GetDiffuseID() << '\t' << material.GetDiffuseID();
+//									std::cout << materialComp.GetDiffuseName() << '\t' << material.GetDiffuseName() << '\t' << materialComp.GetDiffuseID() << '\t' << material.GetDiffuseID();
 							
 							
 									//									std::cout << materialComp.GetShaderName() << '\n';
@@ -2810,7 +2810,7 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::SameLine();
 							
 									// Store old value before opening the file dialog
-									// static std::string oldTextureName = "";
+									 static std::string oldTextureName = "";
 									if (ImGui::Button("Set Texture"))
 									{
 										//oldTextureName = currentTextureName; // Capture the old value
@@ -2839,28 +2839,29 @@ void ImGuiEditor::InspectorWindow()
 						
 											std::cout << textureId << '\n';
 							
-											//graphicsComponent.material.SetDiffuseID(textureId);
-											//graphicsComponent.material.SetDiffuseName(selectedFile);
-											// material.SetDiffuseID(textureId);
-											// material.SetDiffuseName(selectedFile);
+											graphicsComponent.material.SetDiffuseID(textureId);
+											graphicsComponent.material.SetDiffuseName(selectedFile);
+											 material.SetDiffuseID(textureId);
+											 material.SetDiffuseName(selectedFile);
 							
 											std::cout << material.GetDiffuseID() << graphicsComponent.material.GetDiffuseID() << '\n';
 							
+
 							
 											// Execute undo/redo command
-											/*std::string oldValue = oldTextureName;
-											Entity entity = g_SelectedEntity;*/
-							
-											/*g_UndoRedoManager.ExecuteCommand(
-												[entity, newTextureName]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.setTexture(newTextureName);
-												},
-												[entity, oldValue]() {
-													auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-													component.setTexture(oldValue);
-												}
-											);*/
+											// std::string oldValue = oldTextureName;
+											// Entity entity = g_SelectedEntity;
+											// 
+											// g_UndoRedoManager.ExecuteCommand(
+											// 	[entity, newTextureName]() {
+											// 		auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+											// 		component.setTexture(newTextureName);
+											// 	},
+											// 	[entity, oldValue]() {
+											// 		auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+											// 		component.setTexture(oldValue);
+											// 	}
+											// );
 										}
 										ImGuiFileDialog::Instance()->Close();
 									}
