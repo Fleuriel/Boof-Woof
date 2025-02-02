@@ -37,6 +37,9 @@ int CompressTextureWithDescriptor(const TextureDescriptor& descriptor, const std
 
     commandStream << "-fd ";
 
+    std::cout << "\n\n\n\nFormat of Desc: " << descriptor.format << '\n';
+
+
     // Set texture format based on descriptor
     switch (descriptor.format) {
     case 0: // RGB Uncompressed
@@ -153,8 +156,12 @@ int CompressTextureWithDescriptor(const TextureDescriptor& descriptor, const std
     // Specify the input and output files
     commandStream << " " << inputTexturePath << " " << outputTexturePath;
 
+
     // Execute the command
     std::string command = commandStream.str();
+
+    std::cout << "\n\n\n\nCommand : Inputed" << command << '\n';
+
     return runCommand(command);  // Call your existing runCommand function
 }
 

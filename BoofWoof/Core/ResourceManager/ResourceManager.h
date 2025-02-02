@@ -70,6 +70,7 @@ public:
 
 
 
+	std::map <std::string, Model> ModelMap;
 	/// for loading font resources
 	// read the .bin file and create the FontResources
 	// add the FontResources to the fontResources map
@@ -79,10 +80,16 @@ public:
 	std::vector<std::string> GetFontNames() const { return fontnames; }
 	void ClearFont() { fontResources.clear(); fontnames.clear(); }
 	
+
+	void SetModel(Model* model) { m_Model = model; }
+
+	Model* GModel() const;
+
+	Model* m_Model{};
+
 private:
 	
 
-	std::map <std::string, Model> ModelMap;
 
 	std::vector<std::string> ModelNames;
 
