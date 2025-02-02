@@ -13,22 +13,24 @@ layout (location=1) in vec3 aVertexColor;
 layout (location=2) in vec2 aVertexTexture;
 
 layout (location=0) out vec3 vColor;
-layout (location=1) out vec2 vTex;
+layout (location=1) out vec2 vTexCoord;
 
+
+uniform vec4 inputColor;
 
 uniform mat4 projection;
 uniform mat4 view;
 uniform mat4 vertexTransform;
-uniform vec3 objectColor;
+//uniform vec3 objectColor;
 
 
 void main(void){
 
 	gl_Position =  projection* view * vertexTransform * vec4( aVertexPosition, 1.0f );
     //set the color
-	vColor = aVertexColor;
+	vColor = inputColor.rgb;
 	
 	// Set the texture to the 'bytes'
-	vTex = aVertexTexture;
+	vTexCoord = aVertexTexture;
 
 }
