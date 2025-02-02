@@ -65,7 +65,7 @@
                     "y": 1.0,
                     "z": 0.0
                 },
-                "Active": true
+                "Active": false
             },
             "MaterialComponent": {
                 "name": "Default Material",
