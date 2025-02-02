@@ -573,61 +573,7 @@ std::string ResourceManager::GetTextureDDSFileName(int textureID)
 
 
 
-// Function to load textures (simulating DDS texture loading here)
-FontResources LoadFontResourcesFromBin(const std::string& binFilename)
-{
-    FontResources fontResources;
-    std::ifstream ifs(binFilename + ".ttf", std::ios::binary);
-    if (!ifs.is_open())
-    {
-        std::cout << "ERROR::FREETYPE: Failed to open file" << std::endl;
-        return fontResources;
-    }
-
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-    for (unsigned char c = 0; c < 128; c++)
-    {
-        int width{}, height{}, left{}, top{};
-        unsigned int advance{};
-        ifs.read((char*)&width, sizeof(int));
-        ifs.read((char*)&height, sizeof(int));
-        ifs.read((char*)&left, sizeof(int));
-        ifs.read((char*)&top, sizeof(int));
-        ifs.read((char*)&advance, sizeof(unsigned int));
-        char* buffer = new char[width * height];
-        ifs.read(buffer, width * height);
-
-        unsigned int texture;
-        glGenTextures(1, &texture);
-        glBindTexture(GL_TEXTURE_2D, texture);
-        glTexImage2D(
-            GL_TEXTURE_2D, 0, GL_RED,
-            width, height, 0,
-            GL_RED, GL_UNSIGNED_BYTE, buffer
-        );
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        fontResources.Characters.insert({ c, Character{ texture, glm::ivec2(width, height), glm::ivec2(left, top), advance } });
-        delete[] buffer;
-    }
-
-    glGenVertexArrays(1, &fontResources.VAO_FONT);
-    glGenBuffers(1, &fontResources.VBO_FONT);
-    glBindVertexArray(fontResources.VAO_FONT);
-    glBindBuffer(GL_ARRAY_BUFFER, fontResources.VBO_FONT);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, nullptr, GL_DYNAMIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-
-    return fontResources;
-}
 
 void ResourceManager::AddFont(std::string name) {
-    fontResources[name] = LoadFontResourcesFromBin(name+".bin");
+    fontResources[name] = fontSystem.readFromBin(name+".bin");
 }
