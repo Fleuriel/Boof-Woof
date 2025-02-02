@@ -256,15 +256,20 @@ void Checklist::ChangeAsset(Entity ent, glm::vec2 scale, std::string textureName
 
 	if (textureName == "Do6")
 	{
-		g_Coordinator.GetComponent<UIComponent>(ent).set_position(glm::vec2(pos.x + 0.02f, pos.y));
+		g_Coordinator.GetComponent<UIComponent>(ent).set_position(glm::vec2(pos.x + 0.04f, pos.y));
 	}
 
 	if (textureName == "Do7")
 	{
-		g_Coordinator.GetComponent<UIComponent>(ent).set_position(glm::vec2(pos.x, pos.y - 0.01f));
+		g_Coordinator.GetComponent<UIComponent>(ent).set_position(glm::vec2(pos.x + 0.01f, pos.y - 0.01f));
 	}
 
 	if (textureName == "Do8")
+	{
+		g_Coordinator.GetComponent<UIComponent>(ent).set_position(glm::vec2(pos.x - 0.02f, pos.y - 0.01f));
+	}
+
+	if (textureName == "Do9")
 	{
 		g_Coordinator.GetComponent<UIComponent>(ent).set_position(glm::vec2(pos.x - 0.02f, pos.y));
 	}

@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "5d89a258-1a2b-486c-a0d8-6eac04e8d904",
+    "SceneGUID": "cd6750f3-c3ff-4758-a3e9-5682931525dc",
     "Entities": [
         {
             "MetadataComponent": {
@@ -280,9 +280,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 18.894367218017579,
-                    "y": 0.999845027923584,
-                    "z": 6.111365795135498
+                    "x": 18.894365310668947,
+                    "y": 0.9998449683189392,
+                    "z": 6.111366271972656
                 },
                 "Scale": {
                     "x": 0.5,
@@ -327,7 +327,7 @@
             "CameraComponent": {
                 "Position": {
                     "x": 18.899999618530275,
-                    "y": 1.2000000476837159,
+                    "y": 1.2999999523162842,
                     "z": 5.0
                 },
                 "Yaw": -90.0,
@@ -19958,7 +19958,7 @@
             },
             "GraphicsComponent": {
                 "ModelName": "DoorDrawbridge",
-                "Texture": "",
+                "Texture": "DoorDrawbridge",
                 "FollowCamera": true
             },
             "CollisionComponent": {
