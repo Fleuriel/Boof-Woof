@@ -265,3 +265,20 @@ void BoneCatcher::ClearBoneCatcher()
 		}
 	}
 }
+
+void BoneCatcher::ResetBC()
+{
+	m_HitCount = 0;
+	m_Speed = 0.5f;
+	m_DestroyTimer = 0.f;
+	m_DownTimer = 2.0f;
+
+	m_IsMoving = true;
+	m_ShouldDestroy = m_Down = m_Up = m_HitDetected = isAudioPlaying = false;
+
+	m_Direction = 1;
+	m_MinPos = -0.335f;
+	m_MaxPos = 0.395f;
+	ClearBoneCatcherTimer = 0.0;
+	AudioTimer = 0.0;
+}

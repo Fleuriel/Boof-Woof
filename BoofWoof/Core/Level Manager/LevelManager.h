@@ -37,6 +37,9 @@ public:
     std::string GetNextLevelName() const;   
     std::string GetPreviousLevelName() const; 
 
+
+    Level* GetLevel(const std::string& levelName);
+
 private:
     std::unordered_map<std::string, Level*> m_levels;
     Level* m_currentLevel = nullptr;

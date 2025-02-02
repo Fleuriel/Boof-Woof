@@ -1,0 +1,68 @@
+{
+    "SceneGUID": "256fbae5-0c43-45d8-9860-543daa91b487",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Black Screen",
+                "EntityID": 0
+            },
+            "UIComponent": {
+                "TextureName": "BlackScreen",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.100000023841858,
+                "ScaleY": 1.0,
+                "Layer": -0.8099993467330933,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Loading",
+                "EntityID": 1
+            },
+            "UIComponent": {
+                "TextureName": "BoneSpin",
+                "PositionX": 0.03500000014901161,
+                "PositionY": 0.44999998807907107,
+                "ScaleX": 0.07999999821186066,
+                "ScaleY": 0.03500000014901161,
+                "Layer": -0.8999992609024048,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "LSTemp",
+                "EntityID": 2
+            },
+            "UIComponent": {
+                "TextureName": "BiteLSTemp",
+                "PositionX": 0.0,
+                "PositionY": 0.10000000149011612,
+                "ScaleX": 0.4000000059604645,
+                "ScaleY": 0.699999988079071,
+                "Layer": -0.8599992990493774,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        }
+    ]
+}

@@ -1874,7 +1874,6 @@ void ImGuiEditor::InspectorWindow()
 										{
 											(*FollowCameraProperty)->SetValue(&graphicsComponent, isFollowCamera ? "true" : "false");
 										}
-
 										if (ImGui::IsItemActivated())
 										{
 											oldBoolValues[propertyName] = isFollowCamera;
@@ -3581,26 +3580,24 @@ void ImGuiEditor::InspectorWindow()
 								auto& uiComponent = g_Coordinator.GetComponent<UIComponent>(g_SelectedEntity);
 								
 								// set texture ID 
-								int textureID = uiComponent.get_textureid();
+								std::string textureName = uiComponent.get_texturename();
 								ImGui::Text("Texture :");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
 
-								std::string currentTextureName = g_ResourceManager.GetTextureDDSFileName(textureID);
-								ImGui::Text("%s", currentTextureName.c_str());
+								ImGui::Text("%s", textureName.c_str());
 								
 								ImGui::SameLine();
 								ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);
 
-								ImGui::PushID("TextureID");
-								if (ImGui::Button("Set Texture"))
-								{
-									//oldTextureName = currentTextureName; // Capture the old value
-									ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+								ImGui::PushID("Texture");
 
+								if (ImGui::Button("Change Texture"))
+								{
+									ImGuiFileDialog::Instance()->OpenDialog("ChangeTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
 								}
 
-								if (ImGuiFileDialog::Instance()->Display("SetTexture"))
+								if (ImGuiFileDialog::Instance()->Display("ChangeTexture"))
 								{
 									if (ImGuiFileDialog::Instance()->IsOk())
 									{
@@ -3611,11 +3608,7 @@ void ImGuiEditor::InspectorWindow()
 										{
 											selectedFile = selectedFile.substr(0, lastDotPos);
 										}
-
-										int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
-
-										uiComponent.set_textureid(textureId);
-										
+										uiComponent.set_texturename(selectedFile);
 
 									}
 									ImGuiFileDialog::Instance()->Close();
