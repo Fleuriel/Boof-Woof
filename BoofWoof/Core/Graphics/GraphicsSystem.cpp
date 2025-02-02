@@ -200,10 +200,10 @@ void GraphicsSystem::UpdateLoop() {
 	}
 	
 	shdrParam.View = camera_render.GetViewMatrix();
-	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
+	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (g_WindowY > 0) ? ((float)g_WindowX / (float)g_WindowY) : 1, 0.1f, 100.0f);
 
 	glm::mat4 view_ = camera.GetViewMatrix();
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (g_WindowY > 0) ? ((float)g_WindowX / (float)g_WindowY) : 1, 0.1f, 100.0f);
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
 	{/*
