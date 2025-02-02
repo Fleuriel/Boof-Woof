@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "9295c030-0518-4fd4-af1b-3848f192d0e2",
+    "SceneGUID": "7950e554-6c56-4282-bf78-d765ad0e5ddf",
     "Entities": [
         {
             "MetadataComponent": {
@@ -280,11 +280,11 @@
                 "EntityID": 13
             },
             "FontComponent": {
-                "Family": "Arial",
+                "Family": "manga-temple",
                 "PositionX": -0.9700000286102295,
                 "PositionY": 0.8999999761581421,
-                "ScaleX": 0.800000011920929,
-                "ScaleY": 1.2000000476837159,
+                "ScaleX": 0.699999988079071,
+                "ScaleY": 1.100000023841858,
                 "ColorR": 1.0,
                 "ColorG": 1.0,
                 "ColorB": 1.0,

@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "9717b357-083f-4fe3-b89d-d8452d96cc54",
+    "SceneGUID": "e2f8293b-779c-4c5a-b8b4-3191d1cef2e4",
     "Entities": [
         {
             "MetadataComponent": {
@@ -385,11 +385,11 @@
                 "EntityID": 18
             },
             "FontComponent": {
-                "Family": "Arial",
+                "Family": "manga-temple",
                 "PositionX": -0.029999999329447748,
                 "PositionY": 0.47999998927116396,
-                "ScaleX": 1.0,
-                "ScaleY": 1.5,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 1.2999999523162842,
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
@@ -402,11 +402,11 @@
                 "EntityID": 19
             },
             "FontComponent": {
-                "Family": "Arial",
+                "Family": "manga-temple",
                 "PositionX": -0.029999999329447748,
                 "PositionY": 0.2199999988079071,
-                "ScaleX": 1.0,
-                "ScaleY": 1.5,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 1.2999999523162842,
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
@@ -419,11 +419,11 @@
                 "EntityID": 20
             },
             "FontComponent": {
-                "Family": "Arial",
+                "Family": "manga-temple",
                 "PositionX": -0.029999999329447748,
                 "PositionY": -0.07000000029802323,
-                "ScaleX": 1.0,
-                "ScaleY": 1.5,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 1.2999999523162842,
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
@@ -436,11 +436,11 @@
                 "EntityID": 21
             },
             "FontComponent": {
-                "Family": "Arial",
+                "Family": "manga-temple",
                 "PositionX": -0.10000000149011612,
                 "PositionY": -0.36000001430511477,
-                "ScaleX": 1.0,
-                "ScaleY": 1.5,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 1.2999999523162842,
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
@@ -453,11 +453,11 @@
                 "EntityID": 22
             },
             "FontComponent": {
-                "Family": "Arial",
+                "Family": "manga-temple",
                 "PositionX": -0.10000000149011612,
                 "PositionY": -0.44999998807907107,
-                "ScaleX": 1.0,
-                "ScaleY": 1.5,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 1.2999999523162842,
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
@@ -470,11 +470,11 @@
                 "EntityID": 23
             },
             "FontComponent": {
-                "Family": "Arial",
-                "PositionX": 0.5950000286102295,
-                "PositionY": -0.20000000298023225,
-                "ScaleX": 1.0,
-                "ScaleY": 1.5,
+                "Family": "manga-temple",
+                "PositionX": 0.5649999976158142,
+                "PositionY": -0.20999999344348908,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 1.2999999523162842,
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
@@ -487,11 +487,11 @@
                 "EntityID": 24
             },
             "FontComponent": {
-                "Family": "Arial",
+                "Family": "manga-temple",
                 "PositionX": 0.5950000286102295,
                 "PositionY": 0.10999999940395355,
-                "ScaleX": 1.0,
-                "ScaleY": 1.5,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 1.2999999523162842,
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
@@ -504,11 +504,11 @@
                 "EntityID": 25
             },
             "FontComponent": {
-                "Family": "Arial",
+                "Family": "manga-temple",
                 "PositionX": 0.5950000286102295,
                 "PositionY": 0.44999998807907107,
-                "ScaleX": 1.0,
-                "ScaleY": 1.5,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 1.2999999523162842,
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
