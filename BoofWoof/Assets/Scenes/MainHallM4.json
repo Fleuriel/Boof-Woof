@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "f71aa696-5769-4a28-b55d-a498229325c4",
+    "SceneGUID": "3d1e0a45-e808-4d13-941a-37766a77b782",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.6264841556549072,
-                    "y": 1.1799989938735963,
-                    "z": 1.6465115547180176
+                    "x": 23.508907318115236,
+                    "y": 7.419956207275391,
+                    "z": -33.466407775878909
                 },
                 "Scale": {
                     "x": 0.5,
@@ -54,9 +54,9 @@
             },
             "CameraComponent": {
                 "Position": {
-                    "x": -0.5299999713897705,
-                    "y": 1.399999976158142,
-                    "z": -5.46999979019165
+                    "x": 24.670000076293947,
+                    "y": 7.71999979019165,
+                    "z": -33.470001220703128
                 },
                 "Yaw": 0.0,
                 "Pitch": 0.0,
@@ -65,7 +65,7 @@
                     "y": 1.0,
                     "z": 0.0
                 },
-                "Active": false
+                "Active": true
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -1698,12 +1698,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 34.49681091308594,
+                    "x": 35.3411979675293,
                     "y": 2.9490671157836916,
                     "z": -25.574251174926759
                 },
                 "Scale": {
-                    "x": 1.7000000476837159,
+                    "x": 1.399999976158142,
                     "y": 1.0,
                     "z": 1.0
                 },
@@ -10944,9 +10944,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 29.761348724365236,
-                    "y": 2.945073366165161,
-                    "z": -25.570507049560548
+                    "x": 31.401247024536134,
+                    "y": 2.945094347000122,
+                    "z": -25.57223129272461
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18604,14 +18604,14 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 29.706762313842775,
+                    "x": 31.65523338317871,
                     "y": 4.701047420501709,
-                    "z": -31.07805633544922
+                    "z": -31.078474044799806
                 },
                 "Scale": {
                     "x": 1.600000023841858,
                     "y": 1.0,
-                    "z": 0.9999297857284546
+                    "z": 0.9999338984489441
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -18628,22 +18628,6 @@
                 "ModelName": "WallDoorTop",
                 "Texture": "WallDoorTop",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 3.0,
-                    "y": 1.2000000476837159,
-                    "z": 0.75
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -18672,14 +18656,14 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 29.724084854125978,
-                    "y": 1.7643319368362427,
-                    "z": -34.20033645629883
+                    "x": 31.691566467285158,
+                    "y": 1.7643635272979737,
+                    "z": -34.19694519042969
                 },
                 "Scale": {
-                    "x": 1.5999799966812134,
+                    "x": 1.599991798400879,
                     "y": 1.0,
-                    "z": 0.9999659657478333
+                    "z": 0.999971866607666
                 },
                 "Rotation": {
                     "x": 3.1407713890075685,
@@ -18696,22 +18680,6 @@
                 "ModelName": "WallDoorLeft",
                 "Texture": "WallDoorLeft",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.0,
-                    "y": 1.5,
-                    "z": 0.8500000238418579
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -18740,14 +18708,14 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 29.730018615722658,
-                    "y": 1.7236950397491456,
-                    "z": -27.967424392700197
+                    "x": 31.66448402404785,
+                    "y": 1.7237300872802735,
+                    "z": -27.959585189819337
                 },
                 "Scale": {
-                    "x": 1.5999828577041627,
+                    "x": 1.5999928712844849,
                     "y": 1.0,
-                    "z": 0.9999488592147827
+                    "z": 0.999958872795105
                 },
                 "Rotation": {
                     "x": 3.140434503555298,
@@ -18764,22 +18732,6 @@
                 "ModelName": "WallDoorRight",
                 "Texture": "WallDoorRight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.0,
-                    "y": 1.5,
-                    "z": 0.8500000238418579
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -19412,12 +19364,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 34.71946716308594,
-                    "y": 1.4820117950439454,
-                    "z": -34.24436569213867
+                    "x": 35.02891159057617,
+                    "y": 0.3917115330696106,
+                    "z": -34.29993438720703
                 },
                 "Scale": {
-                    "x": 0.25,
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -19480,12 +19432,148 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 37.20272445678711,
-                    "y": 2.216271162033081,
-                    "z": -34.28272247314453
+                    "x": 36.42584991455078,
+                    "y": 0.8688971400260925,
+                    "z": -34.32273483276367
                 },
                 "Scale": {
-                    "x": 0.25,
+                    "x": 0.15000000596046449,
+                    "y": 0.30000001192092898,
+                    "z": 0.30000001192092898
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "SecondfloorTiles",
+                "Texture": "SecondfloorTiles",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SecondfloorTiles",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WoodSteps",
+                "EntityID": 334
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 37.768890380859378,
+                    "y": 1.4497209787368775,
+                    "z": -34.317840576171878
+                },
+                "Scale": {
+                    "x": 0.15000000596046449,
+                    "y": 0.30000001192092898,
+                    "z": 0.30000001192092898
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "SecondfloorTiles",
+                "Texture": "SecondfloorTiles",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SecondfloorTiles",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WoodSteps",
+                "EntityID": 335
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 39.16164779663086,
+                    "y": 1.9730921983718873,
+                    "z": -34.317840576171878
+                },
+                "Scale": {
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -19548,12 +19636,80 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 39.59658432006836,
-                    "y": 3.0538699626922609,
-                    "z": -34.30833053588867
+                    "x": 40.55425262451172,
+                    "y": 2.5034875869750978,
+                    "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.25,
+                    "x": 0.15000000596046449,
+                    "y": 0.30000001192092898,
+                    "z": 0.30000001192092898
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "SecondfloorTiles",
+                "Texture": "SecondfloorTiles",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SecondfloorTiles",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WoodSteps",
+                "EntityID": 337
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 41.89041519165039,
+                    "y": 3.1015965938568117,
+                    "z": -34.317840576171878
+                },
+                "Scale": {
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -19616,12 +19772,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 41.96150588989258,
-                    "y": 3.8343844413757326,
+                    "x": 43.13215255737305,
+                    "y": 3.8330600261688234,
                     "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.25,
+                    "x": 0.1599999964237213,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -19684,12 +19840,80 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 44.3764762878418,
-                    "y": 4.486173152923584,
+                    "x": 44.437767028808597,
+                    "y": 4.590973377227783,
                     "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.25,
+                    "x": 0.15000000596046449,
+                    "y": 0.30000001192092898,
+                    "z": 0.30000001192092898
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "SecondfloorTiles",
+                "Texture": "SecondfloorTiles",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SecondfloorTiles",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WoodSteps",
+                "EntityID": 340
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 45.78147506713867,
+                    "y": 5.242238998413086,
+                    "z": -34.317840576171878
+                },
+                "Scale": {
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -19752,12 +19976,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 46.79707717895508,
-                    "y": 5.174185752868652,
+                    "x": 47.36338424682617,
+                    "y": 5.706984043121338,
                     "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.25,
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -20020,16 +20244,84 @@
         {
             "MetadataComponent": {
                 "EntityName": "WoodSteps",
+                "EntityID": 345
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 48.8511848449707,
+                    "y": 6.3243231773376469,
+                    "z": -34.317840576171878
+                },
+                "Scale": {
+                    "x": 0.15000000596046449,
+                    "y": 0.30000001192092898,
+                    "z": 0.30000001192092898
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "SecondfloorTiles",
+                "Texture": "SecondfloorTiles",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "SecondfloorTiles",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WoodSteps",
                 "EntityID": 346
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 49.21323013305664,
-                    "y": 5.862422466278076,
-                    "z": -34.30340576171875
+                    "x": 49.99063491821289,
+                    "y": 6.445294380187988,
+                    "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.25,
+                    "x": 0.10000000149011612,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -23476,9 +23768,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 55.00019454956055,
-                    "y": -3189.833251953125,
-                    "z": -29.83965492248535
+                    "x": 55.000240325927737,
+                    "y": -2495.300048828125,
+                    "z": -29.896638870239259
                 },
                 "Scale": {
                     "x": 1.0,
@@ -28674,74 +28966,6 @@
                     ],
                     "finalAlpha": 1.0,
                     "Diffuse": "WaterBucket",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WoodSteps",
-                "EntityID": 334
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 32.093780517578128,
-                    "y": 0.6986871361732483,
-                    "z": -34.27507781982422
-                },
-                "Scale": {
-                    "x": 0.25,
-                    "y": 0.30000001192092898,
-                    "z": 0.30000001192092898
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "SecondfloorTiles",
                     "Normal": "NothingNormal",
                     "Height": "NothingHeight",
                     "metallic": 0.0,

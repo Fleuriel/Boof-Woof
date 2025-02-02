@@ -613,6 +613,6 @@ std::string ResourceManager::GetTextureDDSFileName(int textureID)
 
 
 void ResourceManager::AddFont(std::string name) {
-    fontResources[name] = fontSystem.readFromBin(name+".bin");
+    fontResources[name] = fontSystem.readFromBin(name);
     fontnames.push_back(name);
 }

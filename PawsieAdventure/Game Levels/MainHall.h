@@ -82,15 +82,14 @@ class MainHall : public Level
 		g_Checklist.OnInitialize();
 		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do6");
 		g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.15f, 0.05f), "Do7");
+		g_Checklist.ChangeAsset(g_Checklist.Do3, glm::vec2(0.15f, 0.05f), "Do8");
 
-		g_Checklist.ChangeAsset(g_Checklist.Do3, glm::vec2(0.0f, 0.0f), "");
 		g_Checklist.ChangeAsset(g_Checklist.Do4, glm::vec2(0.0f, 0.0f), "");
-		g_Checklist.ChangeAsset(g_Checklist.Box3, glm::vec2(0.0f, 0.0f), "");
 		g_Checklist.ChangeAsset(g_Checklist.Box4, glm::vec2(0.0f, 0.0f), "");
 
 		if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
 		{
-			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.065f));
+			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 0.968f));
 		}
 
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
@@ -225,9 +224,18 @@ class MainHall : public Level
 				boneDestroyed = true;
 			}
 
+			// Collect 3rd puppy
+			if (collectedBone && !boneDestroyed)
+			{
+				g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
+				//g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(bone);
+				//g_Coordinator.DestroyEntity(bone);
+				//boneDestroyed = true;
+			}
+
 			if (collectedBall && collectedBone && !chgChecklist)
 			{
-				g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do8");
+				g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do9");
 				g_Checklist.ChangeAsset(g_Checklist.Box1, glm::vec2(0.04f, 0.06f), "Box");
 				g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.0f, 0.0f), "");
 				g_Checklist.ChangeAsset(g_Checklist.Box2, glm::vec2(0.0f, 0.0f), "");
