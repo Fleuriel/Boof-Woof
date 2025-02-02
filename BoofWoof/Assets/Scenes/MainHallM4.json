@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "7674e614-9057-4a81-af92-4b20a8ec0685",
+    "SceneGUID": "489df8ac-e009-4769-ad16-90d42c1c1868",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 34.11743927001953,
-                    "y": 1.205430269241333,
-                    "z": -31.883268356323243
+                    "x": 34.117488861083987,
+                    "y": 1.20396888256073,
+                    "z": -32.17168045043945
                 },
                 "Scale": {
                     "x": 0.5,
@@ -16535,6 +16535,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16567,6 +16583,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16599,6 +16631,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16631,6 +16679,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16663,6 +16727,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16695,6 +16775,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16727,6 +16823,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16759,6 +16871,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16769,7 +16897,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": -25.70138168334961,
-                    "y": 7.805121421813965,
+                    "y": 7.805122375488281,
                     "z": -29.167661666870118
                 },
                 "Scale": {
@@ -16791,6 +16919,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16823,6 +16967,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16855,6 +17015,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16887,6 +17063,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16919,6 +17111,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16951,6 +17159,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16983,6 +17207,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -17015,6 +17255,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -17047,6 +17303,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -17079,6 +17351,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -17111,6 +17399,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -17143,6 +17447,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bed",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -17152,9 +17472,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 54.999942779541019,
-                    "y": -4269.98681640625,
-                    "z": -29.90283966064453
+                    "x": 55.0000114440918,
+                    "y": -4489.39599609375,
+                    "z": -29.995895385742189
                 },
                 "Scale": {
                     "x": 1.0,
