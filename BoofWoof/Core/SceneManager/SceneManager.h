@@ -1,5 +1,5 @@
 /**************************************************************************
- * @file SceneManager.cpp
+ * @file SceneManager.h
  * @author 	Liu Xujie
  * @param DP email: l.xujie@digipen.edu [2203183]
  * @param Course: CS 3401
@@ -14,6 +14,14 @@
 #define SCENEMANAGER_H
 
 #define g_SceneManager SceneManager::GetInstance()
+
+#include "../Serialization/SerializationAsync.h" 
+
+struct DeferredHierarchy
+{
+    int oldEntityID;             // The old ID of the entity that needs Hierarchy attached
+    rapidjson::Document hierarchyJson; // The JSON subobject for "HierarchyComponent"
+};
 
 class SceneManager
 {
@@ -51,7 +59,10 @@ public:
     // Transition to another scene
     void TransitionToScene(const std::string& sceneName, float transitionDuration = 1.0f);
 
-    // Update scene manager for transitions
+    // Called to begin asynchronous loading (instead of direct LoadScene)
+    void BeginAsyncLoad(const std::string& filepath);
+
+    // Called each frame to update loading logic, finalize if done
     void Update(float deltaTime);
 
     // Check if a transition is in progress
@@ -63,10 +74,8 @@ public:
     void AddSceneToList(const std::string& sceneName, const std::string& sceneGUID);
     inline void ClearSceneList() { sceneList.clear(); };
 
+    bool AsyncLoadIsComplete() const;
 private:
-    // Internally handle loading scenes with transition
-    void HandleSceneLoading();
-
     // Timing for transitions
     bool transitioning;
     float transitionTime;
@@ -85,6 +94,32 @@ private:
     // Helper functions to control transitions
     void BeginTransition(const std::string& sceneName, float duration);
     void CompleteTransition();
+
+    // The new async loader
+    SerializationAsync m_AsyncLoader;
+
+    // Are we currently loading a scene in the background?
+    bool m_IsAsyncLoading = false;
+
+    // Did we finish background loading but need to finalize ECS?
+    bool m_NeedsFinalize = false;
+
+    // We'll store the scene data once the thread is done
+    SceneData m_PendingSceneData;
+
+    // Optionally, are we chunking finalization?
+    bool m_ChunkFinalize = false;
+    size_t m_FinalizeIndex = 0;
+
+    // A function to do chunk-based or immediate finalization
+    void FinalizeSceneData(const SceneData& data);
+    void FinalizeSceneDataChunked(const SceneData& data, size_t& index, int chunkSize);
+
+    std::unordered_map<int, Entity> m_OldToNewMap;
+    std::vector<DeferredHierarchy> m_DeferredRefData;
+
+    void FinalizeReferences();
+
 };
 
 #endif

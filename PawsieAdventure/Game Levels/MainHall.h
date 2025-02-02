@@ -11,17 +11,24 @@
 class MainHall : public Level
 {
 	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{}, tennisBall{}, bone{};
+	Entity RexPee1{}, RexPee2{}, RexPee3{}, RexPee4{}, RexPee5{}, WaterBucket{}; // Smell Avoidance
 	CameraController* cameraController = nullptr;
+	double timer = 0.0; // Timer for smell avoidance
+	double timerLimit = 20.0f; // Timer limit for smell avoidance
 	bool sniffa{ false };
 	bool collectedBall{ false }, collectedBone{ false }, chgChecklist{ false };
 	bool playercollided{ false }, tennisBallCollided{ false }, boneCollided{ false };
 	bool boneDestroyed{ false }, tennisBallDestroyed{ false };
+
+	bool waterBucketcollided{ false }; // Smell Avoidance
+	bool rexPee1collided{ false }, rexPee2collided{ false }, rexPee3collided{ false }, rexPee4collided{ false }, rexPee5collided{ false }; // Smell Avoidance
+	bool peeMarked{ false }; // Smell Avoidance
 	bool teb_last = false;
 
-	void LoadLevel()
+	void LoadLevel() override
 	{
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHall.json");
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true, "BGM");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM4.json");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusicBGM.wav", true, "BGM");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -35,7 +42,13 @@ class MainHall : public Level
 			{"Bone", [&](Entity entity) { bone = entity; }},
 			{"TennisBall", [&](Entity entity) { tennisBall = entity; }},
 			{"ScentTrail1", [&](Entity entity) { scentEntity1 = entity; }},
-			{"ScentTrail2", [&](Entity entity) { scentEntity2 = entity; }}
+			{"ScentTrail2", [&](Entity entity) { scentEntity2 = entity; }},
+			{"Pee1", [&](Entity entity) { RexPee1 = entity; }},
+			{"Pee2", [&](Entity entity) { RexPee2 = entity; }},
+			{"Pee3", [&](Entity entity) { RexPee3 = entity; }},
+			{"Pee4", [&](Entity entity) { RexPee4 = entity; }},
+			{"Pee5", [&](Entity entity) { RexPee5 = entity; }},
+			{"WaterBucket", [&](Entity entity) { WaterBucket = entity; }}
 		};
 
 		for (auto entity : entities)
@@ -51,7 +64,8 @@ class MainHall : public Level
 				}
 
 				// Exit early if all entities are found
-				if (playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && bone && tennisBall && scentEntity1 && scentEntity2)
+				if (playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && bone && tennisBall && scentEntity1 && scentEntity2 
+					&& RexPee1 && RexPee2 && RexPee3 && RexPee4 && RexPee5 && WaterBucket)
 				{
 					break;
 				}
@@ -61,7 +75,7 @@ class MainHall : public Level
 		g_Window->HideMouseCursor();
 	}
 
-	void InitLevel()
+	void InitLevel() override
 	{
 		cameraController = new CameraController(playerEnt);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
@@ -78,6 +92,9 @@ class MainHall : public Level
 		{
 			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.065f));
 		}
+
+		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
+		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
 	}
 
 	void CheckCollision()
@@ -97,6 +114,49 @@ class MainHall : public Level
 			boneCollided = g_Coordinator.GetComponent<CollisionComponent>(bone).GetIsColliding();
 		}
 
+		// Smell Avoidance
+		if (g_Coordinator.HaveComponent<CollisionComponent>(RexPee1))
+		{
+			rexPee1collided = g_Coordinator.GetComponent<CollisionComponent>(RexPee1).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(RexPee2))
+		{
+			rexPee2collided = g_Coordinator.GetComponent<CollisionComponent>(RexPee2).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(RexPee3))
+		{
+			rexPee3collided = g_Coordinator.GetComponent<CollisionComponent>(RexPee3).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(RexPee4))
+		{
+			rexPee4collided = g_Coordinator.GetComponent<CollisionComponent>(RexPee4).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(RexPee5))
+		{
+			rexPee5collided = g_Coordinator.GetComponent<CollisionComponent>(RexPee5).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(WaterBucket))
+		{
+			waterBucketcollided = g_Coordinator.GetComponent<CollisionComponent>(WaterBucket).GetIsColliding();
+		}
+
+		if (playercollided && (rexPee1collided || rexPee2collided || rexPee3collided || rexPee4collided || rexPee5collided) && !peeMarked)
+		{
+			peeMarked = true;
+		}
+
+		if (playercollided && waterBucketcollided)
+		{
+			peeMarked = false;
+			timer = 0.0;
+		}
+		//////////////////////////////////////////////////////////////////////////
+
 		if (playercollided && tennisBallCollided && !collectedBall)
 		{
 			collectedBall = true;
@@ -108,97 +168,113 @@ class MainHall : public Level
 		}
 	}
 
-	void UpdateLevel(double deltaTime)
+	void UpdateLevel(double deltaTime) override
 	{
-		cameraController->Update(static_cast<float>(deltaTime));
+		pauseLogic::OnUpdate();
 
-		auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
-		auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);
-
-		if (!g_Checklist.shutted)
+		if (!g_IsPaused)
 		{
-			g_Checklist.OnUpdate(deltaTime);
-		}
+			cameraController->Update(static_cast<float>(deltaTime));
 
-		if (!collectedBall || !collectedBone)
-		{
-			CheckCollision();
-		}
+			auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
+			auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);
 
-		// If collected Tennis Ball
-		if (collectedBall && !tennisBallDestroyed)
-		{
-			g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
-			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(tennisBall);
-			g_Coordinator.DestroyEntity(tennisBall);
-			tennisBallDestroyed = true;
-		}
-
-		// If collected Bone
-		if (collectedBone && !boneDestroyed)
-		{
-			g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
-			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(bone);
-			g_Coordinator.DestroyEntity(bone);
-			boneDestroyed = true;
-		}
-
-		if (collectedBall && collectedBone && !chgChecklist)
-		{
-			g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do8");
-			g_Checklist.ChangeAsset(g_Checklist.Box1, glm::vec2(0.04f, 0.06f), "Box");
-			g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.0f, 0.0f), "");
-			g_Checklist.ChangeAsset(g_Checklist.Box2, glm::vec2(0.0f, 0.0f), "");
-
-			if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
+			if (!g_Checklist.shutted)
 			{
-				g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.165f));
+				g_Checklist.OnUpdate(deltaTime);
 			}
 
-			chgChecklist = true;
-		}
-
-		if (chgChecklist)
-		{
-			g_RopeBreaker.OnUpdate(deltaTime);
-		}
-
-		if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
-		{
-			if (!teb_last)
+			if (!collectedBall || !collectedBone)
 			{
-				teb_last = true;
-				cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
+				CheckCollision();
 			}
-		}
-		else
-		{
-			teb_last = false;
-		}
 
-		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !sniffa)
-		{
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false, "SFX");
+			if (peeMarked)
+			{
+				timer += deltaTime;
 
-			opacity1.setParticleColor(glm::vec4(0.0470588244497776f, 0.6627451181411743f, 0.95686274766922f, 1.0f));
-			opacity2.setParticleColor(glm::vec4(0.7960784435272217f, 0.0470588244497776f, 0.95686274766922f, 1.0f));
-			sniffa = true;
-		}
+				if (timer >= timerLimit)
+				{
+					peeMarked = false;
+					timer = 0.0;
+					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+					if (loading)
+					{
+						// Pass in the name of the real scene we want AFTER the loading screen
+						loading->m_NextScene = "MainHall";
+						g_LevelManager.SetNextLevel("LoadingLevel");
+					}
+				}
+			}
 
-		if (g_Input.GetKeyState(GLFW_KEY_R) == 0)
-		{
-			sniffa = false;
-		}
+			// If collected Tennis Ball
+			if (collectedBall && !tennisBallDestroyed)
+			{
+				g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
+				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(tennisBall);
+				g_Coordinator.DestroyEntity(tennisBall);
+				tennisBallDestroyed = true;
+			}
 
-		// Space to go back mainmenu
-		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
-		{
-			g_LevelManager.SetNextLevel("MainMenu");
-			g_Window->ShowMouseCursor();
+			// If collected Bone
+			if (collectedBone && !boneDestroyed)
+			{
+				g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
+				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(bone);
+				g_Coordinator.DestroyEntity(bone);
+				boneDestroyed = true;
+			}
+
+			if (collectedBall && collectedBone && !chgChecklist)
+			{
+				g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do8");
+				g_Checklist.ChangeAsset(g_Checklist.Box1, glm::vec2(0.04f, 0.06f), "Box");
+				g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.0f, 0.0f), "");
+				g_Checklist.ChangeAsset(g_Checklist.Box2, glm::vec2(0.0f, 0.0f), "");
+
+				if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
+				{
+					g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.165f));
+				}
+
+				chgChecklist = true;
+			}
+
+			if (chgChecklist)
+			{
+				g_RopeBreaker.OnUpdate(deltaTime);
+			}
+
+			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
+			{
+				if (!teb_last)
+				{
+					teb_last = true;
+					cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
+				}
+			}
+			else
+			{
+				teb_last = false;
+			}
+
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !sniffa)
+			{
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiSniff.wav", false, "SFX");
+
+				opacity1.setParticleColor(glm::vec4(0.0470588244497776f, 0.6627451181411743f, 0.95686274766922f, 1.0f));
+				opacity2.setParticleColor(glm::vec4(0.7960784435272217f, 0.0470588244497776f, 0.95686274766922f, 1.0f));
+				sniffa = true;
+			}
+
+			if (g_Input.GetKeyState(GLFW_KEY_E) == 0)
+			{
+				sniffa = false;
+			}
 		}
 	}
 
-	void FreeLevel()
+	void FreeLevel() override
 	{
 		if (cameraController)
 		{
@@ -207,13 +283,20 @@ class MainHall : public Level
 		}
 	}
 
-	void UnloadLevel()
+	void UnloadLevel() override
 	{
-		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/BedRoomMusicBGM.wav");
 
 		g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
+
+		// Ensure RESET for game to be replayable
 		g_Checklist.shutted = false;
+		sniffa = collectedBall = collectedBone = chgChecklist = false;
+		playercollided = tennisBallCollided = boneCollided = false;
+		rexPee1collided = rexPee2collided = rexPee3collided = rexPee4collided = rexPee5collided = false; // Smell Avoidance
+		waterBucketcollided = peeMarked = false; // Smell Avoidance
+		boneDestroyed = tennisBallDestroyed = false;
 	}
 };

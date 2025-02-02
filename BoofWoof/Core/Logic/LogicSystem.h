@@ -19,6 +19,9 @@ public:
 	void Init();
 	void Update();
 	void Shutdown();
+	void ReInit();			//For editor to initialise all the scripts
+	bool ApprovingScriptChange(Entity entity);
+	void InitScript(Entity entity);
 
 	std::wstring GetDLLMainDirectory() { return DLL_MAIN_DIRECTORY; }
 	std::wstring GetDLLCopyDirectory() { return DLL_COPY_DIRECTORY; }

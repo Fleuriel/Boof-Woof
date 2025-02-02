@@ -148,3 +148,14 @@ LevelManager::~LevelManager()
 		delete pair.second;
 	}
 }
+
+
+Level* LevelManager::GetLevel(const std::string& levelName)
+{
+	auto it = m_levels.find(levelName);
+	if (it != m_levels.end())
+	{
+		return it->second;
+	}
+	return nullptr; // Not found
+}

@@ -17060,25 +17060,6 @@
           "b": 0.21568627655506135,
           "a": 1.0
         }
-      },
-      "MaterialComponent": {
-        "name": "Default Material",
-        "shader": "Shader3D",
-        "shaderIdx": 5,
-        "properties": {
-          "color": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ],
-          "finalAlpha": 1.0,
-          "Diffuse": "Floor3tripleheight",
-          "Normal": "NothingNormal",
-          "Height": "NothingHeight",
-          "metallic": 0.0,
-          "shininess": 0.0
-        }
       }
     }
   ]

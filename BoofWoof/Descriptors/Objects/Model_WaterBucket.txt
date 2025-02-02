@@ -1,7 +1,7 @@
 File Name: WaterBucket
 Source File Path: ..\BoofWoof\Assets\Objects\WaterBucket.obj
 Output File Path: ..\BoofWoof\Resources\Objects\WaterBucket.bin
-MTL File Exist: 0
+MTL File Exist: 1
 PNG File Exist: 0
 JPG File Exist: 0
 Expected Attributes: 

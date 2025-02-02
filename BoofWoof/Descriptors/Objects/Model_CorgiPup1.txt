@@ -1,7 +1,7 @@
 File Name: CorgiPup1
 Source File Path: ..\BoofWoof\Assets\Objects\CorgiPup1.obj
 Output File Path: ..\BoofWoof\Resources\Objects\CorgiPup1.bin
-MTL File Exist: 0
+MTL File Exist: 1
 PNG File Exist: 0
 JPG File Exist: 0
 Expected Attributes: 

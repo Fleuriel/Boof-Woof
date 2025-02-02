@@ -6,16 +6,16 @@
                 "EntityName": "StartingText",
                 "EntityID": 0
             },
-            "UIComponent": {
-                "TextureID": 26,
-                "PositionX": 0.0,
-                "PositionY": 0.0,
-                "ScaleX": 0.5,
-                "ScaleY": 0.10000000149011612,
-                "Layer": 0.5,
-                "Selectable": false,
-                "Opcaity": 1.0
-            }
+          "UIComponent": {
+            "TextureName": "CorgiText5",
+            "PositionX": 0.0,
+            "PositionY": 0.0,
+            "ScaleX": 0.5,
+            "ScaleY": 0.10000000149011612,
+            "Layer": 0.5,
+            "Selectable": false,
+            "Opcaity": 1.0
+          }
         }
     ]
 }

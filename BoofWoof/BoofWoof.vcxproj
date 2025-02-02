@@ -206,6 +206,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\Level Manager\LevelManager.cpp" />
     <ClCompile Include="Core\GSM\GameStateMachine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
+    <ClCompile Include="Core\Pathfinding\PathfindingSystem.cpp" />
     <ClCompile Include="Core\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Core\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Core\Reflection\ReflectionManager.cpp" />
@@ -213,12 +214,14 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Core\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Core\Logic\LogicSystem.cpp" />
     <ClCompile Include="Core\Serialization\Serialization.cpp" />
+    <ClCompile Include="Core\Serialization\SerializationAsync.cpp" />
     <ClCompile Include="Core\UI\UISystem.cpp" />
     <ClCompile Include="Core\Windows\WindowManager.cpp" />
     <ClCompile Include="Utilities\Components\AnimationComponent.cpp" />
     <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
     <ClCompile Include="Utilities\Components\CameraComponent.cpp" />
+    <ClCompile Include="Utilities\Components\FontComponent.cpp" />
     <ClCompile Include="Utilities\Components\GraphicsComponent.cpp" />
     <ClCompile Include="Utilities\Components\HierarchyComponent.cpp" />
     <ClCompile Include="Utilities\Components\LightComponent.cpp" />
@@ -259,14 +262,17 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Logic\Script_to_Engine.h" />
     <ClInclude Include="Core\Level Manager\Level.h" />
     <ClInclude Include="Core\Level Manager\LevelManager.h" />
+    <ClInclude Include="Core\Pathfinding\PathfindingSystem.h" />
     <ClInclude Include="Core\Physics\CollisionSystem.h" />
     <ClInclude Include="Core\Physics\PhysicsSystem.h" />
     <ClInclude Include="Core\Reflection\ReflectionManager.hpp" />
     <ClInclude Include="Core\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="Core\SceneManager\SceneData.h" />
     <ClInclude Include="Core\SceneManager\SceneManager.h" />
     <ClInclude Include="Core\Logic\Behaviour.h" />
     <ClInclude Include="Core\Logic\LogicSystem.h" />
     <ClInclude Include="Core\Serialization\Serialization.h" />
+    <ClInclude Include="Core\Serialization\SerializationAsync.h" />
     <ClInclude Include="Core\UI\UISystem.h" />
     <ClInclude Include="Core\Windows\WindowManager.h" />
     <ClInclude Include="Utilities\Components\AnimationComponent.h" />
@@ -274,12 +280,16 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Utilities\Components\BehaviourComponent.hpp" />
     <ClInclude Include="Utilities\Components\CameraComponent.hpp" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
+    <ClInclude Include="Utilities\Components\FontComponent.hpp" />
+    <ClInclude Include="Utilities\Components\EdgeComponent.hpp" />
     <ClInclude Include="Utilities\Components\GraphicsComponent.hpp" />
     <ClInclude Include="Utilities\Components\HierarchyComponent.hpp" />
     <ClInclude Include="Utilities\Components\LightComponent.hpp" />
     <ClInclude Include="Utilities\Components\MaterialComponent.hpp" />
     <ClInclude Include="Utilities\Components\MetaData.hpp" />
+    <ClInclude Include="Utilities\Components\NodeComponent.hpp" />
     <ClInclude Include="Utilities\Components\ParticleComponent.hpp" />
+    <ClInclude Include="Utilities\Components\PathfindingComponent.hpp" />
     <ClInclude Include="Utilities\Components\TransformComponent.hpp" />
     <ClInclude Include="Utilities\Components\UIComponent.hpp" />
   </ItemGroup>
