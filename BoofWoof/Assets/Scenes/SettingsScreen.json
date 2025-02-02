@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "e67a3d22-819c-4e0a-adea-3a90bae91c43",
+    "SceneGUID": "9b95363f-a564-4752-a806-1300ff505d70",
     "Entities": [
         {
             "MetadataComponent": {
@@ -133,7 +133,7 @@
                 "EntityID": 6
             },
             "FontComponent": {
-                "Family": "Arial",
+                "Family": "manga-temple",
                 "PositionX": -0.4300000071525574,
                 "PositionY": 0.25,
                 "ScaleX": 2.5,
@@ -150,8 +150,8 @@
                 "EntityID": 7
             },
             "FontComponent": {
-                "Family": "Arial",
-                "PositionX": -0.4699999988079071,
+                "Family": "manga-temple",
+                "PositionX": -0.4399999976158142,
                 "PositionY": -0.25,
                 "ScaleX": 2.5,
                 "ScaleY": 4.0,
@@ -167,7 +167,7 @@
                 "EntityID": 8
             },
             "FontComponent": {
-                "Family": "Arial",
+                "Family": "manga-temple",
                 "PositionX": 0.14000000059604646,
                 "PositionY": -0.25,
                 "ScaleX": 2.5,
@@ -184,7 +184,7 @@
                 "EntityID": 9
             },
             "FontComponent": {
-                "Family": "Arial",
+                "Family": "manga-temple",
                 "PositionX": 0.14000000059604646,
                 "PositionY": 0.25,
                 "ScaleX": 2.5,

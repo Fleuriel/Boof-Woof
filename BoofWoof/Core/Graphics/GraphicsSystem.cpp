@@ -121,6 +121,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 void GraphicsSystem::UpdateLoop() {
 
+	glDepthRange(0.1, 1.0);
 
 	//if (g_Input.IsActionPressed(ActionType::Jump)) {
 	//	std::cout << "Jump\n";
@@ -518,6 +519,7 @@ void GraphicsSystem::UpdateLoop() {
 		needsPickingRender = false;
 	}
 	
+	glDepthRange(0.0, 1.0);
 	glDisable(GL_DEPTH_TEST);
 	RenderDebugLines();
 	glEnable(GL_DEPTH_TEST);

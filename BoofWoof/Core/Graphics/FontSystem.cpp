@@ -162,6 +162,12 @@ std::string FontSystem::saveBin(std::string ttf_filename_noExtension)
 
 void FontSystem::update()
 {
+	// disable depth test
+	glDisable(GL_DEPTH_TEST);
+	// enable blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	// render text
     
 	for (auto entity : g_Coordinator.GetAliveEntitiesSet())
 	{
@@ -177,6 +183,8 @@ void FontSystem::update()
 	}
     //RenderText(g_ResourceManager.GetFont("arial"), "Hello World", 0.0f, 0.0f, { 1.f, 1.2f }, glm::vec3(1.0f, 1.0f, 1.0f));
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	// enable depth test
+	glEnable(GL_DEPTH_TEST);
 }
 
 void FontSystem::RenderText(FontResources fontResources, std::string text, float x, float y, glm::vec2 scale, glm::vec3 color)
