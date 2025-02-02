@@ -119,7 +119,7 @@ public:
 	bool getFollowCamera() const { return followCamera; }
 
     // Set texture name
-//    void setTexture(std::string texture) { textureName = texture; }
+    void setTexture(std::string texture) { textureName = texture; }
 
     glm::vec3 boundingBox;
 
@@ -202,8 +202,8 @@ private:
     Model* m_Model{};
     std::string m_ModelName{};
     int m_ModelID{};
- //   std::string textureName;
-   std::vector<int> textures{};
+    std::string textureName;
+    std::vector<int> textures{};
     bool followCamera = true;
 
 };

@@ -2830,14 +2830,14 @@ void ImGuiEditor::InspectorWindow()
 												selectedFile = selectedFile.substr(0, lastDotPos);
 											}
 							
-											//newTextureName = selectedFile;
-											//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
+//											newTextureName = selectedFile;
+//											(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
 											int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
-											// graphicsComponent.SetDiffuse(textureId);
-//											graphicsComponent.AddTexture(textureId);
-//											graphicsComponent.setTexture(selectedFile);
-							
-//											std::cout << textureId << '\n';
+											graphicsComponent.SetDiffuse(textureId);
+											graphicsComponent.AddTexture(textureId);
+											graphicsComponent.setTexture(selectedFile);
+						
+											std::cout << textureId << '\n';
 							
 											//graphicsComponent.material.SetDiffuseID(textureId);
 											//graphicsComponent.material.SetDiffuseName(selectedFile);
