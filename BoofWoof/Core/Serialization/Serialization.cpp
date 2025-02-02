@@ -1465,7 +1465,7 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
                 followCam = GData["FollowCamera"].GetBool();
             }
 
-            GraphicsComponent graphicsComp(modelName, newE, textureName, followCam);
+            GraphicsComponent graphicsComp(modelName, newE, followCam);
             // If you want to retrieve textureID from ResourceManager:
             int textureID = g_ResourceManager.GetTextureDDS(textureName);
             if (textureID > 0)
