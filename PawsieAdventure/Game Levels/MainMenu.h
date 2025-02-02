@@ -7,7 +7,7 @@
 
 Entity BackCamera{}, MenuMusic{}, MenuClick{}, StartGame{}, X{}, HTP{}, Cog{};
 std::unique_ptr<PauseMenu> MenuPauser = CreatePausedMenu(PauseState::Paused);
-float sfxVolume{ 1.f }, bgmVolume{ 1.f };
+float sfxVolume{ 1.0f }, bgmVolume{ 1.0f };
 bool inSmth{ false };
 
 class MainMenu : public Level
@@ -208,7 +208,7 @@ class MainMenu : public Level
 
 			if (g_Coordinator.HaveComponent<FontComponent>(MenuPauser->SFXVol))
 			{
-				int volDisplay = static_cast<int>(sfxVolume * 10);
+				int volDisplay = static_cast<int>(std::round(sfxVolume * 10));
 				if (volDisplay >= 0 && volDisplay < 10)
 				{
 					std::stringstream ss;
@@ -246,7 +246,8 @@ class MainMenu : public Level
 
 			if (g_Coordinator.HaveComponent<FontComponent>(MenuPauser->BGMVol))
 			{
-				int volDisplay = static_cast<int>(bgmVolume * 10);
+				int volDisplay = static_cast<int>(std::round(bgmVolume * 10));
+				std::cout << "voldisplay: " << volDisplay << std::endl;
 				if (volDisplay >= 0 && volDisplay < 10)
 				{
 					std::stringstream ss;
