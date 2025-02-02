@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "aa1cfbcf-c0d1-4c79-a0fd-28c06cba877e",
+    "SceneGUID": "19af130e-dc9b-4975-9e40-7b48651c88f5",
     "Entities": [
         {
             "MetadataComponent": {
@@ -10,7 +10,7 @@
                 "Position": {
                     "x": 23.508907318115236,
                     "y": 7.419956207275391,
-                    "z": -33.08740234375
+                    "z": -33.466407775878909
                 },
                 "Scale": {
                     "x": 0.5,
@@ -19369,7 +19369,7 @@
                     "z": -34.29993438720703
                 },
                 "Scale": {
-                    "x": 0.10000000149011612,
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -19432,12 +19432,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 36.09818649291992,
-                    "y": 0.7636241912841797,
+                    "x": 36.42584991455078,
+                    "y": 0.8688971400260925,
                     "z": -34.32273483276367
                 },
                 "Scale": {
-                    "x": 0.10000000149011612,
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -19500,80 +19500,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 37.1043815612793,
-                    "y": 1.1032847166061402,
+                    "x": 37.768890380859378,
+                    "y": 1.4497209787368775,
                     "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.10000000149011612,
-                    "y": 0.30000001192092898,
-                    "z": 0.30000001192092898
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "SecondfloorTiles",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WoodSteps",
-                "EntityID": 335
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 38.11812210083008,
-                    "y": 1.411733865737915,
-                    "z": -34.317840576171878
-                },
-                "Scale": {
-                    "x": 0.10000000149011612,
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -19637,79 +19569,11 @@
             "TransformComponent": {
                 "Position": {
                     "x": 39.16164779663086,
-                    "y": 1.7406972646713257,
+                    "y": 1.9730921983718873,
                     "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.10000000149011612,
-                    "y": 0.30000001192092898,
-                    "z": 0.30000001192092898
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "SecondfloorTiles",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WoodSteps",
-                "EntityID": 337
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 40.1539421081543,
-                    "y": 2.0390474796295168,
-                    "z": -34.317840576171878
-                },
-                "Scale": {
-                    "x": 0.10000000149011612,
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -19772,12 +19636,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 41.09477233886719,
-                    "y": 2.378253698348999,
+                    "x": 40.55425262451172,
+                    "y": 2.5034875869750978,
                     "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.10000000149011612,
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -19840,12 +19704,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 42.1488151550293,
-                    "y": 2.8388211727142336,
+                    "x": 41.89041519165039,
+                    "y": 3.1015965938568117,
                     "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.10000000149011612,
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -19908,80 +19772,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 43.090633392333987,
-                    "y": 3.474571466445923,
+                    "x": 43.13215255737305,
+                    "y": 3.8330600261688234,
                     "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.10000000149011612,
-                    "y": 0.30000001192092898,
-                    "z": 0.30000001192092898
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "SecondfloorTiles",
-                "Texture": "SecondfloorTiles",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "SecondfloorTiles",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WoodSteps",
-                "EntityID": 341
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 44.076454162597659,
-                    "y": 4.064215660095215,
-                    "z": -34.317840576171878
-                },
-                "Scale": {
-                    "x": 0.10000000149011612,
+                    "x": 0.1599999964237213,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -20044,12 +19840,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 45.06684112548828,
+                    "x": 44.437767028808597,
                     "y": 4.590973377227783,
                     "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.10000000149011612,
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -20112,12 +19908,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 46.14944076538086,
-                    "y": 5.158785820007324,
+                    "x": 45.78147506713867,
+                    "y": 5.242238998413086,
                     "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.10000000149011612,
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -20180,12 +19976,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 47.578887939453128,
-                    "y": 5.6002678871154789,
+                    "x": 47.36338424682617,
+                    "y": 5.706984043121338,
                     "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.10000000149011612,
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -20452,12 +20248,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 48.99587631225586,
-                    "y": 6.1697564125061039,
+                    "x": 48.8511848449707,
+                    "y": 6.3243231773376469,
                     "z": -34.317840576171878
                 },
                 "Scale": {
-                    "x": 0.10000000149011612,
+                    "x": 0.15000000596046449,
                     "y": 0.30000001192092898,
                     "z": 0.30000001192092898
                 },
@@ -22413,6 +22209,22 @@
                 "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
             "MaterialComponent": {
                 "name": "Default Material",
                 "shader": "Shader3D",
@@ -22464,6 +22276,22 @@
                 "ModelName": "SecondfloorTiles",
                 "Texture": "SecondfloorTiles",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -22517,6 +22345,22 @@
                 "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
             "MaterialComponent": {
                 "name": "Default Material",
                 "shader": "Shader3D",
@@ -22568,6 +22412,22 @@
                 "ModelName": "SecondfloorTiles",
                 "Texture": "SecondfloorTiles",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -22621,6 +22481,22 @@
                 "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
             "MaterialComponent": {
                 "name": "Default Material",
                 "shader": "Shader3D",
@@ -22672,6 +22548,22 @@
                 "ModelName": "SecondfloorTiles",
                 "Texture": "SecondfloorTiles",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -22725,6 +22617,22 @@
                 "Texture": "SecondfloorTiles",
                 "FollowCamera": true
             },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
             "MaterialComponent": {
                 "name": "Default Material",
                 "shader": "Shader3D",
@@ -22776,6 +22684,22 @@
                 "ModelName": "SecondfloorTiles",
                 "Texture": "SecondfloorTiles",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -23844,9 +23768,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 55.000701904296878,
-                    "y": -2245.434814453125,
-                    "z": -29.83900260925293
+                    "x": 55.00019454956055,
+                    "y": -2420.326171875,
+                    "z": -29.8203067779541
                 },
                 "Scale": {
                     "x": 1.0,
