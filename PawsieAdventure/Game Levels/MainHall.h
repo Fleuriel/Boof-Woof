@@ -15,10 +15,10 @@ class MainHall : public Level
 	CameraController* cameraController = nullptr;
 
 	double timer = 0.0; // Timer for smell avoidance
-	double timerLimit = 20.0f; // Timer limit for smell avoidance
+	double timerLimit = 5.0f; // Timer limit for smell avoidance
 
 	bool sniffa{ false };
-	bool collectedBall{ false }, collectedBone{ false }, chgChecklist{ false };
+	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
 	bool playercollided{ false }, puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
 	bool puppy1Destroyed{ false }, puppy2Destroyed{ false }, puppy3Destroyed{ false };
 
@@ -176,14 +176,19 @@ class MainHall : public Level
 		}
 		//////////////////////////////////////////////////////////////////////////
 
-		if (playercollided && puppy1Collided && !collectedBall)
+		if (playercollided && puppy1Collided && !collectedPuppy1)
 		{
-			collectedBall = true;
+			collectedPuppy1 = true;
 		}
 
-		if (playercollided && puppy2Collided && !collectedBone)
+		if (playercollided && puppy2Collided && !collectedPuppy2)
 		{
-			collectedBone = true;
+			collectedPuppy2 = true;
+		}
+
+		if (playercollided && puppy3Collided && !collectedPuppy3)
+		{
+			collectedPuppy3 = true;
 		}
 	}
 
@@ -197,13 +202,14 @@ class MainHall : public Level
 
 			auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
 			auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);
+			auto& opacity3 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity3);
 
 			if (!g_Checklist.shutted)
 			{
 				g_Checklist.OnUpdate(deltaTime);
 			}
 
-			if (!collectedBall || !collectedBone)
+			if (!collectedPuppy1 || !collectedPuppy2 || !collectedPuppy3)
 			{
 				CheckCollision();
 			}
@@ -226,34 +232,34 @@ class MainHall : public Level
 				}
 			}
 
-			// If collected Tennis Ball
-			if (collectedBall && !puppy2Destroyed)
+			// If collected 1st puppy
+			if (collectedPuppy1 && !puppy1Destroyed)
 			{
 				g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
 				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy1);
 				g_Coordinator.DestroyEntity(puppy1);
-				puppy2Destroyed = true;
+				puppy1Destroyed = true;
 			}
 
-			// If collected Bone
-			if (collectedBone && !puppy1Destroyed)
+			// If collected 2nd puppy
+			if (collectedPuppy2 && !puppy2Destroyed)
 			{
 				g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
 				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy2);
 				g_Coordinator.DestroyEntity(puppy2);
-				puppy1Destroyed = true;
+				puppy2Destroyed = true;
 			}
 
-			// Collect 3rd puppy
-			if (collectedBone && !puppy1Destroyed)
+			// If collected 3rd puppy
+			if (collectedPuppy3 && !puppy3Destroyed)
 			{
 				g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
-				//g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(bone);
-				//g_Coordinator.DestroyEntity(bone);
-				//boneDestroyed = true;
+				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy3);
+				g_Coordinator.DestroyEntity(puppy3);
+				puppy3Destroyed = true;
 			}
 
-			if (collectedBall && collectedBone && !chgChecklist)
+			if (collectedPuppy1 && collectedPuppy2 && collectedPuppy3 && !chgChecklist)
 			{
 				g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do9");
 				g_Checklist.ChangeAsset(g_Checklist.Box1, glm::vec2(0.04f, 0.06f), "Box");
@@ -290,8 +296,9 @@ class MainHall : public Level
 			{
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiSniff.wav", false, "SFX");
 
-				opacity1.setParticleColor(glm::vec4(0.0470588244497776f, 0.6627451181411743f, 0.95686274766922f, 1.0f));
-				opacity2.setParticleColor(glm::vec4(0.7960784435272217f, 0.0470588244497776f, 0.95686274766922f, 1.0f));
+				opacity1.setParticleColor(glm::vec4(0.9607843160629273f, 0.3935392200946808f, 0.042387526482343677f, 1.0f));
+				opacity2.setParticleColor(glm::vec4(0.032127078622579578f, 0.93624528503418f, 0.936274528503418f, 1.0f));
+				opacity3.setParticleColor(glm::vec4(0.9313725233078003f, 0.342416375875473f, 0.8274392485618591f, 1.0f));
 				sniffa = true;
 			}
 
@@ -321,10 +328,11 @@ class MainHall : public Level
 
 		// Ensure RESET for game to be replayable
 		g_Checklist.shutted = false;
-		sniffa = collectedBall = collectedBone = chgChecklist = false;
-		playercollided = puppy1Collided = puppy2Collided = false;
+		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
+		playercollided = puppy1Collided = puppy2Collided = puppy3Collided = false;
 		rexPee1collided = rexPee2collided = rexPee3collided = rexPee4collided = rexPee5collided = false; // Smell Avoidance
 		waterBucketcollided = peeMarked = false; // Smell Avoidance
-		puppy1Destroyed = puppy2Destroyed = false;
+		puppy1Destroyed = puppy2Destroyed = puppy3Destroyed = false;
+		peeSoundPlayed = waterSoundPlayed = false;
 	}
 };
