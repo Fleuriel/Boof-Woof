@@ -291,7 +291,8 @@ void GraphicsSystem::UpdateLoop() {
 		}
 
 
-		if (ShaderName == "Shader3D")
+		//if (ShaderName == "Shader3D")
+		if (strcmp(ShaderName, "Shader3D") == 0)
 		{
 
 			// START OF 3D
@@ -335,7 +336,8 @@ void GraphicsSystem::UpdateLoop() {
 //			g_ResourceManager.getModel()->Draw(g_AssetManager.GetShader(ShaderName));
 
 		}
-		else if (ShaderName == "Shader2D")
+		//else if (ShaderName == "Shader2D")
+		else if (strcmp(ShaderName, "Shader2D") == 0)
 		{
 
 

@@ -3938,7 +3938,7 @@ void ImGuiEditor::InspectorWindow()
 								}
 
 								// Display the dropdown (combo box)
-								if (ImGui::Combo("##Family", &currentIndex, fontNamesCStr.data(), fontNamesCStr.size())) {
+								if (ImGui::Combo("##Family", &currentIndex, fontNamesCStr.data(), (int)(fontNamesCStr.size()))) {
 									// Update the family when a new font is selected
 									if (currentIndex >= 0 && currentIndex < fontNames.size()) {
 										fontComponent.set_family(fontNames[currentIndex]);
