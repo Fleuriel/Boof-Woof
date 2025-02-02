@@ -3893,19 +3893,50 @@ void ImGuiEditor::InspectorWindow()
 								Entity entity = g_SelectedEntity; // for lambda captures
 
 								// family
-								char family[128];
-								strcpy_s(family, fontComponent.get_family().c_str());
 								ImGui::Text("Family");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
 								ImGui::PushID("Family");
-								if (ImGui::InputText("##Family", family, 128))
-								{
-									fontComponent.set_family(family);
+
+								// Get the list of font names from the resource manager
+								std::vector<std::string> fontNames = g_ResourceManager.GetFontNames();
+
+								// Get the current family and find the index of it in fontNames
+								std::string currentFamily = fontComponent.get_family();
+								int currentIndex = -1;
+
+								// Find the index of the current family in the list
+								for (int i = 0; i < fontNames.size(); ++i) {
+									if (fontNames[i] == currentFamily) {
+										currentIndex = i;
+										break;
+									}
+								}
+
+								// If not found, set to 0 (default to first font)
+								if (currentIndex == -1 && !fontNames.empty()) {
+									currentIndex = 0;
+								}
+
+								// Convert the font names to a C-array of const char*
+								std::vector<const char*> fontNamesCStr;
+								for (const auto& name : fontNames) {
+									fontNamesCStr.push_back(name.c_str());
+								}
+
+								// Display the dropdown (combo box)
+								if (ImGui::Combo("##Family", &currentIndex, fontNamesCStr.data(), fontNamesCStr.size())) {
+									// Update the family when a new font is selected
+									if (currentIndex >= 0 && currentIndex < fontNames.size()) {
+										fontComponent.set_family(fontNames[currentIndex]);
+									}
 								}
 
 								ImGui::PopID();
 								ImGui::PopItemWidth();
+
+
+
 								// position
 								glm::vec2 position = fontComponent.get_pos();
 								ImGui::Text("Position");

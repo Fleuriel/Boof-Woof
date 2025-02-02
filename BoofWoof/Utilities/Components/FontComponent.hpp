@@ -31,7 +31,7 @@ public:
 	{}
 
 private:
-	std::string family = "Arial";
+	std::string family = "arial";
 	glm::vec2 pos = { 0.0f, 0.0f };
 	glm::vec2 scale = { 1.0f, 1.0f };
 	std::string text{};
