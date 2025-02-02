@@ -82,14 +82,7 @@ FontResources FontSystem::readFromBin(const std::string& binFilename)
 
 void FontSystem::init()
 {
-    // Read font data from bin file
-    FontResources fontResource = g_ResourceManager.GetFont("arial");
-
-    // Store loaded font data into system variables
-    Characters = fontResource.Characters;
-    VAO_FONT = fontResource.VAO_FONT;
-    VBO_FONT = fontResource.VBO_FONT;
-
+    
     std::cout << "Font System Initialized" << std::endl;
 }
 
@@ -178,30 +171,31 @@ void FontSystem::update()
 
 
             // render text
-            RenderText(g_AssetManager.GetShader("Font"), fontComponent.get_text(), fontComponent.get_pos().x, fontComponent.get_pos().y, fontComponent.get_scale(), fontComponent.get_color());
+			RenderText(g_ResourceManager.GetFont(fontComponent.get_family()),
+				fontComponent.get_text(), fontComponent.get_pos().x, fontComponent.get_pos().y, fontComponent.get_scale(), fontComponent.get_color());
         }
 	}
-    RenderText(g_AssetManager.GetShader("Font"), "Hello World", 0.0f, 0.0f, { 1.f, 1.2f }, glm::vec3(1.0f, 1.0f, 1.0f));
+    //RenderText(g_ResourceManager.GetFont("arial"), "Hello World", 0.0f, 0.0f, { 1.f, 1.2f }, glm::vec3(1.0f, 1.0f, 1.0f));
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, float y, glm::vec2 scale, glm::vec3 color)
+void FontSystem::RenderText(FontResources fontResources, std::string text, float x, float y, glm::vec2 scale, glm::vec3 color)
 {
     scale.x /= 1000.f;
 	scale.y /= 1000.f;
 	static bool init = true;
     // activate corresponding render state	
-    shader.Use();
-    shader.SetUniform("textColor", color.x, color.y, color.z);
+    g_AssetManager.GetShader("Font").Use();
+    g_AssetManager.GetShader("Font").SetUniform("textColor", color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
-    glBindVertexArray(VAO_FONT);
+    glBindVertexArray(fontResources.VAO_FONT);
 
     // iterate through all characters
     std::string::const_iterator c;
     
     for (c = text.begin(); c != text.end(); c++)
     {
-        Character ch = Characters[*c];
+        Character ch = fontResources.Characters[*c];
 
         float xpos = x + ch.Bearing.x * scale.x;
         float ypos = y - (ch.Size.y - ch.Bearing.y) * scale.y;
@@ -221,7 +215,7 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
         // render glyph texture over quad
         glBindTexture(GL_TEXTURE_2D, ch.TextureID);
         // update content of VBO memory
-        glBindBuffer(GL_ARRAY_BUFFER, VBO_FONT);
+        glBindBuffer(GL_ARRAY_BUFFER, fontResources.VBO_FONT);
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // be sure to use glBufferSubData and not glBufferData
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -243,7 +237,7 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
     init = false;
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
-    shader.UnUse();
+    g_AssetManager.GetShader("Font").UnUse();
 }
 
 
