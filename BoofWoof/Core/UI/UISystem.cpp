@@ -23,7 +23,7 @@ void UISystem::UI_update() {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LEQUAL);
+    
     glDepthRange(0.0, 0.1);   // Use a small depth range for UI (closer to camera)
 
 	
