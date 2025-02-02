@@ -313,7 +313,7 @@ void OpenGLShader::SetUniform(GLchar const* name, GLboolean val) {
         glUniform1i(loc, val);
     }
     else {
-        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************

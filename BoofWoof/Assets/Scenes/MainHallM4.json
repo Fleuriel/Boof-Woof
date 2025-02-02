@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "dacc235e-ad1e-420a-9537-4d3487253653",
+    "SceneGUID": "73f9dbde-5005-4115-a9a5-c1b0227dc4d7",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -4.761587035773118e-8,
-                    "y": 1.1799988746643067,
-                    "z": 0.000014261658179748338
+                    "x": -4.804482500730956e-7,
+                    "y": 1.179998755455017,
+                    "z": 0.000005432828857010463
                 },
                 "Scale": {
                     "x": 0.5,
@@ -64,7 +64,7 @@
                     "y": 1.0,
                     "z": 0.0
                 },
-                "Active": true
+                "Active": false
             }
         },
         {
@@ -16426,9 +16426,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 55.000343322753909,
-                    "y": 7.519967555999756,
-                    "z": -29.955154418945314
+                    "x": 25.499961853027345,
+                    "y": 1.2800123691558838,
+                    "z": -76.99998474121094
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16455,7 +16455,7 @@
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
-                "IsDynamic": true,
+                "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -16750,8 +16750,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 443,
-                "EndNode": 444,
+                "StartNode": 388,
+                "EndNode": 389,
                 "Cost": 1.0
             }
         },
@@ -16783,8 +16783,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 444,
-                "EndNode": 445,
+                "StartNode": 389,
+                "EndNode": 390,
                 "Cost": 1.0
             }
         },
@@ -16816,8 +16816,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 445,
-                "EndNode": 446,
+                "StartNode": 390,
+                "EndNode": 391,
                 "Cost": 1.0
             }
         },
@@ -16849,8 +16849,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 446,
-                "EndNode": 447,
+                "StartNode": 391,
+                "EndNode": 392,
                 "Cost": 1.0
             }
         },
@@ -16882,8 +16882,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 447,
-                "EndNode": 448,
+                "StartNode": 392,
+                "EndNode": 393,
                 "Cost": 1.0
             }
         },
@@ -21693,6 +21693,105 @@
                     "z": 0.0
                 },
                 "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 517
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 515,
+                "EndNode": 514,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 518
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 514,
+                "EndNode": 511,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 519
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 511,
+                "EndNode": 510,
+                "Cost": 1.0
             }
         }
     ]
