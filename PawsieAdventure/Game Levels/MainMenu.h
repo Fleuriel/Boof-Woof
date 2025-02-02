@@ -119,7 +119,7 @@ class MainMenu : public Level
 					}
 
 					g_Window->HideMouseCursor();
-					g_LevelManager.SetNextLevel("Cutscene");
+					g_LevelManager.SetNextLevel("MainHall");
 				}
 			}
 
