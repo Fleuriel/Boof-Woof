@@ -16,85 +16,74 @@
 
 FontSystem fontSystem;
 
+FontResources FontSystem::readFromBin(const std::string& binFilename)
+{
+    FontResources fontResource;
+    std::ifstream ifs(binFilename, std::ios::binary);
+
+    if (!ifs.is_open())
+    {
+        std::cerr << "ERROR::FREETYPE: Failed to open bin file: " << binFilename << std::endl;
+        return fontResource;
+    }
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Ensure proper texture alignment
+
+    // Read first 128 ASCII characters from the bin file
+    for (unsigned char c = 0; c < 128; c++)
+    {
+        int width{}, height{}, left{}, top{};
+        unsigned int advance{};
+
+        // Read character metadata
+        ifs.read(reinterpret_cast<char*>(&width), sizeof(int));
+        ifs.read(reinterpret_cast<char*>(&height), sizeof(int));
+        ifs.read(reinterpret_cast<char*>(&left), sizeof(int));
+        ifs.read(reinterpret_cast<char*>(&top), sizeof(int));
+        ifs.read(reinterpret_cast<char*>(&advance), sizeof(unsigned int));
+
+        // Read character bitmap data
+        std::vector<unsigned char> buffer(width * height);
+        ifs.read(reinterpret_cast<char*>(buffer.data()), width * height);
+
+        // Generate texture for the character
+        GLuint texture;
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, width, height, 0, GL_RED, GL_UNSIGNED_BYTE, buffer.data());
+
+        // Set texture parameters
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        // Store the character data in FontResources
+        fontResource.Characters[c] = { texture, glm::ivec2(width, height), glm::ivec2(left, top), advance };
+    }
+
+    glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture
+
+    // Configure VAO/VBO for text rendering
+    glGenVertexArrays(1, &fontResource.VAO_FONT);
+    glGenBuffers(1, &fontResource.VBO_FONT);
+    glBindVertexArray(fontResource.VAO_FONT);
+    glBindBuffer(GL_ARRAY_BUFFER, fontResource.VBO_FONT);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, nullptr, GL_DYNAMIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+
+    std::cout << "Font data successfully loaded from " << binFilename << std::endl;
+    return fontResource;
+}
 
 
 void FontSystem::init()
 {
     
-    
-	// open bin file
-	std::ifstream ifs(saveBin("arial"), std::ios::binary);
-	if (!ifs.is_open())
-	{
-		std::cout << "ERROR::FREETYPE: Failed to open file" << std::endl;
-		return; 
-	}
-
-    
-
-    // disable byte-alignment restriction
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-    // load first 128 characters of ASCII set
-    for (unsigned char c = 0; c < 128; c++)
-    {
-        int width{}, height{}, left{}, top{};
-        unsigned int advance{};
-		ifs.read((char*)&width, sizeof(int));
-		ifs.read((char*)&height, sizeof(int));
-		ifs.read((char*)&left, sizeof(int));
-		ifs.read((char*)&top, sizeof(int));
-		ifs.read((char*)&advance, sizeof(unsigned int));
-        char* buffer = new char[width * height];
-		ifs.read(buffer, width * height);
-
-        // generate texture
-        unsigned int texture;
-        glGenTextures(1, &texture);
-        glBindTexture(GL_TEXTURE_2D, texture);
-        glTexImage2D(
-            GL_TEXTURE_2D,
-            0,
-            GL_RED,
-			width,
-			height,
-            0,
-            GL_RED,
-            GL_UNSIGNED_BYTE,
-            buffer
-        );
-        // set texture options
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        // now store character for later use
-        Character character = {
-            texture,
-			glm::ivec2(width, height),
-			glm::ivec2(left, top),
-			static_cast<unsigned int>(advance)
-        };
-        Characters.insert(std::pair<char, Character>(c, character));
-        //std::cout << "Loaded Glyph: " << c << ", Size: " << face->glyph->bitmap.width << "x" << face->glyph->bitmap.rows << std::endl;
-    }
-    glBindTexture(GL_TEXTURE_2D, 0);
-    
-
-    // configure VAO/VBO for texture quads
-    // -----------------------------------
-    glGenVertexArrays(1, &VAO_FONT);
-    glGenBuffers(1, &VBO_FONT);
-    glBindVertexArray(VAO_FONT);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO_FONT);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-
-	std::cout << "Font System Initialized" << std::endl;    
-
+    std::cout << "Font System Initialized" << std::endl;
 }
 
 std::string FontSystem::saveBin(std::string ttf_filename_noExtension)
@@ -182,30 +171,31 @@ void FontSystem::update()
 
 
             // render text
-            RenderText(g_AssetManager.GetShader("Font"), fontComponent.get_text(), fontComponent.get_pos().x, fontComponent.get_pos().y, fontComponent.get_scale(), fontComponent.get_color());
+			RenderText(g_ResourceManager.GetFont(fontComponent.get_family()),
+				fontComponent.get_text(), fontComponent.get_pos().x, fontComponent.get_pos().y, fontComponent.get_scale(), fontComponent.get_color());
         }
 	}
-    //RenderText(g_AssetManager.GetShader("Font"), "Hello World", 0.0f, 0.0f, { 1.f, 1.2f }, glm::vec3(1.0f, 1.0f, 1.0f));
+    //RenderText(g_ResourceManager.GetFont("arial"), "Hello World", 0.0f, 0.0f, { 1.f, 1.2f }, glm::vec3(1.0f, 1.0f, 1.0f));
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, float y, glm::vec2 scale, glm::vec3 color)
+void FontSystem::RenderText(FontResources fontResources, std::string text, float x, float y, glm::vec2 scale, glm::vec3 color)
 {
     scale.x /= 1000.f;
 	scale.y /= 1000.f;
 	static bool init = true;
     // activate corresponding render state	
-    shader.Use();
-    shader.SetUniform("textColor", color.x, color.y, color.z);
+    g_AssetManager.GetShader("Font").Use();
+    g_AssetManager.GetShader("Font").SetUniform("textColor", color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
-    glBindVertexArray(VAO_FONT);
+    glBindVertexArray(fontResources.VAO_FONT);
 
     // iterate through all characters
     std::string::const_iterator c;
     
     for (c = text.begin(); c != text.end(); c++)
     {
-        Character ch = Characters[*c];
+        Character ch = fontResources.Characters[*c];
 
         float xpos = x + ch.Bearing.x * scale.x;
         float ypos = y - (ch.Size.y - ch.Bearing.y) * scale.y;
@@ -225,7 +215,7 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
         // render glyph texture over quad
         glBindTexture(GL_TEXTURE_2D, ch.TextureID);
         // update content of VBO memory
-        glBindBuffer(GL_ARRAY_BUFFER, VBO_FONT);
+        glBindBuffer(GL_ARRAY_BUFFER, fontResources.VBO_FONT);
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // be sure to use glBufferSubData and not glBufferData
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -247,7 +237,7 @@ void FontSystem::RenderText(OpenGLShader& shader, std::string text, float x, flo
     init = false;
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
-    shader.UnUse();
+    g_AssetManager.GetShader("Font").UnUse();
 }
 
 

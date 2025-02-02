@@ -21,11 +21,6 @@
 #include FT_FREETYPE_H
 
 
-struct Glyph {
-    float advance;
-    float planeBounds[4];
-    float atlasBounds[4];
-};
 
 /// Holds all state information relevant to a character as loaded using FreeType
 struct Character {
@@ -35,6 +30,11 @@ struct Character {
     unsigned int Advance;   // Horizontal offset to advance to next glyph
 };
 
+struct FontResources {
+    std::map<GLchar, Character> Characters;
+    GLuint font_textureid{};
+    unsigned int VAO_FONT{}, VBO_FONT{};
+};
 
 
 
@@ -42,17 +42,17 @@ struct Character {
 class FontSystem : public System {
 public:
     void init();
+    FontResources readFromBin(const std::string& binFilename);
 	std::string saveBin(std::string ttf_filename_noExtension);
 	void update();
-    void RenderText(OpenGLShader& shader, std::string text, float x, float y, glm::vec2 scale, glm::vec3 color);
-
+    //void RenderText(OpenGLShader& shader, std::string text, float x, float y, glm::vec2 scale, glm::vec3 color);
+	void RenderText(FontResources fontResources, std::string text, float x, float y, glm::vec2 scale, glm::vec3 color);
 
 private:
-    std::map<GLchar, Character> Characters;
+    /*std::map<GLchar, Character> Characters;
     GLuint font_textureid{};
-	std::unordered_map<GLchar, Glyph> glyphs;
-    unsigned int VAO_FONT{}, VBO_FONT{};
-    float altasWidth{}, altasHeight{};
+    unsigned int VAO_FONT{}, VBO_FONT{};*/
+
 
 };
 extern FontSystem fontSystem;
