@@ -1154,6 +1154,7 @@ bool AssetManager::LoadFonts() {
 
                 fontSystem.saveBin(nameWithoutExtension);
                 g_ResourceManager.AddFont(nameWithoutExtension);
+                
             }
             else
             {

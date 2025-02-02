@@ -76,7 +76,8 @@ public:
 	// similar to FontSystem::init() function
 	void AddFont(std::string name);
 	FontResources GetFont(std::string name) { return fontResources[name]; }
-
+	std::vector<std::string> GetFontNames() const { return fontnames; }
+	void ClearFont() { fontResources.clear(); fontnames.clear(); }
 	
 private:
 	
@@ -91,7 +92,7 @@ private:
 	std::vector<DDSData> textureDDS_WidthHeight;
 
 	std::map<std::string, FontResources> fontResources{};												//Container to store font resources
-
+	std::vector<std::string> fontnames{};
 
 };
 
