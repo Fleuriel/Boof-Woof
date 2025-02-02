@@ -45,7 +45,7 @@ public:
 	std::string saveBin(std::string ttf_filename_noExtension);
 	void update();
     void RenderText(OpenGLShader& shader, std::string text, float x, float y, glm::vec2 scale, glm::vec3 color);
-
+    
 
 private:
     std::map<GLchar, Character> Characters;

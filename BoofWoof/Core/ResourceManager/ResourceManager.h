@@ -69,17 +69,12 @@ public:
 	std::string GetTextureDDSFileName(int);
 
 
-	bool LoadFontsDDS();
-	bool FreeFontsDDS();
-	bool ReloadFontsDDS();
+
 	/// for loading font resources
 	// read the .bin file and create the FontResources
 	// add the FontResources to the fontResources map
 	// similar to FontSystem::init() function
-
-
-	bool AddFontDDS(std::string);
-	int GetFontDDS(std::string);
+	void AddFont(std::string name);
 
 
 	
@@ -90,7 +85,7 @@ private:
 
 	std::vector<std::string> ModelNames;
 
-	std::map <std::string, DDSData> textureDDS{};															//Container to store textures
+	std::map <std::string, DDSData> textureDDS{};														//Container to store textures
 	std::vector<std::string> textureDDSFileNames{};														//Container to store texture DDS file names
 
 

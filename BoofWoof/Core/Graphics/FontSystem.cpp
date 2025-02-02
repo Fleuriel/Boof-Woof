@@ -23,7 +23,7 @@ void FontSystem::init()
     
     
 	// open bin file
-	std::ifstream ifs(saveBin("arial"), std::ios::binary);
+	std::ifstream ifs("arial.bin", std::ios::binary);
 	if (!ifs.is_open())
 	{
 		std::cout << "ERROR::FREETYPE: Failed to open file" << std::endl;

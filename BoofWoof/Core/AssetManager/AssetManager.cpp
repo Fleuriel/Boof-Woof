@@ -1105,11 +1105,7 @@ bool AssetManager::ReloadShaders()
 
 
 
-//////////////////////////////////////////
-// so here you convert the .ttf file to .bin file
-// similar to  FontSystem::saveBin(std::string ttf_filename_noExtension) function
-// 
-//////////////////////////////////////////
+
 
 
 
@@ -1150,40 +1146,13 @@ bool AssetManager::LoadFonts() {
                 std::cout << nameWithoutExtension << " detected successfully!\n";
 #endif // DEBUG
 
-                if (!fs::exists(FILEPATH_DESCRIPTOR_FONTS))
-                    fs::create_directory(FILEPATH_DESCRIPTOR_FONTS);
-
-                // Create an output file stream (ofstream) object
-                std::string descriptorFilePath{ FILEPATH_DESCRIPTOR_FONTS+ "/" + nameWithoutExtension + ".json" };
-
-                TextureDescriptor desc;
-
-                if (!fs::exists(descriptorFilePath))
-                {
-                    desc.SaveTextureDescriptor(descriptorFilePath);  // Correctly passing as const reference
-                }
-
+                
                 // Ensure the directory exists
                 if (!fs::exists(FILEPATH_RESOURCE_FONTS)) {
                     fs::create_directory(FILEPATH_RESOURCE_FONTS);
                 }
 
-                // Ensure texFilePath is valid
-                fs::path outputPath = fs::path(FILEPATH_RESOURCE_FONTS) / (nameWithoutExtension + ".dds");
-
-                if ((!fs::exists(outputPath)) || (!fs::exists(FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".json"))) {
-
-                    // Run the compression command
-                    runCommand("..\\lib\\msdf-atlas-gen\\msdf-atlas-gen.exe -font " + FilePath + " -allglyphs -size 32 -imageout " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png" + " -json " + FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".json");
-                    CompressTextureWithDescriptor(desc, FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png", outputPath.string());
-                    if (std::remove((FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".png").c_str()) == 0) {
-                        std::cout << "File deleted successfully.\n";
-                    }
-                    else {
-                        std::perror("Error deleting file");
-                    }
-                }
-                g_ResourceManager.AddFontDDS(nameWithoutExtension);
+                fontSystem.saveBin(nameWithoutExtension);
 
             }
             else
@@ -1215,9 +1184,8 @@ bool AssetManager::FreeFonts() {
 }
 
 bool AssetManager::ReloadFonts() {
-    FreeFonts();
-    LoadFonts();
-    return g_ResourceManager.ReloadFontsDDS();
+
+    return true;
 }
 
 

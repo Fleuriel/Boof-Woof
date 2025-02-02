@@ -574,94 +574,60 @@ std::string ResourceManager::GetTextureDDSFileName(int textureID)
 
 
 // Function to load textures (simulating DDS texture loading here)
-bool ResourceManager::LoadFontsDDS() {
-
-    for (int i = 0; i < fontDDSFileNames.size(); i++) {
-
-        // std::cout << "names:" << textureDDSFileNames[i].c_str() << "\n";
-
-        //add DDS processing here
-        GLuint result = LoadDDS((FILEPATH_RESOURCE_FONTS + "\\" + fontDDSFileNames[i] + ".dds").c_str()).ID;
-
-        std::cout << result << std::endl;
-
-
-        if (result != -1) {
-            textureDDS[textureDDSFileNames[i]].ID = result;
-            std::cout << "Font DDS File Added : " << fontDDSFileNames[i] << std::endl;
-        }
-        else
-        {
-            std::cout << "Failed to load Font DDS\n";
-        }
-
+FontResources LoadFontResourcesFromBin(const std::string& binFilename)
+{
+    FontResources fontResources;
+    std::ifstream ifs(binFilename + ".ttf", std::ios::binary);
+    if (!ifs.is_open())
+    {
+        std::cout << "ERROR::FREETYPE: Failed to open file" << std::endl;
+        return fontResources;
     }
-    // For now, returning true to indicate successful loading
-    return true;
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    for (unsigned char c = 0; c < 128; c++)
+    {
+        int width{}, height{}, left{}, top{};
+        unsigned int advance{};
+        ifs.read((char*)&width, sizeof(int));
+        ifs.read((char*)&height, sizeof(int));
+        ifs.read((char*)&left, sizeof(int));
+        ifs.read((char*)&top, sizeof(int));
+        ifs.read((char*)&advance, sizeof(unsigned int));
+        char* buffer = new char[width * height];
+        ifs.read(buffer, width * height);
+
+        unsigned int texture;
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glTexImage2D(
+            GL_TEXTURE_2D, 0, GL_RED,
+            width, height, 0,
+            GL_RED, GL_UNSIGNED_BYTE, buffer
+        );
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        fontResources.Characters.insert({ c, Character{ texture, glm::ivec2(width, height), glm::ivec2(left, top), advance } });
+        delete[] buffer;
+    }
+
+    glGenVertexArrays(1, &fontResources.VAO_FONT);
+    glGenBuffers(1, &fontResources.VBO_FONT);
+    glBindVertexArray(fontResources.VAO_FONT);
+    glBindBuffer(GL_ARRAY_BUFFER, fontResources.VBO_FONT);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, nullptr, GL_DYNAMIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+
+    return fontResources;
 }
 
-bool ResourceManager::FreeFontsDDS() {
-    // Iterate over each texture in the map and delete it
-    for (const auto& fontPair : fontDDS) {
-        GLuint fontID = fontPair.second;
-        glDeleteTextures(1, &fontID); // Delete the OpenGL texture
-    }
-
-    // Clear only the map of loaded textures, keep textureDDSFileNames intact
-    fontDDS.clear();
-    return true;
-}
-
-
-bool ResourceManager::ReloadFontsDDS() {
-    // Free existing textures
-    FreeFontsDDS();
-
-    // Clear the existing texture names list
-    fontDDSFileNames.clear();
-
-    // Re-populate the list by scanning the directory
-    for (const auto& entry : std::filesystem::directory_iterator(FILEPATH_RESOURCE_FONTS)) {
-        if (entry.path().extension() == ".dds") {
-            std::string textureName = entry.path().stem().string();
-            fontDDSFileNames.push_back(textureName);
-        }
-    }
-
-    // Load textures based on the updated list
-    return LoadFontsDDS();
-}
-
-
-bool ResourceManager::AddFontDDS(std::string textureName) {
-    // Add texture name to the list
-    fontDDSFileNames.push_back(textureName);
-
-    // Attempt to load the DDS texture immediately
-    GLuint result = LoadDDS((FILEPATH_RESOURCE_FONTS + "\\" + textureName + ".dds").c_str()).ID;
-
-    if (result != 0) { // If loading is successful, result will be a valid texture ID
-        fontDDS[textureName] = result; // Store the loaded texture ID in the map
-        std::cout << "Font DDS File Added and Loaded: " << textureName << " with ID " << result << std::endl;
-    }
-    else {
-        std::cerr << "Failed to load Font DDS: " << textureName << std::endl;
-    }
-
-    return result != 0; // Return true if texture was loaded successfully, false otherwise
-}
-
-
-int ResourceManager::GetFontDDS(std::string textureName) {
-    // Check if the texture exists in the map
-    auto it = fontDDS.find(textureName);
-    if (it != fontDDS.end()) {
-        // Return the texture ID if found
-        return it->second;
-    }
-    else {
-        // Return -1 or some error value if texture not found
-        std::cerr << "Texture not found: " << textureName << std::endl;
-        return -1;
-    }
+void ResourceManager::AddFont(std::string name) {
+    fontResources[name] = LoadFontResourcesFromBin(name+".bin");
 }
