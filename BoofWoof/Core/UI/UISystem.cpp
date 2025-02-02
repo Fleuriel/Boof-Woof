@@ -21,9 +21,8 @@ void UISystem::UI_init() {
 void UISystem::UI_update() {
     
     glEnable(GL_DEPTH_TEST);
-  
     glDepthFunc(GL_LEQUAL);
-    glDepthRange(0.0, 0.001);   // Use a small depth range for UI (closer to camera)
+    glDepthRange(0.0, 0.1);   // Use a small depth range for UI (closer to camera)
 
 	
     // if mouse click
