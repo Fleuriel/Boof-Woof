@@ -19,7 +19,9 @@ void UISystem::UI_init() {
 }
 
 void UISystem::UI_update() {
-    
+    // enable blending
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
     glDepthRange(0.0, 0.1);   // Use a small depth range for UI (closer to camera)
