@@ -247,7 +247,6 @@ class MainMenu : public Level
 			if (g_Coordinator.HaveComponent<FontComponent>(MenuPauser->BGMVol))
 			{
 				int volDisplay = static_cast<int>(std::round(bgmVolume * 10));
-				std::cout << "voldisplay: " << volDisplay << std::endl;
 				if (volDisplay >= 0 && volDisplay < 10)
 				{
 					std::stringstream ss;
