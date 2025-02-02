@@ -11,16 +11,23 @@
 class MainHall : public Level
 {
 	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{}, tennisBall{}, bone{};
+	Entity RexPee1{}, RexPee2{}, RexPee3{}, RexPee4{}, RexPee5{}, WaterBucket{}; // Smell Avoidance
 	CameraController* cameraController = nullptr;
+	double timer = 0.0; // Timer for smell avoidance
+	double timerLimit = 20.0f; // Timer limit for smell avoidance
 	bool sniffa{ false };
 	bool collectedBall{ false }, collectedBone{ false }, chgChecklist{ false };
 	bool playercollided{ false }, tennisBallCollided{ false }, boneCollided{ false };
 	bool boneDestroyed{ false }, tennisBallDestroyed{ false };
+
+	bool waterBucketcollided{ false }; // Smell Avoidance
+	bool rexPee1collided{ false }, rexPee2collided{ false }, rexPee3collided{ false }, rexPee4collided{ false }, rexPee5collided{ false }; // Smell Avoidance
+	bool peeMarked{ false }; // Smell Avoidance
 	bool teb_last = false;
 
 	void LoadLevel() override
 	{
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHall.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM4.json");
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusicBGM.wav", true, "BGM");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -35,7 +42,13 @@ class MainHall : public Level
 			{"Bone", [&](Entity entity) { bone = entity; }},
 			{"TennisBall", [&](Entity entity) { tennisBall = entity; }},
 			{"ScentTrail1", [&](Entity entity) { scentEntity1 = entity; }},
-			{"ScentTrail2", [&](Entity entity) { scentEntity2 = entity; }}
+			{"ScentTrail2", [&](Entity entity) { scentEntity2 = entity; }},
+			{"Pee1", [&](Entity entity) { RexPee1 = entity; }},
+			{"Pee2", [&](Entity entity) { RexPee2 = entity; }},
+			{"Pee3", [&](Entity entity) { RexPee3 = entity; }},
+			{"Pee4", [&](Entity entity) { RexPee4 = entity; }},
+			{"Pee5", [&](Entity entity) { RexPee5 = entity; }},
+			{"WaterBucket", [&](Entity entity) { WaterBucket = entity; }}
 		};
 
 		for (auto entity : entities)
@@ -51,7 +64,8 @@ class MainHall : public Level
 				}
 
 				// Exit early if all entities are found
-				if (playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && bone && tennisBall && scentEntity1 && scentEntity2)
+				if (playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && bone && tennisBall && scentEntity1 && scentEntity2 
+					&& RexPee1 && RexPee2 && RexPee3 && RexPee4 && RexPee5 && WaterBucket)
 				{
 					break;
 				}
@@ -100,6 +114,49 @@ class MainHall : public Level
 			boneCollided = g_Coordinator.GetComponent<CollisionComponent>(bone).GetIsColliding();
 		}
 
+		// Smell Avoidance
+		if (g_Coordinator.HaveComponent<CollisionComponent>(RexPee1))
+		{
+			rexPee1collided = g_Coordinator.GetComponent<CollisionComponent>(RexPee1).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(RexPee2))
+		{
+			rexPee2collided = g_Coordinator.GetComponent<CollisionComponent>(RexPee2).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(RexPee3))
+		{
+			rexPee3collided = g_Coordinator.GetComponent<CollisionComponent>(RexPee3).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(RexPee4))
+		{
+			rexPee4collided = g_Coordinator.GetComponent<CollisionComponent>(RexPee4).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(RexPee5))
+		{
+			rexPee5collided = g_Coordinator.GetComponent<CollisionComponent>(RexPee5).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(WaterBucket))
+		{
+			waterBucketcollided = g_Coordinator.GetComponent<CollisionComponent>(WaterBucket).GetIsColliding();
+		}
+
+		if (playercollided && (rexPee1collided || rexPee2collided || rexPee3collided || rexPee4collided || rexPee5collided) && !peeMarked)
+		{
+			peeMarked = true;
+		}
+
+		if (playercollided && waterBucketcollided)
+		{
+			peeMarked = false;
+			timer = 0.0;
+		}
+		//////////////////////////////////////////////////////////////////////////
+
 		if (playercollided && tennisBallCollided && !collectedBall)
 		{
 			collectedBall = true;
@@ -130,6 +187,24 @@ class MainHall : public Level
 			if (!collectedBall || !collectedBone)
 			{
 				CheckCollision();
+			}
+
+			if (peeMarked)
+			{
+				timer += deltaTime;
+
+				if (timer >= timerLimit)
+				{
+					peeMarked = false;
+					timer = 0.0;
+					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+					if (loading)
+					{
+						// Pass in the name of the real scene we want AFTER the loading screen
+						loading->m_NextScene = "MainHall";
+						g_LevelManager.SetNextLevel("LoadingLevel");
+					}
+				}
 			}
 
 			// If collected Tennis Ball
@@ -220,6 +295,8 @@ class MainHall : public Level
 		g_Checklist.shutted = false;
 		sniffa = collectedBall = collectedBone = chgChecklist = false;
 		playercollided = tennisBallCollided = boneCollided = false;
+		rexPee1collided = rexPee2collided = rexPee3collided = rexPee4collided = rexPee5collided = false; // Smell Avoidance
+		waterBucketcollided = peeMarked = false; // Smell Avoidance
 		boneDestroyed = tennisBallDestroyed = false;
 	}
 };
