@@ -19,7 +19,7 @@ FontSystem fontSystem;
 FontResources FontSystem::readFromBin(const std::string& binFilename)
 {
     FontResources fontResource;
-    std::ifstream ifs(binFilename, std::ios::binary);
+    std::ifstream ifs(FILEPATH_RESOURCE_FONTS + "\\" + binFilename + ".bin", std::ios::binary);
 
     if (!ifs.is_open())
     {
@@ -105,9 +105,9 @@ std::string FontSystem::saveBin(std::string ttf_filename_noExtension)
     }
 
 	// create bin file
-    std::ofstream ofs(ttf_filename_noExtension + ".bin", std::ios::binary);
+    std::ofstream ofs(FILEPATH_RESOURCE_FONTS + "\\" + ttf_filename_noExtension + ".bin", std::ios::binary);
     // print the full path of font.bin
-    std::cout << "Font.bin path: " << std::filesystem::absolute(ttf_filename_noExtension + ".bin") << std::endl;
+    std::cout << "Font.bin path: " << std::filesystem::absolute(FILEPATH_RESOURCE_FONTS + "\\" + ttf_filename_noExtension + ".bin") << std::endl;
 	if (!ofs.is_open())
 	{
 		std::cout << "ERROR::FREETYPE: Failed to open file" << std::endl;
@@ -155,7 +155,7 @@ std::string FontSystem::saveBin(std::string ttf_filename_noExtension)
         FT_Done_FreeType(ft);
 
     }
-	std::cout << "Font System Saved" << std::endl;
+	// std::cout << "Font bin file Saved" << std::endl;
 
     return ttf_filename_noExtension + ".bin";
 }
