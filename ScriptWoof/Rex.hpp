@@ -2,7 +2,6 @@
 #include <iostream>
 #define UNUSED(x) (void)(x)  // Define macro to suppress warnings
 #include <vector>
-#include <glm/glm.hpp>
 
 struct Rex final : public Behaviour
 {

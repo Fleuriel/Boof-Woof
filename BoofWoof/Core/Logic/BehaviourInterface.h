@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #ifndef BEHAVIOURINTERFACE_H
 #define BEHAVIOURINTERFACE_H
 
