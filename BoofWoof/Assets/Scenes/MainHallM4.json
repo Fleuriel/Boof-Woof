@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "e740a5f1-dec9-40ad-930b-242f1219f3d7",
+    "SceneGUID": "4e2c3c08-b888-472b-95ef-6c5dc0d5577e",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.5000001192092896,
-                    "y": 1.1799999475479127,
-                    "z": 2.2000010013580324
+                    "x": 0.0000015788339169375832,
+                    "y": 1.1799991130828858,
+                    "z": 0.00002082670653180685
                 },
                 "Scale": {
                     "x": 0.5,
@@ -53,9 +53,9 @@
             },
             "CameraComponent": {
                 "Position": {
-                    "x": 0.5,
-                    "y": 1.2000000476837159,
-                    "z": 2.200000047683716
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
                 },
                 "Yaw": 0.0,
                 "Pitch": 0.0,
@@ -16426,9 +16426,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 55.00016403198242,
-                    "y": -5254.09765625,
-                    "z": -29.909709930419923
+                    "x": 55.000343322753909,
+                    "y": 7.519967555999756,
+                    "z": -29.955167770385743
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16447,7 +16447,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "sphere",
+                "ModelName": "Rex",
                 "FollowCamera": true
             },
             "BehaviourComponent": {
@@ -16470,8 +16470,8 @@
                 "Mass": 10.0
             },
             "PathfindingComponent": {
-                "StartNode": 443,
-                "GoalNode": 448,
+                "StartNode": 0,
+                "GoalNode": 0,
                 "Path": [
                     {
                         "x": 31.0,
@@ -21333,6 +21333,366 @@
                     "b": 0.8274392485618591,
                     "a": 1.0
                 }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Node",
+                "EntityID": 507
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 1.5
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Node",
+                "EntityID": 508
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": -20.399999618530275
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Node",
+                "EntityID": 509
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 17.5,
+                    "y": 1.0,
+                    "z": 1.5
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Node",
+                "EntityID": 510
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 17.5,
+                    "y": 1.0,
+                    "z": -22.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Node",
+                "EntityID": 511
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 25.5,
+                    "y": 1.0,
+                    "z": -22.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Node",
+                "EntityID": 512
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 34.5,
+                    "y": 1.0,
+                    "z": -22.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Node",
+                "EntityID": 513
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 34.5,
+                    "y": 1.0,
+                    "z": 1.5
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Node",
+                "EntityID": 514
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 25.5,
+                    "y": 1.0,
+                    "z": -31.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Drawbridge Node",
+                "EntityID": 515
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 25.5,
+                    "y": 1.0,
+                    "z": -77.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Staircase Node",
+                "EntityID": 516
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 30.0,
+                    "y": 1.0,
+                    "z": -31.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
             }
         }
     ]
