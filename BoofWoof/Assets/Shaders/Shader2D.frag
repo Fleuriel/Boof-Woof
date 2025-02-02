@@ -20,9 +20,11 @@ uniform float opacity;
 uniform bool useTexture;
 
 
+
 //uniform vec3 textColor;
 
 //uniform int player;
+
 
 
 //uniform float finalAlpha;
@@ -30,7 +32,7 @@ uniform bool useTexture;
 
 void main () {
 
-	vec4 texColor = texture(uTex2d, vTexCoord);
+	vec4 texColor = texture(uTex2d, vTexCoord) * opacity;
 
 
 	if(texColor.a < 0.1)
@@ -42,7 +44,7 @@ void main () {
 		fFragColor = texColor * vec4(vColor, 1.0f);
 	}
 	else
-		fFragColor = vec4(vColor, 1.0f);
+		fFragColor = vec4(vColor, 1.0f) * opacity;
 
 
 
