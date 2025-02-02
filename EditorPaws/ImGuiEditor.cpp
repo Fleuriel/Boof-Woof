@@ -124,8 +124,10 @@ void ImGuiEditor::ImGuiUpdate()
 
 
 void ImGuiEditor::ImGuiRender() {
+//	glDisable(GL_FRAMEBUFFER_SRGB);
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+//	glEnable(GL_FRAMEBUFFER_SRGB);
 	ImGuiIO& io = ImGui::GetIO();
 	io.WantCaptureKeyboard = false;
 

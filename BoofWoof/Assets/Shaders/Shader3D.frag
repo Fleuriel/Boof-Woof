@@ -142,6 +142,8 @@ void main()
 
     result *= baseColor.rgb;
     
+    baseColor.rgb = pow(baseColor.rgb, vec3(1.0f/2.2f));
+
     if(lightOn)
     {
     
