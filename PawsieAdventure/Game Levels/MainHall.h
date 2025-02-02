@@ -10,15 +10,17 @@
 
 class MainHall : public Level
 {
-	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{}, tennisBall{}, bone{};
+	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{}, scentEntity3{}, puppy1{}, puppy2{}, puppy3{};
 	Entity RexPee1{}, RexPee2{}, RexPee3{}, RexPee4{}, RexPee5{}, WaterBucket{}; // Smell Avoidance
 	CameraController* cameraController = nullptr;
+
 	double timer = 0.0; // Timer for smell avoidance
 	double timerLimit = 20.0f; // Timer limit for smell avoidance
+
 	bool sniffa{ false };
 	bool collectedBall{ false }, collectedBone{ false }, chgChecklist{ false };
-	bool playercollided{ false }, tennisBallCollided{ false }, boneCollided{ false };
-	bool boneDestroyed{ false }, tennisBallDestroyed{ false };
+	bool playercollided{ false }, puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
+	bool puppy1Destroyed{ false }, puppy2Destroyed{ false }, puppy3Destroyed{ false };
 
 	bool waterBucketcollided{ false }; // Smell Avoidance
 	bool rexPee1collided{ false }, rexPee2collided{ false }, rexPee3collided{ false }, rexPee4collided{ false }, rexPee5collided{ false }; // Smell Avoidance
@@ -39,10 +41,12 @@ class MainHall : public Level
 			{"Rope1", [&](Entity entity) { RopeEnt = entity; }},
 			{"Rope2", [&](Entity entity) { RopeEnt2 = entity; }},
 			{"DrawBridge", [&](Entity entity) { BridgeEnt = entity; }},
-			{"Bone", [&](Entity entity) { bone = entity; }},
-			{"TennisBall", [&](Entity entity) { tennisBall = entity; }},
+			{"Puppy1", [&](Entity entity) { puppy1 = entity; }},
+			{"Puppy2", [&](Entity entity) { puppy2 = entity; }},
+			{"Puppy3", [&](Entity entity) { puppy3 = entity; }},
 			{"ScentTrail1", [&](Entity entity) { scentEntity1 = entity; }},
 			{"ScentTrail2", [&](Entity entity) { scentEntity2 = entity; }},
+			{"ScentTrail3", [&](Entity entity) { scentEntity3 = entity; }},
 			{"Pee1", [&](Entity entity) { RexPee1 = entity; }},
 			{"Pee2", [&](Entity entity) { RexPee2 = entity; }},
 			{"Pee3", [&](Entity entity) { RexPee3 = entity; }},
@@ -64,7 +68,7 @@ class MainHall : public Level
 				}
 
 				// Exit early if all entities are found
-				if (playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && bone && tennisBall && scentEntity1 && scentEntity2 
+				if (playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3
 					&& RexPee1 && RexPee2 && RexPee3 && RexPee4 && RexPee5 && WaterBucket)
 				{
 					break;
@@ -103,14 +107,19 @@ class MainHall : public Level
 			playercollided = g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetIsColliding();
 		}
 
-		if (g_Coordinator.HaveComponent<CollisionComponent>(tennisBall))
+		if (g_Coordinator.HaveComponent<CollisionComponent>(puppy1))
 		{
-			tennisBallCollided = g_Coordinator.GetComponent<CollisionComponent>(tennisBall).GetIsColliding();
+			puppy1Collided = g_Coordinator.GetComponent<CollisionComponent>(puppy1).GetIsColliding();
 		}
 
-		if (g_Coordinator.HaveComponent<CollisionComponent>(bone))
+		if (g_Coordinator.HaveComponent<CollisionComponent>(puppy2))
 		{
-			boneCollided = g_Coordinator.GetComponent<CollisionComponent>(bone).GetIsColliding();
+			puppy2Collided = g_Coordinator.GetComponent<CollisionComponent>(puppy2).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(puppy3))
+		{
+			puppy3Collided = g_Coordinator.GetComponent<CollisionComponent>(puppy3).GetIsColliding();
 		}
 
 		// Smell Avoidance
@@ -156,12 +165,12 @@ class MainHall : public Level
 		}
 		//////////////////////////////////////////////////////////////////////////
 
-		if (playercollided && tennisBallCollided && !collectedBall)
+		if (playercollided && puppy1Collided && !collectedBall)
 		{
 			collectedBall = true;
 		}
 
-		if (playercollided && boneCollided && !collectedBone)
+		if (playercollided && puppy2Collided && !collectedBone)
 		{
 			collectedBone = true;
 		}
@@ -207,25 +216,25 @@ class MainHall : public Level
 			}
 
 			// If collected Tennis Ball
-			if (collectedBall && !tennisBallDestroyed)
+			if (collectedBall && !puppy2Destroyed)
 			{
 				g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
-				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(tennisBall);
-				g_Coordinator.DestroyEntity(tennisBall);
-				tennisBallDestroyed = true;
+				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy1);
+				g_Coordinator.DestroyEntity(puppy1);
+				puppy2Destroyed = true;
 			}
 
 			// If collected Bone
-			if (collectedBone && !boneDestroyed)
+			if (collectedBone && !puppy1Destroyed)
 			{
 				g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
-				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(bone);
-				g_Coordinator.DestroyEntity(bone);
-				boneDestroyed = true;
+				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy2);
+				g_Coordinator.DestroyEntity(puppy2);
+				puppy1Destroyed = true;
 			}
 
 			// Collect 3rd puppy
-			if (collectedBone && !boneDestroyed)
+			if (collectedBone && !puppy1Destroyed)
 			{
 				g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
 				//g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(bone);
@@ -302,9 +311,9 @@ class MainHall : public Level
 		// Ensure RESET for game to be replayable
 		g_Checklist.shutted = false;
 		sniffa = collectedBall = collectedBone = chgChecklist = false;
-		playercollided = tennisBallCollided = boneCollided = false;
+		playercollided = puppy1Collided = puppy2Collided = false;
 		rexPee1collided = rexPee2collided = rexPee3collided = rexPee4collided = rexPee5collided = false; // Smell Avoidance
 		waterBucketcollided = peeMarked = false; // Smell Avoidance
-		boneDestroyed = tennisBallDestroyed = false;
+		puppy1Destroyed = puppy2Destroyed = false;
 	}
 };
