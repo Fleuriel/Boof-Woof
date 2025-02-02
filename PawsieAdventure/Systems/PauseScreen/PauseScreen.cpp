@@ -334,10 +334,12 @@ namespace pauseLogic
 						std::stringstream ss;
 						ss << std::setfill('0') << std::setw(2) << volDisplay;
 						std::string text = ss.str();
+						g_Coordinator.GetComponent<FontComponent>(pauser->SFXVol).set_pos(glm::vec2(0.12f, 0.25f));
 						g_Coordinator.GetComponent<FontComponent>(pauser->SFXVol).set_text(text);
 					}
 					else
 					{
+						g_Coordinator.GetComponent<FontComponent>(pauser->SFXVol).set_pos(glm::vec2(0.14f, 0.25f));
 						g_Coordinator.GetComponent<FontComponent>(pauser->SFXVol).set_text("10");
 					}
 				}
@@ -370,10 +372,12 @@ namespace pauseLogic
 						std::stringstream ss;
 						ss << std::setfill('0') << std::setw(2) << volDisplay;
 						std::string text = ss.str();
+						g_Coordinator.GetComponent<FontComponent>(pauser->BGMVol).set_pos(glm::vec2(0.12f, -0.25f));
 						g_Coordinator.GetComponent<FontComponent>(pauser->BGMVol).set_text(text);
 					}
 					else
 					{
+						g_Coordinator.GetComponent<FontComponent>(pauser->BGMVol).set_pos(glm::vec2(0.14f, -0.25f));
 						g_Coordinator.GetComponent<FontComponent>(pauser->BGMVol).set_text("10");
 					}
 				}

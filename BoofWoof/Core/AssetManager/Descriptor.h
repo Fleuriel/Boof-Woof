@@ -38,7 +38,7 @@ struct TextureDescriptor {
     float anisoLevel = 1.0f;
     int maxSize = 0;
     int resizeAlgorithm = 0;
-    int format = 10;
+    int format = 8;
     int compression = 0;
     bool useCrunchCompression = false;
 

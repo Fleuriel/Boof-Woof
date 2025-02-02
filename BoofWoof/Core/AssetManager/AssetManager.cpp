@@ -156,16 +156,16 @@ void AssetManager::LoadAll() {
 
 #ifdef _DEBUG
     bool loadTextures = AssetManager::LoadTextures(),
-        loadObjects = AssetManager::LoadObjects(),
-        //loadSprites   = AssetManager::LoadSprites(),
-        //loadSounds    = AssetManager::LoadSounds(),
+        //   loadObjects = AssetManager::LoadObjects(),
+           //loadSprites   = AssetManager::LoadSprites(),
+           //loadSounds    = AssetManager::LoadSounds(),
         loadFonts = AssetManager::LoadFonts(),
         loadScenes = AssetManager::LoadScenes(),
         //loadPrefabs   = AssetManager::LoadPrefabs(),
-        loadShaders = AssetManager::LoadShaders(),
+        loadShaders = AssetManager::LoadShaders();
         //loadAnimations = AssetManager::LoadAnimations(),
-        loadMaterial = AssetManager::LoadMaterials();
-    UNREFERENCED_PARAMETER(loadMaterial);
+//        loadMaterial = AssetManager::LoadMaterials();
+//    UNREFERENCED_PARAMETER(loadMaterial);
     std::cout
         << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
         //<< ((loadSprites) ? "Sprites loaded successfully" : "Failed to load sprites") << std::endl
@@ -173,11 +173,11 @@ void AssetManager::LoadAll() {
         << ((loadFonts) ? "Fonts loaded successfully" : "Failed to load fonts") << std::endl
         << ((loadScenes) ? "Scenes loaded successfully" : "Failed to load scenes") << std::endl
         //<< ((loadPrefabs) ? "Prefabs loaded successfully" : "Failed to load prefabs") << std::endl
-        << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl 
-        << ((loadObjects) ? "Object loaded Successfully" : "failed to load object") << '\n';
+        << ((loadShaders) ? "Shaders loaded successfully" : "Failed to load shaders") << std::endl
+        ;// << ((loadObjects) ? "Object loaded Successfully" : "failed to load object") << '\n';
 #else
         AssetManager::LoadTextures(),
-        AssetManager::LoadObjects(),
+       // AssetManager::LoadObjects(),
         //AssetManager::LoadSprites(),
         //AssetManager::LoadSounds(),
         AssetManager::LoadFonts(),
@@ -626,6 +626,15 @@ bool AssetManager::LoadObjects() {
                 std::vector<std::string> ignoredExtensions = { ".mtl", ".png", ".jpg" };
 
 
+
+
+               // if (Extension == ".mtl" || Extension == ".jpg" || Extension == ".png")
+               // {
+               //
+               //     std::cout << "EXTENSION: " << Extension << '\n';
+               //     continue;
+               // }
+
                 std::string mtlFileName = nameWithoutExtension + ".mtl";
                 std::string pngFileName = nameWithoutExtension + ".png";
                 std::string jpgFileName = nameWithoutExtension + ".jpg";
@@ -664,27 +673,27 @@ bool AssetManager::LoadObjects() {
 
                 
 
-                for (int i = 0; i < ignoredExtensions.size(); ++i)
-                {
-                    if (Extension == ignoredExtensions[0])
-                    {
-                        MTLCheck = true;
-                    }
-                    if (Extension == ignoredExtensions[1])
-                    {
-                        PNGCheck = true;
-                    }
-                    if (Extension == ignoredExtensions[2])
-                    {
-                        JPGCheck = true;
-                    }
-                }
+                //for (int i = 0; i < ignoredExtensions.size(); ++i)
+                //{
+                //    if (Extension == ignoredExtensions[0])
+                //    {
+                //        MTLCheck = true;
+                //    }
+                //    if (Extension == ignoredExtensions[1])
+                //    {
+                //        PNGCheck = true;
+                //    }
+                //    if (Extension == ignoredExtensions[2])
+                //    {
+                //        JPGCheck = true;
+                //    }
+                //}
 
-                
-
-#ifdef _DEBUG
-                std::cout << MTLCheck << '\t' << PNGCheck << '\t' << JPGCheck << '\n';
-#endif
+                //
+//
+//#ifdef _DEBUG
+//                std::cout << MTLCheck << '\t' << PNGCheck << '\t' << JPGCheck << '\n';
+//#endif
 
 #ifdef _DEBUG
                 std::cout << "\n**************************************************************************************\n";
@@ -739,17 +748,44 @@ bool AssetManager::LoadObjects() {
 
                 }
 
-                if (!fs::exists(binFilePath)) {
-#ifdef _DEBUG
-                    runCommand("..\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
-#else
-                    runCommand("..\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
-#endif
+//                if (!fs::exists(binFilePath)) {
+//#ifdef _DEBUG
+//                    runCommand("..\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
+//#else
+//                    runCommand("..\\MeshCompiler\\MeshCompiler.exe " + descriptorFilePath);
+//#endif
+//
+//#ifdef _DEBUG
+//                    std::cout << "Binary file created: " << binFilePath << std::endl;
+//#endif
+//                }
 
-#ifdef _DEBUG
-                    std::cout << "Binary file created: " << binFilePath << std::endl;
-#endif
+                if (!g_ResourceManager.getModelNames().empty())
+                {
+                    for (int i = 0; i < g_ResourceManager.getModelNames().size(); ++i)
+                    {
+                        if (nameWithoutExtension == g_ResourceManager.getModelNames()[i])
+                        {
+                            continue;
+                        }
+                    }
                 }
+                std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+                std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+
+                
+                Model addMdl;
+                std::cout << "OLD MEHTOD LOADING || || || || Loading: \t" << objFilePath << '\n';
+                std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+
+                std::cout << objFilePath << '\t' << nameWithoutExtension << '\n';
+
+                std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+                addMdl.loadModel(objFilePath, GL_TRIANGLES);
+
+                std::cout << "stuffs\t" << addMdl.name << '\t' << addMdl.meshes.size() << '\n';
+
+                if(g_ResourceManager.SetModelMap(nameWithoutExtension, addMdl))
                     g_ResourceManager.AddModelBinary(nameWithoutExtension);
             }
             else {
@@ -777,7 +813,7 @@ bool AssetManager::FreeObjects() {
 }
 
 bool AssetManager::ReloadObjects() {
-    return (FreeObjects() && LoadObjects());
+    return (FreeObjects()); //&& LoadObjects());
 }
 
 
@@ -1354,22 +1390,22 @@ bool AssetManager::CheckFiles(const std::wstring& path) {
     }
     else if (path == FILEPATH_ASSET_OBJECTS_W) {
         // Compare currentFiles with the existing ObjectFiles
-        hasChanges = (currentFiles != ObjectFiles);
-
-        if (hasChanges) {
-            std::wcout << L"Change detected in directory: " << path << L"\n";
-            std::wcout << L"New state of files:\n";
-            for (const auto& file : currentFiles) {
-                std::wcout << file << L"\n";
-            }
-            std::wcout << L"Previous state of files:\n";
-            for (const auto& file : ObjectFiles) {
-                std::wcout << file << L"\n";
-            }
-        }
+      //  hasChanges = (currentFiles != ObjectFiles);
+      //
+      //  if (hasChanges) {
+      //      std::wcout << L"Change detected in directory: " << path << L"\n";
+      //      std::wcout << L"New state of files:\n";
+      //      for (const auto& file : currentFiles) {
+      //          std::wcout << file << L"\n";
+      //      }
+      //      std::wcout << L"Previous state of files:\n";
+      //      for (const auto& file : ObjectFiles) {
+      //          std::wcout << file << L"\n";
+      //      }
+      //  }
 
         // Update ObjectFiles with currentFiles
-        ObjectFiles = std::move(currentFiles); // Efficiently swap the content
+     //   ObjectFiles = std::move(currentFiles); // Efficiently swap the content
     }
     else if (path == FILEPATH_ASSET_SHADERS_W) {
         // Compare currentFiles with the existing ShaderFiles
