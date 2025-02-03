@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "25877803-feab-4860-abb0-11e70bb7c681",
+    "SceneGUID": "3dc56d5d-4374-461e-aafc-e919b4f961d7",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.000001704989927020506,
-                    "y": 1.1800024509429932,
-                    "z": -0.4871540665626526
+                    "x": 0.0000037741897358500866,
+                    "y": 1.1800025701522828,
+                    "z": -0.8069348335266113
                 },
                 "Scale": {
                     "x": 0.5,
@@ -64,7 +64,7 @@
                     "y": 1.0,
                     "z": 0.0
                 },
-                "Active": true
+                "Active": false
             }
         },
         {
@@ -16487,7 +16487,7 @@
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
-                "IsDynamic": false,
+                "IsDynamic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -20098,8 +20098,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 5.243723392486572,
-                    "y": 0.002228260040283203,
+                    "x": 5.243710517883301,
+                    "y": 0.9344754219055176,
                     "z": -23.732412338256837
                 },
                 "Scale": {
@@ -20119,7 +20119,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "CorgiPup1",
+                "ModelName": "Corgi",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -20133,7 +20133,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.600000023841858,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -20147,8 +20147,8 @@
             "TransformComponent": {
                 "Position": {
                     "x": 60.008602142333987,
-                    "y": 6.286822319030762,
-                    "z": -1.5167832374572755
+                    "y": 7.032384872436523,
+                    "z": -1.5167841911315919
                 },
                 "Scale": {
                     "x": 0.39999881386756899,
@@ -20167,7 +20167,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "CorgiPup2",
+                "ModelName": "Corgi",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -20181,7 +20181,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.600000023841858,
+                    "y": -0.05000000074505806,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -20195,7 +20195,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": -23.93171501159668,
-                    "y": 6.478668689727783,
+                    "y": 7.078222751617432,
                     "z": -10.864336967468262
                 },
                 "Scale": {
@@ -20215,7 +20215,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "CorgiPup3",
+                "ModelName": "Corgi",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -20229,7 +20229,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.600000023841858,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
