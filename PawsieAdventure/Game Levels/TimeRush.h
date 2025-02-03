@@ -9,7 +9,8 @@ class TimeRush : public Level
 	double timer = 0.0;
 	double interval = 1.0; // Time interval in seconds
 	int currentTextureIndex = 53; // Start from "Group53"
-	Entity timerTextEntity{}, playerEnt{}, scentEntity1{}, scentEntity2{}, scentEntity3{}, scentEntity4{}, scentEntity5{}, scentEntity6{};
+	Entity timerTextEntity{}, playerEnt{};
+	Entity scentEntity1{}, scentEntity2{}, scentEntity3{}, scentEntity4{}, scentEntity5{}, scentEntity6{}, scentEntity7{}, scentEntity8{}, scentEntity9{};
 	CameraController* cameraController = nullptr;
 
 	Entity TimeRushBGM{}, AggroDog{}, CorgiSniff{};
@@ -42,6 +43,9 @@ class TimeRush : public Level
 			{"ScentTrail4", [&](Entity entity) { scentEntity4 = entity; }},
 			{"ScentTrail5", [&](Entity entity) { scentEntity5 = entity; }},
 			{"ScentTrail6", [&](Entity entity) { scentEntity6 = entity; }},
+			{"ScentTrail7", [&](Entity entity) { scentEntity7 = entity; }},
+			{"ScentTrail8", [&](Entity entity) { scentEntity8 = entity; }},
+			{"ScentTrail9", [&](Entity entity) { scentEntity9 = entity; }},
 			{"Group", [&](Entity entity) { timerTextEntity = entity; }},
 			{"TimeRushBGM", [&](Entity entity) { TimeRushBGM = entity; }},
 			{"AggressiveDogBarking", [&](Entity entity) { AggroDog = entity; }},
@@ -74,7 +78,7 @@ class TimeRush : public Level
 
 				// Exit early if all entities are found
 				if (playerEnt && scentEntity1 && scentEntity2 && scentEntity3 && scentEntity4
-					&& scentEntity5 && scentEntity6 && timerTextEntity && TimeRushBGM && AggroDog && CorgiSniff)
+					&& scentEntity5 && scentEntity6 && scentEntity7 && scentEntity8 && scentEntity9 && timerTextEntity && TimeRushBGM && AggroDog && CorgiSniff)
 				{
 					break;
 				}
@@ -126,6 +130,9 @@ class TimeRush : public Level
 			auto& opacity4 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity4);
 			auto& opacity5 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity5);
 			auto& opacity6 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity6);
+			auto& opacity7 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity7);
+			auto& opacity8 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity8);
+			auto& opacity9 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity9);
 
 			// Change the texture every second
 			if (timer >= interval && currentTextureIndex <= 233)
@@ -162,6 +169,10 @@ class TimeRush : public Level
 				opacity5.setParticleColor(newColor);
 				opacity6.setParticleColor(newColor);
 
+				opacity7.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 1.0f));
+				opacity8.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 1.0f));
+				opacity9.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 1.0f));
+
 				isColorChanged = true;
 				colorChangeTimer = 0.0;
 				cooldownTimer = 0.0;
@@ -179,6 +190,10 @@ class TimeRush : public Level
 					opacity4.setParticleColor(resetColor);
 					opacity5.setParticleColor(resetColor);
 					opacity6.setParticleColor(resetColor);
+
+					opacity7.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 0.0f));
+					opacity8.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 0.0f));
+					opacity9.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 0.0f));
 
 					isColorChanged = false;
 				}
