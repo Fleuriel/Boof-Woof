@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "05746ddb-9bd6-4095-9db7-f66e928d03fd",
+    "SceneGUID": "f316f312-4e16-4471-b691-d1157397b2e1",
     "Entities": [
         {
             "MetadataComponent": {
@@ -200,8 +200,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 18.831504821777345,
-                    "y": 0.9998452663421631,
+                    "x": 18.83150291442871,
+                    "y": 0.9998452067375183,
                     "z": 6.363654613494873
                 },
                 "Scale": {
@@ -245,9 +245,9 @@
             },
             "CameraComponent": {
                 "Position": {
-                    "x": 18.899999618530275,
+                    "x": 18.829999923706056,
                     "y": 1.2999999523162842,
-                    "z": 5.0
+                    "z": 5.199999809265137
                 },
                 "Yaw": -90.0,
                 "Pitch": 0.0,
@@ -14266,25 +14266,6 @@
             "GraphicsComponent": {
                 "ModelName": "TennisBall",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -14317,25 +14298,6 @@
             "GraphicsComponent": {
                 "ModelName": "TennisBall",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -14368,25 +14330,6 @@
             "GraphicsComponent": {
                 "ModelName": "TennisBall",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -14419,25 +14362,6 @@
             "GraphicsComponent": {
                 "ModelName": "TennisBall",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -14542,25 +14466,6 @@
             "GraphicsComponent": {
                 "ModelName": "Bone",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -14593,25 +14498,6 @@
             "GraphicsComponent": {
                 "ModelName": "Bone",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -14644,25 +14530,6 @@
             "GraphicsComponent": {
                 "ModelName": "Bone",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -14695,25 +14562,6 @@
             "GraphicsComponent": {
                 "ModelName": "Bone",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -14818,25 +14666,6 @@
             "GraphicsComponent": {
                 "ModelName": "TennisBall",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -14869,25 +14698,6 @@
             "GraphicsComponent": {
                 "ModelName": "TennisBall",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -14992,25 +14802,6 @@
             "GraphicsComponent": {
                 "ModelName": "Bone",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -15043,25 +14834,6 @@
             "GraphicsComponent": {
                 "ModelName": "Bone",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
