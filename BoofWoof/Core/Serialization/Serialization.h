@@ -24,6 +24,7 @@
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/filewritestream.h>
 #include <rapidjson/prettywriter.h>
+#include "../SceneManager/SceneData.h"
 
 // Re-enable warnings after including RapidJSON
 #ifdef _MSC_VER
@@ -44,6 +45,8 @@ public:
 
     // For storing overlayed scenes
     static std::vector<Entity> GetStored();
+
+    static void FinalizeEntitiesFromSceneData(const SceneData& data);
 
 public:
     static std::vector<Entity> storedEnt;

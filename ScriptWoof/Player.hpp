@@ -1,6 +1,6 @@
 #include <iostream>
 #define UNREFERENCED_PARAMETER(P)          (P)
-
+#include <random>
 
 struct Player final : public Behaviour
 {
@@ -10,233 +10,382 @@ struct Player final : public Behaviour
 	float speed;
 	bool isMoving;
 	bool isJumping;
+	bool isGrounded;
+	std::vector<glm::vec3> path;
+	int currentPathIndex;
+	bool followingPath;
+	float pathThreshold; // Distance threshold for reaching a waypoint
+	bool pathInitialized = false;
+	bool inRopeBreaker{ false };
+
+	std::vector<std::string> footstepSounds = {
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_01.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_02.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_03.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_04.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_05.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_06.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_07.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_08.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_09.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_10.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_11.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_12.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_13.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_14.wav"
+	};
 
 	virtual void Init(Entity entity) override
 	{
-		//std::cout << "Player Init" << std::endl;
+		std::cout << "Player Init" << std::endl;
 		previousPosition = m_Engine.GetPosition(entity); // Initialize with the starting position
 		isJumping = false;
 		isMoving = false;
+		isGrounded = true;
+		//std::vector<glm::vec3> path;
+		//pathInitialized = false;
 	}
 
 	virtual void Update(Entity entity) override
 	{
-		UNREFERENCED_PARAMETER(entity);
-		velocity = glm::vec3(0.0f, 0.0f, 0.0f);
-		isMoving = false;
+		if (!m_Engine.IsGamePaused())
+		{
+			//UNREFERENCED_PARAMETER(entity);
+			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+			isMoving = false;
+
+		//// Debug for movement
+		//glm::vec3 currentPos = m_Engine.GetPosition(entity);
+		//std::cout << "[Pathfinding] Entity " << entity << " is currently at Position: ("
+		//	<< currentPos.x << ", " << currentPos.y << ", " << currentPos.z << ")" << std::endl;
 
 		//double deltaTime = m_Engine.GetDeltaTime(); // Get delta time
 		
 		//std::cout << "[DEBUG] Delta Time: " << deltaTime << std::endl;
 
-		// Debug: Starting state
-		//std::cout << "[DEBUG] Start of Update: Entity = " << entity
-		//	<< ", isMoving = " << std::boolalpha << isMoving << std::endl;
+			// Debug: Starting state
+			//std::cout << "[DEBUG] Start of Update: Entity = " << entity
+			//	<< ", isMoving = " << std::boolalpha << isMoving << std::endl;
 
-		// Debug: Starting state
-		//std::cout << "[DEBUG] Start of Update: isMoving = " << std::boolalpha << isMoving << std::endl;
+			// Debug: Starting state
+			//std::cout << "[DEBUG] Start of Update: isMoving = " << std::boolalpha << isMoving << std::endl;
 
-		// Get grounded state from the CollisionComponent
-		bool isGrounded = m_Engine.HaveCollisionComponent(entity) ? m_Engine.IsGrounded(entity) : false;
+			// Get grounded state from the CollisionComponent
+			isGrounded = m_Engine.IsGrounded(entity);
 
-		//std::cout << "[DEBUG] isGrounded = " << std::boolalpha << isGrounded << std::endl;
+			//std::cout << "[DEBUG] isGrounded = " << std::boolalpha << isGrounded << std::endl;
 
-		if (m_Engine.getInputSystem().isActionPressed("Sprint"))
-		{
-			speed = 5.0f;
-		}
-		else {
-			speed = 3.0f;
-		}
-
-		// Preserve horizontal velocity when jumping
-		glm::vec3 currentVelocity = m_Engine.GetVelocity(entity);
-
-		// Stop horizontal movement if grounded
-		if (isGrounded)
-		{
-			if (currentVelocity.x != 0.0f || currentVelocity.z != 0.0f)
+			if (m_Engine.getInputSystem().isActionPressed("Sprint"))
 			{
-				//std::cout << "[DEBUG] Player landed, stopping horizontal movement. Previous velocity: ("
-				//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
-			}
-			// Set horizontal velocity to zero
-			currentVelocity.x = 0.0f;
-			currentVelocity.z = 0.0f;
-
-			// Apply the stopped velocity
-			m_Engine.SetVelocity(entity, currentVelocity);
-
-			// Debug: Velocity after stopping
-			//std::cout << "[DEBUG] Velocity after landing: ("
-			//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
-		}
-
-		// Allow movement only if the player is grounded
-		if (isGrounded)
-		{
-			if (m_Engine.HaveCameraComponent(entity)) {
-
-				if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
-				{
-					//std::cout << "movingW" << std::endl;
-					// Get Camera Direction
-					//float yaw = m_Engine.GetCameraYaw();
-
-					velocity.x += m_Engine.GetCameraDirection(entity).x * speed;
-					velocity.z += m_Engine.GetCameraDirection(entity).z * speed;
-					isMoving = true;
-
-				}
-
-				if (m_Engine.getInputSystem().isActionPressed("MoveLeft"))
-				{
-					// Rotate the velocity 90 degrees to the left
-					glm::mat3 rotation = glm::mat3(
-						0.0f, 0.0f, -1.0f,
-						0.0f, 1.0f, 0.0f,
-						1.0f, 0.0f, 0.0f
-					);
-					velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
-					isMoving = true;
-				}
-
-				if (m_Engine.getInputSystem().isActionPressed("MoveBackward"))
-				{
-					//std::cout << "movingS" << std::endl;
-					velocity.x += -m_Engine.GetCameraDirection(entity).x * speed;
-					velocity.z += -m_Engine.GetCameraDirection(entity).z * speed;
-					isMoving = true;
-				}
-
-				if (m_Engine.getInputSystem().isActionPressed("MoveRight"))
-				{
-					//std::cout << "movingD" << std::endl;
-
-					// Rotate the velocity 90 degrees to the right
-					glm::mat3 rotation = glm::mat3(
-						0.0f, 0.0f, 1.0f,
-						0.0f, 1.0f, 0.0f,
-						-1.0f, 0.0f, 0.0f
-					);
-
-					velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
-					isMoving = true;
-				}
+				speed = 5.0f;
 			}
 			else {
-				if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
-				{
-					velocity.z -= speed;
-					isMoving = true;
-				}
+				speed = 3.0f;
+			}
 
-				if (m_Engine.getInputSystem().isActionPressed("MoveLeft"))
-				{
-					velocity.x -= speed;
-					isMoving = true;
-				}
+			// Preserve horizontal velocity when jumping
+			glm::vec3 currentVelocity = m_Engine.GetVelocity(entity);
 
-				if (m_Engine.getInputSystem().isActionPressed("MoveBackward"))
+			// Stop horizontal movement if grounded
+			if (isGrounded)
+			{
+				if (currentVelocity.x != 0.0f || currentVelocity.z != 0.0f)
 				{
-					velocity.z += speed;
-					isMoving = true;
+					//std::cout << "[DEBUG] Player landed, stopping horizontal movement. Previous velocity: ("
+					//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
 				}
+				// Set horizontal velocity to zero
+				currentVelocity.x = 0.0f;
+				currentVelocity.z = 0.0f;
 
-				if (m_Engine.getInputSystem().isActionPressed("MoveRight"))
+				// Apply the stopped velocity
+				m_Engine.SetVelocity(entity, currentVelocity);
+
+				// Debug: Velocity after stopping
+				//std::cout << "[DEBUG] Velocity after landing: ("
+				//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
+			}
+
+			if (m_Engine.IsColliding(entity))
+			{
+				const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
+				if (std::strcmp(collidingEntityName, "Rope1") == 0)
 				{
-					velocity.x += speed;
-					isMoving = true;
+					inRopeBreaker = true;
+				}
+				else if (std::strcmp(collidingEntityName, "Rope2") == 0)
+				{
+					inRopeBreaker = true;
 				}
 			}
+			else
+			{
+				inRopeBreaker = false;
+			}
+
+
+
+		// Allow movement only if the player is grounded
+		if (isGrounded && !inRopeBreaker)
+		{
+			//if (!pathInitialized)
+			//{
+			//	std::cout << "[Pathfinding] Checking if entity " << entity << " has a pathfinding component..." << std::endl;
+
+			//	if (m_Engine.HavePathfindingComponent(entity))
+			//	{
+			//		std::cout << "[Pathfinding] Retrieving path for entity " << entity << std::endl;
+			//		path = m_Engine.GetPath(entity);
+
+			//		std::cout << "[Pathfinding] Retrieved path of length " << path.size() << std::endl;
+
+			//		currentPathIndex = 0;
+			//		followingPath = !path.empty();
+
+			//		if (followingPath) {
+			//			std::cout << "[Pathfinding] Entity " << entity << " initialized with path of length " << path.size() << std::endl;
+			//		}
+			//		else {
+			//			std::cout << "[Pathfinding] Entity " << entity << " has no valid path." << std::endl;
+			//		}
+			//	}
+			//	else {
+			//		std::cout << "[Pathfinding] Entity " << entity << " does not have a pathfinding component!" << std::endl;
+			//	}
+			//	pathInitialized = true;
+			//}
+
+
+			//if (followingPath && currentPathIndex < path.size()) {
+			//	glm::vec3 targetPos = path[currentPathIndex];
+
+			//	std::cout << "[Pathfinding] Entity " << entity << " moving towards waypoint "
+			//		<< currentPathIndex + 1 << " at position ("
+			//		<< targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << std::endl;
+
+			//	glm::vec3 direction = glm::normalize(glm::vec3(targetPos.x, currentPos.y, targetPos.z) - currentPos);
+			//	velocity = direction * speed;
+
+			//	float distance = glm::length(targetPos - currentPos);
+			//	std::cout << "[Pathfinding] Distance to next waypoint: " << distance << std::endl;
+
+			//	if (distance <= pathThreshold || glm::distance(currentPos, targetPos) < 0.1f)
+			//	{
+			//		std::cout << "[Pathfinding] Entity " << entity << " reached waypoint "
+			//			<< currentPathIndex + 1 << " | Current Position: ("
+			//			<< currentPos.x << ", " << currentPos.y << ", " << currentPos.z << ")"
+			//			<< " | Target Position: ("
+			//			<< targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << std::endl;
+
+			//		currentPathIndex++;
+
+			//		if (currentPathIndex >= path.size()) {
+			//			followingPath = false;
+			//			velocity = glm::vec3(0.0f);
+			//			std::cout << "[Pathfinding] Entity " << entity << " has reached the final destination!" << std::endl;
+			//		}
+			//	}
+			//	isMoving = true;
+			//}
+
+			//if (isMoving) {
+			//	std::cout << "[Pathfinding] Applying velocity to Entity " << entity
+			//		<< " (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
+
+			//	m_Engine.SetVelocity(entity, velocity);
+
+			//	glm::vec3 newPos = m_Engine.GetPosition(entity);
+			//	std::cout << "[Pathfinding] Entity " << entity << " new position after velocity applied: ("
+			//		<< newPos.x << ", " << newPos.y << ", " << newPos.z << ")" << std::endl;
+			//}
+
+
+			if (m_Engine.HaveCameraComponent(entity)) {
+
+					if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
+					{
+						//std::cout << "movingW" << std::endl;
+						// Get Camera Direction
+						//float yaw = m_Engine.GetCameraYaw();
+
+						velocity.x += m_Engine.GetCameraDirection(entity).x * 1.f;
+						velocity.z += m_Engine.GetCameraDirection(entity).z * 1.f;
+						isMoving = true;
+
+					}
+
+					if (m_Engine.getInputSystem().isActionPressed("MoveLeft"))
+					{
+						// Rotate the velocity 90 degrees to the left
+						/*
+						glm::mat3 rotation = glm::mat3(
+							0.0f, 0.0f, -1.0f,
+							0.0f, 1.0f, 0.0f,
+							1.0f, 0.0f, 0.0f
+						);
+						velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
+						*/
+
+						velocity += glm::cross(m_Engine.GetCameraDirection(entity), glm::vec3(0.0f, -1.0f, 0.0f)) * 1.f;
+						isMoving = true;
+					}
+
+					if (m_Engine.getInputSystem().isActionPressed("MoveBackward"))
+					{
+						//std::cout << "movingS" << std::endl;
+						velocity.x += -m_Engine.GetCameraDirection(entity).x * 1.f;
+						velocity.z += -m_Engine.GetCameraDirection(entity).z * 1.f;
+						isMoving = true;
+					}
+
+					if (m_Engine.getInputSystem().isActionPressed("MoveRight"))
+					{
+						//std::cout << "movingD" << std::endl;
+
+						// Rotate the velocity 90 degrees to the right
+						/*
+						glm::mat3 rotation = glm::mat3(
+							0.0f, 0.0f, 1.0f,
+							0.0f, 1.0f, 0.0f,
+							-1.0f, 0.0f, 0.0f
+						);
+
+						velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
+						isMoving = true;
+						*/
+
+
+						velocity += glm::cross(m_Engine.GetCameraDirection(entity), glm::vec3(0.0f, 1.0f, 0.0f)) * 1.f;
+						isMoving = true;
+					}
+				}
+				else {
+					if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
+					{
+						velocity.z -= 1;
+						isMoving = true;
+					}
+
+					if (m_Engine.getInputSystem().isActionPressed("MoveLeft"))
+					{
+						velocity.x -= 1;
+						isMoving = true;
+					}
+
+					if (m_Engine.getInputSystem().isActionPressed("MoveBackward"))
+					{
+						velocity.z += 1;
+						isMoving = true;
+					}
+
+					if (m_Engine.getInputSystem().isActionPressed("MoveRight"))
+					{
+						velocity.x += 1;
+						isMoving = true;
+					}
+				}
+
+				// Normalize the velocity
+				velocity *= speed;
 
 		}
 		if (isMoving)
 		{
-			m_Engine.getAudioSystem().PlaySoundById("Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_01.wav");
-		}
+			// Use modern C++ random library to select a random sound
+			static std::random_device rd; // Seed
+			static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+			std::uniform_int_distribution<std::size_t> dis(0, footstepSounds.size() - 1);
+
+				// Get a random sound ID
+				std::string randomSound = footstepSounds[dis(gen)];
+
+				// Play the randomly chosen sound
+				m_Engine.getAudioSystem().PlaySoundById(randomSound.c_str());
+			}
 
 
-		// Debug: After processing input
-		//std::cout << "[DEBUG] After Input Processing: isMoving = " << std::boolalpha << isMoving << std::endl;
+			// Debug: After processing input
+			//std::cout << "[DEBUG] After Input Processing: isMoving = " << std::boolalpha << isMoving << std::endl;
 
-		// Jump logic
-		if (m_Engine.getInputSystem().isActionPressed("Jump") && isGrounded)
-		{
-			float gravity = 9.81f;
-			float jumpHeight = 2.0f;
-			float jumpVelocity = sqrt(2 * gravity * jumpHeight);
-
-			velocity.y = jumpVelocity;
-			m_Engine.SetGrounded(entity, false);
-
-			//std::cout << "[DEBUG] Player jumped. Jump velocity: " << jumpVelocity << std::endl;
-			isJumping = true;
-			isMoving = true;
-		}
-
-		// Check if the entity has a collision component and physics body before setting velocity
-		if (m_Engine.HaveCollisionComponent(entity) && m_Engine.HavePhysicsBody(entity))
-		{
-			if (isMoving)
+			// Jump logic
+			if (m_Engine.getInputSystem().isActionPressed("Jump") && isGrounded)
 			{
-				if (m_Engine.HaveCameraComponent(entity))
-				{
-					//std::cout << "has camera" << std::endl;
+				float gravity = 9.81f;
+				float jumpHeight = 2.0f;
+				float jumpVelocity = sqrt(2 * gravity * jumpHeight);
 
-					// Apply player input velocity
+				velocity.y = jumpVelocity;
+				m_Engine.SetGrounded(entity, false);
+
+				//std::cout << "[DEBUG] Player jumped. Jump velocity: " << jumpVelocity << std::endl;
+				//std::cout << "[DEBUG] isGrounded: " << isGrounded << std::endl;
+				isJumping = true;
+				isMoving = true;
+			}
+
+			// Check if the entity has a collision component and physics body before setting velocity
+			if (m_Engine.HaveCollisionComponent(entity) && m_Engine.HavePhysicsBody(entity))
+			{
+				if (isMoving)
+				{
+					if (m_Engine.HaveCameraComponent(entity))
+					{
+						//std::cout << "has camera" << std::endl;
+
+						// Apply player input velocity
+						m_Engine.SetVelocity(entity, velocity);
+					}
+
+					//std::cout << "[DEBUG] Applying velocity: ("
+					//	<< velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
+
 					m_Engine.SetVelocity(entity, velocity);
 				}
+				//else
+				//{
+				//	std::cout << "inside not isMoving" << std::endl;
 
-				//std::cout << "[DEBUG] Applying velocity: ("
-				//	<< velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
-
-				m_Engine.SetVelocity(entity, velocity);
+				//	// Preserve gravity by only setting horizontal velocity to zero
+				//	glm::vec3 currentVelocity = m_Engine.GetVelocity(entity);
+				//	glm::vec3 stopVelocity(0.0f, currentVelocity.y, 0.0f); // Preserve Y-axis velocity (gravity)
+				//	m_Engine.SetVelocity(entity, stopVelocity);
+				//}
+				/*
+				if (m_Engine.GetPosition(entity).y == 0.0f)
+				{
+					isJumping = false;
+				}
+				*/
 			}
-			//else
-			//{
-			//	std::cout << "inside not isMoving" << std::endl;
 
-			//	// Preserve gravity by only setting horizontal velocity to zero
-			//	glm::vec3 currentVelocity = m_Engine.GetVelocity(entity);
-			//	glm::vec3 stopVelocity(0.0f, currentVelocity.y, 0.0f); // Preserve Y-axis velocity (gravity)
-			//	m_Engine.SetVelocity(entity, stopVelocity);
-			//}
-			/*
-			if (m_Engine.GetPosition(entity).y == 0.0f)
+			// Check position change to determine movement
+			glm::vec3 currentPosition = m_Engine.GetPosition(entity);
+			if (currentPosition != previousPosition)
 			{
-				isJumping = false;
+				isMoving = true;
 			}
-			*/
-		}
+			else
+			{
+				isMoving = false;
+			}
+			// Update the previous position
+			previousPosition = currentPosition;
 
-		// Check position change to determine movement
-		glm::vec3 currentPosition = m_Engine.GetPosition(entity);
-		if (currentPosition != previousPosition)
-		{
-			isMoving = true;
-		}
-		else 
-		{
-			isMoving = false;
-		}
-		// Update the previous position
-		previousPosition = currentPosition;
+			// Debug: End of update
+			//std::cout << "[DEBUG] End of Update: isMoving = " << std::boolalpha << isMoving << std::endl;
 
-		// Debug: End of update
-		//std::cout << "[DEBUG] End of Update: isMoving = " << std::boolalpha << isMoving << std::endl;
+			// Debug output for velocity
+			//std::cout << "Player Velocity: (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
 
-		// Debug output for velocity
-		//std::cout << "Player Velocity: (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
-
-		//std::cout << "Player Update" << std::endl;
-		//std::cout << "It works" << std::endl;
-		// Comment for fun
+			//std::cout << "Player Update" << std::endl;
+			//std::cout << "It works" << std::endl;
+			// Comment for fun
 
 
-		if (m_Engine.getInputSystem().isActionPressed("Bark"))
-		{
-			m_Engine.getAudioSystem().PlaySoundById("Corgi/CorgiBark1.wav");
+			//if (m_Engine.getInputSystem().isActionPressed("Bark"))
+			//{
+			//	m_Engine.getAudioSystem().PlaySoundById("Corgi/CorgiBark1.wav");
+			//}
 		}
 	}
 

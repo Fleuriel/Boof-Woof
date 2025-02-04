@@ -6,8 +6,12 @@
 Checklist g_Checklist;
 Serialization serialChecklist;
 
+Entity CheckBox{};
+
 void Checklist::OnInitialize()
 {
+	Check1 = Check2 = Check3 = Check4 = corgiText = false;
+
 	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/Checklist.json");
 	storage = serialChecklist.GetStored();
 
@@ -17,6 +21,11 @@ void Checklist::OnInitialize()
 	{
 		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 		{
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Paper")
+			{
+				Paper = entity;
+			}
+
 			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Do1")
 			{
 				Do1 = entity;
@@ -60,42 +69,61 @@ void Checklist::OnInitialize()
 		}
 	}
 
+	for (auto entity : entities)
+	{
+		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+		{
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "CheckTheBox")
+			{
+				CheckBox = entity;
+				break;
+			}
+		}
+	}
+
+	auto& music = g_Coordinator.GetComponent<AudioComponent>(CheckBox);
+	music.SetAudioSystem(&g_Audio);
+
+
 	shutted = false;
 }
 
 void Checklist::OnUpdate(double deltaTime)
 {
-	if (g_ChangeText.shutted)
+	if (g_ChangeText.startingRoomOnly) 
 	{
-		if (CheckWASD() && !Check1)
+		if (g_ChangeText.shutted)
 		{
-			ChangeBoxChecked(Box1);
-			Check1 = true;
+			if (CheckWASD() && !Check1)
+			{
+				ChangeBoxChecked(Box1);
+				Check1 = true;
+			}
+
+			if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1 && !Check2)
+			{
+				ChangeBoxChecked(Box2);
+				Check2 = true;
+			}
+
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !Check3)
+			{
+				ChangeBoxChecked(Box3);
+				Check3 = true;
+			}
+
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !Check4)
+			{
+				ChangeBoxChecked(Box4);
+				Check4 = true;
+			}
 		}
 
-		if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1 && !Check2)
+		if (Check4 && !corgiText)
 		{
-			ChangeBoxChecked(Box2);
-			Check2 = true;
+			AddCorgiText();
+			corgiText = true;
 		}
-
-		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !Check3)
-		{
-			ChangeBoxChecked(Box3);
-			Check3 = true;
-		}
-
-		if (g_Input.GetKeyState(GLFW_KEY_R) >= 1 && !Check4)
-		{
-			ChangeBoxChecked(Box4);
-			Check4 = true;
-		}
-	}
-
-	if (Check4 && !corgiText)
-	{
-		AddCorgiText();
-		corgiText = true;
 	}
 
 	if ((Check1 && Check2 && Check3 && Check4 && corgiText) || finishTR || finishRB)
@@ -145,9 +173,8 @@ bool Checklist::CheckWASD()
 
 void Checklist::OnShutdown()
 {
-	// Just remove whatever we had stored from the current alive entity and destroy them
+	// Loop through all alive entities and destroy those in storage.
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
-
 	for (auto i = entities.begin(); i != entities.end(); i++)
 	{
 		for (auto k = storage.begin(); k != storage.end(); k++)
@@ -159,6 +186,10 @@ void Checklist::OnShutdown()
 		}
 	}
 
+	// Clear the storage vector so old entity IDs are not reused.
+	storage.clear();
+
+	// Reset all checklist flags and timers.
 	shutted = true;
 	clTimer = 0.0;
 	Check1 = Check2 = Check3 = Check4 = corgiText = false;
@@ -168,25 +199,24 @@ void Checklist::ChangeBoxChecked(Entity ent)
 {
 	playAudio = false;
 
-	if (!g_Coordinator.HaveComponent<GraphicsComponent>(ent)) return;
+	if (!g_Coordinator.HaveComponent<UIComponent>(ent)) return;
 
-	auto& text = g_Coordinator.GetComponent<GraphicsComponent>(ent);
+	auto& text = g_Coordinator.GetComponent<UIComponent>(ent);
 
-	int oldTextureId = g_ResourceManager.GetTextureDDS(text.getTextureName());
-	if (text.RemoveTexture(oldTextureId))
+	//int oldTextureId = text.get_textureid();
+	//int textureId = g_ResourceManager.GetTextureDDS("BoxChecked");
+	//text.set_textureid(textureId);
+
+	text.set_texturename("BoxChecked");
+
+	if (!playAudio)
 	{
-		// remove old texture & add new one
-		text.clearTextures();
-
-		int textureId = g_ResourceManager.GetTextureDDS("BoxChecked");
-		text.AddTexture(textureId);
-		text.setTexture("BoxChecked");
-
-		if (!playAudio)
-		{
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CheckTheBox.wav", false);
-			playAudio = true;
+	//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CheckTheBox.wav", false, "SFX");
+		if (g_Coordinator.HaveComponent<AudioComponent>(CheckBox)) {
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(CheckBox);
+			music.PlayAudio();
 		}
+		playAudio = true;
 	}
 }
 
@@ -201,42 +231,46 @@ void Checklist::AddCorgiText()
 	}
 }
 
-void Checklist::ChangeAsset(Entity ent, glm::vec3 scale, std::string textureName)
+void Checklist::Reset()
 {
-	if (!g_Coordinator.HaveComponent<GraphicsComponent>(ent)) return;
+	shutted = false;
+	finishTR = finishRB = false;
+	w = a = s = d = WASDChecked = false;
+	Check1 = Check2 = Check3 = Check4 = corgiText = false;
+}
 
-	auto& text = g_Coordinator.GetComponent<GraphicsComponent>(ent);
+void Checklist::ChangeAsset(Entity ent, glm::vec2 scale, std::string textureName)
+{
+	if (!g_Coordinator.HaveComponent<UIComponent>(ent)) return;
 
-	// Empty will be -1
-	int oldTextureId = g_ResourceManager.GetTextureDDS(text.getTextureName());
+	auto& text = g_Coordinator.GetComponent<UIComponent>(ent);
 
-	text.RemoveTexture(oldTextureId);
+	//int oldTextureId = text.get_textureid();
+	//int textureId = g_ResourceManager.GetTextureDDS(textureName);
+	//text.set_textureid(textureId);
+	text.set_texturename(textureName);
 
-	// remove old texture & add new one
-	text.clearTextures();
+	g_Coordinator.GetComponent<UIComponent>(ent).set_scale(scale);
 
-	int textureId = g_ResourceManager.GetTextureDDS(textureName);
-	text.AddTexture(textureId);
-	text.setTexture(textureName);
-
-	if (!g_Coordinator.HaveComponent<TransformComponent>(ent)) return;
-
-	g_Coordinator.GetComponent<TransformComponent>(ent).SetScale(scale);
-
-	auto& pos = g_Coordinator.GetComponent<TransformComponent>(ent).GetPosition();
+	auto pos = g_Coordinator.GetComponent<UIComponent>(ent).get_position();
 
 	if (textureName == "Do6")
 	{
-		g_Coordinator.GetComponent<TransformComponent>(ent).SetPosition(glm::vec3(pos.x + 0.02f, pos.y, pos.z));
+		g_Coordinator.GetComponent<UIComponent>(ent).set_position(glm::vec2(pos.x + 0.04f, pos.y));
 	}
 
 	if (textureName == "Do7")
 	{
-		g_Coordinator.GetComponent<TransformComponent>(ent).SetPosition(glm::vec3(pos.x, pos.y - 0.01f, pos.z));
+		g_Coordinator.GetComponent<UIComponent>(ent).set_position(glm::vec2(pos.x + 0.01f, pos.y - 0.01f));
 	}
 
 	if (textureName == "Do8")
 	{
-		g_Coordinator.GetComponent<TransformComponent>(ent).SetPosition(glm::vec3(pos.x - 0.02f, pos.y, pos.z));
+		g_Coordinator.GetComponent<UIComponent>(ent).set_position(glm::vec2(pos.x - 0.02f, pos.y - 0.01f));
+	}
+
+	if (textureName == "Do9")
+	{
+		g_Coordinator.GetComponent<UIComponent>(ent).set_position(glm::vec2(pos.x - 0.02f, pos.y));
 	}
 }

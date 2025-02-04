@@ -24,6 +24,12 @@ bool GraphicsSystem::lightOn = false;
 CameraComponent GraphicsSystem::camera;
 CameraComponent camera_render;
 
+
+std::vector<DebugLine> GraphicsSystem::debugLines = {};
+unsigned int GraphicsSystem::debugLineVAO = 0;
+unsigned int GraphicsSystem::debugLineVBO = 0;
+
+
 struct light_info {
 	glm::vec3 position;
 	glm::vec3 color;
@@ -83,6 +89,9 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
+
+	std::cout << "Current directory: " << std::filesystem::current_path() << std::endl;
+
 	InitializePickingFramebuffer(g_WindowX, g_WindowY);
 
 	// load shaders and models
@@ -91,7 +100,10 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 
 	AddModel_2D();
+	std::cout << "uhee\n\n\n\n\n\n";
 
+	AddEntireModel3D("../BoofWoof/Assets/Objects");
+//	AddModel_3D("../BoofWoof/Assets/Objects/Fireplace.obj");
 	//fontSystem.init();
 
 	shdrParam.Color = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -105,9 +117,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glCullFace(GL_BACK);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	//fontSystem.init_font();
-
+	
 
 }
 
@@ -117,6 +127,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 void GraphicsSystem::UpdateLoop() {
 
+	glDepthRange(0.1, 1.0);
 
 	//if (g_Input.IsActionPressed(ActionType::Jump)) {
 	//	std::cout << "Jump\n";
@@ -180,19 +191,19 @@ void GraphicsSystem::UpdateLoop() {
 				light_info_.position = transformComp.GetPosition();
 				light_info_.intensity = g_Coordinator.GetComponent<LightComponent>(entity).getIntensity();
 				light_info_.color = g_Coordinator.GetComponent<LightComponent>(entity).getColor();
-
+	
 				lights_infos.push_back(light_info_);
-
+	
 			}
-
+	
 		}
 	}
 	
 	shdrParam.View = camera_render.GetViewMatrix();
-	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f);
+	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (g_WindowY > 0) ? ((float)g_WindowX / (float)g_WindowY) : 1, 0.1f, 100.0f);
 
-
-
+	glm::mat4 view_ = camera.GetViewMatrix();
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (g_WindowY > 0) ? ((float)g_WindowX / (float)g_WindowY) : 1, 0.1f, 100.0f);
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
 	{/*
@@ -279,10 +290,10 @@ void GraphicsSystem::UpdateLoop() {
 		}
 
 		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+		 
+		//auto& material = graphicsComp.material;
 
-		auto& material = graphicsComp.material;
-
-		auto& ShaderName = material.GetShaderNameRef();
+		auto& ShaderName = "Shader3D";
 
 #ifdef _DEBUG
 //		std::cout << "ShaderName: " << material.GetShaderName() << '\n';
@@ -291,13 +302,22 @@ void GraphicsSystem::UpdateLoop() {
 
 		g_AssetManager.GetShader(ShaderName).Use();
 
-		if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
-		{
-			/* We do not need these anymore */
+		//if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
+		//{
+		//	/* We do not need these anymore */
+		//
+		//
+		//	// g_ResourceManager.SETModel(&g_ResourceManager.ModelMap["Bed2"]);
+		//	// std::cout << "Model is null" << std::endl;
+		//	//graphicsComp.setModelName("cubeModel");
+		//	//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
+		//	continue;
+		//}
 
-			// std::cout << "Model is null" << std::endl;
-			//graphicsComp.setModelName("cubeModel");
-			//graphicsComp.SetModel(&g_AssetManager.ModelMap["Square"]);
+		if (graphicsComp.getModel() == nullptr)
+		{
+			//std::cout << "ENTER\n";
+			//graphicsComp.SetModel(&g_ResourceManager.ModelMap["Fireplace"]);
 			continue;
 		}
 
@@ -316,9 +336,12 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader(ShaderName).SetUniform("vertexTransform", shdrParam.WorldMatrix);
 				g_AssetManager.GetShader(ShaderName).SetUniform("view", glm::mat4(1.0f));
 				g_AssetManager.GetShader(ShaderName).SetUniform("projection", glm::mat4(1.0f));
-
+			
 			}
-			g_AssetManager.GetShader(ShaderName).SetUniform("objectColor", shdrParam.Color);
+			
+			g_AssetManager.GetShader(ShaderName).SetUniform("objectColor", glm::vec3{1.0f});
+
+
 			for (int i = 0; i < lights_infos.size(); i++)
 			{
 				std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
@@ -328,80 +351,22 @@ void GraphicsSystem::UpdateLoop() {
 				std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
 				g_AssetManager.GetShader(ShaderName).SetUniform(lightColorStr.c_str(), lights_infos[i].color);
 			}
+
+
+
 			/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
 			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
 			g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
+			g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", glm::vec4(1.0f,1.0f,1.0f,1.0f));
 
+			g_AssetManager.GetShader(ShaderName).SetUniform("roughness", 1.0f);
 
-			g_AssetManager.GetShader(ShaderName).SetUniform("roughness",  material.GetSmoothness());
-			g_AssetManager.GetShader(ShaderName).SetUniform("metallic", material.GetMetallic());
+			graphicsComp.getModel()->Draw(g_AssetManager.GetShader(ShaderName));
 
-			/*std::cout << "entity "<< entity << "\n";
-			std::cout << "model text cnt " << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << "\n";
-			std::cout << "comp tetx cnt "<<graphicsComp.getTextureNumber() << "\n";*/
-
-
-			//if (graphicsComp.getTextureNumber() == 0) {
-			for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
-				mesh.textures.clear();
-			}
-
-			g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt = 0;
-			//}
-
-
-			while (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()) {
-
-
-#ifdef _DEBUG
-				//std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->name << '\n';
-
-				//std::cout << graphicsComp.getModelName() << '\n';
-
-				//std::cout << g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt << '\t' << g_ResourceManager.getModel(graphicsComp.getModelName())->textures_loaded.size() << '\n';
-#endif
-
-					// add texture to mesh
-				Texture texture_add;
-
-				//if(graphicsComp.getModelName() == "sphere")
-				texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
-				//else
-					//texture_add.id = g_ResourceManager.GetTextureDDS(graphicsComp.getTextureName());
-
-				//std::cout << texture_add.id << "\n";
-
-				if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 0)
-					texture_add.type = "texture_diffuse";
-				else if (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt == 1)
-					texture_add.type = "texture_normal";
-				else
-					texture_add.type = "texture_specular";
-
-				//std::cout << texture_add.type << '\n';
-
-				//std::cout << "mesh size: " << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes.size() << "\n";
-
-				for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
-					//	std::cout << "texture size before adding: " << mesh.textures.size() << "\n";
-						//mesh.textures.clear();
-					mesh.textures.push_back(texture_add);
-					//	std::cout << "entered\n";
-				}
-
-				g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
-
-			}
-			g_AssetManager.GetShader(ShaderName).SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
-
-			g_AssetManager.GetShader(ShaderName).SetUniform("finalAlpha", material.GetFinalAlpha());
-			g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", material.GetColor());
-
-
-
-			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader(ShaderName));
+			//g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader(ShaderName));
+//			g_ResourceManager.getModel()->Draw(g_AssetManager.GetShader(ShaderName));
 
 		}
 		else if (ShaderName == "Shader2D")
@@ -419,32 +384,16 @@ void GraphicsSystem::UpdateLoop() {
 			}
 
 			// Bind texture
-			if (graphicsComp.getTextureNumber() == 0) {
-				glBindTextureUnit(6, 0); // No texture
-			}
-			else {
-				glBindTextureUnit(6, graphicsComp.getTexture(0)); // Texture with transparency
-			}
+//		if (graphicsComp.getTextureNumber() == 0) {
+//			glBindTextureUnit(6, 0); // No texture
+//		}
+//		else {
+//			glBindTextureUnit(6, graphicsComp.getTexture(0)); // Texture with transparency
+//		}
+
 
 			// Set texture uniform before drawing
 			g_AssetManager.GetShader(ShaderName).SetUniform("uTex2d", 6);
-			//std::cout << material.GetDiffuseName() << '\n';
-
-			//if (material.GetDiffuseName() != "Digipen_Logo")
-			//{
-			//	std::cout << "eleg\n";
-			//
-			//	g_AssetManager.GetShader(ShaderName).SetUniform("useColor", true);
-			//
-			//	g_AssetManager.GetShader(ShaderName).SetUniform("finalAlpha", material.GetFinalAlpha());
-			//	g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", material.GetColor());
-			//
-			//}
-			//else
-			//{
-			//	g_AssetManager.GetShader(ShaderName).SetUniform("useColor", false);
-			//}
-			
 
 
 
@@ -456,48 +405,49 @@ void GraphicsSystem::UpdateLoop() {
 
 
 		}
-		else if (ShaderName == "Material")
-		{
-
+	//	else if (ShaderName == "Material")
+	//	{
+	//
+	//		
+	//		SetShaderUniforms(g_AssetManager.GetShader("Material"), shdrParam);
+	//		g_AssetManager.GetShader("Material").SetUniform("inputColor", graphicsComp.material.GetColor());
+	//
+	//		g_AssetManager.GetShader("Material").SetUniform("inputLight", lightPos);
+	//
+	//		g_AssetManager.GetShader("Material").SetUniform("viewPos", camera.GetViewMatrix());
+	//		g_AssetManager.GetShader("Material").SetUniform("metallic", graphicsComp.material.GetMetallic());
+	//		g_AssetManager.GetShader("Material").SetUniform("smoothness", graphicsComp.material.GetSmoothness());
+	//
+	//
+	//		//std::cout << shader.GetDiffuseID() << '\n';
+	//
+	//		// std::cout << graphicsComp.material.GetDiffuseID() << '\n';
+	//
+	//
+	//		// Check if a texture is set, and bind it
+	//		if (graphicsComp.material.GetDiffuseID() >= 0) { // Assuming textureID is -1 if no texture
+	//			glActiveTexture(GL_TEXTURE0);
+	//			//		std::cout << shader.GetDiffuseID() << '\n';
+	//
+	//			glBindTexture(GL_TEXTURE_2D, graphicsComp.material.GetDiffuseID());
+	//			g_AssetManager.GetShader("Material").SetUniform("albedoTexture", 0);
+	//			g_AssetManager.GetShader("Material").SetUniform("useTexture", true);
+	//		}
+	//		else {
+	//			g_AssetManager.GetShader("Material").SetUniform("useTexture", false);
+	//		}
+	//
+	//
+	//
+	//
+	//
+	//	}
+	//
+		g_AssetManager.GetShader("OutlineAndFont").Use();
 			
-			SetShaderUniforms(g_AssetManager.GetShader("Material"), shdrParam);
-			g_AssetManager.GetShader("Material").SetUniform("inputColor", graphicsComp.material.GetColor());
-
-			g_AssetManager.GetShader("Material").SetUniform("inputLight", lightPos);
-
-			g_AssetManager.GetShader("Material").SetUniform("viewPos", camera.GetViewMatrix());
-			g_AssetManager.GetShader("Material").SetUniform("metallic", graphicsComp.material.GetMetallic());
-			g_AssetManager.GetShader("Material").SetUniform("smoothness", graphicsComp.material.GetSmoothness());
-
-
-			//std::cout << shader.GetDiffuseID() << '\n';
-
-			// std::cout << graphicsComp.material.GetDiffuseID() << '\n';
-
-
-			// Check if a texture is set, and bind it
-			if (graphicsComp.material.GetDiffuseID() >= 0) { // Assuming textureID is -1 if no texture
-				glActiveTexture(GL_TEXTURE0);
-				//		std::cout << shader.GetDiffuseID() << '\n';
-
-				glBindTexture(GL_TEXTURE_2D, graphicsComp.material.GetDiffuseID());
-				g_AssetManager.GetShader("Material").SetUniform("albedoTexture", 0);
-				g_AssetManager.GetShader("Material").SetUniform("useTexture", true);
-			}
-			else {
-				g_AssetManager.GetShader("Material").SetUniform("useTexture", false);
-			}
-
-
-
-
-
-		}
-		else if (ShaderName == "OutlineAndFont")
-		{
-			SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
 			if (debug)
 			{
+				SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
 				if (D2)
 				{
 					Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
@@ -529,25 +479,78 @@ void GraphicsSystem::UpdateLoop() {
 				}
 			}
 
+			g_AssetManager.GetShader("OutlineAndFont").UnUse();
 
-		}
+		
 		
 		g_AssetManager.GetShader(ShaderName).UnUse();
 
 
 	}
 
-	//glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
+//	glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
 
 	// 2. Picking Rendering Pass (only when needed)
 	if (needsPickingRender) {
 		RenderSceneForPicking();
 		needsPickingRender = false;
 	}
+	
+	glDepthRange(0.0, 1.0);
+	glDisable(GL_DEPTH_TEST);
+	RenderDebugLines();
+	glEnable(GL_DEPTH_TEST);
 }
 
 
+void GraphicsSystem::AddEntireModel3D(const std::string& directory)
+{
+	namespace fs = std::filesystem;
 
+	std::unordered_set<std::string> uniqueNames;
+
+	try {
+		for (const auto& entry : fs::directory_iterator(directory)) {
+			if (entry.is_regular_file()) {
+				std::string filename = entry.path().filename().string();
+				size_t dotPos = filename.find('.');
+				if (dotPos != std::string::npos) {
+					uniqueNames.insert(filename.substr(0, dotPos)); // Extract base name
+				}
+			}
+		}
+
+		// Output unique base names
+		for (const auto& name : uniqueNames) {
+			AddModel_3D(directory + "/" + name + ".obj");
+
+			std::cout << directory + "/" + name + ".obj" << '\n';
+		}
+	}
+	catch (const std::exception& e) {
+		std::cerr << "Error accessing directory: " << e.what() << std::endl;
+	}
+
+
+}
+
+void GraphicsSystem::AddModel_3D(std::string const& path)
+{
+	Model model;
+	std::cout << "Loading: " << path << '\n';
+
+	model.loadModel(path, GL_TRIANGLES);
+
+	std::string name = path.substr(path.find_last_of('/') + 1);
+	//remove .obj from name
+	name = name.substr(0, name.find_last_of('.'));
+
+	g_ResourceManager.ModelMap.insert(std::pair<std::string, Model>(name, model));
+
+	g_ResourceManager.addModelNames(name);
+
+	std::cout << "Loaded: " << path << " with name: " << name << " [Models Reference: " << g_ResourceManager.ModelMap.size() - 1 << "]" << '\n';
+}
 
 void GraphicsSystem::Draw(std::vector<GraphicsComponent>& components) {
 	// Loop through components and draw them
@@ -834,3 +837,80 @@ Entity GraphicsSystem::DecodeColorToID(unsigned char* data)
 	}
 }
 
+
+void GraphicsSystem::AddDebugLine(const glm::vec3& start, const glm::vec3& end, const glm::vec3& color)
+{
+	debugLines.push_back({ start, end, color });
+}
+
+void GraphicsSystem::RenderDebugLines()
+{
+	if (debugLines.empty())
+		return; // Nothing to draw
+
+	// Step 1: If we haven�t created a VAO/VBO for debug lines yet, create them once:
+	if (debugLineVAO == 0)
+	{
+		glGenVertexArrays(1, &debugLineVAO);
+		glBindVertexArray(debugLineVAO);
+
+		glGenBuffers(1, &debugLineVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, debugLineVBO);
+
+		// Each line has 2 endpoints, each endpoint has 6 floats: (pos.x, pos.y, pos.z, color.r, color.g, color.b)
+		// We�ll enable 2 attributes: location 0 for position, location 1 for color
+		// Position attribute
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+
+		// Color attribute
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	}
+
+	// Step 2: Build the CPU array of line data
+	// For N lines, we have 2*N vertices (start + end)
+	std::vector<float> lineData;
+	lineData.reserve(debugLines.size() * 12); // 2 points * 6 floats
+	for (auto& line : debugLines)
+	{
+		// Start point
+		lineData.push_back(line.start.x);
+		lineData.push_back(line.start.y);
+		lineData.push_back(line.start.z);
+		lineData.push_back(line.color.r);
+		lineData.push_back(line.color.g);
+		lineData.push_back(line.color.b);
+
+		// End point
+		lineData.push_back(line.end.x);
+		lineData.push_back(line.end.y);
+		lineData.push_back(line.end.z);
+		lineData.push_back(line.color.r);
+		lineData.push_back(line.color.g);
+		lineData.push_back(line.color.b);
+	}
+
+	// Step 3: Upload data to the GPU
+	glBindVertexArray(debugLineVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, debugLineVBO);
+	glBufferData(GL_ARRAY_BUFFER, lineData.size() * sizeof(float), lineData.data(), GL_DYNAMIC_DRAW);
+
+	// Step 4: Use a basic line shader (or reuse "Shader3D" if it can do untextured lines)
+	// Suppose we have a "DebugLineShader" loaded in g_AssetManager:
+	OpenGLShader& debugShader = g_AssetManager.GetShader("DebugLineShader");
+	debugShader.Use();
+
+	// We need a camera's view/projection. If you want to use the active camera, do:
+	debugShader.SetUniform("view", camera_render.GetViewMatrix());
+	debugShader.SetUniform("projection",
+		glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f));
+
+	// Step 5: Issue the draw call
+	glDrawArrays(GL_LINES, 0, (GLsizei)(debugLines.size() * 2));
+
+	debugShader.UnUse();
+
+	// Step 6: Clear the debug lines for the next frame
+	debugLines.clear();
+}
