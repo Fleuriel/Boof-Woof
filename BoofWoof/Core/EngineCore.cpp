@@ -45,6 +45,7 @@ void EngineCore::OnInit()
 	g_Coordinator.RegisterComponent<HierarchyComponent>();
 	g_Coordinator.RegisterComponent<LightComponent>();
 	g_Coordinator.RegisterComponent<UIComponent>();
+	g_Coordinator.RegisterComponent<FontComponent>();
 	g_Coordinator.RegisterComponent<PathfindingComponent>();
 	g_Coordinator.RegisterComponent<EdgeComponent>();
 	g_Coordinator.RegisterComponent<NodeComponent>();
@@ -135,9 +136,8 @@ void EngineCore::OnInit()
 	mLogicSys->Init();
 	mGraphicsSys->initGraphicsPipeline();
 	mPhysicSys->InitializeJolt();
-	//mFontSys->init();
 	mUISys->UI_init();
-		
+	mFontSys->init();
 
 	// Just leave this part at the most bottom
 	m_AccumulatedTime = 0.0;		// elapsed time
@@ -156,6 +156,7 @@ void EngineCore::OnInit()
 	ReflectionManager::Instance().RegisterComponentType<HierarchyComponent>("HierarchyComponent");
 	ReflectionManager::Instance().RegisterComponentType<LightComponent>("LightComponent");
 	ReflectionManager::Instance().RegisterComponentType<UIComponent>("UIComponent");
+	ReflectionManager::Instance().RegisterComponentType<FontComponent>("FontComponent");
 	ReflectionManager::Instance().RegisterComponentType<PathfindingComponent>("PathfindingComponent");
 	ReflectionManager::Instance().RegisterComponentType<NodeComponent>("NodeComponent");
 	ReflectionManager::Instance().RegisterComponentType<EdgeComponent>("EdgeComponent");
@@ -225,6 +226,7 @@ void EngineCore::OnUpdate()
 		mGraphicsSys->UpdateLoop();
 		m_GraphicsDT = graphicsTimer.GetElapsedTime();
 	}
+	
 
 	//if (mPathfindingSys->FindPath(start, goal, path)) {
 	//	// Output path to console
@@ -253,6 +255,10 @@ void EngineCore::OnUpdate()
 		mUISys->UI_update();
 	}
 
+	{
+		// Font
+		mFontSys->update();
+	}
 	{
 		// Pathfinding
 		mPathfindingSys->Update(static_cast<float>(m_DeltaTime));

@@ -554,7 +554,7 @@ void SceneManager::FinalizeSceneDataChunked(const SceneData& data, size_t& index
             if (GData.HasMember("FollowCamera"))
                 followCam = GData["FollowCamera"].GetBool();
 
-            GraphicsComponent gComp(modelName, newE, textureName, followCam);
+            GraphicsComponent gComp(modelName, newE, followCam);
 
             // Load the texture from ResourceManager
             int texID = g_ResourceManager.GetTextureDDS(textureName);

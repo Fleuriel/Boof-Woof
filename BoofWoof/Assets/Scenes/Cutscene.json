@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "9b46e934-a0f5-40df-9bdf-54414ede4fc6",
+    "SceneGUID": "7950e554-6c56-4282-bf78-d765ad0e5ddf",
     "Entities": [
         {
             "MetadataComponent": {
@@ -14,7 +14,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.5,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -30,7 +35,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -46,7 +56,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -62,7 +77,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -78,7 +98,12 @@
                 "ScaleY": 0.699999988079071,
                 "Layer": 0.4700000286102295,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -94,7 +119,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -110,7 +140,12 @@
                 "ScaleY": 0.699999988079071,
                 "Layer": 0.4700000286102295,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -126,7 +161,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -142,7 +182,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -158,7 +203,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -174,7 +224,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -190,7 +245,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -206,7 +266,29 @@
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "SpaceToSkip",
+                "EntityID": 13
+            },
+            "FontComponent": {
+                "Family": "manga-temple",
+                "PositionX": -0.9700000286102295,
+                "PositionY": 0.8999999761581421,
+                "ScaleX": 0.699999988079071,
+                "ScaleY": 1.100000023841858,
+                "ColorR": 1.0,
+                "ColorG": 1.0,
+                "ColorB": 1.0,
+                "Text": "Space To Skip"
             }
         }
     ]
