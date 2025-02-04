@@ -328,7 +328,7 @@ namespace pauseLogic
 
 				if (g_Coordinator.HaveComponent<FontComponent>(pauser->SFXVol))
 				{
-					int volDisplay = static_cast<int>(sfVolume * 10);
+					int volDisplay = static_cast<int>(std::round(sfVolume * 10));
 					if (volDisplay >= 0 && volDisplay < 10)
 					{
 						std::stringstream ss;
@@ -366,7 +366,7 @@ namespace pauseLogic
 
 				if (g_Coordinator.HaveComponent<FontComponent>(pauser->BGMVol))
 				{
-					int volDisplay = static_cast<int>(bgVolume * 10);
+					int volDisplay = static_cast<int>(std::round(bgVolume * 10));
 					if (volDisplay >= 0 && volDisplay < 10)
 					{
 						std::stringstream ss;
