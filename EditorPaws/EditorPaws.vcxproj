@@ -182,7 +182,7 @@ xcopy /I "$(SolutionDir)bin\Debug-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDi
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;JPH_DEBUG_RENDERER;JPH_FLOATING_POINT_EXCEPTIONS_ENABLED;JPH_PROFILE_ENABLED;JPH_OBJECT_STREAM;EDITOR_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;JPH_DEBUG_RENDERER;JPH_FLOATING_POINT_EXCEPTIONS_ENABLED;JPH_PROFILE_ENABLED;JPH_OBJECT_STREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include\;$(SolutionDir)lib\glew-2.2.0\include\;$(SolutionDir)lib\glm-0.9.9.8\glm;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)lib\gli-master\gli-master\gli</AdditionalIncludeDirectories>

@@ -25,10 +25,10 @@ void BoneCatcher::OnInitialize()
 			{
 				m_DogHead = entity;
 
-				if (g_Coordinator.HaveComponent<UIComponent>(m_DogHead))
+				if (g_Coordinator.HaveComponent<TransformComponent>(m_DogHead))
 				{
-					DogPos = g_Coordinator.GetComponent<UIComponent>(m_DogHead).get_position();
-					DogScale = g_Coordinator.GetComponent<UIComponent>(m_DogHead).get_scale();
+					DogPos = g_Coordinator.GetComponent<TransformComponent>(m_DogHead).GetPosition();
+					DogScale = g_Coordinator.GetComponent<TransformComponent>(m_DogHead).GetScale();
 					initialDogPos = DogPos;
 				}
 			}
@@ -37,18 +37,18 @@ void BoneCatcher::OnInitialize()
 			{
 				m_CatchZone = entity;
 
-				if (g_Coordinator.HaveComponent<UIComponent>(m_CatchZone))
+				if (g_Coordinator.HaveComponent<TransformComponent>(m_CatchZone))
 				{
 					// Get initial position set from level editor first
-					CatchZonePos = g_Coordinator.GetComponent<UIComponent>(m_CatchZone).get_position();
+					CatchZonePos = g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).GetPosition();
 
 					// Randomize the position, set it
 					dist = std::uniform_real_distribution<float>(MinMaxPos.x, MinMaxPos.y);
 					CatchZonePos.x = dist(gen);
-					g_Coordinator.GetComponent<UIComponent>(m_CatchZone).set_position(CatchZonePos);
+					g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetPosition(CatchZonePos);
 
 					// Get initial scale set from level editor first
-					CatchZoneScale = g_Coordinator.GetComponent<UIComponent>(m_CatchZone).get_scale();
+					CatchZoneScale = g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).GetScale();
 
 					// Randomize the scale, set it
 					//dist = std::uniform_real_distribution<float>(MinMaxScale.x, MinMaxScale.y);
@@ -58,7 +58,7 @@ void BoneCatcher::OnInitialize()
 					BoxMin = CatchZonePos - CatchZoneScale * 0.5f;	// Bottom left
 					BoxMax = CatchZonePos + CatchZoneScale * 0.5f;  // Top right
 
-					TeethPos = { DogPos.x - 0.02f, DogPos.y - 0.27 };
+					TeethPos = { DogPos.x - 0.01f, DogPos.y - (DogScale.y / 2) + (TeethScale.y / 2), 0.f };
 				}
 			}
 		}
@@ -93,7 +93,7 @@ void BoneCatcher::OnUpdate(double deltaTime)
 	// Play for as long bonecatcher lasts.
 	if (AudioTimer <= ClearBoneCatcherTimer && !isAudioPlaying)
 	{
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav", true, "SFX");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav", true);
 		isAudioPlaying = true;
 	}
 
@@ -137,9 +137,9 @@ void BoneCatcher::MoveLeftRightVisual(double deltaTime)
 	// Update position based on direction and speed
 	DogPos.x += m_Direction * m_Speed * static_cast<float>(deltaTime);
 
-	if (g_Coordinator.HaveComponent<UIComponent>(m_DogHead))
+	if (g_Coordinator.HaveComponent<TransformComponent>(m_DogHead))
 	{
-		g_Coordinator.GetComponent<UIComponent>(m_DogHead).set_position(DogPos);
+		g_Coordinator.GetComponent<TransformComponent>(m_DogHead).SetPosition(DogPos);
 	}
 
 	// Check boundaries and reverse direction if necessary
@@ -162,16 +162,16 @@ void BoneCatcher::BiteDown(double deltaTime)
 	BoxMin = CatchZonePos - CatchZoneScale * 0.5f;	// Bottom left
 	BoxMax = CatchZonePos + CatchZoneScale * 0.5f;  // Top right
 
-	TeethPos = { DogPos.x - 0.02f, DogPos.y - 0.27 };
+	TeethPos = { DogPos.x - 0.01f, DogPos.y - (DogScale.y / 2) + (TeethScale.y / 2), 0.f };
 	bool isInRange = (TeethPos.x >= BoxMin.x && TeethPos.x <= BoxMax.x) && (TeethPos.y >= BoxMin.y && TeethPos.y <= BoxMax.y);
 
 	if (!m_Down)
 	{
 		DogPos.y -= 0.02f;
 
-		if (g_Coordinator.HaveComponent<UIComponent>(m_DogHead))
+		if (g_Coordinator.HaveComponent<TransformComponent>(m_DogHead))
 		{
-			g_Coordinator.GetComponent<UIComponent>(m_DogHead).set_position(DogPos);
+			g_Coordinator.GetComponent<TransformComponent>(m_DogHead).SetPosition(DogPos);
 		}
 
 		m_Down = true;  // prevent moving down again until reset.
@@ -188,7 +188,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 			//std::cout << "m_HitCount: " << m_HitCount  << std::endl;
 
 			// Play YAY sound
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorrectSound.wav", false, "SFX");
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorrectSound.wav", false);
 
 			// Hit = Pass = Randomize Catchzone position & Faster DogHead Speed.
 			m_Speed += 0.2f;
@@ -203,7 +203,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 		}
 		else {
 			// Play BOO sound
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/WrongSound.wav", false, "SFX");
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/WrongSound.wav", false);
 			// Failed to hit - nothing changes, play the same level.
 		}
 	}
@@ -218,16 +218,16 @@ void BoneCatcher::BiteDown(double deltaTime)
 			// Move the dog head back up
 			DogPos.y += 0.02f;
 
-			if (g_Coordinator.HaveComponent<UIComponent>(m_DogHead))
+			if (g_Coordinator.HaveComponent<TransformComponent>(m_DogHead))
 			{
-				g_Coordinator.GetComponent<UIComponent>(m_DogHead).set_position(DogPos);
+				g_Coordinator.GetComponent<TransformComponent>(m_DogHead).SetPosition(DogPos);
 			}
 
 			if (m_HitDetected)
 			{
-				if (g_Coordinator.HaveComponent<UIComponent>(m_CatchZone))
+				if (g_Coordinator.HaveComponent<TransformComponent>(m_CatchZone))
 				{
-					g_Coordinator.GetComponent<UIComponent>(m_CatchZone).set_position(CatchZonePos);
+					g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetPosition(CatchZonePos);
 					//g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetScale(CatchZoneScale);
 				}
 			}
@@ -264,21 +264,4 @@ void BoneCatcher::ClearBoneCatcher()
 			}
 		}
 	}
-}
-
-void BoneCatcher::ResetBC()
-{
-	m_HitCount = 0;
-	m_Speed = 0.5f;
-	m_DestroyTimer = 0.f;
-	m_DownTimer = 2.0f;
-
-	m_IsMoving = true;
-	m_ShouldDestroy = m_Down = m_Up = m_HitDetected = isAudioPlaying = false;
-
-	m_Direction = 1;
-	m_MinPos = -0.335f;
-	m_MaxPos = 0.395f;
-	ClearBoneCatcherTimer = 0.0;
-	AudioTimer = 0.0;
 }

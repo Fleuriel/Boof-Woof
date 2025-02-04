@@ -10,13 +10,12 @@
 #include "../Utilities/Components/CameraComponent.hpp"
 #include "../Core/EngineCore.h"
 #include "../Core/AssetManager/FilePaths.h"
-#include "../GSM/GameStateMachine.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
 #include <Jolt/Physics/Body/Body.h>
 
-class Script_to_Engine : public engine_interface, public input_interface, public audio_interface, public physics_interface
+class Script_to_Engine : public engine_interface, public input_interface, public audio_interface
 {
 public:
 
@@ -50,25 +49,6 @@ public:
 		//UNREFERENCED_PARAMETER(pSoundName);
 		// Play sound
 		 g_Audio.PlayFile(pSoundName);
-	}
-
-	virtual void PlaySoundById(const char* soundId) override
-	{
-		std::string fullPath = std::string(FILEPATH_ASSET_AUDIO) + "/" + soundId;
-		g_Audio.PlayFile(fullPath.c_str());
-	}
-
-	// END OF AUDIO INTERFACE
-
-	// PHYSICS INTERFACE
-	virtual physics_interface& getPhysicsSystem() override
-	{
-		return *this;
-	}
-
-	virtual void RemoveBody(Entity entity) override
-	{
-		g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 	}
 
 	// ENGINE INTERFACE
@@ -209,29 +189,13 @@ public:
 		return g_Coordinator.GetComponent<CameraComponent>(entity).GetCameraUp();
 	}
 
-	// Pathfinding Component Functions
-	virtual bool HavePathfindingComponent(Entity entity) override {
-		bool hasComponent = g_Coordinator.HaveComponent<PathfindingComponent>(entity);
-		//std::cout << "[Engine] Checking PathfindingComponent for Entity " << entity << ": "
-		//	<< (hasComponent ? "Exists" : "Does Not Exist") << std::endl;
-		return hasComponent;
-	}
-
-	virtual std::vector<glm::vec3> GetPath(Entity entity) override {
-		if (HavePathfindingComponent(entity)) {
-			auto& path = g_Coordinator.GetComponent<PathfindingComponent>(entity).GetPath();
-			std::cout << "[Engine] Retrieved path of length " << path.size() << " for Entity " << entity << std::endl;
-			return path;
-		}
-		std::cout << "[Engine] No path found for Entity " << entity << std::endl;
-		return {};
-	}
-
-
-	virtual bool IsGamePaused() override
+	virtual void PlaySoundById(const char* soundId) override
 	{
-		return g_IsPaused;
+		std::string fullPath = std::string(FILEPATH_ASSET_AUDIO) + "/" + soundId;
+		g_Audio.PlayFile(fullPath.c_str());
 	}
+
+
 };
 
 #endif // !SCRIPT_TO_ENGINE_H

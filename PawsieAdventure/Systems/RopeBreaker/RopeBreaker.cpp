@@ -103,7 +103,7 @@ void RopeBreaker::DropBridge()
 {
 	if (!bridgeAudio)
 	{
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO +"/BridgeCreak.wav", false, "SFX");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO +"/WoodenBridgeDropping.wav", false);
 		bridgeAudio = true;
 	}
 
@@ -118,20 +118,6 @@ void RopeBreaker::DropBridge()
 	// Start animation
 	isFalling = true;
 	ElapsedTime = 0.0f;
-}
-
-void RopeBreaker::ResetRB()
-{
-	PlayerCollidedRope1 = PlayerCollidedRope2 = BoneSpawned = false;
-	RopeCount = 2;
-
-	PlayerColliding = Rope1Colliding = Rope2Colliding = false;
-	RopeDespawned = 0;
-	bridgeAudio = deletedRope1 = deletedRope2 = false;
-
-	ElapsedTime = 0.0f;
-	FallDuration = 2.0f;
-	isFalling = false;
 }
 
 
@@ -159,8 +145,8 @@ void RopeBreaker::DespawnRope()
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
 				{
-					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/RopeSnap.wav", false, "SFX");
-				//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true, "BGM");
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/RopeSnap.wav", false);
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true);
 
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
@@ -173,8 +159,8 @@ void RopeBreaker::DespawnRope()
 			{
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
 				{
-					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+ "/RopeSnap.wav", false, "SFX");
-					//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true, "BGM");
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+ "/RopeSnap.wav", false);
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true);
 
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);

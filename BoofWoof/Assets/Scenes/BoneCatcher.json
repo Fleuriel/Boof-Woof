@@ -1,52 +1,142 @@
 {
-    "SceneGUID": "cd938991-1342-40d1-b076-bc7313dec39f",
+    "SceneGUID": "83e7e785-a469-49be-bf98-66692983f2a9",
     "Entities": [
         {
             "MetadataComponent": {
                 "EntityName": "Bone",
                 "EntityID": 0
             },
-            "UIComponent": {
-                "TextureName": "DogBone",
-                "PositionX": 0.0,
-                "PositionY": 0.0,
-                "ScaleX": 0.800000011920929,
-                "ScaleY": 0.4000000059604645,
-                "Layer": 0.5,
-                "Selectable": false,
-                "Opcaity": 1.0
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 0.5,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "DogBone",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "CatchZone",
-                "EntityID": 1
+                "EntityID": 2
             },
-            "UIComponent": {
-                "TextureName": "CatchZone",
-                "PositionX": 0.0,
-                "PositionY": 0.05000000074505806,
-                "ScaleX": 0.10000000149011612,
-                "ScaleY": 0.07999999821186066,
-                "Layer": 0.49000000953674319,
-                "Selectable": false,
-                "Opcaity": 1.0
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.05999999865889549,
+                    "y": 0.029999999329447748,
+                    "z": -0.10000000149011612
+                },
+                "Scale": {
+                    "x": 0.15000000596046449,
+                    "y": 0.10000000149011612,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "CatchZone",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Head",
-                "EntityID": 2
+                "EntityID": 1
             },
-            "UIComponent": {
-                "TextureName": "DogHead",
-                "PositionX": 0.0,
-                "PositionY": 0.3199999928474426,
-                "ScaleX": 0.20000000298023225,
-                "ScaleY": 0.30000001192092898,
-                "Layer": 0.48000001907348635,
-                "Selectable": false,
-                "Opcaity": 1.0
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.23000000417232514,
+                    "y": 0.20000000298023225,
+                    "z": -0.20000000298023225
+                },
+                "Scale": {
+                    "x": 0.20000000298023225,
+                    "y": 0.4000000059604645,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": false
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader2D",
+                "shaderIdx": 4,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "DogHead",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         }
     ]

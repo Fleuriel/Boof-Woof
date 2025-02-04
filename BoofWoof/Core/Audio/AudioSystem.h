@@ -50,20 +50,8 @@ public:
     bool IsPaused() const;  // Check if the audio is currently paused
     bool IsPlaying() const; // Check if audio is playing
 
-    void PlayFileOnNewChannel(const std::string& filePath, bool loop, const std::string& soundType);
-        void StopSpecificSound(const std::string& filePath);
-
-    void SetBGMVolume(float volume);
-    void SetSFXVolume(float volume);
-    float GetBGMVolume() const;
-    float GetSFXVolume() const;
-
-    void PlayEntityAudio(Entity entity, const std::string& filePath, bool loop);
-    void StopEntitySound(Entity entity);
-    void SetEntityVolume(Entity entity, float volume);
-
-
-
+    void PlayFileOnNewChannel(const std::string& filePath, bool loop);
+    void StopSpecificSound(const std::string& filePath);
 
 
 private:
@@ -73,10 +61,5 @@ private:
     std::unordered_map<std::string, std::shared_ptr<FMOD::Sound>> soundCache;  // Cached sounds
     std::unordered_map<Entity, float> volumeMap;  // Volume per entity
     std::vector<FMOD::Channel*> additionalChannels;
-    std::unordered_map<FMOD::Channel*, std::string> channelToFileMap;
-    float bgmVolume = 1.0f;  // Default volume for BGM
-    float sfxVolume = 1.0f;  // Default volume for SFX
-
-
 
 };

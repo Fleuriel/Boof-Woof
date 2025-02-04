@@ -31,14 +31,6 @@ struct ShaderParams {
 
 };
 
-struct DebugLine
-{
-    glm::vec3 start;
-    glm::vec3 end;
-    glm::vec3 color;
-};
-
-
 
 class GraphicsSystem : public System
 {
@@ -60,16 +52,13 @@ public:
     static int set_Texture_;
 
 
-
     std::string textureNameInput;
 
     void SetShaderUniforms(OpenGLShader& shader, const ShaderParams& shdrParam);
 
     GLuint GetFramebufferTexture() const { return textureColorbuffer; }  // Getter function
 
-
-    void AddEntireModel3D(const std::string& directory);
-    void AddModel_3D(std::string const& path);
+    //void AddModel_3D(std::string const& path);
     void AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model);
 
     void AddModel_2D();
@@ -119,10 +108,6 @@ public:
     int GetViewportHeight() const { return viewportHeight; }
 
 
-    static void AddDebugLine(const glm::vec3& start, const glm::vec3& end, const glm::vec3& color);
-    static void RenderDebugLines();
-
-
 private:
     unsigned int fbo;
     unsigned int textureColorbuffer;  // Store the framebuffer texture ID here
@@ -137,9 +122,6 @@ private:
     int viewportWidth = 0;
     int viewportHeight = 0;
     bool needsPickingRender = false;
-
-    static std::vector<DebugLine> debugLines;
-    static unsigned int debugLineVAO, debugLineVBO;
 
 };
 

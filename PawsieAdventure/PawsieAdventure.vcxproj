@@ -183,12 +183,10 @@ xcopy "$(SolutionDir)bin\Release-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDir
     <ClCompile Include="Systems\CameraController\CameraController.cpp" />
     <ClCompile Include="Systems\ChangeText\ChangeText.cpp" />
     <ClCompile Include="Systems\Checklist\Checklist.cpp" />
-    <ClCompile Include="Systems\PauseScreen\PauseScreen.cpp" />
     <ClCompile Include="Systems\RopeBreaker\RopeBreaker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game Levels\Cutscene.h" />
-    <ClInclude Include="Game Levels\LoadingLevel.h" />
     <ClInclude Include="Game Levels\MainHall.h" />
     <ClInclude Include="Game Levels\StartingRoom.h" />
     <ClInclude Include="Game Levels\MainMenu.h" />
@@ -199,7 +197,6 @@ xcopy "$(SolutionDir)bin\Release-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDir
     <ClInclude Include="Systems\CameraController\CameraController.h" />
     <ClInclude Include="Systems\ChangeText\ChangeText.h" />
     <ClInclude Include="Systems\Checklist\Checklist.h" />
-    <ClInclude Include="Systems\PauseScreen\PauseScreen.h" />
     <ClInclude Include="Systems\RopeBreaker\RopeBreaker.h" />
   </ItemGroup>
   <ItemGroup>

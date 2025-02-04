@@ -1,3 +1,14 @@
+/**************************************************************************
+ * @file Shader.vert
+ * @author 	TAN Angus Yit Hoe
+
+ * @brief
+ *
+ * This file contains the fragment shader
+ *
+ *************************************************************************/
+
+
 #version 450 core
 
 uniform mat4 projection;
@@ -8,8 +19,8 @@ uniform vec3 objectColor;
 layout(location = 0) in vec3 modelPosition;
 layout(location = 1) in vec3 vertexNormal;
 layout(location = 2) in vec2 aTexCoord;  // Texture coordinate input
-//layout(location = 3) in vec3 aTangent;
-//layout(location = 4) in vec3 aBitangent;
+layout(location = 3) in vec3 aTangent;
+layout(location = 4) in vec3 aBitangent;
 
 struct Light {
     vec3 position;
@@ -46,20 +57,25 @@ void main()
 
     mat3 normalMatrix = transpose(inverse(mat3(vertexTransform)));
 
-    // Compute the normal in world space
+    vec3 T = normalize(normalMatrix * aTangent);
     vec3 N = normalize(normalMatrix * vertexNormal);
+    T = normalize(T - dot(T, N) * N);
+    vec3 B = cross(N, T);
+    mat3 TBN = transpose(mat3(T, B, N));
 
-    // Store necessary values in world space
     for(int i = 0; i < NUM_LIGHTS; i++)
-    {
-        vs_out.TangentLightPos[i] = lights[i].position; 
-    }
+	{
+		vs_out.TangentLightPos[i] = TBN * lights[i].position;
+	}
+    vs_out.TangentViewPos = TBN * viewPos;
+    vs_out.TangentFragPos = TBN * vs_out.FragPos;
 
-    vs_out.TangentViewPos = viewPos;
-    vs_out.TangentFragPos = vs_out.FragPos;
+   
 
     vertColor = objectColor;
-    vertNormal = N; // Normal is now transformed correctly in world space
+    
+    vertNormal = normalMatrix * vertexNormal;
     TexCoord = aTexCoord;
-    FragPos = vs_out.FragPos;
+    FragPos = vec3(vertexTransform * vec4(modelPosition, 1.0f));
+
 }

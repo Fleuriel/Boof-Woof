@@ -38,9 +38,6 @@ public:
     // Setters
     void setModelName(std::string modelName) { m_ModelName = modelName; }
     void SetModelID(int modelID) { m_ModelID = modelID; }
-
-
-
     void AddTexture(int textureid) { textures.push_back(textureid); }
 
     void SetDiffuse(int textureID) 
@@ -96,26 +93,18 @@ public:
         return false; // Cannot remove if conditions aren't met
     }
 
-
-    void SetModel(Model* model) { m_Model = model; }
-
-    //getter
-    Model* getModel() const { return m_Model; }
-    inline int getModelID() const { return m_ModelID; };
-
-
-
 	void SetFollowCamera(bool follow) { followCamera = follow; }
 
     // Getters
-    std::string getModelName() const { return m_ModelName; }\
-//	std::vector<int> getTextures() const { return textures; }
+    std::string getModelName() const { return m_ModelName; }
+    int getModelID() const { return m_ModelID; }
+	std::vector<int> getTextures() const { return textures; }
     
-//    std::string getTextureName() const { return textureName; }
+    std::string getTextureName() const { return textureName; }
 
     //bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
-//    int getTextureNumber() const { return static_cast<int>(textures.size()); }
-//    int getTexture(int i) const { return textures[i]; }
+    int getTextureNumber() const { return static_cast<int>(textures.size()); }
+    int getTexture(int i) const { return textures[i]; }
 	bool getFollowCamera() const { return followCamera; }
 
     // Set texture name
@@ -123,34 +112,26 @@ public:
 
     glm::vec3 boundingBox;
 
-   std::string GetShaderName() { return material.GetShaderName(); }
-   std::string GetMaterialName() { return material.GetMaterialName(); }
-   int GetShaderIdx() { return material.GetShaderIndex(); }
-   std::string GetDiffuseName() { return material.GetDiffuseName(); }
-   std::string GetNormalName() { return  material.GetNormalName(); }
-   std::string GetHeightName() { return  material.GetHeightName(); }
-
-    //GraphicsComponent() { std::cout << "eUHEEE\n";}
-
+    std::string GetShaderName() { return material.GetShaderName(); }
+    std::string GetMaterialName() { return material.GetMaterialName(); }
+    int GetShaderIdx() { return material.GetShaderIndex(); }
+    std::string GetDiffuseName() { return material.GetDiffuseName(); }
+    std::string GetNormalName() { return  material.GetNormalName(); }
+    std::string GetHeightName() { return  material.GetHeightName(); }
 
 
     GraphicsComponent() : hasMaterial(false), boundingBox(glm::vec3(0.0f)) {}
 
-    GraphicsComponent(std::string modelName, Entity& entity, bool followCam = true)
+    GraphicsComponent(std::string modelName, Entity& entity, std::string texName, bool followCam = true)
         : m_ModelName(modelName),
         m_EntityID(g_Coordinator.GetEntityId(entity)),
- //       textureName(texName),
+        textureName(texName),
         followCamera(followCam),
         hasMaterial(false),
         boundingBox(glm::vec3(0.0f))
     {
         std::cout << "Model Name of Graphics Component: " << m_ModelName << '\n';
     }
-
-
-
-    GraphicsComponent(Model* model, Entity entity)
-    :   m_Model(model), m_EntityID(entity){}
 
     ~GraphicsComponent() = default;
 
@@ -159,7 +140,7 @@ public:
     {
         REGISTER_PROPERTY(GraphicsComponent, ModelName, std::string, setModelName, getModelName);
         REGISTER_PROPERTY(GraphicsComponent, ModelID, int, SetModelID, getModelID);
-	//	REGISTER_PROPERTY(GraphicsComponent, Textures, std::vector<int>, SetTextures, getTextures);
+		REGISTER_PROPERTY(GraphicsComponent, Textures, std::vector<int>, SetTextures, getTextures);
         REGISTER_PROPERTY(GraphicsComponent, FollowCamera, bool, SetFollowCamera, getFollowCamera);
     }
 
@@ -179,12 +160,12 @@ public:
         hasMaterial = false;
         // Reset material to a default state, if applicable
     }
-   
-   
+
+
     bool LoadMaterialDesc(std::string filepath)
     {
         return material.LoadMaterialDescriptor(filepath);
-   
+
     }
 
 
@@ -199,7 +180,6 @@ public:
 
 private:
     Entity m_EntityID{};
-    Model* m_Model{};
     std::string m_ModelName{};
     int m_ModelID{};
     std::string textureName;

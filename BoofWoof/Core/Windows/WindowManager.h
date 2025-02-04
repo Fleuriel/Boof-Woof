@@ -47,7 +47,6 @@ public:
 	int GetFrameCount() { return m_FrameCount; }
 	double GetDeltaTime() { return m_DeltaTime; }
 	bool GetAltStat() { return m_AltTab; };
-	bool isFullScreen(GLFWwindow* widow);
 
 	static void OpenGLWindowResizeCallback(GLFWwindow* window, int width, int height);
 	void toggleFullScreen();

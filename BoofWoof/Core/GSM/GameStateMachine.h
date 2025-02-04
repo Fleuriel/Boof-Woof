@@ -23,14 +23,11 @@ enum class GameStates
 	MAINMENU,
 	LEVEL1,
 
-	LOADING,
 	RESTART,
 	QUIT
 };
 
 void UpdateGSM();
-
-extern bool g_IsPaused;
 
 ///**************************************************************************
 //* @brief STATE Enumeration Class
