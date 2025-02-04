@@ -41,9 +41,14 @@ public:
 	bool SetModelMap(const std::string& name, const Model& model);
 
 	Model* getModel(const std::string& modelName);
+	//Model* testAnimationModel();
+
 
 	// Setter for ModelMap (add a new model or update existing one)
 	void setModel(const std::string& modelName, const Model& model);
+
+	void setModelAnimation(const std::string& modelName, const Model& model);
+
 
 	std::vector<std::string> getModelNames() const;
 
@@ -74,11 +79,16 @@ public:
 	int GetFontDDS(std::string);
 
 
-	
+
+	std::map <std::string, Model> ModelMapAnimation;
+
+
 private:
 	
 
 	std::map <std::string, Model> ModelMap;
+
+
 
 	std::vector<std::string> ModelNames;
 

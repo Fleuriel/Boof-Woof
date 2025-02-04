@@ -32,6 +32,8 @@ GLboolean OpenGLShader::Link() {
 
     glLinkProgram(pgm_handle); // link the various compiled shaders
 
+    std::cout << "Program Handles: \t" << pgm_handle << '\n';
+
     // verify the link status
     GLint lnk_status;
     glGetProgramiv(pgm_handle, GL_LINK_STATUS, &lnk_status);

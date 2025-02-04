@@ -96,7 +96,7 @@ public:
        // std::cout <<"drawing with texture size" << textures.size() << '\n';
 
         
-        shader.SetUniform("textureCount", static_cast<int>(textures.size()));
+//        shader.SetUniform("textureCount", static_cast<int>(textures.size()));
         for (unsigned int i = 0; i < textures.size(); i++)
         {
             glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
@@ -116,6 +116,7 @@ public:
 
 			//////for now
 			
+
 
 
 //            std::cout << number << '\n';

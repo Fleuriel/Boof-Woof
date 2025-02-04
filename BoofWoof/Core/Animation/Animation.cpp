@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Animation.h"
+#include "ResourceManager/ResourceManager.h"
 
 bool Animation::LoadModel(const std::string& filePath) {
     Assimp::Importer importer;
@@ -67,6 +68,21 @@ bool Animation::LoadAnimation(const std::string& filePath) {
     const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate);
     if (!scene || !scene->HasAnimations()) return false;
     ProcessAnimation(scene);
+    ProcessMesh(scene);
+
+    Model model;
+    model.meshes = meshDataMesh;
+	model.name = "animation";
+
+
+    std::cout << '\t' << meshDataMesh.size() << '\n';
+
+    std::cout << "it worked?\n";
+	g_ResourceManager.SetModelMap("animation", model);
+
+    g_ResourceManager.AddModelBinary(model.name);
+    std::cout << "it worked?\n";
+
     return true;
 }
 
@@ -108,6 +124,106 @@ void Animation::ProcessAnimation(const aiScene* scene) {
         boneAnimations[boneAnim.boneName] = boneAnim;
     }
 }
+
+
+
+void Animation::ProcessMesh(const aiScene* scene) {
+    meshDataMesh.clear();  // Clear previous meshes (if any)
+
+    for (unsigned int i = 0; i < scene->mNumMeshes; ++i) {
+        aiMesh* mesh = scene->mMeshes[i];
+
+        // Temporary storage for mesh data
+        std::vector<Vertex> vertices;
+        std::vector<unsigned int> indices;
+        std::vector<Texture> textures;
+
+        // Extract vertex positions, normals, and texture coordinates
+        for (unsigned int j = 0; j < mesh->mNumVertices; ++j) {
+            Vertex vertex;
+
+            
+            // Position
+            vertex.Position = glm::vec3(
+                mesh->mVertices[j].x,
+                mesh->mVertices[j].y,
+                mesh->mVertices[j].z
+            );
+
+            // Normal
+            vertex.Normal = glm::vec3(
+                mesh->mNormals[j].x,
+                mesh->mNormals[j].y,
+                mesh->mNormals[j].z
+            );
+
+            // Texture coordinates (if available)
+            if (mesh->mTextureCoords[0]) {
+                vertex.TexCoords = glm::vec2(
+                    mesh->mTextureCoords[0][j].x,
+                    mesh->mTextureCoords[0][j].y
+                );
+            }
+            else {
+                vertex.TexCoords = glm::vec2(0.0f, 0.0f);
+            }
+
+            // Bone weights (if applicable)
+            // This part requires you to process the bones in your model, but for now we'll skip it
+
+            vertices.push_back(vertex);
+        }
+
+        // Extract indices
+        for (unsigned int j = 0; j < mesh->mNumFaces; ++j) {
+            aiFace face = mesh->mFaces[j];
+            for (unsigned int k = 0; k < face.mNumIndices; ++k) {
+                indices.push_back(face.mIndices[k]);
+            }
+        }
+
+        // Optionally load textures here (if the mesh has textures)
+
+        // Now, create VAO, VBO, and EBO for this mesh
+        unsigned int VAO, VBO, EBO;
+        glGenVertexArrays(1, &VAO);
+        glGenBuffers(1, &VBO);
+        glGenBuffers(1, &EBO);
+
+        glBindVertexArray(VAO);
+
+        // Set VBO
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+
+        // Set EBO
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+
+        // Position attribute
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        // Normal attribute
+           glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+           glEnableVertexAttribArray(1);
+    
+         // Texture coordinates attribute
+           glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+           glEnableVertexAttribArray(2);
+
+        glBindVertexArray(0);  // Unbind VAO
+
+        // Store this mesh data in your mesh data vector
+        Mesh processedMesh;
+        processedMesh.VAO = VAO;
+//        processedMesh.numIndices = indices.size();
+        processedMesh.vertices = vertices;
+        processedMesh.indices = indices;
+        meshDataMesh.push_back(processedMesh);
+    }
+}
+
 
 glm::vec3 Animation::InterpolatePosition(float animationTime, const BoneAnimation& boneAnim) {
     if (boneAnim.keyFrames.size() == 1)

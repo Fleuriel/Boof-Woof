@@ -3,6 +3,10 @@
 
 #include "Coordinator.hpp"
 #include "../Utilities/Components/AnimationComponent.h"
+#include "../Core/Graphics/Model.h"
+#include "../Core/Graphics/Mesh.h"
+
+
 
 class AnimationManager {
 public:
@@ -11,6 +15,8 @@ public:
         Animation animation;
         if (animation.LoadAnimation(filePath)) {
             animations[animationName] = animation;
+            
+
             return true;
         }
         return false;
@@ -57,7 +63,13 @@ public:
             std::cout << "   Bone Count: " << anim.GetBoneInfoMap().size() << std::endl;
             std::cout << "   Mesh Count: " << anim.GetMeshes().size() << std::endl;
 
-            anim.meshes.
+
+    
+            std::cout << "Mesh Data Anim: \t" << anim.meshDataMesh.size() << '\n';
+
+            std::cout << "MeshD ata Vertices : \t" << anim.meshDataMesh[0].vertices.size() << '\n';
+            std::cout << "Mesh Data indices: '\t" <<anim.meshDataMesh[0].indices.size() << '\n';
+
 
             // Print bone names
             std::cout << "   Bones: ";

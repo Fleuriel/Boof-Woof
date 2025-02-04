@@ -377,17 +377,26 @@ Model* ResourceManager::getModel(const std::string& modelName) {
     auto it = ModelMap.find(modelName);
     std::cout << "entered two\n";
     if (it != ModelMap.end()) {
-        return &(it->second);  // Return pointer to the model
         std::cout << "entered THREE\n";
+        return &(it->second);  // Return pointer to the model
     }
     std::cout << "entered Four\n";
 
     return nullptr;  // Return nullptr if not found
 }
 
+
+
+
 // Setter for ModelMap (add a new model or update existing one)
 void ResourceManager::setModel(const std::string& modelName, const Model& model) {
     ModelMap[modelName] = model;  // Insert or update the model
+}
+
+
+// Setter for ModelMap (add a new model or update existing one)
+void ResourceManager::setModelAnimation(const std::string& modelName, const Model& model) {
+    ModelMapAnimation[modelName] = model;  // Insert or update the model
 }
 
 // Optional: Check if a model exists in the map

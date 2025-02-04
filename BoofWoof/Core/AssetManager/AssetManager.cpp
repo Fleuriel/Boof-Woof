@@ -1268,7 +1268,12 @@ bool AssetManager::LoadAnimations() {
             }
         }
 
+        
+        //        animationManager.GetAnimation();
+
         animationManager.PrintAllAnimations();
+        
+
 
         Currentlyloading = false;
         return true;

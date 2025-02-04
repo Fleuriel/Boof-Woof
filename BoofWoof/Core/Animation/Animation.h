@@ -10,6 +10,8 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <iostream>
+#include "../Core/Graphics/Mesh.h"
+
 
 struct AnimVertex {
     glm::vec3 position;
@@ -35,6 +37,13 @@ struct BoneAnimation {
     std::vector<KeyFrame> keyFrames;
 };
 
+
+
+struct MeshData {
+    std::vector<Vertex> vertices;  // Stores all vertex data
+    std::vector<unsigned int> indices;  // Stores indices for rendering
+};
+
 class Animation {
 public:
     bool LoadModel(const std::string& filePath);
@@ -44,7 +53,10 @@ public:
     const std::vector<glm::mat4>& GetBoneTransformsAtTime(float currentTime);
     const std::vector<aiMesh*>& GetMeshes() const { return meshes; }
     const std::unordered_map<std::string, BoneInfo>& GetBoneInfoMap() const { return boneInfoMap; }
+    void ProcessMesh(const aiScene* scene);
 
+
+    std::vector<Mesh> meshDataMesh;
     std::vector<aiMesh*> meshes;
 private:
     void ProcessMesh(aiMesh* mesh, std::vector<AnimVertex>& vertices, std::vector<unsigned int>& indices);
