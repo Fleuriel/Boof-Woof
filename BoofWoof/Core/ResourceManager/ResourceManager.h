@@ -82,7 +82,7 @@ private:
 
 	std::vector<std::string> ModelNames;
 
-	std::map <std::string, DDSData> textureDDS{};															//Container to store textures
+	std::map <std::string, DDSData> textureDDS{};														//Container to store textures
 	std::vector<std::string> textureDDSFileNames{};														//Container to store texture DDS file names
 
 	std::map<std::string, int> fontDDS{};																//Container to store textures
@@ -90,6 +90,9 @@ private:
 
 
 	std::vector<DDSData> textureDDS_WidthHeight;
+
+	std::map<std::string, std::map<std::string, Model>> AnimationContainer;
+	// AnimationContainer["Rex"]["walk"];
 
 };
 

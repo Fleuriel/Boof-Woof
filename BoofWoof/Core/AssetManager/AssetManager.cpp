@@ -25,8 +25,10 @@
 
 #include "Descriptor.h"
 #include "Animation/Animation.h"
+#include "Animation/AnimationManager.h"
 
 AssetManager g_AssetManager;
+AnimationManager animationManager;
 
 namespace fs = std::filesystem;
 
@@ -164,8 +166,8 @@ void AssetManager::LoadAll() {
         loadScenes = AssetManager::LoadScenes(),
         //loadPrefabs   = AssetManager::LoadPrefabs(),
         loadShaders = AssetManager::LoadShaders(),
-        loadAnimations = AssetManager::LoadAnimations(),
-        loadMaterial = AssetManager::LoadMaterials();
+        loadMaterial = AssetManager::LoadMaterials(),
+    loadAnimations = AssetManager::LoadAnimations();
     UNREFERENCED_PARAMETER(loadMaterial);
     std::cout
         << ((loadTextures) ? "Textures loaded successfully" : "Failed to load textures") << std::endl
@@ -1244,20 +1246,30 @@ bool AssetManager::LoadAnimations() {
                     continue;
                 }
 
+                // Extract the animation name from the file name (without extension)
+                std::string animationName = entry.path().filename().string().substr(0, pos);
+
+                // Load the animation
                 Animation animation;
-                Assimp::Importer importer;
-                const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_LimitBoneWeights);
+                if (animation.LoadAnimation(filePath)) {
+                    // Store the animation in the AnimationManager
+                    animationManager.LoadAnimation(animationName, filePath);
+                    AnimationFiles.push_back(animationName);
+                    std::cout << "\n\n\n\n\n\n\n\n\n";
+                    animationManager.PrintSize();
+                    std::cout << "\n\n\n\n\n";
 
-                if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-                    std::cerr << "Error loading animation file: " << importer.GetErrorString() << std::endl;
-                    continue;
+                }
+                else {
+                    std::cerr << "Failed to load animation: " << filePath << std::endl;
                 }
 
-                if (animation.LoadFromScene(scene)) {
-                    AnimationFiles.push_back(filePath);
-                }
+
             }
         }
+
+        animationManager.PrintAllAnimations();
+
         Currentlyloading = false;
         return true;
     }

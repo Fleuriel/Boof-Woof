@@ -302,7 +302,49 @@ void GraphicsSystem::UpdateLoop() {
 		}
 
 		if (ShaderName == "Shader3D" && g_Coordinator.HaveComponent<AnimationComponent>(entity)) {
-			ShaderName = "ShaderAnimation";
+			std::string ShaderName = "ShaderAnimation";
+			auto shader = g_AssetManager.GetShader(ShaderName);
+
+			// Set standard transformation matrices
+			shader.SetUniform("uModel", shdrParam.WorldMatrix);
+			shader.SetUniform("uView", glm::mat4(1.0f));
+			shader.SetUniform("uProjection", glm::mat4(1.0f));
+
+			// Pass bone transformation matrices
+			std::vector<glm::mat4> boneTransforms{}; //= graphicsComp.GetBoneTransforms(); // Assume this function exists
+			for (size_t i = 0; i < boneTransforms.size(); i++) {
+				std::string uniformName = "uBoneTransforms[" + std::to_string(i) + "]";
+				shader.SetUniform(uniformName.c_str(), boneTransforms[i]);
+			}
+
+			// Pass lighting parameters
+			shader.SetUniform("uLightPosition", lights_infos[0].position); // Assuming 1 light for now
+			shader.SetUniform("uLightColor", lights_infos[0].color);
+			shader.SetUniform("uAmbientColor", glm::vec3(0.1f, 0.1f, 0.1f)); // Example ambient color
+			shader.SetUniform("uViewPosition", camera_render.Position);
+
+			// Material properties (if needed)
+			shader.SetUniform("finalAlpha", material.GetFinalAlpha());
+			shader.SetUniform("inputColor", material.GetColor());
+
+			// Bind textures (if applicable)
+			while (g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt < graphicsComp.getTextureNumber()) {
+				Texture texture_add;
+				texture_add.id = graphicsComp.getTexture(g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
+				texture_add.type = "texture_diffuse";  // Modify as needed
+
+				for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
+					mesh.textures.push_back(texture_add);
+				}
+
+				g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt++;
+			}
+
+			// Set texture count uniform
+			shader.SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
+
+			// Draw the animated model
+			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(shader);
 		}
 
 		if (ShaderName == "Shader3D")

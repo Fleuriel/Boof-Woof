@@ -30,7 +30,6 @@
     <ClCompile Include="Utilities\Components\MetaData.cpp" />
     <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
-    <ClCompile Include="Core\Animation\AnimationManager.cpp" />
     <ClCompile Include="Utilities\Components\ParticleComponent.cpp" />
     <ClCompile Include="Core\AssetManager\Descriptor.cpp" />
     <ClCompile Include="Utilities\Components\AnimationComponent.cpp" />

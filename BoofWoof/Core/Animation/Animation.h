@@ -1,11 +1,27 @@
-#pragma once
+#ifndef ANIMATION
+#define ANIMATION
 
-#include <string>
 #include <vector>
+#include <string>
 #include <unordered_map>
 #include <glm/glm.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include <assimp/scene.h>
 #include <assimp/Importer.hpp>
+#include <assimp/postprocess.h>
+#include <iostream>
+
+struct AnimVertex {
+    glm::vec3 position;
+    glm::vec3 normal;
+    glm::vec2 texCoords;
+    int boneIDs[4] = { -1, -1, -1, -1 };
+    float weights[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+};
+
+struct BoneInfo {
+    glm::mat4 offsetMatrix;
+};
 
 struct KeyFrame {
     float timeStamp;
@@ -19,33 +35,32 @@ struct BoneAnimation {
     std::vector<KeyFrame> keyFrames;
 };
 
-struct Bone {
-    std::string name;
-    glm::mat4 offsetMatrix;
-};
-
 class Animation {
 public:
-    Animation();
-
-    // Loads animation data from an Assimp scene
-    bool LoadFromScene(const aiScene* scene);
-
-    // Loads animation data from a file
-    bool LoadFromFile(const std::string& filePath);
-
-    float GetDuration() const;
-    float GetTicksPerSecond() const;
-
-    // Calculates bone transforms at a specific time in the animation
+    bool LoadModel(const std::string& filePath);
+    bool LoadAnimation(const std::string& filePath);
+    float GetDuration() const { return duration; };
+    float GetTicksPerSecond() const { return ticksPerSecond; };
     const std::vector<glm::mat4>& GetBoneTransformsAtTime(float currentTime);
+    const std::vector<aiMesh*>& GetMeshes() const { return meshes; }
+    const std::unordered_map<std::string, BoneInfo>& GetBoneInfoMap() const { return boneInfoMap; }
 
+    std::vector<aiMesh*> meshes;
 private:
-    void CalculateBoneTransform(float animationTime, Bone& bone, const glm::mat4& parentTransform);
+    void ProcessMesh(aiMesh* mesh, std::vector<AnimVertex>& vertices, std::vector<unsigned int>& indices);
+    void ExtractBoneWeights(aiMesh* mesh, std::vector<AnimVertex>& vertices);
+    void ProcessAnimation(const aiScene* scene);
+    void CalculateBoneTransform(float animationTime, const std::string& boneName, glm::mat4 parentTransform);
+    glm::vec3 InterpolatePosition(float animationTime, const BoneAnimation& boneAnim);
+    glm::quat InterpolateRotation(float animationTime, const BoneAnimation& boneAnim);
+    glm::vec3 InterpolateScale(float animationTime, const BoneAnimation& boneAnim);
 
-    float duration;
-    float ticksPerSecond;
+    std::unordered_map<std::string, BoneInfo> boneInfoMap;
     std::unordered_map<std::string, BoneAnimation> boneAnimations;
-    std::unordered_map<std::string, Bone> bones;
     std::vector<glm::mat4> boneTransforms;
+    float duration = 0.0f;
+    float ticksPerSecond = 25.0f;
+    int boneCounter = 0;
 };
+
+#endif
