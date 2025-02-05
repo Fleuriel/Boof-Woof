@@ -36,6 +36,9 @@
     <ClCompile Include="Systems\PauseScreen\PauseScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\TimerTR\TimerTR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game Levels\Splashscreen.h">
@@ -78,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game Levels\LoadingLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\TimerTR\TimerTR.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
