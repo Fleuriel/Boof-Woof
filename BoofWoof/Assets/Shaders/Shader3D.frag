@@ -95,47 +95,19 @@ void main()
     vec3 asd = vec3(0.0f,0.0f,0.0f);
 
     for(int i = 0; i < numLights; i++){
-        vec3 lightVector = lights[i].position - FragPos;
-        vec3 N = normalize(vertNormal);
-        vec3 L = normalize(lightVector);
-        vec3 V = normalize(viewPos - FragPos);
-        vec3 H = normalize(L + V);
+         vec3 lightVector = lights[i].position - FragPos;
+            float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
+            textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
+            //fragColor = vec4(textureColor.rgb, textureColor.a);
+            vec3 ambientColor = vec3(0.0f,0.0f,0.0f);
+            vec3 diffuseColor = textureColor.rgb;
 
-        // Dot products
-        float NdotL = max(dot(N, L), 0.0);
-        float NdotH = max(dot(N, H), 0.0);
-        float NdotV = max(dot(N, V), 0.0);
 
-        // PBR Calculations
-        // Normal Distribution (Specular D)
-        float D = DistributionGGX(NdotH);
-        
-        // Geometry (Specular G)
-        float G = GeometrySchlickGGX(NdotV) * 
-                  GeometrySchlickGGX(NdotL);
-        
-        // Fresnel (Specular F)
-        vec3 F = FresnelSchlick(max(dot(H, V), 0.0), F0);
+            vec3 ambient = ambientColor  * 0.1f;
+            vec3 diffuse = diffuseColor  * N_dot_L * lights[i].intensity * lights[i].color;
 
-        // Specular calculation
-        vec3 numerator = D * G * F;
-        float denominator = 4.0 * NdotV * NdotL + 0.0001;
-        vec3 specular = numerator / denominator;
-
-        // Diffuse calculation
-        vec3 kS = F; // Fresnel determines specular reflection
-        vec3 kD = vec3(1.0) - kS;
-        kD *= 1.0; // Reduce diffuse for metals
-
-        // Combine lighting components
-        vec3 diffuse = kD * textureColor.rgb / PI;
-
-        vec3 finalColor = (diffuse + specular) 
-            * lights[i].color 
-            * lights[i].intensity 
-            * NdotL;
-
-        result += finalColor;
+            vec3 finalColor = ambient + diffuse; // Combine ambient and diffuse components
+            result += finalColor;
 
         
     }
