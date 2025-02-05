@@ -11,6 +11,7 @@
 #include "../Core/EngineCore.h"
 #include "../Core/AssetManager/FilePaths.h"
 #include "../GSM/GameStateMachine.h"
+#include "../Utilities/ForGame/TimerTR/TimerTR.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
@@ -227,10 +228,17 @@ public:
 		return {};
 	}
 
-
 	virtual bool IsGamePaused() override
 	{
 		return g_IsPaused;
+	}
+
+	virtual double GetTimerTiming() override {
+		return g_TimerTR.timer;
+	}
+
+	virtual double SetTimerTiming(double timing) override {
+		return g_TimerTR.timer = timing;
 	}
 };
 
