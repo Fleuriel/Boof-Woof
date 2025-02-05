@@ -1,0 +1,18 @@
+{
+    "name": "Puppy3 (2)",
+    "shader": "Shader3D",
+    "properties": {
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "Diffuse": "NothingTexture",
+        "Normal": "NothingNormal",
+        "Height": "NothingHeight",
+        "metallic": 0,
+        "shininess": 0,
+        "textureID": 0
+    }
+}

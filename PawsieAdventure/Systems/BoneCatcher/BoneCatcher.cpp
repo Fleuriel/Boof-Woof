@@ -93,7 +93,7 @@ void BoneCatcher::OnUpdate(double deltaTime)
 	// Play for as long bonecatcher lasts.
 	if (AudioTimer <= ClearBoneCatcherTimer && !isAudioPlaying)
 	{
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav", true);
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav", true, "SFX");
 		isAudioPlaying = true;
 	}
 
@@ -188,7 +188,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 			//std::cout << "m_HitCount: " << m_HitCount  << std::endl;
 
 			// Play YAY sound
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorrectSound.wav", false);
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorrectSound.wav", false, "SFX");
 
 			// Hit = Pass = Randomize Catchzone position & Faster DogHead Speed.
 			m_Speed += 0.2f;
@@ -203,7 +203,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 		}
 		else {
 			// Play BOO sound
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/WrongSound.wav", false);
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/WrongSound.wav", false, "SFX");
 			// Failed to hit - nothing changes, play the same level.
 		}
 	}
@@ -264,4 +264,21 @@ void BoneCatcher::ClearBoneCatcher()
 			}
 		}
 	}
+}
+
+void BoneCatcher::ResetBC()
+{
+	m_HitCount = 0;
+	m_Speed = 0.5f;
+	m_DestroyTimer = 0.f;
+	m_DownTimer = 2.0f;
+
+	m_IsMoving = true;
+	m_ShouldDestroy = m_Down = m_Up = m_HitDetected = isAudioPlaying = false;
+
+	m_Direction = 1;
+	m_MinPos = -0.335f;
+	m_MaxPos = 0.395f;
+	ClearBoneCatcherTimer = 0.0;
+	AudioTimer = 0.0;
 }

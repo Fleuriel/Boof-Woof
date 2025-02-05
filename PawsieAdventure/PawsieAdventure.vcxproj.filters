@@ -77,6 +77,9 @@
     <ClInclude Include="Systems\PauseScreen\PauseScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game Levels\LoadingLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">

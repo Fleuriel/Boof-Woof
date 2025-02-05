@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #ifndef BEHAVIOURINTERFACE_H
 #define BEHAVIOURINTERFACE_H
 
@@ -27,11 +28,17 @@ struct audio_interface
 	virtual void PlaySoundById(const char* soundId) = 0;
 };
 
+struct physics_interface
+{
+	virtual void RemoveBody(Entity entity) = 0;
+};
+
 struct engine_interface
 {
 	virtual ~engine_interface() = default;
 	virtual input_interface& getInputSystem() = 0;
 	virtual audio_interface& getAudioSystem() = 0;
+	virtual physics_interface& getPhysicsSystem() = 0;
 
 	virtual void DestroyEntity(Entity entity) = 0;
 
@@ -47,6 +54,10 @@ struct engine_interface
 	virtual const char* GetCollidingEntityName(Entity entity) = 0;
 	virtual void SetVelocity(Entity entity, glm::vec3 velocity) = 0;
 
+	// Pathfinding functions
+	virtual bool HavePathfindingComponent(Entity entity) = 0;
+	virtual std::vector<glm::vec3> GetPath(Entity entity) = 0;
+
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) = 0;
 	virtual void SetGrounded(Entity entity, bool grounded) = 0;
@@ -58,7 +69,7 @@ struct engine_interface
 	virtual glm::vec3 GetCameraUp(Entity entity) = 0;
 
 	virtual double GetDeltaTime() = 0;
-
+	virtual bool IsGamePaused() = 0;
 };
 
 #ifdef GAME_ENGINE

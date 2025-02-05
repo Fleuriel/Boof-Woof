@@ -16,6 +16,8 @@
 #define RESOURCEMANAGER_H
 
 #include "../Core/Graphics/Model.h"
+#include "../Core/Graphics/FontSystem.h"
+
 
 struct DDSData {
 
@@ -67,30 +69,37 @@ public:
 	std::string GetTextureDDSFileName(int);
 
 
-	bool LoadFontsDDS();
-	bool FreeFontsDDS();
-	bool ReloadFontsDDS();
 
-	bool AddFontDDS(std::string);
-	int GetFontDDS(std::string);
-
-
+	std::map <std::string, Model> ModelMap;
+	/// for loading font resources
+	// read the .bin file and create the FontResources
+	// add the FontResources to the fontResources map
+	// similar to FontSystem::init() function
+	void AddFont(std::string name);
+	FontResources GetFont(std::string name) { return fontResources[name]; }
+	std::vector<std::string> GetFontNames() const { return fontnames; }
+	void ClearFont() { fontResources.clear(); fontnames.clear(); }
 	
+
+	void SetModel(Model* model) { m_Model = model; }
+
+	Model* GModel() const;
+
+	Model* m_Model{};
+
 private:
 	
 
-	std::map <std::string, Model> ModelMap;
 
 	std::vector<std::string> ModelNames;
 
-	std::map <std::string, DDSData> textureDDS{};															//Container to store textures
+	std::map <std::string, DDSData> textureDDS{};														//Container to store textures
 	std::vector<std::string> textureDDSFileNames{};														//Container to store texture DDS file names
 
-	std::map<std::string, int> fontDDS{};																//Container to store textures
-	std::vector<std::string> fontDDSFileNames{};														//Container to store texture DDS file names
-
-
 	std::vector<DDSData> textureDDS_WidthHeight;
+
+	std::map<std::string, FontResources> fontResources{};												//Container to store font resources
+	std::vector<std::string> fontnames{};
 
 };
 

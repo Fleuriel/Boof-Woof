@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "0db44ef9-28b8-479d-8fbe-845d2e7f9eef",
+    "SceneGUID": "fa06802c-ff18-44a8-ae45-94d54d9f66bf",
     "Entities": [
         {
             "MetadataComponent": {
@@ -7,7 +7,7 @@
                 "EntityID": 0
             },
             "UIComponent": {
-                "TextureID": 19,
+                "TextureName": "Checklist",
                 "PositionX": -0.7300000190734863,
                 "PositionY": 0.800000011920929,
                 "ScaleX": 0.3799999952316284,
@@ -23,7 +23,7 @@
                 "EntityID": 1
             },
             "UIComponent": {
-                "TextureID": -1,
+                "TextureName": "Do1",
                 "PositionX": -0.75,
                 "PositionY": 0.8799999952316284,
                 "ScaleX": 0.15000000596046449,
@@ -38,48 +38,48 @@
                 "EntityName": "Do2",
                 "EntityID": 2
             },
-          "UIComponent": {
-            "TextureID": -1,
-            "PositionX": -0.7200000286102295,
-            "PositionY": 0.7799999713897705,
-            "ScaleX": 0.15000000596046449,
-            "ScaleY": 0.05000000074505806,
-            "Layer": 0.49000000953674319,
-            "Selectable": false,
-            "Opcaity": 1.0
-          }
+            "UIComponent": {
+                "TextureName": "Do2",
+                "PositionX": -0.7200000286102295,
+                "PositionY": 0.7799999713897705,
+                "ScaleX": 0.15000000596046449,
+                "ScaleY": 0.05000000074505806,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Do3",
                 "EntityID": 3
             },
-          "UIComponent": {
-            "TextureID": -1,
-            "PositionX": -0.6899999976158142,
-            "PositionY": 0.6700000166893005,
-            "ScaleX": 0.15000000596046449,
-            "ScaleY": 0.05000000074505806,
-            "Layer": 0.49000000953674319,
-            "Selectable": false,
-            "Opcaity": 1.0
-          }
+            "UIComponent": {
+                "TextureName": "Do3",
+                "PositionX": -0.6899999976158142,
+                "PositionY": 0.6700000166893005,
+                "ScaleX": 0.15000000596046449,
+                "ScaleY": 0.05000000074505806,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Do4",
                 "EntityID": 4
             },
-          "UIComponent": {
-            "TextureID": -1,
-            "PositionX": -0.7599999904632568,
-            "PositionY": 0.5649999976158142,
-            "ScaleX": 0.15000000596046449,
-            "ScaleY": 0.05000000074505806,
-            "Layer": 0.49000000953674319,
-            "Selectable": false,
-            "Opcaity": 1.0
-          }
+            "UIComponent": {
+                "TextureName": "Do4",
+                "PositionX": -0.7599999904632568,
+                "PositionY": 0.5649999976158142,
+                "ScaleX": 0.15000000596046449,
+                "ScaleY": 0.05000000074505806,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0
+            }
         },
         {
             "MetadataComponent": {
@@ -87,7 +87,7 @@
                 "EntityID": 5
             },
             "UIComponent": {
-                "TextureID": 11,
+                "TextureName": "Box",
                 "PositionX": -0.550000011920929,
                 "PositionY": 0.8799999952316284,
                 "ScaleX": 0.03999999910593033,
@@ -103,7 +103,7 @@
                 "EntityID": 6
             },
             "UIComponent": {
-                "TextureID": 11,
+                "TextureName": "Box",
                 "PositionX": -0.550000011920929,
                 "PositionY": 0.7799999713897705,
                 "ScaleX": 0.03999999910593033,
@@ -119,7 +119,7 @@
                 "EntityID": 7
             },
             "UIComponent": {
-                "TextureID": 11,
+                "TextureName": "Box",
                 "PositionX": -0.550000011920929,
                 "PositionY": 0.6700000166893005,
                 "ScaleX": 0.03999999910593033,
@@ -135,7 +135,7 @@
                 "EntityID": 8
             },
             "UIComponent": {
-                "TextureID": 11,
+                "TextureName": "Box",
                 "PositionX": -0.550000011920929,
                 "PositionY": 0.5649999976158142,
                 "ScaleX": 0.03999999910593033,
@@ -143,6 +143,39 @@
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
                 "Opcaity": 4.300000190734863
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CheckTheBox",
+                "EntityID": 9
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/CheckTheBox.wav",
+                "Volume": 1.0,
+                "ShouldLoop": false
             }
         }
     ]

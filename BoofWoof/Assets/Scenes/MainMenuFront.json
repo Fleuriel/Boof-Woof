@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "52a67958-80cc-4d9b-bc85-9099fba87133",
+    "SceneGUID": "61c86a10-03f7-49ad-b1a4-5b12efcfee3b",
     "Entities": [
         {
             "MetadataComponent": {
@@ -7,7 +7,7 @@
                 "EntityID": 0
             },
             "UIComponent": {
-                "TextureID": 248,
+                "TextureName": "PawsieAdventure",
                 "PositionX": 0.0,
                 "PositionY": 0.4000000059604645,
                 "ScaleX": 0.699999988079071,
@@ -19,17 +19,131 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "SpaceToStart",
+                "EntityName": "StartGame",
                 "EntityID": 1
             },
             "UIComponent": {
-                "TextureID": 259,
+                "TextureName": "StartGame",
                 "PositionX": 0.0,
-                "PositionY": -0.5,
+                "PositionY": -0.25,
                 "ScaleX": 0.30000001192092898,
-                "ScaleY": 0.30000001192092898,
+                "ScaleY": 0.15000000596046449,
                 "Layer": 0.5,
-                "Selectable": false,
+                "Selectable": true,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "MainMenuBGM",
+                "EntityID": 2
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/mainmenu musicBGM.wav",
+                "Volume": 1.0,
+                "ShouldLoop": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "MenuButtonClick",
+                "EntityID": 3
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/(MenuButtonClick).wav",
+                "Volume": 1.0,
+                "ShouldLoop": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "X",
+                "EntityID": 4
+            },
+            "UIComponent": {
+                "TextureName": "ExitGameX",
+                "PositionX": 0.9200000166893005,
+                "PositionY": 0.8700000047683716,
+                "ScaleX": 0.05000000074505806,
+                "ScaleY": 0.07999999821186066,
+                "Layer": 0.5,
+                "Selectable": true,
+                "Opcaity": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "HTP",
+                "EntityID": 5
+            },
+            "UIComponent": {
+                "TextureName": "HTP",
+                "PositionX": 0.0,
+                "PositionY": -0.6499999761581421,
+                "ScaleX": 0.30000001192092898,
+                "ScaleY": 0.15000000596046449,
+                "Layer": 0.5,
+                "Selectable": true,
+                "Opcaity": 0.800000011920929
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Cog",
+                "EntityID": 6
+            },
+            "UIComponent": {
+                "TextureName": "SettingsCog",
+                "PositionX": 0.800000011920929,
+                "PositionY": 0.8700000047683716,
+                "ScaleX": 0.05000000074505806,
+                "ScaleY": 0.07999999821186066,
+                "Layer": 0.5,
+                "Selectable": true,
                 "Opcaity": 1.0
             }
         }

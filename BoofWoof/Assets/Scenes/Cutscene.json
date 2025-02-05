@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "4dc79f19-87e2-477e-93ad-da26946dcc17",
+    "SceneGUID": "7950e554-6c56-4282-bf78-d765ad0e5ddf",
     "Entities": [
         {
             "MetadataComponent": {
@@ -7,14 +7,19 @@
                 "EntityID": 0
             },
             "UIComponent": {
-                "TextureID": 6,
+                "TextureName": "BlackScreen",
                 "PositionX": 0.0,
                 "PositionY": 0.0,
                 "ScaleX": 1.100000023841858,
                 "ScaleY": 1.0,
                 "Layer": 0.5,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -23,14 +28,19 @@
                 "EntityID": 1
             },
             "UIComponent": {
-                "TextureID": 235,
+                "TextureName": "panel1",
                 "PositionX": 0.0,
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -39,14 +49,19 @@
                 "EntityID": 2
             },
             "UIComponent": {
-                "TextureID": 239,
+                "TextureName": "panel2",
                 "PositionX": 0.0,
                 "PositionY": -1.2999999523162842,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -55,14 +70,19 @@
                 "EntityID": 3
             },
             "UIComponent": {
-                "TextureID": 241,
+                "TextureName": "panel4",
                 "PositionX": 0.0,
                 "PositionY": -1.2999999523162842,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -71,14 +91,19 @@
                 "EntityID": 4
             },
             "UIComponent": {
-                "TextureID": 240,
+                "TextureName": "panel3",
                 "PositionX": -0.03999999910593033,
                 "PositionY": -2.1500000953674318,
                 "ScaleX": 0.699999988079071,
                 "ScaleY": 0.699999988079071,
                 "Layer": 0.4700000286102295,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -87,14 +112,19 @@
                 "EntityID": 5
             },
             "UIComponent": {
-                "TextureID": 242,
+                "TextureName": "panel5",
                 "PositionX": 0.0,
                 "PositionY": -1.2999999523162842,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -103,14 +133,19 @@
                 "EntityID": 6
             },
             "UIComponent": {
-                "TextureID": 243,
+                "TextureName": "panel6",
                 "PositionX": 0.30000001192092898,
                 "PositionY": -0.9300000071525574,
                 "ScaleX": 0.699999988079071,
                 "ScaleY": 0.699999988079071,
                 "Layer": 0.4700000286102295,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -119,14 +154,19 @@
                 "EntityID": 7
             },
             "UIComponent": {
-                "TextureID": 244,
+                "TextureName": "panel7",
                 "PositionX": 0.0,
                 "PositionY": -1.2999999523162842,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -135,14 +175,19 @@
                 "EntityID": 8
             },
             "UIComponent": {
-                "TextureID": 245,
+                "TextureName": "panel8",
                 "PositionX": 0.0,
                 "PositionY": -1.2999999523162842,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -151,14 +196,19 @@
                 "EntityID": 9
             },
             "UIComponent": {
-                "TextureID": 246,
+                "TextureName": "panel9",
                 "PositionX": 0.0,
                 "PositionY": -1.2999999523162842,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -167,14 +217,19 @@
                 "EntityID": 10
             },
             "UIComponent": {
-                "TextureID": 236,
+                "TextureName": "panel10",
                 "PositionX": 0.0,
                 "PositionY": -1.2999999523162842,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -183,14 +238,19 @@
                 "EntityID": 11
             },
             "UIComponent": {
-                "TextureID": 237,
+                "TextureName": "panel11",
                 "PositionX": 0.0,
                 "PositionY": -1.2999999523162842,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -199,14 +259,36 @@
                 "EntityID": 12
             },
             "UIComponent": {
-                "TextureID": 238,
+                "TextureName": "panel12",
                 "PositionX": 0.0,
                 "PositionY": -1.2999999523162842,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 0.0
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "SpaceToSkip",
+                "EntityID": 13
+            },
+            "FontComponent": {
+                "Family": "manga-temple",
+                "PositionX": -0.9700000286102295,
+                "PositionY": 0.8999999761581421,
+                "ScaleX": 0.699999988079071,
+                "ScaleY": 1.100000023841858,
+                "ColorR": 1.0,
+                "ColorG": 1.0,
+                "ColorB": 1.0,
+                "Text": "Space To Skip"
             }
         }
     ]
