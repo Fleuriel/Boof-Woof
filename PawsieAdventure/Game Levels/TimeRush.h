@@ -131,6 +131,8 @@ class TimeRush : public Level
 			{
 				timesUp -= deltaTime;
 
+				// Times up! sound
+
 				// Wait for like 2 seconds then restart game
 				if (timesUp < 0.0) 
 				{
@@ -145,6 +147,7 @@ class TimeRush : public Level
 						g_TimerTR.Reset();
 
 						// after reset level, play back the bgm n sfx all again (THE BELOW COMMENTED OUT DOESN'T WORK)
+
 						/*g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 						g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());*/
 
