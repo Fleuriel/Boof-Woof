@@ -256,7 +256,7 @@ void GraphicsSystem::UpdateLoop() {
 		auto& ShaderName = material.GetShaderNameRef();
 
 #ifdef _DEBUG
-//		std::cout << "ShaderName: " << material.GetShaderName() << '\n';
+		std::cout << "ShaderName: " << material.GetShaderName() << '\n';
 
 #endif
 
@@ -273,52 +273,54 @@ void GraphicsSystem::UpdateLoop() {
 		}
 
 
-		if (g_Coordinator.HaveComponent<AnimationComponent>(entity)) {
-			auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
-			auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-			auto& material = graphicsComp.material;
-
-			// Use the animation shader
-			g_AssetManager.GetShader("ShaderAnimation").Use();
-
-			// Set common shader uniforms (view, projection, world matrix)
-			g_AssetManager.GetShader("ShaderAnimation").SetUniform("uView", shdrParam.View);
-			g_AssetManager.GetShader("ShaderAnimation").SetUniform("uProjection", shdrParam.Projection);
-			g_AssetManager.GetShader("ShaderAnimation").SetUniform("uModel", shdrParam.WorldMatrix);
-
-			// Get bone transformations from the AnimationComponent
-			const auto& boneTransforms = animationComp.GetBoneTransformsAtTime(animationComp.GetCurrentTime());
-
-			// Pass bone transformations to the shader
-			for (size_t i = 0; i < boneTransforms.size(); i++) {
-				std::string uniformName = "uBoneTransforms[" + std::to_string(i) + "]";
-				g_AssetManager.GetShader("ShaderAnimation").SetUniform(uniformName.c_str(), boneTransforms[i]);
-			}
-
-			// Draw the animated model
-//			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("ShaderAnimation"));
-
-			std::cout << "Model name: \t" << graphicsComp.getModelName() << '\n';
-
-			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("ShaderAnimation"));
-
-			// Unbind the shader
-			g_AssetManager.GetShader("ShaderAnimation").UnUse();
-
-			continue; // Skip the rest of the loop for this entity
-		}
+		//if (g_Coordinator.HaveComponent<AnimationComponent>(entity)) {
+		//	auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
+		//
+		//	// Use the animation shader
+		//	g_AssetManager.GetShader("ShaderAnimation").Use();
+		//
+		//	// Set common shader uniforms (view, projection, world matrix)
+		//	g_AssetManager.GetShader("ShaderAnimation").SetUniform("uView", shdrParam.View);
+		//	g_AssetManager.GetShader("ShaderAnimation").SetUniform("uProjection", shdrParam.Projection);
+		//	g_AssetManager.GetShader("ShaderAnimation").SetUniform("uModel", shdrParam.WorldMatrix);
+		//
+		//	// Get bone transformations from the AnimationComponent
+		//	const auto& boneTransforms = animationComp.GetBoneTransformsAtTime(animationComp.GetCurrentTime());
+		//
+		//	// Pass bone transformations to the shader
+		//	for (size_t i = 0; i < boneTransforms.size(); i++) {
+		//		std::string uniformName = "uBoneTransforms[" + std::to_string(i) + "]";
+		//		g_AssetManager.GetShader("ShaderAnimation").SetUniform(uniformName.c_str(), boneTransforms[i]);
+		//	}
+		//
+		//	// Draw the animated model
+//		//	g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("ShaderAnimation"));
+		//
+		//	std::cout << "Model name: \t" << graphicsComp.getModelName() << '\n';
+		//
+		//	g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader("ShaderAnimation"));
+		//
+		//	// Unbind the shader
+		//	g_AssetManager.GetShader("ShaderAnimation").UnUse();
+		//
+		//	continue; // Skip the rest of the loop for this entity
+		//}
 
 
-		std::cout << "entered3\n";
-		if (ShaderName == "Shader3D" && g_Coordinator.HaveComponent<AnimationComponent>(entity)) {
-			std::string ShaderName = "ShaderAnimation";
+		std::cout << ShaderName << '\n';
+
+		if (ShaderName == "ShaderAnimation" && g_Coordinator.HaveComponent<AnimationComponent>(entity)) {
+			//std::string ShaderName = "ShaderAnimation";
+			std::cout << "entered2\n";
 			auto shader = g_AssetManager.GetShader(ShaderName);
 
+			std::cout << "entered2\n";
 			// Set standard transformation matrices
-			shader.SetUniform("uModel", shdrParam.WorldMatrix);
-			shader.SetUniform("uView", glm::mat4(1.0f));
-			shader.SetUniform("uProjection", glm::mat4(1.0f));
+			g_AssetManager.GetShader(ShaderName).SetUniform("uModel", shdrParam.WorldMatrix);
+			g_AssetManager.GetShader(ShaderName).SetUniform("uView", glm::mat4(1.0f));
+			g_AssetManager.GetShader(ShaderName).SetUniform("uProjection", glm::mat4(1.0f));
 
+			std::cout << "entered23\n";
 			// Pass bone transformation matrices
 			std::vector<glm::mat4> boneTransforms{}; //= graphicsComp.GetBoneTransforms(); // Assume this function exists
 			for (size_t i = 0; i < boneTransforms.size(); i++) {
@@ -326,14 +328,20 @@ void GraphicsSystem::UpdateLoop() {
 				shader.SetUniform(uniformName.c_str(), boneTransforms[i]);
 			}
 
-			// Pass lighting parameters
-			shader.SetUniform("uLightPosition", lights_infos[0].position); // Assuming 1 light for now
-			shader.SetUniform("uLightColor", lights_infos[0].color);
-			shader.SetUniform("uAmbientColor", glm::vec3(0.1f, 0.1f, 0.1f)); // Example ambient color
-			shader.SetUniform("uViewPosition", camera_render.Position);
+			for (int i = 0; i < lights_infos.size(); i++)
+			{
+				// Pass lighting parameters
+				shader.SetUniform("uLightPosition", lights_infos[0].position); // Assuming 1 light for now
 
+				std::cout << "entered52\n";
+				shader.SetUniform("uLightColor", lights_infos[0].color);
+				std::cout << "entered53\n";
+				shader.SetUniform("uAmbientColor", glm::vec3(0.1f, 0.1f, 0.1f)); // Example ambient color
+				std::cout << "entered54\n";
+				shader.SetUniform("uViewPosition", camera_render.Position);
+			}
 
-			std::cout << "entered2\n";
+		
 
 			// Material properties (if needed)
 			// shader.SetUniform("finalAlpha", material.GetFinalAlpha());
@@ -356,10 +364,10 @@ void GraphicsSystem::UpdateLoop() {
 			//shader.SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
 
 			// Draw the animated model
-//			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(shader);
+			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(shader);
 		}
 
-		else if (ShaderName == "Shader3D" && !g_Coordinator.HaveComponent<AnimationComponent>(entity))
+		if (ShaderName == "Shader3D" && !g_Coordinator.HaveComponent<AnimationComponent>(entity))
 		{
 
 			// START OF 3D
@@ -454,6 +462,8 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", material.GetColor());
 
 
+			std::cout << "why enter herer tho?\n";
+
 
 			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(g_AssetManager.GetShader(ShaderName));
 
@@ -547,6 +557,8 @@ void GraphicsSystem::UpdateLoop() {
 
 
 		}
+		
+		
 		else if (ShaderName == "OutlineAndFont")
 		{
 			SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
