@@ -180,34 +180,31 @@ GLFWwindow* Window::GetGLFWWindow()
 
 void Window::OnUpdate()
 {
-    // Calculate deltaTime
-    static double lastTime = glfwGetTime(); // Store the time of the last frame
-    double currentTime = glfwGetTime();      // Get the current time
-    m_DeltaTime = currentTime - lastTime;    // Calculate the time difference (deltaTime)
-    lastTime = currentTime;                  // Update the last time for the next frame
+    // Update 
+    OnUpdateFPS(1.0);
 
-    // Update FPS and frame count
-    OnUpdateFPS(m_DeltaTime);
-
-    // Increment frame count for each update
+    // no of frames if u ever need it
     m_FrameCount++;
 
     std::stringstream ss;
     ss << std::fixed;
     ss.precision(2);
     ss << m_Title;
-
 #ifdef _DEBUG
     ss << " | " << "FPS: " << g_Window->GetFPS();
 #endif
-
     glfwSetWindowTitle(m_Window, ss.str().c_str());
 
     // Swap Buffers and Poll the events
     glfwSwapBuffers(g_Window->GetGLFWWindow());
     glfwPollEvents();
 
-    // Monitor asset loading periodically
+    // full screen ?
+
+
+
+
+
     m_AssetManagerMonitoringTimer += static_cast<float>(m_DeltaTime);
 
     if (g_AssetManager.Currentlyloading == false && m_AssetManagerMonitoringTimer > 1.f) {
@@ -223,9 +220,6 @@ void Window::OnUpdate()
     }
 
 
-		glfwGetWindowSize(m_Window, &g_WindowX, &g_WindowY);
-
-	
 }
 
 void Window::OnShutdown()
@@ -285,7 +279,7 @@ float Window::GetAspectRatio()
  * @brief This function checks if the GLFW window is currently in
           fullscreen mode.
  *************************************************************************/
-bool Window::isFullScreen(GLFWwindow* widow) {
+bool isFullScreen(GLFWwindow* widow) {
     return (glfwGetWindowMonitor(widow) != nullptr);
 }
 

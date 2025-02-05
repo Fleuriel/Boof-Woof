@@ -26,14 +26,12 @@ int main()
 	// refer to stack frame and see where it all went wrong
 	//_crtBreakAlloc = 20649858;
 
-	//DLL_Support_Init();
+	DLL_Support_Init();
 
     // Start the directory monitoring in a separate thread
     //std::thread monitorThread(MonitorDirectory);
 
 	
-
-
 
     MSG msg;
 	UNREFERENCED_PARAMETER(msg);
@@ -51,7 +49,6 @@ int main()
 		glfwPollEvents();
 		//DLL_Support_Update();
 		g_Core->OnUpdate();
-		g_Input.UpdateStatesForNextFrame();
 		g_ImGuiEditor.ImGuiUpdate();
 		g_ImGuiEditor.ImGuiRender();
 	}

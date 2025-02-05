@@ -188,7 +188,6 @@ xcopy "$(SolutionDir)bin\Release-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDir
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game Levels\Cutscene.h" />
-    <ClInclude Include="Game Levels\LoadingLevel.h" />
     <ClInclude Include="Game Levels\MainHall.h" />
     <ClInclude Include="Game Levels\StartingRoom.h" />
     <ClInclude Include="Game Levels\MainMenu.h" />

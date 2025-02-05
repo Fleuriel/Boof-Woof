@@ -11,7 +11,6 @@
 #include "Game Levels/StartingRoom.h"
 #include "Game Levels/TimeRush.h"
 #include "Game Levels/MainHall.h"
-#include "Game Levels/LoadingLevel.h"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 
 EngineCore* g_Core = nullptr;
@@ -25,7 +24,6 @@ void InitializeLevels()
     g_LevelManager.RegisterLevel("StartingRoom", new StartingRoom());
     g_LevelManager.RegisterLevel("TimeRush", new TimeRush());
     g_LevelManager.RegisterLevel("MainHall", new MainHall());
-    g_LevelManager.RegisterLevel("LoadingLevel", new LoadingLevel());
 
     // Set the initial level
     g_LevelManager.Initialize("Splashscreen");

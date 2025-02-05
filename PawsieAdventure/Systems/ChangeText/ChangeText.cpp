@@ -3,6 +3,10 @@
 #include "../Checklist/Checklist.h"
 #include "../Core/AssetManager/FilePaths.h"
 
+#include "ChangeText.h"
+#include "ResourceManager/ResourceManager.h"
+#include "../Checklist/Checklist.h"
+
 ChangeText g_ChangeText;
 Serialization serialText;
 
@@ -42,9 +46,8 @@ void ChangeText::OnUpdate(double deltaTime)
 		std::string newTextureName = "CorgiText" + std::to_string(textureIndex + 1);
 
 		//int oldTextureId = text.get_textureid();
-		//int textureId = g_ResourceManager.GetTextureDDS(newTextureName);
-		//text.set_textureid(textureId);
-		text.set_texturename(newTextureName);
+		int textureId = g_ResourceManager.GetTextureDDS(newTextureName);
+		text.set_textureid(textureId);
 
 		cdTimer = 0.0;  // Reset the timer after each texture change
 		textureIndex++;  // Move to the next texture
@@ -74,7 +77,7 @@ void ChangeText::OnShutdown()
 	}
 
 	// Just for StartingRoom.h
-	if (!g_Checklist.shutted && startingRoomOnly)
+	if (!g_Checklist.shutted)
 	{
 		g_Checklist.OnInitialize();
 		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do1");
@@ -84,12 +87,4 @@ void ChangeText::OnShutdown()
 	}
 
 	shutted = true;
-}
-
-void ChangeText::Reset()
-{
-	shutted = false;
-	textureIndex = 4;
-	indexLimit = 6;
-	startingRoomOnly = false;
 }

@@ -23,7 +23,6 @@
 #include "../Utilities/Components/LightComponent.hpp"
 #include "../Utilities/Components/UIComponent.hpp"
 #include "../Utilities/Components/FontComponent.hpp"
-#include "../Utilities/Components/PathfindingComponent.hpp"
 
 #include "Windows/WindowManager.h"
 #include "AssetManager/AssetManager.h"
@@ -34,7 +33,6 @@
 #include "Physics/PhysicsSystem.h"
 #include "Physics/CollisionSystem.h"
 #include "Graphics/TransformSystem.hpp"
-#include "Pathfinding/PathfindingSystem.h"
 #include "UI/UISystem.h"
 
 

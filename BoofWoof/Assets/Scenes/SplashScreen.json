@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "93460cc1-d12a-4944-88d5-d9882881c76c",
+    "SceneGUID": "90ec7c55-c688-4f29-94be-685c43b6c626",
     "Entities": [
         {
             "MetadataComponent": {
@@ -7,7 +7,7 @@
                 "EntityID": 0
             },
             "UIComponent": {
-                "TextureName": "BlackScreen",
+                "TextureID": 6,
                 "PositionX": 0.0,
                 "PositionY": 0.0,
                 "ScaleX": 1.100000023841858,
@@ -23,7 +23,7 @@
                 "EntityID": 1
             },
             "UIComponent": {
-                "TextureName": "Digipen_Logo",
+                "TextureID": 32,
                 "PositionX": 0.0,
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
