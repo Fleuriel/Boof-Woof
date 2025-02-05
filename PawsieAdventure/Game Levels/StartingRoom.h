@@ -20,7 +20,7 @@ public:
 
 	void LoadLevel() override
 	{
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom_Light.json");
 		
 		g_ChangeText.OnInitialize();
 

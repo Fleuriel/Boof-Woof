@@ -22,7 +22,7 @@ void InitializeLevels()
     g_LevelManager.RegisterLevel("Splashscreen", new Splashscreen());
     g_LevelManager.RegisterLevel("MainMenu", new MainMenu());
     g_LevelManager.RegisterLevel("Cutscene", new Cutscene());
-    g_LevelManager.RegisterLevel("StartingRoom", new StartingRoom());
+    g_LevelManager.RegisterLevel("StartingRoom_Light", new StartingRoom());
     g_LevelManager.RegisterLevel("TimeRush", new TimeRush());
     g_LevelManager.RegisterLevel("MainHall", new MainHall());
     g_LevelManager.RegisterLevel("LoadingLevel", new LoadingLevel());
