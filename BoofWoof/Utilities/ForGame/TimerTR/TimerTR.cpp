@@ -38,14 +38,21 @@ void TimerTR::OnUpdate(double deltaTime)
 		if (timer < 0.0)
 		{
 			timer = 0.0;
+			text.set_pos(glm::vec2(0.748f, 0.76f));
+			text.set_scale(glm::vec2(0.8f, 2.1f));
+			text.set_text("Times Up!");
+			text.set_color(glm::vec3(255,0,0));
 		}
 
-		// Format the time in minutes and seconds
-		int minutes = static_cast<int>(timer) / 60;
-		int seconds = static_cast<int>(timer) % 60;
+		if (timer != 0.0) 
+		{
+			// Format the time in minutes and seconds
+			int minutes = static_cast<int>(timer) / 60;
+			int seconds = static_cast<int>(timer) % 60;
 
-		// Display the formatted time as "MM:SS"
-		text.set_text(std::to_string(minutes) + ":" + (seconds < 10 ? "0" : "") + std::to_string(seconds));
+			// Display the formatted time as "MM:SS"
+			text.set_text(std::to_string(minutes) + ":" + (seconds < 10 ? "0" : "") + std::to_string(seconds));
+		}
 	}
 	else
 	{

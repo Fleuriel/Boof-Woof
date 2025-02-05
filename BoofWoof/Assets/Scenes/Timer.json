@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "d9dde3eb-0a54-4656-82f0-9303532f831d",
+    "SceneGUID": "31316a7f-dc64-43cc-873d-05431a195de5",
     "Entities": [
         {
             "MetadataComponent": {
@@ -25,14 +25,14 @@
         {
             "MetadataComponent": {
                 "EntityName": "Timer",
-                "EntityID": 2
+                "EntityID": 1
             },
             "FontComponent": {
-                "Family": "manga-temple",
+                "Family": "arial",
                 "PositionX": 0.7480000257492065,
                 "PositionY": 0.75,
-                "ScaleX": 1.5,
-                "ScaleY": 2.299999952316284,
+                "ScaleX": 1.7999999523162842,
+                "ScaleY": 2.799999952316284,
                 "ColorR": 1.0,
                 "ColorG": 1.0,
                 "ColorB": 1.0,

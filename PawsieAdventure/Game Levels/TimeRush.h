@@ -20,6 +20,7 @@ class TimeRush : public Level
 	bool isColorChanged = false;
 
 	bool finishTR{ false };
+	double timesUp = 2.0;
 
 	void LoadLevel() override
 	{
@@ -128,20 +129,28 @@ class TimeRush : public Level
 			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
 			if (g_TimerTR.timer == 0.0) 
 			{
-				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
-				if (loading)
+				timesUp -= deltaTime;
+
+				// Wait for like 2 seconds then restart game
+				if (timesUp < 0.0) 
 				{
-					// Pass in the name of the real scene we want AFTER the loading screen
-					loading->m_NextScene = "TimeRush";
+					timesUp = 0.0;
 
-					g_TimerTR.Reset();
+					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+					if (loading)
+					{
+						// Pass in the name of the real scene we want AFTER the loading screen
+						loading->m_NextScene = "TimeRush";
 
-					// need to add in the song
-					g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
-					g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
+						g_TimerTR.Reset();
 
-					g_LevelManager.SetNextLevel("LoadingLevel");
-				}
+						// after reset level, play back the bgm n sfx all again (THE BELOW COMMENTED OUT DOESN'T WORK)
+						/*g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
+						g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());*/
+
+						g_LevelManager.SetNextLevel("LoadingLevel");
+					}
+				}		
 			}
 
 			// Particles
