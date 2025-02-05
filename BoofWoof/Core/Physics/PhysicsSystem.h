@@ -320,7 +320,14 @@ public:
             auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
             auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
 
-            
+            collisionComponent1.SetSurfaceNormal(glm::vec3(inManifold.mWorldSpaceNormal.GetX(),
+                inManifold.mWorldSpaceNormal.GetY(),
+                inManifold.mWorldSpaceNormal.GetZ()));
+
+            collisionComponent2.SetSurfaceNormal(glm::vec3(inManifold.mWorldSpaceNormal.GetX(),
+                inManifold.mWorldSpaceNormal.GetY(),
+                inManifold.mWorldSpaceNormal.GetZ()));
+
             /*
             if (g_Coordinator.HaveComponent<GraphicsComponent>(entity1)) {
                 auto& graphicsComponent2 = g_Coordinator.GetComponent<GraphicsComponent>(entity2);
