@@ -10,7 +10,7 @@ public:
 	void OnShutdown();
 	void Reset();
 
-private:
+public:
 	Entity m_Timer{};
 	double timer = 180.0; // 3 minutes in seconds
 	double interval = 1.0; // Time interval in seconds
