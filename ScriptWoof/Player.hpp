@@ -54,14 +54,28 @@ struct Player final : public Behaviour
 			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			isMoving = false;
 
-		//// Debug for movement
-		//glm::vec3 currentPos = m_Engine.GetPosition(entity);
-		//std::cout << "[Pathfinding] Entity " << entity << " is currently at Position: ("
-		//	<< currentPos.x << ", " << currentPos.y << ", " << currentPos.z << ")" << std::endl;
+			// Get surface normal
+			glm::vec3 surfaceNormal = m_Engine.GetSurfaceNormal(entity);
+			bool isOnSlope = (abs(surfaceNormal.y) < 0.99f && abs(surfaceNormal.y) > 0.3f);
+			isGrounded = (m_Engine.IsGrounded(entity) || isOnSlope);
 
-		//double deltaTime = m_Engine.GetDeltaTime(); // Get delta time
+
+			// Debug Output
+			std::cout << "Entity: " << entity
+				<< " | Grounded: " << (isGrounded ? "Yes" : "No")
+				<< " | On Slope: " << (isOnSlope ? "Yes" : "No")
+				<< " | Surface Normal: (" << surfaceNormal.x << ", " << surfaceNormal.y << ", " << surfaceNormal.z << ")"
+				<< " | Velocity: (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")"
+				<< std::endl;
+
+			//// Debug for movement
+			//glm::vec3 currentPos = m_Engine.GetPosition(entity);
+			//std::cout << "[Pathfinding] Entity " << entity << " is currently at Position: ("
+			//	<< currentPos.x << ", " << currentPos.y << ", " << currentPos.z << ")" << std::endl;
+
+			//double deltaTime = m_Engine.GetDeltaTime(); // Get delta time
 		
-		//std::cout << "[DEBUG] Delta Time: " << deltaTime << std::endl;
+			//std::cout << "[DEBUG] Delta Time: " << deltaTime << std::endl;
 
 			// Debug: Starting state
 			//std::cout << "[DEBUG] Start of Update: Entity = " << entity
@@ -124,13 +138,12 @@ struct Player final : public Behaviour
 			}
 
 
+			// Allow movement only if the player is grounded
+			if (isGrounded && !inRopeBreaker)
+			{
 
-		// Allow movement only if the player is grounded
-		if (isGrounded && !inRopeBreaker)
-		{
-
-
-			if (m_Engine.HaveCameraComponent(entity)) {
+				if (m_Engine.HaveCameraComponent(entity)) 
+				{
 
 					if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
 					{
@@ -189,7 +202,9 @@ struct Player final : public Behaviour
 						isMoving = true;
 					}
 				}
-				else {
+
+				else 
+				{
 					if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
 					{
 						velocity.z -= 1;
@@ -218,13 +233,37 @@ struct Player final : public Behaviour
 				// Normalize the velocity
 				velocity *= speed;
 
-		}
-		if (isMoving)
-		{
-			// Use modern C++ random library to select a random sound
-			static std::random_device rd; // Seed
-			static std::mt19937 gen(rd()); // Mersenne Twister PRNG
-			std::uniform_int_distribution<std::size_t> dis(0, footstepSounds.size() - 1);
+				// Adjust movement for slopes
+				if (isOnSlope)
+				{
+					velocity = velocity - glm::dot(velocity, surfaceNormal) * surfaceNormal;
+				}
+			}
+
+			// Stop sliding when standing still on a slope, but allow movement if input is pressed
+			if (!isMoving && isOnSlope)
+			{
+				currentVelocity = m_Engine.GetVelocity(entity);
+
+				// If no movement keys are pressed, prevent slide
+				if (!(m_Engine.getInputSystem().isActionPressed("MoveForward") ||
+					m_Engine.getInputSystem().isActionPressed("MoveLeft") ||
+					m_Engine.getInputSystem().isActionPressed("MoveBackward") ||
+					m_Engine.getInputSystem().isActionPressed("MoveRight")))
+				{
+					velocity = glm::vec3(0.0f);
+					m_Engine.SetVelocity(entity, velocity);
+					std::cout << "[DEBUG] Preventing slide on slope. Entity: " << entity << std::endl;
+				}
+			}
+
+
+			if (isMoving)
+			{
+				// Use modern C++ random library to select a random sound
+				static std::random_device rd; // Seed
+				static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+				std::uniform_int_distribution<std::size_t> dis(0, footstepSounds.size() - 1);
 
 				// Get a random sound ID
 				std::string randomSound = footstepSounds[dis(gen)];

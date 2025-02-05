@@ -113,8 +113,8 @@ public:
         m_Friction = glm::clamp(friction, 0.8f, 2.0f); // Prevent too low friction
     }
 
-    void SetSurfaceNormal(const glm::vec3& normal) { m_SurfaceNormal = glm::normalize(normal); }
-    glm::vec3 GetSurfaceNormal() const { return m_SurfaceNormal; }
+    void SetCollisionNormal(const glm::vec3& normal) { m_CollisionNormal = normal; }
+    glm::vec3 GetCollisionNormal() const { return m_CollisionNormal; }
 
     // Reflection integration
     REFLECT_COMPONENT(CollisionComponent)
@@ -127,7 +127,7 @@ public:
         REGISTER_PROPERTY(CollisionComponent, AABBOffset, glm::vec3, SetAABBOffset, GetAABBOffset); // Add this line
         REGISTER_PROPERTY(CollisionComponent, IsGrounded, bool, SetIsGrounded, GetIsGrounded);  // Add this line
         REGISTER_PROPERTY(CollisionComponent, Friction, float, SetFriction, GetFriction);
-        REGISTER_PROPERTY(CollisionComponent, SurfaceNormal, glm::vec3, SetSurfaceNormal, GetSurfaceNormal);
+        REGISTER_PROPERTY(CollisionComponent, CollisionNormal, glm::vec3, SetCollisionNormal, GetCollisionNormal);
     }
 
 private:
@@ -145,7 +145,7 @@ private:
     float mass = 0.0f; // Default mass value
     float m_ActualMass = 0.0f;
     float m_Friction = 0.8f;
-    glm::vec3 m_SurfaceNormal = glm::vec3(0.0f, 1.0f, 0.0f); // Default normal pointing up
+    glm::vec3 m_CollisionNormal = glm::vec3(0.0f, 1.0f, 0.0f); // Default normal pointing up
 
 };
 

@@ -320,13 +320,21 @@ public:
             auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
             auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
 
-            collisionComponent1.SetSurfaceNormal(glm::vec3(inManifold.mWorldSpaceNormal.GetX(),
+            // Capture the normal of the contact
+            glm::vec3 contactNormal = glm::vec3(
+                inManifold.mWorldSpaceNormal.GetX(),
                 inManifold.mWorldSpaceNormal.GetY(),
-                inManifold.mWorldSpaceNormal.GetZ()));
+                inManifold.mWorldSpaceNormal.GetZ());
 
-            collisionComponent2.SetSurfaceNormal(glm::vec3(inManifold.mWorldSpaceNormal.GetX(),
-                inManifold.mWorldSpaceNormal.GetY(),
-                inManifold.mWorldSpaceNormal.GetZ()));
+            if (contactNormal.y < 0) {
+                contactNormal = -contactNormal; // Flip normal if it's pointing down
+            }
+
+            collisionComponent1.SetCollisionNormal(contactNormal);
+            collisionComponent2.SetCollisionNormal(contactNormal);
+
+            collisionComponent1.SetIsColliding(true);
+            collisionComponent2.SetIsColliding(true);
 
             /*
             if (g_Coordinator.HaveComponent<GraphicsComponent>(entity1)) {

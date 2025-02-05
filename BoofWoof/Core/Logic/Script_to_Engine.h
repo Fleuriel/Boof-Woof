@@ -175,6 +175,22 @@ public:
 		}
 	}
 
+	virtual glm::vec3 GetSurfaceNormal(Entity entity) override
+	{
+		if (HaveCollisionComponent(entity))
+		{
+			auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+			if (collisionComp.GetIsColliding())
+			{
+				return collisionComp.GetCollisionNormal(); // Return detected normal
+			}
+		}
+		return glm::vec3(0.0f, 1.0f, 0.0f); // Default to flat ground if no collision
+	}
+
+
+
+
 	virtual double GetDeltaTime() override
 	{
 		return g_Core ? g_Core->m_DeltaTime : 0.0;

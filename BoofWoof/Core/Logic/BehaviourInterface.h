@@ -52,6 +52,7 @@ struct engine_interface
 	virtual bool IsColliding(Entity entity) = 0;
 	virtual const char* GetCollidingEntityName(Entity entity) = 0;
 	virtual void SetVelocity(Entity entity, glm::vec3 velocity) = 0;
+	virtual glm::vec3 GetSurfaceNormal(Entity entity) = 0;
 
 	// Pathfinding functions
 	virtual bool HavePathfindingComponent(Entity entity) = 0;
