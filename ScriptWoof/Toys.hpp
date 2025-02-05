@@ -14,11 +14,11 @@ struct Toys final : public Behaviour
 		{
 			const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
 
-			std::cout << "Scripted Entity is colliding with " << collidingEntityName << std::endl;
+			//std::cout << "Scripted Entity is colliding with " << collidingEntityName << std::endl;
 
 			if (std::strcmp(collidingEntityName, "Player") == 0)
 			{
-				std::cout << "Player is colliding with toys" << std::endl;
+				//std::cout << "Player is colliding with toys" << std::endl;
 
 				//Play sound
 				//m_Engine.getAudioSystem().PlaySound("ToysSound");
@@ -29,11 +29,8 @@ struct Toys final : public Behaviour
 
 				//Reduce timer by 10 seconds
 				double currTimer = m_Engine.GetTimerTiming();
-				std::cout << "Timer: " << currTimer << std::endl;
 				double newTimer = currTimer - 10.0;
 				m_Engine.SetTimerTiming(newTimer);
-
-				std::cout << "Timer: " << newTimer << std::endl;
 			}
 		}
 	}

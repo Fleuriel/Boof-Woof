@@ -240,7 +240,6 @@ public:
 	virtual double SetTimerTiming(double timing) override {
 		return g_TimerTR.timer = timing;
 	}
-
 };
 
 #endif // !SCRIPT_TO_ENGINE_H

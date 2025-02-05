@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "8e64345c-651d-4ab8-b3f9-37c679cb50d3",
+    "SceneGUID": "ccfa708a-4c9a-4293-a8ad-15fe30ffab6c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -200,9 +200,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 18.83143424987793,
-                    "y": 0.9998434782028198,
-                    "z": 6.3636627197265629
+                    "x": 18.82413673400879,
+                    "y": 0.9996601939201355,
+                    "z": 6.364487648010254
                 },
                 "Scale": {
                     "x": 0.5,
@@ -246,7 +246,7 @@
             "CameraComponent": {
                 "Position": {
                     "x": 18.829999923706056,
-                    "y": 1.2999999523162842,
+                    "y": 1.399999976158142,
                     "z": 5.199999809265137
                 },
                 "Yaw": -90.0,
@@ -14243,117 +14243,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -7.010000228881836,
+                    "x": -3.9619381427764894,
                     "y": 0.29225799441337588,
-                    "z": -7.409239768981934
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "TennisBall",
-                "FollowCamera": true
-            },
-            "HierarchyComponent": {
-                "Parent": 314,
-                "Children": []
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Ball",
-                "EntityID": 312
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 7.284999847412109,
-                    "y": 0.29225799441337588,
-                    "z": -7.76200008392334
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 1.549715518951416,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "TennisBall",
-                "FollowCamera": true
-            },
-            "HierarchyComponent": {
-                "Parent": 314,
-                "Children": []
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Ball",
-                "EntityID": 313
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 7.513000011444092,
-                    "y": 0.29228198528289797,
-                    "z": 7.802000045776367
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 0.3714737594127655,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "TennisBall",
-                "FollowCamera": true
-            },
-            "HierarchyComponent": {
-                "Parent": 314,
-                "Children": []
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Ball",
-                "EntityID": 314
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -4.703000068664551,
-                    "y": 0.29225799441337588,
-                    "z": -6.348599910736084
+                    "z": -6.804532527923584
                 },
                 "Scale": {
                     "x": 0.10000000149011612,
@@ -14378,22 +14270,14 @@
             "BehaviourComponent": {
                 "BehaviourName": "Toys"
             },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": [
-                    313,
-                    312,
-                    311
-                ]
-            },
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 10.0,
+                    "x": 2.0,
                     "y": 1.899999976158142,
-                    "z": 10.0
+                    "z": 1.899999976158142
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -14406,7 +14290,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail7",
-                "EntityID": 315
+                "EntityID": 312
             },
             "TransformComponent": {
                 "Position": {
@@ -14478,45 +14362,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Bone",
-                "EntityID": 316
+                "EntityID": 313
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 31.476829528808595,
-                    "y": 0.3165372312068939,
-                    "z": -33.13547897338867
-                },
-                "Scale": {
-                    "x": 0.5,
-                    "y": 0.5,
-                    "z": 0.5
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.48184722661972048,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bone",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bone",
-                "EntityID": 317
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 32.2381591796875,
-                    "y": 0.3165372312068939,
-                    "z": -33.13547897338867
+                    "x": 32.13800048828125,
+                    "y": 0.21699999272823335,
+                    "z": -33.5359992980957
                 },
                 "Scale": {
                     "x": 0.4999999403953552,
@@ -14537,76 +14389,31 @@
             "GraphicsComponent": {
                 "ModelName": "Bone",
                 "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bone",
-                "EntityID": 318
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 32.2381591796875,
-                    "y": 0.3165372312068939,
-                    "z": -34.67670440673828
-                },
-                "Scale": {
-                    "x": 0.49999988079071047,
-                    "y": 0.5,
-                    "z": 0.49999988079071047
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.3712930977344513,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
+            "BehaviourComponent": {
+                "BehaviourName": "Toys"
             },
-            "GraphicsComponent": {
-                "ModelName": "Bone",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bone",
-                "EntityID": 319
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 31.202592849731447,
-                    "y": 0.3165372312068939,
-                    "z": -34.67670440673828
-                },
-                "Scale": {
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
                     "x": 0.5,
-                    "y": 0.5,
-                    "z": 0.5
+                    "y": 0.15000000596046449,
+                    "z": 1.149999976158142
                 },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.8948137164115906,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
+                "AABBOffset": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bone",
-                "FollowCamera": true
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail8",
-                "EntityID": 320
+                "EntityID": 314
             },
             "TransformComponent": {
                 "Position": {
@@ -14678,12 +14485,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ball",
-                "EntityID": 321
+                "EntityID": 315
             },
             "TransformComponent": {
                 "Position": {
                     "x": 11.570657730102539,
-                    "y": 0.29225796461105349,
+                    "y": 0.37885355949401858,
                     "z": -48.33852767944336
                 },
                 "Scale": {
@@ -14705,44 +14512,31 @@
             "GraphicsComponent": {
                 "ModelName": "TennisBall",
                 "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Ball",
-                "EntityID": 322
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 11.242823600769043,
-                    "y": 0.29225796461105349,
-                    "z": -47.77946472167969
+            "BehaviourComponent": {
+                "BehaviourName": "Toys"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 1.7999999523162842,
+                    "z": 1.899999976158142
                 },
-                "Scale": {
-                    "x": 0.10000000149011612,
-                    "y": 0.10000000149011612,
-                    "z": 0.10000000149011612
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
+                "AABBOffset": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "TennisBall",
-                "FollowCamera": true
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail9",
-                "EntityID": 323
+                "EntityID": 316
             },
             "TransformComponent": {
                 "Position": {
@@ -14814,13 +14608,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Bone",
-                "EntityID": 324
+                "EntityID": 317
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 24.426986694335939,
-                    "y": 0.3165372312068939,
-                    "z": -79.71994018554688
+                    "x": 22.87380027770996,
+                    "y": 0.21699999272823335,
+                    "z": -79.96410369873047
                 },
                 "Scale": {
                     "x": 0.49999988079071047,
@@ -14841,44 +14635,31 @@
             "GraphicsComponent": {
                 "ModelName": "Bone",
                 "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bone",
-                "EntityID": 325
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 22.186668395996095,
-                    "y": 0.3165372312068939,
-                    "z": -80.59220123291016
+            "BehaviourComponent": {
+                "BehaviourName": "Toys"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.15000000596046449,
+                    "z": 1.149999976158142
                 },
-                "Scale": {
-                    "x": 0.49999988079071047,
-                    "y": 0.5,
-                    "z": 0.49999988079071047
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.24303537607192994,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
+                "AABBOffset": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bone",
-                "FollowCamera": true
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Particle",
-                "EntityID": 326
+                "EntityID": 318
             },
             "TransformComponent": {
                 "Position": {
@@ -14950,13 +14731,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Particle",
-                "EntityID": 327
+                "EntityID": 319
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 31.564390182495118,
-                    "y": 1.6388940811157227,
-                    "z": -33.44936752319336
+                    "x": 32.0989990234375,
+                    "y": 0.8513910174369812,
+                    "z": -33.08000183105469
                 },
                 "Scale": {
                     "x": 1.0,
@@ -15022,13 +14803,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Particle",
-                "EntityID": 328
+                "EntityID": 320
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 11.402881622314454,
-                    "y": 1.6388940811157227,
-                    "z": -48.025020599365237
+                    "x": 11.760005950927735,
+                    "y": 0.9158691167831421,
+                    "z": -48.4029541015625
                 },
                 "Scale": {
                     "x": 1.0,
@@ -15094,13 +14875,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Particle",
-                "EntityID": 329
+                "EntityID": 321
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 22.496915817260743,
-                    "y": 1.6388940811157227,
-                    "z": -79.69705963134766
+                    "x": 22.71921730041504,
+                    "y": 1.1677961349487305,
+                    "z": -78.90706634521485
                 },
                 "Scale": {
                     "x": 1.0,
@@ -15126,7 +14907,7 @@
                 },
                 "PositionMax": {
                     "x": 0.0,
-                    "y": 0.5,
+                    "y": 0.10000000149011612,
                     "z": 0.0
                 },
                 "Density": 0.10000000149011612,
@@ -15136,20 +14917,15 @@
                     {
                         "x": 0.0,
                         "y": 0.0,
-                        "z": 0.0
+                        "z": 0.5
                     },
                     {
                         "x": 1.0,
-                        "y": 0.0,
+                        "y": 0.8999999761581421,
                         "z": 0.0
                     },
                     {
                         "x": 0.0,
-                        "y": 1.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": -1.0,
                         "y": 0.0,
                         "z": 0.0
                     }

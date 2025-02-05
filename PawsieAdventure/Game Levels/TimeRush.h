@@ -125,6 +125,25 @@ class TimeRush : public Level
 
 			g_TimerTR.OnUpdate(deltaTime);
 
+			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
+			if (g_TimerTR.timer == 0.0) 
+			{
+				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+				if (loading)
+				{
+					// Pass in the name of the real scene we want AFTER the loading screen
+					loading->m_NextScene = "TimeRush";
+
+					g_TimerTR.Reset();
+
+					// need to add in the song
+					g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
+					g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
+
+					g_LevelManager.SetNextLevel("LoadingLevel");
+				}
+			}
+
 			// Particles
 			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && cooldownTimer >= cooldownDuration)
 			{

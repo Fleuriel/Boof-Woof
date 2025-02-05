@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "TimerTR.h"
 #include <AssetManager/FilePaths.h>
-#include "../../../../PawsieAdventure/Game Levels/LoadingLevel.h"
-#include <Level Manager/LevelManager.h>
 
 TimerTR g_TimerTR;
 Serialization serialTimer;
@@ -52,18 +50,6 @@ void TimerTR::OnUpdate(double deltaTime)
 	else
 	{
 		timer = 180.0;
-	}
-
-	// Player lost, sent back to starting point.
-	if (timer = 0.0) 
-	{
-		auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
-		if (loading)
-		{
-			// Pass in the name of the real scene we want AFTER the loading screen
-			loading->m_NextScene = "TimeRush";
-			g_LevelManager.SetNextLevel("LoadingLevel");
-		}
 	}
 }
 
