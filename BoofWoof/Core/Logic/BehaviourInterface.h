@@ -75,7 +75,11 @@ struct engine_interface
 
 	virtual double GetDeltaTime() = 0;
 	virtual bool IsGamePaused() = 0;
-};
+
+	// Toys
+	virtual double SetTimerTiming(double timing) = 0;
+	virtual double GetTimerTiming() = 0;
+};	
 
 #ifdef GAME_ENGINE
 using GetScripts_cpp_t = std::vector<std::unique_ptr<Behaviour_i>>* (*)(engine_interface* pEI);
