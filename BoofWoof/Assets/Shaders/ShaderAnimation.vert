@@ -5,8 +5,8 @@ layout(location = 1) in vec3 vertexNormal;
 layout(location = 2) in vec2 aTexCoord;  // Texture coordinate input
 layout(location = 3) in vec3 aTangent;
 layout(location = 4) in vec3 aBitangent;
-//layout(location = 2) in vec4 aBoneWeights;   
-//layout(location = 3) in ivec4 aBoneIndices;  
+layout(location = 5) in vec4 aBoneWeights;   
+layout(location = 6) in ivec4 aBoneIndices;  
 
 
 struct Light {
@@ -47,10 +47,10 @@ out VS_OUT {
 
 
 void main() {
-   // mat4 boneTransform = aBoneWeights.x * uBoneTransforms[aBoneIndices.x] +
-   //                      aBoneWeights.y * uBoneTransforms[aBoneIndices.y] +
-   //                      aBoneWeights.z * uBoneTransforms[aBoneIndices.z] +
-   //                      aBoneWeights.w * uBoneTransforms[aBoneIndices.w];
+    mat4 boneTransform = aBoneWeights.x * uBoneTransforms[aBoneIndices.x] +
+                         aBoneWeights.y * uBoneTransforms[aBoneIndices.y] +
+                         aBoneWeights.z * uBoneTransforms[aBoneIndices.z] +
+                         aBoneWeights.w * uBoneTransforms[aBoneIndices.w];
 
     //vec4 worldPosition = uModel * boneTransform * vec4(aPosition, 1.0);
     vec4 worldPosition = vertexTransform * vec4(modelPosition, 1.0);

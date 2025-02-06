@@ -53,8 +53,10 @@ public:
 
     bool updateMesh;
 
-private:
+//    EntityAnimationState GetState() { return state; }
+
     EntityAnimationState state; // Entity-specific playback state
+private:
     Animation animation;        // The animation data
 };
 

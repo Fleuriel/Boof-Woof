@@ -63,6 +63,18 @@ void Animation::ExtractBoneWeights(aiMesh* mesh, std::vector<AnimVertex>& vertic
     }
 }
 
+void Animation::BuildBoneHierarchy(const aiNode* node, const std::string& parentName) {
+    std::string nodeName = node->mName.C_Str();
+
+    // Set parent-child relationship
+    boneHierarchy[nodeName] = parentName;
+
+    for (unsigned int i = 0; i < node->mNumChildren; ++i) {
+        BuildBoneHierarchy(node->mChildren[i], nodeName);
+    }
+}
+
+
 bool Animation::LoadAnimation(const std::string& filePath) {
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate);
@@ -85,6 +97,8 @@ bool Animation::LoadAnimation(const std::string& filePath) {
 
     return true;
 }
+
+
 
 void Animation::ProcessAnimation(const aiScene* scene) {
     if (!scene->HasAnimations()) return;
@@ -121,8 +135,31 @@ void Animation::ProcessAnimation(const aiScene* scene) {
                 channel->mScalingKeys[j].mValue.z);
         }
 
+
+
+        std::cout << "Processing animation: " << aiAnim->mName.C_Str() << std::endl;
+        std::cout << "Number of animation channels: " << aiAnim->mNumChannels << std::endl;
+
+        std::cout << "Bone: " << channel->mNodeName.C_Str()
+            << " Position keys: " << channel->mNumPositionKeys
+            << " Rotation keys: " << channel->mNumRotationKeys
+            << " Scale keys: " << channel->mNumScalingKeys << std::endl;
+
+        std::cout << '\n';
+
+
+
         boneAnimations[boneAnim.boneName] = boneAnim;
+
+        // Store bone mapping
+        if (boneMapping.find(boneAnim.boneName) == boneMapping.end()) {
+            int newIndex = static_cast<int>(boneMapping.size());
+            boneMapping[boneAnim.boneName] = newIndex;
+        }
     }
+
+    // Build the bone hierarchy after processing animation data
+    BuildBoneHierarchy(scene->mRootNode);
 }
 
 
@@ -194,11 +231,11 @@ void Animation::ProcessMesh(const aiScene* scene) {
 
         // Set VBO
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
 
         // Set EBO
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_DYNAMIC_DRAW);
 
         // Position attribute
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
@@ -217,6 +254,8 @@ void Animation::ProcessMesh(const aiScene* scene) {
         // Store this mesh data in your mesh data vector
         Mesh processedMesh;
         processedMesh.VAO = VAO;
+        processedMesh.VBO = VBO;
+        processedMesh.EBO = EBO;
 //        processedMesh.numIndices = indices.size();
         processedMesh.vertices = vertices;
         processedMesh.indices = indices;
@@ -284,45 +323,47 @@ glm::vec3 Animation::InterpolateScale(float animationTime, const BoneAnimation& 
 
 const std::vector<glm::mat4>& Animation::GetBoneTransformsAtTime(float currentTime) {
     boneTransforms.clear();
-    // Compute transforms for all bones at the current time
-    for (const auto& boneAnimPair : boneAnimations) {
-        const std::string& boneName = boneAnimPair.first;
-        CalculateBoneTransform(currentTime, boneName, glm::mat4(1.0f)); // Start with identity matrix for root
+    boneTransforms.resize(boneMapping.size(), glm::mat4(1.0f)); // Ensure correct size
+
+    for (const auto& [boneName, boneInfo] : boneMapping) {
+        if (boneHierarchy.find(boneName) == boneHierarchy.end() || boneHierarchy[boneName] == "") {
+            CalculateBoneTransform(currentTime, boneName, glm::mat4(1.0f)); // Root transformation
+        }
     }
+
     return boneTransforms;
 }
 
 void Animation::CalculateBoneTransform(float animationTime, const std::string& boneName, glm::mat4 parentTransform) {
-    // Find the bone animation data
+    // Find bone animation data
     auto boneAnimIt = boneAnimations.find(boneName);
-    if (boneAnimIt == boneAnimations.end()) {
-        return; // Bone not found in animation
-    }
+    if (boneAnimIt == boneAnimations.end()) return;
 
     const BoneAnimation& boneAnim = boneAnimIt->second;
 
-    // Interpolate position, rotation, and scale
+    // Interpolate position, rotation, scale
     glm::vec3 position = InterpolatePosition(animationTime, boneAnim);
     glm::quat rotation = InterpolateRotation(animationTime, boneAnim);
     glm::vec3 scale = InterpolateScale(animationTime, boneAnim);
 
-    // Create the local transformation matrix
+    // Compute local transform
     glm::mat4 localTransform = glm::translate(glm::mat4(1.0f), position) *
         glm::mat4_cast(rotation) *
         glm::scale(glm::mat4(1.0f), scale);
 
-    // Combine with the parent's transformation
+    // Compute global transform
     glm::mat4 globalTransform = parentTransform * localTransform;
 
-    // Update the bone's final transformation
-    if (boneInfoMap.find(boneName) != boneInfoMap.end()) {
-        boneTransforms[boneCounter] = globalTransform * boneInfoMap[boneName].offsetMatrix;
+    // Store bone transformation
+    if (boneMapping.find(boneName) != boneMapping.end()) {
+        int boneIndex = boneMapping[boneName];
+        boneTransforms[boneIndex] = globalTransform * boneInfoMap[boneName].offsetMatrix;
     }
 
-    // Recursively process child bones
-    for (const auto& childBone : boneAnimations) {
-        if (childBone.second.boneName == boneName) {
-            CalculateBoneTransform(animationTime, childBone.first, globalTransform);
+    // Process child bones
+    for (const auto& [childName, parent] : boneHierarchy) {
+        if (parent == boneName) { // If this bone is a parent
+            CalculateBoneTransform(animationTime, childName, globalTransform);
         }
     }
 }

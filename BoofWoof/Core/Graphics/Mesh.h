@@ -307,7 +307,8 @@ public:
 
        // Update vertex buffer (VBO)
        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-       glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
+       glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(Vertex), &vertices[0]);
+
 
        // Update index buffer (EBO)
        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);

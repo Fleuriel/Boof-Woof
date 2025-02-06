@@ -311,14 +311,17 @@ void GraphicsSystem::UpdateLoop() {
 
 		if (ShaderName == "ShaderAnimation" && g_Coordinator.HaveComponent<AnimationComponent>(entity)) {
 			//std::string ShaderName = "ShaderAnimation";
-			std::cout << "entered2\n";
+		//	std::cout << "entered2\n";
 			auto shader = g_AssetManager.GetShader(ShaderName);
 			auto& animComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
 
 
+			animComp.Update(g_Core->m_DeltaTime);
 
 			if (animComp.updateMesh) {
 				// Update the entire model's mesh
+				std::cout << "update mesh\n";
+
 				g_ResourceManager.getModel(graphicsComp.getModelName())->UpdateMesh();
 
 				// Reset the flag
@@ -327,7 +330,7 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-			std::cout << "entered2\n";
+		//	std::cout << "entered2\n";
 			// Set standard transformation matrices
 			if (graphicsComp.getFollowCamera()) {
 				SetShaderUniforms(g_AssetManager.GetShader(ShaderName), shdrParam);
@@ -339,9 +342,14 @@ void GraphicsSystem::UpdateLoop() {
 
 			}
 
-			std::cout << "entered23\n";
+		//	std::cout << "entered23\n";
 			// Pass bone transformation matrices
-			std::vector<glm::mat4> boneTransforms{}; //= graphicsComp.GetBoneTransforms(); // Assume this function exists
+			std::vector<glm::mat4> boneTransforms = animComp.GetBoneTransformsAtTime(deltaTime); //= graphicsComp.GetBoneTransforms(); // Assume this function exists
+			
+			std::cout << boneTransforms.size() << '\n';
+			//if (boneTransforms.empty()) {
+			//	boneTransforms.resize(100, glm::mat4(1.0f)); // Assume max 100 bones, fill with identity
+			//}
 			for (size_t i = 0; i < boneTransforms.size(); i++) {
 				std::string uniformName = "uBoneTransforms[" + std::to_string(i) + "]";
 				shader.SetUniform(uniformName.c_str(), boneTransforms[i]);

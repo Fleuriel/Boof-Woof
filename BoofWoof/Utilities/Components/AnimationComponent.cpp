@@ -18,13 +18,24 @@ void AnimationComponent::Stop() {
     state.isPlaying = false;
 }
 
-// Update the animation state
 void AnimationComponent::Update(double deltaTime) {
-    if (!state.isPlaying || state.activeAnimation.empty()) return;
 
+    std::cout << "State Playing and AnimationaActive: " << state.isPlaying << '\t' << state.activeAnimation << '\n';
+
+    if (!state.isPlaying) return;
+
+    std::cout << "it entered this update in Animation\n";
+
+    // Update animation state based on deltaTime
     state.Update(deltaTime);
 
-    // Apply transformations (interpolation logic can go here if needed)
+    
+
+    // Apply bone transformations or other logic (e.g., interpolation between keyframes)
+    GetBoneTransformsAtTime(static_cast<float>(state.currentTime));  // This function would update vertex positions based on bones
+
+    // Mark the mesh for an update, since the vertex positions might have changed
+    updateMesh = true;
 }
 
 // Optional: Blend to a new animation
@@ -53,6 +64,8 @@ std::string AnimationComponent::GetActiveAnimation() const {
 
 // Get bone transformation matrices for the current animation time
 const std::vector<glm::mat4>& AnimationComponent::GetBoneTransformsAtTime(float currentTime) {
+
+
     return animation.GetBoneTransformsAtTime(currentTime);
 }
 

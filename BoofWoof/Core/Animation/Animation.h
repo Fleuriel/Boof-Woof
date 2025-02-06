@@ -55,6 +55,10 @@ public:
     const std::unordered_map<std::string, BoneInfo>& GetBoneInfoMap() const { return boneInfoMap; }
     void ProcessMesh(const aiScene* scene);
 
+//    void UpdateAnimation(float deltaTime);
+
+
+    void BuildBoneHierarchy(const aiNode* node, const std::string& parentName = "");
 
     std::vector<Mesh> meshDataMesh;
     std::vector<aiMesh*> meshes;
@@ -67,9 +71,12 @@ private:
     glm::quat InterpolateRotation(float animationTime, const BoneAnimation& boneAnim);
     glm::vec3 InterpolateScale(float animationTime, const BoneAnimation& boneAnim);
 
+    std::unordered_map<std::string, std::string> boneHierarchy;
+    std::unordered_map<std::string, int> boneMapping;  // Maps bone names to their index
+    std::vector<glm::mat4> boneTransforms;            // Stores final bone matrices
     std::unordered_map<std::string, BoneInfo> boneInfoMap;
     std::unordered_map<std::string, BoneAnimation> boneAnimations;
-    std::vector<glm::mat4> boneTransforms;
+//    std::vector<glm::mat4> boneTransforms;
     float duration = 0.0f;
     float ticksPerSecond = 25.0f;
     int boneCounter = 0;

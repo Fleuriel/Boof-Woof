@@ -1762,6 +1762,9 @@ void ImGuiEditor::InspectorWindow()
 							if (!g_AssetManager.AnimationFiles.empty()) {
 								static int selectedFileIndex = -1; // To remember the selected index
 
+
+								auto& animationCmp = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
+
 								if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
 									ImGui::Text("Animation Selection:"); // Add a label before the combo boxes
 									ImGui::NewLine();
@@ -1771,8 +1774,7 @@ void ImGuiEditor::InspectorWindow()
 									float comboBoxWidth = 200.0f; // Set a consistent width for the combo boxes
 									float labelWidth = 200.0f;   // Reserve space for the labels
 
-
-
+									
 
 									// Idle Animation
 									ImGui::Text("Choose Animation:");
@@ -1801,6 +1803,17 @@ void ImGuiEditor::InspectorWindow()
 										}
 										ImGui::EndCombo();
 									}
+
+									ImGui::NewLine();
+
+									if (ImGui::Button(animationCmp.state.isPlaying ? "Pause Animation" : "Play Animation")) {
+										animationCmp.state.isPlaying = !animationCmp.state.isPlaying;
+
+										std::cout << animationCmp.state.isPlaying << '\n';
+
+									}
+
+
 
 									ImGui::NewLine();
 
