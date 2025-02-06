@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "ab3af3a1-f4a4-46b4-9f0e-720bff1b1605",
+    "SceneGUID": "427cbb85-fc4b-4b4e-ab60-b4c5e657b860",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.3653292655944824,
-                    "y": 1.1884119510650635,
-                    "z": 2.6259665489196779
+                    "x": -0.24897047877311707,
+                    "y": 1.1999999284744263,
+                    "z": 0.45478683710098269
                 },
                 "Scale": {
                     "x": 0.5,
@@ -53,9 +53,9 @@
             },
             "CameraComponent": {
                 "Position": {
-                    "x": 1.100000023841858,
-                    "y": 1.5,
-                    "z": -0.49000000953674319
+                    "x": 1.2000000476837159,
+                    "y": 1.2000000476837159,
+                    "z": 0.3100000023841858
                 },
                 "Yaw": 0.0,
                 "Pitch": 0.0,
@@ -22618,25 +22618,6 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -22685,25 +22666,6 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -22752,25 +22714,6 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -22819,25 +22762,6 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -22886,47 +22810,28 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "Table",
+                "EntityName": "WaterBucket2",
                 "EntityID": 541
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 33.43462371826172,
-                    "y": 7.491542816162109,
-                    "z": -31.545909881591798
+                    "x": 7.630624771118164,
+                    "y": 6.551799774169922,
+                    "z": 7.912639617919922
                 },
                 "Scale": {
-                    "x": 1.8000015020370484,
-                    "y": 1.7999991178512574,
-                    "z": 1.7999995946884156
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
                 },
                 "Rotation": {
-                    "x": 1.5497698783874512,
-                    "y": 0.7515621781349182,
-                    "z": -0.014355775900185109
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -22935,7 +22840,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "Chair",
+                "ModelName": "WaterBucket",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -22943,57 +22848,86 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 0.5,
-                    "y": 1.149999976158142,
-                    "z": 0.8999999761581421
+                    "x": 1.0,
+                    "y": 0.949999988079071,
+                    "z": 1.0
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": 1.100000023841858,
                     "z": 0.0
                 },
                 "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WaterBucket3",
+                "EntityID": 542
             },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
+            "TransformComponent": {
+                "Position": {
+                    "x": 58.44986343383789,
+                    "y": 6.5628509521484379,
+                    "z": 17.307315826416017
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WaterBucket",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.0,
+                    "y": 0.949999988079071,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 1.100000023841858,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 542
+                "EntityID": 543
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 33.935882568359378,
-                    "y": 7.455692291259766,
-                    "z": -33.87921905517578
+                    "x": 35.67344284057617,
+                    "y": 7.730720520019531,
+                    "z": -32.88771438598633
                 },
                 "Scale": {
-                    "x": 1.8000013828277588,
-                    "y": 1.800000786781311,
-                    "z": 1.8000088930130005
+                    "x": 1.5000008344650269,
+                    "y": 1.2000004053115845,
+                    "z": 3.0999999046325685
                 },
                 "Rotation": {
-                    "x": -1.497249960899353,
-                    "y": -1.360256552696228,
-                    "z": 3.069669246673584
+                    "x": 0.25514429807662966,
+                    "y": -1.1920927533992654e-7,
+                    "z": -1.5737712383270264
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -23002,7 +22936,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "Chair",
+                "ModelName": "Table2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -23010,35 +22944,64 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 0.5,
-                    "y": 1.149999976158142,
-                    "z": 0.8999999761581421
+                    "x": 0.800000011920929,
+                    "y": 0.10000000149011612,
+                    "z": 2.0
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": 0.75,
                     "z": 0.0
                 },
                 "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Table",
+                "EntityID": 544
             },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
+            "TransformComponent": {
+                "Position": {
+                    "x": 35.10135269165039,
+                    "y": 7.118228435516357,
+                    "z": -35.335601806640628
+                },
+                "Scale": {
+                    "x": 0.699999988079071,
+                    "y": 0.699999988079071,
+                    "z": 0.6000000238418579
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.5131166577339172,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Table",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 0.550000011920929,
+                    "z": 2.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.30000001192092898,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         }
     ]
