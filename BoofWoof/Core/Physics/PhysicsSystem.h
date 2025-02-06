@@ -330,8 +330,34 @@ public:
                 contactNormal = -contactNormal; // Flip normal if it's pointing down
             }
 
-            collisionComponent1.SetCollisionNormal(contactNormal);
-            collisionComponent2.SetCollisionNormal(contactNormal);
+            // Ensure there is at least one contact point before accessing it
+            if (inManifold.mRelativeContactPointsOn1.size() > 0) {
+                JPH::Vec3 firstContactPoint = inManifold.mRelativeContactPointsOn1[0];
+                glm::vec3 contactPoint = glm::vec3(
+                    firstContactPoint.GetX(),
+                    firstContactPoint.GetY(),
+                    firstContactPoint.GetZ()
+                );
+
+                glm::vec3 entity1Pos = g_Coordinator.GetComponent<TransformComponent>(entity1).GetPosition();
+                glm::vec3 entity2Pos = g_Coordinator.GetComponent<TransformComponent>(entity2).GetPosition();
+
+                bool collisionFromBelow1 = contactPoint.y <= entity1Pos.y + 0.01f;  // Add small tolerance
+                bool collisionFromBelow2 = contactPoint.y <= entity2Pos.y + 0.01f;  // Add small tolerance
+
+                // **SET GROUNDED HERE**
+                if (contactNormal.y > 0.7f && collisionFromBelow1) {
+                    collisionComponent1.SetCollisionNormal(contactNormal);
+                    collisionComponent1.SetIsGrounded(true);
+                    std::cout << "[DEBUG] Setting Entity " << entity1 << " as Grounded." << std::endl;
+                }
+
+                if (contactNormal.y > 0.7f && collisionFromBelow2) {
+                    collisionComponent2.SetCollisionNormal(contactNormal);
+                    collisionComponent2.SetIsGrounded(true);
+                    std::cout << "[DEBUG] Setting Entity " << entity2 << " as Grounded." << std::endl;
+                }
+            }
 
             collisionComponent1.SetIsColliding(true);
             collisionComponent2.SetIsColliding(true);

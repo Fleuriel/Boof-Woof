@@ -18,6 +18,7 @@ struct Player final : public Behaviour
 	bool pathInitialized = false;
 	bool inRopeBreaker{ false };
 
+
 	std::vector<std::string> footstepSounds = {
 	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_01.wav",
 	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_02.wav",
@@ -54,20 +55,6 @@ struct Player final : public Behaviour
 			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			isMoving = false;
 
-			// Get surface normal
-			glm::vec3 surfaceNormal = m_Engine.GetSurfaceNormal(entity);
-			bool isOnSlope = (abs(surfaceNormal.y) < 0.99f && abs(surfaceNormal.y) > 0.3f);
-			isGrounded = (m_Engine.IsGrounded(entity) || isOnSlope);
-
-
-			// Debug Output
-			std::cout << "Entity: " << entity
-				<< " | Grounded: " << (isGrounded ? "Yes" : "No")
-				<< " | On Slope: " << (isOnSlope ? "Yes" : "No")
-				<< " | Surface Normal: (" << surfaceNormal.x << ", " << surfaceNormal.y << ", " << surfaceNormal.z << ")"
-				<< " | Velocity: (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")"
-				<< std::endl;
-
 			//// Debug for movement
 			//glm::vec3 currentPos = m_Engine.GetPosition(entity);
 			//std::cout << "[Pathfinding] Entity " << entity << " is currently at Position: ("
@@ -88,6 +75,7 @@ struct Player final : public Behaviour
 			isGrounded = m_Engine.IsGrounded(entity);
 
 			//std::cout << "[DEBUG] isGrounded = " << std::boolalpha << isGrounded << std::endl;
+
 
 			if (m_Engine.getInputSystem().isActionPressed("Sprint"))
 			{
@@ -233,29 +221,13 @@ struct Player final : public Behaviour
 				// Normalize the velocity
 				velocity *= speed;
 
-				// Adjust movement for slopes
-				if (isOnSlope)
-				{
-					velocity = velocity - glm::dot(velocity, surfaceNormal) * surfaceNormal;
-				}
+				//// Adjust movement for slopes
+				//if (isOnSlope)
+				//{
+				//	velocity = velocity - glm::dot(velocity, surfaceNormal) * surfaceNormal;
+				//}
 			}
 
-			// Stop sliding when standing still on a slope, but allow movement if input is pressed
-			if (!isMoving && isOnSlope)
-			{
-				currentVelocity = m_Engine.GetVelocity(entity);
-
-				// If no movement keys are pressed, prevent slide
-				if (!(m_Engine.getInputSystem().isActionPressed("MoveForward") ||
-					m_Engine.getInputSystem().isActionPressed("MoveLeft") ||
-					m_Engine.getInputSystem().isActionPressed("MoveBackward") ||
-					m_Engine.getInputSystem().isActionPressed("MoveRight")))
-				{
-					velocity = glm::vec3(0.0f);
-					m_Engine.SetVelocity(entity, velocity);
-					std::cout << "[DEBUG] Preventing slide on slope. Entity: " << entity << std::endl;
-				}
-			}
 
 
 			if (isMoving)
@@ -280,8 +252,8 @@ struct Player final : public Behaviour
 			if (m_Engine.getInputSystem().isActionPressed("Jump") && isGrounded)
 			{
 				float gravity = 9.81f;
-				float jumpHeight = 2.0f;
-				float jumpVelocity = sqrt(2 * gravity * jumpHeight);
+				float jumpHeight = 1.5f;
+				float jumpVelocity = 1.2f * sqrt(2 * gravity * jumpHeight);
 
 				velocity.y = jumpVelocity;
 				m_Engine.SetGrounded(entity, false);
