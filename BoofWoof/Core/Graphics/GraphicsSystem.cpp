@@ -194,6 +194,10 @@ void GraphicsSystem::UpdateLoop() {
 	shdrParam.View = camera_render.GetViewMatrix();
 	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (g_WindowY > 0) ? ((float)g_WindowX / (float)g_WindowY) : 1, 0.1f, 100.0f);
 
+	glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+	glClear(GL_DEPTH_BUFFER_BIT);
+
 	lights_infos.clear();
 	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
 	{
@@ -218,12 +222,14 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader("Direction_light_Space").Use();
 				g_AssetManager.GetShader("Direction_light_Space").SetUniform("lightSpaceMatrix", lightSpaceMatrix);
 				RenderScence(g_AssetManager.GetShader("Direction_light_Space"));
-
+				g_AssetManager.GetShader("Direction_light_Space").UnUse();
 	
 			}
 	
 		}
 	}
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 	// Bind the framebuffer for rendering
 	if (editorMode == true)
 		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -359,7 +365,7 @@ void GraphicsSystem::UpdateLoop() {
 			/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
 			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
-			g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
+			//g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
 			g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", glm::vec4(1.0f,1.0f,1.0f,1.0f));
 
@@ -917,4 +923,37 @@ void GraphicsSystem::RenderDebugLines()
 
 	// Step 6: Clear the debug lines for the next frame
 	debugLines.clear();
+}
+
+void GraphicsSystem::RenderScence(OpenGLShader& shader)
+{
+	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+
+	glm::mat4 View_ = camera_render.GetViewMatrix();
+	glm::mat4 Projection_ = glm::perspective(glm::radians(45.0f), (g_WindowY > 0) ? ((float)g_WindowX / (float)g_WindowY) : 1, 0.1f, 100.0f);
+
+	for (auto& entity : allEntities){
+
+		if (!g_Coordinator.HaveComponent<TransformComponent>(entity)|| !g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+		{
+			continue;
+		}
+		auto& graphicComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+		if (graphicComp.GetShaderName() != "Shader3D") continue;
+
+		auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+
+		// Get the TransformSystem instance
+		std::shared_ptr<TransformSystem> transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+
+		glm::mat4 worldMatrix = transformComp.GetWorldMatrix();
+
+		shader.SetUniform("vertexTransform", worldMatrix);
+		shader.SetUniform("view", View_);
+		shader.SetUniform("projection", Projection_);
+
+		g_ResourceManager.getModel("cubeModel")->DrawForPicking();
+
+
+	}
 }

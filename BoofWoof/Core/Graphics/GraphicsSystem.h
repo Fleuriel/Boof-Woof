@@ -122,6 +122,9 @@ public:
     static void AddDebugLine(const glm::vec3& start, const glm::vec3& end, const glm::vec3& color);
     static void RenderDebugLines();
 
+    /// shadow
+    void RenderScence(OpenGLShader& shader);
+
 
 private:
     unsigned int fbo;
