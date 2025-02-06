@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "61b6b253-c89e-420e-8136-cc499679aeb8",
+    "SceneGUID": "5c3cb49a-08a6-47d2-b419-63b31d885d61",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.000005691982551070396,
-                    "y": 1.1800025701522828,
-                    "z": -1.0566880702972413
+                    "x": 0.00017485818534623832,
+                    "y": 1.180015206336975,
+                    "z": -2.196765422821045
                 },
                 "Scale": {
                     "x": 0.5,
@@ -16458,9 +16458,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.501834869384767,
-                    "y": 0.24999898672103883,
-                    "z": -27.524694442749025
+                    "x": 25.501800537109376,
+                    "y": 0.9999999403953552,
+                    "z": -77.0
                 },
                 "Scale": {
                     "x": 0.5,
@@ -21576,7 +21576,7 @@
                 "Position": {
                     "x": 34.5,
                     "y": 1.0,
-                    "z": -22.0
+                    "z": -20.947452545166017
                 },
                 "Scale": {
                     "x": 1.0,
@@ -21585,7 +21585,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 },
                 "RotationPivotOffset": {
@@ -22438,6 +22438,138 @@
                     "b": 0.055074967443943027,
                     "a": 1.0
                 }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 532
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 512,
+                "EndNode": 511,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 533
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 511,
+                "EndNode": 514,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 534
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 514,
+                "EndNode": 525,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 535
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 525,
+                "EndNode": 515,
+                "Cost": 1.0
             }
         }
     ]

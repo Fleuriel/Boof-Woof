@@ -227,6 +227,44 @@ public:
 		return {};
 	}
 
+	virtual void SetStartNode(Entity entity, Entity node) override {
+		if (HavePathfindingComponent(entity)) {
+			g_Coordinator.GetComponent<PathfindingComponent>(entity).SetStartNode(node);
+			std::cout << "[Engine] Set start node for Entity " << entity << " to " << node << std::endl;
+		}
+	}
+
+	virtual Entity GetStartNode(Entity entity) override {
+		if (HavePathfindingComponent(entity)) {
+			Entity startNode = g_Coordinator.GetComponent<PathfindingComponent>(entity).GetStartNode();
+			std::cout << "[Engine] Retrieved start node for Entity " << entity << ": " << startNode << std::endl;
+			return startNode;
+		}
+		std::cout << "[Engine] No start node found for Entity " << entity << std::endl;
+		return 0;
+	}
+
+	virtual void SetGoalNode(Entity entity, Entity node) override {
+		if (HavePathfindingComponent(entity)) {
+			g_Coordinator.GetComponent<PathfindingComponent>(entity).SetGoalNode(node);
+			std::cout << "[Engine] Set goal node for Entity " << entity << " to " << node << std::endl;
+		}
+	}
+
+	virtual Entity GetGoalNode(Entity entity) override {
+		if (HavePathfindingComponent(entity)) {
+			Entity goalNode = g_Coordinator.GetComponent<PathfindingComponent>(entity).GetGoalNode();
+			std::cout << "[Engine] Retrieved goal node for Entity " << entity << ": " << goalNode << std::endl;
+			return goalNode;
+		}
+		std::cout << "[Engine] No goal node found for Entity " << entity << std::endl;
+		return 0;
+	}
+
+	virtual void SetBuilt(Entity entity, bool built) override {
+		g_Coordinator.GetComponent<PathfindingComponent>(entity).SetBuilt(built);
+	}
+
 
 	virtual bool IsGamePaused() override
 	{
