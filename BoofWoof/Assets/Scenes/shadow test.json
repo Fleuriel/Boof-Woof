@@ -1,0 +1,143 @@
+{
+    "SceneGUID": "25c72ad7-40c9-414b-8db0-a91950cdcfb4",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Corgi",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 1
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 2.700000047683716
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 1.0,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 2
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": -1.899999976158142,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Floor3",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        }
+    ]
+}

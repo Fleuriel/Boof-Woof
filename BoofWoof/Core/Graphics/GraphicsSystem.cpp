@@ -13,6 +13,8 @@
 #include "EngineCore.h"
 
 
+
+
 bool GraphicsSystem::debug = false;
 
 bool GraphicsSystem::glewInitialized = false;
@@ -38,6 +40,7 @@ struct light_info {
 	glm::vec3 position;
 	glm::vec3 color;
 	float intensity;
+	glm::mat4 lightSpaceMatrix;
 };
 std::vector <light_info> lights_infos;
 
@@ -211,13 +214,15 @@ void GraphicsSystem::UpdateLoop() {
 				light_info_.intensity = g_Coordinator.GetComponent<LightComponent>(entity).getIntensity();
 				light_info_.color = g_Coordinator.GetComponent<LightComponent>(entity).getColor();
 	
-				lights_infos.push_back(light_info_);
+				
 				glm::mat4 lightProjection, lightView;
 				glm::mat4 lightSpaceMatrix;
 				float near_plane = 1.0f, far_plane = 7.5f;
 				lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
 				lightView = glm::lookAt(light_info_.position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 				lightSpaceMatrix = lightProjection * lightView;
+				light_info_.lightSpaceMatrix = lightSpaceMatrix;
+				lights_infos.push_back(light_info_);
 
 				g_AssetManager.GetShader("Direction_light_Space").Use();
 				g_AssetManager.GetShader("Direction_light_Space").SetUniform("lightSpaceMatrix", lightSpaceMatrix);
@@ -229,9 +234,17 @@ void GraphicsSystem::UpdateLoop() {
 		}
 	}
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
+	/*if (editorMode == true) {
+		ImGuiViewport* viewport = ImGui::GetMainViewport();
+		glViewport(viewport->Pos.x, viewport->Pos.y, viewport->Size.x, viewport->Size.y);
+	}
+	else {
+		glViewport(0, 0, g_WindowX, g_WindowY);
+	}*/
+	glViewport(0, 0, g_WindowX, g_WindowY);
 	// Bind the framebuffer for rendering
 	if (editorMode == true)
+		
 		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 	else
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -303,7 +316,7 @@ void GraphicsSystem::UpdateLoop() {
 		 
 		//auto& material = graphicsComp.material;
 
-		auto& ShaderName = "Shader3D";
+		auto& ShaderName = "Direction_obj_render";
 
 #ifdef _DEBUG
 //		std::cout << "ShaderName: " << material.GetShaderName() << '\n';
@@ -333,7 +346,7 @@ void GraphicsSystem::UpdateLoop() {
 
 
 		//if (ShaderName == "Shader3D")
-		if (strcmp(ShaderName, "Shader3D") == 0)
+		if (strcmp(ShaderName, "Direction_obj_render") == 0)
 		{
 
 			// START OF 3D
@@ -358,10 +371,12 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader(ShaderName).SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
 				std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
 				g_AssetManager.GetShader(ShaderName).SetUniform(lightColorStr.c_str(), lights_infos[i].color);
+				g_AssetManager.GetShader(ShaderName).SetUniform("lightSpaceMatrix", lights_infos[i].lightSpaceMatrix);
+
 			}
 
 
-
+			g_AssetManager.GetShader(ShaderName).SetUniform("depthMap", (int)depthMap_texture);
 			/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
 			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
