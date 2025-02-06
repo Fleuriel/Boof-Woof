@@ -313,12 +313,31 @@ void GraphicsSystem::UpdateLoop() {
 			//std::string ShaderName = "ShaderAnimation";
 			std::cout << "entered2\n";
 			auto shader = g_AssetManager.GetShader(ShaderName);
+			auto& animComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
+
+
+
+			if (animComp.updateMesh) {
+				// Update the entire model's mesh
+				g_ResourceManager.getModel(graphicsComp.getModelName())->UpdateMesh();
+
+				// Reset the flag
+				animComp.updateMesh = false;
+			}
+
+
 
 			std::cout << "entered2\n";
 			// Set standard transformation matrices
-			g_AssetManager.GetShader(ShaderName).SetUniform("uModel", shdrParam.WorldMatrix);
-			g_AssetManager.GetShader(ShaderName).SetUniform("uView", glm::mat4(1.0f));
-			g_AssetManager.GetShader(ShaderName).SetUniform("uProjection", glm::mat4(1.0f));
+			if (graphicsComp.getFollowCamera()) {
+				SetShaderUniforms(g_AssetManager.GetShader(ShaderName), shdrParam);
+			}
+			else {
+				g_AssetManager.GetShader(ShaderName).SetUniform("vertexTransform", shdrParam.WorldMatrix);
+				g_AssetManager.GetShader(ShaderName).SetUniform("view", glm::mat4(1.0f));
+				g_AssetManager.GetShader(ShaderName).SetUniform("projection", glm::mat4(1.0f));
+
+			}
 
 			std::cout << "entered23\n";
 			// Pass bone transformation matrices
@@ -341,6 +360,9 @@ void GraphicsSystem::UpdateLoop() {
 				shader.SetUniform("uViewPosition", camera_render.Position);
 			}
 
+			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
+			g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
+			g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
 		
 
 			// Material properties (if needed)
@@ -364,6 +386,7 @@ void GraphicsSystem::UpdateLoop() {
 			//shader.SetUniform("textureCount", g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt);
 
 			// Draw the animated model
+
 			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw(shader);
 		}
 

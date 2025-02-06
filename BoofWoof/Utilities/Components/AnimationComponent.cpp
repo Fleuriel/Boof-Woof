@@ -30,12 +30,19 @@ void AnimationComponent::Update(double deltaTime) {
 // Optional: Blend to a new animation
 void AnimationComponent::BlendTo(const std::string& animationName, double blendDuration) {
     // Implementation of blending logic (if applicable)
+    (void)blendDuration;
+    (void)animationName;
+
     std::cerr << "BlendTo is not implemented yet." << std::endl;
 }
 
 // Get the current transformation matrix for a specific node (bone)
 void AnimationComponent::GetCurrentTransform(const std::string& nodeName, aiMatrix4x4& outTransform) const {
     // Logic to calculate the transformation matrix for a specific node (e.g., skeletal bones)
+
+    (void)nodeName;
+    (void)outTransform;
+
     std::cerr << "GetCurrentTransform is not implemented yet." << std::endl;
 }
 

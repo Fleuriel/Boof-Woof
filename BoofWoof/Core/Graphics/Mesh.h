@@ -301,7 +301,21 @@ public:
 
    
 
-    
+   void UpdateMesh()
+   {
+       glBindVertexArray(VAO);
+
+       // Update vertex buffer (VBO)
+       glBindBuffer(GL_ARRAY_BUFFER, VBO);
+       glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
+
+       // Update index buffer (EBO)
+       glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+       glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_DYNAMIC_DRAW);
+
+       glBindVertexArray(0);
+   }
+
     
 
 };

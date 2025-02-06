@@ -67,6 +67,20 @@ public:
             meshes[i].Draw(shader);
     }
     
+    void DrawAnimation(OpenGLShader& shader)
+    {
+
+    }
+
+
+    void UpdateMesh()
+    {
+        for (unsigned int i = 0; i < meshes.size(); ++i)
+        {
+            meshes[i].UpdateMesh();
+        }
+
+    }
 
     void DrawForPicking()
     {

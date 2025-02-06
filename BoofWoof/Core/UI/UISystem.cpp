@@ -75,5 +75,3 @@ void UISystem::UI_render()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-
-#pragma warning(pop)

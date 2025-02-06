@@ -51,6 +51,8 @@ public:
     // Get the current time in ticks
     float GetTickCount() const;
 
+    bool updateMesh;
+
 private:
     EntityAnimationState state; // Entity-specific playback state
     Animation animation;        // The animation data
