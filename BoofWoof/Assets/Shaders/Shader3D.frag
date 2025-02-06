@@ -29,7 +29,7 @@ struct Light {
 };
 
 //uniform vec3 lightPos;
-uniform vec3 viewPos;
+//uniform vec3 viewPos;
 
 #define NUM_LIGHTS 8  // Define the number of lights you want
 uniform Light lights[NUM_LIGHTS];
@@ -47,40 +47,6 @@ in VS_OUT {
 } fs_in;
 
 
-// Constants
-const float PI = 3.14159265359;
-
-
-// uniform float roughness;   // Scalar roughness value (0 to 1)
-// uniform float metallic;    // Scalar metallic value (0 to 1)
-
-uniform float roughness;
-
-// Normal Distribution Function (Trowbridge-Reitz GGX)
-float DistributionGGX(float NdotH) {
-    float a      = roughness * roughness;
-    float a2     = a * a;
-    float NdotH2 = NdotH * NdotH;
-    
-    float num   = a2;
-    float denom = (NdotH2 * (a2 - 1.0) + 1.0);
-    denom = PI * denom * denom;
-    
-    return num / denom;
-}
-
-// Geometry Function (Smith's Schlick-GGX)
-float GeometrySchlickGGX(float NdotV) {
-    float r = (roughness + 1.0);
-    float k = (r * r) / 8.0;
-
-    return NdotV / (NdotV * (1.0 - k) + k);
-}
-
-// Fresnel Equation (Schlick's approximation)
-vec3 FresnelSchlick(float cosTheta, vec3 F0) {
-    return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
-}
 
 void main()
 {
@@ -95,19 +61,19 @@ void main()
     vec3 asd = vec3(0.0f,0.0f,0.0f);
 
     for(int i = 0; i < numLights; i++){
-         vec3 lightVector = lights[i].position - FragPos;
-            float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
-            textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
-            //fragColor = vec4(textureColor.rgb, textureColor.a);
-            vec3 ambientColor = vec3(0.0f,0.0f,0.0f);
-            vec3 diffuseColor = textureColor.rgb;
+        vec3 lightVector = lights[i].position - FragPos;
+        float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
+        textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
+        //fragColor = vec4(textureColor.rgb, textureColor.a);
+        vec3 ambientColor = vec3(0.0f,0.0f,0.0f);
+        vec3 diffuseColor = textureColor.rgb;
 
 
-            vec3 ambient = ambientColor  * 0.1f;
-            vec3 diffuse = diffuseColor  * N_dot_L * lights[i].intensity * lights[i].color;
+        vec3 ambient = ambientColor  * 0.1f;
+        vec3 diffuse = diffuseColor  * N_dot_L * lights[i].intensity * lights[i].color;
 
-            vec3 finalColor = ambient + diffuse; // Combine ambient and diffuse components
-            result += finalColor;
+        vec3 finalColor = ambient + diffuse; // Combine ambient and diffuse components
+        result += finalColor;
 
         
     }

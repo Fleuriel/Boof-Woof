@@ -29,6 +29,10 @@ std::vector<DebugLine> GraphicsSystem::debugLines = {};
 unsigned int GraphicsSystem::debugLineVAO = 0;
 unsigned int GraphicsSystem::debugLineVBO = 0;
 
+const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+unsigned int depthMapFBO;
+unsigned int depthMap_texture;
+
 
 struct light_info {
 	glm::vec3 position;
@@ -111,6 +115,23 @@ void GraphicsSystem::initGraphicsPipeline() {
 	// Initialize camera
 	camera = CameraComponent(glm::vec3(0.f, 2.f, 10.f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f, false);
 
+	// depthmap Fbo
+	glGenFramebuffers(1, &depthMapFBO);
+	// create depth texture
+	
+	glGenTextures(1, &depthMap_texture);
+	glBindTexture(GL_TEXTURE_2D, depthMap_texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// attach depth texture as FBO's depth buffer
+	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap_texture, 0);
+	glDrawBuffer(GL_NONE);
+	glReadBuffer(GL_NONE);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -143,18 +164,7 @@ void GraphicsSystem::UpdateLoop() {
 	previousTime = currentTime;
 
 
-	// Bind the framebuffer for rendering
-	if (editorMode == true)
-		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-	else
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear framebuffer
-
-
-
+	
 	
 
 
@@ -179,6 +189,11 @@ void GraphicsSystem::UpdateLoop() {
 		}
 	}
 
+
+
+	shdrParam.View = camera_render.GetViewMatrix();
+	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (g_WindowY > 0) ? ((float)g_WindowX / (float)g_WindowY) : 1, 0.1f, 100.0f);
+
 	lights_infos.clear();
 	for (auto& entity : g_Coordinator.GetAliveEntitiesSet())
 	{
@@ -193,17 +208,37 @@ void GraphicsSystem::UpdateLoop() {
 				light_info_.color = g_Coordinator.GetComponent<LightComponent>(entity).getColor();
 	
 				lights_infos.push_back(light_info_);
+				glm::mat4 lightProjection, lightView;
+				glm::mat4 lightSpaceMatrix;
+				float near_plane = 1.0f, far_plane = 7.5f;
+				lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+				lightView = glm::lookAt(light_info_.position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+				lightSpaceMatrix = lightProjection * lightView;
+
+				g_AssetManager.GetShader("Direction_light_Space").Use();
+				g_AssetManager.GetShader("Direction_light_Space").SetUniform("lightSpaceMatrix", lightSpaceMatrix);
+				RenderScence(g_AssetManager.GetShader("Direction_light_Space"));
+
 	
 			}
 	
 		}
 	}
-	
-	shdrParam.View = camera_render.GetViewMatrix();
-	shdrParam.Projection = glm::perspective(glm::radians(45.0f), (g_WindowY > 0) ? ((float)g_WindowX / (float)g_WindowY) : 1, 0.1f, 100.0f);
+	// Bind the framebuffer for rendering
+	if (editorMode == true)
+		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+	else
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	glm::mat4 view_ = camera.GetViewMatrix();
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (g_WindowY > 0) ? ((float)g_WindowX / (float)g_WindowY) : 1, 0.1f, 100.0f);
+	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear framebuffer
+
+
+
+	
+
+	
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
 	{/*
@@ -328,7 +363,7 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
 			g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", glm::vec4(1.0f,1.0f,1.0f,1.0f));
 
-			g_AssetManager.GetShader(ShaderName).SetUniform("roughness", 1.0f);
+			//g_AssetManager.GetShader(ShaderName).SetUniform("roughness", 1.0f);
 
 			graphicsComp.getModel()->Draw(g_AssetManager.GetShader(ShaderName));
 
@@ -638,7 +673,7 @@ bool GraphicsSystem::DrawMaterialSphere()
 	SetShaderUniforms(g_AssetManager.GetShader("Shader3D"), shdrParam);
 	g_AssetManager.GetShader("Shader3D").SetUniform("objectColor", shdrParam.Color);
 	g_AssetManager.GetShader("Shader3D").SetUniform("lightPos", lightPos);
-	g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
+	//g_AssetManager.GetShader("Shader3D").SetUniform("viewPos", camera.Position);
 
 
 	//	 g_ResourceManager.getModel("Square")->Draw(g_AssetManager.GetShader("Material"));
