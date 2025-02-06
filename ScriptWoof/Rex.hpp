@@ -107,7 +107,7 @@ struct Rex final : public Behaviour
             }
 
             float distance = glm::length(targetPos - currentPos);
-            std::cout << "[Pathfinding] Moving towards waypoint " << currentPathIndex + 1 << " at (" << targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << std::endl;
+            //std::cout << "[Pathfinding] Moving towards waypoint " << currentPathIndex + 1 << " at (" << targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << std::endl;
             //std::cout << "[Pathfinding] Distance to next waypoint: " << distance << std::endl;
 
             // Check if the entity has reached the waypoint
@@ -132,7 +132,7 @@ struct Rex final : public Behaviour
                             m_Engine.SetGoalNode(entity, temp);
 							pathInitialized = false;
 							m_Engine.SetBuilt(entity, false);
-                            std::cout << "Looping Path" << std::endl;
+                            //std::cout << "Looping Path" << std::endl;
                         //}
                     }
                 }
