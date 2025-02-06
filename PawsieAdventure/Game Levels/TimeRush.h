@@ -3,18 +3,15 @@
 #include "ResourceManager/ResourceManager.h"
 #include "ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
+#include "../Utilities/ForGame/TimerTR/TimerTR.h"
 
 class TimeRush : public Level
 {
-	double timer = 0.0;
-	double interval = 1.0; // Time interval in seconds
-	int currentTextureIndex = 53; // Start from "Group53"
-	Entity timerTextEntity{}, playerEnt{};
+	Entity playerEnt{};
 	Entity scentEntity1{}, scentEntity2{}, scentEntity3{}, scentEntity4{}, scentEntity5{}, scentEntity6{}, scentEntity7{}, scentEntity8{}, scentEntity9{};
 	CameraController* cameraController = nullptr;
 
 	Entity TimeRushBGM{}, AggroDog{}, CorgiSniff{};
-
 
 	double colorChangeTimer = 0.0;
 	double colorChangeDuration = 3.0; // Duration for which the color change lasts
@@ -23,13 +20,12 @@ class TimeRush : public Level
 	bool isColorChanged = false;
 
 	bool finishTR{ false };
-	double TRtimer = 0.0;
-	double TRlimit = 2.0f;
+	double timesUp = 2.0;
 
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/TimeRushPuzzle.json");
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Timer.json");
+		g_TimerTR.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -46,7 +42,6 @@ class TimeRush : public Level
 			{"ScentTrail7", [&](Entity entity) { scentEntity7 = entity; }},
 			{"ScentTrail8", [&](Entity entity) { scentEntity8 = entity; }},
 			{"ScentTrail9", [&](Entity entity) { scentEntity9 = entity; }},
-			{"Group", [&](Entity entity) { timerTextEntity = entity; }},
 			{"TimeRushBGM", [&](Entity entity) { TimeRushBGM = entity; }},
 			{"AggressiveDogBarking", [&](Entity entity) { AggroDog = entity; }},
 			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }}
@@ -78,7 +73,7 @@ class TimeRush : public Level
 
 				// Exit early if all entities are found
 				if (playerEnt && scentEntity1 && scentEntity2 && scentEntity3 && scentEntity4
-					&& scentEntity5 && scentEntity6 && scentEntity7 && scentEntity8 && scentEntity9 && timerTextEntity && TimeRushBGM && AggroDog && CorgiSniff)
+					&& scentEntity5 && scentEntity6 && scentEntity7 && scentEntity8 && scentEntity9 && TimeRushBGM && AggroDog && CorgiSniff)
 				{
 					break;
 				}
@@ -117,12 +112,7 @@ class TimeRush : public Level
 		{
 			cameraController->Update(static_cast<float>(deltaTime));
 
-			timer += deltaTime;
 			cooldownTimer += deltaTime;
-
-			if (!g_Coordinator.HaveComponent<UIComponent>(timerTextEntity)) return;
-
-			auto& text = g_Coordinator.GetComponent<UIComponent>(timerTextEntity);
 
 			auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
 			auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);
@@ -134,25 +124,39 @@ class TimeRush : public Level
 			auto& opacity8 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity8);
 			auto& opacity9 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity9);
 
-			// Change the texture every second
-			if (timer >= interval && currentTextureIndex <= 233)
+			g_TimerTR.OnUpdate(deltaTime);
+
+			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
+			if (g_TimerTR.timer == 0.0) 
 			{
-				std::string nextTextureName = "Group" + std::to_string(currentTextureIndex + 1);
+				timesUp -= deltaTime;
 
-				//int nextTextureId = g_ResourceManager.GetTextureDDS(nextTextureName);
-				//text.set_textureid(nextTextureId);
-				text.set_texturename(nextTextureName);
+				// Times up! sound
 
-				timer = 0.0; // Reset timer
-				currentTextureIndex++; // Move to the next texture
+				// Wait for like 2 seconds then restart game
+				if (timesUp < 0.0) 
+				{
+					timesUp = 0.0;
+
+					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+					if (loading)
+					{
+						// Pass in the name of the real scene we want AFTER the loading screen
+						loading->m_NextScene = "TimeRush";
+
+						g_TimerTR.Reset();
+
+						// after reset level, play back the bgm n sfx all again (THE BELOW COMMENTED OUT DOESN'T WORK)
+
+						/*g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
+						g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());*/
+
+						g_LevelManager.SetNextLevel("LoadingLevel");
+					}
+				}		
 			}
 
-			// When the timer reaches the end ("Group234"), transition to the next level
-			if (currentTextureIndex > 234)
-			{
-				std::cout << "End of timer" << std::endl;
-			}
-
+			// Particles
 			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && cooldownTimer >= cooldownDuration)
 			{
 				//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false, "SFX");
@@ -199,6 +203,7 @@ class TimeRush : public Level
 				}
 			}
 
+			// Checklist
 			if (!g_Checklist.shutted)
 			{
 				g_Checklist.OnUpdate(deltaTime);
@@ -215,6 +220,7 @@ class TimeRush : public Level
 
 			if (g_Checklist.finishTR && g_Checklist.shutted)
 			{
+				g_TimerTR.OnShutdown();
 				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 				if (loading)
 				{
@@ -247,8 +253,6 @@ class TimeRush : public Level
 
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
-		timer = 0.0;
-		currentTextureIndex = 53;
 		g_Checklist.finishTR = false;
 	}
 };
