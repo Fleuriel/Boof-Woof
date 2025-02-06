@@ -13,6 +13,8 @@
 #include <fmod.hpp>
 #include "../Utilities/Components/AudioComponent.hpp"
 #include "ECS/Coordinator.hpp"
+#include <EngineCore.h>
+
 
 #define g_Audio AudioSystem::GetInstance()
 
@@ -62,6 +64,7 @@ public:
     void StopEntitySound(Entity entity);
     void SetEntityVolume(Entity entity, float volume);
 
+    void PlayEntity3DAudio(Entity entity, const std::string& filePath, bool loop);
 
 
 

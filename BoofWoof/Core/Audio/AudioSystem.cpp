@@ -59,6 +59,10 @@ static const char* FMODErrorToString(FMOD_RESULT result) {
 AudioSystem::AudioSystem() {
     FMOD::System_Create(&system);  // Initialize FMOD system
     system->init(512, FMOD_INIT_NORMAL, nullptr);  // Initialize system with 512 channels
+
+    // Enable 3D listener settings
+    system->set3DSettings(1.0f, 1.0f, 1.0f);  // Doppler scale, distance factor, rolloff scale
+    system->set3DNumListeners(1);  // One listener (usually the player or camera)
 }
 
 /**************************************************************************
@@ -820,4 +824,67 @@ void AudioSystem::SetEntityVolume(Entity entity, float volume) {
         std::cerr << "No active channels found for entity " << entity << std::endl;
     }
 }
+void AudioSystem::PlayEntity3DAudio(Entity entity, const std::string& filePath, bool loop) {
+    auto it = channelMap.find(entity);
 
+    // Check if the 3D audio is already playing
+    if (it != channelMap.end()) {
+        for (auto* channel : it->second) {
+            bool isPlaying = false;
+            channel->isPlaying(&isPlaying);
+            if (isPlaying) {
+                std::cout << "3D Audio is already playing for entity " << entity << std::endl;
+                return;  // Prevent duplicate playback
+            }
+        }
+    }
+
+    // Load and cache the sound if not already cached
+    if (soundCache.find(filePath) == soundCache.end()) {
+        FMOD::Sound* sound = nullptr;
+        FMOD_MODE mode = FMOD_3D | (loop ? FMOD_LOOP_NORMAL : FMOD_DEFAULT);
+
+        FMOD_RESULT result = system->createSound(filePath.c_str(), mode, nullptr, &sound);
+        if (result != FMOD_OK) {
+            std::cerr << "Error loading 3D sound from file: " << filePath << " - " << FMODErrorToString(result) << std::endl;
+            return;
+        }
+
+        soundCache[filePath] = std::shared_ptr<FMOD::Sound>(sound, [](FMOD::Sound* s) { s->release(); });
+    }
+
+    // Play the cached 3D sound
+    FMOD::Channel* newChannel = nullptr;
+    FMOD_RESULT result = system->playSound(soundCache[filePath].get(), nullptr, false, &newChannel);
+    if (result != FMOD_OK || !newChannel) {
+        std::cerr << "Error playing 3D sound on new channel: " << FMODErrorToString(result) << std::endl;
+        return;
+    }
+
+    // Set the loop count if needed
+    if (loop) {
+        newChannel->setLoopCount(-1);
+    }
+
+    // 🔥 Set the 3D position using TransformComponent
+    if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+        auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+        glm::vec3 position = transform.GetPosition();  // Correct function call
+
+        FMOD_VECTOR pos = { position.x, position.y, position.z };
+        newChannel->set3DAttributes(&pos, nullptr);
+        std::cout << "3D Sound position set for entity " << entity << " at ("
+            << pos.x << ", " << pos.y << ", " << pos.z << ")" << std::endl;
+    }
+
+    // Store the channel in the entity's channel map
+    channelMap[entity].push_back(newChannel);
+
+    // Apply SFX volume by default for 3D sounds
+    newChannel->setVolume(sfxVolume);
+
+    // Log the channel association
+    std::cout << "3D Audio for entity " << entity << " now mapped to channel." << std::endl;
+
+    system->update();
+}
