@@ -10,8 +10,11 @@
  * This file contains the definitions of member functions of AudioSystem 
  * Class
  *************************************************************************/
-#include "pch.h"
 #include "AudioSystem.h"
+#include "pch.h"
+#include <EngineCore.h>
+
+
 
 #define UNREFERENCED_PARAMETER(P)          (P)
 
@@ -887,4 +890,28 @@ void AudioSystem::PlayEntity3DAudio(Entity entity, const std::string& filePath, 
     std::cout << "3D Audio for entity " << entity << " now mapped to channel." << std::endl;
 
     system->update();
+}
+
+
+void AudioSystem::Update3DSoundPositions() {
+    for (auto& [entity, channels] : channelMap) {
+        if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+            auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+            glm::vec3 position = transform.GetPosition();  // ✅ Correct function call
+
+            FMOD_VECTOR pos = { position.x, position.y, position.z };
+
+            for (auto* channel : channels) {
+                if (channel) {
+                    channel->set3DAttributes(&pos, nullptr);
+                }
+            }
+        }
+    }
+}
+
+
+void AudioSystem::SetListenerPosition(const glm::vec3& position) {
+    FMOD_VECTOR listenerPos = { position.x, position.y, position.z };
+    system->set3DListenerAttributes(0, &listenerPos, nullptr, nullptr, nullptr);
 }
