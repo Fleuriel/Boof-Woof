@@ -31,23 +31,53 @@ void PathfindingSystem::BuildGraph() {
 
     // Step 1: Process all NodeComponents first
     for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
+        //if (g_Coordinator.HaveComponent<NodeComponent>(entity)) {
+        //    auto& nodeComp = g_Coordinator.GetComponent<NodeComponent>(entity);
+        //    glm::vec3 nodePosition = nodeComp.GetPosition(); // Default to NodeComponent's position
+
+        //    // Check if the entity has a TransformComponent and use its position
+        //    if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+        //        auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+        //        nodePosition = transformComp.GetPosition(); // Override with TransformComponent's position
+        //    }
+
+        //    // Store the node with its entity reference
+        //    graphNodes[entity] = std::make_shared<Node3D>(entity, nodePosition, nodeComp.IsWalkable());
+
+        //    //std::cout << "[PathfindingSystem] Added Node: " << entity
+        //    //    << " | Position: (" << nodePosition.x << ", "
+        //    //    << nodePosition.y << ", " << nodePosition.z << ")"
+        //    //    << " | Walkable: " << nodeComp.IsWalkable() << "\n";
+        //}
         if (g_Coordinator.HaveComponent<NodeComponent>(entity)) {
             auto& nodeComp = g_Coordinator.GetComponent<NodeComponent>(entity);
             glm::vec3 nodePosition = nodeComp.GetPosition(); // Default to NodeComponent's position
 
-            // Check if the entity has a TransformComponent and use its position
-            if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+            // If it has a TransformComponent, use its position
+            if (g_Coordinator.HaveComponent<TransformComponent>(entity) && !g_Coordinator.HaveComponent<HierarchyComponent>(entity)) {
                 auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
-                nodePosition = transformComp.GetPosition(); // Override with TransformComponent's position
+                nodePosition = transformComp.GetPosition();
             }
 
-            // Store the node with its entity reference
-            graphNodes[entity] = std::make_shared<Node3D>(entity, nodePosition, nodeComp.IsWalkable());
+            // **Check if entity has a parent (HierarchyComponent)**
+            if (g_Coordinator.HaveComponent<HierarchyComponent>(entity)) {
+                Entity parent = g_Coordinator.GetComponent<HierarchyComponent>(entity).parent;
+                if (parent != MAX_ENTITIES) {
+                    // Get world transform from TransformSystem
+                    auto transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+                    glm::mat4 parentWorldMatrix = transformSystem->GetWorldMatrix(parent);
 
-            //std::cout << "[PathfindingSystem] Added Node: " << entity
-            //    << " | Position: (" << nodePosition.x << ", "
-            //    << nodePosition.y << ", " << nodePosition.z << ")"
-            //    << " | Walkable: " << nodeComp.IsWalkable() << "\n";
+                    // Apply parent's world position
+                    glm::vec3 worldPosition, worldRotation, worldScale;
+                    if (DecomposeTransform(parentWorldMatrix, worldPosition, worldRotation, worldScale)) {
+                        nodePosition = worldPosition;
+                    }
+                }
+                std::cout << "Node Position (World) x: (" << nodePosition.x << ", " << nodePosition.y << ", " << nodePosition.z << ")" << std::endl;
+            }
+
+            // Store the node with the updated position
+            graphNodes[entity] = std::make_shared<Node3D>(entity, nodePosition, nodeComp.IsWalkable());
         }
     }
 
@@ -251,6 +281,31 @@ void PathfindingSystem::ResetPathfinding() {
         pathfindingComp.SetBuilt(false);
     }
 
+}
+
+bool PathfindingSystem::DecomposeTransform(const glm::mat4& transform, glm::vec3& position, glm::vec3& rotation, glm::vec3& scale)
+{
+    using namespace glm;
+
+    vec3 skew;
+    vec4 perspective;
+    quat orientation;
+
+    if (!glm::decompose(transform, scale, orientation, position, skew, perspective))
+    {
+        return false;
+    }
+
+    // Correct the signs of the scale components if necessary
+    if (determinant(transform) < 0)
+    {
+        scale = -scale;
+    }
+
+    // Convert quaternion to Euler angles (in radians)
+    rotation = eulerAngles(orientation);
+
+    return true;
 }
 
 

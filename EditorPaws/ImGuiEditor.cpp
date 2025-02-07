@@ -286,6 +286,32 @@ void ImGuiEditor::ImGuiViewport() {
 							component.SetScale(oldScale);
 						}
 					);
+
+					// **Check if any children have a NodeComponent**
+					bool needsPathfindingUpdate = false;
+
+					if (g_Coordinator.HaveComponent<HierarchyComponent>(entity))
+					{
+						auto& hierarchyComp = g_Coordinator.GetComponent<HierarchyComponent>(entity);
+						for (Entity child : hierarchyComp.children)
+						{
+							if (g_Coordinator.HaveComponent<NodeComponent>(child))
+							{
+								needsPathfindingUpdate = true;
+								break; // Stop checking after finding the first match
+							}
+						}
+					}
+
+					// **Rebuild the pathfinding graph if necessary**
+					if (needsPathfindingUpdate)
+					{
+						auto pathfindingSystem = g_Coordinator.GetSystem<PathfindingSystem>();
+						if (pathfindingSystem)
+						{
+							pathfindingSystem->ResetPathfinding();
+						}
+					}
 				}
 
 				g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity, 0.0f);
@@ -3817,49 +3843,85 @@ void ImGuiEditor::InspectorWindow()
 							}
 						}
 						// Node Component editor
-						else if (className == "NodeComponent") {
-						if (ImGui::CollapsingHeader("Node Component", ImGuiTreeNodeFlags_None)) {
-							auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
+						// Node Component editor
+						else if (className == "NodeComponent") 
+						{
+							if (ImGui::CollapsingHeader("Node Component", ImGuiTreeNodeFlags_None)) {
+								auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
+								glm::vec3 nodePosition = nodeComponent.GetPosition();
+								bool isWalkable = nodeComponent.IsWalkable();
 
-							glm::vec3 nodePosition = nodeComponent.GetPosition();
-							bool isWalkable = nodeComponent.IsWalkable();
+								bool hasTransform = g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity);
+								bool hasHierarchy = g_Coordinator.HaveComponent<HierarchyComponent>(g_SelectedEntity);
 
-							// Check if the entity has a TransformComponent
-							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) {
-								auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
-								nodePosition = transformComp.GetPosition(); // Override position
-								ImGui::Text("Node Position (From Transform)");
-							}
-							else {
-								ImGui::Text("Node Position (Manual)");
-							}
+								glm::vec3 previousPosition = nodePosition; // Store old position for comparison
 
-							ImGui::SameLine();
-							ImGui::PushItemWidth(150.0f);
-							ImGui::PushID("NodePosition");
+								if (hasTransform) {
+									auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
 
-							// If there's a TransformComponent, display the position but disable editing
-							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) {
-								ImGui::InputFloat3("##NodePosition", &nodePosition.x, "%.3f", ImGuiInputTextFlags_ReadOnly);
-							}
-							else {
-								// Allow manual setting if no TransformComponent
-								if (ImGui::DragFloat3("##NodePosition", &nodePosition.x, 0.1f)) {
-									nodeComponent.SetPosition(nodePosition);
+									if (hasHierarchy) {
+										// Use World Transform if HierarchyComponent exists
+										auto transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+										glm::mat4 worldMatrix = transformSystem->GetWorldMatrix(g_SelectedEntity);
+
+										glm::vec3 worldPosition, worldRotation, worldScale;
+										if (DecomposeTransform(worldMatrix, worldPosition, worldRotation, worldScale)) {
+											nodePosition = worldPosition; // Override position
+										}
+										ImGui::Text("Node Position (World)");
+									}
+									else {
+										// Use local transform if no hierarchy
+										nodePosition = transformComp.GetPosition();
+										ImGui::Text("Node Position (Local)");
+									}
+								}
+								else {
+									ImGui::Text("Node Position (Manual)");
+								}
+
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("NodePosition");
+
+								bool positionChanged = false; // Flag for detecting change
+
+								// If the entity has a transform, display the position but disable editing
+								if (hasTransform) {
+									ImGui::InputFloat3("##NodePosition", &nodePosition.x, "%.3f", ImGuiInputTextFlags_ReadOnly);
+								}
+								else {
+									// Allow manual setting if no TransformComponent
+									if (ImGui::DragFloat3("##NodePosition", &nodePosition.x, 0.1f)) {
+										nodeComponent.SetPosition(nodePosition);
+										positionChanged = true; // Mark change
+									}
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Walkable Checkbox
+								bool walkable = nodeComponent.IsWalkable();
+								ImGui::Text("Walkable");
+								ImGui::SameLine();
+								if (ImGui::Checkbox("##Walkable", &walkable)) {
+									nodeComponent.SetWalkable(walkable);
+									positionChanged = true; // Rebuild graph if walkability changes
+								}
+
+								// **Rebuild Graph if Position Changes**
+								if (positionChanged && nodePosition != previousPosition) {
+									auto pathfindingSystem = g_Coordinator.GetSystem<PathfindingSystem>();
+									if (pathfindingSystem) {
+										pathfindingSystem->BuildGraph(); // Rebuild graph
+										std::cout << "[DEBUG] Pathfinding graph rebuilt due to node position change." << std::endl;
+									}
 								}
 							}
-
-							ImGui::PopID();
-							ImGui::PopItemWidth();
-
-							// Walkable Checkbox
-							bool walkable = nodeComponent.IsWalkable();
-							ImGui::Text("Walkable");
-							ImGui::SameLine();
-							ImGui::Checkbox("##Walkable", &walkable);
-							nodeComponent.SetWalkable(walkable);
 						}
-}
+
+
 
 						// Edge Component editor
 						else if (className == "EdgeComponent") 
