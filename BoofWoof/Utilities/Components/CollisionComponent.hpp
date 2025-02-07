@@ -116,6 +116,22 @@ public:
     void SetCollisionNormal(const glm::vec3& normal) { m_CollisionNormal = normal; }
     glm::vec3 GetCollisionNormal() const { return m_CollisionNormal; }
 
+    void AddGroundContact() {
+        m_GroundContacts++;
+        m_IsGrounded = true;
+    }
+
+    void RemoveGroundContact() {
+        if (m_GroundContacts > 0) {
+            m_GroundContacts--;
+        }
+        if (m_GroundContacts == 0) {
+            m_IsGrounded = false;
+        }
+    }
+
+    int GetGroundContacts() const { return m_GroundContacts; }
+
     // Reflection integration
     REFLECT_COMPONENT(CollisionComponent)
     {
@@ -146,6 +162,7 @@ private:
     float m_ActualMass = 0.0f;
     float m_Friction = 0.8f;
     glm::vec3 m_CollisionNormal = glm::vec3(0.0f, 1.0f, 0.0f); // Default normal pointing up
+    int m_GroundContacts = 0;  // Track number of ground contacts separately
 
 };
 

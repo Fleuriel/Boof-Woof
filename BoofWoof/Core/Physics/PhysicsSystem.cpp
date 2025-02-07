@@ -32,7 +32,6 @@ std::unordered_map<Entity, float> m_PreviousYPositions;
 
 using namespace JPH::literals;
 
-
 static void MyTrace(const char* inFMT, ...)
 {
     va_list args;
@@ -330,12 +329,11 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
                     //    }
                     //}
 
-
-                    //// Check if still colliding with the floor
-                    //if (collisionComponent.GetLastCollidedObjectName() == "FloorCastle"
-                    //    || collisionComponent.GetLastCollidedObjectName() == "WoodSteps") {
-                    //    isGrounded = true;
-                    //}
+                   // If got ground contacts set to true
+                    if (collisionComponent.GetGroundContacts() > 0) {
+                        collisionComponent.SetIsGrounded(true);
+                        std::cout << "[DEBUG] Entity " << entity << " is still grounded due to active ground contacts.\n";
+                    }
 
                     // Update `isGrounded` status
                     //collisionComponent.SetIsGrounded(isGrounded);
