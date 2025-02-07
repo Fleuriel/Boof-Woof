@@ -256,7 +256,7 @@ void GraphicsSystem::UpdateLoop() {
 		auto& ShaderName = material.GetShaderNameRef();
 
 #ifdef _DEBUG
-		std::cout << "ShaderName: " << material.GetShaderName() << '\n';
+	//	std::cout << "ShaderName: " << material.GetShaderName() << '\n';
 
 #endif
 
@@ -307,7 +307,7 @@ void GraphicsSystem::UpdateLoop() {
 		//}
 
 
-		std::cout << ShaderName << '\n';
+	//std::cout << ShaderName << '\n';
 
 		if (ShaderName == "ShaderAnimation" && g_Coordinator.HaveComponent<AnimationComponent>(entity)) {
 			//std::string ShaderName = "ShaderAnimation";
@@ -320,21 +320,56 @@ void GraphicsSystem::UpdateLoop() {
 			std::cout << "Size of bone animation on Res Manager" << g_ResourceManager.boneAnimations.size() << '\n';
 
 
-			animComp.Update(g_Core->m_DeltaTime);
+//			animComp.Update(g_Core->m_DeltaTime);
 
-			if (animComp.updateMesh) {
-				// Update the entire model's mesh
-				std::cout << "update mesh\n";
 
-				g_ResourceManager.getModel(graphicsComp.getModelName())->UpdateMesh();
+		//
+			for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
 
-				// Reset the flag
-				animComp.updateMesh = false;
+				//std::cout << "Name\t" << graphicsComp.getModelName() << '\t' << mesh.bindPoseVertices.size() << '\t' << g_ResourceManager.getModel(graphicsComp.getModelName())->name << '\n';
+
+
+
+				//animComp.Update(g_Core->m_DeltaTime);
+
+				//std::cout << "tech:\t\t" << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes[0].bindPoseVertices.size() << '\n';
+			
+				
+				mesh.UpdateVerticesWithBones(
+					g_ResourceManager.boneAnimations,           // The map of bone animations
+					mesh.bindPoseVertices,                        // The original vertices (bind pose)
+					g_ResourceManager.boneNames                  // The vector mapping bone indices to bone names
+				);
+				//
+				//
+				//mesh.UpdateVerticesWithBonesCombinedA(deltaTime, g_ResourceManager.boneAnimations,           // The map of bone animations
+				//	mesh.bindPoseVertices,                        // The original vertices (bind pose)
+				//	g_ResourceManager.boneNames                  // The vector mapping bone indices to bone names
+				//);
+
+			//animComp.Update(g_Core->m_DeltaTime); // Calls Animation::UpdateAnimation internally
+			//
+			//// Now, update each mesh’s vertex positions (CPU skinning)
+			//Model* model = g_ResourceManager.getModel(graphicsComp.getModelName());
+			//for (Mesh& mesh : model->meshes) {
+			//	// This function uses:
+			//	// - g_ResourceManager.boneAnimations: updated bone transforms
+			//	// - mesh.bindPoseVertices: the original vertices as loaded
+			//	// - animComp.animation.boneNames: vector mapping bone indices to bone names
+			//	mesh.UpdateVerticesWithBones(g_ResourceManager.boneAnimations,
+			//		mesh.bindPoseVertices,
+			//		g_ResourceManager.boneNames);
+			//}
+			//
+			//// Update the GPU buffers if the mesh data has been changed
+			//if (animComp.updateMesh) {
+			//	model->UpdateMesh(); // Updates each mesh's VAO/VBO/EBO with the newly computed vertices
+			//	animComp.updateMesh = false;
+			//}
 			}
 
 
 
-		//	std::cout << "entered2\n";
 			// Set standard transformation matrices
 			if (graphicsComp.getFollowCamera()) {
 				SetShaderUniforms(g_AssetManager.GetShader(ShaderName), shdrParam);

@@ -18,6 +18,18 @@
 #define MESH_H
 
 #include "Shader.h"
+
+struct BoneAnimation;
+
+ 
+//#include <vector>
+
+
+
+class Animation; // Forward declaration of Animation
+
+
+
 //#include "ResourceManager/ResourceManager.h"
 
 constexpr auto MAX_BONE_INFLUENCE = 4;
@@ -35,9 +47,9 @@ struct Vertex {
     // bitangent
     glm::vec3 Bitangent;
     ////bone indexes which will influence this vertex
-    int m_BoneIDs[MAX_BONE_INFLUENCE];
+    int m_BoneIDs[MAX_BONE_INFLUENCE] = { -1 };
     //weights from each bone
-    float m_Weights[MAX_BONE_INFLUENCE];
+    float m_Weights[MAX_BONE_INFLUENCE] = { 0.0f };
 };
 
 struct Texture {
@@ -50,6 +62,9 @@ class Mesh {
 public:
     // mesh Data
     std::vector<Vertex>       vertices{};
+    std::vector<Vertex> bindPoseVertices{}; // Copy of the original vertex data
+
+
     std::vector<unsigned int> indices{};
 	std::vector<Texture>      textures{};
     unsigned int VAO{};
@@ -65,6 +80,7 @@ public:
         this->indices = indices;
         this->textures = textures;
 
+        this->bindPoseVertices = vertices;
 
 #ifdef _DEBUG
         for (int i = 0; i < textures.size(); ++i)
@@ -340,7 +356,26 @@ public:
 
        glBindVertexArray(0);
    }
-    
+
+
+   void UpdateVerticesWithBones(
+       const std::unordered_map<std::string, BoneAnimation>& boneAnimations,
+       const std::vector<Vertex>& bindPoseVertices,
+       const std::vector<std::string>& boneNames);
+
+
+   void UpdateVerticesWithBonesCombined(float deltaTime,
+       const std::unordered_map<std::string, BoneAnimation>& boneAnimations,
+       const std::vector<Vertex>& bindPoseVertices,
+       const std::vector<std::string>& boneNames);
+   
+
+   void UpdateVerticesWithBonesCombinedA(float deltaTime,
+       const std::unordered_map<std::string, BoneAnimation>& boneAnimations,
+       const std::vector<Vertex>& bindPoseVertices,
+       const std::vector<std::string>& boneNames);
+
+   void UpdateVerticesWithBones_DebugCube();
 
 };
 

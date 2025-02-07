@@ -175,6 +175,7 @@ void Animation::ProcessAnimation(const aiScene* scene) {
     std::cout << "Bone Animation Data\n\n\n\n";
     for (const auto& boneAnim : g_ResourceManager.boneAnimations) {
         std::cout << "Bone: " << boneAnim.first << " has " << boneAnim.second.keyFrames.size() << " keyframes\n";
+		g_ResourceManager.boneNames.push_back(boneAnim.first);
     }
     
     // Build the bone hierarchy after processing animation data
@@ -183,23 +184,33 @@ void Animation::ProcessAnimation(const aiScene* scene) {
 }
 
 
+void AddBoneData(Vertex& vertex, int boneIndex, float weight) {
+    for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
+        if (vertex.m_BoneIDs[i] == -1) {  // Found an empty slot
+            vertex.m_BoneIDs[i] = boneIndex;
+            vertex.m_Weights[i] = weight;
+            return;
+        }
+    }
+    // Optionally: If all slots are filled, you can choose to ignore the extra influence
+}
+
 
 void Animation::ProcessMesh(const aiScene* scene) {
     meshDataMesh.clear();  // Clear previous meshes (if any)
 
-    for (unsigned int i = 0; i < scene->mNumMeshes; ++i) {
-        aiMesh* mesh = scene->mMeshes[i];
+    for (unsigned int m = 0; m < scene->mNumMeshes; ++m) {
+        aiMesh* mesh = scene->mMeshes[m];
 
         // Temporary storage for mesh data
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
         std::vector<Texture> textures;
 
-        // Extract vertex positions, normals, and texture coordinates
+        // --- Load vertex data ---
         for (unsigned int j = 0; j < mesh->mNumVertices; ++j) {
             Vertex vertex;
 
-            
             // Position
             vertex.Position = glm::vec3(
                 mesh->mVertices[j].x,
@@ -225,13 +236,36 @@ void Animation::ProcessMesh(const aiScene* scene) {
                 vertex.TexCoords = glm::vec2(0.0f, 0.0f);
             }
 
-            // Bone weights (if applicable)
-            // This part requires you to process the bones in your model, but for now we'll skip it
-
+            // Bone influences will be processed next.
             vertices.push_back(vertex);
         }
 
-        // Extract indices
+        // --- Process bone data, if available ---
+        if (mesh->HasBones()) {
+            for (unsigned int i = 0; i < mesh->mNumBones; ++i) {
+                aiBone* bone = mesh->mBones[i];
+                std::string boneName(bone->mName.C_Str());
+
+                // If this bone is new, assign it an index.
+                if (boneMapping.find(boneName) == boneMapping.end()) {
+                    int newIndex = static_cast<int>(boneMapping.size());
+                    boneMapping[boneName] = newIndex;
+                }
+                int boneIndex = boneMapping[boneName];
+
+                // For each vertex influenced by this bone...
+                for (unsigned int k = 0; k < bone->mNumWeights; ++k) {
+                    aiVertexWeight weight = bone->mWeights[k];
+                    int vertexID = weight.mVertexId;    // The index of the vertex affected
+                    float boneWeight = weight.mWeight;    // The weight of this influence
+
+                    // Add this bone influence to the vertex
+                    AddBoneData(vertices[vertexID], boneIndex, boneWeight);
+                }
+            }
+        }
+
+        // --- Extract indices ---
         for (unsigned int j = 0; j < mesh->mNumFaces; ++j) {
             aiFace face = mesh->mFaces[j];
             for (unsigned int k = 0; k < face.mNumIndices; ++k) {
@@ -239,9 +273,7 @@ void Animation::ProcessMesh(const aiScene* scene) {
             }
         }
 
-        // Optionally load textures here (if the mesh has textures)
-
-        // Now, create VAO, VBO, and EBO for this mesh
+        // --- Set up OpenGL buffers (VAO, VBO, EBO) ---
         unsigned int VAO, VBO, EBO;
         glGenVertexArrays(1, &VAO);
         glGenBuffers(1, &VBO);
@@ -249,35 +281,36 @@ void Animation::ProcessMesh(const aiScene* scene) {
 
         glBindVertexArray(VAO);
 
-        // Set VBO
+        // Vertex Buffer (VBO)
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
 
-        // Set EBO
+        // Element Buffer (EBO)
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_DYNAMIC_DRAW);
 
-        // Position attribute
+        // Set up vertex attribute pointers:
+        // Position attribute (location 0)
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
         glEnableVertexAttribArray(0);
 
-        // Normal attribute
-           glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
-           glEnableVertexAttribArray(1);
-    
-         // Texture coordinates attribute
-           glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-           glEnableVertexAttribArray(2);
+        // Normal attribute (location 1)
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+        glEnableVertexAttribArray(1);
+
+        // Texture coordinates attribute (location 2)
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+        glEnableVertexAttribArray(2);
 
         glBindVertexArray(0);  // Unbind VAO
 
-        // Store this mesh data in your mesh data vector
+        // --- Create a Mesh instance and store it ---
         Mesh processedMesh;
         processedMesh.VAO = VAO;
         processedMesh.VBO = VBO;
         processedMesh.EBO = EBO;
-//        processedMesh.numIndices = indices.size();
         processedMesh.vertices = vertices;
+        processedMesh.bindPoseVertices = vertices;  // Store original vertex data for skinning.
         processedMesh.indices = indices;
         meshDataMesh.push_back(processedMesh);
     }
@@ -400,19 +433,39 @@ void Animation::UpdateAnimation(float deltaTime)
     std::cout << "Current Time: " << currentTime << std::endl;
 
     for (auto& bonePair : g_ResourceManager.boneAnimations) {
+        int i = 0;
+
         std::string boneName = bonePair.first;
         BoneAnimation& boneAnim = bonePair.second;
 
         if (boneAnim.keyFrames.size() < 2) continue; // Skip if there's no interpolation
 
-        KeyFrame keyFrameBefore, keyFrameAfter;
+        // Initialize with default values (first two keyframes)
+        KeyFrame keyFrameBefore = boneAnim.keyFrames[0];
+        KeyFrame keyFrameAfter = boneAnim.keyFrames[1];
 
+        // Try to find the valid interval for the current time
+        bool foundInterval = false;
         for (size_t i = 0; i < boneAnim.keyFrames.size() - 1; ++i) {
             if (currentTime >= boneAnim.keyFrames[i].timeStamp && currentTime < boneAnim.keyFrames[i + 1].timeStamp) {
                 keyFrameBefore = boneAnim.keyFrames[i];
                 keyFrameAfter = boneAnim.keyFrames[i + 1];
+                foundInterval = true;
                 break;
             }
+        }
+
+        // Optional: If not found, you might want to choose a fallback.
+        // For instance, if currentTime is beyond the last keyframe, you might choose the last two keyframes:
+        if (!foundInterval) {
+            keyFrameBefore = boneAnim.keyFrames[boneAnim.keyFrames.size() - 2];
+            keyFrameAfter = boneAnim.keyFrames[boneAnim.keyFrames.size() - 1];
+        }
+
+        // Avoid division by zero (ensure the timestamps differ)
+        if (fabs(keyFrameAfter.timeStamp - keyFrameBefore.timeStamp) < 1e-5f) {
+            std::cerr << "Warning: Keyframes have identical timestamps for bone " << boneName << std::endl;
+            continue;
         }
 
         // Interpolate
@@ -421,19 +474,29 @@ void Animation::UpdateAnimation(float deltaTime)
         glm::quat interpolatedRotation = glm::slerp(keyFrameBefore.rotation, keyFrameAfter.rotation, alpha);
         glm::vec3 interpolatedScale = glm::mix(keyFrameBefore.scale, keyFrameAfter.scale, alpha);
 
-        // Debugging output for interpolation
-        std::cout << "Interpolated Position: " << interpolatedPosition.x << ", " << interpolatedPosition.y << ", " << interpolatedPosition.z << std::endl;
-        std::cout << "Interpolated Rotation: " << interpolatedRotation.x << ", " << interpolatedRotation.y << ", " << interpolatedRotation.z << ", " << interpolatedRotation.w << std::endl;
+        // Debug output for interpolation
+        std::cout << "Bone: " << boneName << std::endl;
+        std::cout << "Interpolated Position: " << interpolatedPosition.x << ", "
+            << interpolatedPosition.y << ", " << interpolatedPosition.z << std::endl;
+        std::cout << "Interpolated Rotation: " << interpolatedRotation.x << ", "
+            << interpolatedRotation.y << ", " << interpolatedRotation.z << ", "
+            << interpolatedRotation.w << std::endl;
 
-        // Store the transformation matrix
+        // Store the transformation matrix for this bone
         boneAnim.currentTransform = glm::translate(glm::mat4(1.0f), interpolatedPosition) *
             glm::mat4_cast(interpolatedRotation) *
             glm::scale(glm::mat4(1.0f), interpolatedScale);
 
+        // Optionally, update the boneNames vector if needed
+        if (std::find(g_ResourceManager.boneNames.begin(), g_ResourceManager.boneNames.end(), boneAnim.boneName) == g_ResourceManager.boneNames.end()) {
+            g_ResourceManager.boneNames.push_back(boneAnim.boneName);
+        }
 
 
-
+     //   meshDataMesh[i].UpdateMesh(updatedVertices, indices);
     }
 
-//	meshDataMesh[0].UpdateMesh();
+    // If you want to update the mesh with the new vertex data based on the bone transforms,
+    // you would call your mesh update function here.
+    // For example:
 }

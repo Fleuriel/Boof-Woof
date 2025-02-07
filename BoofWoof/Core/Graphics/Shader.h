@@ -17,6 +17,18 @@
 #ifndef OPENGL_SHADERS_H
 #define OPENGL_SHADERS_H
 
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <vector>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <map>
+#include <unordered_map>
+
+
+
 class OpenGLShader {
 
 public:

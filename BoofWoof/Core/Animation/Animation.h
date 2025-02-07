@@ -1,5 +1,5 @@
-#ifndef ANIMATION
-#define ANIMATION
+#ifndef ANIMATION_H
+#define ANIMATION_H
 
 #include <vector>
 #include <string>
@@ -11,6 +11,9 @@
 #include <assimp/postprocess.h>
 #include <iostream>
 #include "../Core/Graphics/Mesh.h"
+
+
+
 
 
 struct AnimVertex {
@@ -35,7 +38,8 @@ struct KeyFrame {
 struct BoneAnimation {
     std::string boneName;
     std::vector<KeyFrame> keyFrames;
-    glm::mat4 currentTransform = glm::mat4(1.0f); // Default to identity matrix
+    glm::mat4 currentTransform = glm::mat4(1.0f); // Default to identity matrix   
+    glm::mat4 offsetMatrix = glm::mat4(1.0f); // Inverse bind pose matrix
 };
 
 

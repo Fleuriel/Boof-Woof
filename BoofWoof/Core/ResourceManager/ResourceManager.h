@@ -84,6 +84,8 @@ public:
 
 
 	std::unordered_map<std::string, BoneAnimation> boneAnimations;
+	std::vector<std::string> boneNames;
+
 
 
 private:
