@@ -4,6 +4,7 @@
 #include "ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 #include "../Utilities/ForGame/TimerTR/TimerTR.h"
+#include "../GSM/GameStateMachine.h" // for g_IsPaused
 
 class TimeRush : public Level
 {
@@ -166,6 +167,17 @@ class TimeRush : public Level
 
 	void UpdateLevel(double deltaTime) override
 	{
+
+		if (g_IsPaused && !savedcamdir) {
+			camdir = cameraController->GetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
+			savedcamdir = true;
+		}
+
+		if (!g_IsPaused && savedcamdir) {
+			cameraController->SetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt), camdir);
+			savedcamdir = false;
+		}
+
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
 			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
 			glm::vec3 playerPos = playerTransform.GetPosition();
