@@ -19,7 +19,7 @@ class MainHall : public Level
 	CameraController* cameraController = nullptr;
 
 	double timer = 0.0; // Timer for smell avoidance
-	double timerLimit = 5.0f; // Timer limit for smell avoidance
+	double timerLimit = 10.0f; // Timer limit for smell avoidance
 
 	bool TimerInit = false;
 
