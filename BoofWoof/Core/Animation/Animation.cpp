@@ -82,6 +82,10 @@ bool Animation::LoadAnimation(const std::string& filePath) {
     ProcessAnimation(scene);
     ProcessMesh(scene);
 
+    std::cout << g_ResourceManager.boneAnimations.size() << '\n';
+    std::cout << g_ResourceManager.boneAnimations.size() << '\n';
+    std::cout << g_ResourceManager.boneAnimations.size() << '\n';
+
     Model model;
     model.meshes = meshDataMesh;
 	model.name = "animation";
@@ -112,6 +116,7 @@ void Animation::ProcessAnimation(const aiScene* scene) {
         BoneAnimation boneAnim;
         boneAnim.boneName = channel->mNodeName.C_Str();
 
+        std::cout << "Bone Name: " << boneAnim.boneName << '\n';
         // Process keyframes for position, rotation, and scale
         for (unsigned int j = 0; j < channel->mNumPositionKeys; ++j) {
             KeyFrame keyFrame;
@@ -149,17 +154,32 @@ void Animation::ProcessAnimation(const aiScene* scene) {
 
 
 
-        boneAnimations[boneAnim.boneName] = boneAnim;
+        g_ResourceManager.boneAnimations[boneAnim.boneName] = boneAnim;
+
+        std::cout << "Data of Bones\n";
+        std::cout << g_ResourceManager.boneAnimations[boneAnim.boneName].boneName << '\n';
+        std::cout << g_ResourceManager.boneAnimations[boneAnim.boneName].currentTransform.length() << '\n';
+        std::cout << g_ResourceManager.boneAnimations[boneAnim.boneName].keyFrames.size() << '\n';
 
         // Store bone mapping
         if (boneMapping.find(boneAnim.boneName) == boneMapping.end()) {
             int newIndex = static_cast<int>(boneMapping.size());
             boneMapping[boneAnim.boneName] = newIndex;
+
         }
     }
 
+    std::cout<< "BONE ANIMATION DE SIZE\t" << g_ResourceManager.boneAnimations.size() << '\n';
+
+
+    std::cout << "Bone Animation Data\n\n\n\n";
+    for (const auto& boneAnim : g_ResourceManager.boneAnimations) {
+        std::cout << "Bone: " << boneAnim.first << " has " << boneAnim.second.keyFrames.size() << " keyframes\n";
+    }
+    
     // Build the bone hierarchy after processing animation data
     BuildBoneHierarchy(scene->mRootNode);
+    std::cout << "BONE ANIMATION DE SIZE\t" << g_ResourceManager.boneAnimations.size() << '\n';
 }
 
 
@@ -336,8 +356,11 @@ const std::vector<glm::mat4>& Animation::GetBoneTransformsAtTime(float currentTi
 
 void Animation::CalculateBoneTransform(float animationTime, const std::string& boneName, glm::mat4 parentTransform) {
     // Find bone animation data
-    auto boneAnimIt = boneAnimations.find(boneName);
-    if (boneAnimIt == boneAnimations.end()) return;
+
+    std::cout << "Calculating Bone Transform Size: " << g_ResourceManager.boneAnimations.size() << '\n';
+
+    auto boneAnimIt = g_ResourceManager.boneAnimations.find(boneName);
+    if (boneAnimIt == g_ResourceManager.boneAnimations.end()) return;
 
     const BoneAnimation& boneAnim = boneAnimIt->second;
 
@@ -366,4 +389,51 @@ void Animation::CalculateBoneTransform(float animationTime, const std::string& b
             CalculateBoneTransform(animationTime, childName, globalTransform);
         }
     }
+}
+
+
+void Animation::UpdateAnimation(float deltaTime)
+{
+    currentTime += deltaTime * ticksPerSecond;
+    currentTime = fmod(currentTime, duration); // Loop animation
+
+    std::cout << "Current Time: " << currentTime << std::endl;
+
+    for (auto& bonePair : g_ResourceManager.boneAnimations) {
+        std::string boneName = bonePair.first;
+        BoneAnimation& boneAnim = bonePair.second;
+
+        if (boneAnim.keyFrames.size() < 2) continue; // Skip if there's no interpolation
+
+        KeyFrame keyFrameBefore, keyFrameAfter;
+
+        for (size_t i = 0; i < boneAnim.keyFrames.size() - 1; ++i) {
+            if (currentTime >= boneAnim.keyFrames[i].timeStamp && currentTime < boneAnim.keyFrames[i + 1].timeStamp) {
+                keyFrameBefore = boneAnim.keyFrames[i];
+                keyFrameAfter = boneAnim.keyFrames[i + 1];
+                break;
+            }
+        }
+
+        // Interpolate
+        float alpha = (currentTime - keyFrameBefore.timeStamp) / (keyFrameAfter.timeStamp - keyFrameBefore.timeStamp);
+        glm::vec3 interpolatedPosition = glm::mix(keyFrameBefore.position, keyFrameAfter.position, alpha);
+        glm::quat interpolatedRotation = glm::slerp(keyFrameBefore.rotation, keyFrameAfter.rotation, alpha);
+        glm::vec3 interpolatedScale = glm::mix(keyFrameBefore.scale, keyFrameAfter.scale, alpha);
+
+        // Debugging output for interpolation
+        std::cout << "Interpolated Position: " << interpolatedPosition.x << ", " << interpolatedPosition.y << ", " << interpolatedPosition.z << std::endl;
+        std::cout << "Interpolated Rotation: " << interpolatedRotation.x << ", " << interpolatedRotation.y << ", " << interpolatedRotation.z << ", " << interpolatedRotation.w << std::endl;
+
+        // Store the transformation matrix
+        boneAnim.currentTransform = glm::translate(glm::mat4(1.0f), interpolatedPosition) *
+            glm::mat4_cast(interpolatedRotation) *
+            glm::scale(glm::mat4(1.0f), interpolatedScale);
+
+
+
+
+    }
+
+//	meshDataMesh[0].UpdateMesh();
 }

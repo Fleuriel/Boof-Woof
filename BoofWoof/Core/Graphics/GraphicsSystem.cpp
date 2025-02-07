@@ -315,6 +315,10 @@ void GraphicsSystem::UpdateLoop() {
 			auto shader = g_AssetManager.GetShader(ShaderName);
 			auto& animComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
 
+			//std::cout << animComp.animation.boneAnimations.size() << '\n';
+
+			std::cout << "Size of bone animation on Res Manager" << g_ResourceManager.boneAnimations.size() << '\n';
+
 
 			animComp.Update(g_Core->m_DeltaTime);
 
@@ -346,7 +350,7 @@ void GraphicsSystem::UpdateLoop() {
 			// Pass bone transformation matrices
 			std::vector<glm::mat4> boneTransforms = animComp.GetBoneTransformsAtTime(deltaTime); //= graphicsComp.GetBoneTransforms(); // Assume this function exists
 			
-			std::cout << boneTransforms.size() << '\n';
+			//std::cout << boneTransforms.size() << '\n';
 			//if (boneTransforms.empty()) {
 			//	boneTransforms.resize(100, glm::mat4(1.0f)); // Assume max 100 bones, fill with identity
 			//}

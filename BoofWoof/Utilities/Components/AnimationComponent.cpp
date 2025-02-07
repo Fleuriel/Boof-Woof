@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "AnimationComponent.h"
 #include <iostream>
+#include "ResourceManager/ResourceManager.h"
+
 
 // Set the active animation
 void AnimationComponent::SetAnimation(const std::string& animationName) {
@@ -27,12 +29,14 @@ void AnimationComponent::Update(double deltaTime) {
     std::cout << "it entered this update in Animation\n";
 
     // Update animation state based on deltaTime
-    state.Update(deltaTime);
+    //state.Update(deltaTime);
 
     
 
+    UpdateAnim(deltaTime);
+
     // Apply bone transformations or other logic (e.g., interpolation between keyframes)
-    GetBoneTransformsAtTime(static_cast<float>(state.currentTime));  // This function would update vertex positions based on bones
+   //GetBoneTransformsAtTime(static_cast<float>(state.currentTime));  // This function would update vertex positions based on bones
 
     // Mark the mesh for an update, since the vertex positions might have changed
     updateMesh = true;
@@ -72,4 +76,15 @@ const std::vector<glm::mat4>& AnimationComponent::GetBoneTransformsAtTime(float 
 // Get the current time in ticks
 float AnimationComponent::GetTickCount() const {
     return static_cast<float>(state.currentTime);
+}
+
+void AnimationComponent::UpdateAnim(float deltaTime)
+{
+   // std::cout << "anim1\n" << '\n';
+   // std::cout << g_ResourceManager.boneAnimations.size() << '\n';
+
+	animation.UpdateAnimation(deltaTime);
+
+  //  std::cout <<" ANIm2" << g_ResourceManager.boneAnimations.size() << '\n';
+  //  std::cout << g_ResourceManager.boneAnimations.size() << '\n';
 }

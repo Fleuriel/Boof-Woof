@@ -83,6 +83,9 @@ public:
 	std::map <std::string, Model> ModelMapAnimation;
 
 
+	std::unordered_map<std::string, BoneAnimation> boneAnimations;
+
+
 private:
 	
 

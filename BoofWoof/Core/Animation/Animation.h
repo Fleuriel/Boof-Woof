@@ -35,6 +35,7 @@ struct KeyFrame {
 struct BoneAnimation {
     std::string boneName;
     std::vector<KeyFrame> keyFrames;
+    glm::mat4 currentTransform = glm::mat4(1.0f); // Default to identity matrix
 };
 
 
@@ -55,11 +56,12 @@ public:
     const std::unordered_map<std::string, BoneInfo>& GetBoneInfoMap() const { return boneInfoMap; }
     void ProcessMesh(const aiScene* scene);
 
-//    void UpdateAnimation(float deltaTime);
+    void UpdateAnimation(float deltaTime);
 
 
     void BuildBoneHierarchy(const aiNode* node, const std::string& parentName = "");
 
+//    std::unordered_map<std::string, BoneAnimation> boneAnimations;
     std::vector<Mesh> meshDataMesh;
     std::vector<aiMesh*> meshes;
 private:
@@ -75,10 +77,10 @@ private:
     std::unordered_map<std::string, int> boneMapping;  // Maps bone names to their index
     std::vector<glm::mat4> boneTransforms;            // Stores final bone matrices
     std::unordered_map<std::string, BoneInfo> boneInfoMap;
-    std::unordered_map<std::string, BoneAnimation> boneAnimations;
 //    std::vector<glm::mat4> boneTransforms;
-    float duration = 0.0f;
+    float duration = 10.0f;
     float ticksPerSecond = 25.0f;
+    float currentTime = 0.0f;  // <--- Declare currentTime here
     int boneCounter = 0;
 };
 

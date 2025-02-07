@@ -25,7 +25,7 @@ public:
 class AnimationComponent {
 public:
     AnimationComponent() = default;
-
+    void UpdateAnim(float deltaTime);
     // Set the active animation
     void SetAnimation(const std::string& animationName);
 
@@ -56,8 +56,8 @@ public:
 //    EntityAnimationState GetState() { return state; }
 
     EntityAnimationState state; // Entity-specific playback state
-private:
     Animation animation;        // The animation data
+private:
 };
 
 #endif // ANIMATION_COMPONENT_H

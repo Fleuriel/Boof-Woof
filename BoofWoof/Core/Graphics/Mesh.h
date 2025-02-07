@@ -35,9 +35,9 @@ struct Vertex {
     // bitangent
     glm::vec3 Bitangent;
     ////bone indexes which will influence this vertex
-    //int m_BoneIDs[MAX_BONE_INFLUENCE];
-    ////weights from each bone
-    //float m_Weights[MAX_BONE_INFLUENCE];
+    int m_BoneIDs[MAX_BONE_INFLUENCE];
+    //weights from each bone
+    float m_Weights[MAX_BONE_INFLUENCE];
 };
 
 struct Texture {
@@ -299,24 +299,47 @@ public:
         glBindVertexArray(0);
    }
 
-   
+  // void UpdateVerticesWithBones(float deltaTime, const std::unordered_map<std::string, BoneAnimation>& boneAnimations) {
+  //    for (size_t i = 0; i < vertices.size(); ++i) {
+  //        Vertex& vertex = vertices[i];
+  //
+  //        glm::vec3 newPosition = glm::vec3(0.0f);
+  //
+  //        // Apply the bone transformations to the vertex position based on bone indices and weights
+  //        for (int j = 0; j < 4; ++j) {  // Assuming 4 bones influence each vertex
+  //            if (vertex.m_BoneIDs[j] == -1) continue;  // If no bone is assigned, skip this slot
+  //
+  //
+////              int boneIndex = vertex.m_BoneIDs[j];
+////              std::string boneName = g_ResourceManager.getBoneName(boneIndex);  // Retrieve bone name from resource manager
+  //
+  //            // Get the bone's transformation matrix
+  //            const BoneAnimation& boneAnim = boneAnimations.at("Head");
+  //            glm::mat4 boneTransform = boneAnim.currentTransform;
+  //
+  //            // Apply the bone's transformation to the vertex position, weighted by the bone's influence
+  //            newPosition += vertex.m_Weights[j] * glm::vec3(boneTransform * glm::vec4(vertex.Position, 1.0f));
+  //        }
+  //
+  //        vertex.Position = newPosition;  // Update the vertex's position
+  //    }
+  //}
 
-   void UpdateMesh()
+   void UpdateMesh(const std::vector<Vertex>& updatedVertices, const std::vector<unsigned int>& updatedIndices)
    {
+       // Update the vertex data
        glBindVertexArray(VAO);
 
-       // Update vertex buffer (VBO)
+       // Update vertex buffer (VBO) with the new vertex data
        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-       glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(Vertex), &vertices[0]);
+       glBufferSubData(GL_ARRAY_BUFFER, 0, updatedVertices.size() * sizeof(Vertex), updatedVertices.data());
 
-
-       // Update index buffer (EBO)
+       // Update index buffer (EBO) with the new index data
        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-       glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_DYNAMIC_DRAW);
+       glBufferData(GL_ELEMENT_ARRAY_BUFFER, updatedIndices.size() * sizeof(unsigned int), updatedIndices.data(), GL_DYNAMIC_DRAW);
 
        glBindVertexArray(0);
    }
-
     
 
 };
