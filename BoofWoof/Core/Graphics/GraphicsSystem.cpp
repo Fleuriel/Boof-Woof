@@ -320,7 +320,7 @@ void GraphicsSystem::UpdateLoop() {
 			std::cout << "Size of bone animation on Res Manager" << g_ResourceManager.boneAnimations.size() << '\n';
 
 
-//			animComp.Update(g_Core->m_DeltaTime);
+			animComp.Update(g_Core->m_DeltaTime);
 
 
 		//
