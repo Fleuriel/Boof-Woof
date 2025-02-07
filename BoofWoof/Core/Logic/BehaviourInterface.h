@@ -57,11 +57,6 @@ struct engine_interface
 	// Pathfinding functions
 	virtual bool HavePathfindingComponent(Entity entity) = 0;
 	virtual std::vector<glm::vec3> GetPath(Entity entity) = 0;
-	virtual void SetStartNode(Entity entity, Entity node) = 0;
-	virtual Entity GetStartNode(Entity entity) = 0;
-	virtual void SetGoalNode(Entity entity, Entity node) = 0;
-	virtual Entity GetGoalNode(Entity entity) = 0;
-	virtual void SetBuilt(Entity entity, bool built) = 0;
 
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) = 0;

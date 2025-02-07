@@ -200,9 +200,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 18.824207305908204,
-                    "y": 0.9996619820594788,
-                    "z": 6.434438705444336
+                    "x": 19.22307586669922,
+                    "y": 0.9996546506881714,
+                    "z": 6.858104705810547
                 },
                 "Scale": {
                     "x": 0.5,
@@ -13929,11 +13929,6 @@
                     "y": 0.0,
                     "z": 0.0
                 }
-            },
-            "AudioComponent": {
-                "AudioFilePath": "../BoofWoof/Assets/Audio/Fire.wav",
-                "Volume": 1.0,
-                "ShouldLoop": true
             },
             "ParticleComponent": {
                 "PositionMin": {
