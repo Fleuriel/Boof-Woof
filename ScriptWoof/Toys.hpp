@@ -18,10 +18,13 @@ struct Toys final : public Behaviour
 
 			if (std::strcmp(collidingEntityName, "Player") == 0)
 			{
-				//std::cout << "Player is colliding with toys" << std::endl;
+				std::cout << "Player is colliding with toys" << std::endl;
 
 				//Play sound
-				//m_Engine.getAudioSystem().PlaySound("ToysSound");
+
+				m_Engine.getAudioSystem().PlaySoundById("Corgi/CorgiBark1.wav");
+			
+
 
 				//Destroy the toys
 				m_Engine.getPhysicsSystem().RemoveBody(entity);

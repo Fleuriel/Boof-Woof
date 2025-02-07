@@ -4,6 +4,7 @@
 #include "ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 #include "../Utilities/ForGame/TimerTR/TimerTR.h"
+#include "../GSM/GameStateMachine.h" // for g_IsPaused
 
 class TimeRush : public Level
 {
@@ -138,7 +139,7 @@ class TimeRush : public Level
 		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {
 			auto& bgmAudio = g_Coordinator.GetComponent<AudioComponent>(TimeRushBGM);
 			bgmAudio.SetAudioSystem(&g_Audio);
-			bgmAudio.PlayAudio();
+			//bgmAudio.PlayAudio();
 		}
 		else {
 			std::cerr << " ERROR: TimeRushBGM entity has no AudioComponent in InitLevel!" << std::endl;
@@ -147,7 +148,7 @@ class TimeRush : public Level
 		if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
 			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
 			dogAudio.SetAudioSystem(&g_Audio);
-			dogAudio.PlayAudio();
+			//dogAudio.PlayAudio();
 		}
 		else {
 			std::cerr << " ERROR: AggroDog entity has no AudioComponent in InitLevel!" << std::endl;
@@ -156,7 +157,7 @@ class TimeRush : public Level
 
 		if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
 			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
-			dogAudio.SetAudioSystem(&g_Audio);
+			//dogAudio.SetAudioSystem(&g_Audio);
 		}
 
 
@@ -166,6 +167,17 @@ class TimeRush : public Level
 
 	void UpdateLevel(double deltaTime) override
 	{
+
+		if (g_IsPaused && !savedcamdir) {
+			camdir = cameraController->GetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
+			savedcamdir = true;
+		}
+
+		if (!g_IsPaused && savedcamdir) {
+			cameraController->SetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt), camdir);
+			savedcamdir = false;
+		}
+
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
 			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
 			glm::vec3 playerPos = playerTransform.GetPosition();
@@ -205,6 +217,8 @@ class TimeRush : public Level
 				timesUp -= deltaTime;
 
 				// Times up! sound
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
+
 
 				// Wait for like 2 seconds then restart game
 				if (timesUp < 0.0) 
@@ -316,7 +330,7 @@ class TimeRush : public Level
 
 	void UnloadLevel() override
 	{
-		//g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/TimeRushBGM.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/Timesup.wav");
 		//g_Audio.StopBGM();
 
 		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {

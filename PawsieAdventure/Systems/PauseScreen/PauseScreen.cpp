@@ -267,7 +267,7 @@ namespace pauseLogic
 						inSmthAgain = true;
 
 						// Add in audio feedback
-						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/HowToPlaySFX.wav", false, "SFX");
 
 						pauser->OnExit();
 						pauser = CreatePausedMenu(PauseState::HowToPlay);

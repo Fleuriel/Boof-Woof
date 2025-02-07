@@ -7,6 +7,8 @@
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
+#include "../GSM/GameStateMachine.h" // for g_IsPaused
+
 
 class MainHall : public Level
 {
@@ -19,7 +21,7 @@ class MainHall : public Level
 	CameraController* cameraController = nullptr;
 
 	double timer = 0.0; // Timer for smell avoidance
-	double timerLimit = 5.0f; // Timer limit for smell avoidance
+	double timerLimit = 10.0f; // Timer limit for smell avoidance
 
 	bool TimerInit = false;
 
@@ -181,6 +183,7 @@ class MainHall : public Level
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PeePuddle.wav", false, "SFX");
 			peeMarked = true;
 			peeSoundPlayed = true;  // Ensure the sound plays only once
+			waterSoundPlayed = false; // Reset water sound state
 
 		}
 
@@ -216,8 +219,22 @@ class MainHall : public Level
 		}
 	}
 
+
+	
+
+
 	void UpdateLevel(double deltaTime) override
 	{
+		if (g_IsPaused && !savedcamdir) {
+			camdir = cameraController->GetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
+			savedcamdir = true;
+		}
+
+		if (!g_IsPaused && savedcamdir) {
+			cameraController->SetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt), camdir);
+			savedcamdir = false;
+		}
+
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
 			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
 			glm::vec3 playerPos = playerTransform.GetPosition();
@@ -394,6 +411,7 @@ class MainHall : public Level
 		waterBucketcollided = peeMarked = false; // Smell Avoidance
 		puppy1Destroyed = puppy2Destroyed = puppy3Destroyed = false;
 		peeSoundPlayed = waterSoundPlayed = false;
+		TimerInit = false;
 
 		g_TimerTR.OnShutdown();
 	}
