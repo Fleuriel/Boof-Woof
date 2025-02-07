@@ -176,6 +176,9 @@ public:
 		}
 	}
 
+
+
+
 	virtual double GetDeltaTime() override
 	{
 		return g_Core ? g_Core->m_DeltaTime : 0.0;
