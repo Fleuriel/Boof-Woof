@@ -139,7 +139,7 @@ class TimeRush : public Level
 		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {
 			auto& bgmAudio = g_Coordinator.GetComponent<AudioComponent>(TimeRushBGM);
 			bgmAudio.SetAudioSystem(&g_Audio);
-			bgmAudio.PlayAudio();
+			//bgmAudio.PlayAudio();
 		}
 		else {
 			std::cerr << " ERROR: TimeRushBGM entity has no AudioComponent in InitLevel!" << std::endl;
@@ -148,7 +148,7 @@ class TimeRush : public Level
 		if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
 			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
 			dogAudio.SetAudioSystem(&g_Audio);
-			dogAudio.PlayAudio();
+			//dogAudio.PlayAudio();
 		}
 		else {
 			std::cerr << " ERROR: AggroDog entity has no AudioComponent in InitLevel!" << std::endl;
@@ -157,7 +157,7 @@ class TimeRush : public Level
 
 		if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
 			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
-			dogAudio.SetAudioSystem(&g_Audio);
+			//dogAudio.SetAudioSystem(&g_Audio);
 		}
 
 
@@ -217,6 +217,8 @@ class TimeRush : public Level
 				timesUp -= deltaTime;
 
 				// Times up! sound
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
+
 
 				// Wait for like 2 seconds then restart game
 				if (timesUp < 0.0) 
@@ -328,7 +330,7 @@ class TimeRush : public Level
 
 	void UnloadLevel() override
 	{
-		//g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/TimeRushBGM.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/Timesup.wav");
 		//g_Audio.StopBGM();
 
 		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {
