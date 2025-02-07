@@ -15607,7 +15607,7 @@
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
-                "IsDynamic": false,
+                "IsDynamic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.3499999046325685,
