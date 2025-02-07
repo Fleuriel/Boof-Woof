@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #ifndef BEHAVIOURINTERFACE_H
 #define BEHAVIOURINTERFACE_H
 
@@ -56,6 +57,11 @@ struct engine_interface
 	// Pathfinding functions
 	virtual bool HavePathfindingComponent(Entity entity) = 0;
 	virtual std::vector<glm::vec3> GetPath(Entity entity) = 0;
+	virtual void SetStartNode(Entity entity, Entity node) = 0;
+	virtual Entity GetStartNode(Entity entity) = 0;
+	virtual void SetGoalNode(Entity entity, Entity node) = 0;
+	virtual Entity GetGoalNode(Entity entity) = 0;
+	virtual void SetBuilt(Entity entity, bool built) = 0;
 
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) = 0;
@@ -69,7 +75,11 @@ struct engine_interface
 
 	virtual double GetDeltaTime() = 0;
 	virtual bool IsGamePaused() = 0;
-};
+
+	// Toys
+	virtual double SetTimerTiming(double timing) = 0;
+	virtual double GetTimerTiming() = 0;
+};	
 
 #ifdef GAME_ENGINE
 using GetScripts_cpp_t = std::vector<std::unique_ptr<Behaviour_i>>* (*)(engine_interface* pEI);

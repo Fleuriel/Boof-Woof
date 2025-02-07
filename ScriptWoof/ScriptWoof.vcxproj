@@ -149,6 +149,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Rex.hpp" />
+    <ClInclude Include="Toys.hpp" />
     <ClInclude Include="Treat.hpp" />
   </ItemGroup>
   <ItemGroup>

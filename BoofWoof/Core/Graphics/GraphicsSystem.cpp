@@ -291,6 +291,7 @@ void GraphicsSystem::UpdateLoop() {
 		}
 
 
+		//if (ShaderName == "Shader3D")
 		if (strcmp(ShaderName, "Shader3D") == 0)
 		{
 
@@ -323,11 +324,11 @@ void GraphicsSystem::UpdateLoop() {
 			/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
 			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
-			g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
+		//	g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
 			g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", glm::vec4(1.0f,1.0f,1.0f,1.0f));
 
-			g_AssetManager.GetShader(ShaderName).SetUniform("roughness", 1.0f);
+		//	g_AssetManager.GetShader(ShaderName).SetUniform("roughness", 1.0f);
 
 			graphicsComp.getModel()->Draw(g_AssetManager.GetShader(ShaderName));
 
@@ -335,7 +336,8 @@ void GraphicsSystem::UpdateLoop() {
 //			g_ResourceManager.getModel()->Draw(g_AssetManager.GetShader(ShaderName));
 
 		}
-		else if (strcmp(ShaderName, "Shader3D") == 0)
+		//else if (ShaderName == "Shader2D")
+		else if (strcmp(ShaderName, "Shader2D") == 0)
 		{
 
 

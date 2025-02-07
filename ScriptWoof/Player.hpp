@@ -38,7 +38,7 @@ struct Player final : public Behaviour
 
 	virtual void Init(Entity entity) override
 	{
-		std::cout << "Player Init" << std::endl;
+		//std::cout << "Player Init" << std::endl;
 		previousPosition = m_Engine.GetPosition(entity); // Initialize with the starting position
 		isJumping = false;
 		isMoving = false;

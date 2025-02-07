@@ -2275,7 +2275,7 @@ void ImGuiEditor::InspectorWindow()
 									std::string currentBehaviourName = (*behaviourNameProperty)->GetValue(&behaviourComponent);
 									std::string newBehaviourName = currentBehaviourName;
 
-									const char* behaviourNames[] = { "Null", "Player", "Treat", "Rex"};
+									const char* behaviourNames[] = { "Null", "Player", "Treat", "Rex", "Toys"};
 									int currentItem = 0;
 
 									for (int i = 0; i < IM_ARRAYSIZE(behaviourNames); ++i)
@@ -3938,7 +3938,7 @@ void ImGuiEditor::InspectorWindow()
 								}
 
 								// Display the dropdown (combo box)
-								if (ImGui::Combo("##Family", &currentIndex, fontNamesCStr.data(), fontNamesCStr.size())) {
+								if (ImGui::Combo("##Family", &currentIndex, fontNamesCStr.data(), (int)(fontNamesCStr.size()))) {
 									// Update the family when a new font is selected
 									if (currentIndex >= 0 && currentIndex < fontNames.size()) {
 										fontComponent.set_family(fontNames[currentIndex]);
