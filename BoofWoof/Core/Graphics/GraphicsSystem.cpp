@@ -31,7 +31,7 @@ std::vector<DebugLine> GraphicsSystem::debugLines = {};
 unsigned int GraphicsSystem::debugLineVAO = 0;
 unsigned int GraphicsSystem::debugLineVBO = 0;
 
-const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+const unsigned int SHADOW_WIDTH = 2048, SHADOW_HEIGHT = 2048;
 unsigned int depthMapFBO;
 unsigned int depthMap_texture;
 
@@ -261,7 +261,9 @@ void GraphicsSystem::UpdateLoop() {
 	
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
-	{/*
+	{
+		break;
+		/*
 		if (g_Coordinator.HaveComponent<CameraComponent>(entity)) {
 			auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
 			if (cameraComp.GetCameraActive()) {
@@ -378,6 +380,7 @@ void GraphicsSystem::UpdateLoop() {
 
 
 			g_AssetManager.GetShader(ShaderName).SetUniform("shadowMap", (int)depthMap_texture);
+			glBindTexture(GL_TEXTURE_2D, depthMap_texture);
 			/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
 			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
@@ -517,6 +520,15 @@ void GraphicsSystem::UpdateLoop() {
 	if (editorMode == true)
 	{
 		RenderLightPos();
+		g_AssetManager.GetShader("Direction_light_debug").Use();
+		//g_AssetManager.GetShader("Direction_light_debug").SetUniform("near_plane", 1.0f);
+		//g_AssetManager.GetShader("Direction_light_debug").SetUniform("far_plane", 7.5f);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, depthMap_texture);
+		g_AssetManager.GetShader("Direction_light_debug").SetUniform("depthMap", (int)depthMap_texture);
+		g_ResourceManager.getModel("cubeModel")->DrawForPicking();
+		g_AssetManager.GetShader("Direction_light_debug").UnUse();
+
 	}
 
 //	glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
@@ -1005,7 +1017,7 @@ void GraphicsSystem::RenderLightPos()
 		g_AssetManager.GetShader("Wireframe").SetUniform("view", View_);
 		g_AssetManager.GetShader("Wireframe").SetUniform("projection", Projection_);
 		g_AssetManager.GetShader("Wireframe").SetUniform("objectColor", lightComp.getColor());
-		g_ResourceManager.getModel("shpere")->DrawWireFrame();
+		g_ResourceManager.getModel("sphere")->DrawWireFrame();
 		g_AssetManager.GetShader("Wireframe").UnUse();
 	}
 
