@@ -62,34 +62,34 @@ class TimeRush : public Level
 					it->second(entity);
 				}
 
-				if (g_Coordinator.HaveComponent<AudioComponent>(entity))
-				{
-					auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
-					music.SetAudioSystem(&g_Audio);
+				//if (g_Coordinator.HaveComponent<AudioComponent>(entity))
+				//{
+				//	auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
+				//	music.SetAudioSystem(&g_Audio);
 
-					if (metadata.GetName() == "TimeRushBGM" || metadata.GetName() == "AggressiveDogBarking")
-					{
-						music.PlayAudio();
-					}
-				}
+				//	if (metadata.GetName() == "TimeRushBGM" || metadata.GetName() == "AggressiveDogBarking")
+				//	{
+				//		//music.PlayAudio();
+				//	}
+				//}
 
-				if (g_Coordinator.HaveComponent<AudioComponent>(entity))
-				{
-					auto& fire = g_Coordinator.GetComponent<AudioComponent>(entity);
-					fire.SetAudioSystem(&g_Audio);
+				//if (g_Coordinator.HaveComponent<AudioComponent>(entity))
+				//{
+				//	auto& fire = g_Coordinator.GetComponent<AudioComponent>(entity);
+				//	fire.SetAudioSystem(&g_Audio);
 
-					if (metadata.GetName() == "red particle")
-					{
-						//music.PlayAudio();
-					//	g_Audio.SetBGMVolume(g_Audio.GetSFXVolume());
-						g_Audio.PlayEntity3DAudio(FireSound, FILEPATH_ASSET_AUDIO + "/Fire.wav", true, "BGM");
-						std::cout << "?? Fireplace (red Particle) sound started at entity " << FireSound << std::endl;
-					}
-					else {
-						std::cerr << "? ERROR: Fireplace entity has no AudioComponent!" << std::endl;
-					}
+				//	if (metadata.GetName() == "red particle")
+				//	{
+				//		//music.PlayAudio();
+				//	//	g_Audio.SetBGMVolume(g_Audio.GetSFXVolume());
+				//		g_Audio.PlayEntity3DAudio(FireSound, FILEPATH_ASSET_AUDIO + "/Fire.wav", true, "BGM");
+				//		std::cout << "?? Fireplace (red Particle) sound started at entity " << FireSound << std::endl;
+				//	}
+				//	else {
+				//		std::cerr << "? ERROR: Fireplace entity has no AudioComponent!" << std::endl;
+				//	}
 
-				}
+				//}
 
 
 
@@ -121,6 +121,44 @@ class TimeRush : public Level
 		{
 			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.165f));
 		}
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
+			auto& fireAudio = g_Coordinator.GetComponent<AudioComponent>(FireSound);
+			fireAudio.SetAudioSystem(&g_Audio);
+
+			// Play Fire Audio (3D BGM)
+			g_Audio.PlayEntity3DAudio(FireSound, FILEPATH_ASSET_AUDIO + "/Fire.wav", true, "BGM");
+			std::cout << " Fire Sound initialized in InitLevel for entity " << FireSound << std::endl;
+		}
+		else {
+			std::cerr << " ERROR: FireSound entity has no AudioComponent in InitLevel!" << std::endl;
+		}
+
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {
+			auto& bgmAudio = g_Coordinator.GetComponent<AudioComponent>(TimeRushBGM);
+			bgmAudio.SetAudioSystem(&g_Audio);
+			bgmAudio.PlayAudio();
+		}
+		else {
+			std::cerr << " ERROR: TimeRushBGM entity has no AudioComponent in InitLevel!" << std::endl;
+		}
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
+			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
+			dogAudio.SetAudioSystem(&g_Audio);
+			dogAudio.PlayAudio();
+		}
+		else {
+			std::cerr << " ERROR: AggroDog entity has no AudioComponent in InitLevel!" << std::endl;
+		}
+
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
+			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
+			dogAudio.SetAudioSystem(&g_Audio);
+		}
+
 
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
