@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "0675e360-5f6c-4242-8d0b-839de207fbb9",
+    "SceneGUID": "f076def8-f9db-4c06-8fd5-2c0814d5e019",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.3930906653404236,
-                    "y": 1.1863800287246705,
-                    "z": -0.04342259466648102
+                    "x": -0.3930836021900177,
+                    "y": 1.1799993515014649,
+                    "z": -0.5926851630210877
                 },
                 "Scale": {
                     "x": 0.5,
@@ -15578,9 +15578,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.5,
-                    "y": 0.3339998722076416,
-                    "z": -77.0
+                    "x": 24.45332908630371,
+                    "y": -1.0524624586105347,
+                    "z": -37.815582275390628
                 },
                 "Scale": {
                     "x": 0.5,
@@ -22023,7 +22023,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "RedParticle",
+                "EntityName": "red particle",
                 "EntityID": 522
             },
             "TransformComponent": {
@@ -22047,6 +22047,11 @@
                     "y": 0.0,
                     "z": 0.0
                 }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/Fire.wav",
+                "Volume": 1.0,
+                "ShouldLoop": true
             },
             "ParticleComponent": {
                 "PositionMin": {
