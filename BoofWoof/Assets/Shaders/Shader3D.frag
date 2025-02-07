@@ -89,6 +89,7 @@ void main()
     }
     else
     {
+        textureColor = texture(texture_diffuse1, TexCoords);
         baseColor.rgb *= textureColor.rgb;
         baseColor.a = 1.0f;
         fragColor = vec4(baseColor);
