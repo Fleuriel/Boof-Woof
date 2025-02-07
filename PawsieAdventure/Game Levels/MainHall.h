@@ -183,6 +183,7 @@ class MainHall : public Level
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PeePuddle.wav", false, "SFX");
 			peeMarked = true;
 			peeSoundPlayed = true;  // Ensure the sound plays only once
+			waterSoundPlayed = false; // Reset water sound state
 
 		}
 
@@ -410,6 +411,7 @@ class MainHall : public Level
 		waterBucketcollided = peeMarked = false; // Smell Avoidance
 		puppy1Destroyed = puppy2Destroyed = puppy3Destroyed = false;
 		peeSoundPlayed = waterSoundPlayed = false;
+		TimerInit = false;
 
 		g_TimerTR.OnShutdown();
 	}
