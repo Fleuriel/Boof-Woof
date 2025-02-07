@@ -139,7 +139,7 @@ class TimeRush : public Level
 		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {
 			auto& bgmAudio = g_Coordinator.GetComponent<AudioComponent>(TimeRushBGM);
 			bgmAudio.SetAudioSystem(&g_Audio);
-			//bgmAudio.PlayAudio();
+			bgmAudio.PlayAudio();
 		}
 		else {
 			std::cerr << " ERROR: TimeRushBGM entity has no AudioComponent in InitLevel!" << std::endl;
@@ -148,7 +148,7 @@ class TimeRush : public Level
 		if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
 			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
 			dogAudio.SetAudioSystem(&g_Audio);
-			//dogAudio.PlayAudio();
+			dogAudio.PlayAudio();
 		}
 		else {
 			std::cerr << " ERROR: AggroDog entity has no AudioComponent in InitLevel!" << std::endl;
@@ -157,7 +157,7 @@ class TimeRush : public Level
 
 		if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
 			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
-			//dogAudio.SetAudioSystem(&g_Audio);
+			dogAudio.SetAudioSystem(&g_Audio);
 		}
 
 
