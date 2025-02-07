@@ -124,6 +124,7 @@ public:
 
     /// shadow
     void RenderScence(OpenGLShader& shader);
+    void RenderLightPos();
 
 
 private:

@@ -167,7 +167,9 @@ void GraphicsSystem::UpdateLoop() {
 	previousTime = currentTime;
 
 
-	
+	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 
 
@@ -233,7 +235,7 @@ void GraphicsSystem::UpdateLoop() {
 	
 		}
 	}
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	/*if (editorMode == true) {
 		ImGuiViewport* viewport = ImGui::GetMainViewport();
 		glViewport(viewport->Pos.x, viewport->Pos.y, viewport->Size.x, viewport->Size.y);
@@ -249,7 +251,6 @@ void GraphicsSystem::UpdateLoop() {
 	else
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear framebuffer
 
@@ -376,7 +377,7 @@ void GraphicsSystem::UpdateLoop() {
 			}
 
 
-			g_AssetManager.GetShader(ShaderName).SetUniform("depthMap", (int)depthMap_texture);
+			g_AssetManager.GetShader(ShaderName).SetUniform("shadowMap", (int)depthMap_texture);
 			/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
 			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
@@ -511,6 +512,11 @@ void GraphicsSystem::UpdateLoop() {
 		g_AssetManager.GetShader(ShaderName).UnUse();
 
 
+	}
+
+	if (editorMode == true)
+	{
+		RenderLightPos();
 	}
 
 //	glBindFramebuffer(GL_FRAMEBUFFER, 0);  // Unbind the framebuffer to switch back to the default framebuffer
@@ -971,4 +977,36 @@ void GraphicsSystem::RenderScence(OpenGLShader& shader)
 
 
 	}
+}
+
+void GraphicsSystem::RenderLightPos()
+{
+	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+
+	glm::mat4 View_ = camera_render.GetViewMatrix();
+	glm::mat4 Projection_ = glm::perspective(glm::radians(45.0f), (g_WindowY > 0) ? ((float)g_WindowX / (float)g_WindowY) : 1, 0.1f, 100.0f);
+
+	for (auto& entity : allEntities) {
+
+		if (!g_Coordinator.HaveComponent<TransformComponent>(entity) || !g_Coordinator.HaveComponent<LightComponent>(entity))
+		{
+			continue;
+		}
+		auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+		auto& lightComp = g_Coordinator.GetComponent<LightComponent>(entity);
+
+		std::shared_ptr<TransformSystem> transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+
+		transformComp.SetScale(glm::vec3(0.1f)*lightComp.getIntensity());
+
+		g_AssetManager.GetShader("Wireframe").Use();
+		glm::mat4 worldMatrix = transformComp.GetWorldMatrix();
+		g_AssetManager.GetShader("Wireframe").SetUniform("vertexTransform", worldMatrix);
+		g_AssetManager.GetShader("Wireframe").SetUniform("view", View_);
+		g_AssetManager.GetShader("Wireframe").SetUniform("projection", Projection_);
+		g_AssetManager.GetShader("Wireframe").SetUniform("objectColor", lightComp.getColor());
+		g_ResourceManager.getModel("shpere")->DrawWireFrame();
+		g_AssetManager.GetShader("Wireframe").UnUse();
+	}
+
 }

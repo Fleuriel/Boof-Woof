@@ -144,7 +144,16 @@ public:
         glBindVertexArray(0);
     }
 
+	void DrawWireFrame() const
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+		glBindVertexArray(VAO);
+		glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
 
 
     void DrawMaterial(OpenGLShader& shader) const
