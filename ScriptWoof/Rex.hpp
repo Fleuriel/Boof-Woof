@@ -14,6 +14,16 @@ struct Rex final : public Behaviour
     float speed = 5.0f;
     float pathThreshold = 0.2f;
     bool isMovingRex = false;
+	bool returningtoStart = false;
+    
+    // Create a state machine
+    enum class State
+    {
+        PATROL,
+		CHASE
+	};
+
+	State state = State::PATROL;
 
     virtual void Init(Entity entity) override
     {
@@ -41,14 +51,15 @@ struct Rex final : public Behaviour
             if (m_Engine.HavePathfindingComponent(entity))
             {
                 path = m_Engine.GetPath(entity);
-                //std::cout << "[Pathfinding] Retrieved path of length " << path.size() << std::endl;
+                std::cout << "[Pathfinding] Retrieved path of length " << path.size() << std::endl;
+                // print start and end node
+                std::cout << "Start node : " << m_Engine.GetStartNode(entity) << " , " << "End node : " << m_Engine.GetGoalNode(entity);
 
                 if (!path.empty())
                 {
                     currentPathIndex = 0;
                     followingPath = true; // <-- This was missing before
-                    //std::cout << "[Pathfinding] Path successfully retrieved! Entity " << entity
-                    //    << " will start moving." << std::endl;
+                    std::cout << "[Pathfinding] Path successfully retrieved! Entity " << entity << " will start moving." << std::endl;
                 }
                 else
                 {
@@ -96,8 +107,7 @@ struct Rex final : public Behaviour
             }
 
             float distance = glm::length(targetPos - currentPos);
-            //std::cout << "[Pathfinding] Moving towards waypoint " << currentPathIndex + 1
-            //    << " at (" << targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << std::endl;
+            //std::cout << "[Pathfinding] Moving towards waypoint " << currentPathIndex + 1 << " at (" << targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << std::endl;
             //std::cout << "[Pathfinding] Distance to next waypoint: " << distance << std::endl;
 
             // Check if the entity has reached the waypoint
@@ -108,10 +118,23 @@ struct Rex final : public Behaviour
 
                 if (currentPathIndex >= path.size())
                 {
-                    followingPath = false;
-                    // currentPathIndex = 0;
+                    
+					followingPath = false;                // Commented out to allow for continuous path following
+                    currentPathIndex = 0;
                     velocity = glm::vec3(0.0f);
                     //std::cout << "[Pathfinding] Entity " << entity << " has reached the final destination!" << std::endl;
+                    if (state == State::PATROL)
+                    {
+						//returningtoStart  = !returningtoStart;
+                        //if (returningtoStart) {
+                            Entity temp = m_Engine.GetStartNode(entity);
+                            m_Engine.SetStartNode(entity, m_Engine.GetGoalNode(entity));
+                            m_Engine.SetGoalNode(entity, temp);
+							pathInitialized = false;
+							m_Engine.SetBuilt(entity, false);
+                            //std::cout << "Looping Path" << std::endl;
+                        //}
+                    }
                 }
             }
             isMovingRex = true;
