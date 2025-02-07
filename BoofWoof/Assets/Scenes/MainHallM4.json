@@ -22023,7 +22023,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "RedParticle",
+                "EntityName": "red particle",
                 "EntityID": 522
             },
             "TransformComponent": {
@@ -22047,6 +22047,11 @@
                     "y": 0.0,
                     "z": 0.0
                 }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/Fire.wav",
+                "Volume": 1.0,
+                "ShouldLoop": true
             },
             "ParticleComponent": {
                 "PositionMin": {
