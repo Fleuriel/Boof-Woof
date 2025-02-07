@@ -12,10 +12,16 @@ class MainHall : public Level
 {
 	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{}, scentEntity3{}, puppy1{}, puppy2{}, puppy3{};
 	Entity RexPee1{}, RexPee2{}, RexPee3{}, RexPee4{}, RexPee5{}, WaterBucket{}; // Smell Avoidance
+
+	Entity  FireSound{};
+
+
 	CameraController* cameraController = nullptr;
 
 	double timer = 0.0; // Timer for smell avoidance
 	double timerLimit = 5.0f; // Timer limit for smell avoidance
+
+	bool TimerInit = false;
 
 	bool sniffa{ false };
 	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
@@ -55,7 +61,9 @@ class MainHall : public Level
 			{"Pee3", [&](Entity entity) { RexPee3 = entity; }},
 			{"Pee4", [&](Entity entity) { RexPee4 = entity; }},
 			{"Pee5", [&](Entity entity) { RexPee5 = entity; }},
-			{"WaterBucket", [&](Entity entity) { WaterBucket = entity; }}
+			{"WaterBucket", [&](Entity entity) { WaterBucket = entity; }},
+			{ "red particle", [&](Entity entity) { FireSound = entity; }}
+
 		};
 
 		for (auto entity : entities)
@@ -97,6 +105,18 @@ class MainHall : public Level
 		if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
 		{
 			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 0.968f));
+		}
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
+			auto& fireAudio = g_Coordinator.GetComponent<AudioComponent>(FireSound);
+			fireAudio.SetAudioSystem(&g_Audio);
+
+			// Play Fire Audio (3D BGM)
+			g_Audio.PlayEntity3DAudio(FireSound, FILEPATH_ASSET_AUDIO + "/Fire.wav", true, "BGM");
+			std::cout << " Fire Sound initialized in InitLevel for entity " << FireSound << std::endl;
+		}
+		else {
+			std::cerr << " ERROR: FireSound entity has no AudioComponent in InitLevel!" << std::endl;
 		}
 
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
@@ -173,6 +193,10 @@ class MainHall : public Level
 			// Reset sound state
 			peeSoundPlayed = false;
 			waterSoundPlayed = true; // Ensure water sound plays only once
+			if (TimerInit) {
+				g_TimerTR.OnShutdown();
+				TimerInit = false;
+			}
 		}
 		//////////////////////////////////////////////////////////////////////////
 
@@ -194,6 +218,18 @@ class MainHall : public Level
 
 	void UpdateLevel(double deltaTime) override
 	{
+		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
+			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
+			glm::vec3 playerPos = playerTransform.GetPosition();
+			glm::vec3 playerRot = playerTransform.GetRotation();  // Get rotation from TransformComponent
+
+			g_Audio.SetListenerPosition(playerPos, playerRot);
+		}
+
+
+		// ?? Update the positions of all 3D sounds (including the fireplace)
+		g_Audio.Update3DSoundPositions();
+
 		pauseLogic::OnUpdate();
 
 		if (!g_IsPaused)
@@ -216,6 +252,26 @@ class MainHall : public Level
 
 			if (peeMarked)
 			{
+				if (!TimerInit) {
+					g_TimerTR.OnInitialize();
+					g_TimerTR.timer = timerLimit;
+					TimerInit = true;
+				}
+				g_TimerTR.OnUpdate(deltaTime);
+
+				if (g_TimerTR.timer == 0.0)
+				{
+					peeMarked = false;
+					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+					if (loading)
+					{
+						// Pass in the name of the real scene we want AFTER the loading screen
+						loading->m_NextScene = "MainHall";
+						g_LevelManager.SetNextLevel("LoadingLevel");
+						g_TimerTR.OnShutdown();
+					}
+				}
+				/*
 				timer += deltaTime;
 
 				if (timer >= timerLimit)
@@ -230,6 +286,7 @@ class MainHall : public Level
 						g_LevelManager.SetNextLevel("LoadingLevel");
 					}
 				}
+				*/
 			}
 
 			// If collected 1st puppy
@@ -321,7 +378,10 @@ class MainHall : public Level
 	void UnloadLevel() override
 	{
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/BedRoomMusicBGM.wav");
-
+		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
+			music.StopAudio();
+		}
 		g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
@@ -334,5 +394,7 @@ class MainHall : public Level
 		waterBucketcollided = peeMarked = false; // Smell Avoidance
 		puppy1Destroyed = puppy2Destroyed = puppy3Destroyed = false;
 		peeSoundPlayed = waterSoundPlayed = false;
+
+		g_TimerTR.OnShutdown();
 	}
 };
