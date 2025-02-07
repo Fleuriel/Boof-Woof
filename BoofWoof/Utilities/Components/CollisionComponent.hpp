@@ -107,31 +107,6 @@ public:
     float GetActualMass() const { return m_ActualMass; }
     void SetActualMass(float actualMass) { m_ActualMass = actualMass; } // Prevent negative mass
 
-    float GetFriction() const { return m_Friction; }
-    void SetFriction(float friction)
-    {
-        m_Friction = glm::clamp(friction, 0.8f, 2.0f); // Prevent too low friction
-    }
-
-    void SetCollisionNormal(const glm::vec3& normal) { m_CollisionNormal = normal; }
-    glm::vec3 GetCollisionNormal() const { return m_CollisionNormal; }
-
-    void AddGroundContact() {
-        m_GroundContacts++;
-        m_IsGrounded = true;
-    }
-
-    void RemoveGroundContact() {
-        if (m_GroundContacts > 0) {
-            m_GroundContacts--;
-        }
-        if (m_GroundContacts == 0) {
-            m_IsGrounded = false;
-        }
-    }
-
-    int GetGroundContacts() const { return m_GroundContacts; }
-
     // Reflection integration
     REFLECT_COMPONENT(CollisionComponent)
     {
@@ -142,8 +117,6 @@ public:
         REGISTER_PROPERTY(CollisionComponent, GetIsColliding, bool, SetIsColliding, GetIsColliding);
         REGISTER_PROPERTY(CollisionComponent, AABBOffset, glm::vec3, SetAABBOffset, GetAABBOffset); // Add this line
         REGISTER_PROPERTY(CollisionComponent, IsGrounded, bool, SetIsGrounded, GetIsGrounded);  // Add this line
-        REGISTER_PROPERTY(CollisionComponent, Friction, float, SetFriction, GetFriction);
-        REGISTER_PROPERTY(CollisionComponent, CollisionNormal, glm::vec3, SetCollisionNormal, GetCollisionNormal);
     }
 
 private:
@@ -160,9 +133,6 @@ private:
     bool m_IsGrounded = false;  // Track whether the entity is on the ground
     float mass = 0.0f; // Default mass value
     float m_ActualMass = 0.0f;
-    float m_Friction = 0.8f;
-    glm::vec3 m_CollisionNormal = glm::vec3(0.0f, 1.0f, 0.0f); // Default normal pointing up
-    int m_GroundContacts = 0;  // Track number of ground contacts separately
 
 };
 

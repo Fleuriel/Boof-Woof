@@ -11,7 +11,7 @@ class TimeRush : public Level
 	Entity scentEntity1{}, scentEntity2{}, scentEntity3{}, scentEntity4{}, scentEntity5{}, scentEntity6{}, scentEntity7{}, scentEntity8{}, scentEntity9{};
 	CameraController* cameraController = nullptr;
 
-	Entity TimeRushBGM{}, AggroDog{}, CorgiSniff{}, FireSound{};
+	Entity TimeRushBGM{}, AggroDog{}, CorgiSniff{};
 
 	double colorChangeTimer = 0.0;
 	double colorChangeDuration = 3.0; // Duration for which the color change lasts
@@ -44,9 +44,7 @@ class TimeRush : public Level
 			{"ScentTrail9", [&](Entity entity) { scentEntity9 = entity; }},
 			{"TimeRushBGM", [&](Entity entity) { TimeRushBGM = entity; }},
 			{"AggressiveDogBarking", [&](Entity entity) { AggroDog = entity; }},
-			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }},
-			{ "red particle", [&](Entity entity) { FireSound = entity; }}
-
+			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }}
 		};
 
 
@@ -62,40 +60,20 @@ class TimeRush : public Level
 					it->second(entity);
 				}
 
-				//if (g_Coordinator.HaveComponent<AudioComponent>(entity))
-				//{
-				//	auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
-				//	music.SetAudioSystem(&g_Audio);
+				if (g_Coordinator.HaveComponent<AudioComponent>(entity))
+				{
+					auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
+					music.SetAudioSystem(&g_Audio);
 
-				//	if (metadata.GetName() == "TimeRushBGM" || metadata.GetName() == "AggressiveDogBarking")
-				//	{
-				//		//music.PlayAudio();
-				//	}
-				//}
-
-				//if (g_Coordinator.HaveComponent<AudioComponent>(entity))
-				//{
-				//	auto& fire = g_Coordinator.GetComponent<AudioComponent>(entity);
-				//	fire.SetAudioSystem(&g_Audio);
-
-				//	if (metadata.GetName() == "red particle")
-				//	{
-				//		//music.PlayAudio();
-				//	//	g_Audio.SetBGMVolume(g_Audio.GetSFXVolume());
-				//		g_Audio.PlayEntity3DAudio(FireSound, FILEPATH_ASSET_AUDIO + "/Fire.wav", true, "BGM");
-				//		std::cout << "?? Fireplace (red Particle) sound started at entity " << FireSound << std::endl;
-				//	}
-				//	else {
-				//		std::cerr << "? ERROR: Fireplace entity has no AudioComponent!" << std::endl;
-				//	}
-
-				//}
-
-
+					if (metadata.GetName() == "TimeRushBGM" || metadata.GetName() == "AggressiveDogBarking")
+					{
+						music.PlayAudio();
+					}
+				}
 
 				// Exit early if all entities are found
 				if (playerEnt && scentEntity1 && scentEntity2 && scentEntity3 && scentEntity4
-					&& scentEntity5 && scentEntity6 && scentEntity7 && scentEntity8 && scentEntity9 && TimeRushBGM && AggroDog && CorgiSniff && FireSound)
+					&& scentEntity5 && scentEntity6 && scentEntity7 && scentEntity8 && scentEntity9 && TimeRushBGM && AggroDog && CorgiSniff)
 				{
 					break;
 				}
@@ -122,63 +100,12 @@ class TimeRush : public Level
 			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.165f));
 		}
 
-		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
-			auto& fireAudio = g_Coordinator.GetComponent<AudioComponent>(FireSound);
-			fireAudio.SetAudioSystem(&g_Audio);
-
-			// Play Fire Audio (3D BGM)
-			g_Audio.PlayEntity3DAudio(FireSound, FILEPATH_ASSET_AUDIO + "/Fire.wav", true, "BGM");
-			std::cout << " Fire Sound initialized in InitLevel for entity " << FireSound << std::endl;
-		}
-		else {
-			std::cerr << " ERROR: FireSound entity has no AudioComponent in InitLevel!" << std::endl;
-		}
-
-
-		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {
-			auto& bgmAudio = g_Coordinator.GetComponent<AudioComponent>(TimeRushBGM);
-			bgmAudio.SetAudioSystem(&g_Audio);
-			bgmAudio.PlayAudio();
-		}
-		else {
-			std::cerr << " ERROR: TimeRushBGM entity has no AudioComponent in InitLevel!" << std::endl;
-		}
-
-		if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
-			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
-			dogAudio.SetAudioSystem(&g_Audio);
-			dogAudio.PlayAudio();
-		}
-		else {
-			std::cerr << " ERROR: AggroDog entity has no AudioComponent in InitLevel!" << std::endl;
-		}
-
-
-		if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
-			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
-			dogAudio.SetAudioSystem(&g_Audio);
-		}
-
-
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
 	}
 
 	void UpdateLevel(double deltaTime) override
 	{
-		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
-			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
-			glm::vec3 playerPos = playerTransform.GetPosition();
-			glm::vec3 playerRot = playerTransform.GetRotation();  // Get rotation from TransformComponent
-
-			g_Audio.SetListenerPosition(playerPos, playerRot);
-		}
-
-
-		// ?? Update the positions of all 3D sounds (including the fireplace)
-		g_Audio.Update3DSoundPositions();
-
-
 		pauseLogic::OnUpdate();
 
 		if (!g_IsPaused)
@@ -323,12 +250,6 @@ class TimeRush : public Level
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(TimeRushBGM);
 			music.StopAudio();
 		}
-
-		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
-			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
-			music.StopAudio();
-		}
-
 
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();

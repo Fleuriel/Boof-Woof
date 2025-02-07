@@ -320,34 +320,7 @@ public:
             auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
             auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
 
-            // Capture the normal of the contact
-            glm::vec3 contactNormal = glm::vec3(
-                inManifold.mWorldSpaceNormal.GetX(),
-                inManifold.mWorldSpaceNormal.GetY(),
-                inManifold.mWorldSpaceNormal.GetZ());
-
-            if (contactNormal.y < 0) {
-                contactNormal = -contactNormal; // Flip normal if it's pointing down
-            }
-
-            bool isGroundCollision1 = (contactNormal.y > 0.7f);
-            bool isGroundCollision2 = (contactNormal.y > 0.7f);
-
-            if (isGroundCollision1) {
-                collisionComponent1.SetIsGrounded(true);
-                collisionComponent1.AddGroundContact();
-                //std::cout << "[DEBUG] Entity " << entity1 << " now has " << collisionComponent1.GetGroundContacts() << " ground contacts.\n";
-            }
-
-            if (isGroundCollision2) {
-                collisionComponent2.SetIsGrounded(true);
-                collisionComponent2.AddGroundContact();
-                //std::cout << "[DEBUG] Entity " << entity2 << " now has " << collisionComponent2.GetGroundContacts() << " ground contacts.\n";
-            }
-
-            collisionComponent1.SetIsColliding(true);
-            collisionComponent2.SetIsColliding(true);
-
+            
             /*
             if (g_Coordinator.HaveComponent<GraphicsComponent>(entity1)) {
                 auto& graphicsComponent2 = g_Coordinator.GetComponent<GraphicsComponent>(entity2);
@@ -397,6 +370,45 @@ public:
         }
     }
 
+    //void OnContactAdded(const JPH::Body& inBody1,
+    //    const JPH::Body& inBody2,
+    //    const JPH::ContactManifold& inManifold,
+    //    JPH::ContactSettings& ioSettings) {
+    //    Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
+    //    Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
+
+    //    if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
+    //        auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
+    //        collisionComponent1.AddCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName());
+    //        collisionComponent1.SetIsColliding(true);
+
+    //        //// Debug: Log collision addition for entity1
+    //        //std::cout << "[DEBUG] Entity " << entity1 << " added collision with: "
+    //        //    << g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName() << std::endl;
+    //        //std::cout << "[DEBUG] Entity " << entity1 << " ongoing collisions: ";
+    //        for (const auto& collision : collisionComponent1.GetOngoingCollisions()) {
+    //            std::cout << collision << " ";
+    //        }
+    //        std::cout << std::endl;
+    //    }
+
+    //    if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
+    //        auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
+    //        collisionComponent2.AddCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName());
+    //        collisionComponent2.SetIsColliding(true);
+
+    //        //// Debug: Log collision addition for entity2
+    //        //std::cout << "[DEBUG] Entity " << entity2 << " added collision with: "
+    //        //    << g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName() << std::endl;
+    //        //std::cout << "[DEBUG] Entity " << entity2 << " ongoing collisions: ";
+    //        for (const auto& collision : collisionComponent2.GetOngoingCollisions()) {
+    //            std::cout << collision << " ";
+    //        }
+    //        std::cout << std::endl;
+    //    }
+    //}
+
+
 
     void OnContactPersisted(const JPH::Body& inBody1,
         const JPH::Body& inBody2,
@@ -405,51 +417,6 @@ public:
     {
         Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
         Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
-
-        //std::cout << "[DEBUG] OnContactPersisted Triggered for Entities: "
-        //    << entity1 << " and " << entity2 << std::endl;
-
-        if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
-            auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
-
-            glm::vec3 contactNormal = glm::vec3(
-                inManifold.mWorldSpaceNormal.GetX(),
-                inManifold.mWorldSpaceNormal.GetY(),
-                inManifold.mWorldSpaceNormal.GetZ());
-
-            if (contactNormal.y < 0) {
-                contactNormal = -contactNormal;
-            }
-
-            // **Prevent infinite ground contact accumulation**
-            if (contactNormal.y > 0.7f && collisionComponent1.GetGroundContacts() == 0) {
-                collisionComponent1.AddGroundContact();
-                collisionComponent1.SetIsGrounded(true);
-                //std::cout << "[DEBUG] Entity " << entity1 << " REGAINED Ground Contact. Total: "
-                //    << collisionComponent1.GetGroundContacts() << std::endl;
-            }
-        }
-
-        if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
-            auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
-
-            glm::vec3 contactNormal = glm::vec3(
-                inManifold.mWorldSpaceNormal.GetX(),
-                inManifold.mWorldSpaceNormal.GetY(),
-                inManifold.mWorldSpaceNormal.GetZ());
-
-            if (contactNormal.y < 0) {
-                contactNormal = -contactNormal;
-            }
-
-            // **Prevent infinite ground contact accumulation**
-            if (contactNormal.y > 0.7f && collisionComponent2.GetGroundContacts() == 0) {
-                collisionComponent2.AddGroundContact();
-                collisionComponent2.SetIsGrounded(true);
-                //std::cout << "[DEBUG] Entity " << entity2 << " REGAINED Ground Contact. Total: "
-                //    << collisionComponent2.GetGroundContacts() << std::endl;
-            }
-        }
 
         //if (entity1 != invalid_entity) {
         //    auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
@@ -463,7 +430,6 @@ public:
         //        << collisionComponent2.GetIsColliding() << std::endl;
         //}
     }
-
 
     void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) override
     {
@@ -486,17 +452,6 @@ public:
         if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
             auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
 
-            // Only remove ground contact if the removed collision was a floor
-            if (collisionComponent1.GetCollisionNormal().y > 0.7f) {
-                collisionComponent1.RemoveGroundContact();
-                //std::cout << "[DEBUG] Entity " << entity1 << " lost a ground contact. Remaining: "
-                //    << collisionComponent1.GetGroundContacts() << std::endl;
-            }
-
-            if (collisionComponent1.GetGroundContacts() == 0) {
-                collisionComponent1.SetIsGrounded(false);
-                //std::cout << "[DEBUG] Entity " << entity1 << " is airborne! Resetting isGrounded.\n";
-            }
             //// Debugging the state before resetting
             //std::cout << "Entity 1 before reset: isColliding = " << collisionComponent1.GetIsColliding() << std::endl;
 
@@ -519,20 +474,6 @@ public:
         if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
             auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
 
-            if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
-
-                // Only remove ground contact if the removed collision was a floor
-                if (collisionComponent2.GetCollisionNormal().y > 0.7f) {
-                    collisionComponent2.RemoveGroundContact();
-                    //std::cout << "[DEBUG] Entity " << entity2 << " lost a ground contact. Remaining: "
-                    //    << collisionComponent2.GetGroundContacts() << std::endl;
-                }
-
-                if (collisionComponent2.GetGroundContacts() == 0) {
-                    collisionComponent2.SetIsGrounded(false);
-                    //std::cout << "[DEBUG] Entity " << entity2 << " is airborne! Resetting isGrounded.\n";
-                }
-            }
             //// Debugging the state before resetting
             //std::cout << "Entity 2 before reset: isColliding = " << collisionComponent2.GetIsColliding() << std::endl;
 
@@ -551,6 +492,56 @@ public:
             //std::cout << "Entity 2 is invalid or does not have a CollisionComponent." << std::endl;
         }
     }
+
+    //void OnContactRemoved(const JPH::SubShapeIDPair& inSubShapePair) {
+    //    JPH::BodyID bodyID1 = inSubShapePair.GetBody1ID();
+    //    JPH::BodyID bodyID2 = inSubShapePair.GetBody2ID();
+
+    //    Entity entity1 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID1);
+    //    Entity entity2 = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(bodyID2);
+
+    //    if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
+    //        auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
+    //        collisionComponent1.RemoveCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName());
+
+    //        //// Debug: Log collision removal for entity1
+    //        //std::cout << "[DEBUG] Entity " << entity1 << " removed collision with: "
+    //        //    << g_Coordinator.GetComponent<GraphicsComponent>(entity2).getModelName() << std::endl;
+
+    //        //// Debug: Check if there are ongoing collisions
+    //        //if (collisionComponent1.HasOngoingCollisions()) {
+    //        //    std::cout << "[DEBUG] Entity " << entity1 << " still colliding with: ";
+    //        //    for (const auto& collision : collisionComponent1.GetOngoingCollisions()) {
+    //        //        std::cout << collision << " ";
+    //        //    }
+    //        //    std::cout << std::endl;
+    //        //}
+    //        //else {
+    //        //    std::cout << "[DEBUG] Entity " << entity1 << " has no more collisions." << std::endl;
+    //        //}
+    //    }
+
+    //    if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
+    //        auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
+    //        collisionComponent2.RemoveCollision(g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName());
+
+    //        // Debug: Log collision removal for entity2
+    //        std::cout << "[DEBUG] Entity " << entity2 << " removed collision with: "
+    //            << g_Coordinator.GetComponent<GraphicsComponent>(entity1).getModelName() << std::endl;
+
+    //        //// Debug: Check if there are ongoing collisions
+    //        //if (collisionComponent2.HasOngoingCollisions()) {
+    //        //    std::cout << "[DEBUG] Entity " << entity2 << " still colliding with: ";
+    //        //    for (const auto& collision : collisionComponent2.GetOngoingCollisions()) {
+    //        //        std::cout << collision << " ";
+    //        //    }
+    //        //    std::cout << std::endl;
+    //        //}
+    //        //else {
+    //        //    std::cout << "[DEBUG] Entity " << entity2 << " has no more collisions." << std::endl;
+    //        //}
+    //    }
+    //}
 
 
 
