@@ -8,6 +8,7 @@
 #include "../Checklist/Checklist.h" 
 #include "../RopeBreaker/RopeBreaker.h" 
 #include "../BoneCatcher/BoneCatcher.h" 
+#include "../../Utilities/ForGame/TimerTR/TimerTR.h"
 
 std::unique_ptr<PauseMenu> pauser = CreatePausedMenu(PauseState::Paused);
 Serialization serialPause;
@@ -397,5 +398,6 @@ namespace pauseLogic
 		g_Checklist.Reset();
 		g_RopeBreaker.ResetRB();
 		g_BoneCatcher.ResetBC();
+		g_TimerTR.Reset();
 	}
 }

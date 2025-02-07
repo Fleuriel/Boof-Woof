@@ -1,48 +1,47 @@
-struct Treat final : public Behaviour
+struct Toys final : public Behaviour 
 {
+	// If player touches the toys on the floor, timer will be reduced
 	using Behaviour::Behaviour;
 
 	virtual void Init(Entity entity) override
 	{
 		UNREFERENCED_PARAMETER(entity);
-		//std::cout << "Treat Init" << std::endl;
 	}
 
 	virtual void Update(Entity entity) override
 	{
-		//Check if player is colliding with treat
 		if (m_Engine.IsColliding(entity))
 		{
-
-			//Get the name of the entity that is colliding with the treat
 			const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
 
 			//std::cout << "Scripted Entity is colliding with " << collidingEntityName << std::endl;
 
-			//Check if the entity is the player
-			if (std::strcmp(collidingEntityName, "Player") == 0) // If the entity is the player, destroy the treat
+			if (std::strcmp(collidingEntityName, "Player") == 0)
 			{
-				//std::cout << "Player is colliding with treat" << std::endl;
+				//std::cout << "Player is colliding with toys" << std::endl;
 
 				//Play sound
-				m_Engine.getAudioSystem().PlaySound("TreatSound");
+				//m_Engine.getAudioSystem().PlaySound("ToysSound");
 
-				//Destroy the treat
+				//Destroy the toys
 				m_Engine.getPhysicsSystem().RemoveBody(entity);
 				m_Engine.DestroyEntity(entity);
+
+				//Reduce timer by 10 seconds
+				double currTimer = m_Engine.GetTimerTiming();
+				double newTimer = currTimer - 10.0;
+				m_Engine.SetTimerTiming(newTimer);
 			}
 		}
-
 	}
 
 	virtual void Destroy(Entity entity) override
 	{
 		UNREFERENCED_PARAMETER(entity);
-		//std::cout << "Treat Destroy" << std::endl;
 	}
 
 	virtual const char* getBehaviourName() override
 	{
-		return "Treat";
+		return "Toys";
 	}
 };

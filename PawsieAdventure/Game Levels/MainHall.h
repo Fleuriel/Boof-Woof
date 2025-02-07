@@ -17,6 +17,8 @@ class MainHall : public Level
 	double timer = 0.0; // Timer for smell avoidance
 	double timerLimit = 5.0f; // Timer limit for smell avoidance
 
+	bool TimerInit = false;
+
 	bool sniffa{ false };
 	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
 	bool playercollided{ false }, puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
@@ -173,6 +175,10 @@ class MainHall : public Level
 			// Reset sound state
 			peeSoundPlayed = false;
 			waterSoundPlayed = true; // Ensure water sound plays only once
+			if (TimerInit) {
+				g_TimerTR.OnShutdown();
+				TimerInit = false;
+			}
 		}
 		//////////////////////////////////////////////////////////////////////////
 
@@ -216,6 +222,26 @@ class MainHall : public Level
 
 			if (peeMarked)
 			{
+				if (!TimerInit) {
+					g_TimerTR.OnInitialize();
+					g_TimerTR.timer = timerLimit;
+					TimerInit = true;
+				}
+				g_TimerTR.OnUpdate(deltaTime);
+
+				if (g_TimerTR.timer == 0.0)
+				{
+					peeMarked = false;
+					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+					if (loading)
+					{
+						// Pass in the name of the real scene we want AFTER the loading screen
+						loading->m_NextScene = "MainHall";
+						g_LevelManager.SetNextLevel("LoadingLevel");
+						g_TimerTR.OnShutdown();
+					}
+				}
+				/*
 				timer += deltaTime;
 
 				if (timer >= timerLimit)
@@ -230,6 +256,7 @@ class MainHall : public Level
 						g_LevelManager.SetNextLevel("LoadingLevel");
 					}
 				}
+				*/
 			}
 
 			// If collected 1st puppy
@@ -334,5 +361,7 @@ class MainHall : public Level
 		waterBucketcollided = peeMarked = false; // Smell Avoidance
 		puppy1Destroyed = puppy2Destroyed = puppy3Destroyed = false;
 		peeSoundPlayed = waterSoundPlayed = false;
+
+		g_TimerTR.OnShutdown();
 	}
 };
