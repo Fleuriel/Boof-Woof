@@ -689,30 +689,55 @@ void AudioSystem::StopSpecificSound(const std::string& filePath) {
 void AudioSystem::SetBGMVolume(float volume) {
     bgmVolume = volume;
 
+    // Update 2D BGM sounds
     for (auto& [channel, filePath] : channelToFileMap) {
-        if (filePath.find("BGM") != std::string::npos) {  // ✅ Only update BGM sounds
+        if (filePath.find("BGM") != std::string::npos) {  // Only update BGM sounds
             if (channel) {
                 channel->setVolume(bgmVolume);
             }
         }
     }
 
-    std::cout << "BGM volume set to: " << bgmVolume << std::endl;
+    // ✅ NEW: Update 3D BGM sounds only
+    for (auto& [entity, channels] : channelMap) {
+        if (entitySoundTypeMap[entity] == "BGM") {  // Only update BGM sounds
+            for (auto* channel : channels) {
+                if (channel) {
+                    channel->setVolume(bgmVolume);
+                }
+            }
+        }
+    }
+
+    std::cout << "BGM volume set to: " << bgmVolume << " (Updated 2D & 3D BGM)\n";
 }
+
 
 void AudioSystem::SetSFXVolume(float volume) {
     sfxVolume = volume;
 
+    // Update 2D SFX sounds
     for (auto& [channel, filePath] : channelToFileMap) {
-        if (filePath.find("BGM") == std::string::npos) {  // ✅ Only update SFX sounds
+        if (filePath.find("BGM") == std::string::npos) {  // Only update SFX sounds
             if (channel) {
                 channel->setVolume(sfxVolume);
             }
         }
     }
 
-    std::cout << "SFX volume set to: " << sfxVolume << std::endl;
+    for (auto& [entity, channels] : channelMap) {
+        if (entitySoundTypeMap[entity] == "SFX") {  // Only update SFX sounds
+            for (auto* channel : channels) {
+                if (channel) {
+                    channel->setVolume(sfxVolume);
+                }
+            }
+        }
+    }
+
+    std::cout << "SFX volume set to: " << sfxVolume << " (Updated 2D & 3D SFX)\n";
 }
+
 
 
 
@@ -827,67 +852,73 @@ void AudioSystem::SetEntityVolume(Entity entity, float volume) {
         std::cerr << "No active channels found for entity " << entity << std::endl;
     }
 }
-void AudioSystem::PlayEntity3DAudio(Entity entity, const std::string& filePath, bool loop) {
+void AudioSystem::PlayEntity3DAudio(Entity entity, const std::string& filePath, bool loop, const std::string& soundType) {
     auto it = channelMap.find(entity);
 
-    // Check if the 3D audio is already playing
+    // Prevent duplicate playback
     if (it != channelMap.end()) {
         for (auto* channel : it->second) {
             bool isPlaying = false;
             channel->isPlaying(&isPlaying);
             if (isPlaying) {
-                std::cout << "3D Audio is already playing for entity " << entity << std::endl;
-                return;  // Prevent duplicate playback
+                std::cout << "3D " << soundType << " Audio is already playing for entity " << entity << std::endl;
+                return;
             }
         }
     }
 
-    // Load and cache the sound if not already cached
+    // Load and cache the sound
     if (soundCache.find(filePath) == soundCache.end()) {
         FMOD::Sound* sound = nullptr;
         FMOD_MODE mode = FMOD_3D | (loop ? FMOD_LOOP_NORMAL : FMOD_DEFAULT);
 
         FMOD_RESULT result = system->createSound(filePath.c_str(), mode, nullptr, &sound);
         if (result != FMOD_OK) {
-            std::cerr << "Error loading 3D sound from file: " << filePath << " - " << FMODErrorToString(result) << std::endl;
+            std::cerr << "Error loading 3D " << soundType << " sound: " << filePath << " - "
+                << FMODErrorToString(result) << std::endl;
             return;
         }
 
         soundCache[filePath] = std::shared_ptr<FMOD::Sound>(sound, [](FMOD::Sound* s) { s->release(); });
     }
 
-    // Play the cached 3D sound
+    // Play the cached sound
     FMOD::Channel* newChannel = nullptr;
     FMOD_RESULT result = system->playSound(soundCache[filePath].get(), nullptr, false, &newChannel);
     if (result != FMOD_OK || !newChannel) {
-        std::cerr << "Error playing 3D sound on new channel: " << FMODErrorToString(result) << std::endl;
+        std::cerr << "Error playing 3D " << soundType << " sound: " << FMODErrorToString(result) << std::endl;
         return;
     }
 
-    // Set the loop count if needed
+    // Set the loop count
     if (loop) {
         newChannel->setLoopCount(-1);
     }
 
-    // 🔥 Set the 3D position using TransformComponent
+    // Set 3D position
     if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
         auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
-        glm::vec3 position = transform.GetPosition();  // Correct function call
+        glm::vec3 position = transform.GetPosition();
 
         FMOD_VECTOR pos = { position.x, position.y, position.z };
         newChannel->set3DAttributes(&pos, nullptr);
-        std::cout << "3D Sound position set for entity " << entity << " at ("
-            << pos.x << ", " << pos.y << ", " << pos.z << ")" << std::endl;
     }
 
-    // Store the channel in the entity's channel map
+    // 🔹 Store the sound type (SFX or BGM) for this entity
+    entitySoundTypeMap[entity] = soundType;
+
+    // 🔊 Apply correct volume
+    if (soundType == "BGM") {
+        newChannel->setVolume(bgmVolume);
+    }
+    else {
+        newChannel->setVolume(sfxVolume);
+    }
+
+    // Store the channel
     channelMap[entity].push_back(newChannel);
 
-    // Apply SFX volume by default for 3D sounds
-    newChannel->setVolume(sfxVolume);
-
-    // Log the channel association
-    std::cout << "3D Audio for entity " << entity << " now mapped to channel." << std::endl;
+    std::cout << "3D " << soundType << " Audio for entity " << entity << " now mapped to channel." << std::endl;
 
     system->update();
 }
@@ -910,8 +941,20 @@ void AudioSystem::Update3DSoundPositions() {
     }
 }
 
-
-void AudioSystem::SetListenerPosition(const glm::vec3& position) {
+void AudioSystem::SetListenerPosition(const glm::vec3& position, const glm::vec3& rotation) {
     FMOD_VECTOR listenerPos = { position.x, position.y, position.z };
-    system->set3DListenerAttributes(0, &listenerPos, nullptr, nullptr, nullptr);
+
+    // Convert rotation (Euler angles) into a forward vector
+    glm::vec3 forward = {
+        cos(glm::radians(rotation.y)) * cos(glm::radians(rotation.x)),
+        sin(glm::radians(rotation.x)),
+        sin(glm::radians(rotation.y)) * cos(glm::radians(rotation.x))
+    };
+
+    glm::vec3 up = { 0.0f, 1.0f, 0.0f }; // Assume up is always (0,1,0)
+
+    FMOD_VECTOR fmodForward = { forward.x, forward.y, forward.z };
+    FMOD_VECTOR fmodUp = { up.x, up.y, up.z };
+
+    system->set3DListenerAttributes(0, &listenerPos, nullptr, &fmodForward, &fmodUp);
 }

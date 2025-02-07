@@ -60,7 +60,7 @@ public:
 
 					if (metadata.GetName() == "BedRoomMusic")
 					{
-						//music.PlayAudio();
+						music.PlayAudio();
 					//	g_Audio.SetBGMVolume(g_Audio.GetSFXVolume());
 
 
@@ -76,7 +76,7 @@ public:
 					{
 						//music.PlayAudio();
 					//	g_Audio.SetBGMVolume(g_Audio.GetSFXVolume());
-						g_Audio.PlayEntity3DAudio(FireSound, FILEPATH_ASSET_AUDIO + "/Fire.wav", true);
+						g_Audio.PlayEntity3DAudio(FireSound, FILEPATH_ASSET_AUDIO + "/Fire.wav", true, "BGM");
 						std::cout << "?? Fireplace (Middle Particle) sound started at entity " << FireSound << std::endl;
 					}
 					else {
@@ -114,8 +114,12 @@ public:
 	{
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
 			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
-			g_Audio.SetListenerPosition(playerTransform.GetPosition());
+			glm::vec3 playerPos = playerTransform.GetPosition();
+			glm::vec3 playerRot = playerTransform.GetRotation();  // Get rotation from TransformComponent
+
+			g_Audio.SetListenerPosition(playerPos, playerRot);
 		}
+
 
 		// ?? Update the positions of all 3D sounds (including the fireplace)
 		g_Audio.Update3DSoundPositions();
@@ -174,7 +178,7 @@ public:
 				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiBark))
 				{
 					auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiBark);
-					//music1.PlayAudio();
+					music1.PlayAudio();
 				}
 				bark = true;
 			}
@@ -189,7 +193,7 @@ public:
 				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff))
 				{
 					auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
-					//music2.PlayAudio();
+					music2.PlayAudio();
 				}
 
 				opacity.setParticleColor(glm::vec4(0.09019608050584793f, 0.7843137383460999f, 0.8549019694328308f, 1.0f));
@@ -238,6 +242,13 @@ public:
 		//	auto& music = g_Coordinator.GetComponent<AudioComponent>(BedRoomBGM);
 		//	music.StopAudio();
 		//}
+
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
+			music.StopAudio();
+		}
+
 
 		g_ChangeText.startingRoomOnly = false;
 
