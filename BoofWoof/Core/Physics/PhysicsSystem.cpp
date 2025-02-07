@@ -332,7 +332,7 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
                    // If got ground contacts set to true
                     if (collisionComponent.GetGroundContacts() > 0) {
                         collisionComponent.SetIsGrounded(true);
-                        std::cout << "[DEBUG] Entity " << entity << " is still grounded due to active ground contacts.\n";
+                        //std::cout << "[DEBUG] Entity " << entity << " is still grounded due to active ground contacts.\n";
                     }
 
                     // Update `isGrounded` status
