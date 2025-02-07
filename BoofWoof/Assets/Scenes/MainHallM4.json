@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "f076def8-f9db-4c06-8fd5-2c0814d5e019",
+    "SceneGUID": "2805079e-75bf-4d5b-8a79-dbe3d35aa578",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.3930836021900177,
+                    "x": -0.39308175444602969,
                     "y": 1.1799993515014649,
-                    "z": -0.5926851630210877
+                    "z": -1.5738756656646729
                 },
                 "Scale": {
                     "x": 0.5,
@@ -1089,6 +1089,22 @@
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 3.0,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -4714,7 +4730,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 23.23430633544922,
+                    "x": 23.68783187866211,
                     "y": 2.109999895095825,
                     "z": -36.56800079345703
                 },
@@ -4744,8 +4760,8 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.8999999761581421,
-                    "y": 1.75,
-                    "z": 0.800000011920929
+                    "y": 1.850000023841858,
+                    "z": 0.75
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -4762,7 +4778,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 27.140243530273439,
+                    "x": 27.57642936706543,
                     "y": 2.109999895095825,
                     "z": -36.56800079345703
                 },
@@ -4792,8 +4808,8 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0499999523162842,
-                    "y": 2.049999952316284,
-                    "z": 0.8999999761581421
+                    "y": 1.850000023841858,
+                    "z": 0.75
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -4810,7 +4826,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.19131851196289,
+                    "x": 25.64031219482422,
                     "y": 5.104963302612305,
                     "z": -36.56800079345703
                 },
@@ -4841,7 +4857,7 @@
                 "AABBSize": {
                     "x": 2.799999952316284,
                     "y": 1.149999976158142,
-                    "z": 0.800000011920929
+                    "z": 0.75
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -7930,9 +7946,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 38.142398834228519,
-                    "y": 3.299999952316284,
-                    "z": -36.55690002441406
+                    "x": 38.091697692871097,
+                    "y": 3.3051300048828127,
+                    "z": -36.55449676513672
                 },
                 "Scale": {
                     "x": 1.0,
@@ -11594,7 +11610,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.73133087158203,
+                    "x": 25.663599014282228,
                     "y": 10.147701263427735,
                     "z": 5.597638130187988
                 },
@@ -13455,9 +13471,9 @@
                     "z": -32.57350158691406
                 },
                 "Scale": {
-                    "x": 0.999939501285553,
+                    "x": 0.9999394416809082,
                     "y": 1.0,
-                    "z": 0.9999175071716309
+                    "z": 0.9999174475669861
                 },
                 "Rotation": {
                     "x": 3.136615514755249,
@@ -15578,9 +15594,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 24.45332908630371,
-                    "y": -1.0524624586105347,
-                    "z": -37.815582275390628
+                    "x": 25.5,
+                    "y": -1.4326599836349488,
+                    "z": -77.0
                 },
                 "Scale": {
                     "x": 0.5,
@@ -15607,12 +15623,12 @@
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
-                "IsDynamic": true,
+                "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.3499999046325685,
                     "y": 2.799999952316284,
-                    "z": 1.0
+                    "z": 0.699999988079071
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -16067,7 +16083,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999997138977051,
                     "z": -39.57389831542969
                 },
                 "Scale": {
@@ -16089,6 +16105,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16099,7 +16131,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -44.3734016418457
                 },
                 "Scale": {
@@ -16121,6 +16153,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16131,7 +16179,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -49.16490173339844
                 },
                 "Scale": {
@@ -16153,6 +16201,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16163,7 +16227,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -53.94559860229492
                 },
                 "Scale": {
@@ -16185,6 +16249,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16195,7 +16275,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -58.74209976196289
                 },
                 "Scale": {
@@ -16217,6 +16297,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16227,7 +16323,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -63.541900634765628
                 },
                 "Scale": {
@@ -16249,6 +16345,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16259,7 +16371,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -68.33910369873047
                 },
                 "Scale": {
@@ -16281,6 +16393,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16291,7 +16419,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -73.10549926757813
                 },
                 "Scale": {
@@ -16313,6 +16441,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16323,7 +16467,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -77.90540313720703
                 },
                 "Scale": {
@@ -16345,6 +16489,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16387,7 +16547,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -39.57400131225586
                 },
                 "Scale": {
@@ -16409,6 +16569,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16419,7 +16595,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -44.37300109863281
                 },
                 "Scale": {
@@ -16441,6 +16617,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16451,7 +16643,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -49.165000915527347
                 },
                 "Scale": {
@@ -16473,6 +16665,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16483,7 +16691,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -53.94599914550781
                 },
                 "Scale": {
@@ -16505,6 +16713,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16515,7 +16739,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -58.742000579833987
                 },
                 "Scale": {
@@ -16537,6 +16761,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16547,7 +16787,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -63.54199981689453
                 },
                 "Scale": {
@@ -16569,6 +16809,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16579,7 +16835,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -68.33899688720703
                 },
                 "Scale": {
@@ -16601,6 +16857,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16611,7 +16883,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -73.1050033569336
                 },
                 "Scale": {
@@ -16633,6 +16905,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16643,7 +16931,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.30000001192092898,
+                    "y": 0.2999999523162842,
                     "z": -77.90499877929688
                 },
                 "Scale": {
@@ -16665,6 +16953,22 @@
             "GraphicsComponent": {
                 "ModelName": "Window",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -16703,9 +17007,9 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 2.1500000953674318,
-                    "y": 2.8499999046325685,
-                    "z": 1.0
+                    "x": 2.4000000953674318,
+                    "y": 3.0,
+                    "z": 0.800000011920929
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -20971,18 +21275,18 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 15.685369491577149,
-                    "y": 7.6748504638671879,
+                    "x": 15.686635971069336,
+                    "y": 7.597951889038086,
                     "z": 13.421425819396973
                 },
                 "Scale": {
-                    "x": 1.4000436067581177,
+                    "x": 1.3000195026397706,
                     "y": 1.5000425577163697,
                     "z": 3.0999999046325685
                 },
                 "Rotation": {
                     "x": -0.3610818684101105,
-                    "y": -5.960462345910855e-8,
+                    "y": -5.960463411724959e-8,
                     "z": -1.554330825805664
                 },
                 "RotationPivotOffset": {
@@ -21001,7 +21305,7 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
-                    "y": 0.10000000149011612,
+                    "y": 0.20000000298023225,
                     "z": 2.0
                 },
                 "AABBOffset": {
@@ -21307,18 +21611,18 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 35.67344284057617,
-                    "y": 7.730720520019531,
+                    "x": 35.67304992675781,
+                    "y": 7.5952911376953129,
                     "z": -32.88771438598633
                 },
                 "Scale": {
-                    "x": 1.5000008344650269,
-                    "y": 1.2000004053115845,
+                    "x": 1.2999929189682007,
+                    "y": 1.2000000476837159,
                     "z": 3.0999999046325685
                 },
                 "Rotation": {
-                    "x": 0.25514429807662966,
-                    "y": -1.1920927533992654e-7,
+                    "x": 0.25514426827430727,
+                    "y": -1.1920931797249069e-7,
                     "z": -1.5737712383270264
                 },
                 "RotationPivotOffset": {
@@ -21337,7 +21641,7 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
-                    "y": 0.10000000149011612,
+                    "y": 0.20000000298023225,
                     "z": 2.0
                 },
                 "AABBOffset": {
@@ -22159,7 +22463,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 21.42621612548828,
+                    "x": 21.903520584106447,
                     "y": 3.299999952316284,
                     "z": -36.568199157714847
                 },
@@ -22182,6 +22486,22 @@
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 3.0,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -22518,87 +22838,39 @@
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 536
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 29.283000946044923,
-                    "y": 3.299999952316284,
-                    "z": -29.085800170898439
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.299999952316284,
+                    "y": 3.0,
+                    "z": 0.75
                 },
-                "Scale": {
-                    "x": 0.9999251961708069,
-                    "y": 1.0,
-                    "z": 0.9999251961708069
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 1.5699999332427979,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
+                "AABBOffset": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallDoor",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 537
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 29.2825870513916,
-                    "y": 3.299999952316284,
-                    "z": -25.426429748535158
                 },
-                "Scale": {
-                    "x": 0.9999270439147949,
-                    "y": 1.0,
-                    "z": 0.9999270439147949
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 1.5699999332427979,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallCorner",
-                "FollowCamera": true
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 538
+                "EntityID": 536
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 29.2738094329834,
+                    "x": 29.273799896240236,
                     "y": 3.300020217895508,
-                    "z": -24.735008239746095
+                    "z": -24.727397918701173
                 },
                 "Scale": {
-                    "x": 0.9999845027923584,
+                    "x": 0.9999720454216003,
                     "y": 1.0,
-                    "z": 0.9999845027923584
+                    "z": 0.9999720454216003
                 },
                 "Rotation": {
                     "x": 0.00004437632378540002,
@@ -22621,7 +22893,7 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
-                    "y": 2.700000047683716,
+                    "y": 3.0,
                     "z": 0.75
                 },
                 "AABBOffset": {
@@ -22635,11 +22907,11 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 539
+                "EntityID": 537
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 30.20228385925293,
+                    "x": 31.03535270690918,
                     "y": 3.299999952316284,
                     "z": -36.56800079345703
                 },
@@ -22662,12 +22934,28 @@
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.299999952316284,
+                    "y": 3.0,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 540
+                "EntityID": 538
             },
             "TransformComponent": {
                 "Position": {
@@ -22699,7 +22987,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 541
+                "EntityID": 539
             },
             "TransformComponent": {
                 "Position": {
@@ -22731,7 +23019,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wallcorner",
-                "EntityID": 542
+                "EntityID": 540
             },
             "TransformComponent": {
                 "Position": {
@@ -22758,6 +23046,294 @@
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
                 "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallDoorRight",
+                "EntityID": 541
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 29.27721405029297,
+                    "y": 2.1099960803985597,
+                    "z": -27.00063133239746
+                },
+                "Scale": {
+                    "x": 1.000001072883606,
+                    "y": 1.0,
+                    "z": 1.000001072883606
+                },
+                "Rotation": {
+                    "x": 3.1405203342437746,
+                    "y": -1.5699963569641114,
+                    "z": -3.1405203342437746
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoorRight",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.0499999523162842,
+                    "y": 1.850000023841858,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallDoorLeft",
+                "EntityID": 542
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 29.26335334777832,
+                    "y": 2.1100480556488039,
+                    "z": -30.8897647857666
+                },
+                "Scale": {
+                    "x": 0.9999945759773254,
+                    "y": 1.0,
+                    "z": 0.9999945759773254
+                },
+                "Rotation": {
+                    "x": -3.1415884494781496,
+                    "y": -1.5700000524520875,
+                    "z": -3.1415884494781496
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoorLeft",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.8999999761581421,
+                    "y": 1.850000023841858,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallDoorTop",
+                "EntityID": 543
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 29.261690139770509,
+                    "y": 5.104983806610107,
+                    "z": -28.94417381286621
+                },
+                "Scale": {
+                    "x": 0.9999932646751404,
+                    "y": 1.0,
+                    "z": 0.9999932646751404
+                },
+                "Rotation": {
+                    "x": 0.000023239328584168108,
+                    "y": -1.5699999332427979,
+                    "z": -0.000018727472706814298
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoorTop",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.799999952316284,
+                    "y": 1.149999976158142,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCorner",
+                "EntityID": 544
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 29.274507522583009,
+                    "y": 3.300020217895508,
+                    "z": -25.61319351196289
+                },
+                "Scale": {
+                    "x": 0.9999703168869019,
+                    "y": 1.0,
+                    "z": 0.9999703168869019
+                },
+                "Rotation": {
+                    "x": 0.00004437632378540002,
+                    "y": 1.5699999332427979,
+                    "z": -0.000031481384212384
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.800000011920929,
+                    "y": 3.0,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCorner",
+                "EntityID": 545
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 20.699312210083009,
+                    "y": 3.299999952316284,
+                    "z": -36.568199157714847
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 3.0,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCorner",
+                "EntityID": 546
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 17.51358413696289,
+                    "y": 3.299999952316284,
+                    "z": -36.568199157714847
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 3.0,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         }
     ]
