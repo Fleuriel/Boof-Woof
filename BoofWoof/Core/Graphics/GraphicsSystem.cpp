@@ -19,7 +19,7 @@ bool GraphicsSystem::glewInitialized = false;
 
 bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
-bool GraphicsSystem::lightOn = true;
+bool GraphicsSystem::lightOn = false;
 
 CameraComponent GraphicsSystem::camera;
 CameraComponent camera_render;
