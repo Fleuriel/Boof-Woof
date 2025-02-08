@@ -59,6 +59,14 @@ public:
 		g_Audio.PlayFile(fullPath.c_str());
 	}
 
+	virtual void PlaySoundByFile(const char* soundId, bool loop = false, const std::string& soundType = "SFX") override
+	{
+		std::string fullPath = std::string(FILEPATH_ASSET_AUDIO) + "/" + soundId;
+		g_Audio.PlayFileOnNewChannel(fullPath, loop, soundType);
+	}
+
+
+
 	// END OF AUDIO INTERFACE
 
 	// PHYSICS INTERFACE

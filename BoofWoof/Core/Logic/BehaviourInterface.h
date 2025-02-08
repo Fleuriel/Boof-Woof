@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string> 
 #ifndef BEHAVIOURINTERFACE_H
 #define BEHAVIOURINTERFACE_H
 
@@ -26,6 +27,9 @@ struct audio_interface
 {
 	virtual void PlaySound(const char* pSoundName) = 0;
 	virtual void PlaySoundById(const char* soundId) = 0;
+
+	virtual void PlaySoundByFile(const char* soundId, bool loop = false, const std::string& soundType = "SFX") = 0;
+
 };
 
 struct physics_interface

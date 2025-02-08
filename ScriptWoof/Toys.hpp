@@ -22,7 +22,7 @@ struct Toys final : public Behaviour
 
 				//Play sound
 
-				m_Engine.getAudioSystem().PlaySoundById("Corgi/CorgiBark1.wav");
+				m_Engine.getAudioSystem().PlaySoundByFile("ToyTouch.wav", false, "SFX");
 			
 
 
