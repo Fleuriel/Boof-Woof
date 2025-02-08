@@ -16,18 +16,15 @@ public:
 	CameraController* cameraController = nullptr;
 	bool bark{ false }, sniff{ false };
 
-	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{};
+	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{}, FireSound{};
 
 	void LoadLevel() override
 	{
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom_Light.json");
 		
 		g_ChangeText.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
-		//g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
-		//g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
-
 
 		// Use unordered_map to make it O(1) efficiency
 		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
@@ -36,7 +33,8 @@ public:
 			{"ScentTrail", [&](Entity entity) { scentEntity = entity; }},
 			{"BedRoomMusic", [&](Entity entity) { BedRoomBGM = entity; }},
 			{"CorgiBark1", [&](Entity entity) { CorgiBark = entity; }},
-			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }}
+			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }},
+			{ "middle particle", [&](Entity entity) { FireSound = entity; }}
 		};
 
 		for (auto entity : entities)
@@ -60,14 +58,27 @@ public:
 					if (metadata.GetName() == "BedRoomMusic")
 					{
 						music.PlayAudio();
-					//	g_Audio.SetBGMVolume(g_Audio.GetSFXVolume());
-
-
 					}
 				}
 
+				if (g_Coordinator.HaveComponent<AudioComponent>(entity))
+				{
+					auto& fire = g_Coordinator.GetComponent<AudioComponent>(entity);
+					fire.SetAudioSystem(&g_Audio);
+
+					if (metadata.GetName() == "middle particle")
+					{
+						g_Audio.PlayEntity3DAudio(FireSound, FILEPATH_ASSET_AUDIO + "/Fire.wav", true, "BGM");
+						std::cout << "?? Fireplace (Middle Particle) sound started at entity " << FireSound << std::endl;
+					}
+					else {
+						std::cerr << "? ERROR: Fireplace entity has no AudioComponent!" << std::endl;
+					}
+
+				}
+
 				// Exit early if all entities are found
-				if (playerEnt && scentEntity && BedRoomBGM && CorgiBark && CorgiSniff)
+				if (playerEnt && scentEntity && BedRoomBGM && CorgiBark && CorgiSniff && FireSound)
 				{
 					break;
 				}
@@ -89,6 +100,17 @@ public:
 
 	void UpdateLevel(double deltaTime) override
 	{
+		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
+			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
+			glm::vec3 playerPos = playerTransform.GetPosition();
+			glm::vec3 playerRot = playerTransform.GetRotation();  // Get rotation from TransformComponent
+
+			g_Audio.SetListenerPosition(playerPos, playerRot);
+		}
+
+		// ?? Update the positions of all 3D sounds (including the fireplace)
+		g_Audio.Update3DSoundPositions();
+
 		g_ChangeText.startingRoomOnly = true;
 
 		if (!g_IsPaused) 
@@ -200,17 +222,15 @@ public:
 
 	void UnloadLevel() override
 	{
-		//g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav");
-		//if (g_Coordinator.HaveComponent<AudioComponent>(BedRoomBGM)) {
-		//	auto& music = g_Coordinator.GetComponent<AudioComponent>(BedRoomBGM);
-		//	music.StopAudio();
-		//}
+		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
+			music.StopAudio();
+		}
 
 		g_ChangeText.startingRoomOnly = false;
 
 		g_Audio.Stop(BedRoomBGM);
 
-		//g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 	}

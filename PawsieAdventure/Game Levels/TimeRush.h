@@ -3,17 +3,18 @@
 #include "ResourceManager/ResourceManager.h"
 #include "ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
+#include "../Utilities/ForGame/TimerTR/TimerTR.h"
+#include "../GSM/GameStateMachine.h" // for g_IsPaused
 
 class TimeRush : public Level
 {
-	double timer = 0.0;
-	double interval = 1.0; // Time interval in seconds
-	int currentTextureIndex = 53; // Start from "Group53"
-	Entity timerTextEntity{}, playerEnt{}, scentEntity1{}, scentEntity2{}, scentEntity3{}, scentEntity4{}, scentEntity5{}, scentEntity6{};
+	Entity playerEnt{};
+	Entity scentEntity1{}, scentEntity2{}, scentEntity3{}, scentEntity4{}, scentEntity5{}, scentEntity6{}, scentEntity7{}, scentEntity8{}, scentEntity9{};
 	CameraController* cameraController = nullptr;
+	bool savedcamdir{ false };
+	glm::vec3 camdir{};
 
-	Entity TimeRushBGM{}, AggroDog{}, CorgiSniff{};
-
+	Entity TimeRushBGM{}, AggroDog{}, CorgiSniff{}, FireSound{};
 
 	double colorChangeTimer = 0.0;
 	double colorChangeDuration = 3.0; // Duration for which the color change lasts
@@ -22,13 +23,12 @@ class TimeRush : public Level
 	bool isColorChanged = false;
 
 	bool finishTR{ false };
-	double TRtimer = 0.0;
-	double TRlimit = 2.0f;
+	double timesUp = 2.0;
 
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/TimeRushPuzzle.json");
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Timer.json");
+		g_TimerTR.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -42,10 +42,14 @@ class TimeRush : public Level
 			{"ScentTrail4", [&](Entity entity) { scentEntity4 = entity; }},
 			{"ScentTrail5", [&](Entity entity) { scentEntity5 = entity; }},
 			{"ScentTrail6", [&](Entity entity) { scentEntity6 = entity; }},
-			{"Group", [&](Entity entity) { timerTextEntity = entity; }},
+			{"ScentTrail7", [&](Entity entity) { scentEntity7 = entity; }},
+			{"ScentTrail8", [&](Entity entity) { scentEntity8 = entity; }},
+			{"ScentTrail9", [&](Entity entity) { scentEntity9 = entity; }},
 			{"TimeRushBGM", [&](Entity entity) { TimeRushBGM = entity; }},
 			{"AggressiveDogBarking", [&](Entity entity) { AggroDog = entity; }},
-			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }}
+			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }},
+			{ "red particle", [&](Entity entity) { FireSound = entity; }}
+
 		};
 
 
@@ -61,20 +65,9 @@ class TimeRush : public Level
 					it->second(entity);
 				}
 
-				if (g_Coordinator.HaveComponent<AudioComponent>(entity))
-				{
-					auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
-					music.SetAudioSystem(&g_Audio);
-
-					if (metadata.GetName() == "TimeRushBGM" || metadata.GetName() == "AggressiveDogBarking")
-					{
-						music.PlayAudio();
-					}
-				}
-
 				// Exit early if all entities are found
 				if (playerEnt && scentEntity1 && scentEntity2 && scentEntity3 && scentEntity4
-					&& scentEntity5 && scentEntity6 && timerTextEntity && TimeRushBGM && AggroDog && CorgiSniff)
+					&& scentEntity5 && scentEntity6 && scentEntity7 && scentEntity8 && scentEntity9 && TimeRushBGM && AggroDog && CorgiSniff && FireSound)
 				{
 					break;
 				}
@@ -101,24 +94,81 @@ class TimeRush : public Level
 			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.165f));
 		}
 
+		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
+			auto& fireAudio = g_Coordinator.GetComponent<AudioComponent>(FireSound);
+			fireAudio.SetAudioSystem(&g_Audio);
+
+			// Play Fire Audio (3D BGM)
+			g_Audio.PlayEntity3DAudio(FireSound, FILEPATH_ASSET_AUDIO + "/Fire.wav", true, "BGM");
+			std::cout << " Fire Sound initialized in InitLevel for entity " << FireSound << std::endl;
+		}
+		else {
+			std::cerr << " ERROR: FireSound entity has no AudioComponent in InitLevel!" << std::endl;
+		}
+
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {
+			auto& bgmAudio = g_Coordinator.GetComponent<AudioComponent>(TimeRushBGM);
+			bgmAudio.SetAudioSystem(&g_Audio);
+			bgmAudio.PlayAudio();
+		}
+		else {
+			std::cerr << " ERROR: TimeRushBGM entity has no AudioComponent in InitLevel!" << std::endl;
+		}
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
+			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
+			dogAudio.SetAudioSystem(&g_Audio);
+			dogAudio.PlayAudio();
+		}
+		else {
+			std::cerr << " ERROR: AggroDog entity has no AudioComponent in InitLevel!" << std::endl;
+		}
+
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
+			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
+			dogAudio.SetAudioSystem(&g_Audio);
+		}
+
+
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
 	}
 
 	void UpdateLevel(double deltaTime) override
 	{
+
+		if (g_IsPaused && !savedcamdir) {
+			camdir = cameraController->GetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
+			savedcamdir = true;
+		}
+
+		if (!g_IsPaused && savedcamdir) {
+			cameraController->SetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt), camdir);
+			savedcamdir = false;
+		}
+
+		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
+			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
+			glm::vec3 playerPos = playerTransform.GetPosition();
+			glm::vec3 playerRot = playerTransform.GetRotation();  // Get rotation from TransformComponent
+
+			g_Audio.SetListenerPosition(playerPos, playerRot);
+		}
+
+
+		// ?? Update the positions of all 3D sounds (including the fireplace)
+		g_Audio.Update3DSoundPositions();
+
+
 		pauseLogic::OnUpdate();
 
 		if (!g_IsPaused)
 		{
 			cameraController->Update(static_cast<float>(deltaTime));
 
-			timer += deltaTime;
 			cooldownTimer += deltaTime;
-
-			if (!g_Coordinator.HaveComponent<UIComponent>(timerTextEntity)) return;
-
-			auto& text = g_Coordinator.GetComponent<UIComponent>(timerTextEntity);
 
 			auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
 			auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);
@@ -126,26 +176,39 @@ class TimeRush : public Level
 			auto& opacity4 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity4);
 			auto& opacity5 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity5);
 			auto& opacity6 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity6);
+			auto& opacity7 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity7);
+			auto& opacity8 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity8);
+			auto& opacity9 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity9);
 
-			// Change the texture every second
-			if (timer >= interval && currentTextureIndex <= 233)
+			g_TimerTR.OnUpdate(deltaTime);
+
+			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
+			if (g_TimerTR.timer == 0.0) 
 			{
-				std::string nextTextureName = "Group" + std::to_string(currentTextureIndex + 1);
+				timesUp -= deltaTime;
 
-				//int nextTextureId = g_ResourceManager.GetTextureDDS(nextTextureName);
-				//text.set_textureid(nextTextureId);
-				text.set_texturename(nextTextureName);
+				// Times up! sound
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
 
-				timer = 0.0; // Reset timer
-				currentTextureIndex++; // Move to the next texture
+				// Wait for like 2 seconds then restart game
+				if (timesUp < 0.0) 
+				{
+					timesUp = 0.0;
+
+					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+					if (loading)
+					{
+						// Pass in the name of the real scene we want AFTER the loading screen
+						loading->m_NextScene = "TimeRush";
+
+						g_TimerTR.Reset();
+
+						g_LevelManager.SetNextLevel("LoadingLevel");
+					}
+				}		
 			}
 
-			// When the timer reaches the end ("Group234"), transition to the next level
-			if (currentTextureIndex > 234)
-			{
-				std::cout << "End of timer" << std::endl;
-			}
-
+			// Particles
 			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && cooldownTimer >= cooldownDuration)
 			{
 				//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false, "SFX");
@@ -161,6 +224,10 @@ class TimeRush : public Level
 				opacity4.setParticleColor(newColor);
 				opacity5.setParticleColor(newColor);
 				opacity6.setParticleColor(newColor);
+
+				opacity7.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 1.0f));
+				opacity8.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 1.0f));
+				opacity9.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 1.0f));
 
 				isColorChanged = true;
 				colorChangeTimer = 0.0;
@@ -180,10 +247,15 @@ class TimeRush : public Level
 					opacity5.setParticleColor(resetColor);
 					opacity6.setParticleColor(resetColor);
 
+					opacity7.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 0.0f));
+					opacity8.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 0.0f));
+					opacity9.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 0.0f));
+
 					isColorChanged = false;
 				}
 			}
 
+			// Checklist
 			if (!g_Checklist.shutted)
 			{
 				g_Checklist.OnUpdate(deltaTime);
@@ -200,6 +272,7 @@ class TimeRush : public Level
 
 			if (g_Checklist.finishTR && g_Checklist.shutted)
 			{
+				g_TimerTR.OnShutdown();
 				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 				if (loading)
 				{
@@ -222,7 +295,7 @@ class TimeRush : public Level
 
 	void UnloadLevel() override
 	{
-		//g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/TimeRushBGM.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/Timesup.wav");
 		//g_Audio.StopBGM();
 
 		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {
@@ -230,10 +303,13 @@ class TimeRush : public Level
 			music.StopAudio();
 		}
 
+		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
+			music.StopAudio();
+		}
+
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
-		timer = 0.0;
-		currentTextureIndex = 53;
 		g_Checklist.finishTR = false;
 	}
 };

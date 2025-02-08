@@ -22,6 +22,7 @@ extern bool g_WindowClosed;
 GameStates g_CurrentState{}, g_PreviousState{}, g_NextState{};
 bool g_IsPaused{ false };
 
+
 void UpdateGSM()
 {
 	while (g_CurrentState != GameStates::QUIT)

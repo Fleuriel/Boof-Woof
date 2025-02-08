@@ -393,6 +393,21 @@ void ImGuiEditor::WorldHierarchy()
 			if (g_SelectedEntity != MAX_ENTITIES)
 			{
 				Entity clone = g_Coordinator.CloneEntity(g_SelectedEntity);
+
+				// Ensure the cloned entity gets a new physics body
+				if (g_Coordinator.HaveComponent<CollisionComponent>(clone))
+				{
+					auto& clonedCollisionComp = g_Coordinator.GetComponent<CollisionComponent>(clone);
+
+					// Reset Physics Body to prevent it from being the same as the original entity
+					clonedCollisionComp.SetPhysicsBody(nullptr);
+					clonedCollisionComp.SetHasBodyAdded(false);  // Mark as not added to physics system
+
+					// Add a new physics body for the cloned entity
+					g_Coordinator.GetSystem<MyPhysicsSystem>()->AddEntityBody(clone, 0.0f);
+					clonedCollisionComp.SetHasBodyAdded(true);  // Mark as added
+				}
+
 				g_SelectedEntity = clone;
 			}
 		}
@@ -2275,7 +2290,7 @@ void ImGuiEditor::InspectorWindow()
 									std::string currentBehaviourName = (*behaviourNameProperty)->GetValue(&behaviourComponent);
 									std::string newBehaviourName = currentBehaviourName;
 
-									const char* behaviourNames[] = { "Null", "Player", "Treat", "Rex"};
+									const char* behaviourNames[] = { "Null", "Player", "Treat", "Rex", "Toys"};
 									int currentItem = 0;
 
 									for (int i = 0; i < IM_ARRAYSIZE(behaviourNames); ++i)
@@ -3582,6 +3597,42 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
+								// set shadow 
+								bool shadow = lightComponent.getShadow();
+								ImGui::Text("Shadow");
+								ImGui::SameLine();
+								ImGui::Checkbox("##Shadow", &shadow);
+								lightComponent.setShadow(shadow);
+								// same line change direction
+								ImGui::SameLine();
+								glm::vec3 direction = lightComponent.getDirection();
+								ImGui::Text("Direction");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Direction");
+
+								if (ImGui::DragFloat3("##Direction", &direction.x, 0.1f))
+								{
+									lightComponent.setDirection(direction);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								float range = lightComponent.getRange();
+								ImGui::Text("Range");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Range");
+
+								if (ImGui::DragFloat("##Range", &range, 0.1f))
+								{
+									lightComponent.setRange(range);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
 
 							}
 
@@ -3938,7 +3989,7 @@ void ImGuiEditor::InspectorWindow()
 								}
 
 								// Display the dropdown (combo box)
-								if (ImGui::Combo("##Family", &currentIndex, fontNamesCStr.data(), fontNamesCStr.size())) {
+								if (ImGui::Combo("##Family", &currentIndex, fontNamesCStr.data(), (int)(fontNamesCStr.size()))) {
 									// Update the family when a new font is selected
 									if (currentIndex >= 0 && currentIndex < fontNames.size()) {
 										fontComponent.set_family(fontNames[currentIndex]);

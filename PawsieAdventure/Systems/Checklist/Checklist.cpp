@@ -119,14 +119,14 @@ void Checklist::OnUpdate(double deltaTime)
 			}
 		}
 
-		if (Check4 && !corgiText)
+		if (Check1 && Check2 && Check3 && Check4 && !corgiText)
 		{
 			AddCorgiText();
 			corgiText = true;
 		}
 	}
 
-	if ((Check1 && Check2 && Check3 && Check4 && corgiText) || finishTR || finishRB)
+	if (corgiText || finishTR || finishRB)
 	{
 		clTimer += deltaTime;
 

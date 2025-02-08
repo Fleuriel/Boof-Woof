@@ -18,6 +18,11 @@ struct Player final : public Behaviour
 	bool pathInitialized = false;
 	bool inRopeBreaker{ false };
 
+
+	float footstepTimer = 0.0f;  
+	const float footstepInterval = 0.25f;  // Interval between footstep sounds (adjustable)
+
+
 	std::vector<std::string> footstepSounds = {
 	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_01.wav",
 	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_02.wav",
@@ -37,7 +42,7 @@ struct Player final : public Behaviour
 
 	virtual void Init(Entity entity) override
 	{
-		std::cout << "Player Init" << std::endl;
+		//std::cout << "Player Init" << std::endl;
 		previousPosition = m_Engine.GetPosition(entity); // Initialize with the starting position
 		isJumping = false;
 		isMoving = false;
@@ -54,14 +59,14 @@ struct Player final : public Behaviour
 			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			isMoving = false;
 
-		//// Debug for movement
-		//glm::vec3 currentPos = m_Engine.GetPosition(entity);
-		//std::cout << "[Pathfinding] Entity " << entity << " is currently at Position: ("
-		//	<< currentPos.x << ", " << currentPos.y << ", " << currentPos.z << ")" << std::endl;
+			//// Debug for movement
+			//glm::vec3 currentPos = m_Engine.GetPosition(entity);
+			//std::cout << "[Pathfinding] Entity " << entity << " is currently at Position: ("
+			//	<< currentPos.x << ", " << currentPos.y << ", " << currentPos.z << ")" << std::endl;
 
-		//double deltaTime = m_Engine.GetDeltaTime(); // Get delta time
+			//double deltaTime = m_Engine.GetDeltaTime(); // Get delta time
 		
-		//std::cout << "[DEBUG] Delta Time: " << deltaTime << std::endl;
+			//std::cout << "[DEBUG] Delta Time: " << deltaTime << std::endl;
 
 			// Debug: Starting state
 			//std::cout << "[DEBUG] Start of Update: Entity = " << entity
@@ -74,6 +79,7 @@ struct Player final : public Behaviour
 			isGrounded = m_Engine.IsGrounded(entity);
 
 			//std::cout << "[DEBUG] isGrounded = " << std::boolalpha << isGrounded << std::endl;
+
 
 			if (m_Engine.getInputSystem().isActionPressed("Sprint"))
 			{
@@ -124,83 +130,12 @@ struct Player final : public Behaviour
 			}
 
 
+			// Allow movement only if the player is grounded
+			if (isGrounded && !inRopeBreaker)
+			{
 
-		// Allow movement only if the player is grounded
-		if (isGrounded && !inRopeBreaker)
-		{
-			//if (!pathInitialized)
-			//{
-			//	std::cout << "[Pathfinding] Checking if entity " << entity << " has a pathfinding component..." << std::endl;
-
-			//	if (m_Engine.HavePathfindingComponent(entity))
-			//	{
-			//		std::cout << "[Pathfinding] Retrieving path for entity " << entity << std::endl;
-			//		path = m_Engine.GetPath(entity);
-
-			//		std::cout << "[Pathfinding] Retrieved path of length " << path.size() << std::endl;
-
-			//		currentPathIndex = 0;
-			//		followingPath = !path.empty();
-
-			//		if (followingPath) {
-			//			std::cout << "[Pathfinding] Entity " << entity << " initialized with path of length " << path.size() << std::endl;
-			//		}
-			//		else {
-			//			std::cout << "[Pathfinding] Entity " << entity << " has no valid path." << std::endl;
-			//		}
-			//	}
-			//	else {
-			//		std::cout << "[Pathfinding] Entity " << entity << " does not have a pathfinding component!" << std::endl;
-			//	}
-			//	pathInitialized = true;
-			//}
-
-
-			//if (followingPath && currentPathIndex < path.size()) {
-			//	glm::vec3 targetPos = path[currentPathIndex];
-
-			//	std::cout << "[Pathfinding] Entity " << entity << " moving towards waypoint "
-			//		<< currentPathIndex + 1 << " at position ("
-			//		<< targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << std::endl;
-
-			//	glm::vec3 direction = glm::normalize(glm::vec3(targetPos.x, currentPos.y, targetPos.z) - currentPos);
-			//	velocity = direction * speed;
-
-			//	float distance = glm::length(targetPos - currentPos);
-			//	std::cout << "[Pathfinding] Distance to next waypoint: " << distance << std::endl;
-
-			//	if (distance <= pathThreshold || glm::distance(currentPos, targetPos) < 0.1f)
-			//	{
-			//		std::cout << "[Pathfinding] Entity " << entity << " reached waypoint "
-			//			<< currentPathIndex + 1 << " | Current Position: ("
-			//			<< currentPos.x << ", " << currentPos.y << ", " << currentPos.z << ")"
-			//			<< " | Target Position: ("
-			//			<< targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << std::endl;
-
-			//		currentPathIndex++;
-
-			//		if (currentPathIndex >= path.size()) {
-			//			followingPath = false;
-			//			velocity = glm::vec3(0.0f);
-			//			std::cout << "[Pathfinding] Entity " << entity << " has reached the final destination!" << std::endl;
-			//		}
-			//	}
-			//	isMoving = true;
-			//}
-
-			//if (isMoving) {
-			//	std::cout << "[Pathfinding] Applying velocity to Entity " << entity
-			//		<< " (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
-
-			//	m_Engine.SetVelocity(entity, velocity);
-
-			//	glm::vec3 newPos = m_Engine.GetPosition(entity);
-			//	std::cout << "[Pathfinding] Entity " << entity << " new position after velocity applied: ("
-			//		<< newPos.x << ", " << newPos.y << ", " << newPos.z << ")" << std::endl;
-			//}
-
-
-			if (m_Engine.HaveCameraComponent(entity)) {
+				if (m_Engine.HaveCameraComponent(entity)) 
+				{
 
 					if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
 					{
@@ -259,7 +194,9 @@ struct Player final : public Behaviour
 						isMoving = true;
 					}
 				}
-				else {
+
+				else 
+				{
 					if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
 					{
 						velocity.z -= 1;
@@ -288,20 +225,38 @@ struct Player final : public Behaviour
 				// Normalize the velocity
 				velocity *= speed;
 
-		}
-		if (isMoving)
-		{
-			// Use modern C++ random library to select a random sound
-			static std::random_device rd; // Seed
-			static std::mt19937 gen(rd()); // Mersenne Twister PRNG
-			std::uniform_int_distribution<std::size_t> dis(0, footstepSounds.size() - 1);
-
-				// Get a random sound ID
-				std::string randomSound = footstepSounds[dis(gen)];
-
-				// Play the randomly chosen sound
-				m_Engine.getAudioSystem().PlaySoundById(randomSound.c_str());
+				//// Adjust movement for slopes
+				//if (isOnSlope)
+				//{
+				//	velocity = velocity - glm::dot(velocity, surfaceNormal) * surfaceNormal;
+				//}
 			}
+
+
+
+			if (isMoving ) 
+			{
+				footstepTimer -= static_cast<float>(m_Engine.GetDeltaTime());
+
+				if (footstepTimer <= 0.0f) // 
+				{
+					static std::random_device rd; // Seed
+					static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+					std::uniform_int_distribution<std::size_t> dis(0, footstepSounds.size() - 1);
+
+					// Get a random sound ID
+					std::string randomSound = footstepSounds[dis(gen)];
+
+					m_Engine.getAudioSystem().PlaySoundByFile(randomSound.c_str(), false, "SFX");
+
+					footstepTimer = footstepInterval;
+				}
+			}
+			else
+			{
+				footstepTimer = 0.0f; // Reset timer when not moving
+			}
+
 
 
 			// Debug: After processing input
@@ -311,8 +266,8 @@ struct Player final : public Behaviour
 			if (m_Engine.getInputSystem().isActionPressed("Jump") && isGrounded)
 			{
 				float gravity = 9.81f;
-				float jumpHeight = 2.0f;
-				float jumpVelocity = sqrt(2 * gravity * jumpHeight);
+				float jumpHeight = 1.5f;
+				float jumpVelocity = 1.2f * sqrt(2 * gravity * jumpHeight);
 
 				velocity.y = jumpVelocity;
 				m_Engine.SetGrounded(entity, false);

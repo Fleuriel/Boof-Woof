@@ -1,4 +1,3 @@
-
 #version 450 core
 layout(location = 0) in vec3 vertColor;
 layout(location = 1) in vec3 vertNormal;
@@ -29,7 +28,7 @@ struct Light {
 };
 
 //uniform vec3 lightPos;
-uniform vec3 viewPos;
+//uniform vec3 viewPos;
 
 #define NUM_LIGHTS 8  // Define the number of lights you want
 uniform Light lights[NUM_LIGHTS];
@@ -47,40 +46,6 @@ in VS_OUT {
 } fs_in;
 
 
-// Constants
-const float PI = 3.14159265359;
-
-
-// uniform float roughness;   // Scalar roughness value (0 to 1)
-// uniform float metallic;    // Scalar metallic value (0 to 1)
-
-uniform float roughness;
-
-// Normal Distribution Function (Trowbridge-Reitz GGX)
-float DistributionGGX(float NdotH) {
-    float a      = roughness * roughness;
-    float a2     = a * a;
-    float NdotH2 = NdotH * NdotH;
-    
-    float num   = a2;
-    float denom = (NdotH2 * (a2 - 1.0) + 1.0);
-    denom = PI * denom * denom;
-    
-    return num / denom;
-}
-
-// Geometry Function (Smith's Schlick-GGX)
-float GeometrySchlickGGX(float NdotV) {
-    float r = (roughness + 1.0);
-    float k = (r * r) / 8.0;
-
-    return NdotV / (NdotV * (1.0 - k) + k);
-}
-
-// Fresnel Equation (Schlick's approximation)
-vec3 FresnelSchlick(float cosTheta, vec3 F0) {
-    return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
-}
 
 void main()
 {
@@ -96,45 +61,17 @@ void main()
 
     for(int i = 0; i < numLights; i++){
         vec3 lightVector = lights[i].position - FragPos;
-        vec3 N = normalize(vertNormal);
-        vec3 L = normalize(lightVector);
-        vec3 V = normalize(viewPos - FragPos);
-        vec3 H = normalize(L + V);
+        float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
+        textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
+        //fragColor = vec4(textureColor.rgb, textureColor.a);
+        vec3 ambientColor = vec3(0.0f,0.0f,0.0f);
+        vec3 diffuseColor = textureColor.rgb;
 
-        // Dot products
-        float NdotL = max(dot(N, L), 0.0);
-        float NdotH = max(dot(N, H), 0.0);
-        float NdotV = max(dot(N, V), 0.0);
 
-        // PBR Calculations
-        // Normal Distribution (Specular D)
-        float D = DistributionGGX(NdotH);
-        
-        // Geometry (Specular G)
-        float G = GeometrySchlickGGX(NdotV) * 
-                  GeometrySchlickGGX(NdotL);
-        
-        // Fresnel (Specular F)
-        vec3 F = FresnelSchlick(max(dot(H, V), 0.0), F0);
+        vec3 ambient = ambientColor  * 0.1f;
+        vec3 diffuse = diffuseColor  * N_dot_L * lights[i].intensity * lights[i].color;
 
-        // Specular calculation
-        vec3 numerator = D * G * F;
-        float denominator = 4.0 * NdotV * NdotL + 0.0001;
-        vec3 specular = numerator / denominator;
-
-        // Diffuse calculation
-        vec3 kS = F; // Fresnel determines specular reflection
-        vec3 kD = vec3(1.0) - kS;
-        kD *= 1.0; // Reduce diffuse for metals
-
-        // Combine lighting components
-        vec3 diffuse = kD * textureColor.rgb / PI;
-
-        vec3 finalColor = (diffuse + specular) 
-            * lights[i].color 
-            * lights[i].intensity 
-            * NdotL;
-
+        vec3 finalColor = ambient + diffuse; // Combine ambient and diffuse components
         result += finalColor;
 
         
@@ -152,6 +89,7 @@ void main()
     }
     else
     {
+        textureColor = texture(texture_diffuse1, TexCoords);
         baseColor.rgb *= textureColor.rgb;
         baseColor.a = 1.0f;
         fragColor = vec4(baseColor);

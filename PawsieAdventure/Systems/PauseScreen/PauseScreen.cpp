@@ -8,6 +8,7 @@
 #include "../Checklist/Checklist.h" 
 #include "../RopeBreaker/RopeBreaker.h" 
 #include "../BoneCatcher/BoneCatcher.h" 
+#include "../../Utilities/ForGame/TimerTR/TimerTR.h"
 
 std::unique_ptr<PauseMenu> pauser = CreatePausedMenu(PauseState::Paused);
 Serialization serialPause;
@@ -266,7 +267,7 @@ namespace pauseLogic
 						inSmthAgain = true;
 
 						// Add in audio feedback
-						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/HowToPlaySFX.wav", false, "SFX");
 
 						pauser->OnExit();
 						pauser = CreatePausedMenu(PauseState::HowToPlay);
@@ -328,7 +329,7 @@ namespace pauseLogic
 
 				if (g_Coordinator.HaveComponent<FontComponent>(pauser->SFXVol))
 				{
-					int volDisplay = static_cast<int>(sfVolume * 10);
+					int volDisplay = static_cast<int>(std::round(sfVolume * 10));
 					if (volDisplay >= 0 && volDisplay < 10)
 					{
 						std::stringstream ss;
@@ -366,7 +367,7 @@ namespace pauseLogic
 
 				if (g_Coordinator.HaveComponent<FontComponent>(pauser->BGMVol))
 				{
-					int volDisplay = static_cast<int>(bgVolume * 10);
+					int volDisplay = static_cast<int>(std::round(bgVolume * 10));
 					if (volDisplay >= 0 && volDisplay < 10)
 					{
 						std::stringstream ss;
@@ -397,5 +398,6 @@ namespace pauseLogic
 		g_Checklist.Reset();
 		g_RopeBreaker.ResetRB();
 		g_BoneCatcher.ResetBC();
+		g_TimerTR.Reset();
 	}
 }

@@ -1,20 +1,42 @@
 {
-    "SceneGUID": "aca2db8b-2b20-4a6d-b36c-ce716bfb9ac7",
+    "SceneGUID": "31316a7f-dc64-43cc-873d-05431a195de5",
     "Entities": [
         {
             "MetadataComponent": {
-                "EntityName": "Group",
+                "EntityName": "BackCover",
                 "EntityID": 0
             },
             "UIComponent": {
-                "TextureName": "Group53",
+                "TextureName": "BlackScreen",
                 "PositionX": 0.8299999833106995,
                 "PositionY": 0.800000011920929,
                 "ScaleX": 0.11999999731779099,
                 "ScaleY": 0.11999999731779099,
                 "Layer": 0.5,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 0.5,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Timer",
+                "EntityID": 1
+            },
+            "FontComponent": {
+                "Family": "arial",
+                "PositionX": 0.7480000257492065,
+                "PositionY": 0.75,
+                "ScaleX": 1.7999999523162842,
+                "ScaleY": 2.799999952316284,
+                "ColorR": 1.0,
+                "ColorG": 1.0,
+                "ColorB": 1.0,
+                "Text": "3:00"
             }
         }
     ]
