@@ -31,8 +31,6 @@ enum class GameStates
 void UpdateGSM();
 
 extern bool g_IsPaused;
-extern bool savedcamdir;
-extern glm::vec3 camdir;
 
 ///**************************************************************************
 //* @brief STATE Enumeration Class

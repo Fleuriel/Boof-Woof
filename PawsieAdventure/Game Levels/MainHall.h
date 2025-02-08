@@ -13,12 +13,12 @@
 class MainHall : public Level
 {
 	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{}, scentEntity3{}, puppy1{}, puppy2{}, puppy3{};
-	Entity RexPee1{}, RexPee2{}, RexPee3{}, RexPee4{}, RexPee5{}, WaterBucket{}; // Smell Avoidance
-
+	Entity RexPee1{}, RexPee2{}, RexPee3{}, RexPee4{}, RexPee5{}, WaterBucket{}, WaterBucket2{}, WaterBucket3{}; // Smell Avoidance
 	Entity  FireSound{};
 
-
 	CameraController* cameraController = nullptr;
+	bool savedcamdir{ false };
+	glm::vec3 camdir{};
 
 	double timer = 0.0; // Timer for smell avoidance
 	double timerLimit = 10.0f; // Timer limit for smell avoidance
@@ -30,7 +30,7 @@ class MainHall : public Level
 	bool playercollided{ false }, puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
 	bool puppy1Destroyed{ false }, puppy2Destroyed{ false }, puppy3Destroyed{ false };
 
-	bool waterBucketcollided{ false }; // Smell Avoidance
+	bool waterBucketcollided{ false }, waterBucket2collided{ false }, waterBucket3collided{ false }; // Smell Avoidance
 	bool rexPee1collided{ false }, rexPee2collided{ false }, rexPee3collided{ false }, rexPee4collided{ false }, rexPee5collided{ false }; // Smell Avoidance
 	bool peeMarked{ false }; // Smell Avoidance
 	bool teb_last = false;
@@ -64,6 +64,8 @@ class MainHall : public Level
 			{"Pee4", [&](Entity entity) { RexPee4 = entity; }},
 			{"Pee5", [&](Entity entity) { RexPee5 = entity; }},
 			{"WaterBucket", [&](Entity entity) { WaterBucket = entity; }},
+			{"WaterBucket2", [&](Entity entity) { WaterBucket2 = entity; }},
+			{"WaterBucket3", [&](Entity entity) { WaterBucket3 = entity; }},
 			{ "red particle", [&](Entity entity) { FireSound = entity; }}
 
 		};
@@ -82,7 +84,7 @@ class MainHall : public Level
 
 				// Exit early if all entities are found
 				if (playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3
-					&& RexPee1 && RexPee2 && RexPee3 && RexPee4 && RexPee5 && WaterBucket)
+					&& RexPee1 && RexPee2 && RexPee3 && RexPee4 && RexPee5 && WaterBucket && WaterBucket2 && WaterBucket3)
 				{
 					break;
 				}
@@ -178,6 +180,16 @@ class MainHall : public Level
 			waterBucketcollided = g_Coordinator.GetComponent<CollisionComponent>(WaterBucket).GetIsColliding();
 		}
 
+		if (g_Coordinator.HaveComponent<CollisionComponent>(WaterBucket2))
+		{
+			waterBucket2collided = g_Coordinator.GetComponent<CollisionComponent>(WaterBucket2).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(WaterBucket3))
+		{
+			waterBucket3collided = g_Coordinator.GetComponent<CollisionComponent>(WaterBucket3).GetIsColliding();
+		}
+
 		if (playercollided && (rexPee1collided || rexPee2collided || rexPee3collided || rexPee4collided || rexPee5collided) && !peeMarked && !peeSoundPlayed)
 		{
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PeePuddle.wav", false, "SFX");
@@ -187,7 +199,7 @@ class MainHall : public Level
 
 		}
 
-		if (playercollided && waterBucketcollided && !waterSoundPlayed)
+		if (playercollided && (waterBucketcollided || waterBucket2collided || waterBucket3collided) && !waterSoundPlayed)
 		{
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WaterPuddle.wav", false, "SFX");
 			peeMarked = false;
@@ -218,10 +230,6 @@ class MainHall : public Level
 			collectedPuppy3 = true;
 		}
 	}
-
-
-	
-
 
 	void UpdateLevel(double deltaTime) override
 	{
@@ -288,22 +296,6 @@ class MainHall : public Level
 						g_TimerTR.OnShutdown();
 					}
 				}
-				/*
-				timer += deltaTime;
-
-				if (timer >= timerLimit)
-				{
-					peeMarked = false;
-					timer = 0.0;
-					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
-					if (loading)
-					{
-						// Pass in the name of the real scene we want AFTER the loading screen
-						loading->m_NextScene = "MainHall";
-						g_LevelManager.SetNextLevel("LoadingLevel");
-					}
-				}
-				*/
 			}
 
 			// If collected 1st puppy
@@ -339,6 +331,8 @@ class MainHall : public Level
 				g_Checklist.ChangeAsset(g_Checklist.Box1, glm::vec2(0.04f, 0.06f), "Box");
 				g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.0f, 0.0f), "");
 				g_Checklist.ChangeAsset(g_Checklist.Box2, glm::vec2(0.0f, 0.0f), "");
+				g_Checklist.ChangeAsset(g_Checklist.Do3, glm::vec2(0.0f, 0.0f), "");
+				g_Checklist.ChangeAsset(g_Checklist.Box3, glm::vec2(0.0f, 0.0f), "");
 
 				if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
 				{
@@ -408,7 +402,7 @@ class MainHall : public Level
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
 		playercollided = puppy1Collided = puppy2Collided = puppy3Collided = false;
 		rexPee1collided = rexPee2collided = rexPee3collided = rexPee4collided = rexPee5collided = false; // Smell Avoidance
-		waterBucketcollided = peeMarked = false; // Smell Avoidance
+		waterBucketcollided = waterBucket2collided = waterBucket3collided = peeMarked = false; // Smell Avoidance
 		puppy1Destroyed = puppy2Destroyed = puppy3Destroyed = false;
 		peeSoundPlayed = waterSoundPlayed = false;
 		TimerInit = false;

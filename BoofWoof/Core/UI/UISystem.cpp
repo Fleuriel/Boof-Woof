@@ -9,14 +9,17 @@
 #include "AssetManager/AssetManager.h"
 #include "ResourceManager/ResourceManager.h"
 #include "Windows/WindowManager.h"
+#include"../Core/Audio/AudioSystem.h"
+#include "../Core/AssetManager/FilePaths.h"
 
 #include "Input/Input.h"
 
 UISystem uiSystem;
-
+AudioSystem audiooo;
 void UISystem::UI_init() {
 	std::cout << "UI System Init\n";
 }
+
 
 void UISystem::UI_update() {
     // enable blending
@@ -107,7 +110,10 @@ void UISystem::UI_render()
                 (g_Input.GetMousePositionUI().x / g_WindowX) * 2.0f - 1.0f,
                 1.0f - 2.0f * (g_Input.GetMousePositionUI().y / g_WindowY)
             };
-            UICompt.checkclick(mouse_pos);
+
+            if (UICompt.checkclick(mouse_pos)){
+                audiooo.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonHover).wav", false, "SFX");
+            }
 
             // Set up model matrix
             glm::vec3 UI_pos = { UICompt.get_position(), UICompt.get_UI_layer() };
