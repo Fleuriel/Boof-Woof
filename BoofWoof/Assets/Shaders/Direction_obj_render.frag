@@ -98,7 +98,6 @@ void main()
             finalColor = ambient + diffuse;
         }
         result += finalColor;
-
         
     }
 
