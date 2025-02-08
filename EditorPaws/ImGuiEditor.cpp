@@ -3310,6 +3310,36 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::Button("##MatButton4 ", ImVec2(15, 15)); ImGui::SameLine();  ImGui::Text("Normal Map");   	 // Create a visual box
 							
 							
+
+									ImGui::NewLine();
+
+
+									ImGui::SetNextItemWidth(200.0f);
+									
+									ImGui::Text("Gamma Value"); ImGui::SameLine(WidthIndentation);
+
+									ImGui::NewLine();
+									
+									ImGui::Indent(20);
+
+									static float gammaValue = 0; // Index for the selected item
+									// ImGui Controls
+									static bool defaultGamma = true; // Variable to hold the state
+
+									ImGui::Checkbox("Default Gamma", &defaultGamma);
+
+
+									if (ImGui::SliderFloat("Gamma", &gammaValue, 0.0f, 10.0f) || defaultGamma)
+									{
+										if (defaultGamma)
+											gammaValue = 2.2f;
+	
+										material.SetGammaValue(gammaValue);
+									}
+
+
+
+
 							
 									ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();
 							
@@ -4553,8 +4583,6 @@ void ImGuiEditor::InspectorWindow()
 
 					materialInfo.materialAlpha = MatAlphacurrent_idx;
 				}
-
-
 
 
 				ImGui::Unindent(40);
