@@ -49,11 +49,6 @@ class MainMenu : public Level
 				{
 					auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
 					music.SetAudioSystem(&g_Audio);
-
-					/*if (metadata.GetName() == "MainMenuBGM") 
-					{
-						music.PlayAudio();
-					}*/
 				}
 
 				// Exit early if all entities are found
@@ -65,20 +60,17 @@ class MainMenu : public Level
 		}
 	}
 
-	void InitLevel() override { 
-		//if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic)) {
-			auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
-			music.SetAudioSystem(&g_Audio);
+	void InitLevel() override
+	{
+		auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
+		music.SetAudioSystem(&g_Audio);
 
-			music.PlayAudio();
+		music.PlayAudio();
 
-
-
-			if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
-				auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
-				music1.SetAudioSystem(&g_Audio);
-			}
-	//	}
+		if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
+			auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
+			music1.SetAudioSystem(&g_Audio);
+		}
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -138,11 +130,6 @@ class MainMenu : public Level
 				{
 					inSmth = true;
 
-					// Play the button click sound
-				/*	if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
-						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
-						music1.PlayAudio();
-					}*/
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/HowToPlaySFX.wav", false, "SFX");
 					MenuPauser = CreatePausedMenu(PauseState::HowToPlay);
 					MenuPauser->OnLoad();
@@ -197,8 +184,8 @@ class MainMenu : public Level
 			{
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->SFXLeft);
 				if (UICompt.get_selected())
-				{	
-					sfxVolume = std::max(0.0f,(float)( g_Audio.GetSFXVolume() -  volumeStep));				
+				{
+					sfxVolume = std::max(0.0f, (float)(g_Audio.GetSFXVolume() - volumeStep));
 					g_Audio.SetSFXVolume(sfxVolume);
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 				}
@@ -209,7 +196,7 @@ class MainMenu : public Level
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->SFXRight);
 				if (UICompt.get_selected())
 				{
-					sfxVolume = std::min(1.0f,(float)( g_Audio.GetSFXVolume() + volumeStep));
+					sfxVolume = std::min(1.0f, (float)(g_Audio.GetSFXVolume() + volumeStep));
 					g_Audio.SetSFXVolume(sfxVolume);
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 				}
@@ -282,11 +269,6 @@ class MainMenu : public Level
 
 	void UnloadLevel() override
 	{
-		/*if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic)) {
-			auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
-			music.StopAudio();
-		}*/
-
 		g_Audio.Stop(MenuMusic);
 
 		// Reset all entities

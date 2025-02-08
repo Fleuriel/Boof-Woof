@@ -25,9 +25,6 @@ public:
 		g_ChangeText.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
-		//g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
-		//g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
-
 
 		// Use unordered_map to make it O(1) efficiency
 		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
@@ -61,9 +58,6 @@ public:
 					if (metadata.GetName() == "BedRoomMusic")
 					{
 						music.PlayAudio();
-					//	g_Audio.SetBGMVolume(g_Audio.GetSFXVolume());
-
-
 					}
 				}
 
@@ -74,8 +68,6 @@ public:
 
 					if (metadata.GetName() == "middle particle")
 					{
-						//music.PlayAudio();
-					//	g_Audio.SetBGMVolume(g_Audio.GetSFXVolume());
 						g_Audio.PlayEntity3DAudio(FireSound, FILEPATH_ASSET_AUDIO + "/Fire.wav", true, "BGM");
 						std::cout << "?? Fireplace (Middle Particle) sound started at entity " << FireSound << std::endl;
 					}
@@ -84,10 +76,6 @@ public:
 					}
 
 				}
-			
-
-
-
 
 				// Exit early if all entities are found
 				if (playerEnt && scentEntity && BedRoomBGM && CorgiBark && CorgiSniff && FireSound)
@@ -120,11 +108,8 @@ public:
 			g_Audio.SetListenerPosition(playerPos, playerRot);
 		}
 
-
 		// ?? Update the positions of all 3D sounds (including the fireplace)
 		g_Audio.Update3DSoundPositions();
-
-
 
 		g_ChangeText.startingRoomOnly = true;
 
@@ -237,24 +222,15 @@ public:
 
 	void UnloadLevel() override
 	{
-		//g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav");
-		//if (g_Coordinator.HaveComponent<AudioComponent>(BedRoomBGM)) {
-		//	auto& music = g_Coordinator.GetComponent<AudioComponent>(BedRoomBGM);
-		//	music.StopAudio();
-		//}
-
-
 		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
 			music.StopAudio();
 		}
 
-
 		g_ChangeText.startingRoomOnly = false;
 
 		g_Audio.Stop(BedRoomBGM);
 
-		//g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 	}
