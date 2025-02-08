@@ -225,8 +225,8 @@ void GraphicsSystem::UpdateLoop() {
 				
 				glm::mat4 lightProjection, lightView;
 				glm::mat4 lightSpaceMatrix;
-				float near_plane = 1.0f, far_plane = 7.5f;
-				lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+				float near_plane = 1.0f, far_plane = 17.5f;
+				lightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, near_plane, far_plane);
 				lightView = glm::lookAt(light_info_.position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 				lightSpaceMatrix = lightProjection * lightView;
 				light_info_.lightSpaceMatrix = lightSpaceMatrix;
@@ -395,7 +395,7 @@ void GraphicsSystem::UpdateLoop() {
 			// Bind the depth texture to texture unit 1 and tell the shader to use unit 1 for the shadow map.
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_2D, depthMap_texture);
-			//g_AssetManager.GetShader(ShaderName).SetUniform("shadowMap", 1);
+			g_AssetManager.GetShader(ShaderName).SetUniform("shadowMap", 1);
 			/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
 			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
