@@ -1002,7 +1002,7 @@ void GraphicsSystem::RenderScence(OpenGLShader& shader)
 			continue;
 		}
 
-		if (graphicsComp.getModelName()=="Wall")
+		if (graphicsComp.getModelName()=="Wall"|| graphicsComp.getModelName() == "Ceiling")
 		{
 			continue;
 		}
