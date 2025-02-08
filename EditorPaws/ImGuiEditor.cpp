@@ -3582,6 +3582,13 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
+								// set shadow 
+								bool shadow = lightComponent.getShadow();
+								ImGui::Text("Shadow");
+								ImGui::SameLine();
+								ImGui::Checkbox("##Shadow", &shadow);
+								lightComponent.setShadow(shadow);
+
 
 							}
 

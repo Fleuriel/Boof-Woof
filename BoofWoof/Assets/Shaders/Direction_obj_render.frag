@@ -28,6 +28,7 @@ struct Light {
     vec3 position;
     vec3 color;
     float intensity;
+    bool haveshadow;
 };
 
 //uniform vec3 lightPos;
@@ -88,9 +89,14 @@ void main()
         vec3 diffuseColor = textureColor.rgb;
         vec3 diffuse = diffuseColor  * N_dot_L * lights[i].intensity * lights[i].color;
 
-        float shadow = ShadowCalculation(FragPosLightSpace);
+        vec3 finalColor;
+        if(lights[i].haveshadow){
+            float shadow = ShadowCalculation(FragPosLightSpace);
 
-        vec3 finalColor = ambient + diffuse*(1-shadow); // Combine ambient and diffuse components
+            finalColor = ambient + diffuse*(1-shadow); // Combine ambient and diffuse components
+        }else{
+            finalColor = ambient + diffuse;
+        }
         result += finalColor;
 
         

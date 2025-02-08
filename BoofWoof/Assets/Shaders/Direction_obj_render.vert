@@ -16,6 +16,7 @@ struct Light {
     vec3 position;
     vec3 color;
     float intensity;
+    bool haveshadow;
 };
 
 //uniform vec3 lightPos;

@@ -735,6 +735,7 @@ void SceneManager::FinalizeSceneDataChunked(const SceneData& data, size_t& index
             const auto& LData = jsonObj["LightComponent"];
             float intensity = 1.f;
             glm::vec3 col(1.f);
+			bool shadow = false;
 
             if (LData.HasMember("LightIntensity"))
                 intensity = LData["LightIntensity"].GetFloat();
@@ -744,8 +745,12 @@ void SceneManager::FinalizeSceneDataChunked(const SceneData& data, size_t& index
                 col.y = LData["LightColor"]["g"].GetFloat();
                 col.z = LData["LightColor"]["b"].GetFloat();
             }
+			if (LData.HasMember("Shadow"))
+			{
+				shadow = LData["Shadow"].GetBool();
+			}
 
-            LightComponent lightC(intensity, col);
+            LightComponent lightC(intensity, col, shadow);
             g_Coordinator.AddComponent(newE, lightC);
         }
 

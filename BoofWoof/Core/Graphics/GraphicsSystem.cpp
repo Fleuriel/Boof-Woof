@@ -41,6 +41,7 @@ struct light_info {
 	glm::vec3 color;
 	float intensity;
 	glm::mat4 lightSpaceMatrix;
+	bool haveshadow;
 };
 std::vector <light_info> lights_infos;
 
@@ -219,21 +220,23 @@ void GraphicsSystem::UpdateLoop() {
 				light_info_.position = transformComp.GetPosition();
 				light_info_.intensity = g_Coordinator.GetComponent<LightComponent>(entity).getIntensity();
 				light_info_.color = g_Coordinator.GetComponent<LightComponent>(entity).getColor();
+				light_info_.haveshadow = g_Coordinator.GetComponent<LightComponent>(entity).getShadow();
 	
-				
-				glm::mat4 lightProjection, lightView;
-				glm::mat4 lightSpaceMatrix;
-				float near_plane = 1.0f, far_plane = 7.5f;
-				lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-				lightView = glm::lookAt(light_info_.position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
-				lightSpaceMatrix = lightProjection * lightView;
-				light_info_.lightSpaceMatrix = lightSpaceMatrix;
-				lights_infos.push_back(light_info_);
+				if (light_info_.haveshadow) {
+					glm::mat4 lightProjection, lightView;
+					glm::mat4 lightSpaceMatrix;
+					float near_plane = 1.0f, far_plane = 7.5f;
+					lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+					lightView = glm::lookAt(light_info_.position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+					lightSpaceMatrix = lightProjection * lightView;
+					light_info_.lightSpaceMatrix = lightSpaceMatrix;
+					lights_infos.push_back(light_info_);
 
-				g_AssetManager.GetShader("Direction_light_Space").Use();
-				g_AssetManager.GetShader("Direction_light_Space").SetUniform("lightSpaceMatrix", lightSpaceMatrix);
-				RenderScence(g_AssetManager.GetShader("Direction_light_Space"));
-				g_AssetManager.GetShader("Direction_light_Space").UnUse();
+					g_AssetManager.GetShader("Direction_light_Space").Use();
+					g_AssetManager.GetShader("Direction_light_Space").SetUniform("lightSpaceMatrix", lightSpaceMatrix);
+					RenderScence(g_AssetManager.GetShader("Direction_light_Space"));
+					g_AssetManager.GetShader("Direction_light_Space").UnUse();
+				}
 	
 			}
 	
@@ -247,7 +250,11 @@ void GraphicsSystem::UpdateLoop() {
 	else {
 		glViewport(0, 0, g_WindowX, g_WindowY);
 	}*/
-	glViewport(0, 0, g_WindowX, g_WindowY);
+	if (editorMode == true)
+		glViewport(0, 0, viewportWidth, viewportHeight);
+	else
+		glViewport(0, 0, g_WindowX, g_WindowY);
+	
 	// Bind the framebuffer for rendering
 	if (editorMode == true)
 		
@@ -266,6 +273,7 @@ void GraphicsSystem::UpdateLoop() {
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
 	{
+		
 		/*
 		if (g_Coordinator.HaveComponent<CameraComponent>(entity)) {
 			auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
@@ -377,6 +385,8 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader(ShaderName).SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
 				std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
 				g_AssetManager.GetShader(ShaderName).SetUniform(lightColorStr.c_str(), lights_infos[i].color);
+				std::string lightShadowStr = "lights[" + std::to_string(i) + "].haveshadow";
+				g_AssetManager.GetShader(ShaderName).SetUniform(lightShadowStr.c_str(), lights_infos[i].haveshadow);
 				g_AssetManager.GetShader(ShaderName).SetUniform("lightSpaceMatrix", lights_infos[i].lightSpaceMatrix);
 
 			}
@@ -386,7 +396,6 @@ void GraphicsSystem::UpdateLoop() {
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_2D, depthMap_texture);
 			g_AssetManager.GetShader(ShaderName).SetUniform("shadowMap", 1);
-			glBindTexture(GL_TEXTURE_2D, depthMap_texture);
 			/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
 			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
@@ -526,14 +535,14 @@ void GraphicsSystem::UpdateLoop() {
 	if (editorMode == true)
 	{
 		RenderLightPos();
-		g_AssetManager.GetShader("Direction_light_debug").Use();
+		/*g_AssetManager.GetShader("Direction_light_debug").Use();
 		//g_AssetManager.GetShader("Direction_light_debug").SetUniform("near_plane", 1.0f);
 		//g_AssetManager.GetShader("Direction_light_debug").SetUniform("far_plane", 7.5f);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, depthMap_texture);
 		g_AssetManager.GetShader("Direction_light_debug").SetUniform("depthMap", 1);
 		g_ResourceManager.getModel("cubeModel")->DrawForPicking();
-		g_AssetManager.GetShader("Direction_light_debug").UnUse();
+		g_AssetManager.GetShader("Direction_light_debug").UnUse();*/
 
 	}
 

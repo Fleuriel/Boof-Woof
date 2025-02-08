@@ -413,6 +413,8 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
 			light.AddMember("LightColor", color, allocator);
 
+			light.AddMember("LightShadow", lightComp.getShadow(), allocator);
+
 			entityData.AddMember("LightComponent", light, allocator);
 		}
         if (g_Coordinator.HaveComponent<MaterialComponent>(entity))
@@ -945,8 +947,13 @@ bool Serialization::LoadScene(const std::string& filepath)
 						LData["LightColor"]["g"].GetFloat(),
 						LData["LightColor"]["b"].GetFloat()
 					);
+                    bool shadow = false;
+					if (LData.HasMember("LightShadow"))
+					{
+						shadow = LData["LightShadow"].GetBool();
+					}
 
-					LightComponent lightComponent (intensity, color);
+					LightComponent lightComponent (intensity, color, shadow);
                     g_Coordinator.AddComponent(entity, lightComponent);
 
 
@@ -1646,6 +1653,7 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
             const auto& LData = jsonObj["LightComponent"];
             float intensity = 1.f;
             glm::vec3 lightCol(1.f);
+			bool shadow = false;
 
             if (LData.HasMember("LightIntensity"))
             {
@@ -1657,8 +1665,12 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
                 lightCol.y = LData["LightColor"]["g"].GetFloat();
                 lightCol.z = LData["LightColor"]["b"].GetFloat();
             }
+			if (LData.HasMember("LightShadow"))
+			{
+				shadow = LData["LightShadow"].GetBool();
+			}
 
-            LightComponent lightC(intensity, lightCol);
+            LightComponent lightC(intensity, lightCol, shadow);
             g_Coordinator.AddComponent(newE, lightC);
         }
 
