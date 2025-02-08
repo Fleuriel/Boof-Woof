@@ -216,18 +216,19 @@ void GraphicsSystem::UpdateLoop() {
 			if (g_Coordinator.HaveComponent<TransformComponent>(entity))
 			{
 				auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+				auto& lightComp = g_Coordinator.GetComponent<LightComponent>(entity);
 				light_info light_info_;
 				light_info_.position = transformComp.GetPosition();
-				light_info_.intensity = g_Coordinator.GetComponent<LightComponent>(entity).getIntensity();
-				light_info_.color = g_Coordinator.GetComponent<LightComponent>(entity).getColor();
-				light_info_.haveshadow = g_Coordinator.GetComponent<LightComponent>(entity).getShadow();
+				light_info_.intensity = lightComp.getIntensity();
+				light_info_.color = lightComp.getColor();
+				light_info_.haveshadow = lightComp.getShadow();
 	
 				
 				glm::mat4 lightProjection, lightView;
 				glm::mat4 lightSpaceMatrix;
 				float near_plane = 1.0f, far_plane = 17.5f;
 				lightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, near_plane, far_plane);
-				lightView = glm::lookAt(light_info_.position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+				lightView = glm::lookAt(light_info_.position, (light_info_.position + lightComp.getDirection()), glm::vec3(0.0f, 1.0f, 0.0f));
 				lightSpaceMatrix = lightProjection * lightView;
 				light_info_.lightSpaceMatrix = lightSpaceMatrix;
 				lights_infos.push_back(light_info_);
@@ -986,7 +987,15 @@ void GraphicsSystem::RenderScence(OpenGLShader& shader)
 		{
 			continue;
 		}
+		
 		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+		//if no model , skip
+
+		if (graphicsComp.getModel() == nullptr)
+		{
+			continue;
+		}
+
 		// Optionally check that this entity should cast a shadow.
 		auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
 		glm::mat4 worldMatrix = transformComp.GetWorldMatrix();

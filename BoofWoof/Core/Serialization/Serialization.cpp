@@ -415,6 +415,10 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
 			light.AddMember("LightShadow", lightComp.getShadow(), allocator);
 
+			light.AddMember("LightDirectionX", lightComp.getDirection().x, allocator);
+			light.AddMember("LightDirectionY", lightComp.getDirection().y, allocator);
+			light.AddMember("LightDirectionZ", lightComp.getDirection().z, allocator);
+
 			entityData.AddMember("LightComponent", light, allocator);
 		}
         if (g_Coordinator.HaveComponent<MaterialComponent>(entity))
@@ -952,8 +956,17 @@ bool Serialization::LoadScene(const std::string& filepath)
 					{
 						shadow = LData["LightShadow"].GetBool();
 					}
+                    glm::vec3 dire = glm::vec3(1.0f, 0.0f, 0.0f);
+					if (LData.HasMember("LightDirectionX"))
+					{
+						dire = glm::vec3(
+							LData["LightDirectionX"].GetFloat(),
+							LData["LightDirectionY"].GetFloat(),
+							LData["LightDirectionZ"].GetFloat()
+						);
+					}
 
-					LightComponent lightComponent (intensity, color, shadow);
+					LightComponent lightComponent (intensity, color, shadow, dire);
                     g_Coordinator.AddComponent(entity, lightComponent);
 
 
@@ -1654,6 +1667,7 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
             float intensity = 1.f;
             glm::vec3 lightCol(1.f);
 			bool shadow = false;
+			glm::vec3 direction(1.f, 0.f, 0.f);
 
             if (LData.HasMember("LightIntensity"))
             {
@@ -1669,8 +1683,15 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
 			{
 				shadow = LData["LightShadow"].GetBool();
 			}
+			if (LData.HasMember("LightDirectionX"))
+			{
+				direction.x = LData["LightDirectionX"].GetFloat();
+				direction.y = LData["LightDirectionY"].GetFloat();
+				direction.z = LData["LightDirectionZ"].GetFloat();
 
-            LightComponent lightC(intensity, lightCol, shadow);
+			}
+
+            LightComponent lightC(intensity, lightCol, shadow,direction);
             g_Coordinator.AddComponent(newE, lightC);
         }
 

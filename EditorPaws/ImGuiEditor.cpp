@@ -3588,6 +3588,21 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::SameLine();
 								ImGui::Checkbox("##Shadow", &shadow);
 								lightComponent.setShadow(shadow);
+								// same line change direction
+								ImGui::SameLine();
+								glm::vec3 direction = lightComponent.getDirection();
+								ImGui::Text("Direction");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Direction");
+
+								if (ImGui::DragFloat3("##Direction", &direction.x, 0.1f))
+								{
+									lightComponent.setDirection(direction);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
 
 
 							}
