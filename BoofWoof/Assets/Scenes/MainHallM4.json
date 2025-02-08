@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "058a44c5-cc25-4a88-baba-21a022bd8be8",
+    "SceneGUID": "ad026370-7b79-43a2-9fc7-8b255755e82b",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.2986809015274048,
+                    "x": -0.29868102073669436,
                     "y": 1.199999451637268,
-                    "z": 0.3973010778427124
+                    "z": 0.4016873836517334
                 },
                 "Scale": {
                     "x": 0.5,
@@ -24326,6 +24326,170 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 564
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 15.910905838012696,
+                    "y": 10.302581787109375,
+                    "z": -8.892631530761719
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 1.0,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": true,
+                "LightDirectionX": -0.4000000059604645,
+                "LightDirectionY": -3.200000047683716,
+                "LightDirectionZ": -1.2999999523162842,
+                "LightRange": 30.799999237060548
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 565
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 33.92349624633789,
+                    "y": 7.6001667976379398,
+                    "z": -56.707763671875
+                },
+                "Scale": {
+                    "x": 0.07000000029802323,
+                    "y": 0.07000000029802323,
+                    "z": 0.07000000029802323
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 0.699999988079071,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 1.0,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 35.29999923706055
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 566
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 58.00222396850586,
+                    "y": 11.302225112915039,
+                    "z": -14.891209602355957
+                },
+                "Scale": {
+                    "x": 0.07000000029802323,
+                    "y": 0.07000000029802323,
+                    "z": 0.07000000029802323
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 0.699999988079071,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 1.0,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 41.79999923706055
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 567
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -33.96120071411133,
+                    "y": 11.302225112915039,
+                    "z": -4.716614246368408
+                },
+                "Scale": {
+                    "x": 0.06000000238418579,
+                    "y": 0.06000000238418579,
+                    "z": 0.06000000238418579
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 0.6000000238418579,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 1.0,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 42.099998474121097
             }
         }
     ]
