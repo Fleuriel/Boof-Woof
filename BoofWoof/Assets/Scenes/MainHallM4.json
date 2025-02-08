@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "ad026370-7b79-43a2-9fc7-8b255755e82b",
+    "SceneGUID": "7484f486-130e-41b8-8cbb-30a4b51cc170",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.29868102073669436,
-                    "y": 1.199999451637268,
-                    "z": 0.4016873836517334
+                    "x": -0.2986798584461212,
+                    "y": 1.1999996900558472,
+                    "z": -0.08744789659976959
                 },
                 "Scale": {
                     "x": 0.5,
@@ -15547,7 +15547,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 25.5,
-                    "y": -1.4326599836349488,
+                    "y": 1.0,
                     "z": -77.0
                 },
                 "Scale": {
@@ -15578,20 +15578,20 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 3.3499999046325685,
-                    "y": 2.799999952316284,
-                    "z": 0.699999988079071
+                    "x": 1.649999976158142,
+                    "y": 3.700000047683716,
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
-                    "x": 0.0,
-                    "y": 2.75,
+                    "x": -0.4000000059604645,
+                    "y": 1.4500000476837159,
                     "z": 0.0
                 },
                 "Mass": 10.0
             },
             "PathfindingComponent": {
-                "StartNode": 515,
-                "GoalNode": 512,
+                "StartNode": 477,
+                "GoalNode": 474,
                 "Path": [
                     {
                         "x": 25.5,
@@ -20391,8 +20391,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 525,
-                "EndNode": 514,
+                "StartNode": 477,
+                "EndNode": 487,
                 "Cost": 1.0
             }
         },
@@ -20424,8 +20424,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 514,
-                "EndNode": 511,
+                "StartNode": 487,
+                "EndNode": 476,
                 "Cost": 1.0
             }
         },
@@ -20457,8 +20457,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 511,
-                "EndNode": 510,
+                "StartNode": 476,
+                "EndNode": 473,
                 "Cost": 1.0
             }
         },
@@ -20490,8 +20490,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 510,
-                "EndNode": 508,
+                "StartNode": 473,
+                "EndNode": 472,
                 "Cost": 1.0
             }
         },
@@ -20523,8 +20523,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 508,
-                "EndNode": 507,
+                "StartNode": 472,
+                "EndNode": 470,
                 "Cost": 1.0
             }
         },
@@ -20556,8 +20556,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 507,
-                "EndNode": 509,
+                "StartNode": 470,
+                "EndNode": 469,
                 "Cost": 1.0
             }
         },
@@ -20589,8 +20589,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 509,
-                "EndNode": 513,
+                "StartNode": 469,
+                "EndNode": 471,
                 "Cost": 1.0
             }
         },
@@ -20622,8 +20622,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 513,
-                "EndNode": 512,
+                "StartNode": 471,
+                "EndNode": 475,
                 "Cost": 1.0
             }
         },
@@ -20634,7 +20634,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 26.0,
+                    "x": 25.5,
                     "y": 1.0,
                     "z": -37.0
                 },
@@ -20691,8 +20691,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 515,
-                "EndNode": 525,
+                "StartNode": 475,
+                "EndNode": 474,
                 "Cost": 1.0
             }
         },
@@ -21084,8 +21084,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 512,
-                "EndNode": 511,
+                "StartNode": 474,
+                "EndNode": 473,
                 "Cost": 1.0
             }
         },
@@ -21117,8 +21117,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 511,
-                "EndNode": 514,
+                "StartNode": 473,
+                "EndNode": 476,
                 "Cost": 1.0
             }
         },
@@ -21150,8 +21150,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 514,
-                "EndNode": 525,
+                "StartNode": 476,
+                "EndNode": 487,
                 "Cost": 1.0
             }
         },
@@ -21183,8 +21183,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 525,
-                "EndNode": 515,
+                "StartNode": 487,
+                "EndNode": 477,
                 "Cost": 1.0
             }
         },
