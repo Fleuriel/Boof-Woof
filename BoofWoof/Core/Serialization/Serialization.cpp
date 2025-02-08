@@ -413,6 +413,14 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
 			light.AddMember("LightColor", color, allocator);
 
+			light.AddMember("LightShadow", lightComp.getShadow(), allocator);
+
+			light.AddMember("LightDirectionX", lightComp.getDirection().x, allocator);
+			light.AddMember("LightDirectionY", lightComp.getDirection().y, allocator);
+			light.AddMember("LightDirectionZ", lightComp.getDirection().z, allocator);
+
+			light.AddMember("LightRange", lightComp.getRange(), allocator);
+
 			entityData.AddMember("LightComponent", light, allocator);
 		}
         if (g_Coordinator.HaveComponent<MaterialComponent>(entity))
@@ -945,8 +953,27 @@ bool Serialization::LoadScene(const std::string& filepath)
 						LData["LightColor"]["g"].GetFloat(),
 						LData["LightColor"]["b"].GetFloat()
 					);
+                    bool shadow = false;
+					if (LData.HasMember("LightShadow"))
+					{
+						shadow = LData["LightShadow"].GetBool();
+					}
+                    glm::vec3 dire = glm::vec3(1.0f, 0.0f, 0.0f);
+					if (LData.HasMember("LightDirectionX"))
+					{
+						dire = glm::vec3(
+							LData["LightDirectionX"].GetFloat(),
+							LData["LightDirectionY"].GetFloat(),
+							LData["LightDirectionZ"].GetFloat()
+						);
+					}
+					float range = 0.0f;
+					if (LData.HasMember("LightRange"))
+					{
+						range = LData["LightRange"].GetFloat();
+					}
 
-					LightComponent lightComponent (intensity, color);
+					LightComponent lightComponent (intensity, color, shadow, dire, range);
                     g_Coordinator.AddComponent(entity, lightComponent);
 
 
@@ -1646,6 +1673,9 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
             const auto& LData = jsonObj["LightComponent"];
             float intensity = 1.f;
             glm::vec3 lightCol(1.f);
+			bool shadow = false;
+			glm::vec3 direction(1.f, 0.f, 0.f);
+			float range = 10.f;
 
             if (LData.HasMember("LightIntensity"))
             {
@@ -1657,8 +1687,23 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
                 lightCol.y = LData["LightColor"]["g"].GetFloat();
                 lightCol.z = LData["LightColor"]["b"].GetFloat();
             }
+			if (LData.HasMember("LightShadow"))
+			{
+				shadow = LData["LightShadow"].GetBool();
+			}
+			if (LData.HasMember("LightDirectionX"))
+			{
+				direction.x = LData["LightDirectionX"].GetFloat();
+				direction.y = LData["LightDirectionY"].GetFloat();
+				direction.z = LData["LightDirectionZ"].GetFloat();
 
-            LightComponent lightC(intensity, lightCol);
+			}
+			if (LData.HasMember("LightRange"))
+			{
+				range = LData["LightRange"].GetFloat();
+			}
+
+            LightComponent lightC(intensity, lightCol, shadow, direction, range);
             g_Coordinator.AddComponent(newE, lightC);
         }
 

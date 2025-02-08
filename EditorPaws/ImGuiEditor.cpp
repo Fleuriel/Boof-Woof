@@ -3597,6 +3597,42 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
+								// set shadow 
+								bool shadow = lightComponent.getShadow();
+								ImGui::Text("Shadow");
+								ImGui::SameLine();
+								ImGui::Checkbox("##Shadow", &shadow);
+								lightComponent.setShadow(shadow);
+								// same line change direction
+								ImGui::SameLine();
+								glm::vec3 direction = lightComponent.getDirection();
+								ImGui::Text("Direction");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Direction");
+
+								if (ImGui::DragFloat3("##Direction", &direction.x, 0.1f))
+								{
+									lightComponent.setDirection(direction);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								float range = lightComponent.getRange();
+								ImGui::Text("Range");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Range");
+
+								if (ImGui::DragFloat("##Range", &range, 0.1f))
+								{
+									lightComponent.setRange(range);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
 
 							}
 
