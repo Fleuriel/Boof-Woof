@@ -419,6 +419,8 @@ bool Serialization::SaveScene(const std::string& filepath) {
 			light.AddMember("LightDirectionY", lightComp.getDirection().y, allocator);
 			light.AddMember("LightDirectionZ", lightComp.getDirection().z, allocator);
 
+			light.AddMember("LightRange", lightComp.getRange(), allocator);
+
 			entityData.AddMember("LightComponent", light, allocator);
 		}
         if (g_Coordinator.HaveComponent<MaterialComponent>(entity))
@@ -965,8 +967,13 @@ bool Serialization::LoadScene(const std::string& filepath)
 							LData["LightDirectionZ"].GetFloat()
 						);
 					}
+					float range = 0.0f;
+					if (LData.HasMember("LightRange"))
+					{
+						range = LData["LightRange"].GetFloat();
+					}
 
-					LightComponent lightComponent (intensity, color, shadow, dire);
+					LightComponent lightComponent (intensity, color, shadow, dire, range);
                     g_Coordinator.AddComponent(entity, lightComponent);
 
 
@@ -1668,6 +1675,7 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
             glm::vec3 lightCol(1.f);
 			bool shadow = false;
 			glm::vec3 direction(1.f, 0.f, 0.f);
+			float range = 10.f;
 
             if (LData.HasMember("LightIntensity"))
             {
@@ -1690,8 +1698,12 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
 				direction.z = LData["LightDirectionZ"].GetFloat();
 
 			}
+			if (LData.HasMember("LightRange"))
+			{
+				range = LData["LightRange"].GetFloat();
+			}
 
-            LightComponent lightC(intensity, lightCol, shadow,direction);
+            LightComponent lightC(intensity, lightCol, shadow, direction, range);
             g_Coordinator.AddComponent(newE, lightC);
         }
 

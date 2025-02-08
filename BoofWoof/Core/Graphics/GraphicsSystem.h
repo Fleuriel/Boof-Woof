@@ -126,6 +126,8 @@ public:
     void RenderScence(OpenGLShader& shader);
     void RenderLightPos();
 
+	void DrawLine(glm::vec3 start, glm::vec3 end, glm::vec3 color);
+
 
 private:
     unsigned int fbo;

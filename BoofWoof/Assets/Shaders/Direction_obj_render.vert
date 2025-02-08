@@ -17,6 +17,7 @@ struct Light {
     vec3 color;
     float intensity;
     bool haveshadow;
+    float range;
 };
 
 //uniform vec3 lightPos;

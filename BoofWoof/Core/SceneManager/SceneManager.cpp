@@ -737,6 +737,7 @@ void SceneManager::FinalizeSceneDataChunked(const SceneData& data, size_t& index
             glm::vec3 col(1.f);
 			bool shadow = false;
 			glm::vec3 dir(1.f, 0.f, 0.f);
+			float range = 10.f;
 
             if (LData.HasMember("LightIntensity"))
                 intensity = LData["LightIntensity"].GetFloat();
@@ -756,8 +757,13 @@ void SceneManager::FinalizeSceneDataChunked(const SceneData& data, size_t& index
 				dir.y = LData["Direction"]["y"].GetFloat();
 				dir.z = LData["Direction"]["z"].GetFloat();
 			}
+			if (LData.HasMember("Range"))
+			{
+				range = LData["Range"].GetFloat();
+			}
 
-            LightComponent lightC(intensity, col, shadow,dir);
+
+            LightComponent lightC(intensity, col, shadow,dir,range);
             g_Coordinator.AddComponent(newE, lightC);
         }
 

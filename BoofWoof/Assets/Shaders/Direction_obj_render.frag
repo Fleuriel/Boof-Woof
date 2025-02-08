@@ -15,7 +15,6 @@ uniform bool lightOn;
 
 
 uniform float finalAlpha;
-uniform vec4 inputColor;
 
 
 
@@ -29,6 +28,7 @@ struct Light {
     vec3 color;
     float intensity;
     bool haveshadow;
+    float range;
 };
 
 //uniform vec3 lightPos;
@@ -67,7 +67,7 @@ void main()
 {
     vec4 textureColor = texture(texture_diffuse1, TexCoords);
     vec3 result = vec3(0.0f,0.0f,0.0f);
-    vec4 baseColor = inputColor;
+    vec4 baseColor = texture(texture_diffuse1, TexCoords);
     
     // Base reflectivity (F0)
     vec3 F0 = vec3(0.04f); // Standard for non-metallic surfaces
@@ -77,6 +77,10 @@ void main()
 
     for(int i = 0; i < numLights; i++){
         vec3 lightVector = lights[i].position - FragPos;
+        // if length longer than range continue
+        if(length(lightVector)>lights[i].range){
+            continue;
+        }
         float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
         textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
         //fragColor = vec4(textureColor.rgb, textureColor.a);
@@ -113,6 +117,7 @@ void main()
     }
     else
     {
+        textureColor = texture(texture_diffuse1, TexCoords);
         baseColor.rgb *= textureColor.rgb;
         baseColor.a = 1.0f;
         fragColor = vec4(baseColor);

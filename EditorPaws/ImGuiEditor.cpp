@@ -3619,6 +3619,20 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
+								float range = lightComponent.getRange();
+								ImGui::Text("Range");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Range");
+
+								if (ImGui::DragFloat("##Range", &range, 0.1f))
+								{
+									lightComponent.setRange(range);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
 
 							}
 

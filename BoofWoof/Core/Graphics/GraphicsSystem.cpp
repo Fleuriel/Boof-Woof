@@ -42,6 +42,7 @@ struct light_info {
 	float intensity;
 	glm::mat4 lightSpaceMatrix;
 	bool haveshadow;
+	float range;
 };
 std::vector <light_info> lights_infos;
 
@@ -231,6 +232,7 @@ void GraphicsSystem::UpdateLoop() {
 				lightView = glm::lookAt(light_info_.position, (light_info_.position + lightComp.getDirection()), glm::vec3(0.0f, 1.0f, 0.0f));
 				lightSpaceMatrix = lightProjection * lightView;
 				light_info_.lightSpaceMatrix = lightSpaceMatrix;
+				light_info_.range = lightComp.getRange();
 				lights_infos.push_back(light_info_);
 				if (light_info_.haveshadow) {
 					g_AssetManager.GetShader("Direction_light_Space").Use();
@@ -377,6 +379,7 @@ void GraphicsSystem::UpdateLoop() {
 			
 			g_AssetManager.GetShader(ShaderName).SetUniform("objectColor", glm::vec3{1.0f});
 
+			glm::mat4 lightmtx(1.0f);
 
 			for (int i = 0; i < lights_infos.size(); i++)
 			{
@@ -387,11 +390,14 @@ void GraphicsSystem::UpdateLoop() {
 				std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
 				g_AssetManager.GetShader(ShaderName).SetUniform(lightColorStr.c_str(), lights_infos[i].color);
 				std::string lightShadowStr = "lights[" + std::to_string(i) + "].haveshadow";
-				g_AssetManager.GetShader(ShaderName).SetUniform(lightShadowStr.c_str(), lights_infos[i].haveshadow);
-				g_AssetManager.GetShader(ShaderName).SetUniform("lightSpaceMatrix", lights_infos[i].lightSpaceMatrix);
-
+				g_AssetManager.GetShader(ShaderName).SetUniform(lightShadowStr.c_str(), lights_infos[i].haveshadow);				
+				if (lights_infos[i].haveshadow)
+					lightmtx = lights_infos[i].lightSpaceMatrix;
+				std::string lightRangeStr = "lights[" + std::to_string(i) + "].range";
+				
+				g_AssetManager.GetShader(ShaderName).SetUniform(lightRangeStr.c_str(), lights_infos[i].range);
 			}
-
+			g_AssetManager.GetShader(ShaderName).SetUniform("lightSpaceMatrix", lightmtx);
 
 			// Bind the depth texture to texture unit 1 and tell the shader to use unit 1 for the shadow map.
 			glActiveTexture(GL_TEXTURE1);
@@ -402,7 +408,7 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader(ShaderName).SetUniform("numLights", static_cast<int>(lights_infos.size()));
 			//g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
-			g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", glm::vec4(1.0f,1.0f,1.0f,1.0f));
+			//g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", glm::vec4(1.0f,1.0f,1.0f,1.0f));
 
 			//g_AssetManager.GetShader(ShaderName).SetUniform("roughness", 1.0f);
 
@@ -996,6 +1002,11 @@ void GraphicsSystem::RenderScence(OpenGLShader& shader)
 			continue;
 		}
 
+		if (graphicsComp.getModelName()=="Wall")
+		{
+			continue;
+		}
+
 		// Optionally check that this entity should cast a shadow.
 		auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
 		glm::mat4 worldMatrix = transformComp.GetWorldMatrix();
@@ -1036,6 +1047,10 @@ void GraphicsSystem::RenderLightPos()
 		g_AssetManager.GetShader("Wireframe").SetUniform("objectColor", lightComp.getColor());
 		g_ResourceManager.getModel("sphere")->DrawWireFrame();
 		g_AssetManager.GetShader("Wireframe").UnUse();
+
+		AddDebugLine(transformComp.GetPosition(), transformComp.GetPosition() + lightComp.getDirection(), glm::vec3(1.0f, 1.0f, 1.0f));
 	}
 
 }
+
+
