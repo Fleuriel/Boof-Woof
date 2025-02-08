@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "09c4707e-9b9a-424e-b173-c7276a94fb76",
+    "SceneGUID": "058a44c5-cc25-4a88-baba-21a022bd8be8",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.372649222612381,
+                    "x": -0.2986809015274048,
                     "y": 1.199999451637268,
-                    "z": 0.3098765015602112
+                    "z": 0.3973010778427124
                 },
                 "Scale": {
                     "x": 0.5,
@@ -4682,7 +4682,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 21.689172744750978,
+                    "x": 22.836551666259767,
                     "y": 2.1181840896606447,
                     "z": -36.573707580566409
                 },
@@ -4730,7 +4730,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 27.143922805786134,
+                    "x": 28.294301986694337,
                     "y": 2.104741334915161,
                     "z": -36.58880615234375
                 },
@@ -4778,7 +4778,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 24.416250228881837,
+                    "x": 25.56052017211914,
                     "y": 5.104963302612305,
                     "z": -36.56800079345703
                 },
@@ -22895,7 +22895,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 31.03535270690918,
+                    "x": 32.16457748413086,
                     "y": 3.299999952316284,
                     "z": -36.56800079345703
                 },
@@ -24240,6 +24240,54 @@
             "TransformComponent": {
                 "Position": {
                     "x": 18.21065330505371,
+                    "y": 3.299999952316284,
+                    "z": -36.568199157714847
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 3.0,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCorner",
+                "EntityID": 563
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 20.72614860534668,
                     "y": 3.299999952316284,
                     "z": -36.568199157714847
                 },
