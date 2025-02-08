@@ -236,7 +236,7 @@ struct Player final : public Behaviour
 
 			if (isMoving ) 
 			{
-				footstepTimer -= m_Engine.GetDeltaTime(); 
+				footstepTimer -= static_cast<float>(m_Engine.GetDeltaTime());
 
 				if (footstepTimer <= 0.0f) // 
 				{

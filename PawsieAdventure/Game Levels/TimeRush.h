@@ -11,6 +11,8 @@ class TimeRush : public Level
 	Entity playerEnt{};
 	Entity scentEntity1{}, scentEntity2{}, scentEntity3{}, scentEntity4{}, scentEntity5{}, scentEntity6{}, scentEntity7{}, scentEntity8{}, scentEntity9{};
 	CameraController* cameraController = nullptr;
+	bool savedcamdir{ false };
+	glm::vec3 camdir{};
 
 	Entity TimeRushBGM{}, AggroDog{}, CorgiSniff{}, FireSound{};
 

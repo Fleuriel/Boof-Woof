@@ -17,6 +17,8 @@ class MainHall : public Level
 	Entity  FireSound{};
 
 	CameraController* cameraController = nullptr;
+	bool savedcamdir{ false };
+	glm::vec3 camdir{};
 
 	double timer = 0.0; // Timer for smell avoidance
 	double timerLimit = 10.0f; // Timer limit for smell avoidance
