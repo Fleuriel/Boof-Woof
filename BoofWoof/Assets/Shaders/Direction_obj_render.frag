@@ -1,4 +1,3 @@
-
 #version 450 core
 layout(location = 0) in vec3 vertColor;
 layout(location = 1) in vec3 vertNormal;
@@ -48,8 +47,7 @@ in VS_OUT {
     vec3 TangentViewPos;
 } fs_in;
 
-float ShadowCalculation(vec4 fragPosLightSpace_)
-{
+float ShadowCalculation(vec4 fragPosLightSpace_) {
     vec3 projCoords = fragPosLightSpace_.xyz / fragPosLightSpace_.w;
     projCoords = projCoords * 0.5 + 0.5;
 
@@ -58,10 +56,11 @@ float ShadowCalculation(vec4 fragPosLightSpace_)
 
     float closestDepth = texture(shadowMap, projCoords.xy).r;
     float currentDepth = projCoords.z;
-    float shadow = currentDepth > closestDepth ? 1.0 : 0.0;
-
+    float bias = 0.005; // adjust as needed
+    float shadow = currentDepth - bias > closestDepth ? 1.0 : 0.0;
     return shadow;
 }
+
 
 void main()
 {

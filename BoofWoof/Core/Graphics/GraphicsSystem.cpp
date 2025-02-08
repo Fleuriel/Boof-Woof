@@ -122,19 +122,23 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glGenFramebuffers(1, &depthMapFBO);
 	// create depth texture
 	
+	// create depth texture
 	glGenTextures(1, &depthMap_texture);
 	glBindTexture(GL_TEXTURE_2D, depthMap_texture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
 	// attach depth texture as FBO's depth buffer
 	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap_texture, 0);
 	glDrawBuffer(GL_NONE);
 	glReadBuffer(GL_NONE);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -262,7 +266,6 @@ void GraphicsSystem::UpdateLoop() {
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
 	{
-		break;
 		/*
 		if (g_Coordinator.HaveComponent<CameraComponent>(entity)) {
 			auto& cameraComp = g_Coordinator.GetComponent<CameraComponent>(entity);
@@ -379,7 +382,10 @@ void GraphicsSystem::UpdateLoop() {
 			}
 
 
-			g_AssetManager.GetShader(ShaderName).SetUniform("shadowMap", (int)depthMap_texture);
+			// Bind the depth texture to texture unit 1 and tell the shader to use unit 1 for the shadow map.
+			glActiveTexture(GL_TEXTURE1);
+			glBindTexture(GL_TEXTURE_2D, depthMap_texture);
+			g_AssetManager.GetShader(ShaderName).SetUniform("shadowMap", 1);
 			glBindTexture(GL_TEXTURE_2D, depthMap_texture);
 			/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
 			g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
@@ -523,9 +529,9 @@ void GraphicsSystem::UpdateLoop() {
 		g_AssetManager.GetShader("Direction_light_debug").Use();
 		//g_AssetManager.GetShader("Direction_light_debug").SetUniform("near_plane", 1.0f);
 		//g_AssetManager.GetShader("Direction_light_debug").SetUniform("far_plane", 7.5f);
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, depthMap_texture);
-		g_AssetManager.GetShader("Direction_light_debug").SetUniform("depthMap", (int)depthMap_texture);
+		g_AssetManager.GetShader("Direction_light_debug").SetUniform("depthMap", 1);
 		g_ResourceManager.getModel("cubeModel")->DrawForPicking();
 		g_AssetManager.GetShader("Direction_light_debug").UnUse();
 
@@ -965,30 +971,23 @@ void GraphicsSystem::RenderScence(OpenGLShader& shader)
 	glm::mat4 View_ = camera_render.GetViewMatrix();
 	glm::mat4 Projection_ = glm::perspective(glm::radians(45.0f), (g_WindowY > 0) ? ((float)g_WindowX / (float)g_WindowY) : 1, 0.1f, 100.0f);
 
-	for (auto& entity : allEntities){
-
-		if (!g_Coordinator.HaveComponent<TransformComponent>(entity)|| !g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+	for (auto& entity : allEntities) {
+		if (!g_Coordinator.HaveComponent<TransformComponent>(entity) ||
+			!g_Coordinator.HaveComponent<GraphicsComponent>(entity))
 		{
 			continue;
 		}
-		auto& graphicComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-		if (graphicComp.GetShaderName() != "Shader3D") continue;
-
+		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+		// Optionally check that this entity should cast a shadow.
 		auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
-
-		// Get the TransformSystem instance
-		std::shared_ptr<TransformSystem> transformSystem = g_Coordinator.GetSystem<TransformSystem>();
-
 		glm::mat4 worldMatrix = transformComp.GetWorldMatrix();
 
+		// Set the model matrix for the shadow shader:
 		shader.SetUniform("vertexTransform", worldMatrix);
-		shader.SetUniform("view", View_);
-		shader.SetUniform("projection", Projection_);
-
-		g_ResourceManager.getModel("cubeModel")->DrawForPicking();
-
-
+		// Render the entity’s model (make sure your model class has a method for shadow rendering)
+		graphicsComp.getModel()->DrawForPicking();
 	}
+
 }
 
 void GraphicsSystem::RenderLightPos()

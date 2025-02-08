@@ -90,6 +90,13 @@ public:
 
     }
 
+    void DrawForShadow() const
+    {
+        for (const Mesh& mesh : meshes)
+        {
+            mesh.DrawForShadow();
+        }
+    }
 
     // draw with line
     void DrawLine()

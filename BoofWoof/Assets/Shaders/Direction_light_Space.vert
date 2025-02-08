@@ -2,11 +2,10 @@
 layout (location = 0) in vec3 aPos;
 
 uniform mat4 lightSpaceMatrix;
-uniform mat4 projection;
-uniform mat4 view;
-uniform mat4 vertexTransform;
+uniform mat4 vertexTransform;  // This is the model matrix
 
 void main()
 {
-    gl_Position = lightSpaceMatrix * projection * view * vertexTransform * vec4(aPos, 1.0);
+    // Transform vertex from model space to light space
+    gl_Position = lightSpaceMatrix * vertexTransform * vec4(aPos, 1.0);
 }
