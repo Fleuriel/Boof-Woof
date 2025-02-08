@@ -9,6 +9,7 @@ Entity BackCamera{}, MenuMusic{}, MenuClick{}, StartGame{}, X{}, HTP{}, Cog{};
 std::unique_ptr<PauseMenu> MenuPauser = CreatePausedMenu(PauseState::Paused);
 float sfxVolume{ 1.0f }, bgmVolume{ 1.0f };
 bool inSmth{ false };
+std::unordered_map<Entity, glm::vec2> originalScales;
 
 class MainMenu : public Level
 {
@@ -43,7 +44,17 @@ class MainMenu : public Level
 				if (it != nameToAction.end())
 				{
 					it->second(entity);
-				}
+
+					if (g_Coordinator.HaveComponent<UIComponent>(entity))
+					{
+						// Store original scale before hiding
+						auto& transform = g_Coordinator.GetComponent<UIComponent>(entity);
+						if (originalScales.find(entity) == originalScales.end())
+						{
+							originalScales[entity] = transform.get_scale();
+						}
+					}
+				}	
 
 				if (g_Coordinator.HaveComponent<AudioComponent>(entity))
 				{
@@ -96,7 +107,7 @@ class MainMenu : public Level
 			{
 				// need to add in audio feedback for pressing ESC
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/EscSFX.wav", false, "SFX");
-
+				RestoreUI();
 
 				inSmth = false;
 				MenuPauser->OnExit();
@@ -131,6 +142,7 @@ class MainMenu : public Level
 					inSmth = true;
 
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/HowToPlaySFX.wav", false, "SFX");
+					HideUI();
 					MenuPauser = CreatePausedMenu(PauseState::HowToPlay);
 					MenuPauser->OnLoad();
 				}
@@ -148,6 +160,8 @@ class MainMenu : public Level
 						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
 						music1.PlayAudio();
 					}
+
+					HideUI();
 					MenuPauser = CreatePausedMenu(PauseState::Settings);
 					MenuPauser->OnLoad();
 				}
@@ -275,5 +289,34 @@ class MainMenu : public Level
 		g_Coordinator.ResetEntities();
 
 		inSmth = false;
+	}
+
+	void HideUI()
+	{
+		for (auto& entry : originalScales)
+		{
+			Entity entity = entry.first;
+
+			if (g_Coordinator.HaveComponent<UIComponent>(entity))
+			{
+				auto& transform = g_Coordinator.GetComponent<UIComponent>(entity);
+				transform.set_scale(glm::vec2(0,0));
+			}
+		}
+	}
+
+	void RestoreUI() 
+	{
+		for (auto& entry : originalScales)
+		{
+			Entity entity = entry.first;
+			glm::vec2 originalScale = entry.second;
+
+			if (g_Coordinator.HaveComponent<UIComponent>(entity))
+			{
+				auto& transform = g_Coordinator.GetComponent<UIComponent>(entity);
+				transform.set_scale(originalScale);
+			}
+		}
 	}
 };
