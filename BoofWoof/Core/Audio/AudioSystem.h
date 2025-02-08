@@ -14,6 +14,7 @@
 #include "../Utilities/Components/AudioComponent.hpp"
 #include "ECS/Coordinator.hpp"
 
+
 #define g_Audio AudioSystem::GetInstance()
 
 class AudioSystem : public System {
@@ -62,7 +63,9 @@ public:
     void StopEntitySound(Entity entity);
     void SetEntityVolume(Entity entity, float volume);
 
-
+    void PlayEntity3DAudio(Entity entity, const std::string& filePath, bool loop, const std::string& soundType);
+    void Update3DSoundPositions();
+    void SetListenerPosition(const glm::vec3& position, const glm::vec3& rotation);
 
 
 
@@ -76,6 +79,8 @@ private:
     std::unordered_map<FMOD::Channel*, std::string> channelToFileMap;
     float bgmVolume = 1.0f;  // Default volume for BGM
     float sfxVolume = 1.0f;  // Default volume for SFX
+    std::unordered_map<Entity, std::string> entitySoundTypeMap;
+
 
 
 

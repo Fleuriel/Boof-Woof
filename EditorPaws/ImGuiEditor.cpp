@@ -393,6 +393,21 @@ void ImGuiEditor::WorldHierarchy()
 			if (g_SelectedEntity != MAX_ENTITIES)
 			{
 				Entity clone = g_Coordinator.CloneEntity(g_SelectedEntity);
+
+				// Ensure the cloned entity gets a new physics body
+				if (g_Coordinator.HaveComponent<CollisionComponent>(clone))
+				{
+					auto& clonedCollisionComp = g_Coordinator.GetComponent<CollisionComponent>(clone);
+
+					// Reset Physics Body to prevent it from being the same as the original entity
+					clonedCollisionComp.SetPhysicsBody(nullptr);
+					clonedCollisionComp.SetHasBodyAdded(false);  // Mark as not added to physics system
+
+					// Add a new physics body for the cloned entity
+					g_Coordinator.GetSystem<MyPhysicsSystem>()->AddEntityBody(clone, 0.0f);
+					clonedCollisionComp.SetHasBodyAdded(true);  // Mark as added
+				}
+
 				g_SelectedEntity = clone;
 			}
 		}
@@ -2275,7 +2290,7 @@ void ImGuiEditor::InspectorWindow()
 									std::string currentBehaviourName = (*behaviourNameProperty)->GetValue(&behaviourComponent);
 									std::string newBehaviourName = currentBehaviourName;
 
-									const char* behaviourNames[] = { "Null", "Player", "Treat", "Rex"};
+									const char* behaviourNames[] = { "Null", "Player", "Treat", "Rex", "Toys"};
 									int currentItem = 0;
 
 									for (int i = 0; i < IM_ARRAYSIZE(behaviourNames); ++i)

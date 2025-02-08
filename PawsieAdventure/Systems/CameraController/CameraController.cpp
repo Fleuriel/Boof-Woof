@@ -96,6 +96,26 @@ void CameraController::ChangeToFirstPerson(CameraComponent& camera)
 	
 }
 
+// Function to set camera direction based on a given direction vector
+void CameraController::SetCameraDirection(CameraComponent& camera, glm::vec3 direction) {
+    direction = glm::normalize(direction);
+
+    camera.Yaw = glm::degrees(glm::atan(direction.z, direction.x));
+    camera.Pitch = glm::degrees(glm::asin(direction.y));
+
+    // Clamping the pitch to avoid gimbal lock
+    if (camera.Pitch > 89.0f)
+        camera.Pitch = 89.0f;
+    if (camera.Pitch < -89.0f)
+        camera.Pitch = -89.0f;
+
+    camera.updateCameraVectors();
+}
+
+glm::vec3 CameraController::GetCameraDirection(const CameraComponent& camera) {
+    return camera.Front;
+}
+
 
 void CameraController::UpdateFirstPersonView(CameraComponent& camera)
 {

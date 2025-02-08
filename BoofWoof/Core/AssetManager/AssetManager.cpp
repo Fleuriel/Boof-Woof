@@ -1188,7 +1188,9 @@ bool AssetManager::LoadFonts() {
                     fs::create_directory(FILEPATH_RESOURCE_FONTS);
                 }
 
+                if (!fs::exists(FILEPATH_RESOURCE_FONTS + "\\" + nameWithoutExtension + ".bin"))
                 fontSystem.saveBin(nameWithoutExtension);
+
                 g_ResourceManager.AddFont(nameWithoutExtension);
                 
             }

@@ -44,6 +44,7 @@
     <ClCompile Include="Core\UI\UISystem.cpp" />
     <ClCompile Include="Core\Serialization\SerializationAsync.cpp" />
     <ClCompile Include="Utilities\Components\FontComponent.cpp" />
+    <ClCompile Include="Utilities\ForGame\TimerTR\TimerTR.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="Utilities\Components\FontComponent.hpp" />
     <ClInclude Include="Utilities\Components\EdgeComponent.hpp" />
     <ClInclude Include="Utilities\Components\NodeComponent.hpp" />
+    <ClInclude Include="Utilities\ForGame\TimerTR\TimerTR.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

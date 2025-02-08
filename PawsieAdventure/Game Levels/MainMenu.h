@@ -71,6 +71,13 @@ class MainMenu : public Level
 			music.SetAudioSystem(&g_Audio);
 
 			music.PlayAudio();
+
+
+
+			if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
+				auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
+				music1.SetAudioSystem(&g_Audio);
+			}
 	//	}
 	}
 
@@ -96,6 +103,7 @@ class MainMenu : public Level
 			if (inSmth)
 			{
 				// need to add in audio feedback for pressing ESC
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/EscSFX.wav", false, "SFX");
 
 
 				inSmth = false;
@@ -131,10 +139,11 @@ class MainMenu : public Level
 					inSmth = true;
 
 					// Play the button click sound
-					if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
+				/*	if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
 						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
 						music1.PlayAudio();
-					}
+					}*/
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/HowToPlaySFX.wav", false, "SFX");
 					MenuPauser = CreatePausedMenu(PauseState::HowToPlay);
 					MenuPauser->OnLoad();
 				}

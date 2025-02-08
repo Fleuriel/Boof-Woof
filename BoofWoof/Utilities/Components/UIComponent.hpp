@@ -51,25 +51,36 @@ public:
 	float get_rotation() const { return rotation; }
 
 
+	bool hasPlayedSound = false;
+
     // UI interaction
     bool get_selected() { return selected; }
     float get_UI_opacity() { return UI_opacity; }
 
+	bool checkclick(glm::vec2 mousepos) {
+		if (!selectable) return false;
 
-	void checkclick(glm::vec2 mousepos) {
-		if (!selectable) return;
 		float left_limit = position.x - scale.x;
 		float right_limit = position.x + scale.x;
 		float top_limit = position.y + scale.y;
 		float bottom_limit = position.y - scale.y;
-		if (mousepos.x > left_limit && mousepos.x < right_limit && mousepos.y < top_limit && mousepos.y > bottom_limit) {
+
+		if (mousepos.x > left_limit && mousepos.x < right_limit &&
+			mousepos.y < top_limit && mousepos.y > bottom_limit) {
+
+			if (!hasPlayedSound) { // Play sound only once
+				hasPlayedSound = true;
+				return true; // Indicates sound should play
+			}
 			selected = true;
 			UI_opacity = 0.8f;
 		}
 		else {
 			selected = false;
 			UI_opacity = 1.f;
+			hasPlayedSound = false; // Reset when mouse leaves
 		}
+		return false;
 	}
 
 
