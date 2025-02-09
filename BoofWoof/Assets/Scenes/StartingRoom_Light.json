@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "51a9b392-2b2b-4c19-9184-08dac730b670",
+    "SceneGUID": "7c731795-b2e8-4937-bc19-4e045bafab9b",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.024850264191627504,
-                    "y": 1.1800053119659424,
-                    "z": -1.63673996925354
+                    "x": -0.10124358534812927,
+                    "y": 1.180006504058838,
+                    "z": -2.0901236534118654
                 },
                 "Scale": {
                     "x": 0.5,
@@ -2519,6 +2519,11 @@
                     "y": 0.0,
                     "z": 0.0
                 }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/Fire.wav",
+                "Volume": 1.0,
+                "ShouldLoop": true
             },
             "ParticleComponent": {
                 "PositionMin": {
