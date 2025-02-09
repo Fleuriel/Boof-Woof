@@ -64,14 +64,22 @@ Currently Rex is just patrolling.
 To collect Puppies, just walk towards it and it will be collected [for now].
 To get the Rex's Urine Scent off you, go towards the Water Bucket.
 To start Rope breaker, walk and collide with the rope AFTER puppies are all collected.
+After Drawbridge lands on the ground, the game has ended, please exit game.
 To exit game, press ESC and exit game to return to main menu and click on the X button on the top right.
 
  MAJOR CHANGES IN M4 ==========================
 
  > UI System
  > Font System
- > Spatial Audio
+ > Spatial Audio with Audio Components
+ > AI Pathfinding
+ > Directional Light with Shadow
+ > In-Progress 3D Animation (can see something moving in the editor but not ready to be placed in game yet)
+ > Adding more Scripts with our Scripting System
+ > Metallic Exposure (Material)
+ > Gamma Correction
+ > 2D Animation
 
  KNOWN PROBLEMS & WILL CHANGE IN M5 ========================== 
 
->   
+ > Jaggered Shadows
