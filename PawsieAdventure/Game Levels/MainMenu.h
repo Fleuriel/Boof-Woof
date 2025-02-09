@@ -162,6 +162,10 @@ class MainMenu : public Level
 					}
 
 					HideUI();
+
+					bgmVolume = g_Audio.GetBGMVolume();
+					sfxVolume = g_Audio.GetSFXVolume();
+
 					MenuPauser = CreatePausedMenu(PauseState::Settings);
 					MenuPauser->OnLoad();
 				}
