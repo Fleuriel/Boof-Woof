@@ -19,7 +19,7 @@ uniform sampler2D uTex2d;
 uniform float opacity;
 uniform bool useTexture;
 
-
+uniform float gammaValue;
 
 //uniform vec3 textColor;
 
@@ -47,6 +47,7 @@ void main () {
 		fFragColor = vec4(vColor, 1.0f) * opacity;
 
 
+	fFragColor.rgb = pow(fFragColor.rgb, vec3(1.0/gammaValue)); 
 
 	
 }

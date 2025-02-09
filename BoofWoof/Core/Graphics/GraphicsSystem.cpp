@@ -358,6 +358,10 @@ void GraphicsSystem::UpdateLoop() {
 		//	continue;
 		//}
 
+		g_AssetManager.GetShader(ShaderName).SetUniform("gammaValue", material.GetGammaValue());
+
+	//	std::cout << material.GetGammaValue();
+
 		if (graphicsComp.getModel() == nullptr)
 		{
 			//std::cout << "ENTER\n";

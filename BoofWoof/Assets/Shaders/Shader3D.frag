@@ -34,6 +34,7 @@ struct Light {
 uniform Light lights[NUM_LIGHTS];
 uniform int numLights;
 
+uniform float gammaValue;
 
 out vec4 fragColor;
 
@@ -95,7 +96,7 @@ void main()
         fragColor = vec4(baseColor);
     }
 
-
+    fragColor.rgb = pow(fragColor.rgb, vec3(1.0/gammaValue));  
 
     //fragColor.rgb = pow(fragColor.rgb, vec3(1.0 / 2.2)); // Apply gamma correction
 

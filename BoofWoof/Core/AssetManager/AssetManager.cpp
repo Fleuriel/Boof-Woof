@@ -367,6 +367,8 @@ bool AssetManager::LoadTextures() {
                 {
                     // Run the compression command
                     textureInfo.LoadTextureDescriptor(descriptorFilePath);
+
+
                     CompressTextureWithDescriptor(textureInfo, texFilePath, outputPath.string());
                 }
                 g_ResourceManager.AddTextureDDS(nameWithoutExtension);

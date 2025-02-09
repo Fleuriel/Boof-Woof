@@ -8,7 +8,7 @@ layout (location=0) out vec4 fFragColor;
 
 uniform sampler2D uTex2d;
 
-
+uniform float gammaValue;
 
 
 void main () {
@@ -20,4 +20,6 @@ void main () {
 	fFragColor = setColor;
 	//fontColor = vec4(textColor,1.0) * setColor;
 
+	
+	fFragColor.rgb = pow(fFragColor.rgb, vec3(1.0/gammaValue)); 
 }

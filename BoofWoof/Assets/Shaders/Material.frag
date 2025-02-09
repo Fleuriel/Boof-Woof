@@ -25,6 +25,7 @@ in float fragMetallic; // Metallic factor
 in float fragRoughness; // Roughness factor
 in vec2 fragTexCoord;                   // Interpolated texture coordinates from vertex shader
 
+uniform float gammaValue;
 
 uniform vec3 inputLight; // Light source position
 uniform vec3 viewPos; // Camera position
@@ -143,7 +144,8 @@ void main() {
     //finalColor = finalColor / (finalColor + vec3(1.0)); // simple tonemapping
 
     // Gamma correction (2.2 gamma)
-    finalColor = pow(finalColor, vec3(1.0 / 2.2));
 
     FragColor = vec4(finalColor, 1.0);
+    
+	FragColor.rgb = pow(FragColor.rgb, vec3(1.0/gammaValue)); 
 }

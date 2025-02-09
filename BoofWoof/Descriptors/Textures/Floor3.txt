@@ -1,5 +1,0 @@
-Texture Name : Floor3
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\Floor3.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\Floor3.dds
-Compression Format : -fd BC3

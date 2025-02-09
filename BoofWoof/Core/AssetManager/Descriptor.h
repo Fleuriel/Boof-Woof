@@ -79,12 +79,12 @@ struct MaterialDescriptor
     std::string textureNormal;
     std::string textureHeight;
 
-
+    float gammaValue;
 
 
     MaterialDescriptor() : shaderIndex(6), albedoColorRed(1.0), albedoColorGreen(1.0), albedoColorBlue(1.0), albedoColorAlpha(1.0), finalAlpha(1),
         metallic(0), smoothness(0), materialAlpha(0), shaderChosen("Shader3D"), DiffuseID(-1), NormalID(-1), HeightID(-1), textureDiffuse("NothingTexture"),
-        textureNormal("NothingNormal"), textureHeight("NothingHeight") { }
+        textureNormal("NothingNormal"), textureHeight("NothingHeight") , gammaValue(2.2f){ }
 
 
     // Save the current descriptor to a file
