@@ -201,6 +201,7 @@ class TimeRush : public Level
 						// Pass in the name of the real scene we want AFTER the loading screen
 						loading->m_NextScene = "TimeRush";
 
+						timesUp = 2.0;
 						g_TimerTR.Reset();
 
 						g_LevelManager.SetNextLevel("LoadingLevel");
