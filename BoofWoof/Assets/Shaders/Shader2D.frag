@@ -14,7 +14,6 @@ layout (location=0) out vec4 fFragColor;
 
 uniform sampler2D uTex2d;
 uniform float opacity;
-uniform float gammaValue;
 
 
 //uniform vec3 textColor;
@@ -30,10 +29,9 @@ void main () {
 
 	vec4 texColor = texture(uTex2d, vTexCoord) * opacity;
 
-//	if(texColor.a < 0.1)
-//		discard;
+	if(texColor.a < 0.1)
+		discard;
 	
 	fFragColor = texColor;
-	
-    fFragColor.rgb = pow(fFragColor.rgb, vec3(1.0 / 2.2f));
+
 }
