@@ -318,6 +318,7 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader("instanced").SetUniform("particleColor", particleComp.getParticleColor());
 			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
 			g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+			g_AssetManager.GetShader("instanced").SetUniform("gammaValue", gammaValue);
 			//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
 			particleComp.update(static_cast<float>(g_Core->m_DeltaTime));
 			particleComp.draw();
