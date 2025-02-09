@@ -22,15 +22,15 @@ void InitializeLevels()
     g_LevelManager.RegisterLevel("Splashscreen", new Splashscreen());
     g_LevelManager.RegisterLevel("MainMenu", new MainMenu());
     g_LevelManager.RegisterLevel("Cutscene", new Cutscene());
-    g_LevelManager.RegisterLevel("StartingRoom_Light", new StartingRoom());
+    g_LevelManager.RegisterLevel("StartingRoom", new StartingRoom());
     g_LevelManager.RegisterLevel("TimeRush", new TimeRush());
     g_LevelManager.RegisterLevel("MainHall", new MainHall());
     g_LevelManager.RegisterLevel("LoadingLevel", new LoadingLevel());
 
     // Set the initial level
-    g_LevelManager.Initialize("TimeRush");
-    g_LevelManager.SetNextLevel("TimeRush");
-    g_LevelManager.SetPreviousLevel("TimeRush");
+    g_LevelManager.Initialize("Splashscreen");
+    g_LevelManager.SetNextLevel("Splashscreen");
+    g_LevelManager.SetPreviousLevel("Splashscreen");
 }
 
 int RunGame()
@@ -46,6 +46,7 @@ int RunGame()
 
     g_Core = new EngineCore();
     g_Core->OnInit();
+    g_Coordinator.GetSystem<GraphicsSystem>()->lightOn = true;
 
 #ifndef _DEBUG
     // Only toggle full screen in release mode
