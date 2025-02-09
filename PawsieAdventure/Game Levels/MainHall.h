@@ -22,6 +22,7 @@ class MainHall : public Level
 
 	double timer = 0.0; // Timer for smell avoidance
 	double timerLimit = 10.0f; // Timer limit for smell avoidance
+	double timesUp = 2.0;// Time limit for times up sound
 
 	double colorChangeTimer = 0.0;
 	double colorChangeDuration = 3.0; // Duration for which the color change lasts
@@ -297,14 +298,23 @@ class MainHall : public Level
 
 				if (g_TimerTR.timer == 0.0)
 				{
-					peeMarked = false;
-					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
-					if (loading)
+					timesUp -= deltaTime;
+
+					// Times up! sound
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
+
+					if (timesUp < 0.0)
 					{
-						// Pass in the name of the real scene we want AFTER the loading screen
-						loading->m_NextScene = "MainHall";
-						g_LevelManager.SetNextLevel("LoadingLevel");
-						g_TimerTR.OnShutdown();
+						timesUp = 2.0;
+						peeMarked = false;
+						auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+						if (loading)
+						{
+							// Pass in the name of the real scene we want AFTER the loading screen
+							loading->m_NextScene = "MainHall";
+							g_LevelManager.SetNextLevel("LoadingLevel");
+							g_TimerTR.OnShutdown();
+						}
 					}
 				}
 			}
