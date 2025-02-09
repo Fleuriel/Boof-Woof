@@ -111,7 +111,7 @@ void ImGuiEditor::ImGuiUpdate()
 	Settings();
 	Scenes();
 	PlayStopRunBtn();
-	//ShowPickingDebugWindow();
+	ShowPickingDebugWindow();
 
 
 
