@@ -195,6 +195,7 @@ void FontSystem::RenderText(FontResources fontResources, std::string text, float
     // activate corresponding render state	
     g_AssetManager.GetShader("Font").Use();
     g_AssetManager.GetShader("Font").SetUniform("textColor", color.x, color.y, color.z);
+    g_AssetManager.GetShader("Font").SetUniform("gammaValue", GraphicsSystem::gammaValue);
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(fontResources.VAO_FONT);
 
