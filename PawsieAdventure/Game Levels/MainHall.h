@@ -23,8 +23,13 @@ class MainHall : public Level
 	double timer = 0.0; // Timer for smell avoidance
 	double timerLimit = 10.0f; // Timer limit for smell avoidance
 
-	bool TimerInit = false;
+	double colorChangeTimer = 0.0;
+	double colorChangeDuration = 3.0; // Duration for which the color change lasts
+	double cooldownTimer = 10.0;
+	double cooldownDuration = 10.0; // Cooldown duration
+	bool isColorChanged = false;
 
+	bool TimerInit = false;
 	bool sniffa{ false };
 	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
 	bool playercollided{ false }, puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
@@ -134,21 +139,6 @@ class MainHall : public Level
 			playercollided = g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetIsColliding();
 		}
 
-		if (g_Coordinator.HaveComponent<CollisionComponent>(puppy1))
-		{
-			puppy1Collided = g_Coordinator.GetComponent<CollisionComponent>(puppy1).GetIsColliding();
-		}
-
-		if (g_Coordinator.HaveComponent<CollisionComponent>(puppy2))
-		{
-			puppy2Collided = g_Coordinator.GetComponent<CollisionComponent>(puppy2).GetIsColliding();
-		}
-
-		if (g_Coordinator.HaveComponent<CollisionComponent>(puppy3))
-		{
-			puppy3Collided = g_Coordinator.GetComponent<CollisionComponent>(puppy3).GetIsColliding();
-		}
-
 		// Smell Avoidance
 		if (g_Coordinator.HaveComponent<CollisionComponent>(RexPee1))
 		{
@@ -213,7 +203,24 @@ class MainHall : public Level
 				TimerInit = false;
 			}
 		}
-		//////////////////////////////////////////////////////////////////////////
+	}
+
+	void CheckPuppyCollision()
+	{
+		if (g_Coordinator.HaveComponent<CollisionComponent>(puppy1))
+		{
+			puppy1Collided = g_Coordinator.GetComponent<CollisionComponent>(puppy1).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(puppy2))
+		{
+			puppy2Collided = g_Coordinator.GetComponent<CollisionComponent>(puppy2).GetIsColliding();
+		}
+
+		if (g_Coordinator.HaveComponent<CollisionComponent>(puppy3))
+		{
+			puppy3Collided = g_Coordinator.GetComponent<CollisionComponent>(puppy3).GetIsColliding();
+		}
 
 		if (playercollided && puppy1Collided && !collectedPuppy1)
 		{
@@ -260,6 +267,7 @@ class MainHall : public Level
 		if (!g_IsPaused)
 		{
 			cameraController->Update(static_cast<float>(deltaTime));
+			cooldownTimer += deltaTime;
 
 			auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
 			auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);
@@ -270,9 +278,11 @@ class MainHall : public Level
 				g_Checklist.OnUpdate(deltaTime);
 			}
 
+			CheckCollision();
+
 			if (!collectedPuppy1 || !collectedPuppy2 || !collectedPuppy3)
 			{
-				CheckCollision();
+				CheckPuppyCollision();
 			}
 
 			if (peeMarked)
@@ -360,7 +370,7 @@ class MainHall : public Level
 				teb_last = false;
 			}
 
-			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !sniffa)
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !sniffa && cooldownTimer >= cooldownDuration)
 			{
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiSniff.wav", false, "SFX");
 
@@ -368,6 +378,23 @@ class MainHall : public Level
 				opacity2.setParticleColor(glm::vec4(0.032127078622579578f, 0.93624528503418f, 0.936274528503418f, 1.0f));
 				opacity3.setParticleColor(glm::vec4(0.9313725233078003f, 0.342416375875473f, 0.8274392485618591f, 1.0f));
 				sniffa = true;
+
+				isColorChanged = true;
+				colorChangeTimer = 0.0;
+				cooldownTimer = 0.0;
+			}
+
+			if (isColorChanged)
+			{
+				colorChangeTimer += deltaTime;
+				if (colorChangeTimer >= colorChangeDuration)
+				{
+					opacity1.setParticleColor(glm::vec4(0.9607843160629273f, 0.3935392200946808f, 0.042387526482343677f, 0.0f));
+					opacity2.setParticleColor(glm::vec4(0.032127078622579578f, 0.93624528503418f, 0.936274528503418f, 0.0f));
+					opacity3.setParticleColor(glm::vec4(0.9313725233078003f, 0.342416375875473f, 0.8274392485618591f, 0.0f));
+
+					isColorChanged = false;
+				}
 			}
 
 			if (g_Input.GetKeyState(GLFW_KEY_E) == 0)
