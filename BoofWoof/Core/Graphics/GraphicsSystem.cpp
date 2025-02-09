@@ -22,6 +22,7 @@ bool GraphicsSystem::glewInitialized = false;
 bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
 bool GraphicsSystem::lightOn = true;
+float GraphicsSystem::gammaValue = 2.2f;
 
 CameraComponent GraphicsSystem::camera;
 CameraComponent camera_render;
@@ -358,7 +359,7 @@ void GraphicsSystem::UpdateLoop() {
 		//	continue;
 		//}
 
-		g_AssetManager.GetShader(ShaderName).SetUniform("gammaValue", material.GetGammaValue());
+		g_AssetManager.GetShader(ShaderName).SetUniform("gammaValue", gammaValue);
 
 	//	std::cout << material.GetGammaValue();
 
