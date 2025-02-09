@@ -1,5 +1,0 @@
-Texture Name : WallBothSide
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\WallBothSide.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\WallBothSide.dds
-Compression Format : -fd BC3

@@ -1,5 +1,0 @@
-Texture Name : PawsieAdventure
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\PawsieAdventure.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\PawsieAdventure.dds
-Compression Format : -fd BC3
