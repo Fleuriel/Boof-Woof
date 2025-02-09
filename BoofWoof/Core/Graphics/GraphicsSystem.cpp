@@ -23,7 +23,7 @@ bool GraphicsSystem::glewInitialized = false;
 
 bool GraphicsSystem::D2 = false;
 bool GraphicsSystem::D3 = false;
-bool GraphicsSystem::lightOn = false;
+bool GraphicsSystem::lightOn = true;
 float GraphicsSystem::gammaValue = 2.2f;
 
 CameraComponent GraphicsSystem::camera;

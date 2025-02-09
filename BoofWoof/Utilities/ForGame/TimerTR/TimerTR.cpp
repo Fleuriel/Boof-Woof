@@ -71,7 +71,11 @@ void TimerTR::OnUpdate(double deltaTime)
 			auto& text = g_Coordinator.GetComponent<FontComponent>(m_Minus);
 
 			// Show the world
-			text.set_scale(glm::vec2(0.6f, 1.0f));
+			if (!scaleUp) 
+			{
+				text.set_scale(glm::vec2(0.6f, 1.0f));
+				scaleUp = true;
+			}
 
 			// Decrement timer by deltaTime
 			minus10timer -= deltaTime;
@@ -81,12 +85,15 @@ void TimerTR::OnUpdate(double deltaTime)
 				minus10timer = 0.0;
 				text.set_scale(glm::vec2(0.0f, 0.0f));
 				touched = false;
+				scaleUp = false;
 			}
 		}
 	}
 	else 
 	{
 		minus10timer = 3.0;
+		touched = false;
+		scaleUp = false;
 	}
 }
 
@@ -112,4 +119,6 @@ void TimerTR::Reset()
 {
 	timer = 180.0;
 	minus10timer = 3.0;
+	touched = false;
+	scaleUp = false;
 }
