@@ -5285,13 +5285,27 @@ void ImGuiEditor::Settings()
 				ImGui::Text("Frame Rate: %f", g_Window->GetFPS());
 				ImGui::Text("Frame Count: %d", g_Core->m_CurrNumSteps);
 
+
+
+				ImGui::PushItemWidth(250.0f);
+				ImGui::Spacing();
+
+				ImGui::SeparatorText("System DT (% of Total Game Loop)");
+
+				//ImGui::Text("Graphics DT: %f", ((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100));
+				PlotSystemDT("Physics DT", static_cast<float>((g_Core->m_PhysicsDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
+				PlotSystemDT("GameLogic DT", static_cast<float>((g_Core->m_LogicDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
+				PlotSystemDT("Graphics DT", static_cast<float>((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
+
 				ImGui::EndTabItem();
 			}
 
 			if (ImGui::BeginTabItem("Light")) {
 
+				ImGui::SeparatorText("Light Configurations");
 
-				ImGui::Checkbox("Light On", &GraphicsSystem::lightOn);
+				ImGui::Text("Light On"); ImGui::SameLine(150.0f);
+				ImGui::Checkbox("##Light On", &GraphicsSystem::lightOn);
 				if (GraphicsSystem::lightOn)
 				{
 					GraphicsSystem::lightOn = true;
@@ -5305,7 +5319,7 @@ void ImGuiEditor::Settings()
 				ImGui::PushItemWidth(250.0f);
 				
 
-				ImGui::Text("LightPos"); ImGui::SameLine();
+				ImGui::Text("LightPos"); ImGui::SameLine(150.0f);
 
 				// Fetch the current light position from the Graphics System
 				glm::vec3 lightPos = g_Coordinator.GetSystem<GraphicsSystem>()->GetLightPos();
@@ -5322,21 +5336,24 @@ void ImGuiEditor::Settings()
 			if (ImGui::BeginTabItem("Gamma")) {
 				// Juuuu
 
-
+				ImGui::SeparatorText("Gamma Configurations");
 
 				ImGui::PushItemWidth(250.0f);
 
-				ImGui::Text("Gamma Value"); ImGui::SameLine(125.f);
 
 
 				static float gammaValue = 0; // Index for the selected item
 				// ImGui Controls
 				static bool defaultGamma = true; // Variable to hold the state
 
-				ImGui::Checkbox("Default Gamma", &defaultGamma);
+				ImGui::Text("Default Gamma"); ImGui::SameLine(150.0f);
+
+				ImGui::Checkbox("##Default Gamma", &defaultGamma);
 
 
-				if (ImGui::SliderFloat("Gamma", &gammaValue, 0.0f, 10.0f) || defaultGamma)
+				ImGui::Text("Gamma Value"); ImGui::SameLine(150.0f);
+
+				if (ImGui::SliderFloat("##GammaSlidr", &gammaValue, 0.0f, 10.0f) || defaultGamma)
 				{
 					if (defaultGamma)
 						gammaValue = 2.2f;
@@ -5356,16 +5373,6 @@ void ImGuiEditor::Settings()
 		}
 
 
-
-		ImGui::PushItemWidth(250.0f);
-		ImGui::Spacing();
-
-		ImGui::SeparatorText("System DT (% of Total Game Loop)");
-
-		//ImGui::Text("Graphics DT: %f", ((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100));
-		PlotSystemDT("Physics DT", static_cast<float>((g_Core->m_PhysicsDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
-		PlotSystemDT("GameLogic DT", static_cast<float>((g_Core->m_LogicDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
-		PlotSystemDT("Graphics DT", static_cast<float>((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
 	}
 
 	ImGui::End();
