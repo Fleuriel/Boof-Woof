@@ -449,10 +449,7 @@ void GraphicsSystem::UpdateLoop() {
 		//else if (ShaderName == "Shader2D")
 		else if (strcmp(ShaderName, "Shader2D") == 0)
 		{
-			if (graphicsComp.getModelName() == "cubeModel")
-			{
-				continue;
-			}
+
 
 			// Set shader uniforms based on camera following
 			if (graphicsComp.getFollowCamera()) {
@@ -462,32 +459,22 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader(ShaderName).SetUniform("vertexTransform", shdrParam.WorldMatrix);
 				g_AssetManager.GetShader(ShaderName).SetUniform("view", glm::mat4(1.0f));
 				g_AssetManager.GetShader(ShaderName).SetUniform("projection", glm::mat4(1.0f));
-			
 			}
 
-//			g_AssetManager.GetShader(ShaderName).SetUniform("objectColor", glm::vec3{ 1.0f });
-			g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", glm::vec4(material.GetMaterialRGB(), material.GetFinalAlpha()));
-			
-
-//			g_AssetManager.GetShader(ShaderName).SetUniform("opacity", 1.0f);
 			// Bind texture
-			
-			if (graphicsComp.getTextureNumber() == 0) {
-				glBindTextureUnit(6, 0); // No texture
-				g_AssetManager.GetShader(ShaderName).SetUniform("useTexture", false);
-			}
-			else {
-				glBindTextureUnit(6, graphicsComp.getTexture(0)); // Texture with transparency
-				g_AssetManager.GetShader(ShaderName).SetUniform("useTexture", true);
-			}
+//		if (graphicsComp.getTextureNumber() == 0) {
+//			glBindTextureUnit(6, 0); // No texture
+//		}
+//		else {
+//			glBindTextureUnit(6, graphicsComp.getTexture(0)); // Texture with transparency
+//		}
 
-			std::cout << material.GetMaterialRed() << '\t' << material.GetMaterialGreen() << '\t' << material.GetMaterialBlue() << '\n';
-
-
-		//	g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", material.GetMaterialRGB());
 
 			// Set texture uniform before drawing
 			g_AssetManager.GetShader(ShaderName).SetUniform("uTex2d", 6);
+
+
+
 
 			// Draw the model
 			g_ResourceManager.getModel(graphicsComp.getModelName())->Draw2D(g_AssetManager.GetShader(ShaderName));

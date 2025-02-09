@@ -12,21 +12,17 @@ layout (location=1) in vec2 vTexCoord;
 
 layout (location=0) out vec4 fFragColor;
 
-layout (location=0) in vec3 vColor;
-
-
 uniform sampler2D uTex2d;
 uniform float opacity;
-uniform bool useTexture;
-
 uniform float gammaValue;
+
 
 //uniform vec3 textColor;
 
 //uniform int player;
 
 
-
+//uniform vec4 inputColor;
 //uniform float finalAlpha;
 //uniform bool useColor;
 
@@ -34,20 +30,10 @@ void main () {
 
 	vec4 texColor = texture(uTex2d, vTexCoord) * opacity;
 
-
-	if(texColor.a < 0.1)
-		discard;
-//	
-
-	if(useTexture)
-	{
-		fFragColor = texColor * vec4(vColor, 1.0f);
-	}
-	else
-		fFragColor = vec4(vColor, 1.0f) * opacity;
-
-
-	fFragColor.rgb = pow(fFragColor.rgb, vec3(1.0/gammaValue)); 
-
+//	if(texColor.a < 0.1)
+//		discard;
 	
+	fFragColor = texColor;
+	
+    fFragColor.rgb = pow(fFragColor.rgb, vec3(1.0 / 2.2f));
 }
