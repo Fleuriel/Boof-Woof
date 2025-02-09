@@ -130,6 +130,7 @@ class MainHall : public Level
 
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
+		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 	}
 
 	void CheckCollision()
