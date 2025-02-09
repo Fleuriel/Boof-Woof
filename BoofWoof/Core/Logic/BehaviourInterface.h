@@ -83,6 +83,7 @@ struct engine_interface
 	// Toys
 	virtual double SetTimerTiming(double timing) = 0;
 	virtual double GetTimerTiming() = 0;
+	virtual void SetTouched(bool touch) = 0;
 };	
 
 #ifdef GAME_ENGINE

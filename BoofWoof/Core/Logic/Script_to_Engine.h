@@ -287,8 +287,14 @@ public:
 		return g_TimerTR.timer;
 	}
 
-	virtual double SetTimerTiming(double timing) override {
+	virtual double SetTimerTiming(double timing) override 
+	{
 		return g_TimerTR.timer = timing;
+	}
+
+	virtual void SetTouched(bool touch) override
+	{
+		g_TimerTR.touched = touch;
 	}
 };
 

@@ -19,6 +19,11 @@ void TimerTR::OnInitialize()
 			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Timer")
 			{
 				m_Timer = entity;
+			}
+
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Minus10")
+			{
+				m_Minus = entity;
 				break;
 			}
 		}
@@ -58,6 +63,31 @@ void TimerTR::OnUpdate(double deltaTime)
 	{
 		timer = 180.0;
 	}
+
+	if (touched) 
+	{
+		if (g_Coordinator.HaveComponent<FontComponent>(m_Minus))
+		{
+			auto& text = g_Coordinator.GetComponent<FontComponent>(m_Minus);
+
+			// Show the world
+			text.set_scale(glm::vec2(0.6f, 1.0f));
+
+			// Decrement timer by deltaTime
+			minus10timer -= deltaTime;
+
+			if (minus10timer < 0.0)
+			{
+				minus10timer = 0.0;
+				text.set_scale(glm::vec2(0.0f, 0.0f));
+				touched = false;
+			}
+		}
+	}
+	else 
+	{
+		minus10timer = 3.0;
+	}
 }
 
 void TimerTR::OnShutdown()
@@ -81,4 +111,5 @@ void TimerTR::OnShutdown()
 void TimerTR::Reset()
 {
 	timer = 180.0;
+	minus10timer = 3.0;
 }

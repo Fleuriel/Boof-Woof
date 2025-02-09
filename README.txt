@@ -1,45 +1,45 @@
  ===========================================
-		Milestone 3
+		Milestone 4
  ===========================================
 BoofWoof consists of:
 
 ~ RTIS
-> Angus Tan Yit Hoe
+ > Angus Tan Yit Hoe
   <tan.a@digipen.edu>
-> Aaron Chan Jun Xiang	
+ > Aaron Chan Jun Xiang	
   <aaronjunxiang.chan@digipen.edu>		
-> Chen Guo	
+ > Chen Guo	
   <g.chen@digipen.edu>		
-> Liu Xujie	
+ > Liu Xujie	
   <l.xujie@digipen.edu>
 
 ~ IMGD		
-> Ang Jun Sheng Aloysius
+ > Ang Jun Sheng Aloysius
   <a.junshengaloysius@digipen.edu>		
-> Goh Rachelle
+ > Goh Rachelle
   <rachelle.goh@digipen.edu>			
-> Quek Cheng Kwang Emery
+ > Quek Cheng Kwang Emery
   <c.quek@digipen.edu>			
-> Luke Goh Weng Ee	
+ > Luke Goh Weng Ee	
   <goh.l@digipen.edu>		
-> Tan Wei Fong		
+ > Tan Wei Fong		
   <weifong.tan@digipen.edu>	
-> Tan Wei Jie Clement	
+ > Tan Wei Jie Clement	
   <weijieclement.tan@digipen.edu>		
 
 
 We do not have BFAs or UXGDs.	
 
-All art assets are drawn by Emery Quek Cheng Kwang.
+All art assets are drawn by Emery Quek Cheng Kwang and Luke Goh Weng Ee.
 All audios taken from Audio Professors & Soundly by Tan Wei Fong.
 
 
  BUILD INSTRUCTIONS ======================
 
->  Open BoofWoof.sln, clean and rebuild
->  Go to ScriptWoof.sln, clean and rebuild
->  Under the lib folder, go to JoltPhysics-master > LinkLib, extract the zip files for the Jolt.lib
->  Set either Game or EditorPaws as your startup project, depending on what you are aiming to test.
+ >  Open BoofWoof.sln, clean and rebuild
+ >  Go to ScriptWoof.sln, clean and rebuild
+ >  Under the lib folder, go to JoltPhysics-master > LinkLib, extract the zip files for the Jolt.lib
+ >  Set either PawsieAdventure or EditorPaws as your startup project, depending on what you are aiming to test.
 
 If you have linker error for Jolt.lib, please unzip the folders in lib > JoltPhysics-master > LinkLib
 If you do not see anything on the screen when you load a scene, please clean and build MeshCompiler.
@@ -56,17 +56,22 @@ If you try to move using WASD keys and you cannot move the corgi, please clean a
  > W / A / S / D - Move Player
  > Spacebar - Jump
  > RMB - Bark (Only needed in starting room for now)
- > R - Scent Trail
- > C - Catch Bone Catcher
+ > E - Scent Trail
+ > C - Catch Bone Catcher (Temporary)
  > Left Shift - Sprint 
- 
-To collect Dog bone & tennis ball, just walk towards it and it will be collected [for now].
-To start Rope breaker, walk and collide with the rope [for now].
-To exit game, please exit out of fullscreen and press close application [for now].
 
- KNOWN PROBLEMS & WILL CHANGE IN M4 ========================== 
+Currently Rex is just patrolling. 
+To collect Puppies, just walk towards it and it will be collected [for now].
+To get the Rex's Urine Scent off you, go towards the Water Bucket.
+To start Rope breaker, walk and collide with the rope AFTER puppies are all collected.
+To exit game, press ESC and exit game to return to main menu and click on the X button on the top right.
 
->   Able to save archetypes & delete archetypes during runtime.
->   Will make dog footsteps sound different on different floors [different surface, different sound]
->   Editor cannot make changes in fullscreen for now.
->   Unable to exit game via menu [look at game controls section on how to exit].
+ MAJOR CHANGES IN M4 ==========================
+
+ > UI System
+ > Font System
+ > Spatial Audio
+
+ KNOWN PROBLEMS & WILL CHANGE IN M5 ========================== 
+
+>   

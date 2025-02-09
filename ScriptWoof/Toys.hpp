@@ -18,19 +18,20 @@ struct Toys final : public Behaviour
 
 			if (std::strcmp(collidingEntityName, "Player") == 0)
 			{
-				std::cout << "Player is colliding with toys" << std::endl;
+				//std::cout << "Player is colliding with toys" << std::endl;
 
 				//Play sound
 
 				m_Engine.getAudioSystem().PlaySoundByFile("ToyTouch.wav", false, "SFX");
 			
 
-
 				//Destroy the toys
 				m_Engine.getPhysicsSystem().RemoveBody(entity);
 				m_Engine.DestroyEntity(entity);
 
 				//Reduce timer by 10 seconds
+				 m_Engine.SetTouched(true);
+
 				double currTimer = m_Engine.GetTimerTiming();
 				double newTimer = currTimer - 10.0;
 				m_Engine.SetTimerTiming(newTimer);
