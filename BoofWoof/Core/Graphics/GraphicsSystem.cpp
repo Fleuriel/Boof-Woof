@@ -12,6 +12,8 @@
 #include "Input/Input.h"
 #include "EngineCore.h"
 
+#include "../Core/AssetManager/FilePaths.h"
+
 
 
 
@@ -112,7 +114,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	AddModel_2D();
 	std::cout << "uhee\n\n\n\n\n\n";
 
-	AddEntireModel3D("../BoofWoof/Assets/Objects");
+	AddEntireModel3D(FILEPATH_ASSET_OBJECTS);
 //	AddModel_3D("../BoofWoof/Assets/Objects/Fireplace.obj");
 	//fontSystem.init();
 
