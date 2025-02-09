@@ -3311,31 +3311,6 @@ void ImGuiEditor::InspectorWindow()
 							
 							
 
-									ImGui::NewLine();
-
-
-									ImGui::SetNextItemWidth(200.0f);
-									
-									ImGui::Text("Gamma Value"); ImGui::SameLine(WidthIndentation);
-
-									ImGui::NewLine();
-									
-									ImGui::Indent(20);
-
-									static float gammaValue = 0; // Index for the selected item
-									// ImGui Controls
-									static bool defaultGamma = true; // Variable to hold the state
-
-									ImGui::Checkbox("Default Gamma", &defaultGamma);
-
-
-									if (ImGui::SliderFloat("Gamma", &gammaValue, 0.0f, 10.0f) || defaultGamma)
-									{
-										if (defaultGamma)
-											gammaValue = 2.2f;
-	
-										material.SetGammaValue(gammaValue);
-									}
 
 
 
@@ -5296,35 +5271,93 @@ void ImGuiEditor::Settings()
 {
 	ImGui::Begin("Settings");
 	{
-		ImGui::SeparatorText("Configurations");
 
-		// Window Size, Frame Rate, Frame Count, Camera Position (future)
-		ImGui::Text("Window Size: %d x %d", g_Window->GetWindowWidth(), g_Window->GetWindowHeight());
-		ImGui::Text("Frame Rate: %f", g_Window->GetFPS());
-		ImGui::Text("Frame Count: %d", g_Core->m_CurrNumSteps);
 
-		// light position
+
+
+		if (ImGui::BeginTabBar("Controls")) {
+			if (ImGui::BeginTabItem("Editor Properties")) {
+
+				ImGui::SeparatorText("Configurations");
+
+				// Window Size, Frame Rate, Frame Count, Camera Position (future)
+				ImGui::Text("Window Size: %d x %d", g_Window->GetWindowWidth(), g_Window->GetWindowHeight());
+				ImGui::Text("Frame Rate: %f", g_Window->GetFPS());
+				ImGui::Text("Frame Count: %d", g_Core->m_CurrNumSteps);
+
+				ImGui::EndTabItem();
+			}
+
+			if (ImGui::BeginTabItem("Light")) {
+
+
+				ImGui::Checkbox("Light On", &GraphicsSystem::lightOn);
+				if (GraphicsSystem::lightOn)
+				{
+					GraphicsSystem::lightOn = true;
+				}
+				else
+				{
+					GraphicsSystem::lightOn = false;
+				}
+
+				// light position
+				ImGui::PushItemWidth(250.0f);
+				
+
+				ImGui::Text("LightPos"); ImGui::SameLine();
+
+				// Fetch the current light position from the Graphics System
+				glm::vec3 lightPos = g_Coordinator.GetSystem<GraphicsSystem>()->GetLightPos();
+
+				if (ImGui::DragFloat3("##Light Pos", &lightPos.x, 0.1f))
+				{
+					g_Coordinator.GetSystem<GraphicsSystem>()->SetLightPos(lightPos);
+				}
+
+
+
+				ImGui::EndTabItem();
+			}
+			if (ImGui::BeginTabItem("Gamma")) {
+				// Juuuu
+
+
+
+				ImGui::PushItemWidth(250.0f);
+
+				ImGui::Text("Gamma Value"); ImGui::SameLine(125.f);
+
+
+				static float gammaValue = 0; // Index for the selected item
+				// ImGui Controls
+				static bool defaultGamma = true; // Variable to hold the state
+
+				ImGui::Checkbox("Default Gamma", &defaultGamma);
+
+
+				if (ImGui::SliderFloat("Gamma", &gammaValue, 0.0f, 10.0f) || defaultGamma)
+				{
+					if (defaultGamma)
+						gammaValue = 2.2f;
+
+					GraphicsSystem::gammaValue = gammaValue;
+				}
+
+
+
+				ImGui::EndTabItem();
+			}
+			//if (ImGui::BeginTabItem("Tab 3")) {
+			//	ImGui::Text("This is content for Tab 3.");
+			//	ImGui::EndTabItem();
+			//}
+			ImGui::EndTabBar();
+		}
+
+
+
 		ImGui::PushItemWidth(250.0f);
-		ImGui::Text("LightPos"); ImGui::SameLine();
-
-		// Fetch the current light position from the Graphics System
-		glm::vec3 lightPos = g_Coordinator.GetSystem<GraphicsSystem>()->GetLightPos();
-
-		if (ImGui::DragFloat3("##Light Pos", &lightPos.x, 0.1f))
-		{
-			g_Coordinator.GetSystem<GraphicsSystem>()->SetLightPos(lightPos);
-		}
-
-		ImGui::Checkbox("Light On", &GraphicsSystem::lightOn);
-		if (GraphicsSystem::lightOn)
-		{
-			GraphicsSystem::lightOn = true;
-		}
-		else
-		{
-			GraphicsSystem::lightOn = false;
-		}
-
 		ImGui::Spacing();
 
 		ImGui::SeparatorText("System DT (% of Total Game Loop)");
