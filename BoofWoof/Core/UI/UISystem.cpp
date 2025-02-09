@@ -139,6 +139,7 @@ void UISystem::UI_render()
                 shader.SetUniform("view", glm::mat4(1.0f));
                 shader.SetUniform("projection", glm::mat4(1.0f));
                 shader.SetUniform("opacity", UICompt.get_UI_opacity());
+				shader.SetUniform("useTexture", true);
 
                 // Bind texture               
                 glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(UICompt.get_texturename()));
@@ -169,6 +170,7 @@ void UISystem::UI_render()
                 shader.SetUniform("cols", UICompt.get_cols());
                 shader.SetUniform("row_To_Draw", UICompt.get_curr_row());
                 shader.SetUniform("col_To_Draw", UICompt.get_curr_col());
+                shader.SetUniform("useTexture", true);
 
                 // Bind texture
                 glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(UICompt.get_texturename()));
