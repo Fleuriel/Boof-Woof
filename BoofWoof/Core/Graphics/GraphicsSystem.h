@@ -52,6 +52,7 @@ public:
     static bool debug;
     static bool D2; // 0 is 2D, 1 is 3D
     static bool D3; // 0 is 2D, 1 is 3D
+    static float gammaValue;
 
 	static bool lightOn;
     
@@ -121,6 +122,12 @@ public:
 
     static void AddDebugLine(const glm::vec3& start, const glm::vec3& end, const glm::vec3& color);
     static void RenderDebugLines();
+
+    /// shadow
+    void RenderScence(OpenGLShader& shader);
+    void RenderLightPos();
+
+	void DrawLine(glm::vec3 start, glm::vec3 end, glm::vec3 color);
 
 
 private:

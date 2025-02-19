@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "31316a7f-dc64-43cc-873d-05431a195de5",
+    "SceneGUID": "973608e7-6dd1-4fef-9086-abbe323c7c6c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -37,6 +37,23 @@
                 "ColorG": 1.0,
                 "ColorB": 1.0,
                 "Text": "3:00"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Minus10",
+                "EntityID": 2
+            },
+            "FontComponent": {
+                "Family": "arial",
+                "PositionX": 0.8999999761581421,
+                "PositionY": 0.6980000138282776,
+                "ScaleX": 0.0,
+                "ScaleY": 0.0,
+                "ColorR": 1.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "-10"
             }
         }
     ]

@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "e2f8293b-779c-4c5a-b8b4-3191d1cef2e4",
+    "SceneGUID": "ea5b94f9-06a8-47ae-9a84-60734608557c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -513,6 +513,23 @@
                 "ColorG": 0.0,
                 "ColorB": 0.0,
                 "Text": "BITE"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "ESCtoClose",
+                "EntityID": 26
+            },
+            "FontComponent": {
+                "Family": "manga-temple",
+                "PositionX": -0.949999988079071,
+                "PositionY": 0.8500000238418579,
+                "ScaleX": 0.699999988079071,
+                "ScaleY": 1.0,
+                "ColorR": 1.0,
+                "ColorG": 1.0,
+                "ColorB": 1.0,
+                "Text": "ESC to Close"
             }
         }
     ]

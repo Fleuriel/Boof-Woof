@@ -11,9 +11,13 @@ public:
 	void Reset();
 
 public:
-	Entity m_Timer{};
+	Entity m_Timer{}, m_Minus{};
 	double timer = 180.0; // 3 minutes in seconds
 	double interval = 1.0; // Time interval in seconds
+	bool touched{ false }, scaleUp{ false };
+
+private:
+	double minus10timer = 3.0; // 3 seconds
 
 protected:
 	std::vector<Entity> storage;

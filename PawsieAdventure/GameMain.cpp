@@ -46,6 +46,7 @@ int RunGame()
 
     g_Core = new EngineCore();
     g_Core->OnInit();
+    g_Coordinator.GetSystem<GraphicsSystem>()->lightOn = true;
 
 #ifndef _DEBUG
     // Only toggle full screen in release mode

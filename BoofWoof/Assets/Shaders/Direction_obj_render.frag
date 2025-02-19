@@ -3,16 +3,18 @@ layout(location = 0) in vec3 vertColor;
 layout(location = 1) in vec3 vertNormal;
 layout(location = 2) in vec3 FragPos;
 layout(location = 3) in vec2 TexCoords;
-
+layout(location = 4) in vec4 FragPosLightSpace;
+ 
 
 uniform sampler2D texture_diffuse1;
 uniform sampler2D texture_normal1;
+uniform sampler2D shadowMap;
+
 uniform int textureCount;
 uniform bool lightOn;
 
 
 uniform float finalAlpha;
-uniform vec4 inputColor;
 
 
 
@@ -25,6 +27,8 @@ struct Light {
     vec3 position;
     vec3 color;
     float intensity;
+    bool haveshadow;
+    float range;
 };
 
 //uniform vec3 lightPos;
@@ -43,16 +47,28 @@ in VS_OUT {
     vec2 TexCoords;
     vec3 TangentLightPos[NUM_LIGHTS];
     vec3 TangentViewPos;
-    vec3 TangentFragPos;
 } fs_in;
 
+float ShadowCalculation(vec4 fragPosLightSpace_) {
+    vec3 projCoords = fragPosLightSpace_.xyz / fragPosLightSpace_.w;
+    projCoords = projCoords * 0.5 + 0.5;
+
+    if (projCoords.z > 1.0 || projCoords.x < 0.0 || projCoords.x > 1.0 || projCoords.y < 0.0 || projCoords.y > 1.0)
+        return 0.0;
+
+    float closestDepth = texture(shadowMap, projCoords.xy).r;
+    float currentDepth = projCoords.z;
+    
+    float shadow = currentDepth  > closestDepth ? 1.0 : 0.0;
+    return shadow;
+}
 
 
 void main()
 {
     vec4 textureColor = texture(texture_diffuse1, TexCoords);
     vec3 result = vec3(0.0f,0.0f,0.0f);
-    vec4 baseColor = inputColor;
+    vec4 baseColor = texture(texture_diffuse1, TexCoords);
     
     // Base reflectivity (F0)
     vec3 F0 = vec3(0.04f); // Standard for non-metallic surfaces
@@ -62,19 +78,31 @@ void main()
 
     for(int i = 0; i < numLights; i++){
         vec3 lightVector = lights[i].position - FragPos;
+        // if length longer than range continue
+        if(length(lightVector)>lights[i].range){
+            continue;
+        }
         float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
         textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
         //fragColor = vec4(textureColor.rgb, textureColor.a);
-        vec3 ambientColor = vec3(0.0f,0.0f,0.0f);
-        vec3 diffuseColor = textureColor.rgb;
 
-
+        // ambient
+        vec3 ambientColor = lights[i].color;
         vec3 ambient = ambientColor  * 0.1f;
+
+        // diffuse
+        vec3 diffuseColor = textureColor.rgb;
         vec3 diffuse = diffuseColor  * N_dot_L * lights[i].intensity * lights[i].color;
 
-        vec3 finalColor = ambient + diffuse; // Combine ambient and diffuse components
-        result += finalColor;
+        vec3 finalColor;
+        if(lights[i].haveshadow){
+            float shadow = ShadowCalculation(FragPosLightSpace);
 
+            finalColor = ambient + diffuse*(1-shadow); // Combine ambient and diffuse components
+        }else{
+            finalColor = ambient + diffuse;
+        }
+        result += finalColor;
         
     }
 
@@ -96,7 +124,8 @@ void main()
         fragColor = vec4(baseColor);
     }
 
-    fragColor.rgb = pow(fragColor.rgb, vec3(1.0/gammaValue));  
+
+	fragColor.rgb = pow(fragColor.rgb, vec3(1.0/gammaValue)); 
 
     //fragColor.rgb = pow(fragColor.rgb, vec3(1.0 / 2.2)); // Apply gamma correction
 

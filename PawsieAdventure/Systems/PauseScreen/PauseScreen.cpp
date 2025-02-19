@@ -253,6 +253,9 @@ namespace pauseLogic
 						pauser = CreatePausedMenu(PauseState::Settings);
 						pauser->OnLoad();
 
+						bgVolume = g_Audio.GetBGMVolume();
+						sfVolume = g_Audio.GetSFXVolume();
+
 						g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 						g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
 					}
@@ -267,7 +270,7 @@ namespace pauseLogic
 						inSmthAgain = true;
 
 						// Add in audio feedback
-						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/HowToPlaySFX.wav", false, "SFX");
 
 						pauser->OnExit();
 						pauser = CreatePausedMenu(PauseState::HowToPlay);

@@ -1,5 +1,0 @@
-Texture Name : SpaceToStart
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\SpaceToStart.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\SpaceToStart.dds
-Compression Format : -fd BC3

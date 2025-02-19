@@ -111,11 +111,11 @@ public:
     std::string getModelName() const { return m_ModelName; }\
 //	std::vector<int> getTextures() const { return textures; }
     
-//    std::string getTextureName() const { return textureName; }
+    std::string getTextureName() const { return textureName; }
 
     //bool incrementTextureNumber() { Texture texture; textures.push_back(texture.id); return true; }
-//    int getTextureNumber() const { return static_cast<int>(textures.size()); }
-//    int getTexture(int i) const { return textures[i]; }
+    int getTextureNumber() const { return static_cast<int>(textures.size()); }
+    int getTexture(int i) const { return textures[i]; }
 	bool getFollowCamera() const { return followCamera; }
 
     // Set texture name

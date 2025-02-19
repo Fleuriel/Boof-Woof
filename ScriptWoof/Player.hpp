@@ -19,6 +19,10 @@ struct Player final : public Behaviour
 	bool inRopeBreaker{ false };
 
 
+	float footstepTimer = 0.0f;  
+	const float footstepInterval = 0.25f;  // Interval between footstep sounds (adjustable)
+
+
 	std::vector<std::string> footstepSounds = {
 	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_01.wav",
 	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_02.wav",
@@ -230,19 +234,29 @@ struct Player final : public Behaviour
 
 
 
-			if (isMoving)
+			if (isMoving ) 
 			{
-				// Use modern C++ random library to select a random sound
-				static std::random_device rd; // Seed
-				static std::mt19937 gen(rd()); // Mersenne Twister PRNG
-				std::uniform_int_distribution<std::size_t> dis(0, footstepSounds.size() - 1);
+				footstepTimer -= static_cast<float>(m_Engine.GetDeltaTime());
 
-				// Get a random sound ID
-				std::string randomSound = footstepSounds[dis(gen)];
+				if (footstepTimer <= 0.0f) // 
+				{
+					static std::random_device rd; // Seed
+					static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+					std::uniform_int_distribution<std::size_t> dis(0, footstepSounds.size() - 1);
 
-				// Play the randomly chosen sound
-				m_Engine.getAudioSystem().PlaySoundById(randomSound.c_str());
+					// Get a random sound ID
+					std::string randomSound = footstepSounds[dis(gen)];
+
+					m_Engine.getAudioSystem().PlaySoundByFile(randomSound.c_str(), false, "SFX");
+
+					footstepTimer = footstepInterval;
+				}
 			}
+			else
+			{
+				footstepTimer = 0.0f; // Reset timer when not moving
+			}
+
 
 
 			// Debug: After processing input

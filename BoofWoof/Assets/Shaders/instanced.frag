@@ -5,6 +5,7 @@ out vec4 fragColor;
 layout(location = 0) in float visibility;
 
 uniform vec4 particleColor;
+uniform float gammaValue;
 
 void main()
 {
@@ -13,4 +14,6 @@ void main()
       }else{ 
             fragColor = particleColor; // Solid color with full opacity
       }  
+
+      fragColor.rgb = pow(fragColor.rgb, vec3(1.0/gammaValue)); 
 }

@@ -9,6 +9,7 @@ Entity BackCamera{}, MenuMusic{}, MenuClick{}, StartGame{}, X{}, HTP{}, Cog{};
 std::unique_ptr<PauseMenu> MenuPauser = CreatePausedMenu(PauseState::Paused);
 float sfxVolume{ 1.0f }, bgmVolume{ 1.0f };
 bool inSmth{ false };
+std::unordered_map<Entity, glm::vec2> originalScales;
 
 class MainMenu : public Level
 {
@@ -43,17 +44,22 @@ class MainMenu : public Level
 				if (it != nameToAction.end())
 				{
 					it->second(entity);
-				}
+
+					if (g_Coordinator.HaveComponent<UIComponent>(entity))
+					{
+						// Store original scale before hiding
+						auto& transform = g_Coordinator.GetComponent<UIComponent>(entity);
+						if (originalScales.find(entity) == originalScales.end())
+						{
+							originalScales[entity] = transform.get_scale();
+						}
+					}
+				}	
 
 				if (g_Coordinator.HaveComponent<AudioComponent>(entity))
 				{
 					auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
 					music.SetAudioSystem(&g_Audio);
-
-					/*if (metadata.GetName() == "MainMenuBGM") 
-					{
-						music.PlayAudio();
-					}*/
 				}
 
 				// Exit early if all entities are found
@@ -65,13 +71,17 @@ class MainMenu : public Level
 		}
 	}
 
-	void InitLevel() override { 
-		//if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic)) {
-			auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
-			music.SetAudioSystem(&g_Audio);
+	void InitLevel() override
+	{
+		auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
+		music.SetAudioSystem(&g_Audio);
 
-			music.PlayAudio();
-	//	}
+		music.PlayAudio();
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
+			auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
+			music1.SetAudioSystem(&g_Audio);
+		}
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -96,7 +106,8 @@ class MainMenu : public Level
 			if (inSmth)
 			{
 				// need to add in audio feedback for pressing ESC
-
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/EscSFX.wav", false, "SFX");
+				RestoreUI();
 
 				inSmth = false;
 				MenuPauser->OnExit();
@@ -130,11 +141,8 @@ class MainMenu : public Level
 				{
 					inSmth = true;
 
-					// Play the button click sound
-					if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
-						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
-						music1.PlayAudio();
-					}
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/HowToPlaySFX.wav", false, "SFX");
+					HideUI();
 					MenuPauser = CreatePausedMenu(PauseState::HowToPlay);
 					MenuPauser->OnLoad();
 				}
@@ -152,6 +160,12 @@ class MainMenu : public Level
 						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
 						music1.PlayAudio();
 					}
+
+					HideUI();
+
+					bgmVolume = g_Audio.GetBGMVolume();
+					sfxVolume = g_Audio.GetSFXVolume();
+
 					MenuPauser = CreatePausedMenu(PauseState::Settings);
 					MenuPauser->OnLoad();
 				}
@@ -188,8 +202,8 @@ class MainMenu : public Level
 			{
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->SFXLeft);
 				if (UICompt.get_selected())
-				{	
-					sfxVolume = std::max(0.0f,(float)( g_Audio.GetSFXVolume() -  volumeStep));				
+				{
+					sfxVolume = std::max(0.0f, (float)(g_Audio.GetSFXVolume() - volumeStep));
 					g_Audio.SetSFXVolume(sfxVolume);
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 				}
@@ -200,7 +214,7 @@ class MainMenu : public Level
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->SFXRight);
 				if (UICompt.get_selected())
 				{
-					sfxVolume = std::min(1.0f,(float)( g_Audio.GetSFXVolume() + volumeStep));
+					sfxVolume = std::min(1.0f, (float)(g_Audio.GetSFXVolume() + volumeStep));
 					g_Audio.SetSFXVolume(sfxVolume);
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 				}
@@ -273,16 +287,40 @@ class MainMenu : public Level
 
 	void UnloadLevel() override
 	{
-		/*if (g_Coordinator.HaveComponent<AudioComponent>(MenuMusic)) {
-			auto& music = g_Coordinator.GetComponent<AudioComponent>(MenuMusic);
-			music.StopAudio();
-		}*/
-
 		g_Audio.Stop(MenuMusic);
 
 		// Reset all entities
 		g_Coordinator.ResetEntities();
 
 		inSmth = false;
+	}
+
+	void HideUI()
+	{
+		for (auto& entry : originalScales)
+		{
+			Entity entity = entry.first;
+
+			if (g_Coordinator.HaveComponent<UIComponent>(entity))
+			{
+				auto& transform = g_Coordinator.GetComponent<UIComponent>(entity);
+				transform.set_scale(glm::vec2(0,0));
+			}
+		}
+	}
+
+	void RestoreUI() 
+	{
+		for (auto& entry : originalScales)
+		{
+			Entity entity = entry.first;
+			glm::vec2 originalScale = entry.second;
+
+			if (g_Coordinator.HaveComponent<UIComponent>(entity))
+			{
+				auto& transform = g_Coordinator.GetComponent<UIComponent>(entity);
+				transform.set_scale(originalScale);
+			}
+		}
 	}
 };
