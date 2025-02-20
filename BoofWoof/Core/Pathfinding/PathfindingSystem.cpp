@@ -27,57 +27,54 @@ void PathfindingSystem::BuildGraph() {
     graphNodes.clear();
     graphEdges.clear();
 
-    //std::cout << "[PathfindingSystem] Building graph...\n";
+    NodeComponent::ResetNodeCounter();
 
-    // Step 1: Process all NodeComponents first
+    std::cout << "[PathfindingSystem] Building graph...\n";
+    std::cout << "[DEBUG] Node Counter BEFORE processing: " << NodeComponent::GetNodeCounter() << "\n";
+
+    // Step 1: Assign node IDs only during scene load
     for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
-        //if (g_Coordinator.HaveComponent<NodeComponent>(entity)) {
-        //    auto& nodeComp = g_Coordinator.GetComponent<NodeComponent>(entity);
-        //    glm::vec3 nodePosition = nodeComp.GetPosition(); // Default to NodeComponent's position
-
-        //    // Check if the entity has a TransformComponent and use its position
-        //    if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
-        //        auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
-        //        nodePosition = transformComp.GetPosition(); // Override with TransformComponent's position
-        //    }
-
-        //    // Store the node with its entity reference
-        //    graphNodes[entity] = std::make_shared<Node3D>(entity, nodePosition, nodeComp.IsWalkable());
-
-        //    //std::cout << "[PathfindingSystem] Added Node: " << entity
-        //    //    << " | Position: (" << nodePosition.x << ", "
-        //    //    << nodePosition.y << ", " << nodePosition.z << ")"
-        //    //    << " | Walkable: " << nodeComp.IsWalkable() << "\n";
-        //}
         if (g_Coordinator.HaveComponent<NodeComponent>(entity)) {
             auto& nodeComp = g_Coordinator.GetComponent<NodeComponent>(entity);
-            glm::vec3 nodePosition = nodeComp.GetPosition(); // Default to NodeComponent's position
 
-            // If it has a TransformComponent, use its position
-            if (g_Coordinator.HaveComponent<TransformComponent>(entity) && !g_Coordinator.HaveComponent<HierarchyComponent>(entity)) {
+            // If the node doesn't have a valid ID, assign a new one
+            if (nodeComp.GetNodeID() == INVALID_ENTITY) {
+                nodeComp.SetNodeID(NodeComponent::GenerateNodeID());
+                std::cout << "[DEBUG] Assigned NodeID " << nodeComp.GetNodeID() << " to Entity " << entity << "\n";
+            }
+
+            glm::vec3 nodePosition = nodeComp.GetPosition();
+
+            // If entity has a TransformComponent but NOT a HierarchyComponent, use transform position
+            if (g_Coordinator.HaveComponent<TransformComponent>(entity) &&
+                !g_Coordinator.HaveComponent<HierarchyComponent>(entity)) {
                 auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
                 nodePosition = transformComp.GetPosition();
             }
 
-            // **Check if entity has a parent (HierarchyComponent)**
+            // If entity has a HierarchyComponent, compute world position from parent
             if (g_Coordinator.HaveComponent<HierarchyComponent>(entity)) {
                 Entity parent = g_Coordinator.GetComponent<HierarchyComponent>(entity).parent;
                 if (parent != MAX_ENTITIES) {
-                    // Get world transform from TransformSystem
                     auto transformSystem = g_Coordinator.GetSystem<TransformSystem>();
                     glm::mat4 parentWorldMatrix = transformSystem->GetWorldMatrix(parent);
 
-                    // Apply parent's world position
                     glm::vec3 worldPosition, worldRotation, worldScale;
                     if (DecomposeTransform(parentWorldMatrix, worldPosition, worldRotation, worldScale)) {
                         nodePosition = worldPosition;
                     }
                 }
-                std::cout << "Node Position (World) x: (" << nodePosition.x << ", " << nodePosition.y << ", " << nodePosition.z << ")" << std::endl;
             }
 
+            uint32_t nodeID = nodeComp.GetNodeID(); // Ensure we use the assigned ID
+
+            // Debug: Log node creation
+            std::cout << "[DEBUG] Adding Node: ID=" << nodeID << " at Position ("
+                << nodePosition.x << ", " << nodePosition.y << ", " << nodePosition.z
+                << ") | Walkable: " << nodeComp.IsWalkable() << "\n";
+
             // Store the node with the updated position
-            graphNodes[entity] = std::make_shared<Node3D>(entity, nodePosition, nodeComp.IsWalkable());
+            graphNodes[nodeID] = std::make_shared<Node3D>(nodeID, nodePosition, nodeComp.IsWalkable());
         }
     }
 
@@ -86,34 +83,134 @@ void PathfindingSystem::BuildGraph() {
         if (g_Coordinator.HaveComponent<EdgeComponent>(entity)) {
             auto& edgeComp = g_Coordinator.GetComponent<EdgeComponent>(entity);
 
+            uint32_t startNodeID = edgeComp.GetStartNode();
+            uint32_t endNodeID = edgeComp.GetEndNode();
+
+            std::cout << "[DEBUG] Processing Edge: " << entity
+                << " | Start Node: " << startNodeID
+                << " | End Node: " << endNodeID << "\n";
+
             // Ensure both start and end nodes exist before adding the edge
-            if (graphNodes.find(edgeComp.GetStartNode()) == graphNodes.end()) {
-                //std::cout << "[PathfindingSystem] WARNING: Start Node " << edgeComp.GetStartNode()
-                //    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
+            if (graphNodes.find(startNodeID) == graphNodes.end()) {
+                std::cout << "[PathfindingSystem] WARNING: Start Node " << startNodeID
+                    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
                 continue;
             }
 
-            if (graphNodes.find(edgeComp.GetEndNode()) == graphNodes.end()) {
-                //std::cout << "[PathfindingSystem] WARNING: End Node " << edgeComp.GetEndNode()
-                //    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
+            if (graphNodes.find(endNodeID) == graphNodes.end()) {
+                std::cout << "[PathfindingSystem] WARNING: End Node " << endNodeID
+                    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
                 continue;
             }
 
-            // Store edges
-            graphEdges[entity] = std::make_shared<EdgeComponent>(
-                edgeComp.GetStartNode(), edgeComp.GetEndNode(), edgeComp.GetCost()
-                );
+            graphEdges[entity] = std::make_shared<EdgeComponent>(startNodeID, endNodeID, edgeComp.GetCost());
 
-            //std::cout << "[PathfindingSystem] Added Edge: " << entity
-            //    << " | Start Node: " << edgeComp.GetStartNode()
-            //    << " | End Node: " << edgeComp.GetEndNode()
-            //    << " | Cost: " << edgeComp.GetCost() << "\n";
+            std::cout << "[DEBUG] Added Edge: " << entity
+                << " | Start Node: " << startNodeID
+                << " | End Node: " << endNodeID
+                << " | Cost: " << edgeComp.GetCost() << "\n";
         }
     }
 
-    //std::cout << "[PathfindingSystem] Graph built with " << graphNodes.size()
-    //    << " nodes and " << graphEdges.size() << " edges.\n";
+    std::cout << "[PathfindingSystem] Graph built with " << graphNodes.size()
+        << " nodes and " << graphEdges.size() << " edges.\n";
+    std::cout << "[DEBUG] Node Counter AFTER processing: " << NodeComponent::GetNodeCounter() << "\n";
 }
+
+
+
+
+//void PathfindingSystem::BuildGraph() {
+//    graphNodes.clear();
+//    graphEdges.clear();
+//
+//    //std::cout << "[PathfindingSystem] Building graph...\n";
+//
+//    // Step 1: Process all NodeComponents first
+//    for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
+//        //if (g_Coordinator.HaveComponent<NodeComponent>(entity)) {
+//        //    auto& nodeComp = g_Coordinator.GetComponent<NodeComponent>(entity);
+//        //    glm::vec3 nodePosition = nodeComp.GetPosition(); // Default to NodeComponent's position
+//
+//        //    // Check if the entity has a TransformComponent and use its position
+//        //    if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+//        //        auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+//        //        nodePosition = transformComp.GetPosition(); // Override with TransformComponent's position
+//        //    }
+//
+//        //    // Store the node with its entity reference
+//        //    graphNodes[entity] = std::make_shared<Node3D>(entity, nodePosition, nodeComp.IsWalkable());
+//
+//        //    //std::cout << "[PathfindingSystem] Added Node: " << entity
+//        //    //    << " | Position: (" << nodePosition.x << ", "
+//        //    //    << nodePosition.y << ", " << nodePosition.z << ")"
+//        //    //    << " | Walkable: " << nodeComp.IsWalkable() << "\n";
+//        //}
+//        if (g_Coordinator.HaveComponent<NodeComponent>(entity)) {
+//            auto& nodeComp = g_Coordinator.GetComponent<NodeComponent>(entity);
+//            glm::vec3 nodePosition = nodeComp.GetPosition(); // Default to NodeComponent's position
+//
+//            // If it has a TransformComponent, use its position
+//            if (g_Coordinator.HaveComponent<TransformComponent>(entity) && !g_Coordinator.HaveComponent<HierarchyComponent>(entity)) {
+//                auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
+//                nodePosition = transformComp.GetPosition();
+//            }
+//
+//            // **Check if entity has a parent (HierarchyComponent)**
+//            if (g_Coordinator.HaveComponent<HierarchyComponent>(entity)) {
+//                Entity parent = g_Coordinator.GetComponent<HierarchyComponent>(entity).parent;
+//                if (parent != MAX_ENTITIES) {
+//                    // Get world transform from TransformSystem
+//                    auto transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+//                    glm::mat4 parentWorldMatrix = transformSystem->GetWorldMatrix(parent);
+//
+//                    // Apply parent's world position
+//                    glm::vec3 worldPosition, worldRotation, worldScale;
+//                    if (DecomposeTransform(parentWorldMatrix, worldPosition, worldRotation, worldScale)) {
+//                        nodePosition = worldPosition;
+//                    }
+//                }
+//                std::cout << "Node Position (World) x: (" << nodePosition.x << ", " << nodePosition.y << ", " << nodePosition.z << ")" << std::endl;
+//            }
+//
+//            // Store the node with the updated position
+//            graphNodes[entity] = std::make_shared<Node3D>(entity, nodePosition, nodeComp.IsWalkable());
+//        }
+//    }
+//
+//    // Step 2: Process all EdgeComponents after nodes are set up
+//    for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
+//        if (g_Coordinator.HaveComponent<EdgeComponent>(entity)) {
+//            auto& edgeComp = g_Coordinator.GetComponent<EdgeComponent>(entity);
+//
+//            // Ensure both start and end nodes exist before adding the edge
+//            if (graphNodes.find(edgeComp.GetStartNode()) == graphNodes.end()) {
+//                //std::cout << "[PathfindingSystem] WARNING: Start Node " << edgeComp.GetStartNode()
+//                //    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
+//                continue;
+//            }
+//
+//            if (graphNodes.find(edgeComp.GetEndNode()) == graphNodes.end()) {
+//                //std::cout << "[PathfindingSystem] WARNING: End Node " << edgeComp.GetEndNode()
+//                //    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
+//                continue;
+//            }
+//
+//            // Store edges
+//            graphEdges[entity] = std::make_shared<EdgeComponent>(
+//                edgeComp.GetStartNode(), edgeComp.GetEndNode(), edgeComp.GetCost()
+//                );
+//
+//            //std::cout << "[PathfindingSystem] Added Edge: " << entity
+//            //    << " | Start Node: " << edgeComp.GetStartNode()
+//            //    << " | End Node: " << edgeComp.GetEndNode()
+//            //    << " | Cost: " << edgeComp.GetCost() << "\n";
+//        }
+//    }
+//
+//    //std::cout << "[PathfindingSystem] Graph built with " << graphNodes.size()
+//    //    << " nodes and " << graphEdges.size() << " edges.\n";
+//}
 
 
 
