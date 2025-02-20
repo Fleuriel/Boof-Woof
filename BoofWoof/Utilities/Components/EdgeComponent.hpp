@@ -28,25 +28,25 @@ class EdgeComponent {
 public:
 
     EdgeComponent(Entity start = {}, Entity end = {}, float edgeCost = 1.0f)
-        : startNode(start), endNode(end), cost(edgeCost) {}
+        : startNodeID(start), endNodeID(end), cost(edgeCost) {}
 
-    void SetStartNode(Entity start) { startNode = start; }
-    Entity GetStartNode() const { return startNode; }
-    void SetEndNode(Entity end) { endNode = end; }
-    Entity GetEndNode() const { return endNode; }
+    void SetStartNode(Entity start) { startNodeID = start; }
+    Entity GetStartNode() const { return startNodeID; }
+    void SetEndNode(Entity end) { endNodeID = end; }
+    Entity GetEndNode() const { return endNodeID; }
     void SetCost(float edgeCost) { cost = edgeCost; }
     float GetCost() const { return cost; }
 
     REFLECT_COMPONENT(EdgeComponent)
     {
-        REGISTER_PROPERTY(EdgeComponent, StartNode, Entity, SetStartNode, GetStartNode);
-        REGISTER_PROPERTY(EdgeComponent, EndNode, Entity, SetEndNode, GetEndNode);
+        REGISTER_PROPERTY(EdgeComponent, StartNodeID, Entity, SetStartNode, GetStartNode);
+        REGISTER_PROPERTY(EdgeComponent, EndNodeID, Entity, SetEndNode, GetEndNode);
         REGISTER_PROPERTY(EdgeComponent, Cost, float, SetCost, GetCost);
     }
 
 private:
-    Entity startNode;  // Starting node of the edge
-    Entity endNode;    // Ending node of the edge
+    Entity startNodeID;  // Starting node of the edge
+    Entity endNodeID;    // Ending node of the edge
     float cost;        // Traversal cost
 };
 

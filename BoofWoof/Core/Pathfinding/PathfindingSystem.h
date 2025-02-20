@@ -109,6 +109,7 @@ private:
     float Heuristic(const glm::vec3& a, const glm::vec3& b) const;
     void ReconstructPath(const std::shared_ptr<Node3D>& goalNode, std::vector<glm::vec3>& outPath);
     std::vector<Entity> GetNeighbors(Entity node);
+    //std::vector<int> GetNeighbors(int nodeID);
 };
 
 #endif // PATHFINDINGSYSTEM_H

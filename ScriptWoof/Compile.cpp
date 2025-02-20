@@ -7,6 +7,7 @@
 #include "Rex.hpp"
 #include "Null.hpp"
 #include "Toys.hpp"
+#include "Puppy.hpp"
 
 extern "C"
 {
@@ -23,6 +24,7 @@ extern "C"
 		pBehaviours->emplace_back(std::make_unique<Rex>(EP));
 		pBehaviours->emplace_back(std::make_unique<Null>(EP));	
 		pBehaviours->emplace_back(std::make_unique<Toys>(EP));
+		pBehaviours->emplace_back(std::make_unique<Puppy>(EP));
 
 		// release ownership of pointer and cast to void*
 		return pBehaviours.release(); // Return raw pointer as void*, caller is responsible for cleanup (need to delete the vector to free memory by urself)
