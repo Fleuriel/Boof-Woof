@@ -227,61 +227,67 @@ void PathfindingSystem::Update(float deltaTime) {
             BuildGraph();
             pathfindingComp.SetBuilt(true);
 
+            std::vector<glm::vec3> path;
+
+            // Clear previous path before attempting a new one
+            pathfindingComp.SetPath(std::vector<glm::vec3>()); // Reset path
 
             Entity startNode = pathfindingComp.GetStartNode();
             Entity goalNode = pathfindingComp.GetGoalNode();
 
-            //std::cout << "[PathfindingSystem] Processing entity " << entity
-            //    << " | Start Node: " << startNode
-            //    << " | Goal Node: " << goalNode << "\n";
+            std::cout << "[PathfindingSystem] Processing entity " << entity
+                << " | Start Node: " << startNode
+                << " | Goal Node: " << goalNode << "\n";
 
             // Check if start and goal nodes exist in the graph
             if (graphNodes.find(startNode) == graphNodes.end()) {
-                //std::cout << "[PathfindingSystem] ERROR: Start node " << startNode << " not found in graph!\n";
+                std::cout << "[PathfindingSystem] ERROR: Start node " << startNode << " not found in graph!\n";
                 pathfindingComp.SetStatus(PathfindingStatus::FAILED);
                 continue;
             }
 
             if (graphNodes.find(goalNode) == graphNodes.end()) {
-                //std::cout << "[PathfindingSystem] ERROR: Goal node " << goalNode << " not found in graph!\n";
+                std::cout << "[PathfindingSystem] ERROR: Goal node " << goalNode << " not found in graph!\n";
                 pathfindingComp.SetStatus(PathfindingStatus::FAILED);
                 continue;
             }
 
-            std::vector<glm::vec3> path;
             bool success = FindPath(startNode, goalNode, path);
 
             if (success) {
                 pathfindingComp.SetPath(path);
                 pathfindingComp.SetStatus(PathfindingStatus::COMPLETE);
-                //std::cout << "[PathfindingSystem] Path found for entity " << entity << " | Path Length: " << path.size() << "\n";
+                std::cout << "[PathfindingSystem] Path found for entity " << entity << " | Path Length: " << path.size() << "\n";
 
-                //// Print Full Path
-                //for (size_t i = 0; i < path.size(); ++i) {
-                //    std::cout << "[PathfindingSystem] Step " << i + 1
-                //        << " | Position: (" << path[i].x << ", "
-                //        << path[i].y << ", " << path[i].z << ")\n";
-                //}
+                // Print Full Path
+                for (size_t i = 0; i < path.size(); ++i) {
+                    std::cout << "[PathfindingSystem] Step " << i + 1
+                        << " | Position: (" << path[i].x << ", "
+                        << path[i].y << ", " << path[i].z << ")\n";
+                }
             }
-            else {
+            if (!success) {
                 pathfindingComp.SetStatus(PathfindingStatus::FAILED);
-                //std::cout << "[PathfindingSystem] ERROR: No valid path found for entity " << entity << "!\n";
+                std::cout << "[PathfindingSystem] ERROR: No valid path found for entity " << entity << "!\n";
             }
         }
     }
 }
 
-bool PathfindingSystem::FindPath(Entity startNode, Entity goalNode, std::vector<glm::vec3>& outPath) {
-    if (graphNodes.find(startNode) == graphNodes.end() || graphNodes.find(goalNode) == graphNodes.end()) {
-        //std::cout << "[PathfindingSystem] ERROR: Start or Goal Node not in graph!\n";
+bool PathfindingSystem::FindPath(uint32_t startNodeID, uint32_t goalNodeID, std::vector<glm::vec3>& outPath) {
+    if (graphNodes.find(startNodeID) == graphNodes.end() || graphNodes.find(goalNodeID) == graphNodes.end()) {
+        std::cout << "[PathfindingSystem] ERROR: Start or Goal Node not in graph!\n";
         return false;
     }
+
+    // Reset path to ensure no stale data
+    outPath.clear();
 
     open_list = {};
     closed_list.clear();
 
-    auto start = graphNodes[startNode];
-    auto goal = graphNodes[goalNode];
+    auto start = graphNodes[startNodeID];
+    auto goal = graphNodes[goalNodeID];
 
     start->givenCost = 0.0f;
     start->finalCost = Heuristic(start->position, goal->position);
@@ -291,8 +297,6 @@ bool PathfindingSystem::FindPath(Entity startNode, Entity goalNode, std::vector<
         auto currentNode = open_list.top();
         open_list.pop();
 
-        //std::cout << "[PathfindingSystem] Expanding Node: " << currentNode->position.x << ", " << currentNode->position.y << ", " << currentNode->position.z << "\n";
-
         if (currentNode->position == goal->position) {
             ReconstructPath(currentNode, outPath);
             return true;
@@ -300,16 +304,14 @@ bool PathfindingSystem::FindPath(Entity startNode, Entity goalNode, std::vector<
 
         closed_list.insert(currentNode->position);
 
-        for (Entity neighborEntity : GetNeighbors(currentNode->entity)) {
-            auto neighbor = graphNodes[neighborEntity];
+        for (uint32_t neighborNodeID : GetNeighbors(currentNode->nodeID)) {
+            auto neighbor = graphNodes[neighborNodeID];
             if (closed_list.find(neighbor->position) != closed_list.end() || !neighbor->isWalkable) {
                 continue;
             }
 
-            // float tentativeGCost = currentNode->givenCost + GetCost(currentNode->position, neighbor->position);
-            float edgeCost = GetCost(currentNode->entity, neighbor->entity); // Use correct entity lookup
+            float edgeCost = GetCost(currentNode->nodeID, neighbor->nodeID);
             float tentativeGCost = currentNode->givenCost + edgeCost;
-
 
             if (tentativeGCost < neighbor->givenCost) {
                 neighbor->givenCost = tentativeGCost;
@@ -321,24 +323,91 @@ bool PathfindingSystem::FindPath(Entity startNode, Entity goalNode, std::vector<
         }
     }
 
-    //std::cout << "[PathfindingSystem] ERROR: No path found from Node " << startNode << " to " << goalNode << "!\n";
+    std::cout << "[PathfindingSystem] ERROR: No path found from Node " << startNodeID << " to " << goalNodeID << "!\n";
     return false;
 }
 
-std::vector<Entity> PathfindingSystem::GetNeighbors(Entity node) {
-    std::vector<Entity> neighbors;
 
-    //std::cout << "[PathfindingSystem] Checking neighbors for Node " << node << ":\n";
+//bool PathfindingSystem::FindPath(Entity startNode, Entity goalNode, std::vector<glm::vec3>& outPath) {
+//    if (graphNodes.find(startNode) == graphNodes.end() || graphNodes.find(goalNode) == graphNodes.end()) {
+//        //std::cout << "[PathfindingSystem] ERROR: Start or Goal Node not in graph!\n";
+//        return false;
+//    }
+//
+//    open_list = {};
+//    closed_list.clear();
+//
+//    auto start = graphNodes[startNode];
+//    auto goal = graphNodes[goalNode];
+//
+//    start->givenCost = 0.0f;
+//    start->finalCost = Heuristic(start->position, goal->position);
+//    open_list.push(start);
+//
+//    while (!open_list.empty()) {
+//        auto currentNode = open_list.top();
+//        open_list.pop();
+//
+//        //std::cout << "[PathfindingSystem] Expanding Node: " << currentNode->position.x << ", " << currentNode->position.y << ", " << currentNode->position.z << "\n";
+//
+//        if (currentNode->position == goal->position) {
+//            ReconstructPath(currentNode, outPath);
+//            return true;
+//        }
+//
+//        closed_list.insert(currentNode->position);
+//
+//        for (Entity neighborEntity : GetNeighbors(currentNode->entity)) {
+//            auto neighbor = graphNodes[neighborEntity];
+//            if (closed_list.find(neighbor->position) != closed_list.end() || !neighbor->isWalkable) {
+//                continue;
+//            }
+//
+//            // float tentativeGCost = currentNode->givenCost + GetCost(currentNode->position, neighbor->position);
+//            float edgeCost = GetCost(currentNode->entity, neighbor->entity); // Use correct entity lookup
+//            float tentativeGCost = currentNode->givenCost + edgeCost;
+//
+//
+//            if (tentativeGCost < neighbor->givenCost) {
+//                neighbor->givenCost = tentativeGCost;
+//                neighbor->finalCost = tentativeGCost + Heuristic(neighbor->position, goal->position);
+//                neighbor->parent = currentNode;
+//
+//                open_list.push(neighbor);
+//            }
+//        }
+//    }
+//
+//    //std::cout << "[PathfindingSystem] ERROR: No path found from Node " << startNode << " to " << goalNode << "!\n";
+//    return false;
+//}
+
+std::vector<uint32_t> PathfindingSystem::GetNeighbors(uint32_t nodeID) {
+    std::vector<uint32_t> neighbors;
 
     for (const auto& [edgeEntity, edge] : graphEdges) {
-        if (edge->GetStartNode() == node) {
+        if (edge->GetStartNode() == nodeID) {
             neighbors.push_back(edge->GetEndNode());
-            //std::cout << "[PathfindingSystem]   Found neighbor: " << edge->GetEndNode() << " via Edge " << edgeEntity << "\n";
         }
     }
 
     return neighbors;
 }
+
+//std::vector<Entity> PathfindingSystem::GetNeighbors(Entity node) {
+//    std::vector<Entity> neighbors;
+//
+//    //std::cout << "[PathfindingSystem] Checking neighbors for Node " << node << ":\n";
+//
+//    for (const auto& [edgeEntity, edge] : graphEdges) {
+//        if (edge->GetStartNode() == node) {
+//            neighbors.push_back(edge->GetEndNode());
+//            //std::cout << "[PathfindingSystem]   Found neighbor: " << edge->GetEndNode() << " via Edge " << edgeEntity << "\n";
+//        }
+//    }
+//
+//    return neighbors;
+//}
 
 
 //float PathfindingSystem::GetCost(const glm::vec3& start, const glm::vec3& end) const {
@@ -346,14 +415,23 @@ std::vector<Entity> PathfindingSystem::GetNeighbors(Entity node) {
 //    return glm::length(diff); // Use Euclidean distance for the cost
 //}
 
-float PathfindingSystem::GetCost(Entity start, Entity end) const {
+float PathfindingSystem::GetCost(uint32_t startNodeID, uint32_t endNodeID) const {
     for (const auto& [edgeEntity, edge] : graphEdges) {
-        if (edge->GetStartNode() == start && edge->GetEndNode() == end) {
+        if (edge->GetStartNode() == startNodeID && edge->GetEndNode() == endNodeID) {
             return edge->GetCost();  // Return the actual edge cost
         }
     }
-    return std::numeric_limits<float>::infinity(); // If no edge exists, return a large value
+    return std::numeric_limits<float>::infinity();
 }
+
+//float PathfindingSystem::GetCost(Entity start, Entity end) const {
+//    for (const auto& [edgeEntity, edge] : graphEdges) {
+//        if (edge->GetStartNode() == start && edge->GetEndNode() == end) {
+//            return edge->GetCost();  // Return the actual edge cost
+//        }
+//    }
+//    return std::numeric_limits<float>::infinity(); // If no edge exists, return a large value
+//}
 
 float PathfindingSystem::Heuristic(const glm::vec3& a, const glm::vec3& b) const {
     glm::vec3 diff = a - b;

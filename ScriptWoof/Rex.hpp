@@ -51,7 +51,7 @@ struct Rex final : public Behaviour
             if (m_Engine.HavePathfindingComponent(entity))
             {
                 path = m_Engine.GetPath(entity);
-                std::cout << "[Pathfinding] Retrieved path of length " << path.size() << std::endl;
+                //std::cout << "[Pathfinding] Retrieved path of length " << path.size() << std::endl;
                 // print start and end node
                 std::cout << "Start node : " << m_Engine.GetStartNode(entity) << " , " << "End node : " << m_Engine.GetGoalNode(entity);
 
@@ -63,6 +63,9 @@ struct Rex final : public Behaviour
                 }
                 else
                 {
+                    followingPath = false;
+                    isMovingRex = false;
+                    std::cout << "[Pathfinding] ERROR: No valid path! Entity " << entity << " will NOT start moving." << std::endl;
                     //std::cout << "[Pathfinding] ERROR: Path is empty after scene reload!" << std::endl;
                 }
             }

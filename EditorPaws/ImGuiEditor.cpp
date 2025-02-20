@@ -1356,6 +1356,13 @@ void ImGuiEditor::InspectorWindow()
 								// Display Entity ID
 								ImGui::Text("Entity ID: %d", g_SelectedEntity);
 
+								// **Check if the entity has a NodeComponent and display Node ID**
+								if (g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+								{
+									auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
+									ImGui::Text("Node ID: %d", nodeComponent.GetNodeID());
+								}
+
 								ImGui::Text("Name    ");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);

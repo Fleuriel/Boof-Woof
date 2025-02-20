@@ -235,7 +235,7 @@ public:
 			std::cout << "[Engine] Retrieved path of length " << path.size() << " for Entity " << entity << std::endl;
 			return path;
 		}
-		//std::cout << "[Engine] No path found for Entity " << entity << std::endl;
+		std::cout << "[Engine] No path found for Entity " << entity << std::endl;
 		return {};
 	}
 

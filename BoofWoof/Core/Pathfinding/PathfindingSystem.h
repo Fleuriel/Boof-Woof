@@ -46,33 +46,33 @@ namespace std {
 }
 
 // Node structure for 3D pathfinding
-//struct Node3D {
-//    glm::vec3 position;         // The world position of the node
-//    float givenCost;            // G cost (cost from start to this node)
-//    float finalCost;            // F cost (G + H)
-//    std::shared_ptr<Node3D> parent;  // Pointer to the parent node for path reconstruction
-//    bool isWalkable;            // Whether this node is walkable
-//    ListStatus3D onList;        // Current status (NONE, OPEN, CLOSED)
-//
-//    // Constructor
-//    Node3D(glm::vec3 pos = { 0.0f, 0.0f, 0.0f }, bool walkable = true)
-//        : position(pos), givenCost(FLT_MAX), finalCost(FLT_MAX),
-//        parent(nullptr), isWalkable(walkable), onList(ListStatus3D::NONE) {}
-//};
-
-// Node structure for 3D pathfinding
-struct Node3D {
-    Entity entity;               // Store the entity reference
+class Node3D {
+public:
+    uint32_t nodeID;  // Store Node ID
     glm::vec3 position;
+    bool isWalkable;
     float givenCost;
     float finalCost;
     std::shared_ptr<Node3D> parent;
-    bool isWalkable;
 
-    Node3D(Entity ent, glm::vec3 pos = glm::vec3(0.0f), bool walkable = true)
-        : entity(ent), position(pos), givenCost(FLT_MAX), finalCost(FLT_MAX),
-        parent(nullptr), isWalkable(walkable) {}
+    Node3D(uint32_t id, glm::vec3 pos, bool walkable)
+        : nodeID(id), position(pos), isWalkable(walkable), givenCost(FLT_MAX), finalCost(FLT_MAX), parent(nullptr) {}
 };
+
+
+//// Node structure for 3D pathfinding
+//struct Node3D {
+//    Entity entity;               // Store the entity reference
+//    glm::vec3 position;
+//    float givenCost;
+//    float finalCost;
+//    std::shared_ptr<Node3D> parent;
+//    bool isWalkable;
+//
+//    Node3D(Entity ent, glm::vec3 pos = glm::vec3(0.0f), bool walkable = true)
+//        : entity(ent), position(pos), givenCost(FLT_MAX), finalCost(FLT_MAX),
+//        parent(nullptr), isWalkable(walkable) {}
+//};
 
 
 // Comparator for priority queue
