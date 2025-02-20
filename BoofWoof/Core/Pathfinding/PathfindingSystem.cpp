@@ -21,6 +21,8 @@
 #pragma warning(push)
 #pragma warning(disable: 4505 4458)
 
+uint32_t PathfindingSystem::edgeIDCounter = 1; // Start from 1 to avoid zero conflicts
+
 PathfindingSystem::PathfindingSystem() {}
 
 void PathfindingSystem::BuildGraph() {
@@ -32,12 +34,11 @@ void PathfindingSystem::BuildGraph() {
     std::cout << "[PathfindingSystem] Building graph...\n";
     std::cout << "[DEBUG] Node Counter BEFORE processing: " << NodeComponent::GetNodeCounter() << "\n";
 
-    // Step 1: Assign node IDs only during scene load
+    // Step 1: Process all NodeComponents first
     for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
         if (g_Coordinator.HaveComponent<NodeComponent>(entity)) {
             auto& nodeComp = g_Coordinator.GetComponent<NodeComponent>(entity);
 
-            // If the node doesn't have a valid ID, assign a new one
             if (nodeComp.GetNodeID() == INVALID_ENTITY) {
                 nodeComp.SetNodeID(NodeComponent::GenerateNodeID());
                 std::cout << "[DEBUG] Assigned NodeID " << nodeComp.GetNodeID() << " to Entity " << entity << "\n";
@@ -45,14 +46,12 @@ void PathfindingSystem::BuildGraph() {
 
             glm::vec3 nodePosition = nodeComp.GetPosition();
 
-            // If entity has a TransformComponent but NOT a HierarchyComponent, use transform position
             if (g_Coordinator.HaveComponent<TransformComponent>(entity) &&
                 !g_Coordinator.HaveComponent<HierarchyComponent>(entity)) {
                 auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
                 nodePosition = transformComp.GetPosition();
             }
 
-            // If entity has a HierarchyComponent, compute world position from parent
             if (g_Coordinator.HaveComponent<HierarchyComponent>(entity)) {
                 Entity parent = g_Coordinator.GetComponent<HierarchyComponent>(entity).parent;
                 if (parent != MAX_ENTITIES) {
@@ -66,14 +65,12 @@ void PathfindingSystem::BuildGraph() {
                 }
             }
 
-            uint32_t nodeID = nodeComp.GetNodeID(); // Ensure we use the assigned ID
+            uint32_t nodeID = nodeComp.GetNodeID();
 
-            // Debug: Log node creation
             std::cout << "[DEBUG] Adding Node: ID=" << nodeID << " at Position ("
                 << nodePosition.x << ", " << nodePosition.y << ", " << nodePosition.z
                 << ") | Walkable: " << nodeComp.IsWalkable() << "\n";
 
-            // Store the node with the updated position
             graphNodes[nodeID] = std::make_shared<Node3D>(nodeID, nodePosition, nodeComp.IsWalkable());
         }
     }
@@ -103,116 +100,42 @@ void PathfindingSystem::BuildGraph() {
                 continue;
             }
 
-            graphEdges[entity] = std::make_shared<EdgeComponent>(startNodeID, endNodeID, edgeComp.GetCost());
+            // **Add Forward Edge**
+            if (graphEdges.find(edgeIDCounter) == graphEdges.end()) {
+                graphEdges[edgeIDCounter++] = std::make_shared<EdgeComponent>(startNodeID, endNodeID, edgeComp.GetCost());
 
-            std::cout << "[DEBUG] Added Edge: " << entity
-                << " | Start Node: " << startNodeID
-                << " | End Node: " << endNodeID
-                << " | Cost: " << edgeComp.GetCost() << "\n";
+                std::cout << "[DEBUG] Added Forward Edge: " << edgeIDCounter - 1
+                    << " | Start Node: " << startNodeID
+                    << " | End Node: " << endNodeID
+                    << " | Cost: " << edgeComp.GetCost() << "\n";
+            }
+
+            // **Add Reverse Edge ONLY IF it doesn't already exist**
+            bool reverseEdgeExists = false;
+            for (const auto& [edgeEntity, edge] : graphEdges) {
+                if (edge->GetStartNode() == endNodeID && edge->GetEndNode() == startNodeID) {
+                    reverseEdgeExists = true;
+                    break;
+                }
+            }
+
+            if (!reverseEdgeExists) {
+                graphEdges[edgeIDCounter++] = std::make_shared<EdgeComponent>(endNodeID, startNodeID, edgeComp.GetCost());
+
+                std::cout << "[DEBUG] Added Reverse Edge: " << edgeIDCounter - 1
+                    << " | Start Node: " << endNodeID
+                    << " | End Node: " << startNodeID
+                    << " | Cost: " << edgeComp.GetCost() << "\n";
+            }
         }
     }
+
+
 
     std::cout << "[PathfindingSystem] Graph built with " << graphNodes.size()
         << " nodes and " << graphEdges.size() << " edges.\n";
     std::cout << "[DEBUG] Node Counter AFTER processing: " << NodeComponent::GetNodeCounter() << "\n";
 }
-
-
-
-
-//void PathfindingSystem::BuildGraph() {
-//    graphNodes.clear();
-//    graphEdges.clear();
-//
-//    //std::cout << "[PathfindingSystem] Building graph...\n";
-//
-//    // Step 1: Process all NodeComponents first
-//    for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
-//        //if (g_Coordinator.HaveComponent<NodeComponent>(entity)) {
-//        //    auto& nodeComp = g_Coordinator.GetComponent<NodeComponent>(entity);
-//        //    glm::vec3 nodePosition = nodeComp.GetPosition(); // Default to NodeComponent's position
-//
-//        //    // Check if the entity has a TransformComponent and use its position
-//        //    if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
-//        //        auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
-//        //        nodePosition = transformComp.GetPosition(); // Override with TransformComponent's position
-//        //    }
-//
-//        //    // Store the node with its entity reference
-//        //    graphNodes[entity] = std::make_shared<Node3D>(entity, nodePosition, nodeComp.IsWalkable());
-//
-//        //    //std::cout << "[PathfindingSystem] Added Node: " << entity
-//        //    //    << " | Position: (" << nodePosition.x << ", "
-//        //    //    << nodePosition.y << ", " << nodePosition.z << ")"
-//        //    //    << " | Walkable: " << nodeComp.IsWalkable() << "\n";
-//        //}
-//        if (g_Coordinator.HaveComponent<NodeComponent>(entity)) {
-//            auto& nodeComp = g_Coordinator.GetComponent<NodeComponent>(entity);
-//            glm::vec3 nodePosition = nodeComp.GetPosition(); // Default to NodeComponent's position
-//
-//            // If it has a TransformComponent, use its position
-//            if (g_Coordinator.HaveComponent<TransformComponent>(entity) && !g_Coordinator.HaveComponent<HierarchyComponent>(entity)) {
-//                auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(entity);
-//                nodePosition = transformComp.GetPosition();
-//            }
-//
-//            // **Check if entity has a parent (HierarchyComponent)**
-//            if (g_Coordinator.HaveComponent<HierarchyComponent>(entity)) {
-//                Entity parent = g_Coordinator.GetComponent<HierarchyComponent>(entity).parent;
-//                if (parent != MAX_ENTITIES) {
-//                    // Get world transform from TransformSystem
-//                    auto transformSystem = g_Coordinator.GetSystem<TransformSystem>();
-//                    glm::mat4 parentWorldMatrix = transformSystem->GetWorldMatrix(parent);
-//
-//                    // Apply parent's world position
-//                    glm::vec3 worldPosition, worldRotation, worldScale;
-//                    if (DecomposeTransform(parentWorldMatrix, worldPosition, worldRotation, worldScale)) {
-//                        nodePosition = worldPosition;
-//                    }
-//                }
-//                std::cout << "Node Position (World) x: (" << nodePosition.x << ", " << nodePosition.y << ", " << nodePosition.z << ")" << std::endl;
-//            }
-//
-//            // Store the node with the updated position
-//            graphNodes[entity] = std::make_shared<Node3D>(entity, nodePosition, nodeComp.IsWalkable());
-//        }
-//    }
-//
-//    // Step 2: Process all EdgeComponents after nodes are set up
-//    for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
-//        if (g_Coordinator.HaveComponent<EdgeComponent>(entity)) {
-//            auto& edgeComp = g_Coordinator.GetComponent<EdgeComponent>(entity);
-//
-//            // Ensure both start and end nodes exist before adding the edge
-//            if (graphNodes.find(edgeComp.GetStartNode()) == graphNodes.end()) {
-//                //std::cout << "[PathfindingSystem] WARNING: Start Node " << edgeComp.GetStartNode()
-//                //    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
-//                continue;
-//            }
-//
-//            if (graphNodes.find(edgeComp.GetEndNode()) == graphNodes.end()) {
-//                //std::cout << "[PathfindingSystem] WARNING: End Node " << edgeComp.GetEndNode()
-//                //    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
-//                continue;
-//            }
-//
-//            // Store edges
-//            graphEdges[entity] = std::make_shared<EdgeComponent>(
-//                edgeComp.GetStartNode(), edgeComp.GetEndNode(), edgeComp.GetCost()
-//                );
-//
-//            //std::cout << "[PathfindingSystem] Added Edge: " << entity
-//            //    << " | Start Node: " << edgeComp.GetStartNode()
-//            //    << " | End Node: " << edgeComp.GetEndNode()
-//            //    << " | Cost: " << edgeComp.GetCost() << "\n";
-//        }
-//    }
-//
-//    //std::cout << "[PathfindingSystem] Graph built with " << graphNodes.size()
-//    //    << " nodes and " << graphEdges.size() << " edges.\n";
-//}
-
-
 
 void PathfindingSystem::Update(float deltaTime) {
 
@@ -286,6 +209,13 @@ bool PathfindingSystem::FindPath(uint32_t startNodeID, uint32_t goalNodeID, std:
     open_list = {};
     closed_list.clear();
 
+    // **Reset node costs**
+    for (auto& [id, node] : graphNodes) {
+        node->givenCost = std::numeric_limits<float>::infinity();
+        node->finalCost = std::numeric_limits<float>::infinity();
+        node->parent = nullptr;
+    }
+
     auto start = graphNodes[startNodeID];
     auto goal = graphNodes[goalNodeID];
 
@@ -328,60 +258,6 @@ bool PathfindingSystem::FindPath(uint32_t startNodeID, uint32_t goalNodeID, std:
 }
 
 
-//bool PathfindingSystem::FindPath(Entity startNode, Entity goalNode, std::vector<glm::vec3>& outPath) {
-//    if (graphNodes.find(startNode) == graphNodes.end() || graphNodes.find(goalNode) == graphNodes.end()) {
-//        //std::cout << "[PathfindingSystem] ERROR: Start or Goal Node not in graph!\n";
-//        return false;
-//    }
-//
-//    open_list = {};
-//    closed_list.clear();
-//
-//    auto start = graphNodes[startNode];
-//    auto goal = graphNodes[goalNode];
-//
-//    start->givenCost = 0.0f;
-//    start->finalCost = Heuristic(start->position, goal->position);
-//    open_list.push(start);
-//
-//    while (!open_list.empty()) {
-//        auto currentNode = open_list.top();
-//        open_list.pop();
-//
-//        //std::cout << "[PathfindingSystem] Expanding Node: " << currentNode->position.x << ", " << currentNode->position.y << ", " << currentNode->position.z << "\n";
-//
-//        if (currentNode->position == goal->position) {
-//            ReconstructPath(currentNode, outPath);
-//            return true;
-//        }
-//
-//        closed_list.insert(currentNode->position);
-//
-//        for (Entity neighborEntity : GetNeighbors(currentNode->entity)) {
-//            auto neighbor = graphNodes[neighborEntity];
-//            if (closed_list.find(neighbor->position) != closed_list.end() || !neighbor->isWalkable) {
-//                continue;
-//            }
-//
-//            // float tentativeGCost = currentNode->givenCost + GetCost(currentNode->position, neighbor->position);
-//            float edgeCost = GetCost(currentNode->entity, neighbor->entity); // Use correct entity lookup
-//            float tentativeGCost = currentNode->givenCost + edgeCost;
-//
-//
-//            if (tentativeGCost < neighbor->givenCost) {
-//                neighbor->givenCost = tentativeGCost;
-//                neighbor->finalCost = tentativeGCost + Heuristic(neighbor->position, goal->position);
-//                neighbor->parent = currentNode;
-//
-//                open_list.push(neighbor);
-//            }
-//        }
-//    }
-//
-//    //std::cout << "[PathfindingSystem] ERROR: No path found from Node " << startNode << " to " << goalNode << "!\n";
-//    return false;
-//}
-
 std::vector<uint32_t> PathfindingSystem::GetNeighbors(uint32_t nodeID) {
     std::vector<uint32_t> neighbors;
 
@@ -389,31 +265,14 @@ std::vector<uint32_t> PathfindingSystem::GetNeighbors(uint32_t nodeID) {
         if (edge->GetStartNode() == nodeID) {
             neighbors.push_back(edge->GetEndNode());
         }
+        else if (edge->GetEndNode() == nodeID) {
+            // Add this to ensure the graph works in BOTH directions
+            neighbors.push_back(edge->GetStartNode());
+        }
     }
 
     return neighbors;
 }
-
-//std::vector<Entity> PathfindingSystem::GetNeighbors(Entity node) {
-//    std::vector<Entity> neighbors;
-//
-//    //std::cout << "[PathfindingSystem] Checking neighbors for Node " << node << ":\n";
-//
-//    for (const auto& [edgeEntity, edge] : graphEdges) {
-//        if (edge->GetStartNode() == node) {
-//            neighbors.push_back(edge->GetEndNode());
-//            //std::cout << "[PathfindingSystem]   Found neighbor: " << edge->GetEndNode() << " via Edge " << edgeEntity << "\n";
-//        }
-//    }
-//
-//    return neighbors;
-//}
-
-
-//float PathfindingSystem::GetCost(const glm::vec3& start, const glm::vec3& end) const {
-//    glm::vec3 diff = end - start;
-//    return glm::length(diff); // Use Euclidean distance for the cost
-//}
 
 float PathfindingSystem::GetCost(uint32_t startNodeID, uint32_t endNodeID) const {
     for (const auto& [edgeEntity, edge] : graphEdges) {
@@ -423,15 +282,6 @@ float PathfindingSystem::GetCost(uint32_t startNodeID, uint32_t endNodeID) const
     }
     return std::numeric_limits<float>::infinity();
 }
-
-//float PathfindingSystem::GetCost(Entity start, Entity end) const {
-//    for (const auto& [edgeEntity, edge] : graphEdges) {
-//        if (edge->GetStartNode() == start && edge->GetEndNode() == end) {
-//            return edge->GetCost();  // Return the actual edge cost
-//        }
-//    }
-//    return std::numeric_limits<float>::infinity(); // If no edge exists, return a large value
-//}
 
 float PathfindingSystem::Heuristic(const glm::vec3& a, const glm::vec3& b) const {
     glm::vec3 diff = a - b;

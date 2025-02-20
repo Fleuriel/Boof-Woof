@@ -110,6 +110,8 @@ private:
     void ReconstructPath(const std::shared_ptr<Node3D>& goalNode, std::vector<glm::vec3>& outPath);
     std::vector<Entity> GetNeighbors(Entity node);
     //std::vector<int> GetNeighbors(int nodeID);
+
+    static uint32_t edgeIDCounter; // Unique ID counter for edges
 };
 
 #endif // PATHFINDINGSYSTEM_H
