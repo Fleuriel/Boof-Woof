@@ -14,6 +14,28 @@
 
 #include "../Core/AssetManager/FilePaths.h"
 
+//                       _oo0oo_
+//                      o8888888o
+//                      88" . "88
+//                      (| -_- |)
+//                      0\  =  /0
+//                    ___/`---'\___
+//                  .' \\|     |// '.
+//                 / \\|||  :  |||// \
+//                / _||||| -:- |||||- \
+//               |   | \\\  -  /// |   |
+//               | \_|  ''\---/''  |_/ |
+//               \  .-\__  '-'  ___/-. /
+//             ___'. .'  /--.--\  `. .'___
+//          ."" '<  `.___\_<|>_/___.' >' "".
+//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//         \  \ `_.   \_ __\ /__ _/   .-` /  /
+//     =====`-.____`.___ \_____/___.-`___.-'=====
+//                       `=---='
+//
+//
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 
 
@@ -318,11 +340,17 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
 			glPointSize(particleComp.getParticleSize());
 			g_AssetManager.GetShader("instanced").SetUniform("particleColor", particleComp.getParticleColor());
-			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
+			shdrParam.WorldMatrix = transformComp.GetWorldMatrix_withoutRotate();
 			g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
 			g_AssetManager.GetShader("instanced").SetUniform("gammaValue", gammaValue);
-			//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
+			g_AssetManager.GetShader("instanced").SetUniform("cameraUP", camera_render.GetCameraUp());
+			g_AssetManager.GetShader("instanced").SetUniform("cameraRight", camera_render.GEtCameraRight());
 			particleComp.update(static_cast<float>(g_Core->m_DeltaTime));
+			int text = g_ResourceManager.GetTextureDDS("DogHead");
+			glBindTextureUnit(6, text);
+			glBindTexture(GL_TEXTURE_2D, text);
+			GLuint tex_loc = glGetUniformLocation(g_AssetManager.GetShader("instanced").GetHandle(), "uTex2d");
+			glUniform1i(tex_loc, 6);
 			particleComp.draw();
 			g_AssetManager.GetShader("instanced").UnUse();
 

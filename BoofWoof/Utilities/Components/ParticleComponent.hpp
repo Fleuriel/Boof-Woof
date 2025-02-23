@@ -8,6 +8,7 @@
 #include "../Core/Reflection/ReflectionManager.hpp"
 #include "../Core/Graphics/Mesh.h"
 #include "../Core/Graphics/Shader.h"
+#include "../Core/ResourceManager/ResourceManager.h"
 #include <random>
 #define PARTICLE_NUM 100
 
@@ -86,10 +87,28 @@ public:
 		float lifeCount{};
 	};
 
-	
+	void setMesh(Mesh m) { particle_mesh = m; }
+
+	void setMeshSquare() {
+		std::vector<Vertex> vertices{
+			Vertex{glm::vec3(-0.05f, -0.05f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
+			Vertex{glm::vec3(0.05f, -0.05f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)},
+			Vertex{glm::vec3(0.05f, 0.05f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
+			Vertex{glm::vec3(-0.05f, 0.05f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f)}
+		};
+
+		std::vector<unsigned int> indices{
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		particle_mesh.vertices = vertices;
+		particle_mesh.indices = indices;
+	}
 
 	void init( )
 	{
+		// init individual particles
 		for (int i = 0; i < PARTICLE_NUM; i++)
 		{
 			translation[i] = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -103,71 +122,57 @@ public:
 			particles.emplace_back(ptc);
 		}
 
+
+		// instance VBO
 		glGenBuffers(1, &instanceVBO);
 		glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
 		glBufferData(GL_ARRAY_BUFFER, PARTICLE_NUM * sizeof(glm::vec3), &translation[0], GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+		// visibility VBO
 		glGenBuffers(1, &visibilityVBO);
 		glBindBuffer(GL_ARRAY_BUFFER, visibilityVBO);
 		glBufferData(GL_ARRAY_BUFFER, PARTICLE_NUM * sizeof(float), &visibility[0], GL_STATIC_DRAW);
-
-
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+		// set mesh
+		float quadVertices[] = {
+			// positions			        // texture coords
+			-0.5f,  0.5f, 0.0f,   1.0f, 0.0f,
+			-0.5f, -0.5f, 0.0f,   1.0f, 1.0f,
+			0.5f, -0.5f, 0.0f,    0.0f, 1.0f,
+
+			-0.5f,  0.5f, 0.0f,    1.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f,    0.0f, 1.0f,
+			 0.5f,  0.5f, 0.0f,   0.0f, 0.0f
+		};
 
 		glGenVertexArrays(1, &quadVAO);
-		//glGenBuffers(1, &quadVBO);
-		//glGenBuffers(1, &quadEBO);
+		glGenBuffers(1, &quadVBO);
 
 		glBindVertexArray(quadVAO);
 
-		/*glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(particle_mesh.vertices), &particle_mesh.vertices, GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quadEBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(particle_mesh.indices), &particle_mesh.indices, GL_STATIC_DRAW);
-
-		
-		// vertex attributes
+		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-
-		// vertex normals
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
-
-		// vertex texture coords
-		glEnableVertexAttribArray(3);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-
-		std::cout << "ParticleComponent: mesh loaded with " << particle_mesh.vertices.size() << " vertices\n";
-
-		// instance VBO
-		glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glVertexAttribDivisor(2, 1);
-		glBindVertexArray(0);*/
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+		
+		// set instance VBO
+		glEnableVertexAttribArray(3);
+		glBindBuffer(GL_ARRAY_BUFFER, instanceVBO); 
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		glVertexAttribDivisor(3, 1); 
 
-		glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
-
-		// set life time 
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, sizeof(Particle), (void*)offsetof(Particle, lifeTime));
-		glVertexAttribDivisor(0, 1);
-
+		// set visibility VBO
+		glEnableVertexAttribArray(4);
 		glBindBuffer(GL_ARRAY_BUFFER, visibilityVBO);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, sizeof(float), (void*)0);
-		glVertexAttribDivisor(1, 1);
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
+		glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, sizeof(float), (void*)0);
+		glVertexAttribDivisor(4, 1);
 
 		glBindVertexArray(0);
+
 
 	}
 
@@ -231,12 +236,11 @@ public:
 	void draw()
 	{
 		
+
 		glBindVertexArray(quadVAO);
-		//glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-		//std::cout << "before particle draw\n";
-		//glDrawArraysInstanced(GL_TRIANGLES, 0, particle_mesh.vertices.size(), PARTICLE_NUM);
-		glDrawArraysInstanced(GL_POINTS, 0, 1, PARTICLE_NUM);
-		//std::cout << "after particle draw\n";
+		
+		glDrawArraysInstanced(GL_TRIANGLES, 0, 6, PARTICLE_NUM);
+		
 		glBindVertexArray(0);
 		
 	}
@@ -303,13 +307,16 @@ private:
 	// particle data
 	std::vector<Particle> particles{};
 	glm::vec3 translation[PARTICLE_NUM]{};
-	float visibility[PARTICLE_NUM]{};
+	float visibility[PARTICLE_NUM]{ 1.0f };
 	GLuint instanceVBO{}, visibilityVBO{}, quadVAO{}, quadVBO{}, quadEBO{};
-	//Mesh particle_mesh{};
+	
+	
+	Mesh particle_mesh{};
+	int particle_texture{};
+
 
 	// particle killer and generator
 	float density_counter{};
-	float lifeTime{};
 
 
 	// settings

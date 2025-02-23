@@ -2,18 +2,22 @@
 #version 450 core
 out vec4 fragColor;
 
-layout(location = 0) in float visibility;
+layout(location = 1) in vec2 vTexCoord;
+layout(location = 2) in float visibility;
 
-uniform vec4 particleColor;
+
+uniform sampler2D uTex2d;
 uniform float gammaValue;
 
 void main()
 {
       if(visibility < 0.5f){
-            fragColor = vec4(1.0, 0.0, 0.0, 0.0); 
+            discard;
       }else{ 
-            fragColor = particleColor; // Solid color with full opacity
+            fragColor = texture(uTex2d, vTexCoord); // Solid color with full opacity
+            if(fragColor.a < 0.1)discard;
       }  
 
       fragColor.rgb = pow(fragColor.rgb, vec3(1.0/gammaValue)); 
+
 }
