@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "7ca9a148-a01b-42c8-9c30-04c722fa7c04",
+    "SceneGUID": "e14ff1fd-663c-47ec-9dd3-4743fbc6c7e0",
     "Entities": [
         {
             "MetadataComponent": {
@@ -30,7 +30,7 @@
             "UIComponent": {
                 "TextureName": "LeftArrow",
                 "PositionX": 0.0,
-                "PositionY": 0.30000001192092898,
+                "PositionY": 0.4000000059604645,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
                 "Layer": 0.440000057220459,
@@ -51,7 +51,7 @@
             "UIComponent": {
                 "TextureName": "RightArrow",
                 "PositionX": 0.41999998688697817,
-                "PositionY": 0.30000001192092898,
+                "PositionY": 0.4000000059604645,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
                 "Layer": 0.440000057220459,
@@ -72,7 +72,7 @@
             "UIComponent": {
                 "TextureName": "LeftArrow",
                 "PositionX": 0.0,
-                "PositionY": -0.20000000298023225,
+                "PositionY": 0.0,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
                 "Layer": 0.440000057220459,
@@ -93,7 +93,7 @@
             "UIComponent": {
                 "TextureName": "RightArrow",
                 "PositionX": 0.41999998688697817,
-                "PositionY": -0.20000000298023225,
+                "PositionY": 0.0,
                 "ScaleX": 0.10000000149011612,
                 "ScaleY": 0.20000000298023225,
                 "Layer": 0.440000057220459,
@@ -135,7 +135,7 @@
             "FontComponent": {
                 "Family": "manga-temple",
                 "PositionX": -0.4300000071525574,
-                "PositionY": 0.25,
+                "PositionY": 0.3499999940395355,
                 "ScaleX": 2.5,
                 "ScaleY": 4.0,
                 "ColorR": 1.0,
@@ -152,7 +152,7 @@
             "FontComponent": {
                 "Family": "manga-temple",
                 "PositionX": -0.4399999976158142,
-                "PositionY": -0.25,
+                "PositionY": -0.05000000074505806,
                 "ScaleX": 2.5,
                 "ScaleY": 4.0,
                 "ColorR": 1.0,
@@ -169,7 +169,7 @@
             "FontComponent": {
                 "Family": "manga-temple",
                 "PositionX": 0.14000000059604646,
-                "PositionY": -0.25,
+                "PositionY": -0.05000000074505806,
                 "ScaleX": 2.5,
                 "ScaleY": 4.0,
                 "ColorR": 1.0,
@@ -186,7 +186,7 @@
             "FontComponent": {
                 "Family": "manga-temple",
                 "PositionX": 0.14000000059604646,
-                "PositionY": 0.25,
+                "PositionY": 0.3499999940395355,
                 "ScaleX": 2.5,
                 "ScaleY": 4.0,
                 "ColorR": 1.0,
@@ -210,6 +210,82 @@
                 "ColorG": 1.0,
                 "ColorB": 1.0,
                 "Text": "ESC to close"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GAMMALeft",
+                "EntityID": 11
+            },
+            "UIComponent": {
+                "TextureName": "LeftArrow",
+                "PositionX": 0.0,
+                "PositionY": -0.4000000059604645,
+                "ScaleX": 0.10000000149011612,
+                "ScaleY": 0.20000000298023225,
+                "Layer": 0.440000057220459,
+                "Selectable": true,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GAMMARight",
+                "EntityID": 12
+            },
+            "UIComponent": {
+                "TextureName": "RightArrow",
+                "PositionX": 0.41999998688697817,
+                "PositionY": -0.4000000059604645,
+                "ScaleX": 0.10000000149011612,
+                "ScaleY": 0.20000000298023225,
+                "Layer": 0.440000057220459,
+                "Selectable": true,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GAMMAValue",
+                "EntityID": 13
+            },
+            "FontComponent": {
+                "Family": "manga-temple",
+                "PositionX": 0.14000000059604646,
+                "PositionY": -0.44999998807907107,
+                "ScaleX": 2.5,
+                "ScaleY": 4.0,
+                "ColorR": 1.0,
+                "ColorG": 1.0,
+                "ColorB": 1.0,
+                "Text": "10"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GAMMA",
+                "EntityID": 14
+            },
+            "FontComponent": {
+                "Family": "manga-temple",
+                "PositionX": -0.5899999737739563,
+                "PositionY": -0.44999998807907107,
+                "ScaleX": 2.5,
+                "ScaleY": 4.0,
+                "ColorR": 1.0,
+                "ColorG": 1.0,
+                "ColorB": 1.0,
+                "Text": "GAMMA"
             }
         }
     ]
