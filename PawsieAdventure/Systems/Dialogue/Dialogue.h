@@ -34,7 +34,8 @@ public:
 	void OnUpdate(double deltaTime);
 	void OnShutdown();
 	std::string getDialogue();
-	void setDialogue(DialogueState newState, Entity entity);
+	/*void setDialogue(DialogueState newState, Entity entity);*/
+	void setDialogue(DialogueState newState);
 	void Reset();
 
 private:
@@ -46,3 +47,5 @@ protected:
 	// during exit, can just delete those entity - clearing spawned entities
 	std::vector<Entity> storage;
 };
+
+extern Dialogue g_DialogueText;
