@@ -395,6 +395,15 @@ bool Serialization::SaveScene(const std::string& filepath) {
             colorObj.AddMember("a", particle_color.a, allocator);  
             particles.AddMember("ParticleColor", colorObj, allocator);
 
+            std::string particle_type = particleComp.getTypeString();
+			particles.AddMember("ParticleType", rapidjson::Value(particle_type.c_str(), allocator), allocator);
+
+            std::string particle_model = particleComp.getParticleModelname();
+			particles.AddMember("ParticleModel", rapidjson::Value(particle_model.c_str(), allocator), allocator);
+
+			std::string particle_texture = particleComp.getParticleTexturename();
+			particles.AddMember("ParticleTexture", rapidjson::Value(particle_texture.c_str(), allocator), allocator);
+			
             // Add the CameraComponent to the entityData
             entityData.AddMember("ParticleComponent", particles, allocator);
         }
@@ -936,7 +945,19 @@ bool Serialization::LoadScene(const std::string& filepath)
 
                     glm::vec4 particleColor(r, g, b, a);
 
-                    ParticleComponent particleComponent(density, positionMin, positionMax, velocityMin, velocityMax, target_positions, particleSize, particleColor);
+                    std::string particle_type = "POINT";
+					if (PData.HasMember("ParticleType") ) particle_type = PData["ParticleType"].GetString();
+
+					ParticleType type = ParticleComponent::stringToParticleType(particle_type);
+
+                    std::string particle_model = "Bed";
+					if (PData.HasMember("ParticleModel")) particle_model = PData["ParticleModel"].GetString();
+                       
+
+                    std::string particle_texture = "Bed";
+					if (PData.HasMember("ParticleTexture")) particle_texture = PData["ParticleTexture"].GetString();
+
+					ParticleComponent particleComponent(density, positionMin, positionMax, velocityMin, velocityMax, target_positions, particleSize, particleColor, type, particle_model, particle_texture);
                     g_Coordinator.AddComponent(entity, particleComponent);
                 }
             }
@@ -1662,8 +1683,19 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
                 color.b = cObj["b"].GetFloat();
                 color.a = cObj["a"].GetFloat();
             }
+            std::string particle_type = "POINT";
+            if (PData.HasMember("ParticleType")) particle_type = PData["ParticleType"].GetString();
 
-            ParticleComponent partC(density, posMin, posMax, velMin, velMax, targetPositions, size, color);
+            ParticleType type = ParticleComponent::stringToParticleType(particle_type);
+
+            std::string particle_model = "Bed";
+            if (PData.HasMember("ParticleModel")) particle_model = PData["ParticleModel"].GetString();
+
+
+            std::string particle_texture = "Bed";
+            if (PData.HasMember("ParticleTexture")) particle_texture = PData["ParticleTexture"].GetString();
+
+            ParticleComponent partC(density, posMin, posMax, velMin, velMax, targetPositions, size, color, type, particle_model, particle_texture);
             g_Coordinator.AddComponent(newE, partC);
         }
 

@@ -16,6 +16,30 @@
 
 
 
+//                       _oo0oo_
+//                      o8888888o
+//                      88" . "88
+//                      (| -_- |)
+//                      0\  =  /0
+//                    ___/`---'\___
+//                  .' \\|     |// '.
+//                 / \\|||  :  |||// \
+//                / _||||| -:- |||||- \
+//               |   | \\\  -  /// |   |
+//               | \_|  ''\---/''  |_/ |
+//               \  .-\__  '-'  ___/-. /
+//             ___'. .'  /--.--\  `. .'___
+//          ."" '<  `.___\_<|>_/___.' >' "".
+//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//         \  \ `_.   \_ __\ /__ _/   .-` /  /
+//     =====`-.____`.___ \_____/___.-`___.-'=====
+//                       `=---='
+//
+//
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
 
 bool GraphicsSystem::debug = false;
 
@@ -310,21 +334,63 @@ void GraphicsSystem::UpdateLoop() {
 		{
 			auto& particleComp = g_Coordinator.GetComponent<ParticleComponent>(entity);
 			if (!particleComp.getInitFlag()) {
-				particleComp.init();
+				particleComp.init(& g_ResourceManager.getModel(particleComp.getParticleModelname())->meshes[0]);
 				particleComp.setInitFlag(true);
 			}
-			g_AssetManager.GetShader("instanced").Use();
-			g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
-			g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
+			OpenGLShader particleShader;
+			switch (particleComp.getParticleType())
+			{
+			case ParticleType::POINT:
+				particleShader = g_AssetManager.GetShader("instanced_point");
+				break;
+			case ParticleType::TEXTURED:
+				particleShader = g_AssetManager.GetShader("instanced_texture");
+				break;
+			case ParticleType::TEXTURED_3D:
+				particleShader = g_AssetManager.GetShader("instanced_3Dobj");
+				break;
+			}
+			particleShader.Use();
+			particleShader.SetUniform("view", shdrParam.View);
+			particleShader.SetUniform("projection", shdrParam.Projection);
 			glPointSize(particleComp.getParticleSize());
-			g_AssetManager.GetShader("instanced").SetUniform("particleColor", particleComp.getParticleColor());
+			particleShader.SetUniform("particleColor", particleComp.getParticleColor());
 			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
-			g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
-			g_AssetManager.GetShader("instanced").SetUniform("gammaValue", gammaValue);
-			//SetShaderUniforms(g_AssetManager.GetShader("instanced"), shdrParam);
-			particleComp.update(static_cast<float>(g_Core->m_DeltaTime));
-			particleComp.draw();
-			g_AssetManager.GetShader("instanced").UnUse();
+			particleShader.SetUniform("vertexTransform", shdrParam.WorldMatrix);
+			particleShader.SetUniform("gammaValue", gammaValue);
+			
+			particleComp.update_textured(static_cast<float>(g_Core->m_DeltaTime));
+
+			GLuint text{};
+			GLuint tex_loc{};
+
+			switch (particleComp.getParticleType())
+			{
+			case ParticleType::POINT:
+				particleComp.draw();
+				break;
+			case ParticleType::TEXTURED:
+				shdrParam.WorldMatrix = transformComp.GetWorldMatrix_withoutRotate();
+				particleShader.SetUniform("vertexTransform", shdrParam.WorldMatrix);
+				text = g_ResourceManager.GetTextureDDS(particleComp.getParticleTexturename());
+				glBindTextureUnit(6, text);
+				glBindTexture(GL_TEXTURE_2D, text);
+				tex_loc = glGetUniformLocation(particleShader.GetHandle(), "uTex2d");
+				glUniform1i(tex_loc, 6);
+				particleComp.draw();
+				break;
+			case ParticleType::TEXTURED_3D:
+				
+				text = g_ResourceManager.GetTextureDDS(particleComp.getParticleTexturename());
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, text);
+				tex_loc = glGetUniformLocation(particleShader.GetHandle(), "uTex2d");
+				glUniform1i(tex_loc, 0);
+				particleComp.draw();
+				glActiveTexture(GL_TEXTURE0);
+				break;
+			}
+			particleShader.UnUse();
 
 		}
 
