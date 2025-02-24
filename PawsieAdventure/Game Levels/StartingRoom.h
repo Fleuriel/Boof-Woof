@@ -23,8 +23,8 @@ public:
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom_Light.json");
 		
-		g_DialogueText.OnInitialize();
-		g_DialogueText.setDialogue(DialogueState::TUTORIALSTART);
+		/*g_DialogueText.OnInitialize();
+		g_DialogueText.setDialogue(DialogueState::TUTORIALSTART);*/
 		g_ChangeText.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -127,23 +127,23 @@ public:
 
 			auto& opacity = g_Coordinator.GetComponent<ParticleComponent>(scentEntity);
 
-			g_DialogueText.OnUpdate(deltaTime);
+			//g_DialogueText.OnUpdate(deltaTime);
 
-			//if (!g_ChangeText.shutted)
-			//{				
-			//	g_ChangeText.OnUpdate(deltaTime);
-			//}
-			//else 
-			//{
-			//	// let the change text finish first then allow pauseLogic
-			//	pauseLogic::OnUpdate();
-			//}
+			if (!g_ChangeText.shutted)
+			{				
+				g_ChangeText.OnUpdate(deltaTime);
+			}
+			else 
+			{
+				// let the change text finish first then allow pauseLogic
+				pauseLogic::OnUpdate();
+			}
 
-			//if (!g_Checklist.shutted)
-			//{
-			//	g_Checklist.OnUpdate(deltaTime);
+			if (!g_Checklist.shutted)
+			{
+				g_Checklist.OnUpdate(deltaTime);
 
-			//}
+			}
 
 			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
 			{
