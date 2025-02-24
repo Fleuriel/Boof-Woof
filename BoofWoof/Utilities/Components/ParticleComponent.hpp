@@ -12,7 +12,11 @@
 #include <random>
 #define PARTICLE_NUM 100
 
-
+enum class ParticleType
+{
+	TEXTURED,
+	POINT
+};
 
 class ParticleComponent
 {
@@ -87,26 +91,8 @@ public:
 		float lifeCount{};
 	};
 
-	void setMesh(Mesh m) { particle_mesh = m; }
 
-	void setMeshSquare() {
-		std::vector<Vertex> vertices{
-			Vertex{glm::vec3(-0.05f, -0.05f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
-			Vertex{glm::vec3(0.05f, -0.05f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)},
-			Vertex{glm::vec3(0.05f, 0.05f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
-			Vertex{glm::vec3(-0.05f, 0.05f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f)}
-		};
-
-		std::vector<unsigned int> indices{
-			0, 1, 2,
-			2, 3, 0
-		};
-
-		particle_mesh.vertices = vertices;
-		particle_mesh.indices = indices;
-	}
-
-	void init( )
+	void init_textured( )
 	{
 		// init individual particles
 		for (int i = 0; i < PARTICLE_NUM; i++)
@@ -176,7 +162,7 @@ public:
 
 	}
 
-	void update(float dt)
+	void update_textured(float dt)
 	{
 		density_counter += dt;
 		bool add_particle = false;
@@ -233,7 +219,7 @@ public:
 		
 	}
 
-	void draw()
+	void draw_textured()
 	{
 		
 
@@ -243,6 +229,14 @@ public:
 		
 		glBindVertexArray(0);
 		
+	}
+
+	void free_textured() {
+		glDeleteBuffers(1, &instanceVBO);
+		glDeleteBuffers(1, &visibilityVBO);
+		glDeleteVertexArrays(1, &quadVAO);
+		glDeleteBuffers(1, &quadVBO);
+		glDeleteBuffers(1, &quadEBO);
 	}
 	
 
@@ -313,6 +307,9 @@ private:
 	
 	Mesh particle_mesh{};
 	int particle_texture{};
+
+
+	ParticleType particle_type{ ParticleType::TEXTURED };
 
 
 	// particle killer and generator
