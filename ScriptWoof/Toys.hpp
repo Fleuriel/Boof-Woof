@@ -2,6 +2,10 @@ struct Toys final : public Behaviour
 {
 	// If player touches the toys on the floor, timer will be reduced
 	using Behaviour::Behaviour;
+	
+	bool touchingToy{ false }, minusTen{ false };
+	double stunlockTimer = 1.5;	// 1.5 seconds
+	double cooldownTimer = 0.0;
 
 	virtual void Init(Entity entity) override
 	{
@@ -14,27 +18,42 @@ struct Toys final : public Behaviour
 		{
 			const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
 
-			//std::cout << "Scripted Entity is colliding with " << collidingEntityName << std::endl;
-
 			if (std::strcmp(collidingEntityName, "Player") == 0)
 			{
-				//std::cout << "Player is colliding with toys" << std::endl;
+				// Only play sound the first time the player touches the toy
+				if (!touchingToy) 
+				{
+					m_Engine.getAudioSystem().PlaySoundByFile("ToyTouch.wav", false, "SFX");
+					touchingToy = true;
+					m_Engine.SetTouched(true);
+				}
 
-				//Play sound
+				// Reduce timer only once per touch
+				if (touchingToy && !minusTen) {
+					double currTimer = m_Engine.GetTimerTiming();
+					double newTimer = currTimer - 10.0;
+					m_Engine.SetTimerTiming(newTimer);
+					minusTen = true;
+				}
 
-				m_Engine.getAudioSystem().PlaySoundByFile("ToyTouch.wav", false, "SFX");
-			
+				// Apply stunlock timer countdown
+				if (stunlockTimer > 0.0) 
+				{
+					stunlockTimer -= m_Engine.GetDeltaTime();
+				}
+				else 
+				{
+					cooldownTimer += m_Engine.GetDeltaTime(); 
 
-				//Destroy the toys
-				m_Engine.getPhysicsSystem().RemoveBody(entity);
-				m_Engine.DestroyEntity(entity);
-
-				//Reduce timer by 10 seconds
-				 m_Engine.SetTouched(true);
-
-				double currTimer = m_Engine.GetTimerTiming();
-				double newTimer = currTimer - 10.0;
-				m_Engine.SetTimerTiming(newTimer);
+					// Cooldown 2 seconds before player can be stunned again
+					if (cooldownTimer >= 2.0) 
+					{
+						touchingToy = false;
+						stunlockTimer = 1.5; 
+						minusTen = false; 
+						cooldownTimer = 0.0; 
+					}
+				}
 			}
 		}
 	}
