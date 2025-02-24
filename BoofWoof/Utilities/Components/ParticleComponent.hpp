@@ -12,8 +12,35 @@
 #include <random>
 #define PARTICLE_NUM 100
 
+
+
+//                       _oo0oo_
+//                      o8888888o
+//                      88" . "88
+//                      (| -_- |)
+//                      0\  =  /0
+//                    ___/`---'\___
+//                  .' \\|     |// '.
+//                 / \\|||  :  |||// \
+//                / _||||| -:- |||||- \
+//               |   | \\\  -  /// |   |
+//               | \_|  ''\---/''  |_/ |
+//               \  .-\__  '-'  ___/-. /
+//             ___'. .'  /--.--\  `. .'___
+//          ."" '<  `.___\_<|>_/___.' >' "".
+//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//         \  \ `_.   \_ __\ /__ _/   .-` /  /
+//     =====`-.____`.___ \_____/___.-`___.-'=====
+//                       `=---='
+//
+//
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
 enum class ParticleType
 {
+	TEXTURED_3D,
 	TEXTURED,
 	POINT
 };
@@ -91,6 +118,50 @@ public:
 		float lifeCount{};
 	};
 
+	void init(const Mesh * input_mesh = nullptr) {
+		switch (particle_type)
+		{
+		case ParticleType::TEXTURED_3D:
+			init_3Dobj(*input_mesh);
+			break;
+		case ParticleType::TEXTURED:
+			init_textured();
+			break;
+		case ParticleType::POINT:
+			init_point();
+			break;
+		}
+	}
+
+
+	void init_point() {
+		// init individual particles
+		for (int i = 0; i < PARTICLE_NUM; i++)
+		{
+			translation[i] = glm::vec3(0.0f, 0.0f, 0.0f);
+			visibility[i] = 0.0f;
+			Particle ptc(glm::vec3(0.0f, 0.0f, 0.0f));
+			ptc.velocity = 0.f;
+			ptc.target_count = 0;
+			ptc.direction = glm::vec3(0.0f, 0.0f, 0.0f);
+			ptc.lifeTime = 0.0f;
+			ptc.lifeCount = 0.0f;
+			particles.emplace_back(ptc);
+		}
+
+
+		// instance VBO
+		glGenBuffers(1, &instanceVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
+		glBufferData(GL_ARRAY_BUFFER, PARTICLE_NUM * sizeof(glm::vec3), &translation[0], GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		// visibility VBO
+		glGenBuffers(1, &visibilityVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, visibilityVBO);
+		glBufferData(GL_ARRAY_BUFFER, PARTICLE_NUM * sizeof(float), &visibility[0], GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
 
 	void init_textured( )
 	{
@@ -162,6 +233,71 @@ public:
 
 	}
 
+	void init_3Dobj(const Mesh& mesh) {
+
+		particle_mesh = mesh;
+
+		// init individual particles
+		for (int i = 0; i < PARTICLE_NUM; i++)
+		{
+			translation[i] = glm::vec3(0.0f, 0.0f, 0.0f);
+			visibility[i] = 0.0f;
+			Particle ptc(glm::vec3(0.0f, 0.0f, 0.0f));
+			ptc.velocity = 0.f;
+			ptc.target_count = 0;
+			ptc.direction = glm::vec3(0.0f, 0.0f, 0.0f);
+			ptc.lifeTime = 0.0f;
+			ptc.lifeCount = 0.0f;
+			particles.emplace_back(ptc);
+		}
+
+		// instance VBO
+		glGenBuffers(1, &instanceVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
+		glBufferData(GL_ARRAY_BUFFER, PARTICLE_NUM * sizeof(glm::vec3), &translation[0], GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		// visibility VBO
+		glGenBuffers(1, &visibilityVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, visibilityVBO);
+		glBufferData(GL_ARRAY_BUFFER, PARTICLE_NUM * sizeof(float), &visibility[0], GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		glGenVertexArrays(1, &quadVAO);
+		glGenBuffers(1, &quadVBO);
+		glGenBuffers(1, &quadEBO);
+
+		glBindVertexArray(quadVAO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+		glBufferData(GL_ARRAY_BUFFER, mesh.vertices.size() * sizeof(Vertex), &mesh.vertices[0], GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quadEBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.indices.size() * sizeof(unsigned int), &mesh.indices[0], GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+
+		glEnableVertexAttribArray(3);
+		glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		glVertexAttribDivisor(3, 1);
+
+		glEnableVertexAttribArray(4);
+		glBindBuffer(GL_ARRAY_BUFFER, visibilityVBO);
+		glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, sizeof(float), (void*)0);
+		glVertexAttribDivisor(4, 1);
+
+		glBindVertexArray(0);
+
+	}
+
 	void update_textured(float dt)
 	{
 		density_counter += dt;
@@ -229,6 +365,12 @@ public:
 		
 		glBindVertexArray(0);
 		
+	}
+
+	void draw_3Dobj() {
+		glBindVertexArray(quadVAO);
+		glDrawArraysInstanced(GL_TRIANGLES, 0, particle_mesh.vertices.size(), PARTICLE_NUM);
+		glBindVertexArray(0);
 	}
 
 	void free_textured() {
@@ -309,7 +451,7 @@ private:
 	int particle_texture{};
 
 
-	ParticleType particle_type{ ParticleType::TEXTURED };
+	ParticleType particle_type{ ParticleType::TEXTURED_3D };
 
 
 	// particle killer and generator

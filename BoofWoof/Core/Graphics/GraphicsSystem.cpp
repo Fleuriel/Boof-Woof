@@ -334,27 +334,27 @@ void GraphicsSystem::UpdateLoop() {
 		{
 			auto& particleComp = g_Coordinator.GetComponent<ParticleComponent>(entity);
 			if (!particleComp.getInitFlag()) {
-				particleComp.init_textured();
+				particleComp.init(& g_ResourceManager.getModel("Bed")->meshes[0]);
 				particleComp.setInitFlag(true);
 			}
-			g_AssetManager.GetShader("instanced").Use();
-			g_AssetManager.GetShader("instanced").SetUniform("view", shdrParam.View);
-			g_AssetManager.GetShader("instanced").SetUniform("projection", shdrParam.Projection);
+			g_AssetManager.GetShader("instanced_3Dobj").Use();
+			g_AssetManager.GetShader("instanced_3Dobj").SetUniform("view", shdrParam.View);
+			g_AssetManager.GetShader("instanced_3Dobj").SetUniform("projection", shdrParam.Projection);
 			glPointSize(particleComp.getParticleSize());
-			g_AssetManager.GetShader("instanced").SetUniform("particleColor", particleComp.getParticleColor());
+			g_AssetManager.GetShader("instanced_3Dobj").SetUniform("particleColor", particleComp.getParticleColor());
 			shdrParam.WorldMatrix = transformComp.GetWorldMatrix_withoutRotate();
-			g_AssetManager.GetShader("instanced").SetUniform("vertexTransform", shdrParam.WorldMatrix);
-			g_AssetManager.GetShader("instanced").SetUniform("gammaValue", gammaValue);
-			g_AssetManager.GetShader("instanced").SetUniform("cameraUP", camera_render.GetCameraUp());
-			g_AssetManager.GetShader("instanced").SetUniform("cameraRight", camera_render.GEtCameraRight());
+			g_AssetManager.GetShader("instanced_3Dobj").SetUniform("vertexTransform", shdrParam.WorldMatrix);
+			g_AssetManager.GetShader("instanced_3Dobj").SetUniform("gammaValue", gammaValue);
+			
 			particleComp.update_textured(static_cast<float>(g_Core->m_DeltaTime));
-			int text = g_ResourceManager.GetTextureDDS("DogHead");
-			glBindTextureUnit(6, text);
+			int text = g_ResourceManager.GetTextureDDS("Bed");
+			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, text);
-			GLuint tex_loc = glGetUniformLocation(g_AssetManager.GetShader("instanced").GetHandle(), "uTex2d");
-			glUniform1i(tex_loc, 6);
-			particleComp.draw_textured();
-			g_AssetManager.GetShader("instanced").UnUse();
+			GLuint tex_loc = glGetUniformLocation(g_AssetManager.GetShader("instanced_3Dobj").GetHandle(), "uTex2d");
+			glUniform1i(tex_loc, 0);
+			particleComp.draw_3Dobj();
+			glActiveTexture(GL_TEXTURE0);
+			g_AssetManager.GetShader("instanced_3Dobj").UnUse();
 
 		}
 
