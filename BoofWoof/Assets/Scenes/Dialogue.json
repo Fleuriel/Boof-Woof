@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "132ed99d-2731-4928-8fe5-fb4309536c50",
+    "SceneGUID": "059df46b-2e19-41b5-bb1f-fa5ff2b76521",
     "Entities": [
         {
             "MetadataComponent": {
@@ -33,9 +33,9 @@
                 "PositionY": -0.6000000238418579,
                 "ScaleX": 0.6000000238418579,
                 "ScaleY": 0.8500000238418579,
-                "ColorR": 0.0,
-                "ColorG": 0.0,
-                "ColorB": 0.0,
+                "ColorR": 0.037485603243112567,
+                "ColorG": 0.22998526692390443,
+                "ColorB": 0.7647058963775635,
                 "Text": "Scruffy"
             }
         },
@@ -53,7 +53,7 @@
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
-                "Text": "I have to get out of here... One step at a time."
+                "Text": ""
             }
         }
     ]

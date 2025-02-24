@@ -2,6 +2,7 @@
 #include "ResourceManager/ResourceManager.h"
 #include "../Core/AssetManager/FilePaths.h"
 
+Dialogue g_DialogueText;
 Serialization dialogueText;
 
 void Dialogue::OnInitialize()
@@ -26,6 +27,11 @@ void Dialogue::OnInitialize()
 
 void Dialogue::OnUpdate(double deltaTime)
 {
+	// Click on the screen to move to the close dialogue
+	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT))
+	{
+		OnShutdown();
+	}
 }
 
 void Dialogue::OnShutdown()
@@ -55,7 +61,7 @@ std::string Dialogue::getDialogue()
 		return "I have to get out of here… One step at a time.";
 
 	case DialogueState::TUTORIALEND:
-		return "Wait… I smell something… It’s coming from—there! Could this be a way out?";
+		return "Wait… I smell something… It’s coming from-there! Could this be a way out?";
 
 	case DialogueState::TOUCHBALL:
 		return "Oh! My tennis ball! Master and I used to play with this all the time…";
@@ -121,16 +127,26 @@ std::string Dialogue::getDialogue()
 	return std::string();
 }
 
-void Dialogue::setDialogue(DialogueState newState, Entity entity)
+void Dialogue::setDialogue(DialogueState newState)
 {
 	m_CurrentState = newState;
 
-	if (g_Coordinator.HaveComponent<FontComponent>(entity)) {
-		g_Coordinator.GetComponent<FontComponent>(entity).set_text(getDialogue());
+	if (g_Coordinator.HaveComponent<FontComponent>(m_D1)) {
+		g_Coordinator.GetComponent<FontComponent>(m_D1).set_text(getDialogue());
 	}
 }
 
+//void Dialogue::setDialogue(DialogueState newState, Entity entity)
+//{
+//	m_CurrentState = newState;
+//
+//	if (g_Coordinator.HaveComponent<FontComponent>(entity)) {
+//		g_Coordinator.GetComponent<FontComponent>(entity).set_text(getDialogue());
+//	}
+//}
+
 void Dialogue::Reset()
 {
-	setDialogue(DialogueState::DEFAULT, m_D1);
+	//setDialogue(DialogueState::DEFAULT, m_D1);
+	setDialogue(DialogueState::DEFAULT);
 }
