@@ -150,20 +150,12 @@ void UISystem::UI_render()
             }
             else
             {
-                // Animated UI branch remains similar but can include rotation in the transformation.
                 auto& shader = g_AssetManager.GetShader("Sprite");
                 shader.Use();
 
-                glm::vec3 UI_pos1 = { UICompt.get_position(), UICompt.get_UI_layer() };
-                glm::vec3 UI_scale1 = { UICompt.get_scale(), 1.0f };
-
-                glm::mat4 model1 = glm::mat4(1.0f);
-                model1 = glm::translate(model1, UI_pos1);
-                model1 = glm::rotate(model1, glm::radians(UICompt.get_rotation()), glm::vec3(0.0f, 0.0f, 1.0f));
-                model1 = glm::scale(model1, UI_scale1);
-
-                // Here we send the 3x3 matrix for 2D transformations.
-                shader.SetUniform("uModel_to_NDC", glm::mat3(model1));
+                shader.SetUniform("model", model);  // Use 4x4 transformation
+                shader.SetUniform("projection", glm::mat4(1.0f));
+                shader.SetUniform("view", glm::mat4(1.0f));
 
                 shader.SetUniform("opacity", UICompt.get_UI_opacity());
                 shader.SetUniform("rows", UICompt.get_rows());
@@ -171,8 +163,7 @@ void UISystem::UI_render()
                 shader.SetUniform("row_To_Draw", UICompt.get_curr_row());
                 shader.SetUniform("col_To_Draw", UICompt.get_curr_col());
                 shader.SetUniform("useTexture", true);
-                shader.SetUniform("gammaValue", GraphicsSystem::gammaValue);
-                // Bind texture
+
                 glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(UICompt.get_texturename()));
                 shader.SetUniform("uTex2d", 6);
 
