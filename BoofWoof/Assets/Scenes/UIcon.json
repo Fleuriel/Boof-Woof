@@ -1,0 +1,89 @@
+{
+    "SceneGUID": "fcfc09f2-49a7-4c66-ad30-bd677f7350c0",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Outline",
+                "EntityID": 0
+            },
+            "UIComponent": {
+                "TextureName": "SquareIcon",
+                "PositionX": 0.8500000238418579,
+                "PositionY": 0.4000000059604645,
+                "ScaleX": 0.07999999821186066,
+                "ScaleY": 0.15000000596046449,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Outline",
+                "EntityID": 1
+            },
+            "UIComponent": {
+                "TextureName": "SquareIcon",
+                "PositionX": 0.8500000238418579,
+                "PositionY": 0.10000000149011612,
+                "ScaleX": 0.07999999821186066,
+                "ScaleY": 0.15000000596046449,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Sniff",
+                "EntityID": 2
+            },
+            "UIComponent": {
+                "TextureName": "CorgiSniff",
+                "PositionX": 0.9800000190734863,
+                "PositionY": 0.10000000149011612,
+                "ScaleX": 0.20000000298023225,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 3,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Sprint",
+                "EntityID": 3
+            },
+            "UIComponent": {
+                "TextureName": "CorgiSprint",
+                "PositionX": 1.034000039100647,
+                "PositionY": 0.4000000059604645,
+                "ScaleX": 0.25,
+                "ScaleY": 0.11999999731779099,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 3,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        }
+    ]
+}
