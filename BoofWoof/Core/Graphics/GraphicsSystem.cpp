@@ -334,7 +334,7 @@ void GraphicsSystem::UpdateLoop() {
 		{
 			auto& particleComp = g_Coordinator.GetComponent<ParticleComponent>(entity);
 			if (!particleComp.getInitFlag()) {
-				particleComp.init();
+				particleComp.init_textured();
 				particleComp.setInitFlag(true);
 			}
 			g_AssetManager.GetShader("instanced").Use();
@@ -347,13 +347,13 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader("instanced").SetUniform("gammaValue", gammaValue);
 			g_AssetManager.GetShader("instanced").SetUniform("cameraUP", camera_render.GetCameraUp());
 			g_AssetManager.GetShader("instanced").SetUniform("cameraRight", camera_render.GEtCameraRight());
-			particleComp.update(static_cast<float>(g_Core->m_DeltaTime));
+			particleComp.update_textured(static_cast<float>(g_Core->m_DeltaTime));
 			int text = g_ResourceManager.GetTextureDDS("DogHead");
 			glBindTextureUnit(6, text);
 			glBindTexture(GL_TEXTURE_2D, text);
 			GLuint tex_loc = glGetUniformLocation(g_AssetManager.GetShader("instanced").GetHandle(), "uTex2d");
 			glUniform1i(tex_loc, 6);
-			particleComp.draw();
+			particleComp.draw_textured();
 			g_AssetManager.GetShader("instanced").UnUse();
 
 		}
