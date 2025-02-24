@@ -21,16 +21,16 @@ void main()
     outVisibility = visibility;
     vTexCoord = aTextureCoordinate;
 
-    vec3 camRight = vec3(view[0][0], view[1][0], view[2][0]);
-    vec3 camUp    = vec3(view[0][1], view[1][1], view[2][1]);
+    //vec3 camRight = vec3(view[0][0], view[1][0], view[2][0]);
+    //vec3 camUp    = vec3(view[0][1], view[1][1], view[2][1]);
 
-    vec3 billboardOffset = aPos.x * camRight 
-                         + aPos.y * camUp;   
-    vec3 worldpos = billboardOffset + aOffset;
+    //vec3 billboardOffset = aPos.x * camRight 
+    //                     + aPos.y * camUp;   
+    //vec3 worldpos = billboardOffset + aOffset;
 
-    gl_Position = projection * view  * vertexTransform * vec4(worldpos, 1.0f);
+    //gl_Position = projection * view  * vertexTransform * vec4(worldpos, 1.0f);
 
-    //gl_Position = projection * view * vertexTransform *vec4(aPos + aOffset, 1.0f);
+    gl_Position = projection * view * vertexTransform *vec4(aPos + aOffset, 1.0f);
     
     
 }

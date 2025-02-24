@@ -724,8 +724,19 @@ void SceneManager::FinalizeSceneDataChunked(const SceneData& data, size_t& index
                 color.b = cObj["b"].GetFloat();
                 color.a = cObj["a"].GetFloat();
             }
+            std::string particle_type = "POINT";
+            if (PData.HasMember("ParticleType")) particle_type = PData["ParticleType"].GetString();
 
-            ParticleComponent partC(density, posMin, posMax, velMin, velMax, targetPositions, size, color);
+            ParticleType type = ParticleComponent::stringToParticleType(particle_type);
+
+            std::string particle_model = "Bed";
+            if (PData.HasMember("ParticleModel")) particle_model = PData["ParticleModel"].GetString();
+
+
+            std::string particle_texture = "Bed";
+            if (PData.HasMember("ParticleTexture")) particle_texture = PData["ParticleTexture"].GetString();
+
+			ParticleComponent partC(density, posMin, posMax, velMin, velMax, targetPositions, size, color, type, particle_model, particle_texture);
             g_Coordinator.AddComponent(newE, partC);
         }
 
