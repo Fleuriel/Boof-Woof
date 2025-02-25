@@ -34,8 +34,8 @@ public:
 	void OnUpdate(double deltaTime);
 	void OnShutdown();
 	std::string getDialogue();
-	/*void setDialogue(DialogueState newState, Entity entity);*/
 	void setDialogue(DialogueState newState);
+	std::string textWrap(const std::string& input);
 	void Reset();
 
 private:
