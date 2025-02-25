@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "14f6436f-1fd9-4677-8de0-439065273fe5",
+    "SceneGUID": "6cb13e50-fd1b-4cbd-8c99-56b3ca3650a6",
     "Entities": [
         {
             "MetadataComponent": {
@@ -29,11 +29,11 @@
             },
             "UIComponent": {
                 "TextureName": "BallsLoading",
-                "PositionX": 0.0,
+                "PositionX": -0.10000000149011612,
                 "PositionY": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0,
-                "Layer": 0.5,
+                "Layer": 0.49000000953674319,
                 "Selectable": false,
                 "Opcaity": 1.0,
                 "Animated": true,

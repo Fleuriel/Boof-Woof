@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "fcfc09f2-49a7-4c66-ad30-bd677f7350c0",
+    "SceneGUID": "c2931000-6326-4747-b80a-92de248939f8",
     "Entities": [
         {
             "MetadataComponent": {
@@ -7,7 +7,7 @@
                 "EntityID": 0
             },
             "UIComponent": {
-                "TextureName": "SquareIcon",
+                "TextureName": "CD",
                 "PositionX": 0.8500000238418579,
                 "PositionY": 0.4000000059604645,
                 "ScaleX": 0.07999999821186066,
@@ -15,10 +15,10 @@
                 "Layer": 0.5,
                 "Selectable": false,
                 "Opcaity": 1.0,
-                "Animated": false,
+                "Animated": true,
                 "Rows": 1,
-                "Cols": 1,
-                "FrameInterval": 0.10000000149011612,
+                "Cols": 17,
+                "FrameInterval": 1.0,
                 "StayOnRow": true
             }
         },
@@ -28,7 +28,7 @@
                 "EntityID": 1
             },
             "UIComponent": {
-                "TextureName": "SquareIcon",
+                "TextureName": "CD",
                 "PositionX": 0.8500000238418579,
                 "PositionY": 0.10000000149011612,
                 "ScaleX": 0.07999999821186066,
@@ -36,10 +36,10 @@
                 "Layer": 0.5,
                 "Selectable": false,
                 "Opcaity": 1.0,
-                "Animated": false,
+                "Animated": true,
                 "Rows": 1,
-                "Cols": 1,
-                "FrameInterval": 0.10000000149011612,
+                "Cols": 17,
+                "FrameInterval": 1.0,
                 "StayOnRow": true
             }
         },
@@ -50,17 +50,17 @@
             },
             "UIComponent": {
                 "TextureName": "CorgiSniff",
-                "PositionX": 0.9800000190734863,
+                "PositionX": 0.8510000109672546,
                 "PositionY": 0.10000000149011612,
-                "ScaleX": 0.20000000298023225,
-                "ScaleY": 0.10000000149011612,
+                "ScaleX": 0.07000000029802323,
+                "ScaleY": 0.09000000357627869,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
                 "Opcaity": 1.0,
-                "Animated": false,
+                "Animated": true,
                 "Rows": 1,
                 "Cols": 3,
-                "FrameInterval": 0.10000000149011612,
+                "FrameInterval": 0.25,
                 "StayOnRow": true
             }
         },
@@ -71,16 +71,58 @@
             },
             "UIComponent": {
                 "TextureName": "CorgiSprint",
-                "PositionX": 1.034000039100647,
+                "PositionX": 0.8500000238418579,
                 "PositionY": 0.4000000059604645,
-                "ScaleX": 0.25,
-                "ScaleY": 0.11999999731779099,
+                "ScaleX": 0.06800000369548798,
+                "ScaleY": 0.10000000149011612,
                 "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": true,
+                "Rows": 1,
+                "Cols": 4,
+                "FrameInterval": 0.20000000298023225,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "E",
+                "EntityID": 4
+            },
+            "UIComponent": {
+                "TextureName": "htpE",
+                "PositionX": 0.6700000166893005,
+                "PositionY": 0.41999998688697817,
+                "ScaleX": 0.800000011920929,
+                "ScaleY": 0.800000011920929,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
                 "Opcaity": 1.0,
                 "Animated": false,
                 "Rows": 1,
-                "Cols": 3,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Shift",
+                "EntityID": 5
+            },
+            "UIComponent": {
+                "TextureName": "htpShift",
+                "PositionX": 1.2549999952316285,
+                "PositionY": 0.550000011920929,
+                "ScaleX": 0.699999988079071,
+                "ScaleY": 0.800000011920929,
+                "Layer": 0.4700000286102295,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
                 "FrameInterval": 0.10000000149011612,
                 "StayOnRow": true
             }

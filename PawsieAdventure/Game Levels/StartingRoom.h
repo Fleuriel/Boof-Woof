@@ -22,10 +22,8 @@ public:
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom_Light.json");
-		
-		/*g_DialogueText.OnInitialize();
-		g_DialogueText.setDialogue(DialogueState::TUTORIALSTART);*/
 		g_ChangeText.OnInitialize();
+		g_DialogueText.setDialogue(DialogueState::TUTORIALSTART);
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -126,8 +124,6 @@ public:
 			cameraController->Update(static_cast<float>(deltaTime));
 
 			auto& opacity = g_Coordinator.GetComponent<ParticleComponent>(scentEntity);
-
-			//g_DialogueText.OnUpdate(deltaTime);
 
 			if (!g_ChangeText.shutted)
 			{				

@@ -1,5 +1,6 @@
 #include "Dialogue.h"
 #include "ResourceManager/ResourceManager.h"
+#include "../ChangeText/ChangeText.h"
 #include "../Core/AssetManager/FilePaths.h"
 
 Dialogue g_DialogueText;
@@ -48,6 +49,8 @@ void Dialogue::OnShutdown()
 			}
 		}
 	}
+
+	g_ChangeText.OnShutdown();
 }
 
 std::string Dialogue::getDialogue()
