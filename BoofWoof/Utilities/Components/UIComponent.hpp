@@ -117,7 +117,7 @@ private:
 	int curr_col{ 1 };
 	float frame_interval{ 0.1f };
 	float timer{ 0.f };
-	bool playing{ true };
+	bool playing{ false };
 	bool stay_on_row{ true };
 };
 
