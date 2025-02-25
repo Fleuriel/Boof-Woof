@@ -5,6 +5,7 @@ enum class DialogueState {
 	DEFAULT,
 	TUTORIALSTART,
 	TUTORIALEND,
+	ENTEREDLIBRARY,
 	TOUCHBALL,
 	TOUCHBONE,
 	DONTWASTETIME,
@@ -33,14 +34,21 @@ public:
 	void OnInitialize();
 	void OnUpdate(double deltaTime);
 	void OnShutdown();
+	
 	std::string getDialogue();
 	void setDialogue(DialogueState newState);
+	
 	std::string textWrap(const std::string& input);
+	void checkCollision(Entity player, double dt);
+	
 	void Reset();
+
 
 private:
 	Entity m_D1{};
 	DialogueState m_CurrentState{ DialogueState::DEFAULT };
+	bool m_DialogueActive{ false }, m_FirstTimeTouchBall{ true }, m_FirstTimeTouchBone{ true }, m_TouchedBall{ false }, m_TouchedBone{ false };
+	float m_CollisionResetTimer{ 1.5f }; // stunlock timing
 
 protected:
 	// Storage is for those entity you added in when you load a scene file

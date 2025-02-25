@@ -8,21 +8,25 @@ Serialization dialogueText;
 
 void Dialogue::OnInitialize()
 {
-	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Dialogue.json");
-	storage = dialogueText.GetStored();
-
-	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
-
-	for (auto entity : entities)
+	if (!m_DialogueActive) 
 	{
-		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Dialogue.json");
+		storage = dialogueText.GetStored();
+
+		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
+
+		for (auto entity : entities)
 		{
-			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Row1")
+			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 			{
-				m_D1 = entity;
-				break;
+				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Row1")
+				{
+					m_D1 = entity;
+					break;
+				}
 			}
 		}
+		m_DialogueActive = true;
 	}
 }
 
@@ -50,6 +54,7 @@ void Dialogue::OnShutdown()
 		}
 	}
 
+	m_DialogueActive = false;
 	g_ChangeText.OnShutdown();
 }
 
@@ -60,11 +65,16 @@ std::string Dialogue::getDialogue()
 	case DialogueState::DEFAULT:
 		return "";
 
+	/* Starting Room Dialogues */
 	case DialogueState::TUTORIALSTART:
 		return "I have to get out of here.. One step at a time..";
 
 	case DialogueState::TUTORIALEND:
 		return "I can smell something.. It's coming from-there! Could this be a way out?";
+	
+	/* TimeRush Dialogues */
+	case DialogueState::ENTEREDLIBRARY:
+		return "The library?! No, no, no.. If Rex finds me here, I'm done for.. I have to find a way out-FAST!";
 
 	case DialogueState::TOUCHBALL:
 		return "Oh! My tennis ball! Master and I used to play with this all the time..";
@@ -75,6 +85,7 @@ std::string Dialogue::getDialogue()
 	case DialogueState::DONTWASTETIME:
 		return "No, I can't waste time-I have to get out before Rex finds me!";
 
+	/* MainHall Lvl1 Dialogues */
 	case DialogueState::OUTOFLIBRARY:
 		return "Phew.. We're out, but Rex will notice soon. I need to stay sharp! One wrong move, and I'm his next chew toy.";
 
@@ -93,6 +104,7 @@ std::string Dialogue::getDialogue()
 	case DialogueState::DISGUSTED:
 		return "Eww!! Seriously, Rex?! Why pee all over the place?! I gotta clean this off before he sniffs me out!";
 
+	/* MainHall Lvl2 Dialogues ? */
 	case DialogueState::SEARCHINGFORPUPS2:
 		return "If I were a pup, where would I be..? Gotta check everywhere—can't leave without all of them!";
 
@@ -117,6 +129,7 @@ std::string Dialogue::getDialogue()
 	case DialogueState::REXSAWYOU2:
 		return "Oh no—RUN! Don't let him catch us!";
 
+	/* RopeBreaker & Escape Dialogues */
 	case DialogueState::BREAKROPES:
 		return "We made it.. But we're not safe yet. I need to break these ropes!";
 
@@ -164,8 +177,69 @@ std::string Dialogue::textWrap(const std::string& input)
 	return format;
 }
 
+void Dialogue::checkCollision(Entity player, double dt)
+{
+	if (!g_Coordinator.HaveComponent<CollisionComponent>(player))
+		return;
+
+	std::string collidedObject = g_Coordinator.GetComponent<CollisionComponent>(player).GetLastCollidedObjectName();
+
+	if (collidedObject == "TennisBall")
+	{
+		if (!m_TouchedBall)  // Only trigger if not already interacting
+		{
+			OnInitialize();
+			setDialogue(m_FirstTimeTouchBall ? DialogueState::TOUCHBALL : DialogueState::DONTWASTETIME);
+			m_TouchedBall = true;  // Track interaction with the ball
+			m_FirstTimeTouchBall = false;  
+		}
+	}
+	
+	if (m_TouchedBall) // following stunlock timing
+	{
+		if (m_CollisionResetTimer > 0)
+		{
+			m_CollisionResetTimer -= static_cast<float>(dt);
+		}
+		else
+		{
+			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");	// Change the last collided object to prevent retriggering
+			m_CollisionResetTimer = 1.5f;
+			m_TouchedBall = false;
+		}
+	}
+
+	if (collidedObject == "Bone")
+	{
+		if (!m_TouchedBone)  // Only trigger if not already interacting
+		{
+			OnInitialize();
+			setDialogue(m_FirstTimeTouchBone ? DialogueState::TOUCHBONE : DialogueState::DONTWASTETIME);
+			m_TouchedBone = true;  // Track interaction with the bone
+			m_FirstTimeTouchBone = false;  
+		}
+	}
+	
+	if (m_TouchedBone)  // following stunlock timing
+	{
+		if (m_CollisionResetTimer > 0)
+		{
+			m_CollisionResetTimer -= static_cast<float>(dt);
+		}
+		else
+		{
+			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");	// Change the last collided object to prevent retriggering
+			m_CollisionResetTimer = 1.5f;
+			m_TouchedBone = false;
+		}
+	}
+}
+
 
 void Dialogue::Reset()
 {
 	setDialogue(DialogueState::DEFAULT);
+	m_DialogueActive = m_TouchedBall = m_TouchedBone = false;
+	m_FirstTimeTouchBall = m_FirstTimeTouchBone = true;
+	m_CollisionResetTimer = 1.5f;
 }

@@ -29,6 +29,8 @@ class TimeRush : public Level
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/TimeRushPuzzle.json");
 		g_TimerTR.OnInitialize();
+		g_DialogueText.OnInitialize();
+		g_DialogueText.setDialogue(DialogueState::ENTEREDLIBRARY);
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -181,6 +183,9 @@ class TimeRush : public Level
 			auto& opacity9 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity9);
 
 			g_TimerTR.OnUpdate(deltaTime);
+
+			g_DialogueText.checkCollision(playerEnt, deltaTime);
+			g_DialogueText.OnUpdate(deltaTime);
 
 			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
 			if (g_TimerTR.timer == 0.0) 
