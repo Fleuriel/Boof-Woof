@@ -293,12 +293,17 @@ class MainHall : public Level
 					g_TimerTR.OnInitialize();
 					g_TimerTR.timer = timerLimit;
 					TimerInit = true;
+
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", true, "SFX");
+
 				}
 				g_TimerTR.OnUpdate(deltaTime);
 
 				if (g_TimerTR.timer == 0.0)
 				{
 					timesUp -= deltaTime;
+
+					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
 
 					// Times up! sound
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
