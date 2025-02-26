@@ -14,7 +14,9 @@ class MainHall : public Level
 {
 	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{}, scentEntity3{}, puppy1{}, puppy2{}, puppy3{};
 	Entity RexPee1{}, RexPee2{}, RexPee3{}, RexPee4{}, RexPee5{}, WaterBucket{}, WaterBucket2{}, WaterBucket3{}; // Smell Avoidance
-	Entity  FireSound{};
+	Entity FireSound{};
+	Entity TestPee{}, TestCollider{};
+	glm::vec3 TestPos{}, NewPos{};
 
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
@@ -43,10 +45,11 @@ class MainHall : public Level
 
 	bool peeSoundPlayed = false;
 	bool waterSoundPlayed = false;
+	bool testCollided = false;
 
 	void LoadLevel() override
 	{
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM4.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM5.json");
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusicBGM.wav", true, "BGM");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -72,7 +75,9 @@ class MainHall : public Level
 			{"WaterBucket", [&](Entity entity) { WaterBucket = entity; }},
 			{"WaterBucket2", [&](Entity entity) { WaterBucket2 = entity; }},
 			{"WaterBucket3", [&](Entity entity) { WaterBucket3 = entity; }},
-			{ "red particle", [&](Entity entity) { FireSound = entity; }}
+			{"red particle", [&](Entity entity) { FireSound = entity; }},
+			{"TestObject", [&](Entity entity) { TestPee = entity; }},
+			{"TestCollision", [&](Entity entity) { TestCollider = entity; }}
 
 		};
 
@@ -90,7 +95,7 @@ class MainHall : public Level
 
 				// Exit early if all entities are found
 				if (playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3
-					&& RexPee1 && RexPee2 && RexPee3 && RexPee4 && RexPee5 && WaterBucket && WaterBucket2 && WaterBucket3)
+					&& RexPee1 && RexPee2 && RexPee3 && RexPee4 && RexPee5 && WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider)
 				{
 					break;
 				}
@@ -127,6 +132,15 @@ class MainHall : public Level
 		}
 		else {
 			std::cerr << " ERROR: FireSound entity has no AudioComponent in InitLevel!" << std::endl;
+		}
+
+		if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
+		{
+			auto& testPeeTransform = g_Coordinator.GetComponent<TransformComponent>(TestPee);
+			TestPos = testPeeTransform.GetPosition();
+
+			NewPos = TestPos - glm::vec3(0.0f, 20.0f, 0.0f);
+			testPeeTransform.SetPosition(NewPos);
 		}
 
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
@@ -167,6 +181,11 @@ class MainHall : public Level
 			rexPee5collided = g_Coordinator.GetComponent<CollisionComponent>(RexPee5).GetIsColliding();
 		}
 
+		if (g_Coordinator.HaveComponent<CollisionComponent>(TestCollider))
+		{
+			testCollided = g_Coordinator.GetComponent<CollisionComponent>(TestCollider).GetIsColliding();
+		}
+
 		if (g_Coordinator.HaveComponent<CollisionComponent>(WaterBucket))
 		{
 			waterBucketcollided = g_Coordinator.GetComponent<CollisionComponent>(WaterBucket).GetIsColliding();
@@ -182,7 +201,7 @@ class MainHall : public Level
 			waterBucket3collided = g_Coordinator.GetComponent<CollisionComponent>(WaterBucket3).GetIsColliding();
 		}
 
-		if (playercollided && (rexPee1collided || rexPee2collided || rexPee3collided || rexPee4collided || rexPee5collided) && !peeMarked && !peeSoundPlayed)
+		if (playercollided && (rexPee1collided || rexPee2collided || rexPee3collided || rexPee4collided || rexPee5collided || testCollided) && !peeMarked && !peeSoundPlayed)
 		{
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PeePuddle.wav", false, "SFX");
 			peeMarked = true;
@@ -388,8 +407,14 @@ class MainHall : public Level
 				opacity1.setParticleColor(glm::vec4(0.9607843160629273f, 0.3935392200946808f, 0.042387526482343677f, 1.0f));
 				opacity2.setParticleColor(glm::vec4(0.032127078622579578f, 0.93624528503418f, 0.936274528503418f, 1.0f));
 				opacity3.setParticleColor(glm::vec4(0.9313725233078003f, 0.342416375875473f, 0.8274392485618591f, 1.0f));
-				sniffa = true;
 
+				if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
+				{
+					auto& testPeeTransform = g_Coordinator.GetComponent<TransformComponent>(TestPee);
+					testPeeTransform.SetPosition(TestPos);
+				}
+
+				sniffa = true;
 				isColorChanged = true;
 				colorChangeTimer = 0.0;
 				cooldownTimer = 0.0;
@@ -403,6 +428,12 @@ class MainHall : public Level
 					opacity1.setParticleColor(glm::vec4(0.9607843160629273f, 0.3935392200946808f, 0.042387526482343677f, 0.0f));
 					opacity2.setParticleColor(glm::vec4(0.032127078622579578f, 0.93624528503418f, 0.936274528503418f, 0.0f));
 					opacity3.setParticleColor(glm::vec4(0.9313725233078003f, 0.342416375875473f, 0.8274392485618591f, 0.0f));
+
+					if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
+					{
+						auto& testPeeTransform = g_Coordinator.GetComponent<TransformComponent>(TestPee);
+						testPeeTransform.SetPosition(NewPos);
+					}
 
 					isColorChanged = false;
 				}
@@ -444,6 +475,7 @@ class MainHall : public Level
 		puppy1Destroyed = puppy2Destroyed = puppy3Destroyed = false;
 		peeSoundPlayed = waterSoundPlayed = false;
 		TimerInit = false;
+		testCollided = false;
 
 		g_TimerTR.OnShutdown();
 	}
