@@ -209,20 +209,11 @@ void Dialogue::checkCollision(Entity player, double dt)
 		}
 	}
 
-	// Stunlock & Reset System
-	if (g_TimerTR.touched)  // Ensure reset works based on real touch
+	// Ensure reset works based on real touch
+	if (!g_TimerTR.touched)  
 	{
-		if (m_CollisionResetTimer > 0)
-		{
-			m_CollisionResetTimer -= static_cast<float>(dt);
-		}
-		else
-		{
-			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");  // Prevent retriggering
-			m_CollisionResetTimer = 2.0f;
-			m_TouchedBall = false;
-			m_TouchedBone = false;
-		}
+		m_TouchedBall = false;
+		m_TouchedBone = false;
 	}
 }
 
