@@ -2,6 +2,7 @@
 #include "ResourceManager/ResourceManager.h"
 #include "../ChangeText/ChangeText.h"
 #include "../Core/AssetManager/FilePaths.h"
+#include "../../../BoofWoof/Utilities/ForGame/TimerTR/TimerTR.h"
 
 Dialogue g_DialogueText;
 Serialization dialogueText;
@@ -184,43 +185,32 @@ void Dialogue::checkCollision(Entity player, double dt)
 
 	std::string collidedObject = g_Coordinator.GetComponent<CollisionComponent>(player).GetLastCollidedObjectName();
 
-	if (collidedObject == "TennisBall")
+	// Tennis Ball Dialogue Trigger
+	if (g_TimerTR.touched && collidedObject == "TennisBall")
 	{
 		if (!m_TouchedBall)  // Only trigger if not already interacting
 		{
 			OnInitialize();
 			setDialogue(m_FirstTimeTouchBall ? DialogueState::TOUCHBALL : DialogueState::DONTWASTETIME);
 			m_TouchedBall = true;  // Track interaction with the ball
-			m_FirstTimeTouchBall = false;  
-		}
-	}
-	
-	if (m_TouchedBall) // following stunlock timing
-	{
-		if (m_CollisionResetTimer > 0)
-		{
-			m_CollisionResetTimer -= static_cast<float>(dt);
-		}
-		else
-		{
-			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");	// Change the last collided object to prevent retriggering
-			m_CollisionResetTimer = 1.5f;
-			m_TouchedBall = false;
+			m_FirstTimeTouchBall = false;
 		}
 	}
 
-	if (collidedObject == "Bone")
+	// Bone Dialogue Trigger
+	if (g_TimerTR.touched && collidedObject == "Bone")
 	{
 		if (!m_TouchedBone)  // Only trigger if not already interacting
 		{
 			OnInitialize();
 			setDialogue(m_FirstTimeTouchBone ? DialogueState::TOUCHBONE : DialogueState::DONTWASTETIME);
 			m_TouchedBone = true;  // Track interaction with the bone
-			m_FirstTimeTouchBone = false;  
+			m_FirstTimeTouchBone = false;
 		}
 	}
-	
-	if (m_TouchedBone)  // following stunlock timing
+
+	// Stunlock & Reset System
+	if (g_TimerTR.touched)  // Ensure reset works based on real touch
 	{
 		if (m_CollisionResetTimer > 0)
 		{
@@ -228,8 +218,9 @@ void Dialogue::checkCollision(Entity player, double dt)
 		}
 		else
 		{
-			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");	// Change the last collided object to prevent retriggering
-			m_CollisionResetTimer = 1.5f;
+			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");  // Prevent retriggering
+			m_CollisionResetTimer = 2.0f;
+			m_TouchedBall = false;
 			m_TouchedBone = false;
 		}
 	}
@@ -241,5 +232,5 @@ void Dialogue::Reset()
 	setDialogue(DialogueState::DEFAULT);
 	m_DialogueActive = m_TouchedBall = m_TouchedBone = false;
 	m_FirstTimeTouchBall = m_FirstTimeTouchBone = true;
-	m_CollisionResetTimer = 1.5f;
+	m_CollisionResetTimer = 2.0f;
 }

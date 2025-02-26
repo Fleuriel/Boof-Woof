@@ -29,8 +29,6 @@ class TimeRush : public Level
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/TimeRushPuzzle.json");
 		g_TimerTR.OnInitialize();
-		g_DialogueText.OnInitialize();
-		g_DialogueText.setDialogue(DialogueState::ENTEREDLIBRARY);
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -136,6 +134,9 @@ class TimeRush : public Level
 
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
+
+		g_DialogueText.OnInitialize();
+		g_DialogueText.setDialogue(DialogueState::ENTEREDLIBRARY);
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -163,13 +164,11 @@ class TimeRush : public Level
 		// ?? Update the positions of all 3D sounds (including the fireplace)
 		g_Audio.Update3DSoundPositions();
 
-
 		pauseLogic::OnUpdate();
 
 		if (!g_IsPaused)
 		{
 			cameraController->Update(static_cast<float>(deltaTime));
-
 			cooldownTimer += deltaTime;
 
 			auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
@@ -208,6 +207,8 @@ class TimeRush : public Level
 
 						timesUp = 2.0;
 						g_TimerTR.Reset();
+						g_DialogueText.OnShutdown();
+						g_DialogueText.Reset();
 
 						g_LevelManager.SetNextLevel("LoadingLevel");
 					}
