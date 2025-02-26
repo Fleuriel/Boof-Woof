@@ -24,6 +24,7 @@ struct Puppy final : public Behaviour
         followingPath = false;
         isMovingPuppy = true;
         currentPathIndex = 0;
+        collected = true;
 
         // Get the player entity from the engine
         playerEntity = m_Engine.GetPlayerEntity();
@@ -116,7 +117,7 @@ struct Puppy final : public Behaviour
             }
 
             m_Engine.SetVelocity(entity, velocity);
-            std::cout << "[Puppy] Moving with velocity: (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
+            // std::cout << "[Puppy] Moving with velocity: (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
         }
     }
 
