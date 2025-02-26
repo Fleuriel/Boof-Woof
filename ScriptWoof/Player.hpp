@@ -17,8 +17,8 @@ struct Player final : public Behaviour
 	bool followingPath;
 	float pathThreshold; // Distance threshold for reaching a waypoint
 	bool pathInitialized = false;
-	bool inRopeBreaker{ false }, touchingToy{ false }, cooldownActive{ false };
-	double stunlockTimer = 1.5;	// 1.5 seconds
+	bool inRopeBreaker{ false }, touchingToy{ false }, cooldownActive{ false }, justplaypls{ false };
+	double stunlockTimer = 2.0;	// 2.0 seconds
 	double cooldownTimer = 0.0;
 
 	float footstepTimer = 0.0f;
@@ -129,6 +129,15 @@ struct Player final : public Behaviour
 				else if (toyEntities.count(entityName) && !cooldownActive)
 				{
 					touchingToy = true;
+
+					if (!justplaypls) 
+					{
+						m_Engine.getAudioSystem().PlaySoundByFile("ToyTouch.wav", false, "SFX");
+						double currTimer = m_Engine.GetTimerTiming();
+						double newTimer = currTimer - 10.0;
+						m_Engine.SetTimerTiming(newTimer);
+						justplaypls = true;
+					}
 				}
 			}
 			else
@@ -160,10 +169,11 @@ struct Player final : public Behaviour
 			{
 				cooldownTimer += m_Engine.GetDeltaTime();
 
-				if (cooldownTimer >= 1.5)
+				if (cooldownTimer >= 2.0)
 				{
-					stunlockTimer = 1.5;  //  Reset stunlock timer for next interaction
+					stunlockTimer = 2.0;  //  Reset stunlock timer for next interaction
 					cooldownTimer = 0.0;  //  Reset cooldown timer
+					justplaypls = false;
 					cooldownActive = false;  //  Allow player to be stunned again
 				}
 			}
