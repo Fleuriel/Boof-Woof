@@ -26,6 +26,9 @@
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
 #include <../Utilities/Components/CollisionComponent.hpp>
 #include <../Utilities/Components/MetaData.hpp> // To get name of entity
+#include <Jolt/Physics/Collision/RayCast.h>  // For JPH::RRayCast, JPH::RayCastResult
+#include <Jolt/Physics/Collision/NarrowPhaseQuery.h>  // For JPH::NarrowPhaseQuery
+#include <Jolt/Physics/Collision/CastResult.h>
 
 
 std::unordered_map<Entity, float> m_PreviousYPositions;
@@ -687,6 +690,35 @@ Entity MyPhysicsSystem::GetEntityFromBody(const JPH::BodyID bodyID) {
     }
     return invalid_entity; // Sentinel value for invalid entity
 }
+
+Entity MyPhysicsSystem::Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance) {
+    if (!mPhysicsSystem) {
+        std::cerr << "[PhysicsSystem] ERROR: Physics system is not initialized!" << std::endl;
+        return invalid_entity;
+    }
+
+    glm::vec3 normalizedDir = glm::normalize(direction);
+    JPH::RRayCast ray(JPH::RVec3(origin.x, origin.y, origin.z), JPH::Vec3(normalizedDir.x, normalizedDir.y, normalizedDir.z) * maxDistance);
+
+    JPH::RayCastResult result; 
+
+    // Correct way to get the NarrowPhaseQuery
+    const JPH::NarrowPhaseQuery& npQuery = mPhysicsSystem->GetNarrowPhaseQueryNoLock();
+
+    if (npQuery.CastRay(ray, result)) {
+        JPH::BodyID hitBodyID = result.mBodyID;
+        Entity hitEntity = GetEntityFromBody(hitBodyID);
+
+        std::cout << "[PhysicsSystem] Raycast hit entity: " << hitEntity
+            << " at fraction: " << result.mFraction
+            << " (Distance: " << result.mFraction * maxDistance << ")\n";
+
+        return hitEntity;
+    }
+
+    return invalid_entity;
+}
+
 
 
 
