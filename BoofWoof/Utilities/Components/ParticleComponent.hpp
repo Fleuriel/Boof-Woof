@@ -42,7 +42,8 @@ enum class ParticleType
 {
 	TEXTURED_3D,
 	TEXTURED,
-	POINT
+	POINT,
+	UNKNOWN,
 };
 
 class ParticleComponent
@@ -121,6 +122,9 @@ public:
 		case ParticleType::POINT:
 			return "POINT";
 			break;
+		default:
+			return "UNKNOWN";  // Handle unknown cases
+			break;
 		}
 	}
 	std::string getParticleModelname() { return particle_modelname; }
@@ -136,6 +140,8 @@ public:
 		else if (type == "POINT") {
 			return ParticleType::POINT;
 		}
+		// Add a default return value (assuming UNKNOWN exists)
+		return ParticleType::UNKNOWN;  // You may need to define this in your ParticleType enum
 	}
 
 
@@ -455,7 +461,7 @@ public:
 
 	void draw_3Dobj() {
 		glBindVertexArray(quadVAO);
-		glDrawArraysInstanced(GL_TRIANGLES, 0, particle_mesh.vertices.size(), PARTICLE_NUM);
+		glDrawArraysInstanced(GL_TRIANGLES, 0, static_cast<GLsizei>(particle_mesh.vertices.size()), PARTICLE_NUM);
 		glBindVertexArray(0);
 	}
 
