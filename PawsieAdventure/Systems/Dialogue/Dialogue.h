@@ -37,7 +37,8 @@ public:
 	
 	std::string getDialogue();
 	void setDialogue(DialogueState newState);
-	
+	void ProcessDialogue();
+
 	std::string textWrap(const std::string& input);
 	void checkCollision(Entity player, double dt);
 	
@@ -47,8 +48,10 @@ public:
 private:
 	Entity m_D1{};
 	DialogueState m_CurrentState{ DialogueState::DEFAULT };
+	bool NextDialoguePls{ false };
 	bool m_DialogueActive{ false }, m_FirstTimeTouchBall{ true }, m_FirstTimeTouchBone{ true }, m_TouchedBall{ false }, m_TouchedBone{ false };
 	float m_CollisionResetTimer{ 2.0f }; // stunlock timing
+	float clickCooldown = 0.0f;
 
 protected:
 	// Storage is for those entity you added in when you load a scene file

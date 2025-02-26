@@ -33,10 +33,17 @@ void Dialogue::OnInitialize()
 
 void Dialogue::OnUpdate(double deltaTime)
 {
-	// Click on the screen to move to the close dialogue
-	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT))
+	// Reduce cooldown timer every frame
+	if (clickCooldown > 0)
 	{
-		OnShutdown();
+		clickCooldown -= static_cast<float>(deltaTime);
+	}
+
+	// Check if mouse is clicked and cooldown has expired
+	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && clickCooldown <= 0.0f)
+	{
+		ProcessDialogue();
+		clickCooldown = 0.2f;  // Set cooldown (prevents multiple clicks registering in one frame)
 	}
 }
 
@@ -88,13 +95,13 @@ std::string Dialogue::getDialogue()
 
 	/* MainHall Lvl1 Dialogues */
 	case DialogueState::OUTOFLIBRARY:
-		return "Phew.. We're out, but Rex will notice soon. I need to stay sharp! One wrong move, and I'm his next chew toy.";
+		return "Phew.. We're out! But Rex will catch on.. Gotta stay sharp-one slip, and I'm his chew toy.";
 
 	case DialogueState::REXSAWYOU:
 		return "Oh no, he saw me!! Gotta hide-NOW!";
 
 	case DialogueState::SEARCHINGFORPUPS:
-		return "Where are my kiddos at..? Hang in there, I'm coming!";
+		return "So where are my kiddos at..? I'll find you-just gotta trust my nose!";
 
 	case DialogueState::FOUNDPUP1:
 		return "I found you! But this stupid lock.. Time to bite it to pieces!! Grr!!";
@@ -150,6 +157,30 @@ void Dialogue::setDialogue(DialogueState newState)
 
 	if (g_Coordinator.HaveComponent<FontComponent>(m_D1)) {
 		g_Coordinator.GetComponent<FontComponent>(m_D1).set_text(textWrap(getDialogue()));
+	}
+}
+
+void Dialogue::ProcessDialogue()
+{
+	OnShutdown();
+
+	DialogueState nextState = m_CurrentState;  // Default: No transition
+
+	switch (m_CurrentState) 
+	{
+	case DialogueState::OUTOFLIBRARY:
+		nextState = DialogueState::SEARCHINGFORPUPS;
+		break;
+
+	default:
+		return;
+	}
+
+	if (nextState != m_CurrentState)
+	{
+		m_CurrentState = nextState;
+		OnInitialize();  // Only call OnInitialize when transitioning
+		setDialogue(m_CurrentState);  // Update dialogue text
 	}
 }
 
