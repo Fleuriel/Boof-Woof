@@ -2690,6 +2690,46 @@ void ImGuiEditor::InspectorWindow()
 							if (ImGui::CollapsingHeader("Particle", ImGuiTreeNodeFlags_None))
 							{
 								auto& particleComponent = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
+								// set the particle type
+								ParticleType particleType = particleComponent.getParticleType();
+								ImGui::Text("Particle Type");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("ParticleType");
+
+								std::string typestring{};
+								switch (particleType)
+								{
+								case ParticleType::TEXTURED_3D:
+									typestring = "TEXTURED_3D";
+									break;
+								case ParticleType::TEXTURED:
+									typestring = "TEXTURED";
+									break;
+								case ParticleType::POINT:
+									typestring = "POINT";
+									break;
+								}
+								//select bar
+								if (ImGui::BeginCombo("##ParticleType", typestring.c_str()))
+								{
+									if (ImGui::Selectable("TEXTURED_3D", typestring == "TEXTURED_3D"))
+									{
+										particleComponent.setParticleType(ParticleType::TEXTURED_3D);
+									}
+									if (ImGui::Selectable("TEXTURED", typestring == "TEXTURED"))
+									{
+										particleComponent.setParticleType(ParticleType::TEXTURED);
+									}
+									if (ImGui::Selectable("POINT", typestring == "POINT"))
+									{
+										particleComponent.setParticleType(ParticleType::POINT);
+									}
+									
+									ImGui::EndCombo();
+								}
+								ImGui::PopID();
+
 								// set the properties
 								glm::vec3 position = particleComponent.getPosMin();
 								glm::vec3 positionMax = particleComponent.getPosMax();
@@ -2792,36 +2832,108 @@ void ImGuiEditor::InspectorWindow()
 									}
 								}
 
-								// set particle size
-								float particleSize = particleComponent.getParticleSize();
-								ImGui::Text("Particle Size");
-								ImGui::SameLine();
-								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("ParticleSize");
+								if (particleType == ParticleType::POINT) {
+									// set particle size
+									float particleSize = particleComponent.getParticleSize();
+									ImGui::Text("Particle Size");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("ParticleSize");
 
-								if (ImGui::DragFloat("##ParticleSize", &particleSize, 0.1f))
-								{
-									particleComponent.setParticleSize(particleSize);
+									if (ImGui::DragFloat("##ParticleSize", &particleSize, 0.1f))
+									{
+										particleComponent.setParticleSize(particleSize);
+									}
+
+									ImGui::PopID();
+									ImGui::PopItemWidth();
+
+									// set particle color
+									glm::vec4 particleColor = particleComponent.getParticleColor();
+									ImGui::Text("Particle Color");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("ParticleColor");
+
+									if (ImGui::ColorEdit4("##ParticleColor", &particleColor.x))
+									{
+										particleComponent.setParticleColor(particleColor);
+									}
+
+									ImGui::PopID();
+									ImGui::PopItemWidth();
 								}
+								else if (particleType == ParticleType::TEXTURED) {
+									// set the texture
+									std::string textureName = particleComponent.getParticleTexturename();
+									ImGui::Text("Texture :");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::Text("%s", textureName.c_str());
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("Texture");
+									if (ImGui::Button("Change Texture"))
+									{
+										ImGuiFileDialog::Instance()->OpenDialog("ChangeTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+									}
 
-								ImGui::PopID();
-								ImGui::PopItemWidth();
+									if (ImGuiFileDialog::Instance()->Display("ChangeTexture"))
+									{
+										if (ImGuiFileDialog::Instance()->IsOk())
+										{
+											// User selected a file
+											std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+											size_t lastDotPos = selectedFile.find_last_of(".");
+											if (lastDotPos != std::string::npos)
+											{
+												selectedFile = selectedFile.substr(0, lastDotPos);
+											}
+											particleComponent.setParticleTexturename(selectedFile);
 
-								// set particle color
-								glm::vec4 particleColor = particleComponent.getParticleColor();
-								ImGui::Text("Particle Color");
-								ImGui::SameLine();
-								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("ParticleColor");
+										}
+										ImGuiFileDialog::Instance()->Close();
+									}
 
-								if (ImGui::ColorEdit4("##ParticleColor", &particleColor.x))
-								{
-									particleComponent.setParticleColor(particleColor);
+									ImGui::PopID();
+									ImGui::PopItemWidth();
+
+								}else if (particleType == ParticleType::TEXTURED_3D) {
+									std::string modelname = particleComponent.getParticleModelname();
+									ImGui::Text("Model :");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::Text("%s", modelname.c_str());
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("Model");
+									if (ImGui::Button("Change Model"))
+									{
+										ImGuiFileDialog::Instance()->OpenDialog("ChangeModel", "Choose File", ".obj", "../BoofWoof/Assets/Objects");
+									}
+
+									if (ImGuiFileDialog::Instance()->Display("ChangeModel"))
+									{
+										if (ImGuiFileDialog::Instance()->IsOk())
+										{
+											// User selected a file
+											std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+											size_t lastDotPos = selectedFile.find_last_of(".");
+											if (lastDotPos != std::string::npos)
+											{
+												selectedFile = selectedFile.substr(0, lastDotPos);
+											}
+											particleComponent.setParticleModelname(selectedFile);
+											particleComponent.setParticleTexturename(selectedFile);
+
+										}
+										ImGuiFileDialog::Instance()->Close();
+									}
+
+									ImGui::PopID();
+									ImGui::PopItemWidth();
+									
 								}
-
-								ImGui::PopID();
-								ImGui::PopItemWidth();
-
 
 							}
 						}

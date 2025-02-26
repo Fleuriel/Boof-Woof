@@ -16,6 +16,8 @@ Entity ResumeGame{}, SettingsBtn{}, HTPBtn{}, ExitGame{};
 bool inSmthAgain{ false };
 float sfVolume{ 1.f }, bgVolume{ 1.f };
 
+extern std::shared_ptr<GraphicsSystem> mGraphicsSys;
+
 void PausedScreen::OnLoad()
 {
 	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/PausedScreen.json");
@@ -111,9 +113,12 @@ void Settings::OnLoad()
 		{"SFXLeft", [&](Entity entity) { SFXLeft = entity; }},
 		{"SFXRight", [&](Entity entity) { SFXRight = entity; }},
 		{"BGMLeft", [&](Entity entity) { BGMLeft = entity; }},
-		{"BGMRight", [&](Entity entity) { BGMRight = entity; } },
+		{"BGMRight", [&](Entity entity) { BGMRight = entity; }},
+		{"GAMMALeft", [&](Entity entity) { GAMMALeft = entity; }},
+		{"GAMMARight", [&](Entity entity) { GAMMARight = entity; }},
+		{"SFXVol", [&](Entity entity) { SFXVol = entity; }},
 		{"BGMVol", [&](Entity entity) { BGMVol = entity; }},
-		{"SFXVol", [&](Entity entity) { SFXVol = entity; }}
+		
 	};
 
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -128,7 +133,7 @@ void Settings::OnLoad()
 		}
 
 		// Exit early if all entities are found
-		if (SFXLeft && SFXRight && BGMLeft && BGMRight && SFXVol && BGMVol)
+		if (SFXLeft && SFXRight && BGMLeft && BGMRight && SFXVol && BGMVol && GAMMALeft && GAMMARight)
 		{
 			break;
 		}
@@ -383,6 +388,24 @@ namespace pauseLogic
 					{
 						g_Coordinator.GetComponent<FontComponent>(pauser->BGMVol).set_pos(glm::vec2(0.14f, -0.25f));
 						g_Coordinator.GetComponent<FontComponent>(pauser->BGMVol).set_text("10");
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<UIComponent>(pauser->GAMMALeft))
+				{
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->GAMMALeft);
+					if (UICompt.get_selected())
+					{
+						mGraphicsSys->gammaValue -= 1.f;
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<UIComponent>(pauser->GAMMARight))
+				{
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->GAMMARight);
+					if (UICompt.get_selected())
+					{
+						mGraphicsSys->gammaValue -= 1.f;
 					}
 				}
 			}

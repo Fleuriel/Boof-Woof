@@ -75,6 +75,31 @@ public:
         return modelMatrix;
     }
 
+	glm::mat4 GetWorldMatrix_withoutRotate()
+	{
+        // Create scale matrix
+        glm::mat4 scaleMat = glm::scale(glm::mat4(1.0f), m_Scale);
+
+        // Create rotation matrix
+        /*glm::quat quaternion = glm::quat(m_Rotation);
+        glm::mat4 rotateMat = glm::toMat4(quaternion);*/
+
+        // Step 1: Use m_RotationPivotOffset as the offset
+        glm::vec3 pivotOffset = m_RotationPivotOffset; // Dynamically adjust pivot offset
+        glm::mat4 offsetTranslate = glm::translate(glm::mat4(1.0f), pivotOffset);
+
+        // Step 2: Apply rotation
+        glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), m_Position); // Translation to position
+        modelMatrix *= offsetTranslate;  // Move pivot to offset
+       // modelMatrix *= rotateMat;        // Apply rotation
+        modelMatrix *= glm::translate(glm::mat4(1.0f), -pivotOffset); // Translate back
+
+        // Step 3: Apply scale
+        modelMatrix *= scaleMat;
+
+        return modelMatrix;
+	}
+
     void SetRotationPivotOffset(const glm::vec3& offset) { m_RotationPivotOffset = offset; }
     glm::vec3 GetRotationPivotOffset() const { return m_RotationPivotOffset; }
 
