@@ -34,11 +34,19 @@ void Mesh::UpdateVerticesWithBones(
             }
             std::string boneName = boneNames.at(boneIndex);
             const BoneAnimation& boneAnim = boneAnimations.at(boneName);
+            // Example: manually set a bone transform for debugging
+         //  boneAnim.currentTransform = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, 0.0f));
             glm::mat4 boneTransform = boneAnim.currentTransform;
             glm::mat4 offset = boneAnim.offsetMatrix;
 
             // Compute the final transformed position:
-            glm::vec3 transformedPos = glm::vec3(boneTransform * offset * glm::vec4(vertex.Position, 1.0f));
+            glm::vec3 transformedPos = glm::vec3(boneTransform * boneAnim.offsetMatrix * glm::vec4(vertex.Position, 1.0f));
+         //  std::cout << "Bone " << boneName << " contributes: "
+         //      << transformedPos.x << ", " << transformedPos.y << ", " << transformedPos.z
+         //      << " with weight " << vertex.m_Weights[j] << std::endl;
+
+
+
             finalPosition += vertex.m_Weights[j] * transformedPos;
         }
         updatedVertices[i].Position = finalPosition;

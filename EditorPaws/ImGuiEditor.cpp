@@ -3192,8 +3192,8 @@ void ImGuiEditor::InspectorWindow()
 
 									if (sphereModel)
 										sphereModel->DrawMaterial(g_AssetManager.GetShader("Material"));
-									else
-										std::cerr << "cant find sphere model\n";
+									//else
+										//std::cerr << "cant find sphere model\n";
 
 
 

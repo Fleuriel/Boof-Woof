@@ -91,6 +91,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 
 
 	AddModel_2D();
+	
 
 	//fontSystem.init();
 
@@ -256,11 +257,13 @@ void GraphicsSystem::UpdateLoop() {
 		auto& ShaderName = material.GetShaderNameRef();
 
 #ifdef _DEBUG
-	//	std::cout << "ShaderName: " << material.GetShaderName() << '\n';
+		std::cout << "ShaderName: " << material.GetShaderName() << '\n';
 
+		std::cout << g_ResourceManager.GetModelMap().size() << '\n';
 #endif
 
 		g_AssetManager.GetShader(ShaderName).Use();
+
 
 		if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
 		{
@@ -307,7 +310,7 @@ void GraphicsSystem::UpdateLoop() {
 		//}
 
 
-	//std::cout << ShaderName << '\n';
+		std::cout << ShaderName << '\n';
 
 		if (ShaderName == "ShaderAnimation" && g_Coordinator.HaveComponent<AnimationComponent>(entity)) {
 			//std::string ShaderName = "ShaderAnimation";
@@ -317,7 +320,7 @@ void GraphicsSystem::UpdateLoop() {
 
 			//std::cout << animComp.animation.boneAnimations.size() << '\n';
 
-			std::cout << "Size of bone animation on Res Manager" << g_ResourceManager.boneAnimations.size() << '\n';
+//			std::cout << "Size of bone animation on Res Manager" << g_ResourceManager.boneAnimations.size() << '\n';
 
 
 			animComp.Update(g_Core->m_DeltaTime);
@@ -335,11 +338,11 @@ void GraphicsSystem::UpdateLoop() {
 				//std::cout << "tech:\t\t" << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes[0].bindPoseVertices.size() << '\n';
 			
 				
-				mesh.UpdateVerticesWithBones(
-					g_ResourceManager.boneAnimations,           // The map of bone animations
-					mesh.bindPoseVertices,                        // The original vertices (bind pose)
-					g_ResourceManager.boneNames                  // The vector mapping bone indices to bone names
-				);
+				//mesh.UpdateVerticesWithBones(
+				//	g_ResourceManager.boneAnimations,           // The map of bone animations
+				//	mesh.bindPoseVertices,                        // The original vertices (bind pose)
+				//	g_ResourceManager.boneNames                  // The vector mapping bone indices to bone names
+				//);
 				//
 				//
 				//mesh.UpdateVerticesWithBonesCombinedA(deltaTime, g_ResourceManager.boneAnimations,           // The map of bone animations
@@ -439,6 +442,8 @@ void GraphicsSystem::UpdateLoop() {
 
 		if (ShaderName == "Shader3D" && !g_Coordinator.HaveComponent<AnimationComponent>(entity))
 		{
+
+			std::cout << "it entered ah but idk why cannot\n";
 
 			// START OF 3D
 			if (graphicsComp.getFollowCamera()) {
