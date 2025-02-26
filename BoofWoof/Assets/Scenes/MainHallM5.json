@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "12bc7072-e801-4bd4-8bd4-73f05cfe6212",
+    "SceneGUID": "764d6e22-b7a8-47c3-840b-7cfad3563bdb",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.243511363863945,
+                    "x": -0.6938127875328064,
                     "y": 1.1806228160858155,
-                    "z": 0.34239816665649416
+                    "z": 0.3424111306667328
                 },
                 "Scale": {
                     "x": 0.5,
@@ -2890,12 +2890,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 9.948341369628907,
-                    "y": 1.3658888339996338,
-                    "z": -17.569456100463868
+                    "x": 11.70302963256836,
+                    "y": 1.3658998012542725,
+                    "z": -14.921947479248047
                 },
                 "Scale": {
-                    "x": 1.9999816417694092,
+                    "x": 1.9998778104782105,
                     "y": 1.5,
                     "z": 3.0999999046325685
                 },
@@ -2922,44 +2922,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 9.962017059326172,
-                    "y": 1.3658909797668458,
-                    "z": -3.0577828884124758
+                    "x": 11.669404983520508,
+                    "y": 1.365899920463562,
+                    "z": -5.270869255065918
                 },
                 "Scale": {
-                    "x": 2.0,
-                    "y": 1.5,
-                    "z": 3.0999999046325685
-                },
-                "Rotation": {
-                    "x": 0.0002212708641309291,
-                    "y": -1.5692306756973267,
-                    "z": -0.00021578760060947388
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Table2",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Table",
-                "EntityID": 64
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 9.951184272766114,
-                    "y": 1.365893006324768,
-                    "z": -9.978093147277832
-                },
-                "Scale": {
-                    "x": 1.9999929666519166,
+                    "x": 1.9999653100967408,
                     "y": 1.5,
                     "z": 3.0999999046325685
                 },
@@ -2986,44 +2954,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.419322967529298,
-                    "y": 1.3659758567810059,
-                    "z": -3.081981897354126
+                    "x": 24.081546783447267,
+                    "y": 1.365970492362976,
+                    "z": -5.293237686157227
                 },
                 "Scale": {
-                    "x": 2.0,
-                    "y": 1.5,
-                    "z": 3.0999999046325685
-                },
-                "Rotation": {
-                    "x": 0.0002212708641309291,
-                    "y": -1.5692306756973267,
-                    "z": -0.00021578760060947388
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Table2",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Table",
-                "EntityID": 66
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 25.40865707397461,
-                    "y": 1.3659778833389283,
-                    "z": -9.88709831237793
-                },
-                "Scale": {
-                    "x": 1.9999914169311524,
+                    "x": 1.999911904335022,
                     "y": 1.5,
                     "z": 3.0999999046325685
                 },
@@ -3050,12 +2986,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.396820068359376,
-                    "y": 1.3659807443618775,
-                    "z": -17.453964233398439
+                    "x": 24.09529685974121,
+                    "y": 1.3659720420837403,
+                    "z": -14.93359375
                 },
                 "Scale": {
-                    "x": 1.9999666213989258,
+                    "x": 1.999921441078186,
                     "y": 1.5,
                     "z": 3.0999999046325685
                 },
@@ -3142,253 +3078,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 70
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 6.039684295654297,
-                    "y": 1.7630367279052735,
-                    "z": -4.394343376159668
-                },
-                "Scale": {
-                    "x": 1.6000003814697266,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000003814697266
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 1.5680437088012696,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 71
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 14.524824142456055,
-                    "y": 1.7630367279052735,
-                    "z": -4.496499538421631
-                },
-                "Scale": {
-                    "x": 1.6000003814697266,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000003814697266
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 1.5680437088012696,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 72
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 13.678099632263184,
-                    "y": 1.7630399465560914,
-                    "z": -12.305000305175782
-                },
-                "Scale": {
-                    "x": 1.6000003814697266,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000003814697266
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 1.5680437088012696,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 73
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 11.47920036315918,
-                    "y": 1.7630399465560914,
-                    "z": -13.298999786376954
-                },
-                "Scale": {
-                    "x": 1.6000003814697266,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000003814697266
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 1.5680437088012696,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 74
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 9.201997756958008,
-                    "y": 1.7630367279052735,
-                    "z": -11.592926979064942
-                },
-                "Scale": {
-                    "x": 1.6000003814697266,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000003814697266
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 1.5680437088012696,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
                 "EntityID": 75
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 9.981071472167969,
+                    "x": 7.5515456199646,
                     "y": 1.7630367279052735,
-                    "z": -19.445920944213868
+                    "z": -16.6278018951416
                 },
                 "Scale": {
                     "x": 1.6000003814697266,
@@ -3434,9 +3130,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 12.510736465454102,
+                    "x": 12.518924713134766,
                     "y": 1.7630367279052735,
-                    "z": -19.452882766723634
+                    "z": -16.479629516601564
                 },
                 "Scale": {
                     "x": 1.6000003814697266,
@@ -3482,9 +3178,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 21.134485244750978,
+                    "x": 21.143112182617189,
                     "y": 1.7630367279052735,
-                    "z": -19.47661781311035
+                    "z": -16.344533920288087
                 },
                 "Scale": {
                     "x": 1.6000003814697266,
@@ -3530,249 +3226,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 28.652347564697267,
+                    "x": 27.936752319335939,
                     "y": 1.7630367279052735,
-                    "z": -19.497314453125
-                },
-                "Scale": {
-                    "x": 1.6000003814697266,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000003814697266
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 1.5680437088012696,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 79
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 28.675060272216798,
-                    "y": 1.7630367279052735,
-                    "z": -11.24488353729248
-                },
-                "Scale": {
-                    "x": 1.6000003814697266,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000003814697266
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 1.5680437088012696,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 80
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 26.261760711669923,
-                    "y": 1.7630367279052735,
-                    "z": -11.238240242004395
-                },
-                "Scale": {
-                    "x": 1.6000003814697266,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000003814697266
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 1.5680437088012696,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 81
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 23.24475860595703,
-                    "y": 1.7630367279052735,
-                    "z": -4.595615386962891
-                },
-                "Scale": {
-                    "x": 1.6000003814697266,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000003814697266
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 1.5680437088012696,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 82
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 26.302188873291017,
-                    "y": 1.7630367279052735,
-                    "z": -4.604031562805176
-                },
-                "Scale": {
-                    "x": 1.6000003814697266,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000003814697266
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 1.5680437088012696,
-                    "z": -3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 83
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 28.944528579711915,
-                    "y": 1.7630367279052735,
-                    "z": -4.611305236816406
+                    "z": -16.44913101196289
                 },
                 "Scale": {
                     "x": 1.6000003814697266,
@@ -3818,9 +3274,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 28.95558738708496,
-                    "y": 1.763040542602539,
-                    "z": -0.9491100907325745
+                    "x": 28.697362899780275,
+                    "y": 1.7630484104156495,
+                    "z": -3.388664960861206
                 },
                 "Scale": {
                     "x": 1.6000020503997803,
@@ -3866,9 +3322,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.430580139160158,
-                    "y": 1.7630162239074708,
-                    "z": -0.9428406357765198
+                    "x": 25.705345153808595,
+                    "y": 1.7630621194839478,
+                    "z": -12.58216667175293
                 },
                 "Scale": {
                     "x": 1.6000020503997803,
@@ -3914,441 +3370,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 21.82974624633789,
-                    "y": 1.7629915475845338,
-                    "z": -0.9364363551139832
-                },
-                "Scale": {
-                    "x": 1.6000020503997803,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000020503997803
-                },
-                "Rotation": {
-                    "x": 0.0021607389207929374,
-                    "y": -1.569017767906189,
-                    "z": -0.002153845503926277
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 87
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 25.66238784790039,
-                    "y": 1.7630468606948853,
-                    "z": -8.600988388061524
-                },
-                "Scale": {
-                    "x": 1.6000020503997803,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000020503997803
-                },
-                "Rotation": {
-                    "x": 0.0021607389207929374,
-                    "y": -1.569017767906189,
-                    "z": -0.002153845503926277
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 88
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 28.155752182006837,
-                    "y": 1.7630641460418702,
-                    "z": -8.605422019958496
-                },
-                "Scale": {
-                    "x": 1.6000020503997803,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000020503997803
-                },
-                "Rotation": {
-                    "x": 0.0021607389207929374,
-                    "y": -1.569017767906189,
-                    "z": -0.002153845503926277
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 89
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 28.142248153686525,
-                    "y": 1.7630934715270997,
-                    "z": -16.20004653930664
-                },
-                "Scale": {
-                    "x": 1.6000020503997803,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000020503997803
-                },
-                "Rotation": {
-                    "x": 0.0021607389207929374,
-                    "y": -1.569017767906189,
-                    "z": -0.002153845503926277
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 90
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 21.063209533691408,
-                    "y": 1.7630444765090943,
-                    "z": -16.187458038330079
-                },
-                "Scale": {
-                    "x": 1.6000020503997803,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000020503997803
-                },
-                "Rotation": {
-                    "x": 0.0021607389207929374,
-                    "y": -1.569017767906189,
-                    "z": -0.002153845503926277
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 91
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 12.696175575256348,
-                    "y": 1.7629865407943726,
-                    "z": -16.172574996948243
-                },
-                "Scale": {
-                    "x": 1.6000020503997803,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000020503997803
-                },
-                "Rotation": {
-                    "x": 0.0021607389207929374,
-                    "y": -1.569017767906189,
-                    "z": -0.002153845503926277
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 92
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 9.515035629272461,
-                    "y": 1.7629646062850953,
-                    "z": -16.166915893554689
-                },
-                "Scale": {
-                    "x": 1.6000020503997803,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000020503997803
-                },
-                "Rotation": {
-                    "x": 0.0021607389207929374,
-                    "y": -1.569017767906189,
-                    "z": -0.002153845503926277
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 93
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 6.721805095672607,
-                    "y": 1.762945294380188,
-                    "z": -16.16194725036621
-                },
-                "Scale": {
-                    "x": 1.6000020503997803,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000020503997803
-                },
-                "Rotation": {
-                    "x": 0.0021607389207929374,
-                    "y": -1.569017767906189,
-                    "z": -0.002153845503926277
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 94
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 9.754179954528809,
-                    "y": 1.7629400491714478,
-                    "z": -6.045000076293945
-                },
-                "Scale": {
-                    "x": 1.6000020503997803,
-                    "y": 2.0999999046325685,
-                    "z": 1.6000020503997803
-                },
-                "Rotation": {
-                    "x": 0.0021607389207929374,
-                    "y": -1.569017767906189,
-                    "z": -0.002153845503926277
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Chair",
-                "EntityID": 95
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 12.8927001953125,
-                    "y": 1.7629599571228028,
-                    "z": -6.451000213623047
+                    "x": 21.82600975036621,
+                    "y": 1.7629995346069337,
+                    "z": -3.038551092147827
                 },
                 "Scale": {
                     "x": 1.6000020503997803,
@@ -4394,9 +3418,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 6.748309135437012,
-                    "y": 1.762887954711914,
-                    "z": -1.2600514888763428
+                    "x": 8.250569343566895,
+                    "y": 1.762906789779663,
+                    "z": -3.532820224761963
                 },
                 "Scale": {
                     "x": 1.6000020503997803,
@@ -4442,9 +3466,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 8.9414644241333,
-                    "y": 1.7629032135009766,
-                    "z": -1.263952374458313
+                    "x": 14.96667766571045,
+                    "y": 1.7629528045654297,
+                    "z": -3.436720848083496
                 },
                 "Scale": {
                     "x": 1.6000020503997803,
@@ -4490,9 +3514,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 11.821860313415528,
-                    "y": 1.762923240661621,
-                    "z": -1.26907479763031
+                    "x": 14.20909309387207,
+                    "y": 1.762984275817871,
+                    "z": -12.710680961608887
                 },
                 "Scale": {
                     "x": 1.6000020503997803,
@@ -15578,7 +14602,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                   "x": 25.5,
+                    "x": 25.5,
                     "y": 1.5,
                     "z": -77.0
                 },
@@ -24618,6 +23642,412 @@
                 "LightDirectionY": 0.0,
                 "LightDirectionZ": 0.0,
                 "LightRange": 42.099998474121097
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair",
+                "EntityID": 64
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 9.450409889221192,
+                    "y": 1.7630367279052735,
+                    "z": -6.977700710296631
+                },
+                "Scale": {
+                    "x": 1.6000003814697266,
+                    "y": 2.0999999046325685,
+                    "z": 1.6000003814697266
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": 1.5680437088012696,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair",
+                "EntityID": 66
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 8.089644432067871,
+                    "y": 1.762941837310791,
+                    "z": -12.699793815612793
+                },
+                "Scale": {
+                    "x": 1.6000020503997803,
+                    "y": 2.0999999046325685,
+                    "z": 1.6000020503997803
+                },
+                "Rotation": {
+                    "x": 0.0021607389207929374,
+                    "y": -1.569017767906189,
+                    "z": -0.002153845503926277
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair",
+                "EntityID": 70
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 21.664880752563478,
+                    "y": 1.7630343437194825,
+                    "z": -12.574979782104493
+                },
+                "Scale": {
+                    "x": 1.6000020503997803,
+                    "y": 2.0999999046325685,
+                    "z": 1.6000020503997803
+                },
+                "Rotation": {
+                    "x": 0.0021607389207929374,
+                    "y": -1.569017767906189,
+                    "z": -0.002153845503926277
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair",
+                "EntityID": 71
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.402827262878418,
+                    "y": 1.7630367279052735,
+                    "z": -6.988580703735352
+                },
+                "Scale": {
+                    "x": 1.6000003814697266,
+                    "y": 2.0999999046325685,
+                    "z": 1.6000003814697266
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": 1.5680437088012696,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair",
+                "EntityID": 72
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 21.315763473510743,
+                    "y": 1.7630367279052735,
+                    "z": -7.010363578796387
+                },
+                "Scale": {
+                    "x": 1.6000003814697266,
+                    "y": 2.0999999046325685,
+                    "z": 1.6000003814697266
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": 1.5680437088012696,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair",
+                "EntityID": 73
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 26.852968215942384,
+                    "y": 1.7630367279052735,
+                    "z": -7.025605201721191
+                },
+                "Scale": {
+                    "x": 1.6000003814697266,
+                    "y": 2.0999999046325685,
+                    "z": 1.6000003814697266
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": 1.5680437088012696,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.800000011920929,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "TestObject",
+                "EntityID": 74
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 15.005996704101563,
+                    "y": 0.32108771800994875,
+                    "z": 0.6278731822967529
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "RexPee3",
+                "FollowCamera": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "TestCollision",
+                "EntityID": 79
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 14.897014617919922,
+                    "y": 0.25638115406036379,
+                    "z": 0.5615170001983643
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.0,
+                    "y": 0.10000000149011612,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.25,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         }
     ]

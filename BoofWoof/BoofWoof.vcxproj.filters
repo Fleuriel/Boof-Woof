@@ -45,6 +45,7 @@
     <ClCompile Include="Core\Serialization\SerializationAsync.cpp" />
     <ClCompile Include="Utilities\Components\FontComponent.cpp" />
     <ClCompile Include="Utilities\ForGame\TimerTR\TimerTR.cpp" />
+    <ClCompile Include="Utilities\Components\NodeComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />

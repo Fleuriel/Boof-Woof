@@ -85,6 +85,8 @@ struct engine_interface
 	virtual double SetTimerTiming(double timing) = 0;
 	virtual double GetTimerTiming() = 0;
 	virtual void SetTouched(bool touch) = 0;
+
+	virtual Entity GetPlayerEntity() = 0; // Expose the function
 };	
 
 #ifdef GAME_ENGINE

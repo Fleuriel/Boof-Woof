@@ -286,6 +286,32 @@ void ImGuiEditor::ImGuiViewport() {
 							component.SetScale(oldScale);
 						}
 					);
+
+					// **Check if any children have a NodeComponent**
+					bool needsPathfindingUpdate = false;
+
+					if (g_Coordinator.HaveComponent<HierarchyComponent>(entity))
+					{
+						auto& hierarchyComp = g_Coordinator.GetComponent<HierarchyComponent>(entity);
+						for (Entity child : hierarchyComp.children)
+						{
+							if (g_Coordinator.HaveComponent<NodeComponent>(child))
+							{
+								needsPathfindingUpdate = true;
+								break; // Stop checking after finding the first match
+							}
+						}
+					}
+
+					// **Rebuild the pathfinding graph if necessary**
+					if (needsPathfindingUpdate)
+					{
+						auto pathfindingSystem = g_Coordinator.GetSystem<PathfindingSystem>();
+						if (pathfindingSystem)
+						{
+							pathfindingSystem->ResetPathfinding();
+						}
+					}
 				}
 
 				g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity, 0.0f);
@@ -1330,6 +1356,13 @@ void ImGuiEditor::InspectorWindow()
 								// Display Entity ID
 								ImGui::Text("Entity ID: %d", g_SelectedEntity);
 
+								// **Check if the entity has a NodeComponent and display Node ID**
+								if (g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+								{
+									auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
+									ImGui::Text("Node ID: %d", nodeComponent.GetNodeID());
+								}
+
 								ImGui::Text("Name    ");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
@@ -2290,7 +2323,7 @@ void ImGuiEditor::InspectorWindow()
 									std::string currentBehaviourName = (*behaviourNameProperty)->GetValue(&behaviourComponent);
 									std::string newBehaviourName = currentBehaviourName;
 
-									const char* behaviourNames[] = { "Null", "Player", "Treat", "Rex", "Toys"};
+									const char* behaviourNames[] = { "Null", "Player", "Treat", "Rex", "Toys", "Puppy"};
 									int currentItem = 0;
 
 									for (int i = 0; i < IM_ARRAYSIZE(behaviourNames); ++i)
@@ -2657,6 +2690,46 @@ void ImGuiEditor::InspectorWindow()
 							if (ImGui::CollapsingHeader("Particle", ImGuiTreeNodeFlags_None))
 							{
 								auto& particleComponent = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
+								// set the particle type
+								ParticleType particleType = particleComponent.getParticleType();
+								ImGui::Text("Particle Type");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("ParticleType");
+
+								std::string typestring{};
+								switch (particleType)
+								{
+								case ParticleType::TEXTURED_3D:
+									typestring = "TEXTURED_3D";
+									break;
+								case ParticleType::TEXTURED:
+									typestring = "TEXTURED";
+									break;
+								case ParticleType::POINT:
+									typestring = "POINT";
+									break;
+								}
+								//select bar
+								if (ImGui::BeginCombo("##ParticleType", typestring.c_str()))
+								{
+									if (ImGui::Selectable("TEXTURED_3D", typestring == "TEXTURED_3D"))
+									{
+										particleComponent.setParticleType(ParticleType::TEXTURED_3D);
+									}
+									if (ImGui::Selectable("TEXTURED", typestring == "TEXTURED"))
+									{
+										particleComponent.setParticleType(ParticleType::TEXTURED);
+									}
+									if (ImGui::Selectable("POINT", typestring == "POINT"))
+									{
+										particleComponent.setParticleType(ParticleType::POINT);
+									}
+									
+									ImGui::EndCombo();
+								}
+								ImGui::PopID();
+
 								// set the properties
 								glm::vec3 position = particleComponent.getPosMin();
 								glm::vec3 positionMax = particleComponent.getPosMax();
@@ -2759,36 +2832,108 @@ void ImGuiEditor::InspectorWindow()
 									}
 								}
 
-								// set particle size
-								float particleSize = particleComponent.getParticleSize();
-								ImGui::Text("Particle Size");
-								ImGui::SameLine();
-								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("ParticleSize");
+								if (particleType == ParticleType::POINT) {
+									// set particle size
+									float particleSize = particleComponent.getParticleSize();
+									ImGui::Text("Particle Size");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("ParticleSize");
 
-								if (ImGui::DragFloat("##ParticleSize", &particleSize, 0.1f))
-								{
-									particleComponent.setParticleSize(particleSize);
+									if (ImGui::DragFloat("##ParticleSize", &particleSize, 0.1f))
+									{
+										particleComponent.setParticleSize(particleSize);
+									}
+
+									ImGui::PopID();
+									ImGui::PopItemWidth();
+
+									// set particle color
+									glm::vec4 particleColor = particleComponent.getParticleColor();
+									ImGui::Text("Particle Color");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("ParticleColor");
+
+									if (ImGui::ColorEdit4("##ParticleColor", &particleColor.x))
+									{
+										particleComponent.setParticleColor(particleColor);
+									}
+
+									ImGui::PopID();
+									ImGui::PopItemWidth();
 								}
+								else if (particleType == ParticleType::TEXTURED) {
+									// set the texture
+									std::string textureName = particleComponent.getParticleTexturename();
+									ImGui::Text("Texture :");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::Text("%s", textureName.c_str());
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("Texture");
+									if (ImGui::Button("Change Texture"))
+									{
+										ImGuiFileDialog::Instance()->OpenDialog("ChangeTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+									}
 
-								ImGui::PopID();
-								ImGui::PopItemWidth();
+									if (ImGuiFileDialog::Instance()->Display("ChangeTexture"))
+									{
+										if (ImGuiFileDialog::Instance()->IsOk())
+										{
+											// User selected a file
+											std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+											size_t lastDotPos = selectedFile.find_last_of(".");
+											if (lastDotPos != std::string::npos)
+											{
+												selectedFile = selectedFile.substr(0, lastDotPos);
+											}
+											particleComponent.setParticleTexturename(selectedFile);
 
-								// set particle color
-								glm::vec4 particleColor = particleComponent.getParticleColor();
-								ImGui::Text("Particle Color");
-								ImGui::SameLine();
-								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("ParticleColor");
+										}
+										ImGuiFileDialog::Instance()->Close();
+									}
 
-								if (ImGui::ColorEdit4("##ParticleColor", &particleColor.x))
-								{
-									particleComponent.setParticleColor(particleColor);
+									ImGui::PopID();
+									ImGui::PopItemWidth();
+
+								}else if (particleType == ParticleType::TEXTURED_3D) {
+									std::string modelname = particleComponent.getParticleModelname();
+									ImGui::Text("Model :");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::Text("%s", modelname.c_str());
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("Model");
+									if (ImGui::Button("Change Model"))
+									{
+										ImGuiFileDialog::Instance()->OpenDialog("ChangeModel", "Choose File", ".obj", "../BoofWoof/Assets/Objects");
+									}
+
+									if (ImGuiFileDialog::Instance()->Display("ChangeModel"))
+									{
+										if (ImGuiFileDialog::Instance()->IsOk())
+										{
+											// User selected a file
+											std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+											size_t lastDotPos = selectedFile.find_last_of(".");
+											if (lastDotPos != std::string::npos)
+											{
+												selectedFile = selectedFile.substr(0, lastDotPos);
+											}
+											particleComponent.setParticleModelname(selectedFile);
+											particleComponent.setParticleTexturename(selectedFile);
+
+										}
+										ImGuiFileDialog::Instance()->Close();
+									}
+
+									ImGui::PopID();
+									ImGui::PopItemWidth();
+									
 								}
-
-								ImGui::PopID();
-								ImGui::PopItemWidth();
-
 
 							}
 						}
@@ -3858,49 +4003,85 @@ void ImGuiEditor::InspectorWindow()
 							}
 						}
 						// Node Component editor
-						else if (className == "NodeComponent") {
-						if (ImGui::CollapsingHeader("Node Component", ImGuiTreeNodeFlags_None)) {
-							auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
+						// Node Component editor
+						else if (className == "NodeComponent") 
+						{
+							if (ImGui::CollapsingHeader("Node Component", ImGuiTreeNodeFlags_None)) {
+								auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
+								glm::vec3 nodePosition = nodeComponent.GetPosition();
+								bool isWalkable = nodeComponent.IsWalkable();
 
-							glm::vec3 nodePosition = nodeComponent.GetPosition();
-							bool isWalkable = nodeComponent.IsWalkable();
+								bool hasTransform = g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity);
+								bool hasHierarchy = g_Coordinator.HaveComponent<HierarchyComponent>(g_SelectedEntity);
 
-							// Check if the entity has a TransformComponent
-							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) {
-								auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
-								nodePosition = transformComp.GetPosition(); // Override position
-								ImGui::Text("Node Position (From Transform)");
-							}
-							else {
-								ImGui::Text("Node Position (Manual)");
-							}
+								glm::vec3 previousPosition = nodePosition; // Store old position for comparison
 
-							ImGui::SameLine();
-							ImGui::PushItemWidth(150.0f);
-							ImGui::PushID("NodePosition");
+								if (hasTransform) {
+									auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
 
-							// If there's a TransformComponent, display the position but disable editing
-							if (g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity)) {
-								ImGui::InputFloat3("##NodePosition", &nodePosition.x, "%.3f", ImGuiInputTextFlags_ReadOnly);
-							}
-							else {
-								// Allow manual setting if no TransformComponent
-								if (ImGui::DragFloat3("##NodePosition", &nodePosition.x, 0.1f)) {
-									nodeComponent.SetPosition(nodePosition);
+									if (hasHierarchy) {
+										// Use World Transform if HierarchyComponent exists
+										auto transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+										glm::mat4 worldMatrix = transformSystem->GetWorldMatrix(g_SelectedEntity);
+
+										glm::vec3 worldPosition, worldRotation, worldScale;
+										if (DecomposeTransform(worldMatrix, worldPosition, worldRotation, worldScale)) {
+											nodePosition = worldPosition; // Override position
+										}
+										ImGui::Text("Node Position (World)");
+									}
+									else {
+										// Use local transform if no hierarchy
+										nodePosition = transformComp.GetPosition();
+										ImGui::Text("Node Position (Local)");
+									}
+								}
+								else {
+									ImGui::Text("Node Position (Manual)");
+								}
+
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("NodePosition");
+
+								bool positionChanged = false; // Flag for detecting change
+
+								// If the entity has a transform, display the position but disable editing
+								if (hasTransform) {
+									ImGui::InputFloat3("##NodePosition", &nodePosition.x, "%.3f", ImGuiInputTextFlags_ReadOnly);
+								}
+								else {
+									// Allow manual setting if no TransformComponent
+									if (ImGui::DragFloat3("##NodePosition", &nodePosition.x, 0.1f)) {
+										nodeComponent.SetPosition(nodePosition);
+										positionChanged = true; // Mark change
+									}
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Walkable Checkbox
+								bool walkable = nodeComponent.IsWalkable();
+								ImGui::Text("Walkable");
+								ImGui::SameLine();
+								if (ImGui::Checkbox("##Walkable", &walkable)) {
+									nodeComponent.SetWalkable(walkable);
+									positionChanged = true; // Rebuild graph if walkability changes
+								}
+
+								// **Rebuild Graph if Position Changes**
+								if (positionChanged && nodePosition != previousPosition) {
+									auto pathfindingSystem = g_Coordinator.GetSystem<PathfindingSystem>();
+									if (pathfindingSystem) {
+										pathfindingSystem->BuildGraph(); // Rebuild graph
+										std::cout << "[DEBUG] Pathfinding graph rebuilt due to node position change." << std::endl;
+									}
 								}
 							}
-
-							ImGui::PopID();
-							ImGui::PopItemWidth();
-
-							// Walkable Checkbox
-							bool walkable = nodeComponent.IsWalkable();
-							ImGui::Text("Walkable");
-							ImGui::SameLine();
-							ImGui::Checkbox("##Walkable", &walkable);
-							nodeComponent.SetWalkable(walkable);
 						}
-}
+
+
 
 						// Edge Component editor
 						else if (className == "EdgeComponent") 
@@ -5353,7 +5534,7 @@ void ImGuiEditor::Settings()
 
 				ImGui::Text("Gamma Value"); ImGui::SameLine(150.0f);
 
-				if (ImGui::SliderFloat("##GammaSlidr", &gammaValue, 0.0f, 10.0f) || defaultGamma)
+				if (ImGui::SliderFloat("##GammaSlidr", &gammaValue, 1.0f, 3.0f) || defaultGamma)
 				{
 					if (defaultGamma)
 						gammaValue = 2.2f;

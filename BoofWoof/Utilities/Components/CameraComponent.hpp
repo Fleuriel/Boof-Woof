@@ -155,7 +155,7 @@ public:
 		WorldUp = up;
 		updateCameraVectors();
 	}
-    
+
 	void SetCameraActive(bool isActive) {
         IsActive = isActive;
 	}
@@ -183,6 +183,10 @@ public:
 
 	bool GetCameraActive() {
 		return IsActive;
+	}
+
+	glm::vec3 GEtCameraRight() {
+		return Right;
 	}
 
     // calculates the front vector from the Camera's (updated) Euler Angles

@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "45bc94e7-28fe-4e26-8f5b-fe0378ad400e",
+    "SceneGUID": "bc0f193b-079c-41a2-af45-b9205025e974",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 7.453511443600291e-7,
-                    "y": -0.050000421702861789,
-                    "z": -0.000017352042050333695
+                    "x": 0.3131926357746124,
+                    "y": -0.050461605191230777,
+                    "z": -0.9404157996177673
                 },
                 "Scale": {
                     "x": 1.0,
@@ -30,7 +30,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Corgi2",
-                "Texture": "Corgi2",
                 "FollowCamera": true
             },
             "BehaviourComponent": {
@@ -52,28 +51,9 @@
                 },
                 "Mass": 0.0
             },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Corgi2",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
-            },
             "PathfindingComponent": {
-                "StartNode": 1,
-                "GoalNode": 9,
+                "StartNode": 0,
+                "GoalNode": 5,
                 "Path": [
                     {
                         "x": 0.0,
@@ -208,8 +188,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 1,
-                "EndNode": 2,
+                "StartNode": 0,
+                "EndNode": 1,
                 "Cost": 1.0
             }
         },
@@ -241,8 +221,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 2,
-                "EndNode": 5,
+                "StartNode": 1,
+                "EndNode": 2,
                 "Cost": 1.0
             }
         },
@@ -311,7 +291,6 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Floor",
-                "Texture": "NothingTexture",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -329,25 +308,6 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Floor",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -486,8 +446,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 5,
-                "EndNode": 7,
+                "StartNode": 2,
+                "EndNode": 3,
                 "Cost": 1.0
             }
         },
@@ -519,8 +479,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 7,
-                "EndNode": 8,
+                "StartNode": 3,
+                "EndNode": 4,
                 "Cost": 1.0
             }
         },
@@ -552,9 +512,60 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 8,
-                "EndNode": 9,
+                "StartNode": 4,
+                "EndNode": 5,
                 "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Player",
+                "EntityID": 13
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 8.312889099121094,
+                    "y": -0.050001226365566257,
+                    "z": 5.239439010620117
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Corgi2",
+                "FollowCamera": true
+            },
+            "BehaviourComponent": {
+                "BehaviourName": "Player"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": true,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.8499999046325685,
+                    "y": 1.850000023841858,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         }
     ]

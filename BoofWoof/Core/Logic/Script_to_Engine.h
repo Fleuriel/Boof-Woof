@@ -240,7 +240,7 @@ public:
 			std::cout << "[Engine] Retrieved path of length " << path.size() << " for Entity " << entity << std::endl;
 			return path;
 		}
-		//std::cout << "[Engine] No path found for Entity " << entity << std::endl;
+		std::cout << "[Engine] No path found for Entity " << entity << std::endl;
 		return {};
 	}
 
@@ -280,6 +280,22 @@ public:
 
 	virtual void SetBuilt(Entity entity, bool built) override {
 		g_Coordinator.GetComponent<PathfindingComponent>(entity).SetBuilt(built);
+	}
+
+	virtual Entity GetPlayerEntity() override
+	{
+		for (auto entity : g_Coordinator.GetAliveEntitiesSet())
+		{
+			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+			{
+				const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+				if (metadata.GetName() == "Player")
+				{
+					return entity;
+				}
+			}
+		}
+		return MAX_ENTITIES; // Return invalid entity if no player is found
 	}
 
 

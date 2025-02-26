@@ -148,6 +148,7 @@
     <ClInclude Include="Null.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Puppy.hpp" />
     <ClInclude Include="Rex.hpp" />
     <ClInclude Include="Toys.hpp" />
     <ClInclude Include="Treat.hpp" />
