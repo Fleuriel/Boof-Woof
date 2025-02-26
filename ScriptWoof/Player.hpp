@@ -17,7 +17,7 @@ struct Player final : public Behaviour
 	bool followingPath;
 	float pathThreshold; // Distance threshold for reaching a waypoint
 	bool pathInitialized = false;
-	bool inRopeBreaker{ false }, touchingToy{ false };
+	bool inRopeBreaker{ false }, touchingToy{ false }, cooldownActive{ false };
 	double stunlockTimer = 1.5;	// 1.5 seconds
 	double cooldownTimer = 0.0;
 
@@ -126,7 +126,7 @@ struct Player final : public Behaviour
 				{
 					inRopeBreaker = true;
 				}
-				else if (toyEntities.count(entityName))
+				else if (toyEntities.count(entityName) && !cooldownActive)
 				{
 					touchingToy = true;
 				}
@@ -134,25 +134,37 @@ struct Player final : public Behaviour
 			else
 			{
 				inRopeBreaker = false;
-				touchingToy = false;
 			}
 
 			if (touchingToy) 
 			{
-				// This part same as Toys.hpp because the variables can't be accessed from Toys.hpp
-				stunlockTimer -= m_Engine.GetDeltaTime();
+				m_Engine.SetTouched(true);
 
-				if (stunlockTimer <= 0.0) 
+				if (stunlockTimer > 0.0)
 				{
-					cooldownTimer += m_Engine.GetDeltaTime();
+					stunlockTimer -= m_Engine.GetDeltaTime();
+				}
+				else 
+				{
+					// Stunlock is over, now enter cooldown phase
+					m_Engine.SetTouched(false);
+					m_Engine.SetCollidingEntityName(entity);
 
-					// Cooldown 2 seconds before player will get stunlocked by the toy again
-					if (cooldownTimer >= 2.0)
-					{
-						touchingToy = false;
-						stunlockTimer = 1.5;
-						cooldownTimer = 0.0;
-					}
+					cooldownTimer = 0.0;
+					cooldownActive = true;
+					touchingToy = false;
+				}
+			}
+
+			if (cooldownActive)
+			{
+				cooldownTimer += m_Engine.GetDeltaTime();
+
+				if (cooldownTimer >= 1.5)
+				{
+					stunlockTimer = 1.5;  //  Reset stunlock timer for next interaction
+					cooldownTimer = 0.0;  //  Reset cooldown timer
+					cooldownActive = false;  //  Allow player to be stunned again
 				}
 			}
 
@@ -286,8 +298,8 @@ struct Player final : public Behaviour
 			// Debug: After processing input
 			//std::cout << "[DEBUG] After Input Processing: isMoving = " << std::boolalpha << isMoving << std::endl;
 
-			// Jump logic
-			if (m_Engine.getInputSystem().isActionPressed("Jump") && isGrounded)
+			// Jump logic - don't allow jump when in rope breaker or touching toys
+			if (m_Engine.getInputSystem().isActionPressed("Jump") && isGrounded && !inRopeBreaker && !touchingToy)
 			{
 				float gravity = 9.81f;
 				float jumpHeight = 1.5f;
