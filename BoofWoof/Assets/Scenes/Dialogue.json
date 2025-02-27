@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "059df46b-2e19-41b5-bb1f-fa5ff2b76521",
+    "SceneGUID": "e44299d5-1737-4ee9-9e18-8b61bca7283b",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,10 +8,10 @@
             },
             "UIComponent": {
                 "TextureName": "Textbox",
-                "PositionX": -0.05000000074505806,
-                "PositionY": 0.0,
-                "ScaleX": 1.0,
-                "ScaleY": 1.0,
+                "PositionX": 0.0,
+                "PositionY": -0.6899999976158142,
+                "ScaleX": 0.6000000238418579,
+                "ScaleY": 0.30000001192092898,
                 "Layer": 0.5,
                 "Selectable": false,
                 "Opcaity": 1.0,
