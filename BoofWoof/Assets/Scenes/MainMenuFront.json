@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "bd0fe0ee-9e4e-4d05-8df2-66c3031e0765",
+    "SceneGUID": "c2246b1d-31c7-42f7-afac-314550dc21dc",
     "Entities": [
         {
             "MetadataComponent": {
@@ -181,7 +181,7 @@
                 "TextureName": "PawPrint",
                 "PositionX": 0.5,
                 "PositionY": 0.6000000238418579,
-                "ScaleX": 0.10000000149011612,
+                "ScaleX": 0.07999999821186066,
                 "ScaleY": 0.10000000149011612,
                 "Layer": 0.5,
                 "Selectable": false,
