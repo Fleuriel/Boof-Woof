@@ -1,0 +1,131 @@
+{
+    "SceneGUID": "c2931000-6326-4747-b80a-92de248939f8",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Outline",
+                "EntityID": 0
+            },
+            "UIComponent": {
+                "TextureName": "CD",
+                "PositionX": 0.8500000238418579,
+                "PositionY": 0.4000000059604645,
+                "ScaleX": 0.07999999821186066,
+                "ScaleY": 0.15000000596046449,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": true,
+                "Rows": 1,
+                "Cols": 17,
+                "FrameInterval": 1.0,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Outline",
+                "EntityID": 1
+            },
+            "UIComponent": {
+                "TextureName": "CD",
+                "PositionX": 0.8500000238418579,
+                "PositionY": 0.10000000149011612,
+                "ScaleX": 0.07999999821186066,
+                "ScaleY": 0.15000000596046449,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": true,
+                "Rows": 1,
+                "Cols": 17,
+                "FrameInterval": 1.0,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Sniff",
+                "EntityID": 2
+            },
+            "UIComponent": {
+                "TextureName": "CorgiSniff",
+                "PositionX": 0.8510000109672546,
+                "PositionY": 0.10000000149011612,
+                "ScaleX": 0.07000000029802323,
+                "ScaleY": 0.09000000357627869,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": true,
+                "Rows": 1,
+                "Cols": 3,
+                "FrameInterval": 0.25,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Sprint",
+                "EntityID": 3
+            },
+            "UIComponent": {
+                "TextureName": "CorgiSprint",
+                "PositionX": 0.8500000238418579,
+                "PositionY": 0.4000000059604645,
+                "ScaleX": 0.06800000369548798,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": true,
+                "Rows": 1,
+                "Cols": 4,
+                "FrameInterval": 0.20000000298023225,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "E",
+                "EntityID": 4
+            },
+            "UIComponent": {
+                "TextureName": "htpE",
+                "PositionX": 0.6700000166893005,
+                "PositionY": 0.41999998688697817,
+                "ScaleX": 0.800000011920929,
+                "ScaleY": 0.800000011920929,
+                "Layer": 0.4700000286102295,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Shift",
+                "EntityID": 5
+            },
+            "UIComponent": {
+                "TextureName": "htpShift",
+                "PositionX": 1.2549999952316285,
+                "PositionY": 0.550000011920929,
+                "ScaleX": 0.699999988079071,
+                "ScaleY": 0.800000011920929,
+                "Layer": 0.4700000286102295,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        }
+    ]
+}

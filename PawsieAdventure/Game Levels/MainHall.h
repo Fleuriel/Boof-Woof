@@ -145,6 +145,10 @@ class MainHall : public Level
 
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
+
+		g_DialogueText.OnInitialize();
+		g_DialogueText.setDialogue(DialogueState::OUTOFLIBRARY);
+
 		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 	}
 
@@ -289,6 +293,7 @@ class MainHall : public Level
 		{
 			cameraController->Update(static_cast<float>(deltaTime));
 			cooldownTimer += deltaTime;
+			g_DialogueText.OnUpdate(deltaTime);
 
 			auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
 			auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);

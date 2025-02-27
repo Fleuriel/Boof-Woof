@@ -1,6 +1,7 @@
 #include <iostream>
 #define UNREFERENCED_PARAMETER(P)          (P)
 #include <random>
+#include <unordered_set>
 
 struct Player final : public Behaviour
 {
@@ -16,10 +17,11 @@ struct Player final : public Behaviour
 	bool followingPath;
 	float pathThreshold; // Distance threshold for reaching a waypoint
 	bool pathInitialized = false;
-	bool inRopeBreaker{ false };
+	bool inRopeBreaker{ false }, touchingToy{ false }, cooldownActive{ false }, justplaypls{ false };
+	double stunlockTimer = 2.0;	// 2.0 seconds
+	double cooldownTimer = 0.0;
 
-
-	float footstepTimer = 0.0f;  
+	float footstepTimer = 0.0f;
 	const float footstepInterval = 0.25f;  // Interval between footstep sounds (adjustable)
 
 
@@ -65,7 +67,7 @@ struct Player final : public Behaviour
 			//	<< currentPos.x << ", " << currentPos.y << ", " << currentPos.z << ")" << std::endl;
 
 			//double deltaTime = m_Engine.GetDeltaTime(); // Get delta time
-		
+
 			//std::cout << "[DEBUG] Delta Time: " << deltaTime << std::endl;
 
 			// Debug: Starting state
@@ -112,16 +114,30 @@ struct Player final : public Behaviour
 				//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
 			}
 
+			static const std::unordered_set<std::string> ropeEntities = { "Rope1", "Rope2" };
+			static const std::unordered_set<std::string> toyEntities = { "Bone", "TennisBall" };
+
 			if (m_Engine.IsColliding(entity))
 			{
 				const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
-				if (std::strcmp(collidingEntityName, "Rope1") == 0)
+				std::string entityName(collidingEntityName); // Convert C-string to std::string for easy lookup
+
+				if (ropeEntities.count(entityName))
 				{
 					inRopeBreaker = true;
 				}
-				else if (std::strcmp(collidingEntityName, "Rope2") == 0)
+				else if (toyEntities.count(entityName) && !cooldownActive)
 				{
-					inRopeBreaker = true;
+					touchingToy = true;
+
+					if (!justplaypls) 
+					{
+						m_Engine.getAudioSystem().PlaySoundByFile("ToyTouch.wav", false, "SFX");
+						double currTimer = m_Engine.GetTimerTiming();
+						double newTimer = currTimer - 10.0;
+						m_Engine.SetTimerTiming(newTimer);
+						justplaypls = true;
+					}
 				}
 			}
 			else
@@ -129,14 +145,44 @@ struct Player final : public Behaviour
 				inRopeBreaker = false;
 			}
 
-
-			// Allow movement only if the player is grounded
-			if (isGrounded && !inRopeBreaker)
+			if (touchingToy) 
 			{
+				m_Engine.SetTouched(true);
 
-				if (m_Engine.HaveCameraComponent(entity)) 
+				if (stunlockTimer > 0.0)
 				{
+					stunlockTimer -= m_Engine.GetDeltaTime();
+				}
+				else 
+				{
+					// Stunlock is over, now enter cooldown phase
+					m_Engine.SetTouched(false);
+					m_Engine.SetCollidingEntityName(entity);
 
+					cooldownTimer = 0.0;
+					cooldownActive = true;
+					touchingToy = false;
+				}
+			}
+
+			if (cooldownActive)
+			{
+				cooldownTimer += m_Engine.GetDeltaTime();
+
+				if (cooldownTimer >= 2.0)
+				{
+					stunlockTimer = 2.0;  //  Reset stunlock timer for next interaction
+					cooldownTimer = 0.0;  //  Reset cooldown timer
+					justplaypls = false;
+					cooldownActive = false;  //  Allow player to be stunned again
+				}
+			}
+
+			// Allow movement only if the player is grounded & not in rope breaker or touching toy
+			if (isGrounded && !inRopeBreaker && !touchingToy)
+			{
+				if (m_Engine.HaveCameraComponent(entity))
+				{
 					if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
 					{
 						//std::cout << "movingW" << std::endl;
@@ -195,7 +241,7 @@ struct Player final : public Behaviour
 					}
 				}
 
-				else 
+				else
 				{
 					if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
 					{
@@ -234,7 +280,7 @@ struct Player final : public Behaviour
 
 
 
-			if (isMoving ) 
+			if (isMoving)
 			{
 				footstepTimer -= static_cast<float>(m_Engine.GetDeltaTime());
 
@@ -262,8 +308,8 @@ struct Player final : public Behaviour
 			// Debug: After processing input
 			//std::cout << "[DEBUG] After Input Processing: isMoving = " << std::boolalpha << isMoving << std::endl;
 
-			// Jump logic
-			if (m_Engine.getInputSystem().isActionPressed("Jump") && isGrounded)
+			// Jump logic - don't allow jump when in rope breaker or touching toys
+			if (m_Engine.getInputSystem().isActionPressed("Jump") && isGrounded && !inRopeBreaker && !touchingToy)
 			{
 				float gravity = 9.81f;
 				float jumpHeight = 1.5f;
