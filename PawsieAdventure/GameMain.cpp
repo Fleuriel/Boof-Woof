@@ -28,9 +28,9 @@ void InitializeLevels()
     g_LevelManager.RegisterLevel("LoadingLevel", new LoadingLevel());
 
     // Set the initial level
-    g_LevelManager.Initialize("StartingRoom");
-    g_LevelManager.SetNextLevel("StartingRoom");
-    g_LevelManager.SetPreviousLevel("StartingRoom");
+    g_LevelManager.Initialize("Cutscene");
+    g_LevelManager.SetNextLevel("Cutscene");
+    g_LevelManager.SetPreviousLevel("Cutscene");
 }
 
 int RunGame()

@@ -276,8 +276,29 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "SpaceToSkip",
+                "EntityName": "Panel13",
                 "EntityID": 13
+            },
+            "UIComponent": {
+                "TextureName": "panel13",
+                "PositionX": 0.0,
+                "PositionY": -1.2999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "SpaceToSkip",
+                "EntityID": 14
             },
             "FontComponent": {
                 "Family": "manga-temple",
