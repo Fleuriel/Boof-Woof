@@ -774,11 +774,12 @@ Entity MyPhysicsSystem::Raycast(const glm::vec3& origin, const glm::vec3& direct
 }
 
 
-
 std::vector<Entity> MyPhysicsSystem::ConeRaycast(
     Entity entity,
-    const glm::vec3& direction, float maxDistance,
-    int numHorizontalRays, int numVerticalRays, float coneAngle)
+    const glm::vec3& forwardDirection,
+    float maxDistance,
+    int numHorizontalRays, int numVerticalRays,
+    float coneAngle)
 {
     std::vector<Entity> detectedEntities;
 
@@ -795,41 +796,36 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycast(
 
     // Get Bounding Box & Offset
     auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
-    glm::vec3 aabbSize = collisionComp.GetAABBSize();
     glm::vec3 aabbOffset = collisionComp.GetAABBOffset();
 
     // **Correct the Ray Origin: Center of the entity**
     glm::vec3 adjustedOrigin = entityPosition + aabbOffset;
 
-    // **Debug: Print the position of Rex and the ray origin**
-    std::cout << "[PhysicsSystem] Rex Position: " << entityPosition.x << ", "
-        << entityPosition.y << ", " << entityPosition.z << std::endl;
-    std::cout << "[PhysicsSystem] AABB Offset: " << aabbOffset.x << ", "
-        << aabbOffset.y << ", " << aabbOffset.z << std::endl;
-    std::cout << "[PhysicsSystem] AABB Size: " << aabbSize.x << ", "
-        << aabbSize.y << ", " << aabbSize.z << std::endl;
-    std::cout << "[PhysicsSystem] Corrected Ray Origin: " << adjustedOrigin.x << ", "
-        << adjustedOrigin.y << ", " << adjustedOrigin.z << std::endl;
-    std::cout << "[PhysicsSystem] Ray Direction: " << direction.x << ", "
-        << direction.y << ", " << direction.z << std::endl;
+    // Debugging output
+    std::cout << "[PhysicsSystem] ConeRaycast Debugging -> Origin: " << adjustedOrigin.x << ", "
+        << adjustedOrigin.y << ", " << adjustedOrigin.z
+        << " | Forward Dir: " << forwardDirection.x << ", "
+        << forwardDirection.y << ", " << forwardDirection.z
+        << " | Max Distance: " << maxDistance << "\n";
 
-
+    // Iterate through cone rays using spherical coordinates
     for (int h = 0; h < numHorizontalRays; h++)  // Horizontal spread
     {
-        float horizontalAngle = glm::mix(-coneAngle, coneAngle, float(h) / (numHorizontalRays - 1));
+        float horizontalAngle = glm::radians(glm::mix(-coneAngle, coneAngle, float(h) / (numHorizontalRays - 1)));
 
         for (int v = 0; v < numVerticalRays; v++)  // Vertical spread
         {
-            float verticalAngle = glm::mix(-coneAngle / 2, coneAngle / 2, float(v) / (numVerticalRays - 1));
+            float verticalAngle = glm::radians(glm::mix(-coneAngle / 2, coneAngle / 2, float(v) / (numVerticalRays - 1)));
 
-            // Rotate the forward vector
-            glm::vec3 rotatedDirection = glm::rotateY(direction, horizontalAngle);
+            // Create rotated ray direction using spherical coordinate transformations
+            glm::vec3 rotatedDirection = glm::rotateY(forwardDirection, horizontalAngle);
             rotatedDirection = glm::rotateX(rotatedDirection, verticalAngle);
+            rotatedDirection = glm::normalize(rotatedDirection);
 
             // Perform the raycast
             Entity hitEntity = Raycast(adjustedOrigin, rotatedDirection, maxDistance, entity);
 
-            if (hitEntity != INVALID_ENTITY && hitEntity != entity) {
+            if (hitEntity != invalid_entity && hitEntity != entity) {
                 detectedEntities.push_back(hitEntity);
                 std::cout << "[PhysicsSystem] Hit Entity ID: " << hitEntity << "\n";
             }
@@ -845,6 +841,7 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycast(
 
     return detectedEntities;
 }
+
 
 
 #pragma warning(pop)
