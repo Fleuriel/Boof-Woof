@@ -4254,6 +4254,27 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
+								// layer
+								float layer = fontComponent.get_layer();
+								ImGui::Text("Layer");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Layer: ");
+								// display layer number
+								ImGui::Text("Layer: %f", layer);
+								ImGui::SameLine();
+								//move forward or backward button
+								if (ImGui::Button("Move Forward"))
+								{
+									fontComponent.set_layer(fontComponent.get_layer() - 0.01f);
+								}
+								ImGui::SameLine();
+								if (ImGui::Button("Move Backward"))
+								{
+									fontComponent.set_layer(fontComponent.get_layer() + 0.01f);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
 
 							}
 						}

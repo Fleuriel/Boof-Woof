@@ -533,6 +533,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
             Font.AddMember("ColorG", fontComp.get_color().y, allocator);
             Font.AddMember("ColorB", fontComp.get_color().z, allocator);
             Font.AddMember("Text", rapidjson::Value(fontComp.get_text().c_str(), allocator), allocator);
+			Font.AddMember("Layer", fontComp.get_layer(), allocator);
 
             entityData.AddMember("FontComponent", Font, allocator);
         }
@@ -1205,8 +1206,11 @@ bool Serialization::LoadScene(const std::string& filepath)
                 std::string text{};
 				if (fontData.HasMember("Text"))
                     text= fontData["Text"].GetString();
+				float layer = 0.0f;
+				if (fontData.HasMember("Layer"))
+					layer = fontData["Layer"].GetFloat();
 
-				FontComponent fontComponent(family, pos, scale, color, text);
+				FontComponent fontComponent(family, pos, scale, color, text, layer);
 				g_Coordinator.AddComponent(entity, fontComponent);
 			}
 
