@@ -23,6 +23,7 @@ class TYVM : public Level
 		if (elapsedTime >= timeLimit)
 		{
 			g_LevelManager.SetNextLevel("MainMenu");
+			g_Window->ShowMouseCursor();
 		}
 
 		// ESC to exit tyvm - zero feedback as of now.
@@ -30,6 +31,7 @@ class TYVM : public Level
 		{
 			// Thank you scene
 			g_LevelManager.SetNextLevel("MainMenu");
+			g_Window->ShowMouseCursor();
 		}
 	}
 

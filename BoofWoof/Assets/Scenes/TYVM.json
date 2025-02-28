@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "f73a6257-bb3e-4590-bf64-7b8508877d9e",
+    "SceneGUID": "cd115d0f-9380-4866-9495-638fbf0a3356",
     "Entities": [
         {
             "MetadataComponent": {
@@ -36,7 +36,7 @@
                 "ColorR": 1.0,
                 "ColorG": 0.14705884456634522,
                 "ColorB": 0.0,
-                "Text": "ESC to Exit"
+                "Text": "ESC to CLOSE"
             }
         }
     ]

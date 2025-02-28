@@ -185,8 +185,10 @@ class MainMenu : public Level
 						music1.PlayAudio();
 					}
 
-					MenuPauser->OnExit();
-					exit(0);
+					HideUI();
+
+					MenuPauser = CreatePausedMenu(PauseState::QuitGame);
+					MenuPauser->OnLoad();
 				}
 			}
 		}
@@ -310,6 +312,29 @@ class MainMenu : public Level
 				FontComponent& gammaFont = g_Coordinator.GetComponent<FontComponent>(MenuPauser->GAMMAValue);
 				gammaFont.set_pos(glm::vec2(0.12f, -0.45f));
 				gammaFont.set_text(str);
+			}
+
+			if (g_Coordinator.HaveComponent<UIComponent>(MenuPauser->YesBtn))
+			{
+				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->YesBtn);
+				if (UICompt.get_selected())
+				{
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
+					exit(0);
+				}
+			}
+
+			if (g_Coordinator.HaveComponent<UIComponent>(MenuPauser->NoBtn))
+			{
+				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->NoBtn);
+				if (UICompt.get_selected())
+				{
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
+					RestoreUI();
+
+					inSmth = false;
+					MenuPauser->OnExit();
+				}
 			}
 		}
 		else if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 0)
