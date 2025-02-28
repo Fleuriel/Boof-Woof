@@ -162,6 +162,16 @@ class Cutscene : public Level
 
 				if (threePiece.get_position().y >= 0.6f)
 				{
+					eight.set_position(glm::vec2(eight.get_position().x, eight.get_position().y + (0.2f * static_cast<float>(deltaTime))));
+
+					if (eight.get_opacity() < 1.0f)
+					{
+						eight.set_opacity(eight.get_opacity() + 0.3f * static_cast<float>(deltaTime));
+					}
+				}
+				
+				if (eight.get_position().y >= 0.6f) 
+				{
 					Left9.set_position(glm::vec2(Left9.get_position().x, Left9.get_position().y + (0.2f * static_cast<float>(deltaTime))));
 					Right10.set_position(glm::vec2(Right10.get_position().x, Right10.get_position().y + (0.2f * static_cast<float>(deltaTime))));
 
