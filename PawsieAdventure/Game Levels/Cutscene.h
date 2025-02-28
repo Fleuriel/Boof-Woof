@@ -8,7 +8,6 @@ class Cutscene : public Level
 {
 	double cutsceneTimer = 0.0;
 	double timerLimit = 4.0;
-	double lastBarkTime = 0.0;
 
 	Entity P1{}, P2{}, P3{}, P4{}, P5{}, P6{}, P7{}, P8{}, P9{}, P10{}, P11{}, P12{}, P13{};
 	bool rightAppeared{ false }, finishCutscene{ false };
