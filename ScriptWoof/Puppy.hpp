@@ -3,6 +3,7 @@
 #define UNUSED(x) (void)(x) // Macro to suppress warnings
 #include <vector>
 
+#define MAX_ENTITIES 5000
 struct Puppy final : public Behaviour
 {
     using Behaviour::Behaviour;
@@ -12,7 +13,7 @@ struct Puppy final : public Behaviour
     bool followingPath = false;
     bool pathInitialized = false;
     float speed = 5.0f;
-    float pathThreshold = 0.2f;
+    float pathThreshold = 5.f;
     bool isMovingPuppy = false;
     bool collected = false; // Track if the player collected the puppy
     Entity playerEntity = MAX_ENTITIES; // Store player entity
@@ -55,6 +56,29 @@ struct Puppy final : public Behaviour
         glm::vec3 currentPos = m_Engine.GetPosition(entity);
         glm::vec3 velocity(0.0f);
 
+        if (collected && playerEntity != MAX_ENTITIES) {
+            // Get player position for movement
+            glm::vec3 playerPos = m_Engine.GetPosition(playerEntity);
+
+			// Move towards the player x and z position
+			playerPos.y = currentPos.y; // Keep movement on the same Y-plane
+            glm::vec3 direction = glm::normalize(playerPos - currentPos);
+
+            if (glm::length(direction) > 0.0001f)
+            {
+                velocity = direction * speed;
+            }
+
+            float distance = glm::length(playerPos - currentPos);
+            if (distance <= pathThreshold)
+            {
+                velocity = glm::vec3(0.0f);
+                std::cout << "[Puppy] Reached player!" << std::endl;
+            }
+
+            isMovingPuppy = true;
+        }
+        /*
         // Ensure path updates dynamically when following the player
         if (collected && playerEntity != MAX_ENTITIES)
         {
@@ -106,7 +130,7 @@ struct Puppy final : public Behaviour
 
             isMovingPuppy = true;
         }
-
+        */
         // Apply velocity
         if (isMovingPuppy)
         {
