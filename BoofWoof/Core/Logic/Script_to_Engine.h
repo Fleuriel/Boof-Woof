@@ -16,6 +16,9 @@
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
 #include <Jolt/Physics/Body/Body.h>
+#include <Jolt/Physics/Collision/RayCast.h>  // For JPH::RRayCast, JPH::RayCastResult
+#include <Jolt/Physics/Collision/NarrowPhaseQuery.h>  // For JPH::NarrowPhaseQuery
+#include <Jolt/Physics/Collision/CastResult.h>
 
 class Script_to_Engine : public engine_interface, public input_interface, public audio_interface, public physics_interface
 {
@@ -168,6 +171,41 @@ public:
 		}
 	}
 
+	//virtual Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance) override
+	//{
+	//	return g_Coordinator.GetSystem<MyPhysicsSystem>()->Raycast(origin, direction, maxDistance);
+	//}
+
+	virtual Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity = INVALID_ENTITY) override
+	{
+		if (!g_Coordinator.GetSystem<MyPhysicsSystem>()) {
+			std::cerr << "[Script_to_Engine] ERROR: Physics system is not initialized!" << std::endl;
+			return INVALID_ENTITY;
+		}
+
+		Entity hitEntity = g_Coordinator.GetSystem<MyPhysicsSystem>()->Raycast(origin, direction, maxDistance, ignoreEntity);
+
+		// Ignore the calling entity itself
+		if (hitEntity == ignoreEntity) {
+			return INVALID_ENTITY;
+		}
+
+		return hitEntity;
+	}
+
+	//virtual std::vector<Entity> ConeRaycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, int numHorizontalRays, int numVerticalRays, float coneAngle, Entity ignoreEntity) override
+	//{
+	//	return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycast(origin, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle, ignoreEntity);
+	//}
+
+	virtual std::vector<Entity> ConeRaycast(
+		Entity entity,
+		const glm::vec3& direction, float maxDistance,
+		int numHorizontalRays, int numVerticalRays, float coneAngle) override
+	{
+		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycast(entity, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle);
+	}
+
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) override
 	{
@@ -183,9 +221,6 @@ public:
 			g_Coordinator.GetComponent<CollisionComponent>(entity).SetIsGrounded(grounded);
 		}
 	}
-
-
-
 
 	virtual double GetDeltaTime() override
 	{

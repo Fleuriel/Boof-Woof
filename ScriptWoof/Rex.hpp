@@ -43,6 +43,22 @@ struct Rex final : public Behaviour
 
         glm::vec3 velocity(0.0f);
 
+        //// Always check for objects in front
+        //CheckForObjectsInFront(entity);
+
+        glm::vec3 forwardDirection = glm::vec3(1.0f, 0.0f, 0.0f);  // Directly forward (adjust if needed)
+        float maxDistance = 10.0f; // Distance to check
+
+        // Just shoot a single ray in front
+        Entity hitEntity = m_Engine.getPhysicsSystem().Raycast(currentPos, forwardDirection, maxDistance, entity);
+
+        if (hitEntity != -1) {
+            std::cout << "[Rex] Single Ray Test: Object detected in front! Entity ID: " << hitEntity << std::endl;
+        }
+        else {
+            std::cout << "[Rex] Single Ray Test: No objects detected in front." << std::endl;
+        }
+
         // Ensure path is properly initialized after resetting the scene
         if (!pathInitialized)
         {
@@ -97,6 +113,16 @@ struct Rex final : public Behaviour
             //// Debugging direction calculation
             //std::cout << "[Pathfinding] Calculated direction vector: ("
             //    << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
+
+            //// *** ADD RAYCAST CHECK HERE ***
+            //float rayDistance = 2.0f; // Check 2 meters ahead
+            //Entity hitEntity = m_Engine.getPhysicsSystem().Raycast(currentPos, direction, rayDistance);
+
+            //if (hitEntity != invalid_entity)
+            //{
+            //    std::cout << "[Rex] Object detected in front! Entity ID: " << hitEntity << std::endl;
+            //    velocity = glm::vec3(0.0f); // Stop movement if an obstacle is in front
+            //}
 
             // Ensure no division by zero and check if movement is happening
             if (glm::length(direction) > 0.0001f)
@@ -179,4 +205,33 @@ struct Rex final : public Behaviour
     {
         return "Rex";
     }
+
+    void CheckForObjectsInFront(Entity entity)
+    {
+        glm::vec3 forwardDirection = glm::vec3(0.0f, 0.0f, 1.0f); // Adjust if necessary
+        float maxDistance = 10.0f;
+        int numHorizontalRays = 5;
+        int numVerticalRays = 3;
+        float coneAngle = glm::radians(30.0f); // 30-degree vision cone
+
+        std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
+            entity, forwardDirection, maxDistance, numHorizontalRays, numVerticalRays, coneAngle);
+
+        if (!detectedObjects.empty())
+        {
+            std::cout << "[Rex] Cone Test: Detected " << detectedObjects.size() << " objects in front!\n";
+            for (Entity hitEntity : detectedObjects)
+            {
+                std::cout << "[Rex] Object ID: " << hitEntity << " detected in front.\n";
+            }
+        }
+        else
+        {
+            std::cout << "[Rex] Cone Test: No objects detected in front.\n";
+        }
+    }
+
+
+
+
 };

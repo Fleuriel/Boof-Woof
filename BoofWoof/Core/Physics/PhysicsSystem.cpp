@@ -29,6 +29,8 @@
 #include <Jolt/Physics/Collision/RayCast.h>  // For JPH::RRayCast, JPH::RayCastResult
 #include <Jolt/Physics/Collision/NarrowPhaseQuery.h>  // For JPH::NarrowPhaseQuery
 #include <Jolt/Physics/Collision/CastResult.h>
+#include <glm/gtx/rotate_vector.hpp> // Needed for glm::rotateX/Y
+#include <vector>
 
 
 std::unordered_map<Entity, float> m_PreviousYPositions;
@@ -180,6 +182,27 @@ JPH::Shape* MyPhysicsSystem::CreateShapeForObjectType(ObjectType type, const glm
 }
 
 
+class CustomRayCastCollector : public JPH::CastRayCollector {
+public:
+    Entity ignoreEntity;
+    Entity hitEntity = invalid_entity;
+    float closestFraction = FLT_MAX;
+
+    explicit CustomRayCastCollector(Entity ignore) : ignoreEntity(ignore) {}
+
+    void AddHit(const JPH::RayCastResult& result) override {
+        Entity entityHit = g_Coordinator.GetSystem<MyPhysicsSystem>()->GetEntityFromBody(result.mBodyID);
+
+        // Ignore self-hits (Rex)
+        if (entityHit == ignoreEntity) return;
+
+        // Keep track of the closest valid hit
+        if (result.mFraction < closestFraction) {
+            closestFraction = result.mFraction;
+            hitEntity = entityHit;
+        }
+    }
+};
 
 void MyPhysicsSystem::InitializeJolt() {
 
@@ -691,7 +714,35 @@ Entity MyPhysicsSystem::GetEntityFromBody(const JPH::BodyID bodyID) {
     return invalid_entity; // Sentinel value for invalid entity
 }
 
-Entity MyPhysicsSystem::Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance) {
+//Entity MyPhysicsSystem::Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance) {
+//    if (!mPhysicsSystem) {
+//        std::cerr << "[PhysicsSystem] ERROR: Physics system is not initialized!" << std::endl;
+//        return invalid_entity;
+//    }
+//
+//    glm::vec3 normalizedDir = glm::normalize(direction);
+//    JPH::RRayCast ray(JPH::RVec3(origin.x, origin.y, origin.z), JPH::Vec3(normalizedDir.x, normalizedDir.y, normalizedDir.z) * maxDistance);
+//
+//    JPH::RayCastResult result; 
+//
+//    // Correct way to get the NarrowPhaseQuery
+//    const JPH::NarrowPhaseQuery& npQuery = mPhysicsSystem->GetNarrowPhaseQueryNoLock();
+//
+//    if (npQuery.CastRay(ray, result)) {
+//        JPH::BodyID hitBodyID = result.mBodyID;
+//        Entity hitEntity = GetEntityFromBody(hitBodyID);
+//
+//        std::cout << "[PhysicsSystem] Raycast hit entity: " << hitEntity
+//            << " at fraction: " << result.mFraction
+//            << " (Distance: " << result.mFraction * maxDistance << ")\n";
+//
+//        return hitEntity;
+//    }
+//
+//    return invalid_entity;
+//}
+
+Entity MyPhysicsSystem::Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity) {
     if (!mPhysicsSystem) {
         std::cerr << "[PhysicsSystem] ERROR: Physics system is not initialized!" << std::endl;
         return invalid_entity;
@@ -700,26 +751,100 @@ Entity MyPhysicsSystem::Raycast(const glm::vec3& origin, const glm::vec3& direct
     glm::vec3 normalizedDir = glm::normalize(direction);
     JPH::RRayCast ray(JPH::RVec3(origin.x, origin.y, origin.z), JPH::Vec3(normalizedDir.x, normalizedDir.y, normalizedDir.z) * maxDistance);
 
-    JPH::RayCastResult result; 
-
-    // Correct way to get the NarrowPhaseQuery
+    CustomRayCastCollector collector(ignoreEntity);
     const JPH::NarrowPhaseQuery& npQuery = mPhysicsSystem->GetNarrowPhaseQueryNoLock();
 
-    if (npQuery.CastRay(ray, result)) {
-        JPH::BodyID hitBodyID = result.mBodyID;
-        Entity hitEntity = GetEntityFromBody(hitBodyID);
+    // Use the multi-hit version of CastRay()
+    npQuery.CastRay(ray, JPH::RayCastSettings(), collector);
 
-        std::cout << "[PhysicsSystem] Raycast hit entity: " << hitEntity
-            << " at fraction: " << result.mFraction
-            << " (Distance: " << result.mFraction * maxDistance << ")\n";
+    // Debug output
+    std::cout << "[PhysicsSystem] Raycast Debug -> Origin: (" << origin.x << ", " << origin.y << ", " << origin.z
+        << ") | Direction: (" << normalizedDir.x << ", " << normalizedDir.y << ", " << normalizedDir.z
+        << ") | Max Distance: " << maxDistance << std::endl;
 
-        return hitEntity;
+    // Return the closest valid hit
+    if (collector.hitEntity != invalid_entity) {
+        std::cout << "[PhysicsSystem] Ray HIT entity: " << collector.hitEntity << " at fraction: " << collector.closestFraction << std::endl;
+    }
+    else {
+        std::cout << "[PhysicsSystem] No objects detected along the entire ray!" << std::endl;
     }
 
-    return invalid_entity;
+    return collector.hitEntity;
 }
 
 
+
+std::vector<Entity> MyPhysicsSystem::ConeRaycast(
+    Entity entity,
+    const glm::vec3& direction, float maxDistance,
+    int numHorizontalRays, int numVerticalRays, float coneAngle)
+{
+    std::vector<Entity> detectedEntities;
+
+    // Ensure entity exists
+    if (!g_Coordinator.HaveComponent<CollisionComponent>(entity) ||
+        !g_Coordinator.HaveComponent<TransformComponent>(entity))
+    {
+        std::cerr << "[PhysicsSystem] Error: Entity " << entity << " does not have necessary components!\n";
+        return detectedEntities;
+    }
+
+    // Get Entity Position
+    glm::vec3 entityPosition = g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition();
+
+    // Get Bounding Box & Offset
+    auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+    glm::vec3 aabbSize = collisionComp.GetAABBSize();
+    glm::vec3 aabbOffset = collisionComp.GetAABBOffset();
+
+    // **Correct the Ray Origin: Center of the entity**
+    glm::vec3 adjustedOrigin = entityPosition + aabbOffset;
+
+    // **Debug: Print the position of Rex and the ray origin**
+    std::cout << "[PhysicsSystem] Rex Position: " << entityPosition.x << ", "
+        << entityPosition.y << ", " << entityPosition.z << std::endl;
+    std::cout << "[PhysicsSystem] AABB Offset: " << aabbOffset.x << ", "
+        << aabbOffset.y << ", " << aabbOffset.z << std::endl;
+    std::cout << "[PhysicsSystem] AABB Size: " << aabbSize.x << ", "
+        << aabbSize.y << ", " << aabbSize.z << std::endl;
+    std::cout << "[PhysicsSystem] Corrected Ray Origin: " << adjustedOrigin.x << ", "
+        << adjustedOrigin.y << ", " << adjustedOrigin.z << std::endl;
+    std::cout << "[PhysicsSystem] Ray Direction: " << direction.x << ", "
+        << direction.y << ", " << direction.z << std::endl;
+
+
+    for (int h = 0; h < numHorizontalRays; h++)  // Horizontal spread
+    {
+        float horizontalAngle = glm::mix(-coneAngle, coneAngle, float(h) / (numHorizontalRays - 1));
+
+        for (int v = 0; v < numVerticalRays; v++)  // Vertical spread
+        {
+            float verticalAngle = glm::mix(-coneAngle / 2, coneAngle / 2, float(v) / (numVerticalRays - 1));
+
+            // Rotate the forward vector
+            glm::vec3 rotatedDirection = glm::rotateY(direction, horizontalAngle);
+            rotatedDirection = glm::rotateX(rotatedDirection, verticalAngle);
+
+            // Perform the raycast
+            Entity hitEntity = Raycast(adjustedOrigin, rotatedDirection, maxDistance, entity);
+
+            if (hitEntity != INVALID_ENTITY && hitEntity != entity) {
+                detectedEntities.push_back(hitEntity);
+                std::cout << "[PhysicsSystem] Hit Entity ID: " << hitEntity << "\n";
+            }
+
+            // Debugging Ray End Points
+            glm::vec3 endPoint = adjustedOrigin + rotatedDirection * maxDistance;
+            std::cout << "[PhysicsSystem] Ray Origin: (" << adjustedOrigin.x << ", " << adjustedOrigin.y << ", " << adjustedOrigin.z
+                << ") -> End Point: (" << endPoint.x << ", " << endPoint.y << ", " << endPoint.z
+                << ") with Direction: (" << rotatedDirection.x << ", " << rotatedDirection.y << ", " << rotatedDirection.z
+                << ") and Max Distance: " << maxDistance << "\n";
+        }
+    }
+
+    return detectedEntities;
+}
 
 
 #pragma warning(pop)

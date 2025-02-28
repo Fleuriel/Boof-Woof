@@ -257,7 +257,12 @@ public:
      * @param maxDistance The maximum distance the ray can travel.
      * @return The Entity that was hit, or invalid_entity if no entity was hit.
      */
-    Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance);
+    //Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance);
+    Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity);
+    std::vector<Entity> ConeRaycast(
+        Entity entity,
+        const glm::vec3& direction, float maxDistance,
+        int numHorizontalRays, int numVerticalRays, float coneAngle);
 
 private:
     JPH::uint _step{ 0 };
