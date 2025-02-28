@@ -2849,7 +2849,7 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::PopItemWidth();
 
 									// set particle color
-									glm::vec4 particleColor = particleComponent.getParticleColor();
+									glm::vec3 particleColor = particleComponent.getParticleColor();
 									ImGui::Text("Particle Color");
 									ImGui::SameLine();
 									ImGui::PushItemWidth(125.0f);
@@ -2862,6 +2862,8 @@ void ImGuiEditor::InspectorWindow()
 
 									ImGui::PopID();
 									ImGui::PopItemWidth();
+
+									
 								}
 								else if (particleType == ParticleType::TEXTURED) {
 									// set the texture
@@ -2934,6 +2936,19 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::PopItemWidth();
 									
 								}
+								float opacity = particleComponent.getOpacity();
+								ImGui::Text("Opacity");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Opacity");
+
+								if (ImGui::DragFloat("##Opacity", &opacity, 0.1f, 0.0f, 1.0f))
+								{
+									particleComponent.setOpacity(opacity);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
 
 							}
 						}

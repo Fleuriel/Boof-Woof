@@ -52,10 +52,10 @@ public:
 	ParticleComponent() {};
 	ParticleComponent(float d, glm::vec3 p_min, glm::vec3 p_max,
 		float v_min, float v_max, std::vector<glm::vec3> target_positions,
-		float p_size, glm::vec4 p_color, ParticleType pt, std::string modelname, std::string texturename)
+		float p_size, glm::vec3 p_color, float oct, ParticleType pt, std::string modelname, std::string texturename)
 		: density(d), Pos_min(p_min), Pos_max(p_max),
 		velocity_min(v_min), velocity_max(v_max), target_positions(target_positions),
-		particle_size(p_size), particle_color(p_color), particle_type(pt), particle_modelname(modelname), particle_texturename(texturename) {};
+		particle_size(p_size), particle_color(p_color), opacity(oct), particle_type(pt), particle_modelname(modelname), particle_texturename(texturename) {};
 	~ParticleComponent() {
 		particles.clear();
 	};
@@ -70,7 +70,8 @@ public:
 	void setVelocityMax(float v) { velocity_max = v; }
 	void setTargetPositions(std::vector<glm::vec3> tp) { target_positions = tp; }
 	void setParticleSize(float s) { particle_size = s; }
-	void setParticleColor(glm::vec4 c) { particle_color = c; }
+	void setParticleColor(glm::vec3 c) { particle_color = c; }
+	void setOpacity(float o) { opacity = o; }
 	
 	void setParticleType(ParticleType pt) { 
 		particle_type = pt;
@@ -108,7 +109,8 @@ public:
 	float getVelocityMax() { return velocity_max; }
 	std::vector<glm::vec3> getTargetPositions() { return target_positions; }
 	float getParticleSize() { return particle_size; }
-	glm::vec4 getParticleColor() { return particle_color; }
+	glm::vec3 getParticleColor() { return particle_color; }
+	float getOpacity() { return opacity; }
 	ParticleType getParticleType() {	return particle_type;}
 	std::string getTypeString() {
 		switch (particle_type)
@@ -562,7 +564,8 @@ private:
 	bool init_flag = false;
 
 	float particle_size = 10.f;
-	glm::vec4 particle_color{ 1.0f, 1.0f, 1.0f , 1.0f};
+	glm::vec3 particle_color{ 1.0f, 1.0f, 1.0f };
+	float opacity = 1.0f;
 
 	float density = 0.1f;
 
