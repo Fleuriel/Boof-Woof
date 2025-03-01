@@ -40,20 +40,11 @@ class MainHall : public Level
 	double cooldownDuration = 10.0; // Cooldown duration
 	bool isColorChanged = false;
 
-	//bool TimerInit = false;
 	bool sniffa{ false };
 	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
 	bool playercollided{ false }, puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
 	bool puppy1Destroyed{ false }, puppy2Destroyed{ false }, puppy3Destroyed{ false };
-
-	//bool waterBucketcollided{ false }, waterBucket2collided{ false }, waterBucket3collided{ false }; // Smell Avoidance
-	//bool rexPee1collided{ false }, rexPee2collided{ false }, rexPee3collided{ false }, rexPee4collided{ false }; // Smell Avoidance
-	//bool peeMarked{ false }; // Smell Avoidance
 	bool teb_last = false;
-
-	//bool peeSoundPlayed = false;
-	//bool waterSoundPlayed = false;
-	//bool testCollided = false;
 
 	void LoadLevel() override
 	{
@@ -90,11 +81,10 @@ class MainHall : public Level
 	{
 		cameraController = new CameraController(playerEnt);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
-		g_SmellAvoidance = SmellAvoidance(playerEnt, pee1, pee2, pee3, pee4, WaterBucket, WaterBucket2, WaterBucket3, TestPee, TestCollider);
+		g_SmellAvoidance = SmellAvoidance(playerEnt, pee1, pee2, pee3, pee4, pee1Collider, pee2Collider, pee3Collider, pee4Collider, WaterBucket, WaterBucket2, WaterBucket3, TestPee, TestCollider);
 		g_Checklist.OnInitialize();
 		InitializeChecklist();
 		InitializeFireSound();
-		//InitializePee();
 		g_SmellAvoidance.Initialize();
 
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
@@ -106,26 +96,9 @@ class MainHall : public Level
 		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 	}
 
-	//void CheckCollision()
-	//{
-	//	playercollided = CheckEntityCollision(playerEnt);
-
-	//	// Smell Avoidance
-	//	rexPee1collided = CheckEntityCollision(pee1);
-	//	rexPee2collided = CheckEntityCollision(pee2);
-	//	rexPee3collided = CheckEntityCollision(pee3);
-	//	rexPee4collided = CheckEntityCollision(pee4);
-	//	testCollided = CheckEntityCollision(TestCollider);
-	//	waterBucketcollided = CheckEntityCollision(WaterBucket);
-	//	waterBucket2collided = CheckEntityCollision(WaterBucket2);
-	//	waterBucket3collided = CheckEntityCollision(WaterBucket3);
-
-	//	HandlePeeCollision();
-	//	HandleWaterCollision();
-	//}
-
 	void CheckPuppyCollision()
 	{
+		playercollided = CheckEntityCollision(playerEnt);
 		puppy1Collided = CheckEntityCollision(puppy1);
 		puppy2Collided = CheckEntityCollision(puppy2);
 		puppy3Collided = CheckEntityCollision(puppy3);
@@ -356,12 +329,7 @@ class MainHall : public Level
 		g_Checklist.shutted = false;
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
 		playercollided = puppy1Collided = puppy2Collided = puppy3Collided = false;
-		//rexPee1collided = rexPee2collided = rexPee3collided = rexPee4collided = false; // Smell Avoidance
-		//waterBucketcollided = waterBucket2collided = waterBucket3collided = peeMarked = false; // Smell Avoidance
 		puppy1Destroyed = puppy2Destroyed = puppy3Destroyed = false;
-		//peeSoundPlayed = waterSoundPlayed = false;
-		//TimerInit = false;
-		//testCollided = false;
 
 		g_TimerTR.OnShutdown();
 	}
@@ -384,10 +352,10 @@ private:
 			{"Pee2", [&](Entity entity) { pee2 = entity; }},
 			{"Pee3", [&](Entity entity) { pee3 = entity; }},
 			{"Pee4", [&](Entity entity) { pee4 = entity; }},
-			{"Pee1Collider", [&](Entity entity) { pee1Collider = entity; }},
-			{"Pee2Collider", [&](Entity entity) { pee2Collider = entity; }},
-			{"Pee3Collider", [&](Entity entity) { pee3Collider = entity; }},
-			{"Pee4Collider", [&](Entity entity) { pee4Collider = entity; }},
+			{"Pee1Collision", [&](Entity entity) { pee1Collider = entity; }},
+			{"Pee2Collision", [&](Entity entity) { pee2Collider = entity; }},
+			{"Pee3Collision", [&](Entity entity) { pee3Collider = entity; }},
+			{"Pee4Collision", [&](Entity entity) { pee4Collider = entity; }},
 			{"WaterBucket", [&](Entity entity) { WaterBucket = entity; }},
 			{"WaterBucket2", [&](Entity entity) { WaterBucket2 = entity; }},
 			{"WaterBucket3", [&](Entity entity) { WaterBucket3 = entity; }},

@@ -7,41 +7,9 @@ class SmellAvoidance
 {
 public:
 	SmellAvoidance() = default;
-	SmellAvoidance(Entity playerEntity, Entity pee1, Entity pee2, Entity pee3, Entity pee4, Entity waterBucket, Entity waterBucket2, Entity waterBucket3, Entity testPee, Entity testCollider);
+	SmellAvoidance(Entity playerEntity, Entity pee1, Entity pee2, Entity pee3, Entity pee4, Entity pee1Collider, Entity pee2Collider, Entity pee3Collider, Entity pee4Collider, 
+        Entity waterBucket, Entity waterBucket2, Entity waterBucket3, Entity testPee, Entity testCollider);
 
-	/*SmellAvoidance(Entity playerEntity, Entity pee1, Entity pee2, Entity pee3, Entity pee4, Entity WaterBucket, Entity WaterBucket2, Entity WaterBucket3, Entity TestPee, Entity TestCollider)
-		: playerEnt(playerEntity), pee1(pee1), pee2(pee2), pee3(pee3), pee4(pee4), WaterBucket(WaterBucket), WaterBucket2(WaterBucket2), WaterBucket3(WaterBucket3), TestPee(TestPee), TestCollider(TestCollider)
-	{
-		timer = 0.0;
-		timerLimit = 10.0;
-		timesUp = 2.0;
-		TimerInit = false;
-		peeMarked = false;
-		peeSoundPlayed = false;
-		waterSoundPlayed = false;
-		testCollided = false;
-		rexPee1collided = false;
-		rexPee2collided = false;
-		rexPee3collided = false;
-		rexPee4collided = false;
-		waterBucketcollided = false;
-		waterBucket2collided = false;
-		waterBucket3collided = false;
-
-		TestPos = glm::vec3(0.0f, 0.0f, 0.0f);
-		NewPos = glm::vec3(0.0f, 0.0f, 0.0f);
-
-		pee1Pos = glm::vec3(0.0f, 0.0f, 0.0f);
-		pee2Pos = glm::vec3(0.0f, 0.0f, 0.0f);
-		pee3Pos = glm::vec3(0.0f, 0.0f, 0.0f);
-		pee4Pos = glm::vec3(0.0f, 0.0f, 0.0f);
-
-		pee1NewPos = glm::vec3(0.0f, 0.0f, 0.0f);
-		pee2NewPos = glm::vec3(0.0f, 0.0f, 0.0f);
-		pee3NewPos = glm::vec3(0.0f, 0.0f, 0.0f);
-		pee4NewPos = glm::vec3(0.0f, 0.0f, 0.0f);
-
-	}*/
     void Initialize();
     void Update(double deltaTime);
     void CheckCollision();
@@ -83,6 +51,7 @@ private:
     bool peeMarked;
     bool peeSoundPlayed;
     bool waterSoundPlayed;
+    bool playerCollided;
     bool testCollided;
     bool rexPee1collided, rexPee2collided, rexPee3collided, rexPee4collided;
     bool waterBucketcollided, waterBucket2collided, waterBucket3collided;

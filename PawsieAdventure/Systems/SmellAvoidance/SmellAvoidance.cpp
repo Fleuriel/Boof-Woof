@@ -4,8 +4,8 @@
 
 SmellAvoidance g_SmellAvoidance;
 
-SmellAvoidance::SmellAvoidance(Entity playerEntity, Entity pee1, Entity pee2, Entity pee3, Entity pee4, Entity waterBucket, Entity waterBucket2, Entity waterBucket3, Entity testPee, Entity testCollider)
-    : playerEnt(playerEntity), pee1(pee1), pee2(pee2), pee3(pee3), pee4(pee4), WaterBucket(waterBucket), WaterBucket2(waterBucket2), WaterBucket3(waterBucket3), TestPee(testPee), TestCollider(testCollider),
+SmellAvoidance::SmellAvoidance(Entity playerEntity, Entity pee1, Entity pee2, Entity pee3, Entity pee4, Entity pee1Collider, Entity pee2Collider, Entity pee3Collider, Entity pee4Collider, Entity waterBucket, Entity waterBucket2, Entity waterBucket3, Entity testPee, Entity testCollider)
+    : playerEnt(playerEntity), pee1(pee1), pee2(pee2), pee3(pee3), pee4(pee4), pee1Collider(pee1Collider), pee2Collider(pee2Collider), pee3Collider(pee3Collider), pee4Collider(pee4Collider), WaterBucket(waterBucket), WaterBucket2(waterBucket2), WaterBucket3(waterBucket3), TestPee(testPee), TestCollider(testCollider),
     timer(0.0), timerLimit(10.0), timesUp(2.0), TimerInit(false), peeMarked(false),
     peeSoundPlayed(false), waterSoundPlayed(false), testCollided(false), rexPee1collided(false), rexPee2collided(false),
     rexPee3collided(false), rexPee4collided(false), waterBucketcollided(false), waterBucket2collided(false), waterBucket3collided(false)
@@ -64,10 +64,11 @@ void SmellAvoidance::Update(double deltaTime)
 
 void SmellAvoidance::CheckCollision()
 {
-    rexPee1collided = CheckEntityCollision(pee1);
-    rexPee2collided = CheckEntityCollision(pee2);
-    rexPee3collided = CheckEntityCollision(pee3);
-    rexPee4collided = CheckEntityCollision(pee4);
+	playerCollided = CheckEntityCollision(playerEnt);
+    rexPee1collided = CheckEntityCollision(pee1Collider);
+    rexPee2collided = CheckEntityCollision(pee2Collider);
+    rexPee3collided = CheckEntityCollision(pee3Collider);
+    rexPee4collided = CheckEntityCollision(pee4Collider);
     testCollided = CheckEntityCollision(TestCollider);
     waterBucketcollided = CheckEntityCollision(WaterBucket);
     waterBucket2collided = CheckEntityCollision(WaterBucket2);
@@ -88,7 +89,7 @@ bool SmellAvoidance::CheckEntityCollision(Entity entity)
 
 void SmellAvoidance::HandlePeeCollision()
 {
-    if (CheckEntityCollision(playerEnt) && (rexPee1collided || rexPee2collided || rexPee3collided || rexPee4collided || testCollided) && !peeMarked && !peeSoundPlayed)
+    if (playerCollided && (rexPee1collided || rexPee2collided || rexPee3collided || rexPee4collided || testCollided) && !peeMarked && !peeSoundPlayed)
     {
         g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PeePuddle.wav", false, "SFX");
         peeMarked = true;
@@ -99,7 +100,7 @@ void SmellAvoidance::HandlePeeCollision()
 
 void SmellAvoidance::HandleWaterCollision()
 {
-    if (CheckEntityCollision(playerEnt) && (waterBucketcollided || waterBucket2collided || waterBucket3collided) && !waterSoundPlayed)
+    if (playerCollided && (waterBucketcollided || waterBucket2collided || waterBucket3collided) && !waterSoundPlayed)
     {
         g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WaterPuddle.wav", false, "SFX");
         peeMarked = false;
