@@ -68,16 +68,28 @@ void PausedScreen::OnExit()
 
 void QuitScreen::OnLoad()
 {
-	// might need to separate the setting json based 
-	// on whether it's pausedscreen's or mainmenu's ?
-
 	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/QuitGame.json");
 	spawnedEntities = serialPause.GetStored();
+
+	std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
+	{
+		{"YesBtn", [&](Entity entity) { YesBtn = entity; }},
+		{"NoBtn", [&](Entity entity) { NoBtn = entity; }}
+	};
 
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto entity : entities)
 	{
-		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+		const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+		auto it = nameToAction.find(metadata.GetName());
+
+		if (it != nameToAction.end())
+		{
+			it->second(entity);
+		}
+
+		// Exit early if all entities are found
+		if (YesBtn && NoBtn)
 		{
 			break;
 		}
@@ -102,9 +114,6 @@ void QuitScreen::OnExit()
 
 void Settings::OnLoad()
 {
-	// might need to separate the setting json based 
-	// on whether it's pausedscreen's or mainmenu's ?
-
 	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/SettingsScreen.json");
 	spawnedEntities = serialPause.GetStored();
 
@@ -118,7 +127,7 @@ void Settings::OnLoad()
 		{"GAMMARight", [&](Entity entity) { GAMMARight = entity; }},
 		{"SFXVol", [&](Entity entity) { SFXVol = entity; }},
 		{"BGMVol", [&](Entity entity) { BGMVol = entity; }},
-		
+		{"GAMMAValue", [&](Entity entity) { GAMMAValue = entity; }}
 	};
 
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -133,7 +142,7 @@ void Settings::OnLoad()
 		}
 
 		// Exit early if all entities are found
-		if (SFXLeft && SFXRight && BGMLeft && BGMRight && SFXVol && BGMVol && GAMMALeft && GAMMARight)
+		if (SFXLeft && SFXRight && BGMLeft && BGMRight && SFXVol && BGMVol && GAMMALeft && GAMMARight && GAMMAValue)
 		{
 			break;
 		}
@@ -158,9 +167,6 @@ void Settings::OnExit()
 
 void HowToPlay::OnLoad()
 {
-	// might need to separate the setting json based 
-	// on whether it's pausedscreen's or mainmenu's ?
-
 	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/HTPScreen.json");
 	spawnedEntities = serialPause.GetStored();
 }
@@ -338,18 +344,19 @@ namespace pauseLogic
 				if (g_Coordinator.HaveComponent<FontComponent>(pauser->SFXVol))
 				{
 					int volDisplay = static_cast<int>(std::round(sfVolume * 10));
+					FontComponent& SFXFont = g_Coordinator.GetComponent<FontComponent>(pauser->SFXVol);
 					if (volDisplay >= 0 && volDisplay < 10)
 					{
 						std::stringstream ss;
 						ss << std::setfill('0') << std::setw(2) << volDisplay;
 						std::string text = ss.str();
-						g_Coordinator.GetComponent<FontComponent>(pauser->SFXVol).set_pos(glm::vec2(0.12f, 0.25f));
-						g_Coordinator.GetComponent<FontComponent>(pauser->SFXVol).set_text(text);
+						SFXFont.set_pos(glm::vec2(0.12f, 0.35f));
+						SFXFont.set_text(text);
 					}
 					else
 					{
-						g_Coordinator.GetComponent<FontComponent>(pauser->SFXVol).set_pos(glm::vec2(0.14f, 0.25f));
-						g_Coordinator.GetComponent<FontComponent>(pauser->SFXVol).set_text("10");
+						SFXFont.set_pos(glm::vec2(0.14f, 0.35f));
+						SFXFont.set_text("10");
 					}
 				}
 
@@ -376,18 +383,19 @@ namespace pauseLogic
 				if (g_Coordinator.HaveComponent<FontComponent>(pauser->BGMVol))
 				{
 					int volDisplay = static_cast<int>(std::round(bgVolume * 10));
+					FontComponent& BGMFont = g_Coordinator.GetComponent<FontComponent>(pauser->BGMVol);
 					if (volDisplay >= 0 && volDisplay < 10)
 					{
 						std::stringstream ss;
 						ss << std::setfill('0') << std::setw(2) << volDisplay;
 						std::string text = ss.str();
-						g_Coordinator.GetComponent<FontComponent>(pauser->BGMVol).set_pos(glm::vec2(0.12f, -0.25f));
-						g_Coordinator.GetComponent<FontComponent>(pauser->BGMVol).set_text(text);
+						BGMFont.set_pos(glm::vec2(0.12f, -0.05f));
+						BGMFont.set_text(text);
 					}
 					else
 					{
-						g_Coordinator.GetComponent<FontComponent>(pauser->BGMVol).set_pos(glm::vec2(0.14f, -0.25f));
-						g_Coordinator.GetComponent<FontComponent>(pauser->BGMVol).set_text("10");
+						BGMFont.set_pos(glm::vec2(0.14f, -0.05f));
+						BGMFont.set_text("10");
 					}
 				}
 
@@ -396,7 +404,9 @@ namespace pauseLogic
 					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->GAMMALeft);
 					if (UICompt.get_selected())
 					{
-						mGraphicsSys->gammaValue -= 1.f;
+						mGraphicsSys->gammaValue -= 0.1f;
+						if (mGraphicsSys->gammaValue < 1.f)
+							mGraphicsSys->gammaValue = 1.f;
 					}
 				}
 
@@ -405,8 +415,21 @@ namespace pauseLogic
 					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->GAMMARight);
 					if (UICompt.get_selected())
 					{
-						mGraphicsSys->gammaValue -= 1.f;
+						mGraphicsSys->gammaValue += 0.1f;
+						if (mGraphicsSys->gammaValue > 3.f)
+							mGraphicsSys->gammaValue = 3.f;
 					}
+				}
+
+				if (g_Coordinator.HaveComponent<FontComponent>(pauser->GAMMAValue))
+				{
+					std::stringstream ss;
+					ss << std::fixed << std::setprecision(1) << mGraphicsSys->gammaValue; // Format to 1 decimal places
+					std::string str = ss.str();
+
+					FontComponent& gammaFont = g_Coordinator.GetComponent<FontComponent>(pauser->GAMMAValue);
+					gammaFont.set_pos(glm::vec2(0.12f, -0.45f));
+					gammaFont.set_text(str);
 				}
 			}
 			else if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 0)

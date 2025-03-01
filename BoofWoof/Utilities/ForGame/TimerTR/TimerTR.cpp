@@ -32,6 +32,11 @@ void TimerTR::OnInitialize()
 
 void TimerTR::OnUpdate(double deltaTime)
 {
+	if (!g_Coordinator.HaveComponent<FontComponent>(m_Minus))
+		return;
+
+	auto& minus = g_Coordinator.GetComponent<FontComponent>(m_Minus);
+
 	if (g_Coordinator.HaveComponent<FontComponent>(m_Timer)) 
 	{
 		auto& text = g_Coordinator.GetComponent<FontComponent>(m_Timer);
@@ -66,33 +71,16 @@ void TimerTR::OnUpdate(double deltaTime)
 
 	if (touched) 
 	{
-		if (g_Coordinator.HaveComponent<FontComponent>(m_Minus))
+		// Show the world
+		if (!scaleUp)
 		{
-			auto& text = g_Coordinator.GetComponent<FontComponent>(m_Minus);
-
-			// Show the world
-			if (!scaleUp) 
-			{
-				text.set_scale(glm::vec2(0.6f, 1.0f));
-				scaleUp = true;
-			}
-
-			// Decrement timer by deltaTime
-			minus10timer -= deltaTime;
-
-			if (minus10timer < 0.0)
-			{
-				minus10timer = 0.0;
-				text.set_scale(glm::vec2(0.0f, 0.0f));
-				touched = false;
-				scaleUp = false;
-			}
+			minus.set_scale(glm::vec2(0.6f, 1.0f));
+			scaleUp = true;
 		}
 	}
 	else 
 	{
-		minus10timer = 3.0;
-		touched = false;
+		minus.set_scale(glm::vec2(0.0f, 0.0f));
 		scaleUp = false;
 	}
 }
@@ -118,7 +106,6 @@ void TimerTR::OnShutdown()
 void TimerTR::Reset()
 {
 	timer = 180.0;
-	minus10timer = 3.0;
 	touched = false;
 	scaleUp = false;
 }

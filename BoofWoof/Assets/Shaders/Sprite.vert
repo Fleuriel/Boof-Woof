@@ -1,50 +1,31 @@
-/*!*****************************************************************************
-\file               sprite.vert
-\author             Angus TAN Yit Hoe 		
-\co-author			Aaron CHAN Jun Xiang	
-\co-author			Mark LOW Wang Chun
-\date               05/04/2024 [5 April 2024]
-\brief              This file contains the Vertex Shader for sprites                                    
-*******************************************************************************/
 #version 450 core
-
 
 layout (location=0) in vec2 aVertexPosition;
 layout (location=1) in vec3 aVertexColor;
 layout (location=2) in vec2 aVertexTexture;
 
-layout (location=0) out vec3 vColor;
-layout (location=1) out vec2 vTex;
+layout (location=0) out vec3 vInterpColor; // Match the frag shader
+layout (location=1) out vec2 vTexCoord;    // Match the frag shader
 
 uniform int col_To_Draw;
-uniform int rows;
-uniform int cols;
 uniform int row_To_Draw;
+uniform int cols;
+uniform int rows;
 
-uniform mat3 uModel_to_NDC;
+uniform mat4 projection;
+uniform mat4 view;
+uniform mat4 model;
 
-out vec3 FragPos;
-out vec2 TexCoord;  // Pass texture coordinates to the fragment shader
+void main(void) {
+    // Apply transformations: Model -> View -> Projection
+    vec4 worldPosition = model * vec4(aVertexPosition, 0.0, 1.0);
+    gl_Position = projection * view * worldPosition;
 
-void main(void){
+    // Pass vertex color (matches fragment shader input)
+    vInterpColor = aVertexColor;
 
-	mat3 normalMatrix = transpose(inverse(mat3(uModel_to_NDC)));
-
-	vec4 worldPosition = vec4(vec2(uModel_to_NDC * vec3(aVertexPosition, 1.0f)), 0.0, 1.0);
-
-	//set the position
-	gl_Position =  worldPosition;
-
-	//set the color
-	vColor = aVertexColor;
-
-	float width = aVertexTexture.x / cols;
-	float height = aVertexTexture.y / rows;
-
-	vTex = vec2(width , height) + vec2(float(col_To_Draw)/float(cols),float(row_To_Draw)/float(rows));
-
-	TexCoord = aVertexTexture;
-
-    // Pass the world-space position to the fragment shader
-    FragPos = vec3(worldPosition);
+    // Correct UV mapping for sprite sheets
+    vec2 spriteSize = vec2(1.0 / cols, 1.0 / rows);
+    vec2 spriteOffset = vec2(col_To_Draw, row_To_Draw) * spriteSize;
+    vTexCoord = aVertexTexture * spriteSize + spriteOffset;
 }
