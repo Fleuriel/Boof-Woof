@@ -10,6 +10,10 @@ float UI::savedParticleTimer = 0.0f;
 float UI::savedSniffAnimationTimer = 0.0f;
 int UI::savedCurrCol = 0;
 
+int UI::savedStaminaIndex = 0;  // Default full stamina
+float UI::savedSprintTimer = 0.0f;
+float UI::savedReplenishTimer = 0.0f;
+
 void UI::OnInitialize()
 {
 	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/UIcon.json");
@@ -19,6 +23,7 @@ void UI::OnInitialize()
 	std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
 	{
 		{"CDSniff", [&](Entity entity) { CDSniff = entity; }},
+		{"Sprint", [&](Entity entity) { Sprinto = entity; }},
 		{"Pellet1", [&](Entity entity) { P1 = entity; }},
 		{"Pellet2", [&](Entity entity) { P2 = entity; }},
 		{"Pellet3", [&](Entity entity) { P3 = entity; } },
@@ -42,17 +47,32 @@ void UI::OnInitialize()
 	particleTimer = savedParticleTimer;
 	sniffAnimationTimer = savedSniffAnimationTimer;
 
+	staminaIndex = savedStaminaIndex;
+	sprintTimer = savedSprintTimer;
+	replenishTimer = savedReplenishTimer;
+
 	if (g_Coordinator.HaveComponent<UIComponent>(CDSniff))
 	{
 		UIComponent& sniffa = g_Coordinator.GetComponent<UIComponent>(CDSniff);
 		sniffa.set_curr_col(savedCurrCol);
 		sniffa.set_playing(!canPressE);
 	}
+
+	// Restore Pellets' Opacity Based on Stamina
+	pellets = { P5, P4, P3, P2, P1 };
+	for (int i = 0; i < 5; i++)
+	{
+		if (g_Coordinator.HaveComponent<UIComponent>(pellets[i]))
+		{
+			UIComponent& pellet = g_Coordinator.GetComponent<UIComponent>(pellets[i]);
+			pellet.set_opacity(i > staminaIndex ? 0.0f : 1.0f);
+		}
+	}
 }
 
 void UI::OnUpdate(double deltaTime)
 {
-	/* Empty by design */
+	Sprint(static_cast<float>(deltaTime));
 }
 
 void UI::OnShutdown()
@@ -61,6 +81,11 @@ void UI::OnShutdown()
 	savedE = canPressE;
 	savedParticleTimer = particleTimer;
 	savedSniffAnimationTimer = sniffAnimationTimer;
+
+	// Save Sprint Stamina State
+	savedStaminaIndex = staminaIndex;
+	savedSprintTimer = sprintTimer;
+	savedReplenishTimer = replenishTimer;
 
 	if (g_Coordinator.HaveComponent<UIComponent>(CDSniff))
 	{
@@ -139,6 +164,85 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 				sniffAnimationTimer = 0.0f;
 				sniffa.set_playing(false);
 				canPressE = true;
+			}
+		}
+	}
+}
+
+void UI::Sprint(float dt)
+{
+	if (!g_Coordinator.HaveComponent<UIComponent>(Sprinto))
+		return;
+
+	UIComponent& sprinto = g_Coordinator.GetComponent<UIComponent>(Sprinto);
+
+	static bool isSprinting = false; // Track sprint state
+	static bool isExhausted = false;  // Tracks if stamina is fully depleted
+
+	// Ensure we have 5 pellets
+	if (pellets.size() < 5)
+		return;
+
+	// Check if Shift is held for sprinting
+	if (g_Input.GetKeyState(GLFW_KEY_LEFT_SHIFT) >= 1 && !isExhausted)
+	{
+		sprinto.set_playing(true);
+		isSprinting = true;
+		replenishTimer = 0.0f; // Reset replenish timer while sprinting
+
+		sprintTimer += dt; // Increase sprint timer
+
+		// If holding Shift for 1.5s, deplete one pellet from 4 3 2 1 0
+		if (sprintTimer >= 1.5f && staminaIndex >= 0)
+		{
+			if (g_Coordinator.HaveComponent<UIComponent>(pellets[staminaIndex]))
+			{
+				UIComponent& pellet = g_Coordinator.GetComponent<UIComponent>(pellets[staminaIndex]);
+				pellet.set_opacity(0.0f); // Deplete pellet
+			}
+			staminaIndex--; // Move to next pellet
+			staminaIndex = std::max(staminaIndex, -1); // Ensure it never goes below -1
+			sprintTimer = 0.0f; // Reset sprint timer
+		}
+
+		if (staminaIndex == -1)
+		{
+			sprinto.set_playing(false);
+			isExhausted = true; // Prevent further sprinting
+		}
+	}
+	else
+	{
+		// Player stops sprinting if Shift is released OR fully out of stamina
+		if (g_Input.GetKeyState(GLFW_KEY_LEFT_SHIFT) == 0 || staminaIndex == -1)
+		{
+			isSprinting = false; // Stop sprinting
+		}
+
+		// Stopped sprinting, start stamina regeneration
+		if (isExhausted && staminaIndex < 4) // If at least one pellet was used
+		{
+			replenishTimer += dt; // Increase replenish timer
+
+			// Every 3 seconds, restore one pellet
+			if (replenishTimer >= 3.0f)
+			{
+				staminaIndex++; // Move back one pellet
+				staminaIndex = std::min(staminaIndex, 4); // Ensure it never goes above 4
+
+				if (g_Coordinator.HaveComponent<UIComponent>(pellets[staminaIndex]))
+				{
+					UIComponent& pellet = g_Coordinator.GetComponent<UIComponent>(pellets[staminaIndex]);
+					pellet.set_opacity(1.0f); // Restore pellet
+				}
+
+				replenishTimer = 0.0f; // Reset replenish timer
+			}
+
+			// **Once at least one pellet regenerates, allow sprinting again**
+			if (staminaIndex >= 0)
+			{
+				isExhausted = false; // Allow sprinting
 			}
 		}
 	}

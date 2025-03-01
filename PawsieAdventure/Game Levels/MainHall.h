@@ -302,6 +302,7 @@ class MainHall : public Level
 			cameraController->Update(static_cast<float>(deltaTime));
 			cooldownTimer += deltaTime;
 
+			g_UI.OnUpdate(static_cast<float>(deltaTime));
 			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
 			g_DialogueText.OnUpdate(deltaTime);
 

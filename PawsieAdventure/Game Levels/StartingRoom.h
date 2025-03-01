@@ -126,6 +126,7 @@ public:
 			}
 			cameraController->Update(static_cast<float>(deltaTime));
 
+			g_UI.OnUpdate(static_cast<float>(deltaTime));
 			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
 
 			if (!g_ChangeText.shutted)
