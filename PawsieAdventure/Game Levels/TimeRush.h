@@ -164,7 +164,10 @@ class TimeRush : public Level
 		// ?? Update the positions of all 3D sounds (including the fireplace)
 		g_Audio.Update3DSoundPositions();
 
-		pauseLogic::OnUpdate();
+		if (!g_DialogueText.dialogueActive) 
+		{
+			pauseLogic::OnUpdate();
+		}
 
 		if (!g_IsPaused)
 		{

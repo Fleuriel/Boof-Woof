@@ -44,12 +44,14 @@ public:
 	
 	void Reset();
 
+public:
+	bool dialogueActive{ false };
 
 private:
 	Entity m_D1{};
 	DialogueState m_CurrentState{ DialogueState::DEFAULT };
 	bool NextDialoguePls{ false };
-	bool m_DialogueActive{ false }, m_FirstTimeTouchBall{ true }, m_FirstTimeTouchBone{ true }, m_TouchedBall{ false }, m_TouchedBone{ false };
+	bool m_FirstTimeTouchBall{ true }, m_FirstTimeTouchBone{ true }, m_TouchedBall{ false }, m_TouchedBone{ false };
 	float m_CollisionResetTimer{ 2.0f }; // stunlock timing
 	float clickCooldown = 0.0f;
 
