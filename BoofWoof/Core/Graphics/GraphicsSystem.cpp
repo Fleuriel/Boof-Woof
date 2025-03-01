@@ -355,6 +355,7 @@ void GraphicsSystem::UpdateLoop() {
 			particleShader.SetUniform("projection", shdrParam.Projection);
 			glPointSize(particleComp.getParticleSize());
 			particleShader.SetUniform("particleColor", particleComp.getParticleColor());
+			particleShader.SetUniform("opacity", particleComp.getOpacity());
 			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
 			particleShader.SetUniform("vertexTransform", shdrParam.WorldMatrix);
 			particleShader.SetUniform("gammaValue", gammaValue);
