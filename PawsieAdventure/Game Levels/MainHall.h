@@ -172,7 +172,6 @@ class MainHall : public Level
 				if (!g_SmellAvoidance.GetTimerInit()) {
 					g_TimerTR.OnInitialize();
 					g_TimerTR.timer = timerLimit;
-					//TimerInit = true;
 					g_SmellAvoidance.SetTimerInit(true);
 				}
 				g_TimerTR.OnUpdate(deltaTime);
@@ -180,7 +179,6 @@ class MainHall : public Level
 				if (g_TimerTR.timer == 0.0)
 				{
 					timesUp -= deltaTime;
-					//g_SmellAvoidance.SetTimesUp(g_SmellAvoidance.GetTimesUp() - deltaTime);
 
 					// Times up! sound
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
@@ -188,8 +186,6 @@ class MainHall : public Level
 					if (timesUp < 0.0)
 					{
 						timesUp = 2.0;
-						//g_SmellAvoidance.SetTimesUp(2.0);
-						//peeMarked = false;
 						g_SmellAvoidance.SetPeeMarked(false);
 						auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 						if (loading)
@@ -393,115 +389,6 @@ private:
 		}
 	}
 
-	/*void InitializePee()
-	{
-		if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
-		{
-			auto& testPeeTransform = g_Coordinator.GetComponent<TransformComponent>(TestPee);
-			TestPos = testPeeTransform.GetPosition();
-			NewPos = TestPos - glm::vec3(0.0f, 20.0f, 0.0f);
-			testPeeTransform.SetPosition(NewPos);
-		}
-
-		if (g_Coordinator.HaveComponent<TransformComponent>(pee1))
-		{
-			auto& pee1Transform = g_Coordinator.GetComponent<TransformComponent>(pee1);
-			pee1Pos = pee1Transform.GetPosition();
-			pee1NewPos = pee1Pos - glm::vec3(0.0f, 20.0f, 0.0f);
-			pee1Transform.SetPosition(pee1NewPos);
-		}
-
-		if (g_Coordinator.HaveComponent<TransformComponent>(pee2))
-		{
-			auto& pee2Transform = g_Coordinator.GetComponent<TransformComponent>(pee2);
-			pee2Pos = pee2Transform.GetPosition();
-			pee2NewPos = pee2Pos - glm::vec3(0.0f, 20.0f, 0.0f);
-			pee2Transform.SetPosition(pee2NewPos);
-		}
-
-		if (g_Coordinator.HaveComponent<TransformComponent>(pee3))
-		{
-			auto& pee3Transform = g_Coordinator.GetComponent<TransformComponent>(pee3);
-			pee3Pos = pee3Transform.GetPosition();
-			pee3NewPos = pee3Pos - glm::vec3(0.0f, 20.0f, 0.0f);
-			pee3Transform.SetPosition(pee3NewPos);
-		}
-
-		if (g_Coordinator.HaveComponent<TransformComponent>(pee4))
-		{
-			auto& pee4Transform = g_Coordinator.GetComponent<TransformComponent>(pee4);
-			pee4Pos = pee4Transform.GetPosition();
-			pee4NewPos = pee4Pos - glm::vec3(0.0f, 20.0f, 0.0f);
-			pee4Transform.SetPosition(pee4NewPos);
-		}
-	}*/
-
-	/*void SetDefaultPeePosition() const
-	{
-		if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
-		{
-			auto& testPeeTransform = g_Coordinator.GetComponent<TransformComponent>(TestPee);
-			testPeeTransform.SetPosition(TestPos);
-		}
-
-		if (g_Coordinator.HaveComponent<TransformComponent>(pee1))
-		{
-			auto& pee1Transform = g_Coordinator.GetComponent<TransformComponent>(pee1);
-			pee1Transform.SetPosition(pee1Pos);
-		}
-
-		if (g_Coordinator.HaveComponent<TransformComponent>(pee2))
-		{
-			auto& pee2Transform = g_Coordinator.GetComponent<TransformComponent>(pee2);
-			pee2Transform.SetPosition(pee2Pos);
-		}
-
-		if (g_Coordinator.HaveComponent<TransformComponent>(pee3))
-		{
-			auto& pee3Transform = g_Coordinator.GetComponent<TransformComponent>(pee3);
-			pee3Transform.SetPosition(pee3Pos);
-		}
-
-		if (g_Coordinator.HaveComponent<TransformComponent>(pee4))
-		{
-			auto& pee4Transform = g_Coordinator.GetComponent<TransformComponent>(pee4);
-			pee4Transform.SetPosition(pee4Pos);
-		}
-	}*/
-
-	/*void SetNewPeePosition() const
-	{
-		if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
-		{
-			auto& testPeeTransform = g_Coordinator.GetComponent<TransformComponent>(TestPee);
-			testPeeTransform.SetPosition(NewPos);
-		}
-
-		if (g_Coordinator.HaveComponent<TransformComponent>(pee1))
-		{
-			auto& pee1Transform = g_Coordinator.GetComponent<TransformComponent>(pee1);
-			pee1Transform.SetPosition(pee1NewPos);
-		}
-
-		if (g_Coordinator.HaveComponent<TransformComponent>(pee2))
-		{
-			auto& pee2Transform = g_Coordinator.GetComponent<TransformComponent>(pee2);
-			pee2Transform.SetPosition(pee2NewPos);
-		}
-
-		if (g_Coordinator.HaveComponent<TransformComponent>(pee3))
-		{
-			auto& pee3Transform = g_Coordinator.GetComponent<TransformComponent>(pee3);
-			pee3Transform.SetPosition(pee3NewPos);
-		}
-
-		if (g_Coordinator.HaveComponent<TransformComponent>(pee4))
-		{
-			auto& pee4Transform = g_Coordinator.GetComponent<TransformComponent>(pee4);
-			pee4Transform.SetPosition(pee4NewPos);
-		}
-	}*/
-
 	bool CheckEntityCollision(Entity entity)
 	{
 		if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
@@ -510,33 +397,4 @@ private:
 		}
 		return false;
 	}
-
-	//void HandlePeeCollision()
-	//{
-	//	if (playercollided && (rexPee1collided || rexPee2collided || rexPee3collided || rexPee4collided || testCollided) && !peeMarked && !peeSoundPlayed)
-	//	{
-	//		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PeePuddle.wav", false, "SFX");
-	//		peeMarked = true;
-	//		peeSoundPlayed = true;  // Ensure the sound plays only once
-	//		waterSoundPlayed = false; // Reset water sound state
-	//	}
-	//}
-
-	//void HandleWaterCollision()
-	//{
-	//	if (playercollided && (waterBucketcollided || waterBucket2collided || waterBucket3collided) && !waterSoundPlayed)
-	//	{
-	//		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WaterPuddle.wav", false, "SFX");
-	//		peeMarked = false;
-	//		timer = 0.0;
-
-	//		// Reset sound state
-	//		peeSoundPlayed = false;
-	//		waterSoundPlayed = true; // Ensure water sound plays only once
-	//		if (TimerInit) {
-	//			g_TimerTR.OnShutdown();
-	//			TimerInit = false;
-	//		}
-	//	}
-	//}
 };
