@@ -134,6 +134,9 @@ class TimeRush : public Level
 
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
+
+		g_DialogueText.OnInitialize();
+		g_DialogueText.setDialogue(DialogueState::ENTEREDLIBRARY);
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -161,13 +164,11 @@ class TimeRush : public Level
 		// ?? Update the positions of all 3D sounds (including the fireplace)
 		g_Audio.Update3DSoundPositions();
 
-
 		pauseLogic::OnUpdate();
 
 		if (!g_IsPaused)
 		{
 			cameraController->Update(static_cast<float>(deltaTime));
-
 			cooldownTimer += deltaTime;
 
 			auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
@@ -181,6 +182,9 @@ class TimeRush : public Level
 			auto& opacity9 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity9);
 
 			g_TimerTR.OnUpdate(deltaTime);
+
+			g_DialogueText.checkCollision(playerEnt, deltaTime);
+			g_DialogueText.OnUpdate(deltaTime);
 
 			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
 			if (g_TimerTR.timer == 0.0) 
@@ -203,6 +207,8 @@ class TimeRush : public Level
 
 						timesUp = 2.0;
 						g_TimerTR.Reset();
+						g_DialogueText.OnShutdown();
+						g_DialogueText.Reset();
 
 						g_LevelManager.SetNextLevel("LoadingLevel");
 					}

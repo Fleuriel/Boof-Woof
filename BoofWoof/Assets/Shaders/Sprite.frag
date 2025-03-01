@@ -18,12 +18,8 @@ layout (location=0) out vec4 fFragColor;
 uniform sampler2D uTex2d;
 uniform float opacity;
 
-uniform bool defaultGamma;
-
 void main () {
 	vec4 frag_color = texture(uTex2d, vTexCoord);
 	frag_color = frag_color * vec4(1.0f,1.0f,1.0f,opacity);
 	fFragColor = frag_color;
-
-	fFragColor.rgb = pow(fFragColor.rgb, vec3(1.0/gammaValue)); 
 }

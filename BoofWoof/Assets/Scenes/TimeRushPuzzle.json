@@ -14243,7 +14243,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Ball",
+                "EntityName": "TennisBall",
                 "EntityID": 311
             },
             "TransformComponent": {
@@ -14489,7 +14489,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Ball",
+                "EntityName": "TennisBall",
                 "EntityID": 315
             },
             "TransformComponent": {
