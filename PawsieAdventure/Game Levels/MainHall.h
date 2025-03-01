@@ -6,6 +6,7 @@
 #include "../Systems/RopeBreaker/RopeBreaker.h"
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
+#include "../Systems/SmellAvoidance/SmellAvoidance.h"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 #include "../GSM/GameStateMachine.h" // for g_IsPaused
 
@@ -39,20 +40,20 @@ class MainHall : public Level
 	double cooldownDuration = 10.0; // Cooldown duration
 	bool isColorChanged = false;
 
-	bool TimerInit = false;
+	//bool TimerInit = false;
 	bool sniffa{ false };
 	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
 	bool playercollided{ false }, puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
 	bool puppy1Destroyed{ false }, puppy2Destroyed{ false }, puppy3Destroyed{ false };
 
-	bool waterBucketcollided{ false }, waterBucket2collided{ false }, waterBucket3collided{ false }; // Smell Avoidance
-	bool rexPee1collided{ false }, rexPee2collided{ false }, rexPee3collided{ false }, rexPee4collided{ false }; // Smell Avoidance
-	bool peeMarked{ false }; // Smell Avoidance
+	//bool waterBucketcollided{ false }, waterBucket2collided{ false }, waterBucket3collided{ false }; // Smell Avoidance
+	//bool rexPee1collided{ false }, rexPee2collided{ false }, rexPee3collided{ false }, rexPee4collided{ false }; // Smell Avoidance
+	//bool peeMarked{ false }; // Smell Avoidance
 	bool teb_last = false;
 
-	bool peeSoundPlayed = false;
-	bool waterSoundPlayed = false;
-	bool testCollided = false;
+	//bool peeSoundPlayed = false;
+	//bool waterSoundPlayed = false;
+	//bool testCollided = false;
 
 	void LoadLevel() override
 	{
@@ -89,10 +90,12 @@ class MainHall : public Level
 	{
 		cameraController = new CameraController(playerEnt);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
+		g_SmellAvoidance = SmellAvoidance(playerEnt, pee1, pee2, pee3, pee4, WaterBucket, WaterBucket2, WaterBucket3, TestPee, TestCollider);
 		g_Checklist.OnInitialize();
 		InitializeChecklist();
 		InitializeFireSound();
-		InitializePee();
+		//InitializePee();
+		g_SmellAvoidance.Initialize();
 
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
@@ -103,23 +106,23 @@ class MainHall : public Level
 		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 	}
 
-	void CheckCollision()
-	{
-		playercollided = CheckEntityCollision(playerEnt);
+	//void CheckCollision()
+	//{
+	//	playercollided = CheckEntityCollision(playerEnt);
 
-		// Smell Avoidance
-		rexPee1collided = CheckEntityCollision(pee1);
-		rexPee2collided = CheckEntityCollision(pee2);
-		rexPee3collided = CheckEntityCollision(pee3);
-		rexPee4collided = CheckEntityCollision(pee4);
-		testCollided = CheckEntityCollision(TestCollider);
-		waterBucketcollided = CheckEntityCollision(WaterBucket);
-		waterBucket2collided = CheckEntityCollision(WaterBucket2);
-		waterBucket3collided = CheckEntityCollision(WaterBucket3);
+	//	// Smell Avoidance
+	//	rexPee1collided = CheckEntityCollision(pee1);
+	//	rexPee2collided = CheckEntityCollision(pee2);
+	//	rexPee3collided = CheckEntityCollision(pee3);
+	//	rexPee4collided = CheckEntityCollision(pee4);
+	//	testCollided = CheckEntityCollision(TestCollider);
+	//	waterBucketcollided = CheckEntityCollision(WaterBucket);
+	//	waterBucket2collided = CheckEntityCollision(WaterBucket2);
+	//	waterBucket3collided = CheckEntityCollision(WaterBucket3);
 
-		HandlePeeCollision();
-		HandleWaterCollision();
-	}
+	//	HandlePeeCollision();
+	//	HandleWaterCollision();
+	//}
 
 	void CheckPuppyCollision()
 	{
@@ -183,25 +186,28 @@ class MainHall : public Level
 				g_Checklist.OnUpdate(deltaTime);
 			}
 
-			CheckCollision();
+			//CheckCollision();
+			g_SmellAvoidance.Update(deltaTime);
 
 			if (!collectedPuppy1 || !collectedPuppy2 || !collectedPuppy3)
 			{
 				CheckPuppyCollision();
 			}
 
-			if (peeMarked)
+			if (g_SmellAvoidance.GetPeeMarked())
 			{
-				if (!TimerInit) {
+				if (!g_SmellAvoidance.GetTimerInit()) {
 					g_TimerTR.OnInitialize();
 					g_TimerTR.timer = timerLimit;
-					TimerInit = true;
+					//TimerInit = true;
+					g_SmellAvoidance.SetTimerInit(true);
 				}
 				g_TimerTR.OnUpdate(deltaTime);
 
 				if (g_TimerTR.timer == 0.0)
 				{
 					timesUp -= deltaTime;
+					//g_SmellAvoidance.SetTimesUp(g_SmellAvoidance.GetTimesUp() - deltaTime);
 
 					// Times up! sound
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
@@ -209,7 +215,9 @@ class MainHall : public Level
 					if (timesUp < 0.0)
 					{
 						timesUp = 2.0;
-						peeMarked = false;
+						//g_SmellAvoidance.SetTimesUp(2.0);
+						//peeMarked = false;
+						g_SmellAvoidance.SetPeeMarked(false);
 						auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 						if (loading)
 						{
@@ -292,7 +300,8 @@ class MainHall : public Level
 				opacity2.setParticleColor(glm::vec4(0.032127078622579578f, 0.93624528503418f, 0.936274528503418f, 1.0f));
 				opacity3.setParticleColor(glm::vec4(0.9313725233078003f, 0.342416375875473f, 0.8274392485618591f, 1.0f));
 
-				SetDefaultPeePosition();
+				//SetDefaultPeePosition();
+				g_SmellAvoidance.SetDefaultPeePosition();
 
 				sniffa = true;
 				isColorChanged = true;
@@ -309,7 +318,8 @@ class MainHall : public Level
 					opacity2.setParticleColor(glm::vec4(0.032127078622579578f, 0.93624528503418f, 0.936274528503418f, 0.0f));
 					opacity3.setParticleColor(glm::vec4(0.9313725233078003f, 0.342416375875473f, 0.8274392485618591f, 0.0f));
 
-					SetNewPeePosition();
+					//SetNewPeePosition();
+					g_SmellAvoidance.SetNewPeePosition();
 
 					isColorChanged = false;
 				}
@@ -346,12 +356,12 @@ class MainHall : public Level
 		g_Checklist.shutted = false;
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
 		playercollided = puppy1Collided = puppy2Collided = puppy3Collided = false;
-		rexPee1collided = rexPee2collided = rexPee3collided = rexPee4collided = false; // Smell Avoidance
-		waterBucketcollided = waterBucket2collided = waterBucket3collided = peeMarked = false; // Smell Avoidance
+		//rexPee1collided = rexPee2collided = rexPee3collided = rexPee4collided = false; // Smell Avoidance
+		//waterBucketcollided = waterBucket2collided = waterBucket3collided = peeMarked = false; // Smell Avoidance
 		puppy1Destroyed = puppy2Destroyed = puppy3Destroyed = false;
-		peeSoundPlayed = waterSoundPlayed = false;
-		TimerInit = false;
-		testCollided = false;
+		//peeSoundPlayed = waterSoundPlayed = false;
+		//TimerInit = false;
+		//testCollided = false;
 
 		g_TimerTR.OnShutdown();
 	}
@@ -415,7 +425,7 @@ private:
 		}
 	}
 
-	void InitializePee()
+	/*void InitializePee()
 	{
 		if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
 		{
@@ -456,9 +466,9 @@ private:
 			pee4NewPos = pee4Pos - glm::vec3(0.0f, 20.0f, 0.0f);
 			pee4Transform.SetPosition(pee4NewPos);
 		}
-	}
+	}*/
 
-	void SetDefaultPeePosition() const
+	/*void SetDefaultPeePosition() const
 	{
 		if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
 		{
@@ -489,9 +499,9 @@ private:
 			auto& pee4Transform = g_Coordinator.GetComponent<TransformComponent>(pee4);
 			pee4Transform.SetPosition(pee4Pos);
 		}
-	}
+	}*/
 
-	void SetNewPeePosition() const
+	/*void SetNewPeePosition() const
 	{
 		if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
 		{
@@ -522,7 +532,7 @@ private:
 			auto& pee4Transform = g_Coordinator.GetComponent<TransformComponent>(pee4);
 			pee4Transform.SetPosition(pee4NewPos);
 		}
-	}
+	}*/
 
 	bool CheckEntityCollision(Entity entity)
 	{
@@ -533,32 +543,32 @@ private:
 		return false;
 	}
 
-	void HandlePeeCollision()
-	{
-		if (playercollided && (rexPee1collided || rexPee2collided || rexPee3collided || rexPee4collided || testCollided) && !peeMarked && !peeSoundPlayed)
-		{
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PeePuddle.wav", false, "SFX");
-			peeMarked = true;
-			peeSoundPlayed = true;  // Ensure the sound plays only once
-			waterSoundPlayed = false; // Reset water sound state
-		}
-	}
+	//void HandlePeeCollision()
+	//{
+	//	if (playercollided && (rexPee1collided || rexPee2collided || rexPee3collided || rexPee4collided || testCollided) && !peeMarked && !peeSoundPlayed)
+	//	{
+	//		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PeePuddle.wav", false, "SFX");
+	//		peeMarked = true;
+	//		peeSoundPlayed = true;  // Ensure the sound plays only once
+	//		waterSoundPlayed = false; // Reset water sound state
+	//	}
+	//}
 
-	void HandleWaterCollision()
-	{
-		if (playercollided && (waterBucketcollided || waterBucket2collided || waterBucket3collided) && !waterSoundPlayed)
-		{
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WaterPuddle.wav", false, "SFX");
-			peeMarked = false;
-			timer = 0.0;
+	//void HandleWaterCollision()
+	//{
+	//	if (playercollided && (waterBucketcollided || waterBucket2collided || waterBucket3collided) && !waterSoundPlayed)
+	//	{
+	//		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WaterPuddle.wav", false, "SFX");
+	//		peeMarked = false;
+	//		timer = 0.0;
 
-			// Reset sound state
-			peeSoundPlayed = false;
-			waterSoundPlayed = true; // Ensure water sound plays only once
-			if (TimerInit) {
-				g_TimerTR.OnShutdown();
-				TimerInit = false;
-			}
-		}
-	}
+	//		// Reset sound state
+	//		peeSoundPlayed = false;
+	//		waterSoundPlayed = true; // Ensure water sound plays only once
+	//		if (TimerInit) {
+	//			g_TimerTR.OnShutdown();
+	//			TimerInit = false;
+	//		}
+	//	}
+	//}
 };

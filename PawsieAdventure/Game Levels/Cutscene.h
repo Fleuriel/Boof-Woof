@@ -238,7 +238,7 @@ class Cutscene : public Level
 			// Space to skip cutscene - zero feedback as of now.
 			if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1)
 			{
-				g_LevelManager.SetNextLevel("StartingRoom");
+				g_LevelManager.SetNextLevel("MainHall");
 			}
 		}
 	}
