@@ -21,11 +21,6 @@ class MainHall : public Level
 	Entity pee1{}, pee2{}, pee3{}, pee4{}; // Smell Avoidance
 	Entity pee1Collider{}, pee2Collider{}, pee3Collider{}, pee4Collider{}; // Smell Avoidance
 
-	glm::vec3 TestPos{}, NewPos{}; // Smell Avoidance
-	glm::vec3 pee1Pos{}, pee2Pos{}, pee3Pos{}, pee4Pos{}; // Smell Avoidance
-	glm::vec3 pee1NewPos{}, pee2NewPos{}, pee3NewPos{}, pee4NewPos{}; // Smell Avoidance
-
-
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
 	glm::vec3 camdir{};
