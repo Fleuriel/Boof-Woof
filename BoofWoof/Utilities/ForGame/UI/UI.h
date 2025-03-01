@@ -23,17 +23,22 @@ private:
     mutable int staminaIndex = 4;
     mutable float sprintTimer = 0.0f;
     mutable float replenishTimer = 0.0f;
+    mutable float pelletOpacities[5] = { 1.0f,1.0f,1.0f,1.0f,1.0f };
 
     // Sprint states
     static int savedStaminaIndex;
     static float savedSprintTimer;
     static float savedReplenishTimer;
+    static float savedPelletOpacities[5];
 
     // Sniffing states
     static bool savedE;
     static float savedParticleTimer;
     static float savedSniffAnimationTimer;
     static int savedCurrCol;
+
+public:
+    static bool isExhausted;
 
 protected:
     std::vector<Entity> storage;

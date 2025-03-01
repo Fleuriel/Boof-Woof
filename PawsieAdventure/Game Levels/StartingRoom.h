@@ -3,12 +3,10 @@
 #include "ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 #include "../Systems/CameraController/CameraController.h"
-#include "../Systems/BoneCatcher/BoneCatcher.h"
-#include "../Systems/RopeBreaker/RopeBreaker.h"
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
 #include "../Systems/Dialogue/Dialogue.h"
-#include "../Systems/UI/UI.h"
+#include "../Utilities/ForGame/UI/UI.h"
 #include "LoadingLevel.h"
 
 class StartingRoom : public Level

@@ -87,6 +87,7 @@ struct engine_interface
 	virtual void SetTouched(bool touch) = 0;
 
 	virtual Entity GetPlayerEntity() = 0; // Expose the function
+	virtual bool GetExhausted() = 0;
 };	
 
 #ifdef GAME_ENGINE

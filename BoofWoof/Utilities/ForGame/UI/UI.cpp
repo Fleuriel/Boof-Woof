@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "UI.h"
 #include "ResourceManager/ResourceManager.h"
 #include "../Core/AssetManager/FilePaths.h"
@@ -10,9 +11,12 @@ float UI::savedParticleTimer = 0.0f;
 float UI::savedSniffAnimationTimer = 0.0f;
 int UI::savedCurrCol = 0;
 
-int UI::savedStaminaIndex = 0;  // Default full stamina
+int UI::savedStaminaIndex = 4;  // Default full stamina
 float UI::savedSprintTimer = 0.0f;
 float UI::savedReplenishTimer = 0.0f;
+float UI::savedPelletOpacities[5] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f }; // Default: Full opacity
+
+bool UI::isExhausted = false;
 
 void UI::OnInitialize()
 {
@@ -65,7 +69,7 @@ void UI::OnInitialize()
 		if (g_Coordinator.HaveComponent<UIComponent>(pellets[i]))
 		{
 			UIComponent& pellet = g_Coordinator.GetComponent<UIComponent>(pellets[i]);
-			pellet.set_opacity(i > staminaIndex ? 0.0f : 1.0f);
+			pellet.set_opacity(savedPelletOpacities[i]);
 		}
 	}
 }
@@ -86,6 +90,15 @@ void UI::OnShutdown()
 	savedStaminaIndex = staminaIndex;
 	savedSprintTimer = sprintTimer;
 	savedReplenishTimer = replenishTimer;
+
+	for (int i = 0; i < 5; i++)
+	{
+		if (g_Coordinator.HaveComponent<UIComponent>(pellets[i]))
+		{
+			UIComponent& pellet = g_Coordinator.GetComponent<UIComponent>(pellets[i]);
+			savedPelletOpacities[i] = pellet.get_opacity(); // Store opacity
+		}
+	}
 
 	if (g_Coordinator.HaveComponent<UIComponent>(CDSniff))
 	{
@@ -177,7 +190,6 @@ void UI::Sprint(float dt)
 	UIComponent& sprinto = g_Coordinator.GetComponent<UIComponent>(Sprinto);
 
 	static bool isSprinting = false; // Track sprint state
-	static bool isExhausted = false;  // Tracks if stamina is fully depleted
 
 	// Ensure we have 5 pellets
 	if (pellets.size() < 5)
@@ -202,25 +214,22 @@ void UI::Sprint(float dt)
 			}
 			staminaIndex--; // Move to next pellet
 			staminaIndex = std::max(staminaIndex, -1); // Ensure it never goes below -1
+
 			sprintTimer = 0.0f; // Reset sprint timer
 		}
 
 		if (staminaIndex == -1)
 		{
-			sprinto.set_playing(false);
 			isExhausted = true; // Prevent further sprinting
 		}
 	}
 	else
 	{
-		// Player stops sprinting if Shift is released OR fully out of stamina
-		if (g_Input.GetKeyState(GLFW_KEY_LEFT_SHIFT) == 0 || staminaIndex == -1)
-		{
-			isSprinting = false; // Stop sprinting
-		}
+		// stop sprint animation when shift released or when stamina gone
+		sprinto.set_playing(false);
 
-		// Stopped sprinting, start stamina regeneration
-		if (isExhausted && staminaIndex < 4) // If at least one pellet was used
+		// Sregen as long as not full pellets
+		if (staminaIndex < 4) 
 		{
 			replenishTimer += dt; // Increase replenish timer
 
@@ -239,10 +248,10 @@ void UI::Sprint(float dt)
 				replenishTimer = 0.0f; // Reset replenish timer
 			}
 
-			// **Once at least one pellet regenerates, allow sprinting again**
+			// Allow sprinting again if at least one pellet is restored
 			if (staminaIndex >= 0)
 			{
-				isExhausted = false; // Allow sprinting
+				isExhausted = false; 
 			}
 		}
 	}
