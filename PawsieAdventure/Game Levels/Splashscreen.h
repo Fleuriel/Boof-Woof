@@ -8,15 +8,15 @@ double timeLimit = 3.0;    // Set the time limit to 3 seconds
 
 class Splashscreen : public Level
 {
-	void LoadLevel() override
+	void LoadLevel()
 	{
 		// Use FILEPATH_ASSET_SCENES to construct the scene file path
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/SplashScreen.json");
 	}
 
-	void InitLevel() override { /* Empty by design */ }
+	void InitLevel() { /* Empty by design */ }
 
-	void UpdateLevel(double deltaTime) override
+	void UpdateLevel(double deltaTime)
 	{
 		elapsedTime += deltaTime;
 
@@ -27,9 +27,9 @@ class Splashscreen : public Level
 		}
 	}
 
-	void FreeLevel() override { /* Empty by design */ }
+	void FreeLevel() { /* Empty by design */ }
 
-	void UnloadLevel() override
+	void UnloadLevel()
 	{
 		g_Coordinator.ResetEntities();
 		elapsedTime = 0.0;

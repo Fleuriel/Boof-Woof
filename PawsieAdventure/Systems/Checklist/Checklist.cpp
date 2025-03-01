@@ -83,6 +83,8 @@ void Checklist::OnInitialize()
 
 	auto& music = g_Coordinator.GetComponent<AudioComponent>(CheckBox);
 	music.SetAudioSystem(&g_Audio);
+
+
 	shutted = false;
 }
 
@@ -200,10 +202,16 @@ void Checklist::ChangeBoxChecked(Entity ent)
 	if (!g_Coordinator.HaveComponent<UIComponent>(ent)) return;
 
 	auto& text = g_Coordinator.GetComponent<UIComponent>(ent);
+
+	//int oldTextureId = text.get_textureid();
+	//int textureId = g_ResourceManager.GetTextureDDS("BoxChecked");
+	//text.set_textureid(textureId);
+
 	text.set_texturename("BoxChecked");
 
 	if (!playAudio)
 	{
+	//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CheckTheBox.wav", false, "SFX");
 		if (g_Coordinator.HaveComponent<AudioComponent>(CheckBox)) {
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(CheckBox);
 			music.PlayAudio();
@@ -216,8 +224,9 @@ void Checklist::AddCorgiText()
 {
 	if (g_ChangeText.shutted)
 	{
+		g_ChangeText.textureIndex = 6;
+		g_ChangeText.indexLimit = 8;
 		g_ChangeText.OnInitialize();
-		g_DialogueText.setDialogue(DialogueState::TUTORIALEND);
 		g_ChangeText.shutted = false;
 	}
 }

@@ -10,7 +10,6 @@ std::unique_ptr<PauseMenu> MenuPauser = CreatePausedMenu(PauseState::Paused);
 float sfxVolume{ 1.0f }, bgmVolume{ 1.0f };
 bool inSmth{ false };
 std::unordered_map<Entity, glm::vec2> originalScales;
-extern std::shared_ptr<GraphicsSystem> mGraphicsSys;
 
 class MainMenu : public Level
 {
@@ -185,10 +184,8 @@ class MainMenu : public Level
 						music1.PlayAudio();
 					}
 
-					HideUI();
-
-					MenuPauser = CreatePausedMenu(PauseState::QuitGame);
-					MenuPauser->OnLoad();
+					MenuPauser->OnExit();
+					exit(0);
 				}
 			}
 		}
@@ -226,19 +223,18 @@ class MainMenu : public Level
 			if (g_Coordinator.HaveComponent<FontComponent>(MenuPauser->SFXVol))
 			{
 				int volDisplay = static_cast<int>(std::round(sfxVolume * 10));
-				FontComponent& SFXFont = g_Coordinator.GetComponent<FontComponent>(MenuPauser->SFXVol);
 				if (volDisplay >= 0 && volDisplay < 10)
 				{
 					std::stringstream ss;
 					ss << std::setfill('0') << std::setw(2) << volDisplay;
 					std::string text = ss.str();
-					SFXFont.set_pos(glm::vec2(0.12f, 0.35f));
-					SFXFont.set_text(text);
+					g_Coordinator.GetComponent<FontComponent>(MenuPauser->SFXVol).set_pos(glm::vec2(0.12f, 0.25f));
+					g_Coordinator.GetComponent<FontComponent>(MenuPauser->SFXVol).set_text(text);
 				}
 				else
 				{
-					SFXFont.set_pos(glm::vec2(0.14f, 0.35f));
-					SFXFont.set_text("10");
+					g_Coordinator.GetComponent<FontComponent>(MenuPauser->SFXVol).set_pos(glm::vec2(0.14f, 0.25f));
+					g_Coordinator.GetComponent<FontComponent>(MenuPauser->SFXVol).set_text("10");
 				}
 			}
 
@@ -265,75 +261,18 @@ class MainMenu : public Level
 			if (g_Coordinator.HaveComponent<FontComponent>(MenuPauser->BGMVol))
 			{
 				int volDisplay = static_cast<int>(std::round(bgmVolume * 10));
-				FontComponent& BGMFont = g_Coordinator.GetComponent<FontComponent>(MenuPauser->BGMVol);
 				if (volDisplay >= 0 && volDisplay < 10)
 				{
 					std::stringstream ss;
 					ss << std::setfill('0') << std::setw(2) << volDisplay;
 					std::string text = ss.str();
-					BGMFont.set_pos(glm::vec2(0.12f, -0.05f));
-					BGMFont.set_text(text);
+					g_Coordinator.GetComponent<FontComponent>(MenuPauser->BGMVol).set_pos(glm::vec2(0.12f, -0.25f));
+					g_Coordinator.GetComponent<FontComponent>(MenuPauser->BGMVol).set_text(text);
 				}
 				else
 				{
-					BGMFont.set_pos(glm::vec2(0.14f, -0.05f));
-					BGMFont.set_text("10");
-				}
-			}
-
-			if (g_Coordinator.HaveComponent<UIComponent>(MenuPauser->GAMMALeft))
-			{
-				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->GAMMALeft);
-				if (UICompt.get_selected())
-				{
-					mGraphicsSys->gammaValue -= 0.1f;
-					if (mGraphicsSys->gammaValue < 1.f)
-						mGraphicsSys->gammaValue = 1.f;
-				}
-			}
-
-			if (g_Coordinator.HaveComponent<UIComponent>(MenuPauser->GAMMARight))
-			{
-				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->GAMMARight);
-				if (UICompt.get_selected())
-				{
-					mGraphicsSys->gammaValue += 0.1f;
-					if (mGraphicsSys->gammaValue > 3.f)
-						mGraphicsSys->gammaValue = 3.f;
-				}
-			}
-
-			if (g_Coordinator.HaveComponent<FontComponent>(MenuPauser->GAMMAValue))
-			{
-				std::stringstream ss;
-				ss << std::fixed << std::setprecision(1) << mGraphicsSys->gammaValue; // Format to 1 decimal places
-				std::string str = ss.str();
-
-				FontComponent& gammaFont = g_Coordinator.GetComponent<FontComponent>(MenuPauser->GAMMAValue);
-				gammaFont.set_pos(glm::vec2(0.12f, -0.45f));
-				gammaFont.set_text(str);
-			}
-
-			if (g_Coordinator.HaveComponent<UIComponent>(MenuPauser->YesBtn))
-			{
-				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->YesBtn);
-				if (UICompt.get_selected())
-				{
-					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
-					exit(0);
-				}
-			}
-
-			if (g_Coordinator.HaveComponent<UIComponent>(MenuPauser->NoBtn))
-			{
-				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->NoBtn);
-				if (UICompt.get_selected())
-				{
-					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
-					RestoreUI();
-
-					inSmth = false;
-					MenuPauser->OnExit();
+					g_Coordinator.GetComponent<FontComponent>(MenuPauser->BGMVol).set_pos(glm::vec2(0.14f, -0.25f));
+					g_Coordinator.GetComponent<FontComponent>(MenuPauser->BGMVol).set_text("10");
 				}
 			}
 		}

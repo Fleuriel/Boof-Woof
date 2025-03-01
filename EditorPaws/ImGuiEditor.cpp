@@ -5534,7 +5534,7 @@ void ImGuiEditor::Settings()
 
 				ImGui::Text("Gamma Value"); ImGui::SameLine(150.0f);
 
-				if (ImGui::SliderFloat("##GammaSlidr", &gammaValue, 1.0f, 3.0f) || defaultGamma)
+				if (ImGui::SliderFloat("##GammaSlidr", &gammaValue, 0.0f, 10.0f) || defaultGamma)
 				{
 					if (defaultGamma)
 						gammaValue = 2.2f;

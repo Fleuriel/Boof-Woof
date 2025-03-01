@@ -74,7 +74,7 @@ void BoneCatcher::OnUpdate(double deltaTime)
 
 	if (m_HitCount <= 4)
 	{
-		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1)
+		if (g_Input.GetKeyState(GLFW_KEY_C) >= 1)
 		{
 			// Stop then visual feedback up down
 			m_IsMoving = false;

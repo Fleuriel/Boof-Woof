@@ -199,20 +199,11 @@ void FontSystem::RenderText(FontResources fontResources, std::string text, float
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(fontResources.VAO_FONT);
 
-    float startingX = x;  //  Store the original X position once
-	float changeInY = 0.08f; // Line spacing must be below 0.1f if not out of screen
-
     // iterate through all characters
     std::string::const_iterator c;
     
     for (c = text.begin(); c != text.end(); c++)
     {
-        if (*c == '\n') {
-            y -= changeInY; // Move to the next line
-            x = startingX;  // Reset x position
-            continue;        // Skip rendering the '\n' itself
-        }
-
         Character ch = fontResources.Characters[*c];
 
         float xpos = x + ch.Bearing.x * scale.x;

@@ -145,11 +145,6 @@ public:
 		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetLastCollidedObjectName().c_str();
 	}
 
-	virtual void SetCollidingEntityName(Entity entity) override
-	{
-		g_Coordinator.GetComponent<CollisionComponent>(entity).SetLastCollidedObjectName("Floor");
-	}
-
 	virtual void SetVelocity(Entity entity, glm::vec3 inputVelocity) override
 	{
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))

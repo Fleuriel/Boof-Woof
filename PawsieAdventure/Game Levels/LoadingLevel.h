@@ -104,8 +104,8 @@ public:
             g_LevelManager.SetNextLevel(m_NextScene);
         }
 
-        // (5) Animate the "Balls" entity:
-        // First, if we haven't already found the "Balls" entity, search for it.
+        // (5) Animate the "Loading" entity:
+        // First, if we haven't already found the "Loading" entity, search for it.
         if (m_LoadingEntity == MAX_ENTITIES)
         {
             auto entities = g_Coordinator.GetAliveEntitiesSet();
@@ -114,7 +114,7 @@ public:
                 if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
                 {
                     auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
-                    if (metadata.GetName() == "Balls")
+                    if (metadata.GetName() == "Loading")
                     {
                         m_LoadingEntity = entity;
                         break;
@@ -125,7 +125,10 @@ public:
 
         if (m_LoadingEntity != MAX_ENTITIES && g_Coordinator.HaveComponent<UIComponent>(m_LoadingEntity))
         {
-            g_Coordinator.GetComponent<UIComponent>(m_LoadingEntity).set_playing(true);
+            auto& ui = g_Coordinator.GetComponent<UIComponent>(m_LoadingEntity);
+            float rotationSpeed = 90.0f; // degrees per second
+            float currentRotation = ui.get_rotation();
+            ui.set_rotation(currentRotation - rotationSpeed * static_cast<float>(deltaTime));
         }
     }
 

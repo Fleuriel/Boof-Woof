@@ -1,7 +1,6 @@
 #include <iostream>
 #define UNREFERENCED_PARAMETER(P)          (P)
 #include <random>
-#include <unordered_set>
 
 struct Player final : public Behaviour
 {
@@ -19,9 +18,6 @@ struct Player final : public Behaviour
 	bool pathInitialized = false;
 	bool inRopeBreaker{ false };
 	bool wasGrounded = true; // Track the previous grounded state
-	bool inRopeBreaker{ false }, touchingToy{ false }, cooldownActive{ false }, justplaypls{ false };
-	double stunlockTimer = 2.0;	// 2.0 seconds
-	double cooldownTimer = 0.0;
 
 	float footstepTimer = 0.0f;
 	const float footstepInterval = 0.25f;  // Interval between footstep sounds (adjustable)
@@ -84,23 +80,6 @@ struct Player final : public Behaviour
 			isMoving = false;
 
 			// Get grounded state
-			//// Debug for movement
-			//glm::vec3 currentPos = m_Engine.GetPosition(entity);
-			//std::cout << "[Pathfinding] Entity " << entity << " is currently at Position: ("
-			//	<< currentPos.x << ", " << currentPos.y << ", " << currentPos.z << ")" << std::endl;
-
-			//double deltaTime = m_Engine.GetDeltaTime(); // Get delta time
-
-			//std::cout << "[DEBUG] Delta Time: " << deltaTime << std::endl;
-
-			// Debug: Starting state
-			//std::cout << "[DEBUG] Start of Update: Entity = " << entity
-			//	<< ", isMoving = " << std::boolalpha << isMoving << std::endl;
-
-			// Debug: Starting state
-			//std::cout << "[DEBUG] Start of Update: isMoving = " << std::boolalpha << isMoving << std::endl;
-
-			// Get grounded state from the CollisionComponent
 			isGrounded = m_Engine.IsGrounded(entity);
 
 			// Sprinting Logic
@@ -123,202 +102,6 @@ struct Player final : public Behaviour
 
 			// If the player jumps, mark them as having jumped
 			if (m_Engine.getInputSystem().isActionPressed("Jump") && isGrounded)
-			static const std::unordered_set<std::string> ropeEntities = { "Rope1", "Rope2" };
-			static const std::unordered_set<std::string> toyEntities = { "Bone", "TennisBall" };
-
-			if (m_Engine.IsColliding(entity))
-			{
-				const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
-				std::string entityName(collidingEntityName); // Convert C-string to std::string for easy lookup
-
-				if (ropeEntities.count(entityName))
-				{
-					inRopeBreaker = true;
-				}
-				else if (toyEntities.count(entityName) && !cooldownActive)
-				{
-					touchingToy = true;
-
-					if (!justplaypls) 
-					{
-						m_Engine.getAudioSystem().PlaySoundByFile("ToyTouch.wav", false, "SFX");
-						double currTimer = m_Engine.GetTimerTiming();
-						double newTimer = currTimer - 10.0;
-						m_Engine.SetTimerTiming(newTimer);
-						justplaypls = true;
-					}
-				}
-			}
-			else
-			{
-				inRopeBreaker = false;
-			}
-
-			if (touchingToy) 
-			{
-				m_Engine.SetTouched(true);
-
-				if (stunlockTimer > 0.0)
-				{
-					stunlockTimer -= m_Engine.GetDeltaTime();
-				}
-				else 
-				{
-					// Stunlock is over, now enter cooldown phase
-					m_Engine.SetTouched(false);
-					m_Engine.SetCollidingEntityName(entity);
-
-					cooldownTimer = 0.0;
-					cooldownActive = true;
-					touchingToy = false;
-				}
-			}
-
-			if (cooldownActive)
-			{
-				cooldownTimer += m_Engine.GetDeltaTime();
-
-				if (cooldownTimer >= 2.0)
-				{
-					stunlockTimer = 2.0;  //  Reset stunlock timer for next interaction
-					cooldownTimer = 0.0;  //  Reset cooldown timer
-					justplaypls = false;
-					cooldownActive = false;  //  Allow player to be stunned again
-				}
-			}
-
-			// Allow movement only if the player is grounded & not in rope breaker or touching toy
-			if (isGrounded && !inRopeBreaker && !touchingToy)
-			{
-				if (m_Engine.HaveCameraComponent(entity))
-				{
-					if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
-					{
-						//std::cout << "movingW" << std::endl;
-						// Get Camera Direction
-						//float yaw = m_Engine.GetCameraYaw();
-
-						velocity.x += m_Engine.GetCameraDirection(entity).x * 1.f;
-						velocity.z += m_Engine.GetCameraDirection(entity).z * 1.f;
-						isMoving = true;
-
-					}
-
-					if (m_Engine.getInputSystem().isActionPressed("MoveLeft"))
-					{
-						// Rotate the velocity 90 degrees to the left
-						/*
-						glm::mat3 rotation = glm::mat3(
-							0.0f, 0.0f, -1.0f,
-							0.0f, 1.0f, 0.0f,
-							1.0f, 0.0f, 0.0f
-						);
-						velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
-						*/
-
-						velocity += glm::cross(m_Engine.GetCameraDirection(entity), glm::vec3(0.0f, -1.0f, 0.0f)) * 1.f;
-						isMoving = true;
-					}
-
-					if (m_Engine.getInputSystem().isActionPressed("MoveBackward"))
-					{
-						//std::cout << "movingS" << std::endl;
-						velocity.x += -m_Engine.GetCameraDirection(entity).x * 1.f;
-						velocity.z += -m_Engine.GetCameraDirection(entity).z * 1.f;
-						isMoving = true;
-					}
-
-					if (m_Engine.getInputSystem().isActionPressed("MoveRight"))
-					{
-						//std::cout << "movingD" << std::endl;
-
-						// Rotate the velocity 90 degrees to the right
-						/*
-						glm::mat3 rotation = glm::mat3(
-							0.0f, 0.0f, 1.0f,
-							0.0f, 1.0f, 0.0f,
-							-1.0f, 0.0f, 0.0f
-						);
-
-						velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
-						isMoving = true;
-						*/
-
-
-						velocity += glm::cross(m_Engine.GetCameraDirection(entity), glm::vec3(0.0f, 1.0f, 0.0f)) * 1.f;
-						isMoving = true;
-					}
-				}
-
-				else
-				{
-					if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
-					{
-						velocity.z -= 1;
-						isMoving = true;
-					}
-
-					if (m_Engine.getInputSystem().isActionPressed("MoveLeft"))
-					{
-						velocity.x -= 1;
-						isMoving = true;
-					}
-
-					if (m_Engine.getInputSystem().isActionPressed("MoveBackward"))
-					{
-						velocity.z += 1;
-						isMoving = true;
-					}
-
-					if (m_Engine.getInputSystem().isActionPressed("MoveRight"))
-					{
-						velocity.x += 1;
-						isMoving = true;
-					}
-				}
-
-				// Normalize the velocity
-				velocity *= speed;
-
-				//// Adjust movement for slopes
-				//if (isOnSlope)
-				//{
-				//	velocity = velocity - glm::dot(velocity, surfaceNormal) * surfaceNormal;
-				//}
-			}
-
-
-
-			if (isMoving)
-			{
-				footstepTimer -= static_cast<float>(m_Engine.GetDeltaTime());
-
-				if (footstepTimer <= 0.0f) // 
-				{
-					static std::random_device rd; // Seed
-					static std::mt19937 gen(rd()); // Mersenne Twister PRNG
-					std::uniform_int_distribution<std::size_t> dis(0, footstepSounds.size() - 1);
-
-					// Get a random sound ID
-					std::string randomSound = footstepSounds[dis(gen)];
-
-					m_Engine.getAudioSystem().PlaySoundByFile(randomSound.c_str(), false, "SFX");
-
-					footstepTimer = footstepInterval;
-				}
-			}
-			else
-			{
-				footstepTimer = 0.0f; // Reset timer when not moving
-			}
-
-
-
-			// Debug: After processing input
-			//std::cout << "[DEBUG] After Input Processing: isMoving = " << std::boolalpha << isMoving << std::endl;
-
-			// Jump logic - don't allow jump when in rope breaker or touching toys
-			if (m_Engine.getInputSystem().isActionPressed("Jump") && isGrounded && !inRopeBreaker && !touchingToy)
 			{
 				float gravity = 9.81f;
 				float jumpHeight = 1.5f;

@@ -1,8 +1,6 @@
 #include "RopeBreaker.h"
 #include "../Checklist/Checklist.h"
 #include "../Core/AssetManager/FilePaths.h"
-#include "../Dialogue/Dialogue.h"
-#include <Level Manager/LevelManager.h>
 
 
 RopeBreaker g_RopeBreaker;
@@ -23,7 +21,6 @@ void RopeBreaker::OnUpdate(double deltaTime)
 	{
 		g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
 		g_Checklist.finishRB = true;
-		g_DialogueText.setDialogue(DialogueState::FREED);
 		DropBridge();
 	}
 
@@ -63,9 +60,10 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		if (ElapsedTime >= FallDuration)
 		{
 			isFalling = false;
-
-			// Enter Ending Cutscene
-			g_LevelManager.SetNextLevel("CutsceneEnd");
+			//// Ensure final position
+			//currentRotation.x = -90.0f;
+			//transform.SetRotation(glm::radians(currentRotation));
+			//transform.SetPosition(initialPos + TargetPos);
 		}
 	}
 
@@ -183,11 +181,6 @@ void RopeBreaker::DespawnRope()
 					RopeDespawned++;
 					deletedRope2 = true;
 				}
-			}
-
-			if (RopeDespawned == 1) 
-			{
-				g_DialogueText.setDialogue(DialogueState::BROKEROPE1);
 			}
 		}
 	}
