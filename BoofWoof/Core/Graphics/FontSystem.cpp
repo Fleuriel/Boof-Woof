@@ -200,7 +200,7 @@ void FontSystem::RenderText(FontResources fontResources, std::string text, float
     glBindVertexArray(fontResources.VAO_FONT);
 
     float startingX = x;  //  Store the original X position once
-	float changeInY = 0.07f; // Line spacing must be below 0.1f if not out of screen
+	float changeInY = 0.08f; // Line spacing must be below 0.1f if not out of screen
 
     // iterate through all characters
     std::string::const_iterator c;

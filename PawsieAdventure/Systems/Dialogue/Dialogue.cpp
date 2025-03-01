@@ -190,7 +190,7 @@ std::string Dialogue::textWrap(const std::string& input)
 	std::string format = input.substr(nws);
 
 	// Find the last whitespace character at or before the 42nd char
-	for (size_t currentPos{ 42 }; currentPos <= format.length(); currentPos += 42)
+	for (size_t currentPos{ 48 }; currentPos <= format.length(); currentPos += 48)
 	{
 		// Find the last whitespace before this position
 		size_t insPt = format.rfind(' ', currentPos);

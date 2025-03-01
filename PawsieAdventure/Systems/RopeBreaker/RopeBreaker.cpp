@@ -2,6 +2,7 @@
 #include "../Checklist/Checklist.h"
 #include "../Core/AssetManager/FilePaths.h"
 #include "../Dialogue/Dialogue.h"
+#include <Level Manager/LevelManager.h>
 
 
 RopeBreaker g_RopeBreaker;
@@ -62,10 +63,9 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		if (ElapsedTime >= FallDuration)
 		{
 			isFalling = false;
-			//// Ensure final position
-			//currentRotation.x = -90.0f;
-			//transform.SetRotation(glm::radians(currentRotation));
-			//transform.SetPosition(initialPos + TargetPos);
+
+			// Enter Ending Cutscene
+			g_LevelManager.SetNextLevel("CutsceneEnd");
 		}
 	}
 

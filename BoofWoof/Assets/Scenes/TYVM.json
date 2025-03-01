@@ -1,0 +1,43 @@
+{
+    "SceneGUID": "cd115d0f-9380-4866-9495-638fbf0a3356",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "TYVM",
+                "EntityID": 0
+            },
+            "UIComponent": {
+                "TextureName": "TYVM",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Exit",
+                "EntityID": 1
+            },
+            "FontComponent": {
+                "Family": "manga-temple",
+                "PositionX": -0.9599999785423279,
+                "PositionY": 0.8999999761581421,
+                "ScaleX": 0.800000011920929,
+                "ScaleY": 1.0,
+                "ColorR": 1.0,
+                "ColorG": 0.14705884456634522,
+                "ColorB": 0.0,
+                "Text": "ESC to CLOSE"
+            }
+        }
+    ]
+}

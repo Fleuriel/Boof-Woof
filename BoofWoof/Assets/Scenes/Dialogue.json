@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "059df46b-2e19-41b5-bb1f-fa5ff2b76521",
+    "SceneGUID": "9ac562e7-8909-4d4b-99b8-588c9616b6ab",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,10 +8,10 @@
             },
             "UIComponent": {
                 "TextureName": "Textbox",
-                "PositionX": -0.05000000074505806,
-                "PositionY": 0.0,
-                "ScaleX": 1.0,
-                "ScaleY": 1.0,
+                "PositionX": 0.0,
+                "PositionY": -0.6899999976158142,
+                "ScaleX": 0.6000000238418579,
+                "ScaleY": 0.30000001192092898,
                 "Layer": 0.5,
                 "Selectable": false,
                 "Opcaity": 1.0,
@@ -29,13 +29,13 @@
             },
             "FontComponent": {
                 "Family": "manga-temple",
-                "PositionX": -0.3400000035762787,
-                "PositionY": -0.6000000238418579,
-                "ScaleX": 0.6000000238418579,
-                "ScaleY": 0.8500000238418579,
-                "ColorR": 0.037485603243112567,
-                "ColorG": 0.22998526692390443,
-                "ColorB": 0.7647058963775635,
+                "PositionX": -0.10000000149011612,
+                "PositionY": -0.5350000262260437,
+                "ScaleX": 0.800000011920929,
+                "ScaleY": 1.149999976158142,
+                "ColorR": 0.5833333730697632,
+                "ColorG": 0.20588235557079316,
+                "ColorB": 0.0,
                 "Text": "Scruffy"
             }
         },
@@ -46,10 +46,10 @@
             },
             "FontComponent": {
                 "Family": "manga-temple",
-                "PositionX": -0.3400000035762787,
-                "PositionY": -0.6800000071525574,
-                "ScaleX": 0.6000000238418579,
-                "ScaleY": 0.8500000238418579,
+                "PositionX": -0.47999998927116396,
+                "PositionY": -0.625,
+                "ScaleX": 0.6499999761581421,
+                "ScaleY": 1.0499999523162842,
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,

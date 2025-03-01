@@ -68,16 +68,28 @@ void PausedScreen::OnExit()
 
 void QuitScreen::OnLoad()
 {
-	// might need to separate the setting json based 
-	// on whether it's pausedscreen's or mainmenu's ?
-
 	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/QuitGame.json");
 	spawnedEntities = serialPause.GetStored();
+
+	std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
+	{
+		{"YesBtn", [&](Entity entity) { YesBtn = entity; }},
+		{"NoBtn", [&](Entity entity) { NoBtn = entity; }}
+	};
 
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto entity : entities)
 	{
-		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+		const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+		auto it = nameToAction.find(metadata.GetName());
+
+		if (it != nameToAction.end())
+		{
+			it->second(entity);
+		}
+
+		// Exit early if all entities are found
+		if (YesBtn && NoBtn)
 		{
 			break;
 		}
@@ -102,9 +114,6 @@ void QuitScreen::OnExit()
 
 void Settings::OnLoad()
 {
-	// might need to separate the setting json based 
-	// on whether it's pausedscreen's or mainmenu's ?
-
 	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/SettingsScreen.json");
 	spawnedEntities = serialPause.GetStored();
 
@@ -158,9 +167,6 @@ void Settings::OnExit()
 
 void HowToPlay::OnLoad()
 {
-	// might need to separate the setting json based 
-	// on whether it's pausedscreen's or mainmenu's ?
-
 	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/HTPScreen.json");
 	spawnedEntities = serialPause.GetStored();
 }
