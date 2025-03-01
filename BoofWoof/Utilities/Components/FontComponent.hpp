@@ -38,7 +38,7 @@ private:
 	glm::vec2 scale = { 1.0f, 1.0f };
 	std::string text{};
 	glm::vec3 color = { 1.0f, 1.0f, 1.0f };
-	float layer = 0.0f;
+	float layer = 0.5f;
 };
 
 #endif // FONTCOMPONENT_HPP
