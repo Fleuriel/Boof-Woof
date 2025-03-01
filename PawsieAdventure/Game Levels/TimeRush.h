@@ -25,6 +25,8 @@ class TimeRush : public Level
 	bool finishTR{ false };
 	double timesUp = 2.0;
 
+	std::vector<Entity> particleEntities;
+
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/TimeRushPuzzle.json");
@@ -137,6 +139,9 @@ class TimeRush : public Level
 
 		g_DialogueText.OnInitialize();
 		g_DialogueText.setDialogue(DialogueState::ENTEREDLIBRARY);
+
+		particleEntities = { scentEntity1, scentEntity2, scentEntity3, scentEntity4, scentEntity5, scentEntity6, scentEntity7, scentEntity8, scentEntity9 };
+		g_UI.OnInitialize();
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -174,15 +179,7 @@ class TimeRush : public Level
 			cameraController->Update(static_cast<float>(deltaTime));
 			cooldownTimer += deltaTime;
 
-			auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
-			auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);
-			auto& opacity3 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity3);
-			auto& opacity4 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity4);
-			auto& opacity5 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity5);
-			auto& opacity6 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity6);
-			auto& opacity7 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity7);
-			auto& opacity8 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity8);
-			auto& opacity9 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity9);
+			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
 
 			g_TimerTR.OnUpdate(deltaTime);
 
@@ -218,52 +215,16 @@ class TimeRush : public Level
 				}		
 			}
 
-			// Particles
-			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && cooldownTimer >= cooldownDuration)
+			// Take this away once u shift to script
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1)
 			{
 				//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false, "SFX");
 				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
 					auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
 					music2.PlayAudio();
 				}
-
-				glm::vec4 newColor(0.3529411852359772f, 0.7058823704719544f, 0.03921568766236305f, 1.0f);
-				opacity1.setParticleColor(newColor);
-				opacity2.setParticleColor(newColor);
-				opacity3.setParticleColor(newColor);
-				opacity4.setParticleColor(newColor);
-				opacity5.setParticleColor(newColor);
-				opacity6.setParticleColor(newColor);
-
-				opacity7.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 1.0f));
-				opacity8.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 1.0f));
-				opacity9.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 1.0f));
-
-				isColorChanged = true;
-				colorChangeTimer = 0.0;
-				cooldownTimer = 0.0;
 			}
-
-			if (isColorChanged)
-			{
-				colorChangeTimer += deltaTime;
-				if (colorChangeTimer >= colorChangeDuration)
-				{
-					glm::vec4 resetColor(0.3529411852359772f, 0.7058823704719544f, 0.03921568766236305f, 0.0f);
-					opacity1.setParticleColor(resetColor);
-					opacity2.setParticleColor(resetColor);
-					opacity3.setParticleColor(resetColor);
-					opacity4.setParticleColor(resetColor);
-					opacity5.setParticleColor(resetColor);
-					opacity6.setParticleColor(resetColor);
-
-					opacity7.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 0.0f));
-					opacity8.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 0.0f));
-					opacity9.setParticleColor(glm::vec4(0.2980392277240753f, 0.529411792755127f, 0.0941176488995552f, 0.0f));
-
-					isColorChanged = false;
-				}
-			}
+			// until here
 
 			// Checklist
 			if (!g_Checklist.shutted)
@@ -301,6 +262,8 @@ class TimeRush : public Level
 			delete cameraController;
 			cameraController = nullptr;
 		}
+
+		g_UI.OnShutdown();
 	}
 
 	void UnloadLevel() override
