@@ -66,6 +66,7 @@ public:
     void PlayEntity3DAudio(Entity entity, const std::string& filePath, bool loop, const std::string& soundType);
     void Update3DSoundPositions();
     void SetListenerPosition(const glm::vec3& position, const glm::vec3& rotation);
+    void SetSoundVolume(const std::string& filePath, float volume);
 
 
 

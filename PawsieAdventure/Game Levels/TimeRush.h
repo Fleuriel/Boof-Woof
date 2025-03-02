@@ -33,6 +33,8 @@ class TimeRush : public Level
 		g_TimerTR.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav", true, "SFX");
+
 
 		// Use unordered_map to make it O(1) efficiency
 		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
@@ -271,6 +273,8 @@ class TimeRush : public Level
 	{
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/Timesup.wav");
 		//g_Audio.StopBGM();
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav");
+
 
 		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(TimeRushBGM);
