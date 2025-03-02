@@ -195,7 +195,7 @@ class MainHall : public Level
 
 
 				// Gradually Increase Clock Ticking Volume (Only for this sound)
-				float timeLeft = g_TimerTR.timer;  // Get remaining time
+				float timeLeft = static_cast<float>(g_TimerTR.timer);  // Get remaining time
 				float maxVolume = 1.0f;  // 100% Volume
 				float minVolume = 0.6f;  // Starting Volume (20%)
 
