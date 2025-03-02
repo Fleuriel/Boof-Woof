@@ -152,6 +152,9 @@ struct Rex final : public Behaviour
         // Apply velocity correctly
         if (isMovingRex)
         {
+            // Rotate Rex to the direction he is moving
+			m_Engine.SetRotationYawFromVelocity(entity, velocity);
+
             // Clamp velocity to avoid breaking the physics engine
             float maxAllowedSpeed = 10.0f;
             if (glm::length(velocity) > maxAllowedSpeed)

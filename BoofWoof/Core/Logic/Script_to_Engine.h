@@ -104,6 +104,16 @@ public:
 		g_Coordinator.GetComponent<TransformComponent>(entity).SetPosition(position);
 	}
 
+	virtual void SetRotation(Entity entity, glm::vec3 rotation) override
+	{
+		g_Coordinator.GetComponent<TransformComponent>(entity).SetRotation(rotation);
+	}
+
+	virtual void SetRotationYawFromVelocity(Entity entity, glm::vec3 velocity) override
+	{
+		g_Coordinator.GetComponent<TransformComponent>(entity).SetRotationYawFromVelocity(velocity);
+	}
+
 	virtual bool HaveTransformComponent(Entity entity) override
 	{
 		return g_Coordinator.HaveComponent<TransformComponent>(entity);
