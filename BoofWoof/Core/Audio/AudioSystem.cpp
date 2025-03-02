@@ -1002,3 +1002,14 @@ void AudioSystem::SetListenerPosition(const glm::vec3& position, const glm::vec3
 
     system->set3DListenerAttributes(0, &listenerPos, nullptr, &fmodForward, &fmodUp);
 }
+
+void AudioSystem::SetSoundVolume(const std::string& filePath, float volume) {
+    for (auto& [channel, storedFilePath] : channelToFileMap) {
+        if (storedFilePath == filePath) {  // Match specific sound file
+            if (channel) {
+                channel->setVolume(volume);  // Adjust volume only for this sound
+                std::cout << "Volume of " << filePath << " set to: " << volume << std::endl;
+            }
+        }
+    }
+}

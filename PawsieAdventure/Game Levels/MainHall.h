@@ -46,6 +46,8 @@ class MainHall : public Level
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM5.json");
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusicBGM.wav", true, "BGM");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav", true, "SFX");
+
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction = GetNameToActionMap();
@@ -181,12 +183,35 @@ class MainHall : public Level
 					g_TimerTR.OnInitialize();
 					g_TimerTR.timer = timerLimit;
 					g_SmellAvoidance.SetTimerInit(true);
+
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", true, "SFX");
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav", false, "SFX");
+
+					g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", 0.4f);
+
 				}
 				g_TimerTR.OnUpdate(deltaTime);
+
+
+
+				// Gradually Increase Clock Ticking Volume (Only for this sound)
+				float timeLeft = g_TimerTR.timer;  // Get remaining time
+				float maxVolume = 1.0f;  // 100% Volume
+				float minVolume = 0.6f;  // Starting Volume (20%)
+
+				// Scale volume based on time left (louder as it approaches 0)
+				float newVolume = minVolume + (1.0f - (timeLeft / timerLimit)) * (maxVolume - minVolume);
+
+				// Update the ticking sound volume
+				g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", newVolume);
 
 				if (g_TimerTR.timer == 0.0)
 				{
 					timesUp -= deltaTime;
+
+					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
+					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
+
 
 					// Times up! sound
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
