@@ -88,7 +88,7 @@ std::string Dialogue::getDialogue()
 		return "Oh! My tennis ball! Master and I used to play with this all the time..";
 
 	case DialogueState::TOUCHBONE:
-		return "My favorite snack!!";
+		return "My favorite toy!!";
 
 	case DialogueState::DONTWASTETIME:
 		return "No, I can't waste time-I have to get out before Rex finds me!";
