@@ -186,6 +186,7 @@ xcopy "$(SolutionDir)bin\Release-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDir
     <ClCompile Include="Systems\Dialogue\Dialogue.cpp" />
     <ClCompile Include="Systems\PauseScreen\PauseScreen.cpp" />
     <ClCompile Include="Systems\RopeBreaker\RopeBreaker.cpp" />
+    <ClCompile Include="Systems\SmellAvoidance\SmellAvoidance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game Levels\Cutscene.h" />
@@ -205,6 +206,7 @@ xcopy "$(SolutionDir)bin\Release-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDir
     <ClInclude Include="Systems\Dialogue\Dialogue.h" />
     <ClInclude Include="Systems\PauseScreen\PauseScreen.h" />
     <ClInclude Include="Systems\RopeBreaker\RopeBreaker.h" />
+    <ClInclude Include="Systems\SmellAvoidance\SmellAvoidance.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />
