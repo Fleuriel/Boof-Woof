@@ -1,6 +1,7 @@
 #include "SmellAvoidance.h"
 #include "../Core/AssetManager/FilePaths.h"
-#include "../../../BoofWoof/Utilities/ForGame/TimerTR/TimerTR.h"
+#include "../Utilities/ForGame/TimerTR/TimerTR.h"
+#include "../Dialogue/Dialogue.h"
 
 SmellAvoidance g_SmellAvoidance;
 
@@ -95,6 +96,13 @@ void SmellAvoidance::HandlePeeCollision()
         peeMarked = true;
         peeSoundPlayed = true;  // Ensure the sound plays only once
         waterSoundPlayed = false; // Reset water sound state
+
+        if (!firstPeeTouched) 
+        {
+            g_DialogueText.OnInitialize();
+            g_DialogueText.setDialogue(DialogueState::DISGUSTED);
+            firstPeeTouched = true;
+        }
     }
 }
 
@@ -196,4 +204,5 @@ void SmellAvoidance::Reset()
 	waterBucket3collided = false;
 	TimerInit = false;
 	peeMarked = false;
+    firstPeeTouched = false;
 }
