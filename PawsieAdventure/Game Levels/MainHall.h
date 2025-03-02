@@ -105,16 +105,22 @@ class MainHall : public Level
 		if (playercollided && puppy1Collided && !collectedPuppy1)
 		{
 			collectedPuppy1 = true;
+			g_DialogueText.OnInitialize();
+			g_DialogueText.setDialogue(DialogueState::TWOMORETOGO);
 		}
 
 		if (playercollided && puppy2Collided && !collectedPuppy2)
 		{
 			collectedPuppy2 = true;
+			g_DialogueText.OnInitialize();
+			g_DialogueText.setDialogue(DialogueState::ONEMORETOGO);
 		}
 
 		if (playercollided && puppy3Collided && !collectedPuppy3)
 		{
 			collectedPuppy3 = true;
+			g_DialogueText.OnInitialize();
+			g_DialogueText.setDialogue(DialogueState::ALLPUPSFOUND);
 		}
 	}
 
