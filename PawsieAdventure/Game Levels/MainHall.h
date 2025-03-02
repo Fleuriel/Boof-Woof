@@ -372,6 +372,11 @@ private:
 		g_Checklist.ChangeAsset(g_Checklist.Do3, glm::vec2(0.15f, 0.05f), "Do8");
 		g_Checklist.ChangeAsset(g_Checklist.Do4, glm::vec2(0.0f, 0.0f), "");
 		g_Checklist.ChangeAsset(g_Checklist.Box4, glm::vec2(0.0f, 0.0f), "");
+
+		if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
+		{
+			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 0.968f));
+		}
 	}
 
 	void InitializeFireSound() const
