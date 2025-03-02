@@ -62,9 +62,15 @@ struct Player final : public Behaviour
 	};
 
 	std::vector<std::string> landingSounds = {
-		"Corgi/JumpLand_01.wav",
-		"Corgi/JumpLand_02.wav",
-		"Corgi/JumpLand_03.wav"
+		"Corgi/JumpLand_011.wav",
+		"Corgi/JumpLand_021.wav",
+		"Corgi/JumpLand_031.wav"
+	};
+
+	std::vector<std::string> rubberSqueakSounds = {
+	"RubberSqueak1.wav",
+	"RubberSqueak2.wav",
+	"RubberSqueak3.wav"
 	};
 
 	// Function to get a random sound from a vector
@@ -165,7 +171,7 @@ struct Player final : public Behaviour
 
 					if (!justplaypls)
 					{
-						m_Engine.getAudioSystem().PlaySoundByFile("ToyTouch.wav", false, "SFX");
+						m_Engine.getAudioSystem().PlaySoundByFile(GetRandomSound(rubberSqueakSounds).c_str(), false, "SFX");
 						double currTimer = m_Engine.GetTimerTiming();
 						double newTimer = currTimer - 10.0;
 						m_Engine.SetTimerTiming(newTimer);
