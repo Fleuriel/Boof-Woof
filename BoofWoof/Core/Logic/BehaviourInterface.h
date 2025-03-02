@@ -50,6 +50,8 @@ struct engine_interface
 	virtual glm::vec3 GetPosition(Entity entity) = 0;
 	virtual glm::vec3 GetRotation(Entity entity) = 0;
 	virtual void SetPosition(Entity entity, glm::vec3 position) = 0;
+	virtual void SetRotation(Entity entity, glm::vec3 rotation) = 0;
+	virtual void SetRotationYawFromVelocity(Entity entity, glm::vec3 velocity) = 0;
 	
 	virtual bool HaveCollisionComponent(Entity entity) = 0;
 	virtual bool HavePhysicsBody(Entity entity) = 0;
