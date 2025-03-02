@@ -224,9 +224,12 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClCompile Include="Utilities\Components\LightComponent.cpp" />
     <ClCompile Include="Utilities\Components\MaterialComponent.cpp" />
     <ClCompile Include="Utilities\Components\MetaData.cpp" />
+    <ClCompile Include="Utilities\Components\NodeComponent.cpp" />
     <ClCompile Include="Utilities\Components\ParticleComponent.cpp" />
     <ClCompile Include="Utilities\Components\TransformComponent.cpp" />
     <ClCompile Include="Utilities\Components\UIComponent.cpp" />
+    <ClCompile Include="Utilities\ForGame\TimerTR\TimerTR.cpp" />
+    <ClCompile Include="Utilities\ForGame\UI\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Animation\Animation.h" />
@@ -283,6 +286,8 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Utilities\Components\ParticleComponent.hpp" />
     <ClInclude Include="Utilities\Components\TransformComponent.hpp" />
     <ClInclude Include="Utilities\Components\UIComponent.hpp" />
+    <ClInclude Include="Utilities\ForGame\TimerTR\TimerTR.h" />
+    <ClInclude Include="Utilities\ForGame\UI\UI.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scenes\engine_state.json" />

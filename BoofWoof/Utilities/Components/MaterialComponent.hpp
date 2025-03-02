@@ -94,6 +94,10 @@ public:
     glm::vec3 GetMaterialRGB() { return glm::vec3(materialDesc.albedoColorRed, materialDesc.albedoColorGreen, materialDesc.albedoColorBlue); }
 
 
+    float GetGammaValue() { return materialDesc.gammaValue; }
+
+    void SetGammaValue(float value) { materialDesc.gammaValue = value; };
+
 
     void SetShaderIndex(int index) { materialDesc.shaderIndex = index; }
     void SetShaderName(std::string name) { materialDesc.shaderChosen = name; }

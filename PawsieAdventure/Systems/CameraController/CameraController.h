@@ -29,6 +29,9 @@ public:
 	void ShakeCamera(float time, glm::vec3 range);
 	void ShakePlayer(float time, glm::vec3 range);
 	void ChangeToFirstPerson(CameraComponent& camera);
+	void SetCameraDirection(CameraComponent& camera, glm::vec3 direction);
+	glm::vec3 GetCameraDirection(const CameraComponent& camera);
+
 
 private:
     void UpdateFirstPersonView(CameraComponent& camera);

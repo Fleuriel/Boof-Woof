@@ -1,6 +1,11 @@
 #include <iostream>
 #define UNREFERENCED_PARAMETER(P)          (P)
+<<<<<<< HEAD
 
+=======
+#include <random>
+#include <unordered_set>
+>>>>>>> main
 
 struct Player final : public Behaviour
 {
@@ -10,6 +15,78 @@ struct Player final : public Behaviour
 	float speed;
 	bool isMoving;
 	bool isJumping;
+<<<<<<< HEAD
+=======
+	bool isGrounded;
+	std::vector<glm::vec3> path;
+	int currentPathIndex;
+	bool followingPath;
+	float pathThreshold; // Distance threshold for reaching a waypoint
+	bool pathInitialized = false;
+	bool inRopeBreaker{ false }, touchingToy{ false }, cooldownActive{ false }, justplaypls{ false };
+	double stunlockTimer = 2.0;	// 2.0 seconds
+	double cooldownTimer = 0.0;
+	bool jumpSoundPlayed = false;  // Add this as a new class member variable
+
+
+	float footstepTimer = 0.0f;
+	const float footstepInterval = 0.25f;  // Interval between footstep sounds (adjustable)
+
+	bool hasJumped = false;  // Track if the player has jumped
+	bool wasGrounded = true; // Track the previous grounded state
+	float fallTime = 0.0f;  // ? New variable to track how long the player is in the air
+	bool falling = false;  // ? New flag to track if the player was falling
+	bool jumpInitiated = false;  // ? New flag to track intentional jumps
+
+
+
+
+	std::vector<std::string> footstepSounds = {
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_01.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_02.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_03.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_04.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_05.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_06.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_07.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_08.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_09.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_10.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_11.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_12.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_13.wav",
+	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_14.wav"
+	};
+>>>>>>> main
+
+
+	std::vector<std::string> jumpSounds = {
+		"Corgi/Jump_001 1.wav",
+		"Corgi/Jump_002 1.wav",
+		"Corgi/Jump_003 1.wav",
+		"Corgi/Jump_004 1.wav",
+		"Corgi/Jump_005 1.wav"
+	};
+
+	std::vector<std::string> landingSounds = {
+		"Corgi/JumpLand_011.wav",
+		"Corgi/JumpLand_021.wav",
+		"Corgi/JumpLand_031.wav"
+	};
+
+	std::vector<std::string> rubberSqueakSounds = {
+	"RubberSqueak1.wav",
+	"RubberSqueak2.wav",
+	"RubberSqueak3.wav"
+	};
+
+	// Function to get a random sound from a vector
+	std::string GetRandomSound(const std::vector<std::string>& soundList) {
+		static std::random_device rd;
+		static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+		std::uniform_int_distribution<std::size_t> dis(0, soundList.size() - 1);
+		return soundList[dis(gen)];
+	}
 
 	virtual void Init(Entity entity) override
 	{
@@ -21,13 +98,26 @@ struct Player final : public Behaviour
 
 	virtual void Update(Entity entity) override
 	{
+<<<<<<< HEAD
 		UNREFERENCED_PARAMETER(entity);
 		velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 		isMoving = false;
+=======
+		if (!m_Engine.IsGamePaused())
+		{
+			//UNREFERENCED_PARAMETER(entity);
+			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+			isMoving = false;
 
-		//double deltaTime = m_Engine.GetDeltaTime(); // Get delta time
-		
-		//std::cout << "[DEBUG] Delta Time: " << deltaTime << std::endl;
+			//// Debug for movement
+			//glm::vec3 currentPos = m_Engine.GetPosition(entity);
+			//std::cout << "[Pathfinding] Entity " << entity << " is currently at Position: ("
+			//	<< currentPos.x << ", " << currentPos.y << ", " << currentPos.z << ")" << std::endl;
+>>>>>>> main
+
+			//double deltaTime = m_Engine.GetDeltaTime(); // Get delta time
+
+			//std::cout << "[DEBUG] Delta Time: " << deltaTime << std::endl;
 
 		// Debug: Starting state
 		//std::cout << "[DEBUG] Start of Update: Entity = " << entity
@@ -41,6 +131,7 @@ struct Player final : public Behaviour
 
 		//std::cout << "[DEBUG] isGrounded = " << std::boolalpha << isGrounded << std::endl;
 
+<<<<<<< HEAD
 		if (m_Engine.getInputSystem().isActionPressed("Sprint"))
 		{
 			speed = 5.0f;
@@ -56,6 +147,10 @@ struct Player final : public Behaviour
 		if (isGrounded)
 		{
 			if (currentVelocity.x != 0.0f || currentVelocity.z != 0.0f)
+=======
+			// If not exhausted, run. Else, stop running, walk.
+			if (m_Engine.getInputSystem().isActionPressed("Sprint") && !m_Engine.GetExhausted())
+>>>>>>> main
 			{
 				//std::cout << "[DEBUG] Player landed, stopping horizontal movement. Previous velocity: ("
 				//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
@@ -64,6 +159,7 @@ struct Player final : public Behaviour
 			currentVelocity.x = 0.0f;
 			currentVelocity.z = 0.0f;
 
+<<<<<<< HEAD
 			// Apply the stopped velocity
 			m_Engine.SetVelocity(entity, currentVelocity);
 
@@ -82,11 +178,163 @@ struct Player final : public Behaviour
 					//std::cout << "movingW" << std::endl;
 					// Get Camera Direction
 					//float yaw = m_Engine.GetCameraYaw();
+=======
+			static const std::unordered_set<std::string> ropeEntities = { "Rope1", "Rope2" };
+			static const std::unordered_set<std::string> toyEntities = { "Bone", "TennisBall" };
+
+			if (m_Engine.IsColliding(entity))
+			{
+				const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
+				std::string entityName(collidingEntityName); // Convert C-string to std::string for easy lookup
+
+				if (ropeEntities.count(entityName))
+				{
+					inRopeBreaker = true;
+				}
+				else if (toyEntities.count(entityName) && !cooldownActive)
+				{
+					touchingToy = true;
+
+					if (!justplaypls)
+					{
+						m_Engine.getAudioSystem().PlaySoundByFile(GetRandomSound(rubberSqueakSounds).c_str(), false, "SFX");
+						double currTimer = m_Engine.GetTimerTiming();
+						double newTimer = currTimer - 10.0;
+						m_Engine.SetTimerTiming(newTimer);
+						justplaypls = true;
+					}
+				}
+			}
+			else
+			{
+				inRopeBreaker = false;
+			}
+
+			if (touchingToy)
+			{
+				m_Engine.SetTouched(true);
+
+				if (stunlockTimer > 0.0)
+				{
+					stunlockTimer -= m_Engine.GetDeltaTime();
+				}
+				else
+				{
+					// Stunlock is over, now enter cooldown phase
+					m_Engine.SetTouched(false);
+					m_Engine.SetCollidingEntityName(entity);
+
+					cooldownTimer = 0.0;
+					cooldownActive = true;
+					touchingToy = false;
+				}
+			}
+
+			if (cooldownActive)
+			{
+				cooldownTimer += m_Engine.GetDeltaTime();
+
+				if (cooldownTimer >= 2.0)
+				{
+					stunlockTimer = 2.0;  //  Reset stunlock timer for next interaction
+					cooldownTimer = 0.0;  //  Reset cooldown timer
+					justplaypls = false;
+					cooldownActive = false;  //  Allow player to be stunned again
+				}
+			}
+
+			// Allow movement only if the player is grounded & not in rope breaker or touching toy
+			if (isGrounded && !inRopeBreaker && !touchingToy)
+			{
+				if (m_Engine.HaveCameraComponent(entity))
+				{
+					if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
+					{
+						//std::cout << "movingW" << std::endl;
+						// Get Camera Direction
+						//float yaw = m_Engine.GetCameraYaw();
+>>>>>>> main
 
 					velocity.x += m_Engine.GetCameraDirection(entity).x * speed;
 					velocity.z += m_Engine.GetCameraDirection(entity).z * speed;
 					isMoving = true;
 
+<<<<<<< HEAD
+=======
+					}
+
+					if (m_Engine.getInputSystem().isActionPressed("MoveLeft"))
+					{
+						// Rotate the velocity 90 degrees to the left
+						/*
+						glm::mat3 rotation = glm::mat3(
+							0.0f, 0.0f, -1.0f,
+							0.0f, 1.0f, 0.0f,
+							1.0f, 0.0f, 0.0f
+						);
+						velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
+						*/
+
+						velocity += glm::cross(m_Engine.GetCameraDirection(entity), glm::vec3(0.0f, -1.0f, 0.0f)) * 1.f;
+						isMoving = true;
+					}
+
+					if (m_Engine.getInputSystem().isActionPressed("MoveBackward"))
+					{
+						//std::cout << "movingS" << std::endl;
+						velocity.x += -m_Engine.GetCameraDirection(entity).x * 1.f;
+						velocity.z += -m_Engine.GetCameraDirection(entity).z * 1.f;
+						isMoving = true;
+					}
+
+					if (m_Engine.getInputSystem().isActionPressed("MoveRight"))
+					{
+						//std::cout << "movingD" << std::endl;
+
+						// Rotate the velocity 90 degrees to the right
+						/*
+						glm::mat3 rotation = glm::mat3(
+							0.0f, 0.0f, 1.0f,
+							0.0f, 1.0f, 0.0f,
+							-1.0f, 0.0f, 0.0f
+						);
+
+						velocity += rotation * glm::vec3(m_Engine.GetCameraDirection(entity).x, 0.f, m_Engine.GetCameraDirection(entity).y) * speed;
+						isMoving = true;
+						*/
+
+
+						velocity += glm::cross(m_Engine.GetCameraDirection(entity), glm::vec3(0.0f, 1.0f, 0.0f)) * 1.f;
+						isMoving = true;
+					}
+				}
+
+				else
+				{
+					if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
+					{
+						velocity.z -= 1;
+						isMoving = true;
+					}
+
+					if (m_Engine.getInputSystem().isActionPressed("MoveLeft"))
+					{
+						velocity.x -= 1;
+						isMoving = true;
+					}
+
+					if (m_Engine.getInputSystem().isActionPressed("MoveBackward"))
+					{
+						velocity.z += 1;
+						isMoving = true;
+					}
+
+					if (m_Engine.getInputSystem().isActionPressed("MoveRight"))
+					{
+						velocity.x += 1;
+						isMoving = true;
+					}
+>>>>>>> main
 				}
 
 				if (m_Engine.getInputSystem().isActionPressed("MoveLeft"))
@@ -150,6 +398,7 @@ struct Player final : public Behaviour
 				}
 			}
 
+<<<<<<< HEAD
 		}
 		if (isMoving)
 		{
@@ -181,6 +430,104 @@ struct Player final : public Behaviour
 			if (isMoving)
 			{
 				if (m_Engine.HaveCameraComponent(entity))
+=======
+				//// Adjust movement for slopes
+				//if (isOnSlope)
+				//{
+				//	velocity = velocity - glm::dot(velocity, surfaceNormal) * surfaceNormal;
+				//}
+			}
+
+
+
+			if (isMoving)
+			{
+				footstepTimer -= static_cast<float>(m_Engine.GetDeltaTime());
+
+				if (footstepTimer <= 0.0f) // 
+				{
+					static std::random_device rd; // Seed
+					static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+					std::uniform_int_distribution<std::size_t> dis(0, footstepSounds.size() - 1);
+
+					// Get a random sound ID
+					std::string randomSound = footstepSounds[dis(gen)];
+
+					m_Engine.getAudioSystem().PlaySoundByFile(randomSound.c_str(), false, "SFX");
+
+					footstepTimer = footstepInterval;
+				}
+			}
+			else
+			{
+				footstepTimer = 0.0f; // Reset timer when not moving
+			}
+
+
+
+			// Debug: After processing input
+			//std::cout << "[DEBUG] After Input Processing: isMoving = " << std::boolalpha << isMoving << std::endl;
+
+			// Jump logic - don't allow jump when in rope breaker or touching toys
+			if (m_Engine.getInputSystem().isActionPressed("Jump") && isGrounded && !inRopeBreaker && !touchingToy)
+			{
+				float gravity = 9.81f;
+				float jumpHeight = 1.5f;
+				float jumpVelocity = 1.2f * sqrt(2 * gravity * jumpHeight);
+
+				velocity.y = jumpVelocity;
+				m_Engine.SetGrounded(entity, false);
+
+				if (!jumpSoundPlayed) {  // ? Ensure jump sound plays only once per jump
+
+					
+						m_Engine.getAudioSystem().PlaySoundByFile(GetRandomSound(jumpSounds).c_str(), false, "SFX");
+						jumpSoundPlayed = true;  // Mark that the jump sound has played
+					}
+
+
+				//std::cout << "[DEBUG] Player jumped. Jump velocity: " << jumpVelocity << std::endl;
+				//std::cout << "[DEBUG] isGrounded: " << isGrounded << std::endl;
+				isJumping = true;
+				isMoving = true;
+				hasJumped = true;  // Mark that the player has jumped
+				jumpInitiated = true;  // ? Mark that the player has jumped intentionally
+
+
+			}
+
+			// Detect if the player starts falling after jumping
+			if (wasGrounded && !isGrounded) {
+				falling = true;
+				fallTime = 0.0f;
+			}
+
+			// If the player is falling, increase fall time
+			if (falling) {
+				fallTime += static_cast<float>(m_Engine.GetDeltaTime());
+			}
+
+			// Detect if the player lands **only if they previously jumped**
+			if (falling && isGrounded && fallTime > 0.2f && jumpInitiated) {
+				m_Engine.getAudioSystem().PlaySoundByFile(GetRandomSound(landingSounds).c_str(), false, "SFX");
+
+				hasJumped = false;
+				jumpSoundPlayed = false;
+				falling = false;
+				jumpInitiated = false;  // ? Reset jump tracking after landing
+				std::cout << "[DEBUG] Player landed after intentional jump!" << std::endl;
+			}
+
+			// Update grounded state at the end
+			wasGrounded = isGrounded;
+
+
+
+			// Check if the entity has a collision component and physics body before setting velocity
+			if (m_Engine.HaveCollisionComponent(entity) && m_Engine.HavePhysicsBody(entity))
+			{
+				if (isMoving)
+>>>>>>> main
 				{
 					//std::cout << "has camera" << std::endl;
 

@@ -33,6 +33,21 @@
     <ClInclude Include="Treat.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+=======
+    <ClInclude Include="Rex.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Null.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Toys.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Puppy.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+>>>>>>> main
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

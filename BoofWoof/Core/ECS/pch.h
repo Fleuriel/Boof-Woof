@@ -51,6 +51,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/vec2.hpp>
 #include <glm/gtc/quaternion.hpp>   // For glm::quat
+#include <glm/gtx/quaternion.hpp>   // For glm::quat
 #include <glm/gtx/euler_angles.hpp> // For Euler angles
 
 // A simple type alias

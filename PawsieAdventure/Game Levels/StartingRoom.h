@@ -3,10 +3,14 @@
 #include "ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 #include "../Systems/CameraController/CameraController.h"
-#include "../Systems/BoneCatcher/BoneCatcher.h"
-#include "../Systems/RopeBreaker/RopeBreaker.h"
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
+<<<<<<< HEAD
+=======
+#include "../Systems/Dialogue/Dialogue.h"
+#include "../Utilities/ForGame/UI/UI.h"
+#include "LoadingLevel.h"
+>>>>>>> main
 
 class StartingRoom : public Level
 {
@@ -14,15 +18,40 @@ public:
 	Entity playerEnt{}, scentEntity{};
 	CameraController* cameraController = nullptr;
 	bool bark{ false }, sniff{ false };
+	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{}, FireSound{};
 
+<<<<<<< HEAD
 	void LoadLevel()
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom.json");
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true);
 
+=======
+	std::vector<Entity> particleEntities;
+
+	void LoadLevel() override
+	{
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom_Light.json");
+>>>>>>> main
 		g_ChangeText.OnInitialize();
+		g_DialogueText.setDialogue(DialogueState::TUTORIALSTART);
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav", true, "SFX");
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
+<<<<<<< HEAD
+=======
+
+		// Use unordered_map to make it O(1) efficiency
+		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
+		{
+			{"Player", [&](Entity entity) { playerEnt = entity; }},
+			{"ScentTrail", [&](Entity entity) { scentEntity = entity; }},
+			{"BedRoomMusic", [&](Entity entity) { BedRoomBGM = entity; }},
+			{"CorgiBark1", [&](Entity entity) { CorgiBark = entity; }},
+			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }},
+			{ "middle particle", [&](Entity entity) { FireSound = entity; }}
+		};
+>>>>>>> main
 
 		for (auto entity : entities)
 		{
@@ -33,7 +62,38 @@ public:
 					playerEnt = entity;
 				}
 
+<<<<<<< HEAD
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "ScentTrail")
+=======
+
+				if (g_Coordinator.HaveComponent<AudioComponent>(entity))
+				{
+					auto& music = g_Coordinator.GetComponent<AudioComponent>(entity);
+					music.SetAudioSystem(&g_Audio);
+
+					if (metadata.GetName() == "BedRoomMusic")
+					{
+						music.PlayAudio();
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<AudioComponent>(entity))
+				{
+					auto& fire = g_Coordinator.GetComponent<AudioComponent>(entity);
+					fire.SetAudioSystem(&g_Audio);
+
+					if (metadata.GetName() == "middle particle")
+					{
+						g_Audio.PlayEntity3DAudio(FireSound, FILEPATH_ASSET_AUDIO + "/Fire.wav", true, "BGM");
+					}
+					else {
+						std::cerr << "? ERROR: Fireplace entity has no AudioComponent!" << std::endl;
+					}
+				}
+
+				// Exit early if all entities are found
+				if (playerEnt && scentEntity && BedRoomBGM && CorgiBark && CorgiSniff && FireSound)
+>>>>>>> main
 				{
 					scentEntity = entity;
 					break;
@@ -49,16 +109,137 @@ public:
 		// Ensure player entity is valid
 		cameraController = new CameraController(playerEnt);
 		camerachange = false;
+<<<<<<< HEAD
+=======
+		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
+		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
+
+		particleEntities = { scentEntity };
+		g_UI.OnInitialize();
+>>>>>>> main
 	}
 
 	bool teb_last = false;
 
 	void UpdateLevel(double deltaTime)
 	{
+<<<<<<< HEAD
 		if (!camerachange)
 		{
 			cameraController->ChangeToFirstPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
 			camerachange = true;
+=======
+		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
+			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
+			glm::vec3 playerPos = playerTransform.GetPosition();
+			glm::vec3 playerRot = playerTransform.GetRotation();  // Get rotation from TransformComponent
+
+			g_Audio.SetListenerPosition(playerPos, playerRot);
+		}
+
+		// ?? Update the positions of all 3D sounds (including the fireplace)
+		g_Audio.Update3DSoundPositions();
+
+		g_ChangeText.startingRoomOnly = true;
+
+		if (!g_IsPaused) 
+		{
+			if (!camerachange)
+			{
+				cameraController->ChangeToFirstPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
+				camerachange = true;
+			}
+			cameraController->Update(static_cast<float>(deltaTime));
+
+			g_UI.OnUpdate(static_cast<float>(deltaTime));
+			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
+
+			if (!g_ChangeText.shutted)
+			{				
+				g_ChangeText.OnUpdate(deltaTime);
+			}
+			else 
+			{
+				// let the change text finish first then allow pauseLogic
+				pauseLogic::OnUpdate();
+			}
+
+			if (!g_Checklist.shutted)
+			{
+				g_Checklist.OnUpdate(deltaTime);
+
+			}
+
+			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
+			{
+				if (!teb_last)
+				{
+					teb_last = true;
+					cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
+				}
+			}
+			else
+			{
+				teb_last = false;
+			}
+
+			//if (g_Input.GetKeyState(GLFW_KEY_O) >= 1) 
+			//{
+			//	cameraController->ShakeCamera(1.0f, glm::vec3(0.1f,0.1f,0.1f));
+			//}
+
+			// Take this away once u shift to script
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
+			{
+				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiBark))
+				{
+					auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiBark);
+					music1.PlayAudio();
+				}
+				bark = true;
+			}
+
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 0)
+			{
+				bark = false;
+			}
+
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !sniff)
+			{
+				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff))
+				{
+					auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
+					music2.PlayAudio();
+				}
+
+				sniff = true;
+			}
+
+			if (g_Input.GetKeyState(GLFW_KEY_E) == 0)
+			{
+				sniff = false;
+			}
+			// until here
+
+			if (g_Checklist.shutted && g_ChangeText.shutted)
+			{
+				if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
+				{
+					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+					if (loading)
+					{
+						// Pass in the name of the real scene we want AFTER the loading screen
+						loading->m_NextScene = "TimeRush";
+						g_LevelManager.SetNextLevel("LoadingLevel");
+					}
+				}
+			}
+		}	
+
+		if (g_ChangeText.shutted) 
+		{
+			pauseLogic::OnUpdate();
+>>>>>>> main
 		}
 		cameraController->Update(static_cast<float>(deltaTime));
 
@@ -138,12 +319,28 @@ public:
 			delete cameraController;
 			cameraController = nullptr;
 		}
+
+		g_UI.OnShutdown();
 	}
 
 	void UnloadLevel()
 	{
+<<<<<<< HEAD
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav");
 		g_Audio.StopBGM();
+=======
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav");
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
+			music.StopAudio();
+		}
+
+		g_ChangeText.startingRoomOnly = false;
+
+		g_Audio.Stop(BedRoomBGM);
+
+>>>>>>> main
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 	}

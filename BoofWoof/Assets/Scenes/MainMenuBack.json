@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "1c7bf1fd-800b-4072-bb14-aa3426ee0da5",
+    "SceneGUID": "a3e387a3-833f-451a-ba02-6bec93802098",
     "Entities": [
         {
             "MetadataComponent": {
@@ -21,30 +21,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Floor3tripleheight",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -67,30 +53,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Floor3tripleheight",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -113,30 +85,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Floor3tripleheight",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -159,30 +117,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Floor3tripleheight",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -205,30 +149,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Floor3tripleheight",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -251,30 +181,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Floor3tripleheight",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -297,30 +213,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -343,30 +245,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -389,30 +277,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -435,30 +309,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -481,30 +341,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -527,30 +373,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -573,30 +405,16 @@
                     "x": 0.0,
                     "y": -1.5700000524520875,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -619,30 +437,16 @@
                     "x": 0.0,
                     "y": -1.5700000524520875,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -665,30 +469,16 @@
                     "x": 0.0,
                     "y": -1.5700000524520875,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -711,30 +501,16 @@
                     "x": 0.0,
                     "y": -1.5700000524520875,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -757,30 +533,16 @@
                     "x": 0.0,
                     "y": -1.5700000524520875,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -803,30 +565,16 @@
                     "x": 0.0,
                     "y": -1.5700000524520875,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -849,30 +597,16 @@
                     "x": 0.0,
                     "y": -1.5700000524520875,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -895,30 +629,16 @@
                     "x": 0.0,
                     "y": -1.5700000524520875,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -941,30 +661,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallCorner",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -987,30 +693,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallCorner",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1033,30 +725,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1079,30 +757,16 @@
                     "x": 0.0,
                     "y": 1.5700000524520875,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallCorner",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1125,30 +789,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1171,30 +821,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1217,30 +853,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1263,30 +885,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1309,30 +917,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1355,30 +949,16 @@
                     "x": 0.0,
                     "y": -3.1500000953674318,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallCorner",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallCorner",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1401,30 +981,16 @@
                     "x": 0.0,
                     "y": -0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Fireplace",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Fireplace",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1447,30 +1013,16 @@
                     "x": 0.0,
                     "y": -0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Banner",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Banner",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1493,30 +1045,16 @@
                     "x": 0.0,
                     "y": -0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Banner",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Banner",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1539,30 +1077,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Bed2",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Bed2",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1585,30 +1109,16 @@
                     "x": 3.1411924362182619,
                     "y": -1.570607304573059,
                     "z": -3.141180992126465
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Carpet",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1631,30 +1141,16 @@
                     "x": -3.1415908336639406,
                     "y": -1.3415921926498414,
                     "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Chair2",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1677,30 +1173,16 @@
                     "x": -0.000053419691539602357,
                     "y": 1.5579172372817994,
                     "z": -0.00005342016811482608
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Table2",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Table2",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1723,30 +1205,16 @@
                     "x": 0.0,
                     "y": 1.5700000524520875,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Wardrobe2",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Wardrobe2",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1769,30 +1237,16 @@
                     "x": 0.0,
                     "y": -0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Table",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Table",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1815,30 +1269,16 @@
                     "x": -3.1415908336639406,
                     "y": 0.06319316476583481,
                     "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Chair",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Chair",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1861,30 +1301,16 @@
                     "x": 0.0,
                     "y": 1.5699999332427979,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Bookshelf1",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Bookshelf1",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1907,30 +1333,16 @@
                     "x": 0.0,
                     "y": 1.5699999332427979,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Bookshelf2",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Bookshelf2",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1953,30 +1365,16 @@
                     "x": 0.0,
                     "y": 1.5699999332427979,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Bookshelf3",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Bookshelf3",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -1999,30 +1397,16 @@
                     "x": 0.0,
                     "y": -0.30000007152557375,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Chair2",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -2045,30 +1429,16 @@
                     "x": -3.1415908336639406,
                     "y": -0.3415924906730652,
                     "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Chair2",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Chair2",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -2091,30 +1461,16 @@
                     "x": 0.0,
                     "y": 1.5699999332427979,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallTorch",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallTorch",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -2137,30 +1493,16 @@
                     "x": 0.0,
                     "y": -1.5699999332427979,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallBothSide",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -2183,30 +1525,16 @@
                     "x": 3.1374893188476564,
                     "y": -0.0016072239959612489,
                     "z": -3.1415133476257326
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "WallTorch",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "WallTorch",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -2228,6 +1556,11 @@
                 "Rotation": {
                     "x": 0.0,
                     "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
                     "z": 0.0
                 }
             },
@@ -2267,30 +1600,16 @@
                     "x": 0.0,
                     "y": -0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Floor",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Floor",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -2313,30 +1632,16 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Carpet",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -2359,30 +1664,16 @@
                     "x": -3.1415884494781496,
                     "y": 0.8420000076293945,
                     "z": -3.1415884494781496
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Couch",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Couch",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -2405,30 +1696,16 @@
                     "x": 3.140637159347534,
                     "y": -0.000547679839655757,
                     "z": 3.1415224075317385
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Banner",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Banner",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -2451,30 +1728,16 @@
                     "x": 3.1407623291015627,
                     "y": -0.005785858258605003,
                     "z": 3.1415679454803469
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Banner",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Banner",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -2497,30 +1760,16 @@
                     "x": -3.1415908336639406,
                     "y": -0.008406705223023892,
                     "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "GraphicsComponent": {
                 "ModelName": "Banner",
                 "FollowCamera": true
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader3D",
-                "shaderIdx": 5,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Banner",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -2542,6 +1791,11 @@
                 "Rotation": {
                     "x": 0.0,
                     "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
                     "z": 0.0
                 }
             },
@@ -2600,6 +1854,11 @@
                     "x": 0.0,
                     "y": -0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "ParticleComponent": {
@@ -2656,6 +1915,11 @@
                 "Rotation": {
                     "x": 0.0,
                     "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
                     "z": 0.0
                 }
             },
@@ -2714,6 +1978,11 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 1.5
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "ParticleComponent": {
@@ -2771,6 +2040,11 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 1.5
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "ParticleComponent": {
@@ -2828,6 +2102,11 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 1.5
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "ParticleComponent": {
@@ -2885,6 +2164,11 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 1.5
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "ParticleComponent": {
@@ -2942,6 +2226,11 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 1.5
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "ParticleComponent": {
@@ -2999,6 +2288,11 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 1.5
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "ParticleComponent": {
@@ -3055,6 +2349,11 @@
                 "Rotation": {
                     "x": 0.0,
                     "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
                     "z": 0.0
                 }
             },
@@ -3113,6 +2412,11 @@
                     "x": 0.0,
                     "y": -0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "ParticleComponent": {
@@ -3170,6 +2474,11 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 1.5
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "ParticleComponent": {
@@ -3227,6 +2536,11 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 1.5
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "ParticleComponent": {
@@ -3284,6 +2598,11 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 1.5
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
             "ParticleComponent": {
@@ -3319,6 +2638,129 @@
                     "b": 0.10196078568696976,
                     "a": 1.0
                 }
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 69
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 8.113476753234864,
+                    "y": 2.245245933532715,
+                    "z": -2.2417995929718019
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 1.0,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": true,
+                "LightDirectionX": 12.399999618530274,
+                "LightDirectionY": -3.4000000953674318,
+                "LightDirectionZ": 32.79999923706055,
+                "LightRange": 25.899999618530275
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 70
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 6.463004112243652,
+                    "y": 4.986579895019531,
+                    "z": 8.226578712463379
+                },
+                "Scale": {
+                    "x": 0.030000001192092897,
+                    "y": 0.030000001192092897,
+                    "z": 0.030000001192092897
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 0.30000001192092898,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 0.699999988079071,
+                "LightDirectionY": 0.10000000149011612,
+                "LightDirectionZ": -0.10000000149011612,
+                "LightRange": 12.5
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 71
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -2.278263568878174,
+                    "y": 4.614401817321777,
+                    "z": 13.36202621459961
+                },
+                "Scale": {
+                    "x": 0.07000000029802323,
+                    "y": 0.07000000029802323,
+                    "z": 0.07000000029802323
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 0.699999988079071,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 1.100000023841858,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 8.899999618530274
             }
         }
     ]

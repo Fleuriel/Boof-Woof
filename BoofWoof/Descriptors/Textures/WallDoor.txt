@@ -1,5 +1,0 @@
-Texture Name : WallDoor
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\WallDoor.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\WallDoor.dds
-Compression Format : -fd BC3

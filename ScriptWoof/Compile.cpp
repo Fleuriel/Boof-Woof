@@ -4,6 +4,13 @@
 
 #include "Player.hpp"
 #include "Treat.hpp"
+<<<<<<< HEAD
+=======
+#include "Rex.hpp"
+#include "Null.hpp"
+#include "Toys.hpp"
+#include "Puppy.hpp"
+>>>>>>> main
 
 extern "C"
 {
@@ -16,8 +23,16 @@ extern "C"
 
 		// Add all the scripts here
 		pBehaviours->emplace_back(std::make_unique<Player>(EP));	// using std::make_unique that automatically allocates and manages memory instead of new
+<<<<<<< HEAD
 		pBehaviours->emplace_back(std::make_unique<Treat>(EP));	// using std::make_unique that automatically allocates and manages memory instead of new
 
+=======
+		pBehaviours->emplace_back(std::make_unique<Treat>(EP));	
+		pBehaviours->emplace_back(std::make_unique<Rex>(EP));
+		pBehaviours->emplace_back(std::make_unique<Null>(EP));	
+		pBehaviours->emplace_back(std::make_unique<Toys>(EP));
+		pBehaviours->emplace_back(std::make_unique<Puppy>(EP));
+>>>>>>> main
 
 		// release ownership of pointer and cast to void*
 		return pBehaviours.release(); // Return raw pointer as void*, caller is responsible for cleanup (need to delete the vector to free memory by urself)

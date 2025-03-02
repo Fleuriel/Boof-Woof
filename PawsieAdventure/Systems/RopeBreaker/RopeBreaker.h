@@ -30,7 +30,11 @@ private:
 
 	// Rope
 	Entity player{}, rope1{}, rope2{};
+<<<<<<< HEAD
 	bool PlayerColliding{}, Rope1Colliding{}, Rope2Colliding{}, BoneSpawned{ false };
+=======
+	bool PlayerColliding{}, Rope1Colliding{}, Rope2Colliding{}, firstRopeTouched{ false };
+>>>>>>> main
 	int RopeDespawned{ 0 };
 
 	// Drawbridge

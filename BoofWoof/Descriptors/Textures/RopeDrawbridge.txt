@@ -1,5 +1,0 @@
-Texture Name : RopeDrawbridge
-Texture File Path : ..\BoofWoof\Assets\Art\Textures\RopeDrawbridge.png
-Resource GUID : 
-Resource File Path : ..\BoofWoof\Resources\Textures\RopeDrawbridge.dds
-Compression Format : -fd BC3

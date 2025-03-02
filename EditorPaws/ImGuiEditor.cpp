@@ -284,6 +284,32 @@ void ImGuiEditor::ImGuiViewport() {
 							component.SetScale(oldScale);
 						}
 					);
+
+					// **Check if any children have a NodeComponent**
+					bool needsPathfindingUpdate = false;
+
+					if (g_Coordinator.HaveComponent<HierarchyComponent>(entity))
+					{
+						auto& hierarchyComp = g_Coordinator.GetComponent<HierarchyComponent>(entity);
+						for (Entity child : hierarchyComp.children)
+						{
+							if (g_Coordinator.HaveComponent<NodeComponent>(child))
+							{
+								needsPathfindingUpdate = true;
+								break; // Stop checking after finding the first match
+							}
+						}
+					}
+
+					// **Rebuild the pathfinding graph if necessary**
+					if (needsPathfindingUpdate)
+					{
+						auto pathfindingSystem = g_Coordinator.GetSystem<PathfindingSystem>();
+						if (pathfindingSystem)
+						{
+							pathfindingSystem->ResetPathfinding();
+						}
+					}
 				}
 
 				g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity, 0.0f);
@@ -391,6 +417,21 @@ void ImGuiEditor::WorldHierarchy()
 			if (g_SelectedEntity != MAX_ENTITIES)
 			{
 				Entity clone = g_Coordinator.CloneEntity(g_SelectedEntity);
+
+				// Ensure the cloned entity gets a new physics body
+				if (g_Coordinator.HaveComponent<CollisionComponent>(clone))
+				{
+					auto& clonedCollisionComp = g_Coordinator.GetComponent<CollisionComponent>(clone);
+
+					// Reset Physics Body to prevent it from being the same as the original entity
+					clonedCollisionComp.SetPhysicsBody(nullptr);
+					clonedCollisionComp.SetHasBodyAdded(false);  // Mark as not added to physics system
+
+					// Add a new physics body for the cloned entity
+					g_Coordinator.GetSystem<MyPhysicsSystem>()->AddEntityBody(clone, 0.0f);
+					clonedCollisionComp.SetHasBodyAdded(true);  // Mark as added
+				}
+
 				g_SelectedEntity = clone;
 			}
 		}
@@ -1142,6 +1183,19 @@ void ImGuiEditor::InspectorWindow()
 								std::string oldValue = metadataComponent.GetName();
 								std::string newValue = oldValue;
 
+<<<<<<< HEAD
+=======
+								// Display Entity ID
+								ImGui::Text("Entity ID: %d", g_SelectedEntity);
+
+								// **Check if the entity has a NodeComponent and display Node ID**
+								if (g_Coordinator.HaveComponent<NodeComponent>(g_SelectedEntity))
+								{
+									auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
+									ImGui::Text("Node ID: %d", nodeComponent.GetNodeID());
+								}
+
+>>>>>>> main
 								ImGui::Text("Name    ");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
@@ -2031,7 +2085,11 @@ void ImGuiEditor::InspectorWindow()
 									std::string currentBehaviourName = (*behaviourNameProperty)->GetValue(&behaviourComponent);
 									std::string newBehaviourName = currentBehaviourName;
 
+<<<<<<< HEAD
 									const char* behaviourNames[] = { "Null", "Player" };
+=======
+									const char* behaviourNames[] = { "Null", "Player", "Treat", "Rex", "Toys", "Puppy"};
+>>>>>>> main
 									int currentItem = 0;
 
 									for (int i = 0; i < IM_ARRAYSIZE(behaviourNames); ++i)
@@ -2394,6 +2452,46 @@ void ImGuiEditor::InspectorWindow()
 							if (ImGui::CollapsingHeader("Particle", ImGuiTreeNodeFlags_None))
 							{
 								auto& particleComponent = g_Coordinator.GetComponent<ParticleComponent>(g_SelectedEntity);
+								// set the particle type
+								ParticleType particleType = particleComponent.getParticleType();
+								ImGui::Text("Particle Type");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("ParticleType");
+
+								std::string typestring{};
+								switch (particleType)
+								{
+								case ParticleType::TEXTURED_3D:
+									typestring = "TEXTURED_3D";
+									break;
+								case ParticleType::TEXTURED:
+									typestring = "TEXTURED";
+									break;
+								case ParticleType::POINT:
+									typestring = "POINT";
+									break;
+								}
+								//select bar
+								if (ImGui::BeginCombo("##ParticleType", typestring.c_str()))
+								{
+									if (ImGui::Selectable("TEXTURED_3D", typestring == "TEXTURED_3D"))
+									{
+										particleComponent.setParticleType(ParticleType::TEXTURED_3D);
+									}
+									if (ImGui::Selectable("TEXTURED", typestring == "TEXTURED"))
+									{
+										particleComponent.setParticleType(ParticleType::TEXTURED);
+									}
+									if (ImGui::Selectable("POINT", typestring == "POINT"))
+									{
+										particleComponent.setParticleType(ParticleType::POINT);
+									}
+									
+									ImGui::EndCombo();
+								}
+								ImGui::PopID();
+
 								// set the properties
 								glm::vec3 position = particleComponent.getPosMin();
 								glm::vec3 positionMax = particleComponent.getPosMax();
@@ -2496,36 +2594,123 @@ void ImGuiEditor::InspectorWindow()
 									}
 								}
 
-								// set particle size
-								float particleSize = particleComponent.getParticleSize();
-								ImGui::Text("Particle Size");
+								if (particleType == ParticleType::POINT) {
+									// set particle size
+									float particleSize = particleComponent.getParticleSize();
+									ImGui::Text("Particle Size");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("ParticleSize");
+
+									if (ImGui::DragFloat("##ParticleSize", &particleSize, 0.1f))
+									{
+										particleComponent.setParticleSize(particleSize);
+									}
+
+									ImGui::PopID();
+									ImGui::PopItemWidth();
+
+									// set particle color
+									glm::vec3 particleColor = particleComponent.getParticleColor();
+									ImGui::Text("Particle Color");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("ParticleColor");
+
+									if (ImGui::ColorEdit4("##ParticleColor", &particleColor.x))
+									{
+										particleComponent.setParticleColor(particleColor);
+									}
+
+									ImGui::PopID();
+									ImGui::PopItemWidth();
+
+									
+								}
+								else if (particleType == ParticleType::TEXTURED) {
+									// set the texture
+									std::string textureName = particleComponent.getParticleTexturename();
+									ImGui::Text("Texture :");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::Text("%s", textureName.c_str());
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("Texture");
+									if (ImGui::Button("Change Texture"))
+									{
+										ImGuiFileDialog::Instance()->OpenDialog("ChangeTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
+									}
+
+									if (ImGuiFileDialog::Instance()->Display("ChangeTexture"))
+									{
+										if (ImGuiFileDialog::Instance()->IsOk())
+										{
+											// User selected a file
+											std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+											size_t lastDotPos = selectedFile.find_last_of(".");
+											if (lastDotPos != std::string::npos)
+											{
+												selectedFile = selectedFile.substr(0, lastDotPos);
+											}
+											particleComponent.setParticleTexturename(selectedFile);
+
+										}
+										ImGuiFileDialog::Instance()->Close();
+									}
+
+									ImGui::PopID();
+									ImGui::PopItemWidth();
+
+								}else if (particleType == ParticleType::TEXTURED_3D) {
+									std::string modelname = particleComponent.getParticleModelname();
+									ImGui::Text("Model :");
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::Text("%s", modelname.c_str());
+									ImGui::SameLine();
+									ImGui::PushItemWidth(125.0f);
+									ImGui::PushID("Model");
+									if (ImGui::Button("Change Model"))
+									{
+										ImGuiFileDialog::Instance()->OpenDialog("ChangeModel", "Choose File", ".obj", "../BoofWoof/Assets/Objects");
+									}
+
+									if (ImGuiFileDialog::Instance()->Display("ChangeModel"))
+									{
+										if (ImGuiFileDialog::Instance()->IsOk())
+										{
+											// User selected a file
+											std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
+											size_t lastDotPos = selectedFile.find_last_of(".");
+											if (lastDotPos != std::string::npos)
+											{
+												selectedFile = selectedFile.substr(0, lastDotPos);
+											}
+											particleComponent.setParticleModelname(selectedFile);
+											particleComponent.setParticleTexturename(selectedFile);
+
+										}
+										ImGuiFileDialog::Instance()->Close();
+									}
+
+									ImGui::PopID();
+									ImGui::PopItemWidth();
+									
+								}
+								float opacity = particleComponent.getOpacity();
+								ImGui::Text("Opacity");
 								ImGui::SameLine();
 								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("ParticleSize");
+								ImGui::PushID("Opacity");
 
-								if (ImGui::DragFloat("##ParticleSize", &particleSize, 0.1f))
+								if (ImGui::DragFloat("##Opacity", &opacity, 0.1f, 0.0f, 1.0f))
 								{
-									particleComponent.setParticleSize(particleSize);
+									particleComponent.setOpacity(opacity);
 								}
 
 								ImGui::PopID();
 								ImGui::PopItemWidth();
-
-								// set particle color
-								glm::vec4 particleColor = particleComponent.getParticleColor();
-								ImGui::Text("Particle Color");
-								ImGui::SameLine();
-								ImGui::PushItemWidth(125.0f);
-								ImGui::PushID("ParticleColor");
-
-								if (ImGui::ColorEdit4("##ParticleColor", &particleColor.x))
-								{
-									particleComponent.setParticleColor(particleColor);
-								}
-
-								ImGui::PopID();
-								ImGui::PopItemWidth();
-
 
 							}
 						}
@@ -3041,9 +3226,20 @@ void ImGuiEditor::InspectorWindow()
 
 
 									ImGui::Button("##MatButton4 ", ImVec2(15, 15)); ImGui::SameLine();  ImGui::Text("Normal Map");   	 // Create a visual box
+<<<<<<< HEAD
 
 
 
+=======
+							
+							
+
+
+
+
+
+							
+>>>>>>> main
 									ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();	ImGui::NewLine();
 
 
@@ -3328,6 +3524,42 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
+								// set shadow 
+								bool shadow = lightComponent.getShadow();
+								ImGui::Text("Shadow");
+								ImGui::SameLine();
+								ImGui::Checkbox("##Shadow", &shadow);
+								lightComponent.setShadow(shadow);
+								// same line change direction
+								ImGui::SameLine();
+								glm::vec3 direction = lightComponent.getDirection();
+								ImGui::Text("Direction");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Direction");
+
+								if (ImGui::DragFloat3("##Direction", &direction.x, 0.1f))
+								{
+									lightComponent.setDirection(direction);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								float range = lightComponent.getRange();
+								ImGui::Text("Range");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Range");
+
+								if (ImGui::DragFloat("##Range", &range, 0.1f))
+								{
+									lightComponent.setRange(range);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
 
 							}
 
@@ -3407,7 +3639,407 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
+<<<<<<< HEAD
+=======
+								// display layer number
+								ImGui::Text("Layer: %f" , uiComponent.get_UI_layer());
+								ImGui::SameLine();
+							
+								//move forward or backward button
+								if (ImGui::Button("Move Forward"))
+								{
+									uiComponent.set_UI_layer(uiComponent.get_UI_layer() - 0.01f);
+								}
+								ImGui::SameLine();
+								if (ImGui::Button("Move Backward"))
+								{
+									uiComponent.set_UI_layer(uiComponent.get_UI_layer() + 0.01f);
+								}
 
+								// check box for selectablity
+								bool selectable = uiComponent.get_selectable();
+								ImGui::Checkbox("Selectable", &selectable);
+								uiComponent.set_selectable(selectable);
+
+								// opacity
+								float opacity = uiComponent.get_opacity();
+								ImGui::Text("Opacity");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Opacity");
+
+								if (ImGui::DragFloat("##Opacity", &opacity, 0.1f))
+								{
+									uiComponent.set_opacity(opacity);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// animated
+								bool animate = uiComponent.get_animate();
+								ImGui::Checkbox("Animated", &animate);
+								uiComponent.set_animate(animate);
+
+								if (animate) {
+									// Variables to store the rows and cols values
+									int rows = uiComponent.get_rows();
+									int cols = uiComponent.get_cols();
+
+									// Textbox for inputting rows
+									ImGui::InputInt("Rows", &rows);
+									if (rows < 1) rows = 1; // Ensure rows is at least 1
+
+									// Textbox for inputting cols
+									ImGui::InputInt("Columns", &cols);
+									if (cols < 1) cols = 1; // Ensure cols is at least 1
+
+									// Update rows and cols in the UIComponent
+									uiComponent.set_rows(rows);
+									uiComponent.set_cols(cols);
+
+									// Modify current row and column
+									int currRow = uiComponent.get_curr_row();
+									int currCol = uiComponent.get_curr_col();
+
+									// Input fields for changing the current row/column
+									if (ImGui::InputInt("Current Row", &currRow)) {
+										// Clamp row value to stay within valid range
+										if (currRow < 0) currRow = 0;
+										if (currRow >= rows) currRow = rows - 1;
+										uiComponent.set_curr_row(currRow);
+									}
+
+									if (ImGui::InputInt("Current Column", &currCol)) {
+										// Clamp column value to stay within valid range
+										if (currCol < 0) currCol = 0;
+										if (currCol >= cols) currCol = cols - 1;
+										uiComponent.set_curr_col(currCol);
+									}
+
+									// Add controls for frame interval
+									float frameInterval = uiComponent.get_frame_interval();
+									ImGui::InputFloat("Frame Interval", &frameInterval);
+									if (frameInterval < 0.0f) frameInterval = 0.0f; // Ensure positive value
+									uiComponent.set_frame_interval(frameInterval);
+
+									// Checkbox for "Stay on Row"
+									bool stayOnRow = uiComponent.get_stay_on_row();
+									if (ImGui::Checkbox("Stay on Row", &stayOnRow)) {
+										uiComponent.set_stay_on_row(stayOnRow);
+									}
+
+									// Play/Pause buttons
+									bool isPlaying = uiComponent.get_playing(); // Get animation state
+									if (ImGui::Button(isPlaying ? "Pause" : "Play")) {
+										uiComponent.set_playing(!isPlaying); // Toggle play/pause state
+									}
+								}
+							}
+						}
+						//Pathfinding Component editor
+						else if (className == "PathfindingComponent") 
+						{
+							if (ImGui::CollapsingHeader("Pathfinding", ImGuiTreeNodeFlags_None)) {
+								auto& pathfindingComponent = g_Coordinator.GetComponent<PathfindingComponent>(g_SelectedEntity);
+
+								// Start Node
+								Entity startNode = pathfindingComponent.GetStartNode();
+								ImGui::Text("Start Node");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("StartNode");
+
+								if (ImGui::DragInt("##StartNode", reinterpret_cast<int*>(&startNode), 1.0f, 0, MAX_ENTITIES)) {
+									pathfindingComponent.SetStartNode(startNode);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Goal Node
+								Entity goalNode = pathfindingComponent.GetGoalNode();
+								ImGui::Text("Goal Node");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("GoalNode");
+
+								if (ImGui::DragInt("##GoalNode", reinterpret_cast<int*>(&goalNode), 1.0f, 0, MAX_ENTITIES)) {
+									pathfindingComponent.SetGoalNode(goalNode);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Current Status
+								PathfindingStatus status = pathfindingComponent.GetStatus();
+								ImGui::Text("Status: %s",
+									status == PathfindingStatus::IDLE ? "Idle" :
+									status == PathfindingStatus::PROCESSING ? "Processing" :
+									status == PathfindingStatus::COMPLETE ? "Complete" : "Failed");
+							}
+						}
+						// Node Component editor
+						// Node Component editor
+						else if (className == "NodeComponent") 
+						{
+							if (ImGui::CollapsingHeader("Node Component", ImGuiTreeNodeFlags_None)) {
+								auto& nodeComponent = g_Coordinator.GetComponent<NodeComponent>(g_SelectedEntity);
+								glm::vec3 nodePosition = nodeComponent.GetPosition();
+								bool isWalkable = nodeComponent.IsWalkable();
+
+								bool hasTransform = g_Coordinator.HaveComponent<TransformComponent>(g_SelectedEntity);
+								bool hasHierarchy = g_Coordinator.HaveComponent<HierarchyComponent>(g_SelectedEntity);
+
+								glm::vec3 previousPosition = nodePosition; // Store old position for comparison
+
+								if (hasTransform) {
+									auto& transformComp = g_Coordinator.GetComponent<TransformComponent>(g_SelectedEntity);
+
+									if (hasHierarchy) {
+										// Use World Transform if HierarchyComponent exists
+										auto transformSystem = g_Coordinator.GetSystem<TransformSystem>();
+										glm::mat4 worldMatrix = transformSystem->GetWorldMatrix(g_SelectedEntity);
+
+										glm::vec3 worldPosition, worldRotation, worldScale;
+										if (DecomposeTransform(worldMatrix, worldPosition, worldRotation, worldScale)) {
+											nodePosition = worldPosition; // Override position
+										}
+										ImGui::Text("Node Position (World)");
+									}
+									else {
+										// Use local transform if no hierarchy
+										nodePosition = transformComp.GetPosition();
+										ImGui::Text("Node Position (Local)");
+									}
+								}
+								else {
+									ImGui::Text("Node Position (Manual)");
+								}
+
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("NodePosition");
+
+								bool positionChanged = false; // Flag for detecting change
+
+								// If the entity has a transform, display the position but disable editing
+								if (hasTransform) {
+									ImGui::InputFloat3("##NodePosition", &nodePosition.x, "%.3f", ImGuiInputTextFlags_ReadOnly);
+								}
+								else {
+									// Allow manual setting if no TransformComponent
+									if (ImGui::DragFloat3("##NodePosition", &nodePosition.x, 0.1f)) {
+										nodeComponent.SetPosition(nodePosition);
+										positionChanged = true; // Mark change
+									}
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Walkable Checkbox
+								bool walkable = nodeComponent.IsWalkable();
+								ImGui::Text("Walkable");
+								ImGui::SameLine();
+								if (ImGui::Checkbox("##Walkable", &walkable)) {
+									nodeComponent.SetWalkable(walkable);
+									positionChanged = true; // Rebuild graph if walkability changes
+								}
+
+								// **Rebuild Graph if Position Changes**
+								if (positionChanged && nodePosition != previousPosition) {
+									auto pathfindingSystem = g_Coordinator.GetSystem<PathfindingSystem>();
+									if (pathfindingSystem) {
+										pathfindingSystem->BuildGraph(); // Rebuild graph
+										std::cout << "[DEBUG] Pathfinding graph rebuilt due to node position change." << std::endl;
+									}
+								}
+							}
+						}
+
+
+
+						// Edge Component editor
+						else if (className == "EdgeComponent") 
+						{
+							if (ImGui::CollapsingHeader("Edge", ImGuiTreeNodeFlags_None)) {
+								auto& edgeComponent = g_Coordinator.GetComponent<EdgeComponent>(g_SelectedEntity);
+
+								// Start Node
+								Entity startNode = edgeComponent.GetStartNode();
+								ImGui::Text("Start Node");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("StartNode");
+
+								if (ImGui::DragInt("##StartNode", reinterpret_cast<int*>(&startNode), 1.0f, 0, MAX_ENTITIES)) {
+									edgeComponent.SetStartNode(startNode);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// End Node
+								Entity endNode = edgeComponent.GetEndNode();
+								ImGui::Text("End Node");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("EndNode");
+
+								if (ImGui::DragInt("##EndNode", reinterpret_cast<int*>(&endNode), 1.0f, 0, MAX_ENTITIES)) {
+									edgeComponent.SetEndNode(endNode);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+								// Edge Cost
+								float cost = edgeComponent.GetCost();
+								ImGui::Text("Cost");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(150.0f);
+								ImGui::PushID("EdgeCost");
+
+								if (ImGui::DragFloat("##EdgeCost", &cost, 0.1f, 0.0f)) {
+									edgeComponent.SetCost(cost);
+									g_Coordinator.GetSystem<PathfindingSystem>()->ResetPathfinding();
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+							}
+						}
+						else if (className == "FontComponent") {
+							if (ImGui::CollapsingHeader("Font", ImGuiTreeNodeFlags_None))
+							{
+								// Grab the FontComponent from the selected entity
+								auto& fontComponent = g_Coordinator.GetComponent<FontComponent>(g_SelectedEntity);
+								Entity entity = g_SelectedEntity; // for lambda captures
+
+								// family
+								ImGui::Text("Family");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Family");
+
+								// Get the list of font names from the resource manager
+								std::vector<std::string> fontNames = g_ResourceManager.GetFontNames();
+
+								// Get the current family and find the index of it in fontNames
+								std::string currentFamily = fontComponent.get_family();
+								int currentIndex = -1;
+
+								// Find the index of the current family in the list
+								for (int i = 0; i < fontNames.size(); ++i) {
+									if (fontNames[i] == currentFamily) {
+										currentIndex = i;
+										break;
+									}
+								}
+
+								// If not found, set to 0 (default to first font)
+								if (currentIndex == -1 && !fontNames.empty()) {
+									currentIndex = 0;
+								}
+
+								// Convert the font names to a C-array of const char*
+								std::vector<const char*> fontNamesCStr;
+								for (const auto& name : fontNames) {
+									fontNamesCStr.push_back(name.c_str());
+								}
+
+								// Display the dropdown (combo box)
+								if (ImGui::Combo("##Family", &currentIndex, fontNamesCStr.data(), (int)(fontNamesCStr.size()))) {
+									// Update the family when a new font is selected
+									if (currentIndex >= 0 && currentIndex < fontNames.size()) {
+										fontComponent.set_family(fontNames[currentIndex]);
+									}
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+
+
+
+								// position
+								glm::vec2 position = fontComponent.get_pos();
+								ImGui::Text("Position");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Position");
+								if (ImGui::DragFloat2("##Position", &position.x, 0.1f))
+								{
+									fontComponent.set_pos(position);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								// scale_x and scale_y
+								glm::vec2 scale = fontComponent.get_scale();
+								ImGui::Text("Scale");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Scale");
+								if (ImGui::DragFloat2("##Scale", &scale.x, 0.1f))
+								{
+									fontComponent.set_scale(scale);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								
+								// text
+								char text[128]{};
+								strcpy_s(text, fontComponent.get_text().c_str());
+								ImGui::Text("Text");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Text");
+								if (ImGui::InputText("##Text", text, 128))
+								{
+									fontComponent.set_text(text);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+								// color
+								glm::vec3 color = fontComponent.get_color();
+								ImGui::Text("Color");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Color");
+								if (ImGui::ColorEdit3("##Color", &color.x))
+								{
+									fontComponent.set_color(color);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
+>>>>>>> main
+
+								// layer
+								float layer = fontComponent.get_layer();
+								ImGui::Text("Layer");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Layer: ");
+								// display layer number
+								ImGui::Text("Layer: %f", layer);
+								ImGui::SameLine();
+								//move forward or backward button
+								if (ImGui::Button("Move Forward"))
+								{
+									fontComponent.set_layer(fontComponent.get_layer() - 0.01f);
+								}
+								ImGui::SameLine();
+								if (ImGui::Button("Move Backward"))
+								{
+									fontComponent.set_layer(fontComponent.get_layer() + 0.01f);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
 
 							}
 						}
@@ -3908,8 +4540,6 @@ void ImGuiEditor::InspectorWindow()
 
 					materialInfo.materialAlpha = MatAlphacurrent_idx;
 				}
-
-
 
 
 				ImGui::Unindent(40);
@@ -4623,43 +5253,108 @@ void ImGuiEditor::Settings()
 {
 	ImGui::Begin("Settings");
 	{
-		ImGui::SeparatorText("Configurations");
 
-		// Window Size, Frame Rate, Frame Count, Camera Position (future)
-		ImGui::Text("Window Size: %d x %d", g_Window->GetWindowWidth(), g_Window->GetWindowHeight());
-		ImGui::Text("Frame Rate: %f", g_Window->GetFPS());
-		ImGui::Text("Frame Count: %d", g_Core->m_CurrNumSteps);
 
-		// light position
-		ImGui::PushItemWidth(250.0f);
-		ImGui::Text("LightPos"); ImGui::SameLine();
 
-		// Fetch the current light position from the Graphics System
-		glm::vec3 lightPos = g_Coordinator.GetSystem<GraphicsSystem>()->GetLightPos();
 
-		if (ImGui::DragFloat3("##Light Pos", &lightPos.x, 0.1f))
-		{
-			g_Coordinator.GetSystem<GraphicsSystem>()->SetLightPos(lightPos);
+		if (ImGui::BeginTabBar("Controls")) {
+			if (ImGui::BeginTabItem("Editor Properties")) {
+
+				ImGui::SeparatorText("Configurations");
+
+				// Window Size, Frame Rate, Frame Count, Camera Position (future)
+				ImGui::Text("Window Size: %d x %d", g_Window->GetWindowWidth(), g_Window->GetWindowHeight());
+				ImGui::Text("Frame Rate: %f", g_Window->GetFPS());
+				ImGui::Text("Frame Count: %d", g_Core->m_CurrNumSteps);
+
+
+
+				ImGui::PushItemWidth(250.0f);
+				ImGui::Spacing();
+
+				ImGui::SeparatorText("System DT (% of Total Game Loop)");
+
+				//ImGui::Text("Graphics DT: %f", ((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100));
+				PlotSystemDT("Physics DT", static_cast<float>((g_Core->m_PhysicsDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
+				PlotSystemDT("GameLogic DT", static_cast<float>((g_Core->m_LogicDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
+				PlotSystemDT("Graphics DT", static_cast<float>((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
+
+				ImGui::EndTabItem();
+			}
+
+			if (ImGui::BeginTabItem("Light")) {
+
+				ImGui::SeparatorText("Light Configurations");
+
+				ImGui::Text("Light On"); ImGui::SameLine(150.0f);
+				ImGui::Checkbox("##Light On", &GraphicsSystem::lightOn);
+				if (GraphicsSystem::lightOn)
+				{
+					GraphicsSystem::lightOn = true;
+				}
+				else
+				{
+					GraphicsSystem::lightOn = false;
+				}
+
+				// light position
+				ImGui::PushItemWidth(250.0f);
+				
+
+				ImGui::Text("LightPos"); ImGui::SameLine(150.0f);
+
+				// Fetch the current light position from the Graphics System
+				glm::vec3 lightPos = g_Coordinator.GetSystem<GraphicsSystem>()->GetLightPos();
+
+				if (ImGui::DragFloat3("##Light Pos", &lightPos.x, 0.1f))
+				{
+					g_Coordinator.GetSystem<GraphicsSystem>()->SetLightPos(lightPos);
+				}
+
+
+
+				ImGui::EndTabItem();
+			}
+			if (ImGui::BeginTabItem("Gamma")) {
+				// Juuuu
+
+				ImGui::SeparatorText("Gamma Configurations");
+
+				ImGui::PushItemWidth(250.0f);
+
+
+
+				static float gammaValue = 0; // Index for the selected item
+				// ImGui Controls
+				static bool defaultGamma = true; // Variable to hold the state
+
+				ImGui::Text("Default Gamma"); ImGui::SameLine(150.0f);
+
+				ImGui::Checkbox("##Default Gamma", &defaultGamma);
+
+
+				ImGui::Text("Gamma Value"); ImGui::SameLine(150.0f);
+
+				if (ImGui::SliderFloat("##GammaSlidr", &gammaValue, 1.0f, 3.0f) || defaultGamma)
+				{
+					if (defaultGamma)
+						gammaValue = 2.2f;
+
+					GraphicsSystem::gammaValue = gammaValue;
+				}
+
+
+
+				ImGui::EndTabItem();
+			}
+			//if (ImGui::BeginTabItem("Tab 3")) {
+			//	ImGui::Text("This is content for Tab 3.");
+			//	ImGui::EndTabItem();
+			//}
+			ImGui::EndTabBar();
 		}
 
-		ImGui::Checkbox("Light On", &GraphicsSystem::lightOn);
-		if (GraphicsSystem::lightOn)
-		{
-			GraphicsSystem::lightOn = true;
-		}
-		else
-		{
-			GraphicsSystem::lightOn = false;
-		}
 
-		ImGui::Spacing();
-
-		ImGui::SeparatorText("System DT (% of Total Game Loop)");
-
-		//ImGui::Text("Graphics DT: %f", ((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100));
-		PlotSystemDT("Physics DT", static_cast<float>((g_Core->m_PhysicsDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
-		PlotSystemDT("GameLogic DT", static_cast<float>((g_Core->m_LogicDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
-		PlotSystemDT("Graphics DT", static_cast<float>((g_Core->m_GraphicsDT / g_Core->m_ElapsedDT) * 100), static_cast<float>(g_Core->m_ElapsedDT));
 	}
 
 	ImGui::End();

@@ -91,6 +91,12 @@ public:
         }
     }
 
+	void DrawWireFrame()
+	{
+		for (unsigned int i = 0; i < meshes.size(); i++)
+			meshes[i].DrawWireFrame();
+	}
+
     void DrawMaterial(OpenGLShader& shader)
     {
         for (unsigned int i = 0; i < meshes.size(); i++)
@@ -98,6 +104,13 @@ public:
 
     }
 
+    void DrawForShadow() const
+    {
+        for (const Mesh& mesh : meshes)
+        {
+            mesh.DrawForShadow();
+        }
+    }
 
     // draw with line
     void DrawLine()

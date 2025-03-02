@@ -25,8 +25,8 @@ private:
 	bool Check1{ false }, Check2{ false }, Check3{ false }, Check4{ false };
 	bool playAudio{ false };
 
-	double clTimer = 0.0;
-	double clLimit = 2.0;
+	//double clTimer = 0.0;
+	//double clLimit = 2.0;
 
 	bool corgiText{ false };
 

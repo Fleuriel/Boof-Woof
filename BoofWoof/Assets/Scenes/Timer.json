@@ -1,56 +1,61 @@
 {
-    "SceneGUID": "07e8fd08-6f66-4c91-af66-55336680f56f",
+    "SceneGUID": "8e4d2590-a729-4aed-a859-14a0a241591c",
     "Entities": [
         {
             "MetadataComponent": {
-                "EntityName": "Group",
+                "EntityName": "BackCover",
                 "EntityID": 0
             },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.800000011920929,
-                    "y": 0.75,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 0.30000001192092898,
-                    "y": 0.30000001192092898,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
+            "UIComponent": {
+                "TextureName": "BlackScreen",
+                "PositionX": 0.8299999833106995,
+                "PositionY": 0.800000011920929,
+                "ScaleX": 0.11999999731779099,
+                "ScaleY": 0.11999999731779099,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 0.5,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Timer",
+                "EntityID": 1
             },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "Texture": "Group53",
-                "FollowCamera": false
+            "FontComponent": {
+                "Family": "arial",
+                "PositionX": 0.7480000257492065,
+                "PositionY": 0.75,
+                "ScaleX": 1.7999999523162842,
+                "ScaleY": 2.799999952316284,
+                "ColorR": 1.0,
+                "ColorG": 1.0,
+                "ColorB": 1.0,
+                "Text": "3:00",
+                "Layer": 0.48999983072280886
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Minus10",
+                "EntityID": 2
             },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader2D",
-                "shaderIdx": 4,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "Group53",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
+            "FontComponent": {
+                "Family": "arial",
+                "PositionX": 0.8999999761581421,
+                "PositionY": 0.6980000138282776,
+                "ScaleX": 0.0,
+                "ScaleY": 0.0,
+                "ColorR": 1.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "-10",
+                "Layer": 0.0
             }
         }
     ]

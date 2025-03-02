@@ -12,28 +12,13 @@ Serialization serialText;
 
 void ChangeText::OnInitialize()
 {
-	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingText.json");
-	storage = serialText.GetStored();
-
-	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
-
-	for (auto entity : entities)
-	{
-		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
-		{
-			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "StartingText")
-			{
-				m_Text = entity;
-				break;
-			}
-		}
-	}
-
+	g_DialogueText.OnInitialize();
 	shutted = false;
 }
 
 void ChangeText::OnUpdate(double deltaTime)
 {
+<<<<<<< HEAD
 	cdTimer += deltaTime;
 
 	if (!g_Coordinator.HaveComponent<GraphicsComponent>(m_Text)) return;
@@ -65,24 +50,13 @@ void ChangeText::OnUpdate(double deltaTime)
 	{
 		OnShutdown();
 	}
+=======
+	g_DialogueText.OnUpdate(deltaTime);
+>>>>>>> main
 }
 
 void ChangeText::OnShutdown()
 {
-	// Just remove whatever we had stored from the current alive entity and destroy them
-	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
-
-	for (auto i = entities.begin(); i != entities.end(); i++)
-	{
-		for (auto k = storage.begin(); k != storage.end(); k++)
-		{
-			if (*k == *i)
-			{
-				g_Coordinator.DestroyEntity(*i);
-			}
-		}
-	}
-
 	// Just for StartingRoom.h
 	if (!g_Checklist.shutted)
 	{
@@ -95,3 +69,12 @@ void ChangeText::OnShutdown()
 
 	shutted = true;
 }
+<<<<<<< HEAD
+=======
+
+void ChangeText::Reset()
+{
+	shutted = false;
+	startingRoomOnly = false;
+}
+>>>>>>> main

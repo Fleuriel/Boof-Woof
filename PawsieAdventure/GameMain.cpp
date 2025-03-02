@@ -11,6 +11,12 @@
 #include "Game Levels/StartingRoom.h"
 #include "Game Levels/TimeRush.h"
 #include "Game Levels/MainHall.h"
+<<<<<<< HEAD
+=======
+#include "Game Levels/LoadingLevel.h"
+#include "Game Levels/CutsceneEnd.h"
+#include "Game Levels/TYVM.h"
+>>>>>>> main
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 
 EngineCore* g_Core = nullptr;
@@ -24,6 +30,12 @@ void InitializeLevels()
     g_LevelManager.RegisterLevel("StartingRoom", new StartingRoom());
     g_LevelManager.RegisterLevel("TimeRush", new TimeRush());
     g_LevelManager.RegisterLevel("MainHall", new MainHall());
+<<<<<<< HEAD
+=======
+    g_LevelManager.RegisterLevel("LoadingLevel", new LoadingLevel());
+    g_LevelManager.RegisterLevel("CutsceneEnd", new CutsceneEnd());
+	g_LevelManager.RegisterLevel("TYVM", new TYVM());
+>>>>>>> main
 
     // Set the initial level
     g_LevelManager.Initialize("Splashscreen");
@@ -44,6 +56,7 @@ int RunGame()
 
     g_Core = new EngineCore();
     g_Core->OnInit();
+    g_Coordinator.GetSystem<GraphicsSystem>()->lightOn = true;
 
 #ifndef _DEBUG
     // Only toggle full screen in release mode

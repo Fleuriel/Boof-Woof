@@ -10,12 +10,15 @@
 #include "../Utilities/Components/CameraComponent.hpp"
 #include "../Core/EngineCore.h"
 #include "../Core/AssetManager/FilePaths.h"
+#include "../GSM/GameStateMachine.h"
+#include "../Utilities/ForGame/TimerTR/TimerTR.h"
+#include "../Utilities/ForGame/UI/UI.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
 #include <Jolt/Physics/Body/Body.h>
 
-class Script_to_Engine : public engine_interface, public input_interface, public audio_interface
+class Script_to_Engine : public engine_interface, public input_interface, public audio_interface, public physics_interface
 {
 public:
 
@@ -51,6 +54,33 @@ public:
 		 g_Audio.PlayFile(pSoundName);
 	}
 
+	virtual void PlaySoundById(const char* soundId) override
+	{
+		std::string fullPath = std::string(FILEPATH_ASSET_AUDIO) + "/" + soundId;
+		g_Audio.PlayFile(fullPath.c_str());
+	}
+
+	virtual void PlaySoundByFile(const char* soundId, bool loop = false, const std::string& soundType = "SFX") override
+	{
+		std::string fullPath = std::string(FILEPATH_ASSET_AUDIO) + "/" + soundId;
+		g_Audio.PlayFileOnNewChannel(fullPath, loop, soundType);
+	}
+
+
+
+	// END OF AUDIO INTERFACE
+
+	// PHYSICS INTERFACE
+	virtual physics_interface& getPhysicsSystem() override
+	{
+		return *this;
+	}
+
+	virtual void RemoveBody(Entity entity) override
+	{
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
+	}
+
 	// ENGINE INTERFACE
 
 	virtual void DestroyEntity(Entity entity) override
@@ -72,6 +102,16 @@ public:
 	virtual void SetPosition(Entity entity, glm::vec3 position) override
 	{
 		g_Coordinator.GetComponent<TransformComponent>(entity).SetPosition(position);
+	}
+
+	virtual void SetRotation(Entity entity, glm::vec3 rotation) override
+	{
+		g_Coordinator.GetComponent<TransformComponent>(entity).SetRotation(rotation);
+	}
+
+	virtual void SetRotationYawFromVelocity(Entity entity, glm::vec3 velocity) override
+	{
+		g_Coordinator.GetComponent<TransformComponent>(entity).SetRotationYawFromVelocity(velocity);
 	}
 
 	virtual bool HaveTransformComponent(Entity entity) override
@@ -116,6 +156,11 @@ public:
 		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetLastCollidedObjectName().c_str();
 	}
 
+	virtual void SetCollidingEntityName(Entity entity) override
+	{
+		g_Coordinator.GetComponent<CollisionComponent>(entity).SetLastCollidedObjectName("Floor");
+	}
+
 	virtual void SetVelocity(Entity entity, glm::vec3 inputVelocity) override
 	{
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
@@ -155,6 +200,9 @@ public:
 		}
 	}
 
+
+
+
 	virtual double GetDeltaTime() override
 	{
 		return g_Core ? g_Core->m_DeltaTime : 0.0;
@@ -189,13 +237,102 @@ public:
 		return g_Coordinator.GetComponent<CameraComponent>(entity).GetCameraUp();
 	}
 
-	virtual void PlaySoundById(const char* soundId) override
+	// Pathfinding Component Functions
+	virtual bool HavePathfindingComponent(Entity entity) override {
+		bool hasComponent = g_Coordinator.HaveComponent<PathfindingComponent>(entity);
+		//std::cout << "[Engine] Checking PathfindingComponent for Entity " << entity << ": "
+		//	<< (hasComponent ? "Exists" : "Does Not Exist") << std::endl;
+		return hasComponent;
+	}
+
+	virtual std::vector<glm::vec3> GetPath(Entity entity) override {
+		if (HavePathfindingComponent(entity)) {
+			auto& path = g_Coordinator.GetComponent<PathfindingComponent>(entity).GetPath();
+			std::cout << "[Engine] Retrieved path of length " << path.size() << " for Entity " << entity << std::endl;
+			return path;
+		}
+		std::cout << "[Engine] No path found for Entity " << entity << std::endl;
+		return {};
+	}
+
+	virtual void SetStartNode(Entity entity, Entity node) override {
+		if (HavePathfindingComponent(entity)) {
+			g_Coordinator.GetComponent<PathfindingComponent>(entity).SetStartNode(node);
+			std::cout << "[Engine] Set start node for Entity " << entity << " to " << node << std::endl;
+		}
+	}
+
+	virtual Entity GetStartNode(Entity entity) override {
+		if (HavePathfindingComponent(entity)) {
+			Entity startNode = g_Coordinator.GetComponent<PathfindingComponent>(entity).GetStartNode();
+			//std::cout << "[Engine] Retrieved start node for Entity " << entity << ": " << startNode << std::endl;
+			return startNode;
+		}
+		std::cout << "[Engine] No start node found for Entity " << entity << std::endl;
+		return 0;
+	}
+
+	virtual void SetGoalNode(Entity entity, Entity node) override {
+		if (HavePathfindingComponent(entity)) {
+			g_Coordinator.GetComponent<PathfindingComponent>(entity).SetGoalNode(node);
+			std::cout << "[Engine] Set goal node for Entity " << entity << " to " << node << std::endl;
+		}
+	}
+
+	virtual Entity GetGoalNode(Entity entity) override {
+		if (HavePathfindingComponent(entity)) {
+			Entity goalNode = g_Coordinator.GetComponent<PathfindingComponent>(entity).GetGoalNode();
+			//std::cout << "[Engine] Retrieved goal node for Entity " << entity << ": " << goalNode << std::endl;
+			return goalNode;
+		}
+		std::cout << "[Engine] No goal node found for Entity " << entity << std::endl;
+		return 0;
+	}
+
+	virtual void SetBuilt(Entity entity, bool built) override {
+		g_Coordinator.GetComponent<PathfindingComponent>(entity).SetBuilt(built);
+	}
+
+	virtual Entity GetPlayerEntity() override
 	{
-		std::string fullPath = std::string(FILEPATH_ASSET_AUDIO) + "/" + soundId;
-		g_Audio.PlayFile(fullPath.c_str());
+		for (auto entity : g_Coordinator.GetAliveEntitiesSet())
+		{
+			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+			{
+				const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+				if (metadata.GetName() == "Player")
+				{
+					return entity;
+				}
+			}
+		}
+		return MAX_ENTITIES; // Return invalid entity if no player is found
 	}
 
 
+	virtual bool IsGamePaused() override
+	{
+		return g_IsPaused;
+	}
+
+	virtual double GetTimerTiming() override {
+		return g_TimerTR.timer;
+	}
+
+	virtual double SetTimerTiming(double timing) override 
+	{
+		return g_TimerTR.timer = timing;
+	}
+
+	virtual void SetTouched(bool touch) override
+	{
+		g_TimerTR.touched = touch;
+	}
+
+	virtual bool GetExhausted() override 
+	{
+		return g_UI.isExhausted;
+	}
 };
 
 #endif // !SCRIPT_TO_ENGINE_H

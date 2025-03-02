@@ -1,19 +1,61 @@
 {
-    "SceneGUID": "403b8d12-74b6-4e95-88e9-852926f54288",
+    "SceneGUID": "c2246b1d-31c7-42f7-afac-314550dc21dc",
     "Entities": [
         {
             "MetadataComponent": {
                 "EntityName": "Title",
                 "EntityID": 0
             },
+            "UIComponent": {
+                "TextureName": "PawsieAdventure",
+                "PositionX": 0.029999999329447748,
+                "PositionY": 0.5,
+                "ScaleX": 0.6000000238418579,
+                "ScaleY": 0.30000001192092898,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "StartGame",
+                "EntityID": 1
+            },
+            "UIComponent": {
+                "TextureName": "StartGame",
+                "PositionX": 0.0,
+                "PositionY": -0.25,
+                "ScaleX": 0.30000001192092898,
+                "ScaleY": 0.15000000596046449,
+                "Layer": 0.5,
+                "Selectable": true,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "MainMenuBGM",
+                "EntityID": 2
+            },
             "TransformComponent": {
                 "Position": {
                     "x": 0.0,
-                    "y": 0.4000000059604645,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Scale": {
-                    "x": 1.5,
+                    "x": 1.0,
                     "y": 1.0,
                     "z": 1.0
                 },
@@ -21,76 +63,134 @@
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "FollowCamera": false
-            },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader2D",
-                "shaderIdx": 4,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "PawsieAdventure",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/mainmenu musicBGM.wav",
+                "Volume": 1.0,
+                "ShouldLoop": true
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "SpaceToStart",
-                "EntityID": 1
+                "EntityName": "MenuButtonClick",
+                "EntityID": 3
             },
             "TransformComponent": {
                 "Position": {
                     "x": 0.0,
-                    "y": -0.4000000059604645,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Scale": {
-                    "x": 0.5,
-                    "y": 0.5,
+                    "x": 1.0,
+                    "y": 1.0,
                     "z": 1.0
                 },
                 "Rotation": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
             },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "FollowCamera": false
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/(MenuButtonClick).wav",
+                "Volume": 1.0,
+                "ShouldLoop": false
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "X",
+                "EntityID": 4
             },
-            "MaterialComponent": {
-                "name": "",
-                "shader": "Shader2D",
-                "shaderIdx": 4,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "SpaceToStart",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
+            "UIComponent": {
+                "TextureName": "ExitGameX",
+                "PositionX": 0.9200000166893005,
+                "PositionY": 0.8700000047683716,
+                "ScaleX": 0.05000000074505806,
+                "ScaleY": 0.07999999821186066,
+                "Layer": 0.5,
+                "Selectable": true,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "HTP",
+                "EntityID": 5
+            },
+            "UIComponent": {
+                "TextureName": "HTP",
+                "PositionX": 0.0,
+                "PositionY": -0.6499999761581421,
+                "ScaleX": 0.30000001192092898,
+                "ScaleY": 0.15000000596046449,
+                "Layer": 0.5,
+                "Selectable": true,
+                "Opcaity": 0.800000011920929,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Cog",
+                "EntityID": 6
+            },
+            "UIComponent": {
+                "TextureName": "SettingsCog",
+                "PositionX": 0.800000011920929,
+                "PositionY": 0.8700000047683716,
+                "ScaleX": 0.05000000074505806,
+                "ScaleY": 0.07999999821186066,
+                "Layer": 0.5,
+                "Selectable": true,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PawPrint",
+                "EntityID": 7
+            },
+            "UIComponent": {
+                "TextureName": "PawPrint",
+                "PositionX": 0.5,
+                "PositionY": 0.6000000238418579,
+                "ScaleX": 0.07999999821186066,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         }
     ]

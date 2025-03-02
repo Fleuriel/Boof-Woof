@@ -30,6 +30,7 @@
     <ClCompile Include="Utilities\Components\MetaData.cpp" />
     <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
+    <ClCompile Include="Core\Animation\AnimationManager.cpp" />
     <ClCompile Include="Utilities\Components\ParticleComponent.cpp" />
     <ClCompile Include="Core\AssetManager\Descriptor.cpp" />
     <ClCompile Include="Utilities\Components\AnimationComponent.cpp" />
@@ -38,9 +39,14 @@
     <ClCompile Include="Utilities\Components\HierarchyComponent.cpp" />
     <ClCompile Include="Utilities\Components\LightComponent.cpp" />
     <ClCompile Include="Core\AssetManager\FilePaths.cpp" />
+    <ClCompile Include="Core\Pathfinding\PathfindingSystem.cpp" />
     <ClCompile Include="Utilities\Components\UIComponent.cpp" />
     <ClCompile Include="Core\UI\UISystem.cpp" />
-    <ClCompile Include="Core\Animation\Animation.cpp" />
+    <ClCompile Include="Core\Serialization\SerializationAsync.cpp" />
+    <ClCompile Include="Utilities\Components\FontComponent.cpp" />
+    <ClCompile Include="Utilities\ForGame\TimerTR\TimerTR.cpp" />
+    <ClCompile Include="Utilities\Components\NodeComponent.cpp" />
+    <ClCompile Include="Utilities\ForGame\UI\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -94,9 +100,17 @@
     <ClInclude Include="Utilities\Components\HierarchyComponent.hpp" />
     <ClInclude Include="Core\Graphics\TransformSystem.hpp" />
     <ClInclude Include="Utilities\Components\LightComponent.hpp" />
+    <ClInclude Include="Core\Pathfinding\PathfindingSystem.h" />
     <ClInclude Include="Utilities\Components\UIComponent.hpp" />
+    <ClInclude Include="Utilities\Components\PathfindingComponent.hpp" />
     <ClInclude Include="Core\UI\UISystem.h" />
-    <ClInclude Include="Core\Animation\Animation.h" />
+    <ClInclude Include="Core\SceneManager\SceneData.h" />
+    <ClInclude Include="Core\Serialization\SerializationAsync.h" />
+    <ClInclude Include="Utilities\Components\FontComponent.hpp" />
+    <ClInclude Include="Utilities\Components\EdgeComponent.hpp" />
+    <ClInclude Include="Utilities\Components\NodeComponent.hpp" />
+    <ClInclude Include="Utilities\ForGame\TimerTR\TimerTR.h" />
+    <ClInclude Include="Utilities\ForGame\UI\UI.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />
@@ -109,7 +123,5 @@
     <None Include="Assets\Shaders\Font.vert" />
     <None Include="Assets\Shaders\instanced.frag" />
     <None Include="Assets\Shaders\instanced.vert" />
-    <None Include="Assets\Shaders\ShaderAnimation.frag" />
-    <None Include="Assets\Shaders\ShaderAnimation.vert" />
   </ItemGroup>
 </Project>

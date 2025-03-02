@@ -1,4 +1,4 @@
-/**************************************************************************
+﻿/**************************************************************************
  * @file AudioSystem.cpp
  * @author 	Liu Xujie
  * @param DP email: l.xujie@digipen.edu [2203183]
@@ -10,8 +10,12 @@
  * This file contains the definitions of member functions of AudioSystem 
  * Class
  *************************************************************************/
-#include "pch.h"
 #include "AudioSystem.h"
+#include "pch.h"
+#include <EngineCore.h>
+#include "../Core/AssetManager/FilePaths.h"
+
+
 
 #define UNREFERENCED_PARAMETER(P)          (P)
 
@@ -59,6 +63,10 @@ static const char* FMODErrorToString(FMOD_RESULT result) {
 AudioSystem::AudioSystem() {
     FMOD::System_Create(&system);  // Initialize FMOD system
     system->init(512, FMOD_INIT_NORMAL, nullptr);  // Initialize system with 512 channels
+
+    // Enable 3D listener settings
+    system->set3DSettings(1.0f, 1.0f, 1.0f);  // Doppler scale, distance factor, rolloff scale
+    system->set3DNumListeners(1);  // One listener (usually the player or camera)
 }
 
 /**************************************************************************
@@ -76,28 +84,32 @@ AudioSystem::AudioSystem() {
  * @return None
  *************************************************************************/
 AudioSystem::~AudioSystem() {
-    // Stop all channels first
+    // 1. Stop all channels.
     for (auto& [entity, channels] : channelMap) {
-        if (!channels.empty()) {  // Check if the vector is not empty
-            for (auto* channel : channels) {
-                if (channel) {
-                    channel->stop();  // Stop playing sounds
-                }
+        for (auto* channel : channels) {
+            if (channel) {
+                channel->stop();
             }
         }
     }
-    channelMap.clear();  // Clear the channel map
+    channelMap.clear();
 
-    // Release all cached sounds
-    for (auto& [filePath, sound] : soundCache) {
-        sound.reset();  // Reset the shared_ptr to release FMOD::Sound
-    }
-    soundCache.clear();  // Clear the sound cache to avoid dangling references
+    // 2. Clear any other FMOD–dependent containers.
+    additionalChannels.clear();
+    channelToFileMap.clear();
+    audioMap.clear();
+    volumeMap.clear();
 
-    // Close and release FMOD system
+    // 3. Release all cached sounds.
+    // Clearing the container causes each shared_ptr's destructor to run,
+    // which will call the custom deleter (s->release()) while the FMOD system is still valid.
+    soundCache.clear();
+
+    // 4. Now safely close and release the FMOD system.
     if (system) {
         system->close();
         system->release();
+        system = nullptr;
     }
 }
 
@@ -122,33 +134,52 @@ AudioSystem::~AudioSystem() {
  * @return None
  *************************************************************************/
 void AudioSystem::AddAudioComponent(Entity entity, const AudioComponent& audioComp) {
-    const std::string& filePath = audioComp.GetFilePath();
+    // Get the original file path from the audio component.
+    const std::string& originalFilePath = audioComp.GetFilePath();
 
-    // Check if the sound has already been loaded and cached
-    if (soundCache.find(filePath) != soundCache.end()) {
-        audioMap[entity] = soundCache[filePath];  // Reuse the sound from the cache
-        std::cout << "Reusing sound for entity " << entity << " from file: " << filePath << std::endl;
+    // --- Process the file path to use FILEPATH_ASSET_AUDIO ---
+    std::string finalFilePath = originalFilePath;
+    std::string key = "Assets/Audio";
+    size_t pos = originalFilePath.find(key);
+    if (pos != std::string::npos) {
+        // Calculate the position after "Assets/Audio"
+        size_t offset = pos + key.length();
+        // Skip an extra slash if present.
+        if (offset < originalFilePath.size() &&
+            (originalFilePath[offset] == '/' || originalFilePath[offset] == '\\')) {
+            offset++;
+        }
+        // Extract the relative part (e.g., "mainmenu musicBGM.wav")
+        std::string relativePath = originalFilePath.substr(offset);
+        // Build the final file path by appending the relative path to FILEPATH_ASSET_AUDIO.
+        finalFilePath = FILEPATH_ASSET_AUDIO + "\\" + relativePath;
+    }
+
+    // --- Check if the sound has already been loaded and cached ---
+    if (soundCache.find(finalFilePath) != soundCache.end()) {
+        audioMap[entity] = soundCache[finalFilePath];  // Reuse the sound from the cache
+        std::cout << "Reusing sound for entity " << entity << " from file: " << finalFilePath << std::endl;
     }
     else {
         // Load the sound if it's not already in the cache
-        FMOD::Sound* rawSound = nullptr;  // Use a raw pointer initially
-        FMOD_RESULT result = system->createSound(filePath.c_str(), FMOD_DEFAULT, nullptr, &rawSound);
+        FMOD::Sound* rawSound = nullptr;
+        FMOD_RESULT result = system->createSound(finalFilePath.c_str(), FMOD_DEFAULT, nullptr, &rawSound);
 
         if (result != FMOD_OK) {
-            std::cerr << "Error loading sound for entity " << entity << " from file: " << filePath << std::endl;
+            std::cerr << "Error loading sound for entity " << entity << " from file: " << finalFilePath << std::endl;
             return;
         }
 
-        // Wrap the raw FMOD::Sound* in a shared_ptr with a custom deleter
-        std::shared_ptr<FMOD::Sound> sound(rawSound, [](FMOD::Sound* s) { (void)s; });
+        // Wrap the raw FMOD::Sound* in a shared_ptr with a custom deleter that calls release()
+        std::shared_ptr<FMOD::Sound> sound(rawSound, [](FMOD::Sound* s) { s->release(); });
 
         // Store the sound in both the entity's audio map and the cache
         audioMap[entity] = sound;
-        soundCache[filePath] = sound;  // Cache the sound using shared_ptr to avoid reloading it
-        std::cout << "Loaded and cached sound for entity " << entity << " from file: " << filePath << std::endl;
+        soundCache[finalFilePath] = sound;  // Cache the sound to avoid reloading it later
+        std::cout << "Loaded and cached sound for entity " << entity << " from file: " << finalFilePath << std::endl;
     }
 
-    // Check if the current loop mode is the desired mode before setting it
+    // --- Check and update the loop mode if needed ---
     FMOD_MODE currentMode;
     audioMap[entity]->getMode(&currentMode);  // Get the current mode
 
@@ -157,13 +188,12 @@ void AudioSystem::AddAudioComponent(Entity entity, const AudioComponent& audioCo
     // Only set the mode if it's different from the current mode
     if (currentMode != desiredMode) {
         audioMap[entity]->setMode(desiredMode);  // Set loop mode based on AudioComponent setting
-        std::cout << "Updated loop mode for sound: " << filePath << std::endl;
+        std::cout << "Updated loop mode for sound: " << finalFilePath << std::endl;
     }
 
-    // Store the volume for the entity
+    // --- Store the volume for the entity ---
     volumeMap[entity] = audioComp.GetVolume();
 }
-
 
 
 /**************************************************************************
@@ -474,7 +504,7 @@ void AudioSystem::PlayFile(const std::string& filePath) {
 
     // Check if the sound is already cached
     if (soundCache.find(filePath) == soundCache.end()) {
-        // Load the sound as it�s not already in the cache
+        // Load the sound as it’s not already in the cache
         FMOD::Sound* sound = nullptr;
         FMOD_RESULT result = system->createSound(filePath.c_str(), FMOD_DEFAULT, nullptr, &sound);
 
@@ -617,31 +647,20 @@ void AudioSystem::StopBGM() {
 }
 
 
-
-void AudioSystem::PlayFileOnNewChannel(const std::string& filePath, bool loop)
-{
-    // Check if the sound is already cached
+void AudioSystem::PlayFileOnNewChannel(const std::string& filePath, bool loop, const std::string& soundType) {
     if (soundCache.find(filePath) == soundCache.end()) {
-        // Load the sound if it's not already cached
         FMOD::Sound* sound = nullptr;
-
-        // Use FMOD_LOOP_NORMAL if looping is enabled
         FMOD_MODE mode = loop ? FMOD_LOOP_NORMAL : FMOD_DEFAULT;
 
         FMOD_RESULT result = system->createSound(filePath.c_str(), mode, nullptr, &sound);
-
         if (result != FMOD_OK) {
             std::cerr << "Error loading sound from file: " << filePath << std::endl;
             return;
         }
 
-        // Cache the sound
-        soundCache[filePath] = std::shared_ptr<FMOD::Sound>(sound, [](FMOD::Sound* s) {
-            s->release(); // Release the sound when the shared_ptr is destroyed
-            });
+        soundCache[filePath] = std::shared_ptr<FMOD::Sound>(sound, [](FMOD::Sound* s) { s->release(); });
     }
 
-    // Play the cached sound on a new channel
     FMOD::Channel* newChannel = nullptr;
     FMOD_RESULT result = system->playSound(soundCache[filePath].get(), nullptr, false, &newChannel);
     if (result != FMOD_OK || !newChannel) {
@@ -649,33 +668,347 @@ void AudioSystem::PlayFileOnNewChannel(const std::string& filePath, bool loop)
         return;
     }
 
-    // If the sound should loop, set the loop count to infinite
-    if (loop) {
-        newChannel->setLoopCount(-1); // -1 for infinite looping
+    // Set volume based on sound type
+    if (soundType == "BGM") {
+        newChannel->setVolume(bgmVolume);
+    }
+    else if (soundType == "SFX") {
+        newChannel->setVolume(sfxVolume);
     }
 
-    // Set volume and other settings for the new channel
-    newChannel->setVolume(1.0f); // Set to full volume
+    // Map channel to the file path (instead of sound type)
+    channelToFileMap[newChannel] = filePath;
 
-    // Store the new channel to manage it later if needed
     additionalChannels.push_back(newChannel);
-
-    // Update the FMOD system to process audio
     system->update();
 }
 
 
 void AudioSystem::StopSpecificSound(const std::string& filePath) {
-    UNREFERENCED_PARAMETER(filePath);
-    for (auto it = additionalChannels.begin(); it != additionalChannels.end(); ++it) {
-        if (*it) {
-            bool isPlaying = false;
-            (*it)->isPlaying(&isPlaying);
+    auto it = channelToFileMap.begin();
+    while (it != channelToFileMap.end()) {
+        // Check if the file path matches
+        if (it->second == filePath) {
+            FMOD::Channel* channel = it->first;
 
+            if (channel) {
+                bool isPlaying = false;
+                FMOD_RESULT result = channel->isPlaying(&isPlaying);
+                if (result == FMOD_OK && isPlaying) {
+                    channel->stop(); // Stop the specific sound
+                }
+            }
+
+            // Safely erase the mapping and continue iteration
+            it = channelToFileMap.erase(it);
+        }
+        else {
+            ++it; // Move to the next item
+        }
+    }
+}
+
+
+void AudioSystem::SetBGMVolume(float volume) {
+    bgmVolume = volume;
+
+    // Update 2D BGM sounds
+    for (auto& [channel, filePath] : channelToFileMap) {
+        if (filePath.find("BGM") != std::string::npos) {  // Only update BGM sounds
+            if (channel) {
+                channel->setVolume(bgmVolume);
+            }
+        }
+    }
+
+    // ✅ NEW: Update 3D BGM sounds only
+    for (auto& [entity, channels] : channelMap) {
+        if (entitySoundTypeMap[entity] == "BGM") {  // Only update BGM sounds
+            for (auto* channel : channels) {
+                if (channel) {
+                    channel->setVolume(bgmVolume);
+                }
+            }
+        }
+    }
+
+    std::cout << "BGM volume set to: " << bgmVolume << " (Updated 2D & 3D BGM)\n";
+}
+
+
+void AudioSystem::SetSFXVolume(float volume) {
+    sfxVolume = volume;
+
+    // Update 2D SFX sounds
+    for (auto& [channel, filePath] : channelToFileMap) {
+        if (filePath.find("BGM") == std::string::npos) {  // Only update SFX sounds
+            if (channel) {
+                channel->setVolume(sfxVolume);
+            }
+        }
+    }
+
+    for (auto& [entity, channels] : channelMap) {
+        if (entitySoundTypeMap[entity] == "SFX") {  // Only update SFX sounds
+            for (auto* channel : channels) {
+                if (channel) {
+                    channel->setVolume(sfxVolume);
+                }
+            }
+        }
+    }
+
+    std::cout << "SFX volume set to: " << sfxVolume << " (Updated 2D & 3D SFX)\n";
+}
+
+
+
+
+
+float AudioSystem::GetBGMVolume() const {
+    return bgmVolume;
+}
+
+float AudioSystem::GetSFXVolume() const {
+    return sfxVolume;
+}
+
+void AudioSystem::PlayEntityAudio(Entity entity, const std::string& filePath, bool loop) {
+    // --- Process the filePath to use FILEPATH_ASSET_AUDIO ---
+    // Default to the given filePath
+    std::string finalFilePath = filePath;
+    // Look for the substring "Assets/Audio" (works with either '/' or '\\')
+    std::string key = "Assets/Audio";
+    size_t pos = filePath.find(key);
+    if (pos != std::string::npos) {
+        // Calculate the position right after "Assets/Audio"
+        size_t offset = pos + key.length();
+        // Skip an extra slash if present
+        if (offset < filePath.size() && (filePath[offset] == '/' || filePath[offset] == '\\')) {
+            offset++;
+        }
+        // Extract the relative part (e.g. "mainmenu musicBGM.wav" or "subfolder\\file.wav")
+        std::string relativePath = filePath.substr(offset);
+        // Build the final file path by appending the relative path to FILEPATH_ASSET_AUDIO.
+        // (Using "\\" as the directory separator; adjust as needed for your platform.)
+        finalFilePath = FILEPATH_ASSET_AUDIO + "\\" + relativePath;
+    }
+
+    // --- Existing channel checking logic ---
+    auto it = channelMap.find(entity);
+    if (it != channelMap.end()) {
+        for (auto* channel : it->second) {
+            bool isPlaying = false;
+            channel->isPlaying(&isPlaying);
             if (isPlaying) {
-                (*it)->stop(); 
-                additionalChannels.erase(it); 
-                break;
+                std::cout << "Audio is already playing for entity " << entity << std::endl;
+                return; // Prevent duplicate playback
+            }
+        }
+    }
+
+    // --- Load and cache the sound if not already cached ---
+    if (soundCache.find(finalFilePath) == soundCache.end()) {
+        FMOD::Sound* sound = nullptr;
+        FMOD_MODE mode = loop ? FMOD_LOOP_NORMAL : FMOD_DEFAULT;
+
+        FMOD_RESULT result = system->createSound(finalFilePath.c_str(), mode, nullptr, &sound);
+        if (result != FMOD_OK) {
+            std::cerr << "Error loading sound from file: " << finalFilePath << std::endl;
+            return;
+        }
+
+        // Cache the sound with a custom deleter that calls release() on the FMOD::Sound pointer
+        soundCache[finalFilePath] = std::shared_ptr<FMOD::Sound>(sound, [](FMOD::Sound* s) { s->release(); });
+    }
+
+    // --- Play the cached sound ---
+    FMOD::Channel* newChannel = nullptr;
+    FMOD_RESULT result = system->playSound(soundCache[finalFilePath].get(), nullptr, false, &newChannel);
+    if (result != FMOD_OK || !newChannel) {
+        std::cerr << "Error playing sound on new channel: " << FMODErrorToString(result) << std::endl;
+        return;
+    }
+
+    // Set loop count if needed
+    if (loop) {
+        newChannel->setLoopCount(-1);
+    }
+
+    // Store the channel in the entity's channel map
+    channelMap[entity].push_back(newChannel);
+
+    // Apply the correct volume (BGM or SFX) based on the file name
+    if (finalFilePath.find("BGM") != std::string::npos) {
+        newChannel->setVolume(bgmVolume);
+        std::cout << "Applied BGM volume: " << bgmVolume << "\n";
+    }
+    else {
+        newChannel->setVolume(sfxVolume);
+        std::cout << "Applied SFX volume: " << sfxVolume << "\n";
+    }
+
+    // Store channel mapping for future volume updates
+    channelToFileMap[newChannel] = finalFilePath;
+
+    // Log the channel association
+    std::cout << "Entity " << entity << " now mapped to channel." << std::endl;
+
+    // Update FMOD
+    system->update();
+}
+
+
+
+void AudioSystem::StopEntitySound(Entity entity) {
+    auto it = channelMap.find(entity);
+    if (it != channelMap.end()) {
+        for (auto* channel : it->second) {
+            if (channel) {
+                bool isPlaying = false;
+                channel->isPlaying(&isPlaying);
+
+                if (isPlaying) {
+                    channel->stop();
+                    std::cout << "Stopped audio for entity " << entity << "." << std::endl;
+                }
+            }
+        }
+        channelMap[entity].clear(); // Clear channels after stopping
+    }
+    else {
+        std::cerr << "No active channels found for entity " << entity << std::endl;
+    }
+}
+
+
+void AudioSystem::SetEntityVolume(Entity entity, float volume) {
+    auto it = channelMap.find(entity);
+    if (it != channelMap.end()) {
+        for (auto* channel : it->second) {
+            if (channel) {
+                channel->setVolume(volume);
+                std::cout << "Volume for entity " << entity << " set to: " << volume << std::endl;
+            }
+        }
+    }
+    else {
+        std::cerr << "No active channels found for entity " << entity << std::endl;
+    }
+}
+void AudioSystem::PlayEntity3DAudio(Entity entity, const std::string& filePath, bool loop, const std::string& soundType) {
+    auto it = channelMap.find(entity);
+
+    // Prevent duplicate playback
+    if (it != channelMap.end()) {
+        for (auto* channel : it->second) {
+            bool isPlaying = false;
+            channel->isPlaying(&isPlaying);
+            if (isPlaying) {
+                std::cout << "3D " << soundType << " Audio is already playing for entity " << entity << std::endl;
+                return;
+            }
+        }
+    }
+
+    // Load and cache the sound
+    if (soundCache.find(filePath) == soundCache.end()) {
+        FMOD::Sound* sound = nullptr;
+        FMOD_MODE mode = FMOD_3D | (loop ? FMOD_LOOP_NORMAL : FMOD_DEFAULT);
+
+        FMOD_RESULT result = system->createSound(filePath.c_str(), mode, nullptr, &sound);
+        if (result != FMOD_OK) {
+            std::cerr << "Error loading 3D " << soundType << " sound: " << filePath << " - "
+                << FMODErrorToString(result) << std::endl;
+            return;
+        }
+
+        soundCache[filePath] = std::shared_ptr<FMOD::Sound>(sound, [](FMOD::Sound* s) { s->release(); });
+    }
+
+    // Play the cached sound
+    FMOD::Channel* newChannel = nullptr;
+    FMOD_RESULT result = system->playSound(soundCache[filePath].get(), nullptr, false, &newChannel);
+    if (result != FMOD_OK || !newChannel) {
+        std::cerr << "Error playing 3D " << soundType << " sound: " << FMODErrorToString(result) << std::endl;
+        return;
+    }
+
+    // Set the loop count
+    if (loop) {
+        newChannel->setLoopCount(-1);
+    }
+
+    // Set 3D position
+    if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+        auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+        glm::vec3 position = transform.GetPosition();
+
+        FMOD_VECTOR pos = { position.x, position.y, position.z };
+        newChannel->set3DAttributes(&pos, nullptr);
+    }
+
+    // 🔹 Store the sound type (SFX or BGM) for this entity
+    entitySoundTypeMap[entity] = soundType;
+
+    // 🔊 Apply correct volume
+    if (soundType == "BGM") {
+        newChannel->setVolume(bgmVolume);
+    }
+    else {
+        newChannel->setVolume(sfxVolume);
+    }
+
+    // Store the channel
+    channelMap[entity].push_back(newChannel);
+
+    std::cout << "3D " << soundType << " Audio for entity " << entity << " now mapped to channel." << std::endl;
+
+    system->update();
+}
+
+
+void AudioSystem::Update3DSoundPositions() {
+    for (auto& [entity, channels] : channelMap) {
+        if (g_Coordinator.HaveComponent<TransformComponent>(entity)) {
+            auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+            glm::vec3 position = transform.GetPosition();  // ✅ Correct function call
+
+            FMOD_VECTOR pos = { position.x, position.y, position.z };
+
+            for (auto* channel : channels) {
+                if (channel) {
+                    channel->set3DAttributes(&pos, nullptr);
+                }
+            }
+        }
+    }
+}
+
+void AudioSystem::SetListenerPosition(const glm::vec3& position, const glm::vec3& rotation) {
+    FMOD_VECTOR listenerPos = { position.x, position.y, position.z };
+
+    // Convert rotation (Euler angles) into a forward vector
+    glm::vec3 forward = {
+        cos(glm::radians(rotation.y)) * cos(glm::radians(rotation.x)),
+        sin(glm::radians(rotation.x)),
+        sin(glm::radians(rotation.y)) * cos(glm::radians(rotation.x))
+    };
+
+    glm::vec3 up = { 0.0f, 1.0f, 0.0f }; // Assume up is always (0,1,0)
+
+    FMOD_VECTOR fmodForward = { forward.x, forward.y, forward.z };
+    FMOD_VECTOR fmodUp = { up.x, up.y, up.z };
+
+    system->set3DListenerAttributes(0, &listenerPos, nullptr, &fmodForward, &fmodUp);
+}
+
+void AudioSystem::SetSoundVolume(const std::string& filePath, float volume) {
+    for (auto& [channel, storedFilePath] : channelToFileMap) {
+        if (storedFilePath == filePath) {  // Match specific sound file
+            if (channel) {
+                channel->setVolume(volume);  // Adjust volume only for this sound
+                std::cout << "Volume of " << filePath << " set to: " << volume << std::endl;
             }
         }
     }

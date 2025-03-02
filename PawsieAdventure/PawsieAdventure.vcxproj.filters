@@ -33,6 +33,18 @@
     <ClCompile Include="Systems\Checklist\Checklist.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
+=======
+    <ClCompile Include="Systems\PauseScreen\PauseScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Dialogue\Dialogue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\SmellAvoidance\SmellAvoidance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+>>>>>>> main
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game Levels\Splashscreen.h">
@@ -71,6 +83,27 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+=======
+    <ClInclude Include="Systems\PauseScreen\PauseScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Levels\LoadingLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Dialogue\Dialogue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Levels\CutsceneEnd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Levels\TYVM.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\SmellAvoidance\SmellAvoidance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+>>>>>>> main
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">

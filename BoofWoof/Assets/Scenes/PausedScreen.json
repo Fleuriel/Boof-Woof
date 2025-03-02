@@ -1,0 +1,152 @@
+{
+    "SceneGUID": "87cd71a6-9b2e-45dc-b19d-053c232a3d98",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Background",
+                "EntityID": 0
+            },
+            "UIComponent": {
+                "TextureName": "PausedBG",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Layer": 0.4700000286102295,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Resume",
+                "EntityID": 1
+            },
+            "UIComponent": {
+                "TextureName": "ResumeGame",
+                "PositionX": 0.0,
+                "PositionY": 0.20000000298023225,
+                "ScaleX": 0.20000000298023225,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.46000003814697268,
+                "Selectable": true,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Settings",
+                "EntityID": 2
+            },
+            "UIComponent": {
+                "TextureName": "Settings",
+                "PositionX": 0.0,
+                "PositionY": -0.10000000149011612,
+                "ScaleX": 0.20000000298023225,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.46000003814697268,
+                "Selectable": true,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "HTP",
+                "EntityID": 3
+            },
+            "UIComponent": {
+                "TextureName": "HTP",
+                "PositionX": 0.0,
+                "PositionY": -0.4000000059604645,
+                "ScaleX": 0.20000000298023225,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.46000003814697268,
+                "Selectable": true,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Exit",
+                "EntityID": 4
+            },
+            "UIComponent": {
+                "TextureName": "ExitGame",
+                "PositionX": 0.0,
+                "PositionY": -0.699999988079071,
+                "ScaleX": 0.20000000298023225,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.46000003814697268,
+                "Selectable": true,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BlackScreenCover",
+                "EntityID": 5
+            },
+            "UIComponent": {
+                "TextureName": "BlackScreen",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 1.100000023841858,
+                "ScaleY": 1.0,
+                "Layer": 0.4700000286102295,
+                "Selectable": false,
+                "Opcaity": 0.949999988079071,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Paused",
+                "EntityID": 6
+            },
+            "UIComponent": {
+                "TextureName": "Paused",
+                "PositionX": -0.6899999976158142,
+                "PositionY": 0.800000011920929,
+                "ScaleX": 0.25,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.46000003814697268,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        }
+    ]
+}

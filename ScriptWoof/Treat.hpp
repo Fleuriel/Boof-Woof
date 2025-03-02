@@ -17,9 +17,19 @@ struct Treat final : public Behaviour
 			//Get the name of the entity that is colliding with the treat
 			const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
 
+<<<<<<< HEAD
+=======
+			//std::cout << "Scripted Entity is colliding with " << collidingEntityName << std::endl;
+
+>>>>>>> main
 			//Check if the entity is the player
 			if (strcmp(collidingEntityName, "Player") == 0)
 			{
+<<<<<<< HEAD
+=======
+				//std::cout << "Player is colliding with treat" << std::endl;
+
+>>>>>>> main
 				//Play sound
 				m_Engine.getAudioSystem().PlaySound("TreatSound");
 

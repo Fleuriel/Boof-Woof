@@ -60,6 +60,23 @@ void Checklist::OnInitialize()
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	for (auto entity : entities)
+	{
+		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+		{
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "CheckTheBox")
+			{
+				CheckBox = entity;
+				break;
+			}
+		}
+	}
+
+	auto& music = g_Coordinator.GetComponent<AudioComponent>(CheckBox);
+	music.SetAudioSystem(&g_Audio);
+>>>>>>> main
 	shutted = false;
 }
 
@@ -73,7 +90,11 @@ void Checklist::OnUpdate(double deltaTime)
 			Check1 = true;
 		}
 
+<<<<<<< HEAD
 		if (g_Input.GetKeyState(GLFW_KEY_SPACE) >= 1 && !Check2)
+=======
+		if (Check1 && Check2 && Check3 && Check4 && !corgiText)
+>>>>>>> main
 		{
 			ChangeBoxChecked(Box2);
 			Check2 = true;
@@ -98,14 +119,20 @@ void Checklist::OnUpdate(double deltaTime)
 		corgiText = true;
 	}
 
-	if ((Check1 && Check2 && Check3 && Check4 && corgiText) || finishTR || finishRB)
-	{
-		clTimer += deltaTime;
+	//if (corgiText || finishTR || finishRB)
+	//{
+	//	clTimer += deltaTime;
 
-		if (clTimer >= clLimit)
-		{
-			OnShutdown();
-		}
+	//	if (clTimer >= clLimit)
+	//	{
+	//		OnShutdown();
+	//	}
+	//}
+	
+	// no timer, just instant shut.
+	if (corgiText || finishTR || finishRB)
+	{
+		OnShutdown();
 	}
 }
 
@@ -160,7 +187,7 @@ void Checklist::OnShutdown()
 	}
 
 	shutted = true;
-	clTimer = 0.0;
+	// clTimer = 0.0;
 	Check1 = Check2 = Check3 = Check4 = corgiText = false;
 }
 
@@ -170,6 +197,7 @@ void Checklist::ChangeBoxChecked(Entity ent)
 
 	if (!g_Coordinator.HaveComponent<GraphicsComponent>(ent)) return;
 
+<<<<<<< HEAD
 	auto& text = g_Coordinator.GetComponent<GraphicsComponent>(ent);
 
 	int oldTextureId = g_ResourceManager.GetTextureDDS(text.getTextureName());
@@ -186,6 +214,16 @@ void Checklist::ChangeBoxChecked(Entity ent)
 		{
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CheckTheBox.wav", false);
 			playAudio = true;
+=======
+	auto& text = g_Coordinator.GetComponent<UIComponent>(ent);
+	text.set_texturename("BoxChecked");
+
+	if (!playAudio)
+	{
+		if (g_Coordinator.HaveComponent<AudioComponent>(CheckBox)) {
+			auto& music = g_Coordinator.GetComponent<AudioComponent>(CheckBox);
+			music.PlayAudio();
+>>>>>>> main
 		}
 	}
 }
@@ -194,9 +232,8 @@ void Checklist::AddCorgiText()
 {
 	if (g_ChangeText.shutted)
 	{
-		g_ChangeText.textureIndex = 6;
-		g_ChangeText.indexLimit = 8;
 		g_ChangeText.OnInitialize();
+		g_DialogueText.setDialogue(DialogueState::TUTORIALEND);
 		g_ChangeText.shutted = false;
 	}
 }
