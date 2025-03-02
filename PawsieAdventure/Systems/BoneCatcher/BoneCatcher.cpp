@@ -10,7 +10,8 @@ std::uniform_real_distribution<float> dist;  // Default distribution range
 
 void BoneCatcher::OnInitialize()
 {
-	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/BoneCatcher.json");
+	// Next time just have a bool to control whether it's rope or cage
+	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/RopeCatcher.json");
 
 	storage = serial.GetStored();
 
@@ -21,6 +22,11 @@ void BoneCatcher::OnInitialize()
 	{
 		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 		{
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Base")
+			{
+				m_Base = entity;
+			}
+
 			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Head")
 			{
 				m_DogHead = entity;
@@ -64,6 +70,7 @@ void BoneCatcher::OnInitialize()
 		}
 	}
 
+	//m_BaseChanged = false;
 	m_Speed = 0.5f;
 	m_HitCount = 0;
 }
@@ -80,6 +87,9 @@ void BoneCatcher::OnUpdate(double deltaTime)
 			// Stop then visual feedback up down
 			m_IsMoving = false;
 		}
+
+		ChangeBase("RopeSemi", "RopeBreak");
+		if (m_HitCount == 3) m_BaseChanged = false;
 
 		if (m_IsMoving)
 		{
@@ -267,6 +277,43 @@ void BoneCatcher::ClearBoneCatcher()
 	}
 }
 
+void BoneCatcher::ChangeBase(std::string hit2TextureName, std::string hit4TextureName)
+{
+	if (!m_BaseChanged) 
+	{
+		if (m_HitCount == 2) 
+		{
+			if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
+			{
+				g_Coordinator.GetComponent<UIComponent>(m_Base).set_texturename(hit2TextureName);
+
+				if (hit2TextureName == "RopeSemi") 
+				{
+					g_Coordinator.GetComponent<UIComponent>(m_Base).set_scale(glm::vec2(0.7f, 0.16f));
+					g_Coordinator.GetComponent<UIComponent>(m_Base).set_position(glm::vec2(0.0f, 0.08f));
+				}
+
+				m_BaseChanged = true;
+			}
+		}
+		else if (m_HitCount == 4)
+		{
+			if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
+			{
+				g_Coordinator.GetComponent<UIComponent>(m_Base).set_texturename(hit4TextureName);
+
+				if (hit4TextureName == "RopeBreak")
+				{
+					g_Coordinator.GetComponent<UIComponent>(m_Base).set_scale(glm::vec2(0.7f, 0.16f));
+					g_Coordinator.GetComponent<UIComponent>(m_Base).set_position(glm::vec2(0.0f, 0.08f));
+				}
+
+				m_BaseChanged = true;
+			}
+		}
+	}
+}
+
 void BoneCatcher::ResetBC()
 {
 	m_HitCount = 0;
@@ -275,7 +322,7 @@ void BoneCatcher::ResetBC()
 	m_DownTimer = 2.0f;
 
 	m_IsMoving = true;
-	m_ShouldDestroy = m_Down = m_Up = m_HitDetected = isAudioPlaying = false;
+	m_ShouldDestroy = m_Down = m_Up = m_HitDetected = isAudioPlaying = m_BaseChanged = false; 
 
 	m_Direction = 1;
 	m_MinPos = -0.335f;

@@ -22,7 +22,7 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		g_BoneCatcher.OnUpdate(deltaTime);
 	}
 
-	if (PlayerCollidedRope1 && PlayerCollidedRope2 && RopeDespawned >= 2 && !isFalling)
+	if (RopeDespawned >= 2 && !isFalling)
 	{
 		g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
 		g_Checklist.finishRB = true;
@@ -194,6 +194,7 @@ void RopeBreaker::DespawnRope()
 					g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
 					RopeDespawned++;
 					deletedRope1 = true;
+					PlayerCollidedRope1 = false;
 				}
 			}
 
@@ -208,6 +209,7 @@ void RopeBreaker::DespawnRope()
 					g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
 					RopeDespawned++;
 					deletedRope2 = true;
+					PlayerCollidedRope2 = false;
 				}
 			}
 		}
