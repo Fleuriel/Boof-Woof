@@ -8,6 +8,7 @@ layout(location = 2) in float visibility;
 
 uniform sampler2D uTex2d;
 uniform float gammaValue;
+uniform float opacity;
 
 void main()
 {
@@ -19,5 +20,6 @@ void main()
       }  
 
       fragColor.rgb = pow(fragColor.rgb, vec3(1.0/gammaValue)); 
+      fragColor.a = opacity;
 
 }

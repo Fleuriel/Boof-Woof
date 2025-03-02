@@ -103,8 +103,10 @@ struct Player final : public Behaviour
 			// Get grounded state from the CollisionComponent
 			isGrounded = m_Engine.IsGrounded(entity);
 
-			// Sprinting Logic
-			if (m_Engine.getInputSystem().isActionPressed("Sprint"))
+			//std::cout << "[DEBUG] isGrounded = " << std::boolalpha << isGrounded << std::endl;
+
+			// If not exhausted, run. Else, stop running, walk.
+			if (m_Engine.getInputSystem().isActionPressed("Sprint") && !m_Engine.GetExhausted())
 			{
 				speed = 5.0f;
 			}

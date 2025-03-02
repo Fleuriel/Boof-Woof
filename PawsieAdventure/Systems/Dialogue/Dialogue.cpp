@@ -9,7 +9,7 @@ Serialization dialogueText;
 
 void Dialogue::OnInitialize()
 {
-	if (!m_DialogueActive) 
+	if (!dialogueActive)
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Dialogue.json");
 		storage = dialogueText.GetStored();
@@ -27,7 +27,7 @@ void Dialogue::OnInitialize()
 				}
 			}
 		}
-		m_DialogueActive = true;
+		dialogueActive = true;
 	}
 }
 
@@ -62,7 +62,7 @@ void Dialogue::OnShutdown()
 		}
 	}
 
-	m_DialogueActive = false;
+	dialogueActive = false;
 	g_ChangeText.OnShutdown();
 }
 
@@ -88,7 +88,7 @@ std::string Dialogue::getDialogue()
 		return "Oh! My tennis ball! Master and I used to play with this all the time..";
 
 	case DialogueState::TOUCHBONE:
-		return "My favorite snack!!";
+		return "My favorite toy!!";
 
 	case DialogueState::DONTWASTETIME:
 		return "No, I can't waste time-I have to get out before Rex finds me!";
@@ -252,7 +252,7 @@ void Dialogue::checkCollision(Entity player, double dt)
 void Dialogue::Reset()
 {
 	setDialogue(DialogueState::DEFAULT);
-	m_DialogueActive = m_TouchedBall = m_TouchedBone = false;
+	dialogueActive = m_TouchedBall = m_TouchedBone = false;
 	m_FirstTimeTouchBall = m_FirstTimeTouchBone = true;
 	m_CollisionResetTimer = 2.0f;
 }
