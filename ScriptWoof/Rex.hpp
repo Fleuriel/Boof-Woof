@@ -224,15 +224,15 @@ struct Rex final : public Behaviour
             rexEntity, forwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle
         );
 
-        if (!detectedObjects.empty()) {
-            std::cout << "[Rex] Cone Raycast Detected Entities:\n";
-            for (Entity e : detectedObjects) {
-                std::cout << "   - Entity ID: " << e << "\n";
-            }
-        }
-        else {
-            std::cout << "[Rex] No objects detected in FOV.\n";
-        }
+        //if (!detectedObjects.empty()) {
+        //    std::cout << "[Rex] Cone Raycast Detected Entities:\n";
+        //    for (Entity e : detectedObjects) {
+        //        std::cout << "   - Entity ID: " << e << "\n";
+        //    }
+        //}
+        //else {
+        //    std::cout << "[Rex] No objects detected in FOV.\n";
+        //}
     }
 
 

@@ -714,34 +714,6 @@ Entity MyPhysicsSystem::GetEntityFromBody(const JPH::BodyID bodyID) {
     return invalid_entity; // Sentinel value for invalid entity
 }
 
-//Entity MyPhysicsSystem::Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance) {
-//    if (!mPhysicsSystem) {
-//        std::cerr << "[PhysicsSystem] ERROR: Physics system is not initialized!" << std::endl;
-//        return invalid_entity;
-//    }
-//
-//    glm::vec3 normalizedDir = glm::normalize(direction);
-//    JPH::RRayCast ray(JPH::RVec3(origin.x, origin.y, origin.z), JPH::Vec3(normalizedDir.x, normalizedDir.y, normalizedDir.z) * maxDistance);
-//
-//    JPH::RayCastResult result; 
-//
-//    // Correct way to get the NarrowPhaseQuery
-//    const JPH::NarrowPhaseQuery& npQuery = mPhysicsSystem->GetNarrowPhaseQueryNoLock();
-//
-//    if (npQuery.CastRay(ray, result)) {
-//        JPH::BodyID hitBodyID = result.mBodyID;
-//        Entity hitEntity = GetEntityFromBody(hitBodyID);
-//
-//        std::cout << "[PhysicsSystem] Raycast hit entity: " << hitEntity
-//            << " at fraction: " << result.mFraction
-//            << " (Distance: " << result.mFraction * maxDistance << ")\n";
-//
-//        return hitEntity;
-//    }
-//
-//    return invalid_entity;
-//}
-
 Entity MyPhysicsSystem::Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity) {
     if (!mPhysicsSystem) {
         std::cerr << "[PhysicsSystem] ERROR: Physics system is not initialized!" << std::endl;
@@ -828,6 +800,9 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycast(
             if (hitEntity != invalid_entity && hitEntity != entity) {
                 detectedEntities.push_back(hitEntity);
                 std::cout << "[PhysicsSystem] Hit Entity ID: " << hitEntity << "\n";
+            }
+            else {
+                std::cout << "No Entity hit for this ray " << "\n";
             }
 
             // Debugging Ray End Points

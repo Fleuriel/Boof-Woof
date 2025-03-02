@@ -255,9 +255,9 @@ public:
      * @param origin The starting position of the ray.
      * @param direction The normalized direction of the ray.
      * @param maxDistance The maximum distance the ray can travel.
+     * @param ignoreEntity The entity to ignore for the raycast
      * @return The Entity that was hit, or invalid_entity if no entity was hit.
      */
-    //Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance);
     Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity);
     std::vector<Entity> ConeRaycast(
         Entity entity,

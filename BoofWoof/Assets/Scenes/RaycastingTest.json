@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "b7bf480a-dff6-4032-afc1-c42b16a896ff",
+    "SceneGUID": "8607964b-e97b-41c8-9ac7-22af877e2b4c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.0007402585470117629,
-                    "y": -0.05000152811408043,
-                    "z": -0.3119991719722748
+                    "x": -0.0007425196235999465,
+                    "y": -0.05002676323056221,
+                    "z": -0.31166285276412966
                 },
                 "Scale": {
                     "x": 1.0,
@@ -122,14 +122,14 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Wall",
                 "EntityID": 2
             },
             "TransformComponent": {
                 "Position": {
                     "x": 4.416438102722168,
                     "y": 1.234681487083435,
-                    "z": -0.4510340094566345
+                    "z": -0.4510340690612793
                 },
                 "Scale": {
                     "x": 0.9999696612358093,
@@ -140,6 +140,54 @@
                     "x": -3.1415908336639406,
                     "y": -1.5415925979614258,
                     "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.5999999046325685,
+                    "y": 3.0999999046325685,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallClone",
+                "EntityID": 3
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 7.355217456817627,
+                    "y": 1.151572823524475,
+                    "z": -0.40365877747535708
+                },
+                "Scale": {
+                    "x": 0.9999979734420776,
+                    "y": 1.0,
+                    "z": 0.9999979734420776
+                },
+                "Rotation": {
+                    "x": -3.1415884494781496,
+                    "y": -1.5579999685287476,
+                    "z": -3.1415884494781496
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
