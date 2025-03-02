@@ -74,6 +74,7 @@ void BoneCatcher::OnUpdate(double deltaTime)
 
 	if (m_HitCount <= 4)
 	{
+		// this need change to bite key - left mouse button
 		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1)
 		{
 			// Stop then visual feedback up down
