@@ -15,7 +15,7 @@ struct Puppy final : public Behaviour
     float pathThreshold = 0.2f;
     bool isMovingPuppy = false;
     bool collected = false; // Track if the player collected the puppy
-    Entity playerEntity = MAX_ENTITIES; // Store player entity
+    Entity playerEntity = 5000; // Store player entity
 
     virtual void Init(Entity entity) override
     {
@@ -28,7 +28,7 @@ struct Puppy final : public Behaviour
 
         // Get the player entity from the engine
         playerEntity = m_Engine.GetPlayerEntity();
-        if (playerEntity != MAX_ENTITIES)
+        if (playerEntity != 5000)
         {
             std::cout << "[Puppy] Found Player Entity: " << playerEntity << std::endl;
         }
@@ -56,7 +56,7 @@ struct Puppy final : public Behaviour
         glm::vec3 velocity(0.0f);
 
         // Ensure path updates dynamically when following the player
-        if (collected && playerEntity != MAX_ENTITIES)
+        if (collected && playerEntity != 5000)
         {
             Entity playerNode = m_Engine.GetStartNode(playerEntity); // Get player node
             m_Engine.SetGoalNode(entity, playerNode); // Set the goal as the player

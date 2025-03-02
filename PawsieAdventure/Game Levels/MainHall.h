@@ -41,6 +41,8 @@ class MainHall : public Level
 	bool puppy1Destroyed{ false }, puppy2Destroyed{ false }, puppy3Destroyed{ false };
 	bool teb_last = false;
 
+	std::vector<Entity> particleEntities;
+
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM5.json");
@@ -89,6 +91,9 @@ class MainHall : public Level
 		g_DialogueText.setDialogue(DialogueState::OUTOFLIBRARY);
 
 		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
+
+		particleEntities = { scentEntity1, scentEntity2, scentEntity3 };
+		g_UI.OnInitialize();
 	}
 
 	void CheckPuppyCollision()
@@ -137,17 +142,20 @@ class MainHall : public Level
 		// Update the positions of all 3D sounds (including the fireplace)
 		g_Audio.Update3DSoundPositions();
 
-		pauseLogic::OnUpdate();
+		if (!g_DialogueText.dialogueActive)
+		{
+			pauseLogic::OnUpdate();
+		}
 
 		if (!g_IsPaused)
 		{
 			cameraController->Update(static_cast<float>(deltaTime));
 			cooldownTimer += deltaTime;
+
+			g_UI.OnUpdate(static_cast<float>(deltaTime));
+			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
 			g_DialogueText.OnUpdate(deltaTime);
 
-			auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
-			auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);
-			auto& opacity3 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity3);
 
 			if (!g_Checklist.shutted)
 			{
@@ -256,6 +264,7 @@ class MainHall : public Level
 				teb_last = false;
 			}
 
+			// Take this away once u shift to script & peecontrol file
 			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !sniffa && cooldownTimer >= cooldownDuration)
 			{
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiSniff.wav", false, "SFX");
@@ -293,6 +302,7 @@ class MainHall : public Level
 			{
 				sniffa = false;
 			}
+			// until here
 		}
 	}
 
@@ -303,6 +313,8 @@ class MainHall : public Level
 			delete cameraController;
 			cameraController = nullptr;
 		}
+
+		g_UI.OnShutdown();
 	}
 
 	void UnloadLevel() override

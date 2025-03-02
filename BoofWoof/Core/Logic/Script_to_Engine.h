@@ -12,6 +12,7 @@
 #include "../Core/AssetManager/FilePaths.h"
 #include "../GSM/GameStateMachine.h"
 #include "../Utilities/ForGame/TimerTR/TimerTR.h"
+#include "../Utilities/ForGame/UI/UI.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
@@ -316,6 +317,11 @@ public:
 	virtual void SetTouched(bool touch) override
 	{
 		g_TimerTR.touched = touch;
+	}
+
+	virtual bool GetExhausted() override 
+	{
+		return g_UI.isExhausted;
 	}
 };
 

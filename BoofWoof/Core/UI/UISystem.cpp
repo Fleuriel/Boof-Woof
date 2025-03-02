@@ -29,21 +29,6 @@ void UISystem::UI_update() {
     
     glDepthRange(0.0, 0.1);   // Use a small depth range for UI (closer to camera)
 
-	
-    // if mouse click
-    if (g_Input.GetMouseState(0) == 1) {
-        for (auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
-            if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "folder UI") {
-                if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
-                    auto& UICompt = g_Coordinator.GetComponent<UIComponent>(entity);
-                    if (UICompt.get_selected()) {
-                        std::cout << "folder UI is clicked \n";
-                    }
-                }
-            }
-        }
-    }
-
     // Use GetDeltaTime() instead of GetElapsedTime()
     float currentTime = static_cast<float>(g_Window->GetDeltaTime()); // This gives you the time since the last frame
 
@@ -136,8 +121,6 @@ void UISystem::UI_render()
                 shader.Use();
 
                 shader.SetUniform("vertexTransform", model);
-                shader.SetUniform("view", glm::mat4(1.0f));
-                shader.SetUniform("projection", glm::mat4(1.0f));
                 shader.SetUniform("opacity", UICompt.get_UI_opacity());
 				shader.SetUniform("useTexture", true);
 				shader.SetUniform("gammaValue", GraphicsSystem::gammaValue);

@@ -114,7 +114,7 @@ private:
 	int rows{ 1 };
 	int cols{ 1 };
 	int curr_row{ 1 };
-	int curr_col{ 1 };
+	int curr_col{ 0 };
 	float frame_interval{ 0.1f };
 	float timer{ 0.f };
 	bool playing{ false };

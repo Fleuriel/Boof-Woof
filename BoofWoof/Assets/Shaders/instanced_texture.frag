@@ -5,7 +5,7 @@ out vec4 fragColor;
 layout(location = 1) in vec2 vTexCoord;
 layout(location = 2) in float visibility;
 
-
+uniform float opacity;
 uniform sampler2D uTex2d;
 uniform float gammaValue;
 
@@ -19,5 +19,6 @@ void main()
       }  
 
       fragColor.rgb = pow(fragColor.rgb, vec3(1.0/gammaValue)); 
+      fragColor.a = opacity;
 
 }
