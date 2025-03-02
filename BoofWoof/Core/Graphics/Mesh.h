@@ -62,7 +62,7 @@ class Mesh {
 public:
     // mesh Data
     std::vector<Vertex>       vertices{};
-    std::vector<Vertex> bindPoseVertices{}; // Copy of the original vertex data
+    std::vector<Vertex>       bindPoseVertices{}; // Copy of the original vertex data
 
 
     std::vector<unsigned int> indices{};

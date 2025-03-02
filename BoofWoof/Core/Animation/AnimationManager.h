@@ -16,9 +16,11 @@ public:
         if (animation.LoadAnimation(filePath)) {
             animations[animationName] = animation;
             
+            std::cout << "yea\n";
 
             return true;
         }
+
         return false;
     }
 

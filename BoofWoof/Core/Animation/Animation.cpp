@@ -82,9 +82,7 @@ bool Animation::LoadAnimation(const std::string& filePath) {
     ProcessAnimation(scene);
     ProcessMesh(scene);
 
-    std::cout << g_ResourceManager.boneAnimations.size() << '\n';
-    std::cout << g_ResourceManager.boneAnimations.size() << '\n';
-    std::cout << g_ResourceManager.boneAnimations.size() << '\n';
+    std::cout << "Load Animation: \t" << g_ResourceManager.boneAnimations.size() << '\n';
 
     Model model;
     model.meshes = meshDataMesh;
@@ -103,6 +101,85 @@ bool Animation::LoadAnimation(const std::string& filePath) {
 }
 
 
+//
+//void Animation::ProcessAnimation(const aiScene* scene) {
+//    if (!scene->HasAnimations()) return;
+//    const aiAnimation* aiAnim = scene->mAnimations[0];  // Assuming only one animation
+//    duration = static_cast<float>(aiAnim->mDuration);
+//    ticksPerSecond = static_cast<float>(aiAnim->mTicksPerSecond ? aiAnim->mTicksPerSecond : 25.0f);
+//
+//    // Process each bone animation
+//    for (unsigned int i = 0; i < aiAnim->mNumChannels; ++i) {
+//        aiNodeAnim* channel = aiAnim->mChannels[i];
+//        BoneAnimation boneAnim;
+//        boneAnim.boneName = channel->mNodeName.C_Str();
+//
+//        std::cout << "Bone Name: " << boneAnim.boneName << '\n';
+//        // Process keyframes for position, rotation, and scale
+//        for (unsigned int j = 0; j < channel->mNumPositionKeys; ++j) {
+//            KeyFrame keyFrame;
+//            keyFrame.timeStamp = static_cast<float>(channel->mPositionKeys[j].mTime);
+//            keyFrame.position = glm::vec3(channel->mPositionKeys[j].mValue.x,
+//                channel->mPositionKeys[j].mValue.y,
+//                channel->mPositionKeys[j].mValue.z);
+//            boneAnim.keyFrames.push_back(keyFrame);
+//        }
+//
+//        for (unsigned int j = 0; j < channel->mNumRotationKeys; ++j) {
+//            boneAnim.keyFrames[j].rotation = glm::quat(channel->mRotationKeys[j].mValue.w,
+//                channel->mRotationKeys[j].mValue.x,
+//                channel->mRotationKeys[j].mValue.y,
+//                channel->mRotationKeys[j].mValue.z);
+//        }
+//
+//        for (unsigned int j = 0; j < channel->mNumScalingKeys; ++j) {
+//            boneAnim.keyFrames[j].scale = glm::vec3(channel->mScalingKeys[j].mValue.x,
+//                channel->mScalingKeys[j].mValue.y,
+//                channel->mScalingKeys[j].mValue.z);
+//        }
+//
+//
+//
+//        std::cout << "Processing animation: " << aiAnim->mName.C_Str() << std::endl;
+//        std::cout << "Number of animation channels: " << aiAnim->mNumChannels << std::endl;
+//
+//        std::cout << "Bone: " << channel->mNodeName.C_Str()
+//            << " Position keys: " << channel->mNumPositionKeys
+//            << " Rotation keys: " << channel->mNumRotationKeys
+//            << " Scale keys: " << channel->mNumScalingKeys << std::endl;
+//
+//        std::cout << '\n';
+//
+//
+//
+//        g_ResourceManager.boneAnimations[boneAnim.boneName] = boneAnim;
+//
+//        std::cout << "Data of Bones\n";
+//        std::cout << g_ResourceManager.boneAnimations[boneAnim.boneName].boneName << '\n';
+//        std::cout << g_ResourceManager.boneAnimations[boneAnim.boneName].currentTransform.length() << '\n';
+//        std::cout << g_ResourceManager.boneAnimations[boneAnim.boneName].keyFrames.size() << '\n';
+//
+//        // Store bone mapping
+//        if (boneMapping.find(boneAnim.boneName) == boneMapping.end()) {
+//            int newIndex = static_cast<int>(boneMapping.size());
+//            boneMapping[boneAnim.boneName] = newIndex;
+//
+//        }
+//    }
+//
+//    std::cout<< "BONE ANIMATION DE SIZE\t" << g_ResourceManager.boneAnimations.size() << '\n';
+//
+//
+//    std::cout << "Bone Animation Data\n\n\n\n";
+//    for (const auto& boneAnim : g_ResourceManager.boneAnimations) {
+//        std::cout << "Bone: " << boneAnim.first << " has " << boneAnim.second.keyFrames.size() << " keyframes\n";
+//		g_ResourceManager.boneNames.push_back(boneAnim.first);
+//    }
+//    
+//    // Build the bone hierarchy after processing animation data
+//    BuildBoneHierarchy(scene->mRootNode);
+//    std::cout << "BONE ANIMATION DE SIZE\t" << g_ResourceManager.boneAnimations.size() << '\n';
+//}
 
 void Animation::ProcessAnimation(const aiScene* scene) {
     if (!scene->HasAnimations()) return;
@@ -110,162 +187,165 @@ void Animation::ProcessAnimation(const aiScene* scene) {
     duration = static_cast<float>(aiAnim->mDuration);
     ticksPerSecond = static_cast<float>(aiAnim->mTicksPerSecond ? aiAnim->mTicksPerSecond : 25.0f);
 
-    // Process each bone animation
     for (unsigned int i = 0; i < aiAnim->mNumChannels; ++i) {
         aiNodeAnim* channel = aiAnim->mChannels[i];
         BoneAnimation boneAnim;
         boneAnim.boneName = channel->mNodeName.C_Str();
 
-        std::cout << "Bone Name: " << boneAnim.boneName << '\n';
-        // Process keyframes for position, rotation, and scale
+        std::map<float, KeyFrame> keyFrameMap;
+
+        // Process position keys
         for (unsigned int j = 0; j < channel->mNumPositionKeys; ++j) {
-            KeyFrame keyFrame;
-            keyFrame.timeStamp = static_cast<float>(channel->mPositionKeys[j].mTime);
-            keyFrame.position = glm::vec3(channel->mPositionKeys[j].mValue.x,
+            float time = static_cast<float>(channel->mPositionKeys[j].mTime);
+            keyFrameMap[time].timeStamp = time;
+            keyFrameMap[time].position = glm::vec3(
+                channel->mPositionKeys[j].mValue.x,
                 channel->mPositionKeys[j].mValue.y,
-                channel->mPositionKeys[j].mValue.z);
+                channel->mPositionKeys[j].mValue.z
+            );
+        }
+
+        // Process rotation keys
+        for (unsigned int j = 0; j < channel->mNumRotationKeys; ++j) {
+            float time = static_cast<float>(channel->mRotationKeys[j].mTime);
+            keyFrameMap[time].timeStamp = time;
+            keyFrameMap[time].rotation = glm::quat(
+                channel->mRotationKeys[j].mValue.w,
+                channel->mRotationKeys[j].mValue.x,
+                channel->mRotationKeys[j].mValue.y,
+                channel->mRotationKeys[j].mValue.z
+            );
+        }
+
+        // Process scaling keys
+        for (unsigned int j = 0; j < channel->mNumScalingKeys; ++j) {
+            float time = static_cast<float>(channel->mScalingKeys[j].mTime);
+            keyFrameMap[time].timeStamp = time;
+            keyFrameMap[time].scale = glm::vec3(
+                channel->mScalingKeys[j].mValue.x,
+                channel->mScalingKeys[j].mValue.y,
+                channel->mScalingKeys[j].mValue.z
+            );
+        }
+
+        for (auto& [time, keyFrame] : keyFrameMap) {
             boneAnim.keyFrames.push_back(keyFrame);
         }
 
-        for (unsigned int j = 0; j < channel->mNumRotationKeys; ++j) {
-            boneAnim.keyFrames[j].rotation = glm::quat(channel->mRotationKeys[j].mValue.w,
-                channel->mRotationKeys[j].mValue.x,
-                channel->mRotationKeys[j].mValue.y,
-                channel->mRotationKeys[j].mValue.z);
-        }
-
-        for (unsigned int j = 0; j < channel->mNumScalingKeys; ++j) {
-            boneAnim.keyFrames[j].scale = glm::vec3(channel->mScalingKeys[j].mValue.x,
-                channel->mScalingKeys[j].mValue.y,
-                channel->mScalingKeys[j].mValue.z);
-        }
-
-
-
-        std::cout << "Processing animation: " << aiAnim->mName.C_Str() << std::endl;
-        std::cout << "Number of animation channels: " << aiAnim->mNumChannels << std::endl;
-
-        std::cout << "Bone: " << channel->mNodeName.C_Str()
-            << " Position keys: " << channel->mNumPositionKeys
-            << " Rotation keys: " << channel->mNumRotationKeys
-            << " Scale keys: " << channel->mNumScalingKeys << std::endl;
-
-        std::cout << '\n';
-
-
-
         g_ResourceManager.boneAnimations[boneAnim.boneName] = boneAnim;
-
-        std::cout << "Data of Bones\n";
-        std::cout << g_ResourceManager.boneAnimations[boneAnim.boneName].boneName << '\n';
-        std::cout << g_ResourceManager.boneAnimations[boneAnim.boneName].currentTransform.length() << '\n';
-        std::cout << g_ResourceManager.boneAnimations[boneAnim.boneName].keyFrames.size() << '\n';
 
         // Store bone mapping
         if (boneMapping.find(boneAnim.boneName) == boneMapping.end()) {
             int newIndex = static_cast<int>(boneMapping.size());
             boneMapping[boneAnim.boneName] = newIndex;
-
         }
     }
 
-    std::cout<< "BONE ANIMATION DE SIZE\t" << g_ResourceManager.boneAnimations.size() << '\n';
-
-
-    std::cout << "Bone Animation Data\n\n\n\n";
-    for (const auto& boneAnim : g_ResourceManager.boneAnimations) {
-        std::cout << "Bone: " << boneAnim.first << " has " << boneAnim.second.keyFrames.size() << " keyframes\n";
-		g_ResourceManager.boneNames.push_back(boneAnim.first);
-    }
-    
-    // Build the bone hierarchy after processing animation data
     BuildBoneHierarchy(scene->mRootNode);
-    std::cout << "BONE ANIMATION DE SIZE\t" << g_ResourceManager.boneAnimations.size() << '\n';
 }
 
-
 void AddBoneData(Vertex& vertex, int boneIndex, float weight) {
+    float totalWeight = 0.0f;
+    bool added = false;
+
     for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
-        if (vertex.m_BoneIDs[i] == -1) {  // Found an empty slot
+        if (vertex.m_BoneIDs[i] == -1) {  // Empty slot
             vertex.m_BoneIDs[i] = boneIndex;
             vertex.m_Weights[i] = weight;
-            return;
+            added = true;
+            break;
         }
     }
-    // Optionally: If all slots are filled, you can choose to ignore the extra influence
+
+    // If all slots are filled, replace the lowest weight if the new one is larger
+    if (!added) {
+        int minIndex = 0;
+        float minWeight = vertex.m_Weights[0];
+
+        for (int i = 1; i < MAX_BONE_INFLUENCE; ++i) {
+            if (vertex.m_Weights[i] < minWeight) {
+                minWeight = vertex.m_Weights[i];
+                minIndex = i;
+            }
+        }
+
+        if (weight > minWeight) {
+            vertex.m_BoneIDs[minIndex] = boneIndex;
+            vertex.m_Weights[minIndex] = weight;
+        }
+    }
+
+    // Normalize weights to sum to 1.0
+    for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
+        totalWeight += vertex.m_Weights[i];
+    }
+    if (totalWeight > 0.0f) {
+        for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
+            vertex.m_Weights[i] /= totalWeight;
+        }
+    }
+}
+
+//
+//void AddBoneData(Vertex& vertex, int boneIndex, float weight) {
+//    for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
+//        if (vertex.m_BoneIDs[i] == -1) {  // Found an empty slot
+//            vertex.m_BoneIDs[i] = boneIndex;
+//            vertex.m_Weights[i] = weight;
+//            return;
+//        }
+//    }
+//    // Optionally: If all slots are filled, you can choose to ignore the extra influence
+//}
+
+
+glm::mat4 AssimpToGLMMatrix(const aiMatrix4x4& from) {
+    glm::mat4 to;
+
+    to[0][0] = from.a1; to[0][1] = from.b1; to[0][2] = from.c1; to[0][3] = from.d1;
+    to[1][0] = from.a2; to[1][1] = from.b2; to[1][2] = from.c2; to[1][3] = from.d2;
+    to[2][0] = from.a3; to[2][1] = from.b3; to[2][2] = from.c3; to[2][3] = from.d3;
+    to[3][0] = from.a4; to[3][1] = from.b4; to[3][2] = from.c4; to[3][3] = from.d4;
+
+    return to;
 }
 
 
 void Animation::ProcessMesh(const aiScene* scene) {
-    meshDataMesh.clear();  // Clear previous meshes (if any)
+    meshDataMesh.clear();
 
     for (unsigned int m = 0; m < scene->mNumMeshes; ++m) {
         aiMesh* mesh = scene->mMeshes[m];
-
-        // Temporary storage for mesh data
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
-        std::vector<Texture> textures;
 
-        // --- Load vertex data ---
         for (unsigned int j = 0; j < mesh->mNumVertices; ++j) {
             Vertex vertex;
-
-            // Position
-            vertex.Position = glm::vec3(
-                mesh->mVertices[j].x,
-                mesh->mVertices[j].y,
-                mesh->mVertices[j].z
-            );
-
-            // Normal
-            vertex.Normal = glm::vec3(
-                mesh->mNormals[j].x,
-                mesh->mNormals[j].y,
-                mesh->mNormals[j].z
-            );
-
-            // Texture coordinates (if available)
-            if (mesh->mTextureCoords[0]) {
-                vertex.TexCoords = glm::vec2(
-                    mesh->mTextureCoords[0][j].x,
-                    mesh->mTextureCoords[0][j].y
-                );
-            }
-            else {
-                vertex.TexCoords = glm::vec2(0.0f, 0.0f);
-            }
-
-            // Bone influences will be processed next.
+            vertex.Position = glm::vec3(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z);
+            vertex.Normal = glm::vec3(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
+            vertex.TexCoords = mesh->mTextureCoords[0] ? glm::vec2(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y) : glm::vec2(0.0f);
             vertices.push_back(vertex);
         }
 
-        // --- Process bone data, if available ---
         if (mesh->HasBones()) {
             for (unsigned int i = 0; i < mesh->mNumBones; ++i) {
                 aiBone* bone = mesh->mBones[i];
                 std::string boneName(bone->mName.C_Str());
 
-                // If this bone is new, assign it an index.
                 if (boneMapping.find(boneName) == boneMapping.end()) {
                     int newIndex = static_cast<int>(boneMapping.size());
                     boneMapping[boneName] = newIndex;
+                    boneOffsetMatrix[boneName] = AssimpToGLMMatrix(bone->mOffsetMatrix);
                 }
                 int boneIndex = boneMapping[boneName];
 
-                // For each vertex influenced by this bone...
                 for (unsigned int k = 0; k < bone->mNumWeights; ++k) {
                     aiVertexWeight weight = bone->mWeights[k];
-                    int vertexID = weight.mVertexId;    // The index of the vertex affected
-                    float boneWeight = weight.mWeight;    // The weight of this influence
-
-                    // Add this bone influence to the vertex
-                    AddBoneData(vertices[vertexID], boneIndex, boneWeight);
+                    AddBoneData(vertices[weight.mVertexId], boneIndex, weight.mWeight);
                 }
             }
         }
 
-        // --- Extract indices ---
         for (unsigned int j = 0; j < mesh->mNumFaces; ++j) {
             aiFace face = mesh->mFaces[j];
             for (unsigned int k = 0; k < face.mNumIndices; ++k) {
@@ -273,48 +353,171 @@ void Animation::ProcessMesh(const aiScene* scene) {
             }
         }
 
-        // --- Set up OpenGL buffers (VAO, VBO, EBO) ---
         unsigned int VAO, VBO, EBO;
         glGenVertexArrays(1, &VAO);
         glGenBuffers(1, &VBO);
         glGenBuffers(1, &EBO);
 
         glBindVertexArray(VAO);
-
-        // Vertex Buffer (VBO)
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
 
-        // Element Buffer (EBO)
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_DYNAMIC_DRAW);
 
-        // Set up vertex attribute pointers:
-        // Position attribute (location 0)
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
         glEnableVertexAttribArray(0);
-
-        // Normal attribute (location 1)
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
         glEnableVertexAttribArray(1);
-
-        // Texture coordinates attribute (location 2)
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
         glEnableVertexAttribArray(2);
 
-        glBindVertexArray(0);  // Unbind VAO
+        glVertexAttribIPointer(3, MAX_BONE_INFLUENCE, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, m_BoneIDs));
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(4, MAX_BONE_INFLUENCE, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, m_Weights));
+        glEnableVertexAttribArray(4);
 
-        // --- Create a Mesh instance and store it ---
-        Mesh processedMesh;
-        processedMesh.VAO = VAO;
-        processedMesh.VBO = VBO;
-        processedMesh.EBO = EBO;
-        processedMesh.vertices = vertices;
-        processedMesh.bindPoseVertices = vertices;  // Store original vertex data for skinning.
-        processedMesh.indices = indices;
-        meshDataMesh.push_back(processedMesh);
+        glBindVertexArray(0);
     }
 }
+
+
+
+//
+//void Animation::ProcessMesh(const aiScene* scene) {
+//    meshDataMesh.clear();  // Clear previous meshes (if any)
+//
+//    for (unsigned int m = 0; m < scene->mNumMeshes; ++m) {
+//        aiMesh* mesh = scene->mMeshes[m];
+//
+//        // Temporary storage for mesh data
+//        std::vector<Vertex> vertices;
+//        std::vector<unsigned int> indices;
+//        std::vector<Texture> textures;
+//
+//        // --- Load vertex data ---
+//        for (unsigned int j = 0; j < mesh->mNumVertices; ++j) {
+//            Vertex vertex;
+//
+//            // Position
+//            vertex.Position = glm::vec3(
+//                mesh->mVertices[j].x,
+//                mesh->mVertices[j].y,
+//                mesh->mVertices[j].z
+//            );
+//
+//            // Normal
+//            vertex.Normal = glm::vec3(
+//                mesh->mNormals[j].x,
+//                mesh->mNormals[j].y,
+//                mesh->mNormals[j].z
+//            );
+//
+//            // Texture coordinates (if available)
+//            if (mesh->mTextureCoords[0]) {
+//                vertex.TexCoords = glm::vec2(
+//                    mesh->mTextureCoords[0][j].x,
+//                    mesh->mTextureCoords[0][j].y
+//                );
+//            }
+//            else {
+//                vertex.TexCoords = glm::vec2(0.0f, 0.0f);
+//            }
+//
+//            // Bone influences will be processed next.
+//            vertices.push_back(vertex);
+//        }
+//
+//        // --- Process bone data, if available ---
+//        if (mesh->HasBones()) {
+//            for (unsigned int i = 0; i < mesh->mNumBones; ++i) {
+//                aiBone* bone = mesh->mBones[i];
+//                std::string boneName(bone->mName.C_Str());
+//
+//                // If this bone is new, assign it an index.
+//                if (boneMapping.find(boneName) == boneMapping.end()) {
+//                    int newIndex = static_cast<int>(boneMapping.size());
+//                    boneMapping[boneName] = newIndex;
+//                }
+//                int boneIndex = boneMapping[boneName];
+//
+//                std::cout << "Processing Bone: " << boneName << " (Index: " << boneIndex << ")" << std::endl;
+//
+//                // For each vertex influenced by this bone...
+//                for (unsigned int k = 0; k < bone->mNumWeights; ++k) {
+//                    aiVertexWeight weight = bone->mWeights[k];
+//                    int vertexID = weight.mVertexId;    // The index of the vertex affected
+//                    float boneWeight = weight.mWeight;    // The weight of this influence
+//
+//                    std::cout << "  -> Vertex " << vertexID << " influenced by bone " << boneName
+//                        << " with weight " << boneWeight << std::endl;
+//
+//                    // Add this bone influence to the vertex
+//                    AddBoneData(vertices[vertexID], boneIndex, boneWeight);
+//                }
+//            }
+//        }
+//
+//        // --- Extract indices ---
+//        for (unsigned int j = 0; j < mesh->mNumFaces; ++j) {
+//            aiFace face = mesh->mFaces[j];
+//            for (unsigned int k = 0; k < face.mNumIndices; ++k) {
+//                indices.push_back(face.mIndices[k]);
+//            }
+//        }
+//
+//        // --- Set up OpenGL buffers (VAO, VBO, EBO) ---
+//        unsigned int VAO, VBO, EBO;
+//        glGenVertexArrays(1, &VAO);
+//        glGenBuffers(1, &VBO);
+//        glGenBuffers(1, &EBO);
+//
+//        glBindVertexArray(VAO);
+//
+//        // Vertex Buffer (VBO)
+//        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
+//
+//        // Element Buffer (EBO)
+//        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+//        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_DYNAMIC_DRAW);
+//
+//        // Set up vertex attribute pointers:
+//        // Position attribute (location 0)
+//        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+//        glEnableVertexAttribArray(0);
+//
+//        // Normal attribute (location 1)
+//        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+//        glEnableVertexAttribArray(1);
+//
+//        // Texture coordinates attribute (location 2)
+//        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+//        glEnableVertexAttribArray(2);
+//
+//        glBindVertexArray(0);  // Unbind VAO
+//
+//
+//        std::cout << "=== FINAL BONE ASSIGNMENTS ===" << std::endl;
+//        for (size_t i = 0; i < vertices.size(); ++i) {
+//            std::cout << "Vertex " << i << " Bone IDs: ";
+//            for (int j = 0; j < MAX_BONE_INFLUENCE; ++j) {
+//                std::cout << vertices[i].m_BoneIDs[j] << " (W: " << vertices[i].m_Weights[j] << ") ";
+//            }
+//            std::cout << std::endl;
+//        }
+//
+//        // --- Create a Mesh instance and store it ---
+//        Mesh processedMesh;
+//        processedMesh.VAO = VAO;
+//        processedMesh.VBO = VBO;
+//        processedMesh.EBO = EBO;
+//        processedMesh.vertices = vertices;
+//        processedMesh.bindPoseVertices = vertices;  // Store original vertex data for skinning.
+//        processedMesh.indices = indices;
+//        meshDataMesh.push_back(processedMesh);
+//    }
+//}
 
 
 glm::vec3 Animation::InterpolatePosition(float animationTime, const BoneAnimation& boneAnim) {

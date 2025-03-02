@@ -16,45 +16,60 @@ void Mesh::UpdateVerticesWithBones(
     const std::vector<std::string>& boneNames)
 {
     std::vector<Vertex> updatedVertices = bindPoseVertices;
+    std::unordered_map<int, int> boneUsageCount;
+    int totalBones = boneNames.size();
 
     for (size_t i = 0; i < updatedVertices.size(); ++i) {
         Vertex& vertex = updatedVertices[i];
+
         glm::vec3 finalPosition(0.0f);
+        float totalWeight = 0.0f;
 
         for (int j = 0; j < MAX_BONE_INFLUENCE; ++j) {
-            if (vertex.m_BoneIDs[j] == -1)
-                continue;  // No bone assigned
-
             int boneIndex = vertex.m_BoneIDs[j];
-            if (boneIndex < 0 || boneIndex >= static_cast<int>(boneNames.size())) {
-                std::cerr << "Error: boneIndex " << boneIndex
-                    << " is out of range (boneNames size: " << boneNames.size() << ")."
-                    << std::endl;
+
+            if (boneIndex < 0 || boneIndex >= totalBones) {
+                std::cerr << "ERROR: Vertex " << i << " has invalid bone ID " << boneIndex
+                    << " (total bones: " << totalBones << ")" << std::endl;
                 continue;
             }
+
+            boneUsageCount[boneIndex]++;
+
             std::string boneName = boneNames.at(boneIndex);
-            const BoneAnimation& boneAnim = boneAnimations.at(boneName);
-            // Example: manually set a bone transform for debugging
-         //  boneAnim.currentTransform = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+            BoneAnimation boneAnim = boneAnimations.at(boneName);
             glm::mat4 boneTransform = boneAnim.currentTransform;
             glm::mat4 offset = boneAnim.offsetMatrix;
 
-            // Compute the final transformed position:
-            glm::vec3 transformedPos = glm::vec3(boneTransform * boneAnim.offsetMatrix * glm::vec4(vertex.Position, 1.0f));
-         //  std::cout << "Bone " << boneName << " contributes: "
-         //      << transformedPos.x << ", " << transformedPos.y << ", " << transformedPos.z
-         //      << " with weight " << vertex.m_Weights[j] << std::endl;
+            //  Debug: Detect if bones are stuck at identity (not moving)
+            //if (boneTransform == glm::mat4(1.0f)) {
+            //    std::cerr << "Warning: Bone " << boneName << " is an identity matrix! Animation might not be applied.\n";
+            //}
 
+            //  Fake movement test - Uncomment this to force movement
+             boneTransform = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
-
+            glm::vec3 transformedPos = glm::vec3(boneTransform * offset * glm::vec4(vertex.Position, 1.0f));
             finalPosition += vertex.m_Weights[j] * transformedPos;
+            totalWeight += vertex.m_Weights[j];
         }
+
+        if (totalWeight > 0.0f) {
+            finalPosition /= totalWeight;
+        }
+        else {
+            finalPosition = vertex.Position;
+        }
+
         updatedVertices[i].Position = finalPosition;
     }
 
-    // Update GPU buffers with new vertex data
     UpdateMesh(updatedVertices, indices);
 }
+
+
+
+
 
 
 void Mesh::UpdateVerticesWithBonesCombinedA(float deltaTime,

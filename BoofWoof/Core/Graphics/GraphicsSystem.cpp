@@ -338,11 +338,11 @@ void GraphicsSystem::UpdateLoop() {
 				//std::cout << "tech:\t\t" << g_ResourceManager.getModel(graphicsComp.getModelName())->meshes[0].bindPoseVertices.size() << '\n';
 			
 				
-				//mesh.UpdateVerticesWithBones(
-				//	g_ResourceManager.boneAnimations,           // The map of bone animations
-				//	mesh.bindPoseVertices,                        // The original vertices (bind pose)
-				//	g_ResourceManager.boneNames                  // The vector mapping bone indices to bone names
-				//);
+				mesh.UpdateVerticesWithBones(
+					g_ResourceManager.boneAnimations,           // The map of bone animations
+					mesh.bindPoseVertices,                        // The original vertices (bind pose)
+					g_ResourceManager.boneNames                  // The vector mapping bone indices to bone names
+				);
 				//
 				//
 				//mesh.UpdateVerticesWithBonesCombinedA(deltaTime, g_ResourceManager.boneAnimations,           // The map of bone animations
