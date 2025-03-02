@@ -25,7 +25,7 @@ struct Puppy final : public Behaviour
         followingPath = false;
         isMovingPuppy = true;
         currentPathIndex = 0;
-        collected = true;
+        collected = false;
 
         // Get the player entity from the engine
         playerEntity = m_Engine.GetPlayerEntity();
@@ -134,6 +134,9 @@ struct Puppy final : public Behaviour
         // Apply velocity
         if (isMovingPuppy)
         {
+			m_Engine.SetRotationYawFromVelocity(entity, velocity);
+
+			// Clamp the speed to a maximum value
             float maxAllowedSpeed = 10.0f;
             if (glm::length(velocity) > maxAllowedSpeed)
             {

@@ -211,8 +211,8 @@ class MainHall : public Level
 			if (collectedPuppy1 && !puppy1Destroyed)
 			{
 				g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
-				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy1);
-				g_Coordinator.DestroyEntity(puppy1);
+				//g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy1);
+				//g_Coordinator.DestroyEntity(puppy1);
 				puppy1Destroyed = true;
 			}
 
@@ -220,8 +220,8 @@ class MainHall : public Level
 			if (collectedPuppy2 && !puppy2Destroyed)
 			{
 				g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
-				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy2);
-				g_Coordinator.DestroyEntity(puppy2);
+				//g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy2);
+				//g_Coordinator.DestroyEntity(puppy2);
 				puppy2Destroyed = true;
 			}
 
@@ -229,8 +229,8 @@ class MainHall : public Level
 			if (collectedPuppy3 && !puppy3Destroyed)
 			{
 				g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
-				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy3);
-				g_Coordinator.DestroyEntity(puppy3);
+				//g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy3);
+				//g_Coordinator.DestroyEntity(puppy3);
 				puppy3Destroyed = true;
 			}
 
