@@ -111,6 +111,9 @@ void SmellAvoidance::HandleWaterCollision()
     if (playerCollided && (waterBucketcollided || waterBucket2collided || waterBucket3collided) && !waterSoundPlayed)
     {
         g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WaterPuddle.wav", false, "SFX");
+        g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
+        g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
+
         peeMarked = false;
         timer = 0.0;
 

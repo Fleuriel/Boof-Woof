@@ -183,6 +183,12 @@ class MainHall : public Level
 					g_TimerTR.OnInitialize();
 					g_TimerTR.timer = timerLimit;
 					g_SmellAvoidance.SetTimerInit(true);
+
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", true, "SFX");
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav", false, "SFX");
+
+					g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", 0.4f);
+
 				}
 				g_TimerTR.OnUpdate(deltaTime);
 
