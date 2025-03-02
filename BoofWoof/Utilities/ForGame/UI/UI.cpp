@@ -27,6 +27,7 @@ void UI::OnInitialize()
 	std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
 	{
 		{"CDSniff", [&](Entity entity) { CDSniff = entity; }},
+		{"Sniff", [&](Entity entity) { Sniffa = entity; }},
 		{"Sprint", [&](Entity entity) { Sprinto = entity; }},
 		{"Pellet1", [&](Entity entity) { P1 = entity; }},
 		{"Pellet2", [&](Entity entity) { P2 = entity; }},
@@ -126,11 +127,13 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 		return;
 
 	UIComponent& sniffa = g_Coordinator.GetComponent<UIComponent>(CDSniff);
+	UIComponent& sniffaAnimation = g_Coordinator.GetComponent<UIComponent>(Sniffa);
 
 	if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && canPressE) 
 	{
 		sniffa.set_frame_interval(1.0f);
 		sniffa.set_playing(true);
+		sniffaAnimation.set_playing(true);
 		canPressE = false;
 
 		sniffAnimationTimer = 5.0f;
@@ -159,6 +162,7 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 				{
 					ParticleComponent& particle = g_Coordinator.GetComponent<ParticleComponent>(particleEntity);
 					particle.setOpacity(0.0f);
+					sniffaAnimation.set_playing(false);
 				}
 			}
 		}

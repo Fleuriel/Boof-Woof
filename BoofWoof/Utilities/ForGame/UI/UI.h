@@ -12,7 +12,7 @@ public:
 
 private:
     Entity P1{}, P2{}, P3{}, P4{}, P5{};
-    Entity CDSniff{}, Sprinto{};
+    Entity CDSniff{}, Sniffa{}, Sprinto{};
     std::vector<Entity> pellets;
 
     // Cooldown and Animation State (Must Persist Across Scenes)
