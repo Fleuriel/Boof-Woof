@@ -1,0 +1,257 @@
+{
+    "SceneGUID": "f550dfa0-3cf9-471f-90b7-0cb9d22de93d",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "CDSniff",
+                "EntityID": 0
+            },
+            "UIComponent": {
+                "TextureName": "CD",
+                "PositionX": 0.8500000238418579,
+                "PositionY": 0.4000000059604645,
+                "ScaleX": 0.07999999821186066,
+                "ScaleY": 0.15000000596046449,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": true,
+                "Rows": 1,
+                "Cols": 17,
+                "FrameInterval": 1.0,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CDSprint",
+                "EntityID": 1
+            },
+            "UIComponent": {
+                "TextureName": "CD",
+                "PositionX": 0.8500000238418579,
+                "PositionY": 0.10000000149011612,
+                "ScaleX": 0.07999999821186066,
+                "ScaleY": 0.15000000596046449,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": true,
+                "Rows": 1,
+                "Cols": 17,
+                "FrameInterval": 1.0,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Sniff",
+                "EntityID": 2
+            },
+            "UIComponent": {
+                "TextureName": "CorgiSniff",
+                "PositionX": 0.8510000109672546,
+                "PositionY": 0.38999998569488528,
+                "ScaleX": 0.07000000029802323,
+                "ScaleY": 0.09000000357627869,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": true,
+                "Rows": 1,
+                "Cols": 3,
+                "FrameInterval": 0.25,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Sprint",
+                "EntityID": 3
+            },
+            "UIComponent": {
+                "TextureName": "CorgiSprint",
+                "PositionX": 0.8500000238418579,
+                "PositionY": 0.10000000149011612,
+                "ScaleX": 0.06800000369548798,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": true,
+                "Rows": 1,
+                "Cols": 4,
+                "FrameInterval": 0.20000000298023225,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "E",
+                "EntityID": 4
+            },
+            "UIComponent": {
+                "TextureName": "htpE",
+                "PositionX": 0.6700000166893005,
+                "PositionY": 0.7300000190734863,
+                "ScaleX": 0.800000011920929,
+                "ScaleY": 0.800000011920929,
+                "Layer": 0.4700000286102295,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Shift",
+                "EntityID": 5
+            },
+            "UIComponent": {
+                "TextureName": "htpShift",
+                "PositionX": 1.2300000190734864,
+                "PositionY": 0.23999999463558198,
+                "ScaleX": 0.6499999761581421,
+                "ScaleY": 0.75,
+                "Layer": 0.4700000286102295,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "StaminaBar",
+                "EntityID": 6
+            },
+            "UIComponent": {
+                "TextureName": "StaminaBar",
+                "PositionX": 0.8500000238418579,
+                "PositionY": -0.43799999356269839,
+                "ScaleX": 0.05000000074505806,
+                "ScaleY": 0.3700000047683716,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Pellet1",
+                "EntityID": 7
+            },
+            "UIComponent": {
+                "TextureName": "pellet1",
+                "PositionX": 0.8463000059127808,
+                "PositionY": -0.17499999701976777,
+                "ScaleX": 0.024000000208616258,
+                "ScaleY": 0.06499999761581421,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Pellet2",
+                "EntityID": 8
+            },
+            "UIComponent": {
+                "TextureName": "pellet2",
+                "PositionX": 0.8463000059127808,
+                "PositionY": -0.3050000071525574,
+                "ScaleX": 0.024000000208616258,
+                "ScaleY": 0.06499999761581421,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Pellet3",
+                "EntityID": 9
+            },
+            "UIComponent": {
+                "TextureName": "pellet2",
+                "PositionX": 0.8463000059127808,
+                "PositionY": -0.4339999854564667,
+                "ScaleX": 0.024000000208616258,
+                "ScaleY": 0.06499999761581421,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Pellet4",
+                "EntityID": 10
+            },
+            "UIComponent": {
+                "TextureName": "pellet2",
+                "PositionX": 0.8463000059127808,
+                "PositionY": -0.5640000104904175,
+                "ScaleX": 0.024000000208616258,
+                "ScaleY": 0.06499999761581421,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Pellet5",
+                "EntityID": 11
+            },
+            "UIComponent": {
+                "TextureName": "pellet3",
+                "PositionX": 0.8463000059127808,
+                "PositionY": -0.6959999799728394,
+                "ScaleX": 0.024000000208616258,
+                "ScaleY": 0.06800000369548798,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        }
+    ]
+}

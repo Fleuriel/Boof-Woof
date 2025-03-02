@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "02c25193-1489-4945-8dc2-d8ada9151b5d",
+    "SceneGUID": "87cd71a6-9b2e-45dc-b19d-053c232a3d98",
     "Entities": [
         {
             "MetadataComponent": {
@@ -14,7 +14,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.4700000286102295,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -30,7 +35,12 @@
                 "ScaleY": 0.10000000149011612,
                 "Layer": 0.46000003814697268,
                 "Selectable": true,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -46,7 +56,12 @@
                 "ScaleY": 0.10000000149011612,
                 "Layer": 0.46000003814697268,
                 "Selectable": true,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -62,7 +77,12 @@
                 "ScaleY": 0.10000000149011612,
                 "Layer": 0.46000003814697268,
                 "Selectable": true,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -78,7 +98,12 @@
                 "ScaleY": 0.10000000149011612,
                 "Layer": 0.46000003814697268,
                 "Selectable": true,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -92,9 +117,35 @@
                 "PositionY": 0.0,
                 "ScaleX": 1.100000023841858,
                 "ScaleY": 1.0,
-                "Layer": 0.48000001907348635,
+                "Layer": 0.4700000286102295,
                 "Selectable": false,
-                "Opcaity": 0.949999988079071
+                "Opcaity": 0.949999988079071,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Paused",
+                "EntityID": 6
+            },
+            "UIComponent": {
+                "TextureName": "Paused",
+                "PositionX": -0.6899999976158142,
+                "PositionY": 0.800000011920929,
+                "ScaleX": 0.25,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.46000003814697268,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         }
     ]

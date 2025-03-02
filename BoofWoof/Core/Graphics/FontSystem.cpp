@@ -163,11 +163,13 @@ std::string FontSystem::saveBin(std::string ttf_filename_noExtension)
 void FontSystem::update()
 {
 	// disable depth test
-	glDisable(GL_DEPTH_TEST);
+	//glDisable(GL_DEPTH_TEST);
 	// enable blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	// render text
+
+    glDepthRange(0.0, 0.1);   // Use a small depth range for UI (closer to camera)
     
 	for (auto entity : g_Coordinator.GetAliveEntitiesSet())
 	{
@@ -178,16 +180,18 @@ void FontSystem::update()
 
             // render text
 			RenderText(g_ResourceManager.GetFont(fontComponent.get_family()),
-				fontComponent.get_text(), fontComponent.get_pos().x, fontComponent.get_pos().y, fontComponent.get_scale(), fontComponent.get_color());
+				fontComponent.get_text(), fontComponent.get_pos().x, fontComponent.get_pos().y, fontComponent.get_scale(), fontComponent.get_color(), fontComponent.get_layer());
         }
 	}
     //RenderText(g_ResourceManager.GetFont("arial"), "Hello World", 0.0f, 0.0f, { 1.f, 1.2f }, glm::vec3(1.0f, 1.0f, 1.0f));
+    glDepthRange(0.0, 1.0);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	// enable depth test
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
+
 }
 
-void FontSystem::RenderText(FontResources fontResources, std::string text, float x, float y, glm::vec2 scale, glm::vec3 color)
+void FontSystem::RenderText(FontResources fontResources, std::string text, float x, float y, glm::vec2 scale, glm::vec3 color, float layer)
 {
     scale.x /= 1000.f;
 	scale.y /= 1000.f;
@@ -196,14 +200,24 @@ void FontSystem::RenderText(FontResources fontResources, std::string text, float
     g_AssetManager.GetShader("Font").Use();
     g_AssetManager.GetShader("Font").SetUniform("textColor", color.x, color.y, color.z);
     g_AssetManager.GetShader("Font").SetUniform("gammaValue", GraphicsSystem::gammaValue);
+    g_AssetManager.GetShader("Font").SetUniform("layer", layer);
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(fontResources.VAO_FONT);
+
+    float startingX = x;  //  Store the original X position once
+	float changeInY = 0.08f; // Line spacing must be below 0.1f if not out of screen
 
     // iterate through all characters
     std::string::const_iterator c;
     
     for (c = text.begin(); c != text.end(); c++)
     {
+        if (*c == '\n') {
+            y -= changeInY; // Move to the next line
+            x = startingX;  // Reset x position
+            continue;        // Skip rendering the '\n' itself
+        }
+
         Character ch = fontResources.Characters[*c];
 
         float xpos = x + ch.Bearing.x * scale.x;

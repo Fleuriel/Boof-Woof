@@ -2849,7 +2849,7 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::PopItemWidth();
 
 									// set particle color
-									glm::vec4 particleColor = particleComponent.getParticleColor();
+									glm::vec3 particleColor = particleComponent.getParticleColor();
 									ImGui::Text("Particle Color");
 									ImGui::SameLine();
 									ImGui::PushItemWidth(125.0f);
@@ -2862,6 +2862,8 @@ void ImGuiEditor::InspectorWindow()
 
 									ImGui::PopID();
 									ImGui::PopItemWidth();
+
+									
 								}
 								else if (particleType == ParticleType::TEXTURED) {
 									// set the texture
@@ -2934,6 +2936,19 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::PopItemWidth();
 									
 								}
+								float opacity = particleComponent.getOpacity();
+								ImGui::Text("Opacity");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Opacity");
+
+								if (ImGui::DragFloat("##Opacity", &opacity, 0.1f, 0.0f, 1.0f))
+								{
+									particleComponent.setOpacity(opacity);
+								}
+
+								ImGui::PopID();
+								ImGui::PopItemWidth();
 
 							}
 						}
@@ -4239,6 +4254,27 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PopID();
 								ImGui::PopItemWidth();
 
+								// layer
+								float layer = fontComponent.get_layer();
+								ImGui::Text("Layer");
+								ImGui::SameLine();
+								ImGui::PushItemWidth(125.0f);
+								ImGui::PushID("Layer: ");
+								// display layer number
+								ImGui::Text("Layer: %f", layer);
+								ImGui::SameLine();
+								//move forward or backward button
+								if (ImGui::Button("Move Forward"))
+								{
+									fontComponent.set_layer(fontComponent.get_layer() - 0.01f);
+								}
+								ImGui::SameLine();
+								if (ImGui::Button("Move Backward"))
+								{
+									fontComponent.set_layer(fontComponent.get_layer() + 0.01f);
+								}
+								ImGui::PopID();
+								ImGui::PopItemWidth();
 
 							}
 						}
@@ -5534,7 +5570,7 @@ void ImGuiEditor::Settings()
 
 				ImGui::Text("Gamma Value"); ImGui::SameLine(150.0f);
 
-				if (ImGui::SliderFloat("##GammaSlidr", &gammaValue, 0.0f, 10.0f) || defaultGamma)
+				if (ImGui::SliderFloat("##GammaSlidr", &gammaValue, 1.0f, 3.0f) || defaultGamma)
 				{
 					if (defaultGamma)
 						gammaValue = 2.2f;

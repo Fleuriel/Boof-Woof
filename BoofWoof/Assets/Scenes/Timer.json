@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "973608e7-6dd1-4fef-9086-abbe323c7c6c",
+    "SceneGUID": "8e4d2590-a729-4aed-a859-14a0a241591c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -36,7 +36,8 @@
                 "ColorR": 1.0,
                 "ColorG": 1.0,
                 "ColorB": 1.0,
-                "Text": "3:00"
+                "Text": "3:00",
+                "Layer": 0.48999983072280886
             }
         },
         {
@@ -53,7 +54,8 @@
                 "ColorR": 1.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
-                "Text": "-10"
+                "Text": "-10",
+                "Layer": 0.0
             }
         }
     ]

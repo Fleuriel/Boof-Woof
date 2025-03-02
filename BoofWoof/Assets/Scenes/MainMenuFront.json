@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "61c86a10-03f7-49ad-b1a4-5b12efcfee3b",
+    "SceneGUID": "c2246b1d-31c7-42f7-afac-314550dc21dc",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,13 +8,18 @@
             },
             "UIComponent": {
                 "TextureName": "PawsieAdventure",
-                "PositionX": 0.0,
-                "PositionY": 0.4000000059604645,
-                "ScaleX": 0.699999988079071,
-                "ScaleY": 0.5,
+                "PositionX": 0.029999999329447748,
+                "PositionY": 0.5,
+                "ScaleX": 0.6000000238418579,
+                "ScaleY": 0.30000001192092898,
                 "Layer": 0.5,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -30,7 +35,12 @@
                 "ScaleY": 0.15000000596046449,
                 "Layer": 0.5,
                 "Selectable": true,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -112,7 +122,12 @@
                 "ScaleY": 0.07999999821186066,
                 "Layer": 0.5,
                 "Selectable": true,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -128,7 +143,12 @@
                 "ScaleY": 0.15000000596046449,
                 "Layer": 0.5,
                 "Selectable": true,
-                "Opcaity": 0.800000011920929
+                "Opcaity": 0.800000011920929,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -144,7 +164,33 @@
                 "ScaleY": 0.07999999821186066,
                 "Layer": 0.5,
                 "Selectable": true,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PawPrint",
+                "EntityID": 7
+            },
+            "UIComponent": {
+                "TextureName": "PawPrint",
+                "PositionX": 0.5,
+                "PositionY": 0.6000000238418579,
+                "ScaleX": 0.07999999821186066,
+                "ScaleY": 0.10000000149011612,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         }
     ]

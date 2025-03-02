@@ -1,6 +1,8 @@
 #include "RopeBreaker.h"
 #include "../Checklist/Checklist.h"
 #include "../Core/AssetManager/FilePaths.h"
+#include "../Dialogue/Dialogue.h"
+#include <Level Manager/LevelManager.h>
 
 
 RopeBreaker g_RopeBreaker;
@@ -12,12 +14,15 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		CheckCollision();
 	}
 
+	// Only when collided and when dialogue isn't active
+	SpawnBoneCatcher();
+
 	if (BoneSpawned)
 	{
 		g_BoneCatcher.OnUpdate(deltaTime);
 	}
 
-	if (PlayerCollidedRope1 && PlayerCollidedRope2 && RopeDespawned >= 2 && !isFalling)
+	if (RopeDespawned >= 2 && !isFalling)
 	{
 		g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
 		g_Checklist.finishRB = true;
@@ -60,10 +65,9 @@ void RopeBreaker::OnUpdate(double deltaTime)
 		if (ElapsedTime >= FallDuration)
 		{
 			isFalling = false;
-			//// Ensure final position
-			//currentRotation.x = -90.0f;
-			//transform.SetRotation(glm::radians(currentRotation));
-			//transform.SetPosition(initialPos + TargetPos);
+
+			// Enter Ending Cutscene
+			g_LevelManager.SetNextLevel("CutsceneEnd");
 		}
 	}
 
@@ -86,16 +90,32 @@ void RopeBreaker::CheckCollision()
 		Rope2Colliding = g_Coordinator.GetComponent<CollisionComponent>(rope2).GetIsColliding();
 	}
 
-	if (PlayerColliding && Rope1Colliding && !PlayerCollidedRope1)
+	if (!deletedRope1) 
 	{
-		PlayerCollidedRope1 = true;
-		SpawnBoneCatcher();
-	}
+		if (PlayerColliding && Rope1Colliding && !PlayerCollidedRope1)
+		{
+			if (!firstRopeTouched)
+			{
+				g_DialogueText.OnInitialize();
+				g_DialogueText.setDialogue(DialogueState::BREAKROPES);
+				firstRopeTouched = true;
+			}
+			PlayerCollidedRope1 = true;
+		}
+	}	
 
-	if (PlayerColliding && Rope2Colliding && !PlayerCollidedRope2)
+	if (!deletedRope2)
 	{
-		PlayerCollidedRope2 = true;
-		SpawnBoneCatcher();
+		if (PlayerColliding && Rope2Colliding && !PlayerCollidedRope2)
+		{
+			if (!firstRopeTouched)
+			{
+				g_DialogueText.OnInitialize();
+				g_DialogueText.setDialogue(DialogueState::BREAKROPES);
+				firstRopeTouched = true;
+			}
+			PlayerCollidedRope2 = true;
+		}
 	}
 }
 
@@ -118,6 +138,9 @@ void RopeBreaker::DropBridge()
 	// Start animation
 	isFalling = true;
 	ElapsedTime = 0.0f;
+
+	g_DialogueText.OnInitialize();
+	g_DialogueText.setDialogue(DialogueState::FREED);
 }
 
 void RopeBreaker::ResetRB()
@@ -132,6 +155,7 @@ void RopeBreaker::ResetRB()
 	ElapsedTime = 0.0f;
 	FallDuration = 2.0f;
 	isFalling = false;
+	firstRopeTouched = false;
 }
 
 
@@ -140,8 +164,12 @@ void RopeBreaker::SpawnBoneCatcher()
 	// If collide with rope then load
 	if (PlayerCollidedRope1 || PlayerCollidedRope2)
 	{
-		g_BoneCatcher.OnInitialize();
-		BoneSpawned = true;
+		// Only if dialogue not active then can do rope breaker.
+		if (!g_DialogueText.dialogueActive && !BoneSpawned)
+		{
+			g_BoneCatcher.OnInitialize();
+			BoneSpawned = true;
+		}
 	}
 }
 
@@ -160,12 +188,13 @@ void RopeBreaker::DespawnRope()
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
 				{
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/RopeSnap.wav", false, "SFX");
-				//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true, "BGM");
 
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
+					g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
 					RopeDespawned++;
 					deletedRope1 = true;
+					PlayerCollidedRope1 = false;
 				}
 			}
 
@@ -174,14 +203,21 @@ void RopeBreaker::DespawnRope()
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
 				{
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+ "/RopeSnap.wav", false, "SFX");
-					//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusic.wav", true, "BGM");
 
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
+					g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
 					RopeDespawned++;
 					deletedRope2 = true;
+					PlayerCollidedRope2 = false;
 				}
 			}
 		}
+	}
+
+	if (RopeDespawned == 1)
+	{
+		g_DialogueText.OnInitialize();
+		g_DialogueText.setDialogue(DialogueState::BROKEROPE1);
 	}
 }

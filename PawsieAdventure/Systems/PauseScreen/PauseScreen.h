@@ -21,7 +21,8 @@ protected:
 
 public:
 	Entity SFXLeft{}, SFXRight{}, BGMLeft{}, BGMRight{}, GAMMALeft{}, GAMMARight{};
-	Entity BGMVol{}, SFXVol{};
+	Entity BGMVol{}, SFXVol{}, GAMMAValue{};
+	Entity YesBtn{}, NoBtn{};
 };
 
 // Main Pause Screen

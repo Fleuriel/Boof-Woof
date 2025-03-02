@@ -3,10 +3,10 @@
 #include "ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 #include "../Systems/CameraController/CameraController.h"
-#include "../Systems/BoneCatcher/BoneCatcher.h"
-#include "../Systems/RopeBreaker/RopeBreaker.h"
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
+#include "../Systems/Dialogue/Dialogue.h"
+#include "../Utilities/ForGame/UI/UI.h"
 #include "LoadingLevel.h"
 
 class StartingRoom : public Level
@@ -15,14 +15,15 @@ public:
 	Entity playerEnt{}, scentEntity{};
 	CameraController* cameraController = nullptr;
 	bool bark{ false }, sniff{ false };
-
 	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{}, FireSound{};
+
+	std::vector<Entity> particleEntities;
 
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom_Light.json");
-		
 		g_ChangeText.OnInitialize();
+		g_DialogueText.setDialogue(DialogueState::TUTORIALSTART);
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -69,12 +70,10 @@ public:
 					if (metadata.GetName() == "middle particle")
 					{
 						g_Audio.PlayEntity3DAudio(FireSound, FILEPATH_ASSET_AUDIO + "/Fire.wav", true, "BGM");
-						std::cout << "?? Fireplace (Middle Particle) sound started at entity " << FireSound << std::endl;
 					}
 					else {
 						std::cerr << "? ERROR: Fireplace entity has no AudioComponent!" << std::endl;
 					}
-
 				}
 
 				// Exit early if all entities are found
@@ -94,6 +93,9 @@ public:
 		camerachange = false;
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
+
+		particleEntities = { scentEntity };
+		g_UI.OnInitialize();
 	}
 
 	bool teb_last = false;
@@ -122,10 +124,11 @@ public:
 			}
 			cameraController->Update(static_cast<float>(deltaTime));
 
-			auto& opacity = g_Coordinator.GetComponent<ParticleComponent>(scentEntity);
+			g_UI.OnUpdate(static_cast<float>(deltaTime));
+			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
 
 			if (!g_ChangeText.shutted)
-			{
+			{				
 				g_ChangeText.OnUpdate(deltaTime);
 			}
 			else 
@@ -158,6 +161,7 @@ public:
 			//	cameraController->ShakeCamera(1.0f, glm::vec3(0.1f,0.1f,0.1f));
 			//}
 
+			// Take this away once u shift to script
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
 			{
 				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiBark))
@@ -181,7 +185,6 @@ public:
 					music2.PlayAudio();
 				}
 
-				opacity.setParticleColor(glm::vec4(0.09019608050584793f, 0.7843137383460999f, 0.8549019694328308f, 1.0f));
 				sniff = true;
 			}
 
@@ -189,6 +192,7 @@ public:
 			{
 				sniff = false;
 			}
+			// until here
 
 			if (g_Checklist.shutted && g_ChangeText.shutted)
 			{
@@ -218,6 +222,8 @@ public:
 			delete cameraController;
 			cameraController = nullptr;
 		}
+
+		g_UI.OnShutdown();
 	}
 
 	void UnloadLevel() override

@@ -12,6 +12,7 @@
 #include "../Core/AssetManager/FilePaths.h"
 #include "../GSM/GameStateMachine.h"
 #include "../Utilities/ForGame/TimerTR/TimerTR.h"
+#include "../Utilities/ForGame/UI/UI.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
@@ -146,6 +147,11 @@ public:
 	virtual const char* GetCollidingEntityName(Entity entity) override
 	{
 		return g_Coordinator.GetComponent<CollisionComponent>(entity).GetLastCollidedObjectName().c_str();
+	}
+
+	virtual void SetCollidingEntityName(Entity entity) override
+	{
+		g_Coordinator.GetComponent<CollisionComponent>(entity).SetLastCollidedObjectName("Floor");
 	}
 
 	virtual void SetVelocity(Entity entity, glm::vec3 inputVelocity) override
@@ -346,6 +352,11 @@ public:
 	virtual void SetTouched(bool touch) override
 	{
 		g_TimerTR.touched = touch;
+	}
+
+	virtual bool GetExhausted() override 
+	{
+		return g_UI.isExhausted;
 	}
 };
 
