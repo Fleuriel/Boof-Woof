@@ -124,14 +124,20 @@ void Checklist::OnUpdate(double deltaTime)
 		}
 	}
 
+	//if (corgiText || finishTR || finishRB)
+	//{
+	//	clTimer += deltaTime;
+
+	//	if (clTimer >= clLimit)
+	//	{
+	//		OnShutdown();
+	//	}
+	//}
+	
+	// no timer, just instant shut.
 	if (corgiText || finishTR || finishRB)
 	{
-		clTimer += deltaTime;
-
-		if (clTimer >= clLimit)
-		{
-			OnShutdown();
-		}
+		OnShutdown();
 	}
 }
 
@@ -189,7 +195,7 @@ void Checklist::OnShutdown()
 
 	// Reset all checklist flags and timers.
 	shutted = true;
-	clTimer = 0.0;
+	// clTimer = 0.0;
 	Check1 = Check2 = Check3 = Check4 = corgiText = false;
 }
 

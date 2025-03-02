@@ -139,10 +139,10 @@ std::string Dialogue::getDialogue()
 
 	/* RopeBreaker & Escape Dialogues */
 	case DialogueState::BREAKROPES:
-		return "We made it.. But we're not safe yet. I need to break these ropes!";
+		return "We made it.. But we're not safe yet. I need to bite off these ropes!";
 
 	case DialogueState::BROKEROPE1:
-		return "One down—one more to go!";
+		return "One down! One more to go!!";
 
 	case DialogueState::FREED:
 		return "We did it.. We're free!";

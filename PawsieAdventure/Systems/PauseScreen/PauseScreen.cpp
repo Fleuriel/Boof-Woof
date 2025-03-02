@@ -8,6 +8,7 @@
 #include "../Checklist/Checklist.h" 
 #include "../RopeBreaker/RopeBreaker.h" 
 #include "../BoneCatcher/BoneCatcher.h" 
+#include "../SmellAvoidance/SmellAvoidance.h"
 #include "../../Utilities/ForGame/TimerTR/TimerTR.h"
 
 std::unique_ptr<PauseMenu> pauser = CreatePausedMenu(PauseState::Paused);
@@ -448,5 +449,6 @@ namespace pauseLogic
 		g_RopeBreaker.ResetRB();
 		g_BoneCatcher.ResetBC();
 		g_TimerTR.Reset();
+		g_SmellAvoidance.Reset();
 	}
 }
