@@ -8,8 +8,8 @@
 class FontComponent {
 public:
 	FontComponent() {};
-	FontComponent(const std::string& family, const glm::vec2& pos, const glm::vec2& scale, const glm::vec3& color , const std::string& text)
-		: family(family), pos(pos), scale(scale), color(color), text(text) {};
+	FontComponent(const std::string& family, const glm::vec2& pos, const glm::vec2& scale, const glm::vec3& color, const std::string& text, float layer)
+		: family(family), pos(pos), scale(scale), color(color), text(text) ,layer(layer){};
 	~FontComponent() {};
 
 	// getters
@@ -18,6 +18,7 @@ public:
 	glm::vec2 get_scale() const { return scale; }
 	std::string get_text() const { return text; }
 	glm::vec3 get_color() const { return color; }
+	float get_layer() const { return layer; }
 
 	// setters
 	void set_family(const std::string& fam) { this->family = fam; }
@@ -25,6 +26,7 @@ public:
 	void set_scale(const glm::vec2& s) { this->scale = s; }
 	void set_text(const std::string& txt) { this->text = txt; }
 	void set_color(const glm::vec3& clr) { this->color = clr; }
+	void set_layer(const float lyr) { this->layer = lyr; }
 
 
 	REFLECT_COMPONENT(FontComponent)
@@ -36,6 +38,7 @@ private:
 	glm::vec2 scale = { 1.0f, 1.0f };
 	std::string text{};
 	glm::vec3 color = { 1.0f, 1.0f, 1.0f };
+	float layer = 0.5f;
 };
 
 #endif // FONTCOMPONENT_HPP

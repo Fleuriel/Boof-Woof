@@ -82,8 +82,8 @@ struct Player final : public Behaviour
 
 			//std::cout << "[DEBUG] isGrounded = " << std::boolalpha << isGrounded << std::endl;
 
-
-			if (m_Engine.getInputSystem().isActionPressed("Sprint"))
+			// If not exhausted, run. Else, stop running, walk.
+			if (m_Engine.getInputSystem().isActionPressed("Sprint") && !m_Engine.GetExhausted())
 			{
 				speed = 5.0f;
 			}

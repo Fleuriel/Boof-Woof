@@ -672,6 +672,7 @@ void SceneManager::FinalizeSceneDataChunked(const SceneData& data, size_t& index
             float velMax = 0.f;
             float size = 1.f;
             glm::vec4 color(1.f);
+			float opacity = 1.f;
 
             std::vector<glm::vec3> targetPositions;
 
@@ -722,7 +723,7 @@ void SceneManager::FinalizeSceneDataChunked(const SceneData& data, size_t& index
                 color.r = cObj["r"].GetFloat();
                 color.g = cObj["g"].GetFloat();
                 color.b = cObj["b"].GetFloat();
-                color.a = cObj["a"].GetFloat();
+                opacity = cObj["a"].GetFloat();
             }
             std::string particle_type = "POINT";
             if (PData.HasMember("ParticleType")) particle_type = PData["ParticleType"].GetString();
@@ -736,7 +737,7 @@ void SceneManager::FinalizeSceneDataChunked(const SceneData& data, size_t& index
             std::string particle_texture = "Bed";
             if (PData.HasMember("ParticleTexture")) particle_texture = PData["ParticleTexture"].GetString();
 
-			ParticleComponent partC(density, posMin, posMax, velMin, velMax, targetPositions, size, color, type, particle_model, particle_texture);
+			ParticleComponent partC(density, posMin, posMax, velMin, velMax, targetPositions, size, color, opacity, type, particle_model, particle_texture);
             g_Coordinator.AddComponent(newE, partC);
         }
 

@@ -47,6 +47,8 @@ class MainHall : public Level
 	bool waterSoundPlayed = false;
 	bool testCollided = false;
 
+	std::vector<Entity> particleEntities;
+
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM5.json");
@@ -150,6 +152,9 @@ class MainHall : public Level
 		g_DialogueText.setDialogue(DialogueState::OUTOFLIBRARY);
 
 		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
+
+		particleEntities = { scentEntity1, scentEntity2, scentEntity3 };
+		g_UI.OnInitialize();
 	}
 
 	void CheckCollision()
@@ -287,17 +292,20 @@ class MainHall : public Level
 		// ?? Update the positions of all 3D sounds (including the fireplace)
 		g_Audio.Update3DSoundPositions();
 
-		pauseLogic::OnUpdate();
+		if (!g_DialogueText.dialogueActive)
+		{
+			pauseLogic::OnUpdate();
+		}
 
 		if (!g_IsPaused)
 		{
 			cameraController->Update(static_cast<float>(deltaTime));
 			cooldownTimer += deltaTime;
+
+			g_UI.OnUpdate(static_cast<float>(deltaTime));
+			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
 			g_DialogueText.OnUpdate(deltaTime);
 
-			auto& opacity1 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity1);
-			auto& opacity2 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity2);
-			auto& opacity3 = g_Coordinator.GetComponent<ParticleComponent>(scentEntity3);
 
 			if (!g_Checklist.shutted)
 			{
@@ -405,13 +413,10 @@ class MainHall : public Level
 				teb_last = false;
 			}
 
+			// Take this away once u shift to script & peecontrol file
 			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !sniffa && cooldownTimer >= cooldownDuration)
 			{
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiSniff.wav", false, "SFX");
-
-				opacity1.setParticleColor(glm::vec4(0.9607843160629273f, 0.3935392200946808f, 0.042387526482343677f, 1.0f));
-				opacity2.setParticleColor(glm::vec4(0.032127078622579578f, 0.93624528503418f, 0.936274528503418f, 1.0f));
-				opacity3.setParticleColor(glm::vec4(0.9313725233078003f, 0.342416375875473f, 0.8274392485618591f, 1.0f));
 
 				if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
 				{
@@ -430,10 +435,6 @@ class MainHall : public Level
 				colorChangeTimer += deltaTime;
 				if (colorChangeTimer >= colorChangeDuration)
 				{
-					opacity1.setParticleColor(glm::vec4(0.9607843160629273f, 0.3935392200946808f, 0.042387526482343677f, 0.0f));
-					opacity2.setParticleColor(glm::vec4(0.032127078622579578f, 0.93624528503418f, 0.936274528503418f, 0.0f));
-					opacity3.setParticleColor(glm::vec4(0.9313725233078003f, 0.342416375875473f, 0.8274392485618591f, 0.0f));
-
 					if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
 					{
 						auto& testPeeTransform = g_Coordinator.GetComponent<TransformComponent>(TestPee);
@@ -448,6 +449,7 @@ class MainHall : public Level
 			{
 				sniffa = false;
 			}
+			// until here
 		}
 	}
 
@@ -458,6 +460,8 @@ class MainHall : public Level
 			delete cameraController;
 			cameraController = nullptr;
 		}
+
+		g_UI.OnShutdown();
 	}
 
 	void UnloadLevel() override
