@@ -53,6 +53,8 @@ class MainHall : public Level
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM5.json");
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusicBGM.wav", true, "BGM");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav", true, "SFX");
+
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -494,6 +496,7 @@ class MainHall : public Level
 
 	void UnloadLevel() override
 	{
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav");
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/BedRoomMusicBGM.wav");
 		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);

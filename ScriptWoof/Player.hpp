@@ -28,6 +28,10 @@ struct Player final : public Behaviour
 
 	bool hasJumped = false;  // Track if the player has jumped
 	bool wasGrounded = true; // Track the previous grounded state
+	float fallTime = 0.0f;  // ? New variable to track how long the player is in the air
+	bool falling = false;  // ? New flag to track if the player was falling
+	bool jumpInitiated = false;  // ? New flag to track intentional jumps
+
 
 
 
@@ -58,9 +62,9 @@ struct Player final : public Behaviour
 	};
 
 	std::vector<std::string> landingSounds = {
-		"Corgi/JumpLand_011.wav",
-		"Corgi/JumpLand_021.wav",
-		"Corgi/JumpLand_031.wav"
+		"Corgi/JumpLand_01.wav",
+		"Corgi/JumpLand_02.wav",
+		"Corgi/JumpLand_03.wav"
 	};
 
 	// Function to get a random sound from a vector
@@ -360,23 +364,34 @@ struct Player final : public Behaviour
 				isJumping = true;
 				isMoving = true;
 				hasJumped = true;  // Mark that the player has jumped
+				jumpInitiated = true;  // ? Mark that the player has jumped intentionally
+
 
 			}
 
-			// Detect if player is landing instantly
-			if (wasGrounded == false && isGrounded == true) {
-				// Ensure player was falling before landing
-				if (velocity.y >= -0.1f) { // Close to zero = landed
-					// Play a random landing sound
-					m_Engine.getAudioSystem().PlaySoundByFile(GetRandomSound(landingSounds).c_str(), false, "SFX");
-
-					hasJumped = false;  // Reset jump tracking after landing
-			jumpSoundPlayed = false;  // ? Reset so next jump can play sound
-					std::cout << "[DEBUG] Player landed immediately with velocity: " << velocity.y << std::endl;
-				}
+			// Detect if the player starts falling after jumping
+			if (wasGrounded && !isGrounded) {
+				falling = true;
+				fallTime = 0.0f;
 			}
 
-			// Update `wasGrounded` at the end of the frame
+			// If the player is falling, increase fall time
+			if (falling) {
+				fallTime += static_cast<float>(m_Engine.GetDeltaTime());
+			}
+
+			// Detect if the player lands **only if they previously jumped**
+			if (falling && isGrounded && fallTime > 0.2f && jumpInitiated) {
+				m_Engine.getAudioSystem().PlaySoundByFile(GetRandomSound(landingSounds).c_str(), false, "SFX");
+
+				hasJumped = false;
+				jumpSoundPlayed = false;
+				falling = false;
+				jumpInitiated = false;  // ? Reset jump tracking after landing
+				std::cout << "[DEBUG] Player landed after intentional jump!" << std::endl;
+			}
+
+			// Update grounded state at the end
 			wasGrounded = isGrounded;
 
 
