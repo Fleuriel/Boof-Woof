@@ -23,6 +23,7 @@ struct Puppy final : public Behaviour
 
     virtual void Init(Entity entity) override
     {
+        collected.clear();
         UNUSED(entity);
         pathInitialized = false;
         followingPath = false;
@@ -160,6 +161,7 @@ struct Puppy final : public Behaviour
             // std::cout << "[Puppy] Moving with velocity: (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
         }
     }
+
 
     virtual const char* getBehaviourName() override
     {
