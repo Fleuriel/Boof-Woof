@@ -60,6 +60,7 @@ struct engine_interface
 	virtual const char* GetCollidingEntityName(Entity entity) = 0;
 	virtual void SetCollidingEntityName(Entity entity) = 0;
 	virtual void SetVelocity(Entity entity, glm::vec3 velocity) = 0;
+	virtual bool IsDynamic(Entity entity) = 0;
 
 	// Pathfinding functions
 	virtual bool HavePathfindingComponent(Entity entity) = 0;

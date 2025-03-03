@@ -37,7 +37,8 @@ class MainHall : public Level
 
 	bool sniffa{ false };
 	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
-	bool playercollided{ false }, puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
+	//bool playercollided{ false };
+	bool puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
 	bool puppy1Destroyed{ false }, puppy2Destroyed{ false }, puppy3Destroyed{ false };
 	bool teb_last = false;
 
@@ -99,26 +100,26 @@ class MainHall : public Level
 
 	void CheckPuppyCollision()
 	{
-		playercollided = CheckEntityCollision(playerEnt);
-		puppy1Collided = CheckEntityCollision(puppy1);
-		puppy2Collided = CheckEntityCollision(puppy2);
-		puppy3Collided = CheckEntityCollision(puppy3);
+		//playercollided = true; //CheckEntityWithPlayerCollision(playerEnt);
+		puppy1Collided = CheckEntityWithPlayerCollision(puppy1);
+		puppy2Collided = CheckEntityWithPlayerCollision(puppy2);
+		puppy3Collided = CheckEntityWithPlayerCollision(puppy3);
 
-		if (playercollided && puppy1Collided && !collectedPuppy1)
+		if (puppy1Collided && !collectedPuppy1)
 		{
 			collectedPuppy1 = true;
 			g_DialogueText.OnInitialize();
 			g_DialogueText.setDialogue(DialogueState::TWOMORETOGO);
 		}
 
-		if (playercollided && puppy2Collided && !collectedPuppy2)
+		if (puppy2Collided && !collectedPuppy2)
 		{
 			collectedPuppy2 = true;
 			g_DialogueText.OnInitialize();
 			g_DialogueText.setDialogue(DialogueState::ONEMORETOGO);
 		}
 
-		if (playercollided && puppy3Collided && !collectedPuppy3)
+		if (puppy3Collided && !collectedPuppy3)
 		{
 			collectedPuppy3 = true;
 			g_DialogueText.OnInitialize();
@@ -236,6 +237,7 @@ class MainHall : public Level
 			if (collectedPuppy1 && !puppy1Destroyed)
 			{
 				g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
+				//g_Coordinator.GetComponent<CollisionComponent>(puppy1).SetIsDynamic(true);
 				//g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy1);
 				//g_Coordinator.DestroyEntity(puppy1);
 				puppy1Destroyed = true;
@@ -245,6 +247,7 @@ class MainHall : public Level
 			if (collectedPuppy2 && !puppy2Destroyed)
 			{
 				g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
+				//g_Coordinator.GetComponent<CollisionComponent>(puppy2).SetIsDynamic(true);
 				//g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy2);
 				//g_Coordinator.DestroyEntity(puppy2);
 				puppy2Destroyed = true;
@@ -254,6 +257,7 @@ class MainHall : public Level
 			if (collectedPuppy3 && !puppy3Destroyed)
 			{
 				g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
+				//g_Coordinator.GetComponent<CollisionComponent>(puppy3).SetIsDynamic(true);
 				//g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy3);
 				//g_Coordinator.DestroyEntity(puppy3);
 				puppy3Destroyed = true;
@@ -353,7 +357,8 @@ class MainHall : public Level
 		// Ensure RESET for game to be replayable
 		g_Checklist.shutted = false;
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
-		playercollided = puppy1Collided = puppy2Collided = puppy3Collided = false;
+		//playercollided = false;
+		puppy1Collided = puppy2Collided = puppy3Collided = false;
 		puppy1Destroyed = puppy2Destroyed = puppy3Destroyed = false;
 
 		g_TimerTR.OnShutdown();
@@ -423,11 +428,14 @@ private:
 		}
 	}
 
-	bool CheckEntityCollision(Entity entity)
+	bool CheckEntityWithPlayerCollision(Entity entity)
 	{
-		if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
+		//Check Entity Collision with Player
+		if (g_Coordinator.HaveComponent<CollisionComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
 		{
-			return g_Coordinator.GetComponent<CollisionComponent>(entity).GetIsColliding();
+			auto collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
+			if(collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), "Player") == 0)
+				return true;
 		}
 		return false;
 	}

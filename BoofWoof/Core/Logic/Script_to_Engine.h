@@ -184,6 +184,16 @@ public:
 		}
 	}
 
+	virtual bool IsDynamic(Entity entity) override
+	{
+		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
+		{
+			return g_Coordinator.GetComponent<CollisionComponent>(entity).IsDynamic();
+		}
+		return false;
+	}
+
+
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) override
 	{
