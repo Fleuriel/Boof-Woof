@@ -111,6 +111,9 @@
     <ClInclude Include="Utilities\Components\NodeComponent.hpp" />
     <ClInclude Include="Utilities\ForGame\TimerTR\TimerTR.h" />
     <ClInclude Include="Utilities\ForGame\UI\UI.h" />
+    <ClInclude Include="Core\Animation\Animator.h" />
+    <ClInclude Include="Core\Animation\Bones.h" />
+    <ClInclude Include="Core\Animation\Animation.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />
