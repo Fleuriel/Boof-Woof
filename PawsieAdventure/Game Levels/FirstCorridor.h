@@ -4,13 +4,13 @@
 #include "ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 
-class FirstCorridor : public Level
+class Corridor : public Level
 {
 	Entity playerEnt{};
 	CameraController* cameraController = nullptr;
 	void LoadLevel() override
 	{
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Corridor.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/SecondCorridor.json");
 		//g_TimerTR.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -58,7 +58,7 @@ class FirstCorridor : public Level
 			if (loading)
 			{
 				// Pass in the name of the real scene we want AFTER the loading screen
-				loading->m_NextScene = "TimeRush";
+				loading->m_NextScene = "MainHall";
 				g_LevelManager.SetNextLevel("LoadingLevel");
 			}
 		}
