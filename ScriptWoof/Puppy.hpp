@@ -73,6 +73,7 @@ struct Puppy final : public Behaviour
         if (collected[entity] && playerEntity != MAX_ENTITIES) {
             // Get player position for movement
             glm::vec3 playerPos = m_Engine.GetPosition(playerEntity);
+			float playerY = playerPos.y;
 
 			// Move towards the player x and z position
 			playerPos.y = currentPos.y; // Keep movement on the same Y-plane
@@ -84,11 +85,29 @@ struct Puppy final : public Behaviour
             }
 
             float distance = glm::length(playerPos - currentPos);
-            if (distance <= pathThreshold)
+            //if player y position is greater than 5, move puppy up
+            if (playerY - currentPos.y > 1) {
+                if (distance < 2) {
+                    velocity = glm::vec3(0.0f);
+                    std::cout << "[Puppy] Reached player!" << std::endl;
+				}
+				else {
+					// Make the puppy jump towards the player
+                    float gravity = 9.81f;
+                    float jumpHeight = 1.5f;
+                    float jumpVelocity = 1.2f * sqrt(2 * gravity * jumpHeight);
+
+                    velocity.y = jumpVelocity;
+					
+				}
+            }
+            else if (distance <= pathThreshold)
             {
                 velocity = glm::vec3(0.0f);
                 std::cout << "[Puppy] Reached player!" << std::endl;
             }
+
+			
 
             isMovingPuppy = true;
         }
