@@ -17,6 +17,8 @@
 
 #include "../Core/Graphics/Model.h"
 #include "../Core/Graphics/FontSystem.h"
+//#include "../Core/Animation/Animation.h"
+//#include "../Core/Animation/Animator.h"
 
 
 struct DDSData {
@@ -86,6 +88,14 @@ public:
 	Model* GModel() const;
 
 	Model* m_Model{};
+
+
+//std::unordered_map<std::string, AnimationT*> AnimationMap;
+//std::unordered_map<std::string, Animator*> AnimatorMap; // Add this line
+
+
+
+
 
 private:
 	

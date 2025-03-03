@@ -22,6 +22,7 @@
 #include <assimp/postprocess.h>
 #include "Shader.h"
 #include "Mesh.h"
+#include "../../BoofWoof/Core/Animation/AnimData.h"
 
 #include "AssetManager/AssetManager.h"
 
@@ -51,6 +52,13 @@ public:
     GLsizei draw_cnt{};			// Draw Count of the model
     size_t idx_elem_cnt{};		// Index Element Count of the Model
 
+    Model() {}
+
+	Model(std::string const& path, bool gamma = false)
+	{
+		loadModel(path);
+	}
+
 
     std::map<std::string, BoneInfo> m_BoneInfoMap;
     int m_BoneCounter = 0;
@@ -63,6 +71,9 @@ public:
             vertex.m_Weights[i] = 0.0f;
         }
     }
+
+    auto& GetBoneInfoMap() { return m_BoneInfoMap; }
+    int& GetBoneCount() { return m_BoneCounter; }
 
 
     void Draw2D(OpenGLShader& shader) const;
@@ -225,7 +236,7 @@ public:
     }
 
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
-    void loadModel(std::string const& path, unsigned int draw_mode)
+    void loadModel(std::string const& path, unsigned int draw_mode = 4)
     {
 
         std::cout << "LOAD MODEL: " << path << '\n';
@@ -370,6 +381,8 @@ public:
         //return Mesh(vertices, indices, textures);
         Mesh out(vertices, indices, textures);
         out.drawMode = draw_mode;
+        std::cout <<"\n\n\n\n\nDRAWMODE: \t" << draw_mode << '\n';
+
         return out;
     }
 
@@ -377,6 +390,17 @@ public:
     {
         auto& boneInfoMap = m_BoneInfoMap;
         int& boneCount = m_BoneCounter;
+
+
+        auto ConvertMatrixToGLM = [](const aiMatrix4x4& from) -> glm::mat4 {
+            return glm::mat4{
+                { from.a1, from.b1, from.c1, from.d1 },
+                { from.a2, from.b2, from.c2, from.d2 },
+                { from.a3, from.b3, from.c3, from.d3 },
+                { from.a4, from.b4, from.c4, from.d4 }
+            };
+            };
+
 
         for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
         {
@@ -386,7 +410,7 @@ public:
             {
                 BoneInfo newBoneInfo;
                 newBoneInfo.id = boneCount;
-                newBoneInfo.offset = AssimpGLMHelpers::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
+                newBoneInfo.offset = ConvertMatrixToGLM(mesh->mBones[boneIndex]->mOffsetMatrix);
                 boneInfoMap[boneName] = newBoneInfo;
                 boneID = boneCount;
                 boneCount++;
@@ -408,6 +432,20 @@ public:
             }
         }
     }
+
+    void SetVertexBoneData(Vertex& vertex, int boneID, float weight)
+    {
+        for (int i = 0; i < MAX_BONE_INFLUENCE; ++i)
+        {
+            if (vertex.m_BoneIDs[i] < 0)
+            {
+                vertex.m_Weights[i] = weight;
+                vertex.m_BoneIDs[i] = boneID;
+                break;
+            }
+        }
+    }
+
 
 
 

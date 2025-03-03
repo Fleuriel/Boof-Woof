@@ -11,7 +11,8 @@
 class Animator
 {
 public:
-	Animator(Animation* animation)
+
+	Animator(AnimationT* animation)
 	{
 		m_CurrentTime = 0.0;
 		m_CurrentAnimation = animation;
@@ -73,7 +74,7 @@ public:
 
 private:
 	std::vector<glm::mat4> m_FinalBoneMatrices;
-	Animation* m_CurrentAnimation;
+	AnimationT* m_CurrentAnimation;
 	float m_CurrentTime;
 	float m_DeltaTime;
 

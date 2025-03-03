@@ -17,12 +17,12 @@ struct AssimpNodeData
 	std::vector<AssimpNodeData> children;
 };
 
-class Animation
+class AnimationT
 {
 public:
-	Animation() = default;
+	AnimationT() = default;
 
-	Animation(const std::string& animationPath, Model* model)
+	AnimationT(const std::string& animationPath, Model* model)
 	{
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
@@ -36,7 +36,7 @@ public:
 		ReadMissingBones(animation, *model);
 	}
 
-	~Animation()
+	~AnimationT()
 	{
 	}
 
@@ -65,6 +65,8 @@ private:
 	void ReadMissingBones(const aiAnimation* animation, Model& model)
 	{
 		int size = animation->mNumChannels;
+		
+		
 
 		auto& boneInfoMap = model.GetBoneInfoMap();//getting m_BoneInfoMap from Model class
 		int& boneCount = model.GetBoneCount(); //getting the m_BoneCounter from Model class
@@ -91,8 +93,17 @@ private:
 	{
 		assert(src);
 
+		auto ConvertMatrixToGLM = [](const aiMatrix4x4& from) -> glm::mat4 {
+			return glm::mat4{
+				{ from.a1, from.b1, from.c1, from.d1 },
+				{ from.a2, from.b2, from.c2, from.d2 },
+				{ from.a3, from.b3, from.c3, from.d3 },
+				{ from.a4, from.b4, from.c4, from.d4 }
+			};
+			};
+
 		dest.name = src->mName.data;
-		dest.transformation = AssimpGLMHelpers::ConvertMatrixToGLMFormat(src->mTransformation);
+		dest.transformation = ConvertMatrixToGLM(src->mTransformation);
 		dest.childrenCount = src->mNumChildren;
 
 		for (int i = 0; i < src->mNumChildren; i++)

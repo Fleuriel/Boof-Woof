@@ -15,7 +15,6 @@
 #include "../Core/AssetManager/FilePaths.h"
 
 
-
 //                       _oo0oo_
 //                      o8888888o
 //                      88" . "88
@@ -135,12 +134,18 @@ void GraphicsSystem::initGraphicsPipeline() {
 	g_ResourceManager.LoadAll();
 
 
+
+
 	AddModel_2D();
 	std::cout << "uhee\n\n\n\n\n\n";
 
 	AddEntireModel3D(FILEPATH_ASSET_OBJECTS);
 //	AddModel_3D("../BoofWoof/Assets/Objects/Fireplace.obj");
 	//fontSystem.init();
+
+
+	//TestAnimationAdd("../BoofWoof/Assets/Animations/corgi_walk.fbx");
+
 
 	shdrParam.Color = glm::vec3(1.0f, 1.0f, 1.0f);
 
@@ -299,6 +304,8 @@ void GraphicsSystem::UpdateLoop() {
 
 	
 
+
+
 	
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
@@ -403,6 +410,28 @@ void GraphicsSystem::UpdateLoop() {
 		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 
 		auto& material = graphicsComp.material;
+
+		//if (material.GetShaderName() == "Animation") {
+		//	// Find the corresponding animator
+		//	auto it = g_ResourceManager.AnimatorMap.find("corgi_walk"); // Use the correct animation name
+		//	if (it != g_ResourceManager.AnimatorMap.end()) {
+		//		Animator* animator = it->second;
+		//		animator->UpdateAnimation(deltaTime); // Update animation before retrieving matrices
+
+		//		auto transforms = animator->GetFinalBoneMatrices();
+		//		for (size_t i = 0; i < transforms.size(); ++i) {
+
+		//			std::string nama = "finalBonesMatrices[" + std::to_string(i) + "]";
+
+		//			g_AssetManager.GetShader("Animation").SetUniform(nama.c_str(), transforms[i]);
+
+		//		}
+		//	}
+		//	else {
+		//		std::cerr << "Error: Animator not found for corgi_walk\n";
+		//	}
+		//}
+
 
 //		auto& ShaderName = material.GetShaderNameRef();
 
@@ -697,6 +726,7 @@ void GraphicsSystem::AddEntireModel3D(const std::string& directory)
 
 }
 
+
 void GraphicsSystem::AddModel_3D(std::string const& path)
 {
 	Model model;
@@ -714,6 +744,31 @@ void GraphicsSystem::AddModel_3D(std::string const& path)
 
 	std::cout << "Loaded: " << path << " with name: " << name << " [Models Reference: " << g_ResourceManager.ModelMap.size() - 1 << "]" << '\n';
 }
+
+
+//void GraphicsSystem::TestAnimationAdd(const std::string& path) {
+//	// Step 1: Load model (needed for animation)
+//	Model animModel(path, false);
+//
+//	std::string name = "corgi_walk";
+//
+//	// Step 2: Create AnimationT object and store it
+//	AnimationT* corgiWalk = new AnimationT(path, &animModel);
+//	g_ResourceManager.AnimationMap[name] = corgiWalk; // Store in resource manager
+//
+//	// Step 3: Store the model
+//	g_ResourceManager.ModelMap.insert(std::pair<std::string, Model>(name, animModel));
+//	g_ResourceManager.addModelNames(name);
+//
+//	// Step 4: Create Animator and store it
+//	Animator* animator = new Animator(corgiWalk);
+//	g_ResourceManager.AnimatorMap[name] = animator;
+//
+//	std::cout << "Animation and Animator added successfully!\n";
+//}
+
+
+
 
 void GraphicsSystem::Draw(std::vector<GraphicsComponent>& components) {
 	// Loop through components and draw them
@@ -768,6 +823,8 @@ void GraphicsSystem::AddModel_2D()
 	std::cout << "Loaded: " << model.name << " [Models Reference: "
 		<< g_ResourceManager.GetModelMap().size() - 1 << "]" << '\n';
 }
+
+
 
 
 
@@ -1150,5 +1207,8 @@ void GraphicsSystem::RenderLightPos()
 	}
 
 }
+
+
+
 
 
