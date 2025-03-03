@@ -107,6 +107,16 @@ public:
 		g_Coordinator.GetComponent<TransformComponent>(entity).SetPosition(position);
 	}
 
+	virtual void SetRotation(Entity entity, glm::vec3 rotation) override
+	{
+		g_Coordinator.GetComponent<TransformComponent>(entity).SetRotation(rotation);
+	}
+
+	virtual void SetRotationYawFromVelocity(Entity entity, glm::vec3 velocity) override
+	{
+		g_Coordinator.GetComponent<TransformComponent>(entity).SetRotationYawFromVelocity(velocity);
+	}
+
 	virtual bool HaveTransformComponent(Entity entity) override
 	{
 		return g_Coordinator.HaveComponent<TransformComponent>(entity);
@@ -211,6 +221,15 @@ public:
 	{
 		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycast(entity, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle);
 	}
+	virtual bool IsDynamic(Entity entity) override
+	{
+		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
+		{
+			return g_Coordinator.GetComponent<CollisionComponent>(entity).IsDynamic();
+		}
+		return false;
+	}
+
 
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) override
