@@ -98,6 +98,9 @@
     <ClInclude Include="Systems\SmellAvoidance\SmellAvoidance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game Levels\FirstCorridor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">

@@ -11,7 +11,7 @@ class FirstCorridor : public Level
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/Corridor.json");
-		g_TimerTR.OnInitialize();
+		//g_TimerTR.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
