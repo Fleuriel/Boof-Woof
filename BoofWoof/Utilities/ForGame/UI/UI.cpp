@@ -205,6 +205,7 @@ void UI::Sprint(float dt)
 	// StunLock 
 	if (isStunned) 
 	{
+		sprinto.set_playing(false);
 		stunTimer += dt;
 		if (stunTimer >= 3.0f) 
 		{
