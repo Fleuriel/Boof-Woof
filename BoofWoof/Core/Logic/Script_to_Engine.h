@@ -104,6 +104,16 @@ public:
 		g_Coordinator.GetComponent<TransformComponent>(entity).SetPosition(position);
 	}
 
+	virtual void SetRotation(Entity entity, glm::vec3 rotation) override
+	{
+		g_Coordinator.GetComponent<TransformComponent>(entity).SetRotation(rotation);
+	}
+
+	virtual void SetRotationYawFromVelocity(Entity entity, glm::vec3 velocity) override
+	{
+		g_Coordinator.GetComponent<TransformComponent>(entity).SetRotationYawFromVelocity(velocity);
+	}
+
 	virtual bool HaveTransformComponent(Entity entity) override
 	{
 		return g_Coordinator.HaveComponent<TransformComponent>(entity);
@@ -173,6 +183,16 @@ public:
 			std::cerr << "Entity " << entity << " does not have a valid CollisionComponent or PhysicsBody. Skipping SetVelocity." << std::endl;
 		}
 	}
+
+	virtual bool IsDynamic(Entity entity) override
+	{
+		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
+		{
+			return g_Coordinator.GetComponent<CollisionComponent>(entity).IsDynamic();
+		}
+		return false;
+	}
+
 
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) override

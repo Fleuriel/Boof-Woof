@@ -20,9 +20,19 @@ struct Player final : public Behaviour
 	bool inRopeBreaker{ false }, touchingToy{ false }, cooldownActive{ false }, justplaypls{ false };
 	double stunlockTimer = 2.0;	// 2.0 seconds
 	double cooldownTimer = 0.0;
+	bool jumpSoundPlayed = false;  // Add this as a new class member variable
+
 
 	float footstepTimer = 0.0f;
 	const float footstepInterval = 0.25f;  // Interval between footstep sounds (adjustable)
+
+	bool hasJumped = false;  // Track if the player has jumped
+	bool wasGrounded = true; // Track the previous grounded state
+	float fallTime = 0.0f;  // ? New variable to track how long the player is in the air
+	bool falling = false;  // ? New flag to track if the player was falling
+	bool jumpInitiated = false;  // ? New flag to track intentional jumps
+
+
 
 
 	std::vector<std::string> footstepSounds = {
@@ -41,6 +51,35 @@ struct Player final : public Behaviour
 	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_13.wav",
 	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_14.wav"
 	};
+
+
+	std::vector<std::string> jumpSounds = {
+		"Corgi/Jump_001 1.wav",
+		"Corgi/Jump_002 1.wav",
+		"Corgi/Jump_003 1.wav",
+		"Corgi/Jump_004 1.wav",
+		"Corgi/Jump_005 1.wav"
+	};
+
+	std::vector<std::string> landingSounds = {
+		"Corgi/JumpLand_011.wav",
+		"Corgi/JumpLand_021.wav",
+		"Corgi/JumpLand_031.wav"
+	};
+
+	std::vector<std::string> rubberSqueakSounds = {
+	"RubberSqueak1.wav",
+	"RubberSqueak2.wav",
+	"RubberSqueak3.wav"
+	};
+
+	// Function to get a random sound from a vector
+	std::string GetRandomSound(const std::vector<std::string>& soundList) {
+		static std::random_device rd;
+		static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+		std::uniform_int_distribution<std::size_t> dis(0, soundList.size() - 1);
+		return soundList[dis(gen)];
+	}
 
 	virtual void Init(Entity entity) override
 	{
@@ -130,9 +169,9 @@ struct Player final : public Behaviour
 				{
 					touchingToy = true;
 
-					if (!justplaypls) 
+					if (!justplaypls)
 					{
-						m_Engine.getAudioSystem().PlaySoundByFile("ToyTouch.wav", false, "SFX");
+						m_Engine.getAudioSystem().PlaySoundByFile(GetRandomSound(rubberSqueakSounds).c_str(), false, "SFX");
 						double currTimer = m_Engine.GetTimerTiming();
 						double newTimer = currTimer - 10.0;
 						m_Engine.SetTimerTiming(newTimer);
@@ -145,7 +184,7 @@ struct Player final : public Behaviour
 				inRopeBreaker = false;
 			}
 
-			if (touchingToy) 
+			if (touchingToy)
 			{
 				m_Engine.SetTouched(true);
 
@@ -153,7 +192,7 @@ struct Player final : public Behaviour
 				{
 					stunlockTimer -= m_Engine.GetDeltaTime();
 				}
-				else 
+				else
 				{
 					// Stunlock is over, now enter cooldown phase
 					m_Engine.SetTouched(false);
@@ -318,11 +357,50 @@ struct Player final : public Behaviour
 				velocity.y = jumpVelocity;
 				m_Engine.SetGrounded(entity, false);
 
+				if (!jumpSoundPlayed) {  // ? Ensure jump sound plays only once per jump
+
+					
+						m_Engine.getAudioSystem().PlaySoundByFile(GetRandomSound(jumpSounds).c_str(), false, "SFX");
+						jumpSoundPlayed = true;  // Mark that the jump sound has played
+					}
+
+
 				//std::cout << "[DEBUG] Player jumped. Jump velocity: " << jumpVelocity << std::endl;
 				//std::cout << "[DEBUG] isGrounded: " << isGrounded << std::endl;
 				isJumping = true;
 				isMoving = true;
+				hasJumped = true;  // Mark that the player has jumped
+				jumpInitiated = true;  // ? Mark that the player has jumped intentionally
+
+
 			}
+
+			// Detect if the player starts falling after jumping
+			if (wasGrounded && !isGrounded) {
+				falling = true;
+				fallTime = 0.0f;
+			}
+
+			// If the player is falling, increase fall time
+			if (falling) {
+				fallTime += static_cast<float>(m_Engine.GetDeltaTime());
+			}
+
+			// Detect if the player lands **only if they previously jumped**
+			if (falling && isGrounded && fallTime > 0.2f && jumpInitiated) {
+				m_Engine.getAudioSystem().PlaySoundByFile(GetRandomSound(landingSounds).c_str(), false, "SFX");
+
+				hasJumped = false;
+				jumpSoundPlayed = false;
+				falling = false;
+				jumpInitiated = false;  // ? Reset jump tracking after landing
+				std::cout << "[DEBUG] Player landed after intentional jump!" << std::endl;
+			}
+
+			// Update grounded state at the end
+			wasGrounded = isGrounded;
+
+
 
 			// Check if the entity has a collision component and physics body before setting velocity
 			if (m_Engine.HaveCollisionComponent(entity) && m_Engine.HavePhysicsBody(entity))
