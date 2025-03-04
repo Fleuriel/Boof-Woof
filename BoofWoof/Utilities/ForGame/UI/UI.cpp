@@ -17,6 +17,7 @@ float UI::savedReplenishTimer = 0.0f;
 float UI::savedPelletOpacities[5] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f }; // Default: Full opacity
 
 bool UI::isExhausted = false;
+bool UI::isStunned = false;
 
 void UI::OnInitialize()
 {
@@ -194,10 +195,25 @@ void UI::Sprint(float dt)
 	UIComponent& sprinto = g_Coordinator.GetComponent<UIComponent>(Sprinto);
 
 	static bool isSprinting = false; // Track sprint state
+	static float stunTimer = 0.0f; // Stun lock timer
+	static float delayedRegenTimer = 0.0f; // Extra delay for first pellet regen
 
 	// Ensure we have 5 pellets
 	if (pellets.size() < 5)
 		return;
+
+	// StunLock 
+	if (isStunned) 
+	{
+		stunTimer += dt;
+		if (stunTimer >= 3.0f) 
+		{
+			isStunned = false;
+			stunTimer = 0.0f;
+			delayedRegenTimer = 0.0f; // Start delayed regeneration
+		}
+		return; // Exit early while stunned
+	}
 
 	// Check if Shift is held for sprinting
 	if (g_Input.GetKeyState(GLFW_KEY_LEFT_SHIFT) >= 1 && !isExhausted)
@@ -222,9 +238,14 @@ void UI::Sprint(float dt)
 			sprintTimer = 0.0f; // Reset sprint timer
 		}
 
+		// stun player if they fully exhaust stamina
 		if (staminaIndex == -1)
 		{
 			isExhausted = true; // Prevent further sprinting
+			isStunned = true;    // Apply stun lock
+			stunTimer = 0.0f;    // Reset stun timer
+
+			// insert heavy huff puff sound here
 		}
 	}
 	else
@@ -235,6 +256,14 @@ void UI::Sprint(float dt)
 		// Sregen as long as not full pellets
 		if (staminaIndex < 4) 
 		{
+			// Penalty: First Pellet Takes Longer
+			if (staminaIndex == -1)
+			{
+				delayedRegenTimer += dt;
+				if (delayedRegenTimer < 4.5f) // Delay first regen longer (4.5s instead of 3s)
+					return;
+			}
+
 			replenishTimer += dt; // Increase replenish timer
 
 			// Every 3 seconds, restore one pellet

@@ -343,6 +343,11 @@ public:
 	{
 		return g_UI.isExhausted;
 	}
+
+	virtual bool GetStunned() override
+	{
+		return g_UI.isStunned;
+	}
 };
 
 #endif // !SCRIPT_TO_ENGINE_H
