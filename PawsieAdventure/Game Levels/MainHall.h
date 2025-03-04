@@ -165,7 +165,7 @@ class MainHall : public Level
 				float minVolume = 0.6f;  // Starting Volume (20%)
 
 				// Scale volume based on time left (louder as it approaches 0)
-				float newVolume = minVolume + (1.0f - (timeLeft / timerLimit)) * (maxVolume - minVolume);
+				float newVolume = minVolume + (1.0f - (timeLeft / static_cast<float>(timerLimit))) * (maxVolume - minVolume);
 
 				// Update the ticking sound volume
 				g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", newVolume);

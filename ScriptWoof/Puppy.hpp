@@ -50,8 +50,8 @@ struct Puppy final : public Behaviour
 			collected.insert(std::pair<Entity, bool>(entity, false));
 		}
 
-        std::cout << "Puppy "<< entity;
-		collected[entity] ? std::cout << " collected\n" : std::cout << " not collected\n";
+  //      std::cout << "Puppy "<< entity;
+		//collected[entity] ? std::cout << " collected\n" : std::cout << " not collected\n";
 
         if (!collected[entity])
         {
@@ -87,7 +87,7 @@ struct Puppy final : public Behaviour
             if (distance <= pathThreshold)
             {
                 velocity = glm::vec3(0.0f);
-                std::cout << "[Puppy] Reached player!" << std::endl;
+                //std::cout << "[Puppy] Reached player!" << std::endl;
             }
 
             isMovingPuppy = true;
