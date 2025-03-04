@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "7b6b4d60-ebea-4ea4-8d4e-4c7f60f072f2",
+    "SceneGUID": "61e0ee2f-fd1e-4b0f-8aae-f103d415b675",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.024850251153111459,
-                    "y": 1.1800053119659424,
-                    "z": -1.6367398500442505
+                    "x": -1.0999256372451783,
+                    "y": 1.3067378997802735,
+                    "z": -3.559231758117676
                 },
                 "Scale": {
                     "x": 0.5,
@@ -1253,7 +1253,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Carpet",
                 "EntityID": 29
             },
             "TransformComponent": {
@@ -1281,6 +1281,22 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.1500000953674318,
+                    "y": 0.10000000149011612,
+                    "z": 5.949999809265137
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -1685,13 +1701,13 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Carpet",
                 "EntityID": 39
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 11.678556442260743,
-                    "y": 0.3222463130950928,
+                    "x": 11.678558349609375,
+                    "y": 0.322246253490448,
                     "z": 9.215129852294922
                 },
                 "Scale": {
@@ -1713,6 +1729,22 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.1500000953674318,
+                    "y": 0.10000000149011612,
+                    "z": 5.949999809265137
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -1870,7 +1902,10 @@
                     "g": 0.9411764740943909,
                     "b": 0.9411764740943909,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -1932,7 +1967,10 @@
                     "g": 0.9411764740943909,
                     "b": 0.9411764740943909,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -1994,7 +2032,10 @@
                     "g": 0.9411764740943909,
                     "b": 0.9411764740943909,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2056,7 +2097,10 @@
                     "g": 0.9019607901573181,
                     "b": 0.25643983483314516,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2118,7 +2162,10 @@
                     "g": 0.9019607901573181,
                     "b": 0.25643983483314516,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2180,7 +2227,10 @@
                     "g": 0.9019607901573181,
                     "b": 0.25643983483314516,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2242,7 +2292,10 @@
                     "g": 0.2729451060295105,
                     "b": 0.1009708046913147,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2304,7 +2357,10 @@
                     "g": 0.2729451060295105,
                     "b": 0.1009708046913147,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2366,7 +2422,10 @@
                     "g": 0.2729451060295105,
                     "b": 0.1009708046913147,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2428,7 +2487,10 @@
                     "g": 0.4864793121814728,
                     "b": 0.1004180908203125,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2490,7 +2552,10 @@
                     "g": 0.48627451062202456,
                     "b": 0.10196078568696976,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2557,7 +2622,10 @@
                     "g": 0.512301504611969,
                     "b": 0.3473183512687683,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2629,7 +2697,10 @@
                     "g": 0.7843137383460999,
                     "b": 0.8549019694328308,
                     "a": 0.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2691,7 +2762,10 @@
                     "g": 0.27450981736183169,
                     "b": 0.10196078568696976,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2753,7 +2827,10 @@
                     "g": 0.27450981736183169,
                     "b": 0.10196078568696976,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
