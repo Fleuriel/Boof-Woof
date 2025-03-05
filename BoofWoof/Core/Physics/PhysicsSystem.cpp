@@ -729,18 +729,38 @@ Entity MyPhysicsSystem::Raycast(const glm::vec3& origin, const glm::vec3& direct
     // Use the multi-hit version of CastRay()
     npQuery.CastRay(ray, JPH::RayCastSettings(), collector);
 
-    // Debug output
-    std::cout << "[PhysicsSystem] Raycast Debug -> Origin: (" << origin.x << ", " << origin.y << ", " << origin.z
-        << ") | Direction: (" << normalizedDir.x << ", " << normalizedDir.y << ", " << normalizedDir.z
-        << ") | Max Distance: " << maxDistance << std::endl;
+    // Compute the end point of the ray
+    glm::vec3 endPoint = origin + normalizedDir * maxDistance;
 
-    // Return the closest valid hit
+    //// Debug output
+    //std::cout << "[PhysicsSystem] Raycast Debug -> Origin: (" << origin.x << ", " << origin.y << ", " << origin.z
+    //    << ") | Direction: (" << normalizedDir.x << ", " << normalizedDir.y << ", " << normalizedDir.z
+    //    << ") | Max Distance: " << maxDistance << std::endl;
+
+    //// Return the closest valid hit
+    //if (collector.hitEntity != invalid_entity) {
+    //    std::cout << "[PhysicsSystem] Ray HIT entity: " << collector.hitEntity << " at fraction: " << collector.closestFraction << std::endl;
+    //}
+    //else {
+    //    std::cout << "[PhysicsSystem] No objects detected along the entire ray!" << std::endl;
+    //}
+
+    // If a hit is detected
     if (collector.hitEntity != invalid_entity) {
-        std::cout << "[PhysicsSystem] Ray HIT entity: " << collector.hitEntity << " at fraction: " << collector.closestFraction << std::endl;
+        glm::vec3 hitPoint = origin + normalizedDir * collector.closestFraction * maxDistance;
+
+        //std::cout << "[PhysicsSystem] Ray HIT entity: " << collector.hitEntity << " at fraction: " << collector.closestFraction << std::endl;
+
+        // **Draw a green debug line to the hit point**
+        if (RayCastDebug == true)
+            GraphicsSystem::AddDebugLine(origin, hitPoint, glm::vec3(0.0f, 1.0f, 0.0f)); // Green for hit
+
+        return collector.hitEntity;
     }
-    else {
-        std::cout << "[PhysicsSystem] No objects detected along the entire ray!" << std::endl;
-    }
+
+    // **Draw a red debug line for a full-length miss**
+    if (RayCastDebug == true)
+        GraphicsSystem::AddDebugLine(origin, endPoint, glm::vec3(1.0f, 0.0f, 0.0f)); // Red for miss
 
     return collector.hitEntity;
 }
@@ -771,11 +791,11 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycast(
     // Adjust the origin to the center of the entity
     glm::vec3 adjustedOrigin = entityPosition + aabbOffset;
 
-    std::cout << "[PhysicsSystem] ConeRaycast Debugging -> Origin: " << adjustedOrigin.x << ", "
-        << adjustedOrigin.y << ", " << adjustedOrigin.z
-        << " | Forward Dir: " << forwardDirection.x << ", "
-        << forwardDirection.y << ", " << forwardDirection.z
-        << " | Max Distance: " << maxDistance << "\n";
+    //std::cout << "[PhysicsSystem] ConeRaycast Debugging -> Origin: " << adjustedOrigin.x << ", "
+    //    << adjustedOrigin.y << ", " << adjustedOrigin.z
+    //    << " | Forward Dir: " << forwardDirection.x << ", "
+    //    << forwardDirection.y << ", " << forwardDirection.z
+    //    << " | Max Distance: " << maxDistance << "\n";
 
     // Iterate over the cone angles using spherical coordinates
     for (int h = 0; h < numHorizontalRays; h++)  // Horizontal spread
@@ -816,22 +836,22 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycast(
                 // Draw a green debug line from the origin to the hit point
                 if(RayCastDebug == true)
                     GraphicsSystem::AddDebugLine(adjustedOrigin, hitPoint, glm::vec3(0.0f, 1.0f, 0.0f));
-                std::cout << "[PhysicsSystem] Hit Entity ID: " << collector.hitEntity << "\n";
+                //std::cout << "[PhysicsSystem] Hit Entity ID: " << collector.hitEntity << "\n";
             }
             else
             {
                 // No hit: draw a red debug line showing the full ray length
                 if (RayCastDebug == true)
                     GraphicsSystem::AddDebugLine(adjustedOrigin, adjustedOrigin + rotatedDirection * maxDistance, glm::vec3(1.0f, 0.0f, 0.0f));
-                std::cout << "[PhysicsSystem] No Entity hit for this ray\n";
+                //std::cout << "[PhysicsSystem] No Entity hit for this ray\n";
             }
 
             // For debugging: print the full ray endpoints
             glm::vec3 fullEndPoint = adjustedOrigin + rotatedDirection * maxDistance;
-            std::cout << "[PhysicsSystem] Ray Origin: (" << adjustedOrigin.x << ", " << adjustedOrigin.y << ", " << adjustedOrigin.z
-                << ") -> End Point: (" << fullEndPoint.x << ", " << fullEndPoint.y << ", " << fullEndPoint.z
-                << ") with Direction: (" << rotatedDirection.x << ", " << rotatedDirection.y << ", " << rotatedDirection.z
-                << ") and Max Distance: " << maxDistance << "\n";
+            //std::cout << "[PhysicsSystem] Ray Origin: (" << adjustedOrigin.x << ", " << adjustedOrigin.y << ", " << adjustedOrigin.z
+            //    << ") -> End Point: (" << fullEndPoint.x << ", " << fullEndPoint.y << ", " << fullEndPoint.z
+            //    << ") with Direction: (" << rotatedDirection.x << ", " << rotatedDirection.y << ", " << rotatedDirection.z
+            //    << ") and Max Distance: " << maxDistance << "\n";
         }
     }
 

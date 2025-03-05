@@ -46,18 +46,8 @@ struct Rex final : public Behaviour
         // Always check for objects in front
         CheckForObjectsInFront(entity);
 
-        //glm::vec3 forwardDirection = glm::vec3(1.0f, 0.0f, 0.0f);  // Directly forward (adjust if needed)
-        //float maxDistance = 10.0f; // Distance to check
-
-        //// Just shoot a single ray in front
-        //Entity hitEntity = m_Engine.getPhysicsSystem().Raycast(currentPos, forwardDirection, maxDistance, entity);
-
-        //if (hitEntity != -1) {
-        //    std::cout << "[Rex] Single Ray Test: Object detected in front! Entity ID: " << hitEntity << std::endl;
-        //}
-        //else {
-        //    std::cout << "[Rex] Single Ray Test: No objects detected in front." << std::endl;
-        //}
+        // Single Ray Check
+        //SingleRayCheck(entity, currentPos);
 
         // Ensure path is properly initialized after resetting the scene
         if (!pathInitialized)
@@ -236,6 +226,21 @@ struct Rex final : public Behaviour
         //else {
         //    std::cout << "[Rex] No objects detected in FOV.\n";
         //}
+    }
+
+    void SingleRayCheck(Entity rexEntity, glm::vec3 currentPos) {
+        glm::vec3 forwardDirection = glm::vec3(1.0f, 0.0f, 0.0f);  // Directly forward (adjust if needed)
+        float maxDistance = 10.0f; // Distance to check
+
+        // Just shoot a single ray in front
+        Entity hitEntity = m_Engine.getPhysicsSystem().Raycast(currentPos, forwardDirection, maxDistance, rexEntity);
+
+        if (hitEntity != -1) {
+            std::cout << "[Rex] Single Ray Test: Object detected in front! Entity ID: " << hitEntity << std::endl;
+        }
+        else {
+            std::cout << "[Rex] Single Ray Test: No objects detected in front." << std::endl;
+        }
     }
 
 
