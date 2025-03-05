@@ -10,7 +10,7 @@
 #include "../Utilities/Components/ParticleComponent.hpp"
 #include "../Utilities/Components/MaterialComponent.hpp"
 #include "Animation/AnimationManager.h"
-
+#include "DebugRenderer.h"
 
 class Model;
 class Model2D;
@@ -148,6 +148,8 @@ private:
     static std::vector<DebugLine> debugLines;
     static unsigned int debugLineVAO, debugLineVBO;
 
+
+    DebugRenderer debugRenderer;
 };
 
 #endif
