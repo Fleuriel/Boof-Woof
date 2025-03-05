@@ -1,9 +1,8 @@
 #ifndef DEBUG_RENDERER_H
 #define DEBUG_RENDERER_H
-#include "pch.h"
+
 #include <vector>
 #include <glm/glm.hpp>
-#include "Shader.h"
 
 class DebugRenderer
 {
@@ -18,10 +17,10 @@ public:
     void Render();
 
 private:
-    GLuint VAO, VBO, IBO;
+    GLuint VAO{}, VBO{}, IBO{};
     std::vector<float> vertexBuffer;
     std::vector<GLuint> indexBuffer;
-    OpenGLShader* debugShader;
+    OpenGLShader* debugShader = &g_AssetManager.GetShader("Debug");
 };
 
 #endif // DEBUG_RENDERER_H

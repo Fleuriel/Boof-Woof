@@ -589,29 +589,22 @@ void GraphicsSystem::UpdateLoop() {
 			
 	if (debug && (D2 || D3))
 	{
-		//std::cout << "Debug On\n";
 		auto model = g_ResourceManager.getModel(graphicsComp.getModelName());
 
 		if (D2)
 		{
-			std::cout << "2D On\n";
 			debugRenderer.SubmitAABB(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		}
 		else if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
 		{
-			std::cout << "3D On\n";
 			auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
 			JPH::Body* body = collisionComp.GetPhysicsBody();
 
 			if (body)
 			{
 				JPH::AABox aabb = body->GetWorldSpaceBounds();
-				glm::vec3 center = (glm::vec3(aabb.mMin.GetX(), aabb.mMin.GetY(), aabb.mMin.GetZ()) +
-					glm::vec3(aabb.mMax.GetX(), aabb.mMax.GetY(), aabb.mMax.GetZ())) * 0.5f;
-				glm::vec3 halfExtents = glm::vec3(aabb.mMax.GetX() - aabb.mMin.GetX(),
-					aabb.mMax.GetY() - aabb.mMin.GetY(),
-					aabb.mMax.GetZ() - aabb.mMin.GetZ()) * 0.5f;
-
+				glm::vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
+				glm::vec3 halfExtents = (aabb.mMax - aabb.mMin) * 0.5f;
 				glm::vec3 offset = collisionComp.GetAABBOffset();
 				glm::vec3 debugColor = glm::vec3(0.0f, 1.0f, 1.0f);
 
