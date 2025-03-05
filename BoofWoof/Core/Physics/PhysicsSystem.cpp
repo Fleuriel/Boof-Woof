@@ -749,7 +749,14 @@ Entity MyPhysicsSystem::Raycast(const glm::vec3& origin, const glm::vec3& direct
     if (collector.hitEntity != invalid_entity) {
         glm::vec3 hitPoint = origin + normalizedDir * collector.closestFraction * maxDistance;
 
-        //std::cout << "[PhysicsSystem] Ray HIT entity: " << collector.hitEntity << " at fraction: " << collector.closestFraction << std::endl;
+        // **Fetch entity name (if exists)**
+        std::string entityName = "Unknown";
+        if (g_Coordinator.HaveComponent<MetadataComponent>(collector.hitEntity)) {
+            entityName = g_Coordinator.GetComponent<MetadataComponent>(collector.hitEntity).GetName();
+        }
+
+        std::cout << "[PhysicsSystem] Ray HIT entity: " << collector.hitEntity
+            << " (" << entityName << ") at fraction: " << collector.closestFraction << std::endl;
 
         // **Draw a green debug line to the hit point**
         if (RayCastDebug == true)
@@ -833,6 +840,17 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycast(
             {
                 detectedEntities.push_back(collector.hitEntity);
                 glm::vec3 hitPoint = adjustedOrigin + rotatedDirection * collector.closestFraction * maxDistance;
+
+                // **Fetch entity name (if exists)**
+                std::string entityName = "Unknown";
+                if (g_Coordinator.HaveComponent<MetadataComponent>(collector.hitEntity)) {
+                    entityName = g_Coordinator.GetComponent<MetadataComponent>(collector.hitEntity).GetName();
+                }
+
+                // Debug log for hit entity
+                std::cout << "[PhysicsSystem] Cone Ray HIT entity: " << collector.hitEntity
+                    << " (" << entityName << ") at fraction: " << collector.closestFraction << std::endl;
+
                 // Draw a green debug line from the origin to the hit point
                 if(RayCastDebug == true)
                     GraphicsSystem::AddDebugLine(adjustedOrigin, hitPoint, glm::vec3(0.0f, 1.0f, 0.0f));
