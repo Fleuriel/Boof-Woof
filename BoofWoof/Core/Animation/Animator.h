@@ -8,6 +8,9 @@
 #include "Bones.h"
 #include "Animation.h"
 
+
+class AnimationT;
+
 class Animator
 {
 public:
@@ -23,6 +26,7 @@ public:
 			m_FinalBoneMatrices.push_back(glm::mat4(1.0f));
 	}
 
+
 	void UpdateAnimation(float dt)
 	{
 		m_DeltaTime = dt;
@@ -30,11 +34,15 @@ public:
 		{
 			m_CurrentTime += m_CurrentAnimation->GetTicksPerSecond() * dt;
 			m_CurrentTime = fmod(m_CurrentTime, m_CurrentAnimation->GetDuration());
+			
+			
+			std::cout << m_CurrentTime << '\n';
+
 			CalculateBoneTransform(&m_CurrentAnimation->GetRootNode(), glm::mat4(1.0f));
 		}
 	}
 
-	void PlayAnimation(Animation* pAnimation)
+	void PlayAnimation(AnimationT* pAnimation)
 	{
 		m_CurrentAnimation = pAnimation;
 		m_CurrentTime = 0.0f;
@@ -61,6 +69,8 @@ public:
 			int index = boneInfoMap[nodeName].id;
 			glm::mat4 offset = boneInfoMap[nodeName].offset;
 			m_FinalBoneMatrices[index] = globalTransformation * offset;
+			//std::cout << m_FinalBoneMatrices[index].length() << '\n';
+
 		}
 
 		for (int i = 0; i < node->childrenCount; i++)

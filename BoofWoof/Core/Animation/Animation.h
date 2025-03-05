@@ -9,6 +9,10 @@
 #include "../../../BoofWoof/Core/Graphics/Model.h"
 #include "../../../BoofWoof/Core/Graphics/Mesh.h"
 
+
+
+class Animator;
+
 struct AssimpNodeData
 {
 	glm::mat4 transformation;

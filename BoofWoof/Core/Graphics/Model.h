@@ -243,7 +243,8 @@ public:
 
         // read file via ASSIMP
         Assimp::Importer importer;
-        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
+//        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
         // check for errors
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
         {
@@ -391,7 +392,6 @@ public:
         auto& boneInfoMap = m_BoneInfoMap;
         int& boneCount = m_BoneCounter;
 
-
         auto ConvertMatrixToGLM = [](const aiMatrix4x4& from) -> glm::mat4 {
             return glm::mat4{
                 { from.a1, from.b1, from.c1, from.d1 },
@@ -401,11 +401,12 @@ public:
             };
             };
 
-
         for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
         {
             int boneID = -1;
             std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
+
+            // Check if bone is new, otherwise use existing bone ID
             if (boneInfoMap.find(boneName) == boneInfoMap.end())
             {
                 BoneInfo newBoneInfo;
@@ -419,7 +420,9 @@ public:
             {
                 boneID = boneInfoMap[boneName].id;
             }
+
             assert(boneID != -1);
+
             auto weights = mesh->mBones[boneIndex]->mWeights;
             int numWeights = mesh->mBones[boneIndex]->mNumWeights;
 
@@ -427,7 +430,17 @@ public:
             {
                 int vertexId = weights[weightIndex].mVertexId;
                 float weight = weights[weightIndex].mWeight;
-                assert(vertexId <= vertices.size());
+
+                // Ensure vertexId is within bounds
+                if (vertexId >= vertices.size()) {
+                    std::cerr << "Warning: Vertex ID out of range! Bone: " << boneName
+                        << " (Vertex ID: " << vertexId << " / Total Vertices: " << vertices.size() << ")" << std::endl;
+                    continue;
+                }
+
+                std::cout << "Bone: " << boneName << " (ID: " << boneID << ") affects Vertex: " << vertexId
+                    << " with Weight: " << weight << std::endl;
+
                 SetVertexBoneData(vertices[vertexId], boneID, weight);
             }
         }

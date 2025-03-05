@@ -14,6 +14,13 @@
 
 #include "../Core/AssetManager/FilePaths.h"
 
+#include "Animation/Animation.h"
+#include "Animation/Animator.h"
+
+#include <glm/gtx/string_cast.hpp >
+
+
+
 
 //                       _oo0oo_
 //                      o8888888o
@@ -123,8 +130,6 @@ void GraphicsSystem::initGraphicsPipeline() {
 	// Unbind the framebuffer to render to the default framebuffer initially
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-
-
 	std::cout << "Current directory: " << std::filesystem::current_path() << std::endl;
 
 	InitializePickingFramebuffer(g_WindowX, g_WindowY);
@@ -144,7 +149,7 @@ void GraphicsSystem::initGraphicsPipeline() {
 	//fontSystem.init();
 
 
-	//TestAnimationAdd("../BoofWoof/Assets/Animations/corgi_walk.fbx");
+	TestAnimationAdd("../BoofWoof/Assets/Animations/corgi_walk.fbx");
 
 
 	shdrParam.Color = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -411,27 +416,24 @@ void GraphicsSystem::UpdateLoop() {
 
 		auto& material = graphicsComp.material;
 
-		//if (material.GetShaderName() == "Animation") {
-		//	// Find the corresponding animator
-		//	auto it = g_ResourceManager.AnimatorMap.find("corgi_walk"); // Use the correct animation name
-		//	if (it != g_ResourceManager.AnimatorMap.end()) {
-		//		Animator* animator = it->second;
-		//		animator->UpdateAnimation(deltaTime); // Update animation before retrieving matrices
 
-		//		auto transforms = animator->GetFinalBoneMatrices();
-		//		for (size_t i = 0; i < transforms.size(); ++i) {
 
-		//			std::string nama = "finalBonesMatrices[" + std::to_string(i) + "]";
 
-		//			g_AssetManager.GetShader("Animation").SetUniform(nama.c_str(), transforms[i]);
-
-		//		}
+		//// Ensure the animation and animator exist before rendering
+		//if (g_ResourceManager.AnimatorMap.find("corgi_walk") == g_ResourceManager.AnimatorMap.end()) {
+		//	auto animIt = g_ResourceManager.AnimationMap.find("corgi_walk");
+		//	if (animIt != g_ResourceManager.AnimationMap.end()) {
+		//		AnimationT* animation = animIt->second; // Fetch animation from AnimationMap
+		//		g_ResourceManager.AnimatorMap["corgi_walk"] = new Animator(animation); // Create new animator
+		//		std::cout << "Animator for corgi_walk created.\n";
 		//	}
 		//	else {
-		//		std::cerr << "Error: Animator not found for corgi_walk\n";
+		//		std::cerr << "Error: Animation 'corgi_walk' not found in AnimationMap.\n";
 		//	}
 		//}
 
+
+		
 
 //		auto& ShaderName = material.GetShaderNameRef();
 
@@ -468,6 +470,59 @@ void GraphicsSystem::UpdateLoop() {
 			//graphicsComp.SetModel(&g_ResourceManager.ModelMap["Fireplace"]);
 			continue;
 		}
+
+
+		if (material.GetShaderName() == "Animation") {
+			// Bind and use the animation shader
+			g_AssetManager.GetShader("Animation").Use();
+
+
+			g_AssetManager.GetShader("Animation").SetUniform("model", shdrParam.WorldMatrix);
+			g_AssetManager.GetShader("Animation").SetUniform("view", camera.GetViewMatrix());
+			g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
+
+			// Retrieve the model from ModelMap
+			auto modelIt = g_ResourceManager.ModelMap.find("corgi_walk");
+			if (modelIt != g_ResourceManager.ModelMap.end()) {
+				Model& model = modelIt->second;
+
+				// Check if Animator exists
+				auto animatorIt = g_ResourceManager.AnimatorMap.find("corgi_walk");
+				if (animatorIt != g_ResourceManager.AnimatorMap.end()) {
+					Animator* animator = animatorIt->second;
+					animator->UpdateAnimation(deltaTime);
+
+					// Pass bone transformations to the shader
+					auto transforms = animator->GetFinalBoneMatrices();
+					for (size_t i = 0; i < transforms.size(); ++i) {
+						//std::cout << "Bone " << i << " Matrix: \n" << glm::to_string(transforms[i]) << std::endl;
+						std::string boneUniform = "finalBonesMatrices[" + std::to_string(i) + "]";
+						g_AssetManager.GetShader("Animation").SetUniform(boneUniform.c_str(), transforms[i]);
+						//std::cout << boneUniform << '\n';
+
+					}
+				}
+				else {
+					std::cerr << "Error: Animator not found for corgi_walk\n";
+				}
+
+				// Finally, render the model
+				
+				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
+				
+				//model.Draw(g_AssetManager.GetShader("Animation"));
+//				std::cout << "Drawing animated model: corgi_walk\n";
+			}
+			else {
+				std::cerr << "Error: Model not found in ModelMap\n";
+			}
+
+			// Unbind the shader after rendering
+			g_AssetManager.GetShader("Animation").UnUse();
+			continue;
+		}
+
+
 
 
 		//if (ShaderName == "Shader3D")
@@ -753,20 +808,42 @@ void GraphicsSystem::AddModel_3D(std::string const& path)
 //	std::string name = "corgi_walk";
 //
 //	// Step 2: Create AnimationT object and store it
-//	AnimationT* corgiWalk = new AnimationT(path, &animModel);
-//	g_ResourceManager.AnimationMap[name] = corgiWalk; // Store in resource manager
+////	AnimationT* corgiWalk = new AnimationT(path, &animModel);
 //
+//	AnimationT corgiWalk(path, &animModel);
+//	Animator animator(&corgiWalk);
+//
+//	g_ResourceManager.AnimationMap.insert(std::pair<std::string, AnimationT>(name, corgiWalk));
+//
+//	g_ResourceManager.AnimatorMap.insert(std::pair<std::string, Animator>(name, animator));
 //	// Step 3: Store the model
 //	g_ResourceManager.ModelMap.insert(std::pair<std::string, Model>(name, animModel));
 //	g_ResourceManager.addModelNames(name);
 //
-//	// Step 4: Create Animator and store it
-//	Animator* animator = new Animator(corgiWalk);
-//	g_ResourceManager.AnimatorMap[name] = animator;
 //
 //	std::cout << "Animation and Animator added successfully!\n";
 //}
+void GraphicsSystem::TestAnimationAdd(const std::string& path)
+{
+	//  Allocate model on the heap
+	Model* animModel = new Model(path, false);
 
+	std::string name = "corgi_walk";
+
+	//  Allocate AnimationT dynamically
+	AnimationT* corgiWalk = new AnimationT(path, animModel);
+	g_ResourceManager.AnimationMap[name] = corgiWalk;  // Store pointer
+
+	//  Store model normally (copy is okay)
+	g_ResourceManager.ModelMap[name] = *animModel;
+	g_ResourceManager.addModelNames(name);
+
+	//  Allocate Animator dynamically
+	Animator* animator = new Animator(corgiWalk);
+	g_ResourceManager.AnimatorMap[name] = animator;
+
+	std::cout << "Animation and Animator added successfully!\n";
+}
 
 
 
