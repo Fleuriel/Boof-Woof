@@ -110,7 +110,7 @@ std::string Dialogue::getDialogue()
 		return "One down.. Two more to go. Stay close, kiddo!";
 
 	case DialogueState::DISGUSTED:
-		return "Eww!! Seriously, Rex?! Why pee all over the place?! I gotta clean this off before he sniffs me out!";
+		return "Eww!! Seriously, Rex?! Why pee all over the place?! I should avoid it..";
 
 	/* MainHall Lvl2 Dialogues ? */
 	case DialogueState::SEARCHINGFORPUPS2:

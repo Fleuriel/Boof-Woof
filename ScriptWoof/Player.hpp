@@ -217,8 +217,8 @@ struct Player final : public Behaviour
 				}
 			}
 
-			// Allow movement only if the player is grounded & not in rope breaker or touching toy
-			if (isGrounded && !inRopeBreaker && !touchingToy)
+			// Allow movement only if the player is grounded & not in rope breaker or touching toy or stunned
+			if (isGrounded && !inRopeBreaker && !touchingToy && !m_Engine.GetStunned())
 			{
 				if (m_Engine.HaveCameraComponent(entity))
 				{
