@@ -8,6 +8,8 @@
 #include "Bones.h"
 #include "Animation.h"
 
+#include <glm/gtx/string_cast.hpp >
+
 
 class AnimationT;
 
@@ -53,6 +55,8 @@ public:
 		std::string nodeName = node->name;
 		glm::mat4 nodeTransform = node->transformation;
 
+		//std::cout << nodeName << '\n';
+
 		Bone* Bone = m_CurrentAnimation->FindBone(nodeName);
 
 		if (Bone)
@@ -64,12 +68,12 @@ public:
 		glm::mat4 globalTransformation = parentTransform * nodeTransform;
 
 		auto boneInfoMap = m_CurrentAnimation->GetBoneIDMap();
+
 		if (boneInfoMap.find(nodeName) != boneInfoMap.end())
 		{
 			int index = boneInfoMap[nodeName].id;
 			glm::mat4 offset = boneInfoMap[nodeName].offset;
 			m_FinalBoneMatrices[index] = globalTransformation * offset;
-			//std::cout << m_FinalBoneMatrices[index].length() << '\n';
 
 		}
 

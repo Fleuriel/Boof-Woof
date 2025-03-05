@@ -490,17 +490,23 @@ void GraphicsSystem::UpdateLoop() {
 				auto animatorIt = g_ResourceManager.AnimatorMap.find("corgi_walk");
 				if (animatorIt != g_ResourceManager.AnimatorMap.end()) {
 					Animator* animator = animatorIt->second;
-					animator->UpdateAnimation(deltaTime);
+					animator->UpdateAnimation(0.001);
+
 
 					// Pass bone transformations to the shader
 					auto transforms = animator->GetFinalBoneMatrices();
 					for (size_t i = 0; i < transforms.size(); ++i) {
-						//std::cout << "Bone " << i << " Matrix: \n" << glm::to_string(transforms[i]) << std::endl;
-						std::string boneUniform = "finalBonesMatrices[" + std::to_string(i) + "]";
+					
+
+						std::string boneUniform = "finalBonesMatrices[" + std::to_string(i) + "]";						
+						
 						g_AssetManager.GetShader("Animation").SetUniform(boneUniform.c_str(), transforms[i]);
 						//std::cout << boneUniform << '\n';
 
+
+						//std::cout << glm::to_string(transforms[i]) << '\n';
 					}
+
 				}
 				else {
 					std::cerr << "Error: Animator not found for corgi_walk\n";
@@ -508,10 +514,9 @@ void GraphicsSystem::UpdateLoop() {
 
 				// Finally, render the model
 				
-				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
 				
-				//model.Draw(g_AssetManager.GetShader("Animation"));
-//				std::cout << "Drawing animated model: corgi_walk\n";
+
+				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
 			}
 			else {
 				std::cerr << "Error: Model not found in ModelMap\n";

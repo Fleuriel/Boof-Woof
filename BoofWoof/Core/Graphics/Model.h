@@ -424,6 +424,13 @@ public:
             assert(boneID != -1);
 
             auto weights = mesh->mBones[boneIndex]->mWeights;
+
+            std::cout << weights->mVertexId <<'\t' << weights->mWeight << '\n';
+            std::cout << '\n';
+
+
+
+
             int numWeights = mesh->mBones[boneIndex]->mNumWeights;
 
             for (int weightIndex = 0; weightIndex < numWeights; ++weightIndex)
@@ -448,15 +455,23 @@ public:
 
     void SetVertexBoneData(Vertex& vertex, int boneID, float weight)
     {
-        for (int i = 0; i < MAX_BONE_INFLUENCE; ++i)
+        std::cout << weight << "\n";
+
+        float weightSum = 0.0f;
+        for (int i = 0; i < 4; ++i)
         {
-            if (vertex.m_BoneIDs[i] < 0)
+            if (vertex.m_BoneIDs[i] == -1)
             {
-                vertex.m_Weights[i] = weight;
                 vertex.m_BoneIDs[i] = boneID;
+                vertex.m_Weights[i] = glm::clamp(weight, 0.0f, 1.0f);  //  Clamping weight
                 break;
             }
         }
+
+        for (int i = 0; i < 4; ++i)
+            weightSum += vertex.m_Weights[i];
+
+        std::cout << "Vertex Bone Weight Sum: " << weightSum << std::endl;
     }
 
 

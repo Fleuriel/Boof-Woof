@@ -27,6 +27,7 @@ struct KeyScale
 	float timeStamp;
 };
 
+
 class Bone
 {
 public:
@@ -45,6 +46,9 @@ public:
 			KeyPosition data;
 			data.position = glm::vec3(aiPosition.x, aiPosition.y, aiPosition.z);
 			data.timeStamp = timeStamp;
+			
+		//	std::cout << data.position.x << " " << data.position.y << " " << data.position.z << std::endl;
+
 			m_Positions.push_back(data);
 		}
 
