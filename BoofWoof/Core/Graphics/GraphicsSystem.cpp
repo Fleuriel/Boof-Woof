@@ -175,7 +175,6 @@ void GraphicsSystem::initGraphicsPipeline() {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
-	debugRenderer.Initialize();
 
 }
 
@@ -584,16 +583,19 @@ void GraphicsSystem::UpdateLoop() {
 	//
 	//	}
 	//
-
-	debugRenderer.Begin(); // Start batching
 			
 	if (debug && (D2 || D3))
 	{
+		OpenGLShader& shader = g_AssetManager.GetShader("Debug");
+		shader.Use();
+
+		SetShaderUniforms(shader, shdrParam); // Ensure color is set correctly
+
 		auto model = g_ResourceManager.getModel(graphicsComp.getModelName());
 
 		if (D2)
 		{
-			debugRenderer.SubmitAABB(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			model->DrawCollisionBox2D(SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f))); // Green for 2D
 		}
 		else if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
 		{
@@ -602,19 +604,29 @@ void GraphicsSystem::UpdateLoop() {
 
 			if (body)
 			{
+				// Get the world-space AABB from JoltPhysics
 				JPH::AABox aabb = body->GetWorldSpaceBounds();
-				glm::vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
-				glm::vec3 halfExtents = (aabb.mMax - aabb.mMin) * 0.5f;
+
+				// Calculate center and half-extents
+				JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
+
+				// Apply offset for visual debugging
 				glm::vec3 offset = collisionComp.GetAABBOffset();
+
+				// Define debug color (cyan: 0.0f, 1.0f, 1.0f)
 				glm::vec3 debugColor = glm::vec3(0.0f, 1.0f, 1.0f);
 
-				debugRenderer.SubmitAABB(center + offset, halfExtents, debugColor);
+				// Ensure shader receives the color
+				shader.SetUniform("objectColor", debugColor);
+
+				model->DrawCollisionBox3D(offset, graphicsComp.boundingBox, debugColor);
 			}
 		}
+
+		shader.UnUse();
 	}
 
-	debugRenderer.End();
-	debugRenderer.Render(); // Render all AABBs in one call
+
 
 		
 		

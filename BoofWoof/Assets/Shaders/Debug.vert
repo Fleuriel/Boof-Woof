@@ -1,10 +1,3 @@
-/*!*****************************************************************************
-\file               Debug.vert
-\author             Aaron CHAN Jun Xiang 		
-\date               04/03/2025 [4 March 2025]
-\brief              This file contains the Vertex Shader for drawing AABB
-*******************************************************************************/
-
 #version 450 core
 
 layout (location = 0) in vec3 aVertexPosition;

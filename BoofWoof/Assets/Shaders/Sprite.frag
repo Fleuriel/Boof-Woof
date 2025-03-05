@@ -1,10 +1,11 @@
 /*!*****************************************************************************
-\file               Sprite.frag
-\author             Aaron CHAN Jun Xiang 		
-\date               14/02/2025 [14 February 2025]
+\file               sprite.frag
+\author             Angus TAN Yit Hoe 		
+\co-author			Aaron CHAN Jun Xiang	
+\co-author			Mark LOW Wang Chun
+\date               05/04/2024 [5 April 2024]
 \brief              This file contains the Fragment Shader for sprites                                    
 *******************************************************************************/
-
 #version 450 core
 
 layout (location=0) in vec3 vInterpColor;

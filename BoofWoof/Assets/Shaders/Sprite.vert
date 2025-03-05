@@ -1,10 +1,3 @@
-/*!*****************************************************************************
-\file               Sprite.vert
-\author             Aaron CHAN Jun Xiang 		
-\date               14/02/2025 [14 February 2025]
-\brief              This file contains the Vertex Shader for sprites                                    
-*******************************************************************************/
-
 #version 450 core
 
 layout (location=0) in vec2 aVertexPosition;
