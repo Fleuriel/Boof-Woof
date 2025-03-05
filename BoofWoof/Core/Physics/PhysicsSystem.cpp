@@ -755,8 +755,8 @@ Entity MyPhysicsSystem::Raycast(const glm::vec3& origin, const glm::vec3& direct
             entityName = g_Coordinator.GetComponent<MetadataComponent>(collector.hitEntity).GetName();
         }
 
-        std::cout << "[PhysicsSystem] Ray HIT entity: " << collector.hitEntity
-            << " (" << entityName << ") at fraction: " << collector.closestFraction << std::endl;
+        //std::cout << "[PhysicsSystem] Ray HIT entity: " << collector.hitEntity
+        //    << " (" << entityName << ") at fraction: " << collector.closestFraction << std::endl;
 
         // **Draw a green debug line to the hit point**
         if (RayCastDebug == true)
@@ -847,9 +847,9 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycast(
                     entityName = g_Coordinator.GetComponent<MetadataComponent>(collector.hitEntity).GetName();
                 }
 
-                // Debug log for hit entity
-                std::cout << "[PhysicsSystem] Cone Ray HIT entity: " << collector.hitEntity
-                    << " (" << entityName << ") at fraction: " << collector.closestFraction << std::endl;
+                //// Debug log for hit entity
+                //std::cout << "[PhysicsSystem] Cone Ray HIT entity: " << collector.hitEntity
+                //    << " (" << entityName << ") at fraction: " << collector.closestFraction << std::endl;
 
                 // Draw a green debug line from the origin to the hit point
                 if(RayCastDebug == true)
