@@ -1,11 +1,13 @@
 #include "pch.h"
-#include "../Graphics/DebugRenderer.h"
-#include "../AssetManager/AssetManager.h"
+#include "DebugRenderer.h"
+#include "AssetManager/AssetManager.h"
+
 
 constexpr int MAX_VERTICES = 1024 * 6;  // Large enough buffer size
 constexpr int MAX_INDICES = 1024 * 8;
 
-DebugRenderer::DebugRenderer() {}
+DebugRenderer::DebugRenderer()
+    : VAO(0), VBO(0), IBO(0), debugShader(nullptr) {}
 
 DebugRenderer::~DebugRenderer()
 {
@@ -38,6 +40,7 @@ void DebugRenderer::Initialize()
 
     glBindVertexArray(0);
 
+    debugShader = &g_AssetManager.GetShader("Debug");
 }
 
 void DebugRenderer::Begin()
@@ -59,7 +62,7 @@ void DebugRenderer::SubmitAABB(const glm::vec3& center, const glm::vec3& halfExt
         0, 4, 1, 5, 2, 6, 3, 7   // Connecting Lines
     };
 
-    GLuint startIndex = vertexBuffer.size() / 6;
+    GLuint startIndex = static_cast<GLuint>(vertexBuffer.size() / 6);
 
     for (const auto& point : unitCube)
     {
@@ -95,6 +98,6 @@ void DebugRenderer::Render()
 
     debugShader->Use();
     glBindVertexArray(VAO);
-    glDrawElements(GL_LINES, indexBuffer.size(), GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_LINES, static_cast<GLsizei>(indexBuffer.size()), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
 }
