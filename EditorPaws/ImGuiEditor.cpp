@@ -5582,6 +5582,29 @@ void ImGuiEditor::Settings()
 
 				ImGui::EndTabItem();
 			}
+			if (ImGui::BeginTabItem("Raycast Debug")) {
+				// Juuuu
+
+				ImGui::SeparatorText("Display Ray Cast");
+
+				ImGui::PushItemWidth(250.0f);
+
+				ImGui::Text("Display Ray Cast"); ImGui::SameLine(150.0f);
+				ImGui::Checkbox("##Display Ray Cast", &MyPhysicsSystem::RayCastDebug);
+				if (MyPhysicsSystem::RayCastDebug)
+				{
+					MyPhysicsSystem::RayCastDebug = true;
+				}
+				else
+				{
+					MyPhysicsSystem::RayCastDebug = false;
+				}
+
+
+
+
+				ImGui::EndTabItem();
+			}
 			//if (ImGui::BeginTabItem("Tab 3")) {
 			//	ImGui::Text("This is content for Tab 3.");
 			//	ImGui::EndTabItem();
