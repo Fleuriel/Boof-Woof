@@ -124,18 +124,18 @@ void Checklist::OnUpdate(double deltaTime)
 		}
 	}
 
-	//if (corgiText || finishTR || finishRB)
-	//{
-	//	clTimer += deltaTime;
+	if (finishTR || finishRB)
+	{
+		clTimer += deltaTime;
 
-	//	if (clTimer >= clLimit)
-	//	{
-	//		OnShutdown();
-	//	}
-	//}
+		if (clTimer >= clLimit)
+		{
+			OnShutdown();
+		}
+	}
 	
 	// no timer, just instant shut.
-	if (corgiText || finishTR || finishRB)
+	if (corgiText)
 	{
 		OnShutdown();
 	}

@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "019badea-c86b-4c17-8409-a1059c6f6342",
+    "SceneGUID": "1daa3eeb-7d90-49f3-b293-a074a74dfe74",
     "Entities": [
         {
             "MetadataComponent": {
@@ -53,7 +53,7 @@
                 "PositionX": 0.0,
                 "PositionY": 0.4000000059604645,
                 "ScaleX": 0.5,
-                "ScaleY": 0.15000000596046449,
+                "ScaleY": 0.12999999523162843,
                 "Layer": 0.4500000476837158,
                 "Selectable": false,
                 "Opcaity": 1.0,
@@ -74,7 +74,7 @@
                 "PositionX": -0.4000000059604645,
                 "PositionY": -0.20000000298023225,
                 "ScaleX": 0.20000000298023225,
-                "ScaleY": 0.20000000298023225,
+                "ScaleY": 0.15000000596046449,
                 "Layer": 0.4500000476837158,
                 "Selectable": true,
                 "Opcaity": 1.0,
@@ -95,7 +95,7 @@
                 "PositionX": 0.4000000059604645,
                 "PositionY": -0.20000000298023225,
                 "ScaleX": 0.20000000298023225,
-                "ScaleY": 0.20000000298023225,
+                "ScaleY": 0.15000000596046449,
                 "Layer": 0.4500000476837158,
                 "Selectable": true,
                 "Opcaity": 1.0,

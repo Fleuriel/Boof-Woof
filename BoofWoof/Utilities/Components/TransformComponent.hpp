@@ -26,6 +26,30 @@ public:
     void SetPosition(glm::vec3 position) { m_Position = position; }
     void SetScale(glm::vec3 scale) { m_Scale = scale; }
     void SetRotation(glm::vec3 rotation) { m_Rotation = rotation; }
+    void SetRotationYawFromVelocity(const glm::vec3& velocity) {
+        if (glm::length(glm::vec2(velocity.x, velocity.z)) < 0.0001f) {
+            return; // No rotation if there's no movement
+        }
+
+		// Normalize the velocity vector
+		glm::vec3 velo = glm::normalize(velocity);
+
+		// Calculate the angle between the velocity vector and the positive z-axis
+		float angle = glm::atan(velo.x, velo.z);
+
+        
+		float offset = 270 / 180.0f * glm::pi<float>(); // Offset to make the object face the right direction
+
+		// Add the offset to the angle
+		angle += offset;
+		// angle in 1 decimal place
+		angle = glm::round(angle * 10.0f) / 10.0f;
+
+		// Set the rotation around the y-axis
+		m_Rotation.y = angle;
+
+		//std::cout << "Yaw: " << m_Rotation.y << std::endl;
+    }
 
     // Getter methods
     glm::vec3& GetPosition() { return m_Position; }

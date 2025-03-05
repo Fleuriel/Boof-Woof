@@ -519,28 +519,20 @@ void GraphicsSystem::UpdateLoop() {
 		//else if (ShaderName == "Shader2D")
 		else if (strcmp(ShaderName, "Shader2D") == 0)
 		{
-
+			OpenGLShader& shader = g_AssetManager.GetShader(ShaderName);
+			
 
 			// Set shader uniforms based on camera following
 			if (graphicsComp.getFollowCamera()) {
 				SetShaderUniforms(g_AssetManager.GetShader(ShaderName), shdrParam);
 			}
 			else {
-				g_AssetManager.GetShader(ShaderName).SetUniform("vertexTransform", shdrParam.WorldMatrix);
-				g_AssetManager.GetShader(ShaderName).SetUniform("view", glm::mat4(1.0f));
-				g_AssetManager.GetShader(ShaderName).SetUniform("projection", glm::mat4(1.0f));
+				shader.SetUniform("vertexTransform", shdrParam.WorldMatrix);
+				shader.SetUniform("view", glm::mat4(1.0f));
+				shader.SetUniform("projection", glm::mat4(1.0f));
 			}
 
-			// Bind texture
-//		if (graphicsComp.getTextureNumber() == 0) {
-//			glBindTextureUnit(6, 0); // No texture
-//		}
-//		else {
-//			glBindTextureUnit(6, graphicsComp.getTexture(0)); // Texture with transparency
-//		}
-
-
-			// Set texture uniform before drawing
+			// Set Texture Uniform once before rendering
 			g_AssetManager.GetShader(ShaderName).SetUniform("uTex2d", 6);
 
 
@@ -591,43 +583,50 @@ void GraphicsSystem::UpdateLoop() {
 	//
 	//	}
 	//
-		g_AssetManager.GetShader("OutlineAndFont").Use();
 			
-			if (debug)
+	if (debug && (D2 || D3))
+	{
+		OpenGLShader& shader = g_AssetManager.GetShader("Debug");
+		shader.Use();
+
+		SetShaderUniforms(shader, shdrParam); // Ensure color is set correctly
+
+		auto model = g_ResourceManager.getModel(graphicsComp.getModelName());
+
+		if (D2)
+		{
+			model->DrawCollisionBox2D(SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f))); // Green for 2D
+		}
+		else if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
+		{
+			auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+			JPH::Body* body = collisionComp.GetPhysicsBody();
+
+			if (body)
 			{
-				SetShaderUniforms(g_AssetManager.GetShader("OutlineAndFont"), shdrParam);
-				if (D2)
-				{
-					Model squareOutline = SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f)); // Outline square (green)
-					g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox2D(squareOutline);
+				// Get the world-space AABB from JoltPhysics
+				JPH::AABox aabb = body->GetWorldSpaceBounds();
 
-				}
+				// Calculate center and half-extents
+				JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
 
-				if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
-					auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
-					JPH::Body* body = collisionComp.GetPhysicsBody();
+				// Apply offset for visual debugging
+				glm::vec3 offset = collisionComp.GetAABBOffset();
 
-					if (body) {
-						// Get the world-space AABB from JoltPhysics
-						JPH::AABox aabb = body->GetWorldSpaceBounds();
+				// Define debug color (cyan: 0.0f, 1.0f, 1.0f)
+				glm::vec3 debugColor = glm::vec3(0.0f, 1.0f, 1.0f);
 
-						// Calculate center and half-extents
-						JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
-						glm::vec3 glmCenter = glm::vec3(0, 0, 0);
+				// Ensure shader receives the color
+				shader.SetUniform("objectColor", debugColor);
 
-						// Apply offset for visual debugging
-						glm::vec3 offset = collisionComp.GetAABBOffset();
-						glm::vec3 adjustedCenter = glmCenter + offset;
-
-						if (D3) {
-							//g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(glmCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f)); // Green color
-							g_ResourceManager.getModel(graphicsComp.getModelName())->DrawCollisionBox3D(adjustedCenter, graphicsComp.boundingBox, glm::vec3(0.0f, 1.0f, 1.0f));
-						}
-					}
-				}
+				model->DrawCollisionBox3D(offset, graphicsComp.boundingBox, debugColor);
 			}
+		}
 
-			g_AssetManager.GetShader("OutlineAndFont").UnUse();
+		shader.UnUse();
+	}
+
+
 
 		
 		
@@ -659,6 +658,7 @@ void GraphicsSystem::UpdateLoop() {
 		needsPickingRender = false;
 	}
 	
+
 	glDepthRange(0.0, 1.0);
 	glDisable(GL_DEPTH_TEST);
 	RenderDebugLines();
@@ -1008,6 +1008,8 @@ void GraphicsSystem::AddDebugLine(const glm::vec3& start, const glm::vec3& end, 
 
 void GraphicsSystem::RenderDebugLines()
 {
+	glLineWidth(2.0f);
+
 	if (debugLines.empty())
 		return; // Nothing to draw
 
@@ -1066,6 +1068,7 @@ void GraphicsSystem::RenderDebugLines()
 
 	// We need a camera's view/projection. If you want to use the active camera, do:
 	debugShader.SetUniform("view", camera_render.GetViewMatrix());
+	debugShader.SetUniform("gammaValue", gammaValue);
 	debugShader.SetUniform("projection",
 		glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f));
 
