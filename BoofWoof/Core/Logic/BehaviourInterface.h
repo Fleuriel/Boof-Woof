@@ -7,6 +7,8 @@
 #ifndef GAME_ENGINE
 using Entity = std::uint32_t;
 #endif
+constexpr Entity INVALID_ENT = std::numeric_limits<Entity>::max();
+
 
 struct Behaviour_i
 {
@@ -35,6 +37,12 @@ struct audio_interface
 struct physics_interface
 {
 	virtual void RemoveBody(Entity entity) = 0;
+	virtual Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity = INVALID_ENT) = 0;
+	//virtual std::vector<Entity> ConeRaycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, int numHorizontalRays, int numVerticalRays, float coneAngle, Entity ignoreEntity) = 0;
+	virtual std::vector<Entity> ConeRaycast(
+		Entity entity,
+		const glm::vec3& direction, float maxDistance,
+		int numHorizontalRays, int numVerticalRays, float coneAngle) = 0;
 };
 
 struct engine_interface
@@ -91,6 +99,8 @@ struct engine_interface
 
 	virtual Entity GetPlayerEntity() = 0; // Expose the function
 	virtual bool GetExhausted() = 0;
+
+	virtual bool GetStunned() = 0;
 };	
 
 #ifdef GAME_ENGINE
