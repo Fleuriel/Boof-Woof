@@ -21,25 +21,22 @@ class MainHall : public Level
 	Entity pee1{}, pee2{}, pee3{}, pee4{}; // Smell Avoidance
 	Entity pee1Collider{}, pee2Collider{}, pee3Collider{}, pee4Collider{}; // Smell Avoidance
 
+	// Camera
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
+	bool teb_last = false;
 	glm::vec3 camdir{};
 
-	double timer = 0.0; // Timer for smell avoidance
-	double timerLimit = 10.0f; // Timer limit for smell avoidance
-	double timesUp = 2.0;// Time limit for times up sound
+	// Smell Avoidance
+	double timer{ 0.0 }, timerLimit{ 10.0 }, timesUp{ 2.0 }; // Timer for smell avoidance
+	double colorChangeTimer{ 0.0 }, colorChangeDuration{ 3.0 }, cooldownTimer{ 10.0 }, cooldownDuration{ 10.0 };
+	bool isColorChanged{false}, sniffa{ false };
 
-	double colorChangeTimer = 0.0;
-	double colorChangeDuration = 3.0; // Duration for which the color change lasts
-	double cooldownTimer = 10.0;
-	double cooldownDuration = 10.0; // Cooldown duration
-	bool isColorChanged = false;
-
-	bool sniffa{ false };
+	// Puppies
+	int puppiesCollected = 0;
 	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
-	bool playercollided{ false }, puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
-	bool puppy1Destroyed{ false }, puppy2Destroyed{ false }, puppy3Destroyed{ false };
-	bool teb_last = false;
+	bool puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
+	bool dialogueFirst{ false }, dialogueSecond{ false }, dialogueThird{ false };
 
 	std::vector<Entity> particleEntities;
 
@@ -47,6 +44,8 @@ class MainHall : public Level
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM5.json");
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusicBGM.wav", true, "BGM");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav", true, "SFX");
+
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction = GetNameToActionMap();
@@ -96,29 +95,6 @@ class MainHall : public Level
 		g_UI.OnInitialize();
 	}
 
-	void CheckPuppyCollision()
-	{
-		playercollided = CheckEntityCollision(playerEnt);
-		puppy1Collided = CheckEntityCollision(puppy1);
-		puppy2Collided = CheckEntityCollision(puppy2);
-		puppy3Collided = CheckEntityCollision(puppy3);
-
-		if (playercollided && puppy1Collided && !collectedPuppy1)
-		{
-			collectedPuppy1 = true;
-		}
-
-		if (playercollided && puppy2Collided && !collectedPuppy2)
-		{
-			collectedPuppy2 = true;
-		}
-
-		if (playercollided && puppy3Collided && !collectedPuppy3)
-		{
-			collectedPuppy3 = true;
-		}
-	}
-
 	void UpdateLevel(double deltaTime) override
 	{
 		if (g_IsPaused && !savedcamdir) {
@@ -156,13 +132,11 @@ class MainHall : public Level
 			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
 			g_DialogueText.OnUpdate(deltaTime);
 
-
 			if (!g_Checklist.shutted)
 			{
 				g_Checklist.OnUpdate(deltaTime);
 			}
 
-			//CheckCollision();
 			g_SmellAvoidance.Update(deltaTime);
 
 			if (!collectedPuppy1 || !collectedPuppy2 || !collectedPuppy3)
@@ -176,12 +150,33 @@ class MainHall : public Level
 					g_TimerTR.OnInitialize();
 					g_TimerTR.timer = timerLimit;
 					g_SmellAvoidance.SetTimerInit(true);
+
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", true, "SFX");
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav", false, "SFX");
+
+					g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", 0.4f);
+
 				}
 				g_TimerTR.OnUpdate(deltaTime);
+
+				// Gradually Increase Clock Ticking Volume (Only for this sound)
+				float timeLeft = static_cast<float>(g_TimerTR.timer);  // Get remaining time
+				float maxVolume = 1.0f;  // 100% Volume
+				float minVolume = 0.6f;  // Starting Volume (20%)
+
+				// Scale volume based on time left (louder as it approaches 0)
+				float newVolume = minVolume + (1.0f - (timeLeft / static_cast<float>(timerLimit))) * (maxVolume - minVolume);
+
+				// Update the ticking sound volume
+				g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", newVolume);
 
 				if (g_TimerTR.timer == 0.0)
 				{
 					timesUp -= deltaTime;
+
+					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
+					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
+
 
 					// Times up! sound
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
@@ -200,33 +195,6 @@ class MainHall : public Level
 						}
 					}
 				}
-			}
-
-			// If collected 1st puppy
-			if (collectedPuppy1 && !puppy1Destroyed)
-			{
-				g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
-				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy1);
-				g_Coordinator.DestroyEntity(puppy1);
-				puppy1Destroyed = true;
-			}
-
-			// If collected 2nd puppy
-			if (collectedPuppy2 && !puppy2Destroyed)
-			{
-				g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
-				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy2);
-				g_Coordinator.DestroyEntity(puppy2);
-				puppy2Destroyed = true;
-			}
-
-			// If collected 3rd puppy
-			if (collectedPuppy3 && !puppy3Destroyed)
-			{
-				g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
-				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(puppy3);
-				g_Coordinator.DestroyEntity(puppy3);
-				puppy3Destroyed = true;
 			}
 
 			if (collectedPuppy1 && collectedPuppy2 && collectedPuppy3 && !chgChecklist)
@@ -269,10 +237,6 @@ class MainHall : public Level
 			{
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiSniff.wav", false, "SFX");
 
-				//opacity1.setParticleColor(glm::vec4(0.9607843160629273f, 0.3935392200946808f, 0.042387526482343677f, 1.0f));
-				//opacity2.setParticleColor(glm::vec4(0.032127078622579578f, 0.93624528503418f, 0.936274528503418f, 1.0f));
-				//opacity3.setParticleColor(glm::vec4(0.9313725233078003f, 0.342416375875473f, 0.8274392485618591f, 1.0f));
-
 				//SetDefaultPeePosition();
 				g_SmellAvoidance.SetDefaultPeePosition();
 
@@ -287,10 +251,6 @@ class MainHall : public Level
 				colorChangeTimer += deltaTime;
 				if (colorChangeTimer >= colorChangeDuration)
 				{
-					//opacity1.setParticleColor(glm::vec4(0.9607843160629273f, 0.3935392200946808f, 0.042387526482343677f, 0.0f));
-					//opacity2.setParticleColor(glm::vec4(0.032127078622579578f, 0.93624528503418f, 0.936274528503418f, 0.0f));
-					//opacity3.setParticleColor(glm::vec4(0.9313725233078003f, 0.342416375875473f, 0.8274392485618591f, 0.0f));
-
 					//SetNewPeePosition();
 					g_SmellAvoidance.SetNewPeePosition();
 
@@ -331,8 +291,8 @@ class MainHall : public Level
 		// Ensure RESET for game to be replayable
 		g_Checklist.shutted = false;
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
-		playercollided = puppy1Collided = puppy2Collided = puppy3Collided = false;
-		puppy1Destroyed = puppy2Destroyed = puppy3Destroyed = false;
+		//playercollided = false;
+		puppy1Collided = puppy2Collided = puppy3Collided = false;
 
 		g_TimerTR.OnShutdown();
 	}
@@ -381,6 +341,11 @@ private:
 		g_Checklist.ChangeAsset(g_Checklist.Do3, glm::vec2(0.15f, 0.05f), "Do8");
 		g_Checklist.ChangeAsset(g_Checklist.Do4, glm::vec2(0.0f, 0.0f), "");
 		g_Checklist.ChangeAsset(g_Checklist.Box4, glm::vec2(0.0f, 0.0f), "");
+
+		if (g_Coordinator.HaveComponent<UIComponent>(g_Checklist.Paper))
+		{
+			g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 0.968f));
+		}
 	}
 
 	void InitializeFireSound() const
@@ -396,12 +361,63 @@ private:
 		}
 	}
 
-	bool CheckEntityCollision(Entity entity)
+	bool CheckEntityWithPlayerCollision(Entity entity)
 	{
-		if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
+		//Check Entity Collision with Player
+		if (g_Coordinator.HaveComponent<CollisionComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
 		{
-			return g_Coordinator.GetComponent<CollisionComponent>(entity).GetIsColliding();
+			auto collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
+			if(collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), "Player") == 0)
+				return true;
 		}
 		return false;
+	}
+
+	void CheckPuppyCollision()
+	{
+		puppy1Collided = CheckEntityWithPlayerCollision(puppy1);
+		puppy2Collided = CheckEntityWithPlayerCollision(puppy2);
+		puppy3Collided = CheckEntityWithPlayerCollision(puppy3);
+
+		if (puppy1Collided && !collectedPuppy1)
+		{
+			puppiesCollected++;
+			g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
+			collectedPuppy1 = true;
+		}
+
+		if (puppy2Collided && !collectedPuppy2)
+		{
+			puppiesCollected++;
+			std::cout << "hello\n" << std::endl;
+			g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
+			collectedPuppy2 = true;
+		}
+
+		if (puppy3Collided && !collectedPuppy3)
+		{
+			puppiesCollected++;
+			g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
+			collectedPuppy3 = true;
+		}
+
+		if (puppiesCollected == 1 && !dialogueFirst)
+		{
+			g_DialogueText.OnInitialize();
+			g_DialogueText.setDialogue(DialogueState::TWOMORETOGO);
+			dialogueFirst = true;
+		}
+		else if (puppiesCollected == 2 && !dialogueSecond)
+		{
+			g_DialogueText.OnInitialize();
+			g_DialogueText.setDialogue(DialogueState::ONEMORETOGO);
+			dialogueSecond = true;
+		}
+		else if (puppiesCollected == 3 && !dialogueThird)
+		{
+			g_DialogueText.OnInitialize();
+			g_DialogueText.setDialogue(DialogueState::ALLPUPSFOUND);
+			dialogueThird = true;
+		}
 	}
 };

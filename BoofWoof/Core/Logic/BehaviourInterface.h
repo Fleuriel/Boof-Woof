@@ -7,6 +7,8 @@
 #ifndef GAME_ENGINE
 using Entity = std::uint32_t;
 #endif
+constexpr Entity INVALID_ENT = std::numeric_limits<Entity>::max();
+
 
 struct Behaviour_i
 {
@@ -35,6 +37,12 @@ struct audio_interface
 struct physics_interface
 {
 	virtual void RemoveBody(Entity entity) = 0;
+	virtual Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity = INVALID_ENT) = 0;
+	//virtual std::vector<Entity> ConeRaycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, int numHorizontalRays, int numVerticalRays, float coneAngle, Entity ignoreEntity) = 0;
+	virtual std::vector<Entity> ConeRaycast(
+		Entity entity,
+		const glm::vec3& direction, float maxDistance,
+		int numHorizontalRays, int numVerticalRays, float coneAngle) = 0;
 };
 
 struct engine_interface
@@ -50,6 +58,8 @@ struct engine_interface
 	virtual glm::vec3 GetPosition(Entity entity) = 0;
 	virtual glm::vec3 GetRotation(Entity entity) = 0;
 	virtual void SetPosition(Entity entity, glm::vec3 position) = 0;
+	virtual void SetRotation(Entity entity, glm::vec3 rotation) = 0;
+	virtual void SetRotationYawFromVelocity(Entity entity, glm::vec3 velocity) = 0;
 	
 	virtual bool HaveCollisionComponent(Entity entity) = 0;
 	virtual bool HavePhysicsBody(Entity entity) = 0;
@@ -58,6 +68,7 @@ struct engine_interface
 	virtual const char* GetCollidingEntityName(Entity entity) = 0;
 	virtual void SetCollidingEntityName(Entity entity) = 0;
 	virtual void SetVelocity(Entity entity, glm::vec3 velocity) = 0;
+	virtual bool IsDynamic(Entity entity) = 0;
 
 	// Pathfinding functions
 	virtual bool HavePathfindingComponent(Entity entity) = 0;
@@ -88,6 +99,8 @@ struct engine_interface
 
 	virtual Entity GetPlayerEntity() = 0; // Expose the function
 	virtual bool GetExhausted() = 0;
+
+	virtual bool GetStunned() = 0;
 };	
 
 #ifdef GAME_ENGINE
