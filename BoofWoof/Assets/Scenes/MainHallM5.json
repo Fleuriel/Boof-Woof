@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "9ea5ad00-43bf-44f9-95b6-905420a2b6a5",
+    "SceneGUID": "b02da63c-942c-469d-a385-60188297f0c9",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.6938059329986572,
-                    "y": 1.1806232929229737,
-                    "z": -0.17461040616035462
+                    "x": -0.6938343048095703,
+                    "y": 1.1806228160858155,
+                    "z": -0.1748303920030594
                 },
                 "Scale": {
                     "x": 0.5,
@@ -3850,12 +3850,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 24.049999237060548,
-                    "y": 2.109999895095825,
-                    "z": -85.856201171875
+                    "x": 23.93152618408203,
+                    "y": 1.9796642065048218,
+                    "z": -85.92265319824219
                 },
                 "Scale": {
-                    "x": 1.0,
+                    "x": 1.059999942779541,
                     "y": 1.0,
                     "z": 1.0
                 },
@@ -3871,7 +3871,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "WallDrawbridgeLeft",
+                "ModelName": "WallDrawbridge2Left",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -3898,12 +3898,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 27.950000762939454,
-                    "y": 2.109999895095825,
-                    "z": -85.89959716796875
+                    "x": 28.16914939880371,
+                    "y": 1.9999996423721314,
+                    "z": -85.89173889160156
                 },
                 "Scale": {
-                    "x": 1.0,
+                    "x": 1.0600000619888306,
                     "y": 1.0,
                     "z": 1.0
                 },
@@ -3919,7 +3919,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "WallDrawbridgeRight",
+                "ModelName": "WallDrawbridge2Right",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -3946,12 +3946,12 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 26.0,
-                    "y": 5.099999904632568,
-                    "z": -85.91739654541016
+                    "x": 26.059465408325197,
+                    "y": 4.972495079040527,
+                    "z": -85.8711929321289
                 },
                 "Scale": {
-                    "x": 1.0,
+                    "x": 1.059999942779541,
                     "y": 1.0,
                     "z": 1.0
                 },
@@ -3967,7 +3967,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "WallDrawbridgeTop",
+                "ModelName": "WallDrawbridge2Top",
                 "FollowCamera": true
             }
         },
@@ -4027,7 +4027,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 24.648000717163087,
-                    "y": 0.20000000298023225,
+                    "y": 0.47999998927116396,
                     "z": -80.26010131835938
                 },
                 "Scale": {
@@ -4058,7 +4058,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 27.236000061035158,
+                    "x": 27.336000442504884,
                     "y": 2.632999897003174,
                     "z": -82.63099670410156
                 },
@@ -4106,8 +4106,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 27.198999404907228,
-                    "y": 0.20000000298023225,
+                    "x": 27.31999969482422,
+                    "y": 0.47999998927116396,
                     "z": -80.2511978149414
                 },
                 "Scale": {
@@ -7098,7 +7098,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 20.62299919128418,
+                    "x": 20.586856842041017,
                     "y": 3.299999952316284,
                     "z": -85.89399719238281
                 },
@@ -11130,18 +11130,18 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 35.99812316894531,
+                    "x": 35.98216247558594,
                     "y": 12.603660583496094,
-                    "z": 13.344111442565918
+                    "z": 13.344114303588868
                 },
                 "Scale": {
                     "x": 2.299999475479126,
                     "y": 1.399999976158142,
-                    "z": 0.9998724460601807
+                    "z": 0.9998606443405151
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": -1.5705790519714356,
+                    "y": -1.5700000524520875,
                     "z": 0.0
                 },
                 "RotationPivotOffset": {
@@ -11178,14 +11178,14 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 35.985870361328128,
+                    "x": 35.986061096191409,
                     "y": 8.399558067321778,
-                    "z": 8.858795166015625
+                    "z": 8.743508338928223
                 },
                 "Scale": {
                     "x": 2.299999475479126,
                     "y": 1.399999976158142,
-                    "z": 0.9999193549156189
+                    "z": 0.9999027848243713
                 },
                 "Rotation": {
                     "x": 3.1407713890075685,
@@ -11226,19 +11226,19 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 35.98554992675781,
+                    "x": 36.05158615112305,
                     "y": 8.3915376663208,
-                    "z": 17.829010009765626
+                    "z": 17.93724822998047
                 },
                 "Scale": {
                     "x": 2.299912691116333,
                     "y": 1.399999976158142,
-                    "z": 0.9998373985290527
+                    "z": 0.9998276829719544
                 },
                 "Rotation": {
-                    "x": 3.140434503555298,
-                    "y": -1.566744089126587,
-                    "z": -3.140416383743286
+                    "x": 0.0,
+                    "y": 1.5699999332427979,
+                    "z": 0.0
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -14603,7 +14603,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 25.5,
-                    "y": 1.5,
+                    "y": 1.654794454574585,
                     "z": -77.0
                 },
                 "Scale": {
@@ -14634,13 +14634,13 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 1.649999976158142,
-                    "y": 0.10000000149011612,
-                    "z": 0.6000000238418579
+                    "x": 3.299999952316284,
+                    "y": 2.5,
+                    "z": 0.699999988079071
                 },
                 "AABBOffset": {
-                    "x": -0.4000000059604645,
-                    "y": -0.15000000596046449,
+                    "x": 0.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 10.0
@@ -15040,7 +15040,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.2999997138977051,
+                    "y": 3.3000001907348635,
                     "z": -39.57389831542969
                 },
                 "Scale": {
@@ -15088,7 +15088,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -44.3734016418457
                 },
                 "Scale": {
@@ -15136,7 +15136,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -49.16490173339844
                 },
                 "Scale": {
@@ -15184,7 +15184,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -53.94559860229492
                 },
                 "Scale": {
@@ -15232,7 +15232,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -58.74209976196289
                 },
                 "Scale": {
@@ -15280,7 +15280,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -63.541900634765628
                 },
                 "Scale": {
@@ -15328,7 +15328,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -68.33910369873047
                 },
                 "Scale": {
@@ -15376,7 +15376,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -73.10549926757813
                 },
                 "Scale": {
@@ -15424,7 +15424,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 17.415000915527345,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -77.90540313720703
                 },
                 "Scale": {
@@ -15471,9 +15471,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 17.41483497619629,
-                    "y": 0.29999998211860659,
-                    "z": -82.72785949707031
+                    "x": 17.4148006439209,
+                    "y": 3.299999952316284,
+                    "z": -82.72789764404297
                 },
                 "Scale": {
                     "x": 0.9996251463890076,
@@ -15504,7 +15504,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -39.57400131225586
                 },
                 "Scale": {
@@ -15552,7 +15552,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -44.37300109863281
                 },
                 "Scale": {
@@ -15600,7 +15600,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -49.165000915527347
                 },
                 "Scale": {
@@ -15648,7 +15648,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -53.94599914550781
                 },
                 "Scale": {
@@ -15696,7 +15696,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -58.742000579833987
                 },
                 "Scale": {
@@ -15744,7 +15744,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -63.54199981689453
                 },
                 "Scale": {
@@ -15792,7 +15792,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -68.33899688720703
                 },
                 "Scale": {
@@ -15840,7 +15840,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -73.1050033569336
                 },
                 "Scale": {
@@ -15888,7 +15888,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.582000732421878,
-                    "y": 0.2999999523162842,
+                    "y": 3.3000001907348635,
                     "z": -77.90499877929688
                 },
                 "Scale": {
@@ -15936,7 +15936,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 34.581600189208987,
-                    "y": 0.2999997138977051,
+                    "y": 3.3000001907348635,
                     "z": -82.72799682617188
                 },
                 "Scale": {
@@ -15983,9 +15983,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 10.440081596374512,
-                    "y": 7.610499382019043,
-                    "z": -9.64600944519043
+                    "x": 10.440099716186524,
+                    "y": 10.637999534606934,
+                    "z": -9.646010398864746
                 },
                 "Scale": {
                     "x": 1.5,
@@ -16016,7 +16016,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 25.44828224182129,
-                    "y": 7.610499382019043,
+                    "y": 10.638057708740235,
                     "z": -9.64600944519043
                 },
                 "Scale": {
@@ -16047,9 +16047,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 24.080303192138673,
-                    "y": 0.23088595271110536,
-                    "z": 3.844104290008545
+                    "x": 24.080299377441408,
+                    "y": 1.899999976158142,
+                    "z": 3.844099998474121
                 },
                 "Scale": {
                     "x": 1.5,
@@ -16079,9 +16079,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 43.54637908935547,
-                    "y": 0.33744877576828005,
-                    "z": -23.214021682739259
+                    "x": 43.5463981628418,
+                    "y": 1.7999999523162842,
+                    "z": -23.214000701904298
                 },
                 "Scale": {
                     "x": 1.5,
@@ -16111,9 +16111,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -3.8344826698303224,
-                    "y": 0.3143892288208008,
-                    "z": -23.21160316467285
+                    "x": -3.834480047225952,
+                    "y": 1.7999999523162842,
+                    "z": -23.211599349975587
                 },
                 "Scale": {
                     "x": 1.5,
@@ -16144,7 +16144,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": -3.4000699520111086,
-                    "y": 0.3310000002384186,
+                    "y": 1.7999999523162842,
                     "z": 2.450850009918213
                 },
                 "Scale": {
@@ -16271,9 +16271,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 64.70928192138672,
-                    "y": 8.47927188873291,
-                    "z": -31.603525161743165
+                    "x": 64.70899963378906,
+                    "y": 8.479269981384278,
+                    "z": -31.503000259399415
                 },
                 "Scale": {
                     "x": 1.6999999284744263,
@@ -16445,7 +16445,7 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
-                    "y": 1.399999976158142,
+                    "y": 1.4500000476837159,
                     "z": 0.75
                 },
                 "AABBOffset": {
@@ -16655,9 +16655,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 62.47065353393555,
-                    "y": 6.541524887084961,
-                    "z": -3.4173240661621095
+                    "x": 62.470699310302737,
+                    "y": 8.0,
+                    "z": -3.4173200130462648
                 },
                 "Scale": {
                     "x": 1.5000001192092896,
@@ -16687,9 +16687,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 63.05502700805664,
-                    "y": 6.541524887084961,
-                    "z": -10.541515350341797
+                    "x": 63.05500030517578,
+                    "y": 8.0,
+                    "z": -10.541500091552735
                 },
                 "Scale": {
                     "x": 1.5000040531158448,
@@ -17040,7 +17040,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 19.02899932861328,
-                    "y": 0.2999997138977051,
+                    "y": 1.7999999523162842,
                     "z": -41.91210174560547
                 },
                 "Scale": {
@@ -17088,7 +17088,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 19.02899932861328,
-                    "y": 0.2999999523162842,
+                    "y": 1.7999999523162842,
                     "z": -51.57680130004883
                 },
                 "Scale": {
@@ -17136,7 +17136,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 19.02899932861328,
-                    "y": 0.2999999523162842,
+                    "y": 1.7999999523162842,
                     "z": -61.134700775146487
                 },
                 "Scale": {
@@ -17184,7 +17184,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 19.02899932861328,
-                    "y": 0.2999999523162842,
+                    "y": 1.7999999523162842,
                     "z": -70.65740203857422
                 },
                 "Scale": {
@@ -17231,9 +17231,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 19.029512405395509,
-                    "y": 0.2999999523162842,
-                    "z": -80.29301452636719
+                    "x": 19.029499053955079,
+                    "y": 1.7999999523162842,
+                    "z": -80.29299926757813
                 },
                 "Scale": {
                     "x": 1.4999998807907105,
@@ -17279,9 +17279,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 33.113216400146487,
-                    "y": 0.2999999523162842,
-                    "z": -80.27555084228516
+                    "x": 33.11320114135742,
+                    "y": 1.7999999523162842,
+                    "z": -80.27559661865235
                 },
                 "Scale": {
                     "x": 1.4999998807907105,
@@ -17328,7 +17328,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 33.112998962402347,
-                    "y": 0.2999999523162842,
+                    "y": 1.7999999523162842,
                     "z": -70.64299774169922
                 },
                 "Scale": {
@@ -17376,7 +17376,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 33.112998962402347,
-                    "y": 0.2999999523162842,
+                    "y": 1.7999999523162842,
                     "z": -61.012001037597659
                 },
                 "Scale": {
@@ -17424,7 +17424,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 33.112998962402347,
-                    "y": 0.2999999523162842,
+                    "y": 1.7999999523162842,
                     "z": -51.42470169067383
                 },
                 "Scale": {
@@ -17472,7 +17472,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 33.112998962402347,
-                    "y": 0.2999999523162842,
+                    "y": 1.7999999523162842,
                     "z": -42.180301666259769
                 },
                 "Scale": {
@@ -18255,9 +18255,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 62.72397994995117,
-                    "y": 6.504276275634766,
-                    "z": 11.626131057739258
+                    "x": 62.7239990234375,
+                    "y": 8.149999618530274,
+                    "z": 11.626099586486817
                 },
                 "Scale": {
                     "x": 1.5,
@@ -18287,9 +18287,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 62.72397994995117,
-                    "y": 6.504276275634766,
-                    "z": 18.498458862304689
+                    "x": 62.7239990234375,
+                    "y": 8.149999618530274,
+                    "z": 18.49850082397461
                 },
                 "Scale": {
                     "x": 1.5,
@@ -18320,8 +18320,8 @@
             "TransformComponent": {
                 "Position": {
                     "x": 62.499698638916019,
-                    "y": 6.484358787536621,
-                    "z": -31.105342864990236
+                    "y": 8.0,
+                    "z": -31.105300903320314
                 },
                 "Scale": {
                     "x": 1.5,
@@ -18352,8 +18352,8 @@
             "TransformComponent": {
                 "Position": {
                     "x": 62.499698638916019,
-                    "y": 6.484358787536621,
-                    "z": -38.0009651184082
+                    "y": 8.0,
+                    "z": -38.000999450683597
                 },
                 "Scale": {
                     "x": 1.5,
@@ -18431,9 +18431,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 35.50279235839844,
-                    "y": 0.3017294406890869,
-                    "z": 2.4953856468200685
+                    "x": 35.50279998779297,
+                    "y": 1.8020007610321046,
+                    "z": 2.495389938354492
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18461,12 +18461,12 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
-                    "y": 0.949999988079071,
+                    "y": 1.100000023841858,
                     "z": 1.0
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.100000023841858,
+                    "y": -0.3499999940395355,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -18479,9 +18479,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.493231773376465,
-                    "y": 0.33000776171684267,
-                    "z": -23.672088623046876
+                    "x": 4.53344202041626,
+                    "y": 0.6800252199172974,
+                    "z": -23.71666145324707
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18517,7 +18517,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.3499999940395355,
+                    "y": -0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -18530,9 +18530,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 60.00865173339844,
-                    "y": 6.5699567794799809,
-                    "z": -1.5168333053588868
+                    "x": 60.00788879394531,
+                    "y": 6.9699578285217289,
+                    "z": -1.5159070491790772
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18568,7 +18568,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.3499999940395355,
+                    "y": -0.05000000074505806,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -18581,9 +18581,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -23.93168067932129,
-                    "y": 6.569956302642822,
-                    "z": -10.864311218261719
+                    "x": -23.932659149169923,
+                    "y": 6.96995735168457,
+                    "z": -10.863643646240235
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18619,7 +18619,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.3499999940395355,
+                    "y": -0.05000000074505806,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -19682,9 +19682,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 42.25581741333008,
-                    "y": 0.2991361618041992,
-                    "z": -7.751533508300781
+                    "x": 42.25579833984375,
+                    "y": 2.5399999618530275,
+                    "z": -7.751530170440674
                 },
                 "Scale": {
                     "x": 1.8000190258026124,
@@ -19730,9 +19730,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 42.25255584716797,
-                    "y": 0.2991344928741455,
-                    "z": -13.989157676696778
+                    "x": 42.252601623535159,
+                    "y": 2.5399999618530275,
+                    "z": -13.9891996383667
                 },
                 "Scale": {
                     "x": 1.8000247478485108,
@@ -19778,9 +19778,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 42.25986862182617,
-                    "y": 0.29315197467803957,
-                    "z": -0.008354248479008675
+                    "x": 42.2598991394043,
+                    "y": 2.390000104904175,
+                    "z": -0.008354250341653824
                 },
                 "Scale": {
                     "x": 1.8000414371490479,
@@ -19827,7 +19827,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 42.24959945678711,
-                    "y": 0.2931469678878784,
+                    "y": 2.390000104904175,
                     "z": -19.614200592041017
                 },
                 "Scale": {
@@ -20115,7 +20115,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 7.630624771118164,
-                    "y": 6.551799774169922,
+                    "y": 8.038005828857422,
                     "z": 7.912639617919922
                 },
                 "Scale": {
@@ -20144,12 +20144,12 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
-                    "y": 0.949999988079071,
+                    "y": 1.100000023841858,
                     "z": 1.0
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.100000023841858,
+                    "y": -0.3499999940395355,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -20163,7 +20163,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 58.44986343383789,
-                    "y": 6.5628509521484379,
+                    "y": 8.050386428833008,
                     "z": 17.307315826416017
                 },
                 "Scale": {
@@ -20192,12 +20192,12 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
-                    "y": 0.949999988079071,
+                    "y": 1.100000023841858,
                     "z": 1.0
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.100000023841858,
+                    "y": -0.3499999940395355,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -21479,38 +21479,6 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 69.97608184814453,
-                    "y": 3.299999952316284,
-                    "z": 4.792569160461426
-                },
-                "Scale": {
-                    "x": 0.999974250793457,
-                    "y": 1.0,
-                    "z": 0.999974250793457
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 1.5699999332427979,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallCorner",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallCorner",
-                "EntityID": 504
-            },
-            "TransformComponent": {
-                "Position": {
                     "x": 52.064605712890628,
                     "y": 3.299999952316284,
                     "z": -35.572261810302737
@@ -21555,7 +21523,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wallcorner",
-                "EntityID": 505
+                "EntityID": 504
             },
             "TransformComponent": {
                 "Position": {
@@ -21587,7 +21555,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 506
+                "EntityID": 505
             },
             "TransformComponent": {
                 "Position": {
@@ -21635,7 +21603,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 507
+                "EntityID": 506
             },
             "TransformComponent": {
                 "Position": {
@@ -21683,7 +21651,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 508
+                "EntityID": 507
             },
             "TransformComponent": {
                 "Position": {
@@ -21731,7 +21699,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 509
+                "EntityID": 508
             },
             "TransformComponent": {
                 "Position": {
@@ -21779,7 +21747,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 510
+                "EntityID": 509
             },
             "TransformComponent": {
                 "Position": {
@@ -21827,7 +21795,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 511
+                "EntityID": 510
             },
             "TransformComponent": {
                 "Position": {
@@ -21875,7 +21843,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 512
+                "EntityID": 511
             },
             "TransformComponent": {
                 "Position": {
@@ -21923,7 +21891,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 513
+                "EntityID": 512
             },
             "TransformComponent": {
                 "Position": {
@@ -21971,7 +21939,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 514
+                "EntityID": 513
             },
             "TransformComponent": {
                 "Position": {
@@ -22019,7 +21987,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 515
+                "EntityID": 514
             },
             "TransformComponent": {
                 "Position": {
@@ -22067,7 +22035,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 516
+                "EntityID": 515
             },
             "TransformComponent": {
                 "Position": {
@@ -22115,7 +22083,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 517
+                "EntityID": 516
             },
             "TransformComponent": {
                 "Position": {
@@ -22163,7 +22131,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 518
+                "EntityID": 517
             },
             "TransformComponent": {
                 "Position": {
@@ -22211,7 +22179,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 519
+                "EntityID": 518
             },
             "TransformComponent": {
                 "Position": {
@@ -22259,7 +22227,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 520
+                "EntityID": 519
             },
             "TransformComponent": {
                 "Position": {
@@ -22307,7 +22275,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 521
+                "EntityID": 520
             },
             "TransformComponent": {
                 "Position": {
@@ -22355,7 +22323,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 522
+                "EntityID": 521
             },
             "TransformComponent": {
                 "Position": {
@@ -22403,7 +22371,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 523
+                "EntityID": 522
             },
             "TransformComponent": {
                 "Position": {
@@ -22451,7 +22419,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 524
+                "EntityID": 523
             },
             "TransformComponent": {
                 "Position": {
@@ -22499,7 +22467,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 525
+                "EntityID": 524
             },
             "TransformComponent": {
                 "Position": {
@@ -22547,7 +22515,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 526
+                "EntityID": 525
             },
             "TransformComponent": {
                 "Position": {
@@ -22595,7 +22563,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 527
+                "EntityID": 526
             },
             "TransformComponent": {
                 "Position": {
@@ -22643,7 +22611,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 528
+                "EntityID": 527
             },
             "TransformComponent": {
                 "Position": {
@@ -22691,7 +22659,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 529
+                "EntityID": 528
             },
             "TransformComponent": {
                 "Position": {
@@ -22739,7 +22707,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 530
+                "EntityID": 529
             },
             "TransformComponent": {
                 "Position": {
@@ -22787,7 +22755,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 531
+                "EntityID": 530
             },
             "TransformComponent": {
                 "Position": {
@@ -22835,7 +22803,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 532
+                "EntityID": 531
             },
             "TransformComponent": {
                 "Position": {
@@ -22883,7 +22851,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 533
+                "EntityID": 532
             },
             "TransformComponent": {
                 "Position": {
@@ -22924,7 +22892,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 534
+                "EntityID": 533
             },
             "TransformComponent": {
                 "Position": {
@@ -22965,7 +22933,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 535
+                "EntityID": 534
             },
             "TransformComponent": {
                 "Position": {
@@ -23006,7 +22974,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 536
+                "EntityID": 535
             },
             "TransformComponent": {
                 "Position": {
@@ -23047,7 +23015,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 537
+                "EntityID": 536
             },
             "TransformComponent": {
                 "Position": {
@@ -23095,7 +23063,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 538
+                "EntityID": 537
             },
             "TransformComponent": {
                 "Position": {
@@ -23143,7 +23111,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 539
+                "EntityID": 538
             },
             "TransformComponent": {
                 "Position": {
@@ -23191,7 +23159,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 540
+                "EntityID": 539
             },
             "TransformComponent": {
                 "Position": {
@@ -23239,7 +23207,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 541
+                "EntityID": 540
             },
             "TransformComponent": {
                 "Position": {
@@ -23287,7 +23255,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 542
+                "EntityID": 541
             },
             "TransformComponent": {
                 "Position": {
@@ -23335,7 +23303,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "TestObject",
-                "EntityID": 543
+                "EntityID": 542
             },
             "TransformComponent": {
                 "Position": {
@@ -23367,7 +23335,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "TestCollision",
-                "EntityID": 544
+                "EntityID": 543
             },
             "TransformComponent": {
                 "Position": {
@@ -23415,7 +23383,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee1",
-                "EntityID": 545
+                "EntityID": 544
             },
             "TransformComponent": {
                 "Position": {
@@ -23447,7 +23415,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee1Collision",
-                "EntityID": 546
+                "EntityID": 545
             },
             "TransformComponent": {
                 "Position": {
@@ -23495,7 +23463,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee2",
-                "EntityID": 547
+                "EntityID": 546
             },
             "TransformComponent": {
                 "Position": {
@@ -23527,7 +23495,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee2Collision",
-                "EntityID": 548
+                "EntityID": 547
             },
             "TransformComponent": {
                 "Position": {
@@ -23575,7 +23543,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee3",
-                "EntityID": 549
+                "EntityID": 548
             },
             "TransformComponent": {
                 "Position": {
@@ -23607,7 +23575,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee3Collision",
-                "EntityID": 550
+                "EntityID": 549
             },
             "TransformComponent": {
                 "Position": {
@@ -23655,7 +23623,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee4",
-                "EntityID": 551
+                "EntityID": 550
             },
             "TransformComponent": {
                 "Position": {
@@ -23687,7 +23655,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee4Collision",
-                "EntityID": 552
+                "EntityID": 551
             },
             "TransformComponent": {
                 "Position": {
