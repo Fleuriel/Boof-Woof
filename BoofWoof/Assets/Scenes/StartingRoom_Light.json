@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "c80a1fb0-8c0b-41d5-a923-94796f736dd5",
+    "SceneGUID": "76c094d0-aa10-4771-b081-b0fe9f426413",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.02485034614801407,
-                    "y": 1.1800053119659424,
-                    "z": -1.6367404460906983
+                    "x": -0.3043590188026428,
+                    "y": 1.311216115951538,
+                    "z": -2.3281211853027345
                 },
                 "Scale": {
                     "x": 0.5,
@@ -1253,7 +1253,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Carpet",
                 "EntityID": 29
             },
             "TransformComponent": {
@@ -1281,6 +1281,22 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -1685,7 +1701,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Carpet",
                 "EntityID": 39
             },
             "TransformComponent": {
@@ -1713,6 +1729,22 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {

@@ -31,7 +31,7 @@ struct Player final : public Behaviour
 	float fallTime = 0.0f;  // ? New variable to track how long the player is in the air
 	bool falling = false;  // ? New flag to track if the player was falling
 	bool jumpInitiated = false;  // ? New flag to track intentional jumps
-	std::string surfaceType = ""; // Initialize empty
+	std::string surfaceType = ""; // Tracks the surface the player is on
 
 
 
@@ -52,6 +52,24 @@ struct Player final : public Behaviour
 	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_13.wav",
 	"Corgi/Dog_Footsteps_Walk/Dog_Footstep_Walk_14.wav"
 	};
+
+
+		std::vector<std::string> CarpetfootstepSounds = {
+	"Corgi/DogCarpetFootsteps1.wav",
+	"Corgi/DogCarpetFootsteps2.wav",
+	"Corgi/DogCarpetFootsteps3.wav",
+	"Corgi/DogCarpetFootsteps4.wav",
+	"Corgi/DogCarpetFootsteps5.wav",
+		};
+
+			std::vector<std::string> WoodfootstepSounds = {
+	"Corgi/DogWoodFootsteps1.wav",
+	"Corgi/DogWoodFootsteps2.wav",
+	"Corgi/DogWoodFootsteps3.wav",
+	"Corgi/DogWoodFootsteps4.wav",
+	"Corgi/DogWoodFootsteps5.wav",
+	"Corgi/DogWoodFootsteps6.wav",
+			};
 
 	
 	std::vector<std::string> jumpSounds = {
@@ -319,6 +337,7 @@ struct Player final : public Behaviour
 			}
 
 
+
 			if (m_Engine.IsColliding(entity))
 			{
 				const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
@@ -339,6 +358,10 @@ struct Player final : public Behaviour
 				{
 					surfaceType = "WoodSteps";
 				}
+				else if (std::strcmp(collidingEntityName, "FloorCastle") == 0)
+				{
+					surfaceType = "FloorCastle";
+				}
 			}
 
 			// Footstep sound logic
@@ -356,15 +379,19 @@ struct Player final : public Behaviour
 					}
 					else if (surfaceType == "Carpet")
 					{
-						footstepSound = GetRandomSound(rubberSqueakSounds);
+						footstepSound = GetRandomSound(CarpetfootstepSounds);
 					}
 					else if (surfaceType == "WoodFloor")
 					{
-						footstepSound = GetRandomSound(jumpSounds);
+						footstepSound = GetRandomSound(WoodfootstepSounds);
 					}
 					else if (surfaceType == "WoodSteps")
 					{
-						footstepSound = GetRandomSound(jumpSounds);
+						footstepSound = GetRandomSound(WoodfootstepSounds);
+					}
+					else if (surfaceType == "FloorCastle")
+					{
+						footstepSound = GetRandomSound(footstepSounds);
 					}
 
 					if (!footstepSound.empty()) // Prevent playing an empty sound
@@ -379,7 +406,6 @@ struct Player final : public Behaviour
 			{
 				footstepTimer = 0.0f; // Reset when not moving
 			}
-
 
 
 
