@@ -555,8 +555,6 @@ void Model::DrawCollisionBox2D(Model outlineModel)
 
 }
 
-
-
 void Model::DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color, float lineWidth) const
 {
 
@@ -574,7 +572,48 @@ void Model::DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::v
 
 }
 
+void Model::DrawCollisionBoxes2D(const std::vector<Model>& outlines) const
+{
+	if (outlines.empty()) return;
 
+	// Bind the VAO for the outline model
+	glBindVertexArray(outlines[0].vaoid);
+	glLineWidth(1.0f);
+
+	// Use instanced rendering
+	glDrawElementsInstanced(outlines[0].primitive_type, outlines[0].draw_cnt, GL_UNSIGNED_SHORT, 0, static_cast<GLsizei>(outlines.size()));
+
+	// Unbind the VAO
+	glBindVertexArray(0);
+}
+
+void Model::DrawCollisionBoxes3D(const std::vector<Model>& aabbOutlines, const std::vector<glm::mat4>& instanceTransforms, float lineWidth) const
+{
+	if (aabbOutlines.empty()) return;
+
+	glBindVertexArray(aabbOutlines[0].vaoid);
+	glLineWidth(lineWidth);
+
+	// Create an instance VBO for transformation matrices
+	GLuint instanceVBO;
+	glGenBuffers(1, &instanceVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
+	glBufferData(GL_ARRAY_BUFFER, instanceTransforms.size() * sizeof(glm::mat4), instanceTransforms.data(), GL_DYNAMIC_DRAW);
+
+	// Set instance attribute pointer
+	for (int i = 0; i < 4; i++) {
+		glEnableVertexAttribArray(2 + i);
+		glVertexAttribPointer(2 + i, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4) * i));
+		glVertexAttribDivisor(2 + i, 1); // One per instance
+	}
+
+	// Draw using instanced rendering
+	glDrawElementsInstanced(aabbOutlines[0].primitive_type, aabbOutlines[0].draw_cnt, GL_UNSIGNED_SHORT, 0, static_cast<GLsizei>(instanceTransforms.size()));
+
+	// Cleanup
+	glDeleteBuffers(1, &instanceVBO);
+	glBindVertexArray(0);
+}
 
 
 /*

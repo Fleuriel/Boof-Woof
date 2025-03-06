@@ -584,47 +584,46 @@ void GraphicsSystem::UpdateLoop() {
 	//	}
 	//
 			
-	if (debug && (D2 || D3))
-	{
-		OpenGLShader& shader = g_AssetManager.GetShader("Debug");
-		shader.Use();
+if (debug && (D2 || D3))
+{
+    OpenGLShader& shader = g_AssetManager.GetShader("Debug");
+    shader.Use();
 
-		SetShaderUniforms(shader, shdrParam); // Ensure color is set correctly
+    SetShaderUniforms(shader, shdrParam); // Ensure color is set correctly
+    auto model = g_ResourceManager.getModel(graphicsComp.getModelName());
 
-		auto model = g_ResourceManager.getModel(graphicsComp.getModelName());
+    std::vector<Model> outlineModels;
+    std::vector<Model> aabbModels;
+    std::vector<glm::mat4> instanceTransforms;
 
-		if (D2)
-		{
-			model->DrawCollisionBox2D(SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f))); // Green for 2D
-		}
-		else if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
-		{
-			auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
-			JPH::Body* body = collisionComp.GetPhysicsBody();
+    if (D2)
+    {
+        outlineModels.push_back(SquareModelOutline(glm::vec3(0.0f, 1.0f, 0.0f))); // Green for 2D
+    }
+    else if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
+    {
+        auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+        JPH::Body* body = collisionComp.GetPhysicsBody();
 
-			if (body)
-			{
-				// Get the world-space AABB from JoltPhysics
-				JPH::AABox aabb = body->GetWorldSpaceBounds();
+        if (body)
+        {
+            JPH::AABox aabb = body->GetWorldSpaceBounds();
+            JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
+            glm::vec3 offset = collisionComp.GetAABBOffset();
+            glm::vec3 debugColor = glm::vec3(0.0f, 1.0f, 1.0f);
+            shader.SetUniform("objectColor", debugColor);
 
-				// Calculate center and half-extents
-				JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
+            glm::mat4 transform = glm::translate(glm::mat4(1.0f), offset);
+            instanceTransforms.push_back(transform);
+            aabbModels.push_back(AABB(offset, graphicsComp.boundingBox, debugColor));
+        }
+    }
 
-				// Apply offset for visual debugging
-				glm::vec3 offset = collisionComp.GetAABBOffset();
-
-				// Define debug color (cyan: 0.0f, 1.0f, 1.0f)
-				glm::vec3 debugColor = glm::vec3(0.0f, 1.0f, 1.0f);
-
-				// Ensure shader receives the color
-				shader.SetUniform("objectColor", debugColor);
-
-				model->DrawCollisionBox3D(offset, graphicsComp.boundingBox, debugColor);
-			}
-		}
-
-		shader.UnUse();
-	}
+    if (!outlineModels.empty()) model->DrawCollisionBoxes2D(outlineModels);
+    if (!aabbModels.empty()) model->DrawCollisionBoxes3D(aabbModels, instanceTransforms, 1.0f);
+    
+    shader.UnUse();
+}
 
 
 

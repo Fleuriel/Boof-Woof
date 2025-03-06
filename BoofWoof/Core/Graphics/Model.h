@@ -59,6 +59,10 @@ public:
 
     void DrawCollisionBox3D(glm::vec3 position, glm::vec3 halfExtents, glm::vec3 color, float lineWidth = 1.0f) const;
 
+    void DrawCollisionBoxes2D(const std::vector<Model>& outlines) const;
+
+    void DrawCollisionBoxes3D(const std::vector<Model>& aabbOutlines, const std::vector<glm::mat4>& instanceTransforms, float lineWidth) const;
+
 
         // draws the model, and thus all its meshes
     void Draw(OpenGLShader& shader)

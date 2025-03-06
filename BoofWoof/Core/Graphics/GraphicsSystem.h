@@ -148,6 +148,11 @@ private:
     static std::vector<DebugLine> debugLines;
     static unsigned int debugLineVAO, debugLineVBO;
 
+    // For Debug AABB
+    /*std::vector<Model> outlineModels;
+    std::vector<Model> aabbModels;
+    std::vector<glm::mat4> instanceTransforms;*/
+
 };
 
 #endif
