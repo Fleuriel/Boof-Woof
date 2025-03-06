@@ -46,10 +46,10 @@ struct Rex final : public Behaviour
         glm::vec3 velocity(0.0f);
 
         // Always check for objects in front
-        //CheckForObjectsInFront(entity);
+        CheckForObjectsInFront(entity);
 
         // Single Ray Check
-        SingleRayCheck(entity, currentPos);
+        //SingleRayCheck(entity, currentPos);
 
         // Ensure path is properly initialized after resetting the scene
         if (!pathInitialized)
