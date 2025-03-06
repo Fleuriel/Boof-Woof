@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <glm/glm.hpp>
 #include <map>
@@ -36,9 +36,14 @@ public:
 		{
 			m_CurrentTime += m_CurrentAnimation->GetTicksPerSecond() * dt;
 			m_CurrentTime = fmod(m_CurrentTime, m_CurrentAnimation->GetDuration());
-			
-			
-			std::cout << m_CurrentTime << '\n';
+
+			std::cout << "Current Time: " << m_CurrentTime << std::endl;
+
+			// Force identity to see if issue is with bone transforms
+			for (int i = 0; i < m_FinalBoneMatrices.size(); i++)
+			{
+				m_FinalBoneMatrices[i] = glm::mat4(1.0f);
+			}
 
 			CalculateBoneTransform(&m_CurrentAnimation->GetRootNode(), glm::mat4(1.0f));
 		}
@@ -55,31 +60,35 @@ public:
 		std::string nodeName = node->name;
 		glm::mat4 nodeTransform = node->transformation;
 
-		//std::cout << nodeName << '\n';
-
-		Bone* Bone = m_CurrentAnimation->FindBone(nodeName);
-
-		if (Bone)
+		Bone* bone = m_CurrentAnimation->FindBone(nodeName);
+		if (bone)
 		{
-			Bone->Update(m_CurrentTime);
-			nodeTransform = Bone->GetLocalTransform();
+			bone->Update(m_CurrentTime);
+			nodeTransform = bone->GetLocalTransform();
 		}
 
 		glm::mat4 globalTransformation = parentTransform * nodeTransform;
 
 		auto boneInfoMap = m_CurrentAnimation->GetBoneIDMap();
-
 		if (boneInfoMap.find(nodeName) != boneInfoMap.end())
 		{
 			int index = boneInfoMap[nodeName].id;
 			glm::mat4 offset = boneInfoMap[nodeName].offset;
-			m_FinalBoneMatrices[index] = globalTransformation * offset;
 
+			// Debugging
+			std::cout << "Bone: " << nodeName << " (ID: " << index << ")\n";
+			std::cout << "Offset Matrix:\n" << glm::to_string(offset) << "\n";
+			std::cout << "Global Transformation:\n" << glm::to_string(globalTransformation) << "\n";
+
+			m_FinalBoneMatrices[index] = m_CurrentAnimation->GetGlobalInverseTransform() * globalTransformation * offset;
 		}
 
 		for (int i = 0; i < node->childrenCount; i++)
+		{
 			CalculateBoneTransform(&node->children[i], globalTransformation);
+		}
 	}
+
 
 	std::vector<glm::mat4> GetFinalBoneMatrices()
 	{

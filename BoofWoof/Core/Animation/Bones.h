@@ -177,6 +177,7 @@ private:
 		return glm::scale(glm::mat4(1.0f), finalScale);
 	}
 
+
 	std::vector<KeyPosition> m_Positions;
 	std::vector<KeyRotation> m_Rotations;
 	std::vector<KeyScale> m_Scales;

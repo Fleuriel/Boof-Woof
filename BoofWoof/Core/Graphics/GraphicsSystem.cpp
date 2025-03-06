@@ -149,7 +149,8 @@ void GraphicsSystem::initGraphicsPipeline() {
 	//fontSystem.init();
 
 
-	TestAnimationAdd("../BoofWoof/Assets/Animations/corgi_walk.fbx");
+	TestAnimationAdd("corgi_walk","../BoofWoof/Assets/Animations/corgi_walk.fbx");
+//	TestAnimationAdd("vampire", "../BoofWoof/Assets/Animations/dancing_vampire.dae");
 
 
 	shdrParam.Color = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -476,7 +477,13 @@ void GraphicsSystem::UpdateLoop() {
 			// Bind and use the animation shader
 			g_AssetManager.GetShader("Animation").Use();
 
+			glm::mat4 model = glm::mat4(1.0f);
+			// translate it down so it's at the center of the scene
+			model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f));
+			// it's a bit too big for our scene, so scale it down
+			model = glm::scale(model, glm::vec3(.5f, .5f, .5f));
 
+//			g_AssetManager.GetShader("Animation").SetUniform("model", model);
 			g_AssetManager.GetShader("Animation").SetUniform("model", shdrParam.WorldMatrix);
 			g_AssetManager.GetShader("Animation").SetUniform("view", camera.GetViewMatrix());
 			g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
@@ -492,9 +499,14 @@ void GraphicsSystem::UpdateLoop() {
 					Animator* animator = animatorIt->second;
 					animator->UpdateAnimation(0.001);
 
+//					std::cout << animatorIt->first.c_str() << '\n';
 
 					// Pass bone transformations to the shader
 					auto transforms = animator->GetFinalBoneMatrices();
+
+					
+					
+					//					std::cout << transforms.size() << '\n';
 					for (size_t i = 0; i < transforms.size(); ++i) {
 					
 
@@ -792,7 +804,7 @@ void GraphicsSystem::AddModel_3D(std::string const& path)
 	Model model;
 	std::cout << "Loading: " << path << '\n';
 
-	model.loadModel(path, GL_TRIANGLES);
+	model.loadModel(path);//, GL_TRIANGLES);
 
 	std::string name = path.substr(path.find_last_of('/') + 1);
 	//remove .obj from name
@@ -828,12 +840,11 @@ void GraphicsSystem::AddModel_3D(std::string const& path)
 //
 //	std::cout << "Animation and Animator added successfully!\n";
 //}
-void GraphicsSystem::TestAnimationAdd(const std::string& path)
+void GraphicsSystem::TestAnimationAdd(const std::string name, const std::string& path)
 {
 	//  Allocate model on the heap
 	Model* animModel = new Model(path, false);
 
-	std::string name = "corgi_walk";
 
 	//  Allocate AnimationT dynamically
 	AnimationT* corgiWalk = new AnimationT(path, animModel);

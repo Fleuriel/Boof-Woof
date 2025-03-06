@@ -26,15 +26,31 @@ class AnimationT
 public:
 	AnimationT() = default;
 
+
+
 	AnimationT(const std::string& animationPath, Model* model)
 	{
+		auto ConvertMatrixToGLM = [](const aiMatrix4x4& from) -> glm::mat4 {
+			return glm::mat4{
+				{ from.a1, from.b1, from.c1, from.d1 },
+				{ from.a2, from.b2, from.c2, from.d2 },
+				{ from.a3, from.b3, from.c3, from.d3 },
+				{ from.a4, from.b4, from.c4, from.d4 }
+			};
+		};
+
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
 		assert(scene && scene->mRootNode);
 		auto animation = scene->mAnimations[0];
 		m_Duration = animation->mDuration;
 		m_TicksPerSecond = animation->mTicksPerSecond;
+
+		m_GlobalInverseTransform = ConvertMatrixToGLM(scene->mRootNode->mTransformation);
+		m_GlobalInverseTransform = glm::inverse(m_GlobalInverseTransform);
+
 		aiMatrix4x4 globalTransformation = scene->mRootNode->mTransformation;
+
 		globalTransformation = globalTransformation.Inverse();
 		ReadHierarchyData(m_RootNode, scene->mRootNode);
 		ReadMissingBones(animation, *model);
@@ -63,6 +79,10 @@ public:
 	inline const std::map<std::string, BoneInfo>& GetBoneIDMap()
 	{
 		return m_BoneInfoMap;
+	}
+
+	glm::mat4 GetGlobalInverseTransform() const {
+		return m_GlobalInverseTransform;
 	}
 
 private:
@@ -122,4 +142,6 @@ private:
 	std::vector<Bone> m_Bones;
 	AssimpNodeData m_RootNode;
 	std::map<std::string, BoneInfo> m_BoneInfoMap;
+
+	glm::mat4 m_GlobalInverseTransform;
 };
