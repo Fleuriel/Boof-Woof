@@ -17,6 +17,8 @@ struct Rex final : public Behaviour
 	bool returningtoStart = false;
     glm::vec3 rexPosition = glm::vec3(0.0f);
     glm::vec3 rexRotation = glm::vec3(0.0f);
+	Entity playerEntity = 0;
+	int rotationCounter = 0;
     
     // Create a state machine
     enum class State
@@ -37,10 +39,17 @@ struct Rex final : public Behaviour
         isMovingRex = false;
         currentPathIndex = 0;
         state = State::PATROL;
+		playerEntity = m_Engine.GetPlayerEntity();
     }
 
     virtual void Update(Entity entity) override
     {
+		// if playerEntity is empty, get the player entity
+		if (playerEntity == 0 || playerEntity == INVALID_ENT) {
+			playerEntity = m_Engine.GetPlayerEntity();
+		}
+        
+        
         glm::vec3 currentPos = m_Engine.GetPosition(entity);
         //std::cout << "[Pathfinding] Entity " << entity << " is currently at Position: ("
         //    << currentPos.x << ", " << currentPos.y << ", " << currentPos.z << ")" << std::endl;
@@ -48,7 +57,13 @@ struct Rex final : public Behaviour
         glm::vec3 velocity(0.0f);
 
         // Always check for objects in front
-        CheckForObjectsInFront(entity);
+		if (CheckifPlayerInFront(entity)) {
+			state = State::CHASE;
+		}
+		else {
+			state = State::PATROL;
+		}
+        //CheckForObjectsInFront(entity);
         //CheckForObjectsBelow(entity);
 
         // Single Ray Check
@@ -171,6 +186,37 @@ struct Rex final : public Behaviour
                 //    << ", followingPath = " << followingPath << ", path size = " << path.size() << std::endl;
             }
         }
+		else if (state == State::CHASE) {
+			std::cout << "[Rex] Chasing player...\n";
+			// Chase the player
+			glm::vec3 playerPos = m_Engine.GetPosition(playerEntity);
+			glm::vec3 direction = glm::normalize(playerPos - currentPos);
+			velocity = direction * speed;
+			isMovingRex = true;
+
+			// Check if player is in front
+			if (!CheckifPlayerInFront(entity)) {
+                state = State::FIND;
+			}
+		}
+		else if (state == State::FIND) {
+			// Rotate entity bit by bit till 360 degrees
+			// Rotate entity by 10 degrees
+			if (rotationCounter < 36) {
+				glm::vec3 rotation = m_Engine.GetRotation(entity);
+				rotation.y += 10.0f * 3.14159f / 180.0f; // Convert to radians
+				m_Engine.SetRotation(entity, rotation);
+				isMovingRex = true;
+				rotationCounter++;
+			}
+			else {
+				rotationCounter = 0;
+				state = State::PATROL;
+				m_Engine.SetBuilt(entity, false);
+                m_Engine.SetStartNode(entity, m_Engine.GetNearestNode(entity));
+				m_Engine.SetGoalNode(entity, m_Engine.GetRandomNode(entity));
+			}
+		}
 
         // Apply velocity correctly
         if (isMovingRex)
@@ -204,6 +250,43 @@ struct Rex final : public Behaviour
     virtual const char* getBehaviourName() override
     {
         return "Rex";
+    }
+    bool CheckifPlayerInFront(Entity entity) {
+        if (!m_Engine.HaveTransformComponent(entity)) {
+            return false; // Ensure the entity has a TransformComponent
+        }
+
+        rexPosition = m_Engine.GetPosition(entity);
+        rexRotation = m_Engine.GetRotation(entity); // Get yaw rotation
+
+        // **Compute forward direction from Rex's yaw rotation**
+        float yaw = rexRotation.y;
+        glm::vec3 forwardDirection = glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw));
+
+        float maxRayDistance = 10.0f;
+        float fovAngle = 30.0f; // 30-degree cone
+        int horizontalRays = 5; // Number of horizontal rays
+        int verticalRays = 3;   // Number of vertical rays
+        glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
+
+        std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
+            entity, forwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle, rayOffset
+        );
+
+		if (!detectedObjects.empty()) {
+			std::cout << "[Rex] Cone Raycast Detected Entities:\n";
+			for (Entity e : detectedObjects) {
+				if (e == playerEntity)
+					return true;
+				else
+					return false;
+			}
+		}
+		else {
+			std::cout << "[Rex] No objects detected in FOV.\n";
+		}
+
+		return false;
     }
 
     void CheckForObjectsInFront(Entity rexEntity)
