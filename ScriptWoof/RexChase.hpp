@@ -227,13 +227,18 @@ struct RexChase final : public Behaviour
         glm::vec3 forwardDirection = glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw));
 
         float maxRayDistance = 10.0f;
-        float fovAngle = 30.0f; // 30-degree cone
+        //float fovAngle = 30.0f; // 30-degree cone
+        float horizontalFOVAngle = 30.0f; // Customize how wide the spread is
+        float verticalFOVAngle = 40.0f;   // Customize how far up/down the rays spread
         int horizontalRays = 5; // Number of horizontal rays
-        int verticalRays = 3;   // Number of vertical rays
+        int verticalRays = 5;   // Number of vertical rays
         glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
 
         std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
-            rexEntity, forwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle, rayOffset
+            rexEntity, forwardDirection, maxRayDistance,
+            horizontalRays, verticalRays,
+            horizontalFOVAngle, verticalFOVAngle,
+            rayOffset
         );
 
         //if (!detectedObjects.empty()) {
