@@ -457,6 +457,7 @@ void GraphicsSystem::UpdateLoop() {
 			}
 			
 			g_AssetManager.GetShader(ShaderName).SetUniform("objectColor", glm::vec3{1.0f});
+			g_AssetManager.GetShader(ShaderName).SetUniform("brightness", brightness);
 
 			glm::mat4 lightmtx(1.0f);
 
