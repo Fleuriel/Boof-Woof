@@ -217,8 +217,8 @@ struct Rex final : public Behaviour
 
         float maxRayDistance = 10.0f;
         float fovAngle = 30.0f; // 30-degree cone
-        int horizontalRays = 5; // Number of horizontal rays
-        int verticalRays = 3;   // Number of vertical rays
+        int horizontalRays = 3; // Number of horizontal rays
+        int verticalRays = 10;   // Number of vertical rays
         glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
 
         std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
