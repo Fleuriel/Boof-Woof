@@ -386,6 +386,18 @@ public:
 	{
 		return g_UI.isStunned;
 	}
+
+	virtual bool MatchModelName(Entity entity, const char* modelname)
+	{
+		if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) 
+		{			
+			if (g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName() == modelname) 
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 };
 
 #endif // !SCRIPT_TO_ENGINE_H

@@ -22,6 +22,9 @@ struct Player final : public Behaviour
 	double cooldownTimer = 0.0;
 	bool jumpSoundPlayed = false;  // Add this as a new class member variable
 
+	glm::vec3 PlayerPosition = glm::vec3(0.0f);
+	glm::vec3 PlayerRotation = glm::vec3(0.0f);
+
 
 	float footstepTimer = 0.0f;
 	const float footstepInterval = 0.25f;  // Interval between footstep sounds (adjustable)
@@ -118,6 +121,8 @@ struct Player final : public Behaviour
 			//UNREFERENCED_PARAMETER(entity);
 			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			isMoving = false;
+
+			CheckForObjectsInFront(entity);
 
 			//// Debug for movement
 			//glm::vec3 currentPos = m_Engine.GetPosition(entity);
@@ -459,7 +464,7 @@ struct Player final : public Behaviour
 				jumpSoundPlayed = false;
 				falling = false;
 				jumpInitiated = false;  // ? Reset jump tracking after landing
-				std::cout << "[DEBUG] Player landed after intentional jump!" << std::endl;
+				//std::cout << "[DEBUG] Player landed after intentional jump!" << std::endl;
 			}
 
 			// Update grounded state at the end
@@ -536,5 +541,43 @@ struct Player final : public Behaviour
 	virtual const char* getBehaviourName() override
 	{
 		return "Player";
+	}
+
+	void CheckForObjectsInFront(Entity scruffy)
+	{
+		if (!m_Engine.HaveTransformComponent(scruffy)) {
+			return; // Ensure the entity has a TransformComponent
+		}
+
+		PlayerPosition = m_Engine.GetPosition(scruffy);
+		PlayerRotation = m_Engine.GetRotation(scruffy); // Get yaw rotation
+
+		// **Compute forward direction from scruffy's yaw rotation**
+		float yaw = PlayerRotation.y;
+		glm::vec3 forwardDirection = glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw));
+
+		float maxRayDistance = 20.0f;
+		float fovAngle = 20.0f; // 30-degree cone
+		int horizontalRays = 10; // Number of horizontal rays
+		int verticalRays = 8;   // Number of vertical rays
+		glm::vec3 rayOffset = glm::vec3(0.0f, -0.8f, 0.0f);
+
+		std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
+			scruffy, forwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle, rayOffset
+		);
+
+		if (!detectedObjects.empty()) 
+		{
+		    for (Entity touchedEntity : detectedObjects) 
+			{
+				if (m_Engine.MatchModelName(touchedEntity, "RexPee1") || m_Engine.MatchModelName(touchedEntity, "RexPee2") || m_Engine.MatchModelName(touchedEntity, "RexPee3"))
+				{
+					// show dialogue
+				}
+		    }
+		}
+		//else {
+		//    std::cout << "[Rex] No objects detected in FOV.\n";
+		//}
 	}
 };

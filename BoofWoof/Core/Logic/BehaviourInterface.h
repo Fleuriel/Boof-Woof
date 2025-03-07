@@ -104,6 +104,8 @@ struct engine_interface
 	virtual bool GetExhausted() = 0;
 
 	virtual bool GetStunned() = 0;
+
+	virtual bool MatchModelName(Entity entity, const char* modelname) = 0;
 };	
 
 #ifdef GAME_ENGINE
