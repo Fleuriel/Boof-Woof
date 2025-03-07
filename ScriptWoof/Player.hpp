@@ -22,6 +22,10 @@ struct Player final : public Behaviour
 	double cooldownTimer = 0.0;
 	bool jumpSoundPlayed = false;  // Add this as a new class member variable
 
+	glm::vec3 PlayerPosition = glm::vec3(0.0f);
+	glm::vec3 PlayerRotation = glm::vec3(0.0f);
+
+
 
 	float footstepTimer = 0.0f;
 	const float footstepInterval = 0.25f;  // Interval between footstep sounds (adjustable)
@@ -113,8 +117,10 @@ struct Player final : public Behaviour
 
 	virtual void Update(Entity entity) override
 	{
+
 		if (!m_Engine.IsGamePaused())
 		{
+
 			//UNREFERENCED_PARAMETER(entity);
 			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			isMoving = false;
@@ -537,4 +543,60 @@ struct Player final : public Behaviour
 	{
 		return "Player";
 	}
+
+	void CheckForObjectsInFront(Entity rexEntity)
+	{
+		if (!m_Engine.HaveTransformComponent(rexEntity)) {
+			return; // Ensure the entity has a TransformComponent
+		}
+
+		PlayerPosition = m_Engine.GetPosition(rexEntity);
+		PlayerRotation = m_Engine.GetRotation(rexEntity); // Get yaw rotation
+
+		// **Compute forward direction from Rex's yaw rotation**
+		//float yaw = PlayerRotation.y;
+		glm::vec3 forwardDirection = glm::vec3(0.0f, -1.0f, 0.0f); // ? Change to downward
+
+		float maxRayDistance = 10.0f;
+		float fovAngle = 30.0f; // 30-degree cone
+		int horizontalRays = 5; // Number of horizontal rays
+		int verticalRays = 3;   // Number of vertical rays
+
+		std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
+			rexEntity, forwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle
+		);
+
+		//if (!detectedObjects.empty()) {
+		//    std::cout << "[Rex] Cone Raycast Detected Entities:\n";
+		//    for (Entity e : detectedObjects) {
+		//        std::cout << "   - Entity ID: " << e << "\n";
+		//    }
+		//}
+		//else {
+		//    std::cout << "[Rex] No objects detected in FOV.\n";
+		//}
+	}
+
+	void SingleRayCheck(Entity rexEntity, glm::vec3 currentPos) {
+		PlayerRotation = m_Engine.GetRotation(rexEntity); // Get yaw rotation
+
+		// **Compute forward direction from Rex's yaw rotation**
+		float yaw = PlayerRotation.y;
+		glm::vec3 forwardDirection = glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw));
+
+		float maxDistance = 10.0f; // Distance to check
+
+		// Just shoot a single ray in front
+		Entity hitEntity = m_Engine.getPhysicsSystem().Raycast(currentPos, forwardDirection, maxDistance, rexEntity);
+
+		if (hitEntity != -1) {
+			std::cout << "[Rex] Single Ray Test: Object detected in front! Entity ID: " << hitEntity << std::endl;
+		}
+		else {
+			std::cout << "[Rex] Single Ray Test: No objects detected in front." << std::endl;
+		}
+	}
+
+
+
 };
