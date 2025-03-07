@@ -16,6 +16,9 @@ struct RexChase final : public Behaviour
     bool isMovingRex = false;
 	bool returningtoStart = false;
     Entity PlayerNearestNode = NULL;
+
+    glm::vec3 rexPosition = glm::vec3(0.0f);
+    glm::vec3 rexRotation = glm::vec3(0.0f);
     
     // Create a state machine
     enum class State
@@ -209,23 +212,28 @@ struct RexChase final : public Behaviour
     {
         return "RexChase";
     }
-
+    
     void CheckForObjectsInFront(Entity rexEntity)
     {
-        if (m_Engine.HaveTransformComponent(rexEntity)) 
-        {
-            glm::vec3 rexPosition = m_Engine.GetPosition(rexEntity);
+        if (!m_Engine.HaveTransformComponent(rexEntity)) {
+            return; // Ensure the entity has a TransformComponent
         }
 
-        glm::vec3 forwardDirection = glm::vec3(1.0f, 0.0f, 0.0f); // Facing forward
+        rexPosition = m_Engine.GetPosition(rexEntity);
+        rexRotation = m_Engine.GetRotation(rexEntity); // Get yaw rotation
+
+        // **Compute forward direction from Rex's yaw rotation**
+        float yaw = rexRotation.y;
+        glm::vec3 forwardDirection = glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw));
 
         float maxRayDistance = 10.0f;
         float fovAngle = 30.0f; // 30-degree cone
         int horizontalRays = 5; // Number of horizontal rays
         int verticalRays = 3;   // Number of vertical rays
+        glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
 
         std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
-            rexEntity, forwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle
+            rexEntity, forwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle, rayOffset
         );
 
         //if (!detectedObjects.empty()) {
@@ -239,8 +247,37 @@ struct RexChase final : public Behaviour
         //}
     }
 
+    void CheckForObjectsBelow(Entity rexEntity)
+    {
+        if (!m_Engine.HaveTransformComponent(rexEntity)) {
+            return; // Ensure the entity has a TransformComponent
+        }
+
+        rexPosition = m_Engine.GetPosition(rexEntity);
+        rexRotation = m_Engine.GetRotation(rexEntity); // Get yaw rotation
+
+        glm::vec3 downwardDirection = glm::vec3(0.0f, -1.0f, 0.0f);
+
+        float maxRayDistance = 3.0f;
+        float fovAngle = 50.0f; // 30-degree cone
+        int horizontalRays = 5; // Number of horizontal rays
+        int verticalRays = 3;   // Number of vertical rays
+        glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
+
+        std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycastDownward(
+            rexEntity, downwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle, rayOffset
+        );
+
+    }
+
+
     void SingleRayCheck(Entity rexEntity, glm::vec3 currentPos) {
-        glm::vec3 forwardDirection = glm::vec3(1.0f, 0.0f, 0.0f);  // Directly forward (adjust if needed)
+        rexRotation = m_Engine.GetRotation(rexEntity); // Get yaw rotation
+
+        // **Compute forward direction from Rex's yaw rotation**
+        float yaw = rexRotation.y;
+        glm::vec3 forwardDirection = glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw));
+
         float maxDistance = 10.0f; // Distance to check
 
         // Just shoot a single ray in front
