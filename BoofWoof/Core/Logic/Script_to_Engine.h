@@ -348,6 +348,26 @@ public:
 		return g_Coordinator.GetSystem<PathfindingSystem>()->GetClosestNode(entityPosition);
 	}
 
+	virtual Entity GetRandomNode(Entity entity) override {
+		Entity start = g_Coordinator.GetComponent<PathfindingComponent>(entity).GetStartNode();
+
+		std::vector<Entity> list = g_Coordinator.GetSystem<PathfindingSystem>()->GetNodeList();
+		// Get a random node from the list
+		std::random_device rd;   // Seed
+		std::mt19937 gen(rd());  // Mersenne Twister random engine
+		std::uniform_int_distribution<size_t> dist(0, list.size() - 1); // Uniform distribution
+
+		if (gen.max() == 0)
+			return list[0]; // Return the only element (if there is only one element in the list
+		else if (list.size() == 0)
+			return MAX_ENTITIES; // Return invalid entity if no nodes are found (should not happen
+
+		std::cout << "[Engine] Random node selected: " << list[dist(gen)] << std::endl;
+		
+		// Pick a random element
+		return list[dist(gen)];
+	}
+
 	virtual Entity GetPlayerEntity() override
 	{
 		for (auto entity : g_Coordinator.GetAliveEntitiesSet())
@@ -363,6 +383,8 @@ public:
 		}
 		return MAX_ENTITIES; // Return invalid entity if no player is found
 	}
+
+	
 
 
 	virtual bool IsGamePaused() override

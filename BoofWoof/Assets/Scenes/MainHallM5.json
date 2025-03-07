@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "9d5991b1-acc5-4968-b199-16f729cf384e",
+    "SceneGUID": "e508728f-3f45-4049-8733-2adf61c9f2c8",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.6937840580940247,
-                    "y": 1.1806244850158692,
-                    "z": -0.8218063116073608
+                    "x": -0.6937559843063355,
+                    "y": 1.1806254386901856,
+                    "z": -1.1857069730758668
                 },
                 "Scale": {
                     "x": 0.5,
@@ -14646,8 +14646,8 @@
                 "Mass": 10.0
             },
             "PathfindingComponent": {
-                "StartNode": 14,
-                "GoalNode": 12,
+                "StartNode": 8,
+                "GoalNode": 6,
                 "Path": [
                     {
                         "x": 25.5,
@@ -14685,7 +14685,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 353
+                "EntityID": 342
             },
             "TransformComponent": {
                 "Position": {
@@ -14733,7 +14733,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 354
+                "EntityID": 343
             },
             "TransformComponent": {
                 "Position": {
@@ -14781,7 +14781,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 355
+                "EntityID": 344
             },
             "TransformComponent": {
                 "Position": {
@@ -14829,7 +14829,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 356
+                "EntityID": 345
             },
             "TransformComponent": {
                 "Position": {
@@ -14877,7 +14877,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 357
+                "EntityID": 346
             },
             "TransformComponent": {
                 "Position": {
@@ -14925,7 +14925,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 358
+                "EntityID": 347
             },
             "TransformComponent": {
                 "Position": {
@@ -14973,7 +14973,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 359
+                "EntityID": 348
             },
             "TransformComponent": {
                 "Position": {
@@ -15021,7 +15021,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 360
+                "EntityID": 349
             },
             "TransformComponent": {
                 "Position": {
@@ -15069,7 +15069,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 361
+                "EntityID": 350
             },
             "TransformComponent": {
                 "Position": {
@@ -15117,7 +15117,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 362
+                "EntityID": 351
             },
             "TransformComponent": {
                 "Position": {
@@ -15149,7 +15149,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 363
+                "EntityID": 352
             },
             "TransformComponent": {
                 "Position": {
@@ -15197,7 +15197,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 364
+                "EntityID": 353
             },
             "TransformComponent": {
                 "Position": {
@@ -15245,7 +15245,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 365
+                "EntityID": 354
             },
             "TransformComponent": {
                 "Position": {
@@ -15293,7 +15293,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 366
+                "EntityID": 355
             },
             "TransformComponent": {
                 "Position": {
@@ -15341,7 +15341,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 367
+                "EntityID": 356
             },
             "TransformComponent": {
                 "Position": {
@@ -15389,7 +15389,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 368
+                "EntityID": 357
             },
             "TransformComponent": {
                 "Position": {
@@ -15437,7 +15437,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 369
+                "EntityID": 358
             },
             "TransformComponent": {
                 "Position": {
@@ -15485,7 +15485,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 370
+                "EntityID": 359
             },
             "TransformComponent": {
                 "Position": {
@@ -15533,7 +15533,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 371
+                "EntityID": 360
             },
             "TransformComponent": {
                 "Position": {
@@ -15581,7 +15581,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 372
+                "EntityID": 361
             },
             "TransformComponent": {
                 "Position": {
@@ -15629,7 +15629,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chandelier",
-                "EntityID": 373
+                "EntityID": 362
             },
             "TransformComponent": {
                 "Position": {
@@ -15661,7 +15661,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chandelier",
-                "EntityID": 374
+                "EntityID": 363
             },
             "TransformComponent": {
                 "Position": {
@@ -15693,7 +15693,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 375
+                "EntityID": 364
             },
             "TransformComponent": {
                 "Position": {
@@ -15725,7 +15725,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 376
+                "EntityID": 365
             },
             "TransformComponent": {
                 "Position": {
@@ -15757,7 +15757,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 377
+                "EntityID": 366
             },
             "TransformComponent": {
                 "Position": {
@@ -15789,7 +15789,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 378
+                "EntityID": 367
             },
             "TransformComponent": {
                 "Position": {
@@ -15821,7 +15821,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 379
+                "EntityID": 368
             },
             "TransformComponent": {
                 "Position": {
@@ -15869,7 +15869,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 380
+                "EntityID": 369
             },
             "TransformComponent": {
                 "Position": {
@@ -15917,7 +15917,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 381
+                "EntityID": 370
             },
             "TransformComponent": {
                 "Position": {
@@ -15965,7 +15965,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 382
+                "EntityID": 371
             },
             "TransformComponent": {
                 "Position": {
@@ -16013,7 +16013,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 383
+                "EntityID": 372
             },
             "TransformComponent": {
                 "Position": {
@@ -16061,7 +16061,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 384
+                "EntityID": 373
             },
             "TransformComponent": {
                 "Position": {
@@ -16109,7 +16109,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 385
+                "EntityID": 374
             },
             "TransformComponent": {
                 "Position": {
@@ -16157,7 +16157,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 386
+                "EntityID": 375
             },
             "TransformComponent": {
                 "Position": {
@@ -16205,7 +16205,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 387
+                "EntityID": 376
             },
             "TransformComponent": {
                 "Position": {
@@ -16253,7 +16253,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 388
+                "EntityID": 377
             },
             "TransformComponent": {
                 "Position": {
@@ -16301,7 +16301,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 389
+                "EntityID": 378
             },
             "TransformComponent": {
                 "Position": {
@@ -16333,7 +16333,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 390
+                "EntityID": 379
             },
             "TransformComponent": {
                 "Position": {
@@ -16365,7 +16365,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 391
+                "EntityID": 380
             },
             "TransformComponent": {
                 "Position": {
@@ -16413,7 +16413,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 392
+                "EntityID": 381
             },
             "TransformComponent": {
                 "Position": {
@@ -16461,7 +16461,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 393
+                "EntityID": 382
             },
             "TransformComponent": {
                 "Position": {
@@ -16509,7 +16509,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Railing",
-                "EntityID": 394
+                "EntityID": 383
             },
             "TransformComponent": {
                 "Position": {
@@ -16557,7 +16557,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Railing",
-                "EntityID": 395
+                "EntityID": 384
             },
             "TransformComponent": {
                 "Position": {
@@ -16605,7 +16605,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Railing",
-                "EntityID": 396
+                "EntityID": 385
             },
             "TransformComponent": {
                 "Position": {
@@ -16653,7 +16653,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Railing",
-                "EntityID": 397
+                "EntityID": 386
             },
             "TransformComponent": {
                 "Position": {
@@ -16685,7 +16685,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 398
+                "EntityID": 387
             },
             "TransformComponent": {
                 "Position": {
@@ -16733,7 +16733,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 399
+                "EntityID": 388
             },
             "TransformComponent": {
                 "Position": {
@@ -16781,7 +16781,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 400
+                "EntityID": 389
             },
             "TransformComponent": {
                 "Position": {
@@ -16829,7 +16829,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 401
+                "EntityID": 390
             },
             "TransformComponent": {
                 "Position": {
@@ -16877,7 +16877,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 402
+                "EntityID": 391
             },
             "TransformComponent": {
                 "Position": {
@@ -16925,7 +16925,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 403
+                "EntityID": 392
             },
             "TransformComponent": {
                 "Position": {
@@ -16973,7 +16973,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 404
+                "EntityID": 393
             },
             "TransformComponent": {
                 "Position": {
@@ -17021,7 +17021,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 405
+                "EntityID": 394
             },
             "TransformComponent": {
                 "Position": {
@@ -17069,7 +17069,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 406
+                "EntityID": 395
             },
             "TransformComponent": {
                 "Position": {
@@ -17117,7 +17117,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 407
+                "EntityID": 396
             },
             "TransformComponent": {
                 "Position": {
@@ -17165,7 +17165,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 408
+                "EntityID": 397
             },
             "TransformComponent": {
                 "Position": {
@@ -17197,7 +17197,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 409
+                "EntityID": 398
             },
             "TransformComponent": {
                 "Position": {
@@ -17229,7 +17229,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 410
+                "EntityID": 399
             },
             "TransformComponent": {
                 "Position": {
@@ -17261,7 +17261,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 411
+                "EntityID": 400
             },
             "TransformComponent": {
                 "Position": {
@@ -17293,7 +17293,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 412
+                "EntityID": 401
             },
             "TransformComponent": {
                 "Position": {
@@ -17325,7 +17325,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 413
+                "EntityID": 402
             },
             "TransformComponent": {
                 "Position": {
@@ -17357,7 +17357,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 414
+                "EntityID": 403
             },
             "TransformComponent": {
                 "Position": {
@@ -17389,7 +17389,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 415
+                "EntityID": 404
             },
             "TransformComponent": {
                 "Position": {
@@ -17421,7 +17421,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 416
+                "EntityID": 405
             },
             "TransformComponent": {
                 "Position": {
@@ -17453,7 +17453,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 417
+                "EntityID": 406
             },
             "TransformComponent": {
                 "Position": {
@@ -17485,7 +17485,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 418
+                "EntityID": 407
             },
             "TransformComponent": {
                 "Position": {
@@ -17517,7 +17517,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 419
+                "EntityID": 408
             },
             "TransformComponent": {
                 "Position": {
@@ -17549,7 +17549,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 420
+                "EntityID": 409
             },
             "TransformComponent": {
                 "Position": {
@@ -17581,7 +17581,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 421
+                "EntityID": 410
             },
             "TransformComponent": {
                 "Position": {
@@ -17613,7 +17613,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 422
+                "EntityID": 411
             },
             "TransformComponent": {
                 "Position": {
@@ -17645,7 +17645,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 423
+                "EntityID": 412
             },
             "TransformComponent": {
                 "Position": {
@@ -17677,7 +17677,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 424
+                "EntityID": 413
             },
             "TransformComponent": {
                 "Position": {
@@ -17709,7 +17709,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 425
+                "EntityID": 414
             },
             "TransformComponent": {
                 "Position": {
@@ -17741,7 +17741,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 426
+                "EntityID": 415
             },
             "TransformComponent": {
                 "Position": {
@@ -17773,7 +17773,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 427
+                "EntityID": 416
             },
             "TransformComponent": {
                 "Position": {
@@ -17805,7 +17805,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 428
+                "EntityID": 417
             },
             "TransformComponent": {
                 "Position": {
@@ -17837,7 +17837,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 429
+                "EntityID": 418
             },
             "TransformComponent": {
                 "Position": {
@@ -17869,7 +17869,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 430
+                "EntityID": 419
             },
             "TransformComponent": {
                 "Position": {
@@ -17901,7 +17901,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 431
+                "EntityID": 420
             },
             "TransformComponent": {
                 "Position": {
@@ -17933,7 +17933,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 432
+                "EntityID": 421
             },
             "TransformComponent": {
                 "Position": {
@@ -17965,7 +17965,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 433
+                "EntityID": 422
             },
             "TransformComponent": {
                 "Position": {
@@ -17997,7 +17997,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 434
+                "EntityID": 423
             },
             "TransformComponent": {
                 "Position": {
@@ -18029,7 +18029,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 435
+                "EntityID": 424
             },
             "TransformComponent": {
                 "Position": {
@@ -18077,7 +18077,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WaterBucket",
-                "EntityID": 436
+                "EntityID": 425
             },
             "TransformComponent": {
                 "Position": {
@@ -18125,13 +18125,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Puppy1",
-                "EntityID": 437
+                "EntityID": 426
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.533792495727539,
-                    "y": 0.680086612701416,
-                    "z": -23.716808319091798
+                    "x": 4.534002780914307,
+                    "y": 0.6801136136054993,
+                    "z": -23.71689796447754
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18176,13 +18176,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Puppy2",
-                "EntityID": 438
+                "EntityID": 427
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 60.00787353515625,
+                    "x": 60.00786209106445,
                     "y": 6.9699578285217289,
-                    "z": -1.5158864259719849
+                    "z": -1.515873670578003
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18227,13 +18227,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Puppy3",
-                "EntityID": 439
+                "EntityID": 428
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -23.932680130004884,
+                    "x": -23.932693481445314,
                     "y": 6.96995735168457,
-                    "z": -10.863658905029297
+                    "z": -10.863668441772461
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18278,7 +18278,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail1",
-                "EntityID": 440
+                "EntityID": 429
             },
             "TransformComponent": {
                 "Position": {
@@ -18353,7 +18353,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail2",
-                "EntityID": 441
+                "EntityID": 430
             },
             "TransformComponent": {
                 "Position": {
@@ -18428,7 +18428,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail3",
-                "EntityID": 442
+                "EntityID": 431
             },
             "TransformComponent": {
                 "Position": {
@@ -18503,7 +18503,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 443
+                "EntityID": 432
             },
             "TransformComponent": {
                 "Position": {
@@ -18539,7 +18539,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 444
+                "EntityID": 433
             },
             "TransformComponent": {
                 "Position": {
@@ -18575,7 +18575,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 445
+                "EntityID": 434
             },
             "TransformComponent": {
                 "Position": {
@@ -18611,7 +18611,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 446
+                "EntityID": 435
             },
             "TransformComponent": {
                 "Position": {
@@ -18647,7 +18647,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 447
+                "EntityID": 436
             },
             "TransformComponent": {
                 "Position": {
@@ -18683,7 +18683,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 448
+                "EntityID": 437
             },
             "TransformComponent": {
                 "Position": {
@@ -18719,7 +18719,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 449
+                "EntityID": 438
             },
             "TransformComponent": {
                 "Position": {
@@ -18755,7 +18755,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 450
+                "EntityID": 439
             },
             "TransformComponent": {
                 "Position": {
@@ -18791,7 +18791,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Drawbridge Node",
-                "EntityID": 451
+                "EntityID": 440
             },
             "TransformComponent": {
                 "Position": {
@@ -18827,7 +18827,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Staircase Node",
-                "EntityID": 452
+                "EntityID": 441
             },
             "TransformComponent": {
                 "Position": {
@@ -18863,7 +18863,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 453
+                "EntityID": 442
             },
             "TransformComponent": {
                 "Position": {
@@ -18888,246 +18888,246 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 6,
+                "StartNode": 0,
+                "EndNode": 1,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 443
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 0,
+                "EndNode": 2,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 444
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 1,
+                "EndNode": 3,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 445
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 2,
+                "EndNode": 6,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 446
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 3,
+                "EndNode": 4,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 447
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 4,
+                "EndNode": 5,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 448
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 5,
+                "EndNode": 6,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Level 1 Edge",
+                "EntityID": 449
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 4,
                 "EndNode": 7,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "Level 1 Edge",
-                "EntityID": 454
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 6,
-                "EndNode": 8,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 1 Edge",
-                "EntityID": 455
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 7,
-                "EndNode": 9,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 1 Edge",
-                "EntityID": 456
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 8,
-                "EndNode": 12,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 1 Edge",
-                "EntityID": 457
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 9,
-                "EndNode": 10,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 1 Edge",
-                "EntityID": 458
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 10,
-                "EndNode": 11,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 1 Edge",
-                "EntityID": 459
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 11,
-                "EndNode": 12,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 1 Edge",
-                "EntityID": 460
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 10,
-                "EndNode": 13,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 461
+                "EntityID": 450
             },
             "TransformComponent": {
                 "Position": {
@@ -19163,7 +19163,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 462
+                "EntityID": 451
             },
             "TransformComponent": {
                 "Position": {
@@ -19188,15 +19188,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 13,
-                "EndNode": 16,
+                "StartNode": 7,
+                "EndNode": 10,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 463
+                "EntityID": 452
             },
             "TransformComponent": {
                 "Position": {
@@ -19221,15 +19221,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 13,
-                "EndNode": 15,
+                "StartNode": 7,
+                "EndNode": 9,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 464
+                "EntityID": 453
             },
             "TransformComponent": {
                 "Position": {
@@ -19254,15 +19254,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 16,
-                "EndNode": 14,
+                "StartNode": 10,
+                "EndNode": 8,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 465
+                "EntityID": 454
             },
             "TransformComponent": {
                 "Position": {
@@ -19295,7 +19295,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RoyalChair",
-                "EntityID": 466
+                "EntityID": 455
             },
             "TransformComponent": {
                 "Position": {
@@ -19343,7 +19343,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RoyalChair",
-                "EntityID": 467
+                "EntityID": 456
             },
             "TransformComponent": {
                 "Position": {
@@ -19391,7 +19391,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RoyalChair",
-                "EntityID": 468
+                "EntityID": 457
             },
             "TransformComponent": {
                 "Position": {
@@ -19439,7 +19439,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RoyalChair",
-                "EntityID": 469
+                "EntityID": 458
             },
             "TransformComponent": {
                 "Position": {
@@ -19487,7 +19487,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 470
+                "EntityID": 459
             },
             "TransformComponent": {
                 "Position": {
@@ -19535,7 +19535,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 471
+                "EntityID": 460
             },
             "TransformComponent": {
                 "Position": {
@@ -19583,7 +19583,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 472
+                "EntityID": 461
             },
             "TransformComponent": {
                 "Position": {
@@ -19631,7 +19631,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Tablet",
-                "EntityID": 473
+                "EntityID": 462
             },
             "TransformComponent": {
                 "Position": {
@@ -19679,7 +19679,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 474
+                "EntityID": 463
             },
             "TransformComponent": {
                 "Position": {
@@ -19727,7 +19727,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WaterBucket2",
-                "EntityID": 475
+                "EntityID": 464
             },
             "TransformComponent": {
                 "Position": {
@@ -19775,7 +19775,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WaterBucket3",
-                "EntityID": 476
+                "EntityID": 465
             },
             "TransformComponent": {
                 "Position": {
@@ -19823,7 +19823,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 477
+                "EntityID": 466
             },
             "TransformComponent": {
                 "Position": {
@@ -19871,7 +19871,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 478
+                "EntityID": 467
             },
             "TransformComponent": {
                 "Position": {
@@ -19919,7 +19919,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WhiteParticle",
-                "EntityID": 479
+                "EntityID": 468
             },
             "TransformComponent": {
                 "Position": {
@@ -19984,7 +19984,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WhiteParticle",
-                "EntityID": 480
+                "EntityID": 469
             },
             "TransformComponent": {
                 "Position": {
@@ -20054,7 +20054,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WhiteParticle",
-                "EntityID": 481
+                "EntityID": 470
             },
             "TransformComponent": {
                 "Position": {
@@ -20119,7 +20119,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "YellowParticle",
-                "EntityID": 482
+                "EntityID": 471
             },
             "TransformComponent": {
                 "Position": {
@@ -20184,7 +20184,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "YellowParticle",
-                "EntityID": 483
+                "EntityID": 472
             },
             "TransformComponent": {
                 "Position": {
@@ -20249,7 +20249,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "YellowParticle",
-                "EntityID": 484
+                "EntityID": 473
             },
             "TransformComponent": {
                 "Position": {
@@ -20314,7 +20314,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "left particle",
-                "EntityID": 485
+                "EntityID": 474
             },
             "TransformComponent": {
                 "Position": {
@@ -20379,7 +20379,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "right particle",
-                "EntityID": 486
+                "EntityID": 475
             },
             "TransformComponent": {
                 "Position": {
@@ -20444,7 +20444,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RedParticle",
-                "EntityID": 487
+                "EntityID": 476
             },
             "TransformComponent": {
                 "Position": {
@@ -20509,7 +20509,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RedParticle",
-                "EntityID": 488
+                "EntityID": 477
             },
             "TransformComponent": {
                 "Position": {
@@ -20574,7 +20574,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "red particle",
-                "EntityID": 489
+                "EntityID": 478
             },
             "TransformComponent": {
                 "Position": {
@@ -20644,7 +20644,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 490
+                "EntityID": 479
             },
             "TransformComponent": {
                 "Position": {
@@ -20676,7 +20676,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 491
+                "EntityID": 480
             },
             "TransformComponent": {
                 "Position": {
@@ -20724,7 +20724,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoor",
-                "EntityID": 492
+                "EntityID": 481
             },
             "TransformComponent": {
                 "Position": {
@@ -20756,7 +20756,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 493
+                "EntityID": 482
             },
             "TransformComponent": {
                 "Position": {
@@ -20788,7 +20788,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 494
+                "EntityID": 483
             },
             "TransformComponent": {
                 "Position": {
@@ -20820,7 +20820,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 495
+                "EntityID": 484
             },
             "TransformComponent": {
                 "Position": {
@@ -20852,7 +20852,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 496
+                "EntityID": 485
             },
             "TransformComponent": {
                 "Position": {
@@ -20884,7 +20884,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 497
+                "EntityID": 486
             },
             "TransformComponent": {
                 "Position": {
@@ -20916,7 +20916,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 498
+                "EntityID": 487
             },
             "TransformComponent": {
                 "Position": {
@@ -20948,7 +20948,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 499
+                "EntityID": 488
             },
             "TransformComponent": {
                 "Position": {
@@ -20996,7 +20996,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 500
+                "EntityID": 489
             },
             "TransformComponent": {
                 "Position": {
@@ -21044,7 +21044,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 501
+                "EntityID": 490
             },
             "TransformComponent": {
                 "Position": {
@@ -21092,7 +21092,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 502
+                "EntityID": 491
             },
             "TransformComponent": {
                 "Position": {
@@ -21140,7 +21140,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wallcorner",
-                "EntityID": 503
+                "EntityID": 492
             },
             "TransformComponent": {
                 "Position": {
@@ -21172,7 +21172,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 504
+                "EntityID": 493
             },
             "TransformComponent": {
                 "Position": {
@@ -21220,7 +21220,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 505
+                "EntityID": 494
             },
             "TransformComponent": {
                 "Position": {
@@ -21268,7 +21268,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 506
+                "EntityID": 495
             },
             "TransformComponent": {
                 "Position": {
@@ -21316,7 +21316,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 507
+                "EntityID": 496
             },
             "TransformComponent": {
                 "Position": {
@@ -21364,7 +21364,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 508
+                "EntityID": 497
             },
             "TransformComponent": {
                 "Position": {
@@ -21412,7 +21412,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 509
+                "EntityID": 498
             },
             "TransformComponent": {
                 "Position": {
@@ -21460,7 +21460,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 510
+                "EntityID": 499
             },
             "TransformComponent": {
                 "Position": {
@@ -21508,7 +21508,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 511
+                "EntityID": 500
             },
             "TransformComponent": {
                 "Position": {
@@ -21556,7 +21556,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 512
+                "EntityID": 501
             },
             "TransformComponent": {
                 "Position": {
@@ -21604,7 +21604,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 513
+                "EntityID": 502
             },
             "TransformComponent": {
                 "Position": {
@@ -21652,7 +21652,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 514
+                "EntityID": 503
             },
             "TransformComponent": {
                 "Position": {
@@ -21700,7 +21700,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 515
+                "EntityID": 504
             },
             "TransformComponent": {
                 "Position": {
@@ -21748,7 +21748,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 516
+                "EntityID": 505
             },
             "TransformComponent": {
                 "Position": {
@@ -21796,7 +21796,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 517
+                "EntityID": 506
             },
             "TransformComponent": {
                 "Position": {
@@ -21844,7 +21844,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 518
+                "EntityID": 507
             },
             "TransformComponent": {
                 "Position": {
@@ -21892,7 +21892,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 519
+                "EntityID": 508
             },
             "TransformComponent": {
                 "Position": {
@@ -21940,7 +21940,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 520
+                "EntityID": 509
             },
             "TransformComponent": {
                 "Position": {
@@ -21988,7 +21988,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 521
+                "EntityID": 510
             },
             "TransformComponent": {
                 "Position": {
@@ -22036,7 +22036,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 522
+                "EntityID": 511
             },
             "TransformComponent": {
                 "Position": {
@@ -22084,7 +22084,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 523
+                "EntityID": 512
             },
             "TransformComponent": {
                 "Position": {
@@ -22132,7 +22132,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 524
+                "EntityID": 513
             },
             "TransformComponent": {
                 "Position": {
@@ -22180,7 +22180,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 525
+                "EntityID": 514
             },
             "TransformComponent": {
                 "Position": {
@@ -22228,7 +22228,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 526
+                "EntityID": 515
             },
             "TransformComponent": {
                 "Position": {
@@ -22276,7 +22276,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 527
+                "EntityID": 516
             },
             "TransformComponent": {
                 "Position": {
@@ -22324,7 +22324,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 528
+                "EntityID": 517
             },
             "TransformComponent": {
                 "Position": {
@@ -22372,7 +22372,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 529
+                "EntityID": 518
             },
             "TransformComponent": {
                 "Position": {
@@ -22420,7 +22420,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 530
+                "EntityID": 519
             },
             "TransformComponent": {
                 "Position": {
@@ -22468,7 +22468,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 531
+                "EntityID": 520
             },
             "TransformComponent": {
                 "Position": {
@@ -22509,7 +22509,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 532
+                "EntityID": 521
             },
             "TransformComponent": {
                 "Position": {
@@ -22550,7 +22550,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 533
+                "EntityID": 522
             },
             "TransformComponent": {
                 "Position": {
@@ -22591,7 +22591,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 534
+                "EntityID": 523
             },
             "TransformComponent": {
                 "Position": {
@@ -22632,7 +22632,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 535
+                "EntityID": 524
             },
             "TransformComponent": {
                 "Position": {
@@ -22680,7 +22680,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 536
+                "EntityID": 525
             },
             "TransformComponent": {
                 "Position": {
@@ -22728,7 +22728,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 537
+                "EntityID": 526
             },
             "TransformComponent": {
                 "Position": {
@@ -22776,7 +22776,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 538
+                "EntityID": 527
             },
             "TransformComponent": {
                 "Position": {
@@ -22824,7 +22824,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 539
+                "EntityID": 528
             },
             "TransformComponent": {
                 "Position": {
@@ -22872,7 +22872,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 540
+                "EntityID": 529
             },
             "TransformComponent": {
                 "Position": {
@@ -22920,7 +22920,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "TestObject",
-                "EntityID": 541
+                "EntityID": 530
             },
             "TransformComponent": {
                 "Position": {
@@ -22952,7 +22952,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "TestCollision",
-                "EntityID": 542
+                "EntityID": 531
             },
             "TransformComponent": {
                 "Position": {
@@ -23000,7 +23000,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee1",
-                "EntityID": 543
+                "EntityID": 532
             },
             "TransformComponent": {
                 "Position": {
@@ -23032,7 +23032,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee1Collision",
-                "EntityID": 544
+                "EntityID": 533
             },
             "TransformComponent": {
                 "Position": {
@@ -23080,7 +23080,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee2",
-                "EntityID": 545
+                "EntityID": 534
             },
             "TransformComponent": {
                 "Position": {
@@ -23112,7 +23112,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee2Collision",
-                "EntityID": 546
+                "EntityID": 535
             },
             "TransformComponent": {
                 "Position": {
@@ -23160,7 +23160,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee3",
-                "EntityID": 547
+                "EntityID": 536
             },
             "TransformComponent": {
                 "Position": {
@@ -23192,7 +23192,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee3Collision",
-                "EntityID": 548
+                "EntityID": 537
             },
             "TransformComponent": {
                 "Position": {
@@ -23240,7 +23240,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee4",
-                "EntityID": 549
+                "EntityID": 538
             },
             "TransformComponent": {
                 "Position": {
@@ -23272,7 +23272,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee4Collision",
-                "EntityID": 550
+                "EntityID": 539
             },
             "TransformComponent": {
                 "Position": {

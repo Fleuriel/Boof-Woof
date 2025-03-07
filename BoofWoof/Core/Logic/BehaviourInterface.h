@@ -82,6 +82,7 @@ struct engine_interface
 	virtual Entity GetGoalNode(Entity entity) = 0;
 	virtual void SetBuilt(Entity entity, bool built) = 0;
 	virtual Entity GetNearestNode(Entity entity) = 0;
+	virtual Entity GetRandomNode(Entity entity) = 0;
 
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) = 0;
