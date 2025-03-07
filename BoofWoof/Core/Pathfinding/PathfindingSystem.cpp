@@ -333,6 +333,21 @@ bool PathfindingSystem::DecomposeTransform(const glm::mat4& transform, glm::vec3
     return true;
 }
 
+Entity PathfindingSystem::GetClosestNode(const glm::vec3& position) {
+	Entity closestNode = INVALID_ENTITY;
+	float closestDistance = std::numeric_limits<float>::infinity();
+
+	for (const auto& [nodeID, node] : graphNodes) {
+		float distance = glm::length(node->position - position);
+		if (distance < closestDistance) {
+			closestDistance = distance;
+			closestNode = nodeID;
+		}
+	}
+
+	return closestNode;
+}
+
 
 
 

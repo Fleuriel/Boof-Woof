@@ -5,6 +5,7 @@
 #include "Player.hpp"
 #include "Treat.hpp"
 #include "Rex.hpp"
+#include "RexChase.hpp"
 #include "Null.hpp"
 #include "Toys.hpp"
 #include "Puppy.hpp"
@@ -22,6 +23,7 @@ extern "C"
 		pBehaviours->emplace_back(std::make_unique<Player>(EP));	// using std::make_unique that automatically allocates and manages memory instead of new
 		pBehaviours->emplace_back(std::make_unique<Treat>(EP));	
 		pBehaviours->emplace_back(std::make_unique<Rex>(EP));
+		pBehaviours->emplace_back(std::make_unique<RexChase>(EP));
 		pBehaviours->emplace_back(std::make_unique<Null>(EP));	
 		pBehaviours->emplace_back(std::make_unique<Toys>(EP));
 		pBehaviours->emplace_back(std::make_unique<Puppy>(EP));

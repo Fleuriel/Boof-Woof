@@ -96,6 +96,8 @@ public:
 
     bool DecomposeTransform(const glm::mat4& transform, glm::vec3& position, glm::vec3& rotation, glm::vec3& scale);
 
+	Entity GetClosestNode(const glm::vec3& position);
+
 private:
     std::unordered_map<Entity, std::shared_ptr<Node3D>> graphNodes;  // Nodes in the graph
     std::unordered_map<Entity, std::shared_ptr<EdgeComponent>> graphEdges; // Edges in the graph

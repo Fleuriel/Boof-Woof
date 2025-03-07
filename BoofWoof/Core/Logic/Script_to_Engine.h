@@ -337,6 +337,13 @@ public:
 		g_Coordinator.GetComponent<PathfindingComponent>(entity).SetBuilt(built);
 	}
 
+	virtual Entity GetNearestNode(Entity entity) override {
+		// Get Entity position
+		glm::vec3 entityPosition = g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition();
+
+		return g_Coordinator.GetSystem<PathfindingSystem>()->GetClosestNode(entityPosition);
+	}
+
 	virtual Entity GetPlayerEntity() override
 	{
 		for (auto entity : g_Coordinator.GetAliveEntitiesSet())
