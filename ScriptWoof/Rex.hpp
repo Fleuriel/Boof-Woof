@@ -19,6 +19,7 @@ struct Rex final : public Behaviour
     glm::vec3 rexRotation = glm::vec3(0.0f);
 	Entity playerEntity = 0;
 	int rotationCounter = 0;
+	double timer = 0.0f;
     
     // Create a state machine
     enum class State
@@ -194,28 +195,38 @@ struct Rex final : public Behaviour
 			velocity = direction * speed;
 			isMovingRex = true;
 
+            /*
 			// Check if player is in front
 			if (!CheckifPlayerInFront(entity)) {
                 state = State::FIND;
+				timer = 1.0f;
 			}
+            */
 		}
 		else if (state == State::FIND) {
 			// Rotate entity bit by bit till 360 degrees
 			// Rotate entity by 10 degrees
-			if (rotationCounter < 36) {
-				glm::vec3 rotation = m_Engine.GetRotation(entity);
-				rotation.y += 10.0f * 3.14159f / 180.0f; // Convert to radians
-				m_Engine.SetRotation(entity, rotation);
-				isMovingRex = true;
-				rotationCounter++;
-			}
-			else {
-				rotationCounter = 0;
-				state = State::PATROL;
-				m_Engine.SetBuilt(entity, false);
-                m_Engine.SetStartNode(entity, m_Engine.GetNearestNode(entity));
-				m_Engine.SetGoalNode(entity, m_Engine.GetRandomNode(entity));
-			}
+            if (timer <= 0) {
+                if (rotationCounter < 36) {
+                    // Rotate entity by 30 degrees every second
+                    glm::vec3 rotation = m_Engine.GetRotation(entity);
+                    rotation.y += 30.0f * 3.14159f / 180.0f; // Convert to radians
+                    m_Engine.SetRotation(entity, rotation);
+                    isMovingRex = true;
+                    rotationCounter++;
+					timer = 1.0f;
+                }
+                else {
+                    rotationCounter = 0;
+                    state = State::PATROL;
+                    m_Engine.SetBuilt(entity, false);
+                    m_Engine.SetStartNode(entity, m_Engine.GetNearestNode(entity));
+                    m_Engine.SetGoalNode(entity, m_Engine.GetRandomNode(entity));
+                }
+            }
+            else {
+				timer -= m_Engine.GetDeltaTime();
+            }
 		}
 
         // Apply velocity correctly
@@ -223,9 +234,19 @@ struct Rex final : public Behaviour
         {
             // Rotate Rex to the direction he is moving
             m_Engine.SetRotationYawFromVelocity(entity, velocity);
-
             // Clamp velocity to avoid breaking the physics engine
-            float maxAllowedSpeed = 10.0f;
+            float maxAllowedSpeed = 0;
+            if (state == State::PATROL) {
+				maxAllowedSpeed = 5.0f;
+			}
+			else if (state == State::CHASE) {
+				maxAllowedSpeed = 10.0f;
+			}
+			else if (state == State::FIND) {
+				maxAllowedSpeed = 5.0f;
+			}
+            
+            //float maxAllowedSpeed = 10.0f;
             if (glm::length(velocity) > maxAllowedSpeed)
             {
                 velocity = glm::normalize(velocity) * maxAllowedSpeed;
@@ -263,11 +284,11 @@ struct Rex final : public Behaviour
         float yaw = rexRotation.y;
         glm::vec3 forwardDirection = glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw));
 
-        float maxRayDistance = 10.0f;
+        float maxRayDistance = 30.0f;
         //float fovAngle = 30.0f; // 30-degree cone
-        float horizontalFOVAngle = 30.0f; // Customize how wide the spread is
+        float horizontalFOVAngle = 80.0f; // Customize how wide the spread is
         float verticalFOVAngle = 40.0f;   // Customize how far up/down the rays spread
-        int horizontalRays = 5; // Number of horizontal rays
+        int horizontalRays = 15; // Number of horizontal rays
         int verticalRays = 5;   // Number of vertical rays
         glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
 
