@@ -47,6 +47,7 @@ struct Rex final : public Behaviour
 
         // Always check for objects in front
         CheckForObjectsInFront(entity);
+        //CheckForObjectsBelow(entity);
 
         // Single Ray Check
         //SingleRayCheck(entity, currentPos);
@@ -218,9 +219,10 @@ struct Rex final : public Behaviour
         float fovAngle = 30.0f; // 30-degree cone
         int horizontalRays = 5; // Number of horizontal rays
         int verticalRays = 3;   // Number of vertical rays
+        glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
 
         std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
-            rexEntity, forwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle
+            rexEntity, forwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle, rayOffset
         );
 
         //if (!detectedObjects.empty()) {
@@ -233,6 +235,30 @@ struct Rex final : public Behaviour
         //    std::cout << "[Rex] No objects detected in FOV.\n";
         //}
     }
+
+    void CheckForObjectsBelow(Entity rexEntity)
+    {
+        if (!m_Engine.HaveTransformComponent(rexEntity)) {
+            return; // Ensure the entity has a TransformComponent
+        }
+
+        rexPosition = m_Engine.GetPosition(rexEntity);
+        rexRotation = m_Engine.GetRotation(rexEntity); // Get yaw rotation
+
+        glm::vec3 downwardDirection = glm::vec3(0.0f, -1.0f, 0.0f);
+
+        float maxRayDistance = 3.0f;
+        float fovAngle = 50.0f; // 30-degree cone
+        int horizontalRays = 5; // Number of horizontal rays
+        int verticalRays = 3;   // Number of vertical rays
+        glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
+
+        std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycastDownward(
+            rexEntity, downwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle, rayOffset
+        );
+
+    }
+
 
     void SingleRayCheck(Entity rexEntity, glm::vec3 currentPos) {
         rexRotation = m_Engine.GetRotation(rexEntity); // Get yaw rotation

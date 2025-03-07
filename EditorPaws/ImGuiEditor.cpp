@@ -5605,6 +5605,19 @@ void ImGuiEditor::Settings()
 
 				ImGui::EndTabItem();
 			}
+			if (ImGui::BeginTabItem("Brightness")) {
+
+				ImGui::SeparatorText("Brightness Configurations");
+				ImGui::Text("Brightness Value"); ImGui::SameLine(150.0f);
+				float brightness = g_Coordinator.GetSystem<GraphicsSystem>()->GetBrightness();
+				if (ImGui::SliderFloat("##Brightness", &brightness, 0.0f, 1.0f))
+				{
+					g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(brightness);
+				}
+
+				ImGui::EndTabItem();
+
+			}
 			//if (ImGui::BeginTabItem("Tab 3")) {
 			//	ImGui::Text("This is content for Tab 3.");
 			//	ImGui::EndTabItem();

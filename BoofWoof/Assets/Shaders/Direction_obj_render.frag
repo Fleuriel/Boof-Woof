@@ -9,6 +9,7 @@ layout(location = 4) in vec4 FragPosLightSpace;
 uniform sampler2D texture_diffuse1;
 uniform sampler2D texture_normal1;
 uniform sampler2D shadowMap;
+uniform float brightness;
 
 uniform int textureCount;
 uniform bool lightOn;
@@ -126,6 +127,7 @@ void main()
 
 
 	fragColor.rgb = pow(fragColor.rgb, vec3(1.0/gammaValue)); 
+    fragColor.rgb = fragColor.rgb * brightness;
 
     //fragColor.rgb = pow(fragColor.rgb, vec3(1.0 / 2.2)); // Apply gamma correction
 
