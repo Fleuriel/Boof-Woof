@@ -32,9 +32,9 @@ void InitializeLevels()
 	g_LevelManager.RegisterLevel("TYVM", new TYVM());
 
     // Set the initial level
-    g_LevelManager.Initialize("Splashscreen");
-    g_LevelManager.SetNextLevel("Splashscreen");
-    g_LevelManager.SetPreviousLevel("Splashscreen");
+    g_LevelManager.Initialize("MainHall");
+    g_LevelManager.SetNextLevel("MainHall");
+    g_LevelManager.SetPreviousLevel("MainHall");
 }
 
 int RunGame()
@@ -75,21 +75,26 @@ int RunGame()
 }
 
 
-#ifdef _DEBUG
-// Use `main` in debug mode
 int main()
 {
     return RunGame();
 }
-#else
-#include <windows.h>
-// Use `WinMain` in release mode
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
-    (void)hInstance;
-    (void)hPrevInstance;
-    (void)lpCmdLine;
-    (void)nCmdShow;
-    return RunGame();
-}
-#endif
+
+//#ifdef _DEBUG
+//// Use `main` in debug mode
+//int main()
+//{
+//    return RunGame();
+//}
+//#else
+//#include <windows.h>
+//// Use `WinMain` in release mode
+//int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+//{
+//    (void)hInstance;
+//    (void)hPrevInstance;
+//    (void)lpCmdLine;
+//    (void)nCmdShow;
+//    return RunGame();
+//}
+//#endif
