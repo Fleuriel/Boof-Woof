@@ -31,6 +31,7 @@ struct Player final : public Behaviour
 	float fallTime = 0.0f;  // ? New variable to track how long the player is in the air
 	bool falling = false;  // ? New flag to track if the player was falling
 	bool jumpInitiated = false;  // ? New flag to track intentional jumps
+	std::string surfaceType = ""; // Tracks the surface the player is on
 
 
 
@@ -53,6 +54,24 @@ struct Player final : public Behaviour
 	};
 
 
+		std::vector<std::string> CarpetfootstepSounds = {
+	"Corgi/DogCarpetFootsteps1.wav",
+	"Corgi/DogCarpetFootsteps2.wav",
+	"Corgi/DogCarpetFootsteps3.wav",
+	"Corgi/DogCarpetFootsteps4.wav",
+	"Corgi/DogCarpetFootsteps5.wav",
+		};
+
+			std::vector<std::string> WoodfootstepSounds = {
+	"Corgi/DogWoodFootsteps1.wav",
+	"Corgi/DogWoodFootsteps2.wav",
+	"Corgi/DogWoodFootsteps3.wav",
+	"Corgi/DogWoodFootsteps4.wav",
+	"Corgi/DogWoodFootsteps5.wav",
+	"Corgi/DogWoodFootsteps6.wav",
+			};
+
+	
 	std::vector<std::string> jumpSounds = {
 		"Corgi/Jump_001 1.wav",
 		"Corgi/Jump_002 1.wav",
@@ -319,27 +338,73 @@ struct Player final : public Behaviour
 
 
 
-			if (isMoving)
+			if (m_Engine.IsColliding(entity))
+			{
+				const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
+
+				if (std::strcmp(collidingEntityName, "Floor") == 0)
+				{
+					surfaceType = "Floor";
+				}
+				else if (std::strcmp(collidingEntityName, "Carpet") == 0)
+				{
+					surfaceType = "Carpet";
+				}
+				else if (std::strcmp(collidingEntityName, "WoodFloor") == 0)
+				{
+					surfaceType = "WoodFloor";
+				}
+				else if (std::strcmp(collidingEntityName, "WoodSteps") == 0)
+				{
+					surfaceType = "WoodSteps";
+				}
+				else if (std::strcmp(collidingEntityName, "FloorCastle") == 0)
+				{
+					surfaceType = "FloorCastle";
+				}
+			}
+
+			// Footstep sound logic
+			if (isMoving && !surfaceType.empty())  // Ensure a valid surfaceType before playing sound
 			{
 				footstepTimer -= static_cast<float>(m_Engine.GetDeltaTime());
 
-				if (footstepTimer <= 0.0f) // 
+				if (footstepTimer <= 0.0f)
 				{
-					static std::random_device rd; // Seed
-					static std::mt19937 gen(rd()); // Mersenne Twister PRNG
-					std::uniform_int_distribution<std::size_t> dis(0, footstepSounds.size() - 1);
+					std::string footstepSound;
 
-					// Get a random sound ID
-					std::string randomSound = footstepSounds[dis(gen)];
+					if (surfaceType == "Floor")
+					{
+						footstepSound = GetRandomSound(footstepSounds);
+					}
+					else if (surfaceType == "Carpet")
+					{
+						footstepSound = GetRandomSound(CarpetfootstepSounds);
+					}
+					else if (surfaceType == "WoodFloor")
+					{
+						footstepSound = GetRandomSound(WoodfootstepSounds);
+					}
+					else if (surfaceType == "WoodSteps")
+					{
+						footstepSound = GetRandomSound(WoodfootstepSounds);
+					}
+					else if (surfaceType == "FloorCastle")
+					{
+						footstepSound = GetRandomSound(footstepSounds);
+					}
 
-					m_Engine.getAudioSystem().PlaySoundByFile(randomSound.c_str(), false, "SFX");
+					if (!footstepSound.empty()) // Prevent playing an empty sound
+					{
+						m_Engine.getAudioSystem().PlaySoundByFile(footstepSound.c_str(), false, "SFX");
+					}
 
 					footstepTimer = footstepInterval;
 				}
 			}
 			else
 			{
-				footstepTimer = 0.0f; // Reset timer when not moving
+				footstepTimer = 0.0f; // Reset when not moving
 			}
 
 
