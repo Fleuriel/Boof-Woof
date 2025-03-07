@@ -47,6 +47,7 @@
     <ClCompile Include="Utilities\ForGame\TimerTR\TimerTR.cpp" />
     <ClCompile Include="Utilities\Components\NodeComponent.cpp" />
     <ClCompile Include="Utilities\ForGame\UI\UI.cpp" />
+    <ClCompile Include="Utilities\ForGame\Dialogue\Dialogue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="Core\Animation\Animation.h" />
     <ClInclude Include="AnimData.h" />
     <ClInclude Include="Core\Animation\AssimpHelper.h" />
+    <ClInclude Include="Utilities\ForGame\Dialogue\Dialogue.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

@@ -249,6 +249,31 @@ public:
 
     Entity GetEntityFromBody(const JPH::BodyID bodyID);
 
+    /**
+     * @brief Casts a ray from a given position in a direction and checks if it hits an entity.
+     *
+     * @param origin The starting position of the ray.
+     * @param direction The normalized direction of the ray.
+     * @param maxDistance The maximum distance the ray can travel.
+     * @param ignoreEntity The entity to ignore for the raycast
+     * @return The Entity that was hit, or invalid_entity if no entity was hit.
+     */
+    Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity);
+    std::vector<Entity> ConeRaycast(
+        Entity entity,
+        const glm::vec3& forwardDirection,
+        float maxDistance,
+        int numHorizontalRays, int numVerticalRays,
+        float horizontalFOVAngle, float verticalFOVAngle,  // User-defined angles
+        const glm::vec3& userOffset);
+    std::vector<Entity> ConeRaycastDownward(
+        Entity entity,
+        const glm::vec3& direction, float maxDistance,
+        int numHorizontalRays, int numVerticalRays, float coneAngle,
+        const glm::vec3& userOffset);
+
+    static bool RayCastDebug;
+
 private:
     JPH::uint _step{ 0 };
     JPH::JobSystemThreadPool* mJobSystem = nullptr;

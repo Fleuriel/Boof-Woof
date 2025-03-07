@@ -48,7 +48,7 @@ public:
 		// Set the rotation around the y-axis
 		m_Rotation.y = angle;
 
-		std::cout << "Yaw: " << m_Rotation.y << std::endl;
+		//std::cout << "Yaw: " << m_Rotation.y << std::endl;
     }
 
     // Getter methods

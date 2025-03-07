@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "7b6b4d60-ebea-4ea4-8d4e-4c7f60f072f2",
+    "SceneGUID": "76c094d0-aa10-4771-b081-b0fe9f426413",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.024850251153111459,
-                    "y": 1.1800053119659424,
-                    "z": -1.6367398500442505
+                    "x": -0.3043590188026428,
+                    "y": 1.311216115951538,
+                    "z": -2.3281211853027345
                 },
                 "Scale": {
                     "x": 0.5,
@@ -682,19 +682,19 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 7.8480000495910648,
-                    "y": 3.8253986835479738,
-                    "z": 15.415000915527344
+                    "x": 8.634784698486329,
+                    "y": 3.635103702545166,
+                    "z": 15.814833641052246
                 },
                 "Scale": {
-                    "x": 0.9998177289962769,
+                    "x": 0.9998180270195007,
                     "y": 1.2000000476837159,
-                    "z": 0.9998177289962769
+                    "z": 0.9998180270195007
                 },
                 "Rotation": {
-                    "x": -3.1415884494781496,
-                    "y": 0.0009171140263788402,
-                    "z": -3.1415908336639406
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -703,7 +703,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "WallHole",
+                "ModelName": "WallHole3",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -711,14 +711,14 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 2.799999952316284,
-                    "y": 2.950000047683716,
-                    "z": 0.949999988079071
+                    "x": 1.7000000476837159,
+                    "y": 2.9000000953674318,
+                    "z": 0.8500000238418579
                 },
                 "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": -0.15000000596046449
+                    "x": -2.200000047683716,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
                 },
                 "Mass": 0.0
             }
@@ -791,12 +791,12 @@
                 "IsDynamic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 4.900000095367432,
+                    "x": 4.5,
                     "y": 3.0,
                     "z": 0.800000011920929
                 },
                 "AABBOffset": {
-                    "x": 0.0,
+                    "x": -1.0499999523162842,
                     "y": 0.0,
                     "z": 0.0
                 },
@@ -972,7 +972,7 @@
                     "z": 0.800000011920929
                 },
                 "AABBOffset": {
-                    "x": 0.0,
+                    "x": 0.6499999761581421,
                     "y": 0.0,
                     "z": 0.0
                 },
@@ -1114,9 +1114,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -4.948182106018066,
+                    "x": -5.6991868019104,
                     "y": 2.717630386352539,
-                    "z": 0.1172405481338501
+                    "z": 0.11617770791053772
                 },
                 "Scale": {
                     "x": 1.100000023841858,
@@ -1253,7 +1253,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Carpet",
                 "EntityID": 29
             },
             "TransformComponent": {
@@ -1281,6 +1281,22 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -1685,7 +1701,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Carpet",
                 "EntityID": 39
             },
             "TransformComponent": {
@@ -1713,6 +1729,22 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -1870,7 +1902,10 @@
                     "g": 0.9411764740943909,
                     "b": 0.9411764740943909,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -1932,7 +1967,10 @@
                     "g": 0.9411764740943909,
                     "b": 0.9411764740943909,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -1994,7 +2032,10 @@
                     "g": 0.9411764740943909,
                     "b": 0.9411764740943909,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2056,7 +2097,10 @@
                     "g": 0.9019607901573181,
                     "b": 0.25643983483314516,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2118,7 +2162,10 @@
                     "g": 0.9019607901573181,
                     "b": 0.25643983483314516,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2180,7 +2227,10 @@
                     "g": 0.9019607901573181,
                     "b": 0.25643983483314516,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2242,7 +2292,10 @@
                     "g": 0.2729451060295105,
                     "b": 0.1009708046913147,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2304,7 +2357,10 @@
                     "g": 0.2729451060295105,
                     "b": 0.1009708046913147,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2366,7 +2422,10 @@
                     "g": 0.2729451060295105,
                     "b": 0.1009708046913147,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2428,7 +2487,10 @@
                     "g": 0.4864793121814728,
                     "b": 0.1004180908203125,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2490,7 +2552,10 @@
                     "g": 0.48627451062202456,
                     "b": 0.10196078568696976,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2557,7 +2622,10 @@
                     "g": 0.512301504611969,
                     "b": 0.3473183512687683,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2629,7 +2697,10 @@
                     "g": 0.7843137383460999,
                     "b": 0.8549019694328308,
                     "a": 0.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2691,7 +2762,10 @@
                     "g": 0.27450981736183169,
                     "b": 0.10196078568696976,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2753,7 +2827,10 @@
                     "g": 0.27450981736183169,
                     "b": 0.10196078568696976,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {

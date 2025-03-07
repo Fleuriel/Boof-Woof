@@ -39,6 +39,7 @@ private:
 
 public:
     static bool isExhausted;
+    static bool isStunned;
 
 protected:
     std::vector<Entity> storage;
