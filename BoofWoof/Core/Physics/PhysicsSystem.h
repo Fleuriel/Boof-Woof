@@ -261,8 +261,10 @@ public:
     Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity);
     std::vector<Entity> ConeRaycast(
         Entity entity,
-        const glm::vec3& direction, float maxDistance,
-        int numHorizontalRays, int numVerticalRays, float coneAngle,
+        const glm::vec3& forwardDirection,
+        float maxDistance,
+        int numHorizontalRays, int numVerticalRays,
+        float horizontalFOVAngle, float verticalFOVAngle,  // User-defined angles
         const glm::vec3& userOffset);
     std::vector<Entity> ConeRaycastDownward(
         Entity entity,
