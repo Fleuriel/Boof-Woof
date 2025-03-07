@@ -122,7 +122,11 @@ struct Player final : public Behaviour
 			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			isMoving = false;
 
-			CheckForObjectsInFront(entity);
+			// If u sniff and u saw the pee, u show the dialogue.
+			if (m_Engine.getInputSystem().isActionPressed("Sniff"))
+			{
+				CheckForObjectsInFront(entity);
+			}
 
 			//// Debug for movement
 			//glm::vec3 currentPos = m_Engine.GetPosition(entity);
