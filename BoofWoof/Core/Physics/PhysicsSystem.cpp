@@ -777,7 +777,8 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycast(
     const glm::vec3& forwardDirection,
     float maxDistance,
     int numHorizontalRays, int numVerticalRays,
-    float coneAngle)
+    float coneAngle,
+    const glm::vec3& userOffset)
 {
     std::vector<Entity> detectedEntities;
 
@@ -795,7 +796,7 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycast(
     glm::vec3 aabbOffset = collisionComp.GetAABBOffset();
 
     // Adjust the origin to the center of the entity
-    glm::vec3 adjustedOrigin = entityPosition + aabbOffset;
+    glm::vec3 adjustedOrigin = entityPosition + aabbOffset + userOffset;
 
     //std::cout << "[PhysicsSystem] ConeRaycast Debugging -> Origin: " << adjustedOrigin.x << ", "
     //    << adjustedOrigin.y << ", " << adjustedOrigin.z
@@ -880,7 +881,8 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycastDownward(
     const glm::vec3& baseDirection,
     float maxDistance,
     int numLengthwiseRays, int numVerticalRays,
-    float coneAngle)
+    float coneAngle,
+    const glm::vec3& userOffset)
 {
     std::vector<Entity> detectedEntities;
 
@@ -900,7 +902,7 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycastDownward(
     glm::vec3 entityRotation = g_Coordinator.GetComponent<TransformComponent>(entity).GetRotation();
 
     // Adjust the origin to the center of the entity
-    glm::vec3 adjustedOrigin = entityPosition + aabbOffset;
+    glm::vec3 adjustedOrigin = entityPosition + aabbOffset + userOffset;
 
     // Compute the forward vector from rotation
     float yaw = entityRotation.y;

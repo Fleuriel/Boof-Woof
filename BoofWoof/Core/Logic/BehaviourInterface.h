@@ -41,11 +41,11 @@ struct physics_interface
 	virtual std::vector<Entity> ConeRaycast(
 		Entity entity,
 		const glm::vec3& direction, float maxDistance,
-		int numHorizontalRays, int numVerticalRays, float coneAngle) = 0;
+		int numHorizontalRays, int numVerticalRays, float coneAngle, const glm::vec3& userOffset) = 0;
 	virtual std::vector<Entity> ConeRaycastDownward(
 		Entity entity,
 		const glm::vec3& direction, float maxDistance,
-		int numHorizontalRays, int numVerticalRays, float coneAngle) = 0;
+		int numHorizontalRays, int numVerticalRays, float coneAngle, const glm::vec3& userOffset) = 0;
 };
 
 struct engine_interface

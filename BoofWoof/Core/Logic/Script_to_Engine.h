@@ -212,17 +212,17 @@ public:
 	virtual std::vector<Entity> ConeRaycast(
 		Entity entity,
 		const glm::vec3& direction, float maxDistance,
-		int numHorizontalRays, int numVerticalRays, float coneAngle) override
+		int numHorizontalRays, int numVerticalRays, float coneAngle, const glm::vec3& userOffset) override
 	{
-		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycast(entity, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle);
+		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycast(entity, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle, userOffset);
 	}
 
 	virtual std::vector<Entity> ConeRaycastDownward(
 		Entity entity,
 		const glm::vec3& direction, float maxDistance,
-		int numHorizontalRays, int numVerticalRays, float coneAngle) override
+		int numHorizontalRays, int numVerticalRays, float coneAngle, const glm::vec3& userOffset) override
 	{
-		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycastDownward(entity, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle);
+		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycastDownward(entity, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle, userOffset);
 	}
 
 	virtual bool IsDynamic(Entity entity) override

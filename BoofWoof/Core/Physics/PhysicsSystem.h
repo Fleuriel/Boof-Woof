@@ -262,11 +262,13 @@ public:
     std::vector<Entity> ConeRaycast(
         Entity entity,
         const glm::vec3& direction, float maxDistance,
-        int numHorizontalRays, int numVerticalRays, float coneAngle);
+        int numHorizontalRays, int numVerticalRays, float coneAngle,
+        const glm::vec3& userOffset);
     std::vector<Entity> ConeRaycastDownward(
         Entity entity,
         const glm::vec3& direction, float maxDistance,
-        int numHorizontalRays, int numVerticalRays, float coneAngle);
+        int numHorizontalRays, int numVerticalRays, float coneAngle,
+        const glm::vec3& userOffset);
 
     static bool RayCastDebug;
 
