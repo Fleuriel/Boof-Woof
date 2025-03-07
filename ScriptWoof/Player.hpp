@@ -21,10 +21,9 @@ struct Player final : public Behaviour
 	double stunlockTimer = 2.0;	// 2.0 seconds
 	double cooldownTimer = 0.0;
 	bool jumpSoundPlayed = false;  // Add this as a new class member variable
-
+	bool foundMatch{ false }, dialogueShown{ false }; // Flag to track if a match was found for PeeXCollision
 	glm::vec3 PlayerPosition = glm::vec3(0.0f);
 	glm::vec3 PlayerRotation = glm::vec3(0.0f);
-
 
 
 	float footstepTimer = 0.0f;
@@ -117,13 +116,17 @@ struct Player final : public Behaviour
 
 	virtual void Update(Entity entity) override
 	{
-
 		if (!m_Engine.IsGamePaused())
 		{
-
 			//UNREFERENCED_PARAMETER(entity);
 			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			isMoving = false;
+
+			// If u sniff and u saw the pee, u show the dialogue.
+			if (m_Engine.getInputSystem().isActionPressed("Sniff"))
+			{
+				CheckForObjectsInFront(entity);
+			}
 
 			//// Debug for movement
 			//glm::vec3 currentPos = m_Engine.GetPosition(entity);
@@ -465,7 +468,7 @@ struct Player final : public Behaviour
 				jumpSoundPlayed = false;
 				falling = false;
 				jumpInitiated = false;  // ? Reset jump tracking after landing
-				std::cout << "[DEBUG] Player landed after intentional jump!" << std::endl;
+				//std::cout << "[DEBUG] Player landed after intentional jump!" << std::endl;
 			}
 
 			// Update grounded state at the end
@@ -544,59 +547,62 @@ struct Player final : public Behaviour
 		return "Player";
 	}
 
-	void CheckForObjectsInFront(Entity rexEntity)
+	void CheckForObjectsInFront(Entity scruffy)
 	{
-		if (!m_Engine.HaveTransformComponent(rexEntity)) {
+		if (!m_Engine.HaveTransformComponent(scruffy)) {
 			return; // Ensure the entity has a TransformComponent
 		}
 
-		PlayerPosition = m_Engine.GetPosition(rexEntity);
-		PlayerRotation = m_Engine.GetRotation(rexEntity); // Get yaw rotation
+		PlayerPosition = m_Engine.GetPosition(scruffy);
+		PlayerRotation = m_Engine.GetRotation(scruffy); // Get yaw rotation
 
-		// **Compute forward direction from Rex's yaw rotation**
-		//float yaw = PlayerRotation.y;
-		glm::vec3 forwardDirection = glm::vec3(0.0f, -1.0f, 0.0f); // ? Change to downward
-
-		float maxRayDistance = 10.0f;
-		float fovAngle = 30.0f; // 30-degree cone
-		int horizontalRays = 5; // Number of horizontal rays
-		int verticalRays = 3;   // Number of vertical rays
-
-		std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
-			rexEntity, forwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle
-		);
-
-		//if (!detectedObjects.empty()) {
-		//    std::cout << "[Rex] Cone Raycast Detected Entities:\n";
-		//    for (Entity e : detectedObjects) {
-		//        std::cout << "   - Entity ID: " << e << "\n";
-		//    }
-		//}
-		//else {
-		//    std::cout << "[Rex] No objects detected in FOV.\n";
-		//}
-	}
-
-	void SingleRayCheck(Entity rexEntity, glm::vec3 currentPos) {
-		PlayerRotation = m_Engine.GetRotation(rexEntity); // Get yaw rotation
-
-		// **Compute forward direction from Rex's yaw rotation**
+		// **Compute forward direction from scruffy's yaw rotation**
 		float yaw = PlayerRotation.y;
 		glm::vec3 forwardDirection = glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw));
 
-		float maxDistance = 10.0f; // Distance to check
+		float maxRayDistance = 20.0f;
+		float horizontalFOVAngle = 30.0f; // Customize how wide the spread is
+		float verticalFOVAngle = 10.0f;   // Customize how far up/down the rays spread
+		int horizontalRays = 8; // Number of horizontal rays
+		int verticalRays = 6;   // Number of vertical rays
+		glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
 
-		// Just shoot a single ray in front
-		Entity hitEntity = m_Engine.getPhysicsSystem().Raycast(currentPos, forwardDirection, maxDistance, rexEntity);
+		std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
+			scruffy, forwardDirection, maxRayDistance,
+			horizontalRays, verticalRays,
+			horizontalFOVAngle, verticalFOVAngle,
+			rayOffset
+		);
 
-		if (hitEntity != -1) {
-			std::cout << "[Rex] Single Ray Test: Object detected in front! Entity ID: " << hitEntity << std::endl;
+		if (dialogueShown)
+			return; // Skip processing if dialogue was already shown
+
+		if (!detectedObjects.empty()) 
+		{
+		    for (Entity touchedEntity : detectedObjects) 
+			{
+				for (int i = 1; i <= 4; ++i) // Check for Pee1Collision to Pee4Collision
+				{
+					std::string peeColliderName = "Pee" + std::to_string(i) + "Collision";
+					if (m_Engine.MatchEntityName(touchedEntity, peeColliderName.c_str()))
+					{
+						foundMatch = true;
+						break; // Stop checking further for this entity
+					}
+				}
+
+				if (foundMatch)
+				{
+					break; // Stop checking further once a valid match is found
+				}
+		    }
 		}
-		else {
-			std::cout << "[Rex] Single Ray Test: No objects detected in front." << std::endl;
+
+		// Show dialogue once if a match was found
+		if (foundMatch)
+		{
+			m_Engine.SetDialogue(12); // disgusted at pee
+			dialogueShown = true;
 		}
 	}
-
-
-
 };
