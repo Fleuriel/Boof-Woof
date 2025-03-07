@@ -16,9 +16,9 @@ const int MAX_BONES = 100;
 const int MAX_BONE_INFLUENCE = 4;
 uniform mat4 finalBonesMatrices[MAX_BONES];
 
-out vec3 DebugColor;
+//out vec3 DebugColor;
 
-//out vec2 TexCoords;
+out vec2 TexCoords;
 
 void main()
 {
@@ -41,7 +41,7 @@ void main()
 	
 //    gl_Position =  projection * view * model * vec4(pos,1.0);
     gl_Position =  projection * view * model * totalPosition;
-	DebugColor = vec3(weights.x, weights.y, weights.z);
+	//DebugColor = vec3(weights.x, weights.y, weights.z);
     
-    //TexCoords = tex;
+    TexCoords = tex;
 }

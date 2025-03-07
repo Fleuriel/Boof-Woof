@@ -115,6 +115,7 @@
     <ClInclude Include="Core\Animation\Bones.h" />
     <ClInclude Include="Core\Animation\Animation.h" />
     <ClInclude Include="AnimData.h" />
+    <ClInclude Include="Core\Animation\AssimpHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

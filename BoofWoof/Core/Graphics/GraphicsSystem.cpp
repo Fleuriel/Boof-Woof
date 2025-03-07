@@ -149,8 +149,9 @@ void GraphicsSystem::initGraphicsPipeline() {
 	//fontSystem.init();
 
 
-	TestAnimationAdd("corgi_walk","../BoofWoof/Assets/Animations/corgi_walk.fbx");
-//	TestAnimationAdd("vampire", "../BoofWoof/Assets/Animations/dancing_vampire.dae");
+	//TestAnimationAdd("corgi_walk", "../BoofWoof/Assets/Animations/corgi_walk.fbx");
+	TestAnimationAdd("corgi", "../BoofWoof/Assets/Animations/corgi.fbx");
+	//TestAnimationAdd("vampire", "../BoofWoof/Assets/Animations/dancing_vampire.dae");
 
 
 	shdrParam.Color = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -484,17 +485,17 @@ void GraphicsSystem::UpdateLoop() {
 			model = glm::scale(model, glm::vec3(.5f, .5f, .5f));
 
 //			g_AssetManager.GetShader("Animation").SetUniform("model", model);
-			g_AssetManager.GetShader("Animation").SetUniform("model", shdrParam.WorldMatrix);
 			g_AssetManager.GetShader("Animation").SetUniform("view", camera.GetViewMatrix());
 			g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
 
+
 			// Retrieve the model from ModelMap
-			auto modelIt = g_ResourceManager.ModelMap.find("corgi_walk");
+			auto modelIt = g_ResourceManager.ModelMap.find(graphicsComp.getModelName());
 			if (modelIt != g_ResourceManager.ModelMap.end()) {
 				Model& model = modelIt->second;
 
 				// Check if Animator exists
-				auto animatorIt = g_ResourceManager.AnimatorMap.find("corgi_walk");
+				auto animatorIt = g_ResourceManager.AnimatorMap.find(graphicsComp.getModelName());
 				if (animatorIt != g_ResourceManager.AnimatorMap.end()) {
 					Animator* animator = animatorIt->second;
 					animator->UpdateAnimation(0.001);
@@ -528,6 +529,7 @@ void GraphicsSystem::UpdateLoop() {
 				
 				
 
+				g_AssetManager.GetShader("Animation").SetUniform("model", shdrParam.WorldMatrix);
 				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
 			}
 			else {
