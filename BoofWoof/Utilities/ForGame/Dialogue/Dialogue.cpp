@@ -1,8 +1,9 @@
+#include "pch.h"
 #include "Dialogue.h"
 #include "ResourceManager/ResourceManager.h"
-#include "../ChangeText/ChangeText.h"
+#include "../../PawsieAdventure/Systems/ChangeText/ChangeText.h"
 #include "../Core/AssetManager/FilePaths.h"
-#include "../../../BoofWoof/Utilities/ForGame/TimerTR/TimerTR.h"
+#include "../TimerTR/TimerTR.h"
 
 Dialogue g_DialogueText;
 Serialization dialogueText;

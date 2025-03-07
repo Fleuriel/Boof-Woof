@@ -1,7 +1,7 @@
 #pragma once
 #pragma warning(disable : 4005)
 #include <EngineCore.h>
-#include "../Dialogue/Dialogue.h"
+#include "../Utilities/ForGame/Dialogue/Dialogue.h"
 
 class ChangeText
 {

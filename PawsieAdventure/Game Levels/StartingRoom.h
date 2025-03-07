@@ -5,7 +5,7 @@
 #include "../Systems/CameraController/CameraController.h"
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
-#include "../Systems/Dialogue/Dialogue.h"
+#include "../Utilities/ForGame/Dialogue/Dialogue.h"
 #include "../Utilities/ForGame/UI/UI.h"
 #include "LoadingLevel.h"
 

@@ -13,6 +13,7 @@
 #include "../GSM/GameStateMachine.h"
 #include "../Utilities/ForGame/TimerTR/TimerTR.h"
 #include "../Utilities/ForGame/UI/UI.h"
+#include "../Utilities/ForGame/Dialogue/Dialogue.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
@@ -387,16 +388,22 @@ public:
 		return g_UI.isStunned;
 	}
 
-	virtual bool MatchModelName(Entity entity, const char* modelname)
+	virtual bool MatchEntityName(Entity entity, const char* entityName)
 	{
-		if (g_Coordinator.HaveComponent<GraphicsComponent>(entity)) 
+		if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) 
 		{			
-			if (g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName() == modelname) 
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == entityName)
 			{
 				return true;
 			}
 		}
 		return false;
+	}
+
+	virtual void SetDialogue(int dialogueState)
+	{
+		g_DialogueText.OnInitialize();
+		g_DialogueText.setDialogue(static_cast<DialogueState>(dialogueState));
 	}
 };
 

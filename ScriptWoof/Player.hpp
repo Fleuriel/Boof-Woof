@@ -21,7 +21,7 @@ struct Player final : public Behaviour
 	double stunlockTimer = 2.0;	// 2.0 seconds
 	double cooldownTimer = 0.0;
 	bool jumpSoundPlayed = false;  // Add this as a new class member variable
-
+	bool foundMatch{ false }, dialogueShown{ false }; // Flag to track if a match was found for PeeXCollision
 	glm::vec3 PlayerPosition = glm::vec3(0.0f);
 	glm::vec3 PlayerRotation = glm::vec3(0.0f);
 
@@ -558,26 +558,43 @@ struct Player final : public Behaviour
 
 		float maxRayDistance = 20.0f;
 		float fovAngle = 20.0f; // 30-degree cone
-		int horizontalRays = 10; // Number of horizontal rays
-		int verticalRays = 8;   // Number of vertical rays
-		glm::vec3 rayOffset = glm::vec3(0.0f, -0.8f, 0.0f);
+		int horizontalRays = 8; // Number of horizontal rays
+		int verticalRays = 4;   // Number of vertical rays
+		glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
 
 		std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
 			scruffy, forwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle, rayOffset
 		);
 
+		if (dialogueShown)
+			return; // Skip processing if dialogue was already shown
+
 		if (!detectedObjects.empty()) 
 		{
 		    for (Entity touchedEntity : detectedObjects) 
 			{
-				if (m_Engine.MatchModelName(touchedEntity, "RexPee1") || m_Engine.MatchModelName(touchedEntity, "RexPee2") || m_Engine.MatchModelName(touchedEntity, "RexPee3"))
+				for (int i = 1; i <= 4; ++i) // Check for Pee1Collision to Pee4Collision
 				{
-					// show dialogue
+					std::string peeColliderName = "Pee" + std::to_string(i) + "Collision";
+					if (m_Engine.MatchEntityName(touchedEntity, peeColliderName.c_str()))
+					{
+						foundMatch = true;
+						break; // Stop checking further for this entity
+					}
+				}
+
+				if (foundMatch)
+				{
+					break; // Stop checking further once a valid match is found
 				}
 		    }
 		}
-		//else {
-		//    std::cout << "[Rex] No objects detected in FOV.\n";
-		//}
+
+		// Show dialogue once if a match was found
+		if (foundMatch)
+		{
+			m_Engine.SetDialogue(12); // disgusted at pee
+			dialogueShown = true;
+		}
 	}
 };

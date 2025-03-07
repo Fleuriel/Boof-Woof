@@ -105,8 +105,9 @@ struct engine_interface
 
 	virtual bool GetStunned() = 0;
 
-	virtual bool MatchModelName(Entity entity, const char* modelname) = 0;
-};	
+	virtual bool MatchEntityName(Entity entity, const char* entityName) = 0;
+	virtual void SetDialogue(int dialogueState) = 0;
+};
 
 #ifdef GAME_ENGINE
 using GetScripts_cpp_t = std::vector<std::unique_ptr<Behaviour_i>>* (*)(engine_interface* pEI);
