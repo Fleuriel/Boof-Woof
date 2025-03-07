@@ -211,10 +211,13 @@ public:
 
 	virtual std::vector<Entity> ConeRaycast(
 		Entity entity,
-		const glm::vec3& direction, float maxDistance,
-		int numHorizontalRays, int numVerticalRays, float coneAngle, const glm::vec3& userOffset) override
+		const glm::vec3& forwardDirection,
+		float maxDistance,
+		int numHorizontalRays, int numVerticalRays,
+		float horizontalFOVAngle, float verticalFOVAngle,  // User-defined angles
+		const glm::vec3& userOffset) override
 	{
-		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycast(entity, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle, userOffset);
+		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycast(entity, forwardDirection, maxDistance, numHorizontalRays, numVerticalRays, horizontalFOVAngle, verticalFOVAngle, userOffset);
 	}
 
 	virtual std::vector<Entity> ConeRaycastDownward(
