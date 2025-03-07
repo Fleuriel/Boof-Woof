@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "67a9c8d4-329c-4fe5-8f7e-d9b1a2c4cfc4",
+    "SceneGUID": "637b6ab6-dcde-4b63-9d31-aaa45f823d92",
     "Entities": [
         {
             "MetadataComponent": {
@@ -153,7 +153,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": -2.556881904602051,
-                    "y": 0.2486482858657837,
+                    "y": 3.2312371730804445,
                     "z": -5.671046257019043
                 },
                 "Scale": {
@@ -217,7 +217,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 7.009535789489746,
-                    "y": 0.24795222282409669,
+                    "y": 3.2575063705444338,
                     "z": -5.6866302490234379
                 },
                 "Scale": {
@@ -249,7 +249,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 16.60404396057129,
-                    "y": 0.24282598495483399,
+                    "y": 3.23640775680542,
                     "z": -5.705902576446533
                 },
                 "Scale": {
@@ -586,12 +586,12 @@
                 "Position": {
                     "x": -11.086840629577637,
                     "y": 5.912285804748535,
-                    "z": 0.0
+                    "z": 0.04055488109588623
                 },
                 "Scale": {
                     "x": 1.0,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 1.100000023841858
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -618,12 +618,12 @@
                 "Position": {
                     "x": -1.092387318611145,
                     "y": 5.912285804748535,
-                    "z": 0.0
+                    "z": 0.037244200706481937
                 },
                 "Scale": {
                     "x": 1.0,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 1.100000023841858
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -655,7 +655,7 @@
                 "Scale": {
                     "x": 1.0,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 1.100000023841858
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -687,7 +687,7 @@
                 "Scale": {
                     "x": 1.0,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 1.100000023841858
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -719,7 +719,7 @@
                 "Scale": {
                     "x": 1.0,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 1.100000023841858
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -904,9 +904,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -6.476319313049316,
+                    "x": -6.9290289878845219,
                     "y": 1.1952600479125977,
-                    "z": -0.15999993681907655
+                    "z": 0.5459514260292053
                 },
                 "Scale": {
                     "x": 0.49998894333839419,
@@ -960,7 +960,7 @@
                     "y": 1.0,
                     "z": 0.0
                 },
-                "Active": true
+                "Active": false
             }
         },
         {
@@ -1387,7 +1387,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 16.60404396057129,
-                    "y": 0.24282598495483399,
+                    "y": 3.2336184978485109,
                     "z": 5.832180500030518
                 },
                 "Scale": {
@@ -1451,7 +1451,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 7.009535789489746,
-                    "y": 0.2248421609401703,
+                    "y": 3.2269935607910158,
                     "z": 5.84417724609375
                 },
                 "Scale": {
@@ -1515,7 +1515,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": -2.589618682861328,
-                    "y": 0.22153770923614503,
+                    "y": 3.2608237266540529,
                     "z": 5.893556118011475
                 },
                 "Scale": {
@@ -2348,7 +2348,7 @@
                 "Position": {
                     "x": 21.830224990844728,
                     "y": 3.1510016918182375,
-                    "z": -4.643343448638916
+                    "z": -4.942956924438477
                 },
                 "Scale": {
                     "x": 1.0,
@@ -2657,6 +2657,129 @@
             "GraphicsComponent": {
                 "ModelName": "DoorDrawbridge",
                 "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Light",
+                "EntityID": 72
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -6.069334506988525,
+                    "y": 4.204304218292236,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 1.0,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 1.0,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 10.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Light",
+                "EntityID": 73
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 12.4003324508667,
+                    "y": 4.204304218292236,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 1.0,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 1.0,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 10.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Light",
+                "EntityID": 74
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 27.76571273803711,
+                    "y": 4.204304218292236,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 1.0,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 1.0,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 10.0
             }
         }
     ]

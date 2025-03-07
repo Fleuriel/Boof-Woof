@@ -3,6 +3,8 @@
 #include "ResourceManager/ResourceManager.h"
 #include "ECS/Coordinator.hpp"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
+#include "../Systems/CameraController/CameraController.h"
+#include "../GSM/GameStateMachine.h"
 
 class Corridor : public Level
 {
@@ -48,19 +50,36 @@ class Corridor : public Level
 	{
 		// Ensure player entity is valid
 		cameraController = new CameraController(playerEnt);
+		camerachange = false;
 	}
 
 	void UpdateLevel(double deltaTime) override
 	{
-		if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "CastleWallDoor")
+		if (!g_IsPaused)
 		{
-			auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
-			if (loading)
+			if (!camerachange)
 			{
-				// Pass in the name of the real scene we want AFTER the loading screen
-				loading->m_NextScene = "MainHall";
-				g_LevelManager.SetNextLevel("LoadingLevel");
+				cameraController->ChangeToFirstPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
+				camerachange = true;
 			}
+			cameraController->Update(static_cast<float>(deltaTime));
+
+			if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "CastleWallDoor")
+			{
+				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+				if (loading)
+				{
+					// Pass in the name of the real scene we want AFTER the loading screen
+					loading->m_NextScene = "MainHall";
+					g_LevelManager.SetNextLevel("LoadingLevel");
+				}
+			}
+			
+		}
+
+		if (g_ChangeText.shutted)
+		{
+			pauseLogic::OnUpdate();
 		}
 	}
 
@@ -78,5 +97,8 @@ class Corridor : public Level
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 	}
+
+private:
+	bool camerachange = false;
 };
 	

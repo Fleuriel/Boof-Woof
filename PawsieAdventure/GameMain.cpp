@@ -9,7 +9,7 @@
 #include "Game Levels/MainMenu.h"
 #include "Game Levels/Cutscene.h"
 #include "Game Levels/StartingRoom.h"
-#include "Game Levels/FirstCorridor.h"
+#include "Game Levels/Corridor.h"
 #include "Game Levels/TimeRush.h"
 #include "Game Levels/MainHall.h"
 #include "Game Levels/LoadingLevel.h"
@@ -26,7 +26,7 @@ void InitializeLevels()
     g_LevelManager.RegisterLevel("MainMenu", new MainMenu());
     g_LevelManager.RegisterLevel("Cutscene", new Cutscene());
     g_LevelManager.RegisterLevel("StartingRoom", new StartingRoom());
-	g_LevelManager.RegisterLevel("FirstCorridor", new Corridor());
+	g_LevelManager.RegisterLevel("Corridor", new Corridor());
     g_LevelManager.RegisterLevel("TimeRush", new TimeRush());
     g_LevelManager.RegisterLevel("MainHall", new MainHall());
     g_LevelManager.RegisterLevel("LoadingLevel", new LoadingLevel());

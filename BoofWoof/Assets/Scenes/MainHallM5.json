@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "b02da63c-942c-469d-a385-60188297f0c9",
+    "SceneGUID": "c92aba8c-6542-4287-baf5-b267c5657f23",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.6938343048095703,
-                    "y": 1.1806228160858155,
-                    "z": -0.1748303920030594
+                    "x": -0.8234575390815735,
+                    "y": 1.1806244850158692,
+                    "z": -0.33275240659713747
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18479,9 +18479,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.53344202041626,
-                    "y": 0.6800252199172974,
-                    "z": -23.71666145324707
+                    "x": 6.935068607330322,
+                    "y": 0.695316731929779,
+                    "z": -23.612661361694337
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18491,7 +18491,7 @@
                 "Rotation": {
                     "x": 0.000018510450900066645,
                     "y": -1.2295700311660767,
-                    "z": -0.000004973817340214737
+                    "z": -0.000004973816885467386
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -18530,9 +18530,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 60.00788879394531,
-                    "y": 6.9699578285217289,
-                    "z": -1.5159070491790772
+                    "x": 60.007869720458987,
+                    "y": 6.96995735168457,
+                    "z": -1.5158874988555909
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18581,9 +18581,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -23.932659149169923,
-                    "y": 6.96995735168457,
-                    "z": -10.863643646240235
+                    "x": -23.932682037353517,
+                    "y": 6.969956874847412,
+                    "z": -10.863627433776856
                 },
                 "Scale": {
                     "x": 0.5,
@@ -23698,6 +23698,246 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Cage1",
+                "EntityID": 552
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 4.770179271697998,
+                    "y": 1.19316565990448,
+                    "z": -23.539905548095704
+                },
+                "Scale": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Cage",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.299999952316284,
+                    "y": 1.7999999523162842,
+                    "z": 2.299999952316284
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Puppy",
+                "EntityID": 553
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 4.73552942276001,
+                    "y": 0.7941077947616577,
+                    "z": -23.51502227783203
+                },
+                "Scale": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                },
+                "Rotation": {
+                    "x": -3.1415724754333498,
+                    "y": -1.15840744972229,
+                    "z": 3.1415863037109377
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "CorgiPup1",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Cage2",
+                "EntityID": 554
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 60.401710510253909,
+                    "y": 7.486056327819824,
+                    "z": 3.607285499572754
+                },
+                "Scale": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Cage",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.299999952316284,
+                    "y": 1.7999999523162842,
+                    "z": 2.299999952316284
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Puppy",
+                "EntityID": 555
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 60.378841400146487,
+                    "y": 7.083088397979736,
+                    "z": 3.4895646572113039
+                },
+                "Scale": {
+                    "x": 0.49998265504837038,
+                    "y": 0.5,
+                    "z": 0.49998265504837038
+                },
+                "Rotation": {
+                    "x": -3.1415700912475588,
+                    "y": 0.9419999718666077,
+                    "z": 3.1415884494781496
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "CorgiPup2",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Cage3",
+                "EntityID": 556
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -28.190826416015626,
+                    "y": 7.4671630859375,
+                    "z": -15.167624473571778
+                },
+                "Scale": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Cage",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.299999952316284,
+                    "y": 1.7999999523162842,
+                    "z": 2.299999952316284
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Puppy",
+                "EntityID": 557
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -28.192628860473634,
+                    "y": 7.045531749725342,
+                    "z": -15.159445762634278
+                },
+                "Scale": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                },
+                "Rotation": {
+                    "x": -3.1415724754333498,
+                    "y": -1.15840744972229,
+                    "z": 3.1415863037109377
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "CorgiPup3",
+                "FollowCamera": true
             }
         }
     ]
