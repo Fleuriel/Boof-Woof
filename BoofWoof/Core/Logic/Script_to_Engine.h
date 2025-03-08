@@ -437,6 +437,10 @@ public:
 		g_DialogueText.OnInitialize();
 		g_DialogueText.setDialogue(static_cast<DialogueState>(dialogueState));
 	}
+
+	virtual double GetTRtimer() override {
+		return g_TimerTR.timer;
+	}
 };
 
 #endif // !SCRIPT_TO_ENGINE_H

@@ -12,7 +12,7 @@ public:
 
 public:
 	Entity m_Timer{}, m_Minus{};
-	double timer = 180.0; // 3 minutes in seconds
+	double timer = 30.0; // 30 seconds
 	bool touched{ false }, scaleUp{ false };
 
 protected:

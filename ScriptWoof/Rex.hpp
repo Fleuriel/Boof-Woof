@@ -66,7 +66,7 @@ struct Rex final : public Behaviour
         case State::PATROL:
             // Check if player is in front
             if (CheckifPlayerInFront(entity)) {
-                std::cout << "This is crazy\n\n\n\n\n";
+                //std::cout << "This is crazy\n\n\n\n\n";
                 state = State::CHASE;
                 break;
             }

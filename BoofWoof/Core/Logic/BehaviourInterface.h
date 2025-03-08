@@ -112,6 +112,8 @@ struct engine_interface
 
 	virtual bool MatchEntityName(Entity entity, const char* entityName) = 0;
 	virtual void SetDialogue(int dialogueState) = 0;
+
+	virtual double GetTRtimer() = 0;
 };
 
 #ifdef GAME_ENGINE

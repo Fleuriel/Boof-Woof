@@ -10,6 +10,7 @@ class TimeRush : public Level
 {
 	Entity playerEnt{};
 	Entity scentEntity1{}, scentEntity2{}, scentEntity3{}, scentEntity4{}, scentEntity5{}, scentEntity6{}, scentEntity7{}, scentEntity8{}, scentEntity9{};
+	Entity rexEnt{};
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
 	glm::vec3 camdir{};
@@ -52,7 +53,8 @@ class TimeRush : public Level
 			{"TimeRushBGM", [&](Entity entity) { TimeRushBGM = entity; }},
 			{"AggressiveDogBarking", [&](Entity entity) { AggroDog = entity; }},
 			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }},
-			{ "red particle", [&](Entity entity) { FireSound = entity; }}
+			{ "red particle", [&](Entity entity) { FireSound = entity; }},
+			{"Rex", [&](Entity entity) { rexEnt = entity; }}
 
 		};
 
@@ -71,7 +73,7 @@ class TimeRush : public Level
 
 				// Exit early if all entities are found
 				if (playerEnt && scentEntity1 && scentEntity2 && scentEntity3 && scentEntity4
-					&& scentEntity5 && scentEntity6 && scentEntity7 && scentEntity8 && scentEntity9 && TimeRushBGM && AggroDog && CorgiSniff && FireSound)
+					&& scentEntity5 && scentEntity6 && scentEntity7 && scentEntity8 && scentEntity9 && TimeRushBGM && AggroDog && CorgiSniff && FireSound && rexEnt)
 				{
 					break;
 				}
@@ -148,7 +150,6 @@ class TimeRush : public Level
 
 	void UpdateLevel(double deltaTime) override
 	{
-
 		if (g_IsPaused && !savedcamdir) {
 			camdir = cameraController->GetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
 			savedcamdir = true;
@@ -166,7 +167,6 @@ class TimeRush : public Level
 
 			g_Audio.SetListenerPosition(playerPos, playerRot);
 		}
-
 
 		// ?? Update the positions of all 3D sounds (including the fireplace)
 		g_Audio.Update3DSoundPositions();
@@ -192,16 +192,22 @@ class TimeRush : public Level
 			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
 			if (g_TimerTR.timer == 0.0) 
 			{
-				timesUp -= deltaTime;
+				// Need to teleport Rex to 20, 1.5, 3
+				if (g_Coordinator.HaveComponent<TransformComponent>(rexEnt))
+				{
+					auto& rexTransform = g_Coordinator.GetComponent<TransformComponent>(rexEnt);
+					rexTransform.SetPosition(glm::vec3(20.0f, 1.5f, 3.0f));
+				}
+				//timesUp -= deltaTime;
 
 				// Times up! sound
-				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
-
+				//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
 				// Wait for like 2 seconds then restart game
-				if (timesUp < 0.0) 
-				{
-					timesUp = 0.0;
-
+				//if (timesUp < 0.0) 
+				//{
+					//timesUp = 0.0;
+					
+					/*
 					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 					if (loading)
 					{
@@ -215,9 +221,25 @@ class TimeRush : public Level
 
 						g_LevelManager.SetNextLevel("LoadingLevel");
 					}
-				}		
+					*/
+				//}
 			}
+			
+			if (CheckEntityWithPlayerCollision(rexEnt)) {
+				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+				if (loading)
+				{
+					// Pass in the name of the real scene we want AFTER the loading screen
+					loading->m_NextScene = "TimeRush";
 
+					timesUp = 2.0;
+					g_TimerTR.Reset();
+					g_DialogueText.OnShutdown();
+					g_DialogueText.Reset();
+
+					g_LevelManager.SetNextLevel("LoadingLevel");
+				}
+			}
 			// Take this away once u shift to script
 			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1)
 			{
@@ -271,7 +293,7 @@ class TimeRush : public Level
 
 	void UnloadLevel() override
 	{
-		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/Timesup.wav");
+		//g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/Timesup.wav");
 		//g_Audio.StopBGM();
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav");
 
@@ -289,5 +311,19 @@ class TimeRush : public Level
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 		g_Checklist.finishTR = false;
+	}
+
+private:
+
+	bool CheckEntityWithPlayerCollision(Entity entity)
+	{
+		//Check Entity Collision with Player
+		if (g_Coordinator.HaveComponent<CollisionComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
+		{
+			auto collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
+			if (collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), "Player") == 0)
+				return true;
+		}
+		return false;
 	}
 };
