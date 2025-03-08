@@ -1,7 +1,7 @@
 #include "SmellAvoidance.h"
 #include "../Core/AssetManager/FilePaths.h"
 #include "../Utilities/ForGame/TimerTR/TimerTR.h"
-#include "../Utilities/ForGame/Dialogue/Dialogue.h"
+#include "../Dialogue/Dialogue.h"
 
 SmellAvoidance g_SmellAvoidance;
 

@@ -1,7 +1,7 @@
 #include "RopeBreaker.h"
 #include "../Checklist/Checklist.h"
 #include "../Core/AssetManager/FilePaths.h"
-#include "../Utilities/ForGame/Dialogue/Dialogue.h"
+#include "../Dialogue/Dialogue.h"
 #include <Level Manager/LevelManager.h>
 
 

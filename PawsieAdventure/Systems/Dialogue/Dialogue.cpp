@@ -1,8 +1,8 @@
-#include "pch.h"
 #include "Dialogue.h"
 #include "ResourceManager/ResourceManager.h"
+#include "../ChangeText/ChangeText.h"
 #include "../Core/AssetManager/FilePaths.h"
-#include "../Utilities/ForGame/TimerTR/TimerTR.h"
+#include "../../../BoofWoof/Utilities/ForGame/TimerTR/TimerTR.h"
 
 Dialogue g_DialogueText;
 Serialization dialogueText;
@@ -63,6 +63,7 @@ void Dialogue::OnShutdown()
 	}
 
 	dialogueActive = false;
+	g_ChangeText.OnShutdown();
 }
 
 std::string Dialogue::getDialogue()

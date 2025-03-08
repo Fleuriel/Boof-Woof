@@ -1,7 +1,6 @@
 #include "Checklist.h"
 #include "ResourceManager/ResourceManager.h"
 #include "../ChangeText/ChangeText.h"
-#include "../Utilities/ForGame/Dialogue/Dialogue.h"
 #include "../Core/AssetManager/FilePaths.h"
 
 Checklist g_Checklist;
@@ -91,7 +90,7 @@ void Checklist::OnUpdate(double deltaTime)
 {
 	if (g_ChangeText.startingRoomOnly) 
 	{
-		if (!g_DialogueText.dialogueActive)
+		if (g_ChangeText.shutted)
 		{
 			if (CheckWASD() && !Check1)
 			{
@@ -221,10 +220,11 @@ void Checklist::ChangeBoxChecked(Entity ent)
 
 void Checklist::AddCorgiText()
 {
-	if (!g_DialogueText.dialogueActive)
+	if (g_ChangeText.shutted)
 	{
-		g_DialogueText.OnInitialize();
+		g_ChangeText.OnInitialize();
 		g_DialogueText.setDialogue(DialogueState::TUTORIALEND);
+		g_ChangeText.shutted = false;
 	}
 }
 
