@@ -192,6 +192,7 @@ class MainHall : public Level
 							loading->m_NextScene = "MainHall";
 							g_LevelManager.SetNextLevel("LoadingLevel");
 							g_TimerTR.OnShutdown();
+							g_DialogueText.OnShutdown();
 						}
 					}
 				}

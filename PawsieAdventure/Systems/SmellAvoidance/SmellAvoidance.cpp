@@ -55,6 +55,8 @@ void SmellAvoidance::Initialize()
         pee4NewPos = pee4Pos - glm::vec3(0.0f, 20.0f, 0.0f);
         pee4Transform.SetPosition(pee4NewPos);
     }
+
+    touchedPee = false;
 }
 
 void SmellAvoidance::Update(double deltaTime)
@@ -97,11 +99,11 @@ void SmellAvoidance::HandlePeeCollision()
         peeSoundPlayed = true;  // Ensure the sound plays only once
         waterSoundPlayed = false; // Reset water sound state
 
-        if (!firstPeeTouched) 
+        if (!touchedPee)
         {
             g_DialogueText.OnInitialize();
-            g_DialogueText.setDialogue(DialogueState::DISGUSTED);
-            firstPeeTouched = true;
+            g_DialogueText.setDialogue(DialogueState::DISGUSTED2);
+            touchedPee = true;
         }
     }
 }
@@ -120,6 +122,8 @@ void SmellAvoidance::HandleWaterCollision()
         // Reset sound state
         peeSoundPlayed = false;
         waterSoundPlayed = true; // Ensure water sound plays only once
+        touchedPee = false;
+
         if (TimerInit) {
             g_TimerTR.OnShutdown();
             TimerInit = false;
@@ -207,5 +211,5 @@ void SmellAvoidance::Reset()
 	waterBucket3collided = false;
 	TimerInit = false;
 	peeMarked = false;
-    firstPeeTouched = false;
+    touchedPee = false;
 }
