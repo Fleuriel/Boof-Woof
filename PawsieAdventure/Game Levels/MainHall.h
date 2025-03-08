@@ -4,6 +4,7 @@
 #include "../Systems/CameraController/CameraController.h"
 #include "../Systems/BoneCatcher/BoneCatcher.h"
 #include "../Systems/RopeBreaker/RopeBreaker.h"
+#include "../Systems/CageBreaker/CageBreaker.h"
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
 #include "../Systems/SmellAvoidance/SmellAvoidance.h"
@@ -79,6 +80,7 @@ class MainHall : public Level
 	void InitLevel() override
 	{
 		cameraController = new CameraController(playerEnt);
+		g_CageBreaker = CageBreaker(playerEnt, Cage1, Cage2, Cage3, Cage1Collider, Cage2Collider, Cage3Collider);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
 		g_SmellAvoidance = SmellAvoidance(playerEnt, pee1, pee2, pee3, pee4, pee1Collider, pee2Collider, pee3Collider, pee4Collider, 
 			WaterBucket, WaterBucket2, WaterBucket3, TestPee, TestCollider);
@@ -145,7 +147,8 @@ class MainHall : public Level
 
 			if (!collectedPuppy1 || !collectedPuppy2 || !collectedPuppy3)
 			{
-				CheckCageCollision();
+				//CheckCageCollision();
+				g_CageBreaker.OnUpdate(deltaTime);
 				CheckPuppyCollision();
 			}
 
@@ -401,7 +404,6 @@ private:
 		if (puppy2Collided && !collectedPuppy2)
 		{
 			puppiesCollected++;
-			std::cout << "hello\n" << std::endl;
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
 			collectedPuppy2 = true;
 		}
@@ -433,37 +435,37 @@ private:
 		}
 	}
 
-	void CheckCageCollision()
-	{
-		cage1Collided = CheckEntityWithPlayerCollision(Cage1Collider);
-		cage2Collided = CheckEntityWithPlayerCollision(Cage2Collider);
-		cage3Collided = CheckEntityWithPlayerCollision(Cage3Collider);
+	//void CheckCageCollision()
+	//{
+	//	cage1Collided = CheckEntityWithPlayerCollision(Cage1Collider);
+	//	cage2Collided = CheckEntityWithPlayerCollision(Cage2Collider);
+	//	cage3Collided = CheckEntityWithPlayerCollision(Cage3Collider);
 
-		if (cage1Collided)
-		{
-			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage1);
-			g_Coordinator.DestroyEntity(Cage1);
+	//	if (cage1Collided)
+	//	{
+	//		g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage1);
+	//		g_Coordinator.DestroyEntity(Cage1);
 
-			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage1Collider);
-			g_Coordinator.DestroyEntity(Cage1Collider);
-		}
+	//		g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage1Collider);
+	//		g_Coordinator.DestroyEntity(Cage1Collider);
+	//	}
 
-		if (cage2Collided)
-		{
-			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage2);
-			g_Coordinator.DestroyEntity(Cage2);
+	//	if (cage2Collided)
+	//	{
+	//		g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage2);
+	//		g_Coordinator.DestroyEntity(Cage2);
 
-			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage2Collider);
-			g_Coordinator.DestroyEntity(Cage2Collider);
-		}
+	//		g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage2Collider);
+	//		g_Coordinator.DestroyEntity(Cage2Collider);
+	//	}
 
-		if (cage3Collided)
-		{
-			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage3);
-			g_Coordinator.DestroyEntity(Cage3);
+	//	if (cage3Collided)
+	//	{
+	//		g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage3);
+	//		g_Coordinator.DestroyEntity(Cage3);
 
-			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage3Collider);
-			g_Coordinator.DestroyEntity(Cage3Collider);
-		}
-	}
+	//		g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage3Collider);
+	//		g_Coordinator.DestroyEntity(Cage3Collider);
+	//	}
+	//}
 };

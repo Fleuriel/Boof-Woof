@@ -1,5 +1,6 @@
 #include "RopeBreaker.h"
 #include "../Checklist/Checklist.h"
+#include "../CageBreaker/CageBreaker.h"
 #include "../Core/AssetManager/FilePaths.h"
 #include "../Utilities/ForGame/Dialogue/Dialogue.h"
 #include <Level Manager/LevelManager.h>
@@ -9,7 +10,7 @@ RopeBreaker g_RopeBreaker;
 
 void RopeBreaker::OnUpdate(double deltaTime)
 {
-	if (!PlayerCollidedRope1 || !PlayerCollidedRope2)
+	if (!PlayerCollidedRope1 || !PlayerCollidedRope2) 
 	{
 		CheckCollision();
 	}
@@ -80,15 +81,18 @@ void RopeBreaker::CheckCollision()
 		PlayerColliding = g_Coordinator.GetComponent<CollisionComponent>(player).GetIsColliding();
 	}
 
-	if (g_Coordinator.HaveComponent<CollisionComponent>(rope1))
-	{
-		Rope1Colliding = g_Coordinator.GetComponent<CollisionComponent>(rope1).GetIsColliding();
-	}
+	Rope1Colliding = g_CageBreaker.CheckEntityWithPlayerCollision(rope1);
+	Rope2Colliding = g_CageBreaker.CheckEntityWithPlayerCollision(rope2);
 
-	if (g_Coordinator.HaveComponent<CollisionComponent>(rope2))
-	{
-		Rope2Colliding = g_Coordinator.GetComponent<CollisionComponent>(rope2).GetIsColliding();
-	}
+	//if (g_Coordinator.HaveComponent<CollisionComponent>(rope1))
+	//{
+	//	Rope1Colliding = g_Coordinator.GetComponent<CollisionComponent>(rope1).GetIsColliding();
+	//}
+
+	//if (g_Coordinator.HaveComponent<CollisionComponent>(rope2))
+	//{
+	//	Rope2Colliding = g_Coordinator.GetComponent<CollisionComponent>(rope2).GetIsColliding();
+	//}
 
 	if (!deletedRope1) 
 	{
@@ -164,6 +168,8 @@ void RopeBreaker::SpawnBoneCatcher()
 	// If collide with rope then load
 	if (PlayerCollidedRope1 || PlayerCollidedRope2)
 	{
+		g_BoneCatcher.isRope = true;
+
 		// Only if dialogue not active then can do rope breaker.
 		if (!g_DialogueText.dialogueActive && !BoneSpawned)
 		{
