@@ -1,3 +1,10 @@
+/*!*****************************************************************************
+\file               Debug.frag
+\author             Aaron CHAN Jun Xiang 		
+\date               04/03/2025 [4 March 2025]
+\brief              This file contains the Fragment Shader for drawing AABB
+*******************************************************************************/
+
 #version 450 core
 
 in vec3 vColor; // Receiving color from vertex shader
