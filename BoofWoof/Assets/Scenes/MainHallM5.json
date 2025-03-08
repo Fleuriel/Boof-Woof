@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "4714bfbc-0dc9-4e46-8f2a-4c8eec73cd20",
+    "SceneGUID": "c1d5726a-7d98-4c34-beb7-a528c10f8706",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.193230152130127,
-                    "y": 1.1806244850158692,
-                    "z": -0.48975715041160586
+                    "x": -1.193232536315918,
+                    "y": 1.1806243658065797,
+                    "z": -0.6759270429611206
                 },
                 "Scale": {
                     "x": 0.5,
@@ -64,7 +64,7 @@
                     "y": 1.0,
                     "z": 0.0
                 },
-                "Active": true
+                "Active": false
             }
         },
         {
@@ -18431,9 +18431,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 6.935070514678955,
-                    "y": 0.6953166723251343,
-                    "z": -23.61266326904297
+                    "x": 4.855844020843506,
+                    "y": 0.7495993375778198,
+                    "z": -23.052196502685548
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18482,14 +18482,14 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 60.007869720458987,
-                    "y": 6.96995735168457,
-                    "z": -1.5158907175064088
+                    "x": 61.9385871887207,
+                    "y": 7.064565181732178,
+                    "z": 4.742568016052246
                 },
                 "Scale": {
-                    "x": 0.5,
+                    "x": 0.49999740719795229,
                     "y": 0.5,
-                    "z": 0.5
+                    "z": 0.49999740719795229
                 },
                 "Rotation": {
                     "x": -3.1415908336639406,
@@ -18533,9 +18533,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -23.932680130004884,
-                    "y": 6.969956874847412,
-                    "z": -10.863628387451172
+                    "x": -24.06116485595703,
+                    "y": 7.063960075378418,
+                    "z": -11.522851943969727
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18575,231 +18575,6 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "ScentTrail1",
-                "EntityID": 439
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 5.348481178283691,
-                    "y": 1.0455282926559449,
-                    "z": -23.01594352722168
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "ParticleComponent": {
-                "PositionMin": {
-                    "x": 0.0,
-                    "y": 3.799999952316284,
-                    "z": 0.0
-                },
-                "PositionMax": {
-                    "x": 0.0,
-                    "y": 0.5,
-                    "z": 0.0
-                },
-                "Density": -1.0,
-                "VelocityMin": 1.0,
-                "VelocityMax": 3.0,
-                "TargetPositions": [
-                    {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 0.0,
-                        "y": 1.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": -1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
-                ],
-                "ParticleSize": 10.0,
-                "ParticleColor": {
-                    "r": 0.9607843160629273,
-                    "g": 0.3921568691730499,
-                    "b": 0.04313725605607033,
-                    "a": 0.0
-                },
-                "ParticleType": "POINT",
-                "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "ScentTrail2",
-                "EntityID": 440
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 59.90848922729492,
-                    "y": 7.0877861976623539,
-                    "z": -2.099623441696167
-                },
-                "Scale": {
-                    "x": 0.9999998807907105,
-                    "y": 0.9999998807907105,
-                    "z": 0.9999998807907105
-                },
-                "Rotation": {
-                    "x": 0.0000036517169519356686,
-                    "y": 1.1045565605163575,
-                    "z": 0.000005171398697711993
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "ParticleComponent": {
-                "PositionMin": {
-                    "x": 0.0,
-                    "y": 3.799999952316284,
-                    "z": 0.0
-                },
-                "PositionMax": {
-                    "x": 0.0,
-                    "y": 0.5,
-                    "z": 0.0
-                },
-                "Density": -1.0,
-                "VelocityMin": 1.0,
-                "VelocityMax": 3.0,
-                "TargetPositions": [
-                    {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 0.0,
-                        "y": 1.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": -1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
-                ],
-                "ParticleSize": 10.0,
-                "ParticleColor": {
-                    "r": 0.0313725508749485,
-                    "g": 0.9372549057006836,
-                    "b": 0.9372549057006836,
-                    "a": 0.0
-                },
-                "ParticleType": "POINT",
-                "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "ScentTrail3",
-                "EntityID": 441
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -24.727802276611329,
-                    "y": 7.170868396759033,
-                    "z": -11.20660400390625
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "ParticleComponent": {
-                "PositionMin": {
-                    "x": 0.0,
-                    "y": 3.799999952316284,
-                    "z": 0.0
-                },
-                "PositionMax": {
-                    "x": 0.0,
-                    "y": 0.5,
-                    "z": 0.0
-                },
-                "Density": -1.0,
-                "VelocityMin": 1.0,
-                "VelocityMax": 3.0,
-                "TargetPositions": [
-                    {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 0.0,
-                        "y": 1.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": -1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
-                ],
-                "ParticleSize": 10.0,
-                "ParticleColor": {
-                    "r": 0.9333333373069763,
-                    "g": 0.34117648005485537,
-                    "b": 0.8274509906768799,
-                    "a": 0.0
-                },
-                "ParticleType": "POINT",
-                "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
             }
         },
         {
@@ -22886,248 +22661,8 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Cage1",
-                "EntityID": 535
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 4.770179271697998,
-                    "y": 1.19316565990448,
-                    "z": -23.539905548095704
-                },
-                "Scale": {
-                    "x": 0.5,
-                    "y": 0.5,
-                    "z": 0.5
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Cage",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 2.299999952316284,
-                    "y": 1.7999999523162842,
-                    "z": 2.299999952316284
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Puppy",
-                "EntityID": 536
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 4.73552942276001,
-                    "y": 0.7941077947616577,
-                    "z": -23.51502227783203
-                },
-                "Scale": {
-                    "x": 0.5,
-                    "y": 0.5,
-                    "z": 0.5
-                },
-                "Rotation": {
-                    "x": -3.1415724754333498,
-                    "y": -1.15840744972229,
-                    "z": 3.1415863037109377
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "CorgiPup1",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Cage2",
-                "EntityID": 537
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 60.401710510253909,
-                    "y": 7.486056327819824,
-                    "z": 3.607285499572754
-                },
-                "Scale": {
-                    "x": 0.5,
-                    "y": 0.5,
-                    "z": 0.5
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Cage",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 2.299999952316284,
-                    "y": 1.7999999523162842,
-                    "z": 2.299999952316284
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Puppy",
-                "EntityID": 538
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 60.378841400146487,
-                    "y": 7.083088397979736,
-                    "z": 3.4895646572113039
-                },
-                "Scale": {
-                    "x": 0.49998265504837038,
-                    "y": 0.5,
-                    "z": 0.49998265504837038
-                },
-                "Rotation": {
-                    "x": -3.1415700912475588,
-                    "y": 0.9419999718666077,
-                    "z": 3.1415884494781496
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "CorgiPup2",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Cage3",
-                "EntityID": 539
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -28.190826416015626,
-                    "y": 7.4671630859375,
-                    "z": -15.167624473571778
-                },
-                "Scale": {
-                    "x": 0.5,
-                    "y": 0.5,
-                    "z": 0.5
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Cage",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 2.299999952316284,
-                    "y": 1.7999999523162842,
-                    "z": 2.299999952316284
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Puppy",
-                "EntityID": 540
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -28.192628860473634,
-                    "y": 7.045531749725342,
-                    "z": -15.159445762634278
-                },
-                "Scale": {
-                    "x": 0.5,
-                    "y": 0.5,
-                    "z": 0.5
-                },
-                "Rotation": {
-                    "x": -3.1415724754333498,
-                    "y": -1.15840744972229,
-                    "z": 3.1415863037109377
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "CorgiPup3",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 541
+                "EntityID": 535
             },
             "TransformComponent": {
                 "Position": {
@@ -23175,7 +22710,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 542
+                "EntityID": 536
             },
             "TransformComponent": {
                 "Position": {
@@ -23223,7 +22758,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 543
+                "EntityID": 537
             },
             "TransformComponent": {
                 "Position": {
@@ -23271,7 +22806,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 544
+                "EntityID": 538
             },
             "TransformComponent": {
                 "Position": {
@@ -23319,7 +22854,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 545
+                "EntityID": 539
             },
             "TransformComponent": {
                 "Position": {
@@ -23367,7 +22902,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 546
+                "EntityID": 540
             },
             "TransformComponent": {
                 "Position": {
@@ -23415,7 +22950,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 547
+                "EntityID": 541
             },
             "TransformComponent": {
                 "Position": {
@@ -23463,7 +22998,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 548
+                "EntityID": 542
             },
             "TransformComponent": {
                 "Position": {
@@ -23511,7 +23046,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 549
+                "EntityID": 543
             },
             "TransformComponent": {
                 "Position": {
@@ -23559,7 +23094,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 550
+                "EntityID": 544
             },
             "TransformComponent": {
                 "Position": {
@@ -23607,7 +23142,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 551
+                "EntityID": 545
             },
             "TransformComponent": {
                 "Position": {
@@ -23655,7 +23190,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 552
+                "EntityID": 546
             },
             "TransformComponent": {
                 "Position": {
@@ -23703,7 +23238,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 553
+                "EntityID": 547
             },
             "TransformComponent": {
                 "Position": {
@@ -23751,7 +23286,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 554
+                "EntityID": 548
             },
             "TransformComponent": {
                 "Position": {
@@ -23799,7 +23334,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 555
+                "EntityID": 549
             },
             "TransformComponent": {
                 "Position": {
@@ -23847,7 +23382,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 556
+                "EntityID": 550
             },
             "TransformComponent": {
                 "Position": {
@@ -23895,7 +23430,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 557
+                "EntityID": 551
             },
             "TransformComponent": {
                 "Position": {
@@ -23943,7 +23478,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 558
+                "EntityID": 552
             },
             "TransformComponent": {
                 "Position": {
@@ -23991,7 +23526,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "StealthCollider1",
-                "EntityID": 559
+                "EntityID": 553
             },
             "TransformComponent": {
                 "Position": {
@@ -24034,31 +23569,12 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "StealthCollider2",
-                "EntityID": 560
+                "EntityID": 554
             },
             "TransformComponent": {
                 "Position": {
@@ -24101,31 +23617,12 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "StealthCollider3",
-                "EntityID": 561
+                "EntityID": 555
             },
             "TransformComponent": {
                 "Position": {
@@ -24168,31 +23665,12 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "StealthCollider4",
-                "EntityID": 562
+                "EntityID": 556
             },
             "TransformComponent": {
                 "Position": {
@@ -24235,25 +23713,471 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Cage1",
+                "EntityID": 557
             },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Shader3D",
-                "shaderIdx": 6,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
+            "TransformComponent": {
+                "Position": {
+                    "x": 4.829230785369873,
+                    "y": 1.2097156047821046,
+                    "z": -23.147079467773439
+                },
+                "Scale": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Cage",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Cage1Collider",
+                "EntityID": 558
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 4.840205669403076,
+                    "y": 0.26959550380706789,
+                    "z": -23.079669952392579
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.7000000476837159,
+                    "y": 0.10000000149011612,
+                    "z": 1.7000000476837159
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Cage2",
+                "EntityID": 559
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 62.01853942871094,
+                    "y": 7.444275856018066,
+                    "z": 4.77734375
+                },
+                "Scale": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Cage",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Cage2Collider",
+                "EntityID": 560
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 62.0240592956543,
+                    "y": 6.534568786621094,
+                    "z": 4.775880813598633
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.7000000476837159,
+                    "y": 0.10000000149011612,
+                    "z": 1.7000000476837159
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Cage3",
+                "EntityID": 561
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -24.01190185546875,
+                    "y": 7.4480671882629398,
+                    "z": -11.553563117980957
+                },
+                "Scale": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Cage",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Cage3Collider",
+                "EntityID": 562
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -23.933822631835939,
+                    "y": 6.53396463394165,
+                    "z": -11.516495704650879
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.7000000476837159,
+                    "y": 0.10000000149011612,
+                    "z": 1.7000000476837159
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "ScentTrail1",
+                "EntityID": 563
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 5.348481178283691,
+                    "y": 1.0455282926559449,
+                    "z": -23.01594352722168
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 3.799999952316284,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": -1.0,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.9607843160629273,
+                    "g": 0.3921568691730499,
+                    "b": 0.04313725605607033,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "ScentTrail2",
+                "EntityID": 439
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 62.317378997802737,
+                    "y": 7.08778190612793,
+                    "z": 4.373408317565918
+                },
+                "Scale": {
+                    "x": 0.9999998807907105,
+                    "y": 0.9999998807907105,
+                    "z": 0.9999998807907105
+                },
+                "Rotation": {
+                    "x": 0.0000036517169519356686,
+                    "y": 1.1045565605163575,
+                    "z": 0.000005171398697711993
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 3.799999952316284,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": -1.0,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.0313725508749485,
+                    "g": 0.9372549057006836,
+                    "b": 0.9372549057006836,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "ScentTrail3",
+                "EntityID": 440
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -24.727802276611329,
+                    "y": 7.170868396759033,
+                    "z": -11.20660400390625
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 3.799999952316284,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": -1.0,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.9333333373069763,
+                    "g": 0.34117648005485537,
+                    "b": 0.8274509906768799,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         }
     ]

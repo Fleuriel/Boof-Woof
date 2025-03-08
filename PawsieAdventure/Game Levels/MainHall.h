@@ -21,6 +21,9 @@ class MainHall : public Level
 	Entity pee1{}, pee2{}, pee3{}, pee4{}; // Smell Avoidance
 	Entity pee1Collider{}, pee2Collider{}, pee3Collider{}, pee4Collider{}; // Smell Avoidance
 
+	Entity Cage1{}, Cage1Collider{}, Cage2{}, Cage2Collider{}, Cage3{}, Cage3Collider{}; // Puppies
+	bool cage1Collided{ false }, cage2Collided{ false }, cage3Collided{ false };
+
 	// Camera
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
@@ -142,6 +145,7 @@ class MainHall : public Level
 
 			if (!collectedPuppy1 || !collectedPuppy2 || !collectedPuppy3)
 			{
+				CheckCageCollision();
 				CheckPuppyCollision();
 			}
 
@@ -295,7 +299,6 @@ class MainHall : public Level
 		// Ensure RESET for game to be replayable
 		g_Checklist.shutted = false;
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
-		//playercollided = false;
 		puppy1Collided = puppy2Collided = puppy3Collided = false;
 	}
 
@@ -326,14 +329,21 @@ private:
 			{"WaterBucket3", [&](Entity entity) { WaterBucket3 = entity; }},
 			{"red particle", [&](Entity entity) { FireSound = entity; }},
 			{"TestObject", [&](Entity entity) { TestPee = entity; }},
-			{"TestCollision", [&](Entity entity) { TestCollider = entity; }}
+			{"TestCollision", [&](Entity entity) { TestCollider = entity; }},
+			{"Cage1", [&](Entity entity) { Cage1 = entity; }},
+			{"Cage1Collider", [&](Entity entity) { Cage1Collider = entity; }},
+			{"Cage2", [&](Entity entity) { Cage2 = entity; }},
+			{"Cage2Collider", [&](Entity entity) { Cage2Collider = entity; }},
+			{"Cage3", [&](Entity entity) { Cage3 = entity; }},
+			{"Cage3Collider", [&](Entity entity) { Cage3Collider = entity; }},
 		};
 	}
 
 	bool AllEntitiesInitialized() const
 	{
 		return playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3
-			&& pee1 && pee2 && pee3 && pee4 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider;
+			&& pee1 && pee2 && pee3 && pee4 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider
+			&& Cage1 && Cage1Collider;
 	}
 
 	void InitializeChecklist()
@@ -363,12 +373,12 @@ private:
 		}
 	}
 
-	bool CheckEntityWithPlayerCollision(Entity entity)
+	bool CheckEntityWithPlayerCollision(Entity entity) const
 	{
 		//Check Entity Collision with Player
 		if (g_Coordinator.HaveComponent<CollisionComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
 		{
-			auto collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
+			auto& collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
 			if(collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), "Player") == 0)
 				return true;
 		}
@@ -420,6 +430,40 @@ private:
 			g_DialogueText.OnInitialize();
 			g_DialogueText.setDialogue(DialogueState::ALLPUPSFOUND);
 			dialogueThird = true;
+		}
+	}
+
+	void CheckCageCollision()
+	{
+		cage1Collided = CheckEntityWithPlayerCollision(Cage1Collider);
+		cage2Collided = CheckEntityWithPlayerCollision(Cage2Collider);
+		cage3Collided = CheckEntityWithPlayerCollision(Cage3Collider);
+
+		if (cage1Collided)
+		{
+			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage1);
+			g_Coordinator.DestroyEntity(Cage1);
+
+			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage1Collider);
+			g_Coordinator.DestroyEntity(Cage1Collider);
+		}
+
+		if (cage2Collided)
+		{
+			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage2);
+			g_Coordinator.DestroyEntity(Cage2);
+
+			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage2Collider);
+			g_Coordinator.DestroyEntity(Cage2Collider);
+		}
+
+		if (cage3Collided)
+		{
+			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage3);
+			g_Coordinator.DestroyEntity(Cage3);
+
+			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage3Collider);
+			g_Coordinator.DestroyEntity(Cage3Collider);
 		}
 	}
 };
