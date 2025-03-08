@@ -302,7 +302,7 @@ struct Rex final : public Behaviour
 
         float maxRayDistance = 10.0f;
         //float fovAngle = 30.0f; // 30-degree cone
-        float horizontalFOVAngle = 15.0f; // Customize how wide the spread is
+        float horizontalFOVAngle = 5.0f; // Customize how wide the spread is
         float verticalFOVAngle = 10.0f;   // Customize how far up/down the rays spread
         int horizontalRays = 5; // Number of horizontal rays
         int verticalRays = 5;   // Number of vertical rays
