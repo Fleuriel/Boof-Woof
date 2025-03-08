@@ -347,6 +347,8 @@ class MainHall : public Level
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
 		//playercollided = false;
 		puppy1Collided = puppy2Collided = puppy3Collided = false;
+
+		puppiesCollected = 0;
 	}
 
 private:

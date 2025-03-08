@@ -101,11 +101,20 @@ struct Puppy final : public Behaviour
 					
 				}
             }
-            else if (distance <= pathThreshold)
+            if (distance <= pathThreshold)
             {
                 velocity = glm::vec3(0.0f);
                 //std::cout << "[Puppy] Reached player!" << std::endl;
             }
+
+            /*
+            if (distance >= 10) {
+				// Teleport the puppy to the player
+				glm::vec3 temppos = playerPos;
+                temppos.y += 2;
+				m_Engine.SetPosition(entity, playerPos);
+            }
+            */
 
 			
 
