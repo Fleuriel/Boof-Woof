@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "09b43afd-1097-4c1d-a525-e40dbb9680ad",
+    "SceneGUID": "92690392-02ae-44c7-9c96-a36aee85691a",
     "Entities": [
         {
             "MetadataComponent": {
@@ -200,9 +200,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 20.11985969543457,
-                    "y": 0.980038583278656,
-                    "z": 6.601954460144043
+                    "x": 19.82099723815918,
+                    "y": 0.9898128509521484,
+                    "z": 4.981428146362305
                 },
                 "Scale": {
                     "x": 0.5,
@@ -245,9 +245,9 @@
             },
             "CameraComponent": {
                 "Position": {
-                    "x": 19.530000686645509,
-                    "y": 1.2999999523162842,
-                    "z": 5.599999904632568
+                    "x": 19.829999923706056,
+                    "y": 1.399999976158142,
+                    "z": 3.5999999046325685
                 },
                 "Yaw": -90.0,
                 "Pitch": 0.0,
@@ -565,38 +565,6 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "WallDoor",
-                "EntityID": 13
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 19.399999618530275,
-                    "y": 4.199997901916504,
-                    "z": 23.203144073486329
-                },
-                "Scale": {
-                    "x": 1.350000023841858,
-                    "y": 1.5,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallDoor",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "Wall",
                 "EntityID": 14
             },
@@ -794,7 +762,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 26.675865173339845,
+                    "x": 25.18622398376465,
                     "y": 4.199999809265137,
                     "z": 8.567033767700196
                 },
@@ -826,7 +794,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 33.401283264160159,
+                    "x": 31.0645751953125,
                     "y": 4.199999809265137,
                     "z": 8.600000381469727
                 },
@@ -14220,54 +14188,6 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Door",
-                "EntityID": 310
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 19.421165466308595,
-                    "y": 2.9000000953674318,
-                    "z": 8.5
-                },
-                "Scale": {
-                    "x": 1.2000000476837159,
-                    "y": 1.2000000476837159,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "DoorDrawbridge",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.649999976158142,
-                    "y": 2.6500000953674318,
-                    "z": 0.20000000298023225
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "TennisBall",
                 "EntityID": 311
             },
@@ -16665,14 +16585,62 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "WallDoorTop",
-                "EntityID": 369
+                "EntityName": "BookshelfHole",
+                "EntityID": 372
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 19.479408264160158,
-                    "y": 6.744804859161377,
-                    "z": 8.488320350646973
+                    "x": 19.429533004760743,
+                    "y": 3.5,
+                    "z": 7.291509628295898
+                },
+                "Scale": {
+                    "x": 1.399977207183838,
+                    "y": 1.399999976158142,
+                    "z": 0.9999788403511047
+                },
+                "Rotation": {
+                    "x": -3.141590118408203,
+                    "y": -0.00800000037997961,
+                    "z": -3.141590118408203
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "BookshelfHole",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.649999976158142,
+                    "y": 2.450000047683716,
+                    "z": 0.699999988079071
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wall",
+                "EntityID": 13
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 18.711862564086915,
+                    "y": 4.199999809265137,
+                    "z": 8.600000381469727
                 },
                 "Scale": {
                     "x": 1.350000023841858,
@@ -16691,120 +16659,8 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "WallDoorTop",
+                "ModelName": "WallBothSide",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 2.9000000953674318,
-                    "y": 0.5,
-                    "z": 0.699999988079071
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallDoorLeft",
-                "EntityID": 370
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 16.655012130737306,
-                    "y": 2.2467801570892336,
-                    "z": 8.408699035644532
-                },
-                "Scale": {
-                    "x": 1.350000023841858,
-                    "y": 1.5,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallDoorLeft",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.0,
-                    "y": 1.7000000476837159,
-                    "z": 0.699999988079071
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "WallDoorRight",
-                "EntityID": 371
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 22.13519859313965,
-                    "y": 2.2604706287384035,
-                    "z": 8.567000389099121
-                },
-                "Scale": {
-                    "x": 1.2999999523162842,
-                    "y": 1.5,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallDoorRight",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.0,
-                    "y": 1.7000000476837159,
-                    "z": 0.699999988079071
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         }
     ]
