@@ -602,31 +602,31 @@ struct Player final : public Behaviour
 				if (m_Engine.MatchEntityName(touchedEntity, "Carpet"))
 				{
 					surfaceType = "Carpet";
-					std::cout << "[DEBUG] Surface Detected: Carpet" << std::endl;
+					//std::cout << "[DEBUG] Surface Detected: Carpet" << std::endl;
 					return;
 				}
 				if (m_Engine.MatchEntityName(touchedEntity, "WoodFloor"))
 				{
 					surfaceType = "WoodFloor";
-					std::cout << "[DEBUG] Surface Detected: WoodFloor" << std::endl;
+					//std::cout << "[DEBUG] Surface Detected: WoodFloor" << std::endl;
 					return;
 				}
 				if (m_Engine.MatchEntityName(touchedEntity, "WoodSteps"))
 				{
 					surfaceType = "WoodSteps";
-					std::cout << "[DEBUG] Surface Detected: WoodSteps" << std::endl;
+					//std::cout << "[DEBUG] Surface Detected: WoodSteps" << std::endl;
 					return;
 				}
 				if (m_Engine.MatchEntityName(touchedEntity, "FloorCastle"))
 				{
 					surfaceType = "FloorCastle";
-					std::cout << "[DEBUG] Surface Detected: FloorCastle" << std::endl;
+					//std::cout << "[DEBUG] Surface Detected: FloorCastle" << std::endl;
 					return;
 				}
 				if (m_Engine.MatchEntityName(touchedEntity, "Floor"))
 				{
 					surfaceType = "Floor";
-					std::cout << "[DEBUG] Surface Detected: FloorCastle" << std::endl;
+					//std::cout << "[DEBUG] Surface Detected: FloorCastle" << std::endl;
 					return;
 				}
 			}
