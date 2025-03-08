@@ -60,7 +60,7 @@ private:
     bool testCollided;
     bool rexPee1collided, rexPee2collided, rexPee3collided, rexPee4collided;
     bool waterBucketcollided, waterBucket2collided, waterBucket3collided;
-    bool firstPeeTouched{ false };
+    bool touchedPee{ false };
 };
 
 extern SmellAvoidance g_SmellAvoidance;

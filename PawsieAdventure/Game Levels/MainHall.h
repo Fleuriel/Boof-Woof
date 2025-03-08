@@ -197,6 +197,7 @@ class MainHall : public Level
 							loading->m_NextScene = "MainHall";
 							g_LevelManager.SetNextLevel("LoadingLevel");
 							g_TimerTR.OnShutdown();
+							g_DialogueText.OnShutdown();
 						}
 					}
 				}
@@ -280,6 +281,8 @@ class MainHall : public Level
 		}
 
 		g_UI.OnShutdown();
+		g_TimerTR.OnShutdown();
+		g_DialogueText.OnShutdown();
 	}
 
 	void UnloadLevel() override
@@ -298,8 +301,6 @@ class MainHall : public Level
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
 		//playercollided = false;
 		puppy1Collided = puppy2Collided = puppy3Collided = false;
-
-		g_TimerTR.OnShutdown();
 	}
 
 private:

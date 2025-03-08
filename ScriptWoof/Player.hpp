@@ -21,7 +21,8 @@ struct Player final : public Behaviour
 	double stunlockTimer = 2.0;	// 2.0 seconds
 	double cooldownTimer = 0.0;
 	bool jumpSoundPlayed = false;  // Add this as a new class member variable
-	bool foundMatch{ false }, dialogueShown{ false }; // Flag to track if a match was found for PeeXCollision
+	bool tennisBallDialogueShown{ false }, boneDialogueShown{ false }, peeCollisionDialogueShown{ false };
+
 	glm::vec3 PlayerPosition = glm::vec3(0.0f);
 	glm::vec3 PlayerRotation = glm::vec3(0.0f);
 
@@ -110,6 +111,7 @@ struct Player final : public Behaviour
 		isJumping = false;
 		isMoving = false;
 		isGrounded = true;
+		tennisBallDialogueShown = boneDialogueShown = peeCollisionDialogueShown = false;
 		//std::vector<glm::vec3> path;
 		//pathInitialized = false;
 	}
@@ -122,14 +124,8 @@ struct Player final : public Behaviour
 			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			isMoving = false;
 
-			// If u sniff and u saw the pee, u show the dialogue.
-			if (m_Engine.getInputSystem().isActionPressed("Sniff"))
-			{
-				CheckForObjectsInFront(entity);
-			}
-
+			CheckForObjectsInFront(entity);
 			CheckForObjectsBelow(entity);
-
 
 			//// Debug for movement
 			//glm::vec3 currentPos = m_Engine.GetPosition(entity);
@@ -539,38 +535,40 @@ struct Player final : public Behaviour
 			rayOffset
 		);
 
-		if (dialogueShown)
-			return; // Skip processing if dialogue was already shown
-
-		if (!detectedObjects.empty()) 
+		if (!detectedObjects.empty())
 		{
-		    for (Entity touchedEntity : detectedObjects) 
+			for (Entity touchedEntity : detectedObjects)
 			{
-				for (int i = 1; i <= 4; ++i) // Check for Pee1Collision to Pee4Collision
+				if (!tennisBallDialogueShown && m_Engine.MatchEntityName(touchedEntity, "TennisBall"))
 				{
-					std::string peeColliderName = "Pee" + std::to_string(i) + "Collision";
-					if (m_Engine.MatchEntityName(touchedEntity, peeColliderName.c_str()))
+					m_Engine.SetDialogue(4);
+					tennisBallDialogueShown = true; // Prevent future triggers
+					continue; // Move to next entity without breaking (allows other checks)
+				}
+
+				if (!boneDialogueShown && m_Engine.MatchEntityName(touchedEntity, "Bone"))
+				{
+					m_Engine.SetDialogue(5);
+					boneDialogueShown = true;
+					continue;
+				}
+
+				if (!peeCollisionDialogueShown)
+				{
+					for (int i = 1; i <= 4; ++i)
 					{
-						foundMatch = true;
-						break; // Stop checking further for this entity
+						std::string peeColliderName = "Pee" + std::to_string(i) + "Collision";
+						if (m_Engine.MatchEntityName(touchedEntity, peeColliderName.c_str()))
+						{
+							m_Engine.SetDialogue(12);
+							peeCollisionDialogueShown = true;
+							break; // Stop checking PeeCollisions once detected
+						}
 					}
 				}
-
-				if (foundMatch)
-				{
-					break; // Stop checking further once a valid match is found
-				}
-		    }
-		}
-
-		// Show dialogue once if a match was found
-		if (foundMatch)
-		{
-			m_Engine.SetDialogue(12); // disgusted at pee
-			dialogueShown = true;
+			}
 		}
 	}
-
 
 	void CheckForObjectsBelow(Entity rexEntity)
 	{

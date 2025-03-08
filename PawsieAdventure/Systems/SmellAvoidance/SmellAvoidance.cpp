@@ -55,37 +55,15 @@ void SmellAvoidance::Initialize()
         pee4NewPos = pee4Pos - glm::vec3(0.0f, 20.0f, 0.0f);
         pee4Transform.SetPosition(pee4NewPos);
     }
+
+    touchedPee = false;
 }
 
 void SmellAvoidance::Update(double deltaTime)
 {
-    // ? Process other game logic
+    // Update logic for smell avoidance
     CheckCollision();
-
-    // ? Handle BGM Fading if triggered
-    if (isFading)
-    {
-        fadeTimer += deltaTime; // Increase fade timer
-        float progress = fadeTimer / fadeDuration; // Normalize fade time (0.0 ? 1.0)
-
-        if (progress > 1.0f) progress = 1.0f; // Clamp to max value
-
-        // ? Gradually fade out `Music_Danger_Loop`
-        float dangerVolume = 1.0f - progress;
-        g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav", dangerVolume);
-
-        // ? Gradually fade in `BedRoomMusicBGM`
-        g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", progress);
-
-        // ? When fade is complete, stop the danger music
-        if (progress >= 1.0f)
-        {
-            g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav");
-            isFading = false; //  Stop fading process
-        }
-    }
 }
-
 
 void SmellAvoidance::CheckCollision()
 {
@@ -121,11 +99,11 @@ void SmellAvoidance::HandlePeeCollision()
         peeSoundPlayed = true;  // Ensure the sound plays only once
         waterSoundPlayed = false; // Reset water sound state
 
-        if (!firstPeeTouched) 
+        if (!touchedPee)
         {
             g_DialogueText.OnInitialize();
-            g_DialogueText.setDialogue(DialogueState::DISGUSTED);
-            firstPeeTouched = true;
+            g_DialogueText.setDialogue(DialogueState::DISGUSTED2);
+            touchedPee = true;
         }
     }
 }
@@ -135,20 +113,16 @@ void SmellAvoidance::HandleWaterCollision()
     if (playerCollided && (waterBucketcollided || waterBucket2collided || waterBucket3collided) && !waterSoundPlayed)
     {
         g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WaterPuddle.wav", false, "SFX");
-
         g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
         g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
 
-        isFading = true;
-        fadeTimer = 0.0f;
-
-        g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", true, "BGM");
-        g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", 0.0f); // Start silent
-
         peeMarked = false;
         timer = 0.0;
+
+        // Reset sound state
         peeSoundPlayed = false;
         waterSoundPlayed = true; // Ensure water sound plays only once
+        touchedPee = false;
 
         if (TimerInit) {
             g_TimerTR.OnShutdown();
@@ -156,9 +130,6 @@ void SmellAvoidance::HandleWaterCollision()
         }
     }
 }
-
-
-
 
 void SmellAvoidance::SetDefaultPeePosition() const
 {
@@ -240,7 +211,5 @@ void SmellAvoidance::Reset()
 	waterBucket3collided = false;
 	TimerInit = false;
 	peeMarked = false;
-    firstPeeTouched = false;
-    isFading = false;
-    fadeTimer = 0.0f;
+    touchedPee = false;
 }
