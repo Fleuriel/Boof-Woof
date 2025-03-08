@@ -24,6 +24,10 @@ class MainHall : public Level
 	Entity Cage1{}, Cage1Collider{}, Cage2{}, Cage2Collider{}, Cage3{}, Cage3Collider{}; // Puppies
 	bool cage1Collided{ false }, cage2Collided{ false }, cage3Collided{ false };
 
+	Entity stealthCollider1{}, stealthCollider2{}, stealthCollider3{}, stealthCollider4{};
+	// Existing member variables...
+	float originalBrightness = 1.0f;
+
 	// Camera
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
@@ -97,6 +101,9 @@ class MainHall : public Level
 
 		particleEntities = { scentEntity1, scentEntity2, scentEntity3 };
 		g_UI.OnInitialize();
+
+		// Store the original brightness value
+		originalBrightness = g_Coordinator.GetSystem<GraphicsSystem>()->GetBrightness();
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -267,8 +274,9 @@ class MainHall : public Level
 			{
 				sniffa = false;
 			}
-			// until here
 		}
+
+		HandleStealthCollision();
 	}
 
 	void FreeLevel() override
@@ -284,6 +292,7 @@ class MainHall : public Level
 
 	void UnloadLevel() override
 	{
+		g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(originalBrightness);
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav");
 		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
@@ -335,6 +344,11 @@ private:
 			{"Cage2Collider", [&](Entity entity) { Cage2Collider = entity; }},
 			{"Cage3", [&](Entity entity) { Cage3 = entity; }},
 			{"Cage3Collider", [&](Entity entity) { Cage3Collider = entity; }},
+			{"StealthCollider1", [&](Entity entity) { stealthCollider1 = entity; }},
+			{"StealthCollider2", [&](Entity entity) { stealthCollider2 = entity; }},
+			{"StealthCollider3", [&](Entity entity) { stealthCollider3 = entity; }},
+			{"StealthCollider4", [&](Entity entity) { stealthCollider4 = entity; }},
+
 		};
 	}
 
@@ -463,6 +477,31 @@ private:
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(Cage3Collider);
 			g_Coordinator.DestroyEntity(Cage3Collider);
+		}
+	}
+
+	void HandleStealthCollision()
+	{
+		bool isColliding = CheckEntityWithPlayerCollision(stealthCollider1) ||
+			CheckEntityWithPlayerCollision(stealthCollider2) ||
+			CheckEntityWithPlayerCollision(stealthCollider3) ||
+			CheckEntityWithPlayerCollision(stealthCollider4);
+
+		static bool wasColliding = false;
+
+		if (isColliding)
+		{
+			// Decrease the brightness of the lights
+			float currentBrightness = g_Coordinator.GetSystem<GraphicsSystem>()->GetBrightness();
+			float newBrightness = std::max(0.5f, currentBrightness - 0.05f); // Decrease by 0.1, but not below 0
+			g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(newBrightness);
+			wasColliding = true;
+		}
+		else if (wasColliding)
+		{
+			// Reset the brightness to the original value
+			g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(originalBrightness);
+			wasColliding = false;
 		}
 	}
 };
