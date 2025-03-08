@@ -81,7 +81,7 @@ void SmellAvoidance::Update(double deltaTime)
         if (progress >= 1.0f)
         {
             g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav");
-            isFading = false; // ? Stop fading process
+            isFading = false; //  Stop fading process
         }
     }
 }
@@ -134,22 +134,17 @@ void SmellAvoidance::HandleWaterCollision()
 {
     if (playerCollided && (waterBucketcollided || waterBucket2collided || waterBucket3collided) && !waterSoundPlayed)
     {
-        // ? Play water sound effect
         g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WaterPuddle.wav", false, "SFX");
 
-        // ? Stop other sounds
         g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
         g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
 
-        // ? Start fading process instead of blocking the game loop
         isFading = true;
         fadeTimer = 0.0f;
 
-        // ? Start playing new BGM at **0 volume**
         g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", true, "BGM");
         g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", 0.0f); // Start silent
 
-        // ? Mark the player as cleaned
         peeMarked = false;
         timer = 0.0;
         peeSoundPlayed = false;
@@ -246,7 +241,6 @@ void SmellAvoidance::Reset()
 	TimerInit = false;
 	peeMarked = false;
     firstPeeTouched = false;
-    // ? Reset fade process to allow re-triggering
     isFading = false;
     fadeTimer = 0.0f;
 }
