@@ -19,6 +19,26 @@ public:
 
 	std::vector<Entity> particleEntities;
 
+
+	std::vector<std::string> bitingSounds = {
+	"Corgi/DogBite_01.wav",
+	"Corgi/DogBite_02.wav",
+	"Corgi/DogBite_03.wav",
+	"Corgi/DogBite_04.wav",
+	"Corgi/DogBite_05.wav",
+	"Corgi/DogBite_06.wav",
+	"Corgi/DogBite_07.wav",
+	};
+
+
+	// Function to get a random sound from a vector
+	std::string GetRandomSound(const std::vector<std::string>& soundList) {
+		static std::random_device rd;
+		static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+		std::uniform_int_distribution<std::size_t> dis(0, soundList.size() - 1);
+		return soundList[dis(gen)];
+	}
+
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom_Light.json");
@@ -175,13 +195,18 @@ public:
 			// Take this away once u shift to script
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
 			{
-				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiBark))
-				{
-					auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiBark);
-					music1.PlayAudio();
-				}
+				std::string biteSound = FILEPATH_ASSET_AUDIO + "/" + GetRandomSound(bitingSounds);
+				g_Audio.PlayFileOnNewChannel(biteSound.c_str(), false, "SFX");
+
 				bark = true;
+
+				// Reset bark after a short delay to allow multiple bites
+				std::thread([&]() {
+					std::this_thread::sleep_for(std::chrono::milliseconds(500)); // 500ms delay
+					bark = false;
+					}).detach();
 			}
+
 
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 0)
 			{
