@@ -86,6 +86,11 @@ glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 //std::vector<Model2D> models;
 ShaderParams shdrParam;
 
+
+Model corgModel;
+AnimationT danceAnimationZ;
+Animator animatorZ;
+
 float deltaTime = 0.0f;  // Time between current frame and previous frame
 auto previousTime = std::chrono::high_resolution_clock::now();  // Initialize previous time
 
@@ -139,6 +144,9 @@ void GraphicsSystem::initGraphicsPipeline() {
 	g_ResourceManager.LoadAll();
 
 
+	corgModel = Model("../BoofWoof/Assets/Animations/corgi.fbx", false);
+	danceAnimationZ = AnimationT("../BoofWoof/Assets/Animations/corgi.fbx", &corgModel);
+	animatorZ = Animator(&danceAnimationZ);
 
 
 	AddModel_2D();
@@ -478,6 +486,9 @@ void GraphicsSystem::UpdateLoop() {
 			// Bind and use the animation shader
 			g_AssetManager.GetShader("Animation").Use();
 
+
+			g_ResourceManager.animatorVec[0]->UpdateAnimation(deltaTime);
+
 			glm::mat4 model = glm::mat4(1.0f);
 			// translate it down so it's at the center of the scene
 			model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f));
@@ -489,52 +500,19 @@ void GraphicsSystem::UpdateLoop() {
 			g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
 
 
-			// Retrieve the model from ModelMap
-			auto modelIt = g_ResourceManager.ModelMap.find(graphicsComp.getModelName());
-			if (modelIt != g_ResourceManager.ModelMap.end()) {
-				Model& model = modelIt->second;
+		
 
-				// Check if Animator exists
-				auto animatorIt = g_ResourceManager.AnimatorMap.find(graphicsComp.getModelName());
-				if (animatorIt != g_ResourceManager.AnimatorMap.end()) {
-					Animator* animator = animatorIt->second;
-					animator->UpdateAnimation(0.001);
-
-//					std::cout << animatorIt->first.c_str() << '\n';
-
-					// Pass bone transformations to the shader
-					auto transforms = animator->GetFinalBoneMatrices();
-
-					
-					
-					//					std::cout << transforms.size() << '\n';
-					for (size_t i = 0; i < transforms.size(); ++i) {
-					
-
-						std::string boneUniform = "finalBonesMatrices[" + std::to_string(i) + "]";						
-						
-						g_AssetManager.GetShader("Animation").SetUniform(boneUniform.c_str(), transforms[i]);
-						//std::cout << boneUniform << '\n';
-
-
-						//std::cout << glm::to_string(transforms[i]) << '\n';
-					}
-
-				}
-				else {
-					std::cerr << "Error: Animator not found for corgi_walk\n";
-				}
-
-				// Finally, render the model
-				
-				
-
-				g_AssetManager.GetShader("Animation").SetUniform("model", shdrParam.WorldMatrix);
-				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
+			auto transforms = g_ResourceManager.animatorVec[0]->GetFinalBoneMatrices();
+			for (int i = 0; i < transforms.size(); ++i)
+			{
+				std::string lel = "finalBonesMatrices[" + std::to_string(i) + "]";
+				g_AssetManager.GetShader("Animation").SetUniform(lel.c_str(), transforms[i]);
 			}
-			else {
-				std::cerr << "Error: Model not found in ModelMap\n";
-			}
+
+
+			g_AssetManager.GetShader("Animation").SetUniform("model", shdrParam.WorldMatrix);
+			graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
+	
 
 			// Unbind the shader after rendering
 			g_AssetManager.GetShader("Animation").UnUse();
@@ -542,6 +520,33 @@ void GraphicsSystem::UpdateLoop() {
 		}
 
 
+
+		//g_AssetManager.GetShader("Animation").Use();
+		//glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
+		//	(float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		//glm::mat4 view = camera.GetViewMatrix();
+		//
+		//g_ResourceManager.animatorVec[0].UpdateAnimation(deltaTime);
+		//
+		////			g_AssetManager.GetShader("Animation").SetUniform("model", model);
+		//g_AssetManager.GetShader("Animation").SetUniform("view", view);
+		//g_AssetManager.GetShader("Animation").SetUniform("projection", projection);
+		//
+		//auto transforms = animatorZ.GetFinalBoneMatrices();
+		//for (int i = 0; i < transforms.size(); ++i)
+		//{
+		//
+		//	std::string boneUniform = "finalBonesMatrices[" + std::to_string(i) + "]";
+		//	g_AssetManager.GetShader("Animation").SetUniform(boneUniform.c_str(), transforms[i]);
+		//}
+		//// render the loaded model
+		//glm::mat4 model = glm::mat4(1.0f);
+		//// translate it down so it's at the center of the scene
+		//model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f));
+		//// it's a bit too big for our scene, so scale it down
+		//model = glm::scale(model, glm::vec3(.5f, .5f, .5f));
+		//g_AssetManager.GetShader("Animation").SetUniform("model", model);
+		//corgModel.Draw(g_AssetManager.GetShader("Animation"));
 
 
 		//if (ShaderName == "Shader3D")
@@ -851,15 +856,36 @@ void GraphicsSystem::TestAnimationAdd(const std::string name, const std::string&
 
 	//  Allocate AnimationT dynamically
 	AnimationT* corgiWalk = new AnimationT(path, animModel);
-	g_ResourceManager.AnimationMap[name] = corgiWalk;  // Store pointer
+	//g_ResourceManager.AnimationMap[name] = corgiWalk;  // Store pointer
 
 	//  Store model normally (copy is okay)
 	g_ResourceManager.ModelMap[name] = *animModel;
 	g_ResourceManager.addModelNames(name);
 
+	Model* ourModel = new Model(path);
+
+	//Model ourModel(path);
+
+	AnimationT* animatoo = new AnimationT(path, ourModel);
+	g_ResourceManager.animationVec.push_back(animatoo);
+
+	// 3️⃣ Create animator dynamically
+	Animator* animTor = new Animator(animatoo);
+
+	g_ResourceManager.animatorVec.push_back(animTor);
+	g_ResourceManager.animationVec.push_back(animatoo);
+	g_ResourceManager.animatorVec.push_back(animTor);
+
+
+//	AnimationT animaton(path, &ourModel);
+//
+//	g_ResourceManager.animationVec.push_back();
+
+
+
 	//  Allocate Animator dynamically
 	Animator* animator = new Animator(corgiWalk);
-	g_ResourceManager.AnimatorMap[name] = animator;
+	//g_ResourceManager.AnimatorMap[name] = animator;
 
 	std::cout << "Animation and Animator added successfully!\n";
 }

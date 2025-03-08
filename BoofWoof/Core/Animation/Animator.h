@@ -11,11 +11,17 @@
 #include <glm/gtx/string_cast.hpp >
 
 
+
+
 class AnimationT;
 
 class Animator
 {
 public:
+	Animator() {
+
+	}
+
 	Animator(AnimationT* animation)
 	{
 		m_CurrentTime = 0.0;
@@ -46,6 +52,9 @@ public:
 
 	void CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform)
 	{
+
+		std::cout << "name of stuff:\t" << node->name.c_str() << '\n';
+
 		std::string nodeName = node->name;
 		glm::mat4 nodeTransform = node->transformation;
 
@@ -64,6 +73,10 @@ public:
 		{
 			int index = boneInfoMap[nodeName].id;
 			glm::mat4 offset = boneInfoMap[nodeName].offset;
+
+
+
+
 			m_FinalBoneMatrices[index] = globalTransformation * offset;
 		}
 

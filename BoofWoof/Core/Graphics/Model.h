@@ -27,6 +27,24 @@
 #include "AssetManager/AssetManager.h"
 
 
+
+inline void print_assimp_matrix(const aiMatrix4x4& m)
+{
+
+    std::cout << m.a1 << '\t' << m.a2 << '\t' << m.a3 << '\t' << m.a4 << '\n';
+
+    std::cout << m.b1 << '\t' << m.b2 << '\t' << m.b3 << '\t' << m.b4 << '\n';
+
+    std::cout << m.c1 << '\t' << m.c2 << '\t' << m.c3 << '\t' << m.c4 << '\n';
+
+    std::cout << m.d1 << '\t' << m.d2 << '\t' << m.d3 << '\t' << m.d4 << '\n';
+
+
+
+}
+
+
+
 unsigned int TextureFromFile(const char* path, const std::string& directory);
 //extern std::vector<Model2D> models;
 struct ShaderParams;  // Forward declaration of ShaderParams
@@ -383,6 +401,15 @@ public:
                 BoneInfo newBoneInfo;
                 newBoneInfo.id = boneCount;
                 newBoneInfo.offset = ConvertMatrixToGLM(mesh->mBones[boneIndex]->mOffsetMatrix);
+
+
+
+                print_assimp_matrix(mesh->mBones[boneIndex]->mOffsetMatrix);
+
+                
+
+
+
                 boneInfoMap[boneName] = newBoneInfo;
                 boneID = boneCount;
                 boneCount++;

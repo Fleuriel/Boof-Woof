@@ -41,6 +41,8 @@ public:
 		ReadMissingBones(animation, *model);
 	}
 
+
+
 	~AnimationT()
 	{
 	}
@@ -96,7 +98,9 @@ private:
 	{
 		assert(src);
 
-		dest.name = src->mName.data;
+		dest.name = src->mName.C_Str();
+		std::cout <<"name of stuff:\t" << dest.name << '\n';
+
 		dest.transformation = AssimpGLMHelpers::ConvertMatrixToGLMFormat(src->mTransformation);
 		dest.childrenCount = src->mNumChildren;
 

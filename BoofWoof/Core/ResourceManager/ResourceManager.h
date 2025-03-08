@@ -94,10 +94,12 @@ public:
 	Model* m_Model{};
 
 
-	std::unordered_map<std::string, AnimationT*> AnimationMap;
-	std::unordered_map<std::string, Animator*> AnimatorMap; // Add this line
+//	std::unordered_map<std::string, AnimationT*> AnimationMap;
+//	std::unordered_map<std::string, Animator*> AnimatorMap; // Add this line
 
 
+	std::vector<AnimationT*> animationVec;
+	std::vector<Animator*> animatorVec;
 
 
 
