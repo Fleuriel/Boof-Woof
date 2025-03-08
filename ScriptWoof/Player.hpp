@@ -128,6 +128,9 @@ struct Player final : public Behaviour
 				CheckForObjectsInFront(entity);
 			}
 
+			CheckForObjectsBelow(entity);
+
+
 			//// Debug for movement
 			//glm::vec3 currentPos = m_Engine.GetPosition(entity);
 			//std::cout << "[Pathfinding] Entity " << entity << " is currently at Position: ("
@@ -347,34 +350,9 @@ struct Player final : public Behaviour
 
 
 
-			if (m_Engine.IsColliding(entity))
-			{
-				const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
 
-				if (std::strcmp(collidingEntityName, "Floor") == 0)
-				{
-					surfaceType = "Floor";
-				}
-				else if (std::strcmp(collidingEntityName, "Carpet") == 0)
-				{
-					surfaceType = "Carpet";
-				}
-				else if (std::strcmp(collidingEntityName, "WoodFloor") == 0)
-				{
-					surfaceType = "WoodFloor";
-				}
-				else if (std::strcmp(collidingEntityName, "WoodSteps") == 0)
-				{
-					surfaceType = "WoodSteps";
-				}
-				else if (std::strcmp(collidingEntityName, "FloorCastle") == 0)
-				{
-					surfaceType = "FloorCastle";
-				}
-			}
-
-			// Footstep sound logic
-			if (isMoving && !surfaceType.empty())  // Ensure a valid surfaceType before playing sound
+			// ? Now play footstep sound
+			if (isMoving && !surfaceType.empty())
 			{
 				footstepTimer -= static_cast<float>(m_Engine.GetDeltaTime());
 
@@ -382,38 +360,25 @@ struct Player final : public Behaviour
 				{
 					std::string footstepSound;
 
-					if (surfaceType == "Floor")
-					{
-						footstepSound = GetRandomSound(footstepSounds);
-					}
-					else if (surfaceType == "Carpet")
-					{
+					if (surfaceType == "Carpet")
 						footstepSound = GetRandomSound(CarpetfootstepSounds);
-					}
-					else if (surfaceType == "WoodFloor")
-					{
+					else if (surfaceType == "WoodFloor" || surfaceType == "WoodSteps")
 						footstepSound = GetRandomSound(WoodfootstepSounds);
-					}
-					else if (surfaceType == "WoodSteps")
-					{
-						footstepSound = GetRandomSound(WoodfootstepSounds);
-					}
-					else if (surfaceType == "FloorCastle")
-					{
-						footstepSound = GetRandomSound(footstepSounds);
-					}
+					else if (surfaceType == "Floor" || surfaceType == "FloorCastle")
+						footstepSound = GetRandomSound(footstepSounds); 
 
-					if (!footstepSound.empty()) // Prevent playing an empty sound
+					if (!footstepSound.empty())
 					{
+						std::cout << "[DEBUG] Playing sound: " << footstepSound << std::endl;
 						m_Engine.getAudioSystem().PlaySoundByFile(footstepSound.c_str(), false, "SFX");
 					}
 
-					footstepTimer = footstepInterval;
+					footstepTimer = footstepInterval; // ? Reset timer
 				}
 			}
 			else
 			{
-				footstepTimer = 0.0f; // Reset when not moving
+				footstepTimer = 0.0f; // ? Reset when not moving
 			}
 
 
@@ -605,4 +570,72 @@ struct Player final : public Behaviour
 			dialogueShown = true;
 		}
 	}
+
+
+	void CheckForObjectsBelow(Entity rexEntity)
+	{
+		if (!m_Engine.HaveTransformComponent(rexEntity)) {
+			return; // Ensure the entity has a TransformComponent
+		}
+
+		PlayerPosition = m_Engine.GetPosition(rexEntity);
+		PlayerRotation = m_Engine.GetRotation(rexEntity); // Get yaw rotation
+
+		glm::vec3 downwardDirection = glm::vec3(0.0f, -1.0f, 0.0f);
+
+		float maxRayDistance = 3.0f;
+		float fovAngle = 50.0f; // 30-degree cone
+		int horizontalRays = 5; // Number of horizontal rays
+		int verticalRays = 3;   // Number of vertical rays
+		glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
+
+		std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycastDownward(
+			rexEntity, downwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle, rayOffset
+		);
+		// ? If objects are detected, print them
+		if (!detectedObjects.empty())
+		{
+			
+			// ? Check for matching surface types
+			for (Entity touchedEntity : detectedObjects)
+			{
+				if (m_Engine.MatchEntityName(touchedEntity, "Carpet"))
+				{
+					surfaceType = "Carpet";
+					std::cout << "[DEBUG] Surface Detected: Carpet" << std::endl;
+					return;
+				}
+				if (m_Engine.MatchEntityName(touchedEntity, "WoodFloor"))
+				{
+					surfaceType = "WoodFloor";
+					std::cout << "[DEBUG] Surface Detected: WoodFloor" << std::endl;
+					return;
+				}
+				if (m_Engine.MatchEntityName(touchedEntity, "WoodSteps"))
+				{
+					surfaceType = "WoodSteps";
+					std::cout << "[DEBUG] Surface Detected: WoodSteps" << std::endl;
+					return;
+				}
+				if (m_Engine.MatchEntityName(touchedEntity, "FloorCastle"))
+				{
+					surfaceType = "FloorCastle";
+					std::cout << "[DEBUG] Surface Detected: FloorCastle" << std::endl;
+					return;
+				}
+				if (m_Engine.MatchEntityName(touchedEntity, "Floor"))
+				{
+					surfaceType = "Floor";
+					std::cout << "[DEBUG] Surface Detected: FloorCastle" << std::endl;
+					return;
+				}
+			}
+		}
+
+		//// ? If no surface detected, default to "Floor"
+		//std::cout << "[DEBUG] No surface detected! Defaulting to Floor" << std::endl;
+		surfaceType = "Floor";
+
+	}
+
 };
