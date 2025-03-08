@@ -40,6 +40,27 @@ class MainHall : public Level
 
 	std::vector<Entity> particleEntities;
 
+	bool bark = false;
+
+	std::vector<std::string> bitingSounds = {
+	"Corgi/DogBite_01.wav",
+	"Corgi/DogBite_02.wav",
+	"Corgi/DogBite_03.wav",
+	"Corgi/DogBite_04.wav",
+	"Corgi/DogBite_05.wav",
+	"Corgi/DogBite_06.wav",
+	"Corgi/DogBite_07.wav",
+		};
+
+
+	// Function to get a random sound from a vector
+	std::string GetRandomSound(const std::vector<std::string>& soundList) {
+		static std::random_device rd;
+		static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+		std::uniform_int_distribution<std::size_t> dis(0, soundList.size() - 1);
+		return soundList[dis(gen)];
+	}
+
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM5.json");
@@ -163,8 +184,12 @@ class MainHall : public Level
 
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", true, "SFX");
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav", false, "SFX");
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav", true, "BGM");
+
 
 					g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", 0.4f);
+					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav");
+
 
 				}
 				g_TimerTR.OnUpdate(deltaTime);
@@ -185,7 +210,8 @@ class MainHall : public Level
 					timesUp -= deltaTime;
 
 					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
-					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
+					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");			
+					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav");
 
 
 					// Times up! sound
@@ -202,6 +228,7 @@ class MainHall : public Level
 							loading->m_NextScene = "MainHall";
 							g_LevelManager.SetNextLevel("LoadingLevel");
 							g_TimerTR.OnShutdown();
+							g_DialogueText.OnShutdown();
 						}
 					}
 				}
@@ -256,6 +283,21 @@ class MainHall : public Level
 				cooldownTimer = 0.0;
 			}
 
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
+			{
+				std::string biteSound = FILEPATH_ASSET_AUDIO + "/" + GetRandomSound(bitingSounds);
+				g_Audio.PlayFileOnNewChannel(biteSound.c_str(), false, "SFX");
+
+				bark = true;
+
+				// Reset bark after a short delay to allow multiple bites
+				std::thread([&]() {
+					std::this_thread::sleep_for(std::chrono::milliseconds(500)); // 500ms delay
+					bark = false;
+					}).detach();
+			}
+
+
 			if (isColorChanged)
 			{
 				colorChangeTimer += deltaTime;
@@ -285,6 +327,8 @@ class MainHall : public Level
 		}
 
 		g_UI.OnShutdown();
+		g_TimerTR.OnShutdown();
+		g_DialogueText.OnShutdown();
 	}
 
 	void UnloadLevel() override
@@ -303,8 +347,6 @@ class MainHall : public Level
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
 		//playercollided = false;
 		puppy1Collided = puppy2Collided = puppy3Collided = false;
-
-		g_TimerTR.OnShutdown();
 	}
 
 private:
@@ -400,6 +442,9 @@ private:
 			puppiesCollected++;
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
 			collectedPuppy1 = true;
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark1.wav", false, "SFX");
+
+
 		}
 
 		if (puppy2Collided && !collectedPuppy2)
@@ -408,6 +453,8 @@ private:
 			std::cout << "hello\n" << std::endl;
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
 			collectedPuppy2 = true;
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark2.wav", false, "SFX");
+
 		}
 
 		if (puppy3Collided && !collectedPuppy3)
@@ -415,6 +462,8 @@ private:
 			puppiesCollected++;
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
 			collectedPuppy3 = true;
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark3.wav", false, "SFX");
+
 		}
 
 		if (puppiesCollected == 1 && !dialogueFirst)

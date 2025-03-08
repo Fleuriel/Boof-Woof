@@ -109,7 +109,10 @@ std::string Dialogue::getDialogue()
 		return "One down.. Two more to go. Stay close, kiddo!";
 
 	case DialogueState::DISGUSTED:
-		return "Eww!! Seriously, Rex?! Why pee all over the place?! I should avoid it..";
+		return "Something stinks.. Smells like pee..?! I should avoid it..";
+
+	case DialogueState::DISGUSTED2:
+		return "Eww!! Seriously, Rex?! Get this off me!!";
 
 	/* MainHall Lvl2 Dialogues ? */
 	case DialogueState::SEARCHINGFORPUPS2:
@@ -221,9 +224,8 @@ void Dialogue::checkCollision(Entity player, double dt)
 		if (!m_TouchedBall)  // Only trigger if not already interacting
 		{
 			OnInitialize();
-			setDialogue(m_FirstTimeTouchBall ? DialogueState::TOUCHBALL : DialogueState::DONTWASTETIME);
+			setDialogue(DialogueState::DONTWASTETIME);
 			m_TouchedBall = true;  // Track interaction with the ball
-			m_FirstTimeTouchBall = false;
 		}
 	}
 
@@ -233,9 +235,8 @@ void Dialogue::checkCollision(Entity player, double dt)
 		if (!m_TouchedBone)  // Only trigger if not already interacting
 		{
 			OnInitialize();
-			setDialogue(m_FirstTimeTouchBone ? DialogueState::TOUCHBONE : DialogueState::DONTWASTETIME);
+			setDialogue(DialogueState::DONTWASTETIME);
 			m_TouchedBone = true;  // Track interaction with the bone
-			m_FirstTimeTouchBone = false;
 		}
 	}
 
@@ -252,6 +253,5 @@ void Dialogue::Reset()
 {
 	setDialogue(DialogueState::DEFAULT);
 	dialogueActive = m_TouchedBall = m_TouchedBone = false;
-	m_FirstTimeTouchBall = m_FirstTimeTouchBone = true;
 	m_CollisionResetTimer = 2.0f;
 }

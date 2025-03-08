@@ -21,7 +21,8 @@ struct Player final : public Behaviour
 	double stunlockTimer = 2.0;	// 2.0 seconds
 	double cooldownTimer = 0.0;
 	bool jumpSoundPlayed = false;  // Add this as a new class member variable
-	bool foundMatch{ false }, dialogueShown{ false }; // Flag to track if a match was found for PeeXCollision
+	bool tennisBallDialogueShown{ false }, boneDialogueShown{ false }, peeCollisionDialogueShown{ false };
+
 	glm::vec3 PlayerPosition = glm::vec3(0.0f);
 	glm::vec3 PlayerRotation = glm::vec3(0.0f);
 
@@ -110,6 +111,7 @@ struct Player final : public Behaviour
 		isJumping = false;
 		isMoving = false;
 		isGrounded = true;
+		tennisBallDialogueShown = boneDialogueShown = peeCollisionDialogueShown = false;
 		//std::vector<glm::vec3> path;
 		//pathInitialized = false;
 	}
@@ -122,11 +124,8 @@ struct Player final : public Behaviour
 			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			isMoving = false;
 
-			// If u sniff and u saw the pee, u show the dialogue.
-			if (m_Engine.getInputSystem().isActionPressed("Sniff"))
-			{
-				CheckForObjectsInFront(entity);
-			}
+			CheckForObjectsInFront(entity);
+			CheckForObjectsBelow(entity);
 
 			//// Debug for movement
 			//glm::vec3 currentPos = m_Engine.GetPosition(entity);
@@ -347,34 +346,9 @@ struct Player final : public Behaviour
 
 
 
-			if (m_Engine.IsColliding(entity))
-			{
-				const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
 
-				if (std::strcmp(collidingEntityName, "Floor") == 0)
-				{
-					surfaceType = "Floor";
-				}
-				else if (std::strcmp(collidingEntityName, "Carpet") == 0)
-				{
-					surfaceType = "Carpet";
-				}
-				else if (std::strcmp(collidingEntityName, "WoodFloor") == 0)
-				{
-					surfaceType = "WoodFloor";
-				}
-				else if (std::strcmp(collidingEntityName, "WoodSteps") == 0)
-				{
-					surfaceType = "WoodSteps";
-				}
-				else if (std::strcmp(collidingEntityName, "FloorCastle") == 0)
-				{
-					surfaceType = "FloorCastle";
-				}
-			}
-
-			// Footstep sound logic
-			if (isMoving && !surfaceType.empty())  // Ensure a valid surfaceType before playing sound
+			// ? Now play footstep sound
+			if (isMoving && !surfaceType.empty())
 			{
 				footstepTimer -= static_cast<float>(m_Engine.GetDeltaTime());
 
@@ -382,38 +356,25 @@ struct Player final : public Behaviour
 				{
 					std::string footstepSound;
 
-					if (surfaceType == "Floor")
-					{
-						footstepSound = GetRandomSound(footstepSounds);
-					}
-					else if (surfaceType == "Carpet")
-					{
+					if (surfaceType == "Carpet")
 						footstepSound = GetRandomSound(CarpetfootstepSounds);
-					}
-					else if (surfaceType == "WoodFloor")
-					{
+					else if (surfaceType == "WoodFloor" || surfaceType == "WoodSteps")
 						footstepSound = GetRandomSound(WoodfootstepSounds);
-					}
-					else if (surfaceType == "WoodSteps")
-					{
-						footstepSound = GetRandomSound(WoodfootstepSounds);
-					}
-					else if (surfaceType == "FloorCastle")
-					{
-						footstepSound = GetRandomSound(footstepSounds);
-					}
+					else if (surfaceType == "Floor" || surfaceType == "FloorCastle")
+						footstepSound = GetRandomSound(footstepSounds); 
 
-					if (!footstepSound.empty()) // Prevent playing an empty sound
+					if (!footstepSound.empty())
 					{
+						std::cout << "[DEBUG] Playing sound: " << footstepSound << std::endl;
 						m_Engine.getAudioSystem().PlaySoundByFile(footstepSound.c_str(), false, "SFX");
 					}
 
-					footstepTimer = footstepInterval;
+					footstepTimer = footstepInterval; // ? Reset timer
 				}
 			}
 			else
 			{
-				footstepTimer = 0.0f; // Reset when not moving
+				footstepTimer = 0.0f; // ? Reset when not moving
 			}
 
 
@@ -574,35 +535,105 @@ struct Player final : public Behaviour
 			rayOffset
 		);
 
-		if (dialogueShown)
-			return; // Skip processing if dialogue was already shown
-
-		if (!detectedObjects.empty()) 
+		if (!detectedObjects.empty())
 		{
-		    for (Entity touchedEntity : detectedObjects) 
+			for (Entity touchedEntity : detectedObjects)
 			{
-				for (int i = 1; i <= 4; ++i) // Check for Pee1Collision to Pee4Collision
+				if (!tennisBallDialogueShown && m_Engine.MatchEntityName(touchedEntity, "TennisBall"))
 				{
-					std::string peeColliderName = "Pee" + std::to_string(i) + "Collision";
-					if (m_Engine.MatchEntityName(touchedEntity, peeColliderName.c_str()))
+					m_Engine.SetDialogue(4);
+					tennisBallDialogueShown = true; // Prevent future triggers
+					continue; // Move to next entity without breaking (allows other checks)
+				}
+
+				if (!boneDialogueShown && m_Engine.MatchEntityName(touchedEntity, "Bone"))
+				{
+					m_Engine.SetDialogue(5);
+					boneDialogueShown = true;
+					continue;
+				}
+
+				if (!peeCollisionDialogueShown)
+				{
+					for (int i = 1; i <= 4; ++i)
 					{
-						foundMatch = true;
-						break; // Stop checking further for this entity
+						std::string peeColliderName = "Pee" + std::to_string(i) + "Collision";
+						if (m_Engine.MatchEntityName(touchedEntity, peeColliderName.c_str()))
+						{
+							m_Engine.SetDialogue(12);
+							peeCollisionDialogueShown = true;
+							break; // Stop checking PeeCollisions once detected
+						}
 					}
 				}
-
-				if (foundMatch)
-				{
-					break; // Stop checking further once a valid match is found
-				}
-		    }
-		}
-
-		// Show dialogue once if a match was found
-		if (foundMatch)
-		{
-			m_Engine.SetDialogue(12); // disgusted at pee
-			dialogueShown = true;
+			}
 		}
 	}
+
+	void CheckForObjectsBelow(Entity rexEntity)
+	{
+		if (!m_Engine.HaveTransformComponent(rexEntity)) {
+			return; // Ensure the entity has a TransformComponent
+		}
+
+		PlayerPosition = m_Engine.GetPosition(rexEntity);
+		PlayerRotation = m_Engine.GetRotation(rexEntity); // Get yaw rotation
+
+		glm::vec3 downwardDirection = glm::vec3(0.0f, -1.0f, 0.0f);
+
+		float maxRayDistance = 3.0f;
+		float fovAngle = 50.0f; // 30-degree cone
+		int horizontalRays = 5; // Number of horizontal rays
+		int verticalRays = 3;   // Number of vertical rays
+		glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
+
+		std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycastDownward(
+			rexEntity, downwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle, rayOffset
+		);
+		// ? If objects are detected, print them
+		if (!detectedObjects.empty())
+		{
+			
+			// ? Check for matching surface types
+			for (Entity touchedEntity : detectedObjects)
+			{
+				if (m_Engine.MatchEntityName(touchedEntity, "Carpet"))
+				{
+					surfaceType = "Carpet";
+					//std::cout << "[DEBUG] Surface Detected: Carpet" << std::endl;
+					return;
+				}
+				if (m_Engine.MatchEntityName(touchedEntity, "WoodFloor"))
+				{
+					surfaceType = "WoodFloor";
+					//std::cout << "[DEBUG] Surface Detected: WoodFloor" << std::endl;
+					return;
+				}
+				if (m_Engine.MatchEntityName(touchedEntity, "WoodSteps"))
+				{
+					surfaceType = "WoodSteps";
+					//std::cout << "[DEBUG] Surface Detected: WoodSteps" << std::endl;
+					return;
+				}
+				if (m_Engine.MatchEntityName(touchedEntity, "FloorCastle"))
+				{
+					surfaceType = "FloorCastle";
+					//std::cout << "[DEBUG] Surface Detected: FloorCastle" << std::endl;
+					return;
+				}
+				if (m_Engine.MatchEntityName(touchedEntity, "Floor"))
+				{
+					surfaceType = "Floor";
+					//std::cout << "[DEBUG] Surface Detected: FloorCastle" << std::endl;
+					return;
+				}
+			}
+		}
+
+		//// ? If no surface detected, default to "Floor"
+		//std::cout << "[DEBUG] No surface detected! Defaulting to Floor" << std::endl;
+		surfaceType = "Floor";
+
+	}
+
 };
