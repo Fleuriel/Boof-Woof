@@ -66,7 +66,7 @@ void TimerTR::OnUpdate(double deltaTime)
 	}
 	else
 	{
-		timer = 30.0;
+		timer = 180.0;
 	}
 
 	if (touched) 
@@ -100,12 +100,12 @@ void TimerTR::OnShutdown()
 		}
 	}
 
-	timer = 30.0;
+	timer = 180.0;
 }
 
 void TimerTR::Reset()
 {
-	timer = 30.0;
+	timer = 180.0;
 	touched = false;
 	scaleUp = false;
 }

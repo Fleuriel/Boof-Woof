@@ -192,22 +192,24 @@ class TimeRush : public Level
 			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
 			if (g_TimerTR.timer == 0.0) 
 			{
+				/*
 				// Need to teleport Rex to 20, 1.5, 3
 				if (g_Coordinator.HaveComponent<TransformComponent>(rexEnt))
 				{
 					auto& rexTransform = g_Coordinator.GetComponent<TransformComponent>(rexEnt);
 					rexTransform.SetPosition(glm::vec3(20.0f, 1.5f, 3.0f));
 				}
-				//timesUp -= deltaTime;
+				*/
+				timesUp -= deltaTime;
 
 				// Times up! sound
-				//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
 				// Wait for like 2 seconds then restart game
-				//if (timesUp < 0.0) 
-				//{
-					//timesUp = 0.0;
+				if (timesUp < 0.0) 
+				{
+					timesUp = 0.0;
 					
-					/*
+					
 					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 					if (loading)
 					{
@@ -221,8 +223,8 @@ class TimeRush : public Level
 
 						g_LevelManager.SetNextLevel("LoadingLevel");
 					}
-					*/
-				//}
+					
+				}
 			}
 			
 			if (CheckEntityWithPlayerCollision(rexEnt)) {
@@ -293,7 +295,7 @@ class TimeRush : public Level
 
 	void UnloadLevel() override
 	{
-		//g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/Timesup.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/Timesup.wav");
 		//g_Audio.StopBGM();
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav");
 
