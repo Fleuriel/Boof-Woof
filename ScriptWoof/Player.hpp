@@ -180,7 +180,7 @@ struct Player final : public Behaviour
 				//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
 			}
 
-			static const std::unordered_set<std::string> ropeEntities = { "Rope1", "Rope2" };
+			static const std::unordered_set<std::string> ropeEntities = { "Rope1", "Rope2", "Cage1Collider", "Cage2Collider", "Cage3Collider"};
 			static const std::unordered_set<std::string> toyEntities = { "Bone", "TennisBall" };
 
 			if (m_Engine.IsColliding(entity))

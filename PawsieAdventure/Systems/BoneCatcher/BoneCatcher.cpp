@@ -71,7 +71,7 @@ void BoneCatcher::OnInitialize()
 		}
 	}
 
-	m_BaseChanged = false;
+	m_BaseChanged = m_ChangeBaseToBar = false;
 	m_Speed = 0.5f;
 	m_HitCount = 0;
 }
@@ -90,6 +90,15 @@ void BoneCatcher::OnUpdate(double deltaTime)
 
 		if (isRope) 
 		{
+			if (!m_ChangeBaseToBar)
+			{
+				if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
+				{
+					g_Coordinator.GetComponent<UIComponent>(m_Base).set_texturename("RopeFull");
+					m_ChangeBaseToBar = true;
+				}
+			}
+
 			ChangeBase("RopeSemi", "RopeBreak");
 		}
 
@@ -150,15 +159,23 @@ void BoneCatcher::Stop(double deltaTime)
 			m_ShouldDestroy = false; // reset
 			m_HitCount = 0;
 
-			g_CageBreaker.DespawnCage();
-
-			if (g_RopeBreaker.RopeCount != 0)
+			if (isCage) 
 			{
-				g_RopeBreaker.RopeCount -= 1;
-
-				// Despawn the rope
-				g_RopeBreaker.DespawnRope();
+				g_CageBreaker.DespawnCage();
 			}
+
+			m_ChangeBaseToBar = false;
+
+			if (isRope) 
+			{
+				if (g_RopeBreaker.RopeCount != 0)
+				{
+					g_RopeBreaker.RopeCount -= 1;
+
+					// Despawn the rope
+					g_RopeBreaker.DespawnRope();
+				}
+			}		
 		}
 	}
 }
@@ -342,7 +359,7 @@ void BoneCatcher::ResetBC()
 	m_DownTimer = 2.0f;
 
 	m_IsMoving = true;
-	m_ShouldDestroy = m_Down = m_Up = m_HitDetected = isAudioPlaying = m_BaseChanged = false; 
+	m_ShouldDestroy = m_Down = m_Up = m_HitDetected = isAudioPlaying = m_BaseChanged = m_ChangeBaseToBar = false;
 
 	m_Direction = 1;
 	m_MinPos = -0.335f;

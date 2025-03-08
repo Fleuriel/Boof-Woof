@@ -81,18 +81,15 @@ void RopeBreaker::CheckCollision()
 		PlayerColliding = g_Coordinator.GetComponent<CollisionComponent>(player).GetIsColliding();
 	}
 
-	Rope1Colliding = g_CageBreaker.CheckEntityWithPlayerCollision(rope1);
-	Rope2Colliding = g_CageBreaker.CheckEntityWithPlayerCollision(rope2);
+	if (g_Coordinator.HaveComponent<CollisionComponent>(rope1))
+	{
+		Rope1Colliding = g_Coordinator.GetComponent<CollisionComponent>(rope1).GetIsColliding();
+	}
 
-	//if (g_Coordinator.HaveComponent<CollisionComponent>(rope1))
-	//{
-	//	Rope1Colliding = g_Coordinator.GetComponent<CollisionComponent>(rope1).GetIsColliding();
-	//}
-
-	//if (g_Coordinator.HaveComponent<CollisionComponent>(rope2))
-	//{
-	//	Rope2Colliding = g_Coordinator.GetComponent<CollisionComponent>(rope2).GetIsColliding();
-	//}
+	if (g_Coordinator.HaveComponent<CollisionComponent>(rope2))
+	{
+		Rope2Colliding = g_Coordinator.GetComponent<CollisionComponent>(rope2).GetIsColliding();
+	}
 
 	if (!deletedRope1) 
 	{
@@ -194,7 +191,7 @@ void RopeBreaker::DespawnRope()
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
 				{
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/RopeSnap.wav", false, "SFX");
-
+					
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
