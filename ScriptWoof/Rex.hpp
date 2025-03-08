@@ -17,7 +17,8 @@ struct Rex final : public Behaviour
 	bool returningtoStart = false;
     glm::vec3 rexPosition = glm::vec3(0.0f);
     glm::vec3 rexRotation = glm::vec3(0.0f);
-	Entity playerEntity = 0;
+    // Set player to infintiy
+    Entity playerEntity = INVALID_ENT;
 	int rotationCounter = 0;
 	double timer = 0.0f;
     
@@ -40,16 +41,14 @@ struct Rex final : public Behaviour
         isMovingRex = false;
         currentPathIndex = 0;
         state = State::PATROL;
-		playerEntity = m_Engine.GetPlayerEntity();
     }
 
     virtual void Update(Entity entity) override
     {
 		// if playerEntity is empty, get the player entity
-		if (playerEntity == 0 || playerEntity == INVALID_ENT) {
+		if (playerEntity == INVALID_ENT) {
 			playerEntity = m_Engine.GetPlayerEntity();
 		}
-        
         
         glm::vec3 currentPos = m_Engine.GetPosition(entity);
         //std::cout << "[Pathfinding] Entity " << entity << " is currently at Position: ("
@@ -58,18 +57,20 @@ struct Rex final : public Behaviour
         glm::vec3 velocity(0.0f);
 
         // Always check for objects in front
-		if (CheckifPlayerInFront(entity)) {
-			state = State::CHASE;
-		}
-		else {
-			state = State::PATROL;
-		}
         //CheckForObjectsInFront(entity);
         //CheckForObjectsBelow(entity);
 
         // Single Ray Check
         //SingleRayCheck(entity, currentPos);
-        if (state == State::PATROL) {
+        switch (state) {
+        case State::PATROL:
+            // Check if player is in front
+            if (CheckifPlayerInFront(entity)) {
+                std::cout << "This is crazy\n\n\n\n\n";
+                state = State::CHASE;
+                break;
+            }
+			std::cout << "[Rex] Patrolling...\n";
 
             // Ensure path is properly initialized after resetting the scene
             if (!pathInitialized)
@@ -82,7 +83,7 @@ struct Rex final : public Behaviour
                     path = m_Engine.GetPath(entity);
                     //std::cout << "[Pathfinding] Retrieved path of length " << path.size() << std::endl;
                     // print start and end node
-                    std::cout << "Start node : " << m_Engine.GetStartNode(entity) << " , " << "End node : " << m_Engine.GetGoalNode(entity);
+                    std::cout << "Start node : " << m_Engine.GetStartNode(entity) << " , " << "End node : " << m_Engine.GetGoalNode(entity) << std::endl;
 
                     if (!path.empty())
                     {
@@ -96,6 +97,8 @@ struct Rex final : public Behaviour
                         isMovingRex = false;
                         std::cout << "[Pathfinding] ERROR: No valid path! Entity " << entity << " will NOT start moving." << std::endl;
                         //std::cout << "[Pathfinding] ERROR: Path is empty after scene reload!" << std::endl;
+                        m_Engine.SetGoalNode(entity, m_Engine.GetRandomNode(entity));
+                        break;
                     }
                 }
                 else
@@ -167,7 +170,7 @@ struct Rex final : public Behaviour
                         followingPath = false;                // Commented out to allow for continuous path following
                         currentPathIndex = 0;
                         velocity = glm::vec3(0.0f);
-                        std::cout << "[Pathfinding] Entity " << entity << " has reached the final destination!" << std::endl;                   
+                        std::cout << "[Pathfinding] Entity " << entity << " has reached the final destination!" << std::endl;
                         pathInitialized = false;
                         // Find nearest node
                         m_Engine.SetStartNode(entity, m_Engine.GetGoalNode(entity));
@@ -186,35 +189,44 @@ struct Rex final : public Behaviour
                 //std::cout << "[Pathfinding] Debugging: pathInitialized = " << pathInitialized
                 //    << ", followingPath = " << followingPath << ", path size = " << path.size() << std::endl;
             }
-        }
-		else if (state == State::CHASE) {
-			std::cout << "[Rex] Chasing player...\n";
-			// Chase the player
+            break;
+        case State::CHASE:
+            std::cout << "[Rex] Chasing player...\n";
+            // Chase the player x and z only
 			glm::vec3 playerPos = m_Engine.GetPosition(playerEntity);
 			glm::vec3 direction = glm::normalize(playerPos - currentPos);
+			direction.y = 0.0f; // Lock Y-axis movement to keep the entity on the ground
 			velocity = direction * speed;
-			isMovingRex = true;
+            isMovingRex = true;
 
-            /*
-			// Check if player is in front
-			if (!CheckifPlayerInFront(entity)) {
-                state = State::FIND;
-				timer = 1.0f;
-			}
-            */
-		}
-		else if (state == State::FIND) {
-			// Rotate entity bit by bit till 360 degrees
-			// Rotate entity by 10 degrees
+
+            // Check if player is in front
+            if (!CheckifPlayerInFront(entity)) {
+                if (timer > 0.0f) {
+                    timer -= m_Engine.GetDeltaTime();
+                }
+                else if (timer == 0.f) {
+                    timer = 5.0f;
+                }
+                else {
+                    timer = 0.0f;
+                    state = State::FIND;
+                }
+            }
+            break;
+        case State::FIND:
+            std::cout << "[Rex] Finding player...\n";
+            // Rotate entity bit by bit till 360 degrees
+            // Rotate entity by 10 degrees
             if (timer <= 0) {
-                if (rotationCounter < 36) {
+                if (rotationCounter < 6) {
                     // Rotate entity by 30 degrees every second
                     glm::vec3 rotation = m_Engine.GetRotation(entity);
-                    rotation.y += 30.0f * 3.14159f / 180.0f; // Convert to radians
+                    rotation.y += 60.0f * 3.14159f / 180.0f; // Convert to radians
                     m_Engine.SetRotation(entity, rotation);
                     isMovingRex = true;
                     rotationCounter++;
-					timer = 1.0f;
+                    timer = 1.0f;
                 }
                 else {
                     rotationCounter = 0;
@@ -225,9 +237,13 @@ struct Rex final : public Behaviour
                 }
             }
             else {
-				timer -= m_Engine.GetDeltaTime();
+                timer -= m_Engine.GetDeltaTime();
             }
-		}
+            break;
+        default:
+            break;
+        }
+
 
         // Apply velocity correctly
         if (isMovingRex)
@@ -286,9 +302,9 @@ struct Rex final : public Behaviour
 
         float maxRayDistance = 30.0f;
         //float fovAngle = 30.0f; // 30-degree cone
-        float horizontalFOVAngle = 80.0f; // Customize how wide the spread is
-        float verticalFOVAngle = 40.0f;   // Customize how far up/down the rays spread
-        int horizontalRays = 15; // Number of horizontal rays
+        float horizontalFOVAngle = 50.0f; // Customize how wide the spread is
+        float verticalFOVAngle = 10.0f;   // Customize how far up/down the rays spread
+        int horizontalRays = 35; // Number of horizontal rays
         int verticalRays = 5;   // Number of vertical rays
         glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
 
@@ -300,18 +316,17 @@ struct Rex final : public Behaviour
         );
 
 		if (!detectedObjects.empty()) {
-			std::cout << "[Rex] Cone Raycast Detected Entities:\n";
+			//std::cout << "[Rex] Cone Raycast Detected Entities:\n";
 			for (Entity e : detectedObjects) {
-				if (e == playerEntity)
-					return true;
-				else
-					return false;
+                std::cout << "   - Entity ID: " << e << "\n";
+                if (e == playerEntity) {
+					std::cout << "[Rex] Player detected in FOV.\n";
+                    std::cout << playerEntity << std::endl;
+                    return true;
+                }
 			}
 		}
-		else {
-			std::cout << "[Rex] No objects detected in FOV.\n";
-		}
-
+		std::cout << "[Rex] No objects detected in FOV.\n";
 		return false;
     }
 
@@ -331,9 +346,9 @@ struct Rex final : public Behaviour
         float maxRayDistance = 10.0f;
         //float fovAngle = 30.0f; // 30-degree cone
         float horizontalFOVAngle = 30.0f; // Customize how wide the spread is
-        float verticalFOVAngle = 40.0f;   // Customize how far up/down the rays spread
-        int horizontalRays = 5; // Number of horizontal rays
-        int verticalRays = 5;   // Number of vertical rays
+        float verticalFOVAngle = 10.0f;   // Customize how far up/down the rays spread
+        int horizontalRays = 8; // Number of horizontal rays
+        int verticalRays = 6;   // Number of vertical rays
         glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
 
         std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
