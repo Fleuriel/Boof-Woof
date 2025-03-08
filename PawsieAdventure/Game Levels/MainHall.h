@@ -390,6 +390,9 @@ private:
 			puppiesCollected++;
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
 			collectedPuppy1 = true;
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark1.wav", false, "SFX");
+
+
 		}
 
 		if (puppy2Collided && !collectedPuppy2)
@@ -398,6 +401,8 @@ private:
 			std::cout << "hello\n" << std::endl;
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
 			collectedPuppy2 = true;
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark2.wav", false, "SFX");
+
 		}
 
 		if (puppy3Collided && !collectedPuppy3)
@@ -405,6 +410,8 @@ private:
 			puppiesCollected++;
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
 			collectedPuppy3 = true;
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark3.wav", false, "SFX");
+
 		}
 
 		if (puppiesCollected == 1 && !dialogueFirst)

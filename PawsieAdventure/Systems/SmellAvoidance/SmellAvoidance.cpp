@@ -134,29 +134,31 @@ void SmellAvoidance::HandleWaterCollision()
 {
     if (playerCollided && (waterBucketcollided || waterBucket2collided || waterBucket3collided) && !waterSoundPlayed)
     {
-        g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WaterPuddle.wav", false, "SFX");
-        g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
-        g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
+        if (peeMarked) {
+            g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WaterPuddle.wav", false, "SFX");
+            g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
+            g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
 
-        // ? Start fading process instead of blocking the game loop
-        isFading = true;
-        fadeTimer = 0.0f;
+            // ? Start fading process instead of blocking the game loop
+            isFading = true;
+            fadeTimer = 0.0f;
 
-        // ? Start playing new BGM at **0 volume**
-        g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", true, "BGM");
-        g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", 0.0f); // Start silent
+            // ? Start playing new BGM at **0 volume**
+            g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", true, "BGM");
+            g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", 0.0f); // Start silent
 
-        peeMarked = false;
-        timer = 0.0;
+            peeMarked = false;
+            timer = 0.0;
 
-        // Reset sound state
-        peeSoundPlayed = false;
-        waterSoundPlayed = true; // Ensure water sound plays only once
-        touchedPee = false;
+            // Reset sound state
+            peeSoundPlayed = false;
+            waterSoundPlayed = true; // Ensure water sound plays only once
+            touchedPee = false;
 
-        if (TimerInit) {
-            g_TimerTR.OnShutdown();
-            TimerInit = false;
+            if (TimerInit) {
+                g_TimerTR.OnShutdown();
+                TimerInit = false;
+            }
         }
     }
 }
