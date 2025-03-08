@@ -36,9 +36,6 @@
     <ClCompile Include="Systems\PauseScreen\PauseScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\Dialogue\Dialogue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Systems\SmellAvoidance\SmellAvoidance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,9 +81,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game Levels\LoadingLevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\Dialogue\Dialogue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game Levels\CutsceneEnd.h">
