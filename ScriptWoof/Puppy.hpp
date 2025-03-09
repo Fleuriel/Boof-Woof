@@ -72,7 +72,7 @@ struct Puppy final : public Behaviour
         glm::vec3 currentPos = m_Engine.GetPosition(entity);
         glm::vec3 velocity(0.0f);
 
-        if (collected[entity] && playerEntity != INVALID_ENTITY) 
+        if (collected[entity] && playerEntity != INVALID_ENT) 
         {
 
             // Get player position for movement
@@ -124,7 +124,7 @@ struct Puppy final : public Behaviour
                 m_Engine.DisablePhysics(entity);
 
                 // **Teleport the puppy**
-                m_Engine.SetPosition(entity, glm::vec3(30.0f, 0.7f, -10.0f));
+                m_Engine.SetPosition(entity, temppos);
 
                 // **Update physics transform**
                 m_Engine.UpdatePhysicsTransform(entity);
