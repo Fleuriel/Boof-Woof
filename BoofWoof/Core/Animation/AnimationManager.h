@@ -1,7 +1,7 @@
 #ifndef ANIMATION_MANAGER_H
 #define ANIMATION_MANAGER_H
 
-#include <scene.h>
+#include <../assimp2016/assimp/scene.h>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -11,7 +11,7 @@
 struct KeyFrame {
     double time;
     aiVector3D position;
-    aiQuaternion rotation;
+//    aiQuaternion rotation;
     aiVector3D scale;
 };
 

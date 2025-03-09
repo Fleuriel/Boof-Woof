@@ -1,8 +1,8 @@
 #pragma once
 
-#include<quaternion.h>
-#include<vector3.h>
-#include<matrix4x4.h>
+#include<../assimp2016/assimp/quaternion.h>
+#include<../assimp2016/assimp/vector3.h>
+#include<../assimp2016/assimp/matrix4x4.h>
 #include<glm/glm.hpp>
 #include<glm/gtc/quaternion.hpp>
 

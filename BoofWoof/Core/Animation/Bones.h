@@ -3,14 +3,14 @@
 /* Container for bone data */
 
 #include <vector>
-#include <scene.h>
+#include <../assimp2016/assimp/scene.h>
 #include <list>
 #include <glm/glm.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 #include "AssimpHelper.h"
 
-#include "scene.h"
+#include "../assimp2016/assimp/scene.h"
 
 
 

@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 #include <glm/glm.hpp>
-#include <scene.h>
+#include <../assimp2016/assimp/scene.h>
 #include "Bones.h"
 #include <functional>
 #include "AnimData.h"
