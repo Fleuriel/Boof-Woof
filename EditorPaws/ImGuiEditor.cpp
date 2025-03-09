@@ -2323,7 +2323,7 @@ void ImGuiEditor::InspectorWindow()
 									std::string currentBehaviourName = (*behaviourNameProperty)->GetValue(&behaviourComponent);
 									std::string newBehaviourName = currentBehaviourName;
 
-									const char* behaviourNames[] = { "Null", "Player", "Treat", "Rex", "Toys", "Puppy"};
+									const char* behaviourNames[] = { "Null", "Player", "Treat", "Rex", "RexChase", "Toys", "Puppy"};
 									int currentItem = 0;
 
 									for (int i = 0; i < IM_ARRAYSIZE(behaviourNames); ++i)
@@ -2382,6 +2382,11 @@ void ImGuiEditor::InspectorWindow()
 									// Toggle Dynamic/Static checkbox
 									bool isDynamic = collisionComponent.IsDynamic();
 									if (ImGui::Checkbox("Dynamic", &isDynamic)) {
+										// Ensure only one mode is enabled at a time
+										if (isDynamic) {
+											collisionComponent.SetIsKinematic(false);  // Disable kinematic mode if dynamic is set
+										}
+
 										if (collisionComponent.IsDynamic() != isDynamic) {
 											collisionComponent.SetIsDynamic(isDynamic);
 											// Call UpdateEntityBody instead of removing and adding the entity again
@@ -2389,8 +2394,24 @@ void ImGuiEditor::InspectorWindow()
 										}
 									}
 
+									// Toggle Kinematic checkbox
+									bool isKinematic = collisionComponent.IsKinematic();
+									if (ImGui::Checkbox("Kinematic", &isKinematic)) {
+										collisionComponent.SetIsKinematic(isKinematic);
+
+										// Ensure only one mode is enabled at a time
+										if (isKinematic) {
+											collisionComponent.SetIsDynamic(false);  // Disable dynamic mode if kinematic is set
+										}
+
+										// Update the physics system to apply the changes
+										g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity, 0.0f);
+									}
+
 									// Debugging output for motion type
-									ImGui::Text("Current Motion Type: %s", isDynamic ? "Dynamic" : "Static");
+									ImGui::Text("Current Motion Type: %s",
+										collisionComponent.IsDynamic() ? "Dynamic" :
+										(collisionComponent.IsKinematic() ? "Kinematic" : "Static"));
 
 									// Checkbox to mark as player
 									bool isPlayer = collisionComponent.IsPlayer();
@@ -2423,7 +2444,7 @@ void ImGuiEditor::InspectorWindow()
 
 										// Set a minimum size to prevent crashes
 										glm::vec3 minAABBSize(0.1f, 0.1f, 0.1f); // Minimum size for AABB
-										if (ImGui::DragFloat3("Unscaled AABB Size", &graphicsComponent.boundingBox.x, 0.05f, 0.1f, 10.0f, "%.2f")) {
+										if (ImGui::DragFloat3("Unscaled AABB Size", &graphicsComponent.boundingBox.x, 0.05f, 0.1f, 100.0f, "%.2f")) {
 											// Clamp the values to prevent zero or invalid sizes
 											graphicsComponent.boundingBox.x = glm::max(graphicsComponent.boundingBox.x, minAABBSize.x);
 											graphicsComponent.boundingBox.y = glm::max(graphicsComponent.boundingBox.y, minAABBSize.y);
@@ -2443,7 +2464,7 @@ void ImGuiEditor::InspectorWindow()
 
 									// Add UI for editing collision offset
 									glm::vec3 currentOffset = collisionComponent.GetAABBOffset();
-									if (ImGui::DragFloat3("AABB Offset", &currentOffset.x, 0.05f, -10.0f, 10.0f, "%.2f")) {
+									if (ImGui::DragFloat3("AABB Offset", &currentOffset.x, 0.05f, -100.0f, 100.0f, "%.2f")) {
 										collisionComponent.SetAABBOffset(currentOffset);
 
 										// Update the physics body in real time to reflect the offset

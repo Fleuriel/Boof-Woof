@@ -31,6 +31,9 @@ private:
 	Entity player{}, cage1{}, cage2{}, cage3{}, cage1Collider{}, cage2Collider{}, cage3Collider{};
 	bool Cage1Colliding{}, Cage2Colliding{}, Cage3Colliding{}, firstCageTouched{ false }, secondCageTouched{ false }, thirdCageTouched{ false };
 	bool deletedCage1{ false }, deletedCage2{ false }, deletedCage3{ false };
+	bool playedCageSound1 = false;
+	bool playedCageSound2 = false;
+	bool playedCageSound3 = false;
 };
 
 extern CageBreaker g_CageBreaker;

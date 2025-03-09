@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "b440f1bd-1f54-489f-b6df-a7310ba63a22",
+    "SceneGUID": "a264083e-72f7-41ce-8291-517861b9b728",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.5218825340270997,
-                    "y": 1.1806243658065797,
-                    "z": -0.6759365200996399
+                    "x": -1.193232536315918,
+                    "y": 1.1999999284744263,
+                    "z": -2.9026923179626467
                 },
                 "Scale": {
                     "x": 0.5,
@@ -38,6 +38,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": true,
+                "IsKinematic": false,
                 "IsPlayer": true,
                 "AABBSize": {
                     "x": 2.9000000953674318,
@@ -53,9 +54,9 @@
             },
             "CameraComponent": {
                 "Position": {
-                    "x": 0.5,
-                    "y": 1.5,
-                    "z": -0.17000000178813935
+                    "x": 1.2999999523162842,
+                    "y": 1.600000023841858,
+                    "z": -0.7699999809265137
                 },
                 "Yaw": 0.0,
                 "Pitch": 0.0,
@@ -101,6 +102,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -181,6 +183,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -229,6 +232,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -277,6 +281,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -325,6 +330,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -373,6 +379,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -421,6 +428,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -469,6 +477,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -517,6 +526,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -565,6 +575,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -709,6 +720,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -757,6 +769,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -805,6 +818,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -853,6 +867,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -901,6 +916,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -949,6 +965,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -997,6 +1014,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -1045,6 +1063,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -1093,6 +1112,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -1141,6 +1161,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -1189,6 +1210,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -1237,6 +1259,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.6499999761581421,
@@ -1285,6 +1308,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -1333,6 +1357,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -1381,6 +1406,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -1429,6 +1455,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -1477,6 +1504,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -1525,6 +1553,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -1573,6 +1602,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -1621,6 +1651,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.6500000953674318,
@@ -1733,6 +1764,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -1781,6 +1813,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -1829,6 +1862,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -1877,6 +1911,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -1925,6 +1960,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -1973,6 +2009,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2021,6 +2058,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2069,6 +2107,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2117,6 +2156,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2165,6 +2205,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2213,6 +2254,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2261,6 +2303,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2309,6 +2352,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2357,6 +2401,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2405,6 +2450,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2453,6 +2499,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2501,6 +2548,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2581,6 +2629,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5999999046325685,
@@ -2629,6 +2678,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.1500000953674318,
@@ -2677,6 +2727,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2725,6 +2776,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.200000047683716,
@@ -2773,6 +2825,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5999999046325685,
@@ -2821,6 +2874,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.200000047683716,
@@ -2869,6 +2923,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -3109,6 +3164,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -3157,6 +3213,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -3205,6 +3262,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -3253,6 +3311,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -3301,6 +3360,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -3349,6 +3409,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -3397,6 +3458,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -3445,6 +3507,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -3493,6 +3556,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -3541,6 +3605,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -3589,6 +3654,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.1500000953674318,
@@ -3733,6 +3799,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.8999999761581421,
@@ -3781,6 +3848,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0499999523162842,
@@ -3829,6 +3897,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.799999952316284,
@@ -3877,6 +3946,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -3925,6 +3995,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0499999523162842,
@@ -4005,6 +4076,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.15000000596046449,
@@ -4085,6 +4157,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.15000000596046449,
@@ -4165,6 +4238,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
@@ -4213,6 +4287,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.399999976158142,
@@ -4261,6 +4336,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -4305,22 +4381,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4353,22 +4413,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4401,22 +4445,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4449,22 +4477,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4497,22 +4509,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4524,7 +4520,7 @@
                 "Position": {
                     "x": 20.0,
                     "y": 0.0,
-                    "z": -10.0
+                    "z": -9.999996185302735
                 },
                 "Scale": {
                     "x": 1.0,
@@ -4549,16 +4545,17 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 5.0,
+                    "x": 36.0,
                     "y": 0.30000001192092898,
-                    "z": 5.0
+                    "z": 58.0
                 },
                 "AABBOffset": {
                     "x": 0.0,
                     "y": 0.0,
-                    "z": 0.0
+                    "z": -20.049999237060548
                 },
                 "Mass": 0.0
             }
@@ -4593,22 +4590,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4641,22 +4622,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4689,22 +4654,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4737,22 +4686,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4785,22 +4718,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4833,22 +4750,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4881,22 +4782,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4929,22 +4814,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4977,22 +4846,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -5029,6 +4882,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.6500000953674318,
@@ -5077,6 +4931,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -5125,6 +4980,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0999999046325685,
@@ -5173,6 +5029,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -5221,6 +5078,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -5269,6 +5127,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -5317,6 +5176,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.200000047683716,
@@ -5365,6 +5225,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -5413,6 +5274,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.3499999046325685,
@@ -5493,6 +5355,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -5541,6 +5404,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -5589,6 +5453,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -5637,6 +5502,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -5685,6 +5551,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -5733,6 +5600,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -5781,6 +5649,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -5829,6 +5698,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
@@ -5941,6 +5811,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.25,
@@ -5989,6 +5860,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -6037,6 +5909,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -6085,6 +5958,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -6133,6 +6007,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -6309,6 +6184,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -6357,6 +6233,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -6405,6 +6282,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -6453,6 +6331,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -6533,6 +6412,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -6581,6 +6461,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -6629,6 +6510,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -6677,6 +6559,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -6725,6 +6608,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -6773,6 +6657,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -6821,6 +6706,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -6869,6 +6755,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.299999952316284,
@@ -6917,6 +6804,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -7029,6 +6917,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.450000047683716,
@@ -7077,6 +6966,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.450000047683716,
@@ -7121,22 +7011,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7169,22 +7043,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7217,22 +7075,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7265,22 +7107,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7313,22 +7139,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7361,22 +7171,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7409,22 +7203,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7457,22 +7235,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7505,22 +7267,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7553,22 +7299,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -10197,6 +9927,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -10245,6 +9976,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -10293,6 +10025,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -10341,6 +10074,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -10389,6 +10123,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -10437,6 +10172,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -10485,6 +10221,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -10533,6 +10270,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -10581,6 +10319,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -10629,6 +10368,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -10677,6 +10417,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -10725,6 +10466,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -10773,6 +10515,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -10821,6 +10564,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.0,
@@ -10842,19 +10586,19 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 1.1962401866912842,
+                    "x": 1.3093606233596802,
                     "y": 8.476197242736817,
-                    "z": -40.74774932861328
+                    "z": -40.747562408447269
                 },
                 "Scale": {
-                    "x": 1.7000000476837159,
+                    "x": 1.7000443935394288,
                     "y": 1.399999976158142,
                     "z": 1.0
                 },
                 "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
+                    "x": -3.1415908336639406,
+                    "y": 0.0015924838371574879,
+                    "z": -3.1415908336639406
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -10869,6 +10613,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -10917,6 +10662,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -10965,6 +10711,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.0,
@@ -11013,6 +10760,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -11061,6 +10809,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -11109,6 +10858,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.0,
@@ -11157,6 +10907,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -11205,6 +10956,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -11249,22 +11001,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -11297,22 +11033,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -11349,6 +11069,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -11397,6 +11118,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -11445,6 +11167,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -11493,6 +11216,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -11541,6 +11265,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -11589,6 +11314,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -11637,6 +11363,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -11685,6 +11412,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -11733,6 +11461,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -11781,6 +11510,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -11829,6 +11559,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -11877,6 +11608,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -11925,6 +11657,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.399999976158142,
@@ -11973,6 +11706,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.9000000953674318,
@@ -12021,6 +11755,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -12069,6 +11804,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -12117,6 +11853,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.049999952316284,
@@ -12165,6 +11902,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -12213,6 +11951,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -12261,6 +12000,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.299999952316284,
@@ -12309,6 +12049,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.299999952316284,
@@ -12357,6 +12098,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.549999952316284,
@@ -12405,6 +12147,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -12453,6 +12196,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.299999952316284,
@@ -12501,6 +12245,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -12549,6 +12294,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -12597,6 +12343,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -12677,6 +12424,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -12725,6 +12473,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -12773,6 +12522,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -12821,6 +12571,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -12869,6 +12620,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -12917,6 +12669,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -12965,6 +12718,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -13013,6 +12767,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -13093,6 +12848,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -13141,6 +12897,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -13189,6 +12946,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -13237,6 +12995,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -13285,6 +13044,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -13333,6 +13093,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -13381,6 +13142,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -13429,6 +13191,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -13477,6 +13240,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -13525,6 +13289,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -13573,6 +13338,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -13621,6 +13387,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -13669,6 +13436,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -13717,6 +13485,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -13765,6 +13534,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -13813,6 +13583,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -13861,6 +13632,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -13909,6 +13681,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -13957,6 +13730,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -14005,6 +13779,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -14053,6 +13828,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -14101,6 +13877,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -14149,6 +13926,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -14197,6 +13975,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -14245,6 +14024,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -14293,6 +14073,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -14341,6 +14122,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -14389,6 +14171,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -14437,6 +14220,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -14485,6 +14269,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -14533,6 +14318,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -14565,7 +14351,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": -1.4999996423721314,
+                    "y": 4.699999809265137,
                     "z": 0.0
                 },
                 "RotationPivotOffset": {
@@ -14584,6 +14370,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.299999952316284,
@@ -14598,396 +14385,46 @@
                 "Mass": 10.0
             },
             "PathfindingComponent": {
-                "StartNode": 477,
-                "GoalNode": 474,
-                "Path": []
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 2 Node",
-                "EntityID": 341
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 32.0,
-                    "y": 8.0,
-                    "z": -33.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "NodeComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "IsWalkable": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 2 Node",
-                "EntityID": 342
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -13.0,
-                    "y": 8.0,
-                    "z": -33.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "NodeComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "IsWalkable": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 2 Node",
-                "EntityID": 343
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -12.0,
-                    "y": 8.0,
-                    "z": 13.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "NodeComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "IsWalkable": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 2 Node",
-                "EntityID": 344
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 36.0,
-                    "y": 8.0,
-                    "z": 13.5
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "NodeComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "IsWalkable": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 2 Node",
-                "EntityID": 345
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 55.0,
-                    "y": 8.0,
-                    "z": 13.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "NodeComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "IsWalkable": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 2 Node",
-                "EntityID": 346
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 55.0,
-                    "y": 8.0,
-                    "z": -30.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "NodeComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "IsWalkable": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 347
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 388,
-                "EndNode": 389,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "edge",
-                "EntityID": 348
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 389,
-                "EndNode": 390,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "edge",
-                "EntityID": 349
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 390,
-                "EndNode": 391,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "edge",
-                "EntityID": 350
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 391,
-                "EndNode": 392,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "edge",
-                "EntityID": 351
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 392,
-                "EndNode": 393,
-                "Cost": 1.0
+                "StartNode": 8,
+                "GoalNode": 6,
+                "Path": [
+                    {
+                        "x": 25.5,
+                        "y": 1.0,
+                        "z": -77.0
+                    },
+                    {
+                        "x": 25.5,
+                        "y": 1.0,
+                        "z": -37.0
+                    },
+                    {
+                        "x": 25.5,
+                        "y": 1.0,
+                        "z": -31.0
+                    },
+                    {
+                        "x": 25.5,
+                        "y": 1.0,
+                        "z": -22.0
+                    },
+                    {
+                        "x": 34.5,
+                        "y": 1.0,
+                        "z": -20.947452545166017
+                    },
+                    {
+                        "x": 34.5,
+                        "y": 1.0,
+                        "z": 1.5
+                    }
+                ]
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 352
+                "EntityID": 341
             },
             "TransformComponent": {
                 "Position": {
@@ -15018,6 +14455,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15035,7 +14473,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 353
+                "EntityID": 342
             },
             "TransformComponent": {
                 "Position": {
@@ -15066,6 +14504,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15083,7 +14522,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 354
+                "EntityID": 343
             },
             "TransformComponent": {
                 "Position": {
@@ -15114,6 +14553,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15131,7 +14571,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 355
+                "EntityID": 344
             },
             "TransformComponent": {
                 "Position": {
@@ -15162,6 +14602,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15179,7 +14620,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 356
+                "EntityID": 345
             },
             "TransformComponent": {
                 "Position": {
@@ -15210,6 +14651,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15227,7 +14669,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 357
+                "EntityID": 346
             },
             "TransformComponent": {
                 "Position": {
@@ -15258,6 +14700,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15275,7 +14718,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 358
+                "EntityID": 347
             },
             "TransformComponent": {
                 "Position": {
@@ -15306,6 +14749,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15323,7 +14767,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 359
+                "EntityID": 348
             },
             "TransformComponent": {
                 "Position": {
@@ -15354,6 +14798,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15371,7 +14816,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 360
+                "EntityID": 349
             },
             "TransformComponent": {
                 "Position": {
@@ -15402,6 +14847,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15419,7 +14865,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 361
+                "EntityID": 350
             },
             "TransformComponent": {
                 "Position": {
@@ -15451,7 +14897,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 362
+                "EntityID": 351
             },
             "TransformComponent": {
                 "Position": {
@@ -15482,6 +14928,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15499,7 +14946,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 363
+                "EntityID": 352
             },
             "TransformComponent": {
                 "Position": {
@@ -15530,6 +14977,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15547,7 +14995,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 364
+                "EntityID": 353
             },
             "TransformComponent": {
                 "Position": {
@@ -15578,6 +15026,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15595,7 +15044,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 365
+                "EntityID": 354
             },
             "TransformComponent": {
                 "Position": {
@@ -15626,6 +15075,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15643,7 +15093,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 366
+                "EntityID": 355
             },
             "TransformComponent": {
                 "Position": {
@@ -15674,6 +15124,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15691,7 +15142,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 367
+                "EntityID": 356
             },
             "TransformComponent": {
                 "Position": {
@@ -15722,6 +15173,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15739,7 +15191,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 368
+                "EntityID": 357
             },
             "TransformComponent": {
                 "Position": {
@@ -15770,6 +15222,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15787,7 +15240,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 369
+                "EntityID": 358
             },
             "TransformComponent": {
                 "Position": {
@@ -15818,6 +15271,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15835,7 +15289,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 370
+                "EntityID": 359
             },
             "TransformComponent": {
                 "Position": {
@@ -15866,6 +15320,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15883,7 +15338,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 371
+                "EntityID": 360
             },
             "TransformComponent": {
                 "Position": {
@@ -15914,6 +15369,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -15931,7 +15387,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chandelier",
-                "EntityID": 372
+                "EntityID": 361
             },
             "TransformComponent": {
                 "Position": {
@@ -15963,7 +15419,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chandelier",
-                "EntityID": 373
+                "EntityID": 362
             },
             "TransformComponent": {
                 "Position": {
@@ -15995,7 +15451,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 374
+                "EntityID": 363
             },
             "TransformComponent": {
                 "Position": {
@@ -16027,7 +15483,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 375
+                "EntityID": 364
             },
             "TransformComponent": {
                 "Position": {
@@ -16059,7 +15515,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 376
+                "EntityID": 365
             },
             "TransformComponent": {
                 "Position": {
@@ -16091,7 +15547,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 377
+                "EntityID": 366
             },
             "TransformComponent": {
                 "Position": {
@@ -16123,7 +15579,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 378
+                "EntityID": 367
             },
             "TransformComponent": {
                 "Position": {
@@ -16154,6 +15610,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.0,
@@ -16171,7 +15628,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 379
+                "EntityID": 368
             },
             "TransformComponent": {
                 "Position": {
@@ -16202,6 +15659,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -16219,7 +15677,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 380
+                "EntityID": 369
             },
             "TransformComponent": {
                 "Position": {
@@ -16250,6 +15708,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -16267,7 +15726,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 381
+                "EntityID": 370
             },
             "TransformComponent": {
                 "Position": {
@@ -16298,6 +15757,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.0,
@@ -16315,7 +15775,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 382
+                "EntityID": 371
             },
             "TransformComponent": {
                 "Position": {
@@ -16346,6 +15806,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -16363,7 +15824,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 383
+                "EntityID": 372
             },
             "TransformComponent": {
                 "Position": {
@@ -16394,6 +15855,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -16411,7 +15873,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 384
+                "EntityID": 373
             },
             "TransformComponent": {
                 "Position": {
@@ -16442,6 +15904,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.0,
@@ -16459,7 +15922,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 385
+                "EntityID": 374
             },
             "TransformComponent": {
                 "Position": {
@@ -16490,6 +15953,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -16507,7 +15971,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 386
+                "EntityID": 375
             },
             "TransformComponent": {
                 "Position": {
@@ -16538,6 +16002,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -16555,7 +16020,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 387
+                "EntityID": 376
             },
             "TransformComponent": {
                 "Position": {
@@ -16586,6 +16051,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -16603,7 +16069,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 388
+                "EntityID": 377
             },
             "TransformComponent": {
                 "Position": {
@@ -16635,7 +16101,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 389
+                "EntityID": 378
             },
             "TransformComponent": {
                 "Position": {
@@ -16667,7 +16133,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 390
+                "EntityID": 379
             },
             "TransformComponent": {
                 "Position": {
@@ -16698,6 +16164,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.5,
@@ -16715,7 +16182,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 391
+                "EntityID": 380
             },
             "TransformComponent": {
                 "Position": {
@@ -16746,6 +16213,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.5,
@@ -16763,13 +16231,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 392
+                "EntityID": 381
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -2.1747522354125978,
+                    "x": -2.177121639251709,
                     "y": 9.025798797607422,
-                    "z": -40.78285217285156
+                    "z": -40.345863342285159
                 },
                 "Scale": {
                     "x": 0.9999983310699463,
@@ -16794,6 +16262,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.5,
@@ -16811,7 +16280,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Railing",
-                "EntityID": 393
+                "EntityID": 382
             },
             "TransformComponent": {
                 "Position": {
@@ -16842,6 +16311,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 4.699999809265137,
@@ -16859,7 +16329,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Railing",
-                "EntityID": 394
+                "EntityID": 383
             },
             "TransformComponent": {
                 "Position": {
@@ -16890,6 +16360,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 4.849999904632568,
@@ -16907,7 +16378,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Railing",
-                "EntityID": 395
+                "EntityID": 384
             },
             "TransformComponent": {
                 "Position": {
@@ -16938,6 +16409,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 8.449999809265137,
@@ -16955,7 +16427,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Railing",
-                "EntityID": 396
+                "EntityID": 385
             },
             "TransformComponent": {
                 "Position": {
@@ -16987,7 +16459,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 397
+                "EntityID": 386
             },
             "TransformComponent": {
                 "Position": {
@@ -17018,6 +16490,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -17035,7 +16508,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 398
+                "EntityID": 387
             },
             "TransformComponent": {
                 "Position": {
@@ -17066,6 +16539,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -17083,7 +16557,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 399
+                "EntityID": 388
             },
             "TransformComponent": {
                 "Position": {
@@ -17114,6 +16588,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -17131,7 +16606,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 400
+                "EntityID": 389
             },
             "TransformComponent": {
                 "Position": {
@@ -17162,6 +16637,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -17179,7 +16655,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 401
+                "EntityID": 390
             },
             "TransformComponent": {
                 "Position": {
@@ -17210,6 +16686,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -17227,7 +16704,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 402
+                "EntityID": 391
             },
             "TransformComponent": {
                 "Position": {
@@ -17258,6 +16735,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -17275,7 +16753,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 403
+                "EntityID": 392
             },
             "TransformComponent": {
                 "Position": {
@@ -17306,6 +16784,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -17323,7 +16802,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 404
+                "EntityID": 393
             },
             "TransformComponent": {
                 "Position": {
@@ -17354,6 +16833,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -17371,7 +16851,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 405
+                "EntityID": 394
             },
             "TransformComponent": {
                 "Position": {
@@ -17402,6 +16882,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -17419,7 +16900,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 406
+                "EntityID": 395
             },
             "TransformComponent": {
                 "Position": {
@@ -17450,6 +16931,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -17467,7 +16949,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 407
+                "EntityID": 396
             },
             "TransformComponent": {
                 "Position": {
@@ -17499,7 +16981,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 408
+                "EntityID": 397
             },
             "TransformComponent": {
                 "Position": {
@@ -17531,7 +17013,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 409
+                "EntityID": 398
             },
             "TransformComponent": {
                 "Position": {
@@ -17563,7 +17045,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 410
+                "EntityID": 399
             },
             "TransformComponent": {
                 "Position": {
@@ -17595,7 +17077,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 411
+                "EntityID": 400
             },
             "TransformComponent": {
                 "Position": {
@@ -17627,7 +17109,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 412
+                "EntityID": 401
             },
             "TransformComponent": {
                 "Position": {
@@ -17659,7 +17141,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 413
+                "EntityID": 402
             },
             "TransformComponent": {
                 "Position": {
@@ -17691,7 +17173,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 414
+                "EntityID": 403
             },
             "TransformComponent": {
                 "Position": {
@@ -17723,7 +17205,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 415
+                "EntityID": 404
             },
             "TransformComponent": {
                 "Position": {
@@ -17755,7 +17237,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 416
+                "EntityID": 405
             },
             "TransformComponent": {
                 "Position": {
@@ -17787,7 +17269,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 417
+                "EntityID": 406
             },
             "TransformComponent": {
                 "Position": {
@@ -17819,7 +17301,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 418
+                "EntityID": 407
             },
             "TransformComponent": {
                 "Position": {
@@ -17851,7 +17333,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 419
+                "EntityID": 408
             },
             "TransformComponent": {
                 "Position": {
@@ -17883,7 +17365,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 420
+                "EntityID": 409
             },
             "TransformComponent": {
                 "Position": {
@@ -17915,7 +17397,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 421
+                "EntityID": 410
             },
             "TransformComponent": {
                 "Position": {
@@ -17947,7 +17429,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 422
+                "EntityID": 411
             },
             "TransformComponent": {
                 "Position": {
@@ -17979,7 +17461,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 423
+                "EntityID": 412
             },
             "TransformComponent": {
                 "Position": {
@@ -18011,7 +17493,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 424
+                "EntityID": 413
             },
             "TransformComponent": {
                 "Position": {
@@ -18043,7 +17525,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 425
+                "EntityID": 414
             },
             "TransformComponent": {
                 "Position": {
@@ -18075,7 +17557,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 426
+                "EntityID": 415
             },
             "TransformComponent": {
                 "Position": {
@@ -18107,7 +17589,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 427
+                "EntityID": 416
             },
             "TransformComponent": {
                 "Position": {
@@ -18139,7 +17621,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 428
+                "EntityID": 417
             },
             "TransformComponent": {
                 "Position": {
@@ -18171,7 +17653,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 429
+                "EntityID": 418
             },
             "TransformComponent": {
                 "Position": {
@@ -18203,7 +17685,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 430
+                "EntityID": 419
             },
             "TransformComponent": {
                 "Position": {
@@ -18235,7 +17717,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 431
+                "EntityID": 420
             },
             "TransformComponent": {
                 "Position": {
@@ -18267,7 +17749,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 432
+                "EntityID": 421
             },
             "TransformComponent": {
                 "Position": {
@@ -18299,7 +17781,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 433
+                "EntityID": 422
             },
             "TransformComponent": {
                 "Position": {
@@ -18331,7 +17813,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 434
+                "EntityID": 423
             },
             "TransformComponent": {
                 "Position": {
@@ -18362,6 +17844,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.5,
@@ -18379,7 +17862,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WaterBucket",
-                "EntityID": 435
+                "EntityID": 424
             },
             "TransformComponent": {
                 "Position": {
@@ -18410,6 +17893,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -18427,13 +17911,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Puppy1",
-                "EntityID": 436
+                "EntityID": 425
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.855873107910156,
-                    "y": 0.7496002316474915,
-                    "z": -23.052207946777345
+                    "x": 0.15118521451950074,
+                    "y": 0.6999983787536621,
+                    "z": -6.415121555328369
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18442,7 +17926,7 @@
                 },
                 "Rotation": {
                     "x": 0.000018510450900066645,
-                    "y": -1.2295700311660767,
+                    "y": 4.400000095367432,
                     "z": -0.000004973816885467386
                 },
                 "RotationPivotOffset": {
@@ -18461,6 +17945,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": true,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.5,
@@ -18478,13 +17963,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Puppy2",
-                "EntityID": 437
+                "EntityID": 426
             },
             "TransformComponent": {
                 "Position": {
                     "x": 61.938568115234378,
                     "y": 7.064565658569336,
-                    "z": 4.742589473724365
+                    "z": 4.742566108703613
                 },
                 "Scale": {
                     "x": 0.49999740719795229,
@@ -18512,6 +17997,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": true,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.5,
@@ -18529,13 +18015,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Puppy3",
-                "EntityID": 438
+                "EntityID": 427
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -24.061195373535158,
-                    "y": 7.063960552215576,
-                    "z": -11.522831916809082
+                    "x": -24.06116485595703,
+                    "y": 7.063960075378418,
+                    "z": -11.522852897644043
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18563,6 +18049,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": true,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.5,
@@ -18580,7 +18067,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 439
+                "EntityID": 428
             },
             "TransformComponent": {
                 "Position": {
@@ -18616,7 +18103,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 440
+                "EntityID": 429
             },
             "TransformComponent": {
                 "Position": {
@@ -18652,7 +18139,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 441
+                "EntityID": 430
             },
             "TransformComponent": {
                 "Position": {
@@ -18688,7 +18175,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 442
+                "EntityID": 431
             },
             "TransformComponent": {
                 "Position": {
@@ -18724,7 +18211,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 443
+                "EntityID": 432
             },
             "TransformComponent": {
                 "Position": {
@@ -18760,7 +18247,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 444
+                "EntityID": 433
             },
             "TransformComponent": {
                 "Position": {
@@ -18796,7 +18283,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 445
+                "EntityID": 434
             },
             "TransformComponent": {
                 "Position": {
@@ -18832,7 +18319,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 446
+                "EntityID": 435
             },
             "TransformComponent": {
                 "Position": {
@@ -18868,7 +18355,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Drawbridge Node",
-                "EntityID": 447
+                "EntityID": 436
             },
             "TransformComponent": {
                 "Position": {
@@ -18904,7 +18391,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Staircase Node",
-                "EntityID": 448
+                "EntityID": 437
             },
             "TransformComponent": {
                 "Position": {
@@ -18940,7 +18427,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 449
+                "EntityID": 438
             },
             "TransformComponent": {
                 "Position": {
@@ -18965,15 +18452,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 477,
-                "EndNode": 487,
+                "StartNode": 0,
+                "EndNode": 1,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 450
+                "EntityID": 439
             },
             "TransformComponent": {
                 "Position": {
@@ -18998,15 +18485,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 487,
-                "EndNode": 476,
+                "StartNode": 0,
+                "EndNode": 2,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 451
+                "EntityID": 440
             },
             "TransformComponent": {
                 "Position": {
@@ -19031,15 +18518,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 476,
-                "EndNode": 473,
+                "StartNode": 1,
+                "EndNode": 3,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 452
+                "EntityID": 441
             },
             "TransformComponent": {
                 "Position": {
@@ -19064,15 +18551,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 473,
-                "EndNode": 472,
+                "StartNode": 2,
+                "EndNode": 6,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 453
+                "EntityID": 442
             },
             "TransformComponent": {
                 "Position": {
@@ -19097,15 +18584,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 472,
-                "EndNode": 470,
+                "StartNode": 3,
+                "EndNode": 4,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 454
+                "EntityID": 443
             },
             "TransformComponent": {
                 "Position": {
@@ -19130,15 +18617,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 470,
-                "EndNode": 469,
+                "StartNode": 4,
+                "EndNode": 5,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 455
+                "EntityID": 444
             },
             "TransformComponent": {
                 "Position": {
@@ -19163,15 +18650,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 469,
-                "EndNode": 471,
+                "StartNode": 5,
+                "EndNode": 6,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 456
+                "EntityID": 445
             },
             "TransformComponent": {
                 "Position": {
@@ -19196,15 +18683,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 471,
-                "EndNode": 475,
+                "StartNode": 4,
+                "EndNode": 7,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Node",
-                "EntityID": 457
+                "EntityID": 446
             },
             "TransformComponent": {
                 "Position": {
@@ -19240,7 +18727,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 458
+                "EntityID": 447
             },
             "TransformComponent": {
                 "Position": {
@@ -19265,15 +18752,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 475,
-                "EndNode": 474,
+                "StartNode": 7,
+                "EndNode": 10,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 459
+                "EntityID": 448
             },
             "TransformComponent": {
                 "Position": {
@@ -19298,15 +18785,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 474,
-                "EndNode": 473,
+                "StartNode": 7,
+                "EndNode": 9,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Level 1 Edge",
-                "EntityID": 460
+                "EntityID": 449
             },
             "TransformComponent": {
                 "Position": {
@@ -19331,81 +18818,15 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 473,
-                "EndNode": 476,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 1 Edge",
-                "EntityID": 461
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 476,
-                "EndNode": 487,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Level 1 Edge",
-                "EntityID": 462
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 487,
-                "EndNode": 477,
+                "StartNode": 10,
+                "EndNode": 8,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "RoyalChair",
-                "EntityID": 463
+                "EntityID": 450
             },
             "TransformComponent": {
                 "Position": {
@@ -19436,6 +18857,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -19453,7 +18875,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RoyalChair",
-                "EntityID": 464
+                "EntityID": 451
             },
             "TransformComponent": {
                 "Position": {
@@ -19484,6 +18906,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -19501,7 +18924,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RoyalChair",
-                "EntityID": 465
+                "EntityID": 452
             },
             "TransformComponent": {
                 "Position": {
@@ -19532,6 +18955,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.6499999761581421,
@@ -19549,7 +18973,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RoyalChair",
-                "EntityID": 466
+                "EntityID": 453
             },
             "TransformComponent": {
                 "Position": {
@@ -19580,6 +19004,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.6499999761581421,
@@ -19597,7 +19022,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 467
+                "EntityID": 454
             },
             "TransformComponent": {
                 "Position": {
@@ -19628,6 +19053,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
@@ -19645,7 +19071,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 468
+                "EntityID": 455
             },
             "TransformComponent": {
                 "Position": {
@@ -19676,6 +19102,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.9500000476837159,
@@ -19693,7 +19120,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 469
+                "EntityID": 456
             },
             "TransformComponent": {
                 "Position": {
@@ -19724,6 +19151,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
@@ -19741,7 +19169,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 470
+                "EntityID": 457
             },
             "TransformComponent": {
                 "Position": {
@@ -19772,6 +19200,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
@@ -19789,7 +19218,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 471
+                "EntityID": 458
             },
             "TransformComponent": {
                 "Position": {
@@ -19820,6 +19249,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -19837,7 +19267,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WaterBucket2",
-                "EntityID": 472
+                "EntityID": 459
             },
             "TransformComponent": {
                 "Position": {
@@ -19868,6 +19298,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -19885,7 +19316,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WaterBucket3",
-                "EntityID": 473
+                "EntityID": 460
             },
             "TransformComponent": {
                 "Position": {
@@ -19916,6 +19347,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -19933,7 +19365,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 474
+                "EntityID": 461
             },
             "TransformComponent": {
                 "Position": {
@@ -19964,6 +19396,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
@@ -19981,7 +19414,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 475
+                "EntityID": 462
             },
             "TransformComponent": {
                 "Position": {
@@ -20012,6 +19445,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.0,
@@ -20029,7 +19463,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WhiteParticle",
-                "EntityID": 476
+                "EntityID": 463
             },
             "TransformComponent": {
                 "Position": {
@@ -20094,7 +19528,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WhiteParticle",
-                "EntityID": 477
+                "EntityID": 464
             },
             "TransformComponent": {
                 "Position": {
@@ -20164,7 +19598,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WhiteParticle",
-                "EntityID": 478
+                "EntityID": 465
             },
             "TransformComponent": {
                 "Position": {
@@ -20229,7 +19663,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "YellowParticle",
-                "EntityID": 479
+                "EntityID": 466
             },
             "TransformComponent": {
                 "Position": {
@@ -20294,7 +19728,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "YellowParticle",
-                "EntityID": 480
+                "EntityID": 467
             },
             "TransformComponent": {
                 "Position": {
@@ -20359,7 +19793,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "YellowParticle",
-                "EntityID": 481
+                "EntityID": 468
             },
             "TransformComponent": {
                 "Position": {
@@ -20424,7 +19858,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "left particle",
-                "EntityID": 482
+                "EntityID": 469
             },
             "TransformComponent": {
                 "Position": {
@@ -20489,7 +19923,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "right particle",
-                "EntityID": 483
+                "EntityID": 470
             },
             "TransformComponent": {
                 "Position": {
@@ -20554,7 +19988,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RedParticle",
-                "EntityID": 484
+                "EntityID": 471
             },
             "TransformComponent": {
                 "Position": {
@@ -20619,7 +20053,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RedParticle",
-                "EntityID": 485
+                "EntityID": 472
             },
             "TransformComponent": {
                 "Position": {
@@ -20684,7 +20118,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "red particle",
-                "EntityID": 486
+                "EntityID": 473
             },
             "TransformComponent": {
                 "Position": {
@@ -20754,7 +20188,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 487
+                "EntityID": 474
             },
             "TransformComponent": {
                 "Position": {
@@ -20786,7 +20220,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 488
+                "EntityID": 475
             },
             "TransformComponent": {
                 "Position": {
@@ -20817,6 +20251,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.299999952316284,
@@ -20834,7 +20269,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoor",
-                "EntityID": 489
+                "EntityID": 476
             },
             "TransformComponent": {
                 "Position": {
@@ -20866,7 +20301,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 490
+                "EntityID": 477
             },
             "TransformComponent": {
                 "Position": {
@@ -20898,7 +20333,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 491
+                "EntityID": 478
             },
             "TransformComponent": {
                 "Position": {
@@ -20930,7 +20365,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 492
+                "EntityID": 479
             },
             "TransformComponent": {
                 "Position": {
@@ -20962,7 +20397,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 493
+                "EntityID": 480
             },
             "TransformComponent": {
                 "Position": {
@@ -20994,7 +20429,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 494
+                "EntityID": 481
             },
             "TransformComponent": {
                 "Position": {
@@ -21026,7 +20461,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 495
+                "EntityID": 482
             },
             "TransformComponent": {
                 "Position": {
@@ -21058,7 +20493,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 496
+                "EntityID": 483
             },
             "TransformComponent": {
                 "Position": {
@@ -21089,6 +20524,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.5,
@@ -21106,7 +20542,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 497
+                "EntityID": 484
             },
             "TransformComponent": {
                 "Position": {
@@ -21137,6 +20573,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
@@ -21154,7 +20591,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 498
+                "EntityID": 485
             },
             "TransformComponent": {
                 "Position": {
@@ -21185,6 +20622,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.299999952316284,
@@ -21202,7 +20640,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 499
+                "EntityID": 486
             },
             "TransformComponent": {
                 "Position": {
@@ -21233,6 +20671,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -21250,7 +20689,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wallcorner",
-                "EntityID": 500
+                "EntityID": 487
             },
             "TransformComponent": {
                 "Position": {
@@ -21282,7 +20721,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 501
+                "EntityID": 488
             },
             "TransformComponent": {
                 "Position": {
@@ -21313,6 +20752,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0499999523162842,
@@ -21330,7 +20770,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 502
+                "EntityID": 489
             },
             "TransformComponent": {
                 "Position": {
@@ -21361,6 +20801,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.8999999761581421,
@@ -21378,7 +20819,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 503
+                "EntityID": 490
             },
             "TransformComponent": {
                 "Position": {
@@ -21409,6 +20850,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.799999952316284,
@@ -21426,7 +20868,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 504
+                "EntityID": 491
             },
             "TransformComponent": {
                 "Position": {
@@ -21457,6 +20899,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -21474,7 +20917,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 505
+                "EntityID": 492
             },
             "TransformComponent": {
                 "Position": {
@@ -21501,28 +20944,12 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 506
+                "EntityID": 493
             },
             "TransformComponent": {
                 "Position": {
@@ -21553,6 +20980,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -21570,7 +20998,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 507
+                "EntityID": 494
             },
             "TransformComponent": {
                 "Position": {
@@ -21601,6 +21029,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
@@ -21618,7 +21047,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 508
+                "EntityID": 495
             },
             "TransformComponent": {
                 "Position": {
@@ -21649,6 +21078,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
@@ -21666,7 +21096,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 509
+                "EntityID": 496
             },
             "TransformComponent": {
                 "Position": {
@@ -21697,6 +21127,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -21714,7 +21145,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 510
+                "EntityID": 497
             },
             "TransformComponent": {
                 "Position": {
@@ -21745,6 +21176,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -21762,7 +21194,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 511
+                "EntityID": 498
             },
             "TransformComponent": {
                 "Position": {
@@ -21793,6 +21225,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -21810,7 +21243,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 512
+                "EntityID": 499
             },
             "TransformComponent": {
                 "Position": {
@@ -21845,13 +21278,13 @@
                 "LightDirectionX": -0.4000000059604645,
                 "LightDirectionY": -3.200000047683716,
                 "LightDirectionZ": -1.2999999523162842,
-                "LightRange": 30.799999237060548
+                "LightRange": 31.200000762939454
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 513
+                "EntityID": 500
             },
             "TransformComponent": {
                 "Position": {
@@ -21886,13 +21319,13 @@
                 "LightDirectionX": 1.0,
                 "LightDirectionY": 0.0,
                 "LightDirectionZ": 0.0,
-                "LightRange": 35.29999923706055
+                "LightRange": 40.20000076293945
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 514
+                "EntityID": 501
             },
             "TransformComponent": {
                 "Position": {
@@ -21927,13 +21360,13 @@
                 "LightDirectionX": 1.0,
                 "LightDirectionY": 0.0,
                 "LightDirectionZ": 0.0,
-                "LightRange": 41.79999923706055
+                "LightRange": 47.5
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 515
+                "EntityID": 502
             },
             "TransformComponent": {
                 "Position": {
@@ -21968,13 +21401,13 @@
                 "LightDirectionX": 1.0,
                 "LightDirectionY": 0.0,
                 "LightDirectionZ": 0.0,
-                "LightRange": 42.099998474121097
+                "LightRange": 47.900001525878909
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 516
+                "EntityID": 503
             },
             "TransformComponent": {
                 "Position": {
@@ -22005,6 +21438,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -22022,7 +21456,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 517
+                "EntityID": 504
             },
             "TransformComponent": {
                 "Position": {
@@ -22053,6 +21487,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -22070,7 +21505,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 518
+                "EntityID": 505
             },
             "TransformComponent": {
                 "Position": {
@@ -22101,6 +21536,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -22118,7 +21554,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 519
+                "EntityID": 506
             },
             "TransformComponent": {
                 "Position": {
@@ -22149,6 +21585,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -22166,7 +21603,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 520
+                "EntityID": 507
             },
             "TransformComponent": {
                 "Position": {
@@ -22197,6 +21634,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -22214,7 +21652,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 521
+                "EntityID": 508
             },
             "TransformComponent": {
                 "Position": {
@@ -22245,6 +21683,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
@@ -22262,7 +21701,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "TestObject",
-                "EntityID": 522
+                "EntityID": 509
             },
             "TransformComponent": {
                 "Position": {
@@ -22294,7 +21733,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "TestCollision",
-                "EntityID": 523
+                "EntityID": 510
             },
             "TransformComponent": {
                 "Position": {
@@ -22325,6 +21764,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -22342,7 +21782,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee1",
-                "EntityID": 524
+                "EntityID": 511
             },
             "TransformComponent": {
                 "Position": {
@@ -22374,7 +21814,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee1Collision",
-                "EntityID": 525
+                "EntityID": 512
             },
             "TransformComponent": {
                 "Position": {
@@ -22405,6 +21845,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -22422,7 +21863,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee2",
-                "EntityID": 526
+                "EntityID": 513
             },
             "TransformComponent": {
                 "Position": {
@@ -22454,7 +21895,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee2Collision",
-                "EntityID": 527
+                "EntityID": 514
             },
             "TransformComponent": {
                 "Position": {
@@ -22485,6 +21926,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -22502,7 +21944,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee3",
-                "EntityID": 528
+                "EntityID": 515
             },
             "TransformComponent": {
                 "Position": {
@@ -22534,7 +21976,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee3Collision",
-                "EntityID": 529
+                "EntityID": 516
             },
             "TransformComponent": {
                 "Position": {
@@ -22565,6 +22007,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -22582,7 +22025,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee4",
-                "EntityID": 530
+                "EntityID": 517
             },
             "TransformComponent": {
                 "Position": {
@@ -22614,7 +22057,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee4Collision",
-                "EntityID": 531
+                "EntityID": 518
             },
             "TransformComponent": {
                 "Position": {
@@ -22645,6 +22088,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -22662,7 +22106,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 532
+                "EntityID": 519
             },
             "TransformComponent": {
                 "Position": {
@@ -22693,6 +22137,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.6499999761581421,
@@ -22710,7 +22155,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 533
+                "EntityID": 520
             },
             "TransformComponent": {
                 "Position": {
@@ -22741,6 +22186,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -22758,7 +22204,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 534
+                "EntityID": 521
             },
             "TransformComponent": {
                 "Position": {
@@ -22789,6 +22235,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -22806,7 +22253,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 535
+                "EntityID": 522
             },
             "TransformComponent": {
                 "Position": {
@@ -22837,6 +22284,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -22854,7 +22302,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 536
+                "EntityID": 523
             },
             "TransformComponent": {
                 "Position": {
@@ -22885,6 +22333,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -22902,7 +22351,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 537
+                "EntityID": 524
             },
             "TransformComponent": {
                 "Position": {
@@ -22933,6 +22382,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -22950,7 +22400,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 538
+                "EntityID": 525
             },
             "TransformComponent": {
                 "Position": {
@@ -22981,6 +22431,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -22998,7 +22449,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 539
+                "EntityID": 526
             },
             "TransformComponent": {
                 "Position": {
@@ -23029,6 +22480,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -23046,7 +22498,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 540
+                "EntityID": 527
             },
             "TransformComponent": {
                 "Position": {
@@ -23077,6 +22529,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -23094,7 +22547,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 541
+                "EntityID": 528
             },
             "TransformComponent": {
                 "Position": {
@@ -23125,6 +22578,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -23142,7 +22596,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 542
+                "EntityID": 529
             },
             "TransformComponent": {
                 "Position": {
@@ -23173,6 +22627,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -23190,7 +22645,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 543
+                "EntityID": 530
             },
             "TransformComponent": {
                 "Position": {
@@ -23221,6 +22676,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -23238,7 +22694,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 544
+                "EntityID": 531
             },
             "TransformComponent": {
                 "Position": {
@@ -23269,6 +22725,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -23286,7 +22743,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 545
+                "EntityID": 532
             },
             "TransformComponent": {
                 "Position": {
@@ -23317,6 +22774,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -23334,7 +22792,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 546
+                "EntityID": 533
             },
             "TransformComponent": {
                 "Position": {
@@ -23365,6 +22823,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -23382,7 +22841,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 547
+                "EntityID": 534
             },
             "TransformComponent": {
                 "Position": {
@@ -23413,6 +22872,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -23430,7 +22890,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 548
+                "EntityID": 535
             },
             "TransformComponent": {
                 "Position": {
@@ -23461,6 +22921,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -23478,7 +22939,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 549
+                "EntityID": 536
             },
             "TransformComponent": {
                 "Position": {
@@ -23509,6 +22970,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -23526,7 +22988,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "StealthCollider1",
-                "EntityID": 550
+                "EntityID": 537
             },
             "TransformComponent": {
                 "Position": {
@@ -23557,6 +23019,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.5,
@@ -23574,7 +23037,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "StealthCollider2",
-                "EntityID": 551
+                "EntityID": 538
             },
             "TransformComponent": {
                 "Position": {
@@ -23605,6 +23068,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.5,
@@ -23622,7 +23086,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "StealthCollider3",
-                "EntityID": 552
+                "EntityID": 539
             },
             "TransformComponent": {
                 "Position": {
@@ -23653,6 +23117,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.5,
@@ -23670,7 +23135,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "StealthCollider4",
-                "EntityID": 553
+                "EntityID": 540
             },
             "TransformComponent": {
                 "Position": {
@@ -23701,6 +23166,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.5,
@@ -23718,7 +23184,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Cage1",
-                "EntityID": 554
+                "EntityID": 541
             },
             "TransformComponent": {
                 "Position": {
@@ -23750,7 +23216,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Cage1Collider",
-                "EntityID": 555
+                "EntityID": 542
             },
             "TransformComponent": {
                 "Position": {
@@ -23781,6 +23247,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.7000000476837159,
@@ -23798,7 +23265,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Cage2",
-                "EntityID": 556
+                "EntityID": 543
             },
             "TransformComponent": {
                 "Position": {
@@ -23830,7 +23297,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Cage2Collider",
-                "EntityID": 557
+                "EntityID": 544
             },
             "TransformComponent": {
                 "Position": {
@@ -23861,6 +23328,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.7000000476837159,
@@ -23878,7 +23346,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Cage3",
-                "EntityID": 558
+                "EntityID": 545
             },
             "TransformComponent": {
                 "Position": {
@@ -23910,7 +23378,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Cage3Collider",
-                "EntityID": 559
+                "EntityID": 546
             },
             "TransformComponent": {
                 "Position": {
@@ -23941,6 +23409,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.7000000476837159,
@@ -23958,7 +23427,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail1",
-                "EntityID": 560
+                "EntityID": 547
             },
             "TransformComponent": {
                 "Position": {
@@ -24033,7 +23502,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail2",
-                "EntityID": 561
+                "EntityID": 548
             },
             "TransformComponent": {
                 "Position": {
@@ -24108,7 +23577,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail3",
-                "EntityID": 562
+                "EntityID": 549
             },
             "TransformComponent": {
                 "Position": {

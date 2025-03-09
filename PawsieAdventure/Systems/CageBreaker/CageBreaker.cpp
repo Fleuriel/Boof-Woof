@@ -94,6 +94,13 @@ void CageBreaker::DespawnCage()
 	{
 		if (!deletedCage1) 
 		{
+			if (!playedCageSound1)  
+			{
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CageBreak.wav", false, "SFX");
+				playedCageSound1 = true;
+			}
+			g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/MetalCage.wav");
+
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage1);
 			g_Coordinator.DestroyEntity(cage1);
 
@@ -108,6 +115,13 @@ void CageBreaker::DespawnCage()
 	{
 		if (!deletedCage2)
 		{
+			if (!playedCageSound2)
+			{
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CageBreak.wav", false, "SFX");
+				playedCageSound2 = true;
+			}
+			g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/MetalCage.wav");
+
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage2);
 			g_Coordinator.DestroyEntity(cage2);
 
@@ -122,6 +136,14 @@ void CageBreaker::DespawnCage()
 	{
 		if (!deletedCage3)
 		{
+
+			if (!playedCageSound3)
+			{
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CageBreak.wav", false, "SFX");
+				playedCageSound3 = true;
+			}
+			g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/MetalCage.wav");
+
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage3);
 			g_Coordinator.DestroyEntity(cage3);
 

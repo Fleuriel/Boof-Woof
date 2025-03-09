@@ -64,7 +64,7 @@ int main()
     
 	// Clean up
 	//monitorThread.detach();
-	DLL_Support_Unload();
+	//DLL_Support_Unload();
     
 	return 0;
 }

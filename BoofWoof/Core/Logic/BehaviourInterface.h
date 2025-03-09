@@ -75,6 +75,7 @@ struct engine_interface
 	virtual void SetCollidingEntityName(Entity entity) = 0;
 	virtual void SetVelocity(Entity entity, glm::vec3 velocity) = 0;
 	virtual bool IsDynamic(Entity entity) = 0;
+	virtual bool IsKinematic(Entity entity) = 0;
 
 	// Pathfinding functions
 	virtual bool HavePathfindingComponent(Entity entity) = 0;
@@ -84,6 +85,8 @@ struct engine_interface
 	virtual void SetGoalNode(Entity entity, Entity node) = 0;
 	virtual Entity GetGoalNode(Entity entity) = 0;
 	virtual void SetBuilt(Entity entity, bool built) = 0;
+	virtual Entity GetNearestNode(Entity entity) = 0;
+	virtual Entity GetRandomNode(Entity entity) = 0;
 
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) = 0;
@@ -110,6 +113,8 @@ struct engine_interface
 
 	virtual bool MatchEntityName(Entity entity, const char* entityName) = 0;
 	virtual void SetDialogue(int dialogueState) = 0;
+
+	virtual double GetTRtimer() = 0;
 };
 
 #ifdef GAME_ENGINE
