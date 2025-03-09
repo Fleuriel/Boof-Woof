@@ -113,11 +113,11 @@ struct Puppy final : public Behaviour
 
             
             if (distance >= 10) {
-				// Teleport the puppy to the player
-				glm::vec3 temppos = playerPos;
-                temppos.y += 2;
-                //m_Engine.SetPosition(entity, playerPos);
-
+				// Teleport the puppy to the player behind
+				glm::vec3 playerDirection = glm::normalize(currentPos - playerPos);
+				glm::vec3 temppos = playerPos + playerDirection * 2.0f;
+				temppos.y = playerPos.y;
+				
                 std::cout << "[DEBUG] Before SetPosition: " << currentPos.x << ", " << currentPos.y << ", " << currentPos.z << std::endl;
 
                 // **Disable physics before teleporting**
