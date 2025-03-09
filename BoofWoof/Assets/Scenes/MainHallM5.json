@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "98380af3-a7a7-4f17-9c2c-000e4aee5438",
+    "SceneGUID": "3efbe375-d9fd-4569-af52-32c481fb0a7f",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.193232536315918,
+                    "x": -1.1932339668273926,
                     "y": 1.1806243658065797,
-                    "z": -0.675926923751831
+                    "z": -0.6759371161460877
                 },
                 "Scale": {
                     "x": 0.5,
@@ -64,7 +64,7 @@
                     "y": 1.0,
                     "z": 0.0
                 },
-                "Active": true
+                "Active": false
             }
         },
         {
@@ -11183,14 +11183,14 @@
                     "z": 17.93724822998047
                 },
                 "Scale": {
-                    "x": 2.299912691116333,
+                    "x": 2.299826145172119,
                     "y": 1.399999976158142,
-                    "z": 0.9998276829719544
+                    "z": 0.999783456325531
                 },
                 "Rotation": {
-                    "x": 0.0,
-                    "y": 1.5699999332427979,
-                    "z": 0.0
+                    "x": 3.1407370567321779,
+                    "y": -1.5696711540222169,
+                    "z": -3.14072585105896
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -18383,9 +18383,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 35.50279998779297,
+                    "x": 32.96507263183594,
                     "y": 1.8020007610321046,
-                    "z": 2.495389938354492
+                    "z": -21.593591690063478
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18431,9 +18431,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.855844020843506,
+                    "x": 4.855874061584473,
                     "y": 0.7496002316474915,
-                    "z": -23.052196502685548
+                    "z": -23.052207946777345
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18482,9 +18482,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 61.9385871887207,
+                    "x": 61.93856430053711,
                     "y": 7.064565658569336,
-                    "z": 4.742567539215088
+                    "z": 4.742595195770264
                 },
                 "Scale": {
                     "x": 0.49999740719795229,
@@ -18533,9 +18533,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -24.06116485595703,
-                    "y": 7.063960075378418,
-                    "z": -11.522851943969727
+                    "x": -24.061199188232423,
+                    "y": 7.063960552215576,
+                    "z": -11.522829055786133
                 },
                 "Scale": {
                     "x": 0.5,
@@ -19740,7 +19740,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Tablet",
+                "EntityName": "Table",
                 "EntityID": 470
             },
             "TransformComponent": {
@@ -19841,7 +19841,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 7.630624771118164,
+                    "x": 1.2179105281829835,
                     "y": 8.038005828857422,
                     "z": 7.912639617919922
                 },
@@ -19889,9 +19889,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 58.44986343383789,
+                    "x": 61.32075500488281,
                     "y": 8.050386428833008,
-                    "z": 17.307315826416017
+                    "z": -17.894906997680665
                 },
                 "Scale": {
                     "x": 1.0,
@@ -22267,7 +22267,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 15.005996704101563,
-                    "y": 0.32108771800994875,
+                    "y": 0.2690647542476654,
                     "z": 0.6278731822967529
                 },
                 "Scale": {
@@ -22298,8 +22298,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 14.897014617919922,
-                    "y": 0.25638115406036379,
+                    "x": 14.927407264709473,
+                    "y": -0.02066829800605774,
                     "z": 0.5615170001983643
                 },
                 "Scale": {
@@ -22346,9 +22346,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 47.66367721557617,
+                    "x": 38.097434997558597,
                     "y": 0.32108771800994875,
-                    "z": -32.235050201416019
+                    "z": -29.27793312072754
                 },
                 "Scale": {
                     "x": 1.0,
@@ -22378,9 +22378,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 47.725921630859378,
-                    "y": 0.07760941982269287,
-                    "z": -32.22460174560547
+                    "x": 38.15755844116211,
+                    "y": -0.019301965832710267,
+                    "z": -29.348037719726564
                 },
                 "Scale": {
                     "x": 1.0,
@@ -22427,7 +22427,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 54.44800567626953,
-                    "y": 6.538174629211426,
+                    "y": 6.527067184448242,
                     "z": -9.892024040222168
                 },
                 "Scale": {
@@ -22459,7 +22459,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 54.535091400146487,
-                    "y": 6.365664005279541,
+                    "y": 6.215185165405273,
                     "z": -10.048233985900879
                 },
                 "Scale": {
@@ -22539,7 +22539,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 43.40178298950195,
-                    "y": 6.365664005279541,
+                    "y": 6.22283935546875,
                     "z": 10.147505760192871
                 },
                 "Scale": {
@@ -22586,9 +22586,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 19.531274795532228,
+                    "x": 2.4749813079833986,
                     "y": 6.538174629211426,
-                    "z": 10.212916374206543
+                    "z": 17.466686248779298
                 },
                 "Scale": {
                     "x": 1.0,
@@ -22618,9 +22618,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 19.571834564208986,
-                    "y": 6.365664005279541,
-                    "z": 10.147505760192871
+                    "x": 2.5927584171295168,
+                    "y": 6.207836151123047,
+                    "z": 17.402359008789064
                 },
                 "Scale": {
                     "x": 1.0,
@@ -24025,9 +24025,9 @@
                     "b": 0.04313725605607033,
                     "a": 0.0
                 },
-                "ParticleType": "POINT",
+                "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
+                "ParticleTexture": "cloudOrange"
             }
         },
         {
@@ -24037,19 +24037,19 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 62.317378997802737,
+                    "x": 61.6402587890625,
                     "y": 7.08778190612793,
-                    "z": 4.373408317565918
+                    "z": 4.396580219268799
                 },
                 "Scale": {
-                    "x": 0.9999998807907105,
+                    "x": 0.9999940395355225,
                     "y": 0.9999998807907105,
-                    "z": 0.9999998807907105
+                    "z": 0.9999940395355225
                 },
                 "Rotation": {
-                    "x": 0.0000036517169519356686,
-                    "y": 1.1045565605163575,
-                    "z": 0.000005171398697711993
+                    "x": -3.1415884494781496,
+                    "y": 1.5365924835205079,
+                    "z": -3.1415863037109377
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -24064,9 +24064,9 @@
                     "z": 0.0
                 },
                 "PositionMax": {
-                    "x": 0.0,
+                    "x": 1.0,
                     "y": 0.5,
-                    "z": 0.0
+                    "z": 1.0
                 },
                 "Density": -1.0,
                 "VelocityMin": 1.0,
@@ -24100,9 +24100,9 @@
                     "b": 0.9372549057006836,
                     "a": 0.0
                 },
-                "ParticleType": "POINT",
+                "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
+                "ParticleTexture": "cloudBlue"
             }
         },
         {
@@ -24114,7 +24114,7 @@
                 "Position": {
                     "x": -24.727802276611329,
                     "y": 7.170868396759033,
-                    "z": -11.20660400390625
+                    "z": -11.764572143554688
                 },
                 "Scale": {
                     "x": 1.0,
@@ -24175,9 +24175,409 @@
                     "b": 0.8274509906768799,
                     "a": 0.0
                 },
-                "ParticleType": "POINT",
+                "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
+                "ParticleTexture": "cloudPink"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Pee5",
+                "EntityID": 563
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 23.138025283813478,
+                    "y": 0.32108771800994875,
+                    "z": -10.202733993530274
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "RexPee1",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Pee5Collision",
+                "EntityID": 564
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 23.259891510009767,
+                    "y": -0.019301965832710267,
+                    "z": -10.213871002197266
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.0,
+                    "y": 0.10000000149011612,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.25,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Pee6",
+                "EntityID": 565
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 51.050262451171878,
+                    "y": 6.538174629211426,
+                    "z": -20.98108673095703
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "RexPee1",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Pee6Collision",
+                "EntityID": 566
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 51.056209564208987,
+                    "y": 6.215185165405273,
+                    "z": -20.942089080810548
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.0,
+                    "y": 0.10000000149011612,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.25,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Table",
+                "EntityID": 567
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -9.462054252624512,
+                    "y": 8.014179229736329,
+                    "z": -10.648094177246094
+                },
+                "Scale": {
+                    "x": 1.5001670122146607,
+                    "y": 1.300018072128296,
+                    "z": 2.200026035308838
+                },
+                "Rotation": {
+                    "x": 2.6866190433502199,
+                    "y": -0.009628146886825562,
+                    "z": 1.5708385705947877
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Table2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.800000011920929,
+                    "y": 0.10000000149011612,
+                    "z": 2.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.75,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Table",
+                "EntityID": 568
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -14.906312942504883,
+                    "y": 7.989378929138184,
+                    "z": -8.095759391784668
+                },
+                "Scale": {
+                    "x": 1.5000001192092896,
+                    "y": 1.300029993057251,
+                    "z": 2.4000000953674318
+                },
+                "Rotation": {
+                    "x": 1.8770273923873902,
+                    "y": -0.009628980420529843,
+                    "z": 1.5708386898040772
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Table2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.800000011920929,
+                    "y": 0.10000000149011612,
+                    "z": 2.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.75,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Table",
+                "EntityID": 569
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.537545204162598,
+                    "y": 7.575494766235352,
+                    "z": -27.901012420654298
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 1.2999999523162842,
+                    "z": 3.100206136703491
+                },
+                "Rotation": {
+                    "x": -0.000003198821787009365,
+                    "y": 1.5652776956558228,
+                    "z": -0.0000031986362500902034
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Table2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.800000011920929,
+                    "y": 0.10000000149011612,
+                    "z": 2.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.75,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Table",
+                "EntityID": 570
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 4.602024555206299,
+                    "y": 9.873334884643555,
+                    "z": -26.894453048706056
+                },
+                "Scale": {
+                    "x": 1.4000244140625,
+                    "y": 1.399999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": 0.0065976534970104698,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bookshelf2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.7000000476837159,
+                    "y": 2.299999952316284,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Table",
+                "EntityID": 571
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.3217066526412964,
+                    "y": 9.87332820892334,
+                    "z": -26.92693519592285
+                },
+                "Scale": {
+                    "x": 1.4000507593154908,
+                    "y": 1.399999976158142,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": 0.006597323343157768,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bookshelf1",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.7000000476837159,
+                    "y": 2.299999952316284,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         }
     ]

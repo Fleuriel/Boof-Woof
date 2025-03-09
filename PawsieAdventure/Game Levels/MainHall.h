@@ -19,10 +19,10 @@ class MainHall : public Level
 	Entity FireSound{};
 
 	Entity TestPee{}, TestCollider{}; // Smell Avoidance
-	Entity pee1{}, pee2{}, pee3{}, pee4{}; // Smell Avoidance
-	Entity pee1Collider{}, pee2Collider{}, pee3Collider{}, pee4Collider{}; // Smell Avoidance
+	Entity pee1{}, pee2{}, pee3{}, pee4{}, pee5{}, pee6{}; // Smell Avoidance
+	Entity pee1Collider{}, pee2Collider{}, pee3Collider{}, pee4Collider{}, pee5Collider{}, pee6Collider{}; // Smell Avoidance
 
-	Entity Cage1{}, Cage1Collider{}, Cage2{}, Cage2Collider{}, Cage3{}, Cage3Collider{}; // Puppies
+	Entity Cage1{}, Cage1Collider{}, Cage2{}, Cage2Collider{}, Cage3{}, Cage3Collider{};
 	bool cage1Collided{ false }, cage2Collided{ false }, cage3Collided{ false };
 
 	Entity stealthCollider1{}, stealthCollider2{}, stealthCollider3{}, stealthCollider4{};
@@ -107,8 +107,9 @@ class MainHall : public Level
 		cameraController = new CameraController(playerEnt);
 		g_CageBreaker = CageBreaker(playerEnt, Cage1, Cage2, Cage3, Cage1Collider, Cage2Collider, Cage3Collider);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
-		g_SmellAvoidance = SmellAvoidance(playerEnt, pee1, pee2, pee3, pee4, pee1Collider, pee2Collider, pee3Collider, pee4Collider, 
-			WaterBucket, WaterBucket2, WaterBucket3, TestPee, TestCollider);
+		g_SmellAvoidance = SmellAvoidance(playerEnt, TestPee, TestCollider, pee1, pee2, pee3, pee4, pee5, pee6, pee1Collider, 
+			pee2Collider, pee3Collider, pee4Collider, pee5Collider, pee6Collider, WaterBucket, WaterBucket2, WaterBucket3);
+
 		g_Checklist.OnInitialize();
 		InitializeChecklist();
 		InitializeFireSound();
@@ -375,10 +376,14 @@ private:
 			{"Pee2", [&](Entity entity) { pee2 = entity; }},
 			{"Pee3", [&](Entity entity) { pee3 = entity; }},
 			{"Pee4", [&](Entity entity) { pee4 = entity; }},
+			{"Pee5", [&](Entity entity) { pee5 = entity; }},
+			{"Pee6", [&](Entity entity) { pee6 = entity; }},
 			{"Pee1Collision", [&](Entity entity) { pee1Collider = entity; }},
 			{"Pee2Collision", [&](Entity entity) { pee2Collider = entity; }},
 			{"Pee3Collision", [&](Entity entity) { pee3Collider = entity; }},
 			{"Pee4Collision", [&](Entity entity) { pee4Collider = entity; }},
+			{"Pee5Collision", [&](Entity entity) { pee5Collider = entity; }},
+			{"Pee6Collision", [&](Entity entity) { pee6Collider = entity; }},
 			{"WaterBucket", [&](Entity entity) { WaterBucket = entity; }},
 			{"WaterBucket2", [&](Entity entity) { WaterBucket2 = entity; }},
 			{"WaterBucket3", [&](Entity entity) { WaterBucket3 = entity; }},
@@ -402,8 +407,8 @@ private:
 	bool AllEntitiesInitialized() const
 	{
 		return playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3
-			&& pee1 && pee2 && pee3 && pee4 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider
-			&& Cage1 && Cage1Collider;
+			&& pee1 && pee2 && pee3 && pee4 && pee5 && pee6 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && pee5Collider && pee6Collider 
+			&& WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider && Cage1 && Cage1Collider;
 	}
 
 	void InitializeChecklist()
