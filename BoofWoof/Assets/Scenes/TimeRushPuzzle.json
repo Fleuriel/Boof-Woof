@@ -8043,7 +8043,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 19.595211029052736,
-                    "y": 0.15127122402191163,
+                    "y": 0.053305622190237048,
                     "z": -38.94662857055664
                 },
                 "Scale": {
@@ -8065,6 +8065,22 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -8075,7 +8091,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 19.595211029052736,
-                    "y": 0.15326273441314698,
+                    "y": 0.05765911936759949,
                     "z": -51.21894836425781
                 },
                 "Scale": {
@@ -8097,6 +8113,22 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -8107,7 +8139,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 26.587562561035158,
-                    "y": 0.137173593044281,
+                    "y": 0.05443340539932251,
                     "z": -51.18040084838867
                 },
                 "Scale": {
@@ -8129,6 +8161,22 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -8139,7 +8187,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 26.587562561035158,
-                    "y": 0.1275770664215088,
+                    "y": 0.05109071731567383,
                     "z": -38.883628845214847
                 },
                 "Scale": {
@@ -8161,6 +8209,22 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -8171,7 +8235,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 8.231480598449707,
-                    "y": 0.12579984962940217,
+                    "y": 0.05154973268508911,
                     "z": -48.547019958496097
                 },
                 "Scale": {
@@ -8193,6 +8257,22 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -8203,7 +8283,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 8.279597282409668,
-                    "y": 0.12579944729804994,
+                    "y": 0.06063288450241089,
                     "z": -55.19255447387695
                 },
                 "Scale": {
@@ -8225,6 +8305,22 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {

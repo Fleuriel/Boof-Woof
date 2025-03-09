@@ -772,13 +772,13 @@ Entity MyPhysicsSystem::Raycast(const glm::vec3& origin, const glm::vec3& direct
     return collector.hitEntity;
 }
 
-
 std::vector<Entity> MyPhysicsSystem::ConeRaycast(
     Entity entity,
     const glm::vec3& forwardDirection,
     float maxDistance,
     int numHorizontalRays, int numVerticalRays,
-    float coneAngle)
+    float horizontalFOVAngle, float verticalFOVAngle,  // User-defined angles
+    const glm::vec3& userOffset)
 {
     std::vector<Entity> detectedEntities;
 
@@ -795,34 +795,37 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycast(
     auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
     glm::vec3 aabbOffset = collisionComp.GetAABBOffset();
 
-    // Adjust the origin to the center of the entity
-    glm::vec3 adjustedOrigin = entityPosition + aabbOffset;
+    // Adjust the origin based on the user-defined offset
+    glm::vec3 adjustedOrigin = entityPosition + aabbOffset + userOffset;
 
-    //std::cout << "[PhysicsSystem] ConeRaycast Debugging -> Origin: " << adjustedOrigin.x << ", "
-    //    << adjustedOrigin.y << ", " << adjustedOrigin.z
-    //    << " | Forward Dir: " << forwardDirection.x << ", "
-    //    << forwardDirection.y << ", " << forwardDirection.z
-    //    << " | Max Distance: " << maxDistance << "\n";
+    // Compute right and upward vectors relative to forward
+    glm::vec3 rightVector = glm::cross(forwardDirection, glm::vec3(0.0f, 1.0f, 0.0f)); // Right vector
+    glm::vec3 upVector = glm::cross(rightVector, forwardDirection); // Upward vector
 
-    // Iterate over the cone angles using spherical coordinates
-    for (int h = 0; h < numHorizontalRays; h++)  // Horizontal spread
+    // Convert user-defined angles to radians
+    float horizontalAngleRad = glm::radians(horizontalFOVAngle);
+    float verticalAngleRad = glm::radians(verticalFOVAngle);
+
+    // Iterate over the cone angles using **local space spherical coordinates**
+    for (int h = 0; h < numHorizontalRays; h++)  // Spread horizontally
     {
-        float horizontalAngle = glm::radians(glm::mix(-coneAngle, coneAngle, float(h) / (numHorizontalRays - 1)));
+        float horizontalAngle = glm::mix(-horizontalAngleRad, horizontalAngleRad, float(h) / (numHorizontalRays - 1));
 
-        for (int v = 0; v < numVerticalRays; v++)  // Vertical spread
+        for (int v = 0; v < numVerticalRays; v++)  // Spread vertically (including downward)
         {
-            float verticalAngle = glm::radians(glm::mix(-coneAngle / 2.0f, coneAngle / 2.0f, float(v) / (numVerticalRays - 1)));
+            float verticalAngle = glm::mix(-verticalAngleRad, verticalAngleRad, float(v) / (numVerticalRays - 1));
 
-            // Compute rotated direction using glm::rotate (note: using rotate from <glm/gtc/matrix_transform.hpp>)
-            glm::vec3 rotatedDirection = glm::vec3(
+            // Apply horizontal rotation (around the Y-axis)
+            glm::vec3 rotatedDirection = glm::normalize(
                 glm::rotate(glm::mat4(1.0f), horizontalAngle, glm::vec3(0, 1, 0)) *
                 glm::vec4(forwardDirection, 0.0f)
             );
-            rotatedDirection = glm::vec3(
-                glm::rotate(glm::mat4(1.0f), verticalAngle, glm::vec3(1, 0, 0)) *
+
+            // Apply vertical tilt (around the right vector) to include downward angles
+            rotatedDirection = glm::normalize(
+                glm::rotate(glm::mat4(1.0f), verticalAngle, rightVector) *
                 glm::vec4(rotatedDirection, 0.0f)
             );
-            rotatedDirection = glm::normalize(rotatedDirection);
 
             // Construct the ray
             JPH::RRayCast ray(
@@ -847,34 +850,126 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycast(
                     entityName = g_Coordinator.GetComponent<MetadataComponent>(collector.hitEntity).GetName();
                 }
 
-                //// Debug log for hit entity
+                //std::cout << "[PhysicsSystem] Cone Ray HIT entity: " << collector.hitEntity
+                //    << " (" << entityName << ") at fraction: " << collector.closestFraction << std::endl;
+
+                if (RayCastDebug == true)
+                    GraphicsSystem::AddDebugLine(adjustedOrigin, hitPoint, glm::vec3(0.0f, 1.0f, 0.0f));  // Green for hit
+            }
+            else
+            {
+                if (RayCastDebug == true)
+                    GraphicsSystem::AddDebugLine(adjustedOrigin, adjustedOrigin + rotatedDirection * maxDistance, glm::vec3(1.0f, 0.0f, 0.0f));  // Red for miss
+            }
+        }
+    }
+
+    return detectedEntities;
+}
+
+std::vector<Entity> MyPhysicsSystem::ConeRaycastDownward(
+    Entity entity,
+    const glm::vec3& baseDirection,
+    float maxDistance,
+    int numLengthwiseRays, int numVerticalRays,
+    float coneAngle,
+    const glm::vec3& userOffset)
+{
+    std::vector<Entity> detectedEntities;
+
+    // Ensure entity exists
+    if (!g_Coordinator.HaveComponent<CollisionComponent>(entity) ||
+        !g_Coordinator.HaveComponent<TransformComponent>(entity))
+    {
+        std::cerr << "[PhysicsSystem] Error: Entity " << entity << " does not have necessary components!\n";
+        return detectedEntities;
+    }
+
+    // Get Entity Position and AABB offset
+    glm::vec3 entityPosition = g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition();
+    auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+    glm::vec3 aabbOffset = collisionComp.GetAABBOffset();
+    glm::vec3 entityScale = g_Coordinator.GetComponent<TransformComponent>(entity).GetScale();
+    glm::vec3 entityRotation = g_Coordinator.GetComponent<TransformComponent>(entity).GetRotation();
+
+    // Adjust the origin to the center of the entity
+    glm::vec3 adjustedOrigin = entityPosition + aabbOffset + userOffset;
+
+    // Compute the forward vector from rotation
+    float yaw = entityRotation.y;
+    glm::vec3 forward = glm::normalize(glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw)));
+
+    // Compute the right and up vectors relative to the forward direction
+    glm::vec3 rightVector = glm::cross(forward, glm::vec3(0.0f, 1.0f, 0.0f)); // Right vector (for lengthwise spread)
+    glm::vec3 downVector = glm::vec3(0.0f, -1.0f, 0.0f); // Always downward
+
+    // Iterate over the cone angles using Rex's local space (lengthwise spread along forward direction)
+    for (int l = 0; l < numLengthwiseRays; l++)  // Spread along the length of the dog
+    {
+        float lengthAngle = glm::radians(glm::mix(-coneAngle, coneAngle, float(l) / (numLengthwiseRays - 1)));
+
+        for (int v = 0; v < numVerticalRays; v++)  // Vertical spread
+        {
+            float verticalAngle = glm::radians(glm::mix(-coneAngle / 2.0f, coneAngle / 2.0f, float(v) / (numVerticalRays - 1)));
+
+            // Rotate the downward vector along the **rightVector** (spreading along the length of the dog)
+            glm::vec3 rotatedDirection = glm::normalize(
+                glm::rotate(glm::mat4(1.0f), lengthAngle, rightVector) *
+                glm::vec4(downVector, 0.0f)
+            );
+
+            // Apply vertical tilt
+            rotatedDirection = glm::normalize(
+                glm::rotate(glm::mat4(1.0f), verticalAngle, forward) *
+                glm::vec4(rotatedDirection, 0.0f)
+            );
+
+            // Construct the ray
+            JPH::RRayCast ray(
+                JPH::RVec3(adjustedOrigin.x, adjustedOrigin.y, adjustedOrigin.z),
+                JPH::Vec3(rotatedDirection.x, rotatedDirection.y, rotatedDirection.z) * maxDistance
+            );
+
+            // Create a custom collector for this ray
+            CustomRayCastCollector collector(entity);
+            const JPH::NarrowPhaseQuery& npQuery = mPhysicsSystem->GetNarrowPhaseQueryNoLock();
+            npQuery.CastRay(ray, JPH::RayCastSettings(), collector);
+
+            // If a hit is found (and ignore self-hits), compute the hit point:
+            if (collector.hitEntity != invalid_entity && collector.hitEntity != entity)
+            {
+                detectedEntities.push_back(collector.hitEntity);
+                glm::vec3 hitPoint = adjustedOrigin + rotatedDirection * collector.closestFraction * maxDistance;
+
+                // **Fetch entity name (if exists)**
+                std::string entityName = "Unknown";
+                if (g_Coordinator.HaveComponent<MetadataComponent>(collector.hitEntity)) {
+                    entityName = g_Coordinator.GetComponent<MetadataComponent>(collector.hitEntity).GetName();
+                }
+
+                // Debug log for hit entity
                 //std::cout << "[PhysicsSystem] Cone Ray HIT entity: " << collector.hitEntity
                 //    << " (" << entityName << ") at fraction: " << collector.closestFraction << std::endl;
 
                 // Draw a green debug line from the origin to the hit point
-                if(RayCastDebug == true)
+                if (RayCastDebug == true)
                     GraphicsSystem::AddDebugLine(adjustedOrigin, hitPoint, glm::vec3(0.0f, 1.0f, 0.0f));
-                //std::cout << "[PhysicsSystem] Hit Entity ID: " << collector.hitEntity << "\n";
             }
             else
             {
                 // No hit: draw a red debug line showing the full ray length
                 if (RayCastDebug == true)
                     GraphicsSystem::AddDebugLine(adjustedOrigin, adjustedOrigin + rotatedDirection * maxDistance, glm::vec3(1.0f, 0.0f, 0.0f));
-                //std::cout << "[PhysicsSystem] No Entity hit for this ray\n";
             }
 
             // For debugging: print the full ray endpoints
             glm::vec3 fullEndPoint = adjustedOrigin + rotatedDirection * maxDistance;
-            //std::cout << "[PhysicsSystem] Ray Origin: (" << adjustedOrigin.x << ", " << adjustedOrigin.y << ", " << adjustedOrigin.z
-            //    << ") -> End Point: (" << fullEndPoint.x << ", " << fullEndPoint.y << ", " << fullEndPoint.z
-            //    << ") with Direction: (" << rotatedDirection.x << ", " << rotatedDirection.y << ", " << rotatedDirection.z
-            //    << ") and Max Distance: " << maxDistance << "\n";
         }
     }
 
     return detectedEntities;
 }
+
 
 
 

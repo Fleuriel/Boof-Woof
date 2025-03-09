@@ -1,7 +1,8 @@
 #include "RopeBreaker.h"
 #include "../Checklist/Checklist.h"
+#include "../CageBreaker/CageBreaker.h"
 #include "../Core/AssetManager/FilePaths.h"
-#include "../Dialogue/Dialogue.h"
+#include "../Utilities/ForGame/Dialogue/Dialogue.h"
 #include <Level Manager/LevelManager.h>
 
 
@@ -9,7 +10,7 @@ RopeBreaker g_RopeBreaker;
 
 void RopeBreaker::OnUpdate(double deltaTime)
 {
-	if (!PlayerCollidedRope1 || !PlayerCollidedRope2)
+	if (!PlayerCollidedRope1 || !PlayerCollidedRope2) 
 	{
 		CheckCollision();
 	}
@@ -164,6 +165,8 @@ void RopeBreaker::SpawnBoneCatcher()
 	// If collide with rope then load
 	if (PlayerCollidedRope1 || PlayerCollidedRope2)
 	{
+		g_BoneCatcher.isRope = true;
+
 		// Only if dialogue not active then can do rope breaker.
 		if (!g_DialogueText.dialogueActive && !BoneSpawned)
 		{
@@ -188,7 +191,7 @@ void RopeBreaker::DespawnRope()
 				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
 				{
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/RopeSnap.wav", false, "SFX");
-
+					
 					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
 					g_Coordinator.DestroyEntity(entity);
 					g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");

@@ -38,11 +38,17 @@ struct physics_interface
 {
 	virtual void RemoveBody(Entity entity) = 0;
 	virtual Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity = INVALID_ENT) = 0;
-	//virtual std::vector<Entity> ConeRaycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, int numHorizontalRays, int numVerticalRays, float coneAngle, Entity ignoreEntity) = 0;
 	virtual std::vector<Entity> ConeRaycast(
 		Entity entity,
+		const glm::vec3& forwardDirection,
+		float maxDistance,
+		int numHorizontalRays, int numVerticalRays,
+		float horizontalFOVAngle, float verticalFOVAngle,  // User-defined angles
+		const glm::vec3& userOffset) = 0;
+	virtual std::vector<Entity> ConeRaycastDownward(
+		Entity entity,
 		const glm::vec3& direction, float maxDistance,
-		int numHorizontalRays, int numVerticalRays, float coneAngle) = 0;
+		int numHorizontalRays, int numVerticalRays, float coneAngle, const glm::vec3& userOffset) = 0;
 };
 
 struct engine_interface
@@ -101,7 +107,10 @@ struct engine_interface
 	virtual bool GetExhausted() = 0;
 
 	virtual bool GetStunned() = 0;
-};	
+
+	virtual bool MatchEntityName(Entity entity, const char* entityName) = 0;
+	virtual void SetDialogue(int dialogueState) = 0;
+};
 
 #ifdef GAME_ENGINE
 using GetScripts_cpp_t = std::vector<std::unique_ptr<Behaviour_i>>* (*)(engine_interface* pEI);

@@ -6,7 +6,8 @@
 // Reset purposes
 #include "../ChangeText/ChangeText.h" 
 #include "../Checklist/Checklist.h" 
-#include "../RopeBreaker/RopeBreaker.h" 
+#include "../RopeBreaker/RopeBreaker.h"
+#include "../CageBreaker/CageBreaker.h" 
 #include "../BoneCatcher/BoneCatcher.h" 
 #include "../SmellAvoidance/SmellAvoidance.h"
 #include "../../Utilities/ForGame/TimerTR/TimerTR.h"
@@ -450,5 +451,6 @@ namespace pauseLogic
 		g_BoneCatcher.ResetBC();
 		g_TimerTR.Reset();
 		g_SmellAvoidance.Reset();
+		g_CageBreaker.ResetCB();
 	}
 }

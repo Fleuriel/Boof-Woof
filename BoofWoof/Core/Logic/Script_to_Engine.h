@@ -13,6 +13,7 @@
 #include "../GSM/GameStateMachine.h"
 #include "../Utilities/ForGame/TimerTR/TimerTR.h"
 #include "../Utilities/ForGame/UI/UI.h"
+#include "../Utilities/ForGame/Dialogue/Dialogue.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
@@ -209,18 +210,25 @@ public:
 		return hitEntity;
 	}
 
-	//virtual std::vector<Entity> ConeRaycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, int numHorizontalRays, int numVerticalRays, float coneAngle, Entity ignoreEntity) override
-	//{
-	//	return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycast(origin, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle, ignoreEntity);
-	//}
-
 	virtual std::vector<Entity> ConeRaycast(
 		Entity entity,
-		const glm::vec3& direction, float maxDistance,
-		int numHorizontalRays, int numVerticalRays, float coneAngle) override
+		const glm::vec3& forwardDirection,
+		float maxDistance,
+		int numHorizontalRays, int numVerticalRays,
+		float horizontalFOVAngle, float verticalFOVAngle,  // User-defined angles
+		const glm::vec3& userOffset) override
 	{
-		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycast(entity, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle);
+		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycast(entity, forwardDirection, maxDistance, numHorizontalRays, numVerticalRays, horizontalFOVAngle, verticalFOVAngle, userOffset);
 	}
+
+	virtual std::vector<Entity> ConeRaycastDownward(
+		Entity entity,
+		const glm::vec3& direction, float maxDistance,
+		int numHorizontalRays, int numVerticalRays, float coneAngle, const glm::vec3& userOffset) override
+	{
+		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycastDownward(entity, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle, userOffset);
+	}
+
 	virtual bool IsDynamic(Entity entity) override
 	{
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
@@ -381,6 +389,24 @@ public:
 	virtual bool GetStunned() override
 	{
 		return g_UI.isStunned;
+	}
+
+	virtual bool MatchEntityName(Entity entity, const char* entityName)
+	{
+		if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) 
+		{			
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == entityName)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	virtual void SetDialogue(int dialogueState)
+	{
+		g_DialogueText.OnInitialize();
+		g_DialogueText.setDialogue(static_cast<DialogueState>(dialogueState));
 	}
 };
 
