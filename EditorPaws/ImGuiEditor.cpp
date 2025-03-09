@@ -2382,6 +2382,11 @@ void ImGuiEditor::InspectorWindow()
 									// Toggle Dynamic/Static checkbox
 									bool isDynamic = collisionComponent.IsDynamic();
 									if (ImGui::Checkbox("Dynamic", &isDynamic)) {
+										// Ensure only one mode is enabled at a time
+										if (isDynamic) {
+											collisionComponent.SetIsKinematic(false);  // Disable kinematic mode if dynamic is set
+										}
+
 										if (collisionComponent.IsDynamic() != isDynamic) {
 											collisionComponent.SetIsDynamic(isDynamic);
 											// Call UpdateEntityBody instead of removing and adding the entity again
@@ -2389,8 +2394,24 @@ void ImGuiEditor::InspectorWindow()
 										}
 									}
 
+									// Toggle Kinematic checkbox
+									bool isKinematic = collisionComponent.IsKinematic();
+									if (ImGui::Checkbox("Kinematic", &isKinematic)) {
+										collisionComponent.SetIsKinematic(isKinematic);
+
+										// Ensure only one mode is enabled at a time
+										if (isKinematic) {
+											collisionComponent.SetIsDynamic(false);  // Disable dynamic mode if kinematic is set
+										}
+
+										// Update the physics system to apply the changes
+										g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity, 0.0f);
+									}
+
 									// Debugging output for motion type
-									ImGui::Text("Current Motion Type: %s", isDynamic ? "Dynamic" : "Static");
+									ImGui::Text("Current Motion Type: %s",
+										collisionComponent.IsDynamic() ? "Dynamic" :
+										(collisionComponent.IsKinematic() ? "Kinematic" : "Static"));
 
 									// Checkbox to mark as player
 									bool isPlayer = collisionComponent.IsPlayer();

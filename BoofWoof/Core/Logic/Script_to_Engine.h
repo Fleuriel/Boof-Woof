@@ -141,7 +141,7 @@ public:
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
 		{
 			auto* body = g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody();
-			if (body->GetMotionType() == JPH::EMotionType::Dynamic)
+			if (body->GetMotionType() == JPH::EMotionType::Dynamic || body->GetMotionType() == JPH::EMotionType::Kinematic)
 			{
 				JPH::Vec3 velocity = body->GetLinearVelocity();
 				return glm::vec3(velocity.GetX(), velocity.GetY(), velocity.GetZ());
@@ -170,7 +170,7 @@ public:
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
 		{
 			auto* body = g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody();
-			if (body->GetMotionType() == JPH::EMotionType::Dynamic)
+			if (body->GetMotionType() == JPH::EMotionType::Dynamic || body->GetMotionType() == JPH::EMotionType::Kinematic)
 			{
 				JPH::Vec3 currentVelocity = body->GetLinearVelocity();
 
@@ -234,6 +234,15 @@ public:
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
 		{
 			return g_Coordinator.GetComponent<CollisionComponent>(entity).IsDynamic();
+		}
+		return false;
+	}
+
+	virtual bool IsKinematic(Entity entity) override
+	{
+		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
+		{
+			return g_Coordinator.GetComponent<CollisionComponent>(entity).IsKinematic();
 		}
 		return false;
 	}

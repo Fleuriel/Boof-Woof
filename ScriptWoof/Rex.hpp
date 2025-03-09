@@ -70,7 +70,7 @@ struct Rex final : public Behaviour
                 state = State::CHASE;
                 break;
             }
-			std::cout << "[Rex] Patrolling...\n";
+			//std::cout << "[Rex] Patrolling...\n";
 
             // Ensure path is properly initialized after resetting the scene
             if (!pathInitialized)
@@ -156,7 +156,7 @@ struct Rex final : public Behaviour
 
                 float distance = glm::length(targetPos - currentPos);
                 //std::cout << "[Pathfinding] Moving towards waypoint " << currentPathIndex + 1 << " at (" << targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << std::endl;
-                std::cout << "[Pathfinding] Distance to next waypoint: " << distance << std::endl;
+                //std::cout << "[Pathfinding] Distance to next waypoint: " << distance << std::endl;
 
                 // Check if the entity has reached the waypoint
                 if (distance <= pathThreshold)
@@ -315,18 +315,18 @@ struct Rex final : public Behaviour
             rayOffset
         );
 
-		if (!detectedObjects.empty()) {
-			//std::cout << "[Rex] Cone Raycast Detected Entities:\n";
-			for (Entity e : detectedObjects) {
-                std::cout << "   - Entity ID: " << e << "\n";
-                if (e == playerEntity) {
-					std::cout << "[Rex] Player detected in FOV.\n";
-                    std::cout << playerEntity << std::endl;
-                    return true;
-                }
-			}
-		}
-		std::cout << "[Rex] No objects detected in FOV.\n";
+		//if (!detectedObjects.empty()) {
+		//	//std::cout << "[Rex] Cone Raycast Detected Entities:\n";
+		//	for (Entity e : detectedObjects) {
+  //              std::cout << "   - Entity ID: " << e << "\n";
+  //              if (e == playerEntity) {
+		//			std::cout << "[Rex] Player detected in FOV.\n";
+  //                  std::cout << playerEntity << std::endl;
+  //                  return true;
+  //              }
+		//	}
+		//}
+		//std::cout << "[Rex] No objects detected in FOV.\n";
 		return false;
     }
 
@@ -392,7 +392,6 @@ struct Rex final : public Behaviour
 
     }
 
-
     void SingleRayCheck(Entity rexEntity, glm::vec3 currentPos) {
         rexRotation = m_Engine.GetRotation(rexEntity); // Get yaw rotation
 
@@ -412,8 +411,6 @@ struct Rex final : public Behaviour
             std::cout << "[Rex] Single Ray Test: No objects detected in front." << std::endl;
         }
     }
-
-
 
 
 };
