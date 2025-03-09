@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "76c094d0-aa10-4771-b081-b0fe9f426413",
+    "SceneGUID": "590dcd08-9b07-4976-8c7d-9e9df86d83e8",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.3043590188026428,
-                    "y": 1.311216115951538,
-                    "z": -2.3281211853027345
+                    "x": -0.9193589687347412,
+                    "y": 1.3112159967422486,
+                    "z": -2.8209004402160646
                 },
                 "Scale": {
                     "x": 0.5,
@@ -3094,6 +3094,47 @@
                 "LightDirectionY": 0.0,
                 "LightDirectionZ": 0.0,
                 "LightRange": 13.399999618530274
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 64
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 15.902165412902832,
+                    "y": 6.677865505218506,
+                    "z": 16.098011016845704
+                },
+                "Scale": {
+                    "x": 0.15000000596046449,
+                    "y": 0.15000000596046449,
+                    "z": 0.15000000596046449
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 1.5,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 0.6000000238418579,
+                "LightDirectionY": -0.10000000149011612,
+                "LightDirectionZ": 4.400000095367432,
+                "LightRange": 6.0
             }
         }
     ]

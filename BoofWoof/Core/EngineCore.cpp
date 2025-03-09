@@ -218,6 +218,10 @@ void EngineCore::OnUpdate()
 	{
 		mTransformSys->Update();
 	}
+	{
+		// Pathfinding
+		mPathfindingSys->Update(static_cast<float>(m_DeltaTime));
+	}
 
 
 	{
@@ -228,28 +232,6 @@ void EngineCore::OnUpdate()
 	}
 	
 
-	//if (mPathfindingSys->FindPath(start, goal, path)) {
-	//	// Output path to console
-	//	std::cout << "Path found:\n";
-	//	for (auto i = 0u; i < path.size(); ++i) {
-	//		std::cout << "(" << path[i].x << ", " << path[i].y << ", " << path[i].z << ")\n";
-	//	}
-
-	//	// Visualize path with red lines
-	//	for (auto i = 0u; i + 1 < path.size(); ++i) {
-	//		// Convert grid cell to world space if needed
-	//		glm::vec3 startPos = glm::vec3(path[i].x, path[i].y, path[i].z);
-	//		glm::vec3 endPos = glm::vec3(path[i + 1].x, path[i + 1].y, path[i + 1].z);
-
-	//		// Add a red debug line
-	//		mGraphicsSys->AddDebugLine(startPos, endPos, glm::vec3(1.0f, 0.0f, 0.0f));
-	//	}
-	//}
-
-	//else {
-	//	//std::cout << "no path found.\n";
-	//}
-
 	{
 		// UI
 		mUISys->UI_update();
@@ -258,33 +240,6 @@ void EngineCore::OnUpdate()
 	{
 		// Font
 		mFontSys->update();
-	}
-	{
-		// Pathfinding
-		mPathfindingSys->Update(static_cast<float>(m_DeltaTime));
-	}
-
-	static bool drawTestLinesOnce = true;
-	if (drawTestLinesOnce)
-	{
-		// We'll draw a big red X, Y, Z cross, each spanning 50 units in each direction
-
-		// X-Axis (red)
-		GraphicsSystem::AddDebugLine(glm::vec3(-50.0f, 0.0f, 0.0f),
-			glm::vec3(50.0f, 0.0f, 0.0f),
-			glm::vec3(1.0f, 0.0f, 0.0f));
-
-		// Y-Axis (green)
-		GraphicsSystem::AddDebugLine(glm::vec3(0.0f, -50.0f, 0.0f),
-			glm::vec3(0.0f, 50.0f, 0.0f),
-			glm::vec3(0.0f, 1.0f, 0.0f));
-
-		// Z-Axis (blue)
-		GraphicsSystem::AddDebugLine(glm::vec3(0.0f, 0.0f, -50.0f),
-			glm::vec3(0.0f, 0.0f, 50.0f),
-			glm::vec3(0.0f, 0.0f, 1.0f));
-
-		drawTestLinesOnce = false;
 	}
 
 
