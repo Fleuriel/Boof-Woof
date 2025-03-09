@@ -44,6 +44,11 @@ private:
     glm::vec3 pee1Pos, pee2Pos, pee3Pos, pee4Pos;
     glm::vec3 pee1NewPos, pee2NewPos, pee3NewPos, pee4NewPos;
 
+    bool isFading = false;
+    float fadeTimer = 0.0f;
+    float fadeDuration = 2.0f; // 2-second fade
+
+
     double timer = 0.0;
     double timerLimit = 10.0;
     double timesUp = 2.0;
@@ -55,7 +60,7 @@ private:
     bool testCollided;
     bool rexPee1collided, rexPee2collided, rexPee3collided, rexPee4collided;
     bool waterBucketcollided, waterBucket2collided, waterBucket3collided;
-    bool firstPeeTouched{ false };
+    bool touchedPee{ false };
 };
 
 extern SmellAvoidance g_SmellAvoidance;
