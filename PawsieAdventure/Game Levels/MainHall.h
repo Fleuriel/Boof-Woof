@@ -375,6 +375,8 @@ class MainHall : public Level
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav");
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/MetalCage.wav");
+
 
 		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
