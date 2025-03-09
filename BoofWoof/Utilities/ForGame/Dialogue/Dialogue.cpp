@@ -33,19 +33,24 @@ void Dialogue::OnInitialize()
 
 void Dialogue::OnUpdate(double deltaTime)
 {
-	// Reduce cooldown timer every frame
+	// Only update if dialogue is active.
+	if (!dialogueActive)
+		return;
+
+	// Reduce cooldown timer every frame.
 	if (clickCooldown > 0)
 	{
 		clickCooldown -= static_cast<float>(deltaTime);
 	}
 
-	// Check if mouse is clicked and cooldown has expired
+	// Process left click only when cooldown is expired.
 	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && clickCooldown <= 0.0f)
 	{
 		ProcessDialogue();
-		clickCooldown = 0.2f;  // Set cooldown (prevents multiple clicks registering in one frame)
+		clickCooldown = 0.2f;  // Prevent multiple clicks in one frame.
 	}
 }
+
 
 void Dialogue::OnShutdown()
 {

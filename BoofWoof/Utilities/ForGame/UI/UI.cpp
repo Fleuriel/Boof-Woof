@@ -145,7 +145,7 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 			if (g_Coordinator.HaveComponent<ParticleComponent>(particleEntity))
 			{
 				ParticleComponent& particle = g_Coordinator.GetComponent<ParticleComponent>(particleEntity);
-				particle.setOpacity(1.0f);
+				particle.setOpacity(0.5f);
 			}
 		}
 
