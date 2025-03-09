@@ -388,6 +388,7 @@ class MainHall : public Level
 		g_Checklist.shutted = false;
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
 		puppy1Collided = puppy2Collided = puppy3Collided = false;
+		dialogueFirst = dialogueSecond = dialogueThird = false;
 
 		puppiesCollected = 0;
 	}
