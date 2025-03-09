@@ -5,7 +5,7 @@
 #include "../Systems/CameraController/CameraController.h"
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
-#include "../Systems/Dialogue/Dialogue.h"
+#include "../Utilities/ForGame/Dialogue/Dialogue.h"
 #include "../Utilities/ForGame/UI/UI.h"
 #include "LoadingLevel.h"
 
@@ -14,15 +14,35 @@ class StartingRoom : public Level
 public:
 	Entity playerEnt{}, scentEntity{};
 	CameraController* cameraController = nullptr;
-	bool bark{ false }, sniff{ false };
+	bool bark{ false }, sniff{ false }, initChecklist{ false };
 	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{}, FireSound{};
 
 	std::vector<Entity> particleEntities;
 
+
+	std::vector<std::string> bitingSounds = {
+	"Corgi/DogBite_01.wav",
+	"Corgi/DogBite_02.wav",
+	"Corgi/DogBite_03.wav",
+	"Corgi/DogBite_04.wav",
+	"Corgi/DogBite_05.wav",
+	"Corgi/DogBite_06.wav",
+	"Corgi/DogBite_07.wav",
+	};
+
+
+	// Function to get a random sound from a vector
+	std::string GetRandomSound(const std::vector<std::string>& soundList) {
+		static std::random_device rd;
+		static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+		std::uniform_int_distribution<std::size_t> dis(0, soundList.size() - 1);
+		return soundList[dis(gen)];
+	}
+
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/StartingRoom_Light.json");
-		g_ChangeText.OnInitialize();
+		g_DialogueText.OnInitialize();
 		g_DialogueText.setDialogue(DialogueState::TUTORIALSTART);
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav", true, "SFX");
 
@@ -128,14 +148,24 @@ public:
 			g_UI.OnUpdate(static_cast<float>(deltaTime));
 			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
 
-			if (!g_ChangeText.shutted)
+			if (g_DialogueText.dialogueActive)
 			{				
-				g_ChangeText.OnUpdate(deltaTime);
+				g_DialogueText.OnUpdate(deltaTime);
 			}
 			else 
 			{
 				// let the change text finish first then allow pauseLogic
 				pauseLogic::OnUpdate();
+
+				if (!initChecklist) 
+				{
+					g_Checklist.OnInitialize();
+					g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do1");
+					g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.15f, 0.05f), "Do2");
+					g_Checklist.ChangeAsset(g_Checklist.Do3, glm::vec2(0.15f, 0.05f), "Do3");
+					g_Checklist.ChangeAsset(g_Checklist.Do4, glm::vec2(0.15f, 0.05f), "Do4");
+					initChecklist = true;
+				}
 			}
 
 			if (!g_Checklist.shutted)
@@ -165,13 +195,18 @@ public:
 			// Take this away once u shift to script
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
 			{
-				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiBark))
-				{
-					auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiBark);
-					music1.PlayAudio();
-				}
+				std::string biteSound = FILEPATH_ASSET_AUDIO + "/" + GetRandomSound(bitingSounds);
+				g_Audio.PlayFileOnNewChannel(biteSound.c_str(), false, "SFX");
+
 				bark = true;
+
+				// Reset bark after a short delay to allow multiple bites
+				std::thread([&]() {
+					std::this_thread::sleep_for(std::chrono::milliseconds(500)); // 500ms delay
+					bark = false;
+					}).detach();
 			}
+
 
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 0)
 			{
@@ -195,7 +230,7 @@ public:
 			}
 			// until here
 
-			if (g_Checklist.shutted && g_ChangeText.shutted)
+			if (g_Checklist.shutted && !g_DialogueText.dialogueActive)
 			{
 				if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
 				{
@@ -210,7 +245,7 @@ public:
 			}
 		}	
 
-		if (g_ChangeText.shutted) 
+		if (!g_DialogueText.dialogueActive)
 		{
 			pauseLogic::OnUpdate();
 		}

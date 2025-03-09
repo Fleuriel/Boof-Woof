@@ -197,6 +197,8 @@ void UI::Sprint(float dt)
 	static bool isSprinting = false; // Track sprint state
 	static float stunTimer = 0.0f; // Stun lock timer
 	static float delayedRegenTimer = 0.0f; // Extra delay for first pellet regen
+	static bool pantingSoundPlaying = false; // ? Track if panting sound is playing
+
 
 	// Ensure we have 5 pellets
 	if (pellets.size() < 5)
@@ -205,13 +207,24 @@ void UI::Sprint(float dt)
 	// StunLock 
 	if (isStunned) 
 	{
+
 		sprinto.set_playing(false);
 		stunTimer += dt;
+
+
+		if (!pantingSoundPlaying)
+		{
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiPanting.wav", true, "SFX"); // ? Play as looping SFX
+			pantingSoundPlaying = true;
+		}
+
 		if (stunTimer >= 3.0f) 
 		{
 			isStunned = false;
 			stunTimer = 0.0f;
 			delayedRegenTimer = 0.0f; // Start delayed regeneration
+			g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/CorgiPanting.wav");
+			pantingSoundPlaying = false;
 		}
 		return; // Exit early while stunned
 	}
@@ -243,11 +256,18 @@ void UI::Sprint(float dt)
 		if (staminaIndex == -1)
 		{
 			isExhausted = true; // Prevent further sprinting
+
 			isStunned = true;    // Apply stun lock
 			stunTimer = 0.0f;    // Reset stun timer
 
-			// insert heavy huff puff sound here
+			//// insert heavy huff puff sound here
+			//if (isStunned == true) {
+			//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiPanting.wav", false, "SFX");
+			//}
+		
+
 		}
+	
 	}
 	else
 	{

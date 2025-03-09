@@ -4,6 +4,7 @@
 #include "../Systems/CameraController/CameraController.h"
 #include "../Systems/BoneCatcher/BoneCatcher.h"
 #include "../Systems/RopeBreaker/RopeBreaker.h"
+#include "../Systems/CageBreaker/CageBreaker.h"
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
 #include "../Systems/SmellAvoidance/SmellAvoidance.h"
@@ -21,6 +22,9 @@ class MainHall : public Level
 	Entity pee1{}, pee2{}, pee3{}, pee4{}; // Smell Avoidance
 	Entity pee1Collider{}, pee2Collider{}, pee3Collider{}, pee4Collider{}; // Smell Avoidance
 
+	Entity Cage1{}, Cage1Collider{}, Cage2{}, Cage2Collider{}, Cage3{}, Cage3Collider{}; // Puppies
+	bool cage1Collided{ false }, cage2Collided{ false }, cage3Collided{ false };
+
 	// Camera
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
@@ -33,12 +37,33 @@ class MainHall : public Level
 	bool isColorChanged{false}, sniffa{ false };
 
 	// Puppies
-	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
 	int puppiesCollected = 0;
+	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
 	bool puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
 	bool dialogueFirst{ false }, dialogueSecond{ false }, dialogueThird{ false };
 
 	std::vector<Entity> particleEntities;
+
+	bool bark = false;
+
+	std::vector<std::string> bitingSounds = {
+	"Corgi/DogBite_01.wav",
+	"Corgi/DogBite_02.wav",
+	"Corgi/DogBite_03.wav",
+	"Corgi/DogBite_04.wav",
+	"Corgi/DogBite_05.wav",
+	"Corgi/DogBite_06.wav",
+	"Corgi/DogBite_07.wav",
+		};
+
+
+	// Function to get a random sound from a vector
+	std::string GetRandomSound(const std::vector<std::string>& soundList) {
+		static std::random_device rd;
+		static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+		std::uniform_int_distribution<std::size_t> dis(0, soundList.size() - 1);
+		return soundList[dis(gen)];
+	}
 
 	void LoadLevel() override
 	{
@@ -76,8 +101,10 @@ class MainHall : public Level
 	void InitLevel() override
 	{
 		cameraController = new CameraController(playerEnt);
+		g_CageBreaker = CageBreaker(playerEnt, Cage1, Cage2, Cage3, Cage1Collider, Cage2Collider, Cage3Collider);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
-		g_SmellAvoidance = SmellAvoidance(playerEnt, pee1, pee2, pee3, pee4, pee1Collider, pee2Collider, pee3Collider, pee4Collider, WaterBucket, WaterBucket2, WaterBucket3, TestPee, TestCollider);
+		g_SmellAvoidance = SmellAvoidance(playerEnt, pee1, pee2, pee3, pee4, pee1Collider, pee2Collider, pee3Collider, pee4Collider, 
+			WaterBucket, WaterBucket2, WaterBucket3, TestPee, TestCollider);
 		g_Checklist.OnInitialize();
 		InitializeChecklist();
 		InitializeFireSound();
@@ -141,6 +168,8 @@ class MainHall : public Level
 
 			if (!collectedPuppy1 || !collectedPuppy2 || !collectedPuppy3)
 			{
+				//CheckCageCollision();
+				g_CageBreaker.OnUpdate(deltaTime);
 				CheckPuppyCollision();
 			}
 
@@ -153,8 +182,12 @@ class MainHall : public Level
 
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", true, "SFX");
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav", false, "SFX");
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav", true, "BGM");
+
 
 					g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", 0.4f);
+					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav");
+
 
 				}
 				g_TimerTR.OnUpdate(deltaTime);
@@ -175,7 +208,8 @@ class MainHall : public Level
 					timesUp -= deltaTime;
 
 					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
-					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
+					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");			
+					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav");
 
 
 					// Times up! sound
@@ -192,10 +226,14 @@ class MainHall : public Level
 							loading->m_NextScene = "MainHall";
 							g_LevelManager.SetNextLevel("LoadingLevel");
 							g_TimerTR.OnShutdown();
+							g_DialogueText.OnShutdown();
 						}
 					}
 				}
 			}
+
+			// just for speed testing to rope breaker
+			//collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
 
 			if (collectedPuppy1 && collectedPuppy2 && collectedPuppy3 && !chgChecklist)
 			{
@@ -246,6 +284,21 @@ class MainHall : public Level
 				cooldownTimer = 0.0;
 			}
 
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
+			{
+				std::string biteSound = FILEPATH_ASSET_AUDIO + "/" + GetRandomSound(bitingSounds);
+				g_Audio.PlayFileOnNewChannel(biteSound.c_str(), false, "SFX");
+
+				bark = true;
+
+				// Reset bark after a short delay to allow multiple bites
+				std::thread([&]() {
+					std::this_thread::sleep_for(std::chrono::milliseconds(500)); // 500ms delay
+					bark = false;
+					}).detach();
+			}
+
+
 			if (isColorChanged)
 			{
 				colorChangeTimer += deltaTime;
@@ -275,6 +328,8 @@ class MainHall : public Level
 		}
 
 		g_UI.OnShutdown();
+		g_TimerTR.OnShutdown();
+		g_DialogueText.OnShutdown();
 	}
 
 	void UnloadLevel() override
@@ -291,10 +346,7 @@ class MainHall : public Level
 		// Ensure RESET for game to be replayable
 		g_Checklist.shutted = false;
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
-		//playercollided = false;
 		puppy1Collided = puppy2Collided = puppy3Collided = false;
-
-		g_TimerTR.OnShutdown();
 	}
 
 private:
@@ -324,14 +376,21 @@ private:
 			{"WaterBucket3", [&](Entity entity) { WaterBucket3 = entity; }},
 			{"red particle", [&](Entity entity) { FireSound = entity; }},
 			{"TestObject", [&](Entity entity) { TestPee = entity; }},
-			{"TestCollision", [&](Entity entity) { TestCollider = entity; }}
+			{"TestCollision", [&](Entity entity) { TestCollider = entity; }},
+			{"Cage1", [&](Entity entity) { Cage1 = entity; }},
+			{"Cage1Collider", [&](Entity entity) { Cage1Collider = entity; }},
+			{"Cage2", [&](Entity entity) { Cage2 = entity; }},
+			{"Cage2Collider", [&](Entity entity) { Cage2Collider = entity; }},
+			{"Cage3", [&](Entity entity) { Cage3 = entity; }},
+			{"Cage3Collider", [&](Entity entity) { Cage3Collider = entity; }},
 		};
 	}
 
 	bool AllEntitiesInitialized() const
 	{
 		return playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3
-			&& pee1 && pee2 && pee3 && pee4 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider;
+			&& pee1 && pee2 && pee3 && pee4 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider
+			&& Cage1 && Cage1Collider;
 	}
 
 	void InitializeChecklist()
@@ -361,12 +420,12 @@ private:
 		}
 	}
 
-	bool CheckEntityWithPlayerCollision(Entity entity)
+	bool CheckEntityWithPlayerCollision(Entity entity) const
 	{
 		//Check Entity Collision with Player
 		if (g_Coordinator.HaveComponent<CollisionComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
 		{
-			auto collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
+			auto& collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
 			if(collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), "Player") == 0)
 				return true;
 		}
@@ -384,14 +443,18 @@ private:
 			puppiesCollected++;
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
 			collectedPuppy1 = true;
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark1.wav", false, "SFX");
+
+
 		}
 
 		if (puppy2Collided && !collectedPuppy2)
 		{
 			puppiesCollected++;
-			std::cout << "hello\n" << std::endl;
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
 			collectedPuppy2 = true;
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark2.wav", false, "SFX");
+
 		}
 
 		if (puppy3Collided && !collectedPuppy3)
@@ -399,6 +462,8 @@ private:
 			puppiesCollected++;
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
 			collectedPuppy3 = true;
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark3.wav", false, "SFX");
+
 		}
 
 		if (puppiesCollected == 1 && !dialogueFirst)

@@ -36,10 +36,10 @@
     <ClCompile Include="Systems\PauseScreen\PauseScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\Dialogue\Dialogue.cpp">
+    <ClCompile Include="Systems\SmellAvoidance\SmellAvoidance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\SmellAvoidance\SmellAvoidance.cpp">
+    <ClCompile Include="Systems\CageBreaker\CageBreaker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,9 +86,6 @@
     <ClInclude Include="Game Levels\LoadingLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\Dialogue\Dialogue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game Levels\CutsceneEnd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -96,6 +93,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\SmellAvoidance\SmellAvoidance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Levels\Corridor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\CageBreaker\CageBreaker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
