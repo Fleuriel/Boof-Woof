@@ -250,21 +250,22 @@ class TimeRush : public Level
 				}
 			}
 			
-			if (CheckEntityWithPlayerCollision(rexEnt)) {
-				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
-				if (loading)
-				{
-					// Pass in the name of the real scene we want AFTER the loading screen
-					loading->m_NextScene = "TimeRush";
+			//if (CheckEntityWithPlayerCollision(rexEnt)) {
+			//	auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+			//	if (loading)
+			//	{
+			//		// Pass in the name of the real scene we want AFTER the loading screen
+			//		loading->m_NextScene = "TimeRush";
 
-					timesUp = 2.0;
-					g_TimerTR.Reset();
-					g_DialogueText.OnShutdown();
-					g_DialogueText.Reset();
+			//		timesUp = 2.0;
+			//		g_TimerTR.Reset();
+			//		g_DialogueText.OnShutdown();
+			//		g_DialogueText.Reset();
 
-					g_LevelManager.SetNextLevel("LoadingLevel");
-				}
-			}
+			//		g_LevelManager.SetNextLevel("LoadingLevel");
+			//	}
+			//}
+			
 			// Take this away once u shift to script
 			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1)
 			{
