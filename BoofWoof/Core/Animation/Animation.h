@@ -3,16 +3,16 @@
 #include <vector>
 #include <map>
 #include <glm/glm.hpp>
-#include <assimp/scene.h>
+#include <scene.h>
 #include "Bones.h"
 #include <functional>
+#include "AnimData.h"
 #include "../../../BoofWoof/Core/Graphics/Model.h"
-#include "../../../BoofWoof/Core/Graphics/Mesh.h"
 
 #include "AssimpHelper.h"
 
 
-class Animator;
+//class Animator;
 
 struct AssimpNodeData
 {
@@ -31,6 +31,12 @@ public:
 	{
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
+
+//		std::cout << "import\t" << scene->mAnimations[0]->mName.C_Str() << '\n';
+
+		std::cout << "rootnode\n";
+		std::cout << scene->mRootNode->mName.C_Str() << '\n'; 
+
 		assert(scene && scene->mRootNode);
 		auto animation = scene->mAnimations[0];
 		m_Duration = animation->mDuration;
@@ -93,14 +99,13 @@ private:
 
 		m_BoneInfoMap = boneInfoMap;
 	}
-
 	void ReadHierarchyData(AssimpNodeData& dest, const aiNode* src)
 	{
 		assert(src);
+	
 
-		dest.name = src->mName.C_Str();
-		std::cout <<"name of stuff:\t" << dest.name << '\n';
 
+		dest.name = src->mName.data;
 		dest.transformation = AssimpGLMHelpers::ConvertMatrixToGLMFormat(src->mTransformation);
 		dest.childrenCount = src->mNumChildren;
 

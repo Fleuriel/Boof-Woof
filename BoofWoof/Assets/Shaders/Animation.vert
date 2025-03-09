@@ -16,8 +16,6 @@ const int MAX_BONES = 100;
 const int MAX_BONE_INFLUENCE = 4;
 uniform mat4 finalBonesMatrices[MAX_BONES];
 
-//out vec3 DebugColor;
-
 out vec2 TexCoords;
 
 void main()
@@ -25,10 +23,8 @@ void main()
     vec4 totalPosition = vec4(0.0f);
     for(int i = 0 ; i < MAX_BONE_INFLUENCE ; i++)
     {
-        if(boneIds[0] == -1 && boneIds[1] == -1 && boneIds[2] == -1 && boneIds[3] == -1) {
-            totalPosition = vec4(pos, 1.0f); // Default transform if no bones
-        }
-        
+        if(boneIds[i] == -1) 
+            continue;
         if(boneIds[i] >=MAX_BONES) 
         {
             totalPosition = vec4(pos,1.0f);
@@ -39,9 +35,7 @@ void main()
         vec3 localNormal = mat3(finalBonesMatrices[boneIds[i]]) * norm;
    }
 	
-//    gl_Position =  projection * view * model * vec4(pos,1.0);
-    gl_Position =  projection * view * model * totalPosition;
-	//DebugColor = vec3(weights.x, weights.y, weights.z);
-    
-    TexCoords = tex;
+    mat4 viewModel = view * model;
+    gl_Position =  projection * viewModel * totalPosition;
+	TexCoords = tex;
 }

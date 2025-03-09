@@ -118,6 +118,7 @@
     <ClInclude Include="AnimData.h" />
     <ClInclude Include="Core\Animation\AssimpHelper.h" />
     <ClInclude Include="Utilities\ForGame\Dialogue\Dialogue.h" />
+    <ClInclude Include="Core\Animation\shader_m.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Shader2D.frag" />

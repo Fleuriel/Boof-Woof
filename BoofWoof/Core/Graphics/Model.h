@@ -17,14 +17,15 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include <Importer.hpp>
+#include <scene.h>
+#include <postprocess.h>
 #include "Shader.h"
 #include "Mesh.h"
 #include "../../BoofWoof/Core/Animation/AnimData.h"
 
 #include "AssetManager/AssetManager.h"
+#include "Animation/AssimpHelper.h"
 
 
 
@@ -45,6 +46,8 @@ inline void print_assimp_matrix(const aiMatrix4x4& m)
 
 
 
+//using namespace std;
+
 unsigned int TextureFromFile(const char* path, const std::string& directory);
 //extern std::vector<Model2D> models;
 struct ShaderParams;  // Forward declaration of ShaderParams
@@ -58,6 +61,7 @@ public:
     std::string directory;
     std::string name;
     int count = 0;
+    bool gammaCorrection;
 
     //// for now 
     // store number of texture
@@ -72,7 +76,7 @@ public:
 
     Model() {}
 
-	Model(std::string const& path, bool gamma = false) 
+	Model(std::string const& path, bool gamma = false)  :gammaCorrection(gamma)
 	{
 		loadModel(path);
 	}
@@ -265,6 +269,8 @@ public:
             std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
             return;
         }
+
+
         // retrieve the directory path of the filepath
         directory = path.substr(0, path.find_last_of('/'));
 
@@ -308,25 +314,7 @@ public:
         meshes.push_back(lineMesh);
     }
    
-   //// processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
-   //void processNode(aiNode* node, const aiScene* scene, unsigned int draw_mode)
-   //{
-   //    // process each mesh located at the current node
-   //    for (unsigned int i = 0; i < node->mNumMeshes; i++)
-   //    {
-   //        // the node object only contains indices to index the actual objects in the scene. 
-   //        // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
-   //        aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-   //        meshes.push_back(processMesh(mesh, scene, draw_mode));
-   //    }
-   //    // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
-   //    for (unsigned int i = 0; i < node->mNumChildren; i++)
-   //    {
-   //        processNode(node->mChildren[i], scene, draw_mode);
-   //    }
-   //
-   //}
-   //
+
     Mesh processMesh(aiMesh* mesh, const aiScene* scene)
     {
         using namespace std;
@@ -335,12 +323,13 @@ public:
         vector<unsigned int> indices;
         vector<Texture> textures;
 
+       
         for (unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
             Vertex vertex;
             SetVertexBoneDataToDefault(vertex);
-            vertex.Position =glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-            vertex.Normal = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+            vertex.Position = AssimpGLMHelpers::GetGLMVec(mesh->mVertices[i]);
+            vertex.Normal = AssimpGLMHelpers::GetGLMVec(mesh->mNormals[i]);
 
             if (mesh->mTextureCoords[0])
             {
@@ -381,35 +370,24 @@ public:
         auto& boneInfoMap = m_BoneInfoMap;
         int& boneCount = m_BoneCounter;
 
-        auto ConvertMatrixToGLM = [](const aiMatrix4x4& from) -> glm::mat4 {
-            return glm::mat4{
-                { from.a1, from.b1, from.c1, from.d1 },
-                { from.a2, from.b2, from.c2, from.d2 },
-                { from.a3, from.b3, from.c3, from.d3 },
-                { from.a4, from.b4, from.c4, from.d4 }
-            };
-            };
+        for (int i = 0; i < mesh->mNumBones; i++) {
+            std::cout << "Bone " << i << ": " << mesh->mBones[i]->mName.C_Str() << std::endl;
+        }
 
         for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
         {
-            int boneID = -1;
             std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
+            std::cout << "Bone " << boneIndex << ": " << boneName << std::endl;
 
-            // Check if bone is new, otherwise use existing bone ID
+            if (boneName == "Bone")
+                continue;
+
+            int boneID = -1;
             if (boneInfoMap.find(boneName) == boneInfoMap.end())
             {
                 BoneInfo newBoneInfo;
                 newBoneInfo.id = boneCount;
-                newBoneInfo.offset = ConvertMatrixToGLM(mesh->mBones[boneIndex]->mOffsetMatrix);
-
-
-
-                print_assimp_matrix(mesh->mBones[boneIndex]->mOffsetMatrix);
-
-                
-
-
-
+                newBoneInfo.offset = AssimpGLMHelpers::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
                 boneInfoMap[boneName] = newBoneInfo;
                 boneID = boneCount;
                 boneCount++;
@@ -419,8 +397,10 @@ public:
                 boneID = boneInfoMap[boneName].id;
             }
 
-            assert(boneID != -1);
 
+            std::cout <<"Extracting: \t" << boneName << '\t' << boneID << '\n';
+
+            assert(boneID != -1);
             auto weights = mesh->mBones[boneIndex]->mWeights;
             int numWeights = mesh->mBones[boneIndex]->mNumWeights;
 
@@ -428,10 +408,9 @@ public:
             {
                 int vertexId = weights[weightIndex].mVertexId;
                 float weight = weights[weightIndex].mWeight;
-
-                assert(vertexId < vertices.size());
-
-                // Assign the bone influence
+            //    std::cout << "Bone: " << boneName << " (ID: " << boneID << ") affects Vertex: " << vertexId
+            //        << " with Weight: " << weight << std::endl;
+                assert(vertexId <= vertices.size());
                 SetVertexBoneData(vertices[vertexId], boneID, weight, vertexId);
             }
         }
@@ -461,15 +440,15 @@ public:
         }
 
         // Debugging print
-        std::cout << "Vertex " << vertexId << " Bone IDs: ("
-            << vertex.m_BoneIDs[0] << ", "
-            << vertex.m_BoneIDs[1] << ", "
-            << vertex.m_BoneIDs[2] << ", "
-            << vertex.m_BoneIDs[3] << ") Weights: ("
-            << vertex.m_Weights[0] << ", "
-            << vertex.m_Weights[1] << ", "
-            << vertex.m_Weights[2] << ", "
-            << vertex.m_Weights[3] << ")\n";
+      // std::cout << "Vertex " << vertexId << " Bone IDs: ("
+      //     << vertex.m_BoneIDs[0] << ", "
+      //     << vertex.m_BoneIDs[1] << ", "
+      //     << vertex.m_BoneIDs[2] << ", "
+      //     << vertex.m_BoneIDs[3] << ") Weights: ("
+      //     << vertex.m_Weights[0] << ", "
+      //     << vertex.m_Weights[1] << ", "
+      //     << vertex.m_Weights[2] << ", "
+      //     << vertex.m_Weights[3] << ")\n";
     }
 
 

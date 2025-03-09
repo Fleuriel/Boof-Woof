@@ -3,11 +3,16 @@
 /* Container for bone data */
 
 #include <vector>
-#include <assimp/scene.h>
+#include <scene.h>
 #include <list>
 #include <glm/glm.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
+#include "AssimpHelper.h"
+
+#include "scene.h"
+
+
 
 struct KeyPosition
 {
@@ -27,7 +32,6 @@ struct KeyScale
 	float timeStamp;
 };
 
-
 class Bone
 {
 public:
@@ -44,11 +48,8 @@ public:
 			aiVector3D aiPosition = channel->mPositionKeys[positionIndex].mValue;
 			float timeStamp = channel->mPositionKeys[positionIndex].mTime;
 			KeyPosition data;
-			data.position = glm::vec3(aiPosition.x, aiPosition.y, aiPosition.z);
+			data.position = AssimpGLMHelpers::GetGLMVec(aiPosition);
 			data.timeStamp = timeStamp;
-			
-		//	std::cout << data.position.x << " " << data.position.y << " " << data.position.z << std::endl;
-
 			m_Positions.push_back(data);
 		}
 
@@ -58,7 +59,7 @@ public:
 			aiQuaternion aiOrientation = channel->mRotationKeys[rotationIndex].mValue;
 			float timeStamp = channel->mRotationKeys[rotationIndex].mTime;
 			KeyRotation data;
-			data.orientation = glm::quat(aiOrientation.w, aiOrientation.x, aiOrientation.y, aiOrientation.z);
+			data.orientation = AssimpGLMHelpers::GetGLMQuat(aiOrientation);
 			data.timeStamp = timeStamp;
 			m_Rotations.push_back(data);
 		}
@@ -69,7 +70,7 @@ public:
 			aiVector3D scale = channel->mScalingKeys[keyIndex].mValue;
 			float timeStamp = channel->mScalingKeys[keyIndex].mTime;
 			KeyScale data;
-			data.scale = glm::vec3(scale.x, scale.y, scale.z);;
+			data.scale = AssimpGLMHelpers::GetGLMVec(scale);
 			data.timeStamp = timeStamp;
 			m_Scales.push_back(data);
 		}
@@ -177,7 +178,6 @@ private:
 		return glm::scale(glm::mat4(1.0f), finalScale);
 	}
 
-
 	std::vector<KeyPosition> m_Positions;
 	std::vector<KeyRotation> m_Rotations;
 	std::vector<KeyScale> m_Scales;
@@ -189,3 +189,4 @@ private:
 	std::string m_Name;
 	int m_ID;
 };
+

@@ -1,7 +1,7 @@
 #ifndef ANIMATION_MANAGER_H
 #define ANIMATION_MANAGER_H
 
-#include <assimp/scene.h>
+#include <scene.h>
 #include <string>
 #include <unordered_map>
 #include <vector>

@@ -20,7 +20,7 @@
 #include "Shader.h"
 //#include "ResourceManager/ResourceManager.h"
 
-constexpr auto MAX_BONE_INFLUENCE = 4;
+#define MAX_BONE_INFLUENCE  4
 #define UNREFERENCED_PARAMETER(P)          (P)
 
 struct Vertex {
@@ -35,9 +35,9 @@ struct Vertex {
     // bitangent
     glm::vec3 Bitangent;
     ////bone indexes which will influence this vertex
-    int m_BoneIDs[MAX_BONE_INFLUENCE] = { 0,0,0,0 };
+    int m_BoneIDs[MAX_BONE_INFLUENCE];
     ////weights from each bone
-    float m_Weights[MAX_BONE_INFLUENCE] = { 0.0f, 0.0f, 0.0f, 0.0f };
+    float m_Weights[MAX_BONE_INFLUENCE];
 
 
 

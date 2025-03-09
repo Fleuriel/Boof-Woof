@@ -74,8 +74,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\freetype\include;$(SolutionDir)lib\gli-master\gli-master;$(SolutionDir)lib\JoltPhysics-master;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Debug\;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-static-ucrt;$(SolutionDir)Boof-Woof\bin\Debug-x64\BoofWoof;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\assimp2016\assimp\;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\freetype\include;$(SolutionDir)lib\gli-master\gli-master;$(SolutionDir)lib\JoltPhysics-master;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\assimp2016\lib;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Debug\;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-static-ucrt;$(SolutionDir)Boof-Woof\bin\Debug-x64\BoofWoof;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
@@ -120,9 +120,11 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;JPH_DEBUG_RENDERER;JPH_FLOATING_POINT_EXCEPTIONS_ENABLED;JPH_PROFILE_ENABLED;JPH_OBJECT_STREAM;GAME_ENGINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;JPH_DEBUG_RENDERER;JPH_FLOATING_POINT_EXCEPTIONS_ENABLED;JPH_PROFILE_ENABLED;JPH_OBJECT_STREAM;GAME_ENGINE;ASSIMP_BUILD_NO_EXPORT
+;ASSIMP_BUILD_NO_IMPORT
+;ASSIMP_BUILD_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Core;$(SolutionDir)lib\FMOD Studio API Windows\api\studio;$(SolutionDir)lib\FMOD Studio API Windows\api\core\inc;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)lib\freetype\include;$(SolutionDir)lib\gli-master\gli-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Core;$(SolutionDir)lib\FMOD Studio API Windows\api\studio;$(SolutionDir)lib\FMOD Studio API Windows\api\core\inc;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)lib\freetype\include;$(SolutionDir)lib\gli-master\gli-master;$(SolutionDir)lib\assimp2016\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -141,9 +143,10 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64\*.dll" "$(OutDir)"
-xcopy /y /d "$(SolutionDir)lib\assimp\lib\*.dll" "$(OutDir)"
 xcopy /y /d "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(OutDir)"
-xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"</Command>
+xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"
+xcopy  /I /y /d "$(SolutionDir)lib\assimp2016\lib\*.dll" "$(OutDir)"
+</Command>
     </PostBuildEvent>
     <Lib>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
@@ -242,6 +245,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
     <ClInclude Include="Core\Animation\Animator.h" />
     <ClInclude Include="Core\Animation\AssimpHelper.h" />
     <ClInclude Include="Core\Animation\Bones.h" />
+    <ClInclude Include="Core\Animation\shader_m.h" />
     <ClInclude Include="Core\AssetManager\AssetManager.h" />
     <ClInclude Include="Core\AssetManager\Compressonator.h" />
     <ClInclude Include="Core\AssetManager\Descriptor.h" />

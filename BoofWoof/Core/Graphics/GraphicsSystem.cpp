@@ -87,9 +87,9 @@ glm::vec3 GraphicsSystem::lightPos = glm::vec3(-3.f, 2.0f, 10.0f);
 ShaderParams shdrParam;
 
 
-Model corgModel;
-AnimationT danceAnimationZ;
-Animator animatorZ;
+//Model corgModel;
+//AnimationT danceAnimationZ;
+//Animator animatorZ;
 
 float deltaTime = 0.0f;  // Time between current frame and previous frame
 auto previousTime = std::chrono::high_resolution_clock::now();  // Initialize previous time
@@ -144,9 +144,9 @@ void GraphicsSystem::initGraphicsPipeline() {
 	g_ResourceManager.LoadAll();
 
 
-	corgModel = Model("../BoofWoof/Assets/Animations/corgi.fbx", false);
-	danceAnimationZ = AnimationT("../BoofWoof/Assets/Animations/corgi.fbx", &corgModel);
-	animatorZ = Animator(&danceAnimationZ);
+	//corgModel = Model("../BoofWoof/Assets/Animations/corgi.fbx", false);
+	//danceAnimationZ = AnimationT("../BoofWoof/Assets/Animations/corgi.fbx", &corgModel);
+	//animatorZ = Animator(&danceAnimationZ);
 
 
 	AddModel_2D();
@@ -493,7 +493,7 @@ void GraphicsSystem::UpdateLoop() {
 			// translate it down so it's at the center of the scene
 			model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f));
 			// it's a bit too big for our scene, so scale it down
-			model = glm::scale(model, glm::vec3(.5f, .5f, .5f));
+			model = glm::scale(model, glm::vec3(.01f, .01f, .01f));
 
 //			g_AssetManager.GetShader("Animation").SetUniform("model", model);
 			g_AssetManager.GetShader("Animation").SetUniform("view", camera.GetViewMatrix());
@@ -509,8 +509,9 @@ void GraphicsSystem::UpdateLoop() {
 				g_AssetManager.GetShader("Animation").SetUniform(lel.c_str(), transforms[i]);
 			}
 
+			std::cout << "enter here\n";
 
-			g_AssetManager.GetShader("Animation").SetUniform("model", shdrParam.WorldMatrix);
+			g_AssetManager.GetShader("Animation").SetUniform("model", model);
 			graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
 	
 
@@ -521,32 +522,7 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-		//g_AssetManager.GetShader("Animation").Use();
-		//glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
-		//	(float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-		//glm::mat4 view = camera.GetViewMatrix();
-		//
-		//g_ResourceManager.animatorVec[0].UpdateAnimation(deltaTime);
-		//
-		////			g_AssetManager.GetShader("Animation").SetUniform("model", model);
-		//g_AssetManager.GetShader("Animation").SetUniform("view", view);
-		//g_AssetManager.GetShader("Animation").SetUniform("projection", projection);
-		//
-		//auto transforms = animatorZ.GetFinalBoneMatrices();
-		//for (int i = 0; i < transforms.size(); ++i)
-		//{
-		//
-		//	std::string boneUniform = "finalBonesMatrices[" + std::to_string(i) + "]";
-		//	g_AssetManager.GetShader("Animation").SetUniform(boneUniform.c_str(), transforms[i]);
-		//}
-		//// render the loaded model
-		//glm::mat4 model = glm::mat4(1.0f);
-		//// translate it down so it's at the center of the scene
-		//model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f));
-		//// it's a bit too big for our scene, so scale it down
-		//model = glm::scale(model, glm::vec3(.5f, .5f, .5f));
-		//g_AssetManager.GetShader("Animation").SetUniform("model", model);
-		//corgModel.Draw(g_AssetManager.GetShader("Animation"));
+		
 
 
 		//if (ShaderName == "Shader3D")
@@ -862,18 +838,16 @@ void GraphicsSystem::TestAnimationAdd(const std::string name, const std::string&
 	g_ResourceManager.ModelMap[name] = *animModel;
 	g_ResourceManager.addModelNames(name);
 
-	Model* ourModel = new Model(path);
+	//Model* ourModel = new Model(path);
 
 	//Model ourModel(path);
 
-	AnimationT* animatoo = new AnimationT(path, ourModel);
+	AnimationT* animatoo = new AnimationT(path, animModel);
 	g_ResourceManager.animationVec.push_back(animatoo);
 
 	// 3️⃣ Create animator dynamically
 	Animator* animTor = new Animator(animatoo);
 
-	g_ResourceManager.animatorVec.push_back(animTor);
-	g_ResourceManager.animationVec.push_back(animatoo);
 	g_ResourceManager.animatorVec.push_back(animTor);
 
 
@@ -1058,7 +1032,7 @@ void GraphicsSystem::clearAllEntityTextures()
 		{
 			auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 			for (auto& mesh : g_ResourceManager.getModel(graphicsComp.getModelName())->meshes) {
-				g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt = 0;
+	//			g_ResourceManager.getModel(graphicsComp.getModelName())->texture_cnt = 0;
 				mesh.textures.clear();
 
 				/*Texture tex;

@@ -3,17 +3,14 @@
 #include <glm/glm.hpp>
 #include <map>
 #include <vector>
-#include <assimp/scene.h>
-#include <assimp/Importer.hpp>
+#include <scene.h>
+#include <Importer.hpp>
 #include "Bones.h"
 #include "Animation.h"
 
-#include <glm/gtx/string_cast.hpp >
 
 
 
-
-class AnimationT;
 
 class Animator
 {
@@ -52,9 +49,6 @@ public:
 
 	void CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform)
 	{
-
-		std::cout << "name of stuff:\t" << node->name.c_str() << '\n';
-
 		std::string nodeName = node->name;
 		glm::mat4 nodeTransform = node->transformation;
 
@@ -73,10 +67,6 @@ public:
 		{
 			int index = boneInfoMap[nodeName].id;
 			glm::mat4 offset = boneInfoMap[nodeName].offset;
-
-
-
-
 			m_FinalBoneMatrices[index] = globalTransformation * offset;
 		}
 

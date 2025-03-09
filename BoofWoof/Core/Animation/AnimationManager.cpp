@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "AnimationManager.h"
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
+#include <Importer.hpp>
+#include <postprocess.h>
 
 // Animation Constructor
 Animation::Animation(const aiAnimation* assimpAnimation) {
