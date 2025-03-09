@@ -50,17 +50,82 @@ in VS_OUT {
     vec3 TangentViewPos;
 } fs_in;
 
-float ShadowCalculation(vec4 fragPosLightSpace_) {
-    vec3 projCoords = fragPosLightSpace_.xyz / fragPosLightSpace_.w;
+const int POISSON_COUNT = 16; 
+const vec2 poissonDisk[POISSON_COUNT] = vec2[](
+    vec2(  0.276,  0.117 ), 
+    vec2( -0.179,  0.149 ), 
+    vec2(  0.196, -0.252 ), 
+    vec2( -0.320,  0.350 ), 
+    vec2(  0.124,  0.453 ), 
+    vec2( -0.038, -0.469 ), 
+    vec2(  0.472,  0.118 ), 
+    vec2( -0.479, -0.073 ), 
+    vec2( -0.105,  0.013 ), 
+    vec2( -0.210, -0.379 ), 
+    vec2(  0.382, -0.332 ), 
+    vec2( -0.435,  0.156 ), 
+    vec2(  0.074,  0.299 ), 
+    vec2(  0.319,  0.384 ), 
+    vec2( -0.303, -0.187 ), 
+    vec2(  0.023, -0.097 )
+);
+
+float rand(vec2 co) {
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+mat2 getRotationMatrix(float angle) {
+    float c = cos(angle);
+    float s = sin(angle);
+    return mat2(c, -s, s, c);
+}
+
+float ShadowCalculationPCF(
+    sampler2D shadowMap,
+    vec4 fragPosLightSpace,
+    vec3 fragPos,
+    vec3 normal,
+    vec3 lightPos)
+{
+     // Perspective divide
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    // Transform to [0,1] range
     projCoords = projCoords * 0.5 + 0.5;
 
-    if (projCoords.z > 1.0 || projCoords.x < 0.0 || projCoords.x > 1.0 || projCoords.y < 0.0 || projCoords.y > 1.0)
+    // Early out if outside shadow map
+    if (projCoords.x < 0.0 || projCoords.x > 1.0 ||
+        projCoords.y < 0.0 || projCoords.y > 1.0 ||
+        projCoords.z > 1.0) 
+    {
         return 0.0;
+    }
 
-    float closestDepth = texture(shadowMap, projCoords.xy).r;
+    // Calculate current depth in light’s perspective
     float currentDepth = projCoords.z;
-    
-    float shadow = currentDepth  > closestDepth ? 1.0 : 0.0;
+
+    // Calculate bias
+    vec3 lightDir = normalize(lightPos - fragPos);
+    float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
+
+   float angle = 2.0 * 3.14159 * rand(floor(gl_FragCoord.xy)); 
+    mat2 rotation = getRotationMatrix(angle);
+
+  
+    float shadow = 0.0;
+    vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+
+    for(int i = 0; i < POISSON_COUNT; i++) {
+       
+        vec2 offset = rotation * poissonDisk[i] * 1.5; 
+        vec2 sampleUV = projCoords.xy + offset * texelSize;
+        
+        float sampledDepth = texture(shadowMap, sampleUV).r;
+        if(currentDepth - bias > sampledDepth) {
+            shadow += 1.0; 
+        }
+    }
+    shadow /= float(POISSON_COUNT);
+
     return shadow;
 }
 
@@ -97,7 +162,13 @@ void main()
 
         vec3 finalColor;
         if(lights[i].haveshadow){
-            float shadow = ShadowCalculation(FragPosLightSpace);
+            float shadow = ShadowCalculationPCF(
+                                                shadowMap,
+                                                FragPosLightSpace,    // or however you store per-light light-space position
+                                                FragPos,
+                                                normalize(vertNormal),
+                                                lights[i].position
+                                            );
 
             finalColor = ambient + diffuse*(1-shadow); // Combine ambient and diffuse components
         }else{
