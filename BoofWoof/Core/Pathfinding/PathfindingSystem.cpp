@@ -31,18 +31,14 @@ void PathfindingSystem::BuildGraph() {
 
     NodeComponent::ResetNodeCounter();
 
-    //std::cout << "[PathfindingSystem] Building graph...\n";
-    //std::cout << "[DEBUG] Node Counter BEFORE processing: " << NodeComponent::GetNodeCounter() << "\n";
-
-    // Step 1: Process all NodeComponents first
+    // Process all NodeComponents first
     for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
         if (g_Coordinator.HaveComponent<NodeComponent>(entity)) {
             auto& nodeComp = g_Coordinator.GetComponent<NodeComponent>(entity);
 
             if (nodeComp.GetNodeID() == INVALID_ENTITY) {
                 nodeComp.SetNodeID(NodeComponent::GenerateNodeID());
-                //std::cout << "[DEBUG] Assigned NodeID " << nodeComp.GetNodeID() << " to Entity " << entity << "\n";
-				nodelist.push_back(nodeComp.GetNodeID());
+                nodelist.push_back(nodeComp.GetNodeID());
             }
 
             glm::vec3 nodePosition = nodeComp.GetPosition();
@@ -68,15 +64,11 @@ void PathfindingSystem::BuildGraph() {
 
             uint32_t nodeID = nodeComp.GetNodeID();
 
-            //std::cout << "[DEBUG] Adding Node: ID=" << nodeID << " at Position ("
-            //    << nodePosition.x << ", " << nodePosition.y << ", " << nodePosition.z
-            //    << ") | Walkable: " << nodeComp.IsWalkable() << "\n";
-
             graphNodes[nodeID] = std::make_shared<Node3D>(nodeID, nodePosition, nodeComp.IsWalkable());
         }
     }
 
-    // Step 2: Process all EdgeComponents after nodes are set up
+    // Process all EdgeComponents after nodes are set up
     for (const auto& entity : g_Coordinator.GetAliveEntitiesSet()) {
         if (g_Coordinator.HaveComponent<EdgeComponent>(entity)) {
             auto& edgeComp = g_Coordinator.GetComponent<EdgeComponent>(entity);
@@ -84,31 +76,20 @@ void PathfindingSystem::BuildGraph() {
             uint32_t startNodeID = edgeComp.GetStartNode();
             uint32_t endNodeID = edgeComp.GetEndNode();
 
-            //std::cout << "[DEBUG] Processing Edge: " << entity
-            //    << " | Start Node: " << startNodeID
-            //    << " | End Node: " << endNodeID << "\n";
-
             // Ensure both start and end nodes exist before adding the edge
             if (graphNodes.find(startNodeID) == graphNodes.end()) {
-                //std::cout << "[PathfindingSystem] WARNING: Start Node " << startNodeID
-                //    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
+                continue;
+            }
+            if (graphNodes.find(endNodeID) == graphNodes.end()) {
                 continue;
             }
 
-            if (graphNodes.find(endNodeID) == graphNodes.end()) {
-                //std::cout << "[PathfindingSystem] WARNING: End Node " << endNodeID
-                //    << " referenced by Edge " << entity << " does NOT exist in the graph!\n";
-                continue;
-            }
+            // ***** Modified: Calculate the cost based on the Euclidean distance *****
+            float cost = glm::length(graphNodes[startNodeID]->position - graphNodes[endNodeID]->position);
 
             // **Add Forward Edge**
             if (graphEdges.find(edgeIDCounter) == graphEdges.end()) {
-                graphEdges[edgeIDCounter++] = std::make_shared<EdgeComponent>(startNodeID, endNodeID, edgeComp.GetCost());
-
-                //std::cout << "[DEBUG] Added Forward Edge: " << edgeIDCounter - 1
-                //    << " | Start Node: " << startNodeID
-                //    << " | End Node: " << endNodeID
-                //    << " | Cost: " << edgeComp.GetCost() << "\n";
+                graphEdges[edgeIDCounter++] = std::make_shared<EdgeComponent>(startNodeID, endNodeID, cost);
             }
 
             // **Add Reverse Edge ONLY IF it doesn't already exist**
@@ -121,21 +102,39 @@ void PathfindingSystem::BuildGraph() {
             }
 
             if (!reverseEdgeExists) {
-                graphEdges[edgeIDCounter++] = std::make_shared<EdgeComponent>(endNodeID, startNodeID, edgeComp.GetCost());
-
-                //std::cout << "[DEBUG] Added Reverse Edge: " << edgeIDCounter - 1
-                //    << " | Start Node: " << endNodeID
-                //    << " | End Node: " << startNodeID
-                //    << " | Cost: " << edgeComp.GetCost() << "\n";
+                graphEdges[edgeIDCounter++] = std::make_shared<EdgeComponent>(endNodeID, startNodeID, cost);
             }
         }
     }
 
+    // Optionally, add diagonal edges if nodes are arranged in a grid
+    const float tolerance = 0.001f;
+    for (const auto& [id, node] : graphNodes) {
+        for (const auto& [otherID, otherNode] : graphNodes) {
+            if (id == otherID)
+                continue;
+            // Assume a 2D grid on the x-z plane. Adjust as needed.
+            glm::vec3 diff = otherNode->position - node->position;
+            // Check that both x and z differences are non-zero (diagonal) and similar in magnitude
+            if (fabs(diff.x) > tolerance && fabs(diff.z) > tolerance &&
+                fabs(fabs(diff.x) - fabs(diff.z)) < tolerance) {
+                // Optionally, check that no edge already exists between these nodes
+                bool exists = false;
+                for (const auto& [edgeID, edge] : graphEdges) {
+                    if ((edge->GetStartNode() == id && edge->GetEndNode() == otherID) ||
+                        (edge->GetStartNode() == otherID && edge->GetEndNode() == id)) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    float cost = glm::length(diff); // This will be ~sqrt(2) if grid spacing is 1
+                    graphEdges[edgeIDCounter++] = std::make_shared<EdgeComponent>(id, otherID, cost);
+                }
+            }
+        }
+    }
 
-
-    //std::cout << "[PathfindingSystem] Graph built with " << graphNodes.size()
-    //    << " nodes and " << graphEdges.size() << " edges.\n";
-    //std::cout << "[DEBUG] Node Counter AFTER processing: " << NodeComponent::GetNodeCounter() << "\n";
 }
 
 void PathfindingSystem::Update(float deltaTime) {
