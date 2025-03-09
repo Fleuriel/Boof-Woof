@@ -300,32 +300,40 @@ struct Rex final : public Behaviour
         float yaw = rexRotation.y;
         glm::vec3 forwardDirection = glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw));
 
-        float maxRayDistance = 10.0f;
+        float maxRayDistance = 30.0f;
         //float fovAngle = 30.0f; // 30-degree cone
-        float horizontalFOVAngle = 5.0f; // Customize how wide the spread is
+        float horizontalFOVAngle = 20.0f; // Customize how wide the spread is
         float verticalFOVAngle = 10.0f;   // Customize how far up/down the rays spread
-        int horizontalRays = 5; // Number of horizontal rays
-        int verticalRays = 5;   // Number of vertical rays
-        glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
+        int horizontalRays = 7; // Number of horizontal rays
+        int verticalRays = 7;   // Number of vertical rays
+        //glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
+        
+        // Original eye offset (Local Space)
+        glm::vec3 localEyeOffset = glm::vec3(1.2f, 0.8f, 0.0f);
+
+        // **Convert to World Space**
+        glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), yaw, glm::vec3(0.0f, 1.0f, 0.0f));
+        glm::vec3 rotatedOffset = glm::vec3(rotationMatrix * glm::vec4(localEyeOffset, 1.0f));
 
         std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
             entity, forwardDirection, maxRayDistance,
             horizontalRays, verticalRays,
             horizontalFOVAngle, verticalFOVAngle,
-            rayOffset
+            //rayOffset
+            rotatedOffset
         );
 
-		//if (!detectedObjects.empty()) {
-		//	//std::cout << "[Rex] Cone Raycast Detected Entities:\n";
-		//	for (Entity e : detectedObjects) {
-  //              std::cout << "   - Entity ID: " << e << "\n";
-  //              if (e == playerEntity) {
-		//			std::cout << "[Rex] Player detected in FOV.\n";
-  //                  std::cout << playerEntity << std::endl;
-  //                  return true;
-  //              }
-		//	}
-		//}
+		if (!detectedObjects.empty()) {
+			//std::cout << "[Rex] Cone Raycast Detected Entities:\n";
+			for (Entity e : detectedObjects) {
+                //std::cout << "   - Entity ID: " << e << "\n";
+                if (e == playerEntity) {
+					//std::cout << "[Rex] Player detected in FOV.\n";
+                    //std::cout << playerEntity << std::endl;
+                    return true;
+                }
+			}
+		}
 		//std::cout << "[Rex] No objects detected in FOV.\n";
 		return false;
     }
