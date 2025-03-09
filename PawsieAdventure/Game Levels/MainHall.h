@@ -19,11 +19,16 @@ class MainHall : public Level
 	Entity FireSound{};
 
 	Entity TestPee{}, TestCollider{}; // Smell Avoidance
-	Entity pee1{}, pee2{}, pee3{}, pee4{}; // Smell Avoidance
-	Entity pee1Collider{}, pee2Collider{}, pee3Collider{}, pee4Collider{}; // Smell Avoidance
+	Entity pee1{}, pee2{}, pee3{}, pee4{}, pee5{}, pee6{}; // Smell Avoidance
+	Entity pee1Collider{}, pee2Collider{}, pee3Collider{}, pee4Collider{}, pee5Collider{}, pee6Collider{}; // Smell Avoidance
 
-	Entity Cage1{}, Cage1Collider{}, Cage2{}, Cage2Collider{}, Cage3{}, Cage3Collider{}; // Puppies
+	Entity Cage1{}, Cage1Collider{}, Cage2{}, Cage2Collider{}, Cage3{}, Cage3Collider{};
 	bool cage1Collided{ false }, cage2Collided{ false }, cage3Collided{ false };
+
+	Entity stealthCollider1{}, stealthCollider2{}, stealthCollider3{}, stealthCollider4{};
+	Entity peeScent1{}, peeScent2{}, peeScent3{}, peeScent4{}, peeScent5{}, peeScent6{}, peeScent7{};
+	// Existing member variables...
+	float originalBrightness = 1.0f;
 
 	// Camera
 	CameraController* cameraController = nullptr;
@@ -103,8 +108,9 @@ class MainHall : public Level
 		cameraController = new CameraController(playerEnt);
 		g_CageBreaker = CageBreaker(playerEnt, Cage1, Cage2, Cage3, Cage1Collider, Cage2Collider, Cage3Collider);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
-		g_SmellAvoidance = SmellAvoidance(playerEnt, pee1, pee2, pee3, pee4, pee1Collider, pee2Collider, pee3Collider, pee4Collider, 
-			WaterBucket, WaterBucket2, WaterBucket3, TestPee, TestCollider);
+		g_SmellAvoidance = SmellAvoidance(playerEnt, TestPee, TestCollider, pee1, pee2, pee3, pee4, pee5, pee6, pee1Collider, 
+			pee2Collider, pee3Collider, pee4Collider, pee5Collider, pee6Collider, WaterBucket, WaterBucket2, WaterBucket3);
+
 		g_Checklist.OnInitialize();
 		InitializeChecklist();
 		InitializeFireSound();
@@ -118,8 +124,11 @@ class MainHall : public Level
 
 		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 
-		particleEntities = { scentEntity1, scentEntity2, scentEntity3 };
+		particleEntities = { scentEntity1, scentEntity2, scentEntity3, peeScent1, peeScent2, peeScent3, peeScent4, peeScent5, peeScent6, peeScent7 };
 		g_UI.OnInitialize();
+
+		// Store the original brightness value
+		originalBrightness = g_Coordinator.GetSystem<GraphicsSystem>()->GetBrightness();
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -178,7 +187,6 @@ class MainHall : public Level
 			}
 			if (!collectedPuppy1 || !collectedPuppy2 || !collectedPuppy3)
 			{
-				//CheckCageCollision();
 				g_CageBreaker.OnUpdate(deltaTime);
 				CheckPuppyCollision();
 			}
@@ -325,8 +333,9 @@ class MainHall : public Level
 			{
 				sniffa = false;
 			}
-			// until here
 		}
+
+		HandleStealthCollision();
 	}
 
 	void FreeLevel() override
@@ -344,6 +353,7 @@ class MainHall : public Level
 
 	void UnloadLevel() override
 	{
+		g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(originalBrightness);
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav");
 		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
@@ -380,10 +390,14 @@ private:
 			{"Pee2", [&](Entity entity) { pee2 = entity; }},
 			{"Pee3", [&](Entity entity) { pee3 = entity; }},
 			{"Pee4", [&](Entity entity) { pee4 = entity; }},
+			{"Pee5", [&](Entity entity) { pee5 = entity; }},
+			{"Pee6", [&](Entity entity) { pee6 = entity; }},
 			{"Pee1Collision", [&](Entity entity) { pee1Collider = entity; }},
 			{"Pee2Collision", [&](Entity entity) { pee2Collider = entity; }},
 			{"Pee3Collision", [&](Entity entity) { pee3Collider = entity; }},
 			{"Pee4Collision", [&](Entity entity) { pee4Collider = entity; }},
+			{"Pee5Collision", [&](Entity entity) { pee5Collider = entity; }},
+			{"Pee6Collision", [&](Entity entity) { pee6Collider = entity; }},
 			{"WaterBucket", [&](Entity entity) { WaterBucket = entity; }},
 			{"WaterBucket2", [&](Entity entity) { WaterBucket2 = entity; }},
 			{"WaterBucket3", [&](Entity entity) { WaterBucket3 = entity; }},
@@ -396,14 +410,26 @@ private:
 			{"Cage2Collider", [&](Entity entity) { Cage2Collider = entity; }},
 			{"Cage3", [&](Entity entity) { Cage3 = entity; }},
 			{"Cage3Collider", [&](Entity entity) { Cage3Collider = entity; }},
+			{"StealthCollider1", [&](Entity entity) { stealthCollider1 = entity; }},
+			{"StealthCollider2", [&](Entity entity) { stealthCollider2 = entity; }},
+			{"StealthCollider3", [&](Entity entity) { stealthCollider3 = entity; }},
+			{"StealthCollider4", [&](Entity entity) { stealthCollider4 = entity; }},
+			{"PeeScent1", [&](Entity entity) { peeScent1 = entity; }},
+			{"PeeScent2", [&](Entity entity) { peeScent2 = entity; }},
+			{"PeeScent3", [&](Entity entity) { peeScent3 = entity; }},
+			{"PeeScent4", [&](Entity entity) { peeScent4 = entity; }},
+			{"PeeScent5", [&](Entity entity) { peeScent5 = entity; }},
+			{"PeeScent6", [&](Entity entity) { peeScent6 = entity; }},
+			{"PeeScent7", [&](Entity entity) { peeScent7 = entity; }}
 		};
 	}
 
 	bool AllEntitiesInitialized() const
 	{
 		return playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3
-			&& pee1 && pee2 && pee3 && pee4 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider
-			&& Cage1 && Cage1Collider;
+			&& pee1 && pee2 && pee3 && pee4 && pee5 && pee6 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && pee5Collider && pee6Collider 
+			&& WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider && Cage1 && Cage1Collider && Cage2 && Cage2Collider && Cage3 && Cage3Collider
+			&& stealthCollider1 && stealthCollider2 && stealthCollider3 && stealthCollider4 && peeScent1 && peeScent2 && peeScent3 && peeScent4 && peeScent5 && peeScent6 && peeScent7;
 	}
 
 	void InitializeChecklist()
@@ -501,6 +527,31 @@ private:
 			g_DialogueText.OnInitialize();
 			g_DialogueText.setDialogue(DialogueState::ALLPUPSFOUND);
 			dialogueThird = true;
+		}
+	}
+
+	void HandleStealthCollision()
+	{
+		bool isColliding = CheckEntityWithPlayerCollision(stealthCollider1) ||
+			CheckEntityWithPlayerCollision(stealthCollider2) ||
+			CheckEntityWithPlayerCollision(stealthCollider3) ||
+			CheckEntityWithPlayerCollision(stealthCollider4);
+
+		static bool wasColliding = false;
+
+		if (isColliding)
+		{
+			// Decrease the brightness of the lights
+			float currentBrightness = g_Coordinator.GetSystem<GraphicsSystem>()->GetBrightness();
+			float newBrightness = std::max(0.5f, currentBrightness - 0.05f); // Decrease by 0.1, but not below 0
+			g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(newBrightness);
+			wasColliding = true;
+		}
+		else if (wasColliding)
+		{
+			// Reset the brightness to the original value
+			g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(originalBrightness);
+			wasColliding = false;
 		}
 	}
 };

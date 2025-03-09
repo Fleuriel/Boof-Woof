@@ -78,6 +78,10 @@ void BoneCatcher::OnInitialize()
 
 void BoneCatcher::OnUpdate(double deltaTime)
 {
+
+	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT))
+		return;
+
 	ClearBoneCatcherTimer += deltaTime;
 
 	if (m_HitCount <= 4)
@@ -131,8 +135,16 @@ void BoneCatcher::OnUpdate(double deltaTime)
 	// Play for as long bonecatcher lasts.
 	if (AudioTimer <= ClearBoneCatcherTimer && !isAudioPlaying)
 	{
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav", true, "SFX");
-		isAudioPlaying = true;
+		if (isRope)
+		{
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CreakingRope2.wav", true, "SFX");
+		}
+		else if (isCage)
+		{
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/MetalCage.wav", true, "SFX");
+
+		}
+			isAudioPlaying = true;
 	}
 
 	Stop(deltaTime);
@@ -296,6 +308,8 @@ void BoneCatcher::ClearBoneCatcher()
 	{
 		std::cout << "Entered audioplaying" << std::endl;
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav"); // Stop the specific file path
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/MetalCage.wav");
+
 		isAudioPlaying = false;  // Reset the flag
 	}
 
