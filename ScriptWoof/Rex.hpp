@@ -300,7 +300,7 @@ struct Rex final : public Behaviour
         float yaw = rexRotation.y;
         glm::vec3 forwardDirection = glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw));
 
-        float maxRayDistance = 30.0f;
+        float maxRayDistance = 10.0f;
         //float fovAngle = 30.0f; // 30-degree cone
         float horizontalFOVAngle = 20.0f; // Customize how wide the spread is
         float verticalFOVAngle = 10.0f;   // Customize how far up/down the rays spread
