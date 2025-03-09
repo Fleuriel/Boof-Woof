@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "a264083e-72f7-41ce-8291-517861b9b728",
+    "SceneGUID": "a4053bbb-a5ef-48d3-9eaf-a59366805cbd",
     "Entities": [
         {
             "MetadataComponent": {
@@ -17915,19 +17915,19 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.15118521451950074,
-                    "y": 0.6999983787536621,
-                    "z": -6.415121555328369
+                    "x": 4.868360996246338,
+                    "y": 0.7695927619934082,
+                    "z": -23.24942398071289
                 },
                 "Scale": {
-                    "x": 0.5,
+                    "x": 0.49999967217445376,
                     "y": 0.5,
-                    "z": 0.5
+                    "z": 0.49999967217445376
                 },
                 "Rotation": {
-                    "x": 0.000018510450900066645,
-                    "y": 4.400000095367432,
-                    "z": -0.000004973816885467386
+                    "x": -3.1415724754333498,
+                    "y": -1.2584072351455689,
+                    "z": 3.1415863037109377
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -23652,7 +23652,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee5",
-                "EntityID": 563
+                "EntityID": 550
             },
             "TransformComponent": {
                 "Position": {
@@ -23684,7 +23684,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee5Collision",
-                "EntityID": 564
+                "EntityID": 551
             },
             "TransformComponent": {
                 "Position": {
@@ -23715,6 +23715,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -23732,7 +23733,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee6",
-                "EntityID": 565
+                "EntityID": 552
             },
             "TransformComponent": {
                 "Position": {
@@ -23764,7 +23765,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee6Collision",
-                "EntityID": 566
+                "EntityID": 553
             },
             "TransformComponent": {
                 "Position": {
@@ -23795,6 +23796,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -23812,7 +23814,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 567
+                "EntityID": 554
             },
             "TransformComponent": {
                 "Position": {
@@ -23843,6 +23845,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
@@ -23860,7 +23863,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 568
+                "EntityID": 555
             },
             "TransformComponent": {
                 "Position": {
@@ -23891,6 +23894,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
@@ -23908,7 +23912,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 569
+                "EntityID": 556
             },
             "TransformComponent": {
                 "Position": {
@@ -23939,6 +23943,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
@@ -23956,7 +23961,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 570
+                "EntityID": 557
             },
             "TransformComponent": {
                 "Position": {
@@ -23987,6 +23992,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.7000000476837159,
@@ -24004,7 +24010,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 571
+                "EntityID": 558
             },
             "TransformComponent": {
                 "Position": {
@@ -24035,6 +24041,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.7000000476837159,
@@ -24052,7 +24059,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent1",
-                "EntityID": 572
+                "EntityID": 559
             },
             "TransformComponent": {
                 "Position": {
@@ -24127,7 +24134,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent2",
-                "EntityID": 573
+                "EntityID": 560
             },
             "TransformComponent": {
                 "Position": {
@@ -24202,7 +24209,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent3",
-                "EntityID": 574
+                "EntityID": 561
             },
             "TransformComponent": {
                 "Position": {
@@ -24277,7 +24284,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent4",
-                "EntityID": 575
+                "EntityID": 562
             },
             "TransformComponent": {
                 "Position": {
@@ -24352,7 +24359,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent5",
-                "EntityID": 576
+                "EntityID": 563
             },
             "TransformComponent": {
                 "Position": {
@@ -24427,7 +24434,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent6",
-                "EntityID": 577
+                "EntityID": 564
             },
             "TransformComponent": {
                 "Position": {
@@ -24502,7 +24509,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent7",
-                "EntityID": 578
+                "EntityID": 565
             },
             "TransformComponent": {
                 "Position": {

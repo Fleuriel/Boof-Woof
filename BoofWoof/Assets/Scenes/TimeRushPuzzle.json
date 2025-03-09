@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "fd431316-97c9-44c2-87ab-be0556ab940c",
+    "SceneGUID": "c481a5c2-e97e-4ac6-bb2b-b8df935e48f2",
     "Entities": [
         {
             "MetadataComponent": {
@@ -13183,9 +13183,9 @@
                     "b": 0.03921568766236305,
                     "a": 0.0
                 },
-                "ParticleType": "POINT",
+                "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
+                "ParticleTexture": "cloudGreen"
             }
         },
         {
@@ -13258,9 +13258,9 @@
                     "b": 0.03921568766236305,
                     "a": 0.0
                 },
-                "ParticleType": "POINT",
+                "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
+                "ParticleTexture": "cloudGreen"
             }
         },
         {
@@ -13333,9 +13333,9 @@
                     "b": 0.03921568766236305,
                     "a": 0.0
                 },
-                "ParticleType": "POINT",
+                "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
+                "ParticleTexture": "cloudGreen"
             }
         },
         {
@@ -13408,9 +13408,9 @@
                     "b": 0.03921568766236305,
                     "a": 0.0
                 },
-                "ParticleType": "POINT",
+                "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
+                "ParticleTexture": "cloudGreen"
             }
         },
         {
@@ -13483,9 +13483,9 @@
                     "b": 0.03921568766236305,
                     "a": 0.0
                 },
-                "ParticleType": "POINT",
+                "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
+                "ParticleTexture": "cloudGreen"
             }
         },
         {
@@ -13558,9 +13558,9 @@
                     "b": 0.03921568766236305,
                     "a": 0.0
                 },
-                "ParticleType": "POINT",
+                "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
+                "ParticleTexture": "cloudGreen"
             }
         },
         {
@@ -14607,9 +14607,9 @@
                 "VelocityMax": 3.0,
                 "TargetPositions": [
                     {
-                        "x": 25.0,
+                        "x": 0.0,
                         "y": 0.0,
-                        "z": 0.0
+                        "z": 25.0
                     },
                     {
                         "x": 0.0,
@@ -14634,9 +14634,9 @@
                     "b": 0.0941176488995552,
                     "a": 0.0
                 },
-                "ParticleType": "POINT",
+                "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
+                "ParticleTexture": "cloudGreen"
             }
         },
         {
@@ -14736,7 +14736,7 @@
                     {
                         "x": 25.0,
                         "y": 0.0,
-                        "z": 0.0
+                        "z": 20.0
                     },
                     {
                         "x": 0.0,
@@ -14761,9 +14761,9 @@
                     "b": 0.0941176488995552,
                     "a": 0.0
                 },
-                "ParticleType": "POINT",
+                "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
+                "ParticleTexture": "cloudGreen"
             }
         },
         {
@@ -14861,9 +14861,9 @@
                 "VelocityMax": 3.0,
                 "TargetPositions": [
                     {
-                        "x": 25.0,
+                        "x": -10.0,
                         "y": 0.0,
-                        "z": 0.0
+                        "z": 20.0
                     },
                     {
                         "x": 0.0,
@@ -14888,9 +14888,9 @@
                     "b": 0.0941176488995552,
                     "a": 0.0
                 },
-                "ParticleType": "POINT",
+                "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
+                "ParticleTexture": "cloudGreen"
             }
         },
         {
