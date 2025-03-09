@@ -256,7 +256,7 @@ class MainHall : public Level
 			}
 
 			// just for speed testing to rope breaker
-			//collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
+			collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
 
 			if (collectedPuppy1 && collectedPuppy2 && collectedPuppy3 && !chgChecklist)
 			{
