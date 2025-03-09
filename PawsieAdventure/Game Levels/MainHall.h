@@ -67,7 +67,7 @@ class MainHall : public Level
 
 	void LoadLevel() override
 	{
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallTest.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM5.json");
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusicBGM.wav", true, "BGM");
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav", true, "SFX");
 
