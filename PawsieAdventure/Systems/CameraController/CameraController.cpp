@@ -7,6 +7,8 @@ void CameraController::Update(float deltaTime)
     // Get active camera component
     auto& camera = g_Coordinator.GetComponent<CameraComponent>(playerEntity);
 
+    
+
     // Update based on mode
     if (currentMode == CameraMode::FIRST_PERSON)
     {
@@ -27,6 +29,7 @@ void CameraController::Update(float deltaTime)
 	{
 		UpdateShakeView(camera);
 	}
+
 }
 
 void CameraController::ToggleCameraMode()
@@ -95,6 +98,32 @@ void CameraController::ChangeToFirstPerson(CameraComponent& camera)
         cameraMove = getfirstPersonCameraMove(g_Coordinator.GetComponent<CameraComponent>(playerEntity));
 	
 }
+
+void CameraController::ChangeToThirdPerson(CameraComponent& camera)
+{
+    glm::vec3 playerPos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
+
+    // Set fixed offset values for the third-person camera
+    glm::vec3 offset = firstPersonOffset; // Desired position relative to the player
+
+    // Calculate the rotation matrix
+    glm::mat4 rotationMatrix = glm::mat4(1.0f);
+    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(camera.Yaw + 90), glm::vec3(0.0f, -1.0f, 0.0f));
+
+    // Calculate the new offset
+    glm::vec3 newOffset = glm::vec3(rotationMatrix * glm::vec4(offset, 1.0f));
+
+    // Set the camera's position to the player's position plus the offset
+    camera.Position = playerPos + newOffset;
+
+    // Update the camera's direction vectors
+    camera.updateCameraVectors();
+
+    currentMode = CameraMode::SHIFTING;
+    lastMode = CameraMode::FIRST_PERSON;
+    cameraMove = getThirdPersonCameraMove(g_Coordinator.GetComponent<CameraComponent>(playerEntity));
+}
+
 
 // Function to set camera direction based on a given direction vector
 void CameraController::SetCameraDirection(CameraComponent& camera, glm::vec3 direction) {
@@ -190,7 +219,6 @@ void CameraController::UpdateThirdPersonView(CameraComponent& camera)
         return;
     }
 
-    // Handle mouse input for rotating the camera
     static glm::vec2 lastMousePos = glm::vec2(g_Input.GetMousePosition().x, g_Input.GetMousePosition().y);
     static bool firstMouse = true;
 
@@ -207,40 +235,53 @@ void CameraController::UpdateThirdPersonView(CameraComponent& camera)
     // Apply mouse sensitivity
     mouseOffset *= camera.MouseSensitivity;
 
-
     // Apply mouse movement to the camera's yaw and pitch
     camera.ProcessMouseMovement(mouseOffset.x, mouseOffset.y);
-
 
     glm::vec3 playerPos = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetPosition();
 
     // Set fixed offset values for the third-person camera
     glm::vec3 offset = thirdPersonOffset; // Desired position relative to the player
 
-    // calculate the rotation matrix
+    // Calculate the rotation matrix
     glm::mat4 rotationMatrix = glm::mat4(1.0f);
     rotationMatrix = glm::rotate(rotationMatrix, glm::radians(camera.Yaw + 90), glm::vec3(0.0f, -1.0f, 0.0f));
-    //rotationMatrix = glm::rotate(rotationMatrix, glm::radians(camera.Pitch), glm::vec3(-1.0f, 0.0f, 0.0f));
 
-    // calculate the new offset
+    // Calculate the new offset
     glm::vec3 newOffset = glm::vec3(rotationMatrix * glm::vec4(offset, 1.0f));
 
-    // Set the camera's position to the player's position plus the offset
-    camera.Position = playerPos + newOffset;
-    // Make the camera look at the player - if i set this, it jitters.
-    // camera.SetCameraDirection(glm::normalize(playerPos - camera.Position));
+    // Store the desired camera position and direction
+    glm::vec3 desiredPosition = playerPos + newOffset;
+   
+
+    // If the camera is locked, follow the player
+    if (lockCam) {
+        camera.Position = desiredPosition;
+    } 
+    else {
+        // If the camera is unlocked, you can move it independently
+        // You should allow the camera to move to a new position independent of the player
+
+        // Set a new target position, if not already set
+        glm::vec3 cameraTargetDirection = {0,0,0};
+
+
+        // Lerp smoothly to the target position and direction
+        float lerpFactor = 0.01f; // Smoothness of the transition
+        camera.Position = glm::mix(camera.Position, targetposition, lerpFactor);
+        /*camera.SetCameraDirection(glm::mix(camera.GetCameraDirection(), cameraTargetDirection, lerpFactor));*/
+    }
 
     // Update the camera's direction vectors
     camera.updateCameraVectors();
 
-    //calculate the translation rotation x, y and z
+    // Calculate the translation rotation x, y, and z for the player
     float x = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetRotation().x;
     float y = glm::radians(-camera.Yaw);
     float z = g_Coordinator.GetComponent<TransformComponent>(playerEntity).GetRotation().z;
 
-
-    glm::vec3 newrotation = glm::vec3(x, y, z);
-    g_Coordinator.GetComponent<TransformComponent>(playerEntity).SetRotation(newrotation);
+    glm::vec3 newRotation = glm::vec3(x, y, z);
+    g_Coordinator.GetComponent<TransformComponent>(playerEntity).SetRotation(newRotation);
 }
 
 void CameraController::UpdateShiftingView(CameraComponent& camera)

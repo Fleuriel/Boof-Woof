@@ -15,6 +15,8 @@ class TimeRush : public Level
 	bool savedcamdir{ false };
 	glm::vec3 camdir{};
 
+	bool panCam{ false };
+
 	Entity TimeRushBGM{}, AggroDog{}, CorgiSniff{}, FireSound{};
 
 	double colorChangeTimer = 0.0;
@@ -105,6 +107,9 @@ class TimeRush : public Level
 	void InitLevel() override
 	{
 		cameraController = new CameraController(playerEnt);
+		cameraController->ChangeToThirdPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
+		
+
 		g_Checklist.OnInitialize();
 		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do5");
 		g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.0f, 0.0f), "");
@@ -178,6 +183,13 @@ class TimeRush : public Level
 		if (!g_IsPaused && savedcamdir) {
 			cameraController->SetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt), camdir);
 			savedcamdir = false;
+		}
+
+		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && panCam == false) {
+			
+			cameraController->SetCameraTargetPosition(glm::vec3(26.5f, 5.f, -90.f));
+			cameraController->LockUnlockCam();
+			panCam = true;
 		}
 
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
