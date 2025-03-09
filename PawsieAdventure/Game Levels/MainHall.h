@@ -26,6 +26,7 @@ class MainHall : public Level
 	bool cage1Collided{ false }, cage2Collided{ false }, cage3Collided{ false };
 
 	Entity stealthCollider1{}, stealthCollider2{}, stealthCollider3{}, stealthCollider4{};
+	Entity peeScent1{}, peeScent2{}, peeScent3{}, peeScent4{}, peeScent5{}, peeScent6{}, peeScent7{};
 	// Existing member variables...
 	float originalBrightness = 1.0f;
 
@@ -123,7 +124,7 @@ class MainHall : public Level
 
 		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 
-		particleEntities = { scentEntity1, scentEntity2, scentEntity3 };
+		particleEntities = { scentEntity1, scentEntity2, scentEntity3, peeScent1, peeScent2, peeScent3, peeScent4, peeScent5, peeScent6, peeScent7 };
 		g_UI.OnInitialize();
 
 		// Store the original brightness value
@@ -400,7 +401,13 @@ private:
 			{"StealthCollider2", [&](Entity entity) { stealthCollider2 = entity; }},
 			{"StealthCollider3", [&](Entity entity) { stealthCollider3 = entity; }},
 			{"StealthCollider4", [&](Entity entity) { stealthCollider4 = entity; }},
-
+			{"PeeScent1", [&](Entity entity) { peeScent1 = entity; }},
+			{"PeeScent2", [&](Entity entity) { peeScent2 = entity; }},
+			{"PeeScent3", [&](Entity entity) { peeScent3 = entity; }},
+			{"PeeScent4", [&](Entity entity) { peeScent4 = entity; }},
+			{"PeeScent5", [&](Entity entity) { peeScent5 = entity; }},
+			{"PeeScent6", [&](Entity entity) { peeScent6 = entity; }},
+			{"PeeScent7", [&](Entity entity) { peeScent7 = entity; }}
 		};
 	}
 
@@ -408,7 +415,8 @@ private:
 	{
 		return playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3
 			&& pee1 && pee2 && pee3 && pee4 && pee5 && pee6 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && pee5Collider && pee6Collider 
-			&& WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider && Cage1 && Cage1Collider;
+			&& WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider && Cage1 && Cage1Collider && Cage2 && Cage2Collider && Cage3 && Cage3Collider
+			&& stealthCollider1 && stealthCollider2 && stealthCollider3 && stealthCollider4 && peeScent1 && peeScent2 && peeScent3 && peeScent4 && peeScent5 && peeScent6 && peeScent7;
 	}
 
 	void InitializeChecklist()

@@ -18,7 +18,7 @@ public:
     void SetDefaultPeePosition() const;
     void SetNewPeePosition() const;
 
-	bool CheckEntityCollision(Entity entity);
+	bool CheckEntityWithPlayerCollision(Entity entity);
     bool GetPeeMarked() const { return peeMarked; }
 	void SetPeeMarked(bool value) { peeMarked = value; }
 

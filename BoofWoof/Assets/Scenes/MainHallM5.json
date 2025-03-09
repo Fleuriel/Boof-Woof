@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "3efbe375-d9fd-4569-af52-32c481fb0a7f",
+    "SceneGUID": "354d7cd3-eca9-4f07-a65f-67d548f0568f",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.1932339668273926,
+                    "x": -1.5218825340270997,
                     "y": 1.1806243658065797,
-                    "z": -0.6759371161460877
+                    "z": -0.6759366393089294
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18431,7 +18431,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.855874061584473,
+                    "x": 4.855873107910156,
                     "y": 0.7496002316474915,
                     "z": -23.052207946777345
                 },
@@ -18482,9 +18482,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 61.93856430053711,
+                    "x": 61.938568115234378,
                     "y": 7.064565658569336,
-                    "z": 4.742595195770264
+                    "z": 4.742589950561523
                 },
                 "Scale": {
                     "x": 0.49999740719795229,
@@ -18533,9 +18533,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -24.061199188232423,
+                    "x": -24.061195373535158,
                     "y": 7.063960552215576,
-                    "z": -11.522829055786133
+                    "z": -11.522831916809082
                 },
                 "Scale": {
                     "x": 0.5,
@@ -24578,6 +24578,531 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PeeScent1",
+                "EntityID": 572
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 14.787121772766114,
+                    "y": 1.0455282926559449,
+                    "z": 1.273085117340088
+                },
+                "Scale": {
+                    "x": 0.9999998807907105,
+                    "y": 1.0,
+                    "z": 0.9999998807907105
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.009030535817146302,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 1.0,
+                    "y": -0.5,
+                    "z": 1.0
+                },
+                "PositionMax": {
+                    "x": 1.0,
+                    "y": 0.5,
+                    "z": -2.5
+                },
+                "Density": 0.6000000238418579,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.9607843160629273,
+                    "g": 0.3921568691730499,
+                    "b": 0.04313725605607033,
+                    "a": 0.0
+                },
+                "ParticleType": "TEXTURED",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "cloud"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PeeScent2",
+                "EntityID": 573
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 22.861671447753908,
+                    "y": 1.0455282926559449,
+                    "z": -9.687129974365235
+                },
+                "Scale": {
+                    "x": 0.9999998807907105,
+                    "y": 1.0,
+                    "z": 0.9999998807907105
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.009030535817146302,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 1.0,
+                    "y": -0.5,
+                    "z": 1.0
+                },
+                "PositionMax": {
+                    "x": 1.0,
+                    "y": 0.5,
+                    "z": -2.5
+                },
+                "Density": 0.6000000238418579,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.9607843160629273,
+                    "g": 0.3921568691730499,
+                    "b": 0.04313725605607033,
+                    "a": 0.0
+                },
+                "ParticleType": "TEXTURED",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "cloud"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PeeScent3",
+                "EntityID": 574
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 37.926265716552737,
+                    "y": 1.0455282926559449,
+                    "z": -29.332660675048829
+                },
+                "Scale": {
+                    "x": 0.9999998807907105,
+                    "y": 1.0,
+                    "z": 0.9999998807907105
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.009030535817146302,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 1.0,
+                    "y": -0.5,
+                    "z": 1.0
+                },
+                "PositionMax": {
+                    "x": 1.0,
+                    "y": 0.5,
+                    "z": -2.5
+                },
+                "Density": 0.6000000238418579,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.9607843160629273,
+                    "g": 0.3921568691730499,
+                    "b": 0.04313725605607033,
+                    "a": 0.0
+                },
+                "ParticleType": "TEXTURED",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "cloud"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PeeScent4",
+                "EntityID": 575
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 50.67087936401367,
+                    "y": 7.268516540527344,
+                    "z": -21.08705711364746
+                },
+                "Scale": {
+                    "x": 0.9999998807907105,
+                    "y": 1.0,
+                    "z": 0.9999998807907105
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.009030535817146302,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 1.0,
+                    "y": -0.5,
+                    "z": 1.0
+                },
+                "PositionMax": {
+                    "x": 1.0,
+                    "y": 0.5,
+                    "z": -2.5
+                },
+                "Density": 0.6000000238418579,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.9607843160629273,
+                    "g": 0.3921568691730499,
+                    "b": 0.04313725605607033,
+                    "a": 0.0
+                },
+                "ParticleType": "TEXTURED",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "cloud"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PeeScent5",
+                "EntityID": 576
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 54.31249237060547,
+                    "y": 7.268516540527344,
+                    "z": -9.716917991638184
+                },
+                "Scale": {
+                    "x": 0.9999998807907105,
+                    "y": 1.0,
+                    "z": 0.9999998807907105
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.009030535817146302,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 1.0,
+                    "y": -0.5,
+                    "z": 1.0
+                },
+                "PositionMax": {
+                    "x": 1.0,
+                    "y": 0.5,
+                    "z": -2.5
+                },
+                "Density": 0.6000000238418579,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.9607843160629273,
+                    "g": 0.3921568691730499,
+                    "b": 0.04313725605607033,
+                    "a": 0.0
+                },
+                "ParticleType": "TEXTURED",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "cloud"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PeeScent6",
+                "EntityID": 577
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 43.372257232666019,
+                    "y": 7.268516540527344,
+                    "z": 10.409989356994629
+                },
+                "Scale": {
+                    "x": 0.9999998807907105,
+                    "y": 1.0,
+                    "z": 0.9999998807907105
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.009030535817146302,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 1.0,
+                    "y": -0.5,
+                    "z": 1.0
+                },
+                "PositionMax": {
+                    "x": 1.0,
+                    "y": 0.5,
+                    "z": -2.5
+                },
+                "Density": 0.6000000238418579,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.9607843160629273,
+                    "g": 0.3921568691730499,
+                    "b": 0.04313725605607033,
+                    "a": 0.0
+                },
+                "ParticleType": "TEXTURED",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "cloud"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PeeScent7",
+                "EntityID": 578
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 2.0132689476013185,
+                    "y": 7.268516540527344,
+                    "z": 17.337753295898439
+                },
+                "Scale": {
+                    "x": 0.9999998807907105,
+                    "y": 1.0,
+                    "z": 0.9999998807907105
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.009030535817146302,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 1.0,
+                    "y": -0.5,
+                    "z": 1.0
+                },
+                "PositionMax": {
+                    "x": 1.0,
+                    "y": 0.5,
+                    "z": -2.5
+                },
+                "Density": 0.6000000238418579,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 10.0,
+                "ParticleColor": {
+                    "r": 0.9607843160629273,
+                    "g": 0.3921568691730499,
+                    "b": 0.04313725605607033,
+                    "a": 0.0
+                },
+                "ParticleType": "TEXTURED",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "cloud"
             }
         }
     ]

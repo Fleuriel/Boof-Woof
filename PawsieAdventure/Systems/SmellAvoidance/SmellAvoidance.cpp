@@ -109,27 +109,34 @@ void SmellAvoidance::Update(double deltaTime)
 
 void SmellAvoidance::CheckCollision()
 {
-	playerCollided = CheckEntityCollision(playerEnt);
-    rexPee1collided = CheckEntityCollision(pee1Collider);
-    rexPee2collided = CheckEntityCollision(pee2Collider);
-    rexPee3collided = CheckEntityCollision(pee3Collider);
-    rexPee4collided = CheckEntityCollision(pee4Collider);
-    rexPee5collided = CheckEntityCollision(pee5Collider);
-    rexPee6collided = CheckEntityCollision(pee6Collider);
-    testCollided = CheckEntityCollision(TestCollider);
-    waterBucketcollided = CheckEntityCollision(WaterBucket);
-    waterBucket2collided = CheckEntityCollision(WaterBucket2);
-    waterBucket3collided = CheckEntityCollision(WaterBucket3);
+	//playerCollided = CheckEntityWithPlayerCollision(playerEnt);
+    if (g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
+    {
+        playerCollided = g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetIsColliding();
+    }
+    rexPee1collided = CheckEntityWithPlayerCollision(pee1Collider);
+    rexPee2collided = CheckEntityWithPlayerCollision(pee2Collider);
+    rexPee3collided = CheckEntityWithPlayerCollision(pee3Collider);
+    rexPee4collided = CheckEntityWithPlayerCollision(pee4Collider);
+    rexPee5collided = CheckEntityWithPlayerCollision(pee5Collider);
+    rexPee6collided = CheckEntityWithPlayerCollision(pee6Collider);
+    testCollided = CheckEntityWithPlayerCollision(TestCollider);
+    waterBucketcollided = CheckEntityWithPlayerCollision(WaterBucket);
+    waterBucket2collided = CheckEntityWithPlayerCollision(WaterBucket2);
+    waterBucket3collided = CheckEntityWithPlayerCollision(WaterBucket3);
 
     HandlePeeCollision();
     HandleWaterCollision();
 }
 
-bool SmellAvoidance::CheckEntityCollision(Entity entity)
+bool SmellAvoidance::CheckEntityWithPlayerCollision(Entity entity)
 {
-    if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
+    //Check Entity Collision with Player
+    if (g_Coordinator.HaveComponent<CollisionComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
     {
-        return g_Coordinator.GetComponent<CollisionComponent>(entity).GetIsColliding();
+        auto collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
+        if (collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), "Player") == 0)
+            return true;
     }
     return false;
 }
