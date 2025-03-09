@@ -16,8 +16,8 @@ class CutsceneEnd : public Level
 	{
 		// Use FILEPATH_ASSET_SCENES to construct the scene file path
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/CutsceneEnd.json");
-		/*g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CutsceneBGM3.wav", false, "BGM");
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/cutsceneSFX.wav", false, "SFX");*/
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CutsceneBGM3.wav", false, "BGM");
+		//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/cutsceneSFX.wav", false, "SFX");*
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
 
@@ -254,8 +254,8 @@ class CutsceneEnd : public Level
 
 	void UnloadLevel() override
 	{
-		/*g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/CutsceneBGM3.wav");
-		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/cutsceneSFX.wav");*/
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/CutsceneBGM3.wav");
+		//g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/cutsceneSFX.wav");*/
 
 
 		g_Coordinator.ResetEntities();
