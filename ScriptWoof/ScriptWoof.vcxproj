@@ -150,6 +150,7 @@
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Puppy.hpp" />
     <ClInclude Include="Rex.hpp" />
+    <ClInclude Include="RexChase.hpp" />
     <ClInclude Include="Toys.hpp" />
     <ClInclude Include="Treat.hpp" />
   </ItemGroup>

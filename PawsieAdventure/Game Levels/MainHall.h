@@ -14,7 +14,7 @@
 
 class MainHall : public Level
 {
-	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{}, scentEntity3{}, puppy1{}, puppy2{}, puppy3{};
+	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{}, scentEntity3{}, puppy1{}, puppy2{}, puppy3{}, rex{};
 	Entity WaterBucket{}, WaterBucket2{}, WaterBucket3{}; // Smell Avoidance
 	Entity FireSound{};
 
@@ -67,7 +67,7 @@ class MainHall : public Level
 
 	void LoadLevel() override
 	{
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM5.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallTest.json");
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusicBGM.wav", true, "BGM");
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav", true, "SFX");
 
@@ -166,6 +166,16 @@ class MainHall : public Level
 
 			g_SmellAvoidance.Update(deltaTime);
 
+			if (CheckEntityWithPlayerCollision(rex)) {
+				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+				if (loading)
+				{
+					// Pass in the name of the real scene we want AFTER the loading screen
+					loading->m_NextScene = "MainHall";
+					g_LevelManager.SetNextLevel("LoadingLevel");
+					g_TimerTR.OnShutdown();
+				}
+			}
 			if (!collectedPuppy1 || !collectedPuppy2 || !collectedPuppy3)
 			{
 				//CheckCageCollision();
@@ -347,6 +357,8 @@ class MainHall : public Level
 		g_Checklist.shutted = false;
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
 		puppy1Collided = puppy2Collided = puppy3Collided = false;
+
+		puppiesCollected = 0;
 	}
 
 private:
@@ -360,6 +372,7 @@ private:
 			{"Puppy1", [&](Entity entity) { puppy1 = entity; }},
 			{"Puppy2", [&](Entity entity) { puppy2 = entity; }},
 			{"Puppy3", [&](Entity entity) { puppy3 = entity; }},
+			{"Rex", [&](Entity entity) { rex = entity; }},
 			{"ScentTrail1", [&](Entity entity) { scentEntity1 = entity; }},
 			{"ScentTrail2", [&](Entity entity) { scentEntity2 = entity; }},
 			{"ScentTrail3", [&](Entity entity) { scentEntity3 = entity; }},
@@ -430,6 +443,11 @@ private:
 				return true;
 		}
 		return false;
+	}
+
+	bool CheckRexCollision()
+	{
+		return CheckEntityWithPlayerCollision(rex);
 	}
 
 	void CheckPuppyCollision()
