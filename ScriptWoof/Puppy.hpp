@@ -45,10 +45,12 @@ struct Puppy final : public Behaviour
 
     virtual void Update(Entity entity) override
     {
+
 		if (collected.find(entity) == collected.end())
 		{
 			collected.insert(std::pair<Entity, bool>(entity, false));
 		}
+
 
   //      std::cout << "Puppy "<< entity;
 		//collected[entity] ? std::cout << " collected\n" : std::cout << " not collected\n";
@@ -70,9 +72,12 @@ struct Puppy final : public Behaviour
         glm::vec3 currentPos = m_Engine.GetPosition(entity);
         glm::vec3 velocity(0.0f);
 
-        if (collected[entity] && playerEntity != MAX_ENTITIES) {
+        if (collected[entity] && playerEntity != INVALID_ENT) 
+        {
+
             // Get player position for movement
             glm::vec3 playerPos = m_Engine.GetPosition(playerEntity);
+			float playerY = playerPos.y;
 
 			// Move towards the player x and z position
 			playerPos.y = currentPos.y; // Keep movement on the same Y-plane
@@ -84,67 +89,58 @@ struct Puppy final : public Behaviour
             }
 
             float distance = glm::length(playerPos - currentPos);
+            //if player y position is greater than 5, move puppy up
+            if (playerY - currentPos.y > 1) {
+                if (distance < 2) {
+                    velocity = glm::vec3(0.0f);
+                    std::cout << "[Puppy] Reached player!" << std::endl;
+				}
+				else {
+					// Make the puppy jump towards the player
+                    float gravity = 9.81f;
+                    float jumpHeight = 1.5f;
+                    float jumpVelocity = 1.2f * sqrt(2 * gravity * jumpHeight);
+
+                    velocity.y = jumpVelocity;
+					
+				}
+            }
             if (distance <= pathThreshold)
             {
                 velocity = glm::vec3(0.0f);
                 //std::cout << "[Puppy] Reached player!" << std::endl;
             }
 
-            isMovingPuppy = true;
-        }
-        /*
-        // Ensure path updates dynamically when following the player
-        if (collected && playerEntity != 5000)
-        {
-            Entity playerNode = m_Engine.GetStartNode(playerEntity); // Get player node
-            m_Engine.SetGoalNode(entity, playerNode); // Set the goal as the player
+            
+            if (distance >= 10) {
+				// Teleport the puppy to the player behind
+				glm::vec3 playerDirection = glm::normalize(currentPos - playerPos);
+				glm::vec3 temppos = playerPos + playerDirection * 2.0f;
+				temppos.y = playerPos.y;
+				
+                std::cout << "[DEBUG] Before SetPosition: " << currentPos.x << ", " << currentPos.y << ", " << currentPos.z << std::endl;
 
-            if (!pathInitialized || m_Engine.GetGoalNode(entity) != playerNode)
-            {
-                path = m_Engine.GetPath(entity);
-                std::cout << "[Puppy] Updated path to follow player. Path length: " << path.size() << std::endl;
+                // **Disable physics before teleporting**
+                m_Engine.DisablePhysics(entity);
 
-                if (!path.empty())
-                {
-                    currentPathIndex = std::max(0, (int)path.size() - 3); // Stay a few steps behind
-                    followingPath = true;
-                }
-                else
-                {
-                    std::cerr << "[Puppy] ERROR: No path to follow!" << std::endl;
-                }
+                // **Teleport the puppy**
+                m_Engine.SetPosition(entity, temppos);
 
-                pathInitialized = true;
+                // **Update physics transform**
+                m_Engine.UpdatePhysicsTransform(entity);
+
+                // **Re-enable physics**
+                m_Engine.EnablePhysics(entity);
+
+                std::cout << "[DEBUG] After SetPosition: " << m_Engine.GetPosition(entity).x
+                    << ", " << m_Engine.GetPosition(entity).y
+                    << ", " << m_Engine.GetPosition(entity).z << std::endl;
             }
-        }
-
-        // Move along the path
-        if (followingPath && currentPathIndex < path.size())
-        {
-            glm::vec3 targetPos = path[currentPathIndex];
-            targetPos.y = currentPos.y; // Keep movement on the same Y-plane
-
-            glm::vec3 direction = glm::normalize(targetPos - currentPos);
-            if (glm::length(direction) > 0.0001f)
-            {
-                velocity = direction * speed;
-            }
-
-            float distance = glm::length(targetPos - currentPos);
-            if (distance <= pathThreshold)
-            {
-                currentPathIndex++;
-                if (currentPathIndex >= path.size())
-                {
-                    followingPath = false;
-                    velocity = glm::vec3(0.0f);
-                    std::cout << "[Puppy] Reached final destination!" << std::endl;
-                }
-            }
+		
 
             isMovingPuppy = true;
         }
-        */
+
         // Apply velocity
         if (isMovingPuppy)
         {
@@ -158,7 +154,7 @@ struct Puppy final : public Behaviour
             }
 
             m_Engine.SetVelocity(entity, velocity);
-            // std::cout << "[Puppy] Moving with velocity: (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
+            //std::cout << "[Puppy] Moving with velocity: (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
         }
     }
 

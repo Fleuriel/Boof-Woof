@@ -33,19 +33,24 @@ void Dialogue::OnInitialize()
 
 void Dialogue::OnUpdate(double deltaTime)
 {
-	// Reduce cooldown timer every frame
+	// Only update if dialogue is active.
+	if (!dialogueActive)
+		return;
+
+	// Reduce cooldown timer every frame.
 	if (clickCooldown > 0)
 	{
 		clickCooldown -= static_cast<float>(deltaTime);
 	}
 
-	// Check if mouse is clicked and cooldown has expired
+	// Process left click only when cooldown is expired.
 	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && clickCooldown <= 0.0f)
 	{
 		ProcessDialogue();
-		clickCooldown = 0.2f;  // Set cooldown (prevents multiple clicks registering in one frame)
+		clickCooldown = 0.2f;  // Prevent multiple clicks in one frame.
 	}
 }
+
 
 void Dialogue::OnShutdown()
 {
@@ -109,7 +114,10 @@ std::string Dialogue::getDialogue()
 		return "One down.. Two more to go. Stay close, kiddo!";
 
 	case DialogueState::DISGUSTED:
-		return "Eww!! Seriously, Rex?! Why pee all over the place?! I should avoid it..";
+		return "Something stinks.. Smells like pee..?! I should avoid it..";
+
+	case DialogueState::DISGUSTED2:
+		return "Eww!! Seriously, Rex?! Get this off me!!";
 
 	/* MainHall Lvl2 Dialogues ? */
 	case DialogueState::SEARCHINGFORPUPS2:
@@ -125,7 +133,7 @@ std::string Dialogue::getDialogue()
 		return "Hmm.. That last pup has to be around here somewhere. Maybe if I climb up there..";
 
 	case DialogueState::FOUNDPUP3:
-		return "Locked.. again?! Alright, let’s do this the hard way—grr!!";
+		return "I'm here my little one! Alright, let’s do this the hard way-grr!!";
 
 	case DialogueState::ALLPUPSFOUND:
 		return "That's all three.. We’re finally together again! Time to escape this hellhole!";
@@ -221,9 +229,8 @@ void Dialogue::checkCollision(Entity player, double dt)
 		if (!m_TouchedBall)  // Only trigger if not already interacting
 		{
 			OnInitialize();
-			setDialogue(m_FirstTimeTouchBall ? DialogueState::TOUCHBALL : DialogueState::DONTWASTETIME);
+			setDialogue(DialogueState::DONTWASTETIME);
 			m_TouchedBall = true;  // Track interaction with the ball
-			m_FirstTimeTouchBall = false;
 		}
 	}
 
@@ -233,9 +240,8 @@ void Dialogue::checkCollision(Entity player, double dt)
 		if (!m_TouchedBone)  // Only trigger if not already interacting
 		{
 			OnInitialize();
-			setDialogue(m_FirstTimeTouchBone ? DialogueState::TOUCHBONE : DialogueState::DONTWASTETIME);
+			setDialogue(DialogueState::DONTWASTETIME);
 			m_TouchedBone = true;  // Track interaction with the bone
-			m_FirstTimeTouchBone = false;
 		}
 	}
 
@@ -252,6 +258,5 @@ void Dialogue::Reset()
 {
 	setDialogue(DialogueState::DEFAULT);
 	dialogueActive = m_TouchedBall = m_TouchedBone = false;
-	m_FirstTimeTouchBall = m_FirstTimeTouchBone = true;
 	m_CollisionResetTimer = 2.0f;
 }

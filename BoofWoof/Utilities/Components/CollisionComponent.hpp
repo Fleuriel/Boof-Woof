@@ -40,8 +40,8 @@ public:
     //CollisionComponent(int layer, bool isDynamic = false)
     //    : m_CollisionLayer(layer), m_IsDynamic(isDynamic) {}
     // Constructor with initial AABB size
-    CollisionComponent(int layer, bool isDynamic = false, const glm::vec3& initialAABB = glm::vec3(1.0f, 1.0f, 1.0f))
-        : m_CollisionLayer(layer), m_IsDynamic(isDynamic), m_AABBSize(initialAABB) {}
+    CollisionComponent(int layer, bool isDynamic = false, bool isKinematic = false, const glm::vec3& initialAABB = glm::vec3(1.0f, 1.0f, 1.0f))
+        : m_CollisionLayer(layer), m_IsDynamic(isDynamic), m_IsKinematic(isKinematic), m_AABBSize(initialAABB) {}
 
     ~CollisionComponent() = default;
 
@@ -51,6 +51,8 @@ public:
     void SetCollisionLayer(int layer) { m_CollisionLayer = layer; }
     void SetHasBodyAdded(bool hasBodyAdded) { m_HasBodyAdded = hasBodyAdded; }
     void SetIsDynamic(bool isDynamic) { m_IsDynamic = isDynamic; }
+    // Setter for Kinematic flag
+    void SetIsKinematic(bool isKinematic) { m_IsKinematic = isKinematic; }
     void SetIsPlayer(bool isPlayer) { m_IsPlayer = isPlayer; }
     void SetIsColliding(bool value) { isColliding = value; }
 
@@ -60,6 +62,7 @@ public:
     int GetCollisionLayer() const { return m_CollisionLayer; }
     bool HasBodyAdded() const { return m_HasBodyAdded; }
     bool IsDynamic() const { return m_IsDynamic; }
+    bool IsKinematic() const { return m_IsKinematic; }
     bool IsPlayer() const { return m_IsPlayer; }
     bool GetIsColliding() const { return isColliding; }
 
@@ -138,6 +141,7 @@ public:
         REGISTER_PROPERTY(CollisionComponent, CollisionLayer, int, SetCollisionLayer, GetCollisionLayer);
         REGISTER_PROPERTY(CollisionComponent, HasBodyAdded, bool, SetHasBodyAdded, HasBodyAdded);
         REGISTER_PROPERTY(CollisionComponent, IsDynamic, bool, SetIsDynamic, IsDynamic);
+        REGISTER_PROPERTY(CollisionComponent, IsKinematic, bool, SetIsKinematic, IsKinematic);
         REGISTER_PROPERTY(CollisionComponent, IsPlayer, bool, SetIsPlayer, IsPlayer);
         REGISTER_PROPERTY(CollisionComponent, GetIsColliding, bool, SetIsColliding, GetIsColliding);
         REGISTER_PROPERTY(CollisionComponent, AABBOffset, glm::vec3, SetAABBOffset, GetAABBOffset); // Add this line
@@ -154,6 +158,7 @@ private:
     glm::vec3 m_AABBSize = glm::vec3(1.0f, 1.0f, 1.0f); // Default AABB size (x, y, z)
     glm::vec3 AABBOffset = glm::vec3(0.0f); // Default to no offset
     bool m_IsDynamic = false;             // Flag to determine if the entity is dynamic or static
+    bool m_IsKinematic = false;
     bool m_IsPlayer = false;            // Determines if the entity is a player
     bool isColliding = false; // Flag to track collision status
     std::string lastCollidedObjectName = "None"; // Default to no collision

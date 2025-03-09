@@ -26,6 +26,7 @@ enum class DialogueState {
 	BREAKROPES,
 	BROKEROPE1,
 	FREED,
+	DISGUSTED2,
 };
 
 class Dialogue
@@ -51,7 +52,7 @@ private:
 	Entity m_D1{};
 	DialogueState m_CurrentState{ DialogueState::DEFAULT };
 	bool NextDialoguePls{ false };
-	bool m_FirstTimeTouchBall{ true }, m_FirstTimeTouchBone{ true }, m_TouchedBall{ false }, m_TouchedBone{ false };
+	bool m_TouchedBall{ false }, m_TouchedBone{ false };
 	float m_CollisionResetTimer{ 2.0f }; // stunlock timing
 	float clickCooldown = 0.0f;
 

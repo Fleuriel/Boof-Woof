@@ -158,7 +158,7 @@ xcopy "$(SolutionDir)bin\Release-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDir
       <AdditionalOptions>-wd4714 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -180,6 +180,7 @@ xcopy "$(SolutionDir)bin\Release-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDir
   <ItemGroup>
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Systems\BoneCatcher\BoneCatcher.cpp" />
+    <ClCompile Include="Systems\CageBreaker\CageBreaker.cpp" />
     <ClCompile Include="Systems\CameraController\CameraController.cpp" />
     <ClCompile Include="Systems\ChangeText\ChangeText.cpp" />
     <ClCompile Include="Systems\Checklist\Checklist.cpp" />
@@ -190,6 +191,7 @@ xcopy "$(SolutionDir)bin\Release-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDir
   <ItemGroup>
     <ClInclude Include="Game Levels\Cutscene.h" />
     <ClInclude Include="Game Levels\CutsceneEnd.h" />
+    <ClInclude Include="Game Levels\Corridor.h" />
     <ClInclude Include="Game Levels\LoadingLevel.h" />
     <ClInclude Include="Game Levels\MainHall.h" />
     <ClInclude Include="Game Levels\StartingRoom.h" />
@@ -199,6 +201,7 @@ xcopy "$(SolutionDir)bin\Release-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDir
     <ClInclude Include="Game Levels\TYVM.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Systems\BoneCatcher\BoneCatcher.h" />
+    <ClInclude Include="Systems\CageBreaker\CageBreaker.h" />
     <ClInclude Include="Systems\CameraController\CameraController.h" />
     <ClInclude Include="Systems\ChangeText\ChangeText.h" />
     <ClInclude Include="Systems\Checklist\Checklist.h" />

@@ -318,7 +318,7 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
             // Retrieve the physics body
             JPH::Body* body = collisionComponent.GetPhysicsBody();
 
-            if (body != nullptr && body->GetMotionType() == JPH::EMotionType::Dynamic) {
+            if (body != nullptr && (body->GetMotionType() == JPH::EMotionType::Dynamic) || (body->GetMotionType() == JPH::EMotionType::Kinematic)) {
                 JPH::Vec3 gravity = mPhysicsSystem->GetGravity();
                 JPH::Vec3 velocity = body->GetLinearVelocity();
                 //std::cout << "Entity ID: " << entity
@@ -369,7 +369,8 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
                 }
 
                 // Debug output to check Position and Velocity for Dynamic Bodies
-                if (body->GetMotionType() == JPH::EMotionType::Dynamic) {
+                if (body->GetMotionType() == JPH::EMotionType::Dynamic
+                    || body->GetMotionType() == JPH::EMotionType::Kinematic) {
                     JPH::Vec3 velocity = bodyInterface.GetLinearVelocity(body->GetID());
                     //std::cout << "Entity ID: " << entity << " Position = ("
                     //    << position.GetX() << ", "
@@ -397,7 +398,7 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
     }
 
     // Simulate physics
-    mPhysicsSystem->Update(deltaTime, 1, mTempAllocator, mJobSystem);
+    mPhysicsSystem->Update(deltaTime, 20, mTempAllocator, mJobSystem);
 
     // Update the entities' transforms after simulation
     UpdateEntityTransforms();
@@ -436,14 +437,39 @@ void MyPhysicsSystem::AddEntityBody(Entity entity, float mass) {
 
         JPH::Shape* shape = CreateShapeForObjectType(objectType, scaledAABB);
         bool isDynamic = collisionComponent.IsDynamic();
-        JPH::EMotionType motionType = isDynamic ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
+        //JPH::EMotionType motionType = isDynamic ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
+        
+        // Select motion type: Dynamic, Kinematic, or Static
+        JPH::EMotionType motionType;
+        if (collisionComponent.IsDynamic()) {
+            motionType = JPH::EMotionType::Dynamic;
+        }
+        else if (collisionComponent.IsKinematic()) {  // Check for Kinematic flag
+            motionType = JPH::EMotionType::Kinematic;
+        }
+        else {
+            motionType = JPH::EMotionType::Static;
+        }
+
+        // Select moving type
+        JPH::ObjectLayer layer;
+        if (motionType == JPH::EMotionType::Dynamic) {
+            layer = Layers::MOVING;      // Allow dynamic objects to move
+        }
+        else if (motionType == JPH::EMotionType::Kinematic) {
+            layer = Layers::MOVING;      // Allow kinematic objects to move too!
+        }
+        else {
+            layer = Layers::NON_MOVING;  // Static objects remain non-moving
+        }
 
         JPH::BodyCreationSettings bodySettings(
             shape,
             positionWithOffset,
             joltRotation,
             motionType,
-            motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING
+            layer
+            //motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING
         );
 
         JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
@@ -513,7 +539,30 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity, float mass)
 
         // Set motion type based on IsDynamic in CollisionComponent
         bool isDynamic = collisionComponent.IsDynamic();
-        JPH::EMotionType motionType = isDynamic ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
+        bool isKinematic = collisionComponent.IsKinematic();  // Add this new flag
+        //JPH::EMotionType motionType = isDynamic ? JPH::EMotionType::Dynamic : JPH::EMotionType::Static;
+        
+        JPH::EMotionType motionType;
+        if (isDynamic) {
+            motionType = JPH::EMotionType::Dynamic;
+        }
+        else if (isKinematic) {
+            motionType = JPH::EMotionType::Kinematic;  // Support kinematic
+        }
+        else {
+            motionType = JPH::EMotionType::Static;
+        }
+
+        JPH::ObjectLayer layer;
+        if (motionType == JPH::EMotionType::Dynamic) {
+            layer = Layers::MOVING;
+        }
+        else if (motionType == JPH::EMotionType::Kinematic) {
+            layer = Layers::MOVING;  // Kinematic should also be MOVING to update properly
+        }
+        else {
+            layer = Layers::NON_MOVING;
+        }
 
         // Compute the scaled AABB
         glm::vec3 scale = transform.GetScale();
@@ -554,7 +603,8 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity, float mass)
             //JPH::Quat::sIdentity(), // Default rotation
             joltRotation,
             motionType,
-            motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING
+            layer
+            //motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING
         );
 
         // Allow full rotational freedom
@@ -850,8 +900,8 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycast(
                     entityName = g_Coordinator.GetComponent<MetadataComponent>(collector.hitEntity).GetName();
                 }
 
-                std::cout << "[PhysicsSystem] Cone Ray HIT entity: " << collector.hitEntity
-                    << " (" << entityName << ") at fraction: " << collector.closestFraction << std::endl;
+                //std::cout << "[PhysicsSystem] Cone Ray HIT entity: " << collector.hitEntity
+                //    << " (" << entityName << ") at fraction: " << collector.closestFraction << std::endl;
 
                 if (RayCastDebug == true)
                     GraphicsSystem::AddDebugLine(adjustedOrigin, hitPoint, glm::vec3(0.0f, 1.0f, 0.0f));  // Green for hit
@@ -948,8 +998,8 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycastDownward(
                 }
 
                 // Debug log for hit entity
-                std::cout << "[PhysicsSystem] Cone Ray HIT entity: " << collector.hitEntity
-                    << " (" << entityName << ") at fraction: " << collector.closestFraction << std::endl;
+                /*std::cout << "[PhysicsSystem] Cone Ray HIT entity: " << collector.hitEntity
+                    << " (" << entityName << ") at fraction: " << collector.closestFraction << std::endl;*/
 
                 // Draw a green debug line from the origin to the hit point
                 if (RayCastDebug == true)
@@ -968,6 +1018,69 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycastDownward(
     }
 
     return detectedEntities;
+}
+
+void MyPhysicsSystem::DisablePhysics(Entity entity)
+{
+    if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
+    {
+        auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+        JPH::Body* body = collisionComponent.GetPhysicsBody();
+
+        if (body != nullptr && !body->GetID().IsInvalid())
+        {
+            mPhysicsSystem->GetBodyInterface().SetMotionType(body->GetID(), JPH::EMotionType::Static, JPH::EActivation::DontActivate);
+            //std::cout << "[PhysicsSystem] Disabled physics for entity: " << entity << std::endl;
+        }
+    }
+}
+
+void MyPhysicsSystem::EnablePhysics(Entity entity)
+{
+    if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
+    {
+        auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+        JPH::Body* body = collisionComponent.GetPhysicsBody();
+
+        if (body != nullptr && !body->GetID().IsInvalid())
+        {
+            // Determine motion type: Dynamic, Kinematic, or Static
+            JPH::EMotionType motionType;
+            if (collisionComponent.IsDynamic())
+                motionType = JPH::EMotionType::Dynamic;
+            else if (collisionComponent.IsKinematic())
+                motionType = JPH::EMotionType::Kinematic;
+            else
+                motionType = JPH::EMotionType::Static;
+
+            mPhysicsSystem->GetBodyInterface().SetMotionType(body->GetID(), motionType, JPH::EActivation::Activate);
+            //std::cout << "[PhysicsSystem] Enabled physics for entity: " << entity << std::endl;
+        }
+    }
+}
+
+void MyPhysicsSystem::UpdatePhysicsTransform(Entity entity)
+{
+    if (g_Coordinator.HaveComponent<CollisionComponent>(entity) &&
+        g_Coordinator.HaveComponent<TransformComponent>(entity))
+    {
+        auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+        auto& transform = g_Coordinator.GetComponent<TransformComponent>(entity);
+        JPH::Body* body = collisionComponent.GetPhysicsBody();
+
+        if (body != nullptr && !body->GetID().IsInvalid())
+        {
+            glm::vec3 newPos = transform.GetPosition();
+            JPH::RVec3 joltPos(newPos.x, newPos.y, newPos.z);
+
+            glm::quat glmRot = transform.GetRotation();
+            JPH::Quat joltRot(glmRot.x, glmRot.y, glmRot.z, glmRot.w);
+
+            mPhysicsSystem->GetBodyInterface().SetPositionAndRotation(body->GetID(), joltPos, joltRot, JPH::EActivation::Activate);
+
+            //std::cout << "[PhysicsSystem] Updated physics transform for entity: " << entity << std::endl;
+        }
+    }
 }
 
 

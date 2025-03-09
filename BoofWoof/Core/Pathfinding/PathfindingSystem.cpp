@@ -42,6 +42,7 @@ void PathfindingSystem::BuildGraph() {
             if (nodeComp.GetNodeID() == INVALID_ENTITY) {
                 nodeComp.SetNodeID(NodeComponent::GenerateNodeID());
                 //std::cout << "[DEBUG] Assigned NodeID " << nodeComp.GetNodeID() << " to Entity " << entity << "\n";
+				nodelist.push_back(nodeComp.GetNodeID());
             }
 
             glm::vec3 nodePosition = nodeComp.GetPosition();
@@ -333,7 +334,24 @@ bool PathfindingSystem::DecomposeTransform(const glm::mat4& transform, glm::vec3
     return true;
 }
 
+Entity PathfindingSystem::GetClosestNode(const glm::vec3& position) {
+	Entity closestNode = INVALID_ENTITY;
+	float closestDistance = std::numeric_limits<float>::infinity();
 
+	for (const auto& [nodeID, node] : graphNodes) {
+		float distance = glm::length(node->position - position);
+		if (distance < closestDistance) {
+			closestDistance = distance;
+			closestNode = nodeID;
+		}
+	}
+
+	return closestNode;
+}
+
+std::vector<Entity> PathfindingSystem::GetNodeList() {
+	return nodelist;
+}
 
 
 

@@ -9,6 +9,8 @@
 #include "../Utilities/ForGame/UI/UI.h"
 #include "LoadingLevel.h"
 
+
+
 class StartingRoom : public Level
 {
 public:
@@ -18,6 +20,28 @@ public:
 	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{}, FireSound{};
 
 	std::vector<Entity> particleEntities;
+	double sniffCooldownTimer = 0.0;  // Accumulates time
+	const double sniffCooldownDuration = 17.0;  // 16 seconds
+	bool isSniffOnCooldown = false;
+
+	std::vector<std::string> bitingSounds = {
+	"Corgi/DogBite_01.wav",
+	"Corgi/DogBite_02.wav",
+	"Corgi/DogBite_03.wav",
+	"Corgi/DogBite_04.wav",
+	"Corgi/DogBite_05.wav",
+	"Corgi/DogBite_06.wav",
+	"Corgi/DogBite_07.wav",
+	};
+
+
+	// Function to get a random sound from a vector
+	std::string GetRandomSound(const std::vector<std::string>& soundList) {
+		static std::random_device rd;
+		static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+		std::uniform_int_distribution<std::size_t> dis(0, soundList.size() - 1);
+		return soundList[dis(gen)];
+	}
 
 	void LoadLevel() override
 	{
@@ -103,6 +127,9 @@ public:
 
 	void UpdateLevel(double deltaTime) override
 	{
+
+		//double currentTime = g_TimerTR.; // Use the game's timer system
+
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
 			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
 			glm::vec3 playerPos = playerTransform.GetPosition();
@@ -154,18 +181,18 @@ public:
 
 			}
 
-			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
-			{
-				if (!teb_last)
-				{
-					teb_last = true;
-					cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
-				}
-			}
-			else
-			{
-				teb_last = false;
-			}
+			//if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
+			//{
+			//	if (!teb_last)
+			//	{
+			//		teb_last = true;
+			//		cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
+			//	}
+			//}
+			//else
+			//{
+			//	teb_last = false;
+			//}
 
 			//if (g_Input.GetKeyState(GLFW_KEY_O) >= 1) 
 			//{
@@ -175,34 +202,51 @@ public:
 			// Take this away once u shift to script
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
 			{
-				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiBark))
-				{
-					auto& music1 = g_Coordinator.GetComponent<AudioComponent>(CorgiBark);
-					music1.PlayAudio();
-				}
+				std::string biteSound = FILEPATH_ASSET_AUDIO + "/" + GetRandomSound(bitingSounds);
+				g_Audio.PlayFileOnNewChannel(biteSound.c_str(), false, "SFX");
+
 				bark = true;
+
+				// Reset bark after a short delay to allow multiple bites
+				std::thread([&]() {
+					std::this_thread::sleep_for(std::chrono::milliseconds(500)); // 500ms delay
+					bark = false;
+					}).detach();
 			}
+
 
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 0)
 			{
 				bark = false;
 			}
+			// Accumulate time for cooldown
+			if (isSniffOnCooldown) {
+				sniffCooldownTimer += deltaTime;
+				if (sniffCooldownTimer >= sniffCooldownDuration) {
+					isSniffOnCooldown = false;  // Reset cooldown
+					sniffCooldownTimer = 0.0;   // Reset timer
+				}
+			}
 
-			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !sniff)
+			// Sniffing logic with cooldown check
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !isSniffOnCooldown)
 			{
 				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff))
 				{
-					auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
-					music2.PlayAudio();
+					auto& sniffSound = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
+					sniffSound.PlayAudio();
 				}
 
-				sniff = true;
+				isSniffOnCooldown = true;  // Start cooldown
+				sniffCooldownTimer = 0.0;  // Reset timer to start counting 16 seconds
 			}
 
+			// Reset sniff state when the key is released
 			if (g_Input.GetKeyState(GLFW_KEY_E) == 0)
 			{
 				sniff = false;
 			}
+
 			// until here
 
 			if (g_Checklist.shutted && !g_DialogueText.dialogueActive)
@@ -247,7 +291,9 @@ public:
 		}
 
 		g_ChangeText.startingRoomOnly = false;
-
+		bark = false;
+		sniff = false;
+		initChecklist = false;
 		g_Audio.Stop(BedRoomBGM);
 
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();

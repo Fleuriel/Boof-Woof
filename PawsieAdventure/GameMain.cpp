@@ -9,6 +9,7 @@
 #include "Game Levels/MainMenu.h"
 #include "Game Levels/Cutscene.h"
 #include "Game Levels/StartingRoom.h"
+#include "Game Levels/Corridor.h"
 #include "Game Levels/TimeRush.h"
 #include "Game Levels/MainHall.h"
 #include "Game Levels/LoadingLevel.h"
@@ -25,6 +26,7 @@ void InitializeLevels()
     g_LevelManager.RegisterLevel("MainMenu", new MainMenu());
     g_LevelManager.RegisterLevel("Cutscene", new Cutscene());
     g_LevelManager.RegisterLevel("StartingRoom", new StartingRoom());
+	g_LevelManager.RegisterLevel("Corridor", new Corridor());
     g_LevelManager.RegisterLevel("TimeRush", new TimeRush());
     g_LevelManager.RegisterLevel("MainHall", new MainHall());
     g_LevelManager.RegisterLevel("LoadingLevel", new LoadingLevel());
@@ -75,21 +77,26 @@ int RunGame()
 }
 
 
-#ifdef _DEBUG
-// Use `main` in debug mode
 int main()
 {
     return RunGame();
 }
-#else
-#include <windows.h>
-// Use `WinMain` in release mode
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
-    (void)hInstance;
-    (void)hPrevInstance;
-    (void)lpCmdLine;
-    (void)nCmdShow;
-    return RunGame();
-}
-#endif
+
+//#ifdef _DEBUG
+//// Use `main` in debug mode
+//int main()
+//{
+//    return RunGame();
+//}
+//#else
+//#include <windows.h>
+//// Use `WinMain` in release mode
+//int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+//{
+//    (void)hInstance;
+//    (void)hPrevInstance;
+//    (void)lpCmdLine;
+//    (void)nCmdShow;
+//    return RunGame();
+//}
+//#endif

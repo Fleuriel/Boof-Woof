@@ -1,5 +1,6 @@
 #include "BoneCatcher.h"
 #include "../RopeBreaker/RopeBreaker.h"
+#include "../CageBreaker/CageBreaker.h"
 #include "../Core/AssetManager/FilePaths.h"
 
 BoneCatcher g_BoneCatcher;
@@ -11,7 +12,15 @@ std::uniform_real_distribution<float> dist;  // Default distribution range
 void BoneCatcher::OnInitialize()
 {
 	// Next time just have a bool to control whether it's rope or cage
-	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/RopeCatcher.json");
+	if (isCage) 
+	{
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/CageCatcher.json");
+	}
+
+	if (isRope) 
+	{
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/RopeCatcher.json");
+	}
 
 	storage = serial.GetStored();
 
@@ -70,25 +79,55 @@ void BoneCatcher::OnInitialize()
 		}
 	}
 
-	//m_BaseChanged = false;
+	m_BaseChanged = m_ChangeBaseToBar = false;
 	m_Speed = 0.5f;
 	m_HitCount = 0;
 }
 
 void BoneCatcher::OnUpdate(double deltaTime)
 {
+
+	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT))
+		return;
+
 	ClearBoneCatcherTimer += deltaTime;
 
 	if (m_HitCount <= 4)
 	{
-		// this need change to bite key - left mouse button
 		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1)
 		{
 			// Stop then visual feedback up down
 			m_IsMoving = false;
 		}
 
-		ChangeBase("RopeSemi", "RopeBreak");
+		if (isRope) 
+		{
+			//if (!m_ChangeBaseToBar)
+			//{
+			//	if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
+			//	{
+			//		g_Coordinator.GetComponent<UIComponent>(m_Base).set_texturename("RopeFull");
+			//		m_ChangeBaseToBar = true;
+			//	}
+			//}
+
+			ChangeBase("RopeSemi", "RopeBreak");
+		}
+
+		if (isCage) 
+		{
+			//if (!m_ChangeBaseToBar) 
+			//{
+			//	if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
+			//	{
+			//		g_Coordinator.GetComponent<UIComponent>(m_Base).set_texturename("BarFull");
+			//		m_ChangeBaseToBar = true;
+			//	}
+			//}
+
+			ChangeBase("BarSemi", "BarBreak");
+		}
+
 		if (m_HitCount == 3) m_BaseChanged = false;
 
 		if (m_IsMoving)
@@ -104,8 +143,16 @@ void BoneCatcher::OnUpdate(double deltaTime)
 	// Play for as long bonecatcher lasts.
 	if (AudioTimer <= ClearBoneCatcherTimer && !isAudioPlaying)
 	{
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav", true, "SFX");
-		isAudioPlaying = true;
+		if (isRope)
+		{
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CreakingRope2.wav", true, "SFX");
+		}
+		else if (isCage)
+		{
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/MetalCage.wav", true, "SFX");
+
+		}
+			isAudioPlaying = true;
 	}
 
 	Stop(deltaTime);
@@ -132,13 +179,23 @@ void BoneCatcher::Stop(double deltaTime)
 			m_ShouldDestroy = false; // reset
 			m_HitCount = 0;
 
-			if (g_RopeBreaker.RopeCount != 0)
+			if (isCage) 
 			{
-				g_RopeBreaker.RopeCount -= 1;
-
-				// Despawn the rope
-				g_RopeBreaker.DespawnRope();
+				g_CageBreaker.DespawnCage();
 			}
+
+			m_ChangeBaseToBar = false;
+
+			if (isRope) 
+			{
+				if (g_RopeBreaker.RopeCount != 0)
+				{
+					g_RopeBreaker.RopeCount -= 1;
+
+					// Despawn the rope
+					g_RopeBreaker.DespawnRope();
+				}
+			}		
 		}
 	}
 }
@@ -259,6 +316,8 @@ void BoneCatcher::ClearBoneCatcher()
 	{
 		std::cout << "Entered audioplaying" << std::endl;
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav"); // Stop the specific file path
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/MetalCage.wav");
+
 		isAudioPlaying = false;  // Reset the flag
 	}
 
@@ -322,7 +381,7 @@ void BoneCatcher::ResetBC()
 	m_DownTimer = 2.0f;
 
 	m_IsMoving = true;
-	m_ShouldDestroy = m_Down = m_Up = m_HitDetected = isAudioPlaying = m_BaseChanged = false; 
+	m_ShouldDestroy = m_Down = m_Up = m_HitDetected = isAudioPlaying = m_BaseChanged = m_ChangeBaseToBar = false;
 
 	m_Direction = 1;
 	m_MinPos = -0.335f;

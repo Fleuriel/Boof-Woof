@@ -10,6 +10,7 @@ class TimeRush : public Level
 {
 	Entity playerEnt{};
 	Entity scentEntity1{}, scentEntity2{}, scentEntity3{}, scentEntity4{}, scentEntity5{}, scentEntity6{}, scentEntity7{}, scentEntity8{}, scentEntity9{};
+	Entity rexEnt{};
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
 	glm::vec3 camdir{};
@@ -25,7 +26,31 @@ class TimeRush : public Level
 	bool finishTR{ false };
 	double timesUp = 2.0;
 
+	double sniffCooldownTimer = 0.0;  // Accumulates time
+	const double sniffCooldownDuration = 17.0;  // 16 seconds
+	bool isSniffOnCooldown = false;
+
 	std::vector<Entity> particleEntities;
+
+	bool bark = false;
+	std::vector<std::string> bitingSounds = {
+	"Corgi/DogBite_01.wav",
+	"Corgi/DogBite_02.wav",
+	"Corgi/DogBite_03.wav",
+	"Corgi/DogBite_04.wav",
+	"Corgi/DogBite_05.wav",
+	"Corgi/DogBite_06.wav",
+	"Corgi/DogBite_07.wav",
+		};
+
+
+	// Function to get a random sound from a vector
+	std::string GetRandomSound(const std::vector<std::string>& soundList) {
+		static std::random_device rd;
+		static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+		std::uniform_int_distribution<std::size_t> dis(0, soundList.size() - 1);
+		return soundList[dis(gen)];
+	}
 
 	void LoadLevel() override
 	{
@@ -52,7 +77,8 @@ class TimeRush : public Level
 			{"TimeRushBGM", [&](Entity entity) { TimeRushBGM = entity; }},
 			{"AggressiveDogBarking", [&](Entity entity) { AggroDog = entity; }},
 			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }},
-			{ "red particle", [&](Entity entity) { FireSound = entity; }}
+			{ "red particle", [&](Entity entity) { FireSound = entity; }},
+			{"Rex", [&](Entity entity) { rexEnt = entity; }}
 
 		};
 
@@ -71,7 +97,7 @@ class TimeRush : public Level
 
 				// Exit early if all entities are found
 				if (playerEnt && scentEntity1 && scentEntity2 && scentEntity3 && scentEntity4
-					&& scentEntity5 && scentEntity6 && scentEntity7 && scentEntity8 && scentEntity9 && TimeRushBGM && AggroDog && CorgiSniff && FireSound)
+					&& scentEntity5 && scentEntity6 && scentEntity7 && scentEntity8 && scentEntity9 && TimeRushBGM && AggroDog && CorgiSniff && FireSound && rexEnt)
 				{
 					break;
 				}
@@ -148,7 +174,6 @@ class TimeRush : public Level
 
 	void UpdateLevel(double deltaTime) override
 	{
-
 		if (g_IsPaused && !savedcamdir) {
 			camdir = cameraController->GetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
 			savedcamdir = true;
@@ -166,6 +191,8 @@ class TimeRush : public Level
 
 			g_Audio.SetListenerPosition(playerPos, playerRot);
 		}
+
+
 
 
 		// ?? Update the positions of all 3D sounds (including the fireplace)
@@ -192,16 +219,24 @@ class TimeRush : public Level
 			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
 			if (g_TimerTR.timer == 0.0) 
 			{
+				/*
+				// Need to teleport Rex to 20, 1.5, 3
+				if (g_Coordinator.HaveComponent<TransformComponent>(rexEnt))
+				{
+					auto& rexTransform = g_Coordinator.GetComponent<TransformComponent>(rexEnt);
+					rexTransform.SetPosition(glm::vec3(20.0f, 1.5f, 3.0f));
+				}
+				*/
 				timesUp -= deltaTime;
 
 				// Times up! sound
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
-
 				// Wait for like 2 seconds then restart game
 				if (timesUp < 0.0) 
 				{
 					timesUp = 0.0;
-
+					
+					
 					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 					if (loading)
 					{
@@ -215,19 +250,67 @@ class TimeRush : public Level
 
 						g_LevelManager.SetNextLevel("LoadingLevel");
 					}
-				}		
-			}
-
-			// Take this away once u shift to script
-			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1)
-			{
-				//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false, "SFX");
-				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
-					auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
-					music2.PlayAudio();
+					
 				}
 			}
-			// until here
+			
+			//if (CheckEntityWithPlayerCollision(rexEnt)) {
+			//	auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+			//	if (loading)
+			//	{
+			//		// Pass in the name of the real scene we want AFTER the loading screen
+			//		loading->m_NextScene = "TimeRush";
+
+			//		timesUp = 2.0;
+			//		g_TimerTR.Reset();
+			//		g_DialogueText.OnShutdown();
+			//		g_DialogueText.Reset();
+
+			//		g_LevelManager.SetNextLevel("LoadingLevel");
+			//	}
+			//}
+			
+			// Take this away once u shift to script
+			// Accumulate time for cooldown
+			if (isSniffOnCooldown) {
+				sniffCooldownTimer += deltaTime;
+				if (sniffCooldownTimer >= sniffCooldownDuration) {
+					isSniffOnCooldown = false;  // Reset cooldown
+					sniffCooldownTimer = 0.0;   // Reset timer
+				}
+			}
+
+			// Sniffing logic with cooldown check
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !isSniffOnCooldown)
+			{
+				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff))
+				{
+					auto& sniffSound = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
+					sniffSound.PlayAudio();
+				}
+
+				isSniffOnCooldown = true;  // Start cooldown
+				sniffCooldownTimer = 0.0;  // Reset timer to start counting 16 seconds
+			}
+
+
+
+
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
+			{
+				std::string biteSound = FILEPATH_ASSET_AUDIO + "/" + GetRandomSound(bitingSounds);
+				g_Audio.PlayFileOnNewChannel(biteSound.c_str(), false, "SFX");
+
+				bark = true;
+
+				// Reset bark after a short delay to allow multiple bites
+				std::thread([&]() {
+					std::this_thread::sleep_for(std::chrono::milliseconds(500)); // 500ms delay
+					bark = false;
+					}).detach();
+			}
+
+
 
 			// Checklist
 			if (!g_Checklist.shutted)
@@ -289,5 +372,19 @@ class TimeRush : public Level
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 		g_Checklist.finishTR = false;
+	}
+
+private:
+
+	bool CheckEntityWithPlayerCollision(Entity entity)
+	{
+		//Check Entity Collision with Player
+		if (g_Coordinator.HaveComponent<CollisionComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
+		{
+			auto collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
+			if (collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), "Player") == 0)
+				return true;
+		}
+		return false;
 	}
 };

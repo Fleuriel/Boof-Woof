@@ -274,6 +274,10 @@ public:
 
     static bool RayCastDebug;
 
+    void DisablePhysics(Entity entity);
+    void EnablePhysics(Entity entity);
+    void UpdatePhysicsTransform(Entity entity);
+
 private:
     JPH::uint _step{ 0 };
     JPH::JobSystemThreadPool* mJobSystem = nullptr;

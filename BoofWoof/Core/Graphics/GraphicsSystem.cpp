@@ -219,9 +219,10 @@ void GraphicsSystem::UpdateLoop() {
 	// Update previous time to the current time
 	previousTime = currentTime;
 
-
-	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
-
+	if (editorMode == true)
+		glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+	else
+		glClearColor(0.f, 0.f, 0.f, 0.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 

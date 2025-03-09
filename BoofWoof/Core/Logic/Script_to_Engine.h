@@ -141,7 +141,7 @@ public:
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
 		{
 			auto* body = g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody();
-			if (body->GetMotionType() == JPH::EMotionType::Dynamic)
+			if (body->GetMotionType() == JPH::EMotionType::Dynamic || body->GetMotionType() == JPH::EMotionType::Kinematic)
 			{
 				JPH::Vec3 velocity = body->GetLinearVelocity();
 				return glm::vec3(velocity.GetX(), velocity.GetY(), velocity.GetZ());
@@ -170,7 +170,7 @@ public:
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
 		{
 			auto* body = g_Coordinator.GetComponent<CollisionComponent>(entity).GetPhysicsBody();
-			if (body->GetMotionType() == JPH::EMotionType::Dynamic)
+			if (body->GetMotionType() == JPH::EMotionType::Dynamic || body->GetMotionType() == JPH::EMotionType::Kinematic)
 			{
 				JPH::Vec3 currentVelocity = body->GetLinearVelocity();
 
@@ -236,6 +236,43 @@ public:
 			return g_Coordinator.GetComponent<CollisionComponent>(entity).IsDynamic();
 		}
 		return false;
+	}
+
+	virtual void SetIsDynamic(Entity entity, bool isDynamic) override
+	{
+		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
+		{
+			return g_Coordinator.GetComponent<CollisionComponent>(entity).SetIsDynamic(isDynamic);
+		}
+	}
+
+	virtual bool IsKinematic(Entity entity) override
+	{
+		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
+		{
+			return g_Coordinator.GetComponent<CollisionComponent>(entity).IsKinematic();
+		}
+		return false;
+	}
+
+	virtual void SetIsKinematic(Entity entity, bool isKinematic) override
+	{
+		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
+		{
+			return g_Coordinator.GetComponent<CollisionComponent>(entity).SetIsKinematic(isKinematic);
+		}
+	}
+
+	virtual void DisablePhysics(Entity entity) override {
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->DisablePhysics(entity);
+	}
+
+	virtual void EnablePhysics(Entity entity) override {
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->EnablePhysics(entity);
+	}
+
+	virtual void UpdatePhysicsTransform(Entity entity) override {
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdatePhysicsTransform(entity);
 	}
 
 
@@ -345,6 +382,33 @@ public:
 		g_Coordinator.GetComponent<PathfindingComponent>(entity).SetBuilt(built);
 	}
 
+	virtual Entity GetNearestNode(Entity entity) override {
+		// Get Entity position
+		glm::vec3 entityPosition = g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition();
+
+		return g_Coordinator.GetSystem<PathfindingSystem>()->GetClosestNode(entityPosition);
+	}
+
+	virtual Entity GetRandomNode(Entity entity) override {
+		Entity start = g_Coordinator.GetComponent<PathfindingComponent>(entity).GetStartNode();
+
+		std::vector<Entity> list = g_Coordinator.GetSystem<PathfindingSystem>()->GetNodeList();
+		// Get a random node from the list
+		std::random_device rd;   // Seed
+		std::mt19937 gen(rd());  // Mersenne Twister random engine
+		std::uniform_int_distribution<size_t> dist(0, list.size() - 1); // Uniform distribution
+
+		if (gen.max() == 0)
+			return list[0]; // Return the only element (if there is only one element in the list
+		else if (list.size() == 0)
+			return MAX_ENTITIES; // Return invalid entity if no nodes are found (should not happen
+
+		std::cout << "[Engine] Random node selected: " << list[dist(gen)] << std::endl;
+		
+		// Pick a random element
+		return list[dist(gen)];
+	}
+
 	virtual Entity GetPlayerEntity() override
 	{
 		for (auto entity : g_Coordinator.GetAliveEntitiesSet())
@@ -360,6 +424,8 @@ public:
 		}
 		return MAX_ENTITIES; // Return invalid entity if no player is found
 	}
+
+	
 
 
 	virtual bool IsGamePaused() override
@@ -407,6 +473,10 @@ public:
 	{
 		g_DialogueText.OnInitialize();
 		g_DialogueText.setDialogue(static_cast<DialogueState>(dialogueState));
+	}
+
+	virtual double GetTRtimer() override {
+		return g_TimerTR.timer;
 	}
 };
 

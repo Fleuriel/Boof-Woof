@@ -292,6 +292,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
             rapidjson::Value collisionData(rapidjson::kObjectType);
             collisionData.AddMember("CollisionLayer", collisionComp.GetCollisionLayer(), allocator);
             collisionData.AddMember("IsDynamic", collisionComp.IsDynamic(), allocator);
+            collisionData.AddMember("IsKinematic", collisionComp.IsKinematic(), allocator);
             collisionData.AddMember("IsPlayer", collisionComp.IsPlayer(), allocator);
 
             // Save AABB size
@@ -837,10 +838,12 @@ bool Serialization::LoadScene(const std::string& filepath)
 
                 int layer = collisionData["CollisionLayer"].GetInt();
                 bool isDynamic = collisionData.HasMember("IsDynamic") ? collisionData["IsDynamic"].GetBool() : false;
+                bool isKinematic = collisionData.HasMember("IsKinematic") ? collisionData["IsKinematic"].GetBool() : false;
                 bool isPlayer = collisionData.HasMember("IsPlayer") ? collisionData["IsPlayer"].GetBool() : false;
 
                 CollisionComponent collisionComponent(layer);
                 collisionComponent.SetIsDynamic(isDynamic);
+                collisionComponent.SetIsKinematic(isKinematic);
                 collisionComponent.SetIsPlayer(isPlayer);
 
                 // Load AABB size
@@ -1563,10 +1566,12 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
             const auto& CData = jsonObj["CollisionComponent"];
             int layer = CData["CollisionLayer"].GetInt();
             bool isDynamic = CData["IsDynamic"].GetBool();
+            bool isKinematic = CData["IsKinematic"].GetBool();
             bool isPlayer = CData["IsPlayer"].GetBool();
 
             CollisionComponent colComp(layer);
             colComp.SetIsDynamic(isDynamic);
+            colComp.SetIsKinematic(isKinematic);
             colComp.SetIsPlayer(isPlayer);
 
             if (CData.HasMember("AABBSize"))
