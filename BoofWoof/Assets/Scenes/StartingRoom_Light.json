@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "76c094d0-aa10-4771-b081-b0fe9f426413",
+    "SceneGUID": "c76e8624-0aa9-4d29-ba81-01bd0fec5912",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.3043590188026428,
-                    "y": 1.311216115951538,
-                    "z": -2.3281211853027345
+                    "x": -1.2805453538894654,
+                    "y": 1.3018016815185547,
+                    "z": -1.9707708358764649
                 },
                 "Scale": {
                     "x": 0.5,
@@ -1051,7 +1051,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 10.513819694519043,
-                    "y": 6.939372539520264,
+                    "y": 6.967649459838867,
                     "z": 9.979995727539063
                 },
                 "Scale": {
@@ -1354,19 +1354,19 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 14.385313987731934,
-                    "y": 2.7290000915527345,
-                    "z": 7.213674545288086
+                    "x": 12.534540176391602,
+                    "y": 1.32358980178833,
+                    "z": 7.23161506652832
                 },
                 "Scale": {
-                    "x": 0.9999862313270569,
-                    "y": 1.0,
-                    "z": 0.9999862313270569
+                    "x": 0.9999791383743286,
+                    "y": 0.9999914765357971,
+                    "z": 0.9999780058860779
                 },
                 "Rotation": {
-                    "x": 0.0000025323795398435324,
-                    "y": -1.5684067010879517,
-                    "z": 0.0000025342828848806677
+                    "x": 0.535502552986145,
+                    "y": -1.5477895736694337,
+                    "z": -1.9198333024978638
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -1377,6 +1377,22 @@
             "GraphicsComponent": {
                 "ModelName": "Bookshelf3",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.600000023841858,
+                    "y": 2.4000000953674318,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.05000000074505806,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -1386,19 +1402,19 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 14.396483421325684,
-                    "y": 2.7290000915527345,
-                    "z": 11.890497207641602
+                    "x": 13.83588695526123,
+                    "y": 2.4151456356048586,
+                    "z": 11.948338508605957
                 },
                 "Scale": {
-                    "x": 0.9999813437461853,
-                    "y": 1.0,
-                    "z": 0.9999813437461853
+                    "x": 0.9999854564666748,
+                    "y": 0.999999463558197,
+                    "z": 0.9999852180480957
                 },
                 "Rotation": {
-                    "x": 0.0000025323795398435324,
-                    "y": -1.5684067010879517,
-                    "z": 0.000002534282657506992
+                    "x": -3.055027723312378,
+                    "y": 1.446668267250061,
+                    "z": 2.8873255252838136
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -3094,6 +3110,518 @@
                 "LightDirectionY": 0.0,
                 "LightDirectionZ": 0.0,
                 "LightRange": 13.399999618530274
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 64
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 5.031905651092529,
+                    "y": 2.6008989810943605,
+                    "z": -0.16008149087429048
+                },
+                "Scale": {
+                    "x": 1.5000100135803223,
+                    "y": 1.0,
+                    "z": 0.9999380111694336
+                },
+                "Rotation": {
+                    "x": -2.5038702487945558,
+                    "y": -1.2131813764572144,
+                    "z": 2.5443830490112306
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Wardrobe2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0,
+                    "y": 1.899999976158142,
+                    "z": 1.100000023841858
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.20000000298023225
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 65
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 4.000234603881836,
+                    "y": 2.9829492568969728,
+                    "z": -3.53251051902771
+                },
+                "Scale": {
+                    "x": 1.5,
+                    "y": 2.299999952316284,
+                    "z": 1.5
+                },
+                "Rotation": {
+                    "x": -3.1415882110595705,
+                    "y": 0.35423678159713747,
+                    "z": -3.1415882110595705
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.6000000238418579,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 66
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 3.7637782096862795,
+                    "y": 1.7458319664001465,
+                    "z": -2.0197064876556398
+                },
+                "Scale": {
+                    "x": 1.2999999523162842,
+                    "y": 1.7000000476837159,
+                    "z": 1.2999999523162842
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.4904448688030243,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.44999998807907107,
+                    "y": 0.44999998807907107,
+                    "z": 0.44999998807907107
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.44999998807907107,
+                    "z": -0.05000000074505806
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 67
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 3.415741205215454,
+                    "y": 1.255688190460205,
+                    "z": -0.6930244565010071
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.44999998807907107
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": -0.05000000074505806
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 68
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 6.094165325164795,
+                    "y": 5.469257831573486,
+                    "z": 0.010148121975362301
+                },
+                "Scale": {
+                    "x": 0.9999997615814209,
+                    "y": 2.0000007152557375,
+                    "z": 1.0000003576278687
+                },
+                "Rotation": {
+                    "x": -1.2443901300430298,
+                    "y": 0.0021833195351064207,
+                    "z": -0.22701893746852876
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "RopeDrawbridge",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 69
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.21036101877689362,
+                    "y": 3.774177312850952,
+                    "z": 3.5689549446105959
+                },
+                "Scale": {
+                    "x": 1.0000032186508179,
+                    "y": 1.9999992847442628,
+                    "z": 1.0000008344650269
+                },
+                "Rotation": {
+                    "x": -1.7295317649841309,
+                    "y": -1.247955322265625,
+                    "z": 1.4694952964782715
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "RopeDrawbridge",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 70
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 9.92893123626709,
+                    "y": 5.757948875427246,
+                    "z": 9.337706565856934
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 2.0,
+                    "z": 1.0000017881393433
+                },
+                "Rotation": {
+                    "x": -2.2757515907287599,
+                    "y": -1.2246379852294922,
+                    "z": 0.9082258343696594
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "RopeDrawbridge",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 71
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 10.285258293151856,
+                    "y": 3.6493990421295168,
+                    "z": 4.954253673553467
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 2.299999952316284,
+                    "z": 1.0000005960464478
+                },
+                "Rotation": {
+                    "x": -2.039327621459961,
+                    "y": -1.1928296089172364,
+                    "z": 1.4259065389633179
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "RopeDrawbridge",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 72
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 2.0530507564544679,
+                    "y": 0.8832756280899048,
+                    "z": 3.1412646770477297
+                },
+                "Scale": {
+                    "x": 0.9999456405639648,
+                    "y": 0.9999381303787231,
+                    "z": 0.9999992847442627
+                },
+                "Rotation": {
+                    "x": 1.016450047492981,
+                    "y": 0.22949853539466859,
+                    "z": -2.8703556060791017
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair3",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 73
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -0.7577095031738281,
+                    "y": 1.2717560529708863,
+                    "z": 2.7533509731292726
+                },
+                "Scale": {
+                    "x": 0.9999229311943054,
+                    "y": 0.9999437928199768,
+                    "z": 0.999997079372406
+                },
+                "Rotation": {
+                    "x": 0.12494027614593506,
+                    "y": -0.07249373942613602,
+                    "z": -1.5961545705795289
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair4",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 74
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 5.4521989822387699,
+                    "y": 3.6634109020233156,
+                    "z": -0.5289926528930664
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0000003576278687,
+                    "z": 0.9999940991401672
+                },
+                "Rotation": {
+                    "x": -1.9876784086227418,
+                    "y": 0.1949755847454071,
+                    "z": -0.5389808416366577
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant3",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 75
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 4.65754508972168,
+                    "y": 2.252432346343994,
+                    "z": -0.35994571447372439
+                },
+                "Scale": {
+                    "x": 0.4999999701976776,
+                    "y": 0.49999988079071047,
+                    "z": 0.4999998211860657
+                },
+                "Rotation": {
+                    "x": 1.118839144706726,
+                    "y": 0.6980044841766357,
+                    "z": 1.8807265758514405
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant2",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 76
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 4.419191360473633,
+                    "y": 1.0573551654815674,
+                    "z": 0.40580928325653078
+                },
+                "Scale": {
+                    "x": 0.4999999701976776,
+                    "y": 0.49999988079071047,
+                    "z": 0.4999999403953552
+                },
+                "Rotation": {
+                    "x": -1.9815714359283448,
+                    "y": 0.7707567811012268,
+                    "z": -0.4833228588104248
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant4",
+                "FollowCamera": true
             }
         }
     ]
