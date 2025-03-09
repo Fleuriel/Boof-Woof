@@ -316,7 +316,7 @@ class TimeRush : public Level
 				if (loading)
 				{
 					// Pass in the name of the real scene we want AFTER the loading screen
-					loading->m_NextScene = "Corridor";
+					loading->m_NextScene = "MainHall";
 					g_LevelManager.SetNextLevel("LoadingLevel");
 				}
 			}
