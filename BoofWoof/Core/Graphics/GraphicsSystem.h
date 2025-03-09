@@ -82,6 +82,9 @@ public:
 	glm::vec3 GetLightPos() { return lightPos; };
 	void SetLightPos(glm::vec3 pos) { lightPos = pos; };
 
+	float GetBrightness() { return brightness; };
+	void SetBrightness(float bright) { brightness = bright; };
+
     bool DrawMaterialSphere();
 
     void generateNewFrameBuffer(unsigned int& fbo, unsigned int& textureColorbuffer, unsigned int& rbo, int width, int height);
@@ -127,7 +130,6 @@ public:
     void RenderScence(OpenGLShader& shader);
     void RenderLightPos();
 
-	void DrawLine(glm::vec3 start, glm::vec3 end, glm::vec3 color);
 
 
 private:
@@ -144,6 +146,7 @@ private:
     int viewportWidth = 0;
     int viewportHeight = 0;
     bool needsPickingRender = false;
+	float brightness = 1.0f;
 
     static std::vector<DebugLine> debugLines;
     static unsigned int debugLineVAO, debugLineVBO;

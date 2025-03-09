@@ -457,6 +457,7 @@ void GraphicsSystem::UpdateLoop() {
 			}
 			
 			g_AssetManager.GetShader(ShaderName).SetUniform("objectColor", glm::vec3{1.0f});
+			g_AssetManager.GetShader(ShaderName).SetUniform("brightness", brightness);
 
 			glm::mat4 lightmtx(1.0f);
 
@@ -657,6 +658,7 @@ if (debug && (D2 || D3))
 		needsPickingRender = false;
 	}
 	
+
 	glDepthRange(0.0, 1.0);
 	glDisable(GL_DEPTH_TEST);
 	RenderDebugLines();
@@ -1006,6 +1008,8 @@ void GraphicsSystem::AddDebugLine(const glm::vec3& start, const glm::vec3& end, 
 
 void GraphicsSystem::RenderDebugLines()
 {
+	glLineWidth(2.0f);
+
 	if (debugLines.empty())
 		return; // Nothing to draw
 
@@ -1064,6 +1068,7 @@ void GraphicsSystem::RenderDebugLines()
 
 	// We need a camera's view/projection. If you want to use the active camera, do:
 	debugShader.SetUniform("view", camera_render.GetViewMatrix());
+	debugShader.SetUniform("gammaValue", gammaValue);
 	debugShader.SetUniform("projection",
 		glm::perspective(glm::radians(45.0f), (float)g_WindowX / (float)g_WindowY, 0.1f, 100.0f));
 

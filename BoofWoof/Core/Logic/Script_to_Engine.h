@@ -13,10 +13,14 @@
 #include "../GSM/GameStateMachine.h"
 #include "../Utilities/ForGame/TimerTR/TimerTR.h"
 #include "../Utilities/ForGame/UI/UI.h"
+#include "../Utilities/ForGame/Dialogue/Dialogue.h"
 
 #pragma warning(push)
 #pragma warning(disable: 6385 6386)
 #include <Jolt/Physics/Body/Body.h>
+#include <Jolt/Physics/Collision/RayCast.h>  // For JPH::RRayCast, JPH::RayCastResult
+#include <Jolt/Physics/Collision/NarrowPhaseQuery.h>  // For JPH::NarrowPhaseQuery
+#include <Jolt/Physics/Collision/CastResult.h>
 
 class Script_to_Engine : public engine_interface, public input_interface, public audio_interface, public physics_interface
 {
@@ -184,6 +188,47 @@ public:
 		}
 	}
 
+	//virtual Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance) override
+	//{
+	//	return g_Coordinator.GetSystem<MyPhysicsSystem>()->Raycast(origin, direction, maxDistance);
+	//}
+
+	virtual Entity Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity = INVALID_ENTITY) override
+	{
+		if (!g_Coordinator.GetSystem<MyPhysicsSystem>()) {
+			std::cerr << "[Script_to_Engine] ERROR: Physics system is not initialized!" << std::endl;
+			return INVALID_ENTITY;
+		}
+
+		Entity hitEntity = g_Coordinator.GetSystem<MyPhysicsSystem>()->Raycast(origin, direction, maxDistance, ignoreEntity);
+
+		// Ignore the calling entity itself
+		if (hitEntity == ignoreEntity) {
+			return INVALID_ENTITY;
+		}
+
+		return hitEntity;
+	}
+
+	virtual std::vector<Entity> ConeRaycast(
+		Entity entity,
+		const glm::vec3& forwardDirection,
+		float maxDistance,
+		int numHorizontalRays, int numVerticalRays,
+		float horizontalFOVAngle, float verticalFOVAngle,  // User-defined angles
+		const glm::vec3& userOffset) override
+	{
+		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycast(entity, forwardDirection, maxDistance, numHorizontalRays, numVerticalRays, horizontalFOVAngle, verticalFOVAngle, userOffset);
+	}
+
+	virtual std::vector<Entity> ConeRaycastDownward(
+		Entity entity,
+		const glm::vec3& direction, float maxDistance,
+		int numHorizontalRays, int numVerticalRays, float coneAngle, const glm::vec3& userOffset) override
+	{
+		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycastDownward(entity, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle, userOffset);
+	}
+
 	virtual bool IsDynamic(Entity entity) override
 	{
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
@@ -209,9 +254,6 @@ public:
 			g_Coordinator.GetComponent<CollisionComponent>(entity).SetIsGrounded(grounded);
 		}
 	}
-
-
-
 
 	virtual double GetDeltaTime() override
 	{
@@ -342,6 +384,29 @@ public:
 	virtual bool GetExhausted() override 
 	{
 		return g_UI.isExhausted;
+	}
+
+	virtual bool GetStunned() override
+	{
+		return g_UI.isStunned;
+	}
+
+	virtual bool MatchEntityName(Entity entity, const char* entityName)
+	{
+		if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) 
+		{			
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == entityName)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	virtual void SetDialogue(int dialogueState)
+	{
+		g_DialogueText.OnInitialize();
+		g_DialogueText.setDialogue(static_cast<DialogueState>(dialogueState));
 	}
 };
 

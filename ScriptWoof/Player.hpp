@@ -21,6 +21,10 @@ struct Player final : public Behaviour
 	double stunlockTimer = 2.0;	// 2.0 seconds
 	double cooldownTimer = 0.0;
 	bool jumpSoundPlayed = false;  // Add this as a new class member variable
+	bool tennisBallDialogueShown{ false }, boneDialogueShown{ false }, peeCollisionDialogueShown{ false };
+
+	glm::vec3 PlayerPosition = glm::vec3(0.0f);
+	glm::vec3 PlayerRotation = glm::vec3(0.0f);
 
 
 	float footstepTimer = 0.0f;
@@ -31,6 +35,7 @@ struct Player final : public Behaviour
 	float fallTime = 0.0f;  // ? New variable to track how long the player is in the air
 	bool falling = false;  // ? New flag to track if the player was falling
 	bool jumpInitiated = false;  // ? New flag to track intentional jumps
+	std::string surfaceType = ""; // Tracks the surface the player is on
 
 
 
@@ -53,6 +58,24 @@ struct Player final : public Behaviour
 	};
 
 
+		std::vector<std::string> CarpetfootstepSounds = {
+	"Corgi/DogCarpetFootsteps1.wav",
+	"Corgi/DogCarpetFootsteps2.wav",
+	"Corgi/DogCarpetFootsteps3.wav",
+	"Corgi/DogCarpetFootsteps4.wav",
+	"Corgi/DogCarpetFootsteps5.wav",
+		};
+
+			std::vector<std::string> WoodfootstepSounds = {
+	"Corgi/DogWoodFootsteps1.wav",
+	"Corgi/DogWoodFootsteps2.wav",
+	"Corgi/DogWoodFootsteps3.wav",
+	"Corgi/DogWoodFootsteps4.wav",
+	"Corgi/DogWoodFootsteps5.wav",
+	"Corgi/DogWoodFootsteps6.wav",
+			};
+
+	
 	std::vector<std::string> jumpSounds = {
 		"Corgi/Jump_001 1.wav",
 		"Corgi/Jump_002 1.wav",
@@ -88,6 +111,7 @@ struct Player final : public Behaviour
 		isJumping = false;
 		isMoving = false;
 		isGrounded = true;
+		tennisBallDialogueShown = boneDialogueShown = peeCollisionDialogueShown = false;
 		//std::vector<glm::vec3> path;
 		//pathInitialized = false;
 	}
@@ -99,6 +123,9 @@ struct Player final : public Behaviour
 			//UNREFERENCED_PARAMETER(entity);
 			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			isMoving = false;
+
+			CheckForObjectsInFront(entity);
+			CheckForObjectsBelow(entity);
 
 			//// Debug for movement
 			//glm::vec3 currentPos = m_Engine.GetPosition(entity);
@@ -153,7 +180,7 @@ struct Player final : public Behaviour
 				//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
 			}
 
-			static const std::unordered_set<std::string> ropeEntities = { "Rope1", "Rope2" };
+			static const std::unordered_set<std::string> ropeEntities = { "Rope1", "Rope2", "Cage1Collider", "Cage2Collider", "Cage3Collider"};
 			static const std::unordered_set<std::string> toyEntities = { "Bone", "TennisBall" };
 
 			if (m_Engine.IsColliding(entity))
@@ -217,8 +244,8 @@ struct Player final : public Behaviour
 				}
 			}
 
-			// Allow movement only if the player is grounded & not in rope breaker or touching toy
-			if (isGrounded && !inRopeBreaker && !touchingToy)
+			// Allow movement only if the player is grounded & not in rope breaker or touching toy or stunned
+			if (isGrounded && !inRopeBreaker && !touchingToy && !m_Engine.GetStunned())
 			{
 				if (m_Engine.HaveCameraComponent(entity))
 				{
@@ -319,27 +346,35 @@ struct Player final : public Behaviour
 
 
 
-			if (isMoving)
+
+			// ? Now play footstep sound
+			if (isMoving && !surfaceType.empty())
 			{
 				footstepTimer -= static_cast<float>(m_Engine.GetDeltaTime());
 
-				if (footstepTimer <= 0.0f) // 
+				if (footstepTimer <= 0.0f)
 				{
-					static std::random_device rd; // Seed
-					static std::mt19937 gen(rd()); // Mersenne Twister PRNG
-					std::uniform_int_distribution<std::size_t> dis(0, footstepSounds.size() - 1);
+					std::string footstepSound;
 
-					// Get a random sound ID
-					std::string randomSound = footstepSounds[dis(gen)];
+					if (surfaceType == "Carpet")
+						footstepSound = GetRandomSound(CarpetfootstepSounds);
+					else if (surfaceType == "WoodFloor" || surfaceType == "WoodSteps")
+						footstepSound = GetRandomSound(WoodfootstepSounds);
+					else if (surfaceType == "Floor" || surfaceType == "FloorCastle")
+						footstepSound = GetRandomSound(footstepSounds); 
 
-					m_Engine.getAudioSystem().PlaySoundByFile(randomSound.c_str(), false, "SFX");
+					if (!footstepSound.empty())
+					{
+						std::cout << "[DEBUG] Playing sound: " << footstepSound << std::endl;
+						m_Engine.getAudioSystem().PlaySoundByFile(footstepSound.c_str(), false, "SFX");
+					}
 
-					footstepTimer = footstepInterval;
+					footstepTimer = footstepInterval; // ? Reset timer
 				}
 			}
 			else
 			{
-				footstepTimer = 0.0f; // Reset timer when not moving
+				footstepTimer = 0.0f; // ? Reset when not moving
 			}
 
 
@@ -394,7 +429,7 @@ struct Player final : public Behaviour
 				jumpSoundPlayed = false;
 				falling = false;
 				jumpInitiated = false;  // ? Reset jump tracking after landing
-				std::cout << "[DEBUG] Player landed after intentional jump!" << std::endl;
+				//std::cout << "[DEBUG] Player landed after intentional jump!" << std::endl;
 			}
 
 			// Update grounded state at the end
@@ -472,4 +507,133 @@ struct Player final : public Behaviour
 	{
 		return "Player";
 	}
+
+	void CheckForObjectsInFront(Entity scruffy)
+	{
+		if (!m_Engine.HaveTransformComponent(scruffy)) {
+			return; // Ensure the entity has a TransformComponent
+		}
+
+		PlayerPosition = m_Engine.GetPosition(scruffy);
+		PlayerRotation = m_Engine.GetRotation(scruffy); // Get yaw rotation
+
+		// **Compute forward direction from scruffy's yaw rotation**
+		float yaw = PlayerRotation.y;
+		glm::vec3 forwardDirection = glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw));
+
+		float maxRayDistance = 20.0f;
+		float horizontalFOVAngle = 30.0f; // Customize how wide the spread is
+		float verticalFOVAngle = 10.0f;   // Customize how far up/down the rays spread
+		int horizontalRays = 8; // Number of horizontal rays
+		int verticalRays = 6;   // Number of vertical rays
+		glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
+
+		std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycast(
+			scruffy, forwardDirection, maxRayDistance,
+			horizontalRays, verticalRays,
+			horizontalFOVAngle, verticalFOVAngle,
+			rayOffset
+		);
+
+		if (!detectedObjects.empty())
+		{
+			for (Entity touchedEntity : detectedObjects)
+			{
+				if (!tennisBallDialogueShown && m_Engine.MatchEntityName(touchedEntity, "TennisBall"))
+				{
+					m_Engine.SetDialogue(4);
+					tennisBallDialogueShown = true; // Prevent future triggers
+					continue; // Move to next entity without breaking (allows other checks)
+				}
+
+				if (!boneDialogueShown && m_Engine.MatchEntityName(touchedEntity, "Bone"))
+				{
+					m_Engine.SetDialogue(5);
+					boneDialogueShown = true;
+					continue;
+				}
+
+				if (!peeCollisionDialogueShown)
+				{
+					for (int i = 1; i <= 4; ++i)
+					{
+						std::string peeColliderName = "Pee" + std::to_string(i) + "Collision";
+						if (m_Engine.MatchEntityName(touchedEntity, peeColliderName.c_str()))
+						{
+							m_Engine.SetDialogue(12);
+							peeCollisionDialogueShown = true;
+							break; // Stop checking PeeCollisions once detected
+						}
+					}
+				}
+			}
+		}
+	}
+
+	void CheckForObjectsBelow(Entity rexEntity)
+	{
+		if (!m_Engine.HaveTransformComponent(rexEntity)) {
+			return; // Ensure the entity has a TransformComponent
+		}
+
+		PlayerPosition = m_Engine.GetPosition(rexEntity);
+		PlayerRotation = m_Engine.GetRotation(rexEntity); // Get yaw rotation
+
+		glm::vec3 downwardDirection = glm::vec3(0.0f, -1.0f, 0.0f);
+
+		float maxRayDistance = 3.0f;
+		float fovAngle = 50.0f; // 30-degree cone
+		int horizontalRays = 5; // Number of horizontal rays
+		int verticalRays = 3;   // Number of vertical rays
+		glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
+
+		std::vector<Entity> detectedObjects = m_Engine.getPhysicsSystem().ConeRaycastDownward(
+			rexEntity, downwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle, rayOffset
+		);
+		// ? If objects are detected, print them
+		if (!detectedObjects.empty())
+		{
+			
+			// ? Check for matching surface types
+			for (Entity touchedEntity : detectedObjects)
+			{
+				if (m_Engine.MatchEntityName(touchedEntity, "Carpet"))
+				{
+					surfaceType = "Carpet";
+					//std::cout << "[DEBUG] Surface Detected: Carpet" << std::endl;
+					return;
+				}
+				if (m_Engine.MatchEntityName(touchedEntity, "WoodFloor"))
+				{
+					surfaceType = "WoodFloor";
+					//std::cout << "[DEBUG] Surface Detected: WoodFloor" << std::endl;
+					return;
+				}
+				if (m_Engine.MatchEntityName(touchedEntity, "WoodSteps"))
+				{
+					surfaceType = "WoodSteps";
+					//std::cout << "[DEBUG] Surface Detected: WoodSteps" << std::endl;
+					return;
+				}
+				if (m_Engine.MatchEntityName(touchedEntity, "FloorCastle"))
+				{
+					surfaceType = "FloorCastle";
+					//std::cout << "[DEBUG] Surface Detected: FloorCastle" << std::endl;
+					return;
+				}
+				if (m_Engine.MatchEntityName(touchedEntity, "Floor"))
+				{
+					surfaceType = "Floor";
+					//std::cout << "[DEBUG] Surface Detected: FloorCastle" << std::endl;
+					return;
+				}
+			}
+		}
+
+		//// ? If no surface detected, default to "Floor"
+		//std::cout << "[DEBUG] No surface detected! Defaulting to Floor" << std::endl;
+		surfaceType = "Floor";
+
+	}
+
 };
