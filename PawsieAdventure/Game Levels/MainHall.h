@@ -175,7 +175,6 @@ class MainHall : public Level
 
 			if (!collectedPuppy1 || !collectedPuppy2 || !collectedPuppy3)
 			{
-				//CheckCageCollision();
 				g_CageBreaker.OnUpdate(deltaTime);
 				CheckPuppyCollision();
 			}
@@ -497,6 +496,31 @@ private:
 			g_DialogueText.OnInitialize();
 			g_DialogueText.setDialogue(DialogueState::ALLPUPSFOUND);
 			dialogueThird = true;
+		}
+	}
+
+	void HandleStealthCollision()
+	{
+		bool isColliding = CheckEntityWithPlayerCollision(stealthCollider1) ||
+			CheckEntityWithPlayerCollision(stealthCollider2) ||
+			CheckEntityWithPlayerCollision(stealthCollider3) ||
+			CheckEntityWithPlayerCollision(stealthCollider4);
+
+		static bool wasColliding = false;
+
+		if (isColliding)
+		{
+			// Decrease the brightness of the lights
+			float currentBrightness = g_Coordinator.GetSystem<GraphicsSystem>()->GetBrightness();
+			float newBrightness = std::max(0.5f, currentBrightness - 0.05f); // Decrease by 0.1, but not below 0
+			g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(newBrightness);
+			wasColliding = true;
+		}
+		else if (wasColliding)
+		{
+			// Reset the brightness to the original value
+			g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(originalBrightness);
+			wasColliding = false;
 		}
 	}
 };
