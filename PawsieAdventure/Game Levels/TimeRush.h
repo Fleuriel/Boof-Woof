@@ -13,9 +13,10 @@ class TimeRush : public Level
 	Entity rexEnt{};
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
-	glm::vec3 camdir{};
+	glm::vec3 camdir{}, originalcamPos;
 
 	bool panCam{ false };
+	float camtimer{ 0.f };
 
 	Entity TimeRushBGM{}, AggroDog{}, CorgiSniff{}, FireSound{};
 
@@ -108,7 +109,7 @@ class TimeRush : public Level
 	{
 		cameraController = new CameraController(playerEnt);
 		cameraController->ChangeToThirdPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
-		
+		originalcamPos = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraPosition();
 
 		g_Checklist.OnInitialize();
 		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do5");
@@ -185,11 +186,20 @@ class TimeRush : public Level
 			savedcamdir = false;
 		}
 
-		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && panCam == false) {
-			
+		float timeVariable = 8.f;
+		if (panCam == true && camtimer <= timeVariable)
+			camtimer += deltaTime;
+
+		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && !camtimer) {
 			cameraController->SetCameraTargetPosition(glm::vec3(26.5f, 5.f, -90.f));
+			cameraController->SetCameraTargetDirection(glm::vec3(0, 0, 1));
 			cameraController->LockUnlockCam();
 			panCam = true;
+		}
+		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && camtimer >= timeVariable) {
+			cameraController->SetCameraTargetPosition(originalcamPos);
+			cameraController->LockUnlockCam();
+			cameraController->ChangeToFirstPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
 		}
 
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {

@@ -35,6 +35,7 @@ public:
 	void LockUnlockCam() { lockCam = !lockCam; }
 	CameraMode getCameraMode() { return currentMode; }
 	void SetCameraTargetPosition(glm::vec3 pos) { targetposition = pos; }
+	void SetCameraTargetDirection(glm::vec3 dir) { targetdirection = dir; }
 
 private:
     void UpdateFirstPersonView(CameraComponent& camera);
@@ -70,4 +71,5 @@ private:
 
 	bool lockCam{ true };
 	glm::vec3 targetposition{ 0,0,0 };
+	glm::vec3 targetdirection{ 0,0,0 };
 };
