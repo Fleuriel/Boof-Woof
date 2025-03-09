@@ -128,7 +128,7 @@ std::string Dialogue::getDialogue()
 		return "Hmm.. That last pup has to be around here somewhere. Maybe if I climb up there..";
 
 	case DialogueState::FOUNDPUP3:
-		return "Locked.. again?! Alright, let’s do this the hard way—grr!!";
+		return "I'm here my little one! Alright, let’s do this the hard way-grr!!";
 
 	case DialogueState::ALLPUPSFOUND:
 		return "That's all three.. We’re finally together again! Time to escape this hellhole!";

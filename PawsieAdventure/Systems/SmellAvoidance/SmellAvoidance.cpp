@@ -66,7 +66,7 @@ void SmellAvoidance::Update(double deltaTime)
     // ? Handle BGM Fading if triggered
     if (isFading)
     {
-        fadeTimer += deltaTime; // Increase fade timer
+        fadeTimer += static_cast<float>(deltaTime); // Increase fade timer
         float progress = fadeTimer / fadeDuration; // Normalize fade time (0.0 ? 1.0)
 
         if (progress > 1.0f) progress = 1.0f; // Clamp to max value

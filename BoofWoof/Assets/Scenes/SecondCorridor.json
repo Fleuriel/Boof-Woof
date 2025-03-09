@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "68b79fdc-ddd5-400c-8833-f8c30f7c8434",
+    "SceneGUID": "637b6ab6-dcde-4b63-9d31-aaa45f823d92",
     "Entities": [
         {
             "MetadataComponent": {
@@ -152,9 +152,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -2.589618682861328,
-                    "y": 3.2604894638061525,
-                    "z": -5.705902576446533
+                    "x": -2.556881904602051,
+                    "y": 3.2312371730804445,
+                    "z": -5.671046257019043
                 },
                 "Scale": {
                     "x": 1.0,
@@ -173,7 +173,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "WallBothSide",
+                "ModelName": "Window",
                 "FollowCamera": true
             }
         },
@@ -185,8 +185,8 @@
             "TransformComponent": {
                 "Position": {
                     "x": 2.210359573364258,
-                    "y": 3.2604894638061525,
-                    "z": -5.705902576446533
+                    "y": 3.251404047012329,
+                    "z": -5.7196221351623539
                 },
                 "Scale": {
                     "x": 1.0,
@@ -217,8 +217,8 @@
             "TransformComponent": {
                 "Position": {
                     "x": 7.009535789489746,
-                    "y": 3.2604894638061525,
-                    "z": -5.705902576446533
+                    "y": 3.2575063705444338,
+                    "z": -5.6866302490234379
                 },
                 "Scale": {
                     "x": 1.0,
@@ -237,7 +237,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "WallBothSide",
+                "ModelName": "Window",
                 "FollowCamera": true
             }
         },
@@ -248,8 +248,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 11.813088417053223,
-                    "y": 3.2604894638061525,
+                    "x": 16.60404396057129,
+                    "y": 3.23640775680542,
                     "z": -5.705902576446533
                 },
                 "Scale": {
@@ -269,7 +269,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "WallBothSide",
+                "ModelName": "Window",
                 "FollowCamera": true
             }
         },
@@ -277,38 +277,6 @@
             "MetadataComponent": {
                 "EntityName": "CastleWall",
                 "EntityID": 7
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 16.60404396057129,
-                    "y": 3.2604894638061525,
-                    "z": -5.705902576446533
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 8
             },
             "TransformComponent": {
                 "Position": {
@@ -340,7 +308,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 9
+                "EntityID": 8
             },
             "TransformComponent": {
                 "Position": {
@@ -371,72 +339,8 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "CastleWallCorner",
-                "EntityID": 10
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -5.738436222076416,
-                    "y": 3.2604894638061525,
-                    "z": -5.703860282897949
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": -0.000019263259673607537,
-                    "y": 1.569941520690918,
-                    "z": -0.000019263259673607537
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallCorner",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 11
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -5.735746383666992,
-                    "y": 3.2604894638061525,
-                    "z": -8.854248046875
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": -0.000021591224140138367,
-                    "y": 1.569941520690918,
-                    "z": -0.000021591224140138367
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 12
+                "EntityID": 9
             },
             "TransformComponent": {
                 "Position": {
@@ -484,7 +388,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 13
+                "EntityID": 10
             },
             "TransformComponent": {
                 "Position": {
@@ -531,190 +435,14 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "CastleFloor",
-                "EntityID": 14
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -10.0,
-                    "y": 0.0,
-                    "z": -20.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Floor3tripleheight",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 15
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -5.731229305267334,
-                    "y": 3.2604894638061525,
-                    "z": -14.139615058898926
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": -0.000021591224140138367,
-                    "y": 1.569941520690918,
-                    "z": -0.000021591224140138367
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallDoor",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 16
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -5.726691246032715,
-                    "y": 3.2604894638061525,
-                    "z": -19.443565368652345
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": -0.000021591224140138367,
-                    "y": 1.569941520690918,
-                    "z": -0.000021591224140138367
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 17
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.44568827748298647,
-                    "y": 3.2530388832092287,
-                    "z": -5.6045637130737309
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallHole",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Rex",
-                "EntityID": 18
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -8.899567604064942,
-                    "y": 0.7799996137619019,
-                    "z": -13.763712882995606
-                },
-                "Scale": {
-                    "x": 0.5,
-                    "y": 0.5,
-                    "z": 0.5
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Rex",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "CastleWallDoor",
-                "EntityID": 19
+                "EntityID": 11
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.679277420043947,
-                    "y": 3.2604894638061525,
-                    "z": -0.22164981067180634
+                    "x": 29.27664566040039,
+                    "y": 3.2708985805511476,
+                    "z": -0.10883314907550812
                 },
                 "Scale": {
                     "x": 1.0,
@@ -755,14 +483,14 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 20
+                "EntityName": "CastleWallCorner",
+                "EntityID": 12
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.676563262939454,
-                    "y": 3.2604894638061525,
-                    "z": 5.071084499359131
+                    "x": 29.21625328063965,
+                    "y": 3.2636101245880129,
+                    "z": -5.731812953948975
                 },
                 "Scale": {
                     "x": 1.0,
@@ -781,166 +509,6 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 21
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 25.68562126159668,
-                    "y": 3.2604894638061525,
-                    "z": -5.545100212097168
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": -0.000021591224140138367,
-                    "y": 1.569941520690918,
-                    "z": -0.000021591224140138367
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 22
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -8.866487503051758,
-                    "y": 3.2604894638061525,
-                    "z": -22.57854652404785
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWallCorner",
-                "EntityID": 23
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -5.722785472869873,
-                    "y": 3.2606217861175539,
-                    "z": -22.595272064208986
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": -2.9621422290802,
-                    "y": -1.5704766511917115,
-                    "z": 2.9621477127075197
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallCorner",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 24
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -13.664610862731934,
-                    "y": 3.2604894638061525,
-                    "z": -22.57854652404785
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWallCorner",
-                "EntityID": 25
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -16.809926986694337,
-                    "y": 3.2604894638061525,
-                    "z": -22.567819595336915
-                },
-                "Scale": {
-                    "x": 0.9999998807907105,
-                    "y": 1.0,
-                    "z": 0.9999998807907105
-                },
-                "Rotation": {
-                    "x": -1.671124039148708e-8,
-                    "y": -0.002220695372670889,
-                    "z": 1.955724818203386e-11
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
                 "ModelName": "WallCorner",
                 "FollowCamera": true
             }
@@ -948,39 +516,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 26
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -20.0,
-                    "y": 0.0,
-                    "z": -20.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Floor3tripleheight",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleFloor",
-                "EntityID": 27
+                "EntityID": 13
             },
             "TransformComponent": {
                 "Position": {
@@ -1012,7 +548,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 28
+                "EntityID": 14
             },
             "TransformComponent": {
                 "Position": {
@@ -1043,499 +579,19 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 29
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -16.82233428955078,
-                    "y": 3.2604894638061525,
-                    "z": -19.453033447265626
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": -0.000021591224140138367,
-                    "y": 1.569941520690918,
-                    "z": -0.000021591224140138367
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 30
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -16.826440811157228,
-                    "y": 3.2604894638061525,
-                    "z": -14.656888961791993
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": -0.000021591224140138367,
-                    "y": 1.569941520690918,
-                    "z": -0.000021591224140138367
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 31
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -16.830547332763673,
-                    "y": 3.2604894638061525,
-                    "z": -9.859373092651368
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": -0.000021591224140138367,
-                    "y": 1.569941520690918,
-                    "z": -0.000021591224140138367
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 32
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -16.834665298461915,
-                    "y": 3.2604894638061525,
-                    "z": -5.054348945617676
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": -0.000021591224140138367,
-                    "y": 1.569941520690918,
-                    "z": -0.000021591224140138367
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 33
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -16.838760375976564,
-                    "y": 3.2604894638061525,
-                    "z": -0.263048380613327
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": -0.000021591224140138367,
-                    "y": 1.569941520690918,
-                    "z": -0.000021591224140138367
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 34
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -16.842872619628908,
-                    "y": 3.2604894638061525,
-                    "z": 4.538600444793701
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": -0.000021591224140138367,
-                    "y": 1.569941520690918,
-                    "z": -0.000021591224140138367
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 35
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 22.724050521850587,
-                    "y": 3.2604894638061525,
-                    "z": 5.692292213439941
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 36
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 17.941844940185548,
-                    "y": 3.2604894638061525,
-                    "z": 5.692292213439941
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 37
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 13.146273612976075,
-                    "y": 3.2604894638061525,
-                    "z": 5.692292213439941
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 38
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 8.37356185913086,
-                    "y": 3.2604894638061525,
-                    "z": 5.692292213439941
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 39
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 3.5716397762298586,
-                    "y": 3.2604894638061525,
-                    "z": 5.692292213439941
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 40
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -1.2224583625793458,
-                    "y": 3.2604894638061525,
-                    "z": 5.692292213439941
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 41
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -6.025038242340088,
-                    "y": 3.2604894638061525,
-                    "z": 5.692292213439941
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 42
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -10.817732810974121,
-                    "y": 3.2604894638061525,
-                    "z": 5.692292213439941
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleWall",
-                "EntityID": 43
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -15.613865852355957,
-                    "y": 3.2604894638061525,
-                    "z": 5.692292213439941
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "CastleCeiling",
-                "EntityID": 44
+                "EntityID": 15
             },
             "TransformComponent": {
                 "Position": {
                     "x": -11.086840629577637,
                     "y": 5.912285804748535,
-                    "z": 0.0
+                    "z": 0.04055488109588623
                 },
                 "Scale": {
                     "x": 1.0,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 1.100000023841858
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -1556,82 +612,18 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleCeiling",
-                "EntityID": 45
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -11.086840629577637,
-                    "y": 5.912285804748535,
-                    "z": -9.972055435180664
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Ceiling",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleCeiling",
-                "EntityID": 46
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -11.086840629577637,
-                    "y": 5.912285804748535,
-                    "z": -19.940622329711915
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Ceiling",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleCeiling",
-                "EntityID": 47
+                "EntityID": 16
             },
             "TransformComponent": {
                 "Position": {
                     "x": -1.092387318611145,
                     "y": 5.912285804748535,
-                    "z": 0.0
+                    "z": 0.037244200706481937
                 },
                 "Scale": {
                     "x": 1.0,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 1.100000023841858
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -1652,7 +644,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleCeiling",
-                "EntityID": 48
+                "EntityID": 17
             },
             "TransformComponent": {
                 "Position": {
@@ -1663,7 +655,7 @@
                 "Scale": {
                     "x": 1.0,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 1.100000023841858
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -1684,7 +676,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleCeiling",
-                "EntityID": 49
+                "EntityID": 18
             },
             "TransformComponent": {
                 "Position": {
@@ -1695,7 +687,7 @@
                 "Scale": {
                     "x": 1.0,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 1.100000023841858
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -1716,7 +708,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleCeiling",
-                "EntityID": 50
+                "EntityID": 19
             },
             "TransformComponent": {
                 "Position": {
@@ -1727,7 +719,7 @@
                 "Scale": {
                     "x": 1.0,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 1.100000023841858
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -1748,55 +740,23 @@
         {
             "MetadataComponent": {
                 "EntityName": "Door",
-                "EntityID": 51
+                "EntityID": 20
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 26.524028778076173,
-                    "y": 2.6349711418151857,
-                    "z": -0.9355658888816834
+                    "x": -10.934866905212403,
+                    "y": 2.63318133354187,
+                    "z": -0.4469532072544098
                 },
                 "Scale": {
-                    "x": 0.9999165534973145,
+                    "x": 0.9999173879623413,
                     "y": 1.0,
-                    "z": 0.9999165534973145
+                    "z": 0.9999173879623413
                 },
                 "Rotation": {
-                    "x": 3.255560727666307e-7,
-                    "y": -0.42545896768569949,
-                    "z": 0.000047787936637178066
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "DoorDrawbridge",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Door",
-                "EntityID": 52
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -5.186817169189453,
-                    "y": 2.6334545612335207,
-                    "z": -14.37692642211914
-                },
-                "Scale": {
-                    "x": 0.9998627305030823,
-                    "y": 1.0,
-                    "z": 0.9998627305030823
-                },
-                "Rotation": {
-                    "x": 3.141411066055298,
-                    "y": -1.569164752960205,
-                    "z": -3.1413631439208986
+                    "x": 0.0013281406136229635,
+                    "y": -1.5696096420288087,
+                    "z": -0.0012806951999664307
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -1812,107 +772,11 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 53
+                "EntityID": 21
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -5.3982415199279789,
-                    "y": 3.249570369720459,
-                    "z": -4.160939693450928
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallTorch",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 54
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 4.583680629730225,
-                    "y": 3.249570369720459,
-                    "z": -4.162404537200928
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallTorch",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 55
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 14.619704246520996,
-                    "y": 3.249570369720459,
-                    "z": -4.154429912567139
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallTorch",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 56
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 24.48349952697754,
+                    "x": 27.872154235839845,
                     "y": 3.249570369720459,
                     "z": -4.120718955993652
                 },
@@ -1940,22 +804,22 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 57
+                "EntityID": 22
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -5.40047025680542,
-                    "y": 3.249570369720459,
-                    "z": 4.120669364929199
+                    "x": 27.875831604003908,
+                    "y": 3.2495129108428957,
+                    "z": 4.205191612243652
                 },
                 "Scale": {
-                    "x": 0.9999272227287293,
+                    "x": 0.9998079538345337,
                     "y": 1.0,
-                    "z": 0.9999272227287293
+                    "z": 0.9998079538345337
                 },
                 "Rotation": {
                     "x": -3.1415908336639406,
-                    "y": 0.0014982940629124642,
+                    "y": 0.0014983047731220723,
                     "z": 3.1415908336639406
                 },
                 "RotationPivotOffset": {
@@ -1972,306 +836,18 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 58
+                "EntityID": 23
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.578721046447754,
-                    "y": 3.249556064605713,
-                    "z": 4.135623455047607
-                },
-                "Scale": {
-                    "x": 0.9998992085456848,
-                    "y": 1.0,
-                    "z": 0.9998992085456848
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 0.0014982940629124642,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallTorch",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 59
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 14.54855728149414,
-                    "y": 3.249537944793701,
-                    "z": 4.15056037902832
-                },
-                "Scale": {
-                    "x": 0.9998797178268433,
-                    "y": 1.0,
-                    "z": 0.9998797178268433
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 0.0014982940629124642,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallTorch",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 60
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 24.391204833984376,
-                    "y": 3.249520778656006,
-                    "z": 4.16531229019165
-                },
-                "Scale": {
-                    "x": 0.9998521208763123,
-                    "y": 1.0,
-                    "z": 0.9998521208763123
-                },
-                "Rotation": {
-                    "x": -3.1415908336639406,
-                    "y": 0.0014982940629124642,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallTorch",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 61
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 20.98538589477539,
-                    "y": 2.7428019046783449,
-                    "z": -4.326235294342041
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bookshelf1",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 62
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 17.67993927001953,
-                    "y": 2.7428019046783449,
-                    "z": -4.326235294342041
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bookshelf1",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 63
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 17.43048095703125,
-                    "y": 2.742795467376709,
-                    "z": 4.34369421005249
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0010474808514118195,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bookshelf1",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 64
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 20.74325942993164,
-                    "y": 2.742788553237915,
-                    "z": 4.347164630889893
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0010474808514118195,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bookshelf1",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 65
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -10.838141441345215,
+                    "x": 9.526128768920899,
                     "y": 0.36736857891082766,
-                    "z": -13.916641235351563
+                    "z": 0.16630560159683228
                 },
                 "Scale": {
-                    "x": 1.0,
+                    "x": 0.9998988509178162,
                     "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Carpet",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 66
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -10.838141441345215,
-                    "y": 0.36736857891082766,
-                    "z": -1.3104135990142823
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Carpet",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 67
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -0.5685024261474609,
-                    "y": 0.36736857891082766,
-                    "z": 0.17706847190856934
-                },
-                "Scale": {
-                    "x": 0.9999173879623413,
-                    "y": 1.0,
-                    "z": 0.9999173879623413
+                    "z": 0.9998988509178162
                 },
                 "Rotation": {
                     "x": -3.1415815353393556,
@@ -2292,18 +868,18 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 68
+                "EntityID": 24
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 11.961406707763672,
+                    "x": 21.895252227783204,
                     "y": 0.36736857891082766,
-                    "z": 0.16370907425880433
+                    "z": 0.15311765670776368
                 },
                 "Scale": {
-                    "x": 0.9999290108680725,
+                    "x": 0.9999099969863892,
                     "y": 1.0,
-                    "z": 0.9999290108680725
+                    "z": 0.9999099969863892
                 },
                 "Rotation": {
                     "x": -3.1415815353393556,
@@ -2318,61 +894,29 @@
             },
             "GraphicsComponent": {
                 "ModelName": "Carpet",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Banner",
-                "EntityID": 69
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 1.690443992614746,
-                    "y": 3.1510016918182375,
-                    "z": -4.643343448638916
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Banner",
                 "FollowCamera": true
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Player",
-                "EntityID": 70
+                "EntityID": 25
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 1.0560728311538697,
-                    "y": 1.1999915838241578,
-                    "z": -1.6519132852554322
+                    "x": -6.9290289878845219,
+                    "y": 1.1952600479125977,
+                    "z": 0.5459514260292053
                 },
                 "Scale": {
-                    "x": 0.5000007748603821,
+                    "x": 0.49998894333839419,
                     "y": 0.5,
-                    "z": 0.5000007748603821
+                    "z": 0.49998894333839419
                 },
                 "Rotation": {
-                    "x": 0.0010921552311629058,
-                    "y": -1.5690088272094727,
-                    "z": -0.0010792441898956895
+                    "x": 0.0000019520355181157358,
+                    "y": 0.0035312327090650799,
+                    "z": 0.000012915643310407177
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -2405,72 +949,24 @@
             },
             "CameraComponent": {
                 "Position": {
-                    "x": 1.0,
+                    "x": -6.0,
                     "y": 2.0,
-                    "z": -1.0
+                    "z": -0.1599999964237213
                 },
-                "Yaw": 90.0,
+                "Yaw": 0.0,
                 "Pitch": 0.0,
                 "Up": {
                     "x": 0.0,
                     "y": 1.0,
                     "z": 0.0
                 },
-                "Active": true
+                "Active": false
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 71
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -0.10044705867767334,
-                    "y": 0.0,
-                    "z": -20.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Floor3tripleheight",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "CastleFloor",
-                "EntityID": 72
+                "EntityID": 26
             },
             "TransformComponent": {
                 "Position": {
@@ -2518,7 +1014,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 73
+                "EntityID": 27
             },
             "TransformComponent": {
                 "Position": {
@@ -2566,7 +1062,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 74
+                "EntityID": 28
             },
             "TransformComponent": {
                 "Position": {
@@ -2614,13 +1110,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 75
+                "EntityID": 29
             },
             "TransformComponent": {
                 "Position": {
                     "x": 10.0,
                     "y": 0.0,
-                    "z": 10.752178192138672
+                    "z": 9.916263580322266
                 },
                 "Scale": {
                     "x": 1.0,
@@ -2662,13 +1158,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 76
+                "EntityID": 30
             },
             "TransformComponent": {
                 "Position": {
                     "x": 9.943833351135254,
                     "y": 0.0,
-                    "z": -10.9974946975708
+                    "z": -10.104079246520996
                 },
                 "Scale": {
                     "x": 1.0,
@@ -2710,11 +1206,11 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 77
+                "EntityID": 31
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 29.989957809448243,
+                    "x": 30.017282485961915,
                     "y": 0.0,
                     "z": 0.0
                 },
@@ -2758,13 +1254,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 78
+                "EntityID": 32
             },
             "TransformComponent": {
                 "Position": {
                     "x": 20.0,
                     "y": 0.0,
-                    "z": 10.867886543273926
+                    "z": 9.981830596923829
                 },
                 "Scale": {
                     "x": 1.0,
@@ -2806,7 +1302,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 79
+                "EntityID": 33
             },
             "TransformComponent": {
                 "Position": {
@@ -2849,6 +1345,1441 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleFloor",
+                "EntityID": 34
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -20.0,
+                    "y": 0.0,
+                    "z": 9.842705726623536
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Floor3tripleheight",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWall",
+                "EntityID": 35
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 16.60404396057129,
+                    "y": 3.2336184978485109,
+                    "z": 5.832180500030518
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWall",
+                "EntityID": 36
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 11.813088417053223,
+                    "y": 3.221937894821167,
+                    "z": 5.7801127433776859
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWall",
+                "EntityID": 37
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 7.009535789489746,
+                    "y": 3.2269935607910158,
+                    "z": 5.84417724609375
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWall",
+                "EntityID": 38
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 2.210359573364258,
+                    "y": 3.2182769775390627,
+                    "z": 5.837536334991455
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWall",
+                "EntityID": 39
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -2.589618682861328,
+                    "y": 3.2608237266540529,
+                    "z": 5.893556118011475
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Window",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWall",
+                "EntityID": 40
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 21.387998580932618,
+                    "y": 3.2482306957244875,
+                    "z": 5.771716117858887
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 41
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -2.8451337814331056,
+                    "y": 0.36736857891082766,
+                    "z": 0.1794959008693695
+                },
+                "Scale": {
+                    "x": 0.999889612197876,
+                    "y": 1.0,
+                    "z": 0.999889612197876
+                },
+                "Rotation": {
+                    "x": -3.1415815353393556,
+                    "y": 1.5697301626205445,
+                    "z": -3.1415815353393556
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Carpet",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWall",
+                "EntityID": 42
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 26.170949935913087,
+                    "y": 3.2482306957244875,
+                    "z": 5.7593536376953129
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWallCorner",
+                "EntityID": 43
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 29.206390380859376,
+                    "y": 3.2382068634033205,
+                    "z": 5.767000198364258
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000021591224140138367,
+                    "y": 1.569941520690918,
+                    "z": -0.000021591224140138367
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWallCorner",
+                "EntityID": 44
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 29.214975357055665,
+                    "y": 3.2636101245880129,
+                    "z": -4.228409290313721
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000021591224140138367,
+                    "y": 1.569941520690918,
+                    "z": -0.000021591224140138367
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWallCorner",
+                "EntityID": 45
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 29.214298248291017,
+                    "y": 3.2636101245880129,
+                    "z": -3.4123528003692629
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000021591224140138367,
+                    "y": 1.569941520690918,
+                    "z": -0.000021591224140138367
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWallCorner",
+                "EntityID": 46
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 29.20838737487793,
+                    "y": 3.2636101245880129,
+                    "z": 3.4824717044830324
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000021591224140138367,
+                    "y": 1.569941520690918,
+                    "z": -0.000021591224140138367
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWallCorner",
+                "EntityID": 47
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 29.207408905029298,
+                    "y": 3.2636101245880129,
+                    "z": 4.636356353759766
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000021591224140138367,
+                    "y": 1.569941520690918,
+                    "z": -0.000021591224140138367
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleFloor",
+                "EntityID": 48
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 29.989957809448243,
+                    "y": 0.0,
+                    "z": 9.173919677734375
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Floor3tripleheight",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWall",
+                "EntityID": 49
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -7.374746322631836,
+                    "y": 3.2182769775390627,
+                    "z": 5.837536334991455
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallDoor",
+                "EntityID": 50
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -10.451144218444825,
+                    "y": 3.238919258117676,
+                    "z": -0.5061611533164978
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000021591224140138367,
+                    "y": 1.569941520690918,
+                    "z": -0.000021591224140138367
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallDoor",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 2.799999952316284,
+                    "y": 3.0,
+                    "z": 0.699999988079071
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWallCorner",
+                "EntityID": 51
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -10.51537036895752,
+                    "y": 3.2382068634033205,
+                    "z": 5.807544708251953
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000021591224140138367,
+                    "y": 1.569941520690918,
+                    "z": -0.000021591224140138367
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWallCorner",
+                "EntityID": 52
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -10.509571075439454,
+                    "y": 3.2382068634033205,
+                    "z": 4.4190354347229
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000021591224140138367,
+                    "y": 1.569941520690918,
+                    "z": -0.000021591224140138367
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWallCorner",
+                "EntityID": 53
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -10.508459091186524,
+                    "y": 3.2382068634033205,
+                    "z": 3.1186299324035646
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000021591224140138367,
+                    "y": 1.569941520690918,
+                    "z": -0.000021591224140138367
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWallCorner",
+                "EntityID": 54
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -10.487886428833008,
+                    "y": 3.247981071472168,
+                    "z": -5.733240604400635
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000021591224140138367,
+                    "y": 1.569941520690918,
+                    "z": -0.000021591224140138367
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWall",
+                "EntityID": 55
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -7.348679542541504,
+                    "y": 3.2487404346466066,
+                    "z": -5.701994895935059
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWallCorner",
+                "EntityID": 56
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -10.502049446105957,
+                    "y": 3.2382068634033205,
+                    "z": -4.403775215148926
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000021591224140138367,
+                    "y": 1.569941520690918,
+                    "z": -0.000021591224140138367
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWallCorner",
+                "EntityID": 57
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -10.502371788024903,
+                    "y": 3.2382068634033205,
+                    "z": -4.032865524291992
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000021591224140138367,
+                    "y": 1.569941520690918,
+                    "z": -0.000021591224140138367
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleFloor",
+                "EntityID": 58
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 37.666412353515628,
+                    "y": 0.5955110192298889,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Floor3tripleheight",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleFloor",
+                "EntityID": 59
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 39.110050201416019,
+                    "y": 1.1694438457489014,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Floor3tripleheight",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleFloor",
+                "EntityID": 60
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 40.8044548034668,
+                    "y": 1.6999115943908692,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Floor3tripleheight",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleFloor",
+                "EntityID": 61
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 41.72649383544922,
+                    "y": 2.183432102203369,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Floor3tripleheight",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.30000001192092898,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Banner",
+                "EntityID": 62
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 21.830224990844728,
+                    "y": 3.1510016918182375,
+                    "z": -4.942956924438477
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Banner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CastleWall",
+                "EntityID": 63
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 11.813088417053223,
+                    "y": 3.241602897644043,
+                    "z": -5.740364074707031
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 64
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 11.917786598205567,
+                    "y": 3.249570369720459,
+                    "z": -4.120718955993652
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallTorch",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 65
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 2.0690650939941408,
+                    "y": 3.249570369720459,
+                    "z": -4.120718955993652
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallTorch",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 66
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -9.190247535705567,
+                    "y": 3.249570369720459,
+                    "z": -4.120718955993652
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallTorch",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 67
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 11.803746223449707,
+                    "y": 3.249539852142334,
+                    "z": 4.1811137199401859
+                },
+                "Scale": {
+                    "x": 0.9997881054878235,
+                    "y": 1.0,
+                    "z": 0.9997881054878235
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": 0.0014983112923800946,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallTorch",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 68
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 1.9909543991088868,
+                    "y": 3.2067384719848635,
+                    "z": 4.29070520401001
+                },
+                "Scale": {
+                    "x": 0.9997654557228088,
+                    "y": 1.0,
+                    "z": 0.9997654557228088
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": 0.001498313038609922,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallTorch",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 69
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -9.168840408325196,
+                    "y": 3.206757068634033,
+                    "z": 4.273985385894775
+                },
+                "Scale": {
+                    "x": 0.9997444152832031,
+                    "y": 1.0,
+                    "z": 0.9997444152832031
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": 0.0014983129221946,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallTorch",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Banner",
+                "EntityID": 70
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 21.82823371887207,
+                    "y": 3.1510043144226076,
+                    "z": 4.902833461761475
+                },
+                "Scale": {
+                    "x": 0.9999967813491821,
+                    "y": 1.0,
+                    "z": 0.9999967813491821
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": 0.0009869131026789547,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Banner",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Door",
+                "EntityID": 71
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 30.234329223632814,
+                    "y": 2.6351318359375,
+                    "z": -0.43090009689331057
+                },
+                "Scale": {
+                    "x": 0.9999183416366577,
+                    "y": 1.0,
+                    "z": 0.9999183416366577
+                },
+                "Rotation": {
+                    "x": 0.0000018907726371253376,
+                    "y": -0.5852676033973694,
+                    "z": 0.00004639980033971369
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "DoorDrawbridge",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Light",
+                "EntityID": 72
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -6.069334506988525,
+                    "y": 4.204304218292236,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 1.0,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 1.0,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 10.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Light",
+                "EntityID": 73
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 12.4003324508667,
+                    "y": 4.204304218292236,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 1.0,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 1.0,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 10.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Light",
+                "EntityID": 74
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 27.76571273803711,
+                    "y": 4.204304218292236,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 1.0,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 1.0,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 10.0
             }
         }
     ]

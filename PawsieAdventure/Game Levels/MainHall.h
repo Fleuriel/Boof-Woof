@@ -4,6 +4,7 @@
 #include "../Systems/CameraController/CameraController.h"
 #include "../Systems/BoneCatcher/BoneCatcher.h"
 #include "../Systems/RopeBreaker/RopeBreaker.h"
+#include "../Systems/CageBreaker/CageBreaker.h"
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
 #include "../Systems/SmellAvoidance/SmellAvoidance.h"
@@ -21,6 +22,9 @@ class MainHall : public Level
 	Entity pee1{}, pee2{}, pee3{}, pee4{}; // Smell Avoidance
 	Entity pee1Collider{}, pee2Collider{}, pee3Collider{}, pee4Collider{}; // Smell Avoidance
 
+	Entity Cage1{}, Cage1Collider{}, Cage2{}, Cage2Collider{}, Cage3{}, Cage3Collider{}; // Puppies
+	bool cage1Collided{ false }, cage2Collided{ false }, cage3Collided{ false };
+
 	// Camera
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
@@ -33,8 +37,8 @@ class MainHall : public Level
 	bool isColorChanged{false}, sniffa{ false };
 
 	// Puppies
-	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
 	int puppiesCollected = 0;
+	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
 	bool puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
 	bool dialogueFirst{ false }, dialogueSecond{ false }, dialogueThird{ false };
 
@@ -97,8 +101,10 @@ class MainHall : public Level
 	void InitLevel() override
 	{
 		cameraController = new CameraController(playerEnt);
+		g_CageBreaker = CageBreaker(playerEnt, Cage1, Cage2, Cage3, Cage1Collider, Cage2Collider, Cage3Collider);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
-		g_SmellAvoidance = SmellAvoidance(playerEnt, pee1, pee2, pee3, pee4, pee1Collider, pee2Collider, pee3Collider, pee4Collider, WaterBucket, WaterBucket2, WaterBucket3, TestPee, TestCollider);
+		g_SmellAvoidance = SmellAvoidance(playerEnt, pee1, pee2, pee3, pee4, pee1Collider, pee2Collider, pee3Collider, pee4Collider, 
+			WaterBucket, WaterBucket2, WaterBucket3, TestPee, TestCollider);
 		g_Checklist.OnInitialize();
 		InitializeChecklist();
 		InitializeFireSound();
@@ -172,6 +178,8 @@ class MainHall : public Level
 			}
 			if (!collectedPuppy1 || !collectedPuppy2 || !collectedPuppy3)
 			{
+				//CheckCageCollision();
+				g_CageBreaker.OnUpdate(deltaTime);
 				CheckPuppyCollision();
 			}
 
@@ -233,6 +241,9 @@ class MainHall : public Level
 					}
 				}
 			}
+
+			// just for speed testing to rope breaker
+			//collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
 
 			if (collectedPuppy1 && collectedPuppy2 && collectedPuppy3 && !chgChecklist)
 			{
@@ -345,7 +356,6 @@ class MainHall : public Level
 		// Ensure RESET for game to be replayable
 		g_Checklist.shutted = false;
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
-		//playercollided = false;
 		puppy1Collided = puppy2Collided = puppy3Collided = false;
 
 		puppiesCollected = 0;
@@ -379,14 +389,21 @@ private:
 			{"WaterBucket3", [&](Entity entity) { WaterBucket3 = entity; }},
 			{"red particle", [&](Entity entity) { FireSound = entity; }},
 			{"TestObject", [&](Entity entity) { TestPee = entity; }},
-			{"TestCollision", [&](Entity entity) { TestCollider = entity; }}
+			{"TestCollision", [&](Entity entity) { TestCollider = entity; }},
+			{"Cage1", [&](Entity entity) { Cage1 = entity; }},
+			{"Cage1Collider", [&](Entity entity) { Cage1Collider = entity; }},
+			{"Cage2", [&](Entity entity) { Cage2 = entity; }},
+			{"Cage2Collider", [&](Entity entity) { Cage2Collider = entity; }},
+			{"Cage3", [&](Entity entity) { Cage3 = entity; }},
+			{"Cage3Collider", [&](Entity entity) { Cage3Collider = entity; }},
 		};
 	}
 
 	bool AllEntitiesInitialized() const
 	{
 		return playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3
-			&& pee1 && pee2 && pee3 && pee4 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider;
+			&& pee1 && pee2 && pee3 && pee4 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider
+			&& Cage1 && Cage1Collider;
 	}
 
 	void InitializeChecklist()
@@ -416,12 +433,12 @@ private:
 		}
 	}
 
-	bool CheckEntityWithPlayerCollision(Entity entity)
+	bool CheckEntityWithPlayerCollision(Entity entity) const
 	{
 		//Check Entity Collision with Player
 		if (g_Coordinator.HaveComponent<CollisionComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
 		{
-			auto collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
+			auto& collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
 			if(collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), "Player") == 0)
 				return true;
 		}
@@ -452,7 +469,6 @@ private:
 		if (puppy2Collided && !collectedPuppy2)
 		{
 			puppiesCollected++;
-			std::cout << "hello\n" << std::endl;
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
 			collectedPuppy2 = true;
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark2.wav", false, "SFX");
