@@ -272,7 +272,9 @@ public:
 		}
 
 		g_ChangeText.startingRoomOnly = false;
-
+		bark = false;
+		sniff = false;
+		initChecklist = false;
 		g_Audio.Stop(BedRoomBGM);
 
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
