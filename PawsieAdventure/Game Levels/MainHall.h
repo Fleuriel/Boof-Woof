@@ -280,18 +280,18 @@ class MainHall : public Level
 				g_RopeBreaker.OnUpdate(deltaTime);
 			}
 
-			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
-			{
-				if (!teb_last)
-				{
-					teb_last = true;
-					cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
-				}
-			}
-			else
-			{
-				teb_last = false;
-			}
+			//if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
+			//{
+			//	if (!teb_last)
+			//	{
+			//		teb_last = true;
+			//		cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
+			//	}
+			//}
+			//else
+			//{
+			//	teb_last = false;
+			//}
 
 			if (isSniffOnCooldown)
 			{
