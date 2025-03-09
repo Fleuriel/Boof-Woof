@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "02db6cc8-e17d-4c91-a5d7-88abdd069fd6",
+    "SceneGUID": "61700054-75c4-4360-8a7a-b10659e8d3ea",
     "Entities": [
         {
             "MetadataComponent": {
@@ -9,8 +9,8 @@
             "TransformComponent": {
                 "Position": {
                     "x": -1.193232536315918,
-                    "y": 1.1806243658065797,
-                    "z": -1.0374747514724732
+                    "y": 1.1999999284744263,
+                    "z": -2.060868263244629
                 },
                 "Scale": {
                     "x": 0.5,
@@ -65,7 +65,7 @@
                     "y": 1.0,
                     "z": 0.0
                 },
-                "Active": true
+                "Active": false
             }
         },
         {
@@ -4381,23 +4381,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4430,23 +4413,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4479,23 +4445,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4528,23 +4477,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4577,23 +4509,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4605,7 +4520,7 @@
                 "Position": {
                     "x": 20.0,
                     "y": 0.0,
-                    "z": -10.0
+                    "z": -9.999996185302735
                 },
                 "Scale": {
                     "x": 1.0,
@@ -4633,14 +4548,14 @@
                 "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 5.0,
+                    "x": 36.0,
                     "y": 0.30000001192092898,
-                    "z": 5.0
+                    "z": 58.0
                 },
                 "AABBOffset": {
                     "x": 0.0,
                     "y": 0.0,
-                    "z": 0.0
+                    "z": -20.049999237060548
                 },
                 "Mass": 0.0
             }
@@ -4675,23 +4590,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4724,23 +4622,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4773,23 +4654,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4822,23 +4686,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4871,23 +4718,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4920,23 +4750,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -4969,23 +4782,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -5018,23 +4814,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -5067,23 +4846,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7249,23 +7011,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7298,23 +7043,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7347,23 +7075,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7396,23 +7107,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7445,23 +7139,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7494,23 +7171,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7543,23 +7203,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7592,23 +7235,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7641,23 +7267,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -7690,23 +7299,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -11409,23 +11001,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -11458,23 +11033,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -14793,7 +14351,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 4.800000190734863,
+                    "y": 4.699999809265137,
                     "z": 0.0
                 },
                 "RotationPivotOffset": {
@@ -14812,7 +14370,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": true,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.299999952316284,
@@ -18357,9 +17915,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.8558430671691898,
-                    "y": 0.7496002316474915,
-                    "z": -23.052196502685548
+                    "x": 0.15118180215358735,
+                    "y": 0.699999988079071,
+                    "z": -6.415123462677002
                 },
                 "Scale": {
                     "x": 0.5,
@@ -18368,7 +17926,7 @@
                 },
                 "Rotation": {
                     "x": 0.000018510450900066645,
-                    "y": -1.2295700311660767,
+                    "y": 4.400000095367432,
                     "z": -0.000004973816885467386
                 },
                 "RotationPivotOffset": {
@@ -21386,23 +20944,6 @@
             "GraphicsComponent": {
                 "ModelName": "Floor3tripleheight",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.30000001192092898,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
