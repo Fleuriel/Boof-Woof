@@ -8,8 +8,7 @@
 #include "../Utilities/ForGame/Dialogue/Dialogue.h"
 #include "../Utilities/ForGame/UI/UI.h"
 #include "LoadingLevel.h"
-#include "../Utilities/ForGame/TimerTR/TimerTR.h" // Ensure TimerTR is included
-extern TimerTR g_TimerTR;  // Declare it as an external global variable
+
 
 
 class StartingRoom : public Level
