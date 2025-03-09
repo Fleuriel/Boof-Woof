@@ -26,6 +26,10 @@ class TimeRush : public Level
 	bool finishTR{ false };
 	double timesUp = 2.0;
 
+	double sniffCooldownTimer = 0.0;  // Accumulates time
+	const double sniffCooldownDuration = 17.0;  // 16 seconds
+	bool isSniffOnCooldown = false;
+
 	std::vector<Entity> particleEntities;
 
 	bool bark = false;
@@ -267,15 +271,29 @@ class TimeRush : public Level
 			//}
 			
 			// Take this away once u shift to script
-			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1)
-			{
-				//	g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorgiSniff.wav", false, "SFX");
-				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
-					auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
-					music2.PlayAudio();
+			// Accumulate time for cooldown
+			if (isSniffOnCooldown) {
+				sniffCooldownTimer += deltaTime;
+				if (sniffCooldownTimer >= sniffCooldownDuration) {
+					isSniffOnCooldown = false;  // Reset cooldown
+					sniffCooldownTimer = 0.0;   // Reset timer
 				}
 			}
-			// until here
+
+			// Sniffing logic with cooldown check
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !isSniffOnCooldown)
+			{
+				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff))
+				{
+					auto& sniffSound = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
+					sniffSound.PlayAudio();
+				}
+
+				isSniffOnCooldown = true;  // Start cooldown
+				sniffCooldownTimer = 0.0;  // Reset timer to start counting 16 seconds
+			}
+
+
 
 
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
