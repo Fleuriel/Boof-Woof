@@ -2423,7 +2423,7 @@ void ImGuiEditor::InspectorWindow()
 
 										// Set a minimum size to prevent crashes
 										glm::vec3 minAABBSize(0.1f, 0.1f, 0.1f); // Minimum size for AABB
-										if (ImGui::DragFloat3("Unscaled AABB Size", &graphicsComponent.boundingBox.x, 0.05f, 0.1f, 10.0f, "%.2f")) {
+										if (ImGui::DragFloat3("Unscaled AABB Size", &graphicsComponent.boundingBox.x, 0.05f, 0.1f, 100.0f, "%.2f")) {
 											// Clamp the values to prevent zero or invalid sizes
 											graphicsComponent.boundingBox.x = glm::max(graphicsComponent.boundingBox.x, minAABBSize.x);
 											graphicsComponent.boundingBox.y = glm::max(graphicsComponent.boundingBox.y, minAABBSize.y);
@@ -2443,7 +2443,7 @@ void ImGuiEditor::InspectorWindow()
 
 									// Add UI for editing collision offset
 									glm::vec3 currentOffset = collisionComponent.GetAABBOffset();
-									if (ImGui::DragFloat3("AABB Offset", &currentOffset.x, 0.05f, -10.0f, 10.0f, "%.2f")) {
+									if (ImGui::DragFloat3("AABB Offset", &currentOffset.x, 0.05f, -100.0f, 100.0f, "%.2f")) {
 										collisionComponent.SetAABBOffset(currentOffset);
 
 										// Update the physics body in real time to reflect the offset

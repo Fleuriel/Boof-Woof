@@ -397,7 +397,7 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
     }
 
     // Simulate physics
-    mPhysicsSystem->Update(deltaTime, 1, mTempAllocator, mJobSystem);
+    mPhysicsSystem->Update(deltaTime, 20, mTempAllocator, mJobSystem);
 
     // Update the entities' transforms after simulation
     UpdateEntityTransforms();
