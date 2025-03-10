@@ -2,6 +2,7 @@
 #include "../RopeBreaker/RopeBreaker.h"
 #include "../CageBreaker/CageBreaker.h"
 #include "../Core/AssetManager/FilePaths.h"
+#include "../Utilities/ForGame/UI/UI.h"
 
 BoneCatcher g_BoneCatcher;
 Serialization serial;
@@ -11,6 +12,8 @@ std::uniform_real_distribution<float> dist;  // Default distribution range
 
 void BoneCatcher::OnInitialize()
 {
+	g_UI.OnShutdown();
+
 	// Next time just have a bool to control whether it's rope or cage
 	if (isCage) 
 	{
@@ -291,7 +294,6 @@ void BoneCatcher::ClearBoneCatcher()
 {
 	AudioTimer = ClearBoneCatcherTimer;
 
-
 	// Stop the audio when bonecatcher is cleared
 	if (isAudioPlaying)
 	{
@@ -317,6 +319,7 @@ void BoneCatcher::ClearBoneCatcher()
 	}
 
 	isActive = false;
+	g_UI.OnInitialize();
 }
 
 void BoneCatcher::ChangeBase(std::string hit2TextureName, std::string hit4TextureName)
