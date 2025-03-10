@@ -153,6 +153,8 @@ void CageBreaker::DespawnCage()
 			deletedCage3 = true;
 		}
 	}
+
+	g_BoneCatcher.isCage = false;
 }
 
 bool CageBreaker::CheckEntityWithPlayerCollision(Entity entity) const

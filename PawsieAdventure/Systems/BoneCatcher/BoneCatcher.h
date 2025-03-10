@@ -40,7 +40,7 @@ private:
 	glm::vec2 MinMaxPos{ -0.35f, 0.37f };	// values of when scale is smallest
 
 	bool m_HitDetected{ false };
-	bool m_BaseChanged{ false }, m_ChangeBaseToBar{ false };
+	bool m_BaseChanged{ false };
 
 	// Dog Teeth
 	glm::vec2 TeethScale{ 0.08f, 0.08f };

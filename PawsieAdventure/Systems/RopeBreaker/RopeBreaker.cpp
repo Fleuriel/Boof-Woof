@@ -223,4 +223,6 @@ void RopeBreaker::DespawnRope()
 		g_DialogueText.OnInitialize();
 		g_DialogueText.setDialogue(DialogueState::BROKEROPE1);
 	}
+
+	g_BoneCatcher.isRope = false;
 }
