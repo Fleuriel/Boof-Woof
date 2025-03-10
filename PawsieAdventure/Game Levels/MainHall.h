@@ -47,6 +47,11 @@ class MainHall : public Level
 	bool puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
 	bool dialogueFirst{ false }, dialogueSecond{ false }, dialogueThird{ false };
 
+	double sniffCooldownTimer = 0.0;  // Timer for sniff cooldown
+	const double sniffCooldownDuration = 16.0;  // 16 seconds cooldown
+	bool isSniffOnCooldown = false;  // Track cooldown state
+
+
 	std::vector<Entity> particleEntities;
 
 	bool bark = false;
@@ -251,7 +256,12 @@ class MainHall : public Level
 			}
 
 			// just for speed testing to rope breaker
-			//collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
+			// collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
+
+			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1) 
+			{
+				collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
+			}
 
 			if (collectedPuppy1 && collectedPuppy2 && collectedPuppy3 && !chgChecklist)
 			{
@@ -275,27 +285,39 @@ class MainHall : public Level
 				g_RopeBreaker.OnUpdate(deltaTime);
 			}
 
-			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
+			//if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
+			//{
+			//	if (!teb_last)
+			//	{
+			//		teb_last = true;
+			//		cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
+			//	}
+			//}
+			//else
+			//{
+			//	teb_last = false;
+			//}
+
+			if (isSniffOnCooldown)
 			{
-				if (!teb_last)
+				sniffCooldownTimer += deltaTime;
+				if (sniffCooldownTimer >= sniffCooldownDuration)
 				{
-					teb_last = true;
-					cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
+					isSniffOnCooldown = false;  // Reset cooldown
+					sniffCooldownTimer = 0.0;   // Reset timer
 				}
-			}
-			else
-			{
-				teb_last = false;
 			}
 
 			// Take this away once u shift to script & peecontrol file
-			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !sniffa && cooldownTimer >= cooldownDuration)
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !sniffa && cooldownTimer >= cooldownDuration && !isSniffOnCooldown)
 			{
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiSniff.wav", false, "SFX");
 
 				//SetDefaultPeePosition();
 				g_SmellAvoidance.SetDefaultPeePosition();
 
+				isSniffOnCooldown = true;  // Start cooldown
+				sniffCooldownTimer = 0.0;  // Reset timer
 				sniffa = true;
 				isColorChanged = true;
 				colorChangeTimer = 0.0;
@@ -355,6 +377,12 @@ class MainHall : public Level
 	{
 		g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(originalBrightness);
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/MetalCage.wav");
+
+
 		if (g_Coordinator.HaveComponent<AudioComponent>(FireSound)) {
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
 			music.StopAudio();
@@ -367,6 +395,7 @@ class MainHall : public Level
 		g_Checklist.shutted = false;
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
 		puppy1Collided = puppy2Collided = puppy3Collided = false;
+		dialogueFirst = dialogueSecond = dialogueThird = false;
 
 		puppiesCollected = 0;
 	}

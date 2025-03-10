@@ -238,6 +238,14 @@ public:
 		return false;
 	}
 
+	virtual void SetIsDynamic(Entity entity, bool isDynamic) override
+	{
+		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
+		{
+			return g_Coordinator.GetComponent<CollisionComponent>(entity).SetIsDynamic(isDynamic);
+		}
+	}
+
 	virtual bool IsKinematic(Entity entity) override
 	{
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
@@ -245,6 +253,26 @@ public:
 			return g_Coordinator.GetComponent<CollisionComponent>(entity).IsKinematic();
 		}
 		return false;
+	}
+
+	virtual void SetIsKinematic(Entity entity, bool isKinematic) override
+	{
+		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
+		{
+			return g_Coordinator.GetComponent<CollisionComponent>(entity).SetIsKinematic(isKinematic);
+		}
+	}
+
+	virtual void DisablePhysics(Entity entity) override {
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->DisablePhysics(entity);
+	}
+
+	virtual void EnablePhysics(Entity entity) override {
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->EnablePhysics(entity);
+	}
+
+	virtual void UpdatePhysicsTransform(Entity entity) override {
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdatePhysicsTransform(entity);
 	}
 
 

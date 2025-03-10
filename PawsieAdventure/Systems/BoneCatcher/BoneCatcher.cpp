@@ -12,7 +12,15 @@ std::uniform_real_distribution<float> dist;  // Default distribution range
 void BoneCatcher::OnInitialize()
 {
 	// Next time just have a bool to control whether it's rope or cage
-	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/RopeCatcher.json");
+	if (isCage) 
+	{
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/CageCatcher.json");
+	}
+
+	if (isRope) 
+	{
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/RopeCatcher.json");
+	}
 
 	storage = serial.GetStored();
 
@@ -94,28 +102,28 @@ void BoneCatcher::OnUpdate(double deltaTime)
 
 		if (isRope) 
 		{
-			if (!m_ChangeBaseToBar)
-			{
-				if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
-				{
-					g_Coordinator.GetComponent<UIComponent>(m_Base).set_texturename("RopeFull");
-					m_ChangeBaseToBar = true;
-				}
-			}
+			//if (!m_ChangeBaseToBar)
+			//{
+			//	if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
+			//	{
+			//		g_Coordinator.GetComponent<UIComponent>(m_Base).set_texturename("RopeFull");
+			//		m_ChangeBaseToBar = true;
+			//	}
+			//}
 
 			ChangeBase("RopeSemi", "RopeBreak");
 		}
 
 		if (isCage) 
 		{
-			if (!m_ChangeBaseToBar) 
-			{
-				if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
-				{
-					g_Coordinator.GetComponent<UIComponent>(m_Base).set_texturename("BarFull");
-					m_ChangeBaseToBar = true;
-				}
-			}
+			//if (!m_ChangeBaseToBar) 
+			//{
+			//	if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
+			//	{
+			//		g_Coordinator.GetComponent<UIComponent>(m_Base).set_texturename("BarFull");
+			//		m_ChangeBaseToBar = true;
+			//	}
+			//}
 
 			ChangeBase("BarSemi", "BarBreak");
 		}

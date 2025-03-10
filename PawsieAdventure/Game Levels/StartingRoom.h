@@ -9,6 +9,8 @@
 #include "../Utilities/ForGame/UI/UI.h"
 #include "LoadingLevel.h"
 
+
+
 class StartingRoom : public Level
 {
 public:
@@ -18,7 +20,9 @@ public:
 	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{}, FireSound{};
 
 	std::vector<Entity> particleEntities;
-
+	double sniffCooldownTimer = 0.0;  // Accumulates time
+	const double sniffCooldownDuration = 17.0;  // 16 seconds
+	bool isSniffOnCooldown = false;
 
 	std::vector<std::string> bitingSounds = {
 	"Corgi/DogBite_01.wav",
@@ -125,6 +129,9 @@ public:
 
 	void UpdateLevel(double deltaTime) override
 	{
+
+		//double currentTime = g_TimerTR.; // Use the game's timer system
+
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
 			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
 			glm::vec3 playerPos = playerTransform.GetPosition();
@@ -176,18 +183,18 @@ public:
 
 			}
 
-			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
-			{
-				if (!teb_last)
-				{
-					teb_last = true;
-					cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
-				}
-			}
-			else
-			{
-				teb_last = false;
-			}
+			//if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
+			//{
+			//	if (!teb_last)
+			//	{
+			//		teb_last = true;
+			//		cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
+			//	}
+			//}
+			//else
+			//{
+			//	teb_last = false;
+			//}
 
 			//if (g_Input.GetKeyState(GLFW_KEY_O) >= 1) 
 			//{
@@ -214,22 +221,34 @@ public:
 			{
 				bark = false;
 			}
+			// Accumulate time for cooldown
+			if (isSniffOnCooldown) {
+				sniffCooldownTimer += deltaTime;
+				if (sniffCooldownTimer >= sniffCooldownDuration) {
+					isSniffOnCooldown = false;  // Reset cooldown
+					sniffCooldownTimer = 0.0;   // Reset timer
+				}
+			}
 
-			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !sniff)
+			// Sniffing logic with cooldown check
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !isSniffOnCooldown)
 			{
 				if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff))
 				{
-					auto& music2 = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
-					music2.PlayAudio();
+					auto& sniffSound = g_Coordinator.GetComponent<AudioComponent>(CorgiSniff);
+					sniffSound.PlayAudio();
 				}
 
-				sniff = true;
+				isSniffOnCooldown = true;  // Start cooldown
+				sniffCooldownTimer = 0.0;  // Reset timer to start counting 16 seconds
 			}
 
+			// Reset sniff state when the key is released
 			if (g_Input.GetKeyState(GLFW_KEY_E) == 0)
 			{
 				sniff = false;
 			}
+
 			// until here
 
 			if (g_Checklist.shutted && !g_DialogueText.dialogueActive)
