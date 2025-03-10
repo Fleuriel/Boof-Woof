@@ -211,6 +211,12 @@ struct Player final : public Behaviour
 				inRopeBreaker = false;
 			}
 
+			if (m_Engine.getInputSystem().isActionPressed("Escape")) 
+			{
+				m_Engine.SetCollidingEntityName(entity);
+				inRopeBreaker = false;
+			}
+
 			if (touchingToy)
 			{
 				m_Engine.SetTouched(true);

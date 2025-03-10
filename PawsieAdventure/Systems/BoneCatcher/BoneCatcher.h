@@ -18,7 +18,7 @@ public:
 	void ResetBC();
 
 public:
-	bool isRope{ false }, isCage{ false };
+	bool isRope{ false }, isCage{ false }, isActive{ false };
 
 private:
 	Entity m_DogHead{}, m_CatchZone{}, m_Base{};

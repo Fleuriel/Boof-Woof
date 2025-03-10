@@ -79,6 +79,7 @@ void BoneCatcher::OnInitialize()
 		}
 	}
 
+	isActive = true;
 	m_BaseChanged = false;
 	m_Speed = 0.5f;
 	m_HitCount = 0;
@@ -102,29 +103,11 @@ void BoneCatcher::OnUpdate(double deltaTime)
 
 		if (isRope) 
 		{
-			//if (!m_ChangeBaseToBar)
-			//{
-			//	if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
-			//	{
-			//		g_Coordinator.GetComponent<UIComponent>(m_Base).set_texturename("RopeFull");
-			//		m_ChangeBaseToBar = true;
-			//	}
-			//}
-
 			ChangeBase("RopeSemi", "RopeBreak");
 		}
 
 		if (isCage) 
 		{
-			//if (!m_ChangeBaseToBar) 
-			//{
-			//	if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
-			//	{
-			//		g_Coordinator.GetComponent<UIComponent>(m_Base).set_texturename("BarFull");
-			//		m_ChangeBaseToBar = true;
-			//	}
-			//}
-
 			ChangeBase("BarSemi", "BarBreak");
 		}
 
@@ -332,6 +315,8 @@ void BoneCatcher::ClearBoneCatcher()
 			}
 		}
 	}
+
+	isActive = false;
 }
 
 void BoneCatcher::ChangeBase(std::string hit2TextureName, std::string hit4TextureName)
