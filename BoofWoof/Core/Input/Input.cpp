@@ -12,6 +12,8 @@
 #include "Input.h"
 #include "Windows/WindowManager.h"
 
+extern bool g_IsCamPanning;
+
  // Constructor to initialize default action mappings
 InputSystem::InputSystem() {
     // Set up default action mappings
@@ -159,6 +161,11 @@ void InputSystem::SetActionMapping(const char * action, int key) {
  * @return True if the action is pressed, false otherwise.
  *************************************************************************/
 bool InputSystem::IsActionPressed(const char * action) {
+
+    if (g_IsCamPanning) {
+        return false;
+    }
+
     auto it = actionMappings.find(action);
     if (it != actionMappings.end()) {
         int key = it->second;

@@ -2,6 +2,9 @@
 #include "../../../BoofWoof/Utilities/Components/MetaData.hpp"
 
 
+extern bool g_IsCamPanning;
+
+
 void CameraController::Update(float deltaTime)
 {
 	// Get active camera component
@@ -150,7 +153,7 @@ void CameraController::UpdateFirstPersonView(CameraComponent& camera)
 {
 
 	// Match the camera's position to the player's position
-	if (!g_Coordinator.HaveComponent<TransformComponent>(playerEntity))
+	if (!g_Coordinator.HaveComponent<TransformComponent>(playerEntity) || g_IsCamPanning)
 	{
 		return;
 	}
@@ -222,6 +225,11 @@ void CameraController::UpdateThirdPersonView(CameraComponent& camera)
 
 	// If the camera is locked, follow the player
 	if (lockCam) {
+
+		if (g_IsCamPanning) {
+			return;
+		}
+
 		static glm::vec2 lastMousePos = glm::vec2(g_Input.GetMousePosition().x, g_Input.GetMousePosition().y);
 		static bool firstMouse = true;
 
@@ -264,8 +272,10 @@ void CameraController::UpdateThirdPersonView(CameraComponent& camera)
 		float lerpFactor = 0.01f; // Smoothness of the transition
 		if (moveCam)
 		camera.Position = glm::mix(camera.Position, targetposition, lerpFactor);
+		float turninglerpFactor = 0.1f;
 		if (turnCam)
 		camera.SetCameraDirection(glm::mix(camera.GetCameraDirection(), targetdirection, lerpFactor));
+
 	}
 
 	// Update the camera's direction vectors

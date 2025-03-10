@@ -6,6 +6,8 @@
 #include "../Utilities/ForGame/TimerTR/TimerTR.h"
 #include "../GSM/GameStateMachine.h" // for g_IsPaused
 
+extern bool g_IsCamPanning;
+
 class TimeRush : public Level
 {
 	Entity playerEnt{};
@@ -107,10 +109,9 @@ class TimeRush : public Level
 
 	void InitLevel() override
 	{
+		g_IsCamPanning = true;
 		cameraController = new CameraController(playerEnt);
-		cameraController->ToggleTurnCam();
 		cameraController->ChangeToThirdPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
-		
 
 		g_Checklist.OnInitialize();
 		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do5");
@@ -196,7 +197,7 @@ class TimeRush : public Level
 
 		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && camtimer > 2.f && panCam == false) {
 			cameraController->SetCameraTargetPosition(glm::vec3(26.5f, 5.f, -90.f));
-			cameraController->SetCameraTargetDirection(glm::vec3(0, 0, 1));
+			cameraController->SetCameraTargetDirection(glm::vec3(0, -0.2, 1));
 			cameraController->LockUnlockCam();
 			panCam = true;
 			originalcamPos = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraPosition();
@@ -214,6 +215,11 @@ class TimeRush : public Level
 			cameraController->LockUnlockCam();
 			cameraController->ToggleCameraMode();
 		}
+
+		if (camtimer > 17.f && cameraController->getCameraMode() == CameraMode::FIRST_PERSON) {
+			g_IsCamPanning = false;
+		}
+
 
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
 			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
