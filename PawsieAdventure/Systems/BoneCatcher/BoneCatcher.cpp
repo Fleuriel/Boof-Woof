@@ -340,7 +340,7 @@ void BoneCatcher::ChangeBase(std::string hit2TextureName, std::string hit4Textur
 {
 	if (!m_BaseChanged) 
 	{
-		if (m_HitCount == 2) 
+		if (m_HitCount == 2 || m_HitCount == 3)
 		{
 			if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
 			{

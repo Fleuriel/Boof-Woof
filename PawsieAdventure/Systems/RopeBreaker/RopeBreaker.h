@@ -19,6 +19,9 @@ public:
 	void SpawnBoneCatcher();
 	void DespawnRope();
 
+	void SaveRopeProgress();
+	bool CheckEntityWithPlayerCollision(Entity entity) const;
+
 	// Drawbridge
 	void DropBridge();
 
@@ -32,7 +35,7 @@ private:
 
 	// Rope
 	Entity player{}, rope1{}, rope2{};
-	bool PlayerColliding{}, Rope1Colliding{}, Rope2Colliding{}, firstRopeTouched{ false };
+	bool Rope1Colliding{}, Rope2Colliding{}, firstRopeTouched{ false };
 	int RopeDespawned{ 0 };
 
 	// Drawbridge
@@ -48,6 +51,8 @@ private:
 	float ElapsedTime = 0.0f;	// Time since animation started
 	float FallDuration = 2.0f;	// Total duration of animation
 	bool isFalling{ false };
+
+	bool playedRopeSnap1{ false }, playedRopeSnap2{ false };
 };
 
 extern RopeBreaker g_RopeBreaker;

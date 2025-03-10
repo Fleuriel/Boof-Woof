@@ -13,15 +13,15 @@ void CageBreaker::OnUpdate(double deltaTime)
 		CheckCageCollision();
 	}
 
-	// Only saves when you press ESC key
-	SaveProgress();
-
 	// Only when collided and when dialogue isn't active
 	SpawnBoneCatcher();
 
 	if (BarSpawned)
 	{
 		g_BoneCatcher.OnUpdate(deltaTime);
+
+		// Only saves when you press ESC key
+		SaveProgress();
 	}
 }
 
