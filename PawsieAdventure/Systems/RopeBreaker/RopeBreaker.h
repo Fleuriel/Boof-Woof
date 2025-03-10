@@ -28,14 +28,15 @@ public:
 	void ResetRB();
 
 public:
-	bool PlayerCollidedRope1{ false }, PlayerCollidedRope2{ false }, BoneSpawned{ false };
+	bool BoneSpawned{ false }, Rope1Colliding{}, Rope2Colliding{};
 	int RopeCount{ 2 };
+	std::unordered_map<int, int> RopeHitCounts; // Map to store hit counts per cage
 
 private:
 
 	// Rope
 	Entity player{}, rope1{}, rope2{};
-	bool Rope1Colliding{}, Rope2Colliding{}, firstRopeTouched{ false };
+	bool firstRopeTouched{ false }, PlayerCollidedRope1{ false }, PlayerCollidedRope2{ false };
 	int RopeDespawned{ 0 };
 
 	// Drawbridge

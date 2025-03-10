@@ -19,7 +19,7 @@ public:
 
 public:
 	bool isRope{ false }, isCage{ false }, isActive{ false }, savePawgress{ false };
-	int m_HitCount{ 0 }, m_CurrHitCount{ 0 };
+	int m_HitCount{ 0 };
 
 private:
 	Entity m_DogHead{}, m_CatchZone{}, m_Base{};

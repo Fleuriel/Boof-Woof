@@ -12,19 +12,19 @@ std::uniform_real_distribution<float> dist;  // Default distribution range
 
 void BoneCatcher::OnInitialize()
 {
-	if (!UIClosed) 
+	if (!UIClosed)
 	{
 		g_UI.OnShutdown();
 		UIClosed = true;
 	}
 
 	// Next time just have a bool to control whether it's rope or cage
-	if (isCage) 
+	if (isCage)
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/CageCatcher.json");
 	}
 
-	if (isRope) 
+	if (isRope)
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/RopeCatcher.json");
 	}
@@ -90,11 +90,34 @@ void BoneCatcher::OnInitialize()
 	m_BaseChanged = false;
 	m_Speed = 0.5f;
 	m_HitCount = 0;
+	savePawgress = false;
 
-	if (savePawgress)
+	if (isCage)
 	{
-		m_HitCount = m_CurrHitCount;
-		savePawgress = false;
+		if (g_CageBreaker.CageHitCounts.count(1) > 0 && g_CageBreaker.Cage1Colliding)
+		{
+			m_HitCount = g_CageBreaker.CageHitCounts[1];
+		}
+		else if (g_CageBreaker.CageHitCounts.count(2) > 0 && g_CageBreaker.Cage2Colliding)
+		{
+			m_HitCount = g_CageBreaker.CageHitCounts[2];
+		}
+		else if (g_CageBreaker.CageHitCounts.count(3) > 0 && g_CageBreaker.Cage3Colliding)
+		{
+			m_HitCount = g_CageBreaker.CageHitCounts[3];
+		}
+	}
+
+	if (isRope)
+	{
+		if (g_RopeBreaker.RopeHitCounts.count(1) > 0 && g_RopeBreaker.Rope1Colliding)
+		{
+			m_HitCount = g_RopeBreaker.RopeHitCounts[1];
+		}
+		else if (g_RopeBreaker.RopeHitCounts.count(2) > 0 && g_RopeBreaker.Rope2Colliding)
+		{
+			m_HitCount = g_RopeBreaker.RopeHitCounts[2];
+		}
 	}
 }
 
@@ -114,12 +137,12 @@ void BoneCatcher::OnUpdate(double deltaTime)
 			m_IsMoving = false;
 		}
 
-		if (isRope) 
+		if (isRope)
 		{
 			ChangeBase("RopeSemi", "RopeBreak");
 		}
 
-		if (isCage) 
+		if (isCage)
 		{
 			ChangeBase("BarSemi", "BarBreak");
 		}
@@ -148,7 +171,7 @@ void BoneCatcher::OnUpdate(double deltaTime)
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/MetalCage.wav", true, "SFX");
 
 		}
-			isAudioPlaying = true;
+		isAudioPlaying = true;
 	}
 
 	Stop(deltaTime);
@@ -160,7 +183,7 @@ void BoneCatcher::Stop(double deltaTime)
 	// After 5 times, no more
 	if (m_HitCount == 5 && !m_ShouldDestroy)
 	{
-		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/CreakingRope2.wav");
 		m_DestroyTimer = 2.0f;
 		m_ShouldDestroy = true;
 	}
@@ -175,12 +198,12 @@ void BoneCatcher::Stop(double deltaTime)
 			m_ShouldDestroy = false; // reset
 			m_HitCount = 0;
 
-			if (isCage) 
+			if (isCage)
 			{
 				g_CageBreaker.DespawnCage();
 			}
 
-			if (isRope) 
+			if (isRope)
 			{
 				if (g_RopeBreaker.RopeCount != 0)
 				{
@@ -189,7 +212,7 @@ void BoneCatcher::Stop(double deltaTime)
 					// Despawn the rope
 					g_RopeBreaker.DespawnRope();
 				}
-			}		
+			}
 		}
 	}
 }
@@ -250,7 +273,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 			//std::cout << "m_HitCount: " << m_HitCount  << std::endl;
 
 			// Play YAY sound
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/CorrectSound.wav", false, "SFX");
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorrectSound.wav", false, "SFX");
 
 			// Hit = Pass = Randomize Catchzone position & Faster DogHead Speed.
 			m_Speed += 0.2f;
@@ -265,7 +288,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 		}
 		else {
 			// Play BOO sound
-			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/WrongSound.wav", false, "SFX");
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WrongSound.wav", false, "SFX");
 			// Failed to hit - nothing changes, play the same level.
 		}
 	}
@@ -307,7 +330,7 @@ void BoneCatcher::ClearBoneCatcher()
 	// Stop the audio when bonecatcher is cleared
 	if (isAudioPlaying)
 	{
-		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav"); // Stop the specific file path
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/CreakingRope2.wav"); // Stop the specific file path
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/MetalCage.wav");
 
 		isAudioPlaying = false;  // Reset the flag
@@ -338,7 +361,7 @@ void BoneCatcher::ClearBoneCatcher()
 
 void BoneCatcher::ChangeBase(std::string hit2TextureName, std::string hit4TextureName)
 {
-	if (!m_BaseChanged) 
+	if (!m_BaseChanged)
 	{
 		if (m_HitCount == 2 || m_HitCount == 3)
 		{
@@ -346,7 +369,7 @@ void BoneCatcher::ChangeBase(std::string hit2TextureName, std::string hit4Textur
 			{
 				g_Coordinator.GetComponent<UIComponent>(m_Base).set_texturename(hit2TextureName);
 
-				if (hit2TextureName == "RopeSemi") 
+				if (hit2TextureName == "RopeSemi")
 				{
 					g_Coordinator.GetComponent<UIComponent>(m_Base).set_scale(glm::vec2(0.7f, 0.16f));
 					g_Coordinator.GetComponent<UIComponent>(m_Base).set_position(glm::vec2(0.0f, 0.08f));

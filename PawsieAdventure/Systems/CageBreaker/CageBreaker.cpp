@@ -167,25 +167,28 @@ void CageBreaker::SaveProgress()
 		if (CollidedCage1) 
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(cage1Collider).SetLastCollidedObjectName("Floor");
+			CageHitCounts[1] = g_BoneCatcher.m_HitCount;
 			CollidedCage1 = false;
 		}
 
 		if (CollidedCage2)
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(cage2Collider).SetLastCollidedObjectName("Floor");
+			CageHitCounts[2] = g_BoneCatcher.m_HitCount;
 			CollidedCage2 = false;
 		}
 
 		if (CollidedCage3)
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(cage3Collider).SetLastCollidedObjectName("Floor");
+			CageHitCounts[3] = g_BoneCatcher.m_HitCount;
 			CollidedCage3 = false;
 		}
 
-		g_BoneCatcher.m_CurrHitCount = g_BoneCatcher.m_HitCount;
 		g_BoneCatcher.ClearBoneCatcher();
 
 		BarSpawned = false;
+		g_BoneCatcher.isCage = false;
 		g_BoneCatcher.savePawgress = true;
 	}
 }
