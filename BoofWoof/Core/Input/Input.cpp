@@ -34,6 +34,8 @@ InputSystem::InputSystem() {
  * @return Integer representing the state of the key.
  *************************************************************************/
 int InputSystem::GetKeyState(int index) {
+    if (g_IsCamPanning)
+        return 0;
     return keyStates[index];
 }
 
@@ -52,6 +54,8 @@ void InputSystem::SetKeyState(int index, int value) {
  * @return Boolean representing the mouse button's state.
  *************************************************************************/
 int InputSystem::GetMouseState(int index) {
+    if (g_IsCamPanning)
+        return 0;
     return mouseButtonStates[index];
 }
 
@@ -69,6 +73,8 @@ void InputSystem::SetMouseState(int index, int value) {
  * @return Integer representing the scroll state.
  *************************************************************************/
 int InputSystem::GetScrollState() {
+    if (g_IsCamPanning)
+        return 0;
     return mouseScrollState;
 }
 
@@ -162,9 +168,8 @@ void InputSystem::SetActionMapping(const char * action, int key) {
  *************************************************************************/
 bool InputSystem::IsActionPressed(const char * action) {
 
-    if (g_IsCamPanning) {
+    if (g_IsCamPanning)
         return false;
-    }
 
     auto it = actionMappings.find(action);
     if (it != actionMappings.end()) {

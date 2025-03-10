@@ -216,7 +216,7 @@ class TimeRush : public Level
 			cameraController->ToggleCameraMode();
 		}
 
-		if (camtimer > 17.f && cameraController->getCameraMode() == CameraMode::FIRST_PERSON) {
+		if (camtimer > 16.5f && cameraController->getCameraMode() == CameraMode::FIRST_PERSON) {
 			g_IsCamPanning = false;
 		}
 
