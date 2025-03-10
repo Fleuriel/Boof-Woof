@@ -18,11 +18,11 @@ public:
 	void ResetBC();
 
 public:
-	bool isRope{ false }, isCage{ false }, isActive{ false };
+	bool isRope{ false }, isCage{ false }, isActive{ false }, savePawgress{ false };
+	int m_HitCount{ 0 }, m_CurrHitCount{ 0 };
 
 private:
 	Entity m_DogHead{}, m_CatchZone{}, m_Base{};
-	int m_HitCount{ 0 };
 
 	// Dog
 	glm::vec2 initialDogPos{}, DogPos{}, DogScale{};
@@ -49,6 +49,7 @@ private:
 	double ClearBoneCatcherTimer = 0.0;
 	double AudioTimer = 0.0;
 	bool isAudioPlaying{ false };
+	bool UIClosed{ false };
 
 protected:
 

@@ -18,6 +18,9 @@ public:
 	void CheckCageCollision();
 	void SpawnBoneCatcher();
 	void DespawnCage();
+
+	void SaveProgress();
+
 	bool CheckEntityWithPlayerCollision(Entity entity) const;
 	void ResetCB();
 

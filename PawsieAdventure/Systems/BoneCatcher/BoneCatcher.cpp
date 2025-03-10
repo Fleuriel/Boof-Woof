@@ -12,7 +12,11 @@ std::uniform_real_distribution<float> dist;  // Default distribution range
 
 void BoneCatcher::OnInitialize()
 {
-	g_UI.OnShutdown();
+	if (!UIClosed) 
+	{
+		g_UI.OnShutdown();
+		UIClosed = true;
+	}
 
 	// Next time just have a bool to control whether it's rope or cage
 	if (isCage) 
@@ -86,6 +90,12 @@ void BoneCatcher::OnInitialize()
 	m_BaseChanged = false;
 	m_Speed = 0.5f;
 	m_HitCount = 0;
+
+	if (savePawgress)
+	{
+		m_HitCount = m_CurrHitCount;
+		savePawgress = false;
+	}
 }
 
 void BoneCatcher::OnUpdate(double deltaTime)
@@ -297,7 +307,6 @@ void BoneCatcher::ClearBoneCatcher()
 	// Stop the audio when bonecatcher is cleared
 	if (isAudioPlaying)
 	{
-		std::cout << "Entered audioplaying" << std::endl;
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/CreakingRope2.wav"); // Stop the specific file path
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/MetalCage.wav");
 
@@ -319,7 +328,12 @@ void BoneCatcher::ClearBoneCatcher()
 	}
 
 	isActive = false;
-	g_UI.OnInitialize();
+
+	if (UIClosed)
+	{
+		g_UI.OnInitialize();
+		UIClosed = false;
+	}
 }
 
 void BoneCatcher::ChangeBase(std::string hit2TextureName, std::string hit4TextureName)

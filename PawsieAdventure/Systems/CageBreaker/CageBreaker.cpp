@@ -13,6 +13,9 @@ void CageBreaker::OnUpdate(double deltaTime)
 		CheckCageCollision();
 	}
 
+	// Only saves when you press ESC key
+	SaveProgress();
+
 	// Only when collided and when dialogue isn't active
 	SpawnBoneCatcher();
 
@@ -155,6 +158,36 @@ void CageBreaker::DespawnCage()
 	}
 
 	g_BoneCatcher.isCage = false;
+}
+
+void CageBreaker::SaveProgress()
+{
+	if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1 && !g_BoneCatcher.savePawgress)
+	{
+		if (CollidedCage1) 
+		{
+			g_Coordinator.GetComponent<CollisionComponent>(cage1Collider).SetLastCollidedObjectName("Floor");
+			CollidedCage1 = false;
+		}
+
+		if (CollidedCage2)
+		{
+			g_Coordinator.GetComponent<CollisionComponent>(cage2Collider).SetLastCollidedObjectName("Floor");
+			CollidedCage2 = false;
+		}
+
+		if (CollidedCage3)
+		{
+			g_Coordinator.GetComponent<CollisionComponent>(cage3Collider).SetLastCollidedObjectName("Floor");
+			CollidedCage3 = false;
+		}
+
+		g_BoneCatcher.m_CurrHitCount = g_BoneCatcher.m_HitCount;
+		g_BoneCatcher.ClearBoneCatcher();
+
+		BarSpawned = false;
+		g_BoneCatcher.savePawgress = true;
+	}
 }
 
 bool CageBreaker::CheckEntityWithPlayerCollision(Entity entity) const
