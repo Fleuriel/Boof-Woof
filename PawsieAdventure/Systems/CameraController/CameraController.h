@@ -29,9 +29,15 @@ public:
 	void ShakeCamera(float time, glm::vec3 range);
 	void ShakePlayer(float time, glm::vec3 range);
 	void ChangeToFirstPerson(CameraComponent& camera);
+	void ChangeToThirdPerson(CameraComponent& camera);
 	void SetCameraDirection(CameraComponent& camera, glm::vec3 direction);
 	glm::vec3 GetCameraDirection(const CameraComponent& camera);
-
+	void LockUnlockCam() { lockCam = !lockCam; }
+	CameraMode getCameraMode() { return currentMode; }
+	void SetCameraTargetPosition(glm::vec3 pos) { targetposition = pos; }
+	void SetCameraTargetDirection(glm::vec3 dir) { targetdirection = dir; }
+	void ToggleMoveCam() { moveCam = !moveCam; }
+	void ToggleTurnCam() { turnCam = !turnCam; }
 
 private:
     void UpdateFirstPersonView(CameraComponent& camera);
@@ -42,6 +48,7 @@ private:
 
     CameraMove getfirstPersonCameraMove(CameraComponent& camera);
     CameraMove getThirdPersonCameraMove(CameraComponent& camera);
+
 
 
 private:
@@ -63,4 +70,8 @@ private:
 
 	float low_limit_pitch_first = -10.0f;
 	float high_limit_pitch_first = 45.0f;
+
+	bool lockCam{ true }, moveCam{ true }, turnCam{ true };
+	glm::vec3 targetposition{ 0,0,0 };
+	glm::vec3 targetdirection{ 0,0,0 };
 };
