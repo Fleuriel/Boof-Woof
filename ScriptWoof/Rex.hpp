@@ -11,7 +11,7 @@ struct Rex final : public Behaviour
     int currentPathIndex = 0;
     bool followingPath = false;
     bool pathInitialized = false;
-    float speed = 5.0f;
+    float speed = 1.5f;
     float pathThreshold = 0.2f;
     bool isMovingRex = false;
 	bool returningtoStart = false;
@@ -255,7 +255,7 @@ struct Rex final : public Behaviour
                 // Clamp velocity to avoid breaking the physics engine
                 float maxAllowedSpeed = 0;
                 if (state == State::PATROL) {
-                    maxAllowedSpeed = 5.0f;
+                    maxAllowedSpeed = 1.5f;
                 }
                 else if (state == State::CHASE) {
                     maxAllowedSpeed = 10.0f;
