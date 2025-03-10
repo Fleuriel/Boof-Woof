@@ -258,6 +258,11 @@ class MainHall : public Level
 			// just for speed testing to rope breaker
 			// collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
 
+			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1) 
+			{
+				collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
+			}
+
 			if (collectedPuppy1 && collectedPuppy2 && collectedPuppy3 && !chgChecklist)
 			{
 				g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do9");
