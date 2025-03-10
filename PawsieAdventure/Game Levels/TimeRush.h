@@ -13,9 +13,9 @@ class TimeRush : public Level
 	Entity rexEnt{};
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
-	glm::vec3 camdir{}, originalcamPos;
+	glm::vec3 camdir{}, originalcamPos, originalcamDir;
 
-	bool panCam{ false };
+	bool camThirdPerson{ false }, panCam{ false }, returnCam{ false };
 	float camtimer{ 0.f };
 
 	Entity TimeRushBGM{}, AggroDog{}, CorgiSniff{}, FireSound{};
@@ -40,7 +40,7 @@ class TimeRush : public Level
 	"Corgi/DogBite_05.wav",
 	"Corgi/DogBite_06.wav",
 	"Corgi/DogBite_07.wav",
-		};
+	};
 
 
 	// Function to get a random sound from a vector
@@ -109,7 +109,7 @@ class TimeRush : public Level
 	{
 		cameraController = new CameraController(playerEnt);
 		cameraController->ChangeToThirdPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
-		originalcamPos = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraPosition();
+		
 
 		g_Checklist.OnInitialize();
 		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do5");
@@ -186,20 +186,32 @@ class TimeRush : public Level
 			savedcamdir = false;
 		}
 
-		float timeVariable = 8.f;
-		if (panCam == true && camtimer <= timeVariable)
+		if (camThirdPerson == true)
 			camtimer += deltaTime;
 
 		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && !camtimer) {
+			camThirdPerson = true;
+		}
+
+		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && camtimer > 1.f && panCam == false) {
 			cameraController->SetCameraTargetPosition(glm::vec3(26.5f, 5.f, -90.f));
 			cameraController->SetCameraTargetDirection(glm::vec3(0, 0, 1));
 			cameraController->LockUnlockCam();
 			panCam = true;
+			originalcamPos = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraPosition();
+			originalcamDir = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraDirection();
 		}
-		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && camtimer >= timeVariable) {
+
+		float timeVariable = 8.f;
+		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && camtimer >= timeVariable && returnCam == false) {
 			cameraController->SetCameraTargetPosition(originalcamPos);
+			cameraController->SetCameraTargetDirection(originalcamDir);
+			returnCam = true;
+		}
+
+		if (camtimer > 16.f && cameraController->getCameraMode() == CameraMode::THIRD_PERSON) {
 			cameraController->LockUnlockCam();
-			cameraController->ChangeToFirstPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
+			cameraController->ToggleCameraMode();
 		}
 
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
@@ -216,7 +228,7 @@ class TimeRush : public Level
 		// ?? Update the positions of all 3D sounds (including the fireplace)
 		g_Audio.Update3DSoundPositions();
 
-		if (!g_DialogueText.dialogueActive) 
+		if (!g_DialogueText.dialogueActive)
 		{
 			pauseLogic::OnUpdate();
 		}
@@ -235,7 +247,7 @@ class TimeRush : public Level
 			g_DialogueText.OnUpdate(deltaTime);
 
 			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
-			if (g_TimerTR.timer == 0.0) 
+			if (g_TimerTR.timer == 0.0)
 			{
 				/*
 				// Need to teleport Rex to 20, 1.5, 3
@@ -250,11 +262,11 @@ class TimeRush : public Level
 				// Times up! sound
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
 				// Wait for like 2 seconds then restart game
-				if (timesUp < 0.0) 
+				if (timesUp < 0.0)
 				{
 					timesUp = 0.0;
-					
-					
+
+
 					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 					if (loading)
 					{
@@ -268,10 +280,10 @@ class TimeRush : public Level
 
 						g_LevelManager.SetNextLevel("LoadingLevel");
 					}
-					
+
 				}
 			}
-			
+
 			//if (CheckEntityWithPlayerCollision(rexEnt)) {
 			//	auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 			//	if (loading)
@@ -287,7 +299,7 @@ class TimeRush : public Level
 			//		g_LevelManager.SetNextLevel("LoadingLevel");
 			//	}
 			//}
-			
+
 			// Take this away once u shift to script
 			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1)
 			{
@@ -358,7 +370,7 @@ class TimeRush : public Level
 
 	void UnloadLevel() override
 	{
-		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/Timesup.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/Timesup.wav");
 		//g_Audio.StopBGM();
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav");
 

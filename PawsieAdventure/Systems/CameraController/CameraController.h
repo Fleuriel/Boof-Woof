@@ -36,6 +36,8 @@ public:
 	CameraMode getCameraMode() { return currentMode; }
 	void SetCameraTargetPosition(glm::vec3 pos) { targetposition = pos; }
 	void SetCameraTargetDirection(glm::vec3 dir) { targetdirection = dir; }
+	void ToggleMoveCam() { moveCam = !moveCam; }
+	void ToggleTurnCam() { turnCam = !turnCam; }
 
 private:
     void UpdateFirstPersonView(CameraComponent& camera);
@@ -69,7 +71,7 @@ private:
 	float low_limit_pitch_first = -10.0f;
 	float high_limit_pitch_first = 45.0f;
 
-	bool lockCam{ true };
+	bool lockCam{ true }, moveCam{ true }, turnCam{ true };
 	glm::vec3 targetposition{ 0,0,0 };
 	glm::vec3 targetdirection{ 0,0,0 };
 };

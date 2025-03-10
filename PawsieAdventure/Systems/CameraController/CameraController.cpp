@@ -148,6 +148,7 @@ glm::vec3 CameraController::GetCameraDirection(const CameraComponent& camera) {
 
 void CameraController::UpdateFirstPersonView(CameraComponent& camera)
 {
+
 	// Match the camera's position to the player's position
 	if (!g_Coordinator.HaveComponent<TransformComponent>(playerEntity))
 	{
@@ -261,7 +262,9 @@ void CameraController::UpdateThirdPersonView(CameraComponent& camera)
 
 		// Lerp smoothly to the target position and direction
 		float lerpFactor = 0.01f; // Smoothness of the transition
+		if (moveCam)
 		camera.Position = glm::mix(camera.Position, targetposition, lerpFactor);
+		if (turnCam)
 		camera.SetCameraDirection(glm::mix(camera.GetCameraDirection(), targetdirection, lerpFactor));
 	}
 
