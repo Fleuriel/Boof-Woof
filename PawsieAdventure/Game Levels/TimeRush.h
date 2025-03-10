@@ -108,6 +108,7 @@ class TimeRush : public Level
 	void InitLevel() override
 	{
 		cameraController = new CameraController(playerEnt);
+		cameraController->ToggleTurnCam();
 		cameraController->ChangeToThirdPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
 		
 
@@ -193,7 +194,7 @@ class TimeRush : public Level
 			camThirdPerson = true;
 		}
 
-		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && camtimer > 1.f && panCam == false) {
+		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && camtimer > 2.f && panCam == false) {
 			cameraController->SetCameraTargetPosition(glm::vec3(26.5f, 5.f, -90.f));
 			cameraController->SetCameraTargetDirection(glm::vec3(0, 0, 1));
 			cameraController->LockUnlockCam();
@@ -209,7 +210,7 @@ class TimeRush : public Level
 			returnCam = true;
 		}
 
-		if (camtimer > 16.f && cameraController->getCameraMode() == CameraMode::THIRD_PERSON) {
+		if (camtimer > 15.f && cameraController->getCameraMode() == CameraMode::THIRD_PERSON) {
 			cameraController->LockUnlockCam();
 			cameraController->ToggleCameraMode();
 		}
