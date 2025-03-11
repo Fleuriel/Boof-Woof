@@ -367,14 +367,16 @@ public:
 
     void ExtractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh, const aiScene* scene)
     {
+        (void)scene;
+
         auto& boneInfoMap = m_BoneInfoMap;
         int& boneCount = m_BoneCounter;
 
-        for (int i = 0; i < mesh->mNumBones; i++) {
+        for (unsigned int i = 0; i < mesh->mNumBones; i++) {
             std::cout << "Bone " << i << ": " << mesh->mBones[i]->mName.C_Str() << std::endl;
         }
 
-        for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
+        for (unsigned int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
         {
             std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
             std::cout << "Bone " << boneIndex << ": " << boneName << std::endl;
@@ -398,7 +400,7 @@ public:
             }
 
 
-            std::cout <<"Extracting: \t" << boneName << '\t' << boneID << '\n';
+      //      std::cout <<"Extracting: \t" << boneName << '\t' << boneID << '\n';
 
             assert(boneID != -1);
             auto weights = mesh->mBones[boneIndex]->mWeights;

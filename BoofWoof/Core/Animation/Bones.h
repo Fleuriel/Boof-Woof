@@ -46,7 +46,7 @@ public:
 		for (int positionIndex = 0; positionIndex < m_NumPositions; ++positionIndex)
 		{
 			aiVector3D aiPosition = channel->mPositionKeys[positionIndex].mValue;
-			float timeStamp = channel->mPositionKeys[positionIndex].mTime;
+			float timeStamp = static_cast<float>(channel->mPositionKeys[positionIndex].mTime);
 			KeyPosition data;
 			data.position = AssimpGLMHelpers::GetGLMVec(aiPosition);
 			data.timeStamp = timeStamp;
@@ -57,7 +57,7 @@ public:
 		for (int rotationIndex = 0; rotationIndex < m_NumRotations; ++rotationIndex)
 		{
 			aiQuaternion aiOrientation = channel->mRotationKeys[rotationIndex].mValue;
-			float timeStamp = channel->mRotationKeys[rotationIndex].mTime;
+			float timeStamp = static_cast<float>(channel->mRotationKeys[rotationIndex].mTime);
 			KeyRotation data;
 			data.orientation = AssimpGLMHelpers::GetGLMQuat(aiOrientation);
 			data.timeStamp = timeStamp;
@@ -68,7 +68,7 @@ public:
 		for (int keyIndex = 0; keyIndex < m_NumScalings; ++keyIndex)
 		{
 			aiVector3D scale = channel->mScalingKeys[keyIndex].mValue;
-			float timeStamp = channel->mScalingKeys[keyIndex].mTime;
+			float timeStamp = static_cast<float>(channel->mScalingKeys[keyIndex].mTime);
 			KeyScale data;
 			data.scale = AssimpGLMHelpers::GetGLMVec(scale);
 			data.timeStamp = timeStamp;
@@ -88,7 +88,6 @@ public:
 	int GetBoneID() { return m_ID; }
 
 
-
 	int GetPositionIndex(float animationTime)
 	{
 		for (int index = 0; index < m_NumPositions - 1; ++index)
@@ -97,6 +96,7 @@ public:
 				return index;
 		}
 		assert(0);
+		return m_NumPositions - 1;  // Ensure a return value even if assert fails
 	}
 
 	int GetRotationIndex(float animationTime)
@@ -107,6 +107,7 @@ public:
 				return index;
 		}
 		assert(0);
+		return m_NumRotations - 1;  // Ensure a return value
 	}
 
 	int GetScaleIndex(float animationTime)
@@ -117,6 +118,7 @@ public:
 				return index;
 		}
 		assert(0);
+		return m_NumScalings - 1;  // Ensure a return value
 	}
 
 

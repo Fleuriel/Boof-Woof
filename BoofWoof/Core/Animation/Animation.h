@@ -39,8 +39,8 @@ public:
 
 		assert(scene && scene->mRootNode);
 		auto animation = scene->mAnimations[0];
-		m_Duration = animation->mDuration;
-		m_TicksPerSecond = animation->mTicksPerSecond;
+		m_Duration = static_cast<float>(animation->mDuration);
+		m_TicksPerSecond = static_cast<float>(animation->mTicksPerSecond);
 		aiMatrix4x4 globalTransformation = scene->mRootNode->mTransformation;
 		globalTransformation = globalTransformation.Inverse();
 		ReadHierarchyData(m_RootNode, scene->mRootNode);
@@ -109,7 +109,7 @@ private:
 		dest.transformation = AssimpGLMHelpers::ConvertMatrixToGLMFormat(src->mTransformation);
 		dest.childrenCount = src->mNumChildren;
 
-		for (int i = 0; i < src->mNumChildren; i++)
+		for (unsigned int i = 0; i < src->mNumChildren; i++)
 		{
 			AssimpNodeData newData;
 			ReadHierarchyData(newData, src->mChildren[i]);
@@ -117,7 +117,7 @@ private:
 		}
 	}
 	float m_Duration;
-	int m_TicksPerSecond;
+	float m_TicksPerSecond;
 	std::vector<Bone> m_Bones;
 	AssimpNodeData m_RootNode;
 	std::map<std::string, BoneInfo> m_BoneInfoMap;
