@@ -22,7 +22,7 @@
 class Model;
 class Model2D;
 class GraphicsComponent;
-class AnimationT;
+class Animation;
 class Animator;
 
 #include "../ECS/System.hpp"

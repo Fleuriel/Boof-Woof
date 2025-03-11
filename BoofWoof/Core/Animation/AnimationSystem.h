@@ -20,6 +20,23 @@ class AnimationSystem : public System
 {
 public:
 
+
+    void Update(float dt)
+	{
+
+
+
+	   //auto& animComp = gCoordinator.GetComponent<AnimationComponent>(entity);
+	   //if (animComp.isPlaying && animComp.animator)
+	   //{
+	   //   animComp.animator->UpdateAnimation(dt);
+	   //}
+
+
+
+    }
+
+
     //void Update(float dt)
     //{
     //    for (auto entity : allEntities)

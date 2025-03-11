@@ -482,45 +482,52 @@ void GraphicsSystem::UpdateLoop() {
 			continue;
 		}
 
+		if (g_Coordinator.HaveComponent<AnimationComponent>(entity))
+		{
+			std::cout << "it has animationComp.\n";
 
-		if (material.GetShaderName() == "Animation") {
-			// Bind and use the animation shader
-			g_AssetManager.GetShader("Animation").Use();
+			if (material.GetShaderName() == "Animation") {
+				// Bind and use the animation shader
+				g_AssetManager.GetShader("Animation").Use();
 
 
-			g_ResourceManager.animatorVec[0]->UpdateAnimation(deltaTime);
+				g_ResourceManager.animatorVec[0]->UpdateAnimation(deltaTime);
 
-			glm::mat4 model = glm::mat4(1.0f);
-			// translate it down so it's at the center of the scene
-			model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f));
-			// it's a bit too big for our scene, so scale it down
-			model = glm::scale(model, glm::vec3(.01f, .01f, .01f));
+				glm::mat4 model = glm::mat4(1.0f);
+				// translate it down so it's at the center of the scene
+				model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f));
+				// it's a bit too big for our scene, so scale it down
+				model = glm::scale(model, glm::vec3(.01f, .01f, .01f));
 
-//			g_AssetManager.GetShader("Animation").SetUniform("model", model);
-			g_AssetManager.GetShader("Animation").SetUniform("view", camera.GetViewMatrix());
-			g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
+				//			g_AssetManager.GetShader("Animation").SetUniform("model", model);
+				g_AssetManager.GetShader("Animation").SetUniform("view", camera.GetViewMatrix());
+				g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
+
+
+
+
+				auto transforms = g_ResourceManager.animatorVec[0]->GetFinalBoneMatrices();
+				for (int i = 0; i < transforms.size(); ++i)
+				{
+					std::string lel = "finalBonesMatrices[" + std::to_string(i) + "]";
+					g_AssetManager.GetShader("Animation").SetUniform(lel.c_str(), transforms[i]);
+				}
+
+				std::cout << "enter here\n";
+
+				g_AssetManager.GetShader("Animation").SetUniform("model", model);
+				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
+
+
+				// Unbind the shader after rendering
+				g_AssetManager.GetShader("Animation").UnUse();
+				continue;
+			}
+
+		}
 
 
 		
-
-			auto transforms = g_ResourceManager.animatorVec[0]->GetFinalBoneMatrices();
-			for (int i = 0; i < transforms.size(); ++i)
-			{
-				std::string lel = "finalBonesMatrices[" + std::to_string(i) + "]";
-				g_AssetManager.GetShader("Animation").SetUniform(lel.c_str(), transforms[i]);
-			}
-
-			std::cout << "enter here\n";
-
-			g_AssetManager.GetShader("Animation").SetUniform("model", model);
-			graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
-	
-
-			// Unbind the shader after rendering
-			g_AssetManager.GetShader("Animation").UnUse();
-			continue;
-		}
-
 
 
 		

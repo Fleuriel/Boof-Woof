@@ -804,28 +804,28 @@ void ImGuiEditor::InspectorWindow()
 						 }
 
 					}
-				//	if (ImGui::Selectable("Animation Component")) {
-				//		if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
-				//			std::cout << "enter1\n";
-				//
-				//
-				//			g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
-				//
-				//
-				//			g_UndoRedoManager.ExecuteCommand(
-				//				[this]() {
-				//					if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
-				//						g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
-				//					}
-				//				},
-				//				[this]() {
-				//					if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
-				//						g_Coordinator.RemoveComponent<AnimationComponent>(g_SelectedEntity);
-				//					}
-				//				}
-				//			);
-				//		}
-				//	}
+					if (ImGui::Selectable("Animation Component")) {
+						if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+							std::cout << "enter1\n";
+				
+				
+							g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
+				
+				
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
+									}
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+										g_Coordinator.RemoveComponent<AnimationComponent>(g_SelectedEntity);
+									}
+								}
+							);
+						}
+					}
 
 					if (ImGui::Selectable("Audio Component"))
 					{
@@ -1115,24 +1115,24 @@ void ImGuiEditor::InspectorWindow()
 						}
 					}
 
-					//if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
-					//{
-					//	if (ImGui::Selectable("Animation Component"))
-					//	{
-					//		auto& componentData = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
-					//
-					//		g_UndoRedoManager.ExecuteCommand(
-					//			[this]() {
-					//				if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
-					//					g_Coordinator.RemoveComponent<AnimationComponent>(g_SelectedEntity);
-					//			},
-					//			[this, componentData]() {
-					//				if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
-					//					g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, componentData);
-					//			}
-					//		);
-					//	}
-					//}
+					if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
+					{
+						if (ImGui::Selectable("Animation Component"))
+						{
+							auto& componentData = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
+					
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<AnimationComponent>(g_SelectedEntity);
+								},
+								[this, componentData]() {
+									if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, componentData);
+								}
+							);
+						}
+					}
 
 					if (g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
 					{
