@@ -124,8 +124,8 @@ struct Player final : public Behaviour
 			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			isMoving = false;
 
-			//CheckForObjectsInFront(entity);
-			//CheckForObjectsBelow(entity);
+			CheckForObjectsInFront(entity);
+			CheckForObjectsBelow(entity);
 
 			if (CheckForGround(entity)) {
 				m_Engine.SetGrounded(entity, true);
@@ -658,7 +658,7 @@ struct Player final : public Behaviour
 		glm::vec3 downwardDirection = glm::vec3(0.0f, -1.0f, 0.0f);
 
 		float maxRayDistance = 0.75f;
-		float fovAngle = 40.0f; // 30-degree cone
+		float fovAngle = 10.0f; // 30-degree cone
 		int horizontalRays = 8; // Number of horizontal rays
 		int verticalRays = 5;   // Number of vertical rays
 		glm::vec3 rayOffset = glm::vec3(0.0f, -0.0f, 0.0f);

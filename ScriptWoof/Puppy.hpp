@@ -18,6 +18,7 @@ struct Puppy final : public Behaviour
     bool isMovingPuppy = false;
     //bool collected = false; // Track if the player collected the puppy
     Entity playerEntity = 5000; // Store player entity
+    bool puppyGrounded = false; // Add this as a member variable
 
 	std::map<Entity, bool> collected;
 
@@ -71,6 +72,7 @@ struct Puppy final : public Behaviour
 
         glm::vec3 currentPos = m_Engine.GetPosition(entity);
         glm::vec3 velocity(0.0f);
+        float deltaTime = static_cast<float>(m_Engine.GetDeltaTime()); // Get the frame time
 
         if (collected[entity] && playerEntity != INVALID_ENT) 
         {
@@ -102,7 +104,7 @@ struct Puppy final : public Behaviour
                     float jumpVelocity = 1.2f * sqrt(2 * gravity * jumpHeight);
 
                     velocity.y = jumpVelocity;
-					
+                    puppyGrounded = false; // Puppy is now airborne
 				}
             }
             if (distance <= pathThreshold)
@@ -141,20 +143,51 @@ struct Puppy final : public Behaviour
             isMovingPuppy = true;
         }
 
+        // **Gravity Fix**
+        float gravityForce = 100.0f;  // Increased gravity
+        float terminalVelocity = -100.0f; // Allow faster falling
+        float velocityThreshold = 0.05f; // Small movement threshold
+        glm::vec3 playerPos = m_Engine.GetPosition(playerEntity);
+        float playerY = playerPos.y;
+
+        if (!puppyGrounded)
+        {
+            velocity.y -= gravityForce * deltaTime;
+            velocity.y = glm::max(velocity.y, terminalVelocity);
+
+            // **Ground Detection (Ensures it actually lands)**
+            static float groundTimer = 0.0f;
+            if (glm::abs(velocity.y) < velocityThreshold)
+            {
+                groundTimer += deltaTime;
+
+                // Only mark as grounded if very close to the ground
+                if (groundTimer > 0.2f && currentPos.y <= playerY + 0.1f)
+                {
+                    puppyGrounded = true;
+                    velocity.y = 0.0f;
+                }
+            }
+            else
+            {
+                groundTimer = 0.0f;
+            }
+        }
+
         // Apply velocity
         if (isMovingPuppy)
         {
-			m_Engine.SetRotationYawFromVelocity(entity, velocity);
+            m_Engine.SetRotationYawFromVelocity(entity, velocity);
 
-			// Clamp the speed to a maximum value
             float maxAllowedSpeed = 10.0f;
-            if (glm::length(velocity) > maxAllowedSpeed)
+            if (glm::length(glm::vec2(velocity.x, velocity.z)) > maxAllowedSpeed)
             {
-                velocity = glm::normalize(velocity) * maxAllowedSpeed;
+                glm::vec3 horizontalVelocity = glm::normalize(glm::vec3(velocity.x, 0, velocity.z)) * maxAllowedSpeed;
+                velocity.x = horizontalVelocity.x;
+                velocity.z = horizontalVelocity.z;
             }
 
             m_Engine.SetVelocity(entity, velocity);
-            //std::cout << "[Puppy] Moving with velocity: (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")" << std::endl;
         }
     }
 
