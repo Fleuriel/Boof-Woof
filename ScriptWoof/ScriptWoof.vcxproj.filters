@@ -27,9 +27,6 @@
     <ClInclude Include="..\BoofWoof\Core\Logic\BehaviourInterface.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
     <ClInclude Include="Treat.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -47,6 +44,9 @@
     </ClInclude>
     <ClInclude Include="RexChase.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

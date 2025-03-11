@@ -273,7 +273,7 @@ public:
         const glm::vec3& userOffset);
 
     static bool RayCastDebug;
-
+    float RaycastFraction(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity);
     void DisablePhysics(Entity entity);
     void EnablePhysics(Entity entity);
     void UpdatePhysicsTransform(Entity entity);
