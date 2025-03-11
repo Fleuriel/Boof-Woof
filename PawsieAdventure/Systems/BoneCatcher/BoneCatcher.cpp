@@ -3,6 +3,7 @@
 #include "../CageBreaker/CageBreaker.h"
 #include "../Core/AssetManager/FilePaths.h"
 #include "../Utilities/ForGame/UI/UI.h"
+#include "../ChangeText/ChangeText.h"
 
 BoneCatcher g_BoneCatcher;
 Serialization serial;
@@ -210,7 +211,14 @@ void BoneCatcher::Stop(double deltaTime)
 					g_RopeBreaker.RopeCount -= 1;
 
 					// Despawn the rope
-					g_RopeBreaker.DespawnRope();
+					if (!g_ChangeText.startingRoomOnly) 
+					{
+						g_RopeBreaker.DespawnRope();
+					}
+					else 
+					{
+						g_RopeBreaker.DespawnRopeInStartingRoom();
+					}
 				}
 			}
 		}

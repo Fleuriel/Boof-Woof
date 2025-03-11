@@ -105,11 +105,11 @@ void Checklist::OnUpdate(double deltaTime)
 				Check2 = true;
 			}
 
-			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !Check3)
+			/*if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !Check3)
 			{
 				ChangeBoxChecked(Box3);
 				Check3 = true;
-			}
+			}*/
 
 			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !Check4)
 			{

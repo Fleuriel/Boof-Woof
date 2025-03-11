@@ -195,7 +195,7 @@ class TimeRush : public Level
 		}
 
 		if (camThirdPerson == true)
-			camtimer += deltaTime;
+			camtimer += static_cast<float>(deltaTime);
 
 		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && !camtimer) {
 			camThirdPerson = true;

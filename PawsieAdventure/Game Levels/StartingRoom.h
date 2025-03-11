@@ -5,6 +5,7 @@
 #include "../Systems/CameraController/CameraController.h"
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
+#include "../Systems/RopeBreaker/RopeBreaker.h"
 #include "../Utilities/ForGame/Dialogue/Dialogue.h"
 #include "../Utilities/ForGame/UI/UI.h"
 #include "LoadingLevel.h"
@@ -14,7 +15,7 @@
 class StartingRoom : public Level
 {
 public:
-	Entity playerEnt{}, scentEntity{};
+	Entity playerEnt{}, scentEntity{}, RopeE{};
 	CameraController* cameraController = nullptr;
 	bool bark{ false }, sniff{ false }, initChecklist{ false };
 	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{}, FireSound{};
@@ -60,7 +61,8 @@ public:
 			{"BedRoomMusic", [&](Entity entity) { BedRoomBGM = entity; }},
 			{"CorgiBark1", [&](Entity entity) { CorgiBark = entity; }},
 			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }},
-			{ "middle particle", [&](Entity entity) { FireSound = entity; }}
+			{"middle particle", [&](Entity entity) { FireSound = entity; }},
+			{"Rope", [&](Entity entity) { RopeE = entity; }}
 		};
 
 		for (auto entity : entities)
@@ -102,7 +104,7 @@ public:
 				}
 
 				// Exit early if all entities are found
-				if (playerEnt && scentEntity && BedRoomBGM && CorgiBark && CorgiSniff && FireSound)
+				if (playerEnt && scentEntity && BedRoomBGM && CorgiBark && CorgiSniff && FireSound && RopeE)
 				{
 					break;
 				}
@@ -123,15 +125,14 @@ public:
 
 		particleEntities = { scentEntity };
 		g_UI.OnInitialize();
+		g_RopeBreaker = RopeBreaker(playerEnt, RopeE);
+		g_UI.inStartingRoom = true;
 	}
 
 	bool teb_last = false;
 
 	void UpdateLevel(double deltaTime) override
 	{
-
-		//double currentTime = g_TimerTR.; // Use the game's timer system
-
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
 			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
 			glm::vec3 playerPos = playerTransform.GetPosition();
@@ -140,7 +141,7 @@ public:
 			g_Audio.SetListenerPosition(playerPos, playerRot);
 		}
 
-		// ?? Update the positions of all 3D sounds (including the fireplace)
+		// Update the positions of all 3D sounds (including the fireplace)
 		g_Audio.Update3DSoundPositions();
 
 		g_ChangeText.startingRoomOnly = true;
@@ -181,25 +182,11 @@ public:
 			{
 				g_Checklist.OnUpdate(deltaTime);
 
+				if (!g_Checklist.Check3 && !g_RopeBreaker.playedRopeSnap1) 
+				{
+					g_RopeBreaker.OnUpdate(deltaTime);
+				}
 			}
-
-			//if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
-			//{
-			//	if (!teb_last)
-			//	{
-			//		teb_last = true;
-			//		cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
-			//	}
-			//}
-			//else
-			//{
-			//	teb_last = false;
-			//}
-
-			//if (g_Input.GetKeyState(GLFW_KEY_O) >= 1) 
-			//{
-			//	cameraController->ShakeCamera(1.0f, glm::vec3(0.1f,0.1f,0.1f));
-			//}
 
 			// Take this away once u shift to script
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
@@ -292,7 +279,9 @@ public:
 			music.StopAudio();
 		}
 
+		g_UI.inStartingRoom = false;
 		g_ChangeText.startingRoomOnly = false;
+		g_Checklist.Check3 = false;
 		bark = false;
 		sniff = false;
 		initChecklist = false;

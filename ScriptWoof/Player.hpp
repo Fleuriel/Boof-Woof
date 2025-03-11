@@ -180,7 +180,7 @@ struct Player final : public Behaviour
 				//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
 			}
 
-			static const std::unordered_set<std::string> ropeEntities = { "Rope1", "Rope2" };
+			static const std::unordered_set<std::string> ropeEntities = { "Rope1", "Rope2", "Rope"};
 			static const std::unordered_set<std::string> cageEntities = { "Cage1Collider", "Cage2Collider", "Cage3Collider" };
 			static const std::unordered_set<std::string> toyEntities = { "Bone", "TennisBall" };
 
@@ -206,7 +206,7 @@ struct Player final : public Behaviour
 				{
 					inCageBreaker = true;
 				}
-				else if (ropeEntities.count(entityName) && m_Engine.FinishCaged())
+				else if (ropeEntities.count(entityName) && (m_Engine.FinishCaged() || m_Engine.inStartingRoom()))
 				{
 					inRopeBreaker = true;
 				}

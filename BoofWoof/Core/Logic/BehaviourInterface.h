@@ -116,6 +116,7 @@ struct engine_interface
 	virtual bool GetExhausted() = 0;
 	virtual bool FinishCaged() = 0;
 	virtual bool GetStunned() = 0;
+	virtual bool inStartingRoom() = 0;
 
 	virtual bool MatchEntityName(Entity entity, const char* entityName) = 0;
 	virtual void SetDialogue(int dialogueState) = 0;

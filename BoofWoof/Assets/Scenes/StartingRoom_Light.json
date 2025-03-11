@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "cf8f5b26-5e0e-492f-a313-d869640f3887",
+    "SceneGUID": "9d9778b7-ed1d-4e3c-9150-bc21b198f801",
     "Entities": [
         {
             "MetadataComponent": {
@@ -1003,7 +1003,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": -0.9779902100563049,
-                    "y": 6.939372539520264,
+                    "y": 6.939393997192383,
                     "z": 0.0
                 },
                 "Scale": {
@@ -1025,6 +1025,23 @@
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.15000000596046449,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.30000001192092898,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -1057,6 +1074,23 @@
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.15000000596046449,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.30000001192092898,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -1089,6 +1123,23 @@
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.15000000596046449,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.30000001192092898,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -3358,7 +3409,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Rope",
                 "EntityID": 68
             },
             "TransformComponent": {
@@ -3386,6 +3437,23 @@
             "GraphicsComponent": {
                 "ModelName": "RopeDrawbridge",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.15000000596046449,
+                    "y": 2.200000047683716,
+                    "z": 2.0999999046325685
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {

@@ -4,6 +4,7 @@
 #include "../Core/AssetManager/FilePaths.h"
 #include "../Utilities/ForGame/Dialogue/Dialogue.h"
 #include <Level Manager/LevelManager.h>
+#include "../ChangeText/ChangeText.h"
 
 
 RopeBreaker g_RopeBreaker;
@@ -24,6 +25,11 @@ void RopeBreaker::OnUpdate(double deltaTime)
 
 		// Only saves when you press ESC key
 		SaveRopeProgress();
+
+		/*if (!g_ChangeText.startingRoomOnly) 
+		{
+			SaveRopeProgress();
+		}*/
 	}
 
 	if (RopeDespawned >= 2 && !isFalling)
@@ -86,7 +92,7 @@ void RopeBreaker::CheckCollision()
 	{
 		if (Rope1Colliding && !PlayerCollidedRope1)
 		{
-			if (!firstRopeTouched)
+			if (!firstRopeTouched && !g_ChangeText.startingRoomOnly)
 			{
 				g_DialogueText.OnInitialize();
 				g_DialogueText.setDialogue(DialogueState::BREAKROPES);
@@ -209,6 +215,30 @@ void RopeBreaker::DespawnRope()
 	}
 
 	g_BoneCatcher.isRope = false;
+}
+
+void RopeBreaker::DespawnRopeInStartingRoom()
+{
+	if (g_ChangeText.startingRoomOnly) 
+	{
+		if (PlayerCollidedRope1 && !deletedRope1)
+		{
+			if (!playedRopeSnap1)
+			{
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/RopeSnap.wav", false, "SFX");
+				playedRopeSnap1 = true;
+			}
+			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(rope1);
+			g_Coordinator.DestroyEntity(rope1);
+			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
+
+			g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
+			g_Checklist.Check3 = true;
+
+			deletedRope1 = true;
+			PlayerCollidedRope1 = false;
+		}
+	}
 }
 
 void RopeBreaker::SaveRopeProgress()

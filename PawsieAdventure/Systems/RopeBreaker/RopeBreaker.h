@@ -11,6 +11,7 @@ public:
 	RopeBreaker() : player(Entity()), rope1(Entity()), rope2(Entity()), bridge(Entity()), PlayerCollidedRope1(false), PlayerCollidedRope2(false), RopeCount(2) {}
 	RopeBreaker(Entity playerEntity, Entity ropeEntity1, Entity ropeEntity2, Entity bridgeEntity) 
 		: player(playerEntity), rope1(ropeEntity1), rope2(ropeEntity2), bridge(bridgeEntity), PlayerCollidedRope1(false), PlayerCollidedRope2(false), RopeCount(2) {}
+	RopeBreaker(Entity playerEntity, Entity ropeEntity) : player(playerEntity), rope1(ropeEntity), PlayerCollidedRope1(false), RopeCount(1) {}
 
 	void OnUpdate(double deltaTime);
 
@@ -18,6 +19,7 @@ public:
 
 	void SpawnBoneCatcher();
 	void DespawnRope();
+	void DespawnRopeInStartingRoom();
 
 	void SaveRopeProgress();
 	bool CheckEntityWithPlayerCollision(Entity entity) const;
@@ -28,7 +30,7 @@ public:
 	void ResetRB();
 
 public:
-	bool BoneSpawned{ false }, Rope1Colliding{}, Rope2Colliding{};
+	bool BoneSpawned{ false }, Rope1Colliding{}, Rope2Colliding{}, playedRopeSnap1{ false };
 	int RopeCount{ 2 };
 	std::unordered_map<int, int> RopeHitCounts; // Map to store hit counts per cage
 
@@ -53,7 +55,7 @@ private:
 	float FallDuration = 2.0f;	// Total duration of animation
 	bool isFalling{ false };
 
-	bool playedRopeSnap1{ false }, playedRopeSnap2{ false };
+	bool playedRopeSnap2{ false };
 };
 
 extern RopeBreaker g_RopeBreaker;
