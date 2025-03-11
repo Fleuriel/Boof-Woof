@@ -751,6 +751,17 @@ void GraphicsSystem::UpdateLoop() {
 	glEnable(GL_DEPTH_TEST);
 }
 
+void GraphicsSystem::Clean()
+{
+
+	for (auto anim : g_ResourceManager.animationVec)
+		delete anim; // Clean up animations
+
+	for (auto animTor : g_ResourceManager.animatorVec)
+		delete animTor; // Clean up animators
+
+}
+
 
 void GraphicsSystem::AddEntireModel3D(const std::string& directory)
 {
@@ -825,7 +836,7 @@ void GraphicsSystem::AddModel_3D(std::string const& path)
 //
 //	std::cout << "Animation and Animator added successfully!\n";
 //}
-void GraphicsSystem::TestAnimationAdd(const std::string name, const std::string& path)
+void GraphicsSystem::TestAnimationAdd(const std::string& name, const std::string& path)
 {
 	//  Allocate model on the heap
 	Model* animModel = new Model(path, false);
@@ -851,16 +862,6 @@ void GraphicsSystem::TestAnimationAdd(const std::string name, const std::string&
 
 	g_ResourceManager.animatorVec.push_back(animTor);
 
-
-//	AnimationT animaton(path, &ourModel);
-//
-//	g_ResourceManager.animationVec.push_back();
-
-
-
-	//  Allocate Animator dynamically
-	Animator* animator = new Animator(corgiWalk);
-	//g_ResourceManager.AnimatorMap[name] = animator;
 
 	std::cout << "Animation and Animator added successfully!\n";
 }

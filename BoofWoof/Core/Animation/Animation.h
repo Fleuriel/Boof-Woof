@@ -32,10 +32,6 @@ public:
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
 
-//		std::cout << "import\t" << scene->mAnimations[0]->mName.C_Str() << '\n';
-
-		std::cout << "rootnode\n";
-		std::cout << scene->mRootNode->mName.C_Str() << '\n'; 
 
 		assert(scene && scene->mRootNode);
 		auto animation = scene->mAnimations[0];

@@ -255,5 +255,6 @@ void EngineCore::OnShutdown()
 	// Shutdown window and other systems
 	mLogicSys->Shutdown();
 	mPhysicSys->Cleanup();
+	mGraphicsSys->Clean();
 	g_Window->OnShutdown();
 }
