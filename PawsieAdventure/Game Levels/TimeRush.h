@@ -260,16 +260,17 @@ class TimeRush : public Level
 			g_DialogueText.OnUpdate(deltaTime);
 
 			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
+			/*
 			if (g_TimerTR.timer == 0.0)
 			{
-				/*
+				
 				// Need to teleport Rex to 20, 1.5, 3
 				if (g_Coordinator.HaveComponent<TransformComponent>(rexEnt))
 				{
 					auto& rexTransform = g_Coordinator.GetComponent<TransformComponent>(rexEnt);
 					rexTransform.SetPosition(glm::vec3(20.0f, 1.5f, 3.0f));
 				}
-				*/
+				
 				timesUp -= deltaTime;
 
 				// Times up! sound
@@ -295,23 +296,24 @@ class TimeRush : public Level
 					}
 
 				}
+			
 			}
+			*/
+			if (CheckEntityWithPlayerCollision(rexEnt)) {
+				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+				if (loading)
+				{
+					// Pass in the name of the real scene we want AFTER the loading screen
+					loading->m_NextScene = "TimeRush";
 
-			//if (CheckEntityWithPlayerCollision(rexEnt)) {
-			//	auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
-			//	if (loading)
-			//	{
-			//		// Pass in the name of the real scene we want AFTER the loading screen
-			//		loading->m_NextScene = "TimeRush";
+					timesUp = 2.0;
+					g_TimerTR.Reset();
+					g_DialogueText.OnShutdown();
+					g_DialogueText.Reset();
 
-			//		timesUp = 2.0;
-			//		g_TimerTR.Reset();
-			//		g_DialogueText.OnShutdown();
-			//		g_DialogueText.Reset();
-
-			//		g_LevelManager.SetNextLevel("LoadingLevel");
-			//	}
-			//}
+					g_LevelManager.SetNextLevel("LoadingLevel");
+				}
+			}
 
 			// Take this away once u shift to script
 			// Accumulate time for cooldown
