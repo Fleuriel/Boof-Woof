@@ -1084,6 +1084,22 @@ void MyPhysicsSystem::UpdatePhysicsTransform(Entity entity)
 }
 
 
+// In MyPhysicsSystem (PhysicsSystem.cpp)
+float MyPhysicsSystem::RaycastFraction(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity)
+{
+    glm::vec3 normalizedDir = glm::normalize(direction);
+    // Create a Jolt ray starting at 'origin' and extending in the normalized direction scaled by maxDistance
+    JPH::RRayCast ray(JPH::RVec3(origin.x, origin.y, origin.z),
+        JPH::Vec3(normalizedDir.x, normalizedDir.y, normalizedDir.z) * maxDistance);
+
+    // Create a custom raycast collector that ignores the provided entity
+    CustomRayCastCollector collector(ignoreEntity);
+    const JPH::NarrowPhaseQuery& npQuery = mPhysicsSystem->GetNarrowPhaseQueryNoLock();
+    npQuery.CastRay(ray, JPH::RayCastSettings(), collector);
+
+    // If a hit occurred, return the closest hit fraction; otherwise return 1.0f.
+    return (collector.hitEntity != invalid_entity) ? collector.closestFraction : 1.0f;
+}
 
 
 

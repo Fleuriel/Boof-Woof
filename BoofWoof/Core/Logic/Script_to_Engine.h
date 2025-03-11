@@ -229,6 +229,9 @@ public:
 		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycastDownward(entity, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle, userOffset);
 	}
 
+	virtual float RaycastFraction(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity) {
+		return g_Coordinator.GetSystem<MyPhysicsSystem>()->RaycastFraction(origin, direction, maxDistance, ignoreEntity);
+	}
 	virtual bool IsDynamic(Entity entity) override
 	{
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
