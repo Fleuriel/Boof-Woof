@@ -17,7 +17,7 @@ struct Player final : public Behaviour
 	bool followingPath;
 	float pathThreshold; // Distance threshold for reaching a waypoint
 	bool pathInitialized = false;
-	bool inRopeBreaker{ false }, touchingToy{ false }, cooldownActive{ false }, justplaypls{ false };
+	bool inRopeBreaker{ false }, touchingToy{ false }, cooldownActive{ false }, justplaypls{ false }, inCageBreaker{ false };
 	double stunlockTimer = 2.0;	// 2.0 seconds
 	double cooldownTimer = 0.0;
 	bool jumpSoundPlayed = false;  // Add this as a new class member variable
@@ -180,7 +180,8 @@ struct Player final : public Behaviour
 				//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
 			}
 
-			static const std::unordered_set<std::string> ropeEntities = { "Rope1", "Rope2", "Cage1Collider", "Cage2Collider", "Cage3Collider"};
+			static const std::unordered_set<std::string> ropeEntities = { "Rope1", "Rope2" };
+			static const std::unordered_set<std::string> cageEntities = { "Cage1Collider", "Cage2Collider", "Cage3Collider" };
 			static const std::unordered_set<std::string> toyEntities = { "Bone", "TennisBall" };
 
 			if (m_Engine.IsColliding(entity))
@@ -188,11 +189,7 @@ struct Player final : public Behaviour
 				const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
 				std::string entityName(collidingEntityName); // Convert C-string to std::string for easy lookup
 
-				if (ropeEntities.count(entityName))
-				{
-					inRopeBreaker = true;
-				}
-				else if (toyEntities.count(entityName) && !cooldownActive)
+				if (toyEntities.count(entityName) && !cooldownActive)
 				{
 					touchingToy = true;
 
@@ -205,15 +202,25 @@ struct Player final : public Behaviour
 						justplaypls = true;
 					}
 				}
+				else if (cageEntities.count(entityName) && !m_Engine.FinishCaged())
+				{
+					inCageBreaker = true;
+				}
+				else if (ropeEntities.count(entityName) && m_Engine.FinishCaged())
+				{
+					inRopeBreaker = true;
+				}
 			}
 			else
 			{
 				inRopeBreaker = false;
+				inCageBreaker = false;
 			}
 
 			if (m_Engine.getInputSystem().isActionPressed("Escape")) 
 			{
 				m_Engine.SetCollidingEntityName(entity);
+				inCageBreaker = false;
 				inRopeBreaker = false;
 			}
 
@@ -251,7 +258,7 @@ struct Player final : public Behaviour
 			}
 
 			// Allow movement only if the player is grounded & not in rope breaker or touching toy or stunned
-			if (isGrounded && !inRopeBreaker && !touchingToy && !m_Engine.GetStunned())
+			if (isGrounded && !inRopeBreaker && !touchingToy && !m_Engine.GetStunned() && !inCageBreaker)
 			{
 				if (m_Engine.HaveCameraComponent(entity))
 				{

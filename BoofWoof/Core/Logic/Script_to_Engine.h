@@ -457,6 +457,11 @@ public:
 		return g_UI.isStunned;
 	}
 
+	virtual bool FinishCaged() override 
+	{
+		return g_UI.finishCaged;
+	}
+
 	virtual bool MatchEntityName(Entity entity, const char* entityName)
 	{
 		if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) 

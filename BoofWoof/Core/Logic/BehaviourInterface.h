@@ -114,7 +114,7 @@ struct engine_interface
 
 	virtual Entity GetPlayerEntity() = 0; // Expose the function
 	virtual bool GetExhausted() = 0;
-
+	virtual bool FinishCaged() = 0;
 	virtual bool GetStunned() = 0;
 
 	virtual bool MatchEntityName(Entity entity, const char* entityName) = 0;

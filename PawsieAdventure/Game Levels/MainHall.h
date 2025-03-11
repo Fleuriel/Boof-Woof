@@ -134,6 +134,7 @@ class MainHall : public Level
 
 		// Store the original brightness value
 		originalBrightness = g_Coordinator.GetSystem<GraphicsSystem>()->GetBrightness();
+		g_UI.finishCaged = false;
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -261,6 +262,7 @@ class MainHall : public Level
 			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1) 
 			{
 				collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
+				g_UI.finishCaged = true;
 			}
 
 			if (collectedPuppy1 && collectedPuppy2 && collectedPuppy3 && !chgChecklist)
@@ -277,6 +279,7 @@ class MainHall : public Level
 					g_Coordinator.GetComponent<UIComponent>(g_Checklist.Paper).set_position(glm::vec2(-0.73f, 1.165f));
 				}
 
+				g_UI.finishCaged = true;
 				chgChecklist = true;
 			}
 
@@ -396,6 +399,7 @@ class MainHall : public Level
 		sniffa = collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = chgChecklist = false;
 		puppy1Collided = puppy2Collided = puppy3Collided = false;
 		dialogueFirst = dialogueSecond = dialogueThird = false;
+		g_UI.finishCaged = false;
 
 		puppiesCollected = 0;
 	}
@@ -517,8 +521,6 @@ private:
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
 			collectedPuppy1 = true;
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark1.wav", false, "SFX");
-
-
 		}
 
 		if (puppy2Collided && !collectedPuppy2)
@@ -527,7 +529,6 @@ private:
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
 			collectedPuppy2 = true;
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark2.wav", false, "SFX");
-
 		}
 
 		if (puppy3Collided && !collectedPuppy3)
@@ -536,7 +537,6 @@ private:
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
 			collectedPuppy3 = true;
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark3.wav", false, "SFX");
-
 		}
 
 		if (puppiesCollected == 1 && !dialogueFirst)
