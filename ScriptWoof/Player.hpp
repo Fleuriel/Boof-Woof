@@ -124,8 +124,13 @@ struct Player final : public Behaviour
 			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			isMoving = false;
 
-			CheckForObjectsInFront(entity);
-			CheckForObjectsBelow(entity);
+			//CheckForObjectsInFront(entity);
+			//CheckForObjectsBelow(entity);
+
+			if (CheckForGround(entity)) {
+				m_Engine.SetGrounded(entity, true);
+				std::cout << "set grounded to: " << m_Engine.IsGrounded(entity) << std::endl;
+			}
 
 			//// Debug for movement
 			//glm::vec3 currentPos = m_Engine.GetPosition(entity);
@@ -634,6 +639,61 @@ struct Player final : public Behaviour
 		//std::cout << "[DEBUG] No surface detected! Defaulting to Floor" << std::endl;
 		surfaceType = "Floor";
 
+	}
+
+	bool CheckForGround(Entity entity)
+	{
+		if (!m_Engine.HaveTransformComponent(entity)) {
+			return false; // Ensure the entity has a TransformComponent
+		}
+
+		static float lastYPosition = 0.0f;
+		static float unchangedTime = 0.0f;
+		const float stableTimeThreshold = 1.5f; // Time in seconds before forcing grounded
+		const float positionTolerance = 0.01f; // Allow small fluctuations
+		float deltaTime = static_cast<float>(m_Engine.GetDeltaTime()); // Get the time step
+
+		PlayerPosition = m_Engine.GetPosition(entity);
+		PlayerRotation = m_Engine.GetRotation(entity); // Get yaw rotation
+		glm::vec3 downwardDirection = glm::vec3(0.0f, -1.0f, 0.0f);
+
+		float maxRayDistance = 0.75f;
+		float fovAngle = 40.0f; // 30-degree cone
+		int horizontalRays = 8; // Number of horizontal rays
+		int verticalRays = 5;   // Number of vertical rays
+		glm::vec3 rayOffset = glm::vec3(0.0f, -0.0f, 0.0f);
+
+		std::vector<Entity> detectedGround = m_Engine.getPhysicsSystem().ConeRaycastGround(
+			entity, downwardDirection, maxRayDistance, horizontalRays, verticalRays, fovAngle, rayOffset
+		);
+
+		bool isCurrentlyGrounded = !detectedGround.empty();
+
+		// **Check if the Y position is stable**
+		if (glm::abs(PlayerPosition.y - lastYPosition) < positionTolerance)
+		{
+			unchangedTime += deltaTime; // Increment timer if Y is unchanged
+			if (unchangedTime >= stableTimeThreshold)
+			{
+				return true; // Force grounded if stable for the threshold duration
+			}
+		}
+		else
+		{
+			unchangedTime = 0.0f; // Reset timer if Y position changes
+		}
+
+		// Update last Y position
+		lastYPosition = PlayerPosition.y;
+
+		return isCurrentlyGrounded;
+
+		//if (!detectedGround.empty())
+		//{
+		//	return true;
+		//}
+
+		//return false;
 	}
 
 };

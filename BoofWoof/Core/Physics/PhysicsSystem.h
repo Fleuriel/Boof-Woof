@@ -271,6 +271,11 @@ public:
         const glm::vec3& direction, float maxDistance,
         int numHorizontalRays, int numVerticalRays, float coneAngle,
         const glm::vec3& userOffset);
+    std::vector<Entity> ConeRaycastGround(
+        Entity entity,
+        const glm::vec3& direction, float maxDistance,
+        int numHorizontalRays, int numVerticalRays, float coneAngle,
+        const glm::vec3& userOffset);
 
     static bool RayCastDebug;
 
@@ -363,13 +368,13 @@ public:
             bool isGroundCollision2 = (contactNormal.y > 0.7f);
 
             if (isGroundCollision1) {
-                collisionComponent1.SetIsGrounded(true);
+                //collisionComponent1.SetIsGrounded(true);
                 collisionComponent1.AddGroundContact();
                 //std::cout << "[DEBUG] Entity " << entity1 << " now has " << collisionComponent1.GetGroundContacts() << " ground contacts.\n";
             }
 
             if (isGroundCollision2) {
-                collisionComponent2.SetIsGrounded(true);
+                //collisionComponent2.SetIsGrounded(true);
                 collisionComponent2.AddGroundContact();
                 //std::cout << "[DEBUG] Entity " << entity2 << " now has " << collisionComponent2.GetGroundContacts() << " ground contacts.\n";
             }
@@ -453,7 +458,7 @@ public:
             // **Prevent infinite ground contact accumulation**
             if (contactNormal.y > 0.7f && collisionComponent1.GetGroundContacts() == 0) {
                 collisionComponent1.AddGroundContact();
-                collisionComponent1.SetIsGrounded(true);
+                //collisionComponent1.SetIsGrounded(true);
                 //std::cout << "[DEBUG] Entity " << entity1 << " REGAINED Ground Contact. Total: "
                 //    << collisionComponent1.GetGroundContacts() << std::endl;
             }
@@ -474,7 +479,7 @@ public:
             // **Prevent infinite ground contact accumulation**
             if (contactNormal.y > 0.7f && collisionComponent2.GetGroundContacts() == 0) {
                 collisionComponent2.AddGroundContact();
-                collisionComponent2.SetIsGrounded(true);
+                //collisionComponent2.SetIsGrounded(true);
                 //std::cout << "[DEBUG] Entity " << entity2 << " REGAINED Ground Contact. Total: "
                 //    << collisionComponent2.GetGroundContacts() << std::endl;
             }
@@ -523,7 +528,7 @@ public:
             }
 
             if (collisionComponent1.GetGroundContacts() == 0) {
-                collisionComponent1.SetIsGrounded(false);
+                //collisionComponent1.SetIsGrounded(false);
                 //std::cout << "[DEBUG] Entity " << entity1 << " is airborne! Resetting isGrounded.\n";
             }
             //// Debugging the state before resetting
@@ -531,7 +536,7 @@ public:
 
             // Check and reset if the body matches
             if (collisionComponent1.GetPhysicsBody() != nullptr && collisionComponent1.GetPhysicsBody()->GetID() == bodyID1) {
-                collisionComponent1.SetIsColliding(false);
+                //collisionComponent1.SetIsColliding(false);
 
                 //// Debugging the state after resetting
                 //std::cout << "Entity 1 after reset: isColliding = " << collisionComponent1.GetIsColliding() << std::endl;
@@ -558,7 +563,7 @@ public:
                 }
 
                 if (collisionComponent2.GetGroundContacts() == 0) {
-                    collisionComponent2.SetIsGrounded(false);
+                    //collisionComponent2.SetIsGrounded(false);
                     //std::cout << "[DEBUG] Entity " << entity2 << " is airborne! Resetting isGrounded.\n";
                 }
             }
