@@ -22,12 +22,12 @@ struct AssimpNodeData
 	std::vector<AssimpNodeData> children;
 };
 
-class AnimationT
+class Animation
 {
 public:
-	AnimationT() = default;
+	Animation() = default;
 
-	AnimationT(const std::string& animationPath, Model* model)
+	Animation(const std::string& animationPath, Model* model)
 	{
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
@@ -45,7 +45,7 @@ public:
 
 
 
-	~AnimationT()
+	~Animation()
 	{
 	}
 

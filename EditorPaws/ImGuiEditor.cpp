@@ -15,8 +15,8 @@
 #include "AssetManager/FilePaths.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/epsilon.hpp>
-#include "../Utilities/Components/AnimationComponent.h"
-#include "Animation/AnimationManager.h"
+#include "../Utilities/Components/AnimationComponent.hpp"
+#include "Animation/AnimationSystem.h"
 #include "../Utilities/Components/MaterialComponent.hpp"
 #include <glm/gtx/matrix_decompose.hpp>
 
@@ -35,7 +35,7 @@ namespace fs = std::filesystem;
 
 constexpr float EPSILON = 1e-6f;
 
-AnimationManager g_AnimationManager;
+//AnimationManager g_AnimationManager;
 
 //Helper function to locate save file directory
 std::string GetScenesDir()
@@ -804,28 +804,28 @@ void ImGuiEditor::InspectorWindow()
 						 }
 
 					}
-					if (ImGui::Selectable("Animation Component")) {
-						if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
-							std::cout << "enter1\n";
-
-
-							g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
-
-
-							g_UndoRedoManager.ExecuteCommand(
-								[this]() {
-									if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
-										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
-									}
-								},
-								[this]() {
-									if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
-										g_Coordinator.RemoveComponent<AnimationComponent>(g_SelectedEntity);
-									}
-								}
-							);
-						}
-					}
+				//	if (ImGui::Selectable("Animation Component")) {
+				//		if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+				//			std::cout << "enter1\n";
+				//
+				//
+				//			g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
+				//
+				//
+				//			g_UndoRedoManager.ExecuteCommand(
+				//				[this]() {
+				//					if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+				//						g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
+				//					}
+				//				},
+				//				[this]() {
+				//					if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+				//						g_Coordinator.RemoveComponent<AnimationComponent>(g_SelectedEntity);
+				//					}
+				//				}
+				//			);
+				//		}
+				//	}
 
 					if (ImGui::Selectable("Audio Component"))
 					{
@@ -1115,24 +1115,24 @@ void ImGuiEditor::InspectorWindow()
 						}
 					}
 
-					if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
-					{
-						if (ImGui::Selectable("Animation Component"))
-						{
-							auto& componentData = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
-
-							g_UndoRedoManager.ExecuteCommand(
-								[this]() {
-									if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
-										g_Coordinator.RemoveComponent<AnimationComponent>(g_SelectedEntity);
-								},
-								[this, componentData]() {
-									if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
-										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, componentData);
-								}
-							);
-						}
-					}
+					//if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
+					//{
+					//	if (ImGui::Selectable("Animation Component"))
+					//	{
+					//		auto& componentData = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
+					//
+					//		g_UndoRedoManager.ExecuteCommand(
+					//			[this]() {
+					//				if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
+					//					g_Coordinator.RemoveComponent<AnimationComponent>(g_SelectedEntity);
+					//			},
+					//			[this, componentData]() {
+					//				if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
+					//					g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, componentData);
+					//			}
+					//		);
+					//	}
+					//}
 
 					if (g_Coordinator.HaveComponent<AudioComponent>(g_SelectedEntity))
 					{
@@ -2092,38 +2092,38 @@ void ImGuiEditor::InspectorWindow()
 									ImGui::NewLine();
 
 									// Buttons
-									if (ImGui::Button("Apply")) {
-										auto animationComponent = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
-
-										// Apply or remove the Idle animation
-										if (idleAnimationIndex == -1) {
-											animationComponent.SetAnimation(AnimationType::Idle, ""); // Remove animation
-										}
-										else {
-											std::string idleAnimation = g_AssetManager.AnimationFiles[idleAnimationIndex];
-											animationComponent.SetAnimation(AnimationType::Idle, idleAnimation);
-										}
-
-										// Apply or remove the Movement animation
-										if (movementAnimationIndex == -1) {
-											animationComponent.SetAnimation(AnimationType::Moving, ""); // Remove animation
-										}
-										else {
-											std::string movementAnimation = g_AssetManager.AnimationFiles[movementAnimationIndex];
-											animationComponent.SetAnimation(AnimationType::Moving, movementAnimation);
-										}
-
-										// Apply or remove the Action animation
-										if (actionAnimationIndex == -1) {
-											animationComponent.SetAnimation(AnimationType::Action, ""); // Remove animation
-										}
-										else {
-											std::string actionAnimation = g_AssetManager.AnimationFiles[actionAnimationIndex];
-											animationComponent.SetAnimation(AnimationType::Action, actionAnimation);
-										}
-
-										std::cout << "Animations applied successfully to entity " << g_SelectedEntity << "." << std::endl;
-									}
+								//	if (ImGui::Button("Apply")) {
+								//		auto animationComponent = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
+								//
+								//		// Apply or remove the Idle animation
+								//		if (idleAnimationIndex == -1) {
+								//			animationComponent.SetAnimation(AnimationType::Idle, ""); // Remove animation
+								//		}
+								//		else {
+								//			std::string idleAnimation = g_AssetManager.AnimationFiles[idleAnimationIndex];
+								//			animationComponent.SetAnimation(AnimationType::Idle, idleAnimation);
+								//		}
+								//
+								//		// Apply or remove the Movement animation
+								//		if (movementAnimationIndex == -1) {
+								//			animationComponent.SetAnimation(AnimationType::Moving, ""); // Remove animation
+								//		}
+								//		else {
+								//			std::string movementAnimation = g_AssetManager.AnimationFiles[movementAnimationIndex];
+								//			animationComponent.SetAnimation(AnimationType::Moving, movementAnimation);
+								//		}
+								//
+								//		// Apply or remove the Action animation
+								//		if (actionAnimationIndex == -1) {
+								//			animationComponent.SetAnimation(AnimationType::Action, ""); // Remove animation
+								//		}
+								//		else {
+								//			std::string actionAnimation = g_AssetManager.AnimationFiles[actionAnimationIndex];
+								//			animationComponent.SetAnimation(AnimationType::Action, actionAnimation);
+								//		}
+								//
+								//		std::cout << "Animations applied successfully to entity " << g_SelectedEntity << "." << std::endl;
+								//	}
 
 
 									ImGui::SameLine();

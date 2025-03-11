@@ -33,7 +33,7 @@ struct DDSData {
 };
 
 class Animator;
-class AnimationT;
+class Animation;
 class Model;
 
 class ResourceManager {
@@ -94,11 +94,11 @@ public:
 	Model* m_Model{};
 
 
-//	std::unordered_map<std::string, AnimationT*> AnimationMap;
+//	std::unordered_map<std::string, Animation*> AnimationMap;
 //	std::unordered_map<std::string, Animator*> AnimatorMap; // Add this line
 
 
-	std::vector<AnimationT*> animationVec;
+	std::vector<Animation*> animationVec;
 	std::vector<Animator*> animatorVec;
 
 

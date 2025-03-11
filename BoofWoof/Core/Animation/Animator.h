@@ -19,7 +19,7 @@ public:
 
 	}
 
-	Animator(AnimationT* animation)
+	Animator(Animation* animation)
 	{
 		m_CurrentTime = 0.0;
 		m_CurrentAnimation = animation;
@@ -41,7 +41,7 @@ public:
 		}
 	}
 
-	void PlayAnimation(AnimationT* pAnimation)
+	void PlayAnimation(Animation* pAnimation)
 	{
 		m_CurrentAnimation = pAnimation;
 		m_CurrentTime = 0.0f;
@@ -81,7 +81,7 @@ public:
 
 private:
 	std::vector<glm::mat4> m_FinalBoneMatrices;
-	AnimationT* m_CurrentAnimation;
+	Animation* m_CurrentAnimation;
 	float m_CurrentTime;
 	float m_DeltaTime;
 

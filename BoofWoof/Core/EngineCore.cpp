@@ -3,7 +3,7 @@
 #include "../Core/Reflection/ReflectionManager.hpp"
 
 std::shared_ptr<GraphicsSystem> mGraphicsSys;
-//std::shared_ptr<AnimationComponent> m_AnimationSys;
+std::shared_ptr<AnimationSystem> m_AnimationSys;
 std::shared_ptr<AudioSystem> mAudioSys;
 std::shared_ptr<LogicSystem> mLogicSys;
 std::shared_ptr<FontSystem> mFontSys;

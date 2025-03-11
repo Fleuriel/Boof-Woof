@@ -434,7 +434,7 @@ void GraphicsSystem::UpdateLoop() {
 		//if (g_ResourceManager.AnimatorMap.find("corgi_walk") == g_ResourceManager.AnimatorMap.end()) {
 		//	auto animIt = g_ResourceManager.AnimationMap.find("corgi_walk");
 		//	if (animIt != g_ResourceManager.AnimationMap.end()) {
-		//		AnimationT* animation = animIt->second; // Fetch animation from AnimationMap
+		//		Animation* animation = animIt->second; // Fetch animation from AnimationMap
 		//		g_ResourceManager.AnimatorMap["corgi_walk"] = new Animator(animation); // Create new animator
 		//		std::cout << "Animator for corgi_walk created.\n";
 		//	}
@@ -821,7 +821,7 @@ void GraphicsSystem::AddModel_3D(std::string const& path)
 //	std::string name = "corgi_walk";
 //
 //	// Step 2: Create AnimationT object and store it
-////	AnimationT* corgiWalk = new AnimationT(path, &animModel);
+////	Animation* corgiWalk = new AnimationT(path, &animModel);
 //
 //	AnimationT corgiWalk(path, &animModel);
 //	Animator animator(&corgiWalk);
@@ -843,7 +843,7 @@ void GraphicsSystem::TestAnimationAdd(const std::string& name, const std::string
 
 
 	//  Allocate AnimationT dynamically
-	AnimationT* corgiWalk = new AnimationT(path, animModel);
+	Animation* corgiWalk = new Animation(path, animModel);
 	//g_ResourceManager.AnimationMap[name] = corgiWalk;  // Store pointer
 
 	//  Store model normally (copy is okay)
@@ -854,7 +854,7 @@ void GraphicsSystem::TestAnimationAdd(const std::string& name, const std::string
 
 	//Model ourModel(path);
 
-	AnimationT* animatoo = new AnimationT(path, animModel);
+	Animation* animatoo = new Animation(path, animModel);
 	g_ResourceManager.animationVec.push_back(animatoo);
 
 	// 3️⃣ Create animator dynamically

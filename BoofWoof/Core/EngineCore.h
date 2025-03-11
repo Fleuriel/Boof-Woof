@@ -9,7 +9,7 @@
 
 #include "../Core/ECS/Coordinator.hpp"
 #include "../Utilities/Components/GraphicsComponent.hpp"
-#include "../Utilities/Components/AnimationComponent.h"
+#include "../Utilities/Components/AnimationComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/MaterialComponent.hpp"
 #include "../Utilities/Components/HierarchyComponent.hpp"
@@ -24,10 +24,13 @@
 #include "../Utilities/Components/UIComponent.hpp"
 #include "../Utilities/Components/FontComponent.hpp"
 #include "../Utilities/Components/PathfindingComponent.hpp"
+#include "../Utilities/Components/AnimationComponent.hpp"
+
 
 #include "Windows/WindowManager.h"
 #include "AssetManager/AssetManager.h"
 
+#include "Animation/AnimationSystem.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/FontSystem.h"
 #include "Logic/LogicSystem.h"
