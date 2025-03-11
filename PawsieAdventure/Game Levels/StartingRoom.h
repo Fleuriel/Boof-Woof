@@ -115,6 +115,8 @@ public:
 	{
 		// Ensure player entity is valid
 		cameraController = new CameraController(playerEnt);
+		cameraController->ToggleCameraMode();
+
 		camerachange = false;
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());

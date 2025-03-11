@@ -21,7 +21,7 @@
 extern bool g_WindowClosed;
 GameStates g_CurrentState{}, g_PreviousState{}, g_NextState{};
 bool g_IsPaused{ false };
-
+bool g_IsCamPanning{ false };
 
 void UpdateGSM()
 {
