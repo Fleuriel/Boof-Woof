@@ -50,6 +50,10 @@ struct physics_interface
 		const glm::vec3& direction, float maxDistance,
 		int numHorizontalRays, int numVerticalRays, float coneAngle, const glm::vec3& userOffset) = 0;
 	virtual float RaycastFraction(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity) = 0;
+	virtual std::vector<Entity> ConeRaycastGround(
+		Entity entity,
+		const glm::vec3& direction, float maxDistance,
+		int numHorizontalRays, int numVerticalRays, float coneAngle, const glm::vec3& userOffset) = 0;
 };
 
 struct engine_interface

@@ -357,7 +357,7 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
 
                    // If got ground contacts set to true
                     if (collisionComponent.GetGroundContacts() > 0) {
-                        collisionComponent.SetIsGrounded(true);
+                        //collisionComponent.SetIsGrounded(true);
                         //std::cout << "[DEBUG] Entity " << entity << " is still grounded due to active ground contacts.\n";
                     }
 
@@ -1019,6 +1019,109 @@ std::vector<Entity> MyPhysicsSystem::ConeRaycastDownward(
 
     return detectedEntities;
 }
+
+std::vector<Entity> MyPhysicsSystem::ConeRaycastGround(
+    Entity entity,
+    const glm::vec3& baseDirection,
+    float maxDistance,
+    int numLengthwiseRays, int numVerticalRays,
+    float coneAngle,
+    const glm::vec3& userOffset)
+{
+    std::vector<Entity> detectedEntities;
+
+    if (!g_Coordinator.HaveComponent<CollisionComponent>(entity) ||
+        !g_Coordinator.HaveComponent<TransformComponent>(entity))
+    {
+        std::cerr << "[PhysicsSystem] Error: Entity " << entity << " does not have necessary components!\n";
+        return detectedEntities;
+    }
+
+    // Get entity position and rotation
+    glm::vec3 entityPosition = g_Coordinator.GetComponent<TransformComponent>(entity).GetPosition();
+    auto& collisionComp = g_Coordinator.GetComponent<CollisionComponent>(entity);
+    glm::vec3 aabbOffset = collisionComp.GetAABBOffset();
+    glm::vec3 entityScale = g_Coordinator.GetComponent<TransformComponent>(entity).GetScale();
+    glm::vec3 entityRotation = g_Coordinator.GetComponent<TransformComponent>(entity).GetRotation();
+
+    // Adjust the origin to the center of the entity
+    glm::vec3 adjustedOrigin = entityPosition + aabbOffset + userOffset;
+
+    // Compute forward, right, and down vectors
+    float yaw = entityRotation.y;
+    glm::vec3 forward = glm::normalize(glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw)));
+    glm::vec3 rightVector = glm::cross(forward, glm::vec3(0.0f, 1.0f, 0.0f));
+    glm::vec3 downVector = glm::vec3(0.0f, -1.0f, 0.0f);
+
+    // Store raycast results
+    std::vector<std::pair<glm::vec3, bool>> hitPoints;
+
+    // **First Pass: Cast rays and store results**
+    for (int l = 0; l < numLengthwiseRays; l++)
+    {
+        float lengthAngle = glm::mix(-glm::radians(coneAngle), glm::radians(coneAngle), float(l) / (numLengthwiseRays - 1));
+
+        for (int v = 0; v < numVerticalRays; v++)
+        {
+            float verticalAngle = glm::mix(-glm::radians(coneAngle) / 2.0f, glm::radians(coneAngle) / 2.0f, float(v) / (numVerticalRays - 1));
+
+            // Compute direction
+            glm::vec3 rotatedDirection = glm::normalize(
+                glm::rotate(glm::mat4(1.0f), lengthAngle, rightVector) *
+                glm::vec4(downVector, 0.0f)
+            );
+
+            rotatedDirection = glm::normalize(
+                glm::rotate(glm::mat4(1.0f), verticalAngle, forward) *
+                glm::vec4(rotatedDirection, 0.0f)
+            );
+
+            // **Extend outward rays** to prevent missing ground
+            float extendedDistance = maxDistance * (1.0f + glm::abs(glm::sin(lengthAngle) * 1.0f));
+
+            JPH::RRayCast ray(
+                JPH::RVec3(adjustedOrigin.x, adjustedOrigin.y, adjustedOrigin.z),
+                JPH::Vec3(rotatedDirection.x, rotatedDirection.y, rotatedDirection.z) * extendedDistance
+            );
+
+            CustomRayCastCollector collector(entity);
+            const JPH::NarrowPhaseQuery& npQuery = mPhysicsSystem->GetNarrowPhaseQueryNoLock();
+            npQuery.CastRay(ray, JPH::RayCastSettings(), collector);
+
+            glm::vec3 hitPoint = adjustedOrigin + rotatedDirection * extendedDistance;
+            bool isHit = false;
+
+            if (collector.hitEntity != invalid_entity && collector.hitEntity != entity)
+            {
+                hitPoint = adjustedOrigin + rotatedDirection * collector.closestFraction * extendedDistance;
+                isHit = true;
+                detectedEntities.push_back(collector.hitEntity);
+            }
+
+            // Store results
+            hitPoints.push_back({ hitPoint, isHit });
+        }
+    }
+
+    // **Second Pass: Keep natural hit positions**
+    for (auto& [hitPoint, isHit] : hitPoints)
+    {
+        if (isHit)
+        {
+            hitPoint.y = glm::max(hitPoint.y, adjustedOrigin.y - maxDistance); // Prevent artificial sinking
+        }
+
+        if (RayCastDebug)
+        {
+            glm::vec3 color = isHit ? glm::vec3(0.0f, 1.0f, 0.0f) : glm::vec3(1.0f, 0.0f, 0.0f);
+            GraphicsSystem::AddDebugLine(adjustedOrigin, hitPoint, color);
+        }
+    }
+
+    return detectedEntities;
+}
+
+
 
 void MyPhysicsSystem::DisablePhysics(Entity entity)
 {
