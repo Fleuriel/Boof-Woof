@@ -157,8 +157,8 @@ struct Player final : public Behaviour
 			velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 			isMoving = false;
 
-			//CheckForObjectsInFront(entity);
-			//CheckForObjectsBelow(entity);
+			CheckForObjectsInFront(entity);
+			CheckForObjectsBelow(entity);
 
 			if (CheckForGround(entity)) {
 				m_Engine.SetGrounded(entity, true);
