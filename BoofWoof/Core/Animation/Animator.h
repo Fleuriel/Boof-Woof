@@ -3,8 +3,8 @@
 #include <glm/glm.hpp>
 #include <map>
 #include <vector>
-#include <scene.h>
-#include <Importer.hpp>
+#include "../assimp2016/assimp/scene.h"
+#include "../assimp2016/assimp/Importer.hpp"
 #include "Bones.h"
 #include "Animation.h"
 

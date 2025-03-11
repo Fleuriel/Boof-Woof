@@ -17,9 +17,9 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include <Importer.hpp>
-#include <scene.h>
-#include <postprocess.h>
+#include "../assimp2016/assimp/Importer.hpp"
+#include "../assimp2016/assimp/scene.h"
+#include "../assimp2016/assimp/postprocess.h"
 #include "Shader.h"
 #include "Mesh.h"
 #include "../../BoofWoof/Core/Animation/AnimData.h"

@@ -17,9 +17,9 @@
 #define ASSETMANAGER_H
 
 
-#include <Importer.hpp>
-#include <scene.h>
-#include <postprocess.h>
+#include "../assimp2016/assimp/Importer.hpp"
+#include "../assimp2016/assimp/scene.h"
+#include "../assimp2016/assimp/postprocess.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/Shader.h"
 #include "Graphics/Object.h"
