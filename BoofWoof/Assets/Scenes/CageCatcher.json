@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "f393d3d7-8bbb-4cba-b8b0-7caaa5eaa01d",
+    "SceneGUID": "67fc15f9-105a-41d2-9d0c-ddc80ac23131",
     "Entities": [
         {
             "MetadataComponent": {
@@ -66,27 +66,6 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Pawprint",
-                "EntityID": 3
-            },
-            "UIComponent": {
-                "TextureName": "PawPrint",
-                "PositionX": 0.0,
-                "PositionY": -0.800000011920929,
-                "ScaleX": 0.5,
-                "ScaleY": 0.5,
-                "Layer": 0.5,
-                "Selectable": false,
-                "Opcaity": 1.0,
-                "Animated": false,
-                "Rows": 1,
-                "Cols": 1,
-                "FrameInterval": 0.10000000149011612,
-                "StayOnRow": true
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "beware",
                 "EntityID": 4
             },
@@ -138,6 +117,27 @@
                 "Text": "ESC",
                 "Layer": 0.48000001907348635
             }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "pawprint",
+                "EntityID": 3
+            },
+            "UIComponent": {
+              "TextureName": "PawPrint",
+              "PositionX": 0.0,
+              "PositionY": -0.8,
+              "ScaleX": 0.5,
+              "ScaleY": 0.5,
+              "Layer": 0.5,
+              "Selectable": false,
+              "Opcaity": 1.0,
+              "Animated": false,
+              "Rows": 1,
+              "Cols": 1,
+              "FrameInterval": 0.10000000149011612,
+              "StayOnRow": true
+          }
         }
     ]
 }
