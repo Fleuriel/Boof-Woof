@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "a284c145-0c17-4658-873f-e6290eacfefa",
+    "SceneGUID": "022c598a-1402-4f84-bbfd-d186435b9c9e",
     "Entities": [
         {
             "MetadataComponent": {
@@ -67,7 +67,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "beware",
-                "EntityID": 4
+                "EntityID": 3
             },
             "FontComponent": {
                 "Family": "manga-temple",
@@ -85,7 +85,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "esc white",
-                "EntityID": 5
+                "EntityID": 4
             },
             "FontComponent": {
                 "Family": "manga-temple",
@@ -103,7 +103,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "esc red",
-                "EntityID": 6
+                "EntityID": 5
             },
             "FontComponent": {
                 "Family": "manga-temple",
@@ -120,24 +120,24 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "pawprint",
-                "EntityID": 3
+                "EntityName": "plsjust",
+                "EntityID": 6
             },
             "UIComponent": {
-              "TextureName": "PawPrint",
-              "PositionX": 0.0,
-              "PositionY": -0.8,
-              "ScaleX": 0.5,
-              "ScaleY": 0.5,
-              "Layer": 0.5,
-              "Selectable": false,
-              "Opcaity": 1.0,
-              "Animated": false,
-              "Rows": 1,
-              "Cols": 1,
-              "FrameInterval": 0.10000000149011612,
-              "StayOnRow": true
-          }
+                "TextureName": "PawPrint",
+                "PositionX": 0.0,
+                "PositionY": -0.800000011920929,
+                "ScaleX": 0.5,
+                "ScaleY": 0.5,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
         }
     ]
 }
