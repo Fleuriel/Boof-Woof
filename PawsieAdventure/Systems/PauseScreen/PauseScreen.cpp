@@ -369,6 +369,7 @@ namespace pauseLogic
 					{
 						bgVolume = std::max(0.0f, (float)(g_Audio.GetBGMVolume() - volumeStep));
 						g_Audio.SetBGMVolume(bgVolume);
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 					}
 				}
 
@@ -379,6 +380,7 @@ namespace pauseLogic
 					{
 						bgVolume = std::min(1.0f, (float)(g_Audio.GetBGMVolume() + volumeStep));
 						g_Audio.SetBGMVolume(bgVolume);
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 					}
 				}
 
@@ -409,6 +411,8 @@ namespace pauseLogic
 						mGraphicsSys->gammaValue -= 0.1f;
 						if (mGraphicsSys->gammaValue < 1.f)
 							mGraphicsSys->gammaValue = 1.f;
+
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 					}
 				}
 
@@ -420,6 +424,8 @@ namespace pauseLogic
 						mGraphicsSys->gammaValue += 0.1f;
 						if (mGraphicsSys->gammaValue > 3.f)
 							mGraphicsSys->gammaValue = 3.f;
+
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 					}
 				}
 

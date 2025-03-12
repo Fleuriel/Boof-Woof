@@ -162,7 +162,7 @@ void CageBreaker::DespawnCage()
 
 void CageBreaker::SaveProgress()
 {
-	if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1 && !g_BoneCatcher.savePawgress)
+	if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1 && !g_BoneCatcher.savePawgress)
 	{
 		if (CollidedCage1) 
 		{

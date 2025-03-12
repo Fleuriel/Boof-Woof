@@ -243,7 +243,7 @@ void RopeBreaker::DespawnRopeInStartingRoom()
 
 void RopeBreaker::SaveRopeProgress()
 {
-	if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1 && !g_BoneCatcher.savePawgress)
+	if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1 && !g_BoneCatcher.savePawgress)
 	{
 		if (PlayerCollidedRope1)
 		{
