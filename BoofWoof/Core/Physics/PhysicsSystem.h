@@ -277,6 +277,7 @@ public:
     void DisablePhysics(Entity entity);
     void EnablePhysics(Entity entity);
     void UpdatePhysicsTransform(Entity entity);
+    void SetEntityGravityFactor(Entity entity, float gravityFactor);
 
 private:
     JPH::uint _step{ 0 };

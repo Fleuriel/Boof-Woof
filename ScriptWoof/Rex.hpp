@@ -21,6 +21,8 @@ struct Rex final : public Behaviour
     Entity playerEntity = INVALID_ENT;
 	int rotationCounter = 0;
 	double timer = 0.0f;
+    bool gravitySet = false;  // Track if gravity has been disabled for Rex
+
     
     // Create a state machine
     enum class State
@@ -41,10 +43,20 @@ struct Rex final : public Behaviour
         isMovingRex = false;
         currentPathIndex = 0;
         state = State::PATROL;
+
+        
     }
 
     virtual void Update(Entity entity) override
     {
+        // Check if Rex's physics body exists before setting gravity
+        if (!gravitySet && m_Engine.HavePhysicsBody(entity))
+        {
+            m_Engine.getPhysicsSystem().SetEntityGravityFactor(entity, 0.0f);
+            std::cout << "[Physics] Gravity factor for Rex set to 0!" << std::endl;
+            gravitySet = true;  // Mark as set so we don't repeat it
+        }
+
         if (!m_Engine.IsGamePaused())
         {
             // if playerEntity is empty, get the player entity

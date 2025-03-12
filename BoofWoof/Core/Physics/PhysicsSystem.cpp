@@ -501,15 +501,15 @@ void MyPhysicsSystem::AddEntityBody(Entity entity, float mass) {
             // Enable Continuous Collision Detection (CCD)
             bodySettings.mMotionQuality = JPH::EMotionQuality::LinearCast;
 
-            // Inside AddEntityBody and UpdateEntityBody (After body creation)
-            if (entity == 340) {
-                bodyInterface.SetGravityFactor(body->GetID(), 0.0f);
-                std::cout << "[Physics AddEntityBody] Gravity factor for Entity 340 set to 0" << std::endl;
+            //// Inside AddEntityBody and UpdateEntityBody (After body creation)
+            //if (entity == 340) {
+            //    bodyInterface.SetGravityFactor(body->GetID(), 0.0f);
+            //    std::cout << "[Physics AddEntityBody] Gravity factor for Entity 340 set to 0" << std::endl;
 
-                // Delay checking until next frame instead of crashing OnUpdate
-                float gravityFactor = bodyInterface.GetGravityFactor(body->GetID());
-                std::cout << "[Physics AddEntityBody] Readback Gravity factor for Entity 340: " << gravityFactor << std::endl;
-            }
+            //    // Delay checking until next frame instead of crashing OnUpdate
+            //    float gravityFactor = bodyInterface.GetGravityFactor(body->GetID());
+            //    std::cout << "[Physics AddEntityBody] Readback Gravity factor for Entity 340: " << gravityFactor << std::endl;
+            //}
 
 
 
@@ -645,15 +645,15 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity, float mass)
             newBody->SetAllowSleeping(false);
             bodySettings.mMotionQuality = JPH::EMotionQuality::LinearCast; // Ensures high-speed objects don’t tunnel through ground
 
-            // Inside AddEntityBody and UpdateEntityBody (After body creation)
-            if (entity == 340) {
-                bodyInterface.SetGravityFactor(newBody->GetID(), 0.0f);
-                std::cout << "[Physics AddEntityBody] Gravity factor for Entity 340 set to 0" << std::endl;
+            //// Inside AddEntityBody and UpdateEntityBody (After body creation)
+            //if (entity == 340) {
+            //    bodyInterface.SetGravityFactor(newBody->GetID(), 0.0f);
+            //    std::cout << "[Physics AddEntityBody] Gravity factor for Entity 340 set to 0" << std::endl;
 
-                // Delay checking until next frame instead of crashing OnUpdate
-                float gravityFactor = bodyInterface.GetGravityFactor(newBody->GetID());
-                std::cout << "[Physics AddEntityBody] Readback Gravity factor for Entity 340: " << gravityFactor << std::endl;
-            }
+            //    // Delay checking until next frame instead of crashing OnUpdate
+            //    float gravityFactor = bodyInterface.GetGravityFactor(newBody->GetID());
+            //    std::cout << "[Physics AddEntityBody] Readback Gravity factor for Entity 340: " << gravityFactor << std::endl;
+            //}
 
 
             float massD = collisionComponent.GetMass();
@@ -1141,6 +1141,30 @@ float MyPhysicsSystem::RaycastFraction(const glm::vec3& origin, const glm::vec3&
     // If a hit occurred, return the closest hit fraction; otherwise return 1.0f.
     return (collector.hitEntity != invalid_entity) ? collector.closestFraction : 1.0f;
 }
+
+void MyPhysicsSystem::SetEntityGravityFactor(Entity entity, float gravityFactor)
+{
+    if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
+    {
+        auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+        JPH::Body* body = collisionComponent.GetPhysicsBody();
+
+        if (body != nullptr && !body->GetID().IsInvalid())
+        {
+            mPhysicsSystem->GetBodyInterface().SetGravityFactor(body->GetID(), gravityFactor);
+            std::cout << "[Physics] Gravity factor for Entity " << entity << " set to " << gravityFactor << std::endl;
+        }
+        else
+        {
+            std::cerr << "[Physics] ERROR: Invalid body for Entity " << entity << ". Cannot set gravity factor!" << std::endl;
+        }
+    }
+    else
+    {
+        std::cerr << "[Physics] ERROR: Entity " << entity << " does not have a CollisionComponent!" << std::endl;
+    }
+}
+
 
 
 

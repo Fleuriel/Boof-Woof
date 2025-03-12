@@ -278,6 +278,10 @@ public:
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdatePhysicsTransform(entity);
 	}
 
+	virtual void SetEntityGravityFactor(Entity entity, float gravityFactor) override
+	{
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->SetEntityGravityFactor(entity, gravityFactor);
+	}
 
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) override
