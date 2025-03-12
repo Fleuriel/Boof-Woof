@@ -146,6 +146,11 @@ public:
 
 		g_ChangeText.startingRoomOnly = true;
 
+		if (!g_DialogueText.dialogueActive)
+		{
+			pauseLogic::OnUpdate();
+		}
+
 		if (!g_IsPaused) 
 		{
 			if (!camerachange)
@@ -157,17 +162,12 @@ public:
 
 			g_UI.OnUpdate(static_cast<float>(deltaTime));
 			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
+			g_DialogueText.OnUpdate(deltaTime);
 
-			if (g_DialogueText.dialogueActive)
-			{				
-				g_DialogueText.OnUpdate(deltaTime);
-			}
-			else 
+			if (!g_DialogueText.dialogueActive)
 			{
 				// let the change text finish first then allow pauseLogic
-				pauseLogic::OnUpdate();
-
-				if (!initChecklist) 
+				if (!initChecklist)
 				{
 					g_Checklist.OnInitialize();
 					g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do1");
@@ -252,11 +252,6 @@ public:
 				}
 			}
 		}	
-
-		if (!g_DialogueText.dialogueActive)
-		{
-			pauseLogic::OnUpdate();
-		}
 	}
 
 	void FreeLevel() override

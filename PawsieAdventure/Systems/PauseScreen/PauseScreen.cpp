@@ -214,7 +214,7 @@ namespace pauseLogic
 {
 	void OnUpdate()
 	{
-		if (!g_IsPaused && g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1 && !g_BoneCatcher.isActive)
+		if (!g_IsPaused && g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1 && !g_BoneCatcher.isActive)
 		{
 			g_IsPaused = true;
 			pauser->OnLoad();
@@ -225,7 +225,7 @@ namespace pauseLogic
 
 		if (g_IsPaused)
 		{
-			if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1 && inSmthAgain)
+			if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1 && inSmthAgain)
 			{
 				// Add in audio feedback
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
