@@ -240,6 +240,8 @@ void RopeBreaker::DespawnRopeInStartingRoom()
 
 		std::vector<Entity> checklistEnt = { g_Checklist.Paper, g_Checklist.Do1, g_Checklist.Do2, g_Checklist.Do3, g_Checklist.Do4, g_Checklist.Box1, g_Checklist.Box2, g_Checklist.Box3, g_Checklist.Box4 };
 		g_Checklist.HideChecklistUI(checklistEnt, false);
+
+		g_BoneCatcher.isRope = false;
 	}
 }
 
