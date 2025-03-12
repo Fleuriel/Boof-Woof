@@ -278,6 +278,10 @@ public:
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdatePhysicsTransform(entity);
 	}
 
+	virtual void SetEntityGravityFactor(Entity entity, float gravityFactor) override
+	{
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->SetEntityGravityFactor(entity, gravityFactor);
+	}
 
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) override
@@ -458,6 +462,16 @@ public:
 	virtual bool GetStunned() override
 	{
 		return g_UI.isStunned;
+	}
+
+	virtual bool FinishCaged() override 
+	{
+		return g_UI.finishCaged;
+	}
+
+	virtual bool inStartingRoom() override 
+	{
+		return g_UI.inStartingRoom;
 	}
 
 	virtual bool MatchEntityName(Entity entity, const char* entityName)

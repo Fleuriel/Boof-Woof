@@ -11,7 +11,7 @@ struct Rex final : public Behaviour
     int currentPathIndex = 0;
     bool followingPath = false;
     bool pathInitialized = false;
-    float speed = 1.5f;
+    float speed = 5.0f;
     float pathThreshold = 0.2f;
     bool isMovingRex = false;
 	bool returningtoStart = false;
@@ -21,6 +21,8 @@ struct Rex final : public Behaviour
     Entity playerEntity = INVALID_ENT;
 	int rotationCounter = 0;
 	double timer = 0.0f;
+    bool gravitySet = false;  // Track if gravity has been disabled for Rex
+
     
     // Create a state machine
     enum class State
@@ -41,10 +43,20 @@ struct Rex final : public Behaviour
         isMovingRex = false;
         currentPathIndex = 0;
         state = State::PATROL;
+
+        
     }
 
     virtual void Update(Entity entity) override
     {
+        // Check if Rex's physics body exists before setting gravity
+        if (!gravitySet && m_Engine.HavePhysicsBody(entity))
+        {
+            m_Engine.getPhysicsSystem().SetEntityGravityFactor(entity, 0.0f);
+            std::cout << "[Physics] Gravity factor for Rex set to 0!" << std::endl;
+            gravitySet = true;  // Mark as set so we don't repeat it
+        }
+
         if (!m_Engine.IsGamePaused())
         {
             // if playerEntity is empty, get the player entity
@@ -246,6 +258,28 @@ struct Rex final : public Behaviour
                 break;
             }
 
+            // **Ground Check Implementation (Continuous Falling)**
+            float maxGroundCheckDistance = 1.40f;
+            glm::vec3 downward = glm::vec3(0.0f, -1.0f, 0.0f);
+            Entity groundEntity = m_Engine.getPhysicsSystem().Raycast(currentPos, downward, maxGroundCheckDistance, entity);
+
+            if (groundEntity == INVALID_ENT)
+            {
+                // No ground detected, continue moving downward
+                velocity.y -= 100.0f * static_cast<float>(m_Engine.GetDeltaTime());  // Simulated gravity effect
+                //std::cout << "[Rex] Falling... Current Y: " << currentPos.y << std::endl;
+            }
+            else
+            {
+                // Ground detected, adjust position to the ground height
+                float raycastFraction = m_Engine.getPhysicsSystem().RaycastFraction(currentPos, downward, maxGroundCheckDistance, entity);
+                glm::vec3 groundPosition = currentPos + downward * raycastFraction * maxGroundCheckDistance;
+
+                currentPos.y = groundPosition.y + 0.1f;
+                velocity.y = 0.0f;  // Stop falling
+
+                //std::cout << "[Rex] Landed on ground at Y: " << groundPosition.y << std::endl;
+            }
 
             // Apply velocity correctly
             if (isMovingRex)
@@ -255,7 +289,7 @@ struct Rex final : public Behaviour
                 // Clamp velocity to avoid breaking the physics engine
                 float maxAllowedSpeed = 0;
                 if (state == State::PATROL) {
-                    maxAllowedSpeed = 1.5f;
+                    maxAllowedSpeed = 5.0f;
                 }
                 else if (state == State::CHASE) {
                     maxAllowedSpeed = 10.0f;
@@ -275,8 +309,8 @@ struct Rex final : public Behaviour
 
                 m_Engine.SetVelocity(entity, velocity);
 
-                //// Print new position after applying velocity
-                //glm::vec3 newPos = m_Engine.GetPosition(entity);
+                // Print new position after applying velocity
+                glm::vec3 newPos = m_Engine.GetPosition(entity);
                 //std::cout << "[Pathfinding] Entity " << entity << " new position after velocity applied: ("
                 //    << newPos.x << ", " << newPos.y << ", " << newPos.z << ")" << std::endl;
             }
