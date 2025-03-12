@@ -156,9 +156,13 @@ void GraphicsSystem::initGraphicsPipeline() {
 //	AddModel_3D("../BoofWoof/Assets/Objects/Fireplace.obj");
 	//fontSystem.init();
 
+	std::cout << "its hjere\n";
+
+	AddAllAnimations(FILEPATH_ASSET_ANIMATIONS);
+
 
 	//TestAnimationAdd("corgi_walk", "../BoofWoof/Assets/Animations/corgi_walk.fbx");
-	TestAnimationAdd("corgi", "../BoofWoof/Assets/Animations/corgi.fbx");
+	//TestAnimationAdd("corgi", "../BoofWoof/Assets/Animations/corgi.fbx");
 	//TestAnimationAdd("vampire", "../BoofWoof/Assets/Animations/dancing_vampire.dae");
 
 
@@ -484,14 +488,22 @@ void GraphicsSystem::UpdateLoop() {
 
 		if (g_Coordinator.HaveComponent<AnimationComponent>(entity))
 		{
+			auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
 			std::cout << "it has animationComp.\n";
 
+			animationComp.m_DeltaTime = deltaTime;
+			
+			
+
+			
 			if (material.GetShaderName() == "Animation") {
 				// Bind and use the animation shader
 				g_AssetManager.GetShader("Animation").Use();
 
 
-				g_ResourceManager.animatorVec[0]->UpdateAnimation(deltaTime);
+				g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(deltaTime);
+
+//				g_ResourceManager.animatorVec[0]->UpdateAnimation(deltaTime);
 
 				glm::mat4 model = glm::mat4(1.0f);
 				// translate it down so it's at the center of the scene
@@ -500,13 +512,13 @@ void GraphicsSystem::UpdateLoop() {
 				model = glm::scale(model, glm::vec3(.01f, .01f, .01f));
 
 				//			g_AssetManager.GetShader("Animation").SetUniform("model", model);
-				g_AssetManager.GetShader("Animation").SetUniform("view", camera.GetViewMatrix());
+				g_AssetManager.GetShader("Animation").SetUniform("view", shdrParam.View);
 				g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
 
 
+//				SetShaderUniforms(g_AssetManager.GetShader(ShaderName), shdrParam);
 
-
-				auto transforms = g_ResourceManager.animatorVec[0]->GetFinalBoneMatrices();
+				auto transforms = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetFinalBoneMatrices();
 				for (int i = 0; i < transforms.size(); ++i)
 				{
 					std::string lel = "finalBonesMatrices[" + std::to_string(i) + "]";
@@ -515,7 +527,7 @@ void GraphicsSystem::UpdateLoop() {
 
 				std::cout << "enter here\n";
 
-				g_AssetManager.GetShader("Animation").SetUniform("model", model);
+				g_AssetManager.GetShader("Animation").SetUniform("model", transformComp.GetWorldMatrix());
 				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
 
 
@@ -536,7 +548,7 @@ void GraphicsSystem::UpdateLoop() {
 		//if (ShaderName == "Shader3D")
 		if (strcmp(ShaderName, "Direction_obj_render") == 0)
 		{
-
+//			std::cout << graphicsComp.getFollowCamera() << '\n';
 			// START OF 3D
 			if (graphicsComp.getFollowCamera()) {
 				SetShaderUniforms(g_AssetManager.GetShader(ShaderName), shdrParam);
@@ -761,11 +773,11 @@ void GraphicsSystem::UpdateLoop() {
 void GraphicsSystem::Clean()
 {
 
-	for (auto anim : g_ResourceManager.animationVec)
-		delete anim; // Clean up animations
-
-	for (auto animTor : g_ResourceManager.animatorVec)
-		delete animTor; // Clean up animators
+	//for (auto anim : g_ResourceManager.AnimationVec)
+	//	delete anim; // Clean up animations
+	//
+	//for (auto animTor : g_ResourceManager.AnimatorVec)
+	//	delete animTor; // Clean up animators
 
 }
 
@@ -843,34 +855,64 @@ void GraphicsSystem::AddModel_3D(std::string const& path)
 //
 //	std::cout << "Animation and Animator added successfully!\n";
 //}
-void GraphicsSystem::TestAnimationAdd(const std::string& name, const std::string& path)
+
+void GraphicsSystem::AddAllAnimations(const std::string & filepath)
 {
-	//  Allocate model on the heap
+
+	namespace fs = std::filesystem;
+
+	std::unordered_set<std::string> uniqueNames;
+
+	try {
+		for (const auto& entry : fs::directory_iterator(filepath)) {
+			if (entry.is_regular_file() && entry.path().extension() == ".fbx") {
+				std::string filename = entry.path().filename().string();
+				size_t dotPos = filename.find('.');
+				if (dotPos != std::string::npos) {
+					uniqueNames.insert(filename.substr(0, dotPos)); // Extract base name
+				}
+			}
+		}
+
+		// Output unique base names
+		for (const auto& name : uniqueNames) {
+			std::string fileP = filepath + "/" + name + ".fbx";
+
+			std::cout << "Processing: " << fileP << '\n';
+			AnimationAdd(name, fileP);
+
+		}
+	}
+	catch (const std::exception& e) {
+		std::cerr << "Error accessing directory: " << e.what() << std::endl;
+	}
+
+
+
+}
+
+
+void GraphicsSystem::AnimationAdd(const std::string& name, const std::string& path)
+{
+	// Allocate model dynamically
 	Model* animModel = new Model(path, false);
 
-
-	//  Allocate AnimationT dynamically
+	// Allocate Animation dynamically
 	Animation* corgiWalk = new Animation(path, animModel);
-	//g_ResourceManager.AnimationMap[name] = corgiWalk;  // Store pointer
 
-	//  Store model normally (copy is okay)
+	// Store model in resource manager
 	g_ResourceManager.ModelMap[name] = *animModel;
 	g_ResourceManager.addModelNames(name);
 
-	//Model* ourModel = new Model(path);
 
-	//Model ourModel(path);
+	// Store animation in a map using 'name' as key
+	g_ResourceManager.AnimationMap[name] = corgiWalk;
 
-	Animation* animatoo = new Animation(path, animModel);
-	g_ResourceManager.animationVec.push_back(animatoo);
+	// Create animator dynamically and store in map
+	Animator* animTor = new Animator(corgiWalk);
+	g_ResourceManager.AnimatorMap[name] = animTor;
 
-	// 3️⃣ Create animator dynamically
-	Animator* animTor = new Animator(animatoo);
-
-	g_ResourceManager.animatorVec.push_back(animTor);
-
-
-	std::cout << "Animation and Animator added successfully!\n";
+	std::cout << "Animation and Animator: " << name << " added successfully!\n";
 }
 
 

@@ -30,7 +30,7 @@ public:
 	Animation(const std::string& animationPath, Model* model)
 	{
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
+		const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate );
 
 
 		assert(scene && scene->mRootNode);
@@ -38,7 +38,11 @@ public:
 		m_Duration = static_cast<float>(animation->mDuration);
 		m_TicksPerSecond = static_cast<float>(animation->mTicksPerSecond);
 		aiMatrix4x4 globalTransformation = scene->mRootNode->mTransformation;
+
+
 		globalTransformation = globalTransformation.Inverse();
+
+
 		ReadHierarchyData(m_RootNode, scene->mRootNode);
 		ReadMissingBones(animation, *model);
 	}

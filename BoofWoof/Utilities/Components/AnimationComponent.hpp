@@ -4,7 +4,6 @@
 #include <string>
 #include <memory>
 #include <unordered_map>
-#include "../Core/Animation/AnimationSystem.h"
 
 
 class AnimationComponent {
@@ -12,6 +11,17 @@ public:
 
 
 
+	std::string animatorName;
+	std::string animationName;
+
+
+	float m_Duration;
+	float m_DeltaTime;
+
+//	AnimationComponent() = default;
+
+
+	AnimationComponent() : animatorName(" "), animationName(" "), m_Duration(0.0f), m_DeltaTime(0.0f) {}
 
 
 
