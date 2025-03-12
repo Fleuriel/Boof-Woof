@@ -19,6 +19,9 @@ void CageBreaker::OnUpdate(double deltaTime)
 	if (BarSpawned)
 	{
 		g_BoneCatcher.OnUpdate(deltaTime);
+
+		// Only saves when you press ESC key
+		SaveProgress();
 	}
 }
 
@@ -152,6 +155,41 @@ void CageBreaker::DespawnCage()
 			CollidedCage3 = false;
 			deletedCage3 = true;
 		}
+	}
+
+	g_BoneCatcher.isCage = false;
+}
+
+void CageBreaker::SaveProgress()
+{
+	if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1 && !g_BoneCatcher.savePawgress)
+	{
+		if (CollidedCage1) 
+		{
+			g_Coordinator.GetComponent<CollisionComponent>(cage1Collider).SetLastCollidedObjectName("Floor");
+			CageHitCounts[1] = g_BoneCatcher.m_HitCount;
+			CollidedCage1 = false;
+		}
+
+		if (CollidedCage2)
+		{
+			g_Coordinator.GetComponent<CollisionComponent>(cage2Collider).SetLastCollidedObjectName("Floor");
+			CageHitCounts[2] = g_BoneCatcher.m_HitCount;
+			CollidedCage2 = false;
+		}
+
+		if (CollidedCage3)
+		{
+			g_Coordinator.GetComponent<CollisionComponent>(cage3Collider).SetLastCollidedObjectName("Floor");
+			CageHitCounts[3] = g_BoneCatcher.m_HitCount;
+			CollidedCage3 = false;
+		}
+
+		g_BoneCatcher.ClearBoneCatcher();
+
+		BarSpawned = false;
+		g_BoneCatcher.isCage = false;
+		g_BoneCatcher.savePawgress = true;
 	}
 }
 

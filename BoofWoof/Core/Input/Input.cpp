@@ -26,6 +26,7 @@ InputSystem::InputSystem() {
 	SetActionMapping("Sniff", GLFW_KEY_E);
 	SetActionMapping("Sprint", GLFW_KEY_LEFT_SHIFT);
     SetActionMapping("Biting", GLFW_MOUSE_BUTTON_LEFT);
+    SetActionMapping("Escape", GLFW_KEY_ESCAPE);
 }
 
 /**************************************************************************

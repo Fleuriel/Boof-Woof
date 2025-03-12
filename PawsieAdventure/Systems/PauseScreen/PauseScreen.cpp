@@ -214,7 +214,7 @@ namespace pauseLogic
 {
 	void OnUpdate()
 	{
-		if (!g_IsPaused && g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1)
+		if (!g_IsPaused && g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1 && !g_BoneCatcher.isActive)
 		{
 			g_IsPaused = true;
 			pauser->OnLoad();

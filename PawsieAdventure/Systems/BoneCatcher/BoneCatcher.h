@@ -18,11 +18,11 @@ public:
 	void ResetBC();
 
 public:
-	bool isRope{ false }, isCage{ false };
+	bool isRope{ false }, isCage{ false }, isActive{ false }, savePawgress{ false };
+	int m_HitCount{ 0 };
 
 private:
 	Entity m_DogHead{}, m_CatchZone{}, m_Base{};
-	int m_HitCount{ 0 };
 
 	// Dog
 	glm::vec2 initialDogPos{}, DogPos{}, DogScale{};
@@ -40,7 +40,7 @@ private:
 	glm::vec2 MinMaxPos{ -0.35f, 0.37f };	// values of when scale is smallest
 
 	bool m_HitDetected{ false };
-	bool m_BaseChanged{ false }, m_ChangeBaseToBar{ false };
+	bool m_BaseChanged{ false };
 
 	// Dog Teeth
 	glm::vec2 TeethScale{ 0.08f, 0.08f };
@@ -49,6 +49,7 @@ private:
 	double ClearBoneCatcherTimer = 0.0;
 	double AudioTimer = 0.0;
 	bool isAudioPlaying{ false };
+	bool UIClosed{ false };
 
 protected:
 

@@ -4,6 +4,7 @@
 #include "../Core/AssetManager/FilePaths.h"
 #include "../Utilities/ForGame/Dialogue/Dialogue.h"
 #include <Level Manager/LevelManager.h>
+#include "../ChangeText/ChangeText.h"
 
 
 RopeBreaker g_RopeBreaker;
@@ -21,6 +22,14 @@ void RopeBreaker::OnUpdate(double deltaTime)
 	if (BoneSpawned)
 	{
 		g_BoneCatcher.OnUpdate(deltaTime);
+
+		// Only saves when you press ESC key
+		SaveRopeProgress();
+
+		/*if (!g_ChangeText.startingRoomOnly) 
+		{
+			SaveRopeProgress();
+		}*/
 	}
 
 	if (RopeDespawned >= 2 && !isFalling)
@@ -76,26 +85,14 @@ void RopeBreaker::OnUpdate(double deltaTime)
 
 void RopeBreaker::CheckCollision()
 {
-	if (g_Coordinator.HaveComponent<CollisionComponent>(player))
-	{
-		PlayerColliding = g_Coordinator.GetComponent<CollisionComponent>(player).GetIsColliding();
-	}
-
-	if (g_Coordinator.HaveComponent<CollisionComponent>(rope1))
-	{
-		Rope1Colliding = g_Coordinator.GetComponent<CollisionComponent>(rope1).GetIsColliding();
-	}
-
-	if (g_Coordinator.HaveComponent<CollisionComponent>(rope2))
-	{
-		Rope2Colliding = g_Coordinator.GetComponent<CollisionComponent>(rope2).GetIsColliding();
-	}
+	Rope1Colliding = CheckEntityWithPlayerCollision(rope1);
+	Rope2Colliding = CheckEntityWithPlayerCollision(rope2);
 
 	if (!deletedRope1) 
 	{
-		if (PlayerColliding && Rope1Colliding && !PlayerCollidedRope1)
+		if (Rope1Colliding && !PlayerCollidedRope1)
 		{
-			if (!firstRopeTouched)
+			if (!firstRopeTouched && !g_ChangeText.startingRoomOnly)
 			{
 				g_DialogueText.OnInitialize();
 				g_DialogueText.setDialogue(DialogueState::BREAKROPES);
@@ -107,7 +104,7 @@ void RopeBreaker::CheckCollision()
 
 	if (!deletedRope2)
 	{
-		if (PlayerColliding && Rope2Colliding && !PlayerCollidedRope2)
+		if (Rope2Colliding && !PlayerCollidedRope2)
 		{
 			if (!firstRopeTouched)
 			{
@@ -149,7 +146,7 @@ void RopeBreaker::ResetRB()
 	PlayerCollidedRope1 = PlayerCollidedRope2 = BoneSpawned = false;
 	RopeCount = 2;
 
-	PlayerColliding = Rope1Colliding = Rope2Colliding = false;
+	Rope1Colliding = Rope2Colliding = false;
 	RopeDespawned = 0;
 	bridgeAudio = deletedRope1 = deletedRope2 = false;
 
@@ -180,42 +177,35 @@ void RopeBreaker::DespawnRope()
 {
 	BoneSpawned = false;
 
-	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
-
-	for (auto entity : entities)
+	if (PlayerCollidedRope1 && !deletedRope1)
 	{
-		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+		if (!playedRopeSnap1)
 		{
-			if (PlayerCollidedRope1 && !deletedRope1)
-			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope1")
-				{
-					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/RopeSnap.wav", false, "SFX");
-					
-					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
-					g_Coordinator.DestroyEntity(entity);
-					g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
-					RopeDespawned++;
-					deletedRope1 = true;
-					PlayerCollidedRope1 = false;
-				}
-			}
-
-			if (PlayerCollidedRope2 && !deletedRope2)
-			{
-				if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Rope2")
-				{
-					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+ "/RopeSnap.wav", false, "SFX");
-
-					g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(entity);
-					g_Coordinator.DestroyEntity(entity);
-					g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
-					RopeDespawned++;
-					deletedRope2 = true;
-					PlayerCollidedRope2 = false;
-				}
-			}
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/RopeSnap.wav", false, "SFX");
+			playedRopeSnap1 = true;
 		}
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(rope1);
+		g_Coordinator.DestroyEntity(rope1);
+		g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
+		RopeDespawned++;
+		deletedRope1 = true;
+		PlayerCollidedRope1 = false;
+	}
+
+	if (PlayerCollidedRope2 && !deletedRope2)
+	{
+		if (!playedRopeSnap2)
+		{
+			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/RopeSnap.wav", false, "SFX");
+			playedRopeSnap2 = true;
+		}
+
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(rope2);
+		g_Coordinator.DestroyEntity(rope2);
+		g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
+		RopeDespawned++;
+		deletedRope2 = true;
+		PlayerCollidedRope2 = false;
 	}
 
 	if (RopeDespawned == 1)
@@ -223,4 +213,72 @@ void RopeBreaker::DespawnRope()
 		g_DialogueText.OnInitialize();
 		g_DialogueText.setDialogue(DialogueState::BROKEROPE1);
 	}
+
+	g_BoneCatcher.isRope = false;
+}
+
+void RopeBreaker::DespawnRopeInStartingRoom()
+{
+	if (g_ChangeText.startingRoomOnly) 
+	{
+		if (PlayerCollidedRope1 && !deletedRope1)
+		{
+			if (!playedRopeSnap1)
+			{
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/RopeSnap.wav", false, "SFX");
+				playedRopeSnap1 = true;
+			}
+			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(rope1);
+			g_Coordinator.DestroyEntity(rope1);
+			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
+
+			g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
+			g_Checklist.Check3 = true;
+
+			deletedRope1 = true;
+			PlayerCollidedRope1 = false;
+		}
+	}
+}
+
+void RopeBreaker::SaveRopeProgress()
+{
+	if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1 && !g_BoneCatcher.savePawgress)
+	{
+		if (PlayerCollidedRope1)
+		{
+			g_Coordinator.GetComponent<CollisionComponent>(rope1).SetLastCollidedObjectName("Floor");
+			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
+			RopeHitCounts[1] = g_BoneCatcher.m_HitCount;
+			Rope1Colliding = false;
+			PlayerCollidedRope1 = false;
+		}
+
+		if (PlayerCollidedRope2)
+		{
+			g_Coordinator.GetComponent<CollisionComponent>(rope2).SetLastCollidedObjectName("Floor");
+			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
+			RopeHitCounts[2] = g_BoneCatcher.m_HitCount;
+			Rope2Colliding = false;
+			PlayerCollidedRope2 = false;
+		}
+
+		g_BoneCatcher.ClearBoneCatcher();
+
+		BoneSpawned = false;
+		g_BoneCatcher.isRope = false;
+		g_BoneCatcher.savePawgress = true;
+	}
+}
+
+bool RopeBreaker::CheckEntityWithPlayerCollision(Entity entity) const
+{
+	//Check Entity Collision with Player
+	if (g_Coordinator.HaveComponent<CollisionComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(player))
+	{
+		auto& collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
+		if (collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), "Player") == 0)
+			return true;
+	}
+	return false;
 }

@@ -51,10 +51,20 @@ class Corridor : public Level
 		// Ensure player entity is valid
 		cameraController = new CameraController(playerEnt);
 		camerachange = false;
+
+		g_DialogueText.OnInitialize();
+		g_DialogueText.setDialogue(DialogueState::OUTOFLIBRARY);
+
+		g_UI.OnInitialize();
 	}
 
 	void UpdateLevel(double deltaTime) override
 	{
+		if (!g_DialogueText.dialogueActive)
+		{
+			pauseLogic::OnUpdate();
+		}
+
 		if (!g_IsPaused)
 		{
 			if (!camerachange)
@@ -62,7 +72,11 @@ class Corridor : public Level
 				cameraController->ChangeToFirstPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
 				camerachange = true;
 			}
+
 			cameraController->Update(static_cast<float>(deltaTime));
+
+			g_UI.OnUpdate(static_cast<float>(deltaTime));
+			g_DialogueText.OnUpdate(deltaTime);
 
 			if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "CastleWallDoor")
 			{
@@ -76,11 +90,6 @@ class Corridor : public Level
 			}
 			
 		}
-
-		if (g_ChangeText.shutted)
-		{
-			pauseLogic::OnUpdate();
-		}
 	}
 
 	void FreeLevel() override
@@ -90,6 +99,9 @@ class Corridor : public Level
 			delete cameraController;
 			cameraController = nullptr;
 		}
+
+		g_UI.OnShutdown();
+		g_DialogueText.OnShutdown();
 	}
 
 	void UnloadLevel() override

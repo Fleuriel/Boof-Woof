@@ -464,6 +464,16 @@ public:
 		return g_UI.isStunned;
 	}
 
+	virtual bool FinishCaged() override 
+	{
+		return g_UI.finishCaged;
+	}
+
+	virtual bool inStartingRoom() override 
+	{
+		return g_UI.inStartingRoom;
+	}
+
 	virtual bool MatchEntityName(Entity entity, const char* entityName)
 	{
 		if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) 

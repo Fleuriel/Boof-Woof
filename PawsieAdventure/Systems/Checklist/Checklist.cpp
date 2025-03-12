@@ -105,11 +105,11 @@ void Checklist::OnUpdate(double deltaTime)
 				Check2 = true;
 			}
 
-			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !Check3)
+			/*if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !Check3)
 			{
 				ChangeBoxChecked(Box3);
 				Check3 = true;
-			}
+			}*/
 
 			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !Check4)
 			{
@@ -241,10 +241,6 @@ void Checklist::ChangeAsset(Entity ent, glm::vec2 scale, std::string textureName
 	if (!g_Coordinator.HaveComponent<UIComponent>(ent)) return;
 
 	auto& text = g_Coordinator.GetComponent<UIComponent>(ent);
-
-	//int oldTextureId = text.get_textureid();
-	//int textureId = g_ResourceManager.GetTextureDDS(textureName);
-	//text.set_textureid(textureId);
 	text.set_texturename(textureName);
 
 	g_Coordinator.GetComponent<UIComponent>(ent).set_scale(scale);
