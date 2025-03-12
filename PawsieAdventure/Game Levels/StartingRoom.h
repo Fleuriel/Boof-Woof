@@ -20,6 +20,9 @@ public:
 	bool bark{ false }, sniff{ false }, initChecklist{ false };
 	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{}, FireSound{};
 
+	bool savedcamdir{ false };
+	glm::vec3 camdir{};
+
 	std::vector<Entity> particleEntities;
 	double sniffCooldownTimer = 0.0;  // Accumulates time
 	const double sniffCooldownDuration = 17.0;  // 16 seconds
@@ -133,6 +136,17 @@ public:
 
 	void UpdateLevel(double deltaTime) override
 	{
+
+		if (g_IsPaused && !savedcamdir) {
+			camdir = cameraController->GetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
+			savedcamdir = true;
+		}
+
+		if (!g_IsPaused && savedcamdir) {
+			cameraController->SetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt), camdir);
+			savedcamdir = false;
+		}
+
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
 			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
 			glm::vec3 playerPos = playerTransform.GetPosition();
