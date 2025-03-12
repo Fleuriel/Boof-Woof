@@ -67,6 +67,7 @@ void Dialogue::OnShutdown()
 		}
 	}
 
+	storage.clear();
 	dialogueActive = false;
 }
 

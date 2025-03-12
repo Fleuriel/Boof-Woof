@@ -66,6 +66,8 @@ void PausedScreen::OnExit()
 			}
 		}
 	}
+
+	spawnedEntities.clear();
 }
 
 void QuitScreen::OnLoad()
@@ -112,6 +114,8 @@ void QuitScreen::OnExit()
 			}
 		}
 	}
+
+	spawnedEntities.clear();
 }
 
 void Settings::OnLoad()
@@ -165,6 +169,8 @@ void Settings::OnExit()
 			}
 		}
 	}
+
+	spawnedEntities.clear();
 }
 
 void HowToPlay::OnLoad()
@@ -187,6 +193,8 @@ void HowToPlay::OnExit()
 			}
 		}
 	}
+
+	spawnedEntities.clear();
 }
 
 std::unique_ptr<PauseMenu> CreatePausedMenu(PauseState state)

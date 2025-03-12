@@ -17,19 +17,19 @@ void BoneCatcher::OnInitialize()
 	if (!UIClosed)
 	{
 		g_UI.OnShutdown();
+
+		if (isCage)
+		{
+			g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/CageCatcher.json");
+		}
+
+		if (isRope)
+		{
+			g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/RopeCatcher.json");
+		}
+
 		UIClosed = true;
-	}
-
-	// Next time just have a bool to control whether it's rope or cage
-	if (isCage)
-	{
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/CageCatcher.json");
-	}
-
-	if (isRope)
-	{
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/RopeCatcher.json");
-	}
+	}	
 
 	storage = serial.GetStored();
 
@@ -374,6 +374,7 @@ void BoneCatcher::ClearBoneCatcher()
 		}
 	}
 
+	storage.clear();
 	isActive = false;
 
 	if (UIClosed)

@@ -208,11 +208,8 @@ class MainHall : public Level
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav", false, "SFX");
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav", true, "BGM");
 
-
 					g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", 0.4f);
 					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav");
-
-
 				}
 				g_TimerTR.OnUpdate(deltaTime);
 
@@ -257,8 +254,6 @@ class MainHall : public Level
 			}
 
 			// just for speed testing to rope breaker
-			// collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
-
 			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1) 
 			{
 				collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
@@ -288,19 +283,6 @@ class MainHall : public Level
 				g_RopeBreaker.OnUpdate(deltaTime);
 			}
 
-			//if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
-			//{
-			//	if (!teb_last)
-			//	{
-			//		teb_last = true;
-			//		cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
-			//	}
-			//}
-			//else
-			//{
-			//	teb_last = false;
-			//}
-
 			if (isSniffOnCooldown)
 			{
 				sniffCooldownTimer += deltaTime;
@@ -316,7 +298,6 @@ class MainHall : public Level
 			{
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiSniff.wav", false, "SFX");
 
-				//SetDefaultPeePosition();
 				g_SmellAvoidance.SetDefaultPeePosition();
 
 				isSniffOnCooldown = true;  // Start cooldown
@@ -347,7 +328,6 @@ class MainHall : public Level
 				colorChangeTimer += deltaTime;
 				if (colorChangeTimer >= colorChangeDuration)
 				{
-					//SetNewPeePosition();
 					g_SmellAvoidance.SetNewPeePosition();
 
 					isColorChanged = false;
