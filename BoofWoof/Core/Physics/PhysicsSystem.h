@@ -457,6 +457,7 @@ public:
                 //std::cout << "[DEBUG] Entity " << entity1 << " REGAINED Ground Contact. Total: "
                 //    << collisionComponent1.GetGroundContacts() << std::endl;
             }
+
         }
 
         if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
