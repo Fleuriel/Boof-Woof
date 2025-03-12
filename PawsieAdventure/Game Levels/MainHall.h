@@ -125,7 +125,7 @@ class MainHall : public Level
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
 
 		g_DialogueText.OnInitialize();
-		g_DialogueText.setDialogue(DialogueState::OUTOFLIBRARY);
+		g_DialogueText.setDialogue(DialogueState::INMAINHALL);
 
 		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 

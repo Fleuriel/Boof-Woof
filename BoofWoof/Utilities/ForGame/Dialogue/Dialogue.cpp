@@ -102,10 +102,13 @@ std::string Dialogue::getDialogue()
 		return "Phew.. We're out! But Rex will catch on.. Gotta stay sharp-one slip, and I'm his chew toy.";
 
 	case DialogueState::REXSAWYOU:
-		return "Oh no, he saw me!! Gotta hide-NOW!";
+		return "Oh no, he saw me!! Gotta run-NOW!";
 
 	case DialogueState::SEARCHINGFORPUPS:
-		return "So where are my kiddos at..? I'll find you-just gotta trust my nose!";
+		return "This is.. the way to the Main Hall! My puppies must be there!";
+
+	case DialogueState::INMAINHALL:
+		return "This whole place carries their scent.. My three babies!!";
 
 	case DialogueState::FOUNDPUP1:
 		return "I found you! But this stupid lock.. Time to bite it to pieces!! Grr!!";

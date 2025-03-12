@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "83dbde13-fb2a-4a61-88c3-d779c642393c",
+    "SceneGUID": "f393d3d7-8bbb-4cba-b8b0-7caaa5eaa01d",
     "Entities": [
         {
             "MetadataComponent": {
@@ -87,7 +87,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "beware",
                 "EntityID": 4
             },
             "FontComponent": {
@@ -105,7 +105,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "esc white",
                 "EntityID": 5
             },
             "FontComponent": {
@@ -123,7 +123,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "esc red",
                 "EntityID": 6
             },
             "FontComponent": {

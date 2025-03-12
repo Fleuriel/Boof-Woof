@@ -236,6 +236,25 @@ void Checklist::Reset()
 	Check1 = Check2 = Check3 = Check4 = corgiText = false;
 }
 
+void Checklist::HideChecklistUI(std::vector<Entity> ent, bool hide)
+{
+	for (Entity e : ent)
+	{
+		if (g_Coordinator.HaveComponent<UIComponent>(e)) 
+		{
+			UIComponent& opa = g_Coordinator.GetComponent<UIComponent>(e);
+			if (hide)
+			{
+				opa.set_opacity(0.f);
+			}
+			else
+			{
+				opa.set_opacity(1.f);
+			}
+		}
+	}
+}
+
 void Checklist::ChangeAsset(Entity ent, glm::vec2 scale, std::string textureName)
 {
 	if (!g_Coordinator.HaveComponent<UIComponent>(ent)) return;
