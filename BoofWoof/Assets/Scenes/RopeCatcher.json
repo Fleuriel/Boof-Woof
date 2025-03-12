@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "022c598a-1402-4f84-bbfd-d186435b9c9e",
+    "SceneGUID": "1e8884a7-2524-4e0c-8568-2ec324f8a954",
     "Entities": [
         {
             "MetadataComponent": {
@@ -55,81 +55,6 @@
                 "ScaleX": 0.20000000298023225,
                 "ScaleY": 0.30000001192092898,
                 "Layer": 0.48000001907348635,
-                "Selectable": false,
-                "Opcaity": 1.0,
-                "Animated": false,
-                "Rows": 1,
-                "Cols": 1,
-                "FrameInterval": 0.10000000149011612,
-                "StayOnRow": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "beware",
-                "EntityID": 3
-            },
-            "FontComponent": {
-                "Family": "manga-temple",
-                "PositionX": -0.27000001072883608,
-                "PositionY": -0.9300000071525574,
-                "ScaleX": 0.699999988079071,
-                "ScaleY": 0.8999999761581421,
-                "ColorR": 0.8088235259056091,
-                "ColorG": 0.0,
-                "ColorB": 0.0,
-                "Text": "Beware of surroundings!",
-                "Layer": 0.49000000953674319
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "esc white",
-                "EntityID": 4
-            },
-            "FontComponent": {
-                "Family": "manga-temple",
-                "PositionX": -0.16500000655651093,
-                "PositionY": -0.8100000023841858,
-                "ScaleX": 0.8999999761581421,
-                "ScaleY": 1.0,
-                "ColorR": 1.0,
-                "ColorG": 1.0,
-                "ColorB": 1.0,
-                "Text": "ESC to leave",
-                "Layer": 0.49000000953674319
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "esc red",
-                "EntityID": 5
-            },
-            "FontComponent": {
-                "Family": "manga-temple",
-                "PositionX": -0.16500000655651093,
-                "PositionY": -0.8100000023841858,
-                "ScaleX": 0.8999999761581421,
-                "ScaleY": 1.0,
-                "ColorR": 1.0,
-                "ColorG": 0.0,
-                "ColorB": 0.0,
-                "Text": "ESC",
-                "Layer": 0.48000001907348635
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "plsjust",
-                "EntityID": 6
-            },
-            "UIComponent": {
-                "TextureName": "PawPrint",
-                "PositionX": 0.0,
-                "PositionY": -0.800000011920929,
-                "ScaleX": 0.5,
-                "ScaleY": 0.5,
-                "Layer": 0.5,
                 "Selectable": false,
                 "Opcaity": 1.0,
                 "Animated": false,
