@@ -238,6 +238,8 @@ void RopeBreaker::DespawnRopeInStartingRoom()
 			deletedRope1 = true;
 			PlayerCollidedRope1 = false;
 		}
+
+		g_BoneCatcher.isRope = false;
 	}
 }
 
