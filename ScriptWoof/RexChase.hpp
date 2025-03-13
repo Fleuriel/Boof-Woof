@@ -79,19 +79,21 @@ struct RexChase final : public Behaviour
                     PlayerNearestNode = PlayerNodeCheck;
                     std::cout << "Player is at the same node as Rex" << std::endl;
                 }
+                /*
                 else if (PlayerNearestNode != PlayerNodeCheck) {
                     PlayerNearestNode = PlayerNodeCheck;
                     pathInitialized = false;
                     std::cout << "Player moved to a new node" << std::endl;
                     state = MOVING;
                 }
+                */
                 else {
                     if (state != MOVING) {
                         pathInitialized = false;
                         state = MOVING;
                         std::cout << "Player is not in front of Rex, find him" << std::endl;
                     }
-                    std::cout << "Carry On" << std::endl;
+                    //std::cout << "Carry On" << std::endl;
                 }
                 
             }
