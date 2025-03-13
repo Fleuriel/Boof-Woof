@@ -28,6 +28,8 @@ class TimeRush : public Level
 	double cooldownDuration = 10.0; // Cooldown duration
 	bool isColorChanged = false;
 
+	// Timer for the level
+	double timerLimit = 40.0;
 	bool finishTR{ false };
 	double timesUp = 2.0;
 
@@ -183,6 +185,8 @@ class TimeRush : public Level
 
 		particleEntities = { scentEntity1, scentEntity2, scentEntity3, scentEntity4, scentEntity5, scentEntity6, scentEntity7, scentEntity8, scentEntity9 };
 		g_UI.OnInitialize();
+
+		g_TimerTR.timer = timerLimit;
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -302,7 +306,7 @@ class TimeRush : public Level
 			
 			}
 			*/
-			if (CheckEntityWithPlayerCollision(rexEnt)) {
+			if (CheckEntityWithPlayerCollision(rexEnt) && !g_Checklist.finishTR) {
 				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 				if (loading)
 				{
