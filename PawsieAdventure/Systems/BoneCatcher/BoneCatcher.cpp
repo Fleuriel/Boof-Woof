@@ -102,14 +102,20 @@ void BoneCatcher::OnInitialize()
 		if (g_CageBreaker.CageHitCounts.count(1) > 0 && g_CageBreaker.Cage1Colliding)
 		{
 			m_HitCount = g_CageBreaker.CageHitCounts[1];
+			m_Speed = g_CageBreaker.speedCage[1];
+			m_Direction = g_CageBreaker.directionCage[1];
 		}
 		else if (g_CageBreaker.CageHitCounts.count(2) > 0 && g_CageBreaker.Cage2Colliding)
 		{
 			m_HitCount = g_CageBreaker.CageHitCounts[2];
+			m_Speed = g_CageBreaker.speedCage[2];
+			m_Direction = g_CageBreaker.directionCage[2];
 		}
 		else if (g_CageBreaker.CageHitCounts.count(3) > 0 && g_CageBreaker.Cage3Colliding)
 		{
 			m_HitCount = g_CageBreaker.CageHitCounts[3];
+			m_Speed = g_CageBreaker.speedCage[3];
+			m_Direction = g_CageBreaker.directionCage[3];
 		}
 	}
 
@@ -130,10 +136,14 @@ void BoneCatcher::OnInitialize()
 		if (g_RopeBreaker.RopeHitCounts.count(1) > 0 && g_RopeBreaker.Rope1Colliding)
 		{
 			m_HitCount = g_RopeBreaker.RopeHitCounts[1];
+			m_Speed = g_RopeBreaker.speedRope[1];
+			m_Direction = g_RopeBreaker.directionRope[1];
 		}
 		else if (g_RopeBreaker.RopeHitCounts.count(2) > 0 && g_RopeBreaker.Rope2Colliding)
 		{
 			m_HitCount = g_RopeBreaker.RopeHitCounts[2];
+			m_Speed = g_RopeBreaker.speedRope[2];
+			m_Direction = g_RopeBreaker.directionRope[2];
 		}
 	}
 }

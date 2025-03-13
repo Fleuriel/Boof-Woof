@@ -28,6 +28,8 @@ public:
 	bool Cage1Colliding{}, Cage2Colliding{}, Cage3Colliding{};
 	bool BarSpawned{ false };
 	std::unordered_map<int, int> CageHitCounts; // Map to store hit counts per cage
+	std::unordered_map<int, float> speedCage;
+	std::unordered_map<int, int> directionCage;
 
 private:
 

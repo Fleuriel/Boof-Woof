@@ -33,6 +33,8 @@ public:
 	bool BoneSpawned{ false }, Rope1Colliding{}, Rope2Colliding{}, playedRopeSnap1{ false };
 	int RopeCount{ 2 };
 	std::unordered_map<int, int> RopeHitCounts; // Map to store hit counts per cage
+	std::unordered_map<int, float> speedRope;
+	std::unordered_map<int, int> directionRope;
 
 private:
 

@@ -20,15 +20,17 @@ public:
 public:
 	bool isRope{ false }, isCage{ false }, isActive{ false }, savePawgress{ false };
 	int m_HitCount{ 0 };
+	float m_Speed{ 0.5f };
+	int m_Direction{ 1 }; // 1 for right, -1 for left
 
 private:
 	Entity m_DogHead{}, m_CatchZone{}, m_Base{};
 
 	// Dog
 	glm::vec2 initialDogPos{}, DogPos{}, DogScale{};
-	float m_Speed{ 0.5f }, m_DestroyTimer{ 0.f }, m_DownTimer{ 2.0f };
+	float m_DestroyTimer{ 0.f }, m_DownTimer{ 2.0f };
 	bool m_IsMoving{ true }, m_ShouldDestroy{ false }, m_Down{ false }, m_Up{ false };
-	int m_Direction{ 1 }; // 1 for right, -1 for left
+	
 	float m_MinPos{ -0.335f }, m_MaxPos{ 0.395f };
 
 	// CatchZone

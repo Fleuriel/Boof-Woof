@@ -272,7 +272,11 @@ void RopeBreaker::SaveRopeProgress()
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(rope1).SetLastCollidedObjectName("Floor");
 			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
+
 			RopeHitCounts[1] = g_BoneCatcher.m_HitCount;
+			speedRope[1] = g_BoneCatcher.m_Speed;
+			directionRope[1] = g_BoneCatcher.m_Direction;
+
 			Rope1Colliding = false;
 			PlayerCollidedRope1 = false;
 		}
@@ -281,7 +285,11 @@ void RopeBreaker::SaveRopeProgress()
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(rope2).SetLastCollidedObjectName("Floor");
 			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
+
 			RopeHitCounts[2] = g_BoneCatcher.m_HitCount;
+			speedRope[2] = g_BoneCatcher.m_Speed;
+			directionRope[2] = g_BoneCatcher.m_Direction;
+
 			Rope2Colliding = false;
 			PlayerCollidedRope2 = false;
 		}

@@ -173,7 +173,11 @@ void CageBreaker::SaveProgress()
 		if (CollidedCage1) 
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(cage1Collider).SetLastCollidedObjectName("Floor");
+			
 			CageHitCounts[1] = g_BoneCatcher.m_HitCount;
+			speedCage[1] = g_BoneCatcher.m_Speed;
+			directionCage[1] = g_BoneCatcher.m_Direction;
+
 			CollidedCage1 = false;
 		}
 
@@ -181,6 +185,9 @@ void CageBreaker::SaveProgress()
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(cage2Collider).SetLastCollidedObjectName("Floor");
 			CageHitCounts[2] = g_BoneCatcher.m_HitCount;
+			speedCage[2] = g_BoneCatcher.m_Speed;
+			directionCage[2] = g_BoneCatcher.m_Direction;
+
 			CollidedCage2 = false;
 		}
 
@@ -188,6 +195,9 @@ void CageBreaker::SaveProgress()
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(cage3Collider).SetLastCollidedObjectName("Floor");
 			CageHitCounts[3] = g_BoneCatcher.m_HitCount;
+			speedCage[3] = g_BoneCatcher.m_Speed;
+			directionCage[3] = g_BoneCatcher.m_Direction;
+
 			CollidedCage3 = false;
 		}
 
