@@ -94,7 +94,7 @@ struct RexChase final : public Behaviour
             else if (m_Engine.GetTRtimer() > 0.0f)
             {
 				// COMMENTED OUT FOR TESTING PURPOSES
-                //return;
+                return;
             }
 
             if (playerEntity == INVALID_ENT)
@@ -194,7 +194,7 @@ struct RexChase final : public Behaviour
 
                             if (!path.empty())
                             {
-                                currentPathIndex = 1;
+                                currentPathIndex = 0;
                                 followingPath = true;
                                 pathInitialized = true;  // Ensure new path is recognized
 

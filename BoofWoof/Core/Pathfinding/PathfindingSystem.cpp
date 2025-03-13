@@ -131,6 +131,61 @@ void PathfindingSystem::BuildGraph() {
         }
     }
 
+    // **DEBUG: Check if all nodes have at least one connection**
+    std::cout << "\n[PathfindingSystem] Validating node connections...\n";
+    std::vector<uint32_t> disconnectedNodes;
+
+    for (const auto& [nodeID, node] : graphNodes) {
+        bool hasConnection = false;
+
+        // Check if this node has any outgoing edges
+        for (const auto& [edgeID, edge] : graphEdges) {
+            if (edge->GetStartNode() == nodeID || edge->GetEndNode() == nodeID) {
+                hasConnection = true;
+                break;
+            }
+        }
+
+        if (!hasConnection) {
+            disconnectedNodes.push_back(nodeID);
+        }
+    }
+
+    if (!disconnectedNodes.empty()) {
+        std::cout << "[PathfindingSystem] WARNING: The following nodes have NO connections!\n";
+        for (uint32_t nodeID : disconnectedNodes) {
+            std::cout << "[DEBUG] Isolated Node: " << nodeID << " at Position ("
+                << graphNodes[nodeID]->position.x << ", "
+                << graphNodes[nodeID]->position.y << ", "
+                << graphNodes[nodeID]->position.z << ")\n";
+        }
+    }
+    else {
+        std::cout << "[PathfindingSystem] All nodes have valid connections!\n";
+    }
+
+    // Debugging: Check all nodes in graphNodes after build
+    std::cout << "[PathfindingSystem] Graph built with " << graphNodes.size()
+        << " nodes and " << graphEdges.size() << " edges.\n";
+    std::cout << "[PathfindingSystem] Validating bidirectional edges...\n";
+    for (const auto& [edgeID, edge] : graphEdges) {
+        uint32_t start = edge->GetStartNode();
+        uint32_t end = edge->GetEndNode();
+        bool hasReverse = false;
+
+        for (const auto& [checkID, checkEdge] : graphEdges) {
+            if (checkEdge->GetStartNode() == end && checkEdge->GetEndNode() == start) {
+                hasReverse = true;
+                break;
+            }
+        }
+
+        if (!hasReverse) {
+            std::cout << "[DEBUG] WARNING: One-way edge found! " << start << " -> " << end << "\n";
+        }
+    }
+    std::cout << "[PathfindingSystem] Edge validation complete!\n";
+
     //// Debugging: Check all nodes in graphNodes after build
     //std::cout << "[DEBUG] Nodes in Graph: ";
     //for (const auto& [id, node] : graphNodes) {
@@ -151,6 +206,7 @@ void PathfindingSystem::BuildGraph() {
     //    << " nodes and " << graphEdges.size() << " edges.\n";
     //std::cout << "[DEBUG] Node Counter AFTER processing: " << NodeComponent::GetNodeCounter() << "\n";
 }
+
 
 void PathfindingSystem::Update(float deltaTime) {
 
@@ -212,26 +268,126 @@ void PathfindingSystem::Update(float deltaTime) {
     }
 }
 
+//bool PathfindingSystem::FindPath(uint32_t startNodeID, uint32_t goalNodeID, std::vector<glm::vec3>& outPath) {
+//    if (graphNodes.find(startNodeID) == graphNodes.end() || graphNodes.find(goalNodeID) == graphNodes.end()) {
+//        std::cout << "[PathfindingSystem] ERROR: Start or Goal Node not in graph!\n";
+//
+//        if (graphNodes.find(startNodeID) == graphNodes.end()) {
+//            std::cout << "[DEBUG] Start Node " << startNodeID << " NOT FOUND in graphNodes!" << std::endl;
+//        }
+//        if (graphNodes.find(goalNodeID) == graphNodes.end()) {
+//            std::cout << "[DEBUG] Goal Node " << goalNodeID << " NOT FOUND in graphNodes!" << std::endl;
+//        }
+//
+//        return false;
+//    }
+//
+//    // Reset path to ensure no stale data
+//    outPath.clear();
+//    open_list = {};
+//    closed_list.clear();
+//
+//    // **Reset node costs**
+//    for (auto& [id, node] : graphNodes) {
+//        node->givenCost = std::numeric_limits<float>::infinity();
+//        node->finalCost = std::numeric_limits<float>::infinity();
+//        node->parent = nullptr;
+//    }
+//
+//    auto start = graphNodes[startNodeID];
+//    auto goal = graphNodes[goalNodeID];
+//
+//    start->givenCost = 0.0f;
+//    float heuristicValue = Heuristic(start->position, goal->position);
+//    start->finalCost = heuristicValue;
+//
+//    std::cout << "[DEBUG] Starting Pathfinding from Node " << startNodeID
+//        << " to " << goalNodeID << "\n";
+//    std::cout << "[DEBUG] Heuristic from Node " << startNodeID
+//        << " to " << goalNodeID << " = " << heuristicValue << std::endl;
+//
+//    open_list.push(start);
+//
+//    while (!open_list.empty()) {
+//        auto currentNode = open_list.top();
+//        open_list.pop();
+//
+//        //std::cout << "[DEBUG] Expanding Node " << currentNode->nodeID
+//        //    << " at Position (" << currentNode->position.x
+//        //    << ", " << currentNode->position.y
+//        //    << ", " << currentNode->position.z << ")\n";
+//
+//        // If goal is reached, reconstruct the path
+//        if (currentNode->nodeID == goalNodeID) {
+//            std::cout << "[DEBUG] Goal Node " << goalNodeID << " reached!\n";
+//            ReconstructPath(currentNode, outPath);
+//            return true;
+//        }
+//
+//        //std::cout << "[DEBUG] Adding Node " << currentNode->nodeID
+//        //    << " to Closed List at Position ("
+//        //    << currentNode->position.x << ", "
+//        //    << currentNode->position.y << ", "
+//        //    << currentNode->position.z << ")\n";
+//        closed_list.insert(currentNode->position);
+//
+//        // Fetch neighbors
+//        std::vector<uint32_t> neighbors = GetNeighbors(currentNode->nodeID);
+//        //std::cout << "[DEBUG] Checking neighbors of Node " << currentNode->nodeID << ": ";
+//        //for (auto neighbor : neighbors) {
+//        //    std::cout << neighbor << " ";
+//        //}
+//        //std::cout << std::endl;
+//
+//        for (uint32_t neighborNodeID : neighbors) {
+//            auto neighbor = graphNodes[neighborNodeID];
+//
+//            // Skip if already explored or not walkable
+//            if (closed_list.find(neighbor->position) != closed_list.end() || !neighbor->isWalkable) {
+//                //std::cout << "[DEBUG] Skipping Node " << neighborNodeID
+//                //    << " (Already explored or not walkable)\n";
+//                continue;
+//            }
+//
+//            float edgeCost = GetCost(currentNode->nodeID, neighbor->nodeID);
+//            float tentativeGCost = currentNode->givenCost + edgeCost;
+//
+//            // Check if this path is better
+//            if (tentativeGCost < neighbor->givenCost) {
+//                //std::cout << "[DEBUG] Updating Node " << neighborNodeID
+//                //    << " | Old Cost: " << neighbor->givenCost
+//                //    << " | New Cost: " << tentativeGCost << "\n";
+//
+//                neighbor->givenCost = tentativeGCost;
+//                neighbor->finalCost = tentativeGCost + Heuristic(neighbor->position, goal->position);
+//                neighbor->parent = currentNode;
+//
+//                open_list.push(neighbor);
+//            }
+//        }
+//    }
+//
+//    //// If we exit the while loop without finding a path, log failure
+//    //std::cout << "[PathfindingSystem] ERROR: Open list is empty, no path found!\n";
+//    //std::cout << "[DEBUG] Last expanded node before failure: " << std::endl;
+//    //for (auto& pos : closed_list) {
+//    //    std::cout << "[DEBUG] Closed Node at (" << pos.x << ", " << pos.y << ", " << pos.z << ")\n";
+//    //}
+//
+//    return false;
+//}
+
 bool PathfindingSystem::FindPath(uint32_t startNodeID, uint32_t goalNodeID, std::vector<glm::vec3>& outPath) {
     if (graphNodes.find(startNodeID) == graphNodes.end() || graphNodes.find(goalNodeID) == graphNodes.end()) {
         std::cout << "[PathfindingSystem] ERROR: Start or Goal Node not in graph!\n";
-
-        if (graphNodes.find(startNodeID) == graphNodes.end()) {
-            std::cout << "[DEBUG] Start Node " << startNodeID << " NOT FOUND in graphNodes!" << std::endl;
-        }
-        if (graphNodes.find(goalNodeID) == graphNodes.end()) {
-            std::cout << "[DEBUG] Goal Node " << goalNodeID << " NOT FOUND in graphNodes!" << std::endl;
-        }
-
         return false;
     }
 
-    // Reset path to ensure no stale data
     outPath.clear();
     open_list = {};
     closed_list.clear();
 
-    // **Reset node costs**
+    // **Reset all node costs**
     for (auto& [id, node] : graphNodes) {
         node->givenCost = std::numeric_limits<float>::infinity();
         node->finalCost = std::numeric_limits<float>::infinity();
@@ -242,81 +398,57 @@ bool PathfindingSystem::FindPath(uint32_t startNodeID, uint32_t goalNodeID, std:
     auto goal = graphNodes[goalNodeID];
 
     start->givenCost = 0.0f;
-    float heuristicValue = Heuristic(start->position, goal->position);
-    start->finalCost = heuristicValue;
-
-    std::cout << "[DEBUG] Starting Pathfinding from Node " << startNodeID
-        << " to " << goalNodeID << "\n";
-    std::cout << "[DEBUG] Heuristic from Node " << startNodeID
-        << " to " << goalNodeID << " = " << heuristicValue << std::endl;
-
+    start->finalCost = Heuristic(start->position, goal->position);
     open_list.push(start);
 
     while (!open_list.empty()) {
         auto currentNode = open_list.top();
         open_list.pop();
 
-        std::cout << "[DEBUG] Expanding Node " << currentNode->nodeID
-            << " at Position (" << currentNode->position.x
-            << ", " << currentNode->position.y
-            << ", " << currentNode->position.z << ")\n";
-
-        // If goal is reached, reconstruct the path
         if (currentNode->nodeID == goalNodeID) {
-            std::cout << "[DEBUG] Goal Node " << goalNodeID << " reached!\n";
             ReconstructPath(currentNode, outPath);
             return true;
         }
 
-        std::cout << "[DEBUG] Adding Node " << currentNode->nodeID
-            << " to Closed List at Position ("
-            << currentNode->position.x << ", "
-            << currentNode->position.y << ", "
-            << currentNode->position.z << ")\n";
         closed_list.insert(currentNode->position);
 
-        // Fetch neighbors
-        std::vector<uint32_t> neighbors = GetNeighbors(currentNode->nodeID);
-        std::cout << "[DEBUG] Checking neighbors of Node " << currentNode->nodeID << ": ";
-        for (auto neighbor : neighbors) {
-            std::cout << neighbor << " ";
-        }
-        std::cout << std::endl;
+        // **FORCE SEARCH THROUGH ALL NODES**
+        for (const auto& [nodeID, node] : graphNodes) {
+            if (nodeID == currentNode->nodeID) continue;
 
-        for (uint32_t neighborNodeID : neighbors) {
-            auto neighbor = graphNodes[neighborNodeID];
+            float edgeCost = GetCost(currentNode->nodeID, nodeID);
+            if (edgeCost == std::numeric_limits<float>::infinity()) continue;  // Skip disconnected nodes
 
-            // Skip if already explored or not walkable
-            if (closed_list.find(neighbor->position) != closed_list.end() || !neighbor->isWalkable) {
-                //std::cout << "[DEBUG] Skipping Node " << neighborNodeID
-                //    << " (Already explored or not walkable)\n";
-                continue;
-            }
-
-            float edgeCost = GetCost(currentNode->nodeID, neighbor->nodeID);
             float tentativeGCost = currentNode->givenCost + edgeCost;
 
-            // Check if this path is better
-            if (tentativeGCost < neighbor->givenCost) {
-                //std::cout << "[DEBUG] Updating Node " << neighborNodeID
-                //    << " | Old Cost: " << neighbor->givenCost
-                //    << " | New Cost: " << tentativeGCost << "\n";
-
-                neighbor->givenCost = tentativeGCost;
-                neighbor->finalCost = tentativeGCost + Heuristic(neighbor->position, goal->position);
-                neighbor->parent = currentNode;
-
-                open_list.push(neighbor);
+            if (tentativeGCost < node->givenCost) {
+                node->givenCost = tentativeGCost;
+                node->finalCost = tentativeGCost + Heuristic(node->position, goal->position);
+                node->parent = currentNode;
+                open_list.push(node);
             }
         }
     }
 
-    //// If we exit the while loop without finding a path, log failure
-    //std::cout << "[PathfindingSystem] ERROR: Open list is empty, no path found!\n";
-    //std::cout << "[DEBUG] Last expanded node before failure: " << std::endl;
-    //for (auto& pos : closed_list) {
-    //    std::cout << "[DEBUG] Closed Node at (" << pos.x << ", " << pos.y << ", " << pos.z << ")\n";
-    //}
+    std::cout << "[PathfindingSystem] ERROR: No valid path found. Trying nearest node fallback...\n";
+
+    // **FIND NEAREST REACHABLE NODE INSTEAD**
+    Entity closestReachableNode = INVALID_ENTITY;
+    float closestDistance = std::numeric_limits<float>::infinity();
+
+    for (const auto& [nodeID, node] : graphNodes) {
+        if (nodeID == startNodeID) continue;
+        float dist = glm::distance(node->position, graphNodes[goalNodeID]->position);
+        if (dist < closestDistance) {
+            closestDistance = dist;
+            closestReachableNode = nodeID;
+        }
+    }
+
+    if (closestReachableNode != INVALID_ENTITY) {
+        std::cout << "[PathfindingSystem] Fallback: Setting new goal to Node " << closestReachableNode << "\n";
+        return FindPath(startNodeID, closestReachableNode, outPath);
+    }
 
     return false;
 }
@@ -413,12 +545,13 @@ std::vector<uint32_t> PathfindingSystem::GetNeighbors(uint32_t nodeID) {
         }
     }
 
-    //// Debug: Print neighbors of the given node
-    //std::cout << "[DEBUG] Neighbors of Node " << nodeID << ": ";
-    //for (auto neighbor : neighbors) {
-    //    std::cout << neighbor << " ";
-    //}
-    //std::cout << std::endl;
+    // Debug: Print neighbors of the given node
+    std::cout << "[DEBUG] Neighbors of Node " << nodeID << ": ";
+    for (auto neighbor : neighbors) {
+        std::cout << neighbor << " ";
+    }
+    std::cout << std::endl;
+
 
 
     return neighbors;
@@ -451,14 +584,40 @@ float PathfindingSystem::Heuristic(const glm::vec3& a, const glm::vec3& b) const
     return glm::length(diff);
 }
 
+//float PathfindingSystem::Heuristic(const glm::vec3& a, const glm::vec3& b) const {
+//    return std::abs(a.x - b.x) + std::abs(a.y - b.y) + std::abs(a.z - b.z);
+//}
+
+//void PathfindingSystem::ReconstructPath(const std::shared_ptr<Node3D>& goalNode, std::vector<glm::vec3>& outPath) {
+//    auto currentNode = goalNode;
+//    while (currentNode) {
+//        outPath.push_back(currentNode->position);
+//        currentNode = currentNode->parent;
+//    }
+//    std::reverse(outPath.begin(), outPath.end());
+//}
+
 void PathfindingSystem::ReconstructPath(const std::shared_ptr<Node3D>& goalNode, std::vector<glm::vec3>& outPath) {
     auto currentNode = goalNode;
+
     while (currentNode) {
+        if (currentNode->position == glm::vec3(0.0f)) {  // Avoid (0,0,0) positions
+            std::cout << "[ERROR] Skipping invalid node during path reconstruction!\n";
+            currentNode = currentNode->parent;
+            continue;
+        }
+
         outPath.push_back(currentNode->position);
         currentNode = currentNode->parent;
     }
+
+    if (outPath.empty()) {
+        std::cout << "[ERROR] No valid path reconstructed! Check parent assignments in FindPath().\n";
+    }
+
     std::reverse(outPath.begin(), outPath.end());
 }
+
 
 void PathfindingSystem::ResetPathfinding() {
 

@@ -89,6 +89,7 @@ public:
 
     void BuildGraph();
     bool FindPath(Entity startNode, Entity goalNode, std::vector<glm::vec3>& outPath);
+    //bool FindPath(Entity startNode, Entity goalNode, std::vector<glm::vec3>& outPath, std::unordered_set<uint32_t> attemptedFallbacks = {}, int maxFallbackAttempts = 5);
 
     void Update(float deltaTime);
 
