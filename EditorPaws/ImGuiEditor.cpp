@@ -2099,6 +2099,10 @@ void ImGuiEditor::InspectorWindow()
 								static int currentIndex = 0; // Track which animation we are playing
 								static bool isPlaying = false; // Play state
 
+								static float startPlay = -0.01f;
+								static float endPlay = animationComp.m_Duration;
+
+
 								static int inputValue = 0;
 
 
@@ -2107,10 +2111,21 @@ void ImGuiEditor::InspectorWindow()
 
 								ImGui::Separator();
 
+
+								if (deltaTime < startPlay || deltaTime> endPlay)
+								{
+									g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(startPlay);
+
+//									g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity).m_DeltaTime = deltaTime = startPlay;
+
+
+//									graphicsComp.SetAnimationTime(deltaTime);
+								}
+
 								ImGui::PushItemWidth(400.f);
 
 								// Slider for animation progress (also acts as manual seek bar)
-								if (ImGui::SliderFloat("##AnimationProgress", &deltaTime, 0.0f, animationComp.m_Duration, "%.2f s")) {
+								if (ImGui::SliderFloat("##AnimationProgress", &deltaTime, startTime, animationComp.m_Duration, "%.2f s")) {
 									graphicsComp.pauseAnimation = true;  // Pause when user interacts
 
 									graphicsComp.SetAnimationTime(deltaTime);
@@ -2172,7 +2187,7 @@ void ImGuiEditor::InspectorWindow()
 
 
 
-								if (ImGui::Button(isPlaying ? "Stop" : "Play")) {
+								if (ImGui::Button("Save")) {
 
 									// Find animation range in the vector using the input animation ID
 									auto it = std::find_if(animationComp.animationVector.begin(), animationComp.animationVector.end(),
@@ -2190,13 +2205,19 @@ void ImGuiEditor::InspectorWindow()
 												<< start << "s to " << end << "s\n";
 
 											animationComp.playThisAnimation = std::make_tuple(val, start, end);
-										//	animationComp.currentTime = start;  // Reset time to start
+										//	animationComp.currentTime = start;  // Reset time to startt
+											startPlay = std::get<1>(animationComp.playThisAnimation);
+											endPlay = std::get<2>(animationComp.playThisAnimation);
+
 
 											currentIndex = 0;  // Reset index when starting
 										}
 
 									}
 									else {
+
+										startPlay = 0.0f;
+										endPlay = animationComp.m_Duration;
 										std::cout << "Animation ID not found!\n";
 									}
 								}
