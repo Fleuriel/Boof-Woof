@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "AnimationManager.h"
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
+#include <../assimp2016/assimp/Importer.hpp>
+#include <../assimp2016/assimp/postprocess.h>
 
 // Animation Constructor
 Animation::Animation(const aiAnimation* assimpAnimation) {
@@ -20,7 +20,7 @@ Animation::Animation(const aiAnimation* assimpAnimation) {
             keyframe.position = channel->mPositionKeys[j].mValue;
 
             if (j < channel->mNumRotationKeys) {
-                keyframe.rotation = channel->mRotationKeys[j].mValue;
+               // keyframe.rotation = channel->mRotationKeys[j].mValue;
             }
             if (j < channel->mNumScalingKeys) {
                 keyframe.scale = channel->mScalingKeys[j].mValue;

@@ -15,8 +15,10 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
-#include "../Core/Graphics/Model.h"
+//#include "../Core/Graphics/Model.h"
 #include "../Core/Graphics/FontSystem.h"
+//#include "../Core/Animation/Animator.h"
+//#include "../Core/Animation/Animation.h"
 
 
 struct DDSData {
@@ -29,6 +31,10 @@ struct DDSData {
 	DDSData() :ID(0), Width(0), Height(0) {}
 
 };
+
+class Animator;
+class AnimationT;
+class Model;
 
 class ResourceManager {
 
@@ -86,6 +92,16 @@ public:
 	Model* GModel() const;
 
 	Model* m_Model{};
+
+
+//	std::unordered_map<std::string, AnimationT*> AnimationMap;
+//	std::unordered_map<std::string, Animator*> AnimatorMap; // Add this line
+
+
+	std::vector<AnimationT*> animationVec;
+	std::vector<Animator*> animatorVec;
+
+
 
 private:
 	
