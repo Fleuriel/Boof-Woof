@@ -88,7 +88,13 @@ void RopeBreaker::CheckCollision()
 	{
 		if (Rope1Colliding && !PlayerCollidedRope1)
 		{
-			if (!firstRopeTouched && !g_ChangeText.startingRoomOnly)
+			if (!firstRopeTouched && g_ChangeText.startingRoomOnly)
+			{
+				g_DialogueText.OnInitialize();
+				g_DialogueText.setDialogue(DialogueState::FIRSTROPEBITE);
+				firstRopeTouched = true;
+			}
+			else if (!firstRopeTouched && !g_ChangeText.startingRoomOnly) 
 			{
 				g_DialogueText.OnInitialize();
 				g_DialogueText.setDialogue(DialogueState::BREAKROPES);
@@ -242,6 +248,7 @@ void RopeBreaker::DespawnRopeInStartingRoom()
 		g_Checklist.HideChecklistUI(checklistEnt, false);
 
 		g_BoneCatcher.isRope = false;
+		firstRopeTouched = false;
 	}
 }
 
