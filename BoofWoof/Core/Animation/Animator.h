@@ -33,12 +33,18 @@ public:
 	void UpdateAnimation(float dt)
 	{
 		m_DeltaTime = dt;
+		//std::cout <<"Animator.h : \t" << m_DeltaTime << '\n';
+
 		if (m_CurrentAnimation)
 		{
 			m_CurrentTime += m_CurrentAnimation->GetTicksPerSecond() * dt;
 			m_CurrentTime = fmod(m_CurrentTime, m_CurrentAnimation->GetDuration());
 			CalculateBoneTransform(&m_CurrentAnimation->GetRootNode(), glm::mat4(1.0f));
 		}
+	}
+
+	void SetAnimationTime(float dt) {
+		m_CurrentTime = dt;
 	}
 
 	void PlayAnimation(Animation* pAnimation)
@@ -84,6 +90,11 @@ public:
 	std::vector<glm::mat4> GetFinalBoneMatrices()
 	{
 		return m_FinalBoneMatrices;
+	}
+
+	float GetCurrTime()
+	{
+		return m_CurrentTime;
 	}
 
 private:

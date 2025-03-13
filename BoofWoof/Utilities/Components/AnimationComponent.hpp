@@ -4,6 +4,8 @@
 #include <string>
 #include <memory>
 #include <unordered_map>
+#include "Animation/Animation.h"
+#include "Animation/Animator.h"
 
 
 class AnimationComponent {
@@ -23,6 +25,8 @@ public:
 
 	AnimationComponent() : animatorName(" "), animationName(" "), m_Duration(0.0f), m_DeltaTime(0.0f) {}
 
+	Animation* animation;
+	Animator* animator;
 
 
 

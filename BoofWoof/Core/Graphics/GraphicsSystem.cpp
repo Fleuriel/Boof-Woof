@@ -489,9 +489,10 @@ void GraphicsSystem::UpdateLoop() {
 		if (g_Coordinator.HaveComponent<AnimationComponent>(entity))
 		{
 			auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
-			std::cout << "it has animationComp.\n";
+			//std::cout << "it has animationComp.\n";
 
-			animationComp.m_DeltaTime = deltaTime;
+			animationComp.m_DeltaTime = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetCurrTime();
+			animationComp.m_Duration =	g_ResourceManager.AnimationMap[graphicsComp.getModelName()]->GetDuration();
 			
 			
 
@@ -500,23 +501,18 @@ void GraphicsSystem::UpdateLoop() {
 				// Bind and use the animation shader
 				g_AssetManager.GetShader("Animation").Use();
 
+				if(!graphicsComp.pauseAnimation)
+					g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(deltaTime);
+				else
+					g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
+		
 
-				g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(deltaTime);
 
-//				g_ResourceManager.animatorVec[0]->UpdateAnimation(deltaTime);
 
-				glm::mat4 model = glm::mat4(1.0f);
-				// translate it down so it's at the center of the scene
-				model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f));
-				// it's a bit too big for our scene, so scale it down
-				model = glm::scale(model, glm::vec3(.01f, .01f, .01f));
 
-				//			g_AssetManager.GetShader("Animation").SetUniform("model", model);
 				g_AssetManager.GetShader("Animation").SetUniform("view", shdrParam.View);
 				g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
 
-
-//				SetShaderUniforms(g_AssetManager.GetShader(ShaderName), shdrParam);
 
 				auto transforms = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetFinalBoneMatrices();
 				for (int i = 0; i < transforms.size(); ++i)
@@ -525,7 +521,6 @@ void GraphicsSystem::UpdateLoop() {
 					g_AssetManager.GetShader("Animation").SetUniform(lel.c_str(), transforms[i]);
 				}
 
-				std::cout << "enter here\n";
 
 				g_AssetManager.GetShader("Animation").SetUniform("model", transformComp.GetWorldMatrix());
 				graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
@@ -907,6 +902,8 @@ void GraphicsSystem::AnimationAdd(const std::string& name, const std::string& pa
 
 	// Store animation in a map using 'name' as key
 	g_ResourceManager.AnimationMap[name] = corgiWalk;
+
+
 
 	// Create animator dynamically and store in map
 	Animator* animTor = new Animator(corgiWalk);
