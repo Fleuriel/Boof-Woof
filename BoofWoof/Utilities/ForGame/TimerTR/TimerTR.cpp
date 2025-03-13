@@ -66,7 +66,7 @@ void TimerTR::OnUpdate(double deltaTime)
 	}
 	else
 	{
-		timer = 180.0;
+		timer = 30.0;
 	}
 
 	if (touched) 
@@ -101,12 +101,12 @@ void TimerTR::OnShutdown()
 	}
 
 	storage.clear();
-	timer = 180.0;
+	timer = 30.0;
 }
 
 void TimerTR::Reset()
 {
-	timer = 180.0;
+	timer = 30.0;
 	touched = false;
 	scaleUp = false;
 }

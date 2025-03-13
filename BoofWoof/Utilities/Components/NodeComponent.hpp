@@ -40,7 +40,7 @@ public:
 
     // Generate a unique Node ID (only called when a node is assigned in BuildGraph)
     static uint32_t GenerateNodeID() {
-        std::cout << "[DEBUG] Generating new NodeID: " << nodeCounter << "\n";
+        //std::cout << "[DEBUG] Generating new NodeID: " << nodeCounter << "\n";
         return nodeCounter++;
     }
 

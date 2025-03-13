@@ -50,6 +50,7 @@ struct physics_interface
 		const glm::vec3& direction, float maxDistance,
 		int numHorizontalRays, int numVerticalRays, float coneAngle, const glm::vec3& userOffset) = 0;
 	virtual float RaycastFraction(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity) = 0;
+	virtual void SetEntityGravityFactor(Entity entity, float gravityFactor) = 0;
 };
 
 struct engine_interface
@@ -94,6 +95,7 @@ struct engine_interface
 	virtual void SetBuilt(Entity entity, bool built) = 0;
 	virtual Entity GetNearestNode(Entity entity) = 0;
 	virtual Entity GetRandomNode(Entity entity) = 0;
+	virtual void ForcePathfindingUpdate() = 0;  // Add this virtual function
 
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) = 0;

@@ -278,6 +278,10 @@ public:
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdatePhysicsTransform(entity);
 	}
 
+	virtual void SetEntityGravityFactor(Entity entity, float gravityFactor) override
+	{
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->SetEntityGravityFactor(entity, gravityFactor);
+	}
 
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) override
@@ -410,6 +414,10 @@ public:
 		
 		// Pick a random element
 		return list[dist(gen)];
+	}
+
+	virtual void ForcePathfindingUpdate() override {
+		return g_Coordinator.GetSystem<PathfindingSystem>()->ForceImmediateUpdate();
 	}
 
 	virtual Entity GetPlayerEntity() override

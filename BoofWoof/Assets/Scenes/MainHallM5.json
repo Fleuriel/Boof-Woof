@@ -14369,12 +14369,12 @@
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": true,
+                "IsDynamic": true,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.299999952316284,
-                    "y": 2.5,
+                    "y": 2.8,
                     "z": 0.699999988079071
                 },
                 "AABBOffset": {
@@ -14382,7 +14382,7 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "Mass": 10.0
+                "Mass": 0.0
             },
             "PathfindingComponent": {
                 "StartNode": 10,
