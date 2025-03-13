@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "68b79fdc-ddd5-400c-8833-f8c30f7c8434",
+    "SceneGUID": "351f2632-eb22-4008-b324-2051d4f1737e",
     "Entities": [
         {
             "MetadataComponent": {
@@ -35,6 +35,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -83,6 +84,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -131,6 +133,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -467,6 +470,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -515,6 +519,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -563,6 +568,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -739,6 +745,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.799999952316284,
@@ -2195,7 +2202,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Carpet",
                 "EntityID": 65
             },
             "TransformComponent": {
@@ -2223,11 +2230,28 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Carpet",
                 "EntityID": 66
             },
             "TransformComponent": {
@@ -2255,11 +2279,28 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Carpet",
                 "EntityID": 67
             },
             "TransformComponent": {
@@ -2269,9 +2310,9 @@
                     "z": 0.17706847190856934
                 },
                 "Scale": {
-                    "x": 0.9999173879623413,
+                    "x": 1.0,
                     "y": 1.0,
-                    "z": 0.9999173879623413
+                    "z": 0.9999169707298279
                 },
                 "Rotation": {
                     "x": -3.1415815353393556,
@@ -2287,11 +2328,28 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
+                "EntityName": "Carpet",
                 "EntityID": 68
             },
             "TransformComponent": {
@@ -2319,6 +2377,23 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -2360,9 +2435,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 1.0560728311538697,
-                    "y": 1.1999915838241578,
-                    "z": -1.6519132852554322
+                    "x": 1.4603855609893799,
+                    "y": 1.3173683881759644,
+                    "z": -1.651924729347229
                 },
                 "Scale": {
                     "x": 0.5000007748603821,
@@ -2390,6 +2465,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": true,
+                "IsKinematic": false,
                 "IsPlayer": true,
                 "AABBSize": {
                     "x": 2.9000000953674318,
@@ -2416,7 +2492,7 @@
                     "y": 1.0,
                     "z": 0.0
                 },
-                "Active": true
+                "Active": false
             }
         },
         {
@@ -2453,6 +2529,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2501,6 +2578,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2549,6 +2627,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2597,6 +2676,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2645,6 +2725,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2693,6 +2774,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2741,6 +2823,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2789,6 +2872,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2837,6 +2921,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
