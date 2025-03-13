@@ -48,7 +48,7 @@ class MainHall : public Level
 	bool dialogueFirst{ false }, dialogueSecond{ false }, dialogueThird{ false };
 
 	double sniffCooldownTimer = 0.0;  // Timer for sniff cooldown
-	const double sniffCooldownDuration = 16.0;  // 16 seconds cooldown
+	const double sniffCooldownDuration = 17.0;  // 17 seconds cooldown
 	bool isSniffOnCooldown = false;  // Track cooldown state
 
 

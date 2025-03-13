@@ -25,7 +25,7 @@ public:
 
 	std::vector<Entity> particleEntities;
 	double sniffCooldownTimer = 0.0;  // Accumulates time
-	const double sniffCooldownDuration = 17.0;  // 16 seconds
+	const double sniffCooldownDuration = 17.0;  // 17 seconds
 	bool isSniffOnCooldown = false;
 
 	std::vector<std::string> bitingSounds = {
