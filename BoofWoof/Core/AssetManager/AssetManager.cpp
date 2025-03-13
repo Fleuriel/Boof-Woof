@@ -783,7 +783,7 @@ bool AssetManager::LoadObjects() {
                 std::cout << objFilePath << '\t' << nameWithoutExtension << '\n';
 
                 std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
-                addMdl.loadModel(objFilePath);//, GL_TRIANGLES);
+                addMdl.loadModel(objFilePath, GL_TRIANGLES);
 
                 std::cout << "stuffs\t" << addMdl.name << '\t' << addMdl.meshes.size() << '\n';
 

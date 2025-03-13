@@ -21,11 +21,6 @@
 #include <gli/load_dds.hpp>
 
 
- #include "../Core/Animation/Animator.h"
- #include "../Core/Animation/Animation.h"
-
-#include "../Core/Graphics/Model.h"
-
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #define STBI_ONLY_DDS // Enable support for DDS only, if you don't want other formats

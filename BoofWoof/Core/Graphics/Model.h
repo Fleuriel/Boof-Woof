@@ -17,36 +17,14 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include <../assimp2016/assimp/Importer.hpp>
-#include <../assimp2016/assimp/scene.h>
-#include <../assimp2016/assimp/postprocess.h>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 #include "Shader.h"
 #include "Mesh.h"
-#include "../../BoofWoof/Core/Animation/AnimData.h"
 
 #include "AssetManager/AssetManager.h"
-#include "Animation/AssimpHelper.h"
 
-
-
-inline void print_assimp_matrix(const aiMatrix4x4& m)
-{
-
-    std::cout << m.a1 << '\t' << m.a2 << '\t' << m.a3 << '\t' << m.a4 << '\n';
-
-    std::cout << m.b1 << '\t' << m.b2 << '\t' << m.b3 << '\t' << m.b4 << '\n';
-
-    std::cout << m.c1 << '\t' << m.c2 << '\t' << m.c3 << '\t' << m.c4 << '\n';
-
-    std::cout << m.d1 << '\t' << m.d2 << '\t' << m.d3 << '\t' << m.d4 << '\n';
-
-
-
-}
-
-
-
-//using namespace std;
 
 unsigned int TextureFromFile(const char* path, const std::string& directory);
 //extern std::vector<Model2D> models;
@@ -61,7 +39,6 @@ public:
     std::string directory;
     std::string name;
     int count = 0;
-    bool gammaCorrection;
 
     //// for now 
     // store number of texture
@@ -74,28 +51,6 @@ public:
     GLsizei draw_cnt{};			// Draw Count of the model
     size_t idx_elem_cnt{};		// Index Element Count of the Model
 
-    Model() {}
-
-	Model(std::string const& path, bool gamma = false)  :gammaCorrection(gamma)
-	{
-		loadModel(path);
-	}
-
-
-    std::map<std::string, BoneInfo> m_BoneInfoMap;
-    int m_BoneCounter = 0;
-
-    void SetVertexBoneDataToDefault(Vertex& vertex)
-    {
-        for (int i = 0; i < MAX_BONE_INFLUENCE; i++)
-        {
-            vertex.m_BoneIDs[i] = -1;
-            vertex.m_Weights[i] = 0.0f;
-        }
-    }
-
-    auto& GetBoneInfoMap() { return m_BoneInfoMap; }
-    int& GetBoneCount() { return m_BoneCounter; }
 
 
     void Draw2D(OpenGLShader& shader) const;
@@ -258,44 +213,28 @@ public:
     }
 
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
-    void loadModel(std::string const& path)
+    void loadModel(std::string const& path, unsigned int draw_mode)
     {
+
+        std::cout << "LOAD MODEL: " << path << '\n';
+
         // read file via ASSIMP
         Assimp::Importer importer;
-        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
+        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
         // check for errors
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
         {
             std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
             return;
         }
-
-
         // retrieve the directory path of the filepath
         directory = path.substr(0, path.find_last_of('/'));
-
+   
         // process ASSIMP's root node recursively
-        processNode(scene->mRootNode, scene);
+        processNode(scene->mRootNode, scene, draw_mode);
+       
     }
-
-    // processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
-    void processNode(aiNode* node, const aiScene* scene)
-    {
-        // process each mesh located at the current node
-        for (unsigned int i = 0; i < node->mNumMeshes; i++)
-        {
-            // the node object only contains indices to index the actual objects in the scene. 
-            // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
-            aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            meshes.push_back(processMesh(mesh, scene));
-        }
-        // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
-        for (unsigned int i = 0; i < node->mNumChildren; i++)
-        {
-            processNode(node->mChildren[i], scene);
-        }
-
-    }
+   
     void loadLine()
     {
         // data to fill
@@ -314,184 +253,113 @@ public:
         meshes.push_back(lineMesh);
     }
    
-
-    Mesh processMesh(aiMesh* mesh, const aiScene* scene)
+    // processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
+    void processNode(aiNode* node, const aiScene* scene, unsigned int draw_mode)
     {
-        using namespace std;
+        // process each mesh located at the current node
+        for (unsigned int i = 0; i < node->mNumMeshes; i++)
+        {
+            // the node object only contains indices to index the actual objects in the scene. 
+            // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
+            aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+            meshes.push_back(processMesh(mesh, scene, draw_mode));
+        }
+        // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
+        for (unsigned int i = 0; i < node->mNumChildren; i++)
+        {
+            processNode(node->mChildren[i], scene, draw_mode);
+        }
+   
+    }
+   
+    Mesh processMesh(aiMesh* mesh, const aiScene* scene, unsigned int draw_mode)
+    {
+        (void)scene;
+        // data to fill
+        std::vector<Vertex> vertices;
+        std::vector<unsigned int> indices;
+        std::vector<Texture> textures;
 
-        vector<Vertex> vertices;
-        vector<unsigned int> indices;
-        vector<Texture> textures;
 
-       
+        // walk through each of the mesh's vertices
         for (unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
             Vertex vertex;
-            SetVertexBoneDataToDefault(vertex);
-            vertex.Position = AssimpGLMHelpers::GetGLMVec(mesh->mVertices[i]);
-            vertex.Normal = AssimpGLMHelpers::GetGLMVec(mesh->mNormals[i]);
-
-            if (mesh->mTextureCoords[0])
+            glm::vec3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
+            // positions
+            vector.x = mesh->mVertices[i].x;
+            vector.y = mesh->mVertices[i].y;
+            vector.z = mesh->mVertices[i].z;
+            vertex.Position = vector;
+            // normals
+            if (mesh->HasNormals())
+            {
+                vector.x = mesh->mNormals[i].x;
+                vector.y = mesh->mNormals[i].y;
+                vector.z = mesh->mNormals[i].z;
+                vertex.Normal = vector;
+            }
+            // texture coordinates
+            if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
             {
                 glm::vec2 vec;
+                // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
+                // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
                 vec.x = mesh->mTextureCoords[0][i].x;
                 vec.y = mesh->mTextureCoords[0][i].y;
                 vertex.TexCoords = vec;
+                // tangent
+                //vector.x = mesh->mTangents[i].x;
+                //vector.y = mesh->mTangents[i].y;
+                //vector.z = mesh->mTangents[i].z;
+                //vertex.Tangent = vector;
+                //// bitangent
+                //vector.x = mesh->mBitangents[i].x;
+                //vector.y = mesh->mBitangents[i].y;
+                //vector.z = mesh->mBitangents[i].z;
+                //vertex.Bitangent = vector;
             }
             else
                 vertex.TexCoords = glm::vec2(0.0f, 0.0f);
 
             vertices.push_back(vertex);
         }
+        // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
         for (unsigned int i = 0; i < mesh->mNumFaces; i++)
         {
             aiFace face = mesh->mFaces[i];
+            // retrieve all indices of the face and store them in the indices vector
             for (unsigned int j = 0; j < face.mNumIndices; j++)
                 indices.push_back(face.mIndices[j]);
         }
+        //// process materials
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+        // we assume a convention for sampler names in the shaders. Each diffuse texture should be named
+        // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER. 
+        // Same applies to other texture as the following list summarizes:
+        // diffuse: texture_diffuseN
+        // specular: texture_specularN
+        // normal: texture_normalN
 
-        vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        // 1. diffuse maps
+        std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-        vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+        // 2. specular maps
+        std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+        // 3. normal maps
         std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
         textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+        // 4. height maps
         std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
         textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
-        ExtractBoneWeightForVertices(vertices, mesh, scene);
-
-        return Mesh(vertices, indices, textures);
+        // return a mesh object created from the extracted mesh data
+        //return Mesh(vertices, indices, textures);
+        Mesh out(vertices, indices, textures);
+        out.drawMode = draw_mode;
+        return out;
     }
-
-    void ExtractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh, const aiScene* scene)
-    {
-        auto& boneInfoMap = m_BoneInfoMap;
-        int& boneCount = m_BoneCounter;
-
-        for (int i = 0; i < mesh->mNumBones; i++) {
-            std::cout << "Bone " << i << ": " << mesh->mBones[i]->mName.C_Str() << std::endl;
-        }
-
-        for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
-        {
-            std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
-            std::cout << "Bone " << boneIndex << ": " << boneName << std::endl;
-
-            if (boneName == "Bone")
-                continue;
-
-            int boneID = -1;
-            if (boneInfoMap.find(boneName) == boneInfoMap.end())
-            {
-                BoneInfo newBoneInfo;
-                newBoneInfo.id = boneCount;
-                newBoneInfo.offset = AssimpGLMHelpers::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
-                boneInfoMap[boneName] = newBoneInfo;
-                boneID = boneCount;
-                boneCount++;
-            }
-            else
-            {
-                boneID = boneInfoMap[boneName].id;
-            }
-
-
-            std::cout <<"Extracting: \t" << boneName << '\t' << boneID << '\n';
-
-            assert(boneID != -1);
-            auto weights = mesh->mBones[boneIndex]->mWeights;
-            int numWeights = mesh->mBones[boneIndex]->mNumWeights;
-
-            for (int weightIndex = 0; weightIndex < numWeights; ++weightIndex)
-            {
-                int vertexId = weights[weightIndex].mVertexId;
-                float weight = weights[weightIndex].mWeight;
-            //    std::cout << "Bone: " << boneName << " (ID: " << boneID << ") affects Vertex: " << vertexId
-            //        << " with Weight: " << weight << std::endl;
-                assert(vertexId <= vertices.size());
-                SetVertexBoneData(vertices[vertexId], boneID, weight, vertexId);
-            }
-        }
-    }
-
-
-
-    void SetVertexBoneData(Vertex& vertex, int boneID, float weight, int vertexId)
-    {
-        bool inserted = false;
-
-        for (int i = 0; i < MAX_BONE_INFLUENCE; i++)
-        {
-            if (vertex.m_BoneIDs[i] < 0) // Find an empty slot
-            {
-                vertex.m_Weights[i] = weight; // Assign weight
-                vertex.m_BoneIDs[i] = boneID; // Assign Bone ID
-                inserted = true;
-                break;
-            }
-        }
-
-        if (!inserted) // If all slots are full, warn
-        {
-            std::cerr << " WARNING: Vertex " << vertexId
-                << " already has max bone influences! Extra influences ignored.\n";
-        }
-
-        // Debugging print
-      // std::cout << "Vertex " << vertexId << " Bone IDs: ("
-      //     << vertex.m_BoneIDs[0] << ", "
-      //     << vertex.m_BoneIDs[1] << ", "
-      //     << vertex.m_BoneIDs[2] << ", "
-      //     << vertex.m_BoneIDs[3] << ") Weights: ("
-      //     << vertex.m_Weights[0] << ", "
-      //     << vertex.m_Weights[1] << ", "
-      //     << vertex.m_Weights[2] << ", "
-      //     << vertex.m_Weights[3] << ")\n";
-    }
-
-
-   //unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false)
-   //{
-   //    std::string filename =std::string(path);
-   //    filename = directory + '/' + filename;
-   //
-   //    unsigned int textureID;
-   //    glGenTextures(1, &textureID);
-   //
-   //    int width, height, nrComponents;
-   //    unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
-   //    if (data)
-   //    {
-   //        GLenum format;
-   //        if (nrComponents == 1)
-   //            format = GL_RED;
-   //        else if (nrComponents == 3)
-   //            format = GL_RGB;
-   //        else if (nrComponents == 4)
-   //            format = GL_RGBA;
-   //
-   //        glBindTexture(GL_TEXTURE_2D, textureID);
-   //        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-   //        glGenerateMipmap(GL_TEXTURE_2D);
-   //
-   //        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-   //        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-   //        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-   //        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-   //
-   //        stbi_image_free(data);
-   //    }
-   //    else
-   //    {
-   //        std::cout << "Texture failed to load at path: " << path << std::endl;
-   //        stbi_image_free(data);
-   //    }
-   //
-   //    return textureID;
-   //}
-
 
      /*checks all material textures of a given type and loads the textures if they're not loaded yet.
      the required info is returned as a Texture struct.*/

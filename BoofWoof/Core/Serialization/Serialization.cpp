@@ -800,7 +800,7 @@ bool Serialization::LoadScene(const std::string& filepath)
 
                     std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
 
-         //           std::cout << "model text number: " << g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
+                    std::cout << "model text number: " << g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
          //           std::cout << "comp  text number: " << graphicsComponent.getTextureNumber() << '\n';
 
                     g_Coordinator.AddComponent(entity, graphicsComponent);

@@ -9,21 +9,12 @@
 #include "../Utilities/Components/CollisionComponent.hpp"
 #include "../Utilities/Components/ParticleComponent.hpp"
 #include "../Utilities/Components/MaterialComponent.hpp"
+#include "Animation/AnimationManager.h"
 
-//#include "Animation/AnimationManager.h"
-
-
-
-// <WARNING>
-//#include "Animation/Animation.h"
-
-//#include "Animation/Animation.h"
 
 class Model;
 class Model2D;
 class GraphicsComponent;
-class AnimationT;
-class Animator;
 
 #include "../ECS/System.hpp"
 
@@ -82,9 +73,6 @@ public:
     void AddModel_3D(std::string const& path);
     void AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model);
 
-    void TestAnimationAdd(const std::string name, std::string const& path);
-
-
     void AddModel_2D();
 
     void UpdateViewportSize(int width, int height);  // Method to handle viewport resizing
@@ -100,8 +88,6 @@ public:
     bool DrawMaterialSphere();
 
     void generateNewFrameBuffer(unsigned int& fbo, unsigned int& textureColorbuffer, unsigned int& rbo, int width, int height);
-
-//    void UpdateAnimations(float deltaTime, OpenGLShader& ourShader);
 
 
 
