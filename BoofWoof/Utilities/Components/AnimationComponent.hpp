@@ -6,7 +6,8 @@
 #include <unordered_map>
 #include "Animation/Animation.h"
 #include "Animation/Animator.h"
-
+#include <vector>
+#include <tuple>
 
 class AnimationComponent {
 public:
@@ -28,6 +29,9 @@ public:
 	Animation* animation;
 	Animator* animator;
 
+	std::vector<std::tuple<int,float,float>> animationVector;
+
+	std::tuple<int, float, float> playThisAnimation;
 
 
 private:

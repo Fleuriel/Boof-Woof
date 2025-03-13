@@ -1,4 +1,4 @@
-#define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
+﻿#define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
 #include <Windows.h>
 #include "ImGuiEditor.h"
 #ifdef MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS
@@ -1974,7 +1974,7 @@ void ImGuiEditor::InspectorWindow()
 
 //											auto& animationComponent = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
 
-
+											graphicsComponent.chooseModel = true;
 
 											// Selection changed
 											std::string newModelName = modelNames[currentItem];
@@ -1999,73 +1999,6 @@ void ImGuiEditor::InspectorWindow()
 
 										ImGui::PopID();
 									}
-
-
-								
-
-									//std::vector<int>  textureIds = graphicsComponent.getTextures();
-
-									//ImGui::Text("Texture ");
-									//ImGui::SameLine();
-									//ImGui::PushID("Textures");
-
-									
-
-
-
-									//ImGui::SameLine();
-
-									// Store old value before opening the file dialog
-									//static std::string oldTextureName = "";
-									//if (ImGui::Button("Set Texture"))
-									//{
-									//	//oldTextureName = currentTextureName; // Capture the old value
-									//	ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
-									//}
-									//
-									//if (ImGuiFileDialog::Instance()->Display("SetTexture"))
-									//{
-									//	if (ImGuiFileDialog::Instance()->IsOk())
-									//	{
-									//		// User selected a file
-									//		std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
-									//		size_t lastDotPos = selectedFile.find_last_of(".");
-									//		if (lastDotPos != std::string::npos)
-									//		{
-									//			selectedFile = selectedFile.substr(0, lastDotPos);
-									//		}
-									//
-									//		//newTextureName = selectedFile;
-									//		//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
-									//		int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
-									//		graphicsComponent.AddTexture(textureId);
-									//		graphicsComponent.setTexture(selectedFile);
-									//
-									//
-									//
-									//		// Execute undo/redo command
-									//		/*std::string oldValue = oldTextureName;
-									//		Entity entity = g_SelectedEntity;*/
-									//
-									//		/*g_UndoRedoManager.ExecuteCommand(
-									//			[entity, newTextureName]() {
-									//				auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-									//				component.setTexture(newTextureName);
-									//			},
-									//			[entity, oldValue]() {
-									//				auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-									//				component.setTexture(oldValue);
-									//			}
-									//		);*/
-									//	}
-									//	ImGuiFileDialog::Instance()->Close();
-									//}
-									//
-									//ImGui::PopID();
-
-
-
-
 
 									// Handel Camera Property
 									auto FollowCameraProperty = std::find_if(properties.begin(), properties.end(),
@@ -2140,29 +2073,45 @@ void ImGuiEditor::InspectorWindow()
 							// Show the dropdown menu if there are any files
 							
 							if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
-								auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
+								
 								auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+							//	if (graphicsComp.chooseModel)
+					
+								
+								auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
+
 
 
 								animationComp.animationName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
 								animationComp.animatorName = animationComp.animationName;
 
+
+
 								// Get Delta Time
 								float& deltaTime = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity).m_DeltaTime;
 
 								// Static variables to store animation time and play/pause state
-								static float animationTime = 0.0f;
-								
-								
+								static float animationTime = 0.0f;								
+								static float startTime = 0.0f;
+								static float endTime = 0.0f;
+								static bool printProblem = false;
+								static int animNameBuffer = 0;
+								static int currentIndex = 0; // Track which animation we are playing
+								static bool isPlaying = false; // Play state
+
+								static int inputValue = 0;
+
 
 								ImGui::Text("Name of Animation: %s", animationComp.animationName.c_str());
 								ImGui::Text("Duration: %.2f s", animationComp.m_Duration);
 
+								ImGui::Separator();
+
+								ImGui::PushItemWidth(400.f);
+
 								// Slider for animation progress (also acts as manual seek bar)
 								if (ImGui::SliderFloat("##AnimationProgress", &deltaTime, 0.0f, animationComp.m_Duration, "%.2f s")) {
 									graphicsComp.pauseAnimation = true;  // Pause when user interacts
-								//	std::cout << "User manually set animation time: " << deltaTime << '\n';
-
 
 									graphicsComp.SetAnimationTime(deltaTime);
 								}
@@ -2172,11 +2121,101 @@ void ImGuiEditor::InspectorWindow()
 								}
 
 								ImGui::Text("Delta Time of Game Application:  %.2f", deltaTime);
+
+
+
+								ImGui::Text("Enter Animation Time Range");
+								
+								
+								
+								ImGui::PushItemWidth(100.f);
+
+								// Input floats for Start and End Time
+								ImGui::Value("Save",inputValue);
+								ImGui::PushItemWidth(400.f);
+								ImGui::SliderFloat("Start Time", &startTime, 0.1f, animationComp.m_Duration, "%.2f s");
+								ImGui::SliderFloat("End Time", &endTime, 0.1f, animationComp.m_Duration, "%.2f s");
+
+
+								if (ImGui::Button("Save Range")) {
+									printProblem = false;
+
+									//  Check if input is valid
+									if (startTime < endTime) {
+										animationComp.animationVector.push_back({ inputValue , startTime, endTime });
+
+										std::cout << "Saved Animation Range: [" <<  inputValue
+											<< "] (" << startTime << "s - " << endTime << "s)\n";
+
+										inputValue++;
+										startTime = 0.0f;
+										endTime = 0.0f;
+									}
+									else {
+										printProblem = true;
+									}
+								}
+
+								if (printProblem)
+								{
+									ImGui::Separator();
+									ImGui::Text(" Invalid range! Start time must be less than End time");
+									ImGui::Text(" & Name cannot be empty.");
+								}
+
+
+								ImGui::Separator(); // UI separator for clarity
+
+								if (ImGui::InputInt("Enter Animation Name", &animNameBuffer)) {
+									currentIndex = 0; // Reset index if input changes
+								}
+
+
+
+								if (ImGui::Button(isPlaying ? "Stop" : "Play")) {
+
+									// Find animation range in the vector using the input animation ID
+									auto it = std::find_if(animationComp.animationVector.begin(), animationComp.animationVector.end(),
+										[&](const auto& d) { return std::get<0>(d) == animNameBuffer; });
+
+									if (it != animationComp.animationVector.end()) {
+
+										isPlaying = !isPlaying; // Toggle play state
+										if (isPlaying) {
+											int val = std::get<0>(*it);
+											float start = std::get<1>(*it);
+											float end = std::get<2>(*it);
+
+											std::cout << "Playing animation ID [" << val << "] from "
+												<< start << "s to " << end << "s\n";
+
+											animationComp.playThisAnimation = std::make_tuple(val, start, end);
+										//	animationComp.currentTime = start;  // Reset time to start
+
+											currentIndex = 0;  // Reset index when starting
+										}
+
+									}
+									else {
+										std::cout << "Animation ID not found!\n";
+									}
+								}
+
+								// Display the saved animation time ranges
+								if (!animationComp.animationVector.empty()) {
+									ImGui::Text("Saved Animation Ranges:");
+									int i = 0;
+									for (const auto& d : animationComp.animationVector)
+									{
+										ImGui::Text("[%zu] %.2f - %.2f ", std::get<0>(d), std::get<1>(d), std::get<2>(d));
+									}
+								}
+
+
+
+								ImGui::Text("Stuff: [%zu] %.2f - %.2f ", std::get<0>(animationComp.playThisAnimation), std::get<1>(animationComp.playThisAnimation), std::get<2>(animationComp.playThisAnimation));
+
 							}
-
-
-							
-
 						}
 						else if (className == "AudioComponent")
 						{

@@ -210,6 +210,8 @@ public:
   //      graphics.hasAnimation = false;
   //  }
 
+    bool chooseModel = false;
+
 private:
 
     float AnimTime;
