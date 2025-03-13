@@ -120,6 +120,8 @@ void UI::OnShutdown()
 			}
 		}
 	}
+
+	storage.clear();
 }
 
 void UI::Sniff(const std::vector<Entity>& particles, float dt)

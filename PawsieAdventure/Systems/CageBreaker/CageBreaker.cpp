@@ -157,17 +157,27 @@ void CageBreaker::DespawnCage()
 		}
 	}
 
+	std::vector<Entity> checklistEnt = { g_Checklist.Paper, g_Checklist.Do1, g_Checklist.Do2, g_Checklist.Do3, g_Checklist.Box1, g_Checklist.Box2, g_Checklist.Box3 };
+	g_Checklist.HideChecklistUI(checklistEnt, false);
+
 	g_BoneCatcher.isCage = false;
 }
 
 void CageBreaker::SaveProgress()
 {
-	if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1 && !g_BoneCatcher.savePawgress)
+	if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1 && !g_BoneCatcher.savePawgress)
 	{
+		std::vector<Entity> checklistEnt = { g_Checklist.Paper, g_Checklist.Do1, g_Checklist.Do2, g_Checklist.Do3, g_Checklist.Box1, g_Checklist.Box2, g_Checklist.Box3 };
+		g_Checklist.HideChecklistUI(checklistEnt, false);
+
 		if (CollidedCage1) 
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(cage1Collider).SetLastCollidedObjectName("Floor");
+			
 			CageHitCounts[1] = g_BoneCatcher.m_HitCount;
+			speedCage[1] = g_BoneCatcher.m_Speed;
+			directionCage[1] = g_BoneCatcher.m_Direction;
+
 			CollidedCage1 = false;
 		}
 
@@ -175,6 +185,9 @@ void CageBreaker::SaveProgress()
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(cage2Collider).SetLastCollidedObjectName("Floor");
 			CageHitCounts[2] = g_BoneCatcher.m_HitCount;
+			speedCage[2] = g_BoneCatcher.m_Speed;
+			directionCage[2] = g_BoneCatcher.m_Direction;
+
 			CollidedCage2 = false;
 		}
 
@@ -182,6 +195,9 @@ void CageBreaker::SaveProgress()
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(cage3Collider).SetLastCollidedObjectName("Floor");
 			CageHitCounts[3] = g_BoneCatcher.m_HitCount;
+			speedCage[3] = g_BoneCatcher.m_Speed;
+			directionCage[3] = g_BoneCatcher.m_Direction;
+
 			CollidedCage3 = false;
 		}
 

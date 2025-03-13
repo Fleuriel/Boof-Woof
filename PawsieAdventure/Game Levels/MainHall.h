@@ -48,7 +48,7 @@ class MainHall : public Level
 	bool dialogueFirst{ false }, dialogueSecond{ false }, dialogueThird{ false };
 
 	double sniffCooldownTimer = 0.0;  // Timer for sniff cooldown
-	const double sniffCooldownDuration = 16.0;  // 16 seconds cooldown
+	const double sniffCooldownDuration = 17.0;  // 17 seconds cooldown
 	bool isSniffOnCooldown = false;  // Track cooldown state
 
 
@@ -125,7 +125,7 @@ class MainHall : public Level
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
 
 		g_DialogueText.OnInitialize();
-		g_DialogueText.setDialogue(DialogueState::OUTOFLIBRARY);
+		g_DialogueText.setDialogue(DialogueState::INMAINHALL);
 
 		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 
@@ -208,11 +208,8 @@ class MainHall : public Level
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav", false, "SFX");
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav", true, "BGM");
 
-
 					g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", 0.4f);
 					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav");
-
-
 				}
 				g_TimerTR.OnUpdate(deltaTime);
 
@@ -257,8 +254,6 @@ class MainHall : public Level
 			}
 
 			// just for speed testing to rope breaker
-			// collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
-
 			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1) 
 			{
 				collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
@@ -288,19 +283,6 @@ class MainHall : public Level
 				g_RopeBreaker.OnUpdate(deltaTime);
 			}
 
-			//if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
-			//{
-			//	if (!teb_last)
-			//	{
-			//		teb_last = true;
-			//		cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
-			//	}
-			//}
-			//else
-			//{
-			//	teb_last = false;
-			//}
-
 			if (isSniffOnCooldown)
 			{
 				sniffCooldownTimer += deltaTime;
@@ -316,7 +298,6 @@ class MainHall : public Level
 			{
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiSniff.wav", false, "SFX");
 
-				//SetDefaultPeePosition();
 				g_SmellAvoidance.SetDefaultPeePosition();
 
 				isSniffOnCooldown = true;  // Start cooldown
@@ -347,7 +328,6 @@ class MainHall : public Level
 				colorChangeTimer += deltaTime;
 				if (colorChangeTimer >= colorChangeDuration)
 				{
-					//SetNewPeePosition();
 					g_SmellAvoidance.SetNewPeePosition();
 
 					isColorChanged = false;
@@ -521,6 +501,7 @@ private:
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
 			collectedPuppy1 = true;
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark1.wav", false, "SFX");
+			g_BoneCatcher.puppyCollisionOrder.push_back(1); 
 		}
 
 		if (puppy2Collided && !collectedPuppy2)
@@ -529,6 +510,7 @@ private:
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
 			collectedPuppy2 = true;
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark2.wav", false, "SFX");
+			g_BoneCatcher.puppyCollisionOrder.push_back(2); 
 		}
 
 		if (puppy3Collided && !collectedPuppy3)
@@ -537,6 +519,7 @@ private:
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
 			collectedPuppy3 = true;
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark3.wav", false, "SFX");
+			g_BoneCatcher.puppyCollisionOrder.push_back(3); 
 		}
 
 		if (puppiesCollected == 1 && !dialogueFirst)

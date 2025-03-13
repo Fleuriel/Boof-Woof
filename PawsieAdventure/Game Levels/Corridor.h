@@ -10,9 +10,38 @@ class Corridor : public Level
 {
 	Entity playerEnt{};
 	CameraController* cameraController = nullptr;
+
+	double sniffCooldownTimer = 0.0;  // Timer for sniff cooldown
+	const double sniffCooldownDuration = 17.0;  // 17 seconds cooldown
+	bool isSniffOnCooldown = false;  // Track cooldown state
+
+	bool bark = false;
+
+	std::vector<std::string> bitingSounds = {
+	"Corgi/DogBite_01.wav",
+	"Corgi/DogBite_02.wav",
+	"Corgi/DogBite_03.wav",
+	"Corgi/DogBite_04.wav",
+	"Corgi/DogBite_05.wav",
+	"Corgi/DogBite_06.wav",
+	"Corgi/DogBite_07.wav",
+	};
+
+
+	// Function to get a random sound from a vector
+	std::string GetRandomSound(const std::vector<std::string>& soundList) {
+		static std::random_device rd;
+		static std::mt19937 gen(rd()); // Mersenne Twister PRNG
+		std::uniform_int_distribution<std::size_t> dis(0, soundList.size() - 1);
+		return soundList[dis(gen)];
+	}
+
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/SecondCorridor.json");
+
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", true, "BGM");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav", true, "SFX");
 		//g_TimerTR.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -52,6 +81,10 @@ class Corridor : public Level
 		cameraController = new CameraController(playerEnt);
 		camerachange = false;
 
+
+		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
+		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
+
 		g_DialogueText.OnInitialize();
 		g_DialogueText.setDialogue(DialogueState::OUTOFLIBRARY);
 
@@ -77,6 +110,49 @@ class Corridor : public Level
 
 			g_UI.OnUpdate(static_cast<float>(deltaTime));
 			g_DialogueText.OnUpdate(deltaTime);
+			// Take this away once u shift to script
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
+			{
+				std::string biteSound = FILEPATH_ASSET_AUDIO + "/" + GetRandomSound(bitingSounds);
+				g_Audio.PlayFileOnNewChannel(biteSound.c_str(), false, "SFX");
+
+				bark = true;
+
+				// Reset bark after a short delay to allow multiple bites
+				std::thread([&]() {
+					std::this_thread::sleep_for(std::chrono::milliseconds(500)); // 500ms delay
+					bark = false;
+					}).detach();
+			}
+
+
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 0)
+			{
+				bark = false;
+			}
+			// Accumulate time for cooldown
+			if (isSniffOnCooldown) {
+				sniffCooldownTimer += deltaTime;
+				if (sniffCooldownTimer >= sniffCooldownDuration) {
+					isSniffOnCooldown = false;  // Reset cooldown
+					sniffCooldownTimer = 0.0;   // Reset timer
+				}
+			}
+
+			// Sniffing logic with cooldown check
+			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !isSniffOnCooldown)
+			{
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CorgiSniff.wav", false, "SFX");
+
+
+				isSniffOnCooldown = true;  // Start cooldown
+				sniffCooldownTimer = 0.0;  // Reset timer to start counting 16 seconds
+			}
+
+		
+
+
+
 
 			if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "CastleWallDoor")
 			{
@@ -107,6 +183,8 @@ class Corridor : public Level
 	void UnloadLevel() override
 	{
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav");
 		g_Coordinator.ResetEntities();
 	}
 

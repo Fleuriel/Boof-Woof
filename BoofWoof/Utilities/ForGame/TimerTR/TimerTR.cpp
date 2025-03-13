@@ -100,6 +100,7 @@ void TimerTR::OnShutdown()
 		}
 	}
 
+	storage.clear();
 	timer = 30.0;
 }
 

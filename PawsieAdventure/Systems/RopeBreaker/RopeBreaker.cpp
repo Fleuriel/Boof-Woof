@@ -5,6 +5,7 @@
 #include "../Utilities/ForGame/Dialogue/Dialogue.h"
 #include <Level Manager/LevelManager.h>
 #include "../ChangeText/ChangeText.h"
+#include "../../../BoofWoof/Utilities/ForGame/UI/UI.h"
 
 
 RopeBreaker g_RopeBreaker;
@@ -25,11 +26,6 @@ void RopeBreaker::OnUpdate(double deltaTime)
 
 		// Only saves when you press ESC key
 		SaveRopeProgress();
-
-		/*if (!g_ChangeText.startingRoomOnly) 
-		{
-			SaveRopeProgress();
-		}*/
 	}
 
 	if (RopeDespawned >= 2 && !isFalling)
@@ -92,7 +88,13 @@ void RopeBreaker::CheckCollision()
 	{
 		if (Rope1Colliding && !PlayerCollidedRope1)
 		{
-			if (!firstRopeTouched && !g_ChangeText.startingRoomOnly)
+			if (!firstRopeTouched && g_ChangeText.startingRoomOnly)
+			{
+				g_DialogueText.OnInitialize();
+				g_DialogueText.setDialogue(DialogueState::FIRSTROPEBITE);
+				firstRopeTouched = true;
+			}
+			else if (!firstRopeTouched && !g_ChangeText.startingRoomOnly) 
 			{
 				g_DialogueText.OnInitialize();
 				g_DialogueText.setDialogue(DialogueState::BREAKROPES);
@@ -214,6 +216,9 @@ void RopeBreaker::DespawnRope()
 		g_DialogueText.setDialogue(DialogueState::BROKEROPE1);
 	}
 
+	std::vector<Entity> checklistEnt = { g_Checklist.Paper, g_Checklist.Do1, g_Checklist.Box1 };
+	g_Checklist.HideChecklistUI(checklistEnt, false);
+
 	g_BoneCatcher.isRope = false;
 }
 
@@ -238,18 +243,40 @@ void RopeBreaker::DespawnRopeInStartingRoom()
 			deletedRope1 = true;
 			PlayerCollidedRope1 = false;
 		}
+
+		std::vector<Entity> checklistEnt = { g_Checklist.Paper, g_Checklist.Do1, g_Checklist.Do2, g_Checklist.Do3, g_Checklist.Do4, g_Checklist.Box1, g_Checklist.Box2, g_Checklist.Box3, g_Checklist.Box4 };
+		g_Checklist.HideChecklistUI(checklistEnt, false);
+
+		g_BoneCatcher.isRope = false;
+		firstRopeTouched = false;
 	}
 }
 
 void RopeBreaker::SaveRopeProgress()
 {
-	if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1 && !g_BoneCatcher.savePawgress)
+	if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1 && !g_BoneCatcher.savePawgress)
 	{
+		if (g_ChangeText.startingRoomOnly) 
+		{
+			std::vector<Entity> checklistEnt = { g_Checklist.Paper, g_Checklist.Do1, g_Checklist.Do2, g_Checklist.Do3, g_Checklist.Do4, g_Checklist.Box1, g_Checklist.Box2, g_Checklist.Box3, g_Checklist.Box4 };
+			g_Checklist.HideChecklistUI(checklistEnt, false);
+		}
+
+		if (g_UI.finishCaged)
+		{
+			std::vector<Entity> checklistEnt = { g_Checklist.Paper, g_Checklist.Do1, g_Checklist.Box1 };
+			g_Checklist.HideChecklistUI(checklistEnt, false);
+		}
+
 		if (PlayerCollidedRope1)
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(rope1).SetLastCollidedObjectName("Floor");
 			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
+
 			RopeHitCounts[1] = g_BoneCatcher.m_HitCount;
+			speedRope[1] = g_BoneCatcher.m_Speed;
+			directionRope[1] = g_BoneCatcher.m_Direction;
+
 			Rope1Colliding = false;
 			PlayerCollidedRope1 = false;
 		}
@@ -258,7 +285,11 @@ void RopeBreaker::SaveRopeProgress()
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(rope2).SetLastCollidedObjectName("Floor");
 			g_Coordinator.GetComponent<CollisionComponent>(player).SetLastCollidedObjectName("Floor");
+
 			RopeHitCounts[2] = g_BoneCatcher.m_HitCount;
+			speedRope[2] = g_BoneCatcher.m_Speed;
+			directionRope[2] = g_BoneCatcher.m_Direction;
+
 			Rope2Colliding = false;
 			PlayerCollidedRope2 = false;
 		}

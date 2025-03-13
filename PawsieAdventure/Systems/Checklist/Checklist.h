@@ -13,6 +13,7 @@ public:
 	void AddCorgiText();
 	void Reset();
 
+	void HideChecklistUI(std::vector<Entity> ent, bool hide);
 	void ChangeAsset(Entity ent, glm::vec2 scale, std::string textureName);
 
 public:

@@ -34,7 +34,7 @@ class TimeRush : public Level
 	double timesUp = 2.0;
 
 	double sniffCooldownTimer = 0.0;  // Accumulates time
-	const double sniffCooldownDuration = 17.0;  // 16 seconds
+	const double sniffCooldownDuration = 17.0;  // 17 seconds
 	bool isSniffOnCooldown = false;
 
 	std::vector<Entity> particleEntities;

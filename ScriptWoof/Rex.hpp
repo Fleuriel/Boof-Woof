@@ -82,6 +82,7 @@ struct Rex final : public Behaviour
                 if (CheckifPlayerInFront(entity)) {
                     //std::cout << "This is crazy\n\n\n\n\n";
                     state = State::CHASE;
+                    m_Engine.SetDialogue(8);
                     break;
                 }
                 //std::cout << "[Rex] Patrolling...\n";
