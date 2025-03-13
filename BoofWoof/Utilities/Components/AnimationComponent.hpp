@@ -26,6 +26,10 @@ public:
 
 	AnimationComponent() : animatorName(" "), animationName(" "), m_Duration(0.0f), m_DeltaTime(0.0f) {}
 
+
+
+	AnimationComponent(std::string name) : animatorName(name), animationName(name), m_Duration(0.0f), m_DeltaTime(0.0f) {}
+
 	Animation* animation;
 	Animator* animator;
 

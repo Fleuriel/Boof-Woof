@@ -220,6 +220,37 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
         }
 
+        if (g_Coordinator.HaveComponent<AnimationComponent>(entity))
+        {
+            rapidjson::Value Anim(rapidjson::kObjectType);
+
+            auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
+
+            // Store the number of animation points
+            Anim.AddMember("Number of Animation Points",
+                rapidjson::Value(static_cast<int>(animationComp.animationVector.size())),
+                allocator);
+
+            // Create an array to hold all animation data
+            rapidjson::Value animationArray(rapidjson::kArrayType);
+
+            for (const auto& anim : animationComp.animationVector)
+            {
+                rapidjson::Value animData(rapidjson::kObjectType);
+                animData.AddMember("Animation ID", rapidjson::Value(std::get<0>(anim)), allocator);
+                animData.AddMember("Start Time", rapidjson::Value(std::get<1>(anim)), allocator);
+                animData.AddMember("End Time", rapidjson::Value(std::get<2>(anim)), allocator);
+
+                animationArray.PushBack(animData, allocator);
+            }
+
+            // Add the array of animations to the JSON object
+            Anim.AddMember("Animations", animationArray, allocator);
+
+            // Now, Anim contains all animation data in JSON format
+        }
+
+
         // Serialize AudioComponent
         if (g_Coordinator.HaveComponent<AudioComponent>(entity)) 
         {
@@ -806,6 +837,44 @@ bool Serialization::LoadScene(const std::string& filepath)
                     g_Coordinator.AddComponent(entity, graphicsComponent);
                 }
             }
+
+            if (entityData.HasMember("AnimationComponent"))
+            {
+                const rapidjson::Value& Anim = entityData["AnimationComponent"];
+
+                if (Anim.HasMember("Number of Animation Points") && Anim.HasMember("Animations"))
+                {
+                    // Retrieve the animation component
+                    auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
+
+                    // Clear existing animations before loading new ones
+                    animationComp.animationVector.clear();
+
+                    int numPoints = Anim["Number of Animation Points"].GetInt();
+                    const rapidjson::Value& animationArray = Anim["Animations"];
+
+                    if (animationArray.IsArray())
+                    {
+                        for (rapidjson::SizeType i = 0; i < animationArray.Size(); i++)
+                        {
+                            const rapidjson::Value& animData = animationArray[i];
+
+                            if (animData.HasMember("Animation ID") && animData.HasMember("Start Time") && animData.HasMember("End Time"))
+                            {
+                                int animID = animData["Animation ID"].GetInt();
+                                float startTime = animData["Start Time"].GetFloat();
+                                float endTime = animData["End Time"].GetFloat();
+
+                                animationComp.animationVector.emplace_back(animID, startTime, endTime);
+                            }
+                        }
+                    }
+
+                    std::cout << "Loaded " << numPoints << " animation points.\n";
+                }
+            }
+
+
 
             // Deserialize AudioComponent
             if (entityData.HasMember("AudioComponent"))
@@ -1531,6 +1600,27 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
             }
 
             g_Coordinator.AddComponent(newE, graphicsComp);
+        }
+
+        // -- AnimationComponent --
+        if (jsonObj.HasMember("AnimationComponent"))
+        {
+
+            
+
+            const auto& GData = jsonObj["AnimationComponent"];
+
+            if (GData.HasMember("Number of Animation Points"))
+            {
+                
+            }
+
+
+
+            AnimationComponent animComp();
+
+
+            g_Coordinator.AddComponent(newE, animComp);
         }
 
         // -- AudioComponent --
