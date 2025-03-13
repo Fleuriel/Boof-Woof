@@ -45,6 +45,9 @@ struct RexChase final : public Behaviour
         followingPath = false;
         isMovingRex = false;
         currentPathIndex = 0;
+        
+		// FOR TESTING PURPOSES
+        state = MOVING;
     }
 
     virtual void Update(Entity entity) override
@@ -90,7 +93,7 @@ struct RexChase final : public Behaviour
             }
             else if (m_Engine.GetTRtimer() > 0.0f)
             {
-                return;
+                //return;
             }
 
             if (playerEntity == INVALID_ENT)
