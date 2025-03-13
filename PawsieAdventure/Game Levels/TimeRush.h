@@ -60,6 +60,7 @@ class TimeRush : public Level
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/TimeRushPuzzle.json");
+		//g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/TimeRushTest2.json");
 		g_TimerTR.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();

@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "322ba034-e274-4bd8-9c8f-1de0851ed44b",
+    "SceneGUID": "8d96a47d-53e6-47f7-bd19-fe67903a94e4",
     "Entities": [
         {
             "MetadataComponent": {
@@ -204,9 +204,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 22.571380615234376,
+                    "x": 22.364490509033204,
                     "y": 0.9999998807907105,
-                    "z": 5.106747150421143
+                    "z": 5.108699798583984
                 },
                 "Scale": {
                     "x": 0.4999885857105255,
@@ -230,6 +230,12 @@
             },
             "BehaviourComponent": {
                 "BehaviourName": "Player"
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": [
+                    556
+                ]
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
@@ -15967,7 +15973,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 20.010234832763673,
-                    "y": 2.2693541049957277,
+                    "y": 1.600000023841858,
                     "z": 17.999996185302736
                 },
                 "Scale": {
@@ -23874,6 +23880,46 @@
                 "StartNode": 102,
                 "EndNode": 103,
                 "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PlayerNode",
+                "EntityID": 556
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 4,
+                "Children": []
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
             }
         }
     ]

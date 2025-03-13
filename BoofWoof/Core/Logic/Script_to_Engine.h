@@ -416,6 +416,10 @@ public:
 		return list[dist(gen)];
 	}
 
+	virtual void ForcePathfindingUpdate() override {
+		return g_Coordinator.GetSystem<PathfindingSystem>()->ForceImmediateUpdate();
+	}
+
 	virtual Entity GetPlayerEntity() override
 	{
 		for (auto entity : g_Coordinator.GetAliveEntitiesSet())

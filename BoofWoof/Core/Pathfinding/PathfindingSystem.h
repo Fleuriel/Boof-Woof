@@ -98,6 +98,7 @@ public:
 
 	Entity GetClosestNode(const glm::vec3& position);
     std::vector<Entity> GetNodeList();
+    void ForceImmediateUpdate();
 
 private:
     std::unordered_map<Entity, std::shared_ptr<Node3D>> graphNodes;  // Nodes in the graph

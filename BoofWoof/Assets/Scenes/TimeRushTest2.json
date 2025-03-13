@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "322ba034-e274-4bd8-9c8f-1de0851ed44b",
+    "SceneGUID": "9699df63-0301-43e5-ab31-544716ef56d7",
     "Entities": [
         {
             "MetadataComponent": {
@@ -204,9 +204,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 22.571380615234376,
-                    "y": 0.9999998807907105,
-                    "z": 5.106747150421143
+                    "x": 23.750070571899415,
+                    "y": 0.9999998211860657,
+                    "z": 5.096920013427734
                 },
                 "Scale": {
                     "x": 0.4999885857105255,
@@ -230,6 +230,10 @@
             },
             "BehaviourComponent": {
                 "BehaviourName": "Player"
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
@@ -262,6 +266,25 @@
                     "z": 0.0
                 },
                 "Active": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -15967,7 +15990,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 20.010234832763673,
-                    "y": 2.2693541049957277,
+                    "y": 1.600000023841858,
                     "z": 17.999996185302736
                 },
                 "Scale": {
@@ -16030,44 +16053,14 @@
                         "z": -4.5
                     },
                     {
-                        "x": 20.0,
+                        "x": 23.0,
                         "y": 0.0,
-                        "z": 3.0
+                        "z": -4.5
                     },
                     {
-                        "x": 26.0,
+                        "x": 28.0,
                         "y": 0.0,
-                        "z": 3.0
-                    },
-                    {
-                        "x": 31.0,
-                        "y": 0.0,
-                        "z": 3.0
-                    },
-                    {
-                        "x": 36.0,
-                        "y": 0.0,
-                        "z": 3.0
-                    },
-                    {
-                        "x": 36.0,
-                        "y": 0.0,
-                        "z": -3.0
-                    },
-                    {
-                        "x": 36.0,
-                        "y": 0.0,
-                        "z": -8.0
-                    },
-                    {
-                        "x": 36.0,
-                        "y": 0.0,
-                        "z": -13.0
-                    },
-                    {
-                        "x": 31.0,
-                        "y": 0.0,
-                        "z": -13.0
+                        "z": -4.5
                     },
                     {
                         "x": 28.0,
@@ -19849,8 +19842,8 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 5,
-                "EndNode": 6,
+                "StartNode": 0,
+                "EndNode": 1,
                 "Cost": 1.0
             }
         },
@@ -19882,238 +19875,7 @@
                 }
             },
             "EdgeComponent": {
-                "StartNode": 6,
-                "EndNode": 7,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 447
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 7,
-                "EndNode": 8,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 448
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 8,
-                "EndNode": 9,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 449
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 9,
-                "EndNode": 10,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 450
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 10,
-                "EndNode": 11,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 451
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 11,
-                "EndNode": 12,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 452
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 12,
-                "EndNode": 13,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 453
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 13,
+                "StartNode": 1,
                 "EndNode": 2,
                 "Cost": 1.0
             }
@@ -20121,73 +19883,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 454
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 2,
-                "EndNode": 1,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 455
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 1,
-                "EndNode": 0,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 456
+                "EntityID": 447
             },
             "TransformComponent": {
                 "Position": {
@@ -20220,7 +19916,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 457
+                "EntityID": 448
             },
             "TransformComponent": {
                 "Position": {
@@ -20247,6 +19943,315 @@
             "EdgeComponent": {
                 "StartNode": 3,
                 "EndNode": 4,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 449
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 4,
+                "EndNode": 5,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 450
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 5,
+                "EndNode": 6,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 451
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 6,
+                "EndNode": 7,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 452
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 7,
+                "EndNode": 8,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 453
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 8,
+                "EndNode": 9,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 454
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 9,
+                "EndNode": 10,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 455
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 10,
+                "EndNode": 11,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 456
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 11,
+                "EndNode": 12,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 457
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 12,
+                "EndNode": 13,
                 "Cost": 1.0
             }
         },
@@ -20948,7 +20953,7 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 20,
+                "StartNode": 31,
                 "EndNode": 32,
                 "Cost": 1.0
             }
@@ -21059,7 +21064,7 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 21,
+                "StartNode": 34,
                 "EndNode": 35,
                 "Cost": 1.0
             }
@@ -21097,80 +21102,6 @@
             },
             "EdgeComponent": {
                 "StartNode": 35,
-                "EndNode": 32,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 481
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
-            },
-            "EdgeComponent": {
-                "StartNode": 35,
-                "EndNode": 34,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 482
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
-            },
-            "EdgeComponent": {
-                "StartNode": 34,
                 "EndNode": 36,
                 "Cost": 1.0
             }
@@ -21178,7 +21109,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 483
+                "EntityID": 481
             },
             "TransformComponent": {
                 "Position": {
@@ -21215,7 +21146,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 484
+                "EntityID": 482
             },
             "TransformComponent": {
                 "Position": {
@@ -21252,7 +21183,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 485
+                "EntityID": 483
             },
             "TransformComponent": {
                 "Position": {
@@ -21289,7 +21220,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 486
+                "EntityID": 484
             },
             "TransformComponent": {
                 "Position": {
@@ -21326,7 +21257,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 487
+                "EntityID": 485
             },
             "TransformComponent": {
                 "Position": {
@@ -21363,7 +21294,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 488
+                "EntityID": 486
             },
             "TransformComponent": {
                 "Position": {
@@ -21400,7 +21331,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 489
+                "EntityID": 487
             },
             "TransformComponent": {
                 "Position": {
@@ -21437,7 +21368,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 490
+                "EntityID": 488
             },
             "TransformComponent": {
                 "Position": {
@@ -21474,7 +21405,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 491
+                "EntityID": 489
             },
             "TransformComponent": {
                 "Position": {
@@ -21511,7 +21442,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 492
+                "EntityID": 490
             },
             "TransformComponent": {
                 "Position": {
@@ -21548,7 +21479,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 493
+                "EntityID": 491
             },
             "TransformComponent": {
                 "Position": {
@@ -21585,7 +21516,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 494
+                "EntityID": 492
             },
             "TransformComponent": {
                 "Position": {
@@ -21622,7 +21553,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 495
+                "EntityID": 493
             },
             "TransformComponent": {
                 "Position": {
@@ -21659,7 +21590,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 496
+                "EntityID": 494
             },
             "TransformComponent": {
                 "Position": {
@@ -21696,7 +21627,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 497
+                "EntityID": 495
             },
             "TransformComponent": {
                 "Position": {
@@ -21733,7 +21664,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 498
+                "EntityID": 496
             },
             "TransformComponent": {
                 "Position": {
@@ -21770,7 +21701,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 499
+                "EntityID": 497
             },
             "TransformComponent": {
                 "Position": {
@@ -21807,7 +21738,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 500
+                "EntityID": 498
             },
             "TransformComponent": {
                 "Position": {
@@ -21844,7 +21775,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 501
+                "EntityID": 499
             },
             "TransformComponent": {
                 "Position": {
@@ -21881,7 +21812,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 502
+                "EntityID": 500
             },
             "TransformComponent": {
                 "Position": {
@@ -21918,7 +21849,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 503
+                "EntityID": 501
             },
             "TransformComponent": {
                 "Position": {
@@ -21955,7 +21886,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 504
+                "EntityID": 502
             },
             "TransformComponent": {
                 "Position": {
@@ -21992,7 +21923,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 505
+                "EntityID": 503
             },
             "TransformComponent": {
                 "Position": {
@@ -22029,7 +21960,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 506
+                "EntityID": 504
             },
             "TransformComponent": {
                 "Position": {
@@ -22066,7 +21997,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 507
+                "EntityID": 505
             },
             "TransformComponent": {
                 "Position": {
@@ -22103,7 +22034,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 508
+                "EntityID": 506
             },
             "TransformComponent": {
                 "Position": {
@@ -22140,7 +22071,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 509
+                "EntityID": 507
             },
             "TransformComponent": {
                 "Position": {
@@ -22177,7 +22108,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 510
+                "EntityID": 508
             },
             "TransformComponent": {
                 "Position": {
@@ -22214,7 +22145,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 511
+                "EntityID": 509
             },
             "TransformComponent": {
                 "Position": {
@@ -22251,7 +22182,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 512
+                "EntityID": 510
             },
             "TransformComponent": {
                 "Position": {
@@ -22288,7 +22219,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 513
+                "EntityID": 511
             },
             "TransformComponent": {
                 "Position": {
@@ -22317,7 +22248,7 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 61,
+                "StartNode": 66,
                 "EndNode": 67,
                 "Cost": 1.0
             }
@@ -22325,44 +22256,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 514
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
-            },
-            "EdgeComponent": {
-                "StartNode": 62,
-                "EndNode": 67,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 515
+                "EntityID": 512
             },
             "TransformComponent": {
                 "Position": {
@@ -22399,7 +22293,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 516
+                "EntityID": 513
             },
             "TransformComponent": {
                 "Position": {
@@ -22436,7 +22330,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 517
+                "EntityID": 514
             },
             "TransformComponent": {
                 "Position": {
@@ -22465,7 +22359,7 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 55,
+                "StartNode": 69,
                 "EndNode": 70,
                 "Cost": 1.0
             }
@@ -22473,7 +22367,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 518
+                "EntityID": 515
             },
             "TransformComponent": {
                 "Position": {
@@ -22510,81 +22404,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 519
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
-            },
-            "EdgeComponent": {
-                "StartNode": 70,
-                "EndNode": 74,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 520
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
-            },
-            "EdgeComponent": {
-                "StartNode": 74,
-                "EndNode": 73,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 521
+                "EntityID": 516
             },
             "TransformComponent": {
                 "Position": {
@@ -22621,7 +22441,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 522
+                "EntityID": 517
             },
             "TransformComponent": {
                 "Position": {
@@ -22658,7 +22478,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 523
+                "EntityID": 518
             },
             "TransformComponent": {
                 "Position": {
@@ -22687,7 +22507,7 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 72,
+                "StartNode": 73,
                 "EndNode": 74,
                 "Cost": 1.0
             }
@@ -22695,7 +22515,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 524
+                "EntityID": 519
             },
             "TransformComponent": {
                 "Position": {
@@ -22724,7 +22544,7 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 72,
+                "StartNode": 74,
                 "EndNode": 75,
                 "Cost": 1.0
             }
@@ -22732,7 +22552,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 525
+                "EntityID": 520
             },
             "TransformComponent": {
                 "Position": {
@@ -22769,44 +22589,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 526
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
-            },
-            "EdgeComponent": {
-                "StartNode": 71,
-                "EndNode": 77,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 527
+                "EntityID": 521
             },
             "TransformComponent": {
                 "Position": {
@@ -22843,44 +22626,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 528
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
-            },
-            "EdgeComponent": {
-                "StartNode": 76,
-                "EndNode": 78,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 529
+                "EntityID": 522
             },
             "TransformComponent": {
                 "Position": {
@@ -22917,7 +22663,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 530
+                "EntityID": 523
             },
             "TransformComponent": {
                 "Position": {
@@ -22954,7 +22700,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 531
+                "EntityID": 524
             },
             "TransformComponent": {
                 "Position": {
@@ -22991,7 +22737,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 532
+                "EntityID": 525
             },
             "TransformComponent": {
                 "Position": {
@@ -23028,7 +22774,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 533
+                "EntityID": 526
             },
             "TransformComponent": {
                 "Position": {
@@ -23065,7 +22811,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 534
+                "EntityID": 527
             },
             "TransformComponent": {
                 "Position": {
@@ -23102,7 +22848,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 535
+                "EntityID": 528
             },
             "TransformComponent": {
                 "Position": {
@@ -23139,7 +22885,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 536
+                "EntityID": 529
             },
             "TransformComponent": {
                 "Position": {
@@ -23168,7 +22914,7 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 71,
+                "StartNode": 84,
                 "EndNode": 85,
                 "Cost": 1.0
             }
@@ -23176,7 +22922,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 537
+                "EntityID": 530
             },
             "TransformComponent": {
                 "Position": {
@@ -23213,7 +22959,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 538
+                "EntityID": 531
             },
             "TransformComponent": {
                 "Position": {
@@ -23250,7 +22996,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 539
+                "EntityID": 532
             },
             "TransformComponent": {
                 "Position": {
@@ -23287,7 +23033,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 540
+                "EntityID": 533
             },
             "TransformComponent": {
                 "Position": {
@@ -23324,7 +23070,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 541
+                "EntityID": 534
             },
             "TransformComponent": {
                 "Position": {
@@ -23354,43 +23100,6 @@
             },
             "EdgeComponent": {
                 "StartNode": 89,
-                "EndNode": 84,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 542
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
-            },
-            "EdgeComponent": {
-                "StartNode": 84,
                 "EndNode": 90,
                 "Cost": 1.0
             }
@@ -23398,7 +23107,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 543
+                "EntityID": 535
             },
             "TransformComponent": {
                 "Position": {
@@ -23435,7 +23144,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 544
+                "EntityID": 536
             },
             "TransformComponent": {
                 "Position": {
@@ -23472,7 +23181,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 545
+                "EntityID": 537
             },
             "TransformComponent": {
                 "Position": {
@@ -23509,7 +23218,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 546
+                "EntityID": 538
             },
             "TransformComponent": {
                 "Position": {
@@ -23546,7 +23255,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 547
+                "EntityID": 539
             },
             "TransformComponent": {
                 "Position": {
@@ -23583,7 +23292,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 548
+                "EntityID": 540
             },
             "TransformComponent": {
                 "Position": {
@@ -23620,7 +23329,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 549
+                "EntityID": 541
             },
             "TransformComponent": {
                 "Position": {
@@ -23649,7 +23358,7 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 90,
+                "StartNode": 96,
                 "EndNode": 97,
                 "Cost": 1.0
             }
@@ -23657,7 +23366,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 550
+                "EntityID": 542
             },
             "TransformComponent": {
                 "Position": {
@@ -23694,7 +23403,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 551
+                "EntityID": 543
             },
             "TransformComponent": {
                 "Position": {
@@ -23731,7 +23440,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 552
+                "EntityID": 544
             },
             "TransformComponent": {
                 "Position": {
@@ -23768,7 +23477,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 553
+                "EntityID": 545
             },
             "TransformComponent": {
                 "Position": {
@@ -23805,7 +23514,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 554
+                "EntityID": 546
             },
             "TransformComponent": {
                 "Position": {
@@ -23842,7 +23551,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 555
+                "EntityID": 548
             },
             "TransformComponent": {
                 "Position": {
