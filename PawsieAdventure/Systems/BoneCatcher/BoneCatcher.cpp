@@ -497,18 +497,21 @@ void BoneCatcher::UpdatePuppyHeads()
 	if (puppyCollisionOrder.size() >= 1) 
 	{
 		g_Coordinator.GetComponent<UIComponent>(m_Puppy1).set_texturename(puppyTextures[puppyCollisionOrder[0]]);
+		g_Coordinator.GetComponent<UIComponent>(m_Puppy1).set_opacity(1.0f);
 		m_NoOfHitsRequired = 5;
 	}
 
 	if (puppyCollisionOrder.size() >= 2) 
 	{
 		g_Coordinator.GetComponent<UIComponent>(m_Puppy2).set_texturename(puppyTextures[puppyCollisionOrder[1]]);
+		g_Coordinator.GetComponent<UIComponent>(m_Puppy2).set_opacity(1.0f);
 		m_NoOfHitsRequired = 4;
 	}
 
 	if (puppyCollisionOrder.size() >= 3) 
 	{
 		g_Coordinator.GetComponent<UIComponent>(m_Puppy3).set_texturename(puppyTextures[puppyCollisionOrder[2]]);
+		g_Coordinator.GetComponent<UIComponent>(m_Puppy3).set_opacity(1.0f);
 		m_NoOfHitsRequired = 3;
 	}
 }
