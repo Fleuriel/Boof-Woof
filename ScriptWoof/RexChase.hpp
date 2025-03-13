@@ -46,7 +46,7 @@ struct RexChase final : public Behaviour
         isMovingRex = false;
         currentPathIndex = 0;
         
-		// FOR TESTING PURPOSES
+		// FOR TESTING PURPOSES + line 96
         state = MOVING;
     }
 
@@ -93,6 +93,7 @@ struct RexChase final : public Behaviour
             }
             else if (m_Engine.GetTRtimer() > 0.0f)
             {
+				// COMMENTED OUT FOR TESTING PURPOSES
                 //return;
             }
 
