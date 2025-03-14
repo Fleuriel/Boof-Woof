@@ -101,20 +101,33 @@ private:
 	}
 	void ReadHierarchyData(AssimpNodeData& dest, const aiNode* src)
 	{
+		std::unordered_set<std::string> visitedNodes;
 		assert(src);
-	
 
+		std::string nodeName = src->mName.C_Str();
 
-		dest.name = src->mName.data;
+		//  Detect Infinite Loop
+		if (visitedNodes.find(nodeName) != visitedNodes.end())
+		{
+			std::cerr << "Warning: Circular reference detected in Assimp Node -> " << nodeName << std::endl;
+			return; // Stop recursion
+		}
+
+		visitedNodes.insert(nodeName); // Mark as visited
+
+		dest.name = nodeName;
 		dest.transformation = AssimpGLMHelpers::ConvertMatrixToGLMFormat(src->mTransformation);
 		dest.childrenCount = src->mNumChildren;
 
+		dest.children.reserve(src->mNumChildren);
 		for (unsigned int i = 0; i < src->mNumChildren; i++)
 		{
 			AssimpNodeData newData;
 			ReadHierarchyData(newData, src->mChildren[i]);
-			dest.children.push_back(newData);
+			dest.children.push_back(std::move(newData));
 		}
+
+		visitedNodes.erase(nodeName); // Remove after processing
 	}
 	float m_Duration;
 	float m_TicksPerSecond;

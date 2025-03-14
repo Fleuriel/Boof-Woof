@@ -827,10 +827,131 @@ bool Serialization::LoadScene(const std::string& filepath)
 
                     graphicsComponent.SetModel(&g_ResourceManager.ModelMap[modelName]);
 
+
+                    if (entityData.HasMember("MaterialComponent"))
+                    {
+
+
+
+                        const auto& MatData = entityData["MaterialComponent"];
+
+
+
+                        std::string materialName = MatData["name"].GetString();
+                        std::string shaderName = MatData["shader"].GetString();
+                        int shaderIndex = MatData["shaderIdx"].GetInt();
+
+
+                        std::cout << shaderName << '\n';
+
+                        std::string diffuseName = "NothingDiffuse";
+                        std::string normalName = "NothingNormal";
+                        std::string heightName = "NothingHeight";
+
+                        glm::vec4 color(1.0f);
+                        float metallic = 0.0f;
+                        float shininess = 0.0f;
+                        float finalAlpha = 0.0f;
+
+
+
+                        // Extract material properties
+                        const auto& properties = MatData["properties"];
+                        if (properties.HasMember("color"))
+                        {
+                            const auto& colorArray = properties["color"];
+                            if (colorArray.Size() == 4)
+                            {
+                                color =
+                                    glm::vec4(
+                                        colorArray[0].GetFloat(),
+                                        colorArray[1].GetFloat(),
+                                        colorArray[2].GetFloat(),
+                                        colorArray[3].GetFloat()
+                                    );
+                            }
+                        }
+
+                        if (properties.HasMember("finalAlpha"))
+                            finalAlpha = properties["finalAlpha"].GetFloat();
+
+                        if (properties.HasMember("Diffuse"))
+                            diffuseName = properties["Diffuse"].GetString();
+
+                        if (properties.HasMember("Normal"))
+                            normalName = properties["Normal"].GetString();
+
+                        if (properties.HasMember("Height"))
+                            heightName = properties["Height"].GetString();
+
+                        if (properties.HasMember("metallic"))
+                            metallic = properties["metallic"].GetFloat();
+
+                        if (properties.HasMember("shininess"))
+                            shininess = properties["shininess"].GetFloat();
+
+
+                        MaterialComponent materialComponent;
+
+
+
+
+                        // In Order:
+
+                        materialComponent.SetMaterialName(materialName);
+                        materialComponent.SetShaderName(shaderName);
+                        materialComponent.SetShaderIndex(shaderIndex);
+
+
+                        materialComponent.SetColor(color);
+
+                        materialComponent.SetFinalAlpha(finalAlpha);
+                        materialComponent.SetDiffuseName(diffuseName);
+                        materialComponent.SetDiffuseID(g_ResourceManager.GetTextureDDS(diffuseName));
+                        materialComponent.SetNormalName(normalName);
+                        materialComponent.SetHeightName(heightName);
+
+                        materialComponent.SetMetallic(metallic);
+                        materialComponent.SetSmoothness(shininess);
+
+                        std::cout << materialComponent.GetMaterialName() << '\t' << materialComponent.GetShaderName() << '\t' << materialComponent.GetShaderIndex() << '\t' << '\n';
+
+                        if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+                        {
+                            auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+                            //       graphicsComp.material = materialComponent;
+
+                      //            graphicsComp.setTexture(materialComponent.GetDiffuseName());
+
+                            graphicsComp.SetDiffuse(materialComponent.GetDiffuseID());
+
+                            //                    graphicsComp.AddTexture(g_ResourceManager.GetTextureDDS(graphicsComp.material.GetDiffuseName()));
+
+
+                                               // graphicsComp.material.SetDiffuseID(g_ResourceManager.GetTextureDDS(graphicsComp.material.GetDiffuseName()));
+                                               // graphicsComp.material.SetDiffuseName(graphicsComp.material.GetDiffuseName());
+                        //    ;
+
+                       //     std::cout << graphicsComp.material.GetMaterialName() << '\t' << graphicsComp.material.GetShaderName() << '\t' << graphicsComp.material.GetShaderIndex() << '\t' << '\n';
+
+                        }
+
+
+                        g_Coordinator.AddComponent(entity, materialComponent);
+                        std::cout << "material component deserialized" << std::endl;;
+
+                        
+                        graphicsComponent.material = materialComponent;
+
+
+                    }
+
+
+
        //             if (textureID > 0)
        //                 graphicsComponent.AddTexture(textureID);
 
-                    std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
+                   // std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
 
          //           std::cout << "model text number: " << g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
          //           std::cout << "comp  text number: " << graphicsComponent.getTextureNumber() << '\n';
@@ -1091,127 +1212,12 @@ bool Serialization::LoadScene(const std::string& filepath)
                 }
                
 			}
-          //  if (entityData.HasMember("MaterialComponent"))
-          //  {
-          //
-          //      const auto& MatData = entityData["MaterialComponent"];
-          //
-          //
-          //
-          //      std::string materialName = MatData["name"].GetString();
-          //      std::string shaderName = MatData["shader"].GetString();
-          //      int shaderIndex = MatData["shaderIdx"].GetInt();
-          //
-          //
-          //
-          //
-          //      std::string diffuseName = "NothingDiffuse";
-          //      std::string normalName = "NothingNormal";
-          //      std::string heightName = "NothingHeight";
-          //
-          //      glm::vec4 color(1.0f);
-          //      float metallic = 0.0f;
-          //      float shininess = 0.0f;
-          //      float finalAlpha = 0.0f;
-          //
-          //
-          //
-          //      // Extract material properties
-          //      const auto& properties = MatData["properties"];
-          //      if (properties.HasMember("color"))
-          //      {
-          //          const auto& colorArray = properties["color"];
-          //          if (colorArray.Size() == 4)
-          //          {
-          //              color =
-          //                  glm::vec4(
-          //                      colorArray[0].GetFloat(),
-          //                      colorArray[1].GetFloat(),
-          //                      colorArray[2].GetFloat(),
-          //                      colorArray[3].GetFloat()
-          //                  );
-          //          }
-          //      }
-          //
-          //      if (properties.HasMember("finalAlpha"))
-          //          finalAlpha = properties["finalAlpha"].GetFloat();
-          //
-          //      if (properties.HasMember("Diffuse"))
-          //          diffuseName = properties["Diffuse"].GetString();
-          //
-          //      if (properties.HasMember("Normal"))
-          //          normalName = properties["Normal"].GetString();
-          //
-          //      if (properties.HasMember("Height"))
-          //          heightName = properties["Height"].GetString();
-          //
-          //      if (properties.HasMember("metallic"))
-          //          metallic = properties["metallic"].GetFloat();
-          //
-          //      if (properties.HasMember("shininess"))
-          //          shininess = properties["shininess"].GetFloat();
-          //
-          //
-          //
-          //      //std::cout << materialName << '\t' << shaderName << '\t' << shaderIndex << '\t' << diffuseName << '\t' << normalName << '\n' << heightName << '\t' << metallic << '\t' << shininess << '\t' << finalAlpha << '\t' << diffuseName << '\n' <<
-          //      //    normalName << '\t' << heightName << '\t' << metallic << '\t' << shininess << '\n';
-          //
-          //
-          //
-          //
-          //
-          //
-          //
-          //      MaterialComponent materialComponent;
-          //
-          //
-          //
-          //
-          //      // In Order:
-          //
-          //      materialComponent.SetMaterialName(materialName);
-          //      materialComponent.SetShaderName(shaderName);
-          //      materialComponent.SetShaderIndex(shaderIndex);
-          //
-          //
-          //      materialComponent.SetColor(color);
-          //
-          //      materialComponent.SetFinalAlpha(finalAlpha);
-          //      materialComponent.SetDiffuseName(diffuseName);
-          //      materialComponent.SetDiffuseID(g_ResourceManager.GetTextureDDS(diffuseName));
-          //      materialComponent.SetNormalName(normalName);
-          //      materialComponent.SetHeightName(heightName);
-          //
-          //      materialComponent.SetMetallic(metallic);
-          //      materialComponent.SetSmoothness(shininess);
-          //
-          //      std::cout << materialComponent.GetMaterialName() << '\t' << materialComponent.GetShaderName() << '\t' << materialComponent.GetShaderIndex() << '\t' << '\n';
-          //
-          //      if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
-          //      {
-          //          auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-          //   //       graphicsComp.material = materialComponent;
-          //
-      //  //           graphicsComp.setTexture(materialComponent.GetDiffuseName());
-          //
-        ////            graphicsComp.SetDiffuse(materialComponent.GetDiffuseID());
-          //
-          //          //                    graphicsComp.AddTexture(g_ResourceManager.GetTextureDDS(graphicsComp.material.GetDiffuseName()));
-          //
-          //
-          //                             // graphicsComp.material.SetDiffuseID(g_ResourceManager.GetTextureDDS(graphicsComp.material.GetDiffuseName()));
-          //                             // graphicsComp.material.SetDiffuseName(graphicsComp.material.GetDiffuseName());
-          //      //    ;
-          //
-          //     //     std::cout << graphicsComp.material.GetMaterialName() << '\t' << graphicsComp.material.GetShaderName() << '\t' << graphicsComp.material.GetShaderIndex() << '\t' << '\n';
-          //          
-          //      }
-          //
-          //
-          //      g_Coordinator.AddComponent(entity, materialComponent);
-          //      std::cout << "material component deserialized" << std::endl;;
-          //
-          //  }
+
+
+
+
+
+           
 			// Deserialize UIComponent
 			if (entityData.HasMember("UIComponent")) 
             {

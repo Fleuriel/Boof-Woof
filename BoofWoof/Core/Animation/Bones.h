@@ -35,44 +35,56 @@ class Bone
 {
 public:
 	Bone(const std::string& name, int ID, const aiNodeAnim* channel)
-		:
-		m_Name(name),
-		m_ID(ID),
-		m_LocalTransform(1.0f)
+		: m_Name(name), m_ID(ID), m_LocalTransform(1.0f)
 	{
+		if (!channel)
+		{
+			std::cerr << "Error: Received nullptr for aiNodeAnim in Bone constructor!\n";
+			return;
+		}
+
+		// Reserve memory to avoid reallocations
 		m_NumPositions = channel->mNumPositionKeys;
+		m_Positions.reserve(m_NumPositions);
 
 		for (int positionIndex = 0; positionIndex < m_NumPositions; ++positionIndex)
 		{
 			aiVector3D aiPosition = channel->mPositionKeys[positionIndex].mValue;
 			float timeStamp = static_cast<float>(channel->mPositionKeys[positionIndex].mTime);
-			KeyPosition data;
-			data.position = AssimpGLMHelpers::GetGLMVec(aiPosition);
-			data.timeStamp = timeStamp;
-			m_Positions.push_back(data);
+			m_Positions.emplace_back(AssimpGLMHelpers::GetGLMVec(aiPosition), timeStamp);
 		}
 
+		// Reserve memory for rotations
 		m_NumRotations = channel->mNumRotationKeys;
+		m_Rotations.reserve(m_NumRotations);
+
 		for (int rotationIndex = 0; rotationIndex < m_NumRotations; ++rotationIndex)
 		{
 			aiQuaternion aiOrientation = channel->mRotationKeys[rotationIndex].mValue;
 			float timeStamp = static_cast<float>(channel->mRotationKeys[rotationIndex].mTime);
-			KeyRotation data;
-			data.orientation = AssimpGLMHelpers::GetGLMQuat(aiOrientation);
-			data.timeStamp = timeStamp;
-			m_Rotations.push_back(data);
+			m_Rotations.emplace_back(AssimpGLMHelpers::GetGLMQuat(aiOrientation), timeStamp);
 		}
 
+		// Reserve memory for scalings
 		m_NumScalings = channel->mNumScalingKeys;
+
+		m_Scales.reserve(m_NumScalings);
+
+
 		for (int keyIndex = 0; keyIndex < m_NumScalings; ++keyIndex)
 		{
 			aiVector3D scale = channel->mScalingKeys[keyIndex].mValue;
 			float timeStamp = static_cast<float>(channel->mScalingKeys[keyIndex].mTime);
-			KeyScale data;
-			data.scale = AssimpGLMHelpers::GetGLMVec(scale);
-			data.timeStamp = timeStamp;
-			m_Scales.push_back(data);
+			m_Scales.emplace_back(AssimpGLMHelpers::GetGLMVec(scale), timeStamp);
 		}
+	}
+
+
+	~Bone()
+	{
+		m_Positions.clear();
+		m_Rotations.clear();
+		m_Scales.clear();
 	}
 
 	void Update(float animationTime)

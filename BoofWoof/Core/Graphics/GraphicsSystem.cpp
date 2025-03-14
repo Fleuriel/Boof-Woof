@@ -486,10 +486,14 @@ void GraphicsSystem::UpdateLoop() {
 			continue;
 		}
 
+	//	std::cout <<"shader: \t" << material.GetShaderIndex() << '\t' << material.GetShaderName() << '\n';
+
 		if (g_Coordinator.HaveComponent<AnimationComponent>(entity))
 		{
 			auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
 			//std::cout << "it has animationComp.\n";
+
+
 
 			if (g_ResourceManager.AnimationMap.find(graphicsComp.getModelName()) != g_ResourceManager.AnimationMap.end()) {
 
@@ -815,16 +819,18 @@ void GraphicsSystem::AddEntireModel3D(const std::string& directory)
 
 void GraphicsSystem::AddModel_3D(std::string const& path)
 {
-	Model model;
+	auto model = std::make_unique<Model>();
 	std::cout << "Loading: " << path << '\n';
 
-	model.loadModel(path);//, GL_TRIANGLES);
+	model->loadModel(path);//, GL_TRIANGLES);
 
 	std::string name = path.substr(path.find_last_of('/') + 1);
 	//remove .obj from name
 	name = name.substr(0, name.find_last_of('.'));
 
-	g_ResourceManager.ModelMap.insert(std::pair<std::string, Model>(name, model));
+//	g_ResourceManager.ModelMap.insert(std::pair<std::string, Model>(name, model));
+
+	g_ResourceManager.ModelMap[name] = std::move(model);
 
 	g_ResourceManager.addModelNames(name);
 
@@ -893,25 +899,21 @@ void GraphicsSystem::AddAllAnimations(const std::string & filepath)
 
 void GraphicsSystem::AnimationAdd(const std::string& name, const std::string& path)
 {
+
+	std::unique_ptr<Model> animModel = std::make_unique<Model>(path, false);
+	std::unique_ptr<Animation> corgiWalk = std::make_unique<Animation>(path, animModel.get());
+	std::unique_ptr<Animator> animTor = std::make_unique<Animator>(corgiWalk.get());
+
+	g_ResourceManager.ModelMap[name] = std::move(animModel);
+	g_ResourceManager.AnimationMap[name] = std::move(corgiWalk);
+	g_ResourceManager.AnimatorMap[name] = std::move(animTor);
+
+
 	// Allocate model dynamically
-	Model* animModel = new Model(path, false);
-
-	// Allocate Animation dynamically
-	Animation* corgiWalk = new Animation(path, animModel);
-
-	// Store model in resource manager
-	g_ResourceManager.ModelMap[name] = *animModel;
+	
 	g_ResourceManager.addModelNames(name);
 
 
-	// Store animation in a map using 'name' as key
-	g_ResourceManager.AnimationMap[name] = corgiWalk;
-
-
-
-	// Create animator dynamically and store in map
-	Animator* animTor = new Animator(corgiWalk);
-	g_ResourceManager.AnimatorMap[name] = animTor;
 
 	std::cout << "Animation and Animator: " << name << " added successfully!\n";
 }

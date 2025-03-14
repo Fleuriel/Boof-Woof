@@ -76,7 +76,7 @@ public:
 
 
 
-	std::map <std::string, Model> ModelMap;
+	//std::map <std::string, Model> ModelMap;
 	/// for loading font resources
 	// read the .bin file and create the FontResources
 	// add the FontResources to the fontResources map
@@ -93,10 +93,14 @@ public:
 
 	Model* m_Model{};
 
+	std::unordered_map<std::string, std::unique_ptr<Model>> ModelMap;
+	std::unordered_map<std::string, std::unique_ptr<Animation>> AnimationMap;
+	std::unordered_map<std::string, std::unique_ptr<Animator>> AnimatorMap;
 
-	std::unordered_map<std::string, Animation*> AnimationMap;
-	std::unordered_map<std::string, Animator*> AnimatorMap; // Add this line
 
+//	std::unordered_map<std::string, Animation*> AnimationMap;
+//	std::unordered_map<std::string, Animator*> AnimatorMap; // Add this line
+//
 
 //	std::vector<Animation*> animationVec;
 //	std::vector<Animator*> animatorVec;
