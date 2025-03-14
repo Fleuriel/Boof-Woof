@@ -27,6 +27,12 @@ class MainHall : public Level
 
 	Entity stealthCollider1{}, stealthCollider2{}, stealthCollider3{}, stealthCollider4{};
 	Entity peeScent1{}, peeScent2{}, peeScent3{}, peeScent4{}, peeScent5{}, peeScent6{}, peeScent7{};
+
+
+	Entity VFXBG{}, VFX1{}, VFX2{};
+
+
+
 	// Existing member variables...
 	float originalBrightness = 1.0f;
 
@@ -39,7 +45,7 @@ class MainHall : public Level
 	// Smell Avoidance
 	double timer{ 0.0 }, timerLimit{ 10.0 }, timesUp{ 2.0 }; // Timer for smell avoidance
 	double colorChangeTimer{ 0.0 }, colorChangeDuration{ 3.0 }, cooldownTimer{ 10.0 }, cooldownDuration{ 10.0 };
-	bool isColorChanged{false}, sniffa{ false };
+	bool isColorChanged{ false }, sniffa{ false };
 
 	// Puppies
 	int puppiesCollected = 0;
@@ -64,7 +70,7 @@ class MainHall : public Level
 	"Corgi/DogBite_05.wav",
 	"Corgi/DogBite_06.wav",
 	"Corgi/DogBite_07.wav",
-		};
+	};
 
 
 	// Function to get a random sound from a vector
@@ -77,8 +83,8 @@ class MainHall : public Level
 
 	void LoadLevel() override
 	{
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES+"/MainHallM5.json");
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO+"/BedRoomMusicBGM.wav", true, "BGM");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/MainHallM5.json");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", true, "BGM");
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav", true, "SFX");
 
 
@@ -87,6 +93,16 @@ class MainHall : public Level
 
 		for (auto entity : entities)
 		{
+			if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
+				auto& UIComp = g_Coordinator.GetComponent<UIComponent>(entity);
+				if (UIComp.get_texturename() == "WashingVFX")
+					VFXBG = entity;
+				if (UIComp.get_texturename() == "Stinky")
+					VFX1 = entity;
+				if (UIComp.get_texturename() == "StinkyDog")
+					VFX2 = entity;
+			}
+
 			if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
 			{
 				const auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
@@ -113,7 +129,7 @@ class MainHall : public Level
 		cameraController = new CameraController(playerEnt);
 		g_CageBreaker = CageBreaker(playerEnt, Cage1, Cage2, Cage3, Cage1Collider, Cage2Collider, Cage3Collider);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
-		g_SmellAvoidance = SmellAvoidance(playerEnt, TestPee, TestCollider, pee1, pee2, pee3, pee4, pee5, pee6, pee1Collider, 
+		g_SmellAvoidance = SmellAvoidance(playerEnt, TestPee, TestCollider, pee1, pee2, pee3, pee4, pee5, pee6, pee1Collider,
 			pee2Collider, pee3Collider, pee4Collider, pee5Collider, pee6Collider, WaterBucket, WaterBucket2, WaterBucket3);
 
 		g_Checklist.OnInitialize();
@@ -135,6 +151,8 @@ class MainHall : public Level
 		// Store the original brightness value
 		originalBrightness = g_Coordinator.GetSystem<GraphicsSystem>()->GetBrightness();
 		g_UI.finishCaged = false;
+
+		g_Coordinator.GetComponent<UIComponent>(VFXBG).set_opacity(0);
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -167,6 +185,21 @@ class MainHall : public Level
 
 		if (!g_IsPaused)
 		{
+			auto& VFXBG_UICOMP = g_Coordinator.GetComponent<UIComponent>(VFXBG);
+			if (g_SmellAvoidance.GetPeeMarked()) {
+				VFXBG_UICOMP.set_position({ 0,1.8 });
+				VFXBG_UICOMP.set_opacity(1);
+			}
+			else {
+				if (VFXBG_UICOMP.get_position().y > -1.8) {
+					VFXBG_UICOMP.set_position({ 0 , VFXBG_UICOMP.get_position().y - 0.02 });
+				}
+				else {
+					VFXBG_UICOMP.set_opacity(VFXBG_UICOMP.get_opacity() - 0.01); //Temporary
+				}
+			}
+
+
 			cameraController->Update(static_cast<float>(deltaTime));
 			cooldownTimer += deltaTime;
 
@@ -229,7 +262,7 @@ class MainHall : public Level
 					timesUp -= deltaTime;
 
 					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
-					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");			
+					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
 					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav");
 
 
@@ -254,7 +287,7 @@ class MainHall : public Level
 			}
 
 			// just for speed testing to rope breaker
-			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1) 
+			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
 			{
 				collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
 				g_UI.finishCaged = true;
@@ -440,7 +473,7 @@ private:
 	bool AllEntitiesInitialized() const
 	{
 		return playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3
-			&& pee1 && pee2 && pee3 && pee4 && pee5 && pee6 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && pee5Collider && pee6Collider 
+			&& pee1 && pee2 && pee3 && pee4 && pee5 && pee6 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && pee5Collider && pee6Collider
 			&& WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider && Cage1 && Cage1Collider && Cage2 && Cage2Collider && Cage3 && Cage3Collider
 			&& stealthCollider1 && stealthCollider2 && stealthCollider3 && stealthCollider4 && peeScent1 && peeScent2 && peeScent3 && peeScent4 && peeScent5 && peeScent6 && peeScent7;
 	}
@@ -478,7 +511,7 @@ private:
 		if (g_Coordinator.HaveComponent<CollisionComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
 		{
 			auto& collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
-			if(collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), "Player") == 0)
+			if (collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), "Player") == 0)
 				return true;
 		}
 		return false;
@@ -501,7 +534,7 @@ private:
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
 			collectedPuppy1 = true;
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark1.wav", false, "SFX");
-			g_BoneCatcher.puppyCollisionOrder.push_back(1); 
+			g_BoneCatcher.puppyCollisionOrder.push_back(1);
 		}
 
 		if (puppy2Collided && !collectedPuppy2)
@@ -510,7 +543,7 @@ private:
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
 			collectedPuppy2 = true;
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark2.wav", false, "SFX");
-			g_BoneCatcher.puppyCollisionOrder.push_back(2); 
+			g_BoneCatcher.puppyCollisionOrder.push_back(2);
 		}
 
 		if (puppy3Collided && !collectedPuppy3)
@@ -519,7 +552,7 @@ private:
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
 			collectedPuppy3 = true;
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark3.wav", false, "SFX");
-			g_BoneCatcher.puppyCollisionOrder.push_back(3); 
+			g_BoneCatcher.puppyCollisionOrder.push_back(3);
 		}
 
 		if (puppiesCollected == 1 && !dialogueFirst)

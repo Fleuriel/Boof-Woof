@@ -14407,6 +14407,11 @@
                         "x": 33.79999923706055,
                         "y": 1.0,
                         "z": -17.04800033569336
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 1.5
                     }
                 ]
             }
@@ -24569,6 +24574,27 @@
                 "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
                 "ParticleTexture": "cloud"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WashingVFXBG",
+                "EntityID": 566
+            },
+            "UIComponent": {
+                "TextureName": "WashingVFX",
+                "PositionX": 0.0,
+                "PositionY": 1.7999999523162842,
+                "ScaleX": 1.0,
+                "ScaleY": 3.299999952316284,
+                "Layer": 0.5699999332427979,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         }
     ]
