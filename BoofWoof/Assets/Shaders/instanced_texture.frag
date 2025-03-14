@@ -15,10 +15,10 @@ void main()
             discard;
       }else{ 
             fragColor = texture(uTex2d, vTexCoord); // Solid color with full opacity
-            if(fragColor.a < 0.1)discard;
+            
       }  
 
       fragColor.rgb = pow(fragColor.rgb, vec3(1.0/gammaValue)); 
       fragColor.a = opacity;
-
+      if(fragColor.a < 0.1)discard;
 }
