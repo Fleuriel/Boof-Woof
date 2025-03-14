@@ -115,11 +115,13 @@ struct RexChase final : public Behaviour
                     state = MOVING;
                 }
                 else {
+                    /*
                     if (state != MOVING) {
                         pathInitialized = false;
                         state = MOVING;
                         std::cout << "Player is not in front of Rex, find him" << std::endl;
                     }
+                    */
                     //std::cout << "Carry On" << std::endl;
                 }
                 
