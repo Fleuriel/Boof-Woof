@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "cdae4326-c9cb-4f1a-93ca-f264b31a6bc0",
+    "SceneGUID": "dc2f6ca3-1979-4879-8c3d-41e7711b857c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -19,7 +19,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 },
                 "RotationPivotOffset": {
@@ -786,9 +786,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -7.268993377685547,
-                    "y": 1.3173681497573853,
-                    "z": 0.7494426369667053
+                    "x": -7.1414594650268559,
+                    "y": 1.317368745803833,
+                    "z": 0.5912644863128662
                 },
                 "Scale": {
                     "x": 0.49998894333839419,
@@ -3309,6 +3309,47 @@
                     "z": -0.4000000059604645
                 },
                 "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Light",
+                "EntityID": 76
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 5.747000217437744,
+                    "y": 1.3154499530792237,
+                    "z": 0.6518949866294861
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 1.0,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": true,
+                "LightDirectionX": 1.0,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 12.199999809265137
             }
         }
     ]

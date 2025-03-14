@@ -126,6 +126,7 @@ class MainHall : public Level
 
 	void InitLevel() override
 	{
+		ResetLevelState();
 		cameraController = new CameraController(playerEnt);
 		g_CageBreaker = CageBreaker(playerEnt, Cage1, Cage2, Cage3, Cage1Collider, Cage2Collider, Cage3Collider);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
@@ -191,11 +192,11 @@ class MainHall : public Level
 				VFXBG_UICOMP.set_opacity(1);
 			}
 			else {
-				if (VFXBG_UICOMP.get_position().y > -1.8) {
-					VFXBG_UICOMP.set_position({ 0 , VFXBG_UICOMP.get_position().y - 0.02 });
+				if (VFXBG_UICOMP.get_position().y > -1.8f) {
+					VFXBG_UICOMP.set_position({ 0 , VFXBG_UICOMP.get_position().y - 0.02f });
 				}
 				else {
-					VFXBG_UICOMP.set_opacity(VFXBG_UICOMP.get_opacity() - 0.01); //Temporary
+					VFXBG_UICOMP.set_opacity(VFXBG_UICOMP.get_opacity() - 0.01f); //Temporary
 				}
 			}
 
@@ -598,5 +599,49 @@ private:
 			g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(originalBrightness);
 			wasColliding = false;
 		}
+	}
+	void ResetLevelState()
+	{
+		// Reset collision flags for cages
+		cage1Collided = false;
+		cage2Collided = false;
+		cage3Collided = false;
+
+		// Reset camera-related variables
+		savedcamdir = false;
+		teb_last = false;
+		camdir = glm::vec3(0.0f);
+
+		// Reset smell avoidance timers/flags
+		timer = 0.0;
+		timerLimit = 10.0;
+		timesUp = 2.0;
+		colorChangeTimer = 0.0;
+		colorChangeDuration = 3.0;
+		cooldownTimer = 10.0;
+		cooldownDuration = 10.0;
+		isColorChanged = false;
+		sniffa = false;
+
+		// Reset puppy collection state
+		puppiesCollected = 0;
+		collectedPuppy1 = false;
+		collectedPuppy2 = false;
+		collectedPuppy3 = false;
+		chgChecklist = false;
+		puppy1Collided = false;
+		puppy2Collided = false;
+		puppy3Collided = false;
+		dialogueFirst = false;
+		dialogueSecond = false;
+		dialogueThird = false;
+
+		// Reset sniff cooldown
+		sniffCooldownTimer = 0.0;
+		isSniffOnCooldown = false;
+
+		// Reset particle effects and bark flag
+		particleEntities.clear();
+		bark = false;
 	}
 };
