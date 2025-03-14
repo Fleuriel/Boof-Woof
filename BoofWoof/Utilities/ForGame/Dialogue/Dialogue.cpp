@@ -46,6 +46,7 @@ void Dialogue::OnUpdate(double deltaTime)
 	// Process left click only when cooldown is expired.
 	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && clickCooldown <= 0.0f)
 	{
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/dialogue.wav", false, "SFX");
 		ProcessDialogue();
 		clickCooldown = 0.2f;  // Prevent multiple clicks in one frame.
 	}
