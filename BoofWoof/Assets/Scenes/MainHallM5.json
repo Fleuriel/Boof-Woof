@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.7420874693671069e-7,
-                    "y": 1.1999999284744263,
-                    "z": -0.7100529670715332
+                    "x": 0.0,
+                    "y": 1.2,
+                    "z": -0.710
                 },
                 "Scale": {
                     "x": 0.5,
@@ -24591,7 +24591,8 @@
                 "FrameInterval": 0.10000000149011612,
                 "StayOnRow": true
             }
-        {
+        },
+	{
             "MetadataComponent": {
                 "EntityName": "TableCollision",
                 "EntityID": 567
