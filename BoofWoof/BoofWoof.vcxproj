@@ -80,8 +80,8 @@
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\gli-master\gli-master;$(SolutionDir)lib\freetype\include;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)lib\JoltPhysics-master\Jolt;$(SolutionDir)lib\assimp2016\assimp;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\assimp\lib\Release;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Release;$(SolutionDir)lib\assimp2016\lib\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\glfw-2.2.0\include\GL;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\gli-master\gli-master;$(SolutionDir)lib\freetype\include;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)lib\JoltPhysics-master\Jolt;$(SolutionDir)lib\assimp2016\assimp;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\glew-2.2.0\lib\Release\x64\;$(SolutionDir)lib\FMOD Studio API Windows\api\core\lib\lib\x64;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Release;$(SolutionDir)lib\assimp2016\lib\Release;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
