@@ -80,7 +80,7 @@ void SmellAvoidance::CheckCollision()
     HandleWaterCollision();
 }
 
-bool SmellAvoidance::CheckEntityWithPlayerCollision(Entity entity)
+bool SmellAvoidance::CheckEntityWithPlayerCollision(Entity entity) const
 {
     //Check Entity Collision with Player
     if (g_Coordinator.HaveComponent<CollisionComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
@@ -112,6 +112,16 @@ void SmellAvoidance::HandlePeeCollision()
             g_DialogueText.OnInitialize();
             g_DialogueText.setDialogue(DialogueState::DISGUSTED2);
             touchedPee = true;
+        }
+    }
+
+    for (size_t i = 0; i < peeEntities.size(); ++i)
+    {
+        if (rexPeeCollided[i] && g_Coordinator.HaveComponent<TransformComponent>(peeEntities[i]))
+        {
+            auto& peeTransform = g_Coordinator.GetComponent<TransformComponent>(peeEntities[i]);
+            // Set the new position for the pee entity
+            peeTransform.SetPosition(peePositions[i]);
         }
     }
 }

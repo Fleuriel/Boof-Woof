@@ -18,8 +18,9 @@ public:
     void SetDefaultPeePosition();
     void SetNewPeePosition();
 
-	bool CheckEntityWithPlayerCollision(Entity entity);
+	bool CheckEntityWithPlayerCollision(Entity entity) const;
 	float CalculateDistance(glm::vec3& playerPos, glm::vec3& peePos);
+
     bool GetPeeMarked() const { return peeMarked; }
 	void SetPeeMarked(bool value) { peeMarked = value; }
 
