@@ -24,7 +24,6 @@
 #include "../Utilities/Components/UIComponent.hpp"
 #include "../Utilities/Components/FontComponent.hpp"
 #include "../Utilities/Components/PathfindingComponent.hpp"
-#include "../Utilities/Components/AnimationComponent.hpp"
 
 
 #include "Windows/WindowManager.h"

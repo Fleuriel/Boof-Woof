@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "14c69ded-5d46-4ea3-b02b-3e8f2b73ffe3",
+    "SceneGUID": "043f078d-9b54-4bea-a122-6d7b159370a9",
     "Entities": [
         {
             "MetadataComponent": {
@@ -33,12 +33,47 @@
                 "FollowCamera": true
             },
             "AnimationComponent": {
-                "Number of Animation Points": 1,
+                "Number of Animation Points": 8,
                 "Animations": [
                     {
                         "Animation ID": 0,
-                        "Start Time": 84.43000030517578,
-                        "End Time": 188.02999877929688
+                        "Start Time": 25.09000015258789,
+                        "End Time": 139.08999633789063
+                    },
+                    {
+                        "Animation ID": 1,
+                        "Start Time": 0.0,
+                        "End Time": 49.54999923706055
+                    },
+                    {
+                        "Animation ID": 2,
+                        "Start Time": 0.0,
+                        "End Time": 138.0500030517578
+                    },
+                    {
+                        "Animation ID": 3,
+                        "Start Time": 97.97000122070313,
+                        "End Time": 200.0
+                    },
+                    {
+                        "Animation ID": 4,
+                        "Start Time": 35.5,
+                        "End Time": 72.45999908447266
+                    },
+                    {
+                        "Animation ID": 5,
+                        "Start Time": 34.459999084472659,
+                        "End Time": 129.72000122070313
+                    },
+                    {
+                        "Animation ID": 6,
+                        "Start Time": 60.4900016784668,
+                        "End Time": 176.0500030517578
+                    },
+                    {
+                        "Animation ID": 7,
+                        "Start Time": 12.069999694824219,
+                        "End Time": 162.0
                     }
                 ]
             },

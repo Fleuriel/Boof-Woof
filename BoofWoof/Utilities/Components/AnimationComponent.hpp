@@ -28,10 +28,9 @@ public:
 
 
 
-	AnimationComponent(std::string name) : animatorName(name), animationName(name), m_Duration(0.0f), m_DeltaTime(0.0f) {}
+	AnimationComponent(std::string name, std::vector<std::tuple<int,float,float>> inputTupVec) : animatorName(name), animationName(name), m_Duration(0.0f), m_DeltaTime(0.0f) , animationVector(inputTupVec) {}
 
-	Animation* animation;
-	Animator* animator;
+
 
 	std::vector<std::tuple<int,float,float>> animationVector;
 

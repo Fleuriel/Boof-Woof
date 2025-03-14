@@ -247,6 +247,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
             // Add the array of animations to the JSON object
             Anim.AddMember("Animations", animationArray, allocator);
 
+            entityData.AddMember("AnimationComponent", Anim, allocator);
             // Now, Anim contains all animation data in JSON format
         }
 
@@ -842,37 +843,51 @@ bool Serialization::LoadScene(const std::string& filepath)
             {
                 const rapidjson::Value& Anim = entityData["AnimationComponent"];
 
-                if (Anim.HasMember("Number of Animation Points") && Anim.HasMember("Animations"))
+                if (entityData.HasMember("GraphicsComponent"))
                 {
-                    // Retrieve the animation component
-                    auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
-
-                    // Clear existing animations before loading new ones
-                    animationComp.animationVector.clear();
-
-                    int numPoints = Anim["Number of Animation Points"].GetInt();
-                    const rapidjson::Value& animationArray = Anim["Animations"];
-
-                    if (animationArray.IsArray())
+                    if (Anim.HasMember("Number of Animation Points") && Anim.HasMember("Animations"))
                     {
-                        for (rapidjson::SizeType i = 0; i < animationArray.Size(); i++)
+                        const auto& GData = entityData["GraphicsComponent"];
+                        std::string modelName = GData["ModelName"].GetString();
+
+
+
+                        const rapidjson::Value& animationArray = Anim["Animations"];
+
+                        if (animationArray.IsArray())
                         {
-                            const rapidjson::Value& animData = animationArray[i];
+                            std::vector<std::tuple<int, float, float>> animationData;
 
-                            if (animData.HasMember("Animation ID") && animData.HasMember("Start Time") && animData.HasMember("End Time"))
+                            for (rapidjson::SizeType i = 0; i < animationArray.Size(); i++)
                             {
-                                int animID = animData["Animation ID"].GetInt();
-                                float startTime = animData["Start Time"].GetFloat();
-                                float endTime = animData["End Time"].GetFloat();
+                                const rapidjson::Value& animData = animationArray[i];
 
-                                animationComp.animationVector.emplace_back(animID, startTime, endTime);
+                                if (animData.HasMember("Animation ID") && animData.HasMember("Start Time") && animData.HasMember("End Time"))
+                                {
+                                    int animID = animData["Animation ID"].GetInt();
+                                    float startTime = animData["Start Time"].GetFloat();
+                                    float endTime = animData["End Time"].GetFloat();
+
+                                    // Create a tuple with extracted values
+                                    animationData.emplace_back(animID, startTime, endTime);
+                                }
                             }
+
+                            // Set animation name (or extract it from JSON if available)
+                            std::string animationName = modelName; // Default name, modify if needed
+
+                            // Construct AnimationComponent with the collected data
+                            AnimationComponent animComp(animationName, animationData);
+
+                            // Now you can do something with animComp (e.g., register it in your system)
+                            g_Coordinator.AddComponent<AnimationComponent>(entity, animComp);
+
+                            std::cout << "Loaded " << animationData.size() << " animation points for " << animationName << ".\n";
                         }
                     }
-
-                    std::cout << "Loaded " << numPoints << " animation points.\n";
                 }
             }
+
 
 
 
@@ -1603,26 +1618,26 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
         }
 
         // -- AnimationComponent --
-     // if (jsonObj.HasMember("AnimationComponent"))
-     // {
-     //
-     //     
-     //
-     //     const auto& GData = jsonObj["AnimationComponent"];
-     //
-     //     if (GData.HasMember("Number of Animation Points"))
-     //     {
-     //         
-     //     }
-     //
-     //
-     //
-     //   //  AnimationComponent animComp();
-     //
-     //
-     //    // g_Coordinator.AddComponent(newE, animComp);
-     // }
-     //
+      // if (jsonObj.HasMember("AnimationComponent"))
+      // {
+      //
+      //     
+      //
+      //     const auto& GData = jsonObj["AnimationComponent"];
+      //
+      //     if (GData.HasMember("Number of Animation Points"))
+      //     {
+      //         
+      //     }
+      //
+      //
+      //
+      //     AnimationComponent animComp("corgi");
+      //     animComp.m_Duration = 100.0f;
+      //
+      //    g_Coordinator.AddComponent(newE, animComp);
+      // }
+       
         // -- AudioComponent --
         if (jsonObj.HasMember("AudioComponent"))
         {
