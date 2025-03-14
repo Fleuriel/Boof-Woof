@@ -1603,26 +1603,26 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
         }
 
         // -- AnimationComponent --
-        if (jsonObj.HasMember("AnimationComponent"))
-        {
-
-            
-
-            const auto& GData = jsonObj["AnimationComponent"];
-
-            if (GData.HasMember("Number of Animation Points"))
-            {
-                
-            }
-
-
-
-            AnimationComponent animComp();
-
-
-            g_Coordinator.AddComponent(newE, animComp);
-        }
-
+     // if (jsonObj.HasMember("AnimationComponent"))
+     // {
+     //
+     //     
+     //
+     //     const auto& GData = jsonObj["AnimationComponent"];
+     //
+     //     if (GData.HasMember("Number of Animation Points"))
+     //     {
+     //         
+     //     }
+     //
+     //
+     //
+     //   //  AnimationComponent animComp();
+     //
+     //
+     //    // g_Coordinator.AddComponent(newE, animComp);
+     // }
+     //
         // -- AudioComponent --
         if (jsonObj.HasMember("AudioComponent"))
         {

@@ -79,7 +79,7 @@
     <LibraryPath>$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\Win32;$(SolutionDir)lib\FMOD\lib\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>$(SolutionDir)lib\assimp2016\lib;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Debug;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-static-ucrt;$(SolutionDir)bin\Debug-x64\BoofWoof;$(SolutionDir)BoofWoof\Core\ECS;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)lib\assimp2016\lib\Debug;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Debug;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-static-ucrt;$(SolutionDir)bin\Debug-x64\BoofWoof;$(SolutionDir)BoofWoof\Core\ECS;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)lib\gli-master\gli-master\gli;$(SolutionDir)lib\assimp2016\assimp\;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\include;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\glm-0.9.9.8;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)lib\stb-image\inc;$(SolutionDir)lib\imgui\inc;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)BoofWoof\Core\ECS;$(IncludePath)</IncludePath>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
@@ -87,8 +87,8 @@
     </LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Release;$(SolutionDir)bin\Release-x64\BoofWoof;$(SolutionDir)BoofWoof\Core\ECS;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\include;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\glm-0.9.9.8;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)lib\stb-image\inc;$(SolutionDir)lib\imgui\inc;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)BoofWoof\Core\ECS;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\assimp\lib\;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Release;$(SolutionDir)bin\Release-x64\BoofWoof;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\assimp2016\lib\Release\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\assimp\include;$(SolutionDir)lib\glfw-3.3.7.bin.WIN32\include;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\glm-0.9.9.8;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)lib\stb-image\inc;$(SolutionDir)lib\imgui\inc;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\rapidjson-1.1.0\include;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)BoofWoof\Core\ECS;$(SolutionDir)lib\assimp2016\assimp;$(IncludePath)</IncludePath>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
   </PropertyGroup>
@@ -162,7 +162,7 @@ ASSIMP_BUILD_NO_IMPORT
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\glew-2.2.0\bin\Release\x64;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-static-ucrt;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\JoltPhysics-master\LinkLib;$(SolutionDir)lib\assimp2016\lib\;$(SolutionDir)Boof-Woof\bin\Debug-x64\BoofWoof;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\glew-2.2.0\bin\Release\x64;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-static-ucrt;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\JoltPhysics-master\LinkLib;$(SolutionDir)lib\assimp2016\lib\Debug\;$(SolutionDir)Boof-Woof\bin\Debug-x64\BoofWoof;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp-vc140-mt.lib;opengl32.lib;glew32.lib;glfw3dll.lib;freetype.lib;fmod_vc.lib;BoofWoof.lib;Jolt.lib;zlibstaticd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>/NODEFAULTLIB:[libcmt.lib;msvcrt.lib;libcmtd.lib]</IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>/IGNORE:4217 /LTCG %(AdditionalOptions)</AdditionalOptions>
@@ -187,7 +187,7 @@ xcopy /I "$(SolutionDir)bin\Debug-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDi
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;JPH_DEBUG_RENDERER;JPH_FLOATING_POINT_EXCEPTIONS_ENABLED;JPH_PROFILE_ENABLED;JPH_OBJECT_STREAM;EDITOR_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include\;$(SolutionDir)lib\glew-2.2.0\include\;$(SolutionDir)lib\glm-0.9.9.8\glm;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)lib\gli-master\gli-master\gli</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include\;$(SolutionDir)lib\glew-2.2.0\include\;$(SolutionDir)lib\glm-0.9.9.8\glm;$(SolutionDir)lib\freetype-windows-binaries-master\include;$(SolutionDir)lib\FMOD\inc;$(SolutionDir)BoofWoof\Core;$(SolutionDir)lib\JoltPhysics-master;$(SolutionDir)lib\gli-master\gli-master\gli;$(SolutionDir)lib\assimp2016\assimp</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <StringPooling>true</StringPooling>
@@ -200,8 +200,8 @@ xcopy /I "$(SolutionDir)bin\Debug-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDi
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-static-ucrt;$(SolutionDir)lib\glew-2.2.0\bin\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc143-mtd.lib;opengl32.lib;glew32.lib;glfw3dll.lib;freetype.lib;fmod_vc.lib;BoofWoof.lib;Jolt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-static-ucrt;$(SolutionDir)lib\glew-2.2.0\bin\Release\x64;$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64;$(SolutionDir)lib\FMOD\lib\x64;$(SolutionDir)lib\JoltPhysics-master\LinkLib\Release;$(SolutionDir)lib\assimp2016\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc140-mt.lib;zlibstatic.lib;opengl32.lib;glew32.lib;glfw3dll.lib;freetype.lib;fmod_vc.lib;BoofWoof.lib;Jolt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>/IGNORE:4217 /LTCG %(AdditionalOptions)</AdditionalOptions>

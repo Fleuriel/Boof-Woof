@@ -10,7 +10,6 @@
 #include <glm/gtx/quaternion.hpp>
 #include "AssimpHelper.h"
 
-#include "scene.h"
 
 
 
