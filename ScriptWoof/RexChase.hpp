@@ -72,24 +72,6 @@ struct RexChase final : public Behaviour
             glm::vec3 downward = glm::vec3(0.0f, -1.0f, 0.0f);
             Entity groundEntity = m_Engine.getPhysicsSystem().Raycast(currentPos, downward, maxGroundCheckDistance, entity);
 
-            if (groundEntity == INVALID_ENT)
-            {
-                // No ground detected, continue moving downward
-                velocity.y -= 100.0f * static_cast<float>(m_Engine.GetDeltaTime());  // Simulated gravity effect
-                //std::cout << "[Rex] Falling... Current Y: " << currentPos.y << std::endl;
-            }
-            else
-            {
-                // Ground detected, adjust position to the ground height
-                float raycastFraction = m_Engine.getPhysicsSystem().RaycastFraction(currentPos, downward, maxGroundCheckDistance, entity);
-                glm::vec3 groundPosition = currentPos + downward * raycastFraction * maxGroundCheckDistance;
-
-                currentPos.y = groundPosition.y + 0.1f;
-                velocity.y = 0.0f;  // Stop falling
-
-                //std::cout << "[Rex] Landed on ground at Y: " << groundPosition.y << std::endl;
-            }
-
             if (m_Engine.GetTRtimer() <= 0.0f && state == IDLE)
             {
                 state = TELEPORTING;
@@ -332,6 +314,24 @@ struct RexChase final : public Behaviour
             // Apply velocity correctly
             if (isMovingRex)
             {
+                if (groundEntity == INVALID_ENT)
+                {
+                    // No ground detected, continue moving downward
+                    velocity.y -= 100.0f * static_cast<float>(m_Engine.GetDeltaTime());  // Simulated gravity effect
+                    //std::cout << "[Rex] Falling... Current Y: " << currentPos.y << std::endl;
+                }
+                else
+                {
+                    // Ground detected, adjust position to the ground height
+                    float raycastFraction = m_Engine.getPhysicsSystem().RaycastFraction(currentPos, downward, maxGroundCheckDistance, entity);
+                    glm::vec3 groundPosition = currentPos + downward * raycastFraction * maxGroundCheckDistance;
+
+                    currentPos.y = groundPosition.y + 0.1f;
+                    velocity.y = 0.0f;  // Stop falling
+
+                    //std::cout << "[Rex] Landed on ground at Y: " << groundPosition.y << std::endl;
+                }
+
                 // Rotate Rex to the direction he is moving
                 m_Engine.SetRotationYawFromVelocity(entity, velocity);
 

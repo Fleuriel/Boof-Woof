@@ -204,9 +204,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 22.553726196289064,
-                    "y": 0.9999973773956299,
-                    "z": 5.108293533325195
+                    "x": 19.822,
+                    "y": 0.998,
+                    "z": 3.465
                 },
                 "Scale": {
                     "x": 0.4999885857105255,
@@ -15995,8 +15995,8 @@
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": true,
+                "IsDynamic": true,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.450000047683716,
