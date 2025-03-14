@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "ea5b94f9-06a8-47ae-9a84-60734608557c",
+    "SceneGUID": "b3ac84be-0dde-4d9a-9805-600b466b8a84",
     "Entities": [
         {
             "MetadataComponent": {
@@ -260,10 +260,10 @@
             },
             "UIComponent": {
                 "TextureName": "htpBite",
-                "PositionX": 0.009999999776482582,
-                "PositionY": 0.15000000596046449,
-                "ScaleX": 0.8999999761581421,
-                "ScaleY": 0.8999999761581421,
+                "PositionX": 0.12999999523162843,
+                "PositionY": -0.05999999865889549,
+                "ScaleX": 0.550000011920929,
+                "ScaleY": 0.5,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
                 "Opcaity": 1.0,
@@ -302,10 +302,10 @@
             },
             "UIComponent": {
                 "TextureName": "htpBark",
-                "PositionX": 0.004999999888241291,
-                "PositionY": 0.09000000357627869,
-                "ScaleX": 0.8999999761581421,
-                "ScaleY": 0.8999999761581421,
+                "PositionX": 0.25999999046325686,
+                "PositionY": 0.10000000149011612,
+                "ScaleX": 0.550000011920929,
+                "ScaleY": 0.5,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
                 "Opcaity": 1.0,
@@ -393,7 +393,8 @@
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
-                "Text": "WALK"
+                "Text": "WALK",
+                "Layer": 0.0
             }
         },
         {
@@ -410,7 +411,8 @@
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
-                "Text": "JUMP"
+                "Text": "JUMP",
+                "Layer": 0.0
             }
         },
         {
@@ -427,7 +429,8 @@
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
-                "Text": "SPRINT"
+                "Text": "SPRINT",
+                "Layer": 0.0
             }
         },
         {
@@ -444,7 +447,8 @@
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
-                "Text": "CAMERA"
+                "Text": "CAMERA",
+                "Layer": 0.0
             }
         },
         {
@@ -461,7 +465,8 @@
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
-                "Text": "CONTROL"
+                "Text": "CONTROL",
+                "Layer": 0.0
             }
         },
         {
@@ -478,41 +483,44 @@
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
-                "Text": "SNIFF"
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "BARK",
-                "EntityID": 24
-            },
-            "FontComponent": {
-                "Family": "manga-temple",
-                "PositionX": 0.5950000286102295,
-                "PositionY": 0.10999999940395355,
-                "ScaleX": 0.8999999761581421,
-                "ScaleY": 1.2999999523162842,
-                "ColorR": 0.0,
-                "ColorG": 0.0,
-                "ColorB": 0.0,
-                "Text": "BARK"
+                "Text": "SNIFF",
+                "Layer": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "BITE",
-                "EntityID": 25
+                "EntityID": 24
             },
             "FontComponent": {
                 "Family": "manga-temple",
-                "PositionX": 0.5950000286102295,
-                "PositionY": 0.44999998807907107,
+                "PositionX": 0.6399999856948853,
+                "PositionY": 0.18000000715255738,
                 "ScaleX": 0.8999999761581421,
                 "ScaleY": 1.2999999523162842,
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
-                "Text": "BITE"
+                "Text": "BITE",
+                "Layer": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CLOSEDIALOGUE",
+                "EntityID": 25
+            },
+            "FontComponent": {
+                "Family": "manga-temple",
+                "PositionX": 0.35499998927116396,
+                "PositionY": 0.4300000071525574,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 1.2999999523162842,
+                "ColorR": 0.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "Close dialogue",
+                "Layer": 0.0
             }
         },
         {
@@ -529,7 +537,44 @@
                 "ColorR": 1.0,
                 "ColorG": 1.0,
                 "ColorB": 1.0,
-                "Text": "ESC to Close"
+                "Text": "ESC to Close",
+                "Layer": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "&",
+                "EntityID": 27
+            },
+            "FontComponent": {
+                "Family": "manga-temple",
+                "PositionX": 0.6800000071525574,
+                "PositionY": 0.10499999672174454,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 1.2999999523162842,
+                "ColorR": 0.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "&",
+                "Layer": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "BARK",
+                "EntityID": 28
+            },
+            "FontComponent": {
+                "Family": "manga-temple",
+                "PositionX": 0.6399999856948853,
+                "PositionY": 0.029999999329447748,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 1.2999999523162842,
+                "ColorR": 0.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "BARK",
+                "Layer": 0.0
             }
         }
     ]

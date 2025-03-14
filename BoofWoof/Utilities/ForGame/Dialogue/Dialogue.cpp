@@ -46,6 +46,7 @@ void Dialogue::OnUpdate(double deltaTime)
 	// Process left click only when cooldown is expired.
 	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) && clickCooldown <= 0.0f)
 	{
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/dialogue.wav", false, "SFX");
 		ProcessDialogue();
 		clickCooldown = 0.2f;  // Prevent multiple clicks in one frame.
 	}
@@ -67,6 +68,7 @@ void Dialogue::OnShutdown()
 		}
 	}
 
+	storage.clear();
 	dialogueActive = false;
 }
 
@@ -80,6 +82,12 @@ std::string Dialogue::getDialogue()
 	/* Starting Room Dialogues */
 	case DialogueState::TUTORIALSTART:
 		return "I have to get out of here.. One step at a time..";
+
+	case DialogueState::FIRSTROPEBITE:
+		return "A rope? I can bite through it.. But if danger's near, I should stop.";
+
+	case DialogueState::INSTRUCTIONS:
+		return "I'll use my teeth-Right Mouse Button to bite. And if I need to stop, I'll press ESC!";
 
 	case DialogueState::TUTORIALEND:
 		return "I can smell something.. It's coming from-there! Could this be a way out?";
@@ -97,21 +105,31 @@ std::string Dialogue::getDialogue()
 	case DialogueState::DONTWASTETIME:
 		return "No, I can't waste time-I have to get out before Rex finds me!";
 
-	/* MainHall Lvl1 Dialogues */
+	case DialogueState::REXISHERE:
+		return "I messed up.. Rex knows i'm not in the room anymore. If he catches me now, I'm done for!";
+
+	/* Corridor Dialogues*/
 	case DialogueState::OUTOFLIBRARY:
 		return "Phew.. We're out! But Rex will catch on.. Gotta stay sharp-one slip, and I'm his chew toy.";
 
-	case DialogueState::REXSAWYOU:
-		return "Oh no, he saw me!! Gotta hide-NOW!";
-
 	case DialogueState::SEARCHINGFORPUPS:
-		return "So where are my kiddos at..? I'll find you-just gotta trust my nose!";
+		return "This is.. the way to the Main Hall! My puppies must be there!";
+
+	/* MainHall Lvl1 Dialogues */
+	case DialogueState::INMAINHALL:
+		return "This whole place carries their scent.. My three babies!! But-oh no. That scent.. Rex!";
+
+	case DialogueState::HIDEFROMREX:
+		return "I can't risk running into him! Under the tables.. I have to hide!";
+
+	case DialogueState::REXSAWYOU:
+		return "Oh no, he saw me!! Gotta run-NOW!";
 
 	case DialogueState::FOUNDPUP1:
 		return "I found you! But this stupid lock.. Time to bite it to pieces!! Grr!!";
 
 	case DialogueState::TWOMORETOGO:
-		return "One down.. Two more to go. Stay close, kiddo!";
+		return "One down.. Two more to go. Stay close, kiddo! Maybe I could try looking on the second floor..";
 
 	case DialogueState::DISGUSTED:
 		return "Something stinks.. Smells like pee..?! I should avoid it..";
@@ -177,6 +195,14 @@ void Dialogue::ProcessDialogue()
 	{
 	case DialogueState::OUTOFLIBRARY:
 		nextState = DialogueState::SEARCHINGFORPUPS;
+		break;
+
+	case DialogueState::FIRSTROPEBITE:
+		nextState = DialogueState::INSTRUCTIONS;
+		break;
+
+	case DialogueState::INMAINHALL:
+		nextState = DialogueState::HIDEFROMREX;
 		break;
 
 	default:

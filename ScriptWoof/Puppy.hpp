@@ -16,6 +16,8 @@ struct Puppy final : public Behaviour
     float speed = 5.0f;
     float pathThreshold = 5.f;
     bool isMovingPuppy = false;
+    bool puppyGrounded = false;
+
     //bool collected = false; // Track if the player collected the puppy
     Entity playerEntity = 5000; // Store player entity
 
@@ -71,6 +73,7 @@ struct Puppy final : public Behaviour
 
         glm::vec3 currentPos = m_Engine.GetPosition(entity);
         glm::vec3 velocity(0.0f);
+        float deltaTime = static_cast<float>(m_Engine.GetDeltaTime());
 
         if (collected[entity] && playerEntity != INVALID_ENT) 
         {
@@ -98,7 +101,7 @@ struct Puppy final : public Behaviour
 				else {
 					// Make the puppy jump towards the player
                     float gravity = 9.81f;
-                    float jumpHeight = 1.5f;
+                    float jumpHeight = 2.0f;
                     float jumpVelocity = 1.2f * sqrt(2 * gravity * jumpHeight);
 
                     velocity.y = jumpVelocity;
@@ -139,6 +142,37 @@ struct Puppy final : public Behaviour
 		
 
             isMovingPuppy = true;
+        }
+
+        // **Gravity Fix**
+        float gravityForce = 100.0f;  // Increased gravity
+        float terminalVelocity = -100.0f; // Allow faster falling
+        float velocityThreshold = 0.05f; // Small movement threshold
+        glm::vec3 playerPos = m_Engine.GetPosition(playerEntity);
+        float playerY = playerPos.y;
+
+        if (!puppyGrounded)
+        {
+            velocity.y -= gravityForce * deltaTime;
+            velocity.y = glm::max(velocity.y, terminalVelocity);
+
+            // **Ground Detection (Ensures it actually lands)**
+            static float groundTimer = 0.0f;
+            if (glm::abs(velocity.y) < velocityThreshold)
+            {
+                groundTimer += deltaTime;
+
+                // Only mark as grounded if very close to the ground
+                if (groundTimer > 0.2f && currentPos.y <= playerY + 0.1f)
+                {
+                    puppyGrounded = true;
+                    velocity.y = 0.0f;
+                }
+            }
+            else
+            {
+                groundTimer = 0.0f;
+            }
         }
 
         // Apply velocity

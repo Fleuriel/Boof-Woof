@@ -12,6 +12,8 @@
 #include "Input.h"
 #include "Windows/WindowManager.h"
 
+extern bool g_IsCamPanning;
+
  // Constructor to initialize default action mappings
 InputSystem::InputSystem() {
     // Set up default action mappings
@@ -24,6 +26,7 @@ InputSystem::InputSystem() {
 	SetActionMapping("Sniff", GLFW_KEY_E);
 	SetActionMapping("Sprint", GLFW_KEY_LEFT_SHIFT);
     SetActionMapping("Biting", GLFW_MOUSE_BUTTON_LEFT);
+    SetActionMapping("Escape", GLFW_KEY_ESCAPE);
 }
 
 /**************************************************************************
@@ -32,6 +35,8 @@ InputSystem::InputSystem() {
  * @return Integer representing the state of the key.
  *************************************************************************/
 int InputSystem::GetKeyState(int index) {
+    if (g_IsCamPanning)
+        return 0;
     return keyStates[index];
 }
 
@@ -50,6 +55,8 @@ void InputSystem::SetKeyState(int index, int value) {
  * @return Boolean representing the mouse button's state.
  *************************************************************************/
 int InputSystem::GetMouseState(int index) {
+    if (g_IsCamPanning)
+        return 0;
     return mouseButtonStates[index];
 }
 
@@ -67,6 +74,8 @@ void InputSystem::SetMouseState(int index, int value) {
  * @return Integer representing the scroll state.
  *************************************************************************/
 int InputSystem::GetScrollState() {
+    if (g_IsCamPanning)
+        return 0;
     return mouseScrollState;
 }
 
@@ -159,6 +168,10 @@ void InputSystem::SetActionMapping(const char * action, int key) {
  * @return True if the action is pressed, false otherwise.
  *************************************************************************/
 bool InputSystem::IsActionPressed(const char * action) {
+
+    if (g_IsCamPanning)
+        return false;
+
     auto it = actionMappings.find(action);
     if (it != actionMappings.end()) {
         int key = it->second;

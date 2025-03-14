@@ -66,6 +66,8 @@ void PausedScreen::OnExit()
 			}
 		}
 	}
+
+	spawnedEntities.clear();
 }
 
 void QuitScreen::OnLoad()
@@ -112,6 +114,8 @@ void QuitScreen::OnExit()
 			}
 		}
 	}
+
+	spawnedEntities.clear();
 }
 
 void Settings::OnLoad()
@@ -165,6 +169,8 @@ void Settings::OnExit()
 			}
 		}
 	}
+
+	spawnedEntities.clear();
 }
 
 void HowToPlay::OnLoad()
@@ -187,6 +193,8 @@ void HowToPlay::OnExit()
 			}
 		}
 	}
+
+	spawnedEntities.clear();
 }
 
 std::unique_ptr<PauseMenu> CreatePausedMenu(PauseState state)
@@ -214,7 +222,7 @@ namespace pauseLogic
 {
 	void OnUpdate()
 	{
-		if (!g_IsPaused && g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1)
+		if (!g_IsPaused && g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1 && !g_BoneCatcher.isActive)
 		{
 			g_IsPaused = true;
 			pauser->OnLoad();
@@ -369,6 +377,7 @@ namespace pauseLogic
 					{
 						bgVolume = std::max(0.0f, (float)(g_Audio.GetBGMVolume() - volumeStep));
 						g_Audio.SetBGMVolume(bgVolume);
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 					}
 				}
 
@@ -379,6 +388,7 @@ namespace pauseLogic
 					{
 						bgVolume = std::min(1.0f, (float)(g_Audio.GetBGMVolume() + volumeStep));
 						g_Audio.SetBGMVolume(bgVolume);
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 					}
 				}
 
@@ -409,6 +419,8 @@ namespace pauseLogic
 						mGraphicsSys->gammaValue -= 0.1f;
 						if (mGraphicsSys->gammaValue < 1.f)
 							mGraphicsSys->gammaValue = 1.f;
+
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 					}
 				}
 
@@ -420,6 +432,8 @@ namespace pauseLogic
 						mGraphicsSys->gammaValue += 0.1f;
 						if (mGraphicsSys->gammaValue > 3.f)
 							mGraphicsSys->gammaValue = 3.f;
+
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 					}
 				}
 

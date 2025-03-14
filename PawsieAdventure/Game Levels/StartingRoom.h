@@ -5,6 +5,7 @@
 #include "../Systems/CameraController/CameraController.h"
 #include "../Systems/ChangeText/ChangeText.h"
 #include "../Systems/Checklist/Checklist.h"
+#include "../Systems/RopeBreaker/RopeBreaker.h"
 #include "../Utilities/ForGame/Dialogue/Dialogue.h"
 #include "../Utilities/ForGame/UI/UI.h"
 #include "LoadingLevel.h"
@@ -14,14 +15,17 @@
 class StartingRoom : public Level
 {
 public:
-	Entity playerEnt{}, scentEntity{};
+	Entity playerEnt{}, scentEntity{}, RopeE{};
 	CameraController* cameraController = nullptr;
 	bool bark{ false }, sniff{ false }, initChecklist{ false };
 	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{}, FireSound{};
 
+	bool savedcamdir{ false };
+	glm::vec3 camdir{};
+
 	std::vector<Entity> particleEntities;
 	double sniffCooldownTimer = 0.0;  // Accumulates time
-	const double sniffCooldownDuration = 17.0;  // 16 seconds
+	const double sniffCooldownDuration = 17.0;  // 17 seconds
 	bool isSniffOnCooldown = false;
 
 	std::vector<std::string> bitingSounds = {
@@ -60,7 +64,8 @@ public:
 			{"BedRoomMusic", [&](Entity entity) { BedRoomBGM = entity; }},
 			{"CorgiBark1", [&](Entity entity) { CorgiBark = entity; }},
 			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }},
-			{ "middle particle", [&](Entity entity) { FireSound = entity; }}
+			{"middle particle", [&](Entity entity) { FireSound = entity; }},
+			{"Rope", [&](Entity entity) { RopeE = entity; }}
 		};
 
 		for (auto entity : entities)
@@ -102,7 +107,7 @@ public:
 				}
 
 				// Exit early if all entities are found
-				if (playerEnt && scentEntity && BedRoomBGM && CorgiBark && CorgiSniff && FireSound)
+				if (playerEnt && scentEntity && BedRoomBGM && CorgiBark && CorgiSniff && FireSound && RopeE)
 				{
 					break;
 				}
@@ -113,14 +118,22 @@ public:
 
 	void InitLevel() override
 	{
+
+		ResetLevelState();
+
+
 		// Ensure player entity is valid
 		cameraController = new CameraController(playerEnt);
+		cameraController->ToggleCameraMode();
+
 		camerachange = false;
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
 
 		particleEntities = { scentEntity };
 		g_UI.OnInitialize();
+		g_RopeBreaker = RopeBreaker(playerEnt, RopeE);
+		g_UI.inStartingRoom = true;
 	}
 
 	bool teb_last = false;
@@ -128,7 +141,15 @@ public:
 	void UpdateLevel(double deltaTime) override
 	{
 
-		//double currentTime = g_TimerTR.; // Use the game's timer system
+		if (g_IsPaused && !savedcamdir) {
+			camdir = cameraController->GetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
+			savedcamdir = true;
+		}
+
+		if (!g_IsPaused && savedcamdir) {
+			cameraController->SetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt), camdir);
+			savedcamdir = false;
+		}
 
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
 			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
@@ -138,10 +159,15 @@ public:
 			g_Audio.SetListenerPosition(playerPos, playerRot);
 		}
 
-		// ?? Update the positions of all 3D sounds (including the fireplace)
+		// Update the positions of all 3D sounds (including the fireplace)
 		g_Audio.Update3DSoundPositions();
 
 		g_ChangeText.startingRoomOnly = true;
+
+		if (!g_DialogueText.dialogueActive)
+		{
+			pauseLogic::OnUpdate();
+		}
 
 		if (!g_IsPaused) 
 		{
@@ -154,17 +180,12 @@ public:
 
 			g_UI.OnUpdate(static_cast<float>(deltaTime));
 			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
+			g_DialogueText.OnUpdate(deltaTime);
 
-			if (g_DialogueText.dialogueActive)
-			{				
-				g_DialogueText.OnUpdate(deltaTime);
-			}
-			else 
+			if (!g_DialogueText.dialogueActive)
 			{
 				// let the change text finish first then allow pauseLogic
-				pauseLogic::OnUpdate();
-
-				if (!initChecklist) 
+				if (!initChecklist)
 				{
 					g_Checklist.OnInitialize();
 					g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do1");
@@ -179,25 +200,11 @@ public:
 			{
 				g_Checklist.OnUpdate(deltaTime);
 
+				if (!g_Checklist.Check3 && !g_RopeBreaker.playedRopeSnap1) 
+				{
+					g_RopeBreaker.OnUpdate(deltaTime);
+				}
 			}
-
-			//if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
-			//{
-			//	if (!teb_last)
-			//	{
-			//		teb_last = true;
-			//		cameraController->ShakePlayer(1.0f, glm::vec3(0.1f, 0.1f, 0.1f));
-			//	}
-			//}
-			//else
-			//{
-			//	teb_last = false;
-			//}
-
-			//if (g_Input.GetKeyState(GLFW_KEY_O) >= 1) 
-			//{
-			//	cameraController->ShakeCamera(1.0f, glm::vec3(0.1f,0.1f,0.1f));
-			//}
 
 			// Take this away once u shift to script
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !bark)
@@ -263,11 +270,6 @@ public:
 				}
 			}
 		}	
-
-		if (!g_DialogueText.dialogueActive)
-		{
-			pauseLogic::OnUpdate();
-		}
 	}
 
 	void FreeLevel() override
@@ -290,7 +292,9 @@ public:
 			music.StopAudio();
 		}
 
+		g_UI.inStartingRoom = false;
 		g_ChangeText.startingRoomOnly = false;
+		g_Checklist.Check3 = false;
 		bark = false;
 		sniff = false;
 		initChecklist = false;
@@ -302,4 +306,18 @@ public:
 
 private:
 	bool camerachange = false;
+
+	void ResetLevelState()
+	{
+		bark = false;
+		sniff = false;
+		initChecklist = false;
+		savedcamdir = false;
+		camdir = glm::vec3(0.0f);
+		particleEntities.clear();
+		sniffCooldownTimer = 0.0;
+		isSniffOnCooldown = false;
+		camerachange = false;
+		// If needed, reset any other member variables here.
+	}
 };

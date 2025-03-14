@@ -105,12 +105,6 @@ void Checklist::OnUpdate(double deltaTime)
 				Check2 = true;
 			}
 
-			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1 && !Check3)
-			{
-				ChangeBoxChecked(Box3);
-				Check3 = true;
-			}
-
 			if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && !Check4)
 			{
 				ChangeBoxChecked(Box4);
@@ -236,15 +230,30 @@ void Checklist::Reset()
 	Check1 = Check2 = Check3 = Check4 = corgiText = false;
 }
 
+void Checklist::HideChecklistUI(std::vector<Entity> ent, bool hide)
+{
+	for (Entity e : ent)
+	{
+		if (g_Coordinator.HaveComponent<UIComponent>(e)) 
+		{
+			UIComponent& opa = g_Coordinator.GetComponent<UIComponent>(e);
+			if (hide)
+			{
+				opa.set_opacity(0.f);
+			}
+			else
+			{
+				opa.set_opacity(1.f);
+			}
+		}
+	}
+}
+
 void Checklist::ChangeAsset(Entity ent, glm::vec2 scale, std::string textureName)
 {
 	if (!g_Coordinator.HaveComponent<UIComponent>(ent)) return;
 
 	auto& text = g_Coordinator.GetComponent<UIComponent>(ent);
-
-	//int oldTextureId = text.get_textureid();
-	//int textureId = g_ResourceManager.GetTextureDDS(textureName);
-	//text.set_textureid(textureId);
 	text.set_texturename(textureName);
 
 	g_Coordinator.GetComponent<UIComponent>(ent).set_scale(scale);
