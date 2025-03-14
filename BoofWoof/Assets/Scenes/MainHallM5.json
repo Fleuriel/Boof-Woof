@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "54283197-174f-447e-9f11-f773b52ea4c0",
+    "SceneGUID": "973749b1-42e7-4217-85cc-2e28dec14144",
     "Entities": [
         {
             "MetadataComponent": {
@@ -24590,6 +24590,103 @@
                 "Cols": 1,
                 "FrameInterval": 0.10000000149011612,
                 "StayOnRow": true
+            }
+        {
+            "MetadataComponent": {
+                "EntityName": "TableCollision",
+                "EntityID": 567
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 17.899999618530275,
+                    "y": 2.569999933242798,
+                    "z": -5.300000190734863
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.003000000026077032,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 12.399999618530274,
+                    "y": 0.15000000596046449,
+                    "z": 1.600000023841858
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "TableCollision",
+                "EntityID": 568
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 17.899999618530275,
+                    "y": 2.569999933242798,
+                    "z": -14.949999809265137
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0020000000949949028,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 12.399999618530274,
+                    "y": 0.15000000596046449,
+                    "z": 1.600000023841858
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         }
     ]
