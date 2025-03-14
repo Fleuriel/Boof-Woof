@@ -278,6 +278,10 @@ public:
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdatePhysicsTransform(entity);
 	}
 
+	virtual void SetEntityGravityFactor(Entity entity, float gravityFactor) override
+	{
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->SetEntityGravityFactor(entity, gravityFactor);
+	}
 
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) override
@@ -412,6 +416,10 @@ public:
 		return list[dist(gen)];
 	}
 
+	virtual void ForcePathfindingUpdate() override {
+		return g_Coordinator.GetSystem<PathfindingSystem>()->ForceImmediateUpdate();
+	}
+
 	virtual Entity GetPlayerEntity() override
 	{
 		for (auto entity : g_Coordinator.GetAliveEntitiesSet())
@@ -488,7 +496,13 @@ public:
 		g_DialogueText.setDialogue(static_cast<DialogueState>(dialogueState));
 	}
 
-	virtual double GetTRtimer() override {
+	virtual bool isDialogueActive() override 
+	{
+		return g_DialogueText.dialogueActive;
+	}
+
+	virtual double GetTRtimer() override 
+	{
 		return g_TimerTR.timer;
 	}
 };

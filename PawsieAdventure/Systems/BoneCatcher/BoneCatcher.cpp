@@ -20,12 +20,12 @@ void BoneCatcher::OnInitialize()
 
 		if (isCage)
 		{
-			g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/CageCatcher.json");
+			g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/CageBreaker.json");
 		}
 
 		if (isRope)
 		{
-			g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/RopeCatcher.json");
+			g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/RopeBreaker.json");
 		}
 
 		UIClosed = true;
@@ -52,8 +52,6 @@ void BoneCatcher::OnInitialize()
 				if (g_Coordinator.HaveComponent<UIComponent>(m_DogHead))
 				{
 					DogPos = g_Coordinator.GetComponent<UIComponent>(m_DogHead).get_position();
-					DogScale = g_Coordinator.GetComponent<UIComponent>(m_DogHead).get_scale();
-					initialDogPos = DogPos;
 				}
 			}
 
@@ -74,15 +72,40 @@ void BoneCatcher::OnInitialize()
 					// Get initial scale set from level editor first
 					CatchZoneScale = g_Coordinator.GetComponent<UIComponent>(m_CatchZone).get_scale();
 
-					// Randomize the scale, set it
-					//dist = std::uniform_real_distribution<float>(MinMaxScale.x, MinMaxScale.y);
-					//CatchZoneScale.x = dist(gen);
-					//g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetScale(CatchZoneScale);
-
 					BoxMin = CatchZonePos - CatchZoneScale * 0.5f;	// Bottom left
 					BoxMax = CatchZonePos + CatchZoneScale * 0.5f;  // Top right
 
 					TeethPos = { DogPos.x - 0.02f, DogPos.y - 0.27 };
+				}
+			}
+
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Puppy1")
+			{
+				m_Puppy1 = entity;
+
+				if (g_Coordinator.HaveComponent<UIComponent>(m_Puppy1))
+				{
+					Puppy1Pos = g_Coordinator.GetComponent<UIComponent>(m_Puppy1).get_position();
+				}
+			}
+
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Puppy2")
+			{
+				m_Puppy2 = entity;
+
+				if (g_Coordinator.HaveComponent<UIComponent>(m_Puppy2))
+				{
+					Puppy2Pos = g_Coordinator.GetComponent<UIComponent>(m_Puppy2).get_position();
+				}
+			}
+
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Puppy3")
+			{
+				m_Puppy3 = entity;
+
+				if (g_Coordinator.HaveComponent<UIComponent>(m_Puppy3))
+				{
+					Puppy3Pos = g_Coordinator.GetComponent<UIComponent>(m_Puppy3).get_position();
 				}
 			}
 		}
@@ -102,15 +125,23 @@ void BoneCatcher::OnInitialize()
 		if (g_CageBreaker.CageHitCounts.count(1) > 0 && g_CageBreaker.Cage1Colliding)
 		{
 			m_HitCount = g_CageBreaker.CageHitCounts[1];
+			m_Speed = g_CageBreaker.speedCage[1];
+			m_Direction = g_CageBreaker.directionCage[1];
 		}
 		else if (g_CageBreaker.CageHitCounts.count(2) > 0 && g_CageBreaker.Cage2Colliding)
 		{
 			m_HitCount = g_CageBreaker.CageHitCounts[2];
+			m_Speed = g_CageBreaker.speedCage[2];
+			m_Direction = g_CageBreaker.directionCage[2];
 		}
 		else if (g_CageBreaker.CageHitCounts.count(3) > 0 && g_CageBreaker.Cage3Colliding)
 		{
 			m_HitCount = g_CageBreaker.CageHitCounts[3];
+			m_Speed = g_CageBreaker.speedCage[3];
+			m_Direction = g_CageBreaker.directionCage[3];
 		}
+
+		UpdatePuppyHeads();		
 	}
 
 	if (isRope)
@@ -130,11 +161,17 @@ void BoneCatcher::OnInitialize()
 		if (g_RopeBreaker.RopeHitCounts.count(1) > 0 && g_RopeBreaker.Rope1Colliding)
 		{
 			m_HitCount = g_RopeBreaker.RopeHitCounts[1];
+			m_Speed = g_RopeBreaker.speedRope[1];
+			m_Direction = g_RopeBreaker.directionRope[1];
 		}
 		else if (g_RopeBreaker.RopeHitCounts.count(2) > 0 && g_RopeBreaker.Rope2Colliding)
 		{
 			m_HitCount = g_RopeBreaker.RopeHitCounts[2];
+			m_Speed = g_RopeBreaker.speedRope[2];
+			m_Direction = g_RopeBreaker.directionRope[2];
 		}
+
+		UpdatePuppyHeads();
 	}
 }
 
@@ -146,7 +183,7 @@ void BoneCatcher::OnUpdate(double deltaTime)
 
 	ClearBoneCatcherTimer += deltaTime;
 
-	if (m_HitCount <= 4)
+	if (m_HitCount <= (m_NoOfHitsRequired - 1))
 	{
 		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_RIGHT) == 1)
 		{
@@ -164,7 +201,10 @@ void BoneCatcher::OnUpdate(double deltaTime)
 			ChangeBase("BarSemi", "BarBreak");
 		}
 
-		if (m_HitCount == 3) m_BaseChanged = false;
+		if (m_HitCount == (m_NoOfHitsRequired + 1) / 2)
+		{
+			m_BaseChanged = false;
+		}
 
 		if (m_IsMoving)
 		{
@@ -196,9 +236,8 @@ void BoneCatcher::OnUpdate(double deltaTime)
 
 void BoneCatcher::Stop(double deltaTime)
 {
-
 	// After 5 times, no more
-	if (m_HitCount == 5 && !m_ShouldDestroy)
+	if (m_HitCount == m_NoOfHitsRequired && !m_ShouldDestroy)
 	{
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/CreakingRope2.wav");
 		m_DestroyTimer = 2.0f;
@@ -245,21 +284,36 @@ void BoneCatcher::MoveLeftRightVisual(double deltaTime)
 {
 	// Update position based on direction and speed
 	DogPos.x += m_Direction * m_Speed * static_cast<float>(deltaTime);
+	Puppy1Pos.x += m_Direction * m_Speed * static_cast<float>(deltaTime);
+	Puppy2Pos.x += m_Direction * m_Speed * static_cast<float>(deltaTime);
+	Puppy3Pos.x += m_Direction * m_Speed * static_cast<float>(deltaTime);
+
 
 	if (g_Coordinator.HaveComponent<UIComponent>(m_DogHead))
 	{
 		g_Coordinator.GetComponent<UIComponent>(m_DogHead).set_position(DogPos);
+		g_Coordinator.GetComponent<UIComponent>(m_Puppy1).set_position(Puppy1Pos);
+		g_Coordinator.GetComponent<UIComponent>(m_Puppy2).set_position(Puppy2Pos);
+		g_Coordinator.GetComponent<UIComponent>(m_Puppy3).set_position(Puppy3Pos);
 	}
 
 	// Check boundaries and reverse direction if necessary
 	if (DogPos.x >= m_MaxPos)
 	{
 		DogPos.x = m_MaxPos;
+		Puppy1Pos.x = m_SmollMaxPos;
+		Puppy2Pos.x = m_SmollMaxPos;
+		Puppy3Pos.x = m_SmollMaxPos;
+
 		m_Direction = -1; // Move left
 	}
 	if (DogPos.x <= m_MinPos)
 	{
 		DogPos.x = m_MinPos;
+		Puppy1Pos.x = m_SmollMinPos;
+		Puppy2Pos.x = m_SmollMinPos;
+		Puppy3Pos.x = m_SmollMinPos;
+
 		m_Direction = 1; // Move right
 	}
 }
@@ -277,10 +331,16 @@ void BoneCatcher::BiteDown(double deltaTime)
 	if (!m_Down)
 	{
 		DogPos.y -= 0.02f;
+		Puppy1Pos.y -= 0.02f;
+		Puppy2Pos.y -= 0.02f;
+		Puppy3Pos.y -= 0.02f;
 
 		if (g_Coordinator.HaveComponent<UIComponent>(m_DogHead))
 		{
 			g_Coordinator.GetComponent<UIComponent>(m_DogHead).set_position(DogPos);
+			g_Coordinator.GetComponent<UIComponent>(m_Puppy1).set_position(Puppy1Pos);
+			g_Coordinator.GetComponent<UIComponent>(m_Puppy2).set_position(Puppy2Pos);
+			g_Coordinator.GetComponent<UIComponent>(m_Puppy3).set_position(Puppy3Pos);
 		}
 
 		m_Down = true;  // prevent moving down again until reset.
@@ -326,10 +386,16 @@ void BoneCatcher::BiteDown(double deltaTime)
 		{
 			// Move the dog head back up
 			DogPos.y += 0.02f;
+			Puppy1Pos.y += 0.02f;
+			Puppy2Pos.y += 0.02f;
+			Puppy3Pos.y += 0.02f;
 
 			if (g_Coordinator.HaveComponent<UIComponent>(m_DogHead))
 			{
 				g_Coordinator.GetComponent<UIComponent>(m_DogHead).set_position(DogPos);
+				g_Coordinator.GetComponent<UIComponent>(m_Puppy1).set_position(Puppy1Pos);
+				g_Coordinator.GetComponent<UIComponent>(m_Puppy2).set_position(Puppy2Pos);
+				g_Coordinator.GetComponent<UIComponent>(m_Puppy3).set_position(Puppy3Pos);
 			}
 
 			if (m_HitDetected)
@@ -337,7 +403,6 @@ void BoneCatcher::BiteDown(double deltaTime)
 				if (g_Coordinator.HaveComponent<UIComponent>(m_CatchZone))
 				{
 					g_Coordinator.GetComponent<UIComponent>(m_CatchZone).set_position(CatchZonePos);
-					//g_Coordinator.GetComponent<TransformComponent>(m_CatchZone).SetScale(CatchZoneScale);
 				}
 			}
 
@@ -388,7 +453,10 @@ void BoneCatcher::ChangeBase(std::string hit2TextureName, std::string hit4Textur
 {
 	if (!m_BaseChanged)
 	{
-		if (m_HitCount == 2 || m_HitCount == 3)
+		int firstBreak = (m_NoOfHitsRequired + 1) / 2;
+		int secondBreak = m_NoOfHitsRequired - 1;
+
+		if (m_HitCount == firstBreak)
 		{
 			if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
 			{
@@ -403,7 +471,7 @@ void BoneCatcher::ChangeBase(std::string hit2TextureName, std::string hit4Textur
 				m_BaseChanged = true;
 			}
 		}
-		else if (m_HitCount == 4)
+		else if (m_HitCount == secondBreak)
 		{
 			if (g_Coordinator.HaveComponent<UIComponent>(m_Base))
 			{
@@ -418,6 +486,33 @@ void BoneCatcher::ChangeBase(std::string hit2TextureName, std::string hit4Textur
 				m_BaseChanged = true;
 			}
 		}
+	}
+}
+
+void BoneCatcher::UpdatePuppyHeads()
+{
+	if (!g_Coordinator.HaveComponent<UIComponent>(m_Puppy1) || !g_Coordinator.HaveComponent<UIComponent>(m_Puppy2) || !g_Coordinator.HaveComponent<UIComponent>(m_Puppy3))
+		return;
+
+	if (puppyCollisionOrder.size() >= 1) 
+	{
+		g_Coordinator.GetComponent<UIComponent>(m_Puppy1).set_texturename(puppyTextures[puppyCollisionOrder[0]]);
+		g_Coordinator.GetComponent<UIComponent>(m_Puppy1).set_opacity(1.0f);
+		m_NoOfHitsRequired = 5;
+	}
+
+	if (puppyCollisionOrder.size() >= 2) 
+	{
+		g_Coordinator.GetComponent<UIComponent>(m_Puppy2).set_texturename(puppyTextures[puppyCollisionOrder[1]]);
+		g_Coordinator.GetComponent<UIComponent>(m_Puppy2).set_opacity(1.0f);
+		m_NoOfHitsRequired = 4;
+	}
+
+	if (puppyCollisionOrder.size() >= 3) 
+	{
+		g_Coordinator.GetComponent<UIComponent>(m_Puppy3).set_texturename(puppyTextures[puppyCollisionOrder[2]]);
+		g_Coordinator.GetComponent<UIComponent>(m_Puppy3).set_opacity(1.0f);
+		m_NoOfHitsRequired = 3;
 	}
 }
 
@@ -436,4 +531,6 @@ void BoneCatcher::ResetBC()
 	m_MaxPos = 0.395f;
 	ClearBoneCatcherTimer = 0.0;
 	AudioTimer = 0.0;
+
+	m_NoOfHitsRequired = 6;
 }

@@ -48,7 +48,7 @@ class MainHall : public Level
 	bool dialogueFirst{ false }, dialogueSecond{ false }, dialogueThird{ false };
 
 	double sniffCooldownTimer = 0.0;  // Timer for sniff cooldown
-	const double sniffCooldownDuration = 16.0;  // 16 seconds cooldown
+	const double sniffCooldownDuration = 17.0;  // 17 seconds cooldown
 	bool isSniffOnCooldown = false;  // Track cooldown state
 
 
@@ -531,6 +531,7 @@ private:
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box1);
 			collectedPuppy1 = true;
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark1.wav", false, "SFX");
+			g_BoneCatcher.puppyCollisionOrder.push_back(1); 
 		}
 
 		if (puppy2Collided && !collectedPuppy2)
@@ -539,6 +540,7 @@ private:
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box2);
 			collectedPuppy2 = true;
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark2.wav", false, "SFX");
+			g_BoneCatcher.puppyCollisionOrder.push_back(2); 
 		}
 
 		if (puppy3Collided && !collectedPuppy3)
@@ -547,6 +549,7 @@ private:
 			g_Checklist.ChangeBoxChecked(g_Checklist.Box3);
 			collectedPuppy3 = true;
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark3.wav", false, "SFX");
+			g_BoneCatcher.puppyCollisionOrder.push_back(3); 
 		}
 
 		if (puppiesCollected == 1 && !dialogueFirst)

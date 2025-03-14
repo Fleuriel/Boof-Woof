@@ -28,6 +28,9 @@ enum class DialogueState {
 	FREED,
 	DISGUSTED2,
 	INMAINHALL,
+	FIRSTROPEBITE,
+	INSTRUCTIONS,
+	REXISHERE,
 };
 
 class Dialogue
