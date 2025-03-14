@@ -58,7 +58,7 @@ std::vector<DebugLine> GraphicsSystem::debugLines = {};
 unsigned int GraphicsSystem::debugLineVAO = 0;
 unsigned int GraphicsSystem::debugLineVBO = 0;
 
-const unsigned int SHADOW_WIDTH = 2048, SHADOW_HEIGHT = 2048;
+const unsigned int SHADOW_WIDTH = 4096, SHADOW_HEIGHT = 4096;
 unsigned int depthMapFBO;
 unsigned int depthMap_texture;
 
@@ -256,7 +256,7 @@ void GraphicsSystem::UpdateLoop() {
 				glm::mat4 lightProjection, lightView;
 				glm::mat4 lightSpaceMatrix;
 				float near_plane = 1.0f, far_plane = 17.5f;
-				lightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, near_plane, far_plane);
+				lightProjection = glm::ortho(-50.0f, 50.0f, -50.0f, 50.0f, near_plane, far_plane);
 				lightView = glm::lookAt(light_info_.position, (light_info_.position + lightComp.getDirection()), glm::vec3(0.0f, 1.0f, 0.0f));
 				lightSpaceMatrix = lightProjection * lightView;
 				light_info_.lightSpaceMatrix = lightSpaceMatrix;
