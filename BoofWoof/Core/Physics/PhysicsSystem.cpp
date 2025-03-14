@@ -272,8 +272,20 @@ JPH::PhysicsSystem* MyPhysicsSystem::CreatePhysicsSystem() {
         *m_object_vs_object_layer_filter
     );
 
+    // Adjust physics settings to fine-tune simulation behavior
+    JPH::PhysicsSettings physicsSettings;
+    physicsSettings.mNumVelocitySteps = 16;  // Increase velocity solver iterations
+    physicsSettings.mNumPositionSteps = 8;   // Increase position solver iterations
+    physicsSettings.mBaumgarte = 0.2f;       // Stabilize penetration resolution
+    physicsSettings.mPenetrationSlop = 0.0f;
+    physicsSettings.mLinearCastMaxPenetration = 0.0f;
+    physicsSettings.mSpeculativeContactDistance = 0.02f; // Prevent small sinking issues
+
+    // Apply the modified settings to the Physics System
+    mPhysicsSystem->SetPhysicsSettings(physicsSettings);
+
     // Set gravity
-    mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, -14.f, 0.0f));
+    mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, -14.0f, 0.0f));
     //mPhysicsSystem->SetGravity(JPH::Vec3(0.0f, 0.0f, 0.0f));
 
     std::cout << "Jolt physics system created" << std::endl;
@@ -397,6 +409,7 @@ void MyPhysicsSystem::OnUpdate(float deltaTime) {
         }
     }
 
+
     // Simulate physics
     mPhysicsSystem->Update(deltaTime, 20, mTempAllocator, mJobSystem);
 
@@ -484,6 +497,21 @@ void MyPhysicsSystem::AddEntityBody(Entity entity, float mass) {
         
         if (isDynamic) {
             body->SetAllowSleeping(false);
+
+            // Enable Continuous Collision Detection (CCD)
+            bodySettings.mMotionQuality = JPH::EMotionQuality::LinearCast;
+
+            //// Inside AddEntityBody and UpdateEntityBody (After body creation)
+            //if (entity == 340) {
+            //    bodyInterface.SetGravityFactor(body->GetID(), 0.0f);
+            //    std::cout << "[Physics AddEntityBody] Gravity factor for Entity 340 set to 0" << std::endl;
+
+            //    // Delay checking until next frame instead of crashing OnUpdate
+            //    float gravityFactor = bodyInterface.GetGravityFactor(body->GetID());
+            //    std::cout << "[Physics AddEntityBody] Readback Gravity factor for Entity 340: " << gravityFactor << std::endl;
+            //}
+
+
 
             // Provide mass and inertia for dynamic bodies
             bodySettings.mOverrideMassProperties = JPH::EOverrideMassProperties::MassAndInertiaProvided;
@@ -615,6 +643,19 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity, float mass)
 
         if (isDynamic) {
             newBody->SetAllowSleeping(false);
+            bodySettings.mMotionQuality = JPH::EMotionQuality::LinearCast; // Ensures high-speed objects don’t tunnel through ground
+
+            //// Inside AddEntityBody and UpdateEntityBody (After body creation)
+            //if (entity == 340) {
+            //    bodyInterface.SetGravityFactor(newBody->GetID(), 0.0f);
+            //    std::cout << "[Physics AddEntityBody] Gravity factor for Entity 340 set to 0" << std::endl;
+
+            //    // Delay checking until next frame instead of crashing OnUpdate
+            //    float gravityFactor = bodyInterface.GetGravityFactor(newBody->GetID());
+            //    std::cout << "[Physics AddEntityBody] Readback Gravity factor for Entity 340: " << gravityFactor << std::endl;
+            //}
+
+
             float massD = collisionComponent.GetMass();
             bodySettings.mOverrideMassProperties = JPH::EOverrideMassProperties::MassAndInertiaProvided;
             bodySettings.mMassPropertiesOverride.SetMassAndInertiaOfSolidBox(
@@ -1100,6 +1141,31 @@ float MyPhysicsSystem::RaycastFraction(const glm::vec3& origin, const glm::vec3&
     // If a hit occurred, return the closest hit fraction; otherwise return 1.0f.
     return (collector.hitEntity != invalid_entity) ? collector.closestFraction : 1.0f;
 }
+
+void MyPhysicsSystem::SetEntityGravityFactor(Entity entity, float gravityFactor)
+{
+    if (g_Coordinator.HaveComponent<CollisionComponent>(entity))
+    {
+        auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(entity);
+        JPH::Body* body = collisionComponent.GetPhysicsBody();
+
+        if (body != nullptr && !body->GetID().IsInvalid())
+        {
+            mPhysicsSystem->GetBodyInterface().SetGravityFactor(body->GetID(), gravityFactor);
+            std::cout << "[Physics] Gravity factor for Entity " << entity << " set to " << gravityFactor << std::endl;
+        }
+        else
+        {
+            std::cerr << "[Physics] ERROR: Invalid body for Entity " << entity << ". Cannot set gravity factor!" << std::endl;
+        }
+    }
+    else
+    {
+        std::cerr << "[Physics] ERROR: Entity " << entity << " does not have a CollisionComponent!" << std::endl;
+    }
+}
+
+
 
 
 

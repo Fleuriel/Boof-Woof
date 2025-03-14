@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "8b498708-e4c6-495d-a5b7-8d5d144acf3f",
+    "SceneGUID": "9699df63-0301-43e5-ab31-544716ef56d7",
     "Entities": [
         {
             "MetadataComponent": {
@@ -204,9 +204,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 22.553726196289064,
-                    "y": 0.9999973773956299,
-                    "z": 5.108293533325195
+                    "x": 23.750070571899415,
+                    "y": 0.9999998211860657,
+                    "z": 5.096920013427734
                 },
                 "Scale": {
                     "x": 0.4999885857105255,
@@ -230,6 +230,10 @@
             },
             "BehaviourComponent": {
                 "BehaviourName": "Player"
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
@@ -262,6 +266,25 @@
                     "z": 0.0
                 },
                 "Active": true
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -15967,7 +15990,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 20.010234832763673,
-                    "y": 3.1000001430511476,
+                    "y": 1.600000023841858,
                     "z": 17.999996185302736
                 },
                 "Scale": {
@@ -15995,8 +16018,8 @@
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": true,
+                "IsDynamic": true,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.450000047683716,
@@ -16011,13 +16034,38 @@
                 "Mass": 0.0
             },
             "PathfindingComponent": {
-                "StartNode": 8,
-                "GoalNode": 8,
+                "StartNode": 0,
+                "GoalNode": 5,
                 "Path": [
                     {
-                        "x": -3.0,
+                        "x": 13.0,
                         "y": 0.0,
-                        "z": -13.5
+                        "z": -4.5
+                    },
+                    {
+                        "x": 18.0,
+                        "y": 0.0,
+                        "z": -4.5
+                    },
+                    {
+                        "x": 20.5,
+                        "y": 0.0,
+                        "z": -4.5
+                    },
+                    {
+                        "x": 23.0,
+                        "y": 0.0,
+                        "z": -4.5
+                    },
+                    {
+                        "x": 28.0,
+                        "y": 0.0,
+                        "z": -4.5
+                    },
+                    {
+                        "x": 28.0,
+                        "y": 0.0,
+                        "z": -13.0
                     }
                 ]
             }
@@ -16065,7 +16113,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 20.5,
+                    "x": 18.0,
                     "y": 0.0,
                     "z": -4.5
                 },
@@ -16101,7 +16149,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 27.0,
+                    "x": 20.5,
                     "y": 0.0,
                     "z": -4.5
                 },
@@ -16137,9 +16185,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 28.0,
+                    "x": 23.0,
                     "y": 0.0,
-                    "z": -13.0
+                    "z": -4.5
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16173,7 +16221,43 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 35.0,
+                    "x": 28.0,
+                    "y": 0.0,
+                    "z": -4.5
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 346
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 28.0,
                     "y": 0.0,
                     "z": -13.0
                 },
@@ -16205,7 +16289,115 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 346
+                "EntityID": 347
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 31.0,
+                    "y": 0.0,
+                    "z": -13.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 348
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 36.0,
+                    "y": 0.0,
+                    "z": -13.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 349
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 36.0,
+                    "y": 0.0,
+                    "z": -8.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 350
             },
             "TransformComponent": {
                 "Position": {
@@ -16241,155 +16433,11 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 347
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 35.0,
-                    "y": 0.0,
-                    "z": 3.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "NodeComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "IsWalkable": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Node",
-                "EntityID": 348
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 29.0,
-                    "y": 0.0,
-                    "z": 3.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "NodeComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "IsWalkable": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Node",
-                "EntityID": 349
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 20.0,
-                    "y": 0.0,
-                    "z": 3.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "NodeComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "IsWalkable": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Node",
-                "EntityID": 350
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 12.0,
-                    "y": 0.0,
-                    "z": 3.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "NodeComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "IsWalkable": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Node",
                 "EntityID": 351
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.0,
+                    "x": 36.0,
                     "y": 0.0,
                     "z": 3.0
                 },
@@ -16425,7 +16473,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -4.0,
+                    "x": 31.0,
                     "y": 0.0,
                     "z": 3.0
                 },
@@ -16461,9 +16509,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -3.0,
+                    "x": 26.0,
                     "y": 0.0,
-                    "z": -7.0
+                    "z": 3.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16497,9 +16545,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -3.0,
+                    "x": 20.0,
                     "y": 0.0,
-                    "z": -13.5
+                    "z": 3.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16533,9 +16581,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -3.0,
+                    "x": 15.0,
                     "y": 0.0,
-                    "z": -22.0
+                    "z": 3.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16569,9 +16617,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -3.0,
+                    "x": 10.0,
                     "y": 0.0,
-                    "z": -32.0
+                    "z": 3.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16605,9 +16653,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -3.0,
+                    "x": 5.0,
                     "y": 0.0,
-                    "z": -38.0
+                    "z": 3.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16641,9 +16689,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 8.0,
+                    "x": 0.0,
                     "y": 0.0,
-                    "z": -37.0
+                    "z": 3.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16677,9 +16725,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 7.0,
+                    "x": -4.0,
                     "y": 0.0,
-                    "z": -31.200000762939454
+                    "z": 3.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16713,9 +16761,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 7.0,
+                    "x": -4.0,
                     "y": 0.0,
-                    "z": -25.0
+                    "z": -2.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16749,7 +16797,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 3.0,
+                    "x": -4.0,
                     "y": 0.0,
                     "z": -7.0
                 },
@@ -16785,9 +16833,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 3.0,
+                    "x": -4.0,
                     "y": 0.0,
-                    "z": -13.0
+                    "z": -12.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16821,9 +16869,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 10.0,
+                    "x": -4.0,
                     "y": 0.0,
-                    "z": -12.699999809265137
+                    "z": -17.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16857,9 +16905,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 16.0,
+                    "x": -4.0,
                     "y": 0.0,
-                    "z": -12.5
+                    "z": -22.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16893,9 +16941,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 17.0,
+                    "x": -4.0,
                     "y": 0.0,
-                    "z": -17.0
+                    "z": -27.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16929,9 +16977,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 18.0,
+                    "x": -4.0,
                     "y": 0.0,
-                    "z": -24.0
+                    "z": -32.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16948,10 +16996,6 @@
                     "y": 0.0,
                     "z": 0.0
                 }
-            },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
             },
             "NodeComponent": {
                 "Position": {
@@ -16969,9 +17013,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.0,
+                    "x": -4.0,
                     "y": 0.0,
-                    "z": -24.0
+                    "z": -38.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -16989,10 +17033,6 @@
                     "z": 0.0
                 }
             },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
-            },
             "NodeComponent": {
                 "Position": {
                     "x": 0.0,
@@ -17009,9 +17049,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 33.0,
+                    "x": 1.0,
                     "y": 0.0,
-                    "z": -24.0
+                    "z": -38.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17045,9 +17085,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 32.0,
+                    "x": 8.0,
                     "y": 0.0,
-                    "z": -33.5
+                    "z": -38.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17081,9 +17121,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 32.0,
+                    "x": 8.0,
                     "y": 0.0,
-                    "z": -45.20000076293945
+                    "z": -33.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17117,9 +17157,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 32.0,
+                    "x": 8.0,
                     "y": 0.0,
-                    "z": -51.0
+                    "z": -28.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17153,9 +17193,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 32.0,
+                    "x": 8.0,
                     "y": 0.0,
-                    "z": -59.5
+                    "z": -23.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17189,9 +17229,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 21.0,
+                    "x": 1.0,
                     "y": 0.0,
-                    "z": -60.0
+                    "z": -7.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17225,9 +17265,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 21.0,
+                    "x": 5.0,
                     "y": 0.0,
-                    "z": -70.0
+                    "z": -7.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17261,9 +17301,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 21.0,
+                    "x": 5.0,
                     "y": 0.0,
-                    "z": -81.0
+                    "z": -13.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17297,9 +17337,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 27.0,
+                    "x": 1.0,
                     "y": 0.0,
-                    "z": -81.0
+                    "z": -13.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17333,9 +17373,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 35.0,
+                    "x": 10.0,
                     "y": 0.0,
-                    "z": -81.0
+                    "z": -13.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17369,9 +17409,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 35.0,
+                    "x": 15.0,
                     "y": 0.0,
-                    "z": -88.0
+                    "z": -13.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17402,6 +17442,978 @@
             "MetadataComponent": {
                 "EntityName": "Node",
                 "EntityID": 379
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 17.100000381469728,
+                    "y": 0.0,
+                    "z": -11.5
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 380
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 17.100000381469728,
+                    "y": 0.0,
+                    "z": -17.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 381
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 17.100000381469728,
+                    "y": 0.0,
+                    "z": -22.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 382
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 17.100000381469728,
+                    "y": 0.0,
+                    "z": -25.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 383
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 22.0,
+                    "y": 0.0,
+                    "z": -25.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 384
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 27.0,
+                    "y": 0.0,
+                    "z": -25.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 385
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 32.0,
+                    "y": 0.0,
+                    "z": -25.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 386
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 37.0,
+                    "y": 0.0,
+                    "z": -25.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 387
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 32.0,
+                    "y": 0.0,
+                    "z": -25.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 388
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 32.0,
+                    "y": 0.0,
+                    "z": -30.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 389
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 32.0,
+                    "y": 0.0,
+                    "z": -35.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 390
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 32.0,
+                    "y": 0.0,
+                    "z": -40.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 391
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 32.0,
+                    "y": 0.0,
+                    "z": -45.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 392
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 32.0,
+                    "y": 0.0,
+                    "z": -50.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 393
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 32.0,
+                    "y": 0.0,
+                    "z": -55.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 394
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 32.0,
+                    "y": 0.0,
+                    "z": -60.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 395
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 27.0,
+                    "y": 0.0,
+                    "z": -60.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 396
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 20.0,
+                    "y": 0.0,
+                    "z": -60.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 397
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 20.0,
+                    "y": 0.0,
+                    "z": -65.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 398
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 20.0,
+                    "y": 0.0,
+                    "z": -70.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 399
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 20.0,
+                    "y": 0.0,
+                    "z": -75.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 400
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 20.0,
+                    "y": 0.0,
+                    "z": -81.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 401
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 25.0,
+                    "y": 0.0,
+                    "z": -81.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 402
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 30.0,
+                    "y": 0.0,
+                    "z": -81.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 403
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 35.0,
+                    "y": 0.0,
+                    "z": -81.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 404
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 35.0,
+                    "y": 0.0,
+                    "z": -86.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 405
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 35.0,
+                    "y": 0.0,
+                    "z": -91.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 406
             },
             "TransformComponent": {
                 "Position": {
@@ -17437,7 +18449,43 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 380
+                "EntityID": 407
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 35.0,
+                    "y": 0.0,
+                    "z": -100.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 408
             },
             "TransformComponent": {
                 "Position": {
@@ -17473,7 +18521,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 381
+                "EntityID": 409
             },
             "TransformComponent": {
                 "Position": {
@@ -17509,11 +18557,47 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 382
+                "EntityID": 410
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 14.5,
+                    "x": 32.0,
+                    "y": 0.0,
+                    "z": -68.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 411
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 15.0,
                     "y": 0.0,
                     "z": -60.0
                 },
@@ -17545,7 +18629,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 383
+                "EntityID": 412
             },
             "TransformComponent": {
                 "Position": {
@@ -17581,13 +18665,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 384
+                "EntityID": 413
             },
             "TransformComponent": {
                 "Position": {
                     "x": 8.0,
                     "y": 0.0,
-                    "z": -52.0
+                    "z": -50.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17617,13 +18701,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 385
+                "EntityID": 414
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 14.0,
+                    "x": 13.0,
                     "y": 0.0,
-                    "z": -52.0
+                    "z": -50.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17653,13 +18737,49 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 386
+                "EntityID": 415
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 13.0,
+                    "y": 0.0,
+                    "z": -55.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 416
             },
             "TransformComponent": {
                 "Position": {
                     "x": 0.0,
                     "y": 0.0,
-                    "z": -52.0
+                    "z": -50.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17689,7 +18809,43 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 387
+                "EntityID": 417
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -55.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 418
             },
             "TransformComponent": {
                 "Position": {
@@ -17725,7 +18881,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 388
+                "EntityID": 419
             },
             "TransformComponent": {
                 "Position": {
@@ -17761,13 +18917,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 389
+                "EntityID": 420
             },
             "TransformComponent": {
                 "Position": {
                     "x": -3.0,
                     "y": 0.0,
-                    "z": -67.0
+                    "z": -65.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17797,7 +18953,43 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 390
+                "EntityID": 421
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -3.0,
+                    "y": 0.0,
+                    "z": -70.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 422
             },
             "TransformComponent": {
                 "Position": {
@@ -17833,7 +19025,43 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 391
+                "EntityID": 423
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -3.0,
+                    "y": 0.0,
+                    "z": -80.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 424
             },
             "TransformComponent": {
                 "Position": {
@@ -17869,7 +19097,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 392
+                "EntityID": 425
             },
             "TransformComponent": {
                 "Position": {
@@ -17905,13 +19133,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 393
+                "EntityID": 426
             },
             "TransformComponent": {
                 "Position": {
                     "x": 8.0,
                     "y": 0.0,
-                    "z": -67.0
+                    "z": -65.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17941,7 +19169,43 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 394
+                "EntityID": 427
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 8.0,
+                    "y": 0.0,
+                    "z": -70.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 428
             },
             "TransformComponent": {
                 "Position": {
@@ -17977,7 +19241,43 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 395
+                "EntityID": 429
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 8.0,
+                    "y": 0.0,
+                    "z": -80.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 430
             },
             "TransformComponent": {
                 "Position": {
@@ -18013,13 +19313,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 396
+                "EntityID": 431
             },
             "TransformComponent": {
                 "Position": {
                     "x": 2.0,
                     "y": 0.0,
-                    "z": -89.0
+                    "z": -88.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18049,7 +19349,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 397
+                "EntityID": 432
             },
             "TransformComponent": {
                 "Position": {
@@ -18085,13 +19385,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 398
+                "EntityID": 433
             },
             "TransformComponent": {
                 "Position": {
                     "x": -3.0,
                     "y": 0.0,
-                    "z": -97.5
+                    "z": -97.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18121,13 +19421,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 399
+                "EntityID": 434
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 3.0,
+                    "x": 2.0,
                     "y": 0.0,
-                    "z": -97.5
+                    "z": -97.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18157,85 +19457,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 400
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 10.0,
-                    "y": 0.0,
-                    "z": -97.5
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "NodeComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "IsWalkable": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Node",
-                "EntityID": 401
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 17.0,
-                    "y": 0.0,
-                    "z": -97.5
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "NodeComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "IsWalkable": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Node",
-                "EntityID": 402
+                "EntityID": 435
             },
             "TransformComponent": {
                 "Position": {
                     "x": 7.0,
                     "y": 0.0,
-                    "z": -89.30000305175781
+                    "z": -97.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18265,13 +19493,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 403
+                "EntityID": 436
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 14.0,
+                    "x": 12.0,
                     "y": 0.0,
-                    "z": -89.30000305175781
+                    "z": -97.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18301,13 +19529,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 404
+                "EntityID": 437
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 21.0,
+                    "x": 17.0,
                     "y": 0.0,
-                    "z": -89.19999694824219
+                    "z": -97.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18337,13 +19565,157 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 405
+                "EntityID": 438
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 7.0,
+                    "y": 0.0,
+                    "z": -89.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 439
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 12.0,
+                    "y": 0.0,
+                    "z": -89.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 440
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 17.0,
+                    "y": 0.0,
+                    "z": -89.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 441
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 22.0,
+                    "y": 0.0,
+                    "z": -89.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 442
             },
             "TransformComponent": {
                 "Position": {
                     "x": 27.0,
                     "y": 0.0,
-                    "z": -89.30000305175781
+                    "z": -89.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18373,13 +19745,49 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 406
+                "EntityID": 443
             },
             "TransformComponent": {
                 "Position": {
                     "x": 27.0,
                     "y": 0.0,
-                    "z": -95.0
+                    "z": -94.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 444
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 27.0,
+                    "y": 0.0,
+                    "z": -99.0
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18409,7 +19817,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 407
+                "EntityID": 445
             },
             "TransformComponent": {
                 "Position": {
@@ -18442,7 +19850,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 408
+                "EntityID": 446
             },
             "TransformComponent": {
                 "Position": {
@@ -18475,7 +19883,40 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 409
+                "EntityID": 447
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 2,
+                "EndNode": 3,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 448
             },
             "TransformComponent": {
                 "Position": {
@@ -18508,7 +19949,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 410
+                "EntityID": 449
             },
             "TransformComponent": {
                 "Position": {
@@ -18541,7 +19982,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 411
+                "EntityID": 450
             },
             "TransformComponent": {
                 "Position": {
@@ -18574,7 +20015,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 412
+                "EntityID": 451
             },
             "TransformComponent": {
                 "Position": {
@@ -18607,7 +20048,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 413
+                "EntityID": 452
             },
             "TransformComponent": {
                 "Position": {
@@ -18640,40 +20081,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 414
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "EdgeComponent": {
-                "StartNode": 1,
-                "EndNode": 8,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 415
+                "EntityID": 453
             },
             "TransformComponent": {
                 "Position": {
@@ -18706,7 +20114,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 416
+                "EntityID": 454
             },
             "TransformComponent": {
                 "Position": {
@@ -18739,7 +20147,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 417
+                "EntityID": 455
             },
             "TransformComponent": {
                 "Position": {
@@ -18762,6 +20170,10 @@
                     "y": 0.0,
                     "z": 0.0
                 }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
             },
             "EdgeComponent": {
                 "StartNode": 10,
@@ -18772,7 +20184,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 418
+                "EntityID": 456
             },
             "TransformComponent": {
                 "Position": {
@@ -18795,6 +20207,10 @@
                     "y": 0.0,
                     "z": 0.0
                 }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
             },
             "EdgeComponent": {
                 "StartNode": 11,
@@ -18805,7 +20221,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 419
+                "EntityID": 457
             },
             "TransformComponent": {
                 "Position": {
@@ -18829,6 +20245,10 @@
                     "z": 0.0
                 }
             },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
             "EdgeComponent": {
                 "StartNode": 12,
                 "EndNode": 13,
@@ -18838,7 +20258,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 420
+                "EntityID": 458
             },
             "TransformComponent": {
                 "Position": {
@@ -18875,7 +20295,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 421
+                "EntityID": 459
             },
             "TransformComponent": {
                 "Position": {
@@ -18912,7 +20332,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 422
+                "EntityID": 460
             },
             "TransformComponent": {
                 "Position": {
@@ -18949,7 +20369,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 423
+                "EntityID": 461
             },
             "TransformComponent": {
                 "Position": {
@@ -18986,7 +20406,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 424
+                "EntityID": 462
             },
             "TransformComponent": {
                 "Position": {
@@ -19023,7 +20443,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 425
+                "EntityID": 463
             },
             "TransformComponent": {
                 "Position": {
@@ -19060,7 +20480,44 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 427
+                "EntityID": 464
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 19,
+                "EndNode": 20,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 465
             },
             "TransformComponent": {
                 "Position": {
@@ -19097,7 +20554,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 428
+                "EntityID": 466
             },
             "TransformComponent": {
                 "Position": {
@@ -19134,7 +20591,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 429
+                "EntityID": 467
             },
             "TransformComponent": {
                 "Position": {
@@ -19171,7 +20628,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 430
+                "EntityID": 468
             },
             "TransformComponent": {
                 "Position": {
@@ -19208,7 +20665,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 431
+                "EntityID": 469
             },
             "TransformComponent": {
                 "Position": {
@@ -19245,7 +20702,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 432
+                "EntityID": 470
             },
             "TransformComponent": {
                 "Position": {
@@ -19282,7 +20739,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 433
+                "EntityID": 471
             },
             "TransformComponent": {
                 "Position": {
@@ -19319,7 +20776,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 434
+                "EntityID": 472
             },
             "TransformComponent": {
                 "Position": {
@@ -19356,7 +20813,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 435
+                "EntityID": 473
             },
             "TransformComponent": {
                 "Position": {
@@ -19393,7 +20850,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 436
+                "EntityID": 474
             },
             "TransformComponent": {
                 "Position": {
@@ -19430,7 +20887,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 437
+                "EntityID": 475
             },
             "TransformComponent": {
                 "Position": {
@@ -19467,7 +20924,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 438
+                "EntityID": 476
             },
             "TransformComponent": {
                 "Position": {
@@ -19504,7 +20961,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 439
+                "EntityID": 477
             },
             "TransformComponent": {
                 "Position": {
@@ -19541,7 +20998,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 440
+                "EntityID": 478
             },
             "TransformComponent": {
                 "Position": {
@@ -19578,7 +21035,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 441
+                "EntityID": 479
             },
             "TransformComponent": {
                 "Position": {
@@ -19615,7 +21072,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 442
+                "EntityID": 480
             },
             "TransformComponent": {
                 "Position": {
@@ -19652,7 +21109,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 443
+                "EntityID": 481
             },
             "TransformComponent": {
                 "Position": {
@@ -19689,7 +21146,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 444
+                "EntityID": 482
             },
             "TransformComponent": {
                 "Position": {
@@ -19726,7 +21183,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 445
+                "EntityID": 483
             },
             "TransformComponent": {
                 "Position": {
@@ -19755,7 +21212,7 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 36,
+                "StartNode": 38,
                 "EndNode": 39,
                 "Cost": 1.0
             }
@@ -19763,7 +21220,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 446
+                "EntityID": 484
             },
             "TransformComponent": {
                 "Position": {
@@ -19800,7 +21257,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 447
+                "EntityID": 485
             },
             "TransformComponent": {
                 "Position": {
@@ -19829,7 +21286,7 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 32,
+                "StartNode": 40,
                 "EndNode": 41,
                 "Cost": 1.0
             }
@@ -19837,7 +21294,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 448
+                "EntityID": 486
             },
             "TransformComponent": {
                 "Position": {
@@ -19874,7 +21331,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 449
+                "EntityID": 487
             },
             "TransformComponent": {
                 "Position": {
@@ -19904,117 +21361,6 @@
             },
             "EdgeComponent": {
                 "StartNode": 42,
-                "EndNode": 44,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 450
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
-            },
-            "EdgeComponent": {
-                "StartNode": 42,
-                "EndNode": 46,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 451
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
-            },
-            "EdgeComponent": {
-                "StartNode": 42,
-                "EndNode": 52,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 452
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
-            },
-            "EdgeComponent": {
-                "StartNode": 46,
                 "EndNode": 43,
                 "Cost": 1.0
             }
@@ -20022,7 +21368,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 453
+                "EntityID": 488
             },
             "TransformComponent": {
                 "Position": {
@@ -20059,7 +21405,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 454
+                "EntityID": 489
             },
             "TransformComponent": {
                 "Position": {
@@ -20088,7 +21434,7 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 43,
+                "StartNode": 44,
                 "EndNode": 45,
                 "Cost": 1.0
             }
@@ -20096,7 +21442,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 455
+                "EntityID": 490
             },
             "TransformComponent": {
                 "Position": {
@@ -20126,14 +21472,14 @@
             },
             "EdgeComponent": {
                 "StartNode": 45,
-                "EndNode": 47,
+                "EndNode": 46,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 456
+                "EntityID": 491
             },
             "TransformComponent": {
                 "Position": {
@@ -20170,7 +21516,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 457
+                "EntityID": 492
             },
             "TransformComponent": {
                 "Position": {
@@ -20201,13 +21547,13 @@
             "EdgeComponent": {
                 "StartNode": 47,
                 "EndNode": 48,
-                "Cost": 48.0
+                "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 458
+                "EntityID": 493
             },
             "TransformComponent": {
                 "Position": {
@@ -20244,7 +21590,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 459
+                "EntityID": 494
             },
             "TransformComponent": {
                 "Position": {
@@ -20281,7 +21627,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 460
+                "EntityID": 495
             },
             "TransformComponent": {
                 "Position": {
@@ -20318,7 +21664,44 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 461
+                "EntityID": 496
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 51,
+                "EndNode": 52,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 497
             },
             "TransformComponent": {
                 "Position": {
@@ -20355,7 +21738,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 462
+                "EntityID": 498
             },
             "TransformComponent": {
                 "Position": {
@@ -20392,7 +21775,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 463
+                "EntityID": 499
             },
             "TransformComponent": {
                 "Position": {
@@ -20422,43 +21805,6 @@
             },
             "EdgeComponent": {
                 "StartNode": 54,
-                "EndNode": 51,
-                "Cost": 1.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Edge",
-                "EntityID": 464
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "HierarchyComponent": {
-                "Parent": 5000,
-                "Children": []
-            },
-            "EdgeComponent": {
-                "StartNode": 51,
                 "EndNode": 55,
                 "Cost": 1.0
             }
@@ -20466,7 +21812,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 465
+                "EntityID": 500
             },
             "TransformComponent": {
                 "Position": {
@@ -20503,7 +21849,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 466
+                "EntityID": 501
             },
             "TransformComponent": {
                 "Position": {
@@ -20540,7 +21886,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 467
+                "EntityID": 502
             },
             "TransformComponent": {
                 "Position": {
@@ -20577,7 +21923,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 468
+                "EntityID": 503
             },
             "TransformComponent": {
                 "Position": {
@@ -20614,7 +21960,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 469
+                "EntityID": 504
             },
             "TransformComponent": {
                 "Position": {
@@ -20651,7 +21997,44 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 470
+                "EntityID": 505
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 60,
+                "EndNode": 61,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 506
             },
             "TransformComponent": {
                 "Position": {
@@ -20688,7 +22071,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 471
+                "EntityID": 507
             },
             "TransformComponent": {
                 "Position": {
@@ -20725,7 +22108,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 472
+                "EntityID": 508
             },
             "TransformComponent": {
                 "Position": {
@@ -20762,7 +22145,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 473
+                "EntityID": 509
             },
             "TransformComponent": {
                 "Position": {
@@ -20799,7 +22182,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 474
+                "EntityID": 510
             },
             "TransformComponent": {
                 "Position": {
@@ -20828,15 +22211,15 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 55,
-                "EndNode": 61,
+                "StartNode": 65,
+                "EndNode": 66,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 475
+                "EntityID": 511
             },
             "TransformComponent": {
                 "Position": {
@@ -20865,15 +22248,15 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 13,
-                "EndNode": 21,
+                "StartNode": 66,
+                "EndNode": 67,
                 "Cost": 1.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 476
+                "EntityID": 512
             },
             "TransformComponent": {
                 "Position": {
@@ -20902,8 +22285,1303 @@
                 "Children": []
             },
             "EdgeComponent": {
-                "StartNode": 12,
-                "EndNode": 20,
+                "StartNode": 67,
+                "EndNode": 68,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 513
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 68,
+                "EndNode": 69,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 514
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 69,
+                "EndNode": 70,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 515
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 70,
+                "EndNode": 71,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 516
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 71,
+                "EndNode": 72,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 517
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 72,
+                "EndNode": 73,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 518
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 73,
+                "EndNode": 74,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 519
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 74,
+                "EndNode": 75,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 520
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 75,
+                "EndNode": 76,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 521
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 76,
+                "EndNode": 77,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 522
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 77,
+                "EndNode": 78,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 523
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 78,
+                "EndNode": 79,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 524
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 79,
+                "EndNode": 80,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 525
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 80,
+                "EndNode": 81,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 526
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 81,
+                "EndNode": 82,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 527
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 82,
+                "EndNode": 83,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 528
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 83,
+                "EndNode": 84,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 529
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 84,
+                "EndNode": 85,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 530
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 85,
+                "EndNode": 86,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 531
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 86,
+                "EndNode": 87,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 532
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 87,
+                "EndNode": 88,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 533
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 88,
+                "EndNode": 89,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 534
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 89,
+                "EndNode": 90,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 535
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 90,
+                "EndNode": 91,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 536
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 91,
+                "EndNode": 92,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 537
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 92,
+                "EndNode": 93,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 538
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 93,
+                "EndNode": 94,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 539
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 94,
+                "EndNode": 95,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 540
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 95,
+                "EndNode": 96,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 541
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 96,
+                "EndNode": 97,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 542
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 97,
+                "EndNode": 98,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 543
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 98,
+                "EndNode": 99,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 544
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 99,
+                "EndNode": 100,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 545
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 100,
+                "EndNode": 101,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 546
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 101,
+                "EndNode": 102,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 548
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "HierarchyComponent": {
+                "Parent": 5000,
+                "Children": []
+            },
+            "EdgeComponent": {
+                "StartNode": 102,
+                "EndNode": 103,
                 "Cost": 1.0
             }
         }
