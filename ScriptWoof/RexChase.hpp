@@ -26,6 +26,8 @@ struct RexChase final : public Behaviour
     glm::vec3 previousPlayerPosition = glm::vec3(0.0f);  // New: Store player's last position
     float movementThreshold = 0.1f;  // New: Define a movement threshold to prevent unnecessary updates
 
+    bool sawPlayer{ false };
+
     enum State
     {
         TELEPORTING,
@@ -150,6 +152,8 @@ struct RexChase final : public Behaviour
                     inPlay = true;
                     state = MOVING;
                     PlayerNearestNode = PlayerNodeCheck;
+
+                    m_Engine.SetDialogue(28);
                     break;
                 }
 
@@ -284,6 +288,11 @@ struct RexChase final : public Behaviour
                         velocity = glm::vec3(0.0f);
                     }
                     isMovingRex = true;
+
+                    if (!sawPlayer) {
+                        m_Engine.SetDialogue(8);
+                        sawPlayer = true;
+                    }
                     break;
                 }
                 /*
@@ -306,6 +315,7 @@ struct RexChase final : public Behaviour
                 {
                     //velocity = glm::vec3(0.0f);
                     isMovingRex = false;
+                    sawPlayer = false;
                     break;
                 }
             }

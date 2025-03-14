@@ -104,6 +104,9 @@ std::string Dialogue::getDialogue()
 	case DialogueState::DONTWASTETIME:
 		return "No, I can't waste time-I have to get out before Rex finds me!";
 
+	case DialogueState::REXISHERE:
+		return "I messed up.. Rex knows i'm not in the room anymore. If he catches me now, I'm done for!";
+
 	/* Corridor Dialogues*/
 	case DialogueState::OUTOFLIBRARY:
 		return "Phew.. We're out! But Rex will catch on.. Gotta stay sharp-one slip, and I'm his chew toy.";
