@@ -76,7 +76,7 @@ class MainHall : public Level
 	}
 	
 
-	Entity VFX{};
+	Entity VFXBackground{}, Stinky1{}, Stinky2{};
 
 	void LoadLevel() override
 	{
@@ -109,7 +109,7 @@ class MainHall : public Level
 
 			if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
 				if (g_Coordinator.GetComponent<UIComponent>(entity).get_texturename() == "WashingVFX") {
-					VFX = entity;
+					VFXBackground = entity;
 				}
 			}
 		}
@@ -145,7 +145,8 @@ class MainHall : public Level
 		originalBrightness = g_Coordinator.GetSystem<GraphicsSystem>()->GetBrightness();
 		g_UI.finishCaged = false;
 
-		g_Coordinator.GetComponent<UIComponent>(VFX).set_opacity(0);
+		g_Coordinator.GetComponent<UIComponent>(VFXBackground).set_opacity(0);
+		g_Coordinator.GetComponent<UIComponent>(Stinky1).set_opacity(0);
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -179,16 +180,18 @@ class MainHall : public Level
 		if (!g_IsPaused)
 		{
 
-			auto& VFXComponent = g_Coordinator.GetComponent<UIComponent>(VFX);
+			auto& VFXBGComponent = g_Coordinator.GetComponent<UIComponent>(VFXBackground);
 			if(g_SmellAvoidance.GetPeeMarked()){
-				VFXComponent.set_opacity(1);
+				VFXBGComponent.set_opacity(1);
 			}
 			else {
-				if (VFXComponent.get_opacity() > 0) {
-					if (VFXComponent.get_position().y > -1.8)
-						VFXComponent.set_position({ VFXComponent.get_position().x, VFXComponent.get_position().y - 0.01 });
-					else
-						VFXComponent.set_opacity(0);
+				if (VFXBGComponent.get_opacity() > 0) {
+					if (VFXBGComponent.get_position().y > -1.8)
+						VFXBGComponent.set_position({ VFXBGComponent.get_position().x, VFXBGComponent.get_position().y - 0.01 });
+					else {
+
+					}
+						
 				}
 			}
 
