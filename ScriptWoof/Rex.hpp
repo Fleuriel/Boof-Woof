@@ -290,13 +290,13 @@ struct Rex final : public Behaviour
                 // Clamp velocity to avoid breaking the physics engine
                 float maxAllowedSpeed = 0;
                 if (state == State::PATROL) {
-                    maxAllowedSpeed = 5.0f;
+                    maxAllowedSpeed = 3.0f;
                 }
                 else if (state == State::CHASE) {
-                    maxAllowedSpeed = 10.0f;
+                    maxAllowedSpeed = 5.0f;
                 }
                 else if (state == State::FIND) {
-                    maxAllowedSpeed = 5.0f;
+                    maxAllowedSpeed = 3.0f;
                 }
 
                 //float maxAllowedSpeed = 10.0f;
