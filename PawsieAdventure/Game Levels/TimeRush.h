@@ -116,9 +116,12 @@ class TimeRush : public Level
 
 	void InitLevel() override
 	{
+		ResetLevelState();
 		g_IsCamPanning = true;
 		camtimer = 0.f;
 		camThirdPerson = panCam = returnCam = false;
+		originalcamPos = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraPosition();
+		originalcamDir = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraDirection();
 		cameraController = new CameraController(playerEnt);
 		cameraController->ChangeToThirdPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
 
@@ -442,4 +445,39 @@ private:
 		}
 		return false;
 	}
+
+	void ResetLevelState()
+	{
+		// Reset pause and camera state variables
+		savedcamdir = false;
+		camdir = glm::vec3(0.0f);
+		originalcamPos = glm::vec3(0.0f);
+		originalcamDir = glm::vec3(0.0f);
+
+		camThirdPerson = false;
+		panCam = false;
+		returnCam = false;
+		camtimer = 0.f;
+
+		// Reset audio/timer flags and other game state
+		colorChangeTimer = 0.0;
+		cooldownTimer = 0.0;
+		isColorChanged = false;
+
+		timerLimit = 40.0;
+		finishTR = false;
+		timesUp = 2.0;
+
+		sniffCooldownTimer = 0.0;
+		isSniffOnCooldown = false;
+
+		// Reset particle list and bark flag
+		particleEntities.clear();
+		bark = false;
+
+		// If there are any other member variables that persist across plays,
+		// reset them here.
+	}
+
 };
+

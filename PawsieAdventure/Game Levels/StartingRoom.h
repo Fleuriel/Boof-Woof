@@ -118,6 +118,10 @@ public:
 
 	void InitLevel() override
 	{
+
+		ResetLevelState();
+
+
 		// Ensure player entity is valid
 		cameraController = new CameraController(playerEnt);
 		cameraController->ToggleCameraMode();
@@ -302,4 +306,18 @@ public:
 
 private:
 	bool camerachange = false;
+
+	void ResetLevelState()
+	{
+		bark = false;
+		sniff = false;
+		initChecklist = false;
+		savedcamdir = false;
+		camdir = glm::vec3(0.0f);
+		particleEntities.clear();
+		sniffCooldownTimer = 0.0;
+		isSniffOnCooldown = false;
+		camerachange = false;
+		// If needed, reset any other member variables here.
+	}
 };
