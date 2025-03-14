@@ -187,15 +187,15 @@ class MainHall : public Level
 		{
 			auto& VFXBG_UICOMP = g_Coordinator.GetComponent<UIComponent>(VFXBG);
 			if (g_SmellAvoidance.GetPeeMarked()) {
-				VFXBG_UICOMP.set_position({ 0,1.8 });
-				VFXBG_UICOMP.set_opacity(1);
+				VFXBG_UICOMP.set_position({ 0.f, 1.8f });
+				VFXBG_UICOMP.set_opacity(1.0f);
 			}
 			else {
-				if (VFXBG_UICOMP.get_position().y > -1.8) {
-					VFXBG_UICOMP.set_position({ 0 , VFXBG_UICOMP.get_position().y - 0.02 });
+				if (VFXBG_UICOMP.get_position().y > -1.8f) {
+					VFXBG_UICOMP.set_position({ 0 , VFXBG_UICOMP.get_position().y - 0.02f });
 				}
 				else {
-					VFXBG_UICOMP.set_opacity(VFXBG_UICOMP.get_opacity() - 0.01); //Temporary
+					VFXBG_UICOMP.set_opacity(VFXBG_UICOMP.get_opacity() - 0.01f); //Temporary
 				}
 			}
 
