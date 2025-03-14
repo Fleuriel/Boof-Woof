@@ -609,7 +609,7 @@ struct Player final : public Behaviour
 
 				if (!peeCollisionDialogueShown)
 				{
-					for (int i = 1; i <= 6; ++i)
+					for (int i = 1; i <= 25; ++i)
 					{
 						std::string peeColliderName = "Pee" + std::to_string(i) + "Collision";
 						if (m_Engine.MatchEntityName(touchedEntity, peeColliderName.c_str()))

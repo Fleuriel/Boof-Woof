@@ -14,19 +14,25 @@
 
 class MainHall : public Level
 {
-	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{}, scentEntity3{}, puppy1{}, puppy2{}, puppy3{}, rex{};
-	Entity WaterBucket{}, WaterBucket2{}, WaterBucket3{}; // Smell Avoidance
-	Entity FireSound{};
+	Entity playerEnt{}, RopeEnt{}, RopeEnt2{}, BridgeEnt{}, scentEntity1{}, scentEntity2{}, scentEntity3{}, puppy1{}, puppy2{}, puppy3{}, rex{}, FireSound{};
 
-	Entity TestPee{}, TestCollider{}; // Smell Avoidance
-	Entity pee1{}, pee2{}, pee3{}, pee4{}, pee5{}, pee6{}; // Smell Avoidance
-	Entity pee1Collider{}, pee2Collider{}, pee3Collider{}, pee4Collider{}, pee5Collider{}, pee6Collider{}; // Smell Avoidance
+	// Smell Avoidance
+	Entity pee1{}, pee2{}, pee3{}, pee4{}, pee5{}, pee6{}, pee7{}, pee8{}, pee9{}, pee10{}, pee11{}, pee12{}, pee13{}, pee14{}, pee15{},
+		pee16{}, pee17{}, pee18{}, pee19{}, pee20{}, pee21{}, pee22{}, pee23{}, pee24{}, pee25{};
+
+	Entity pee1Collider{}, pee2Collider{}, pee3Collider{}, pee4Collider{}, pee5Collider{}, pee6Collider{}, pee7Collider{}, pee8Collider{},
+		pee9Collider{}, pee10Collider{}, pee11Collider{}, pee12Collider{}, pee13Collider{}, pee14Collider{}, pee15Collider{}, pee16Collider{},
+		pee17Collider{}, pee18Collider{}, pee19Collider{}, pee20Collider{}, pee21Collider{}, pee22Collider{}, pee23Collider{}, pee24Collider{}, pee25Collider{};
+
+	Entity peeScent1{}, peeScent2{}, peeScent3{}, peeScent4{}, peeScent5{}, peeScent6{}, peeScent7{}, peeScent8{}, peeScent9{}, peeScent10{},
+		peeScent11{}, peeScent12{}, peeScent13{}, peeScent14{}, peeScent15{}, peeScent16{}, peeScent17{}, peeScent18{}, peeScent19{}, peeScent20{},
+		peeScent21{}, peeScent22{}, peeScent23{}, peeScent24{}, peeScent25{};
+	Entity WaterBucket{}, WaterBucket2{}, WaterBucket3{}, WaterBucket4{}, WaterBucket5{};
 
 	Entity Cage1{}, Cage1Collider{}, Cage2{}, Cage2Collider{}, Cage3{}, Cage3Collider{};
 	bool cage1Collided{ false }, cage2Collided{ false }, cage3Collided{ false };
 
 	Entity stealthCollider1{}, stealthCollider2{}, stealthCollider3{}, stealthCollider4{};
-	Entity peeScent1{}, peeScent2{}, peeScent3{}, peeScent4{}, peeScent5{}, peeScent6{}, peeScent7{};
 	Entity VFXBG{}, VFX1{}, VFX2{};
 
 	// Existing member variables...
@@ -39,7 +45,7 @@ class MainHall : public Level
 	glm::vec3 camdir{};
 
 	// Smell Avoidance
-	double timer{ 0.0 }, timerLimit{ 10.0 }, timesUp{ 2.0 }; // Timer for smell avoidance
+	double timer{ 0.0 }, timerLimit{ 15.0 }, timesUp{ 2.0 }; // Timer for smell avoidance
 	double colorChangeTimer{ 0.0 }, colorChangeDuration{ 3.0 }, cooldownTimer{ 10.0 }, cooldownDuration{ 10.0 };
 	bool isColorChanged{ false }, sniffa{ false };
 
@@ -128,9 +134,14 @@ class MainHall : public Level
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
 
 		// Smell Avoidance
-		peeEntities = { TestPee, pee1, pee2, pee3, pee4, pee5, pee6 };
-		peeColliders = { TestCollider, pee1Collider, pee2Collider, pee3Collider, pee4Collider, pee5Collider, pee6Collider };
-		waterBuckets = { WaterBucket, WaterBucket2, WaterBucket3 };
+		peeEntities = { pee1, pee2, pee3, pee4, pee5, pee6, pee7, pee8, pee9, pee10, pee11, pee12, pee13, pee14, pee15,
+			pee16, pee17, pee18, pee19, pee20, pee21, pee22, pee23, pee24, pee25 };
+
+		peeColliders = { pee1Collider, pee2Collider, pee3Collider, pee4Collider, pee5Collider, pee6Collider, pee7Collider, pee8Collider,
+			pee9Collider, pee10Collider, pee11Collider, pee12Collider, pee13Collider, pee14Collider, pee15Collider, pee16Collider, pee17Collider,
+			pee18Collider, pee19Collider, pee20Collider, pee21Collider, pee22Collider, pee23Collider, pee24Collider, pee25Collider };
+
+		waterBuckets = { WaterBucket, WaterBucket2, WaterBucket3, WaterBucket4, WaterBucket5 };
 		g_SmellAvoidance = SmellAvoidance(playerEnt, peeEntities, peeColliders, waterBuckets);
 
 		g_Checklist.OnInitialize();
@@ -146,9 +157,11 @@ class MainHall : public Level
 
 		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 
-		particleEntities = { scentEntity1, scentEntity2, scentEntity3, peeScent1, peeScent2, peeScent3, peeScent4, peeScent5, peeScent6, peeScent7 };
-		g_UI.OnInitialize();
+		particleEntities = { scentEntity1, scentEntity2, scentEntity3, peeScent1, peeScent2, peeScent3, peeScent4, peeScent5, peeScent6,
+			peeScent7, peeScent8, peeScent9, peeScent10, peeScent11, peeScent12, peeScent13, peeScent14, peeScent15, peeScent16, peeScent17,
+			peeScent18, peeScent19, peeScent20, peeScent21, peeScent22, peeScent23, peeScent24, peeScent25 };
 
+		g_UI.OnInitialize();
 		// Store the original brightness value
 		originalBrightness = g_Coordinator.GetSystem<GraphicsSystem>()->GetBrightness();
 		g_UI.finishCaged = false;
@@ -364,7 +377,7 @@ class MainHall : public Level
 				colorChangeTimer += deltaTime;
 				if (colorChangeTimer >= colorChangeDuration)
 				{
-					g_SmellAvoidance.SetNewPeePosition();
+					//g_SmellAvoidance.SetNewPeePosition();
 					isColorChanged = false;
 				}
 			}
@@ -440,18 +453,56 @@ private:
 			{"Pee4", [&](Entity entity) { pee4 = entity; }},
 			{"Pee5", [&](Entity entity) { pee5 = entity; }},
 			{"Pee6", [&](Entity entity) { pee6 = entity; }},
+			{"Pee7", [&](Entity entity) { pee7 = entity; }},
+			{"Pee8", [&](Entity entity) { pee8 = entity; }},
+			{"Pee9", [&](Entity entity) { pee9 = entity; }},
+			{"Pee10", [&](Entity entity) { pee10 = entity; }},
+			{"Pee11", [&](Entity entity) { pee11 = entity; }},
+			{"Pee12", [&](Entity entity) { pee12 = entity; }},
+			{"Pee13", [&](Entity entity) { pee13 = entity; }},
+			{"Pee14", [&](Entity entity) { pee14 = entity; }},
+			{"Pee15", [&](Entity entity) { pee15 = entity; }},
+			{"Pee16", [&](Entity entity) { pee16 = entity; }},
+			{"Pee17", [&](Entity entity) { pee17 = entity; }},
+			{"Pee18", [&](Entity entity) { pee18 = entity; }},
+			{"Pee19", [&](Entity entity) { pee19 = entity; }},
+			{"Pee20", [&](Entity entity) { pee20 = entity; }},
+			{"Pee21", [&](Entity entity) { pee21 = entity; }},
+			{"Pee22", [&](Entity entity) { pee22 = entity; }},
+			{"Pee23", [&](Entity entity) { pee23 = entity; }},
+			{"Pee24", [&](Entity entity) { pee24 = entity; }},
+			{"Pee25", [&](Entity entity) { pee25 = entity; }},
 			{"Pee1Collision", [&](Entity entity) { pee1Collider = entity; }},
 			{"Pee2Collision", [&](Entity entity) { pee2Collider = entity; }},
 			{"Pee3Collision", [&](Entity entity) { pee3Collider = entity; }},
 			{"Pee4Collision", [&](Entity entity) { pee4Collider = entity; }},
 			{"Pee5Collision", [&](Entity entity) { pee5Collider = entity; }},
 			{"Pee6Collision", [&](Entity entity) { pee6Collider = entity; }},
+			{"Pee7Collision", [&](Entity entity) { pee7Collider = entity; }},
+			{"Pee8Collision", [&](Entity entity) { pee8Collider = entity; }},
+			{"Pee9Collision", [&](Entity entity) { pee9Collider = entity; }},
+			{"Pee10Collision", [&](Entity entity) { pee10Collider = entity; }},
+			{"Pee11Collision", [&](Entity entity) { pee11Collider = entity; }},
+			{"Pee12Collision", [&](Entity entity) { pee12Collider = entity; }},
+			{"Pee13Collision", [&](Entity entity) { pee13Collider = entity; }},
+			{"Pee14Collision", [&](Entity entity) { pee14Collider = entity; }},
+			{"Pee15Collision", [&](Entity entity) { pee15Collider = entity; }},
+			{"Pee16Collision", [&](Entity entity) { pee16Collider = entity; }},
+			{"Pee17Collision", [&](Entity entity) { pee17Collider = entity; }},
+			{"Pee18Collision", [&](Entity entity) { pee18Collider = entity; }},
+			{"Pee19Collision", [&](Entity entity) { pee19Collider = entity; }},
+			{"Pee20Collision", [&](Entity entity) { pee20Collider = entity; }},
+			{"Pee21Collision", [&](Entity entity) { pee21Collider = entity; }},
+			{"Pee22Collision", [&](Entity entity) { pee22Collider = entity; }},
+			{"Pee23Collision", [&](Entity entity) { pee23Collider = entity; }},
+			{"Pee24Collision", [&](Entity entity) { pee24Collider = entity; }},
+			{"Pee25Collision", [&](Entity entity) { pee25Collider = entity; }},
 			{"WaterBucket", [&](Entity entity) { WaterBucket = entity; }},
 			{"WaterBucket2", [&](Entity entity) { WaterBucket2 = entity; }},
 			{"WaterBucket3", [&](Entity entity) { WaterBucket3 = entity; }},
+			{"WaterBucket4", [&](Entity entity) { WaterBucket4 = entity; }},
+			{"WaterBucket5", [&](Entity entity) { WaterBucket5 = entity; }},
 			{"red particle", [&](Entity entity) { FireSound = entity; }},
-			{"TestObject", [&](Entity entity) { TestPee = entity; }},
-			{"TestCollision", [&](Entity entity) { TestCollider = entity; }},
 			{"Cage1", [&](Entity entity) { Cage1 = entity; }},
 			{"Cage1Collider", [&](Entity entity) { Cage1Collider = entity; }},
 			{"Cage2", [&](Entity entity) { Cage2 = entity; }},
@@ -468,16 +519,31 @@ private:
 			{"PeeScent4", [&](Entity entity) { peeScent4 = entity; }},
 			{"PeeScent5", [&](Entity entity) { peeScent5 = entity; }},
 			{"PeeScent6", [&](Entity entity) { peeScent6 = entity; }},
-			{"PeeScent7", [&](Entity entity) { peeScent7 = entity; }}
+			{"PeeScent7", [&](Entity entity) { peeScent7 = entity; }},
+			{"PeeScent8", [&](Entity entity) { peeScent8 = entity; }},
+			{"PeeScent9", [&](Entity entity) { peeScent9 = entity; }},
+			{"PeeScent10", [&](Entity entity) { peeScent10 = entity; }},
+			{"PeeScent11", [&](Entity entity) { peeScent11 = entity; }},
+			{"PeeScent12", [&](Entity entity) { peeScent12 = entity; }},
+			{"PeeScent13", [&](Entity entity) { peeScent13 = entity; }},
+			{"PeeScent14", [&](Entity entity) { peeScent14 = entity; }},
+			{"PeeScent15", [&](Entity entity) { peeScent15 = entity; }},
+			{"PeeScent16", [&](Entity entity) { peeScent16 = entity; }},
+			{"PeeScent17", [&](Entity entity) { peeScent17 = entity; }},
+			{"PeeScent18", [&](Entity entity) { peeScent18 = entity; }},
+			{"PeeScent19", [&](Entity entity) { peeScent19 = entity; }},
+			{"PeeScent20", [&](Entity entity) { peeScent20 = entity; }},
+			{"PeeScent21", [&](Entity entity) { peeScent21 = entity; }},
+			{"PeeScent22", [&](Entity entity) { peeScent22 = entity; }},
+			{"PeeScent23", [&](Entity entity) { peeScent23 = entity; }},
+			{"PeeScent24", [&](Entity entity) { peeScent24 = entity; }},
+			{"PeeScent25", [&](Entity entity) { peeScent25 = entity; }},
 		};
 	}
 
 	bool AllEntitiesInitialized() const
 	{
-		return playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3
-			&& pee1 && pee2 && pee3 && pee4 && pee5 && pee6 && pee1Collider && pee2Collider && pee3Collider && pee4Collider && pee5Collider && pee6Collider
-			&& WaterBucket && WaterBucket2 && WaterBucket3 && TestPee && TestCollider && Cage1 && Cage1Collider && Cage2 && Cage2Collider && Cage3 && Cage3Collider
-			&& stealthCollider1 && stealthCollider2 && stealthCollider3 && stealthCollider4 && peeScent1 && peeScent2 && peeScent3 && peeScent4 && peeScent5 && peeScent6 && peeScent7;
+		return playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3 && peeScent25;
 	}
 
 	void InitializeChecklist()
@@ -615,7 +681,7 @@ private:
 
 		// Reset smell avoidance timers/flags
 		timer = 0.0;
-		timerLimit = 10.0;
+		timerLimit = 15.0;
 		timesUp = 2.0;
 		colorChangeTimer = 0.0;
 		colorChangeDuration = 3.0;
