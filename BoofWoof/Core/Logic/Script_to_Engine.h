@@ -488,7 +488,13 @@ public:
 		g_DialogueText.setDialogue(static_cast<DialogueState>(dialogueState));
 	}
 
-	virtual double GetTRtimer() override {
+	virtual bool isDialogueActive() override 
+	{
+		return g_DialogueText.dialogueActive;
+	}
+
+	virtual double GetTRtimer() override 
+	{
 		return g_TimerTR.timer;
 	}
 };

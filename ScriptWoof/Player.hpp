@@ -213,7 +213,7 @@ struct Player final : public Behaviour
 				//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
 			}
 
-			static const std::unordered_set<std::string> ropeEntities = { "Rope1", "Rope2", "Rope"};
+			static const std::unordered_set<std::string> ropeEntities = { "Rope", "Rope1", "Rope2" };
 			static const std::unordered_set<std::string> cageEntities = { "Cage1Collider", "Cage2Collider", "Cage3Collider" };
 			static const std::unordered_set<std::string> toyEntities = { "Bone", "TennisBall" };
 
@@ -250,7 +250,7 @@ struct Player final : public Behaviour
 				inCageBreaker = false;
 			}
 
-			if (m_Engine.getInputSystem().isActionPressed("Escape")) 
+			if (m_Engine.getInputSystem().isActionPressed("Escape") && !m_Engine.isDialogueActive())
 			{
 				m_Engine.SetCollidingEntityName(entity);
 				inCageBreaker = false;
@@ -291,7 +291,7 @@ struct Player final : public Behaviour
 			}
 
 			// Allow movement only if the player is grounded & not in rope breaker or touching toy or stunned
-			if (isGrounded && !inRopeBreaker && !touchingToy && !m_Engine.GetStunned() && !inCageBreaker)
+			if (isGrounded && !inRopeBreaker && !touchingToy && !m_Engine.GetStunned() && !inCageBreaker && !m_Engine.isDialogueActive())
 			{
 				if (m_Engine.HaveCameraComponent(entity))
 				{
