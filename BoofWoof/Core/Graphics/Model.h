@@ -17,15 +17,16 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include <../assimp2016/assimp/Importer.hpp>
-#include <../assimp2016/assimp/scene.h>
-#include <../assimp2016/assimp/postprocess.h>
+#include "../assimp2016/assimp/Importer.hpp"
+#include "../assimp2016/assimp/scene.h"
+#include "../assimp2016/assimp/postprocess.h"
 #include "Shader.h"
 #include "Mesh.h"
 #include "../../BoofWoof/Core/Animation/AnimData.h"
 
 #include "AssetManager/AssetManager.h"
 #include "Animation/AssimpHelper.h"
+#include <../assimp2016/assimp/version.h>
 
 
 
@@ -43,7 +44,7 @@ inline void print_assimp_matrix(const aiMatrix4x4& m)
 
 
 }
-
+namespace fs = std::filesystem;
 
 
 //using namespace std;
@@ -59,6 +60,7 @@ public:
     std::vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
     std::vector<Mesh>    meshes;
     std::string directory;
+    std::string trueDirectory;
     std::string name;
     int count = 0;
     bool gammaCorrection;
@@ -73,6 +75,8 @@ public:
     GLuint vaoid{};				// Vaoid of the Model
     GLsizei draw_cnt{};			// Draw Count of the model
     size_t idx_elem_cnt{};		// Index Element Count of the Model
+
+    std::string texFileName;
 
     Model() {}
 
@@ -257,6 +261,55 @@ public:
         }
     }
 
+
+    std::string GetFBXImageFile(const std::string& fbxPath)
+    {
+        // Check if path ends with `.fbx`
+        if (fbxPath.size() < 4 || fbxPath.substr(fbxPath.size() - 4) != ".fbx")
+        {
+            std::cerr << "Error: Path is not an FBX file!\n";
+            return "";
+        }
+
+        // Find last '/' or '\'
+        size_t lastSlash = fbxPath.find_last_of("/\\");
+        if (lastSlash == std::string::npos) {
+            std::cerr << "Error: Invalid path format!\n";
+            return "";
+        }
+
+        // Find first '.' after last '/'
+        size_t firstDot = fbxPath.find('.', lastSlash);
+        if (firstDot == std::string::npos) {
+            std::cerr << "Error: No valid file extension found!\n";
+            return "";
+        }
+
+        // Extract filename without `.fbx`
+        std::string modelName = fbxPath.substr(lastSlash + 1, firstDot - lastSlash - 1);
+
+        // Construct `.fbm/` folder path
+        std::string fbmDir = fbxPath.substr(0, lastSlash + 1) + modelName + ".fbm/";
+
+        // Scan `.fbm/` folder for any file
+        if (fs::exists(fbmDir) && fs::is_directory(fbmDir))
+        {
+            for (const auto& entry : fs::directory_iterator(fbmDir))
+            {
+                if (entry.is_regular_file())
+                {
+                    // Return relative path: "Rex.fbm/someImage.png"
+                    return modelName + ".fbm/" + entry.path().filename().string();
+                }
+            }
+        }
+
+        std::cerr << "Warning: No file found in " << fbmDir << std::endl;
+        return "";
+    }
+
+
+
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
     void loadModel(std::string const& path)
     {
@@ -269,11 +322,42 @@ public:
             std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
             return;
         }
-
-
+        
         // retrieve the directory path of the filepath
         directory = path.substr(0, path.find_last_of('/'));
 
+        // Extract only the filename (remove everything before the last '/')
+
+
+     // std::string ext = path.substr(path.find_last_of('.') + 1);
+     //
+     // std::string fileName = path.substr(path.find_last_of('/') + 1);
+     //
+     // if(ext == "obj")
+     // {
+     //     fileName = fileName.substr(0, fileName.find_last_of('.')) + ".png";
+     // }
+     // else
+     // {
+     //     fileName = GetFBXImageFile(path);
+     // }
+     //
+//   //   std::string fbxFile = GetFBXImageFile(path);
+     //
+  // //   std::cout << fbxFile << "\n";
+     // 
+     // std::cout << "%*************************%\n";
+     // std::cout << "Assimp Version: " << aiGetVersionMajor() << "."
+     //     << aiGetVersionMinor() << "."
+     //     << aiGetVersionRevision() << std::endl;
+     //
+     // std::cout << "%*************************%\n";
+     // // Replace extension with `.png`
+     //
+     //
+     // texFileName = fileName;
+
+      //  std::cout << "the fILE NAME ::  " << path << '\t' << texFileName << '\n';
         // process ASSIMP's root node recursively
         processNode(scene->mRootNode, scene);
     }
@@ -367,14 +451,16 @@ public:
 
     void ExtractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh, const aiScene* scene)
     {
+        (void)scene;
+
         auto& boneInfoMap = m_BoneInfoMap;
         int& boneCount = m_BoneCounter;
 
-        for (int i = 0; i < mesh->mNumBones; i++) {
+        for (unsigned int i = 0; i < mesh->mNumBones; i++) {
             std::cout << "Bone " << i << ": " << mesh->mBones[i]->mName.C_Str() << std::endl;
         }
 
-        for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
+        for (unsigned int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
         {
             std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
             std::cout << "Bone " << boneIndex << ": " << boneName << std::endl;
@@ -398,7 +484,7 @@ public:
             }
 
 
-            std::cout <<"Extracting: \t" << boneName << '\t' << boneID << '\n';
+      //      std::cout <<"Extracting: \t" << boneName << '\t' << boneID << '\n';
 
             assert(boneID != -1);
             auto weights = mesh->mBones[boneIndex]->mWeights;
@@ -497,17 +583,29 @@ public:
      the required info is returned as a Texture struct.*/
        std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
        {
+
+           //std::cout << "dir| truDir : " << directory << '\t' << trueDirectory << '\n';
+
            std::vector<Texture> textures;
            for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
            {
                aiString str;
+
+               
+
+         //      std::cout << "Dir String: " << str.C_Str() << '\n';
                mat->GetTexture(type, i, &str);
+
+         //      std::cout << "After\t" << str.C_Str() << '\n';
+
                // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
                bool skip = false;
                for (unsigned int j = 0; j < textures_loaded.size(); j++)
                {
                    if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
                    {
+                       //std::cout << "eleiggle\t" << str.C_Str() << '\n';
+
                        textures.push_back(textures_loaded[j]);
                        skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
                        break;
@@ -517,6 +615,8 @@ public:
                {   // if texture hasn't been loaded already, load it
                    Texture texture;
                    texture.id = TextureFromFile(str.C_Str(), this->directory);
+
+                //   std::cout << "< asd \t" << str.C_Str() << texFileName.c_str() << '\n';
                    texture.type = typeName;
                    texture.path = str.C_Str();
                    textures.push_back(texture);

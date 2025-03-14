@@ -1,0 +1,66 @@
+{
+    "SceneGUID": "14c69ded-5d46-4ea3-b02b-3e8f2b73ffe3",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "corgi",
+                "FollowCamera": true
+            },
+            "AnimationComponent": {
+                "Number of Animation Points": 1,
+                "Animations": [
+                    {
+                        "Animation ID": 0,
+                        "Start Time": 84.43000030517578,
+                        "End Time": 188.02999877929688
+                    }
+                ]
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Animation",
+                "shaderIdx": 0,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        }
+    ]
+}

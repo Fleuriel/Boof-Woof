@@ -120,6 +120,8 @@ void UI::OnShutdown()
 			}
 		}
 	}
+
+	storage.clear();
 }
 
 void UI::Sniff(const std::vector<Entity>& particles, float dt)
@@ -238,8 +240,8 @@ void UI::Sprint(float dt)
 
 		sprintTimer += dt; // Increase sprint timer
 
-		// If holding Shift for 1.5s, deplete one pellet from 4 3 2 1 0
-		if (sprintTimer >= 1.5f && staminaIndex >= 0)
+		// If holding Shift for 2.0s, deplete one pellet from 4 3 2 1 0
+		if (sprintTimer >= 2.0f && staminaIndex >= 0)
 		{
 			if (g_Coordinator.HaveComponent<UIComponent>(pellets[staminaIndex]))
 			{

@@ -3,7 +3,7 @@
 #include "../Core/Reflection/ReflectionManager.hpp"
 
 std::shared_ptr<GraphicsSystem> mGraphicsSys;
-//std::shared_ptr<AnimationComponent> m_AnimationSys;
+//std::shared_ptr<AnimationSystem> m_AnimationSys;
 std::shared_ptr<AudioSystem> mAudioSys;
 std::shared_ptr<LogicSystem> mLogicSys;
 std::shared_ptr<FontSystem> mFontSys;
@@ -79,6 +79,15 @@ void EngineCore::OnInit()
 		signature.set(g_Coordinator.GetComponentType<UIComponent>());
 		g_Coordinator.SetSystemSignature<GraphicsSystem>(signature);
 	}
+
+	/*m_AnimationSys = g_Coordinator.RegisterSystem<AnimationSystem>();
+	{
+		Signature signature;
+		signature.set(g_Coordinator.GetComponentType<GraphicsComponent>());
+		signature.set(g_Coordinator.GetComponentType<TransformComponent>());
+		signature.set(g_Coordinator.GetComponentType<MaterialComponent>());
+		g_Coordinator.SetSystemSignature<AnimationSystem>(signature);
+	}*/
 
 	mAudioSys = g_Coordinator.RegisterSystem<AudioSystem>();
 	{
@@ -255,5 +264,6 @@ void EngineCore::OnShutdown()
 	// Shutdown window and other systems
 	mLogicSys->Shutdown();
 	mPhysicSys->Cleanup();
+	mGraphicsSys->Clean();
 	g_Window->OnShutdown();
 }

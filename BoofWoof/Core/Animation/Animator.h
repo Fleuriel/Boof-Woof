@@ -3,8 +3,8 @@
 #include <glm/glm.hpp>
 #include <map>
 #include <vector>
-#include <../assimp2016/assimp/scene.h>
-#include <../assimp2016/assimp/Importer.hpp>
+#include "../assimp2016/assimp/scene.h"
+#include "../assimp2016/assimp/Importer.hpp"
 #include "Bones.h"
 #include "Animation.h"
 
@@ -19,7 +19,7 @@ public:
 
 	}
 
-	Animator(AnimationT* animation)
+	Animator(Animation* animation)
 	{
 		m_CurrentTime = 0.0;
 		m_CurrentAnimation = animation;
@@ -33,6 +33,8 @@ public:
 	void UpdateAnimation(float dt)
 	{
 		m_DeltaTime = dt;
+		//std::cout <<"Animator.h : \t" << m_DeltaTime << '\n';
+
 		if (m_CurrentAnimation)
 		{
 			m_CurrentTime += m_CurrentAnimation->GetTicksPerSecond() * dt;
@@ -41,7 +43,11 @@ public:
 		}
 	}
 
-	void PlayAnimation(AnimationT* pAnimation)
+	void SetAnimationTime(float dt) {
+		m_CurrentTime = dt;
+	}
+
+	void PlayAnimation(Animation* pAnimation)
 	{
 		m_CurrentAnimation = pAnimation;
 		m_CurrentTime = 0.0f;
@@ -60,6 +66,12 @@ public:
 			nodeTransform = Bone->GetLocalTransform();
 		}
 
+		// Only apply scaling at the ROOT node (first call)
+		if (node == &m_CurrentAnimation->GetRootNode())
+		{
+			parentTransform *= glm::scale(glm::mat4(1.0f), glm::vec3(0.01f));
+		}
+
 		glm::mat4 globalTransformation = parentTransform * nodeTransform;
 
 		auto boneInfoMap = m_CurrentAnimation->GetBoneIDMap();
@@ -74,14 +86,20 @@ public:
 			CalculateBoneTransform(&node->children[i], globalTransformation);
 	}
 
+
 	std::vector<glm::mat4> GetFinalBoneMatrices()
 	{
 		return m_FinalBoneMatrices;
 	}
 
+	float GetCurrTime()
+	{
+		return m_CurrentTime;
+	}
+
 private:
 	std::vector<glm::mat4> m_FinalBoneMatrices;
-	AnimationT* m_CurrentAnimation;
+	Animation* m_CurrentAnimation;
 	float m_CurrentTime;
 	float m_DeltaTime;
 

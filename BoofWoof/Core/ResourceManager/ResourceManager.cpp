@@ -46,6 +46,11 @@ ResourceManager::~ResourceManager() {
 }
 
 
+const std::unordered_map<std::string, std::shared_ptr<Model>>& ResourceManager::GetModelMap() const {
+    return ModelMap;
+}
+
+
 void AddModelFromOwnCreation()
 {
     Model model;
@@ -383,17 +388,20 @@ void ResourceManager::addModelNames(std::string modelName)
     ModelNames.push_back(modelName);
 }
 
-const std::map<std::string, Model>& ResourceManager::GetModelMap() const {
-    return ModelMap;
-}
+//const std::map<std::string, Model>& ResourceManager::GetModelMap() const {
+//    return ModelMap;
+//}
 
 bool ResourceManager::SetModelMap(const std::string& name, const Model& model) {
+
+    UNREFERENCED_PARAMETER(model);
+
     if (name.size() == 0)
         return false;
 
 
     
-    ModelMap.insert(std::pair<std::string, Model>(name, model));
+//    ModelMap.insert(std::pair<std::string, Model>(name, model));
 
 #ifdef _DEBUG
 
@@ -407,10 +415,9 @@ bool ResourceManager::SetModelMap(const std::string& name, const Model& model) {
 
 Model* ResourceManager::getModel(const std::string& modelName) {
     auto it = ModelMap.find(modelName);
-    if (it != ModelMap.end()) {
-        return &(it->second);  // Return pointer to the model
-    }
-    return nullptr;  // Return nullptr if not found
+    if (it != ModelMap.end())
+        return it->second.get();  //  Returns a raw pointer
+    return nullptr;
 }
 
 
@@ -420,9 +427,10 @@ Model* ResourceManager::GModel() const {
 }
 
 // Setter for ModelMap (add a new model or update existing one)
-void ResourceManager::setModel(const std::string& modelName, const Model& model) {
-    ModelMap[modelName] = model;  // Insert or update the model
+void ResourceManager::setModel(const std::string& modelName, std::shared_ptr<Model> model) {
+    ModelMap[modelName] = std::move(model);  // Efficient, avoids unnecessary copies
 }
+
 
 // Optional: Check if a model exists in the map
 bool ResourceManager::hasModel(const std::string& modelName) {

@@ -10,6 +10,7 @@ uniform float gammaValue;
 
 void main()
 {
+      if(opacity < 0.1) discard; 
       if(visibility < 0.5f){
             fragColor = vec4(1.0, 0.0, 0.0, 0.0); 
       }else{ 

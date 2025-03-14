@@ -40,6 +40,8 @@ private:
 public:
     static bool isExhausted;
     static bool isStunned;
+    bool finishCaged{ false };
+    bool inStartingRoom{ false };
 
 protected:
     std::vector<Entity> storage;

@@ -273,10 +273,11 @@ public:
         const glm::vec3& userOffset);
 
     static bool RayCastDebug;
-
+    float RaycastFraction(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity);
     void DisablePhysics(Entity entity);
     void EnablePhysics(Entity entity);
     void UpdatePhysicsTransform(Entity entity);
+    void SetEntityGravityFactor(Entity entity, float gravityFactor);
 
 private:
     JPH::uint _step{ 0 };
@@ -457,6 +458,7 @@ public:
                 //std::cout << "[DEBUG] Entity " << entity1 << " REGAINED Ground Contact. Total: "
                 //    << collisionComponent1.GetGroundContacts() << std::endl;
             }
+
         }
 
         if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {

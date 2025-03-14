@@ -17,7 +17,7 @@ struct Player final : public Behaviour
 	bool followingPath;
 	float pathThreshold; // Distance threshold for reaching a waypoint
 	bool pathInitialized = false;
-	bool inRopeBreaker{ false }, touchingToy{ false }, cooldownActive{ false }, justplaypls{ false };
+	bool inRopeBreaker{ false }, touchingToy{ false }, cooldownActive{ false }, justplaypls{ false }, inCageBreaker{ false };
 	double stunlockTimer = 2.0;	// 2.0 seconds
 	double cooldownTimer = 0.0;
 	bool jumpSoundPlayed = false;  // Add this as a new class member variable
@@ -104,6 +104,39 @@ struct Player final : public Behaviour
 		return soundList[dis(gen)];
 	}
 
+	void HandleStepOffset(Entity entity)
+	{
+		// Maximum step height that the player can climb (adjust as necessary)
+		const float maxStepHeight = 0.5f;
+
+		// Get the player's current position and forward direction (from the camera)
+		glm::vec3 pos = m_Engine.GetPosition(entity);
+		glm::vec3 forward = m_Engine.GetCameraDirection(entity);
+
+		// Compute an offset point a little ahead of the player (e.g. 0.5 units ahead)
+		glm::vec3 offset = forward * 0.5f;
+		glm::vec3 rayOrigin = pos + offset;
+
+		// Define a downward direction and set the ray length to be a bit more than the step height
+		glm::vec3 down = glm::vec3(0.0f, -1.0f, 0.0f);
+		float rayLength = maxStepHeight + 0.1f; // extra margin
+
+		// Get the hit fraction using our physics system helper
+		float hitFraction = m_Engine.getPhysicsSystem().RaycastFraction(rayOrigin, down, rayLength, entity);
+
+		// If a hit was detected (fraction less than 1.0) then compute the actual distance to the ground
+		if (hitFraction < 1.0f)
+		{
+			float distanceToGround = hitFraction * rayLength;
+			// If the detected ground is below the max step height, lift the player upward by the difference
+			if (distanceToGround < maxStepHeight)
+			{
+				pos.y += (maxStepHeight - distanceToGround);
+				m_Engine.SetPosition(entity, pos);
+			}
+		}
+	}
+
 	virtual void Init(Entity entity) override
 	{
 		//std::cout << "Player Init" << std::endl;
@@ -180,7 +213,8 @@ struct Player final : public Behaviour
 				//	<< currentVelocity.x << ", " << currentVelocity.y << ", " << currentVelocity.z << ")" << std::endl;
 			}
 
-			static const std::unordered_set<std::string> ropeEntities = { "Rope1", "Rope2", "Cage1Collider", "Cage2Collider", "Cage3Collider"};
+			static const std::unordered_set<std::string> ropeEntities = { "Rope", "Rope1", "Rope2" };
+			static const std::unordered_set<std::string> cageEntities = { "Cage1Collider", "Cage2Collider", "Cage3Collider" };
 			static const std::unordered_set<std::string> toyEntities = { "Bone", "TennisBall" };
 
 			if (m_Engine.IsColliding(entity))
@@ -188,11 +222,7 @@ struct Player final : public Behaviour
 				const char* collidingEntityName = m_Engine.GetCollidingEntityName(entity);
 				std::string entityName(collidingEntityName); // Convert C-string to std::string for easy lookup
 
-				if (ropeEntities.count(entityName))
-				{
-					inRopeBreaker = true;
-				}
-				else if (toyEntities.count(entityName) && !cooldownActive)
+				if (toyEntities.count(entityName) && !cooldownActive)
 				{
 					touchingToy = true;
 
@@ -205,9 +235,25 @@ struct Player final : public Behaviour
 						justplaypls = true;
 					}
 				}
+				else if (cageEntities.count(entityName) && !m_Engine.FinishCaged())
+				{
+					inCageBreaker = true;
+				}
+				else if (ropeEntities.count(entityName) && (m_Engine.FinishCaged() || m_Engine.inStartingRoom()))
+				{
+					inRopeBreaker = true;
+				}
 			}
 			else
 			{
+				inRopeBreaker = false;
+				inCageBreaker = false;
+			}
+
+			if (m_Engine.getInputSystem().isActionPressed("Escape") && !m_Engine.isDialogueActive())
+			{
+				m_Engine.SetCollidingEntityName(entity);
+				inCageBreaker = false;
 				inRopeBreaker = false;
 			}
 
@@ -245,7 +291,7 @@ struct Player final : public Behaviour
 			}
 
 			// Allow movement only if the player is grounded & not in rope breaker or touching toy or stunned
-			if (isGrounded && !inRopeBreaker && !touchingToy && !m_Engine.GetStunned())
+			if (isGrounded && !inRopeBreaker && !touchingToy && !m_Engine.GetStunned() && !inCageBreaker && !m_Engine.isDialogueActive())
 			{
 				if (m_Engine.HaveCameraComponent(entity))
 				{
@@ -337,6 +383,14 @@ struct Player final : public Behaviour
 				// Normalize the velocity
 				velocity *= speed;
 
+				// *** NEW: Handle step offset so that small vertical obstacles are automatically climbed ***
+				HandleStepOffset(entity);
+
+				// Now apply the final velocity to the physics body
+				if (m_Engine.HaveCollisionComponent(entity) && m_Engine.HavePhysicsBody(entity))
+				{
+					m_Engine.SetVelocity(entity, velocity);
+				}
 				//// Adjust movement for slopes
 				//if (isOnSlope)
 				//{
@@ -637,3 +691,5 @@ struct Player final : public Behaviour
 	}
 
 };
+
+

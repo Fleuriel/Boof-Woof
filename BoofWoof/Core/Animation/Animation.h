@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 #include <glm/glm.hpp>
-#include <../assimp2016/assimp/scene.h>
+#include "../assimp2016/assimp/scene.h"
 #include "Bones.h"
 #include <functional>
 #include "AnimData.h"
@@ -22,34 +22,34 @@ struct AssimpNodeData
 	std::vector<AssimpNodeData> children;
 };
 
-class AnimationT
+class Animation
 {
 public:
-	AnimationT() = default;
+	Animation() = default;
 
-	AnimationT(const std::string& animationPath, Model* model)
+	Animation(const std::string& animationPath, Model* model)
 	{
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
+		const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate );
 
-//		std::cout << "import\t" << scene->mAnimations[0]->mName.C_Str() << '\n';
-
-		std::cout << "rootnode\n";
-		std::cout << scene->mRootNode->mName.C_Str() << '\n'; 
 
 		assert(scene && scene->mRootNode);
 		auto animation = scene->mAnimations[0];
-		m_Duration = animation->mDuration;
-		m_TicksPerSecond = animation->mTicksPerSecond;
+		m_Duration = static_cast<float>(animation->mDuration);
+		m_TicksPerSecond = static_cast<float>(animation->mTicksPerSecond);
 		aiMatrix4x4 globalTransformation = scene->mRootNode->mTransformation;
+
+
 		globalTransformation = globalTransformation.Inverse();
+
+
 		ReadHierarchyData(m_RootNode, scene->mRootNode);
 		ReadMissingBones(animation, *model);
 	}
 
 
 
-	~AnimationT()
+	~Animation()
 	{
 	}
 
@@ -101,23 +101,36 @@ private:
 	}
 	void ReadHierarchyData(AssimpNodeData& dest, const aiNode* src)
 	{
+		std::unordered_set<std::string> visitedNodes;
 		assert(src);
-	
 
+		std::string nodeName = src->mName.C_Str();
 
-		dest.name = src->mName.data;
+		//  Detect Infinite Loop
+		if (visitedNodes.find(nodeName) != visitedNodes.end())
+		{
+			std::cerr << "Warning: Circular reference detected in Assimp Node -> " << nodeName << std::endl;
+			return; // Stop recursion
+		}
+
+		visitedNodes.insert(nodeName); // Mark as visited
+
+		dest.name = nodeName;
 		dest.transformation = AssimpGLMHelpers::ConvertMatrixToGLMFormat(src->mTransformation);
 		dest.childrenCount = src->mNumChildren;
 
-		for (int i = 0; i < src->mNumChildren; i++)
+		dest.children.reserve(src->mNumChildren);
+		for (unsigned int i = 0; i < src->mNumChildren; i++)
 		{
 			AssimpNodeData newData;
 			ReadHierarchyData(newData, src->mChildren[i]);
-			dest.children.push_back(newData);
+			dest.children.push_back(std::move(newData));
 		}
+
+		visitedNodes.erase(nodeName); // Remove after processing
 	}
 	float m_Duration;
-	int m_TicksPerSecond;
+	float m_TicksPerSecond;
 	std::vector<Bone> m_Bones;
 	AssimpNodeData m_RootNode;
 	std::map<std::string, BoneInfo> m_BoneInfoMap;

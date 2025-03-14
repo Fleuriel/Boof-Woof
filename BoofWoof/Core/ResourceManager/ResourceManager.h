@@ -33,7 +33,7 @@ struct DDSData {
 };
 
 class Animator;
-class AnimationT;
+class Animation;
 class Model;
 
 class ResourceManager {
@@ -44,14 +44,14 @@ public:
 
 	bool LoadAll();
 
-	const std::map<std::string, Model>& GetModelMap() const;
+	const std::unordered_map<std::string, std::shared_ptr<Model>>& GetModelMap() const;
 
 	bool SetModelMap(const std::string& name, const Model& model);
 
 	Model* getModel(const std::string& modelName);
 
 	// Setter for ModelMap (add a new model or update existing one)
-	void setModel(const std::string& modelName, const Model& model);
+	void setModel(const std::string& modelName, std::shared_ptr<Model> model);
 
 	std::vector<std::string> getModelNames() const;
 
@@ -76,7 +76,7 @@ public:
 
 
 
-	std::map <std::string, Model> ModelMap;
+	//std::map <std::string, Model> ModelMap;
 	/// for loading font resources
 	// read the .bin file and create the FontResources
 	// add the FontResources to the fontResources map
@@ -93,13 +93,17 @@ public:
 
 	Model* m_Model{};
 
+	std::unordered_map<std::string, std::shared_ptr<Model>> ModelMap;
+	std::unordered_map<std::string, std::unique_ptr<Animation>> AnimationMap;
+	std::unordered_map<std::string, std::unique_ptr<Animator>> AnimatorMap;
 
-//	std::unordered_map<std::string, AnimationT*> AnimationMap;
+
+//	std::unordered_map<std::string, Animation*> AnimationMap;
 //	std::unordered_map<std::string, Animator*> AnimatorMap; // Add this line
+//
 
-
-	std::vector<AnimationT*> animationVec;
-	std::vector<Animator*> animatorVec;
+//	std::vector<Animation*> animationVec;
+//	std::vector<Animator*> animatorVec;
 
 
 

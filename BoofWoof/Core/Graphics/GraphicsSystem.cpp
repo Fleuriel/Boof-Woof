@@ -64,7 +64,7 @@ std::vector<DebugLine> GraphicsSystem::debugLines = {};
 unsigned int GraphicsSystem::debugLineVAO = 0;
 unsigned int GraphicsSystem::debugLineVBO = 0;
 
-const unsigned int SHADOW_WIDTH = 2048, SHADOW_HEIGHT = 2048;
+const unsigned int SHADOW_WIDTH = 4096, SHADOW_HEIGHT = 4096;
 unsigned int depthMapFBO;
 unsigned int depthMap_texture;
 
@@ -156,9 +156,13 @@ void GraphicsSystem::initGraphicsPipeline() {
 //	AddModel_3D("../BoofWoof/Assets/Objects/Fireplace.obj");
 	//fontSystem.init();
 
+	std::cout << "its hjere\n";
+
+	AddAllAnimations(FILEPATH_ASSET_ANIMATIONS);
+
 
 	//TestAnimationAdd("corgi_walk", "../BoofWoof/Assets/Animations/corgi_walk.fbx");
-	TestAnimationAdd("corgi", "../BoofWoof/Assets/Animations/corgi.fbx");
+	//TestAnimationAdd("corgi", "../BoofWoof/Assets/Animations/corgi.fbx");
 	//TestAnimationAdd("vampire", "../BoofWoof/Assets/Animations/dancing_vampire.dae");
 
 
@@ -276,7 +280,7 @@ void GraphicsSystem::UpdateLoop() {
 				glm::mat4 lightProjection, lightView;
 				glm::mat4 lightSpaceMatrix;
 				float near_plane = 1.0f, far_plane = 17.5f;
-				lightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, near_plane, far_plane);
+				lightProjection = glm::ortho(-50.0f, 50.0f, -50.0f, 50.0f, near_plane, far_plane);
 				lightView = glm::lookAt(light_info_.position, (light_info_.position + lightComp.getDirection()), glm::vec3(0.0f, 1.0f, 0.0f));
 				lightSpaceMatrix = lightProjection * lightView;
 				light_info_.lightSpaceMatrix = lightSpaceMatrix;
@@ -434,7 +438,7 @@ void GraphicsSystem::UpdateLoop() {
 		//if (g_ResourceManager.AnimatorMap.find("corgi_walk") == g_ResourceManager.AnimatorMap.end()) {
 		//	auto animIt = g_ResourceManager.AnimationMap.find("corgi_walk");
 		//	if (animIt != g_ResourceManager.AnimationMap.end()) {
-		//		AnimationT* animation = animIt->second; // Fetch animation from AnimationMap
+		//		Animation* animation = animIt->second; // Fetch animation from AnimationMap
 		//		g_ResourceManager.AnimatorMap["corgi_walk"] = new Animator(animation); // Create new animator
 		//		std::cout << "Animator for corgi_walk created.\n";
 		//	}
@@ -482,45 +486,63 @@ void GraphicsSystem::UpdateLoop() {
 			continue;
 		}
 
+	//	std::cout <<"shader: \t" << material.GetShaderIndex() << '\t' << material.GetShaderName() << '\n';
 
-		if (material.GetShaderName() == "Animation") {
-			// Bind and use the animation shader
-			g_AssetManager.GetShader("Animation").Use();
+		if (g_Coordinator.HaveComponent<AnimationComponent>(entity))
+		{
+			auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
+			//std::cout << "it has animationComp.\n";
 
 
-			g_ResourceManager.animatorVec[0]->UpdateAnimation(deltaTime);
 
-			glm::mat4 model = glm::mat4(1.0f);
-			// translate it down so it's at the center of the scene
-			model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f));
-			// it's a bit too big for our scene, so scale it down
-			model = glm::scale(model, glm::vec3(.01f, .01f, .01f));
+			if (g_ResourceManager.AnimationMap.find(graphicsComp.getModelName()) != g_ResourceManager.AnimationMap.end()) {
 
-//			g_AssetManager.GetShader("Animation").SetUniform("model", model);
-			g_AssetManager.GetShader("Animation").SetUniform("view", camera.GetViewMatrix());
-			g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
+
+				animationComp.m_DeltaTime = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetCurrTime();
+				animationComp.m_Duration = g_ResourceManager.AnimationMap[graphicsComp.getModelName()]->GetDuration();
+
+				if (material.GetShaderName() == "Animation") {
+					// Bind and use the animation shader
+					g_AssetManager.GetShader("Animation").Use();
+
+					if (!graphicsComp.pauseAnimation)
+						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(deltaTime);
+					else
+						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
+
+
+
+
+
+					g_AssetManager.GetShader("Animation").SetUniform("view", shdrParam.View);
+					g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
+
+
+					auto transforms = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetFinalBoneMatrices();
+					for (int i = 0; i < transforms.size(); ++i)
+					{
+						std::string lel = "finalBonesMatrices[" + std::to_string(i) + "]";
+						g_AssetManager.GetShader("Animation").SetUniform(lel.c_str(), transforms[i]);
+					}
+
+
+					g_AssetManager.GetShader("Animation").SetUniform("model", transformComp.GetWorldMatrix());
+					graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
+
+
+					// Unbind the shader after rendering
+					g_AssetManager.GetShader("Animation").UnUse();
+					continue;
+				}
+			}
+			
+
+			
+
+		}
 
 
 		
-
-			auto transforms = g_ResourceManager.animatorVec[0]->GetFinalBoneMatrices();
-			for (int i = 0; i < transforms.size(); ++i)
-			{
-				std::string lel = "finalBonesMatrices[" + std::to_string(i) + "]";
-				g_AssetManager.GetShader("Animation").SetUniform(lel.c_str(), transforms[i]);
-			}
-
-			std::cout << "enter here\n";
-
-			g_AssetManager.GetShader("Animation").SetUniform("model", model);
-			graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
-	
-
-			// Unbind the shader after rendering
-			g_AssetManager.GetShader("Animation").UnUse();
-			continue;
-		}
-
 
 
 		
@@ -529,7 +551,7 @@ void GraphicsSystem::UpdateLoop() {
 		//if (ShaderName == "Shader3D")
 		if (strcmp(ShaderName, "Direction_obj_render") == 0)
 		{
-
+//			std::cout << graphicsComp.getFollowCamera() << '\n';
 			// START OF 3D
 			if (graphicsComp.getFollowCamera()) {
 				SetShaderUniforms(g_AssetManager.GetShader(ShaderName), shdrParam);
@@ -751,6 +773,17 @@ void GraphicsSystem::UpdateLoop() {
 	glEnable(GL_DEPTH_TEST);
 }
 
+void GraphicsSystem::Clean()
+{
+
+	//for (auto anim : g_ResourceManager.AnimationVec)
+	//	delete anim; // Clean up animations
+	//
+	//for (auto animTor : g_ResourceManager.AnimatorVec)
+	//	delete animTor; // Clean up animators
+
+}
+
 
 void GraphicsSystem::AddEntireModel3D(const std::string& directory)
 {
@@ -786,16 +819,18 @@ void GraphicsSystem::AddEntireModel3D(const std::string& directory)
 
 void GraphicsSystem::AddModel_3D(std::string const& path)
 {
-	Model model;
+	auto model = std::make_unique<Model>();
 	std::cout << "Loading: " << path << '\n';
 
-	model.loadModel(path);//, GL_TRIANGLES);
+	model->loadModel(path);//, GL_TRIANGLES);
 
 	std::string name = path.substr(path.find_last_of('/') + 1);
 	//remove .obj from name
 	name = name.substr(0, name.find_last_of('.'));
 
-	g_ResourceManager.ModelMap.insert(std::pair<std::string, Model>(name, model));
+//	g_ResourceManager.ModelMap.insert(std::pair<std::string, Model>(name, model));
+
+	g_ResourceManager.ModelMap[name] = std::move(model);
 
 	g_ResourceManager.addModelNames(name);
 
@@ -810,7 +845,7 @@ void GraphicsSystem::AddModel_3D(std::string const& path)
 //	std::string name = "corgi_walk";
 //
 //	// Step 2: Create AnimationT object and store it
-////	AnimationT* corgiWalk = new AnimationT(path, &animModel);
+////	Animation* corgiWalk = new AnimationT(path, &animModel);
 //
 //	AnimationT corgiWalk(path, &animModel);
 //	Animator animator(&corgiWalk);
@@ -825,44 +860,62 @@ void GraphicsSystem::AddModel_3D(std::string const& path)
 //
 //	std::cout << "Animation and Animator added successfully!\n";
 //}
-void GraphicsSystem::TestAnimationAdd(const std::string name, const std::string& path)
+
+void GraphicsSystem::AddAllAnimations(const std::string & filepath)
 {
-	//  Allocate model on the heap
-	Model* animModel = new Model(path, false);
+
+	namespace fs = std::filesystem;
+
+	std::unordered_set<std::string> uniqueNames;
+
+	try {
+		for (const auto& entry : fs::directory_iterator(filepath)) {
+			if (entry.is_regular_file() && entry.path().extension() == ".fbx") {
+				std::string filename = entry.path().filename().string();
+				size_t dotPos = filename.find('.');
+				if (dotPos != std::string::npos) {
+					uniqueNames.insert(filename.substr(0, dotPos)); // Extract base name
+				}
+			}
+		}
+
+		// Output unique base names
+		for (const auto& name : uniqueNames) {
+			std::string fileP = filepath + "/" + name + ".fbx";
+
+			std::cout << "Processing: " << fileP << '\n';
+			AnimationAdd(name, fileP);
+
+		}
+	}
+	catch (const std::exception& e) {
+		std::cerr << "Error accessing directory: " << e.what() << std::endl;
+	}
 
 
-	//  Allocate AnimationT dynamically
-	AnimationT* corgiWalk = new AnimationT(path, animModel);
-	//g_ResourceManager.AnimationMap[name] = corgiWalk;  // Store pointer
 
-	//  Store model normally (copy is okay)
-	g_ResourceManager.ModelMap[name] = *animModel;
+}
+
+
+void GraphicsSystem::AnimationAdd(const std::string& name, const std::string& path)
+{
+
+	std::unique_ptr<Model> animModel = std::make_unique<Model>(path, false);
+	std::unique_ptr<Animation> corgiWalk = std::make_unique<Animation>(path, animModel.get());
+	std::unique_ptr<Animator> animTor = std::make_unique<Animator>(corgiWalk.get());
+
+	g_ResourceManager.ModelMap[name] = std::move(animModel);
+	g_ResourceManager.AnimationMap[name] = std::move(corgiWalk);
+	g_ResourceManager.AnimatorMap[name] = std::move(animTor);
+
+
+	// Allocate model dynamically
+	
 	g_ResourceManager.addModelNames(name);
 
-	//Model* ourModel = new Model(path);
-
-	//Model ourModel(path);
-
-	AnimationT* animatoo = new AnimationT(path, animModel);
-	g_ResourceManager.animationVec.push_back(animatoo);
-
-	// 3️⃣ Create animator dynamically
-	Animator* animTor = new Animator(animatoo);
-
-	g_ResourceManager.animatorVec.push_back(animTor);
 
 
-//	AnimationT animaton(path, &ourModel);
-//
-//	g_ResourceManager.animationVec.push_back();
-
-
-
-	//  Allocate Animator dynamically
-	Animator* animator = new Animator(corgiWalk);
-	//g_ResourceManager.AnimatorMap[name] = animator;
-
-	std::cout << "Animation and Animator added successfully!\n";
+	std::cout << "Animation and Animator: " << name << " added successfully!\n";
 }
 
 

@@ -22,7 +22,7 @@
 class Model;
 class Model2D;
 class GraphicsComponent;
-class AnimationT;
+class Animation;
 class Animator;
 
 #include "../ECS/System.hpp"
@@ -56,6 +56,8 @@ public:
     void UpdateLoop();
     void Draw(std::vector<GraphicsComponent>& components);
     void DrawObject(GraphicsComponent& component);
+
+    void Clean();
     
     static bool glewInitialized;
     static bool debug;
@@ -82,7 +84,9 @@ public:
     void AddModel_3D(std::string const& path);
     void AddObject_3D(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color, Model* model);
 
-    void TestAnimationAdd(const std::string name, std::string const& path);
+
+    void AddAllAnimations(const std::string& filepath);
+    void AnimationAdd(const std::string& name, std::string const& path);
 
 
     void AddModel_2D();

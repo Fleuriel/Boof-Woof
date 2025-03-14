@@ -30,7 +30,7 @@
     <ClCompile Include="Utilities\Components\MetaData.cpp" />
     <ClCompile Include="Utilities\Components\AudioComponent.cpp" />
     <ClCompile Include="Utilities\Components\BehaviourComponent.cpp" />
-    <ClCompile Include="Core\Animation\AnimationManager.cpp" />
+    <ClCompile Include="Core\Animation\AnimationSystem.cpp" />
     <ClCompile Include="Utilities\Components\ParticleComponent.cpp" />
     <ClCompile Include="Core\AssetManager\Descriptor.cpp" />
     <ClCompile Include="Utilities\Components\AnimationComponent.cpp" />
@@ -90,12 +90,12 @@
     <ClInclude Include="Core\Physics\CollisionSystem.h" />
     <ClInclude Include="Utilities\Components\CollisionComponent.hpp" />
     <ClInclude Include="Core\Reflection\ReflectionManager.hpp" />
-    <ClInclude Include="Core\Animation\AnimationManager.h" />
+    <ClInclude Include="Core\Animation\AnimationSystem.h" />
     <ClInclude Include="Utilities\Components\BehaviourComponent.hpp" />
     <ClInclude Include="Core\ECS\ArchetypeManager.hpp" />
     <ClInclude Include="Utilities\Components\ParticleComponent.hpp" />
     <ClInclude Include="Core\AssetManager\Descriptor.h" />
-    <ClInclude Include="Utilities\Components\AnimationComponent.h" />
+    <ClInclude Include="Utilities\Components\AnimationComponent.hpp" />
     <ClInclude Include="Utilities\Components\CameraComponent.hpp" />
     <ClInclude Include="Utilities\Components\MaterialComponent.hpp" />
     <ClInclude Include="Utilities\Components\HierarchyComponent.hpp" />

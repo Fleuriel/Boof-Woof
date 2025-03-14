@@ -220,6 +220,38 @@ bool Serialization::SaveScene(const std::string& filepath) {
 
         }
 
+        if (g_Coordinator.HaveComponent<AnimationComponent>(entity))
+        {
+            rapidjson::Value Anim(rapidjson::kObjectType);
+
+            auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
+
+            // Store the number of animation points
+            Anim.AddMember("Number of Animation Points",
+                rapidjson::Value(static_cast<int>(animationComp.animationVector.size())),
+                allocator);
+
+            // Create an array to hold all animation data
+            rapidjson::Value animationArray(rapidjson::kArrayType);
+
+            for (const auto& anim : animationComp.animationVector)
+            {
+                rapidjson::Value animData(rapidjson::kObjectType);
+                animData.AddMember("Animation ID", rapidjson::Value(std::get<0>(anim)), allocator);
+                animData.AddMember("Start Time", rapidjson::Value(std::get<1>(anim)), allocator);
+                animData.AddMember("End Time", rapidjson::Value(std::get<2>(anim)), allocator);
+
+                animationArray.PushBack(animData, allocator);
+            }
+
+            // Add the array of animations to the JSON object
+            Anim.AddMember("Animations", animationArray, allocator);
+
+            entityData.AddMember("AnimationComponent", Anim, allocator);
+            // Now, Anim contains all animation data in JSON format
+        }
+
+
         // Serialize AudioComponent
         if (g_Coordinator.HaveComponent<AudioComponent>(entity)) 
         {
@@ -793,12 +825,133 @@ bool Serialization::LoadScene(const std::string& filepath)
 
                     GraphicsComponent graphicsComponent(modelName, entity, isFollowing);
 
-                    graphicsComponent.SetModel(&g_ResourceManager.ModelMap[modelName]);
+                    graphicsComponent.SetModel(g_ResourceManager.ModelMap[modelName].get());
+
+
+                    if (entityData.HasMember("MaterialComponent"))
+                    {
+
+
+
+                        const auto& MatData = entityData["MaterialComponent"];
+
+
+
+                        std::string materialName = MatData["name"].GetString();
+                        std::string shaderName = MatData["shader"].GetString();
+                        int shaderIndex = MatData["shaderIdx"].GetInt();
+
+
+                        std::cout << shaderName << '\n';
+
+                        std::string diffuseName = "NothingDiffuse";
+                        std::string normalName = "NothingNormal";
+                        std::string heightName = "NothingHeight";
+
+                        glm::vec4 color(1.0f);
+                        float metallic = 0.0f;
+                        float shininess = 0.0f;
+                        float finalAlpha = 0.0f;
+
+
+
+                        // Extract material properties
+                        const auto& properties = MatData["properties"];
+                        if (properties.HasMember("color"))
+                        {
+                            const auto& colorArray = properties["color"];
+                            if (colorArray.Size() == 4)
+                            {
+                                color =
+                                    glm::vec4(
+                                        colorArray[0].GetFloat(),
+                                        colorArray[1].GetFloat(),
+                                        colorArray[2].GetFloat(),
+                                        colorArray[3].GetFloat()
+                                    );
+                            }
+                        }
+
+                        if (properties.HasMember("finalAlpha"))
+                            finalAlpha = properties["finalAlpha"].GetFloat();
+
+                        if (properties.HasMember("Diffuse"))
+                            diffuseName = properties["Diffuse"].GetString();
+
+                        if (properties.HasMember("Normal"))
+                            normalName = properties["Normal"].GetString();
+
+                        if (properties.HasMember("Height"))
+                            heightName = properties["Height"].GetString();
+
+                        if (properties.HasMember("metallic"))
+                            metallic = properties["metallic"].GetFloat();
+
+                        if (properties.HasMember("shininess"))
+                            shininess = properties["shininess"].GetFloat();
+
+
+                        MaterialComponent materialComponent;
+
+
+
+
+                        // In Order:
+
+                        materialComponent.SetMaterialName(materialName);
+                        materialComponent.SetShaderName(shaderName);
+                        materialComponent.SetShaderIndex(shaderIndex);
+
+
+                        materialComponent.SetColor(color);
+
+                        materialComponent.SetFinalAlpha(finalAlpha);
+                        materialComponent.SetDiffuseName(diffuseName);
+                        materialComponent.SetDiffuseID(g_ResourceManager.GetTextureDDS(diffuseName));
+                        materialComponent.SetNormalName(normalName);
+                        materialComponent.SetHeightName(heightName);
+
+                        materialComponent.SetMetallic(metallic);
+                        materialComponent.SetSmoothness(shininess);
+
+                        std::cout << materialComponent.GetMaterialName() << '\t' << materialComponent.GetShaderName() << '\t' << materialComponent.GetShaderIndex() << '\t' << '\n';
+
+                        if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
+                        {
+                            auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+                            //       graphicsComp.material = materialComponent;
+
+                      //            graphicsComp.setTexture(materialComponent.GetDiffuseName());
+
+                            graphicsComp.SetDiffuse(materialComponent.GetDiffuseID());
+
+                            //                    graphicsComp.AddTexture(g_ResourceManager.GetTextureDDS(graphicsComp.material.GetDiffuseName()));
+
+
+                                               // graphicsComp.material.SetDiffuseID(g_ResourceManager.GetTextureDDS(graphicsComp.material.GetDiffuseName()));
+                                               // graphicsComp.material.SetDiffuseName(graphicsComp.material.GetDiffuseName());
+                        //    ;
+
+                       //     std::cout << graphicsComp.material.GetMaterialName() << '\t' << graphicsComp.material.GetShaderName() << '\t' << graphicsComp.material.GetShaderIndex() << '\t' << '\n';
+
+                        }
+
+
+                        g_Coordinator.AddComponent(entity, materialComponent);
+                        std::cout << "material component deserialized" << std::endl;;
+
+                        
+                        graphicsComponent.material = materialComponent;
+
+
+                    }
+
+
 
        //             if (textureID > 0)
        //                 graphicsComponent.AddTexture(textureID);
 
-                    std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
+                   // std::cout << "graphics: " << graphicsComponent.getModelName() << '\n';
 
          //           std::cout << "model text number: " << g_ResourceManager.getModel(graphicsComponent.getModelName())->texture_cnt << '\n';
          //           std::cout << "comp  text number: " << graphicsComponent.getTextureNumber() << '\n';
@@ -806,6 +959,58 @@ bool Serialization::LoadScene(const std::string& filepath)
                     g_Coordinator.AddComponent(entity, graphicsComponent);
                 }
             }
+
+            if (entityData.HasMember("AnimationComponent"))
+            {
+                const rapidjson::Value& Anim = entityData["AnimationComponent"];
+
+                if (entityData.HasMember("GraphicsComponent"))
+                {
+                    if (Anim.HasMember("Number of Animation Points") && Anim.HasMember("Animations"))
+                    {
+                        const auto& GData = entityData["GraphicsComponent"];
+                        std::string modelName = GData["ModelName"].GetString();
+
+
+
+                        const rapidjson::Value& animationArray = Anim["Animations"];
+
+                        if (animationArray.IsArray())
+                        {
+                            std::vector<std::tuple<int, float, float>> animationData;
+
+                            for (rapidjson::SizeType i = 0; i < animationArray.Size(); i++)
+                            {
+                                const rapidjson::Value& animData = animationArray[i];
+
+                                if (animData.HasMember("Animation ID") && animData.HasMember("Start Time") && animData.HasMember("End Time"))
+                                {
+                                    int animID = animData["Animation ID"].GetInt();
+                                    float startTime = animData["Start Time"].GetFloat();
+                                    float endTime = animData["End Time"].GetFloat();
+
+                                    // Create a tuple with extracted values
+                                    animationData.emplace_back(animID, startTime, endTime);
+                                }
+                            }
+
+                            // Set animation name (or extract it from JSON if available)
+                            std::string animationName = modelName; // Default name, modify if needed
+
+                            // Construct AnimationComponent with the collected data
+                            AnimationComponent animComp(animationName, animationData);
+
+                            // Now you can do something with animComp (e.g., register it in your system)
+                            g_Coordinator.AddComponent<AnimationComponent>(entity, animComp);
+
+                            std::cout << "Loaded " << animationData.size() << " animation points for " << animationName << ".\n";
+                        }
+                    }
+                }
+            }
+
+
+
 
             // Deserialize AudioComponent
             if (entityData.HasMember("AudioComponent"))
@@ -1007,127 +1212,12 @@ bool Serialization::LoadScene(const std::string& filepath)
                 }
                
 			}
-          //  if (entityData.HasMember("MaterialComponent"))
-          //  {
-          //
-          //      const auto& MatData = entityData["MaterialComponent"];
-          //
-          //
-          //
-          //      std::string materialName = MatData["name"].GetString();
-          //      std::string shaderName = MatData["shader"].GetString();
-          //      int shaderIndex = MatData["shaderIdx"].GetInt();
-          //
-          //
-          //
-          //
-          //      std::string diffuseName = "NothingDiffuse";
-          //      std::string normalName = "NothingNormal";
-          //      std::string heightName = "NothingHeight";
-          //
-          //      glm::vec4 color(1.0f);
-          //      float metallic = 0.0f;
-          //      float shininess = 0.0f;
-          //      float finalAlpha = 0.0f;
-          //
-          //
-          //
-          //      // Extract material properties
-          //      const auto& properties = MatData["properties"];
-          //      if (properties.HasMember("color"))
-          //      {
-          //          const auto& colorArray = properties["color"];
-          //          if (colorArray.Size() == 4)
-          //          {
-          //              color =
-          //                  glm::vec4(
-          //                      colorArray[0].GetFloat(),
-          //                      colorArray[1].GetFloat(),
-          //                      colorArray[2].GetFloat(),
-          //                      colorArray[3].GetFloat()
-          //                  );
-          //          }
-          //      }
-          //
-          //      if (properties.HasMember("finalAlpha"))
-          //          finalAlpha = properties["finalAlpha"].GetFloat();
-          //
-          //      if (properties.HasMember("Diffuse"))
-          //          diffuseName = properties["Diffuse"].GetString();
-          //
-          //      if (properties.HasMember("Normal"))
-          //          normalName = properties["Normal"].GetString();
-          //
-          //      if (properties.HasMember("Height"))
-          //          heightName = properties["Height"].GetString();
-          //
-          //      if (properties.HasMember("metallic"))
-          //          metallic = properties["metallic"].GetFloat();
-          //
-          //      if (properties.HasMember("shininess"))
-          //          shininess = properties["shininess"].GetFloat();
-          //
-          //
-          //
-          //      //std::cout << materialName << '\t' << shaderName << '\t' << shaderIndex << '\t' << diffuseName << '\t' << normalName << '\n' << heightName << '\t' << metallic << '\t' << shininess << '\t' << finalAlpha << '\t' << diffuseName << '\n' <<
-          //      //    normalName << '\t' << heightName << '\t' << metallic << '\t' << shininess << '\n';
-          //
-          //
-          //
-          //
-          //
-          //
-          //
-          //      MaterialComponent materialComponent;
-          //
-          //
-          //
-          //
-          //      // In Order:
-          //
-          //      materialComponent.SetMaterialName(materialName);
-          //      materialComponent.SetShaderName(shaderName);
-          //      materialComponent.SetShaderIndex(shaderIndex);
-          //
-          //
-          //      materialComponent.SetColor(color);
-          //
-          //      materialComponent.SetFinalAlpha(finalAlpha);
-          //      materialComponent.SetDiffuseName(diffuseName);
-          //      materialComponent.SetDiffuseID(g_ResourceManager.GetTextureDDS(diffuseName));
-          //      materialComponent.SetNormalName(normalName);
-          //      materialComponent.SetHeightName(heightName);
-          //
-          //      materialComponent.SetMetallic(metallic);
-          //      materialComponent.SetSmoothness(shininess);
-          //
-          //      std::cout << materialComponent.GetMaterialName() << '\t' << materialComponent.GetShaderName() << '\t' << materialComponent.GetShaderIndex() << '\t' << '\n';
-          //
-          //      if (g_Coordinator.HaveComponent<GraphicsComponent>(entity))
-          //      {
-          //          auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-          //   //       graphicsComp.material = materialComponent;
-          //
-      //  //           graphicsComp.setTexture(materialComponent.GetDiffuseName());
-          //
-        ////            graphicsComp.SetDiffuse(materialComponent.GetDiffuseID());
-          //
-          //          //                    graphicsComp.AddTexture(g_ResourceManager.GetTextureDDS(graphicsComp.material.GetDiffuseName()));
-          //
-          //
-          //                             // graphicsComp.material.SetDiffuseID(g_ResourceManager.GetTextureDDS(graphicsComp.material.GetDiffuseName()));
-          //                             // graphicsComp.material.SetDiffuseName(graphicsComp.material.GetDiffuseName());
-          //      //    ;
-          //
-          //     //     std::cout << graphicsComp.material.GetMaterialName() << '\t' << graphicsComp.material.GetShaderName() << '\t' << graphicsComp.material.GetShaderIndex() << '\t' << '\n';
-          //          
-          //      }
-          //
-          //
-          //      g_Coordinator.AddComponent(entity, materialComponent);
-          //      std::cout << "material component deserialized" << std::endl;;
-          //
-          //  }
+
+
+
+
+
+           
 			// Deserialize UIComponent
 			if (entityData.HasMember("UIComponent")) 
             {
@@ -1533,6 +1623,27 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
             g_Coordinator.AddComponent(newE, graphicsComp);
         }
 
+        // -- AnimationComponent --
+      // if (jsonObj.HasMember("AnimationComponent"))
+      // {
+      //
+      //     
+      //
+      //     const auto& GData = jsonObj["AnimationComponent"];
+      //
+      //     if (GData.HasMember("Number of Animation Points"))
+      //     {
+      //         
+      //     }
+      //
+      //
+      //
+      //     AnimationComponent animComp("corgi");
+      //     animComp.m_Duration = 100.0f;
+      //
+      //    g_Coordinator.AddComponent(newE, animComp);
+      // }
+       
         // -- AudioComponent --
         if (jsonObj.HasMember("AudioComponent"))
         {

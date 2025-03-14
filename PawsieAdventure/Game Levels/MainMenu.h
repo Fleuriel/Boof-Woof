@@ -102,7 +102,7 @@ class MainMenu : public Level
 		// Update the yaw value in the camera component
 		g_Coordinator.GetComponent<CameraComponent>(BackCamera).SetCameraYaw(currentYaw);
 
-		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
+		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1)
 		{
 			if (inSmth)
 			{
@@ -249,6 +249,7 @@ class MainMenu : public Level
 				{
 					bgmVolume = std::max(0.0f, (float)(g_Audio.GetBGMVolume() - volumeStep));
 					g_Audio.SetBGMVolume(bgmVolume);
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 				}
 			}
 
@@ -259,6 +260,7 @@ class MainMenu : public Level
 				{
 					bgmVolume = std::min(1.0f, (float)(g_Audio.GetBGMVolume() + volumeStep));
 					g_Audio.SetBGMVolume(bgmVolume);
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 				}
 			}
 
@@ -289,6 +291,8 @@ class MainMenu : public Level
 					mGraphicsSys->gammaValue -= 0.1f;
 					if (mGraphicsSys->gammaValue < 1.f)
 						mGraphicsSys->gammaValue = 1.f;
+
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 				}
 			}
 
@@ -300,6 +304,8 @@ class MainMenu : public Level
 					mGraphicsSys->gammaValue += 0.1f;
 					if (mGraphicsSys->gammaValue > 3.f)
 						mGraphicsSys->gammaValue = 3.f;
+
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 				}
 			}
 

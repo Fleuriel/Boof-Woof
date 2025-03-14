@@ -16,10 +16,10 @@
 #ifndef ASSETMANAGER_H
 #define ASSETMANAGER_H
 
-#include <../assimp2016/assimp/Importer.hpp>
 
-#include <../assimp2016/assimp/scene.h>
-#include <../assimp2016/assimp/postprocess.h>
+#include "../assimp2016/assimp/Importer.hpp"
+#include "../assimp2016/assimp/scene.h"
+#include "../assimp2016/assimp/postprocess.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/Shader.h"
 #include "Graphics/Object.h"
