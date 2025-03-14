@@ -151,6 +151,8 @@ class MainHall : public Level
 		// Store the original brightness value
 		originalBrightness = g_Coordinator.GetSystem<GraphicsSystem>()->GetBrightness();
 		g_UI.finishCaged = false;
+
+		g_Coordinator.GetComponent<UIComponent>(VFXBG).set_opacity(0);
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -183,6 +185,21 @@ class MainHall : public Level
 
 		if (!g_IsPaused)
 		{
+			auto& VFXBG_UICOMP = g_Coordinator.GetComponent<UIComponent>(VFXBG);
+			if (g_SmellAvoidance.GetPeeMarked()) {
+				VFXBG_UICOMP.set_position({ 0,1.8 });
+				VFXBG_UICOMP.set_opacity(1);
+			}
+			else {
+				if (VFXBG_UICOMP.get_position().y > -1.8) {
+					VFXBG_UICOMP.set_position({ 0 , VFXBG_UICOMP.get_position().y - 0.02 });
+				}
+				else {
+					VFXBG_UICOMP.set_opacity(VFXBG_UICOMP.get_opacity() - 0.01); //Temporary
+				}
+			}
+
+
 			cameraController->Update(static_cast<float>(deltaTime));
 			cooldownTimer += deltaTime;
 
