@@ -31,6 +31,7 @@ enum class DialogueState {
 	FIRSTROPEBITE,
 	INSTRUCTIONS,
 	REXISHERE,
+	HIDEFROMREX,
 };
 
 class Dialogue
