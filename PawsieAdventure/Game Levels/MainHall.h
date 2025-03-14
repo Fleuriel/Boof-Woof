@@ -144,6 +144,8 @@ class MainHall : public Level
 		// Store the original brightness value
 		originalBrightness = g_Coordinator.GetSystem<GraphicsSystem>()->GetBrightness();
 		g_UI.finishCaged = false;
+
+		g_Coordinator.GetComponent<UIComponent>(VFX).set_opacity(0);
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -178,8 +180,17 @@ class MainHall : public Level
 		{
 
 			auto& VFXComponent = g_Coordinator.GetComponent<UIComponent>(VFX);
-			VFXComponent.set_position({ VFXComponent.get_position().x, VFXComponent.get_position().y - 0.01 });
-
+			if(g_SmellAvoidance.GetPeeMarked()){
+				VFXComponent.set_opacity(1);
+			}
+			else {
+				if (VFXComponent.get_opacity() > 0) {
+					if (VFXComponent.get_position().y > -1.8)
+						VFXComponent.set_position({ VFXComponent.get_position().x, VFXComponent.get_position().y - 0.01 });
+					else
+						VFXComponent.set_opacity(0);
+				}
+			}
 
 
 
