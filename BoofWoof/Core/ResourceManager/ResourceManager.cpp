@@ -393,6 +393,9 @@ void ResourceManager::addModelNames(std::string modelName)
 //}
 
 bool ResourceManager::SetModelMap(const std::string& name, const Model& model) {
+
+    UNREFERENCED_PARAMETER(model);
+
     if (name.size() == 0)
         return false;
 
