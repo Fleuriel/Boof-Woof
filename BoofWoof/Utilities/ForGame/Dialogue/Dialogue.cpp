@@ -116,7 +116,10 @@ std::string Dialogue::getDialogue()
 
 	/* MainHall Lvl1 Dialogues */
 	case DialogueState::INMAINHALL:
-		return "This whole place carries their scent.. My three babies!!";
+		return "This whole place carries their scent.. My three babies!! But-oh no. That scent.. Rex!";
+
+	case DialogueState::HIDEFROMREX:
+		return "I can't risk running into him! Under the tables.. I have to hide!";
 
 	case DialogueState::REXSAWYOU:
 		return "Oh no, he saw me!! Gotta run-NOW!";
@@ -195,6 +198,10 @@ void Dialogue::ProcessDialogue()
 
 	case DialogueState::FIRSTROPEBITE:
 		nextState = DialogueState::INSTRUCTIONS;
+		break;
+
+	case DialogueState::INMAINHALL:
+		nextState = DialogueState::HIDEFROMREX;
 		break;
 
 	default:
