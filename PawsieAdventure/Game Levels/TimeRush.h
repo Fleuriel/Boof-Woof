@@ -442,6 +442,9 @@ private:
 			auto collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
 			if (collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), "Player") == 0)
 				return true;
+
+			if (collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), g_Coordinator.GetComponent<MetadataComponent>(entity).GetName().c_str()) == 0)
+				return true;
 		}
 		return false;
 	}
