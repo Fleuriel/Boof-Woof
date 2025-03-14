@@ -24,7 +24,7 @@ int main()
 
 	//for use with debugging, change the value to the location of the mem leak per the crt debug info from the console
 	// refer to stack frame and see where it all went wrong
-	_crtBreakAlloc = 3142288;
+	//_crtBreakAlloc = 3142288;
 
 	//DLL_Support_Init();
 

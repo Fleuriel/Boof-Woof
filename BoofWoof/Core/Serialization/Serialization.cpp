@@ -825,7 +825,7 @@ bool Serialization::LoadScene(const std::string& filepath)
 
                     GraphicsComponent graphicsComponent(modelName, entity, isFollowing);
 
-                    graphicsComponent.SetModel(&g_ResourceManager.ModelMap[modelName]);
+                    graphicsComponent.SetModel(g_ResourceManager.ModelMap[modelName].get());
 
 
                     if (entityData.HasMember("MaterialComponent"))

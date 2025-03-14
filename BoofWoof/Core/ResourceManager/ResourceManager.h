@@ -44,14 +44,14 @@ public:
 
 	bool LoadAll();
 
-	const std::map<std::string, Model>& GetModelMap() const;
+	const std::unordered_map<std::string, std::shared_ptr<Model>>& GetModelMap() const;
 
 	bool SetModelMap(const std::string& name, const Model& model);
 
 	Model* getModel(const std::string& modelName);
 
 	// Setter for ModelMap (add a new model or update existing one)
-	void setModel(const std::string& modelName, const Model& model);
+	void setModel(const std::string& modelName, std::shared_ptr<Model> model);
 
 	std::vector<std::string> getModelNames() const;
 
@@ -93,7 +93,7 @@ public:
 
 	Model* m_Model{};
 
-	std::unordered_map<std::string, std::unique_ptr<Model>> ModelMap;
+	std::unordered_map<std::string, std::shared_ptr<Model>> ModelMap;
 	std::unordered_map<std::string, std::unique_ptr<Animation>> AnimationMap;
 	std::unordered_map<std::string, std::unique_ptr<Animator>> AnimatorMap;
 

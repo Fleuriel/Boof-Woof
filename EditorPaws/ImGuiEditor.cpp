@@ -1981,7 +1981,8 @@ void ImGuiEditor::InspectorWindow()
 											(*modelNameProperty)->SetValue(&graphicsComponent, newModelName);
 											
 
-											graphicsComponent.SetModel(&g_ResourceManager.ModelMap[newModelName]);
+											graphicsComponent.SetModel(g_ResourceManager.ModelMap[newModelName].get());
+
 
 											Entity entity = g_SelectedEntity;
 
