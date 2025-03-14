@@ -261,7 +261,10 @@ class TimeRush : public Level
 			g_UI.OnUpdate(static_cast<float>(deltaTime));
 			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
 
-			g_TimerTR.OnUpdate(deltaTime);
+			if (!g_IsCamPanning) 
+			{
+				g_TimerTR.OnUpdate(deltaTime);
+			}
 
 			g_DialogueText.checkCollision(playerEnt, deltaTime);
 			g_DialogueText.OnUpdate(deltaTime);
