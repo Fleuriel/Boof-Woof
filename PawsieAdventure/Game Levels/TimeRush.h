@@ -27,6 +27,8 @@ class TimeRush : public Level
 	double cooldownTimer = 10.0;
 	double cooldownDuration = 10.0; // Cooldown duration
 	bool isColorChanged = false;
+	bool hasBarked = false;  // Ensures barking only happens once when time is up
+
 
 	// Timer for the level
 	double timerLimit = 40.0;
@@ -162,14 +164,7 @@ class TimeRush : public Level
 			std::cerr << " ERROR: TimeRushBGM entity has no AudioComponent in InitLevel!" << std::endl;
 		}
 
-		if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
-			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
-			dogAudio.SetAudioSystem(&g_Audio);
-			dogAudio.PlayAudio();
-		}
-		else {
-			std::cerr << " ERROR: AggroDog entity has no AudioComponent in InitLevel!" << std::endl;
-		}
+	
 
 
 		if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
@@ -369,6 +364,14 @@ class TimeRush : public Level
 			}
 
 
+			if (g_TimerTR.timer <= 0.0 && hasBarked == false)
+			{
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav", false, "SFX");
+				hasBarked = true;
+
+			}
+
+
 
 			// Checklist
 			if (!g_Checklist.shutted)
@@ -477,6 +480,7 @@ private:
 		// Reset particle list and bark flag
 		particleEntities.clear();
 		bark = false;
+		hasBarked = false;
 
 		// If there are any other member variables that persist across plays,
 		// reset them here.
