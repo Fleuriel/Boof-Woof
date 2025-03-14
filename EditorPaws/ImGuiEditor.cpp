@@ -2147,7 +2147,7 @@ void ImGuiEditor::InspectorWindow()
 								ImGui::PushItemWidth(100.f);
 
 								// Input floats for Start and End Time
-								ImGui::Value("Save",inputValue);
+								ImGui::Value("Save", static_cast<int>(animationComp.animationVector.size()));
 								ImGui::PushItemWidth(400.f);
 								ImGui::SliderFloat("Start Time", &startTime, 0.1f, animationComp.m_Duration, "%.2f s");
 								ImGui::SliderFloat("End Time", &endTime, 0.1f, animationComp.m_Duration, "%.2f s");
@@ -2188,7 +2188,7 @@ void ImGuiEditor::InspectorWindow()
 
 
 
-								if (ImGui::Button("Save")) {
+								if (ImGui::Button("Play")) {
 
 									// Find animation range in the vector using the input animation ID
 									auto it = std::find_if(animationComp.animationVector.begin(), animationComp.animationVector.end(),

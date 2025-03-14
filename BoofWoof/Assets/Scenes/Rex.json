@@ -1,0 +1,66 @@
+{
+    "SceneGUID": "a86305c0-b8cc-467a-a676-597863cdddf1",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Rex",
+                "FollowCamera": true
+            },
+            "AnimationComponent": {
+                "Number of Animation Points": 13,
+                "Animations": [
+                    {
+                        "Animation ID": 12,
+                        "Start Time": 115.26000213623047,
+                        "End Time": 135.1699981689453
+                    }
+                ]
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Animation",
+                "shaderIdx": 0,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        }
+    ]
+}
