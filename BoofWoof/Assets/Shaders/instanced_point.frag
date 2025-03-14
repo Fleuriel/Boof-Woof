@@ -17,5 +17,4 @@ void main()
       }  
 
       fragColor.rgb = pow(fragColor.rgb, vec3(1.0/gammaValue)); 
-      if(opacity < 0.1) discard;
 }
