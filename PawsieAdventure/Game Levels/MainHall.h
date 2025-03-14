@@ -186,21 +186,6 @@ class MainHall : public Level
 
 		if (!g_IsPaused)
 		{
-			auto& VFXBG_UICOMP = g_Coordinator.GetComponent<UIComponent>(VFXBG);
-			if (g_SmellAvoidance.GetPeeMarked()) {
-				VFXBG_UICOMP.set_position({ 0.f, 1.8f });
-				VFXBG_UICOMP.set_opacity(1.0f);
-			}
-			else {
-				if (VFXBG_UICOMP.get_position().y > -1.8f) {
-					VFXBG_UICOMP.set_position({ 0 , VFXBG_UICOMP.get_position().y - 0.02f });
-				}
-				else {
-					VFXBG_UICOMP.set_opacity(VFXBG_UICOMP.get_opacity() - 0.01f); //Temporary
-				}
-			}
-
-
 			cameraController->Update(static_cast<float>(deltaTime));
 			cooldownTimer += deltaTime;
 
@@ -231,9 +216,12 @@ class MainHall : public Level
 				CheckPuppyCollision();
 			}
 
+			auto& VFXBG_UICOMP = g_Coordinator.GetComponent<UIComponent>(VFXBG);
+
 			if (g_SmellAvoidance.GetPeeMarked())
 			{
-				if (!g_SmellAvoidance.GetTimerInit()) {
+				if (!g_SmellAvoidance.GetTimerInit()) 
+				{
 					g_TimerTR.OnInitialize();
 					g_TimerTR.timer = timerLimit;
 					g_SmellAvoidance.SetTimerInit(true);
@@ -258,6 +246,10 @@ class MainHall : public Level
 				// Update the ticking sound volume
 				g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", newVolume);
 
+				// UI
+				VFXBG_UICOMP.set_position({ 0.f, 1.8f });
+				VFXBG_UICOMP.set_opacity(1.0f);
+
 				if (g_TimerTR.timer == 0.0)
 				{
 					timesUp -= deltaTime;
@@ -265,7 +257,6 @@ class MainHall : public Level
 					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
 					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
 					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav");
-
 
 					// Times up! sound
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
@@ -284,6 +275,17 @@ class MainHall : public Level
 							g_DialogueText.OnShutdown();
 						}
 					}
+				}
+			}
+			else 
+			{
+				if (VFXBG_UICOMP.get_position().y > -1.8f) 
+				{
+					VFXBG_UICOMP.set_position({ 0 , VFXBG_UICOMP.get_position().y - 0.02f });
+				}
+				else 
+				{
+					VFXBG_UICOMP.set_opacity(VFXBG_UICOMP.get_opacity() - 0.01f); //Temporary
 				}
 			}
 
