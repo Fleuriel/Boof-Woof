@@ -26,6 +26,7 @@
 
 #include "AssetManager/AssetManager.h"
 #include "Animation/AssimpHelper.h"
+#include <../assimp2016/assimp/version.h>
 
 
 
@@ -345,9 +346,12 @@ public:
 
   //      std::cout << fbxFile << "\n";
         
+        std::cout << "%*************************%\n";
+        std::cout << "Assimp Version: " << aiGetVersionMajor() << "."
+            << aiGetVersionMinor() << "."
+            << aiGetVersionRevision() << std::endl;
 
-
-
+        std::cout << "%*************************%\n";
         // Replace extension with `.png`
 
 
