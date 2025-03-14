@@ -229,6 +229,9 @@ public:
 		return g_Coordinator.GetSystem<MyPhysicsSystem>()->ConeRaycastDownward(entity, direction, maxDistance, numHorizontalRays, numVerticalRays, coneAngle, userOffset);
 	}
 
+	virtual float RaycastFraction(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, Entity ignoreEntity) {
+		return g_Coordinator.GetSystem<MyPhysicsSystem>()->RaycastFraction(origin, direction, maxDistance, ignoreEntity);
+	}
 	virtual bool IsDynamic(Entity entity) override
 	{
 		if (HaveCollisionComponent(entity) && HavePhysicsBody(entity))
@@ -275,6 +278,10 @@ public:
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdatePhysicsTransform(entity);
 	}
 
+	virtual void SetEntityGravityFactor(Entity entity, float gravityFactor) override
+	{
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->SetEntityGravityFactor(entity, gravityFactor);
+	}
 
 	// Grounded functions
 	virtual bool IsGrounded(Entity entity) override
@@ -409,6 +416,10 @@ public:
 		return list[dist(gen)];
 	}
 
+	virtual void ForcePathfindingUpdate() override {
+		return g_Coordinator.GetSystem<PathfindingSystem>()->ForceImmediateUpdate();
+	}
+
 	virtual Entity GetPlayerEntity() override
 	{
 		for (auto entity : g_Coordinator.GetAliveEntitiesSet())
@@ -457,6 +468,16 @@ public:
 		return g_UI.isStunned;
 	}
 
+	virtual bool FinishCaged() override 
+	{
+		return g_UI.finishCaged;
+	}
+
+	virtual bool inStartingRoom() override 
+	{
+		return g_UI.inStartingRoom;
+	}
+
 	virtual bool MatchEntityName(Entity entity, const char* entityName)
 	{
 		if (g_Coordinator.HaveComponent<MetadataComponent>(entity)) 
@@ -475,7 +496,13 @@ public:
 		g_DialogueText.setDialogue(static_cast<DialogueState>(dialogueState));
 	}
 
-	virtual double GetTRtimer() override {
+	virtual bool isDialogueActive() override 
+	{
+		return g_DialogueText.dialogueActive;
+	}
+
+	virtual double GetTRtimer() override 
+	{
 		return g_TimerTR.timer;
 	}
 };

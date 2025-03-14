@@ -27,7 +27,7 @@ class TYVM : public Level
 		}
 
 		// ESC to exit tyvm - zero feedback as of now.
-		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) >= 1)
+		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE) == 1)
 		{
 			// Thank you scene
 			g_LevelManager.SetNextLevel("MainMenu");

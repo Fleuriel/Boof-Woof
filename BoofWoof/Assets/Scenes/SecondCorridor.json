@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "7858a9a9-c183-4f21-979d-c29215182620",
+    "SceneGUID": "dc2f6ca3-1979-4879-8c3d-41e7711b857c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -19,7 +19,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 },
                 "RotationPivotOffset": {
@@ -35,6 +35,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -83,6 +84,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -131,6 +133,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -148,7 +151,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 9
+                "EntityID": 3
             },
             "TransformComponent": {
                 "Position": {
@@ -179,6 +182,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -196,7 +200,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 10
+                "EntityID": 4
             },
             "TransformComponent": {
                 "Position": {
@@ -227,6 +231,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -244,7 +249,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWallDoor",
-                "EntityID": 11
+                "EntityID": 5
             },
             "TransformComponent": {
                 "Position": {
@@ -275,6 +280,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.799999952316284,
@@ -292,7 +298,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWallCorner",
-                "EntityID": 12
+                "EntityID": 6
             },
             "TransformComponent": {
                 "Position": {
@@ -324,7 +330,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 13
+                "EntityID": 7
             },
             "TransformComponent": {
                 "Position": {
@@ -356,7 +362,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 14
+                "EntityID": 8
             },
             "TransformComponent": {
                 "Position": {
@@ -388,7 +394,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleCeiling",
-                "EntityID": 15
+                "EntityID": 9
             },
             "TransformComponent": {
                 "Position": {
@@ -420,7 +426,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleCeiling",
-                "EntityID": 16
+                "EntityID": 10
             },
             "TransformComponent": {
                 "Position": {
@@ -452,7 +458,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleCeiling",
-                "EntityID": 17
+                "EntityID": 11
             },
             "TransformComponent": {
                 "Position": {
@@ -484,7 +490,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleCeiling",
-                "EntityID": 18
+                "EntityID": 12
             },
             "TransformComponent": {
                 "Position": {
@@ -516,7 +522,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleCeiling",
-                "EntityID": 19
+                "EntityID": 13
             },
             "TransformComponent": {
                 "Position": {
@@ -548,7 +554,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Door",
-                "EntityID": 20
+                "EntityID": 14
             },
             "TransformComponent": {
                 "Position": {
@@ -580,7 +586,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Torch",
-                "EntityID": 21
+                "EntityID": 15
             },
             "TransformComponent": {
                 "Position": {
@@ -611,6 +617,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -628,7 +635,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Torch",
-                "EntityID": 22
+                "EntityID": 16
             },
             "TransformComponent": {
                 "Position": {
@@ -659,6 +666,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -676,7 +684,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Carpet",
-                "EntityID": 23
+                "EntityID": 17
             },
             "TransformComponent": {
                 "Position": {
@@ -703,12 +711,29 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Carpet",
-                "EntityID": 24
+                "EntityID": 18
             },
             "TransformComponent": {
                 "Position": {
@@ -735,18 +760,35 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "Player",
-                "EntityID": 25
+                "EntityID": 19
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -6.9290266036987309,
-                    "y": 1.1952601671218873,
-                    "z": 0.3630584478378296
+                    "x": -7.1414594650268559,
+                    "y": 1.317368745803833,
+                    "z": 0.5912644863128662
                 },
                 "Scale": {
                     "x": 0.49998894333839419,
@@ -774,6 +816,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": true,
+                "IsKinematic": false,
                 "IsPlayer": true,
                 "AABBSize": {
                     "x": 2.9000000953674318,
@@ -806,7 +849,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 26
+                "EntityID": 20
             },
             "TransformComponent": {
                 "Position": {
@@ -837,6 +880,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -854,7 +898,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 27
+                "EntityID": 21
             },
             "TransformComponent": {
                 "Position": {
@@ -885,6 +929,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -902,7 +947,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 28
+                "EntityID": 22
             },
             "TransformComponent": {
                 "Position": {
@@ -933,6 +978,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -950,7 +996,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 29
+                "EntityID": 23
             },
             "TransformComponent": {
                 "Position": {
@@ -981,6 +1027,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -998,7 +1045,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 30
+                "EntityID": 24
             },
             "TransformComponent": {
                 "Position": {
@@ -1029,6 +1076,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -1046,7 +1094,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 31
+                "EntityID": 25
             },
             "TransformComponent": {
                 "Position": {
@@ -1077,6 +1125,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -1094,7 +1143,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 32
+                "EntityID": 26
             },
             "TransformComponent": {
                 "Position": {
@@ -1125,6 +1174,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -1142,7 +1192,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 33
+                "EntityID": 27
             },
             "TransformComponent": {
                 "Position": {
@@ -1173,6 +1223,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -1190,7 +1241,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 34
+                "EntityID": 28
             },
             "TransformComponent": {
                 "Position": {
@@ -1222,7 +1273,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 35
+                "EntityID": 29
             },
             "TransformComponent": {
                 "Position": {
@@ -1253,6 +1304,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -1270,7 +1322,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Carpet",
-                "EntityID": 41
+                "EntityID": 30
             },
             "TransformComponent": {
                 "Position": {
@@ -1297,12 +1349,29 @@
             "GraphicsComponent": {
                 "ModelName": "Carpet",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.05000000074505806,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 42
+                "EntityID": 31
             },
             "TransformComponent": {
                 "Position": {
@@ -1333,6 +1402,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -1350,7 +1420,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWallCorner",
-                "EntityID": 43
+                "EntityID": 32
             },
             "TransformComponent": {
                 "Position": {
@@ -1382,7 +1452,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWallCorner",
-                "EntityID": 44
+                "EntityID": 33
             },
             "TransformComponent": {
                 "Position": {
@@ -1414,7 +1484,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWallCorner",
-                "EntityID": 45
+                "EntityID": 34
             },
             "TransformComponent": {
                 "Position": {
@@ -1446,7 +1516,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWallCorner",
-                "EntityID": 46
+                "EntityID": 35
             },
             "TransformComponent": {
                 "Position": {
@@ -1478,7 +1548,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWallCorner",
-                "EntityID": 47
+                "EntityID": 36
             },
             "TransformComponent": {
                 "Position": {
@@ -1510,7 +1580,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 48
+                "EntityID": 37
             },
             "TransformComponent": {
                 "Position": {
@@ -1541,6 +1611,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -1558,7 +1629,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoor",
-                "EntityID": 50
+                "EntityID": 38
             },
             "TransformComponent": {
                 "Position": {
@@ -1589,6 +1660,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.799999952316284,
@@ -1606,7 +1678,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWallCorner",
-                "EntityID": 51
+                "EntityID": 39
             },
             "TransformComponent": {
                 "Position": {
@@ -1638,7 +1710,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWallCorner",
-                "EntityID": 52
+                "EntityID": 40
             },
             "TransformComponent": {
                 "Position": {
@@ -1670,7 +1742,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWallCorner",
-                "EntityID": 53
+                "EntityID": 41
             },
             "TransformComponent": {
                 "Position": {
@@ -1702,7 +1774,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWallCorner",
-                "EntityID": 54
+                "EntityID": 42
             },
             "TransformComponent": {
                 "Position": {
@@ -1734,7 +1806,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWallCorner",
-                "EntityID": 56
+                "EntityID": 43
             },
             "TransformComponent": {
                 "Position": {
@@ -1766,7 +1838,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWallCorner",
-                "EntityID": 57
+                "EntityID": 44
             },
             "TransformComponent": {
                 "Position": {
@@ -1798,7 +1870,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 58
+                "EntityID": 45
             },
             "TransformComponent": {
                 "Position": {
@@ -1829,6 +1901,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -1846,7 +1919,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 59
+                "EntityID": 46
             },
             "TransformComponent": {
                 "Position": {
@@ -1877,6 +1950,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -1894,7 +1968,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 60
+                "EntityID": 47
             },
             "TransformComponent": {
                 "Position": {
@@ -1925,6 +1999,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -1942,7 +2017,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 61
+                "EntityID": 48
             },
             "TransformComponent": {
                 "Position": {
@@ -1973,6 +2048,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -1990,7 +2066,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 62
+                "EntityID": 49
             },
             "TransformComponent": {
                 "Position": {
@@ -2022,7 +2098,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 70
+                "EntityID": 50
             },
             "TransformComponent": {
                 "Position": {
@@ -2054,7 +2130,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Door",
-                "EntityID": 71
+                "EntityID": 51
             },
             "TransformComponent": {
                 "Position": {
@@ -2086,7 +2162,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Light",
-                "EntityID": 72
+                "EntityID": 52
             },
             "TransformComponent": {
                 "Position": {
@@ -2127,7 +2203,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Light",
-                "EntityID": 73
+                "EntityID": 53
             },
             "TransformComponent": {
                 "Position": {
@@ -2168,7 +2244,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Light",
-                "EntityID": 74
+                "EntityID": 54
             },
             "TransformComponent": {
                 "Position": {
@@ -2209,7 +2285,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 40
+                "EntityID": 55
             },
             "TransformComponent": {
                 "Position": {
@@ -2240,6 +2316,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2257,7 +2334,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 36
+                "EntityID": 56
             },
             "TransformComponent": {
                 "Position": {
@@ -2288,6 +2365,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2305,7 +2383,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 37
+                "EntityID": 57
             },
             "TransformComponent": {
                 "Position": {
@@ -2336,6 +2414,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2353,7 +2432,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 38
+                "EntityID": 58
             },
             "TransformComponent": {
                 "Position": {
@@ -2384,6 +2463,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2401,7 +2481,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 39
+                "EntityID": 59
             },
             "TransformComponent": {
                 "Position": {
@@ -2432,6 +2512,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2449,7 +2530,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 49
+                "EntityID": 60
             },
             "TransformComponent": {
                 "Position": {
@@ -2480,6 +2561,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2497,7 +2579,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleFloor",
-                "EntityID": 67
+                "EntityID": 61
             },
             "TransformComponent": {
                 "Position": {
@@ -2528,6 +2610,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 5.0,
@@ -2545,7 +2628,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 8
+                "EntityID": 62
             },
             "TransformComponent": {
                 "Position": {
@@ -2576,6 +2659,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2593,7 +2677,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 7
+                "EntityID": 63
             },
             "TransformComponent": {
                 "Position": {
@@ -2624,6 +2708,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2641,7 +2726,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 6
+                "EntityID": 64
             },
             "TransformComponent": {
                 "Position": {
@@ -2672,6 +2757,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2689,7 +2775,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 63
+                "EntityID": 65
             },
             "TransformComponent": {
                 "Position": {
@@ -2720,6 +2806,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2737,7 +2824,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 5
+                "EntityID": 66
             },
             "TransformComponent": {
                 "Position": {
@@ -2768,6 +2855,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2785,7 +2873,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 4
+                "EntityID": 67
             },
             "TransformComponent": {
                 "Position": {
@@ -2816,6 +2904,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2833,7 +2922,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 3
+                "EntityID": 68
             },
             "TransformComponent": {
                 "Position": {
@@ -2864,6 +2953,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2881,7 +2971,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CastleWall",
-                "EntityID": 55
+                "EntityID": 69
             },
             "TransformComponent": {
                 "Position": {
@@ -2912,6 +3002,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 2.4000000953674318,
@@ -2929,7 +3020,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Torch",
-                "EntityID": 64
+                "EntityID": 70
             },
             "TransformComponent": {
                 "Position": {
@@ -2960,6 +3051,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -2977,7 +3069,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Torch",
-                "EntityID": 65
+                "EntityID": 71
             },
             "TransformComponent": {
                 "Position": {
@@ -3008,6 +3100,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -3025,7 +3118,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Torch",
-                "EntityID": 66
+                "EntityID": 72
             },
             "TransformComponent": {
                 "Position": {
@@ -3056,6 +3149,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -3073,7 +3167,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Torch",
-                "EntityID": 68
+                "EntityID": 73
             },
             "TransformComponent": {
                 "Position": {
@@ -3104,6 +3198,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -3121,7 +3216,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Torch",
-                "EntityID": 69
+                "EntityID": 74
             },
             "TransformComponent": {
                 "Position": {
@@ -3152,6 +3247,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -3200,6 +3296,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
+                "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.75,
@@ -3212,6 +3309,47 @@
                     "z": -0.4000000059604645
                 },
                 "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Light",
+                "EntityID": 76
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 5.747000217437744,
+                    "y": 1.3154499530792237,
+                    "z": 0.6518949866294861
+                },
+                "Scale": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 1.0,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": true,
+                "LightDirectionX": 1.0,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 12.199999809265137
             }
         }
     ]

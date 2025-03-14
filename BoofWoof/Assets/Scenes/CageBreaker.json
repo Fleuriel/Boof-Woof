@@ -1,0 +1,131 @@
+{
+    "SceneGUID": "46b056ec-db70-4a67-9492-a4d4e1af9710",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "Base",
+                "EntityID": 0
+            },
+            "UIComponent": {
+                "TextureName": "BarFull",
+                "PositionX": 0.0,
+                "PositionY": 0.05000000074505806,
+                "ScaleX": 0.699999988079071,
+                "ScaleY": 0.12999999523162843,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "CatchZone",
+                "EntityID": 1
+            },
+            "UIComponent": {
+                "TextureName": "CatchZone",
+                "PositionX": 0.0,
+                "PositionY": 0.05000000074505806,
+                "ScaleX": 0.10000000149011612,
+                "ScaleY": 0.07999999821186066,
+                "Layer": 0.49000000953674319,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Head",
+                "EntityID": 2
+            },
+            "UIComponent": {
+                "TextureName": "DogHead",
+                "PositionX": 0.0,
+                "PositionY": 0.3199999928474426,
+                "ScaleX": 0.20000000298023225,
+                "ScaleY": 0.30000001192092898,
+                "Layer": 0.48000001907348635,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Puppy1",
+                "EntityID": 3
+            },
+            "UIComponent": {
+                "TextureName": " ",
+                "PositionX": -0.023000000044703485,
+                "PositionY": 0.4699999988079071,
+                "ScaleX": 0.07000000029802323,
+                "ScaleY": 0.12999999523162843,
+                "Layer": 0.4700000286102295,
+                "Selectable": false,
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Puppy2",
+                "EntityID": 4
+            },
+            "UIComponent": {
+                "TextureName": " ",
+                "PositionX": -0.023000000044703485,
+                "PositionY": 0.6000000238418579,
+                "ScaleX": 0.07000000029802323,
+                "ScaleY": 0.12999999523162843,
+                "Layer": 0.46000003814697268,
+                "Selectable": false,
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Puppy3",
+                "EntityID": 5
+            },
+            "UIComponent": {
+                "TextureName": " ",
+                "PositionX": -0.023000000044703485,
+                "PositionY": 0.7300000190734863,
+                "ScaleX": 0.07000000029802323,
+                "ScaleY": 0.12999999523162843,
+                "Layer": 0.4500000476837158,
+                "Selectable": false,
+                "Opcaity": 0.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        }
+    ]
+}

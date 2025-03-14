@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "cf8f5b26-5e0e-492f-a313-d869640f3887",
+    "SceneGUID": "85d3d8d1-3316-43f7-ace4-6d05032620a1",
     "Entities": [
         {
             "MetadataComponent": {
@@ -1003,7 +1003,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": -0.9779902100563049,
-                    "y": 6.939372539520264,
+                    "y": 6.939393997192383,
                     "z": 0.0
                 },
                 "Scale": {
@@ -1025,6 +1025,23 @@
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.15000000596046449,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.30000001192092898,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -1057,6 +1074,23 @@
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.15000000596046449,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.30000001192092898,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -1089,6 +1123,23 @@
             "GraphicsComponent": {
                 "ModelName": "Ceiling",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.15000000596046449,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.30000001192092898,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -1643,23 +1694,6 @@
             "GraphicsComponent": {
                 "ModelName": "Banner",
                 "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.0,
-                    "y": 3.049999952316284,
-                    "z": 0.20000000298023225
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             }
         },
         {
@@ -1811,106 +1845,8 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 40
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 9.574299812316895,
-                    "y": 1.1419999599456788,
-                    "z": -1.638949990272522
-                },
-                "Scale": {
-                    "x": 1.0000001192092896,
-                    "y": 1.0,
-                    "z": 1.0000001192092896
-                },
-                "Rotation": {
-                    "x": -3.1415884494781496,
-                    "y": 0.6019989252090454,
-                    "z": -3.1415884494781496
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 41
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 9.599349975585938,
-                    "y": 1.1419999599456788,
-                    "z": 1.3578599691390992
-                },
-                "Scale": {
-                    "x": 0.9999752640724182,
-                    "y": 1.0,
-                    "z": 0.9999752640724182
-                },
-                "Rotation": {
-                    "x": -3.1415884494781496,
-                    "y": -0.4979991912841797,
-                    "z": -3.1415884494781496
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Chair2",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.5,
-                    "y": 0.800000011920929,
-                    "z": 0.5
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "white1",
-                "EntityID": 42
+                "EntityID": 40
             },
             "TransformComponent": {
                 "Position": {
@@ -1975,7 +1911,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "white2",
-                "EntityID": 43
+                "EntityID": 41
             },
             "TransformComponent": {
                 "Position": {
@@ -2040,7 +1976,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "white3",
-                "EntityID": 44
+                "EntityID": 42
             },
             "TransformComponent": {
                 "Position": {
@@ -2105,7 +2041,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "yellow1",
-                "EntityID": 45
+                "EntityID": 43
             },
             "TransformComponent": {
                 "Position": {
@@ -2170,7 +2106,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "yellow2",
-                "EntityID": 46
+                "EntityID": 44
             },
             "TransformComponent": {
                 "Position": {
@@ -2235,7 +2171,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "yellow3",
-                "EntityID": 47
+                "EntityID": 45
             },
             "TransformComponent": {
                 "Position": {
@@ -2300,7 +2236,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "orangey1",
-                "EntityID": 48
+                "EntityID": 46
             },
             "TransformComponent": {
                 "Position": {
@@ -2365,7 +2301,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "orangey2",
-                "EntityID": 49
+                "EntityID": 47
             },
             "TransformComponent": {
                 "Position": {
@@ -2430,7 +2366,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "orangey3",
-                "EntityID": 50
+                "EntityID": 48
             },
             "TransformComponent": {
                 "Position": {
@@ -2495,7 +2431,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "left particle",
-                "EntityID": 51
+                "EntityID": 49
             },
             "TransformComponent": {
                 "Position": {
@@ -2560,7 +2496,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "right particle",
-                "EntityID": 52
+                "EntityID": 50
             },
             "TransformComponent": {
                 "Position": {
@@ -2625,7 +2561,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "middle particle",
-                "EntityID": 53
+                "EntityID": 51
             },
             "TransformComponent": {
                 "Position": {
@@ -2695,7 +2631,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail",
-                "EntityID": 54
+                "EntityID": 52
             },
             "TransformComponent": {
                 "Position": {
@@ -2770,7 +2706,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "left particle",
-                "EntityID": 55
+                "EntityID": 53
             },
             "TransformComponent": {
                 "Position": {
@@ -2835,7 +2771,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "right particle",
-                "EntityID": 56
+                "EntityID": 54
             },
             "TransformComponent": {
                 "Position": {
@@ -2900,7 +2836,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "BedRoomMusic",
-                "EntityID": 57
+                "EntityID": 55
             },
             "TransformComponent": {
                 "Position": {
@@ -2933,7 +2869,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CorgiBark1",
-                "EntityID": 58
+                "EntityID": 56
             },
             "TransformComponent": {
                 "Position": {
@@ -2966,7 +2902,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CorgiSniff",
-                "EntityID": 59
+                "EntityID": 57
             },
             "TransformComponent": {
                 "Position": {
@@ -2999,7 +2935,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 60
+                "EntityID": 58
             },
             "TransformComponent": {
                 "Position": {
@@ -3040,7 +2976,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 61
+                "EntityID": 59
             },
             "TransformComponent": {
                 "Position": {
@@ -3081,7 +3017,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 62
+                "EntityID": 60
             },
             "TransformComponent": {
                 "Position": {
@@ -3122,7 +3058,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 63
+                "EntityID": 61
             },
             "TransformComponent": {
                 "Position": {
@@ -3163,18 +3099,18 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 64
+                "EntityID": 62
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 5.031905651092529,
-                    "y": 2.6008989810943605,
-                    "z": -0.16008149087429048
+                    "x": 5.306077480316162,
+                    "y": 2.6206841468811037,
+                    "z": -0.07951955497264862
                 },
                 "Scale": {
-                    "x": 1.5000100135803223,
-                    "y": 1.0,
-                    "z": 0.9999380111694336
+                    "x": 1.5000079870224,
+                    "y": 0.9999998807907105,
+                    "z": 0.9998824596405029
                 },
                 "Rotation": {
                     "x": -2.5038702487945558,
@@ -3198,7 +3134,7 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.0,
-                    "y": 1.9500000476837159,
+                    "y": 2.049999952316284,
                     "z": 1.100000023841858
                 },
                 "AABBOffset": {
@@ -3212,16 +3148,16 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 65
+                "EntityID": 63
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 3.8103957176208498,
+                    "x": 3.7291715145111086,
                     "y": 2.683000087738037,
-                    "z": -3.4866433143615724
+                    "z": -3.577207326889038
                 },
                 "Scale": {
-                    "x": 2.0,
+                    "x": 2.5999999046325685,
                     "y": 2.0999999046325685,
                     "z": 1.5
                 },
@@ -3261,22 +3197,22 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 66
+                "EntityID": 64
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 3.7637782096862795,
+                    "x": 3.637101888656616,
                     "y": 1.7458319664001465,
-                    "z": -2.0197064876556398
+                    "z": -1.8422338962554932
                 },
                 "Scale": {
-                    "x": 1.2999999523162842,
+                    "x": 1.7999998331069947,
                     "y": 1.7000000476837159,
-                    "z": 1.2999999523162842
+                    "z": 1.8999996185302735
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": -0.4904448688030243,
+                    "y": -0.49044445157051089,
                     "z": 0.0
                 },
                 "RotationPivotOffset": {
@@ -3296,12 +3232,12 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.44999998807907107,
-                    "y": 0.44999998807907107,
+                    "y": 0.4000000059604645,
                     "z": 0.44999998807907107
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": -0.44999998807907107,
+                    "y": -0.3499999940395355,
                     "z": -0.05000000074505806
                 },
                 "Mass": 0.0
@@ -3310,18 +3246,18 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 67
+                "EntityID": 65
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 3.415741205215454,
+                    "x": 3.3127424716949465,
                     "y": 1.255688190460205,
-                    "z": -0.6930244565010071
+                    "z": 0.05544440448284149
                 },
                 "Scale": {
-                    "x": 1.0,
+                    "x": 1.7999999523162842,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 1.600000023841858
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -3345,12 +3281,12 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 0.5,
-                    "y": 0.5,
+                    "y": 0.4000000059604645,
                     "z": 0.44999998807907107
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": -0.5,
+                    "y": -0.4000000059604645,
                     "z": -0.05000000074505806
                 },
                 "Mass": 0.0
@@ -3359,39 +3295,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 68
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 6.094165325164795,
-                    "y": 5.469257831573486,
-                    "z": 0.010148121975362301
-                },
-                "Scale": {
-                    "x": 0.9999997615814209,
-                    "y": 2.0000007152557375,
-                    "z": 1.0000003576278687
-                },
-                "Rotation": {
-                    "x": -1.2443901300430298,
-                    "y": 0.0021833195351064207,
-                    "z": -0.22701893746852876
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "RopeDrawbridge",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 69
+                "EntityID": 66
             },
             "TransformComponent": {
                 "Position": {
@@ -3423,7 +3327,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 70
+                "EntityID": 67
             },
             "TransformComponent": {
                 "Position": {
@@ -3437,9 +3341,9 @@
                     "z": 1.0000017881393433
                 },
                 "Rotation": {
-                    "x": -2.2757515907287599,
-                    "y": -1.2246379852294922,
-                    "z": 0.9082258343696594
+                    "x": -2.275749921798706,
+                    "y": -1.2246400117874146,
+                    "z": 1.1080000400543213
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -3454,24 +3358,24 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 71
+                "EntityName": "Rope",
+                "EntityID": 68
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 10.285258293151856,
-                    "y": 3.6493990421295168,
-                    "z": 4.954253673553467
+                    "x": 9.692316055297852,
+                    "y": 2.1127681732177736,
+                    "z": 4.245153427124023
                 },
                 "Scale": {
-                    "x": 1.0,
-                    "y": 2.299999952316284,
-                    "z": 1.0000005960464478
+                    "x": 0.9999954104423523,
+                    "y": 1.5000001192092896,
+                    "z": 0.9999999403953552
                 },
                 "Rotation": {
-                    "x": -2.039327621459961,
-                    "y": -1.1928296089172364,
-                    "z": 1.4259065389633179
+                    "x": -1.3079999685287476,
+                    "y": -1.3580000400543213,
+                    "z": 0.0
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -3482,18 +3386,35 @@
             "GraphicsComponent": {
                 "ModelName": "RopeDrawbridge",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 0.15000000596046449,
+                    "y": 3.200000047683716,
+                    "z": 3.3499999046325685
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.800000011920929,
+                    "z": 1.75
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 72
+                "EntityID": 69
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 2.0530507564544679,
-                    "y": 0.8832756280899048,
-                    "z": 3.1412646770477297
+                    "x": 11.553000450134278,
+                    "y": 0.8832759857177734,
+                    "z": -3.1589999198913576
                 },
                 "Scale": {
                     "x": 0.9999456405639648,
@@ -3521,9 +3442,9 @@
                 "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
+                    "x": 0.75,
+                    "y": 1.399999976158142,
+                    "z": 0.6000000238418579
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -3536,22 +3457,22 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 73
+                "EntityID": 70
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.7577095031738281,
-                    "y": 1.2717560529708863,
-                    "z": 2.7533509731292726
+                    "x": -1.56095290184021,
+                    "y": 1.3121815919876099,
+                    "z": 3.029392719268799
                 },
                 "Scale": {
-                    "x": 0.9999229311943054,
-                    "y": 0.9999437928199768,
+                    "x": 0.9999221563339233,
+                    "y": 0.9998999238014221,
                     "z": 0.999997079372406
                 },
                 "Rotation": {
-                    "x": 0.12494027614593506,
-                    "y": -0.07249373942613602,
+                    "x": 0.1249401718378067,
+                    "y": -0.0724937915802002,
                     "z": -1.5961545705795289
                 },
                 "RotationPivotOffset": {
@@ -3570,9 +3491,9 @@
                 "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
+                    "x": 0.75,
+                    "y": 1.399999976158142,
+                    "z": 0.699999988079071
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -3585,7 +3506,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 74
+                "EntityID": 71
             },
             "TransformComponent": {
                 "Position": {
@@ -3617,7 +3538,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 75
+                "EntityID": 72
             },
             "TransformComponent": {
                 "Position": {
@@ -3649,7 +3570,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 76
+                "EntityID": 73
             },
             "TransformComponent": {
                 "Position": {

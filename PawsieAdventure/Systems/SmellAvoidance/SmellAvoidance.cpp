@@ -5,75 +5,27 @@
 
 SmellAvoidance g_SmellAvoidance;
 
-SmellAvoidance::SmellAvoidance(Entity playerEntity, Entity testPee, Entity testCollider, Entity pee1, Entity pee2, Entity pee3, Entity pee4, Entity pee5, Entity pee6, 
-    Entity pee1Collider, Entity pee2Collider, Entity pee3Collider, Entity pee4Collider, Entity pee5Collider, Entity pee6Collider, Entity waterBucket, Entity waterBucket2, Entity waterBucket3)
-    : playerEnt(playerEntity), TestPee(testPee), TestCollider(testCollider), pee1(pee1), pee2(pee2), pee3(pee3), pee4(pee4), pee5(pee5), pee6(pee6),
-    pee1Collider(pee1Collider), pee2Collider(pee2Collider), pee3Collider(pee3Collider), pee4Collider(pee4Collider), pee5Collider(pee5Collider), pee6Collider(pee6Collider), 
-    WaterBucket(waterBucket), WaterBucket2(waterBucket2), WaterBucket3(waterBucket3),
-    timer(0.0), timerLimit(10.0), timesUp(2.0), TimerInit(false), peeMarked(false),
-    peeSoundPlayed(false), waterSoundPlayed(false), testCollided(false), rexPee1collided(false), rexPee2collided(false),
-    rexPee3collided(false), rexPee4collided(false), waterBucketcollided(false), waterBucket2collided(false), waterBucket3collided(false)
+SmellAvoidance::SmellAvoidance(Entity playerEntity, const std::vector<Entity>& peeEntities, 
+    const std::vector<Entity>& peeColliders, const std::vector<Entity>& waterBuckets)
+    : playerEnt(playerEntity), peeEntities(peeEntities), peeColliders(peeColliders), 
+    waterBuckets(waterBuckets), timer(0.0), timerLimit(10.0), timesUp(2.0), TimerInit(false), peeMarked(false),
+    peeSoundPlayed(false), waterSoundPlayed(false), rexPeeCollided(peeEntities.size(), false), waterBucketCollided(waterBuckets.size(), false)
 {
-	// Empty by design
+    peePositions.resize(peeEntities.size());
+    peeNewPositions.resize(peeEntities.size());
 }
 
 void SmellAvoidance::Initialize()
 {
-    // Initialize positions and other necessary components
-    if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
+    for (size_t i = 0; i < peeEntities.size(); ++i)
     {
-        auto& testPeeTransform = g_Coordinator.GetComponent<TransformComponent>(TestPee);
-        TestPos = testPeeTransform.GetPosition();
-        NewPos = TestPos - glm::vec3(0.0f, 20.0f, 0.0f);
-        testPeeTransform.SetPosition(NewPos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee1))
-    {
-        auto& pee1Transform = g_Coordinator.GetComponent<TransformComponent>(pee1);
-        pee1Pos = pee1Transform.GetPosition();
-        pee1NewPos = pee1Pos - glm::vec3(0.0f, 20.0f, 0.0f);
-        pee1Transform.SetPosition(pee1NewPos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee2))
-    {
-        auto& pee2Transform = g_Coordinator.GetComponent<TransformComponent>(pee2);
-        pee2Pos = pee2Transform.GetPosition();
-        pee2NewPos = pee2Pos - glm::vec3(0.0f, 20.0f, 0.0f);
-        pee2Transform.SetPosition(pee2NewPos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee3))
-    {
-        auto& pee3Transform = g_Coordinator.GetComponent<TransformComponent>(pee3);
-        pee3Pos = pee3Transform.GetPosition();
-        pee3NewPos = pee3Pos - glm::vec3(0.0f, 20.0f, 0.0f);
-        pee3Transform.SetPosition(pee3NewPos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee4))
-    {
-        auto& pee4Transform = g_Coordinator.GetComponent<TransformComponent>(pee4);
-        pee4Pos = pee4Transform.GetPosition();
-        pee4NewPos = pee4Pos - glm::vec3(0.0f, 20.0f, 0.0f);
-        pee4Transform.SetPosition(pee4NewPos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee5))
-    {
-        auto& pee5Transform = g_Coordinator.GetComponent<TransformComponent>(pee5);
-        pee5Pos = pee5Transform.GetPosition();
-        pee5NewPos = pee5Pos - glm::vec3(0.0f, 20.0f, 0.0f);
-        pee5Transform.SetPosition(pee5NewPos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee6))
-    {
-        auto& pee6Transform = g_Coordinator.GetComponent<TransformComponent>(pee6);
-        pee6Pos = pee6Transform.GetPosition();
-        pee6NewPos = pee6Pos - glm::vec3(0.0f, 20.0f, 0.0f);
-        pee6Transform.SetPosition(pee6NewPos);
+        if (g_Coordinator.HaveComponent<TransformComponent>(peeEntities[i]))
+        {
+            auto& peeTransform = g_Coordinator.GetComponent<TransformComponent>(peeEntities[i]);
+            peePositions[i] = peeTransform.GetPosition();
+            peeNewPositions[i] = peePositions[i] - glm::vec3(0.0f, 20.0f, 0.0f);
+            peeTransform.SetPosition(peeNewPositions[i]);
+        }
     }
 
     touchedPee = false;
@@ -109,27 +61,26 @@ void SmellAvoidance::Update(double deltaTime)
 
 void SmellAvoidance::CheckCollision()
 {
-	//playerCollided = CheckEntityWithPlayerCollision(playerEnt);
     if (g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
     {
         playerCollided = g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetIsColliding();
     }
-    rexPee1collided = CheckEntityWithPlayerCollision(pee1Collider);
-    rexPee2collided = CheckEntityWithPlayerCollision(pee2Collider);
-    rexPee3collided = CheckEntityWithPlayerCollision(pee3Collider);
-    rexPee4collided = CheckEntityWithPlayerCollision(pee4Collider);
-    rexPee5collided = CheckEntityWithPlayerCollision(pee5Collider);
-    rexPee6collided = CheckEntityWithPlayerCollision(pee6Collider);
-    testCollided = CheckEntityWithPlayerCollision(TestCollider);
-    waterBucketcollided = CheckEntityWithPlayerCollision(WaterBucket);
-    waterBucket2collided = CheckEntityWithPlayerCollision(WaterBucket2);
-    waterBucket3collided = CheckEntityWithPlayerCollision(WaterBucket3);
+
+    for (size_t i = 0; i < peeColliders.size(); ++i)
+    {
+        rexPeeCollided[i] = CheckEntityWithPlayerCollision(peeColliders[i]);
+    }
+
+    for (size_t i = 0; i < waterBuckets.size(); ++i)
+    {
+        waterBucketCollided[i] = CheckEntityWithPlayerCollision(waterBuckets[i]);
+    }
 
     HandlePeeCollision();
     HandleWaterCollision();
 }
 
-bool SmellAvoidance::CheckEntityWithPlayerCollision(Entity entity)
+bool SmellAvoidance::CheckEntityWithPlayerCollision(Entity entity) const
 {
     //Check Entity Collision with Player
     if (g_Coordinator.HaveComponent<CollisionComponent>(entity) && g_Coordinator.HaveComponent<CollisionComponent>(playerEnt))
@@ -141,15 +92,20 @@ bool SmellAvoidance::CheckEntityWithPlayerCollision(Entity entity)
     return false;
 }
 
+float SmellAvoidance::CalculateDistance(glm::vec3& playerPos, glm::vec3& peePos)
+{
+	return glm::distance(playerPos, peePos);
+}
+
 void SmellAvoidance::HandlePeeCollision()
 {
-    if (playerCollided && (rexPee1collided || rexPee2collided || rexPee3collided || rexPee4collided || rexPee5collided || rexPee6collided || testCollided) 
+    if (playerCollided && (std::any_of(rexPeeCollided.begin(), rexPeeCollided.end(), [](bool collided) { return collided; }))
         && !peeMarked && !peeSoundPlayed)
     {
         g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PeePuddle.wav", false, "SFX");
         peeMarked = true;
-        peeSoundPlayed = true;  // Ensure the sound plays only once
-        waterSoundPlayed = false; // Reset water sound state
+        peeSoundPlayed = true;
+        waterSoundPlayed = false;
 
         if (!touchedPee)
         {
@@ -158,31 +114,38 @@ void SmellAvoidance::HandlePeeCollision()
             touchedPee = true;
         }
     }
+
+    for (size_t i = 0; i < peeEntities.size(); ++i)
+    {
+        if (rexPeeCollided[i] && g_Coordinator.HaveComponent<TransformComponent>(peeEntities[i]))
+        {
+            auto& peeTransform = g_Coordinator.GetComponent<TransformComponent>(peeEntities[i]);
+            // Set the new position for the pee entity
+            peeTransform.SetPosition(peePositions[i]);
+        }
+    }
 }
 
 void SmellAvoidance::HandleWaterCollision()
 {
-    if (playerCollided && (waterBucketcollided || waterBucket2collided || waterBucket3collided) && !waterSoundPlayed)
+    if (playerCollided && std::any_of(waterBucketCollided.begin(), waterBucketCollided.end(), [](bool collided) { return collided; }) && !waterSoundPlayed)
     {
         if (peeMarked) {
             g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WaterPuddle.wav", false, "SFX");
             g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
             g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
 
-            // ? Start fading process instead of blocking the game loop
             isFading = true;
             fadeTimer = 0.0f;
 
-            // ? Start playing new BGM at **0 volume**
             g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", true, "BGM");
-            g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", 0.0f); // Start silent
+            g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", 0.0f);
 
             peeMarked = false;
             timer = 0.0;
 
-            // Reset sound state
             peeSoundPlayed = false;
-            waterSoundPlayed = true; // Ensure water sound plays only once
+            waterSoundPlayed = true;
             touchedPee = false;
 
             if (TimerInit) {
@@ -193,112 +156,59 @@ void SmellAvoidance::HandleWaterCollision()
     }
 }
 
-void SmellAvoidance::SetDefaultPeePosition() const
+void SmellAvoidance::SetDefaultPeePosition()
 {
-    if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
+    for (size_t i = 0; i < peeEntities.size(); ++i)
     {
-        auto& testPeeTransform = g_Coordinator.GetComponent<TransformComponent>(TestPee);
-        testPeeTransform.SetPosition(TestPos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee1))
-    {
-        auto& pee1Transform = g_Coordinator.GetComponent<TransformComponent>(pee1);
-        pee1Transform.SetPosition(pee1Pos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee2))
-    {
-        auto& pee2Transform = g_Coordinator.GetComponent<TransformComponent>(pee2);
-        pee2Transform.SetPosition(pee2Pos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee3))
-    {
-        auto& pee3Transform = g_Coordinator.GetComponent<TransformComponent>(pee3);
-        pee3Transform.SetPosition(pee3Pos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee4))
-    {
-        auto& pee4Transform = g_Coordinator.GetComponent<TransformComponent>(pee4);
-        pee4Transform.SetPosition(pee4Pos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee5))
-    {
-        auto& pee5Transform = g_Coordinator.GetComponent<TransformComponent>(pee5);
-        pee5Transform.SetPosition(pee5Pos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee6))
-    {
-        auto& pee6Transform = g_Coordinator.GetComponent<TransformComponent>(pee6);
-        pee6Transform.SetPosition(pee6Pos);
+        if (g_Coordinator.HaveComponent<TransformComponent>(peeEntities[i]))
+        {
+            auto& peeTransform = g_Coordinator.GetComponent<TransformComponent>(peeEntities[i]);
+            peeTransform.SetPosition(peePositions[i]);
+        }
     }
 }
 
-void SmellAvoidance::SetNewPeePosition() const
+
+
+void SmellAvoidance::SetNewPeePosition()
 {
-    if (g_Coordinator.HaveComponent<TransformComponent>(TestPee))
+    if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt))
     {
-        auto& testPeeTransform = g_Coordinator.GetComponent<TransformComponent>(TestPee);
-        testPeeTransform.SetPosition(NewPos);
-    }
+        auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
+        glm::vec3 playerPos = playerTransform.GetPosition();
 
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee1))
-    {
-        auto& pee1Transform = g_Coordinator.GetComponent<TransformComponent>(pee1);
-        pee1Transform.SetPosition(pee1NewPos);
-    }
+        for (size_t i = 0; i < peeEntities.size(); ++i)
+        {
+            if (g_Coordinator.HaveComponent<TransformComponent>(peeEntities[i]))
+            {
+                auto& peeTransform = g_Coordinator.GetComponent<TransformComponent>(peeEntities[i]);
+                glm::vec3 peePos = peeTransform.GetPosition();
 
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee2))
-    {
-        auto& pee2Transform = g_Coordinator.GetComponent<TransformComponent>(pee2);
-        pee2Transform.SetPosition(pee2NewPos);
-    }
+				float distance = CalculateDistance(playerPos, peePos);
+                if (distance <= 10.0f)
+                {	// Set your distance threshold here
+                    // Keep the pee entity in its current position
+                    peeTransform.SetPosition(peePos);
+                }
+                else
+                {
+                    // Proceed as usual
+                    peeTransform.SetPosition(peeNewPositions[i]);
+                }
 
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee3))
-    {
-        auto& pee3Transform = g_Coordinator.GetComponent<TransformComponent>(pee3);
-        pee3Transform.SetPosition(pee3NewPos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee4))
-    {
-        auto& pee4Transform = g_Coordinator.GetComponent<TransformComponent>(pee4);
-        pee4Transform.SetPosition(pee4NewPos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee5))
-    {
-        auto& pee5Transform = g_Coordinator.GetComponent<TransformComponent>(pee5);
-        pee5Transform.SetPosition(pee5NewPos);
-    }
-
-    if (g_Coordinator.HaveComponent<TransformComponent>(pee6))
-    {
-        auto& pee6Transform = g_Coordinator.GetComponent<TransformComponent>(pee6);
-        pee6Transform.SetPosition(pee6NewPos);
+            }
+        }
     }
 }
 
 void SmellAvoidance::Reset()
 {
-	peeSoundPlayed = false;
-	waterSoundPlayed = false;
-	testCollided = false;
-	rexPee1collided = false;
-	rexPee2collided = false;
-	rexPee3collided = false;
-	rexPee4collided = false;
-	rexPee5collided = false;
-	rexPee6collided = false;
-	waterBucketcollided = false;
-	waterBucket2collided = false;
-	waterBucket3collided = false;
-	TimerInit = false;
-	peeMarked = false;
+    peeSoundPlayed = false;
+    waterSoundPlayed = false;
+    std::fill(rexPeeCollided.begin(), rexPeeCollided.end(), false);
+    std::fill(waterBucketCollided.begin(), waterBucketCollided.end(), false);
+    TimerInit = false;
+    peeMarked = false;
     touchedPee = false;
     isFading = false;
     fadeTimer = 0.0f;

@@ -6,6 +6,8 @@
 #include "../Utilities/ForGame/TimerTR/TimerTR.h"
 #include "../GSM/GameStateMachine.h" // for g_IsPaused
 
+extern bool g_IsCamPanning;
+
 class TimeRush : public Level
 {
 	Entity playerEnt{};
@@ -13,7 +15,10 @@ class TimeRush : public Level
 	Entity rexEnt{};
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
-	glm::vec3 camdir{};
+	glm::vec3 camdir{}, originalcamPos, originalcamDir;
+
+	bool camThirdPerson{ false }, panCam{ false }, returnCam{ false };	
+	float camtimer = 0.f;
 
 	Entity TimeRushBGM{}, AggroDog{}, CorgiSniff{}, FireSound{};
 
@@ -22,12 +27,16 @@ class TimeRush : public Level
 	double cooldownTimer = 10.0;
 	double cooldownDuration = 10.0; // Cooldown duration
 	bool isColorChanged = false;
+	bool hasBarked = false;  // Ensures barking only happens once when time is up
 
+
+	// Timer for the level
+	double timerLimit = 40.0;
 	bool finishTR{ false };
 	double timesUp = 2.0;
 
 	double sniffCooldownTimer = 0.0;  // Accumulates time
-	const double sniffCooldownDuration = 17.0;  // 16 seconds
+	const double sniffCooldownDuration = 17.0;  // 17 seconds
 	bool isSniffOnCooldown = false;
 
 	std::vector<Entity> particleEntities;
@@ -41,7 +50,7 @@ class TimeRush : public Level
 	"Corgi/DogBite_05.wav",
 	"Corgi/DogBite_06.wav",
 	"Corgi/DogBite_07.wav",
-		};
+	};
 
 
 	// Function to get a random sound from a vector
@@ -55,6 +64,7 @@ class TimeRush : public Level
 	void LoadLevel() override
 	{
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/TimeRushPuzzle.json");
+		//g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/TimeRushTest2.json");
 		g_TimerTR.OnInitialize();
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -108,7 +118,15 @@ class TimeRush : public Level
 
 	void InitLevel() override
 	{
+		ResetLevelState();
+		g_IsCamPanning = true;
+		camtimer = 0.f;
+		camThirdPerson = panCam = returnCam = false;
+		originalcamPos = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraPosition();
+		originalcamDir = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraDirection();
 		cameraController = new CameraController(playerEnt);
+		cameraController->ChangeToThirdPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
+
 		g_Checklist.OnInitialize();
 		g_Checklist.ChangeAsset(g_Checklist.Do1, glm::vec2(0.15f, 0.05f), "Do5");
 		g_Checklist.ChangeAsset(g_Checklist.Do2, glm::vec2(0.0f, 0.0f), "");
@@ -146,14 +164,7 @@ class TimeRush : public Level
 			std::cerr << " ERROR: TimeRushBGM entity has no AudioComponent in InitLevel!" << std::endl;
 		}
 
-		if (g_Coordinator.HaveComponent<AudioComponent>(AggroDog)) {
-			auto& dogAudio = g_Coordinator.GetComponent<AudioComponent>(AggroDog);
-			dogAudio.SetAudioSystem(&g_Audio);
-			dogAudio.PlayAudio();
-		}
-		else {
-			std::cerr << " ERROR: AggroDog entity has no AudioComponent in InitLevel!" << std::endl;
-		}
+	
 
 
 		if (g_Coordinator.HaveComponent<AudioComponent>(CorgiSniff)) {
@@ -168,8 +179,12 @@ class TimeRush : public Level
 		g_DialogueText.OnInitialize();
 		g_DialogueText.setDialogue(DialogueState::ENTEREDLIBRARY);
 
+		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
+
 		particleEntities = { scentEntity1, scentEntity2, scentEntity3, scentEntity4, scentEntity5, scentEntity6, scentEntity7, scentEntity8, scentEntity9 };
 		g_UI.OnInitialize();
+
+		g_TimerTR.timer = timerLimit;
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -183,6 +198,39 @@ class TimeRush : public Level
 			cameraController->SetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt), camdir);
 			savedcamdir = false;
 		}
+
+		if (camThirdPerson == true)
+			camtimer += static_cast<float>(deltaTime);
+
+		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && !camtimer) {
+			camThirdPerson = true;
+		}
+
+		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && camtimer > 2.f && panCam == false) {
+			cameraController->SetCameraTargetPosition(glm::vec3(26.5f, 5.f, -90.f));
+			cameraController->SetCameraTargetDirection(glm::vec3(0, -0.2, 1));
+			cameraController->LockUnlockCam();
+			panCam = true;
+			originalcamPos = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraPosition();
+			originalcamDir = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraDirection();
+		}
+
+		float timeVariable = 8.f;
+		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && camtimer >= timeVariable && returnCam == false) {
+			cameraController->SetCameraTargetPosition(originalcamPos);
+			cameraController->SetCameraTargetDirection(originalcamDir);
+			returnCam = true;
+		}
+
+		if (camtimer > 15.f && cameraController->getCameraMode() == CameraMode::THIRD_PERSON) {
+			cameraController->LockUnlockCam();
+			cameraController->ToggleCameraMode();
+		}
+
+		if (camtimer > 16.5f && cameraController->getCameraMode() == CameraMode::FIRST_PERSON) {
+			g_IsCamPanning = false;
+		}
+
 
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
 			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
@@ -198,7 +246,7 @@ class TimeRush : public Level
 		// ?? Update the positions of all 3D sounds (including the fireplace)
 		g_Audio.Update3DSoundPositions();
 
-		if (!g_DialogueText.dialogueActive) 
+		if (!g_DialogueText.dialogueActive)
 		{
 			pauseLogic::OnUpdate();
 		}
@@ -211,32 +259,36 @@ class TimeRush : public Level
 			g_UI.OnUpdate(static_cast<float>(deltaTime));
 			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
 
-			g_TimerTR.OnUpdate(deltaTime);
+			if (!g_IsCamPanning) 
+			{
+				g_TimerTR.OnUpdate(deltaTime);
+			}
 
 			g_DialogueText.checkCollision(playerEnt, deltaTime);
 			g_DialogueText.OnUpdate(deltaTime);
 
 			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
-			if (g_TimerTR.timer == 0.0) 
+			/*
+			if (g_TimerTR.timer == 0.0)
 			{
-				/*
+				
 				// Need to teleport Rex to 20, 1.5, 3
 				if (g_Coordinator.HaveComponent<TransformComponent>(rexEnt))
 				{
 					auto& rexTransform = g_Coordinator.GetComponent<TransformComponent>(rexEnt);
 					rexTransform.SetPosition(glm::vec3(20.0f, 1.5f, 3.0f));
 				}
-				*/
+				
 				timesUp -= deltaTime;
 
 				// Times up! sound
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
 				// Wait for like 2 seconds then restart game
-				if (timesUp < 0.0) 
+				if (timesUp < 0.0)
 				{
 					timesUp = 0.0;
-					
-					
+
+
 					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 					if (loading)
 					{
@@ -250,26 +302,27 @@ class TimeRush : public Level
 
 						g_LevelManager.SetNextLevel("LoadingLevel");
 					}
-					
+
+				}
+			
+			}
+			*/
+			if (CheckEntityWithPlayerCollision(rexEnt) && !g_Checklist.finishTR) {
+				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+				if (loading)
+				{
+					// Pass in the name of the real scene we want AFTER the loading screen
+					loading->m_NextScene = "TimeRush";
+
+					timesUp = 2.0;
+					g_TimerTR.Reset();
+					g_DialogueText.OnShutdown();
+					g_DialogueText.Reset();
+
+					g_LevelManager.SetNextLevel("LoadingLevel");
 				}
 			}
-			
-			//if (CheckEntityWithPlayerCollision(rexEnt)) {
-			//	auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
-			//	if (loading)
-			//	{
-			//		// Pass in the name of the real scene we want AFTER the loading screen
-			//		loading->m_NextScene = "TimeRush";
 
-			//		timesUp = 2.0;
-			//		g_TimerTR.Reset();
-			//		g_DialogueText.OnShutdown();
-			//		g_DialogueText.Reset();
-
-			//		g_LevelManager.SetNextLevel("LoadingLevel");
-			//	}
-			//}
-			
 			// Take this away once u shift to script
 			// Accumulate time for cooldown
 			if (isSniffOnCooldown) {
@@ -311,6 +364,14 @@ class TimeRush : public Level
 			}
 
 
+			if (g_TimerTR.timer <= 0.0 && hasBarked == false)
+			{
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav", false, "SFX");
+				hasBarked = true;
+
+			}
+
+
 
 			// Checklist
 			if (!g_Checklist.shutted)
@@ -334,7 +395,7 @@ class TimeRush : public Level
 				if (loading)
 				{
 					// Pass in the name of the real scene we want AFTER the loading screen
-					loading->m_NextScene = "MainHall";
+					loading->m_NextScene = "Corridor";
 					g_LevelManager.SetNextLevel("LoadingLevel");
 				}
 			}
@@ -354,7 +415,7 @@ class TimeRush : public Level
 
 	void UnloadLevel() override
 	{
-		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO+"/Timesup.wav");
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/Timesup.wav");
 		//g_Audio.StopBGM();
 		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav");
 
@@ -384,7 +445,46 @@ private:
 			auto collider1 = g_Coordinator.GetComponent<CollisionComponent>(entity);
 			if (collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), "Player") == 0)
 				return true;
+
+			if (collider1.GetIsColliding() && std::strcmp(collider1.GetLastCollidedObjectName().c_str(), g_Coordinator.GetComponent<MetadataComponent>(entity).GetName().c_str()) == 0)
+				return true;
 		}
 		return false;
 	}
+
+	void ResetLevelState()
+	{
+		// Reset pause and camera state variables
+		savedcamdir = false;
+		camdir = glm::vec3(0.0f);
+		originalcamPos = glm::vec3(0.0f);
+		originalcamDir = glm::vec3(0.0f);
+
+		camThirdPerson = false;
+		panCam = false;
+		returnCam = false;
+		camtimer = 0.f;
+
+		// Reset audio/timer flags and other game state
+		colorChangeTimer = 0.0;
+		cooldownTimer = 0.0;
+		isColorChanged = false;
+
+		timerLimit = 40.0;
+		finishTR = false;
+		timesUp = 2.0;
+
+		sniffCooldownTimer = 0.0;
+		isSniffOnCooldown = false;
+
+		// Reset particle list and bark flag
+		particleEntities.clear();
+		bark = false;
+		hasBarked = false;
+
+		// If there are any other member variables that persist across plays,
+		// reset them here.
+	}
+
 };
+

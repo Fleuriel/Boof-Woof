@@ -89,6 +89,7 @@ public:
 
     void BuildGraph();
     bool FindPath(Entity startNode, Entity goalNode, std::vector<glm::vec3>& outPath);
+    //bool FindPath(Entity startNode, Entity goalNode, std::vector<glm::vec3>& outPath, std::unordered_set<uint32_t> attemptedFallbacks = {}, int maxFallbackAttempts = 5);
 
     void Update(float deltaTime);
 
@@ -98,6 +99,7 @@ public:
 
 	Entity GetClosestNode(const glm::vec3& position);
     std::vector<Entity> GetNodeList();
+    void ForceImmediateUpdate();
 
 private:
     std::unordered_map<Entity, std::shared_ptr<Node3D>> graphNodes;  // Nodes in the graph

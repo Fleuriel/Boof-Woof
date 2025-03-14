@@ -18,19 +18,27 @@ public:
 	void CheckCageCollision();
 	void SpawnBoneCatcher();
 	void DespawnCage();
+
+	void SaveProgress();
+
 	bool CheckEntityWithPlayerCollision(Entity entity) const;
 	void ResetCB();
 
 public:
-	bool CollidedCage1{ false }, CollidedCage2{ false }, CollidedCage3{ false };
+	bool Cage1Colliding{}, Cage2Colliding{}, Cage3Colliding{};
 	bool BarSpawned{ false };
+	std::unordered_map<int, int> CageHitCounts; // Map to store hit counts per cage
+	std::unordered_map<int, float> speedCage;
+	std::unordered_map<int, int> directionCage;
 
 private:
 
 	// Rope
 	Entity player{}, cage1{}, cage2{}, cage3{}, cage1Collider{}, cage2Collider{}, cage3Collider{};
-	bool Cage1Colliding{}, Cage2Colliding{}, Cage3Colliding{}, firstCageTouched{ false }, secondCageTouched{ false }, thirdCageTouched{ false };
+	bool firstCageTouched{ false }, secondCageTouched{ false }, thirdCageTouched{ false };
 	bool deletedCage1{ false }, deletedCage2{ false }, deletedCage3{ false };
+	bool CollidedCage1{ false }, CollidedCage2{ false }, CollidedCage3{ false };
+
 	bool playedCageSound1 = false;
 	bool playedCageSound2 = false;
 	bool playedCageSound3 = false;
