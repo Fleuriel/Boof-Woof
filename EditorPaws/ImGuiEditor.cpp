@@ -2100,7 +2100,7 @@ void ImGuiEditor::InspectorWindow()
 								static int currentIndex = 0; // Track which animation we are playing
 								static bool isPlaying = false; // Play state
 
-								static float startPlay = -0.01f;
+								static float startPlay = 0.0f;
 								static float endPlay = animationComp.m_Duration;
 
 
