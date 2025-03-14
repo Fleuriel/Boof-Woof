@@ -74,6 +74,9 @@ class MainHall : public Level
 		std::uniform_int_distribution<std::size_t> dis(0, soundList.size() - 1);
 		return soundList[dis(gen)];
 	}
+	
+
+	Entity VFX{};
 
 	void LoadLevel() override
 	{
@@ -101,6 +104,12 @@ class MainHall : public Level
 				if (AllEntitiesInitialized())
 				{
 					break;
+				}
+			}
+
+			if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
+				if (g_Coordinator.GetComponent<UIComponent>(entity).get_texturename() == "WashingVFX") {
+					VFX = entity;
 				}
 			}
 		}
@@ -167,6 +176,13 @@ class MainHall : public Level
 
 		if (!g_IsPaused)
 		{
+
+			auto& VFXComponent = g_Coordinator.GetComponent<UIComponent>(VFX);
+			VFXComponent.set_position({ VFXComponent.get_position().x, VFXComponent.get_position().y - 0.01 });
+
+
+
+
 			cameraController->Update(static_cast<float>(deltaTime));
 			cooldownTimer += deltaTime;
 
