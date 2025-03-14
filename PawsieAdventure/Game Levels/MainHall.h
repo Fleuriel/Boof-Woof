@@ -27,11 +27,7 @@ class MainHall : public Level
 
 	Entity stealthCollider1{}, stealthCollider2{}, stealthCollider3{}, stealthCollider4{};
 	Entity peeScent1{}, peeScent2{}, peeScent3{}, peeScent4{}, peeScent5{}, peeScent6{}, peeScent7{};
-
-
 	Entity VFXBG{}, VFX1{}, VFX2{};
-
-
 
 	// Existing member variables...
 	float originalBrightness = 1.0f;
@@ -56,12 +52,12 @@ class MainHall : public Level
 	double sniffCooldownTimer = 0.0;  // Timer for sniff cooldown
 	const double sniffCooldownDuration = 17.0;  // 17 seconds cooldown
 	bool isSniffOnCooldown = false;  // Track cooldown state
-
-
-	std::vector<Entity> particleEntities;
-
 	bool bark = false;
 
+	std::vector<Entity> particleEntities;
+	std::vector<Entity> peeEntities;
+	std::vector<Entity> peeColliders;
+	std::vector<Entity> waterBuckets;
 	std::vector<std::string> bitingSounds = {
 	"Corgi/DogBite_01.wav",
 	"Corgi/DogBite_02.wav",
@@ -130,8 +126,12 @@ class MainHall : public Level
 		cameraController = new CameraController(playerEnt);
 		g_CageBreaker = CageBreaker(playerEnt, Cage1, Cage2, Cage3, Cage1Collider, Cage2Collider, Cage3Collider);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
-		g_SmellAvoidance = SmellAvoidance(playerEnt, TestPee, TestCollider, pee1, pee2, pee3, pee4, pee5, pee6, pee1Collider,
-			pee2Collider, pee3Collider, pee4Collider, pee5Collider, pee6Collider, WaterBucket, WaterBucket2, WaterBucket3);
+
+		// Smell Avoidance
+		peeEntities = { TestPee, pee1, pee2, pee3, pee4, pee5, pee6 };
+		peeColliders = { TestCollider, pee1Collider, pee2Collider, pee3Collider, pee4Collider, pee5Collider, pee6Collider };
+		waterBuckets = { WaterBucket, WaterBucket2, WaterBucket3 };
+		g_SmellAvoidance = SmellAvoidance(playerEnt, peeEntities, peeColliders, waterBuckets);
 
 		g_Checklist.OnInitialize();
 		InitializeChecklist();
@@ -365,7 +365,6 @@ class MainHall : public Level
 				if (colorChangeTimer >= colorChangeDuration)
 				{
 					g_SmellAvoidance.SetNewPeePosition();
-
 					isColorChanged = false;
 				}
 			}
