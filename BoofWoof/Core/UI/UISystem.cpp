@@ -122,8 +122,8 @@ void UISystem::UI_render()
 
                 shader.SetUniform("vertexTransform", model);
                 shader.SetUniform("opacity", UICompt.get_UI_opacity());
-				shader.SetUniform("useTexture", true);
-				shader.SetUniform("gammaValue", GraphicsSystem::gammaValue);
+				//shader.SetUniform("useTexture", true);
+				//shader.SetUniform("gammaValue", GraphicsSystem::gammaValue);
                 // Bind texture               
                 glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(UICompt.get_texturename()));
                 shader.SetUniform("uTex2d", 6);
@@ -145,7 +145,7 @@ void UISystem::UI_render()
                 shader.SetUniform("cols", UICompt.get_cols());
                 shader.SetUniform("row_To_Draw", UICompt.get_curr_row());
                 shader.SetUniform("col_To_Draw", UICompt.get_curr_col());
-                shader.SetUniform("useTexture", true);
+                //shader.SetUniform("useTexture", true);
 
                 glBindTextureUnit(6, g_ResourceManager.GetTextureDDS(UICompt.get_texturename()));
                 shader.SetUniform("uTex2d", 6);
