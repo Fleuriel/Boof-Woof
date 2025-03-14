@@ -329,33 +329,33 @@ public:
         // Extract only the filename (remove everything before the last '/')
 
 
-        std::string ext = path.substr(path.find_last_of('.') + 1);
-      
-        std::string fileName = path.substr(path.find_last_of('/') + 1);
-
-        if(ext == "obj")
-        {
-            fileName = fileName.substr(0, fileName.find_last_of('.')) + ".png";
-        }
-        else
-        {
-            fileName = GetFBXImageFile(path);
-        }
-
-//        std::string fbxFile = GetFBXImageFile(path);
-
-  //      std::cout << fbxFile << "\n";
-        
-        std::cout << "%*************************%\n";
-        std::cout << "Assimp Version: " << aiGetVersionMajor() << "."
-            << aiGetVersionMinor() << "."
-            << aiGetVersionRevision() << std::endl;
-
-        std::cout << "%*************************%\n";
-        // Replace extension with `.png`
-
-
-        texFileName = fileName;
+     // std::string ext = path.substr(path.find_last_of('.') + 1);
+     //
+     // std::string fileName = path.substr(path.find_last_of('/') + 1);
+     //
+     // if(ext == "obj")
+     // {
+     //     fileName = fileName.substr(0, fileName.find_last_of('.')) + ".png";
+     // }
+     // else
+     // {
+     //     fileName = GetFBXImageFile(path);
+     // }
+     //
+//   //   std::string fbxFile = GetFBXImageFile(path);
+     //
+  // //   std::cout << fbxFile << "\n";
+     // 
+     // std::cout << "%*************************%\n";
+     // std::cout << "Assimp Version: " << aiGetVersionMajor() << "."
+     //     << aiGetVersionMinor() << "."
+     //     << aiGetVersionRevision() << std::endl;
+     //
+     // std::cout << "%*************************%\n";
+     // // Replace extension with `.png`
+     //
+     //
+     // texFileName = fileName;
 
       //  std::cout << "the fILE NAME ::  " << path << '\t' << texFileName << '\n';
         // process ASSIMP's root node recursively
@@ -614,11 +614,11 @@ public:
                if (!skip)
                {   // if texture hasn't been loaded already, load it
                    Texture texture;
-                   texture.id = TextureFromFile(texFileName.c_str(), this->directory);
+                   texture.id = TextureFromFile(str.C_Str(), this->directory);
 
                 //   std::cout << "< asd \t" << str.C_Str() << texFileName.c_str() << '\n';
                    texture.type = typeName;
-                   texture.path = texFileName.c_str();
+                   texture.path = str.C_Str();
                    textures.push_back(texture);
                    textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecessary load duplicate textures.
                }
