@@ -204,6 +204,8 @@ void LogicSystem::AddBehaviours(void* scriptBehavioursPtr)
 
 void LogicSystem::ReInit()
 {
+	g_Player = NULL;
+
     // Initialize entities and behaviours
     for (auto const& entity : mEntities)
     {

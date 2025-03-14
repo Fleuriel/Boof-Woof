@@ -14,7 +14,6 @@ struct Rex final : public Behaviour
     float speed = 5.0f;
     float pathThreshold = 0.2f;
     bool isMovingRex = false;
-	bool returningtoStart = false;
     glm::vec3 rexPosition = glm::vec3(0.0f);
     glm::vec3 rexRotation = glm::vec3(0.0f);
     // Set player to infintiy
