@@ -138,7 +138,7 @@ struct RexChase final : public Behaviour
             }
 
 
-            std::tuple<int, float, float> animationIdle = m_Engine.GetAnimationVector(entity)[ANIM_IDLE];
+            //std::tuple<int, float, float> animationIdle = m_Engine.GetAnimationVector(entity)[ANIM_IDLE];
             std::tuple<int, float, float> animationWalk = m_Engine.GetAnimationVector(entity)[ANIM_WALKING];
             std::tuple<int, float, float> animationRun = m_Engine.GetAnimationVector(entity)[ANIM_RUNNING];
 

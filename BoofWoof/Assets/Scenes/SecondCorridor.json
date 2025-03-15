@@ -807,8 +807,53 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "Corgi2",
+                "ModelName": "corgi",
                 "FollowCamera": true
+            },
+            "AnimationComponent": {
+                "Number of Animation Points": 4,
+                "Animations": [
+                    {
+                        "Animation ID": 0,
+                        "Start Time": 0.0,
+                        "End Time": 200.0
+                    },
+                    {
+                        "Animation ID": 1,
+                        "Start Time": 0.0,
+                        "End Time": 0.01
+                        
+                    },
+                    {
+                        "Animation ID": 2,
+                        "Start Time": 15.199999809265137,
+                        "End Time": 55.279998779296878
+                    },
+                    {
+                        "Animation ID": 3,
+                        "Start Time": 69.86000061035156,
+                        "End Time": 112.54000091552735
+                    }
+                ]
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Animation",
+                "shaderIdx": 0,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             },
             "BehaviourComponent": {
                 "BehaviourName": "Player"
