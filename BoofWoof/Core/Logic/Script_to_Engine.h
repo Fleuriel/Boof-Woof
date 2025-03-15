@@ -6,6 +6,7 @@
 #include "BehaviourInterface.h"
 #include "../Input/Input.h"
 #include "../Utilities/Components/CollisionComponent.hpp"
+#include "../Utilities/Components/AnimationComponent.hpp"
 #include "../Utilities/Components/TransformComponent.hpp"
 #include "../Utilities/Components/CameraComponent.hpp"
 #include "../Core/EngineCore.h"
@@ -504,6 +505,43 @@ public:
 	virtual double GetTRtimer() override 
 	{
 		return g_TimerTR.timer;
+	}
+
+
+
+
+	virtual std::vector<std::tuple<int, float, float>>& GetAnimationVector(Entity entity) override {
+
+		auto& anim = g_Coordinator.GetComponent<AnimationComponent>(entity);
+		return anim.animationVector;
+	}
+
+
+
+	virtual void PlayAnimation(Entity entity, float timeStart, float timeEnd) override
+	{
+
+		auto & anim =  g_Coordinator.GetComponent<AnimationComponent>(entity);
+		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
+		float animDeltaTime = anim.m_DeltaTime;
+
+		
+		graphicsComp.SetAnimationTime(graphicsComp.deltaTime);
+
+		g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime);
+
+		std::cout << animDeltaTime << '\t' << timeStart << '\t' << timeEnd << '\t' << '\n';
+
+		std::cout << "Graphics Component Model name : " << graphicsComp.getModelName() << '\n';
+
+		if (animDeltaTime < timeStart || animDeltaTime > timeEnd)
+		{
+			std::cout << "it entered here in playAnim \n";
+			g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(timeStart);
+		}
+
+
+
 	}
 };
 

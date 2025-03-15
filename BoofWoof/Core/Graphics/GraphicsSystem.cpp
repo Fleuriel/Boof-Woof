@@ -321,11 +321,6 @@ void GraphicsSystem::UpdateLoop() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear framebuffer
 
 
-
-	
-
-
-
 	
 	auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 	for (auto& entity : allEntities)
@@ -431,7 +426,7 @@ void GraphicsSystem::UpdateLoop() {
 
 		auto& material = graphicsComp.material;
 
-
+		graphicsComp.deltaTime = deltaTime;
 
 
 		//// Ensure the animation and animator exist before rendering
@@ -506,7 +501,9 @@ void GraphicsSystem::UpdateLoop() {
 					g_AssetManager.GetShader("Animation").Use();
 
 					if (!graphicsComp.pauseAnimation)
-						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(deltaTime);
+					{
+						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime);
+					}
 					else
 						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
 

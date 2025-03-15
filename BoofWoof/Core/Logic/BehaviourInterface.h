@@ -125,7 +125,16 @@ struct engine_interface
 	virtual void SetDialogue(int dialogueState) = 0;
 	virtual bool isDialogueActive() = 0;
 	virtual double GetTRtimer() = 0;
+
+
+	//  Animation
+	virtual std::vector<std::tuple<int, float, float>>& GetAnimationVector(Entity entity) = 0;
+
+	virtual void PlayAnimation(Entity entity, float timeStart, float timeEnd) = 0;
+
+
 };
+
 
 #ifdef GAME_ENGINE
 using GetScripts_cpp_t = std::vector<std::unique_ptr<Behaviour_i>>* (*)(engine_interface* pEI);

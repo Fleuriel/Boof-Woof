@@ -2249,8 +2249,6 @@ void ImGuiEditor::InspectorWindow()
 									else
 									{
 										ImGui::Text("No Animation found for this model.");
-
-										
 									}
 
 
