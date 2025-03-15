@@ -2075,168 +2075,188 @@ void ImGuiEditor::InspectorWindow()
 							
 							if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
 								
-								auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
-							//	if (graphicsComp.chooseModel)
-					
-								
-								auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
-
-
-
-								animationComp.animationName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
-								animationComp.animatorName = animationComp.animationName;
-
-
-
-								// Get Delta Time
-								float& deltaTime = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity).m_DeltaTime;
-
-								// Static variables to store animation time and play/pause state
-								static float animationTime = 0.0f;								
-								static float startTime = 0.0f;
-								static float endTime = 0.0f;
-								static bool printProblem = false;
-								static int animNameBuffer = 0;
-								static int currentIndex = 0; // Track which animation we are playing
-								static bool isPlaying = false; // Play state
-
-								static float startPlay = 0.01f;
-								static float endPlay = animationComp.m_Duration;
-
-
-								static int inputValue = 0;
-
-
-								ImGui::Text("Name of Animation: %s", animationComp.animationName.c_str());
-								ImGui::Text("Duration: %.2f s", animationComp.m_Duration);
-
-								ImGui::Separator();
-
-
-								if (deltaTime < startPlay || deltaTime> endPlay)
+								if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
 								{
-									g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(startPlay);
 
-//									g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity).m_DeltaTime = deltaTime = startPlay;
+									auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+									auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
 
 
-//									graphicsComp.SetAnimationTime(deltaTime);
-								}
+									if (g_ResourceManager.AnimatorMap.find(graphicsComp.getModelName()) != g_ResourceManager.AnimatorMap.end())
+									{
 
-								ImGui::PushItemWidth(400.f);
-
-								// Slider for animation progress (also acts as manual seek bar)
-								if (ImGui::SliderFloat("##AnimationProgress", &deltaTime, startTime, animationComp.m_Duration, "%.2f s")) {
-									graphicsComp.pauseAnimation = true;  // Pause when user interacts
-
-									graphicsComp.SetAnimationTime(deltaTime);
-								}
-								else
-								{
-									graphicsComp.pauseAnimation = false;  // Pause when user interacts
-								}
-
-								ImGui::Text("Delta Time of Game Application:  %.2f", deltaTime);
+										//	if (graphicsComp.chooseModel)
 
 
 
-								ImGui::Text("Enter Animation Time Range");
-								
-								
-								
-								ImGui::PushItemWidth(100.f);
-
-								// Input floats for Start and End Time
-								ImGui::Value("Save", static_cast<int>(animationComp.animationVector.size()));
-								ImGui::PushItemWidth(400.f);
-								ImGui::SliderFloat("Start Time", &startTime, 0.1f, animationComp.m_Duration, "%.2f s");
-								ImGui::SliderFloat("End Time", &endTime, 0.1f, animationComp.m_Duration, "%.2f s");
 
 
-								if (ImGui::Button("Save Range")) {
-									printProblem = false;
-
-									//  Check if input is valid
-									if (startTime < endTime) {
-										animationComp.animationVector.push_back({ inputValue , startTime, endTime });
-
-										std::cout << "Saved Animation Range: [" <<  inputValue
-											<< "] (" << startTime << "s - " << endTime << "s)\n";
-
-										inputValue++;
-										startTime = 0.0f;
-										endTime = 0.0f;
-									}
-									else {
-										printProblem = true;
-									}
-								}
-
-								if (printProblem)
-								{
-									ImGui::Separator();
-									ImGui::Text(" Invalid range! Start time must be less than End time");
-									ImGui::Text(" & Name cannot be empty.");
-								}
-
-
-								ImGui::Separator(); // UI separator for clarity
-
-								if (ImGui::InputInt("Enter Animation Name", &animNameBuffer)) {
-									currentIndex = 0; // Reset index if input changes
-								}
+										animationComp.animationName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
+										animationComp.animatorName = animationComp.animationName;
 
 
 
-								if (ImGui::Button("Play")) {
+										// Get Delta Time
+										float& deltaTime = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity).m_DeltaTime;
 
-									// Find animation range in the vector using the input animation ID
-									auto it = std::find_if(animationComp.animationVector.begin(), animationComp.animationVector.end(),
-										[&](const auto& d) { return std::get<0>(d) == animNameBuffer; });
+										// Static variables to store animation time and play/pause state
+										static float animationTime = 0.0f;
+										static float startTime = 0.0f;
+										static float endTime = 0.0f;
+										static bool printProblem = false;
+										static int animNameBuffer = 0;
+										static int currentIndex = 0; // Track which animation we are playing
+										static bool isPlaying = false; // Play state
 
-									if (it != animationComp.animationVector.end()) {
-
-										isPlaying = !isPlaying; // Toggle play state
-										if (isPlaying) {
-											int val = std::get<0>(*it);
-											float start = std::get<1>(*it);
-											float end = std::get<2>(*it);
-
-											std::cout << "Playing animation ID [" << val << "] from "
-												<< start << "s to " << end << "s\n";
-
-											animationComp.playThisAnimation = std::make_tuple(val, start, end);
-										//	animationComp.currentTime = start;  // Reset time to startt
-											startPlay = std::get<1>(animationComp.playThisAnimation);
-											endPlay = std::get<2>(animationComp.playThisAnimation);
+										static float startPlay = 0.01f;
+										static float endPlay = animationComp.m_Duration;
 
 
-											currentIndex = 0;  // Reset index when starting
+										static int inputValue = 0;
+
+
+										ImGui::Text("Name of Animation: %s", animationComp.animationName.c_str());
+										ImGui::Text("Duration: %.2f s", animationComp.m_Duration);
+
+										ImGui::Separator();
+
+
+										if (deltaTime < startPlay || deltaTime> endPlay)
+										{
+											g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(startPlay);
+
+											//									g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity).m_DeltaTime = deltaTime = startPlay;
+
+
+											//									graphicsComp.SetAnimationTime(deltaTime);
 										}
 
-									}
-									else {
+										ImGui::PushItemWidth(400.f);
 
-										startPlay = 0.0f;
-										endPlay = animationComp.m_Duration;
-										std::cout << "Animation ID not found!\n";
-									}
-								}
+										// Slider for animation progress (also acts as manual seek bar)
+										if (ImGui::SliderFloat("##AnimationProgress", &deltaTime, startTime, animationComp.m_Duration, "%.2f s")) {
+											graphicsComp.pauseAnimation = true;  // Pause when user interacts
 
-								// Display the saved animation time ranges
-								if (!animationComp.animationVector.empty()) {
-									ImGui::Text("Saved Animation Ranges:");
-									int i = 0;
-									for (const auto& d : animationComp.animationVector)
+											graphicsComp.SetAnimationTime(deltaTime);
+										}
+										else
+										{
+											graphicsComp.pauseAnimation = false;  // Pause when user interacts
+										}
+
+										ImGui::Text("Delta Time of Game Application:  %.2f", deltaTime);
+
+
+
+										ImGui::Text("Enter Animation Time Range");
+
+
+
+										ImGui::PushItemWidth(100.f);
+
+										// Input floats for Start and End Time
+										ImGui::Value("Save", static_cast<int>(animationComp.animationVector.size()));
+										ImGui::PushItemWidth(400.f);
+										ImGui::SliderFloat("Start Time", &startTime, 0.1f, animationComp.m_Duration, "%.2f s");
+										ImGui::SliderFloat("End Time", &endTime, 0.1f, animationComp.m_Duration, "%.2f s");
+
+
+										if (ImGui::Button("Save Range")) {
+											printProblem = false;
+
+											//  Check if input is valid
+											if (startTime < endTime) {
+												animationComp.animationVector.push_back({ inputValue , startTime, endTime });
+
+												std::cout << "Saved Animation Range: [" << inputValue
+													<< "] (" << startTime << "s - " << endTime << "s)\n";
+
+												inputValue++;
+												startTime = 0.0f;
+												endTime = 0.0f;
+											}
+											else {
+												printProblem = true;
+											}
+										}
+
+										if (printProblem)
+										{
+											ImGui::Separator();
+											ImGui::Text(" Invalid range! Start time must be less than End time");
+											ImGui::Text(" & Name cannot be empty.");
+										}
+
+
+										ImGui::Separator(); // UI separator for clarity
+
+										if (ImGui::InputInt("Enter Animation Name", &animNameBuffer)) {
+											currentIndex = 0; // Reset index if input changes
+										}
+
+
+
+										if (ImGui::Button("Play")) {
+
+											// Find animation range in the vector using the input animation ID
+											auto it = std::find_if(animationComp.animationVector.begin(), animationComp.animationVector.end(),
+												[&](const auto& d) { return std::get<0>(d) == animNameBuffer; });
+
+											if (it != animationComp.animationVector.end()) {
+
+												isPlaying = !isPlaying; // Toggle play state
+												if (isPlaying) {
+													int val = std::get<0>(*it);
+													float start = std::get<1>(*it);
+													float end = std::get<2>(*it);
+
+													std::cout << "Playing animation ID [" << val << "] from "
+														<< start << "s to " << end << "s\n";
+
+													animationComp.playThisAnimation = std::make_tuple(val, start, end);
+													//	animationComp.currentTime = start;  // Reset time to startt
+													startPlay = std::get<1>(animationComp.playThisAnimation);
+													endPlay = std::get<2>(animationComp.playThisAnimation);
+
+
+													currentIndex = 0;  // Reset index when starting
+												}
+
+											}
+											else {
+
+												startPlay = 0.0f;
+												endPlay = animationComp.m_Duration;
+												std::cout << "Animation ID not found!\n";
+											}
+										}
+
+										// Display the saved animation time ranges
+										if (!animationComp.animationVector.empty()) {
+											ImGui::Text("Saved Animation Ranges:");
+											int i = 0;
+											for (const auto& d : animationComp.animationVector)
+											{
+												ImGui::Text("[%zu] %.2f - %.2f ", std::get<0>(d), std::get<1>(d), std::get<2>(d));
+											}
+										}
+
+
+
+										ImGui::Text("Stuff: [%zu] %.2f - %.2f ", std::get<0>(animationComp.playThisAnimation), std::get<1>(animationComp.playThisAnimation), std::get<2>(animationComp.playThisAnimation));
+
+									}
+									else
 									{
-										ImGui::Text("[%zu] %.2f - %.2f ", std::get<0>(d), std::get<1>(d), std::get<2>(d));
+										ImGui::Text("No Animation found for this model.");
+
+										
 									}
+
+
 								}
 
-
-
-								ImGui::Text("Stuff: [%zu] %.2f - %.2f ", std::get<0>(animationComp.playThisAnimation), std::get<1>(animationComp.playThisAnimation), std::get<2>(animationComp.playThisAnimation));
-
+							
 							}
 						}
 						else if (className == "AudioComponent")
