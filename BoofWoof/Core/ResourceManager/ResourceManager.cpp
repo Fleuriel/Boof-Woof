@@ -400,8 +400,12 @@ bool ResourceManager::SetModelMap(const std::string& name, const Model& model) {
         return false;
 
 
-    
-//    ModelMap.insert(std::pair<std::string, Model>(name, model));
+    ModelMap.insert(
+        std::pair<std::string, std::shared_ptr<Model>>(
+            name,
+            std::make_shared<Model>(model)
+        )
+    );
 
 #ifdef _DEBUG
 
