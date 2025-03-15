@@ -14364,6 +14364,50 @@
                 "ModelName": "Rex",
                 "FollowCamera": true
             },
+            "AnimationComponent": {
+                "Number of Animation Points": 4,
+                "Animations": [                    
+                    {
+                        "Animation ID": 0,
+                        "Start Time": 0.0,
+                        "End Time": 150.0
+                    },
+                    {
+                        "Animation ID": 1,
+                        "Start Time": 0.0,
+                        "End Time": 0.10000000149011612
+                    },
+                    {
+                        "Animation ID": 2,
+                        "Start Time": 15.319999694824219,
+                        "End Time": 55.529998779296878
+                    },                   
+                    {
+                        "Animation ID": 3,
+                        "Start Time": 115.26000213623047,
+                        "End Time": 135.1699981689453
+                    }
+                ]
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Animation",
+                "shaderIdx": 0,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            },
             "BehaviourComponent": {
                 "BehaviourName": "Rex"
             },
