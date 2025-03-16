@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "9f87a617-3261-4b05-b139-74c0dd84b789",
+    "SceneGUID": "85d3d8d1-3316-43f7-ace4-6d05032620a1",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.0778861045837403,
-                    "y": 0.4112166166305542,
-                    "z": -2.170999050140381
+                    "x": -1.0809998512268067,
+                    "y": 1.3112164735794068,
+                    "z": -2.170999526977539
                 },
                 "Scale": {
                     "x": 0.5,
@@ -43,7 +43,8 @@
                     {
                         "Animation ID": 1,
                         "Start Time": 0.0,
-                        "End Time": 0.009999999776482582
+                        "End Time": 0.01
+                        
                     },
                     {
                         "Animation ID": 2,
@@ -56,41 +57,6 @@
                         "End Time": 112.54000091552735
                     }
                 ]
-            },
-            "BehaviourComponent": {
-                "BehaviourName": "Player"
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": true,
-                "IsKinematic": false,
-                "IsPlayer": true,
-                "AABBSize": {
-                    "x": 2.9000000953674318,
-                    "y": 2.5,
-                    "z": 1.350000023841858
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 1.25,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            },
-            "CameraComponent": {
-                "Position": {
-                    "x": 0.30000001192092898,
-                    "y": 1.7000000476837159,
-                    "z": -2.1700000762939455
-                },
-                "Yaw": 0.0,
-                "Pitch": 0.0,
-                "Up": {
-                    "x": 0.0,
-                    "y": 1.0,
-                    "z": 0.0
-                },
-                "Active": true
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -110,6 +76,41 @@
                     "metallic": 0.0,
                     "shininess": 0.0
                 }
+            },
+            "BehaviourComponent": {
+                "BehaviourName": "Player"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": true,
+                "IsKinematic": false,
+                "IsPlayer": true,
+                "AABBSize": {
+                    "x": 2.9000000953674318,
+                    "y": 1.7999999523162842,
+                    "z": 1.350000023841858
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
+            "CameraComponent": {
+                "Position": {
+                    "x": 0.30000001192092898,
+                    "y": 1.7000000476837159,
+                    "z": -2.1700000762939455
+                },
+                "Yaw": 0.0,
+                "Pitch": 0.0,
+                "Up": {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                "Active": true
             }
         },
         {
