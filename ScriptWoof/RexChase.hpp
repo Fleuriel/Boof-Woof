@@ -61,7 +61,7 @@ struct RexChase final : public Behaviour
 
         playerEntity = INVALID_ENT;
 		// FOR TESTING PURPOSES + line 96
-        state = MOVING;
+        //state = MOVING;
     }
 
     virtual void Update(Entity entity) override
@@ -90,7 +90,7 @@ struct RexChase final : public Behaviour
             else if (m_Engine.GetTRtimer() > 0.0f)
             {
 				// COMMENTED OUT FOR TESTING PURPOSES
-                // return;
+                 return;
             }
 
             if (playerEntity == INVALID_ENT)
