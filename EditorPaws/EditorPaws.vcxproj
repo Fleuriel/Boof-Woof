@@ -174,8 +174,7 @@ xcopy  /I /y /d "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(Out
 xcopy /I /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)"
 xcopy /I /y /d "$(SolutionDir)lib\freetype\freetype.dll" "$(OutDir)"
 xcopy /I "$(SolutionDir)bin\Debug-x64\BoofWoof\BoofWoof.lib" "$(TargetDir)" /Y
-xcopy /I "$(SolutionDir)ScriptWoof\x64\Debug\ScriptWoof.dll" "$(TargetDir)" /Y
-xcopy /I "$(SolutionDir)bin\Debug-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDir)" /Y</Command>
+xcopy /I "$(SolutionDir)ScriptWoof\x64\Debug\ScriptWoof.dll" "$(TargetDir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -214,7 +213,7 @@ xcopy /y /d "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(Out
 xcopy /y /d "$(SolutionDir)lib\freetype-windows-binaries-master\release dll\win64\freetype.dll" "$(OutDir)"
 xcopy "$(SolutionDir)bin\Release-x64\BoofWoof\BoofWoof.lib" "$(TargetDir)" /Y
 xcopy "$(SolutionDir)ScriptWoof\x64\Release\ScriptWoof.dll" "$(TargetDir)" /Y
-xcopy "$(SolutionDir)bin\Release-x64\MeshCompiler\MeshCompiler.exe" "$(TargetDir)" /Y</Command>
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
