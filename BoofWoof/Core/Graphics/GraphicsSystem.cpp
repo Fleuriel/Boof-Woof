@@ -724,7 +724,7 @@ void GraphicsSystem::UpdateLoop() {
 					glm::vec3 debugColor = glm::vec3(0.0f, 1.0f, 1.0f);
 
 					// Ensure shader receives the color
-					shader.SetUniform("objectColor", debugColor);
+					//shader.SetUniform("objectColor", debugColor);
 
 					model->DrawCollisionBox3D(offset, graphicsComp.boundingBox, debugColor);
 				}
