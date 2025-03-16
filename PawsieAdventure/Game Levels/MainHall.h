@@ -221,6 +221,10 @@ class MainHall : public Level
 					loading->m_NextScene = "MainHall";
 					g_LevelManager.SetNextLevel("LoadingLevel");
 					g_TimerTR.OnShutdown();
+					g_DialogueText.OnShutdown();
+					g_CageBreaker.ResetCB();
+					g_RopeBreaker.ResetRB();
+					g_BoneCatcher.ResetBC();
 				}
 			}
 			if (!collectedPuppy1 || !collectedPuppy2 || !collectedPuppy3)
@@ -286,6 +290,9 @@ class MainHall : public Level
 							g_LevelManager.SetNextLevel("LoadingLevel");
 							g_TimerTR.OnShutdown();
 							g_DialogueText.OnShutdown();
+							g_CageBreaker.ResetCB();
+							g_RopeBreaker.ResetRB();
+							g_BoneCatcher.ResetBC();
 						}
 					}
 				}
