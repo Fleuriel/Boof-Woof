@@ -718,7 +718,7 @@ void GraphicsSystem::UpdateLoop() {
 					JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
 
 					// Apply offset for visual debugging
-					glm::vec3 offset = collisionComp.GetAABBOffset();
+					glm::vec3 offset = collisionComp.GetAABBOffset() * 2.0f;
 
 					// Define debug color (cyan: 0.0f, 1.0f, 1.0f)
 					glm::vec3 debugColor = glm::vec3(0.0f, 1.0f, 1.0f);
@@ -727,6 +727,7 @@ void GraphicsSystem::UpdateLoop() {
 					//shader.SetUniform("objectColor", debugColor);
 
 					model->DrawCollisionBox3D(offset, graphicsComp.boundingBox, debugColor);
+
 				}
 			}
 
