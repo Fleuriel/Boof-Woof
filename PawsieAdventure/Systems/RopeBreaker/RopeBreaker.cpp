@@ -156,6 +156,10 @@ void RopeBreaker::ResetRB()
 	FallDuration = 2.0f;
 	isFalling = false;
 	firstRopeTouched = false;
+
+	RopeHitCounts.clear();
+	speedRope.clear();
+	directionRope.clear();
 }
 
 
