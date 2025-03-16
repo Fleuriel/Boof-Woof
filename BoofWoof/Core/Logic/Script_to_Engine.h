@@ -520,29 +520,37 @@ public:
 
 	virtual void PlayAnimation(Entity entity, float timeStart, float timeEnd) override
 	{
-
-		auto & anim =  g_Coordinator.GetComponent<AnimationComponent>(entity);
+		auto& anim = g_Coordinator.GetComponent<AnimationComponent>(entity);
 		auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(entity);
 		float animDeltaTime = anim.m_DeltaTime;
 
-		
 		graphicsComp.SetAnimationTime(graphicsComp.deltaTime);
 
-		g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime);
+		// Retrieve model name
+		std::string modelName = graphicsComp.getModelName();
 
-		std::cout << animDeltaTime << '\t' << timeStart << '\t' << timeEnd << '\t' << '\n';
-
-		std::cout << "Graphics Component Model name : " << graphicsComp.getModelName() << '\n';
-
-		if (animDeltaTime < timeStart || animDeltaTime > timeEnd)
+		// Guard: check if an animator exists for this model and is valid
+		auto animatorIt = g_ResourceManager.AnimatorMap.find(modelName);
+		if (animatorIt != g_ResourceManager.AnimatorMap.end() && animatorIt->second)
 		{
-			std::cout << "it entered here in playAnim \n";
-			g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(timeStart);
+			// Update the animation with the given delta time
+			animatorIt->second->UpdateAnimation(graphicsComp.deltaTime);
+
+			std::cout << animDeltaTime << '\t' << timeStart << '\t' << timeEnd << '\t' << '\n';
+			std::cout << "Graphics Component Model name : " << modelName << '\n';
+
+			if (animDeltaTime < timeStart || animDeltaTime > timeEnd)
+			{
+				std::cout << "it entered here in playAnim \n";
+				animatorIt->second->SetAnimationTime(timeStart);
+			}
 		}
-
-
-
+		else
+		{
+			std::cerr << "Animator for model \"" << modelName << "\" not found or is null." << std::endl;
+		}
 	}
+
 };
 
 #endif // !SCRIPT_TO_ENGINE_H
