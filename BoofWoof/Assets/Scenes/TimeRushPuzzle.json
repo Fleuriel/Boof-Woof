@@ -16040,8 +16040,8 @@
                 "Animations": [                    
                     {
                         "Animation ID": 0,
-                        "Start Time": 0.0,
-                        "End Time": 150.0
+                        "Start Time": 0.10000000149011612,
+                        "End Time": 315.0
                     },
                     {
                         "Animation ID": 1,
@@ -16050,13 +16050,13 @@
                     },
                     {
                         "Animation ID": 2,
-                        "Start Time": 15.319999694824219,
-                        "End Time": 55.529998779296878
-                    },                   
+                        "Start Time": 30.440000534057618,
+                        "End Time": 110.80999755859375
+                    },
                     {
                         "Animation ID": 3,
-                        "Start Time": 115.26000213623047,
-                        "End Time": 135.1699981689453
+                        "Start Time": 230.52999877929688,
+                        "End Time": 279.739990234375
                     }
                 ]
             },
