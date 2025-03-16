@@ -376,7 +376,8 @@ void GraphicsSystem::UpdateLoop() {
 			particleShader.SetUniform("view", shdrParam.View);
 			particleShader.SetUniform("projection", shdrParam.Projection);
 			glPointSize(particleComp.getParticleSize());
-			particleShader.SetUniform("particleColor", particleComp.getParticleColor());
+			if (particleComp.getParticleType() == ParticleType::POINT)
+				particleShader.SetUniform("particleColor", particleComp.getParticleColor());
 			particleShader.SetUniform("opacity", particleComp.getOpacity());
 			shdrParam.WorldMatrix = transformComp.GetWorldMatrix();
 			particleShader.SetUniform("vertexTransform", shdrParam.WorldMatrix);
@@ -717,15 +718,16 @@ void GraphicsSystem::UpdateLoop() {
 					JPH::Vec3 center = (aabb.mMin + aabb.mMax) * 0.5f;
 
 					// Apply offset for visual debugging
-					glm::vec3 offset = collisionComp.GetAABBOffset();
+					glm::vec3 offset = collisionComp.GetAABBOffset() * 2.0f;
 
 					// Define debug color (cyan: 0.0f, 1.0f, 1.0f)
 					glm::vec3 debugColor = glm::vec3(0.0f, 1.0f, 1.0f);
 
 					// Ensure shader receives the color
-					shader.SetUniform("objectColor", debugColor);
+					//shader.SetUniform("objectColor", debugColor);
 
 					model->DrawCollisionBox3D(offset, graphicsComp.boundingBox, debugColor);
+
 				}
 			}
 

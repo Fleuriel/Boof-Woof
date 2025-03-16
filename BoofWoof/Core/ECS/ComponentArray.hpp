@@ -41,24 +41,36 @@ public:
 	{
 		// Ensure entity ID is in range
 		assert(entity < MAX_ENTITIES && "Entity ID out of range");
+		auto it = mEntityToIndexMap.find(entity);
+		assert(it != mEntityToIndexMap.end() && "Removing non-existent component.");
 
-		assert(mEntityToIndexMap.find(entity) != mEntityToIndexMap.end() && "Removing non-existent component.");
+		size_t indexOfRemovedEntity = it->second;
 
-		// Copy element at end into deleted element's place to maintain density
-		size_t indexOfRemovedEntity = mEntityToIndexMap[entity];
+		// Guard against empty array (should not happen if the map has an entry)
+		if (mSize == 0)
+		{
+			std::cerr << "Component array is already empty when trying to remove entity " << entity << std::endl;
+			return;
+		}
+
 		size_t indexOfLastElement = mSize - 1;
-		mComponentArray[indexOfRemovedEntity] = mComponentArray[indexOfLastElement];
 
-		// Update map to point to moved spot
-		Entity entityOfLastElement = mIndexToEntityMap[indexOfLastElement];
-		mEntityToIndexMap[entityOfLastElement] = indexOfRemovedEntity;
-		mIndexToEntityMap[indexOfRemovedEntity] = entityOfLastElement;
+		// If the component being removed is not already the last element, copy the last element into its place.
+		if (indexOfRemovedEntity != indexOfLastElement)
+		{
+			mComponentArray[indexOfRemovedEntity] = mComponentArray[indexOfLastElement];
+
+			// Update the maps so the moved component’s entity now maps to indexOfRemovedEntity.
+			Entity entityOfLastElement = mIndexToEntityMap[indexOfLastElement];
+			mEntityToIndexMap[entityOfLastElement] = indexOfRemovedEntity;
+			mIndexToEntityMap[indexOfRemovedEntity] = entityOfLastElement;
+		}
 
 		mEntityToIndexMap.erase(entity);
 		mIndexToEntityMap.erase(indexOfLastElement);
-
 		--mSize;
 	}
+
 
 	T& GetData(Entity entity)
 	{

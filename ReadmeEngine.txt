@@ -57,6 +57,7 @@ If you try to move using WASD keys and you cannot move the corgi, please clean a
  > RMB - Bite (To bite Rope & Cages)
  > E - Scent Trail
  > Left Shift - Sprint 
+ > LMB - To advance in dialogue 
 
 - Warning, Rex Patrols and Chases you! 
 - Find you Puppies in the Main Hall and break them out of the cages! 
