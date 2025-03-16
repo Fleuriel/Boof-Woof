@@ -158,20 +158,6 @@ void SmellAvoidance::HandleWaterCollision()
 
 void SmellAvoidance::SetDefaultPeePosition()
 {
-    for (size_t i = 0; i < peeEntities.size(); ++i)
-    {
-        if (g_Coordinator.HaveComponent<TransformComponent>(peeEntities[i]))
-        {
-            auto& peeTransform = g_Coordinator.GetComponent<TransformComponent>(peeEntities[i]);
-            peeTransform.SetPosition(peePositions[i]);
-        }
-    }
-}
-
-
-
-void SmellAvoidance::SetNewPeePosition()
-{
     if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt))
     {
         auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
@@ -184,8 +170,8 @@ void SmellAvoidance::SetNewPeePosition()
                 auto& peeTransform = g_Coordinator.GetComponent<TransformComponent>(peeEntities[i]);
                 glm::vec3 peePos = peeTransform.GetPosition();
 
-				float distance = CalculateDistance(playerPos, peePos);
-                if (distance <= 10.0f)
+                float distance = CalculateDistance(playerPos, peePos);
+                if (distance >= 30.0f)
                 {	// Set your distance threshold here
                     // Keep the pee entity in its current position
                     peeTransform.SetPosition(peePos);
@@ -193,10 +179,21 @@ void SmellAvoidance::SetNewPeePosition()
                 else
                 {
                     // Proceed as usual
-                    peeTransform.SetPosition(peeNewPositions[i]);
+                    peeTransform.SetPosition(peePositions[i]);
                 }
-
             }
+        }
+    }
+}
+
+void SmellAvoidance::SetNewPeePosition()
+{
+    for (size_t i = 0; i < peeEntities.size(); ++i)
+    {
+        if (g_Coordinator.HaveComponent<TransformComponent>(peeEntities[i]))
+        {
+            auto& peeTransform = g_Coordinator.GetComponent<TransformComponent>(peeEntities[i]);
+            peeTransform.SetPosition(peeNewPositions[i]);
         }
     }
 }

@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "85d3d8d1-3316-43f7-ace4-6d05032620a1",
+    "SceneGUID": "c3edffff-5e7a-432e-b4c2-89a21dc4c43e",
     "Entities": [
         {
             "MetadataComponent": {
@@ -29,53 +29,8 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "corgi",
+                "ModelName": "Corgi2",
                 "FollowCamera": true
-            },
-            "AnimationComponent": {
-                "Number of Animation Points": 4,
-                "Animations": [
-                    {
-                        "Animation ID": 0,
-                        "Start Time": 0.0,
-                        "End Time": 200.0
-                    },
-                    {
-                        "Animation ID": 1,
-                        "Start Time": 0.0,
-                        "End Time": 0.01
-                        
-                    },
-                    {
-                        "Animation ID": 2,
-                        "Start Time": 15.199999809265137,
-                        "End Time": 55.279998779296878
-                    },
-                    {
-                        "Animation ID": 3,
-                        "Start Time": 69.86000061035156,
-                        "End Time": 112.54000091552735
-                    }
-                ]
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Animation",
-                "shaderIdx": 0,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             },
             "BehaviourComponent": {
                 "BehaviourName": "Player"
@@ -1276,13 +1231,13 @@
             "TransformComponent": {
                 "Position": {
                     "x": 7.25600004196167,
-                    "y": 2.875999927520752,
+                    "y": 2.456007719039917,
                     "z": 9.01099967956543
                 },
                 "Scale": {
-                    "x": 1.5,
-                    "y": 1.5,
-                    "z": 1.5
+                    "x": 1.2599999904632569,
+                    "y": 1.2599999904632569,
+                    "z": 1.2599999904632569
                 },
                 "Rotation": {
                     "x": -3.1415884494781496,
@@ -1476,9 +1431,9 @@
                     "z": 6.333442211151123
                 },
                 "Scale": {
-                    "x": 1.0000005960464478,
-                    "y": 0.9999998807907105,
-                    "z": 1.000001072883606
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 0.6299999952316284
                 },
                 "Rotation": {
                     "x": -1.8603954315185547,
@@ -1525,14 +1480,14 @@
                     "z": 11.949832916259766
                 },
                 "Scale": {
-                    "x": 0.9999972581863403,
-                    "y": 0.999999463558197,
-                    "z": 0.9999983906745911
+                    "x": 0.9999970197677612,
+                    "y": 1.0,
+                    "z": 0.6383492350578308
                 },
                 "Rotation": {
-                    "x": 0.018763169646263124,
+                    "x": 0.01876305416226387,
                     "y": -1.324554204940796,
-                    "z": -0.36030682921409609
+                    "z": -0.36031028628349306
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
