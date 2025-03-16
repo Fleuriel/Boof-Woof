@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "0753dfa0-3081-4af8-a881-11519c77d455",
+    "SceneGUID": "0ddb841f-50cb-4b76-95ce-9ba5f9e9ce2c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -204,8 +204,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 19.82200050354004,
-                    "y": 0.9999999403953552,
+                    "x": 19.82199478149414,
+                    "y": 0.09999918937683106,
                     "z": 3.4649999141693117
                 },
                 "Scale": {
@@ -239,8 +239,7 @@
                     {
                         "Animation ID": 1,
                         "Start Time": 0.0,
-                        "End Time": 0.01
-                        
+                        "End Time": 0.009999999776482582
                     },
                     {
                         "Animation ID": 2,
@@ -253,6 +252,41 @@
                         "End Time": 112.54000091552735
                     }
                 ]
+            },
+            "BehaviourComponent": {
+                "BehaviourName": "Player"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": true,
+                "IsKinematic": false,
+                "IsPlayer": true,
+                "AABBSize": {
+                    "x": 2.9000000953674318,
+                    "y": 2.5,
+                    "z": 1.399999976158142
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 1.25,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
+            "CameraComponent": {
+                "Position": {
+                    "x": 19.829999923706056,
+                    "y": 1.399999976158142,
+                    "z": 2.0999999046325685
+                },
+                "Yaw": -90.0,
+                "Pitch": 0.0,
+                "Up": {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                "Active": true
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -272,41 +306,6 @@
                     "metallic": 0.0,
                     "shininess": 0.0
                 }
-            },
-            "BehaviourComponent": {
-                "BehaviourName": "Player"
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": true,
-                "IsKinematic": false,
-                "IsPlayer": true,
-                "AABBSize": {
-                    "x": 2.9000000953674318,
-                    "y": 1.7999999523162842,
-                    "z": 1.399999976158142
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            },
-            "CameraComponent": {
-                "Position": {
-                    "x": 19.829999923706056,
-                    "y": 1.399999976158142,
-                    "z": 2.0999999046325685
-                },
-                "Yaw": -90.0,
-                "Pitch": 0.0,
-                "Up": {
-                    "x": 0.0,
-                    "y": 1.0,
-                    "z": 0.0
-                },
-                "Active": true
             }
         },
         {
@@ -1744,7 +1743,7 @@
                 "Position": {
                     "x": -4.202648639678955,
                     "y": 3.5000174045562746,
-                    "z": 7.314296627044678
+                    "z": 7.314296722412109
                 },
                 "Scale": {
                     "x": 1.4500007629394532,
@@ -16011,9 +16010,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 20.010234832763673,
-                    "y": 3.1000001430511476,
-                    "z": 17.999996185302736
+                    "x": 19.315536499023439,
+                    "y": 0.04999959468841553,
+                    "z": 17.52432632446289
                 },
                 "Scale": {
                     "x": 0.5,
@@ -16022,7 +16021,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 1.600000023841858,
+                    "y": 7.800000190734863,
                     "z": 0.0
                 },
                 "RotationPivotOffset": {
@@ -16037,7 +16036,7 @@
             },
             "AnimationComponent": {
                 "Number of Animation Points": 4,
-                "Animations": [                    
+                "Animations": [
                     {
                         "Animation ID": 0,
                         "Start Time": 0.0,
@@ -16052,13 +16051,33 @@
                         "Animation ID": 2,
                         "Start Time": 15.319999694824219,
                         "End Time": 55.529998779296878
-                    },                   
+                    },
                     {
                         "Animation ID": 3,
                         "Start Time": 115.26000213623047,
                         "End Time": 135.1699981689453
                     }
                 ]
+            },
+            "BehaviourComponent": {
+                "BehaviourName": "RexChase"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": true,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.450000047683716,
+                    "y": 3.5999999046325685,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 1.850000023841858,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -16078,26 +16097,6 @@
                     "metallic": 0.0,
                     "shininess": 0.0
                 }
-            },
-            "BehaviourComponent": {
-                "BehaviourName": "RexChase"
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": true,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 3.450000047683716,
-                    "y": 3.0,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             },
             "PathfindingComponent": {
                 "StartNode": 8,
@@ -20994,6 +20993,63 @@
                 "StartNode": 12,
                 "EndNode": 20,
                 "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Textbox",
+                "EntityID": 476
+            },
+            "UIComponent": {
+                "TextureName": "Textbox",
+                "PositionX": 0.0,
+                "PositionY": -0.6899999976158142,
+                "ScaleX": 0.6000000238418579,
+                "ScaleY": 0.30000001192092898,
+                "Layer": 0.5,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Scruffy",
+                "EntityID": 477
+            },
+            "FontComponent": {
+                "Family": "manga-temple",
+                "PositionX": -0.10000000149011612,
+                "PositionY": -0.5350000262260437,
+                "ScaleX": 0.800000011920929,
+                "ScaleY": 1.149999976158142,
+                "ColorR": 0.5833333730697632,
+                "ColorG": 0.20588235557079316,
+                "ColorB": 0.0,
+                "Text": "Scruffy",
+                "Layer": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Row1",
+                "EntityID": 478
+            },
+            "FontComponent": {
+                "Family": "manga-temple",
+                "PositionX": -0.47999998927116396,
+                "PositionY": -0.625,
+                "ScaleX": 0.6499999761581421,
+                "ScaleY": 1.0499999523162842,
+                "ColorR": 0.0,
+                "ColorG": 0.0,
+                "ColorB": 0.0,
+                "Text": "Oh no, he saw me!! Gotta run-NOW!",
+                "Layer": 0.0
             }
         }
     ]

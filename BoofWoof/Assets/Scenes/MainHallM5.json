@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "1c02daf0-c86c-4e3a-930a-d9e877eadff3",
+    "SceneGUID": "d4e2b02f-0c8c-43c0-82e5-ec84194343c3",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.7421434601346848e-7,
-                    "y": 1.1999999284744263,
-                    "z": -0.7100529670715332
+                    "x": -3.69088382967675e-7,
+                    "y": 0.30000007152557375,
+                    "z": -0.7114514112472534
                 },
                 "Scale": {
                     "x": 0.5,
@@ -43,8 +43,7 @@
                     {
                         "Animation ID": 1,
                         "Start Time": 0.0,
-                        "End Time": 0.01
-                        
+                        "End Time": 0.009999999776482582
                     },
                     {
                         "Animation ID": 2,
@@ -57,6 +56,41 @@
                         "End Time": 112.54000091552735
                     }
                 ]
+            },
+            "BehaviourComponent": {
+                "BehaviourName": "Null"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": true,
+                "IsKinematic": false,
+                "IsPlayer": true,
+                "AABBSize": {
+                    "x": 2.9000000953674318,
+                    "y": 2.5,
+                    "z": 1.2999999523162842
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 1.25,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
+            "CameraComponent": {
+                "Position": {
+                    "x": 1.399999976158142,
+                    "y": 1.600000023841858,
+                    "z": 0.0
+                },
+                "Yaw": 0.0,
+                "Pitch": 0.0,
+                "Up": {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                "Active": true
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -76,41 +110,6 @@
                     "metallic": 0.0,
                     "shininess": 0.0
                 }
-            },
-            "BehaviourComponent": {
-                "BehaviourName": "Player"
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": true,
-                "IsKinematic": false,
-                "IsPlayer": true,
-                "AABBSize": {
-                    "x": 2.9000000953674318,
-                    "y": 1.7999999523162842,
-                    "z": 1.2999999523162842
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            },
-            "CameraComponent": {
-                "Position": {
-                    "x": 1.399999976158142,
-                    "y": 1.600000023841858,
-                    "z": 0.0
-                },
-                "Yaw": 0.0,
-                "Pitch": 0.0,
-                "Up": {
-                    "x": 0.0,
-                    "y": 1.0,
-                    "z": 0.0
-                },
-                "Active": true
             }
         },
         {
@@ -14385,9 +14384,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 25.5,
-                    "y": 1.654794454574585,
-                    "z": -77.0
+                    "x": 25.487342834472658,
+                    "y": 0.299999475479126,
+                    "z": -77.02032470703125
                 },
                 "Scale": {
                     "x": 0.5,
@@ -14411,7 +14410,7 @@
             },
             "AnimationComponent": {
                 "Number of Animation Points": 4,
-                "Animations": [                    
+                "Animations": [
                     {
                         "Animation ID": 0,
                         "Start Time": 0.0,
@@ -14426,13 +14425,33 @@
                         "Animation ID": 2,
                         "Start Time": 15.319999694824219,
                         "End Time": 55.529998779296878
-                    },                   
+                    },
                     {
                         "Animation ID": 3,
                         "Start Time": 115.26000213623047,
                         "End Time": 135.1699981689453
                     }
                 ]
+            },
+            "BehaviourComponent": {
+                "BehaviourName": "Rex"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.299999952316284,
+                    "y": 3.5999999046325685,
+                    "z": 0.699999988079071
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 1.7999999523162842,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             },
             "MaterialComponent": {
                 "name": "Default Material",
@@ -14452,26 +14471,6 @@
                     "metallic": 0.0,
                     "shininess": 0.0
                 }
-            },
-            "BehaviourComponent": {
-                "BehaviourName": "Rex"
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 3.299999952316284,
-                    "y": 2.799999952316284,
-                    "z": 0.699999988079071
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
             },
             "PathfindingComponent": {
                 "StartNode": 10,
