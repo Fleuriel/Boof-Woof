@@ -24599,7 +24599,7 @@
                 "PositionY": 1.7999999523162842,
                 "ScaleX": 1.0,
                 "ScaleY": 3.299999952316284,
-                "Layer": 0.5699999332427979,
+                "Layer": 0.58,
                 "Selectable": false,
                 "Opcaity": 1.0,
                 "Animated": false,
@@ -27513,6 +27513,48 @@
                 "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
                 "ParticleTexture": "cloud"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Stinky1",
+                "EntityID": 623
+            },
+            "UIComponent": {
+                "TextureName": "Stinky",
+                "PositionX": -0.45,
+                "PositionY": -0.699999988079071,
+                "ScaleX": 0.15000000596046449,
+                "ScaleY": 0.25,
+                "Layer": 0.5699999332427979,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Stinky2",
+                "EntityID": 626
+            },
+            "UIComponent": {
+                "TextureName": "StinkyDog",
+                "PositionX": 0.4,
+                "PositionY": -0.699999988079071,
+                "ScaleX": 0.15000000596046449,
+                "ScaleY": 0.25,
+                "Layer": 0.5699999332427979,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         }
     ]

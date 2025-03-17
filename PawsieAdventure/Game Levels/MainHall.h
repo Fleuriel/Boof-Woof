@@ -34,6 +34,7 @@ class MainHall : public Level
 
 	Entity stealthCollider1{}, stealthCollider2{}, stealthCollider3{}, stealthCollider4{};
 	Entity VFXBG{}, VFX1{}, VFX2{};
+	float VFX1Dir{ -0.005 }, VFX2Dir{ -0.005 };
 
 	// Existing member variables...
 	float originalBrightness = 1.0f;
@@ -99,9 +100,9 @@ class MainHall : public Level
 				auto& UIComp = g_Coordinator.GetComponent<UIComponent>(entity);
 				if (UIComp.get_texturename() == "WashingVFX")
 					VFXBG = entity;
-				if (UIComp.get_texturename() == "Stinky")
+				else if (UIComp.get_texturename() == "Stinky")
 					VFX1 = entity;
-				if (UIComp.get_texturename() == "StinkyDog")
+				else if (UIComp.get_texturename() == "StinkyDog")
 					VFX2 = entity;
 			}
 
@@ -167,6 +168,12 @@ class MainHall : public Level
 		g_UI.finishCaged = false;
 
 		g_Coordinator.GetComponent<UIComponent>(VFXBG).set_opacity(0);
+
+		g_Coordinator.GetComponent<UIComponent>(VFX1).set_opacity(1);
+		g_Coordinator.GetComponent<UIComponent>(VFX1).set_scale(glm::vec2{ 0,0 });
+		g_Coordinator.GetComponent<UIComponent>(VFX2).set_opacity(1);
+		g_Coordinator.GetComponent<UIComponent>(VFX2).set_scale(glm::vec2{ 0,0 });
+
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -230,6 +237,9 @@ class MainHall : public Level
 			}
 
 			auto& VFXBG_UICOMP = g_Coordinator.GetComponent<UIComponent>(VFXBG);
+			auto& VFX1_UICOMP = g_Coordinator.GetComponent<UIComponent>(VFX1);
+			auto& VFX2_UICOMP = g_Coordinator.GetComponent<UIComponent>(VFX2);
+
 
 			if (g_SmellAvoidance.GetPeeMarked())
 			{
@@ -263,6 +273,38 @@ class MainHall : public Level
 				VFXBG_UICOMP.set_position({ 0.f, 1.8f });
 				VFXBG_UICOMP.set_opacity(1.0f);
 
+				VFX1_UICOMP.set_opacity((VFX1_UICOMP.get_opacity() > 0.f) ? VFX1_UICOMP.get_opacity() - 0.0025f : 0.f);
+				float VFX1_XPOS = VFX1_UICOMP.get_position().x + VFX1Dir;
+				if (VFX1_XPOS < -0.6 || VFX1_XPOS > -0.4)
+					VFX1Dir = -VFX1Dir;
+				
+				float VFX1_YPOS = VFX1_UICOMP.get_position().y + 0.005f;
+				if (VFX1_YPOS > 1.3f) {
+					VFX1_YPOS = -0.69f;
+					VFX1_UICOMP.set_opacity(1);
+					VFX1_UICOMP.set_scale({ 0.f,0.f });
+				}
+				if (VFX1_UICOMP.get_scale().x > 0.075f)
+					VFX1_UICOMP.set_opacity((VFX1_UICOMP.get_opacity() > 0.f) ? VFX1_UICOMP.get_opacity() - 0.005f : 0.f);
+				VFX1_UICOMP.set_position({ VFX1_XPOS,VFX1_YPOS });
+				VFX1_UICOMP.set_scale(glm::vec2{ ((VFX1_UICOMP.get_scale().x < 0.15f) ? VFX1_UICOMP.get_scale().x + 0.00075f : VFX1_UICOMP.get_scale().x), ((VFX1_UICOMP.get_scale().y < 0.25f) ? VFX1_UICOMP.get_scale().y + 0.00125f : VFX1_UICOMP.get_scale().y) });
+
+				float VFX2_XPOS = VFX2_UICOMP.get_position().x + VFX2Dir;
+				if (VFX2_XPOS > 0.6 || VFX2_XPOS < 0.4)
+					VFX2Dir = -VFX2Dir;
+
+				float VFX2_YPOS = VFX2_UICOMP.get_position().y + 0.005f;
+				if (VFX2_YPOS > 1.3f) {
+					VFX2_YPOS = -0.69f;
+					VFX2_UICOMP.set_opacity(1);
+					VFX2_UICOMP.set_scale({ 0.f,0.f });
+				}
+
+				if (VFX2_UICOMP.get_scale().x > 0.075f)
+					VFX2_UICOMP.set_opacity((VFX2_UICOMP.get_opacity() > 0.f) ? VFX2_UICOMP.get_opacity() - 0.005f : 0.f);
+				VFX2_UICOMP.set_position({ VFX2_XPOS,VFX2_YPOS });
+				VFX2_UICOMP.set_scale(glm::vec2{ ((VFX2_UICOMP.get_scale().x < 0.15f) ? VFX2_UICOMP.get_scale().x + 0.00075f : VFX2_UICOMP.get_scale().x), ((VFX2_UICOMP.get_scale().y < 0.25f) ? VFX2_UICOMP.get_scale().y + 0.00125f : VFX2_UICOMP.get_scale().y) });
+
 				if (g_TimerTR.timer == 0.0)
 				{
 					timesUp -= deltaTime;
@@ -292,14 +334,10 @@ class MainHall : public Level
 			}
 			else 
 			{
-				if (VFXBG_UICOMP.get_position().y > -1.8f) 
-				{
+				if (VFXBG_UICOMP.get_position().y > -1.8f)
 					VFXBG_UICOMP.set_position({ 0 , VFXBG_UICOMP.get_position().y - 0.02f });
-				}
-				else 
-				{
-					VFXBG_UICOMP.set_opacity(VFXBG_UICOMP.get_opacity() - 0.01f); //Temporary
-				}
+				else
+					VFXBG_UICOMP.set_opacity((VFXBG_UICOMP.get_opacity() > 0.f) ? VFXBG_UICOMP.get_opacity() - 0.01f : 0.f); //Temporary
 			}
 
 			// just for speed testing to rope breaker
