@@ -278,32 +278,35 @@ class MainHall : public Level
 				if (VFX1_XPOS < -0.6 || VFX1_XPOS > -0.4)
 					VFX1Dir = -VFX1Dir;
 				
-				float VFX1_YPOS = VFX1_UICOMP.get_position().y + 0.005f;
-				if (VFX1_YPOS > 1.3f) {
+				float VFX1_YPOS = VFX1_UICOMP.get_position().y + 0.0025f;
+				if (VFX1_YPOS > 0.5f) {
 					VFX1_YPOS = -0.69f;
 					VFX1_UICOMP.set_opacity(1);
 					VFX1_UICOMP.set_scale({ 0.f,0.f });
 				}
-				if (VFX1_UICOMP.get_scale().x > 0.075f)
-					VFX1_UICOMP.set_opacity((VFX1_UICOMP.get_opacity() > 0.f) ? VFX1_UICOMP.get_opacity() - 0.005f : 0.f);
+
+				if (VFX1_YPOS > -0.3f)
+					VFX1_UICOMP.set_opacity((VFX1_UICOMP.get_opacity() > 0.f) ? VFX1_UICOMP.get_opacity() - 0.01f : 0.f);
 				VFX1_UICOMP.set_position({ VFX1_XPOS,VFX1_YPOS });
-				VFX1_UICOMP.set_scale(glm::vec2{ ((VFX1_UICOMP.get_scale().x < 0.15f) ? VFX1_UICOMP.get_scale().x + 0.00075f : VFX1_UICOMP.get_scale().x), ((VFX1_UICOMP.get_scale().y < 0.25f) ? VFX1_UICOMP.get_scale().y + 0.00125f : VFX1_UICOMP.get_scale().y) });
+				auto VFX1_Scaling = VFX1_UICOMP.get_scale();
+				VFX1_UICOMP.set_scale(glm::vec2{ ((VFX1_Scaling.x < 0.15f) ? VFX1_Scaling.x + 0.00075f : VFX1_Scaling.x), ((VFX1_Scaling.y < 0.25f) ? VFX1_Scaling.y + 0.00125f : VFX1_Scaling.y) });
 
 				float VFX2_XPOS = VFX2_UICOMP.get_position().x + VFX2Dir;
 				if (VFX2_XPOS > 0.6 || VFX2_XPOS < 0.4)
 					VFX2Dir = -VFX2Dir;
 
-				float VFX2_YPOS = VFX2_UICOMP.get_position().y + 0.005f;
-				if (VFX2_YPOS > 1.3f) {
+				float VFX2_YPOS = VFX2_UICOMP.get_position().y + 0.0025f;
+				if (VFX2_YPOS > 0.5f) {
 					VFX2_YPOS = -0.69f;
 					VFX2_UICOMP.set_opacity(1);
 					VFX2_UICOMP.set_scale({ 0.f,0.f });
 				}
 
-				if (VFX2_UICOMP.get_scale().x > 0.075f)
-					VFX2_UICOMP.set_opacity((VFX2_UICOMP.get_opacity() > 0.f) ? VFX2_UICOMP.get_opacity() - 0.005f : 0.f);
+				if (VFX2_YPOS > -0.3f)
+					VFX2_UICOMP.set_opacity((VFX2_UICOMP.get_opacity() > 0.f) ? VFX2_UICOMP.get_opacity() - 0.01f : 0.f);
 				VFX2_UICOMP.set_position({ VFX2_XPOS,VFX2_YPOS });
-				VFX2_UICOMP.set_scale(glm::vec2{ ((VFX2_UICOMP.get_scale().x < 0.15f) ? VFX2_UICOMP.get_scale().x + 0.00075f : VFX2_UICOMP.get_scale().x), ((VFX2_UICOMP.get_scale().y < 0.25f) ? VFX2_UICOMP.get_scale().y + 0.00125f : VFX2_UICOMP.get_scale().y) });
+				auto VFX2_Scaling = VFX2_UICOMP.get_scale();
+				VFX2_UICOMP.set_scale(glm::vec2{ ((VFX2_Scaling.x < 0.15f) ? VFX2_Scaling.x + 0.00075f : VFX2_Scaling.x), ((VFX2_Scaling.y < 0.25f) ? VFX2_Scaling.y + 0.00125f : VFX2_Scaling.y) });
 
 				if (g_TimerTR.timer == 0.0)
 				{
@@ -338,6 +341,15 @@ class MainHall : public Level
 					VFXBG_UICOMP.set_position({ 0 , VFXBG_UICOMP.get_position().y - 0.02f });
 				else
 					VFXBG_UICOMP.set_opacity((VFXBG_UICOMP.get_opacity() > 0.f) ? VFXBG_UICOMP.get_opacity() - 0.01f : 0.f); //Temporary
+
+
+				VFX1_UICOMP.set_position({ VFX1_UICOMP.get_position().x, -0.69f });
+				VFX1_UICOMP.set_opacity(1);
+				VFX1_UICOMP.set_scale(glm::vec2{ 0,0 });
+				VFX2_UICOMP.set_position({ VFX2_UICOMP.get_position().x, -0.69f });
+				VFX2_UICOMP.set_opacity(1);
+				VFX2_UICOMP.set_scale(glm::vec2{ 0,0 });
+				
 			}
 
 			// just for speed testing to rope breaker
