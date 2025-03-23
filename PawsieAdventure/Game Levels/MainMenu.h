@@ -11,6 +11,8 @@ float sfxVolume{ 1.0f }, bgmVolume{ 1.0f };
 bool inSmth{ false };
 std::unordered_map<Entity, glm::vec2> originalScales;
 extern std::shared_ptr<GraphicsSystem> mGraphicsSys;
+double waitingTime = 0.0;
+
 
 class MainMenu : public Level
 {
@@ -124,14 +126,20 @@ class MainMenu : public Level
 				{
 					inSmth = true;
 
-					// Play the button click sound
-					if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
-						auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
-						music1.PlayAudio();
-					}
+					//// Play the button click sound
+					//if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
+					//	auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
+					//	music1.PlayAudio();
+					//}
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PressStart.wav", false, "SFX");
 
 					g_Window->HideMouseCursor();
+					
 					g_LevelManager.SetNextLevel("Cutscene");
+						
+					
+
+
 				}
 			}
 
@@ -355,6 +363,7 @@ class MainMenu : public Level
 	void UnloadLevel() override
 	{
 		g_Audio.Stop(MenuMusic);
+		waitingTime = 0.f;
 
 		// Reset all entities
 		g_Coordinator.ResetEntities();
