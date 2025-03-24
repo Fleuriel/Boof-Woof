@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "b3ac84be-0dde-4d9a-9805-600b466b8a84",
+    "SceneGUID": "fbcc9e16-9178-4565-88bb-d4d7d8a1bd50",
     "Entities": [
         {
             "MetadataComponent": {
@@ -371,7 +371,7 @@
                 "ScaleY": 1.0,
                 "Layer": 0.46000003814697268,
                 "Selectable": false,
-                "Opcaity": 0.949999988079071,
+                "Opcaity": 0.30000001192092898,
                 "Animated": false,
                 "Rows": 1,
                 "Cols": 1,
@@ -575,6 +575,27 @@
                 "ColorB": 0.0,
                 "Text": "BARK",
                 "Layer": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Xit",
+                "EntityID": 29
+            },
+            "UIComponent": {
+                "TextureName": "ExitGameX",
+                "PositionX": 0.9200000166893005,
+                "PositionY": 0.8700000047683716,
+                "ScaleX": 0.05000000074505806,
+                "ScaleY": 0.07999999821186066,
+                "Layer": 0.4500000476837158,
+                "Selectable": true,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         }
     ]
