@@ -310,9 +310,12 @@ class MainHall : public Level
 			}
 
 			// just for speed testing to rope breaker
-			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1)
+			if (g_Input.GetKeyState(GLFW_KEY_TAB) >= 1 && !g_UI.finishCaged)
 			{
 				collectedPuppy1 = collectedPuppy2 = collectedPuppy3 = true;
+				g_BoneCatcher.puppyCollisionOrder.push_back(1);
+				g_BoneCatcher.puppyCollisionOrder.push_back(2);
+				g_BoneCatcher.puppyCollisionOrder.push_back(3);
 				g_UI.finishCaged = true;
 			}
 
