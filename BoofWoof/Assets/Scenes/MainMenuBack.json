@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "a3e387a3-833f-451a-ba02-6bec93802098",
+    "SceneGUID": "5df29643-a0dc-4801-8aa8-c57fafc3cd70",
     "Entities": [
         {
             "MetadataComponent": {
@@ -1831,7 +1831,10 @@
                     "g": 0.4864793121814728,
                     "b": 0.1004180908203125,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -1893,7 +1896,10 @@
                     "g": 0.48627451062202456,
                     "b": 0.10196078568696976,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -1955,7 +1961,10 @@
                     "g": 0.512301504611969,
                     "b": 0.3473183512687683,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2017,7 +2026,10 @@
                     "g": 0.9411764740943909,
                     "b": 0.9411764740943909,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2079,7 +2091,10 @@
                     "g": 0.9411764740943909,
                     "b": 0.9411764740943909,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2141,7 +2156,10 @@
                     "g": 0.9411764740943909,
                     "b": 0.9411764740943909,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2203,7 +2221,10 @@
                     "g": 0.9316198825836182,
                     "b": 0.4544886648654938,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2265,7 +2286,10 @@
                     "g": 0.9333333373069763,
                     "b": 0.45490196347236636,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2327,7 +2351,10 @@
                     "g": 0.9333333373069763,
                     "b": 0.45490196347236636,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2389,7 +2416,10 @@
                     "g": 0.27450981736183169,
                     "b": 0.10196078568696976,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2451,7 +2481,10 @@
                     "g": 0.27450981736183169,
                     "b": 0.10196078568696976,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2513,7 +2546,10 @@
                     "g": 0.27450981736183169,
                     "b": 0.10196078568696976,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2575,7 +2611,10 @@
                     "g": 0.27450981736183169,
                     "b": 0.10196078568696976,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2637,7 +2676,10 @@
                     "g": 0.27450981736183169,
                     "b": 0.10196078568696976,
                     "a": 1.0
-                }
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
             }
         },
         {
@@ -2652,9 +2694,9 @@
                     "z": -2.2417995929718019
                 },
                 "Scale": {
-                    "x": 0.10000000149011612,
-                    "y": 0.10000000149011612,
-                    "z": 0.10000000149011612
+                    "x": 0.06000000238418579,
+                    "y": 0.06000000238418579,
+                    "z": 0.06000000238418579
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -2668,7 +2710,7 @@
                 }
             },
             "LightComponent": {
-                "LightIntensity": 1.0,
+                "LightIntensity": 0.6000000238418579,
                 "LightColor": {
                     "r": 1.0,
                     "g": 1.0,
@@ -2693,9 +2735,9 @@
                     "z": 8.226578712463379
                 },
                 "Scale": {
-                    "x": 0.030000001192092897,
-                    "y": 0.030000001192092897,
-                    "z": 0.030000001192092897
+                    "x": 0.010000000707805157,
+                    "y": 0.010000000707805157,
+                    "z": 0.010000000707805157
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -2709,7 +2751,7 @@
                 }
             },
             "LightComponent": {
-                "LightIntensity": 0.30000001192092898,
+                "LightIntensity": 0.10000000149011612,
                 "LightColor": {
                     "r": 1.0,
                     "g": 1.0,
@@ -2734,9 +2776,9 @@
                     "z": 13.36202621459961
                 },
                 "Scale": {
-                    "x": 0.07000000029802323,
-                    "y": 0.07000000029802323,
-                    "z": 0.07000000029802323
+                    "x": 0.030000001192092897,
+                    "y": 0.030000001192092897,
+                    "z": 0.030000001192092897
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -2750,7 +2792,7 @@
                 }
             },
             "LightComponent": {
-                "LightIntensity": 0.699999988079071,
+                "LightIntensity": 0.30000001192092898,
                 "LightColor": {
                     "r": 1.0,
                     "g": 1.0,
