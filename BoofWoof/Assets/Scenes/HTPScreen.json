@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "fbcc9e16-9178-4565-88bb-d4d7d8a1bd50",
+    "SceneGUID": "ebe25f17-0ed1-42ff-9c3d-7a066eb21a5f",
     "Entities": [
         {
             "MetadataComponent": {
@@ -260,10 +260,10 @@
             },
             "UIComponent": {
                 "TextureName": "htpBite",
-                "PositionX": 0.12999999523162843,
-                "PositionY": -0.05999999865889549,
-                "ScaleX": 0.550000011920929,
-                "ScaleY": 0.5,
+                "PositionX": 0.019999999552965165,
+                "PositionY": -0.1899999976158142,
+                "ScaleX": 0.8999999761581421,
+                "ScaleY": 0.8999999761581421,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
                 "Opcaity": 1.0,
@@ -285,27 +285,6 @@
                 "PositionY": 0.07999999821186066,
                 "ScaleX": 0.8999999761581421,
                 "ScaleY": 0.8999999761581421,
-                "Layer": 0.440000057220459,
-                "Selectable": false,
-                "Opcaity": 1.0,
-                "Animated": false,
-                "Rows": 1,
-                "Cols": 1,
-                "FrameInterval": 0.10000000149011612,
-                "StayOnRow": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "DogBark",
-                "EntityID": 14
-            },
-            "UIComponent": {
-                "TextureName": "htpBark",
-                "PositionX": 0.25999999046325686,
-                "PositionY": 0.10000000149011612,
-                "ScaleX": 0.550000011920929,
-                "ScaleY": 0.5,
                 "Layer": 0.440000057220459,
                 "Selectable": false,
                 "Opcaity": 1.0,
@@ -371,7 +350,7 @@
                 "ScaleY": 1.0,
                 "Layer": 0.46000003814697268,
                 "Selectable": false,
-                "Opcaity": 0.30000001192092898,
+                "Opcaity": 0.699999988079071,
                 "Animated": false,
                 "Rows": 1,
                 "Cols": 1,
@@ -494,8 +473,8 @@
             },
             "FontComponent": {
                 "Family": "manga-temple",
-                "PositionX": 0.6399999856948853,
-                "PositionY": 0.18000000715255738,
+                "PositionX": 0.5799999833106995,
+                "PositionY": 0.10999999940395355,
                 "ScaleX": 0.8999999761581421,
                 "ScaleY": 1.2999999523162842,
                 "ColorR": 0.0,
@@ -538,42 +517,6 @@
                 "ColorG": 1.0,
                 "ColorB": 1.0,
                 "Text": "ESC to Close",
-                "Layer": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "&",
-                "EntityID": 27
-            },
-            "FontComponent": {
-                "Family": "manga-temple",
-                "PositionX": 0.6800000071525574,
-                "PositionY": 0.10499999672174454,
-                "ScaleX": 0.8999999761581421,
-                "ScaleY": 1.2999999523162842,
-                "ColorR": 0.0,
-                "ColorG": 0.0,
-                "ColorB": 0.0,
-                "Text": "&",
-                "Layer": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "BARK",
-                "EntityID": 28
-            },
-            "FontComponent": {
-                "Family": "manga-temple",
-                "PositionX": 0.6399999856948853,
-                "PositionY": 0.029999999329447748,
-                "ScaleX": 0.8999999761581421,
-                "ScaleY": 1.2999999523162842,
-                "ColorR": 0.0,
-                "ColorG": 0.0,
-                "ColorB": 0.0,
-                "Text": "BARK",
                 "Layer": 0.0
             }
         },

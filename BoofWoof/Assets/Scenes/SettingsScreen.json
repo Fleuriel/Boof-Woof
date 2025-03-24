@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "cce750f9-1c14-4039-af3f-2aae7417d204",
+    "SceneGUID": "6de60082-d93e-4e8d-ac69-da482fb62b52",
     "Entities": [
         {
             "MetadataComponent": {
@@ -14,7 +14,7 @@
                 "ScaleY": 1.0,
                 "Layer": 0.4500000476837158,
                 "Selectable": false,
-                "Opcaity": 0.8600000143051148,
+                "Opcaity": 1.0,
                 "Animated": false,
                 "Rows": 1,
                 "Cols": 1,
@@ -119,7 +119,7 @@
                 "ScaleY": 1.0,
                 "Layer": 0.46000003814697268,
                 "Selectable": false,
-                "Opcaity": 0.30000001192092898,
+                "Opcaity": 0.699999988079071,
                 "Animated": false,
                 "Rows": 1,
                 "Cols": 1,

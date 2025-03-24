@@ -254,12 +254,12 @@ class MainMenu : public Level
 					std::stringstream ss;
 					ss << std::setfill('0') << std::setw(2) << volDisplay;
 					std::string text = ss.str();
-					SFXFont.set_pos(glm::vec2(0.12f, 0.35f));
+					SFXFont.set_pos(glm::vec2(0.1f, 0.08f));
 					SFXFont.set_text(text);
 				}
 				else
 				{
-					SFXFont.set_pos(glm::vec2(0.14f, 0.35f));
+					SFXFont.set_pos(glm::vec2(0.12f, 0.08f));
 					SFXFont.set_text("10");
 				}
 			}
@@ -295,12 +295,12 @@ class MainMenu : public Level
 					std::stringstream ss;
 					ss << std::setfill('0') << std::setw(2) << volDisplay;
 					std::string text = ss.str();
-					BGMFont.set_pos(glm::vec2(0.12f, -0.05f));
+					BGMFont.set_pos(glm::vec2(0.10f, -0.27f));
 					BGMFont.set_text(text);
 				}
 				else
 				{
-					BGMFont.set_pos(glm::vec2(0.14f, -0.05f));
+					BGMFont.set_pos(glm::vec2(0.12f, -0.27f));
 					BGMFont.set_text("10");
 				}
 			}
@@ -338,7 +338,7 @@ class MainMenu : public Level
 				std::string str = ss.str();
 
 				FontComponent& gammaFont = g_Coordinator.GetComponent<FontComponent>(MenuPauser->GAMMAValue);
-				gammaFont.set_pos(glm::vec2(0.12f, -0.45f));
+				gammaFont.set_pos(glm::vec2(0.12f, -0.61f));
 				gammaFont.set_text(str);
 			}
 
@@ -373,12 +373,12 @@ class MainMenu : public Level
 					std::stringstream ss;
 					ss << std::setfill('0') << std::setw(2) << volDisplay;
 					std::string text = ss.str();
-					MastaVolFont.set_pos(glm::vec2(0.12f, -0.05f));
+					MastaVolFont.set_pos(glm::vec2(0.10f, 0.42f));
 					MastaVolFont.set_text(text);
 				}
 				else
 				{
-					MastaVolFont.set_pos(glm::vec2(0.14f, -0.05f));
+					MastaVolFont.set_pos(glm::vec2(0.12f, 0.42f));
 					MastaVolFont.set_text("10");
 				}
 			}
