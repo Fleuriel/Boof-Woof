@@ -188,6 +188,19 @@ public:
     }
 
 
+    bool pauseAnimation = false;
+    
+    void SetAnimationTime(float setAnimation)
+    {
+        AnimTime = setAnimation;
+    }
+
+
+    float GetAnimationTime()
+    {
+        return AnimTime;
+    }
+
   //  void AddAnimation(GraphicsComponent& graphics, const Animation& newAnimation) {
   //      graphics.animation = newAnimation;
   //      graphics.hasAnimation = true;
@@ -197,7 +210,13 @@ public:
   //      graphics.hasAnimation = false;
   //  }
 
+    bool chooseModel = false;
+    float deltaTime;
+
+
 private:
+
+    float AnimTime;
     Entity m_EntityID{};
     Model* m_Model{};
     std::string m_ModelName{};

@@ -1,5 +1,5 @@
  ===========================================
-		Milestone 4
+		Milestone 5
  ===========================================
 BoofWoof consists of:
 
@@ -42,7 +42,6 @@ All audios taken from Audio Professors & Soundly by Tan Wei Fong.
  >  Set either PawsieAdventure or EditorPaws as your startup project, depending on what you are aiming to test.
 
 If you have linker error for Jolt.lib, please unzip the folders in lib > JoltPhysics-master > LinkLib
-If you do not see anything on the screen when you load a scene, please clean and build MeshCompiler.
 If you try to move using WASD keys and you cannot move the corgi, please clean and build ScriptWoof.
 
  EDITOR CONTROLS ========================== 
@@ -55,31 +54,29 @@ If you try to move using WASD keys and you cannot move the corgi, please clean a
  > F11 - Fullscreen / Exit Fullscreen
  > W / A / S / D - Move Player
  > Spacebar - Jump
- > RMB - Bark (Only needed in starting room for now)
+ > RMB - Bite (To bite Rope & Cages)
  > E - Scent Trail
- > C - Catch Bone Catcher (Temporary)
  > Left Shift - Sprint 
+ > LMB - To advance in dialogue 
 
-Currently Rex is just patrolling. 
-To collect Puppies, just walk towards it and it will be collected [for now].
-To get the Rex's Urine Scent off you, go towards the Water Bucket.
-To start Rope breaker, walk and collide with the rope AFTER puppies are all collected.
-After Drawbridge lands on the ground, the game has ended, please exit game.
-To exit game, press ESC and exit game to return to main menu and click on the X button on the top right.
+- Warning, Rex Patrols and Chases you! 
+- Find you Puppies in the Main Hall and break them out of the cages! 
+- To break them out, you have to complete Cage Breaker Puzzle! Afterwards, walk towards the Puppies to collect them.
+- Press E to sniff where Rex's urines are at. To wash it off, go towards the Water Bucket.
+- To start Rope breaker, walk and collide with the rope AFTER puppies are all collected.
+- After Drawbridge lands on the ground, our beautiful end cutscene will play!
+- To exit game, press ESC and exit game to return to main menu and click on the X button on the top right.
 
- MAJOR CHANGES IN M4 ==========================
+ MAJOR CHANGES IN M5 ==========================
 
- > UI System
- > Font System
- > Spatial Audio with Audio Components
- > AI Pathfinding
- > Directional Light with Shadow
- > In-Progress 3D Animation (can see something moving in the editor but not ready to be placed in game yet)
- > Adding more Scripts with our Scripting System
- > Metallic Exposure (Material)
- > Gamma Correction
- > 2D Animation
+ > 3D Animation System
+ > Fixed Jaggered Shadows
+ > Able to add 2D images as particles
+ > Different surface, different audio for player footsteps
+ > Rex can chase after player if detected via Raycasting
+ > Puppies are able to follow Player behind after collection
+ > Player can detect urine from afar via Raycasting
 
- KNOWN PROBLEMS & WILL CHANGE IN M5 ========================== 
+ KNOWN PROBLEMS ========================== 
 
- > Jaggered Shadows
+ > Able to walk on ceilings due to IsGrounded from collision

@@ -1,4 +1,4 @@
-#define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
+﻿#define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
 #include <Windows.h>
 #include "ImGuiEditor.h"
 #ifdef MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS
@@ -15,8 +15,7 @@
 #include "AssetManager/FilePaths.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/epsilon.hpp>
-#include "../Utilities/Components/AnimationComponent.h"
-#include "Animation/AnimationManager.h"
+#include "../Utilities/Components/AnimationComponent.hpp"
 #include "../Utilities/Components/MaterialComponent.hpp"
 #include <glm/gtx/matrix_decompose.hpp>
 
@@ -35,7 +34,7 @@ namespace fs = std::filesystem;
 
 constexpr float EPSILON = 1e-6f;
 
-AnimationManager g_AnimationManager;
+//AnimationManager g_AnimationManager;
 
 //Helper function to locate save file directory
 std::string GetScenesDir()
@@ -685,6 +684,32 @@ void ImGuiEditor::InspectorWindow()
 
 						}
 
+						if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+
+
+
+
+							g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
+
+
+
+
+
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
+									}
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+										g_Coordinator.RemoveComponent<AnimationComponent>(g_SelectedEntity);
+									}
+								}
+							);
+						}
+
+
 						 if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
 						 {
 						 	auto& graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
@@ -805,17 +830,140 @@ void ImGuiEditor::InspectorWindow()
 
 					}
 					if (ImGui::Selectable("Animation Component")) {
+						
+						
+						if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+						{
+							g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, GraphicsComponent());
+							g_UndoRedoManager.ExecuteCommand(
+								[this]() {
+									if (!g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+										g_Coordinator.AddComponent<GraphicsComponent>(g_SelectedEntity, GraphicsComponent());
+								},
+								[this]() {
+									if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+										g_Coordinator.RemoveComponent<GraphicsComponent>(g_SelectedEntity);
+								}
+							);
+
+						}
+						
+						if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
+						{
+							auto& graphicsComponent = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+							g_Coordinator.AddComponent<MaterialComponent>(g_SelectedEntity, MaterialComponent());
+
+
+
+							// Creates a Material File to get the data.
+							if (g_Coordinator.HaveComponent<MetadataComponent>(g_SelectedEntity))
+							{
+								std::string objectName = g_Coordinator.GetComponent<MetadataComponent>(g_SelectedEntity).GetName();
+
+
+								static int materialCount = 0;
+								std::string entireFilePath = m_BaseDir.relative_path().string();
+
+
+								// Handle action for "Create Material Instances"
+								std::string materialName;
+								// Generate the material name based on the current count
+								if (materialCount > 0)
+									materialName = objectName + " (" + std::to_string(materialCount) + ")";
+								else
+									materialName = objectName;
+
+								// Write the JSON string to a file
+								std::string filePath = entireFilePath.c_str();  // Convert path to string
+								filePath += "/Material/" + materialName + ".mat";  // Append the new file name (customize this if needed)
+
+								std::ifstream existingFile(filePath);
+								if (existingFile.good()) {
+									std::cout << "Material already exists: " << filePath << std::endl;
+
+								}
+								else
+								{
+									rapidjson::Document document;
+									document.SetObject();
+									rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+
+									// Add name and type (similar to your previous structure)
+									document.AddMember("name", rapidjson::Value(materialName.c_str(), allocator), allocator);
+									document.AddMember("shader", rapidjson::Value("Shader3D", allocator), allocator);
+
+									// Add material properties (color, shininess, textureID, etc.)
+									rapidjson::Value properties(rapidjson::kObjectType);
+
+									// Adding color as a JSON array for RGBA values
+									rapidjson::Value color(rapidjson::kArrayType);
+									color.PushBack(1.0f, allocator);  // R
+									color.PushBack(1.0f, allocator);  // G
+									color.PushBack(1.0f, allocator);  // B
+									color.PushBack(1.0f, allocator);  // A (Alpha)
+									properties.AddMember("color", color, allocator);
+
+
+									rapidjson::Value diffuseValue("NothingTexture", allocator);
+									properties.AddMember("Diffuse", diffuseValue, allocator);
+
+									rapidjson::Value NormalValue("NothingNormal", allocator);
+									properties.AddMember("Normal", NormalValue, allocator);
+
+									rapidjson::Value HeightValue("NothingHeight", allocator);
+									properties.AddMember("Height", HeightValue, allocator);
+
+
+									// Add shininess
+
+									properties.AddMember("metallic", 0, allocator);
+									properties.AddMember("shininess", 0, allocator);
+
+
+
+									// Add texture ID
+									properties.AddMember("textureID", 0, allocator);  // Modify this if you have a specific texture ID
+
+									// Add reflectivity
+									// properties.AddMember("reflectivity", 0.8f, allocator);
+
+									// Adding the properties object to the document
+									document.AddMember("properties", properties, allocator);
+
+									// Serialize the JSON document to a string with pretty printing
+									rapidjson::StringBuffer buffer;
+									rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
+									document.Accept(writer);
+
+
+
+									// Write the JSON string to the file
+									std::ofstream file(filePath);
+									if (file.is_open()) {
+										file << buffer.GetString();  // Write the serialized JSON
+										file.close();
+										std::cout << "File created: " << filePath << std::endl;
+									}
+									else {
+										std::cerr << "Error: Could not create the file." << std::endl;
+									}
+									materialCount++;
+								}
+							}
+
+						}
 						if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
-							std::cout << "enter1\n";
 
 
-							g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
 
 
+							g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
+				
+				
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
 									if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
-										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent(std::make_shared<AnimationManager>(g_AnimationManager)));
+										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
 									}
 								},
 								[this]() {
@@ -1120,7 +1268,7 @@ void ImGuiEditor::InspectorWindow()
 						if (ImGui::Selectable("Animation Component"))
 						{
 							auto& componentData = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
-
+					
 							g_UndoRedoManager.ExecuteCommand(
 								[this]() {
 									if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity))
@@ -1808,6 +1956,8 @@ void ImGuiEditor::InspectorWindow()
 											}
 										}
 
+										ImGui::Text("elegiggle");
+
 										ImGui::PushItemWidth(123.0f);
 										ImGui::Text("Model   ");
 										ImGui::SameLine();
@@ -1822,12 +1972,17 @@ void ImGuiEditor::InspectorWindow()
 										{
 
 
+//											auto& animationComponent = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
+
+											graphicsComponent.chooseModel = true;
+
 											// Selection changed
 											std::string newModelName = modelNames[currentItem];
 											(*modelNameProperty)->SetValue(&graphicsComponent, newModelName);
 											
 
-											graphicsComponent.SetModel(&g_ResourceManager.ModelMap[newModelName]);
+											graphicsComponent.SetModel(g_ResourceManager.ModelMap[newModelName].get());
+
 
 											Entity entity = g_SelectedEntity;
 
@@ -1845,73 +2000,6 @@ void ImGuiEditor::InspectorWindow()
 
 										ImGui::PopID();
 									}
-
-
-								
-
-									//std::vector<int>  textureIds = graphicsComponent.getTextures();
-
-									//ImGui::Text("Texture ");
-									//ImGui::SameLine();
-									//ImGui::PushID("Textures");
-
-									
-
-
-
-									//ImGui::SameLine();
-
-									// Store old value before opening the file dialog
-									//static std::string oldTextureName = "";
-									//if (ImGui::Button("Set Texture"))
-									//{
-									//	//oldTextureName = currentTextureName; // Capture the old value
-									//	ImGuiFileDialog::Instance()->OpenDialog("SetTexture", "Choose File", ".png,.dds", "../BoofWoof/Assets");
-									//}
-									//
-									//if (ImGuiFileDialog::Instance()->Display("SetTexture"))
-									//{
-									//	if (ImGuiFileDialog::Instance()->IsOk())
-									//	{
-									//		// User selected a file
-									//		std::string selectedFile = ImGuiFileDialog::Instance()->GetCurrentFileName();
-									//		size_t lastDotPos = selectedFile.find_last_of(".");
-									//		if (lastDotPos != std::string::npos)
-									//		{
-									//			selectedFile = selectedFile.substr(0, lastDotPos);
-									//		}
-									//
-									//		//newTextureName = selectedFile;
-									//		//(*textureNameProperty)->SetValue(&graphicsComponent, newTextureName);
-									//		int textureId = g_ResourceManager.GetTextureDDS(selectedFile);
-									//		graphicsComponent.AddTexture(textureId);
-									//		graphicsComponent.setTexture(selectedFile);
-									//
-									//
-									//
-									//		// Execute undo/redo command
-									//		/*std::string oldValue = oldTextureName;
-									//		Entity entity = g_SelectedEntity;*/
-									//
-									//		/*g_UndoRedoManager.ExecuteCommand(
-									//			[entity, newTextureName]() {
-									//				auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-									//				component.setTexture(newTextureName);
-									//			},
-									//			[entity, oldValue]() {
-									//				auto& component = g_Coordinator.GetComponent<GraphicsComponent>(entity);
-									//				component.setTexture(oldValue);
-									//			}
-									//		);*/
-									//	}
-									//	ImGuiFileDialog::Instance()->Close();
-									//}
-									//
-									//ImGui::PopID();
-
-
-
-
 
 									// Handel Camera Property
 									auto FollowCameraProperty = std::find_if(properties.begin(), properties.end(),
@@ -1984,160 +2072,190 @@ void ImGuiEditor::InspectorWindow()
 						}
 						else if (className == "AnimationComponent") {
 							// Show the dropdown menu if there are any files
-							if (!g_AssetManager.AnimationFiles.empty()) {
-								static int selectedFileIndex = -1; // To remember the selected index
+							
+							if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
+								
+								if (g_Coordinator.HaveComponent<GraphicsComponent>(g_SelectedEntity))
+								{
 
-								if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
-									ImGui::Text("Animation Selection:"); // Add a label before the combo boxes
-									ImGui::NewLine();
-
-									static int idleAnimationIndex = -1;     // Index for idle animation
-									static int movementAnimationIndex = -1; // Index for movement animation
-									static int actionAnimationIndex = -1;   // Index for action animation
-
-									float comboBoxWidth = 200.0f; // Set a consistent width for the combo boxes
-									float labelWidth = 200.0f;   // Reserve space for the labels
+									auto& graphicsComp = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity);
+									auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
 
 
+									if (g_ResourceManager.AnimatorMap.find(graphicsComp.getModelName()) != g_ResourceManager.AnimatorMap.end())
+									{
+
+										//	if (graphicsComp.chooseModel)
 
 
-									// Idle Animation
-									ImGui::Text("Idle Animation:");
-									ImGui::SameLine(labelWidth);
-									ImGui::SetNextItemWidth(comboBoxWidth);
-									if (ImGui::BeginCombo("##IdleAnimation",
-										idleAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[idleAnimationIndex].c_str())) {
-										// "None" option
-										bool isSelected = (idleAnimationIndex == -1);
-										if (ImGui::Selectable("None", isSelected)) {
-											idleAnimationIndex = -1; // Set to "None"
+
+
+
+										animationComp.animationName = g_Coordinator.GetComponent<GraphicsComponent>(g_SelectedEntity).getModelName();
+										animationComp.animatorName = animationComp.animationName;
+
+
+
+										// Get Delta Time
+										float& deltaTime = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity).m_DeltaTime;
+
+										// Static variables to store animation time and play/pause state
+										static float animationTime = 0.0f;
+										static float startTime = 0.0f;
+										static float endTime = 0.0f;
+										static bool printProblem = false;
+										static int animNameBuffer = 0;
+										static int currentIndex = 0; // Track which animation we are playing
+										static bool isPlaying = false; // Play state
+
+										static float startPlay = 0.01f;
+										static float endPlay = animationComp.m_Duration;
+
+
+										static int inputValue = 0;
+
+
+										ImGui::Text("Name of Animation: %s", animationComp.animationName.c_str());
+										ImGui::Text("Duration: %.2f s", animationComp.m_Duration);
+
+										ImGui::Separator();
+
+
+										if (deltaTime < startPlay || deltaTime> endPlay)
+										{
+											g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(startPlay);
+
+											//									g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity).m_DeltaTime = deltaTime = startPlay;
+
+
+											//									graphicsComp.SetAnimationTime(deltaTime);
 										}
-										if (isSelected) {
-											ImGui::SetItemDefaultFocus();
+
+										ImGui::PushItemWidth(400.f);
+
+										// Slider for animation progress (also acts as manual seek bar)
+										if (ImGui::SliderFloat("##AnimationProgress", &deltaTime, startTime, animationComp.m_Duration, "%.2f s")) {
+											graphicsComp.pauseAnimation = true;  // Pause when user interacts
+
+											graphicsComp.SetAnimationTime(deltaTime);
+										}
+										else
+										{
+											graphicsComp.pauseAnimation = false;  // Pause when user interacts
 										}
 
-										// File options
-										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
-											isSelected = (idleAnimationIndex == i);
-											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
-												idleAnimationIndex = i; // Update the idle animation index
+										ImGui::Text("Delta Time of Game Application:  %.2f", deltaTime);
+
+
+
+										ImGui::Text("Enter Animation Time Range");
+
+
+
+										ImGui::PushItemWidth(100.f);
+
+										// Input floats for Start and End Time
+										ImGui::Value("Save", static_cast<int>(animationComp.animationVector.size()));
+										ImGui::PushItemWidth(400.f);
+										ImGui::SliderFloat("Start Time", &startTime, 0.1f, animationComp.m_Duration, "%.2f s");
+										ImGui::SliderFloat("End Time", &endTime, 0.1f, animationComp.m_Duration, "%.2f s");
+
+
+										if (ImGui::Button("Save Range")) {
+											printProblem = false;
+
+											//  Check if input is valid
+											if (startTime < endTime) {
+												animationComp.animationVector.push_back({ inputValue , startTime, endTime });
+
+												std::cout << "Saved Animation Range: [" << inputValue
+													<< "] (" << startTime << "s - " << endTime << "s)\n";
+
+												inputValue++;
+												startTime = 0.0f;
+												endTime = 0.0f;
 											}
-											if (isSelected) {
-												ImGui::SetItemDefaultFocus();
+											else {
+												printProblem = true;
 											}
 										}
-										ImGui::EndCombo();
+
+										if (printProblem)
+										{
+											ImGui::Separator();
+											ImGui::Text(" Invalid range! Start time must be less than End time");
+											ImGui::Text(" & Name cannot be empty.");
+										}
+
+
+										ImGui::Separator(); // UI separator for clarity
+
+										if (ImGui::InputInt("Enter Animation Name", &animNameBuffer)) {
+											currentIndex = 0; // Reset index if input changes
+										}
+
+
+
+										if (ImGui::Button("Play")) {
+
+											// Find animation range in the vector using the input animation ID
+											auto it = std::find_if(animationComp.animationVector.begin(), animationComp.animationVector.end(),
+												[&](const auto& d) { return std::get<0>(d) == animNameBuffer; });
+
+											if (it != animationComp.animationVector.end()) {
+
+												isPlaying = !isPlaying; // Toggle play state
+												if (isPlaying) {
+													int val = std::get<0>(*it);
+													float start = std::get<1>(*it);
+													float end = std::get<2>(*it);
+
+													std::cout << "Playing animation ID [" << val << "] from "
+														<< start << "s to " << end << "s\n";
+
+													animationComp.playThisAnimation = std::make_tuple(val, start, end);
+													//	animationComp.currentTime = start;  // Reset time to startt
+													startPlay = std::get<1>(animationComp.playThisAnimation);
+													endPlay = std::get<2>(animationComp.playThisAnimation);
+
+
+													currentIndex = 0;  // Reset index when starting
+												}
+
+											}
+											else {
+
+												startPlay = 0.0f;
+												endPlay = animationComp.m_Duration;
+												std::cout << "Animation ID not found!\n";
+											}
+										}
+
+										// Display the saved animation time ranges
+										if (!animationComp.animationVector.empty()) {
+											ImGui::Text("Saved Animation Ranges:");
+											int i = 0;
+											for (const auto& d : animationComp.animationVector)
+											{
+												ImGui::Text("[%zu] %.2f - %.2f ", std::get<0>(d), std::get<1>(d), std::get<2>(d));
+											}
+										}
+
+
+
+										ImGui::Text("Stuff: [%zu] %.2f - %.2f ", std::get<0>(animationComp.playThisAnimation), std::get<1>(animationComp.playThisAnimation), std::get<2>(animationComp.playThisAnimation));
+
+									}
+									else
+									{
+										ImGui::Text("No Animation found for this model.");
 									}
 
-									ImGui::NewLine();
 
-									// Movement Animation
-									ImGui::Text("Movement Animation:");
-									ImGui::SameLine(labelWidth);
-									ImGui::SetNextItemWidth(comboBoxWidth);
-									if (ImGui::BeginCombo("##MovementAnimation",
-										movementAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[movementAnimationIndex].c_str())) {
-										// "None" option
-										bool isSelected = (movementAnimationIndex == -1);
-										if (ImGui::Selectable("None", isSelected)) {
-											movementAnimationIndex = -1; // Set to "None"
-										}
-										if (isSelected) {
-											ImGui::SetItemDefaultFocus();
-										}
-
-										// File options
-										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
-											isSelected = (movementAnimationIndex == i);
-											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
-												movementAnimationIndex = i; // Update the movement animation index
-											}
-											if (isSelected) {
-												ImGui::SetItemDefaultFocus();
-											}
-										}
-										ImGui::EndCombo();
-									}
-
-									ImGui::NewLine();
-
-									// Action Animation
-									ImGui::Text("Action Animation:");
-									ImGui::SameLine(labelWidth);
-									ImGui::SetNextItemWidth(comboBoxWidth);
-									if (ImGui::BeginCombo("##ActionAnimation",
-										actionAnimationIndex == -1 ? "None" : g_AssetManager.AnimationFiles[actionAnimationIndex].c_str())) {
-										// "None" option
-										bool isSelected = (actionAnimationIndex == -1);
-										if (ImGui::Selectable("None", isSelected)) {
-											actionAnimationIndex = -1; // Set to "None"
-										}
-										if (isSelected) {
-											ImGui::SetItemDefaultFocus();
-										}
-
-										// File options
-										for (int i = 0; i < g_AssetManager.AnimationFiles.size(); ++i) {
-											isSelected = (actionAnimationIndex == i);
-											if (ImGui::Selectable(g_AssetManager.AnimationFiles[i].c_str(), isSelected)) {
-												actionAnimationIndex = i; // Update the action animation index
-											}
-											if (isSelected) {
-												ImGui::SetItemDefaultFocus();
-											}
-										}
-										ImGui::EndCombo();
-									}
-
-									ImGui::NewLine();
-
-									// Buttons
-									if (ImGui::Button("Apply")) {
-										auto animationComponent = g_Coordinator.GetComponent<AnimationComponent>(g_SelectedEntity);
-
-										// Apply or remove the Idle animation
-										if (idleAnimationIndex == -1) {
-											animationComponent.SetAnimation(AnimationType::Idle, ""); // Remove animation
-										}
-										else {
-											std::string idleAnimation = g_AssetManager.AnimationFiles[idleAnimationIndex];
-											animationComponent.SetAnimation(AnimationType::Idle, idleAnimation);
-										}
-
-										// Apply or remove the Movement animation
-										if (movementAnimationIndex == -1) {
-											animationComponent.SetAnimation(AnimationType::Moving, ""); // Remove animation
-										}
-										else {
-											std::string movementAnimation = g_AssetManager.AnimationFiles[movementAnimationIndex];
-											animationComponent.SetAnimation(AnimationType::Moving, movementAnimation);
-										}
-
-										// Apply or remove the Action animation
-										if (actionAnimationIndex == -1) {
-											animationComponent.SetAnimation(AnimationType::Action, ""); // Remove animation
-										}
-										else {
-											std::string actionAnimation = g_AssetManager.AnimationFiles[actionAnimationIndex];
-											animationComponent.SetAnimation(AnimationType::Action, actionAnimation);
-										}
-
-										std::cout << "Animations applied successfully to entity " << g_SelectedEntity << "." << std::endl;
-									}
-
-
-									ImGui::SameLine();
-									if (ImGui::Button("Revert To Default")) {
-										// Revert logic here
-									}
 								}
-							}
-							else {
-								if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_None)) {
-									ImGui::Text("No animations found.");
-								}
-							}
 
+							
+							}
 						}
 						else if (className == "AudioComponent")
 						{

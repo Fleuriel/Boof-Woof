@@ -77,26 +77,22 @@ int RunGame()
 }
 
 
+
+#ifdef _DEBUG
+// Use `main` in debug mode
 int main()
 {
     return RunGame();
 }
-
-//#ifdef _DEBUG
-//// Use `main` in debug mode
-//int main()
-//{
-//    return RunGame();
-//}
-//#else
-//#include <windows.h>
+#else
+#include <windows.h>
 //// Use `WinMain` in release mode
-//int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-//{
-//    (void)hInstance;
-//    (void)hPrevInstance;
-//    (void)lpCmdLine;
-//    (void)nCmdShow;
-//    return RunGame();
-//}
-//#endif
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+{
+    (void)hInstance;
+    (void)hPrevInstance;
+    (void)lpCmdLine;
+    (void)nCmdShow;
+    return RunGame();
+}
+#endif

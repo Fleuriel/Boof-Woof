@@ -23,6 +23,15 @@ struct Rex final : public Behaviour
     bool gravitySet = false;  // Track if gravity has been disabled for Rex
 
     
+
+    enum AnimState
+    {
+        ANIM_FULLDURATION = 0,
+        ANIM_IDLE,
+        ANIM_WALKING,
+        ANIM_RUNNING
+    };
+
     // Create a state machine
     enum class State
     {
@@ -73,10 +82,18 @@ struct Rex final : public Behaviour
             //CheckForObjectsInFront(entity);
             //CheckForObjectsBelow(entity);
 
+
+            //std::tuple<int, float, float> animationIdle = m_Engine.GetAnimationVector(entity)[ANIM_IDLE];
+            std::tuple<int, float, float> animationWalk = m_Engine.GetAnimationVector(entity)[ANIM_WALKING];
+            std::tuple<int, float, float> animationRun = m_Engine.GetAnimationVector(entity)[ANIM_RUNNING];
+
             // Single Ray Check
             //SingleRayCheck(entity, currentPos);
             switch (state) {
             case State::PATROL:
+
+                m_Engine.PlayAnimation(entity, std::get<1>(animationWalk), std::get<2>(animationWalk));
+
                 // Check if player is in front
                 if (CheckifPlayerInFront(entity)) {
                     //std::cout << "This is crazy\n\n\n\n\n";
@@ -213,6 +230,7 @@ struct Rex final : public Behaviour
                 velocity = direction * speed;
                 isMovingRex = true;
 
+                m_Engine.PlayAnimation(entity, std::get<1>(animationRun), std::get<2>(animationRun));
 
                 // Check if player is in front
                 if (!CheckifPlayerInFront(entity)) {
@@ -232,6 +250,9 @@ struct Rex final : public Behaviour
                 std::cout << "[Rex] Finding player...\n";
                 // Rotate entity bit by bit till 360 degrees
                 // Rotate entity by 10 degrees
+
+                m_Engine.PlayAnimation(entity, std::get<1>(animationWalk), std::get<2>(animationWalk));
+
                 if (timer <= 0) {
                     if (rotationCounter < 6) {
                         // Rotate entity by 30 degrees every second
@@ -266,7 +287,7 @@ struct Rex final : public Behaviour
             if (groundEntity == INVALID_ENT)
             {
                 // No ground detected, continue moving downward
-                velocity.y -= 100.0f * static_cast<float>(m_Engine.GetDeltaTime());  // Simulated gravity effect
+                velocity.y -= 200.0f * static_cast<float>(m_Engine.GetDeltaTime());  // Simulated gravity effect
                 //std::cout << "[Rex] Falling... Current Y: " << currentPos.y << std::endl;
             }
             else
@@ -280,6 +301,9 @@ struct Rex final : public Behaviour
 
                 //std::cout << "[Rex] Landed on ground at Y: " << groundPosition.y << std::endl;
             }
+
+
+            //If run, then runAnimation else walkAnim
 
             // Apply velocity correctly
             if (isMovingRex)

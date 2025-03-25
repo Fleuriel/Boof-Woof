@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "0753dfa0-3081-4af8-a881-11519c77d455",
+    "SceneGUID": "e6e7ab6d-028b-4ea7-801a-42b58863634c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -1699,7 +1699,7 @@
                 "Position": {
                     "x": -4.202648639678955,
                     "y": 3.5000174045562746,
-                    "z": 7.314296627044678
+                    "z": 7.314296722412109
                 },
                 "Scale": {
                     "x": 1.4500007629394532,
@@ -15966,8 +15966,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 20.010234832763673,
-                    "y": 3.1000001430511476,
+                    "x": 20.01267433166504,
+                    "y": 0.09999942779541016,
                     "z": 17.999996185302736
                 },
                 "Scale": {
@@ -15990,6 +15990,31 @@
                 "ModelName": "Rex",
                 "FollowCamera": true
             },
+            "AnimationComponent": {
+                "Number of Animation Points": 4,
+                "Animations": [
+                    {
+                        "Animation ID": 0,
+                        "Start Time": 0.10000000149011612,
+                        "End Time": 315.0
+                    },
+                    {
+                        "Animation ID": 1,
+                        "Start Time": 0.0,
+                        "End Time": 0.10000000149011612
+                    },
+                    {
+                        "Animation ID": 2,
+                        "Start Time": 30.440000534057618,
+                        "End Time": 110.80999755859375
+                    },
+                    {
+                        "Animation ID": 3,
+                        "Start Time": 230.52999877929688,
+                        "End Time": 279.739990234375
+                    }
+                ]
+            },
             "BehaviourComponent": {
                 "BehaviourName": "RexChase"
             },
@@ -16000,7 +16025,7 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.450000047683716,
-                    "y": 3.0,
+                    "y": 2.8,
                     "z": 1.0
                 },
                 "AABBOffset": {
@@ -16009,6 +16034,25 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Animation",
+                "shaderIdx": 0,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             },
             "PathfindingComponent": {
                 "StartNode": 8,

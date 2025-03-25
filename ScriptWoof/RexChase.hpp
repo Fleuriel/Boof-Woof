@@ -28,6 +28,15 @@ struct RexChase final : public Behaviour
 
     bool sawPlayer{ false };
 
+    enum AnimState
+    {
+        ANIM_FULLDURATION = 0,
+        ANIM_IDLE,
+        ANIM_WALKING,
+        ANIM_RUNNING
+    };
+
+
     enum State
     {
         TELEPORTING,
@@ -81,7 +90,7 @@ struct RexChase final : public Behaviour
             else if (m_Engine.GetTRtimer() > 0.0f)
             {
 				// COMMENTED OUT FOR TESTING PURPOSES
-                return;
+                 return;
             }
 
             if (playerEntity == INVALID_ENT)
@@ -113,6 +122,7 @@ struct RexChase final : public Behaviour
                     pathInitialized = false;
                     std::cout << "Player moved to a new node" << std::endl;
                     state = MOVING;
+                    // Play animation for Run?
                 }
                 else {
                     /*
@@ -126,7 +136,12 @@ struct RexChase final : public Behaviour
                 }
                 
             }
-            
+
+
+            //std::tuple<int, float, float> animationIdle = m_Engine.GetAnimationVector(entity)[ANIM_IDLE];
+            std::tuple<int, float, float> animationWalk = m_Engine.GetAnimationVector(entity)[ANIM_WALKING];
+            std::tuple<int, float, float> animationRun = m_Engine.GetAnimationVector(entity)[ANIM_RUNNING];
+
 
             switch (state) 
             {
@@ -161,6 +176,10 @@ struct RexChase final : public Behaviour
 
                 case MOVING:
                 {
+                    m_Engine.PlayAnimation(entity, std::get<1>(animationWalk), std::get<2>(animationWalk));
+
+
+
                     if (!pathInitialized)
                     {
                         if (m_Engine.HavePathfindingComponent(entity))
@@ -278,6 +297,9 @@ struct RexChase final : public Behaviour
                     // Directly attack the player
                     glm::vec3 playerPos = m_Engine.GetPosition(m_Engine.GetPlayerEntity());
                     glm::vec3 direction = glm::normalize(playerPos - currentPos);
+
+
+                    m_Engine.PlayAnimation(entity, std::get<1>(animationRun), std::get<2>(animationRun));
 
                     // Ensure no division by zero and check if movement is happening
                     if (glm::length(direction) > 0.0001f)

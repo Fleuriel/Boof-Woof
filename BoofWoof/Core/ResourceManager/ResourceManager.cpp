@@ -21,6 +21,11 @@
 #include <gli/load_dds.hpp>
 
 
+ #include "../Core/Animation/Animator.h"
+ #include "../Core/Animation/Animation.h"
+
+#include "../Core/Graphics/Model.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #define STBI_ONLY_DDS // Enable support for DDS only, if you don't want other formats
@@ -38,6 +43,11 @@ ResourceManager::ResourceManager() {
 // Destructor
 ResourceManager::~ResourceManager() {
     // Cleanup resources if necessary
+}
+
+
+const std::unordered_map<std::string, std::shared_ptr<Model>>& ResourceManager::GetModelMap() const {
+    return ModelMap;
 }
 
 
@@ -378,17 +388,24 @@ void ResourceManager::addModelNames(std::string modelName)
     ModelNames.push_back(modelName);
 }
 
-const std::map<std::string, Model>& ResourceManager::GetModelMap() const {
-    return ModelMap;
-}
+//const std::map<std::string, Model>& ResourceManager::GetModelMap() const {
+//    return ModelMap;
+//}
 
 bool ResourceManager::SetModelMap(const std::string& name, const Model& model) {
+
+    UNREFERENCED_PARAMETER(model);
+
     if (name.size() == 0)
         return false;
 
 
-    
-    ModelMap.insert(std::pair<std::string, Model>(name, model));
+    ModelMap.insert(
+        std::pair<std::string, std::shared_ptr<Model>>(
+            name,
+            std::make_shared<Model>(model)
+        )
+    );
 
 #ifdef _DEBUG
 
@@ -402,10 +419,9 @@ bool ResourceManager::SetModelMap(const std::string& name, const Model& model) {
 
 Model* ResourceManager::getModel(const std::string& modelName) {
     auto it = ModelMap.find(modelName);
-    if (it != ModelMap.end()) {
-        return &(it->second);  // Return pointer to the model
-    }
-    return nullptr;  // Return nullptr if not found
+    if (it != ModelMap.end())
+        return it->second.get();  //  Returns a raw pointer
+    return nullptr;
 }
 
 
@@ -415,9 +431,10 @@ Model* ResourceManager::GModel() const {
 }
 
 // Setter for ModelMap (add a new model or update existing one)
-void ResourceManager::setModel(const std::string& modelName, const Model& model) {
-    ModelMap[modelName] = model;  // Insert or update the model
+void ResourceManager::setModel(const std::string& modelName, std::shared_ptr<Model> model) {
+    ModelMap[modelName] = std::move(model);  // Efficient, avoids unnecessary copies
 }
+
 
 // Optional: Check if a model exists in the map
 bool ResourceManager::hasModel(const std::string& modelName) {

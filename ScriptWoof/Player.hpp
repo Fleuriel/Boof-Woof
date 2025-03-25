@@ -38,6 +38,14 @@ struct Player final : public Behaviour
 	std::string surfaceType = ""; // Tracks the surface the player is on
 
 
+	enum AnimStateA
+	{
+		AANIM_FULLDURATION = 0,
+		AANIM_IDLE,
+		AANIM_WALKING,
+		AANIM_RUNNING
+	};
+
 
 
 	std::vector<std::string> footstepSounds = {
@@ -181,12 +189,31 @@ struct Player final : public Behaviour
 
 			//std::cout << "[DEBUG] isGrounded = " << std::boolalpha << isGrounded << std::endl;
 
+
+
+//			std::cout << g_Coordinator.GetComponent<AnimationComponent>(entity).animationName << '\n';
+
+
+
+			
+//			////std::tuple<int, float, float> animationIdle = m_Engine.GetAnimationVector(entity)[ANIM_IDLE];
+			//std::tuple<int, float, float> animationWalk = m_Engine.GetAnimationVector(entity)[AANIM_WALKING];
+			//std::tuple<int, float, float> animationRun = m_Engine.GetAnimationVector(entity)[AANIM_RUNNING];
+
+
 			// If not exhausted, run. Else, stop running, walk.
 			if (m_Engine.getInputSystem().isActionPressed("Sprint") && !m_Engine.GetExhausted())
 			{
+
+			//	m_Engine.PlayAnimation(entity, std::get<1>(animationRun), std::get<2>(animationRun));
+
 				speed = 5.0f;
 			}
 			else {
+				// Walking
+
+			//	m_Engine.PlayAnimation(entity, std::get<1>(animationWalk), std::get<2>(animationWalk));
+
 				speed = 3.0f;
 			}
 
@@ -290,11 +317,16 @@ struct Player final : public Behaviour
 				}
 			}
 
+
 			// Allow movement only if the player is grounded & not in rope breaker or touching toy or stunned
 			if (isGrounded && !inRopeBreaker && !touchingToy && !m_Engine.GetStunned() && !inCageBreaker && !m_Engine.isDialogueActive())
 			{
 				if (m_Engine.HaveCameraComponent(entity))
 				{
+
+
+
+
 					if (m_Engine.getInputSystem().isActionPressed("MoveForward"))
 					{
 						//std::cout << "movingW" << std::endl;

@@ -180,7 +180,7 @@ GLboolean OpenGLShader::CompileShaderFromFile(GLenum shader_type, const std::str
 
     std::ifstream shader_file(file_name, std::ifstream::in);
     if (!shader_file) {
-        //std::cout << "Error Open File\n";
+        std::cout << "Error Open File\n";
         log_string = "Error opening file " + file_name;
         return GL_FALSE;
     }
@@ -245,7 +245,7 @@ OpenGLShader::CompileShaderFromString(GLenum shader_type,
     // load shader source code into shader object
     GLchar const* shader_code[] = { shader_src.c_str() };
     glShaderSource(shader_handle, 1, shader_code, NULL);
-    //std::cout << "compiling\n";
+    std::cout << "compiling\n";
     // compile the shader
     glCompileShader(shader_handle);
    // std::cout << "compiling finish\n";
@@ -258,7 +258,7 @@ OpenGLShader::CompileShaderFromString(GLenum shader_type,
 
     if (GL_FALSE == comp_result) {
     
-        //std::cout << "Vertex Shader Comile Fail\n";
+        std::cout << "Vertex Shader Comile Fail\n";
         log_string = "Vertex shader compilation failed\n";
         GLint log_len;
         glGetShaderiv(shader_handle, GL_INFO_LOG_LENGTH, &log_len);
@@ -313,7 +313,7 @@ void OpenGLShader::SetUniform(GLchar const* name, GLboolean val) {
         glUniform1i(loc, val);
     }
     else {
-        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -330,7 +330,7 @@ void OpenGLShader::SetUniform(GLchar const* name, GLint val) {
         glUniform1i(loc, val);
     }
     else {
-        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -347,7 +347,7 @@ void OpenGLShader::SetUniform(GLchar const* name, GLfloat val) {
         glUniform1f(loc, val);
     }
     else {
-        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -364,7 +364,7 @@ void OpenGLShader::SetUniform(GLchar const* name, GLfloat x, GLfloat y) {
         glUniform2f(loc, x, y);
     }
     else {
-        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -377,14 +377,14 @@ void OpenGLShader::SetUniform(GLchar const* name, GLfloat x, GLfloat y) {
 *************************************************************************/
 void OpenGLShader::SetUniform(GLchar const* name, GLfloat x, GLfloat y, GLfloat z) {
     GLint loc = glGetUniformLocation(pgm_handle, name);
-    //std::cout << loc << '\n';
+    std::cout << loc << '\n';
 
     if (loc >= 0) {
-        //std::cout << loc << '\n';
+        std::cout << loc << '\n';
         glUniform3f(loc, x, y, z);
     }
     else {
-        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -402,7 +402,7 @@ OpenGLShader::SetUniform(GLchar const* name, GLfloat x, GLfloat y, GLfloat z, GL
         glUniform4f(loc, x, y, z, w);
     }
     else {
-        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -419,7 +419,7 @@ void OpenGLShader::SetUniform(GLchar const* name, glm::vec2 const& val) {
         glUniform2f(loc, val.x, val.y);
     }
     else {
-        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -436,7 +436,7 @@ void OpenGLShader::SetUniform(GLchar const* name, glm::vec3 const& val) {
         glUniform3f(loc, val.x, val.y, val.z);
     }
     else {
-        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -453,7 +453,7 @@ void OpenGLShader::SetUniform(GLchar const* name, glm::vec4 const& val) {
         glUniform4f(loc, val.x, val.y, val.z, val.w);
     }
     else {
-        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -484,7 +484,7 @@ void OpenGLShader::SetUniform(GLchar const* name, glm::mat3 const& val) {
         glUniformMatrix3fv(loc, 1, GL_FALSE, &val[0][0]);
     }
     else {
-        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -501,9 +501,10 @@ void OpenGLShader::SetUniform(GLchar const* name, glm::mat4 const& val) {
         glUniformMatrix4fv(loc, 1, GL_FALSE, &val[0][0]);
     }
     else {
-        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
+
 /**************************************************************************
 * @brief		display the list of active vertex attributes used by vertex
                 shader

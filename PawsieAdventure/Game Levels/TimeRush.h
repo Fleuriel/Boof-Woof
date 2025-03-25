@@ -367,6 +367,8 @@ class TimeRush : public Level
 			if (g_TimerTR.timer <= 0.0 && hasBarked == false)
 			{
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav", false, "SFX");
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timeup.wav", false, "SFX");
+
 				hasBarked = true;
 
 			}

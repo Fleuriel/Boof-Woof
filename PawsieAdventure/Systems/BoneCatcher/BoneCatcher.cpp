@@ -533,4 +533,5 @@ void BoneCatcher::ResetBC()
 	AudioTimer = 0.0;
 
 	m_NoOfHitsRequired = 6;
+	puppyCollisionOrder.clear();
 }
