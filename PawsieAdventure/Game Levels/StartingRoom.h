@@ -15,7 +15,7 @@
 class StartingRoom : public Level
 {
 public:
-	Entity playerEnt{}, scentEntity{}, RopeE{};
+	Entity playerEnt{}, scentEntity{}, RopeE{}, RopeObj{};
 	CameraController* cameraController = nullptr;
 	bool bark{ false }, sniff{ false }, initChecklist{ false };
 	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{}, FireSound{};
@@ -27,6 +27,7 @@ public:
 	double sniffCooldownTimer = 0.0;  // Accumulates time
 	const double sniffCooldownDuration = 17.0;  // 17 seconds
 	bool isSniffOnCooldown = false;
+	bool destroyedRope{ false };
 
 	std::vector<std::string> bitingSounds = {
 	"Corgi/DogBite_01.wav",
@@ -65,7 +66,8 @@ public:
 			{"CorgiBark1", [&](Entity entity) { CorgiBark = entity; }},
 			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }},
 			{"middle particle", [&](Entity entity) { FireSound = entity; }},
-			{"Rope", [&](Entity entity) { RopeE = entity; }}
+			{"Rope", [&](Entity entity) { RopeE = entity; }},
+			{"RopeObject", [&](Entity entity) { RopeObj = entity; }}
 		};
 
 		for (auto entity : entities)
@@ -107,7 +109,7 @@ public:
 				}
 
 				// Exit early if all entities are found
-				if (playerEnt && scentEntity && BedRoomBGM && CorgiBark && CorgiSniff && FireSound && RopeE)
+				if (playerEnt && scentEntity && BedRoomBGM && CorgiBark && CorgiSniff && FireSound && RopeE && RopeObj)
 				{
 					break;
 				}
@@ -204,6 +206,12 @@ public:
 				{
 					g_RopeBreaker.OnUpdate(deltaTime);
 				}
+
+				if (g_Checklist.Check3 && g_RopeBreaker.playedRopeSnap1 && !destroyedRope)
+				{
+					g_Coordinator.DestroyEntity(RopeObj);
+					destroyedRope = true;
+				}
 			}
 
 			// Take this away once u shift to script
@@ -298,6 +306,7 @@ public:
 		bark = false;
 		sniff = false;
 		initChecklist = false;
+		destroyedRope = false;
 		g_Audio.Stop(BedRoomBGM);
 
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
@@ -318,6 +327,7 @@ private:
 		sniffCooldownTimer = 0.0;
 		isSniffOnCooldown = false;
 		camerachange = false;
+		destroyedRope = false;
 		// If needed, reset any other member variables here.
 	}
 };

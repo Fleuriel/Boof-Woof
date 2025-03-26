@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "c3edffff-5e7a-432e-b4c2-89a21dc4c43e",
+    "SceneGUID": "dc8b291d-7ba0-47b2-acee-39129cc2dc66",
     "Entities": [
         {
             "MetadataComponent": {
@@ -3358,7 +3358,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Rope",
+                "EntityName": "RopeObject",
                 "EntityID": 68
             },
             "TransformComponent": {
@@ -3387,22 +3387,24 @@
                 "ModelName": "RopeDrawbridge",
                 "FollowCamera": true
             },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 0.15000000596046449,
-                    "y": 3.200000047683716,
-                    "z": 3.3499999046325685
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.800000011920929,
-                    "z": 1.75
-                },
-                "Mass": 0.0
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -3597,6 +3599,78 @@
             "GraphicsComponent": {
                 "ModelName": "PottedPlant4",
                 "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Rope",
+                "EntityID": 74
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 9.699999809265137,
+                    "y": 3.799999952316284,
+                    "z": 4.300000190734863
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": true
+            },
+            "AnimationComponent": {
+                "Number of Animation Points": 0,
+                "Animations": []
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "AABBSize": {
+                    "x": 3.049999952316284,
+                    "y": 3.0999999046325685,
+                    "z": 0.15000000596046449
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         }
     ]
