@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "93460cc1-d12a-4944-88d5-d9882881c76c",
+    "SceneGUID": "06780e23-98a6-4c33-b820-225edfc87d03",
     "Entities": [
         {
             "MetadataComponent": {
@@ -14,7 +14,12 @@
                 "ScaleY": 1.0,
                 "Layer": 0.5,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         },
         {
@@ -26,11 +31,16 @@
                 "TextureName": "Digipen_Logo",
                 "PositionX": 0.0,
                 "PositionY": 0.0,
-                "ScaleX": 1.0,
-                "ScaleY": 1.0,
+                "ScaleX": 0.6000000238418579,
+                "ScaleY": 0.30000001192092898,
                 "Layer": 0.49000000953674319,
                 "Selectable": false,
-                "Opcaity": 1.0
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         }
     ]
