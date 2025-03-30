@@ -536,8 +536,8 @@ public:
 			// Update the animation with the given delta time
 			animatorIt->second->UpdateAnimation(graphicsComp.deltaTime);
 
-			std::cout << animDeltaTime << '\t' << timeStart << '\t' << timeEnd << '\t' << '\n';
-			std::cout << "Graphics Component Model name : " << modelName << '\n';
+			//std::cout << animDeltaTime << '\t' << timeStart << '\t' << timeEnd << '\t' << '\n';
+			//	std::cout << "Graphics Component Model name : " << modelName << '\n';
 
 			if (animDeltaTime < timeStart || animDeltaTime > timeEnd)
 			{

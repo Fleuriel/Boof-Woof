@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "da231b56-4188-4dab-bb7c-9541d364c0f0",
+    "SceneGUID": "0059a51d-3b53-4b68-a0b8-6cf3ba90deea",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.7421744397979639e-7,
+                    "x": 4.765071537349286e-7,
                     "y": 1.1999999284744263,
-                    "z": -0.7100529670715332
+                    "z": -1.1762665510177613
                 },
                 "Scale": {
                     "x": 0.5,
@@ -14445,12 +14445,12 @@
                     {
                         "x": 25.5,
                         "y": 1.0,
-                        "z": -22.0
+                        "z": -21.27780532836914
                     },
                     {
-                        "x": 33.79999923706055,
+                        "x": 33.31831359863281,
                         "y": 1.0,
-                        "z": -17.04800033569336
+                        "z": -20.158185958862306
                     }
                 ]
             }
@@ -17917,9 +17917,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 32.96507263183594,
-                    "y": 1.8020007610321046,
-                    "z": -21.593591690063478
+                    "x": 31.469581604003908,
+                    "y": 1.8020000457763672,
+                    "z": 5.110624313354492
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18268,7 +18268,7 @@
                 "Position": {
                     "x": 25.5,
                     "y": 1.0,
-                    "z": -22.0
+                    "z": -21.27780532836914
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18277,7 +18277,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 },
                 "RotationPivotOffset": {
@@ -18302,9 +18302,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 33.79999923706055,
+                    "x": 33.31831359863281,
                     "y": 1.0,
-                    "z": -17.04800033569336
+                    "z": -20.158185958862306
                 },
                 "Scale": {
                     "x": 1.0,
@@ -24643,7 +24643,7 @@
                 "PositionY": 1.7999999523162842,
                 "ScaleX": 1.0,
                 "ScaleY": 3.299999952316284,
-                "Layer": 0.58,
+                "Layer": 0.5799999833106995,
                 "Selectable": false,
                 "Opcaity": 1.0,
                 "Animated": false,
@@ -25726,7 +25726,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent8",
-                "EntityID": 605
+                "EntityID": 593
             },
             "TransformComponent": {
                 "Position": {
@@ -25801,7 +25801,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent9",
-                "EntityID": 606
+                "EntityID": 594
             },
             "TransformComponent": {
                 "Position": {
@@ -25876,7 +25876,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent16",
-                "EntityID": 613
+                "EntityID": 595
             },
             "TransformComponent": {
                 "Position": {
@@ -25951,7 +25951,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent17",
-                "EntityID": 614
+                "EntityID": 596
             },
             "TransformComponent": {
                 "Position": {
@@ -26026,7 +26026,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent18",
-                "EntityID": 615
+                "EntityID": 597
             },
             "TransformComponent": {
                 "Position": {
@@ -26101,7 +26101,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent19",
-                "EntityID": 616
+                "EntityID": 598
             },
             "TransformComponent": {
                 "Position": {
@@ -26176,7 +26176,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent20",
-                "EntityID": 617
+                "EntityID": 599
             },
             "TransformComponent": {
                 "Position": {
@@ -26251,7 +26251,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent21",
-                "EntityID": 618
+                "EntityID": 600
             },
             "TransformComponent": {
                 "Position": {
@@ -26326,7 +26326,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent22",
-                "EntityID": 619
+                "EntityID": 601
             },
             "TransformComponent": {
                 "Position": {
@@ -26401,7 +26401,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent23",
-                "EntityID": 620
+                "EntityID": 602
             },
             "TransformComponent": {
                 "Position": {
@@ -26476,7 +26476,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent24",
-                "EntityID": 621
+                "EntityID": 603
             },
             "TransformComponent": {
                 "Position": {
@@ -26551,7 +26551,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent25",
-                "EntityID": 622
+                "EntityID": 604
             },
             "TransformComponent": {
                 "Position": {
@@ -26626,11 +26626,11 @@
         {
             "MetadataComponent": {
                 "EntityName": "Stinky1",
-                "EntityID": 623
+                "EntityID": 605
             },
             "UIComponent": {
                 "TextureName": "Stinky",
-                "PositionX": -0.45,
+                "PositionX": -0.44999998807907107,
                 "PositionY": -0.699999988079071,
                 "ScaleX": 0.15000000596046449,
                 "ScaleY": 0.25,
@@ -26647,11 +26647,11 @@
         {
             "MetadataComponent": {
                 "EntityName": "Stinky2",
-                "EntityID": 626
+                "EntityID": 606
             },
             "UIComponent": {
                 "TextureName": "StinkyDog",
-                "PositionX": 0.4,
+                "PositionX": 0.4000000059604645,
                 "PositionY": -0.699999988079071,
                 "ScaleX": 0.15000000596046449,
                 "ScaleY": 0.25,
