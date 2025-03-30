@@ -377,9 +377,26 @@ void BoneCatcher::BiteDown(double deltaTime, Entity entity)
 
 			//if (!playedAlready)
 			//{
+			if (m_NoOfHitsRequired == m_HitCount)
+			{
+
+				std::tuple<int, float, float> animationMOVE = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[ANIM_BREAK];
+				if (!playedAlready)
+				{
+					g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationMOVE), std::get<2>(animationMOVE));
+
+					playedAlready = true;
+				}
+			}
+			else
+			{
 				std::tuple<int, float, float> animationMOVE = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[ANIM_MOVE];
 
-				g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationMOVE), std::get<2>(animationMOVE));
+	
+					g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationMOVE), std::get<2>(animationMOVE));
+
+			}
+			
 			//	//playedAlready = true;
 			//}
 				
@@ -428,7 +445,11 @@ void BoneCatcher::BiteDown(double deltaTime, Entity entity)
 			m_Down = false;
 			m_HitDetected = false;
 			m_IsMoving = true;
-			playedAlready = false;
+		}
+		else
+		{
+
+//			playedAlready = false;
 		}
 	}
 }

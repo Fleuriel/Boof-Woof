@@ -501,9 +501,18 @@ void GraphicsSystem::UpdateLoop() {
 						// Bind and use the animation shader
 						g_AssetManager.GetShader("Animation").Use();
 
+
+						
+
+
 						if (!graphicsComp.pauseAnimation)
 						{
-							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime);
+							if(graphicsComp.getModelName() == "Cage")
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime/3);
+							else
+							{
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime);
+							}
 						}
 						else
 							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
