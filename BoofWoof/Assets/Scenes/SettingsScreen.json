@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "6de60082-d93e-4e8d-ac69-da482fb62b52",
+    "SceneGUID": "7000d4a2-eb2b-4642-8ede-efa4396b7de6",
     "Entities": [
         {
             "MetadataComponent": {
@@ -11,7 +11,7 @@
                 "PositionX": 0.0,
                 "PositionY": 0.0,
                 "ScaleX": 1.100000023841858,
-                "ScaleY": 1.0,
+                "ScaleY": 1.100000023841858,
                 "Layer": 0.4500000476837158,
                 "Selectable": false,
                 "Opcaity": 1.0,
@@ -30,7 +30,7 @@
             "UIComponent": {
                 "TextureName": "LeftArrow",
                 "PositionX": -0.029999999329447748,
-                "PositionY": 0.15000000596046449,
+                "PositionY": 0.12999999523162843,
                 "ScaleX": 0.07999999821186066,
                 "ScaleY": 0.15000000596046449,
                 "Layer": 0.440000057220459,
@@ -51,7 +51,7 @@
             "UIComponent": {
                 "TextureName": "RightArrow",
                 "PositionX": 0.41999998688697817,
-                "PositionY": 0.15000000596046449,
+                "PositionY": 0.12999999523162843,
                 "ScaleX": 0.07999999821186066,
                 "ScaleY": 0.15000000596046449,
                 "Layer": 0.440000057220459,
@@ -72,7 +72,7 @@
             "UIComponent": {
                 "TextureName": "LeftArrow",
                 "PositionX": -0.029999999329447748,
-                "PositionY": -0.20000000298023225,
+                "PositionY": -0.23000000417232514,
                 "ScaleX": 0.07999999821186066,
                 "ScaleY": 0.15000000596046449,
                 "Layer": 0.440000057220459,
@@ -93,7 +93,7 @@
             "UIComponent": {
                 "TextureName": "RightArrow",
                 "PositionX": 0.41999998688697817,
-                "PositionY": -0.20000000298023225,
+                "PositionY": -0.23000000417232514,
                 "ScaleX": 0.07999999821186066,
                 "ScaleY": 0.15000000596046449,
                 "Layer": 0.440000057220459,
@@ -135,7 +135,7 @@
             "FontComponent": {
                 "Family": "manga-temple",
                 "PositionX": -0.36000001430511477,
-                "PositionY": 0.07999999821186066,
+                "PositionY": 0.05000000074505806,
                 "ScaleX": 2.0,
                 "ScaleY": 3.0,
                 "ColorR": 1.0,
@@ -153,7 +153,7 @@
             "FontComponent": {
                 "Family": "manga-temple",
                 "PositionX": -0.36000001430511477,
-                "PositionY": -0.27000001072883608,
+                "PositionY": -0.30000001192092898,
                 "ScaleX": 2.0,
                 "ScaleY": 3.0,
                 "ColorR": 1.0,
@@ -171,7 +171,7 @@
             "FontComponent": {
                 "Family": "manga-temple",
                 "PositionX": 0.11999999731779099,
-                "PositionY": -0.27000001072883608,
+                "PositionY": -0.30000001192092898,
                 "ScaleX": 2.5,
                 "ScaleY": 4.0,
                 "ColorR": 1.0,
@@ -189,7 +189,7 @@
             "FontComponent": {
                 "Family": "manga-temple",
                 "PositionX": 0.11999999731779099,
-                "PositionY": 0.07999999821186066,
+                "PositionY": 0.05000000074505806,
                 "ScaleX": 2.5,
                 "ScaleY": 4.0,
                 "ColorR": 1.0,
@@ -201,31 +201,13 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "ESCtoClose",
-                "EntityID": 10
-            },
-            "FontComponent": {
-                "Family": "manga-temple",
-                "PositionX": -0.949999988079071,
-                "PositionY": 0.8500000238418579,
-                "ScaleX": 0.800000011920929,
-                "ScaleY": 1.0,
-                "ColorR": 1.0,
-                "ColorG": 1.0,
-                "ColorB": 1.0,
-                "Text": "ESC to close",
-                "Layer": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "GAMMALeft",
                 "EntityID": 11
             },
             "UIComponent": {
                 "TextureName": "LeftArrow",
                 "PositionX": -0.029999999329447748,
-                "PositionY": -0.550000011920929,
+                "PositionY": -0.5899999737739563,
                 "ScaleX": 0.07999999821186066,
                 "ScaleY": 0.15000000596046449,
                 "Layer": 0.440000057220459,
@@ -246,7 +228,7 @@
             "UIComponent": {
                 "TextureName": "RightArrow",
                 "PositionX": 0.41999998688697817,
-                "PositionY": -0.550000011920929,
+                "PositionY": -0.5899999737739563,
                 "ScaleX": 0.07999999821186066,
                 "ScaleY": 0.15000000596046449,
                 "Layer": 0.440000057220459,
@@ -267,7 +249,7 @@
             "FontComponent": {
                 "Family": "manga-temple",
                 "PositionX": 0.11999999731779099,
-                "PositionY": -0.6100000143051148,
+                "PositionY": -0.6499999761581421,
                 "ScaleX": 2.5,
                 "ScaleY": 4.0,
                 "ColorR": 1.0,
@@ -285,7 +267,7 @@
             "FontComponent": {
                 "Family": "manga-temple",
                 "PositionX": -0.5099999904632568,
-                "PositionY": -0.6100000143051148,
+                "PositionY": -0.6499999761581421,
                 "ScaleX": 2.0,
                 "ScaleY": 3.0,
                 "ColorR": 1.0,
@@ -303,7 +285,7 @@
             "FontComponent": {
                 "Family": "manga-temple",
                 "PositionX": -0.8199999928474426,
-                "PositionY": 0.41999998688697817,
+                "PositionY": 0.38999998569488528,
                 "ScaleX": 2.0,
                 "ScaleY": 3.0,
                 "ColorR": 1.0,
@@ -321,7 +303,7 @@
             "UIComponent": {
                 "TextureName": "LeftArrow",
                 "PositionX": -0.029999999329447748,
-                "PositionY": 0.5,
+                "PositionY": 0.4699999988079071,
                 "ScaleX": 0.07999999821186066,
                 "ScaleY": 0.15000000596046449,
                 "Layer": 0.440000057220459,
@@ -342,7 +324,7 @@
             "UIComponent": {
                 "TextureName": "RightArrow",
                 "PositionX": 0.41999998688697817,
-                "PositionY": 0.5,
+                "PositionY": 0.4699999988079071,
                 "ScaleX": 0.07999999821186066,
                 "ScaleY": 0.15000000596046449,
                 "Layer": 0.440000057220459,
@@ -363,7 +345,7 @@
             "FontComponent": {
                 "Family": "manga-temple",
                 "PositionX": 0.11999999731779099,
-                "PositionY": 0.41999998688697817,
+                "PositionY": 0.38999998569488528,
                 "ScaleX": 2.5,
                 "ScaleY": 4.0,
                 "ColorR": 1.0,

@@ -81,7 +81,13 @@ std::string Dialogue::getDialogue()
 
 	/* Starting Room Dialogues */
 	case DialogueState::TUTORIALSTART:
-		return "I have to get out of here.. One step at a time..";
+		return	"Sigh, he really just tossed me down here like garbage..";
+
+	case DialogueState::TUTORIALSTART2:
+		return "Rex is guarding the only exit.. There has to be another way out.. Maybe up there?";
+
+	case DialogueState::TUTORIALSTART3:
+		return "I have to get out of here no matter what.. I'm coming for you my pups!";
 
 	case DialogueState::FIRSTROPEBITE:
 		return "A rope? I can bite through it.. But if danger's near, I should stop.";
@@ -138,17 +144,14 @@ std::string Dialogue::getDialogue()
 		return "Eww!! Seriously, Rex?! Get this off me!!";
 
 	/* MainHall Lvl2 Dialogues ? */
-	case DialogueState::SEARCHINGFORPUPS2:
-		return "If I were a pup, where would I be..? Gotta check everywhere—can't leave without all of them!";
-
 	case DialogueState::FOUNDPUP2:
 		return "There you are! I knew I'd find you!";
 
 	case DialogueState::ONEMORETOGO:
 		return "That's two! Stay close-we've got one more to save!";
 
-	case DialogueState::SEARCHINGFORPUPS3:
-		return "Hmm.. That last pup has to be around here somewhere. Maybe if I climb up there..";
+	//case DialogueState::SEARCHINGFORPUPS3:
+	//	return "Hmm.. That last pup has to be around here somewhere. Maybe if I climb up there..";
 
 	case DialogueState::FOUNDPUP3:
 		return "I'm here my little one! Alright, let’s do this the hard way-grr!!";
@@ -156,11 +159,11 @@ std::string Dialogue::getDialogue()
 	case DialogueState::ALLPUPSFOUND:
 		return "That's all three.. We’re finally together again! Time to escape this hellhole!";
 
-	case DialogueState::STAYCLOSE:
-		return "Stay close, little ones. We're almost there.. Just gotta avoid that brute.";
+	//case DialogueState::STAYCLOSE:
+	//	return "Stay close, little ones. We're almost there.. Just gotta avoid that brute.";
 
-	case DialogueState::REXSAWYOU2:
-		return "Oh no—RUN! Don't let him catch us!";
+	//case DialogueState::REXSAWYOU2:
+	//	return "Oh no—RUN! Don't let him catch us!";
 
 	/* RopeBreaker & Escape Dialogues */
 	case DialogueState::BREAKROPES:
@@ -204,6 +207,15 @@ void Dialogue::ProcessDialogue()
 	case DialogueState::INMAINHALL:
 		nextState = DialogueState::HIDEFROMREX;
 		break;
+
+	case DialogueState::TUTORIALSTART:
+		nextState = DialogueState::TUTORIALSTART2;
+		break;
+
+	case DialogueState::TUTORIALSTART2:
+		nextState = DialogueState::TUTORIALSTART3;
+		break;
+
 
 	default:
 		return;

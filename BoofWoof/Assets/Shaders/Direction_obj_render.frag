@@ -148,17 +148,21 @@ void main()
         if(length(lightVector)>lights[i].range){
             continue;
         }
+        float distance = length(lightVector);
+        float t = distance / lights[i].range;
+        float attenuation = max(1.0 - t * t, 0.0);
+        attenuation *= smoothstep(lights[i].range, lights[i].range * 0.9, distance);
         float N_dot_L = max( dot( normalize(vertNormal), normalize(lightVector)), 0.0f );
         textureColor.rgb = pow(textureColor.rgb, vec3(1.0/2.2));
         //fragColor = vec4(textureColor.rgb, textureColor.a);
 
         // ambient
         vec3 ambientColor = lights[i].color;
-        vec3 ambient = ambientColor  * 0.1f;
+        vec3 ambient = ambientColor  * 0.1f* attenuation;
 
         // diffuse
         vec3 diffuseColor = textureColor.rgb;
-        vec3 diffuse = diffuseColor  * N_dot_L * lights[i].intensity * lights[i].color;
+        vec3 diffuse = diffuseColor  * N_dot_L * lights[i].intensity * lights[i].color* attenuation;
 
         vec3 finalColor;
         if(lights[i].haveshadow){
@@ -174,7 +178,7 @@ void main()
         }else{
             finalColor = ambient + diffuse;
         }
-        result += finalColor;
+        result += finalColor* attenuation;
         
     }
 
