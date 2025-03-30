@@ -140,7 +140,20 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 		canPressE = false;
 
 		sniffAnimationTimer = 5.0f;
+		
+		/*
+		 
+		// Check if player has pathfinding component
+		if(g_Coordinator.HaveComponent<PathfindingComponent>()){
+			// Get the path and all the nodes in the path
 
+			// For each node in the path, activate particles opacity to 0.3f
+
+			// Set the timer to 3 seconds
+
+			// deactivate particles for all entities after 3 seconds
+		}
+		*/
 		// Activate particles for all entities
 		for (Entity particleEntity : particles)
 		{
