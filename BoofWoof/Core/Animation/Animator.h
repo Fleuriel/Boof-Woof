@@ -38,9 +38,19 @@ public:
 		if (m_CurrentAnimation)
 		{
 			m_CurrentTime += m_CurrentAnimation->GetTicksPerSecond() * dt;
-			m_CurrentTime = fmod(m_CurrentTime, m_CurrentAnimation->GetDuration());
+			if (m_CurrentTime > m_PlaybackEnd)
+			{
+				m_CurrentTime = m_PlaybackStart; // Loop within range
+			}
 			CalculateBoneTransform(&m_CurrentAnimation->GetRootNode(), glm::mat4(1.0f));
 		}
+	}
+
+	void SetPlaybackRange(float start, float end)
+	{
+		m_PlaybackStart = start;
+		m_PlaybackEnd = end;
+		m_CurrentTime = start; // reset to start of playback
 	}
 
 	void SetAnimationTime(float dt) {
@@ -98,6 +108,8 @@ public:
 	}
 
 private:
+	float m_PlaybackStart = 0.0f;
+	float m_PlaybackEnd = std::numeric_limits<float>::max();
 	std::vector<glm::mat4> m_FinalBoneMatrices;
 	Animation* m_CurrentAnimation;
 	float m_CurrentTime;

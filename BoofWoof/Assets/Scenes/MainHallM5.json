@@ -23306,6 +23306,50 @@
             "GraphicsComponent": {
                 "ModelName": "Cage",
                 "FollowCamera": true
+            },
+            "AnimationComponent": {
+                "Number of Animation Points": 4,
+                "Animations": [
+                    {
+                        "Animation ID": 0,
+                        "Start Time": 0.0,
+                        "End Time": 210.0
+                    },
+                    {
+                        "Animation ID": 1,
+                        "Start Time": 0.0,
+                        "End Time": 120.9000015258789
+                    },
+                    {
+                        "Animation ID": 2,
+                        "Start Time": 130.19000244140626,
+                        "End Time": 140.5800018310547
+                    },
+                    {
+                        "Animation ID": 3,
+                        "Start Time": 149.8699951171875,
+                        "End Time": 210.0
+                    }
+                ]
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Animation",
+                "shaderIdx": 0,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -23387,6 +23431,50 @@
             "GraphicsComponent": {
                 "ModelName": "Cage",
                 "FollowCamera": true
+            },
+            "AnimationComponent": {
+                "Number of Animation Points": 4,
+                "Animations": [
+                    {
+                        "Animation ID": 0,
+                        "Start Time": 0.0,
+                        "End Time": 210.0
+                    },
+                    {
+                        "Animation ID": 1,
+                        "Start Time": 0.0,
+                        "End Time": 120.0
+                    },
+                    {
+                        "Animation ID": 2,
+                        "Start Time": 130.0,
+                        "End Time": 140.0
+                    },
+                    {
+                        "Animation ID": 3,
+                        "Start Time": 150.0,
+                        "End Time": 210.0
+                    }
+                ]
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Animation",
+                "shaderIdx": 0,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -23468,6 +23556,50 @@
             "GraphicsComponent": {
                 "ModelName": "Cage",
                 "FollowCamera": true
+            },
+            "AnimationComponent": {
+                "Number of Animation Points": 4,
+                "Animations": [
+                    {
+                        "Animation ID": 0,
+                        "Start Time": 0.0,
+                        "End Time": 210.0
+                    },
+                    {
+                        "Animation ID": 1,
+                        "Start Time": 0.0,
+                        "End Time": 120.9000015258789
+                    },
+                    {
+                        "Animation ID": 2,
+                        "Start Time": 130.19000244140626,
+                        "End Time": 140.5800018310547
+                    },
+                    {
+                        "Animation ID": 3,
+                        "Start Time": 149.8699951171875,
+                        "End Time": 210.0
+                    }
+                ]
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Animation",
+                "shaderIdx": 0,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {

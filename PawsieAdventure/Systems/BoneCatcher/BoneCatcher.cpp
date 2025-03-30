@@ -175,7 +175,7 @@ void BoneCatcher::OnInitialize()
 	}
 }
 
-void BoneCatcher::OnUpdate(double deltaTime)
+void BoneCatcher::OnUpdate(double deltaTime, Entity entity)
 {
 
 	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT))
@@ -208,11 +208,16 @@ void BoneCatcher::OnUpdate(double deltaTime)
 
 		if (m_IsMoving)
 		{
+			std::tuple<int, float, float> animationMove = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[ANIM_IDLE];
+
+//			g_Coordinator.GetComponent<AnimationComponent>(entity).PlayAnimation(entity, std::get<1>(animationMove), std::get<2>(animationMove));
+
+			g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationMove), std::get<2>(animationMove));
 			MoveLeftRightVisual(deltaTime);
 		}
 		else
 		{
-			BiteDown(deltaTime);
+			BiteDown(deltaTime, entity);
 		}
 	}
 
@@ -231,10 +236,10 @@ void BoneCatcher::OnUpdate(double deltaTime)
 		isAudioPlaying = true;
 	}
 
-	Stop(deltaTime);
+	Stop(deltaTime, entity);
 }
 
-void BoneCatcher::Stop(double deltaTime)
+void BoneCatcher::Stop(double deltaTime, Entity entity)
 {
 	// After 5 times, no more
 	if (m_HitCount == m_NoOfHitsRequired && !m_ShouldDestroy)
@@ -256,7 +261,7 @@ void BoneCatcher::Stop(double deltaTime)
 
 			if (isCage)
 			{
-				g_CageBreaker.DespawnCage();
+				g_CageBreaker.DespawnCage(entity);
 			}
 
 			if (isRope)
@@ -319,7 +324,7 @@ void BoneCatcher::MoveLeftRightVisual(double deltaTime)
 }
 
 // Check whether collided with catchzone + visual feedback
-void BoneCatcher::BiteDown(double deltaTime)
+void BoneCatcher::BiteDown(double deltaTime, Entity entity)
 {
 	// Catchzone Position changes each time so need to check here to update
 	BoxMin = CatchZonePos - CatchZoneScale * 0.5f;	// Bottom left
@@ -327,6 +332,8 @@ void BoneCatcher::BiteDown(double deltaTime)
 
 	TeethPos = { DogPos.x - 0.02f, DogPos.y - 0.27 };
 	bool isInRange = (TeethPos.x >= BoxMin.x && TeethPos.x <= BoxMax.x) && (TeethPos.y >= BoxMin.y && TeethPos.y <= BoxMax.y);
+
+	static bool playedAlready = false;
 
 	if (!m_Down)
 	{
@@ -366,6 +373,16 @@ void BoneCatcher::BiteDown(double deltaTime)
 			dist = std::uniform_real_distribution<float>(MinMaxPos.x, MinMaxPos.y);
 			CatchZonePos.x = dist(gen);
 
+
+
+			//if (!playedAlready)
+			//{
+				std::tuple<int, float, float> animationMOVE = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[ANIM_MOVE];
+
+				g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationMOVE), std::get<2>(animationMOVE));
+			//	//playedAlready = true;
+			//}
+				
 			// Randomize the X scale (must stay within the smaller range after each hit) - if want to change scale.
 			//dist = std::uniform_real_distribution<float>(MinMaxScale.x, CatchZoneScale.x);
 			//CatchZoneScale.x = dist(gen);
@@ -373,6 +390,8 @@ void BoneCatcher::BiteDown(double deltaTime)
 		else {
 			// Play BOO sound
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/WrongSound.wav", false, "SFX");
+
+
 			// Failed to hit - nothing changes, play the same level.
 		}
 	}
@@ -409,6 +428,7 @@ void BoneCatcher::BiteDown(double deltaTime)
 			m_Down = false;
 			m_HitDetected = false;
 			m_IsMoving = true;
+			playedAlready = false;
 		}
 	}
 }

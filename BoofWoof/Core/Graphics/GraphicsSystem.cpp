@@ -490,49 +490,49 @@ void GraphicsSystem::UpdateLoop() {
 			//std::cout << "it has animationComp.\n";
 
 
+			
+				if (g_ResourceManager.AnimationMap.find(graphicsComp.getModelName()) != g_ResourceManager.AnimationMap.end()) {
 
-			if (g_ResourceManager.AnimationMap.find(graphicsComp.getModelName()) != g_ResourceManager.AnimationMap.end()) {
+
+					animationComp.m_DeltaTime = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetCurrTime();
+					animationComp.m_Duration = g_ResourceManager.AnimationMap[graphicsComp.getModelName()]->GetDuration();
+
+					if (material.GetShaderName() == "Animation") {
+						// Bind and use the animation shader
+						g_AssetManager.GetShader("Animation").Use();
+
+						if (!graphicsComp.pauseAnimation)
+						{
+							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime);
+						}
+						else
+							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
 
 
-				animationComp.m_DeltaTime = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetCurrTime();
-				animationComp.m_Duration = g_ResourceManager.AnimationMap[graphicsComp.getModelName()]->GetDuration();
 
-				if (material.GetShaderName() == "Animation") {
-					// Bind and use the animation shader
-					g_AssetManager.GetShader("Animation").Use();
 
-					if (!graphicsComp.pauseAnimation)
-					{
-						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime);
+						g_AssetManager.GetShader("Animation").SetUniform("view", shdrParam.View);
+						g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
+
+
+						auto transforms = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetFinalBoneMatrices();
+						for (int i = 0; i < transforms.size(); ++i)
+						{
+							std::string lel = "finalBonesMatrices[" + std::to_string(i) + "]";
+							g_AssetManager.GetShader("Animation").SetUniform(lel.c_str(), transforms[i]);
+						}
+
+
+						g_AssetManager.GetShader("Animation").SetUniform("model", transformComp.GetWorldMatrix());
+						graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
+
+
+						// Unbind the shader after rendering
+						g_AssetManager.GetShader("Animation").UnUse();
+
 					}
-					else
-						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
-
-
-
-
-
-					g_AssetManager.GetShader("Animation").SetUniform("view", shdrParam.View);
-					g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
-
-
-					auto transforms = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetFinalBoneMatrices();
-					for (int i = 0; i < transforms.size(); ++i)
-					{
-						std::string lel = "finalBonesMatrices[" + std::to_string(i) + "]";
-						g_AssetManager.GetShader("Animation").SetUniform(lel.c_str(), transforms[i]);
-					}
-
-
-					g_AssetManager.GetShader("Animation").SetUniform("model", transformComp.GetWorldMatrix());
-					graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
-
-
-					// Unbind the shader after rendering
-					g_AssetManager.GetShader("Animation").UnUse();
-
 				}
-			}
+			
 
 
 

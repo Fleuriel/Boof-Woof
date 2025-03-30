@@ -17,12 +17,20 @@ public:
 
 	void CheckCageCollision();
 	void SpawnBoneCatcher();
-	void DespawnCage();
+	void DespawnCage(Entity entity);
 
 	void SaveProgress();
 
 	bool CheckEntityWithPlayerCollision(Entity entity) const;
 	void ResetCB();
+
+
+
+
+
+
+
+
 
 public:
 	bool Cage1Colliding{}, Cage2Colliding{}, Cage3Colliding{};

@@ -6,6 +6,9 @@
 
 CageBreaker g_CageBreaker;
 
+
+
+
 void CageBreaker::OnUpdate(double deltaTime)
 {
 	if (!CollidedCage1 || !CollidedCage2 || !CollidedCage3)
@@ -16,12 +19,34 @@ void CageBreaker::OnUpdate(double deltaTime)
 	// Only when collided and when dialogue isn't active
 	SpawnBoneCatcher();
 
+
+	Entity currentCage = 2147483647;
+
+	if (CollidedCage1)
+		currentCage = cage1;
+	else if (CollidedCage2)
+		currentCage = cage2;
+	else if (CollidedCage3)
+		currentCage = cage3;
+
+	std::cout << "Currentcage\t" << currentCage << '\n';
+
+
 	if (BarSpawned)
 	{
-		g_BoneCatcher.OnUpdate(deltaTime);
+		g_BoneCatcher.OnUpdate(deltaTime, currentCage);
 
 		// Only saves when you press ESC key
 		SaveProgress();
+	}
+	else
+	{
+		std::tuple<int, float, float> animationIdle1 = g_Coordinator.GetComponent<AnimationComponent>(cage1).animationVector[g_BoneCatcher.ANIM_IDLE];
+		std::tuple<int, float, float> animationIdle2 = g_Coordinator.GetComponent<AnimationComponent>(cage2).animationVector[g_BoneCatcher.ANIM_IDLE];
+		std::tuple<int, float, float> animationIdle3 = g_Coordinator.GetComponent<AnimationComponent>(cage3).animationVector[g_BoneCatcher.ANIM_IDLE];
+		g_Coordinator.GetComponent<AnimationComponent>(cage1).PlayAnimation(cage1, std::get<1>(animationIdle1), std::get<2>(animationIdle1));
+		g_Coordinator.GetComponent<AnimationComponent>(cage2).PlayAnimation(cage2, std::get<1>(animationIdle2), std::get<2>(animationIdle2));
+		g_Coordinator.GetComponent<AnimationComponent>(cage3).PlayAnimation(cage3, std::get<1>(animationIdle3), std::get<2>(animationIdle3));
 	}
 }
 
@@ -89,12 +114,18 @@ void CageBreaker::SpawnBoneCatcher()
 	}
 }
 
-void CageBreaker::DespawnCage()
+void CageBreaker::DespawnCage(Entity entity)
 {
 	BarSpawned = false;
 
+
 	if (CollidedCage1) 
 	{
+
+		std::tuple<int, float, float> animationMOVE = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.ANIM_BREAK];
+
+//		g_Coordinator.GetComponent<AnimationComponent>(entity).PlayAnimation(entity, std::get<1>(animationMOVE), std::get<2>(animationMOVE));
+
 		if (!deletedCage1) 
 		{
 			if (!playedCageSound1)  
@@ -105,6 +136,7 @@ void CageBreaker::DespawnCage()
 			g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/MetalCage.wav");
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage1);
+
 			g_Coordinator.DestroyEntity(cage1);
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage1Collider);
@@ -116,6 +148,9 @@ void CageBreaker::DespawnCage()
 
 	if (CollidedCage2)
 	{
+		std::tuple<int, float, float> animationMOVE = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.ANIM_BREAK];
+
+//		g_Coordinator.GetComponent<AnimationComponent>(entity).PlayAnimation(entity, std::get<1>(animationMOVE), std::get<2>(animationMOVE));
 		if (!deletedCage2)
 		{
 			if (!playedCageSound2)
@@ -137,6 +172,9 @@ void CageBreaker::DespawnCage()
 
 	if (CollidedCage3)
 	{
+		std::tuple<int, float, float> animationMOVE = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.ANIM_BREAK];
+
+//		g_Coordinator.GetComponent<AnimationComponent>(entity).PlayAnimation(entity, std::get<1>(animationMOVE), std::get<2>(animationMOVE));
 		if (!deletedCage3)
 		{
 

@@ -1,0 +1,81 @@
+{
+    "SceneGUID": "69ccb390-a1cc-4cfc-a03a-33814c1b371a",
+    "Entities": [
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 0
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Cage",
+                "FollowCamera": true
+            },
+            "AnimationComponent": {
+                "Number of Animation Points": 4,
+                "Animations": [
+                    {
+                        "Animation ID": 0,
+                        "Start Time": 0.0,
+                        "End Time": 210.0
+                    },
+                    {
+                        "Animation ID": 1,
+                        "Start Time": 0.0,
+                        "End Time": 120.9000015258789
+                    },
+                    {
+                        "Animation ID": 2,
+                        "Start Time": 130.19000244140626,
+                        "End Time": 140.5800018310547
+                    },
+                    {
+                        "Animation ID": 3,
+                        "Start Time": 149.8699951171875,
+                        "End Time": 210.0
+                    }
+                ]
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Animation",
+                "shaderIdx": 0,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
+            }
+        }
+    ]
+}
