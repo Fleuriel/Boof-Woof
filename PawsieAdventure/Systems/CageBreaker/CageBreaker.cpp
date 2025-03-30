@@ -44,9 +44,10 @@ void CageBreaker::OnUpdate(double deltaTime)
 		std::tuple<int, float, float> animationIdle1 = g_Coordinator.GetComponent<AnimationComponent>(cage1).animationVector[g_BoneCatcher.ANIM_IDLE];
 		std::tuple<int, float, float> animationIdle2 = g_Coordinator.GetComponent<AnimationComponent>(cage2).animationVector[g_BoneCatcher.ANIM_IDLE];
 		std::tuple<int, float, float> animationIdle3 = g_Coordinator.GetComponent<AnimationComponent>(cage3).animationVector[g_BoneCatcher.ANIM_IDLE];
-		g_Coordinator.GetComponent<AnimationComponent>(cage1).PlayAnimation(cage1, std::get<1>(animationIdle1), std::get<2>(animationIdle1));
-		g_Coordinator.GetComponent<AnimationComponent>(cage2).PlayAnimation(cage2, std::get<1>(animationIdle2), std::get<2>(animationIdle2));
-		g_Coordinator.GetComponent<AnimationComponent>(cage3).PlayAnimation(cage3, std::get<1>(animationIdle3), std::get<2>(animationIdle3));
+
+		g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(cage1).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle1), std::get<2>(animationIdle1));
+		g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(cage2).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle2), std::get<2>(animationIdle2));
+		g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(cage3).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle3), std::get<2>(animationIdle3));
 	}
 }
 

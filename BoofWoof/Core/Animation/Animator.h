@@ -33,24 +33,39 @@ public:
 	void UpdateAnimation(float dt)
 	{
 		m_DeltaTime = dt;
-		//std::cout <<"Animator.h : \t" << m_DeltaTime << '\n';
 
-		if (m_CurrentAnimation)
+		if (!m_CurrentAnimation) return;
+
+		float ticksPerSecond = m_CurrentAnimation->GetTicksPerSecond();
+		float duration = m_CurrentAnimation->GetDuration();
+
+		m_CurrentTime += ticksPerSecond * dt;
+
+		// ✅ Check if using playback range
+		if (m_UsingPlaybackRange)
 		{
-			m_CurrentTime += m_CurrentAnimation->GetTicksPerSecond() * dt;
+			// Loop within custom range
 			if (m_CurrentTime > m_PlaybackEnd)
-			{
-				m_CurrentTime = m_PlaybackStart; // Loop within range
-			}
-			CalculateBoneTransform(&m_CurrentAnimation->GetRootNode(), glm::mat4(1.0f));
+				m_CurrentTime = m_PlaybackStart;
 		}
+		else
+		{
+			// Loop over full animation
+			m_CurrentTime = fmod(m_CurrentTime, duration);
+			if (m_CurrentTime < 0.0f)
+				m_CurrentTime += duration;
+		}
+
+		CalculateBoneTransform(&m_CurrentAnimation->GetRootNode(), glm::mat4(1.0f));
 	}
+
 
 	void SetPlaybackRange(float start, float end)
 	{
 		m_PlaybackStart = start;
 		m_PlaybackEnd = end;
 		m_CurrentTime = start; // reset to start of playback
+		m_UsingPlaybackRange = true;
 	}
 
 	void SetAnimationTime(float dt) {
@@ -114,5 +129,6 @@ private:
 	Animation* m_CurrentAnimation;
 	float m_CurrentTime;
 	float m_DeltaTime;
+	bool m_UsingPlaybackRange = false;
 
 };
