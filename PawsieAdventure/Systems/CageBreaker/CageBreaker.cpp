@@ -34,6 +34,7 @@ void CageBreaker::OnUpdate(double deltaTime)
 
 	if (BarSpawned)
 	{
+
 		g_BoneCatcher.OnUpdate(deltaTime, currentCage);
 
 		// Only saves when you press ESC key
@@ -41,13 +42,30 @@ void CageBreaker::OnUpdate(double deltaTime)
 	}
 	else
 	{
-		std::tuple<int, float, float> animationIdle1 = g_Coordinator.GetComponent<AnimationComponent>(cage1).animationVector[g_BoneCatcher.ANIM_IDLE];
-		std::tuple<int, float, float> animationIdle2 = g_Coordinator.GetComponent<AnimationComponent>(cage2).animationVector[g_BoneCatcher.ANIM_IDLE];
-		std::tuple<int, float, float> animationIdle3 = g_Coordinator.GetComponent<AnimationComponent>(cage3).animationVector[g_BoneCatcher.ANIM_IDLE];
+		auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+		for (auto& entity : allEntities)
+		{
+			if (entity == cage1)
+			{
+				std::tuple<int, float, float> animationIdle1 = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.ANIM_IDLE];
 
-		g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(cage1).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle1), std::get<2>(animationIdle1));
-		g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(cage2).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle2), std::get<2>(animationIdle2));
-		g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(cage3).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle3), std::get<2>(animationIdle3));
+				g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle1), std::get<2>(animationIdle1));
+
+			}
+			if (entity == cage2)
+			{
+				std::tuple<int, float, float> animationIdle2 = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.ANIM_IDLE];
+
+				g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle2), std::get<2>(animationIdle2));
+			}
+			if (entity == cage3)
+			{
+				std::tuple<int, float, float> animationIdle3 = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.ANIM_IDLE];
+
+				g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle3), std::get<2>(animationIdle3));
+
+			}
+		}
 	}
 }
 
@@ -133,6 +151,7 @@ void CageBreaker::DespawnCage(Entity entity)
 			}
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage1);
 			g_Coordinator.DestroyEntity(cage1);
+			cage1 = 0;
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage1Collider);
 			g_Coordinator.DestroyEntity(cage1Collider);
@@ -154,7 +173,7 @@ void CageBreaker::DespawnCage(Entity entity)
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage2);
 			g_Coordinator.DestroyEntity(cage2);
-
+			cage2 = 0;
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage2Collider);
 			g_Coordinator.DestroyEntity(cage2Collider);
 			CollidedCage2 = false;
@@ -176,7 +195,7 @@ void CageBreaker::DespawnCage(Entity entity)
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage3);
 			g_Coordinator.DestroyEntity(cage3);
-
+			cage3 = 0;
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage3Collider);
 			g_Coordinator.DestroyEntity(cage3Collider);
 			CollidedCage3 = false;
