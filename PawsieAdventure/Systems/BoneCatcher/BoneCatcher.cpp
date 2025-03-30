@@ -208,11 +208,11 @@ void BoneCatcher::OnUpdate(double deltaTime, Entity entity)
 
 		if (m_IsMoving)
 		{
-			std::tuple<int, float, float> animationMove = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[ANIM_IDLE];
+		//	std::tuple<int, float, float> animationMove = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[ANIM_IDLE];
 
 //			g_Coordinator.GetComponent<AnimationComponent>(entity).PlayAnimation(entity, std::get<1>(animationMove), std::get<2>(animationMove));
 
-			g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationMove), std::get<2>(animationMove));
+		//	g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationMove), std::get<2>(animationMove));
 			MoveLeftRightVisual(deltaTime);
 		}
 		else
@@ -449,7 +449,7 @@ void BoneCatcher::BiteDown(double deltaTime, Entity entity)
 		else
 		{
 
-//			playedAlready = false;
+			playedAlready = false;
 		}
 	}
 }

@@ -151,7 +151,7 @@ void CageBreaker::DespawnCage(Entity entity)
 			}
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage1);
 			g_Coordinator.DestroyEntity(cage1);
-			cage1 = 0;
+			cage1 = 2147483647;
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage1Collider);
 			g_Coordinator.DestroyEntity(cage1Collider);
@@ -173,7 +173,7 @@ void CageBreaker::DespawnCage(Entity entity)
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage2);
 			g_Coordinator.DestroyEntity(cage2);
-			cage2 = 0;
+			cage2 = 2147483648;
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage2Collider);
 			g_Coordinator.DestroyEntity(cage2Collider);
 			CollidedCage2 = false;
@@ -195,7 +195,7 @@ void CageBreaker::DespawnCage(Entity entity)
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage3);
 			g_Coordinator.DestroyEntity(cage3);
-			cage3 = 0;
+			cage3 = 2147483649;
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage3Collider);
 			g_Coordinator.DestroyEntity(cage3Collider);
 			CollidedCage3 = false;
