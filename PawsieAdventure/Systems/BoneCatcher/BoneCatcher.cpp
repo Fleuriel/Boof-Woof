@@ -326,6 +326,9 @@ void BoneCatcher::MoveLeftRightVisual(double deltaTime)
 // Check whether collided with catchzone + visual feedback
 void BoneCatcher::BiteDown(double deltaTime, Entity entity)
 {
+	if (entity >= 2147483646)
+		return;
+
 	// Catchzone Position changes each time so need to check here to update
 	BoxMin = CatchZonePos - CatchZoneScale * 0.5f;	// Bottom left
 	BoxMax = CatchZonePos + CatchZoneScale * 0.5f;  // Top right
@@ -445,11 +448,11 @@ void BoneCatcher::BiteDown(double deltaTime, Entity entity)
 			m_Down = false;
 			m_HitDetected = false;
 			m_IsMoving = true;
+			playedAlready = false;
 		}
 		else
 		{
 
-			playedAlready = false;
 		}
 	}
 }
