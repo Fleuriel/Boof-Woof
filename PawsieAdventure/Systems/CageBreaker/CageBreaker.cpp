@@ -119,12 +119,17 @@ void CageBreaker::DespawnCage(Entity entity)
 	BarSpawned = false;
 
 
+	static float time = 2.0f;
+	static float currTime = 0.0f;
+
 	if (CollidedCage1) 
 	{
 
 		std::tuple<int, float, float> animationMOVE = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.ANIM_BREAK];
 
-//		g_Coordinator.GetComponent<AnimationComponent>(entity).PlayAnimation(entity, std::get<1>(animationMOVE), std::get<2>(animationMOVE));
+		g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationMOVE), std::get<2>(animationMOVE));
+
+		currTime += g_Coordinator.GetComponent<GraphicsComponent>(entity).deltaTime;
 
 		if (!deletedCage1) 
 		{
@@ -133,11 +138,18 @@ void CageBreaker::DespawnCage(Entity entity)
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CageBreak.wav", false, "SFX");
 				playedCageSound1 = true;
 			}
-			g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/MetalCage.wav");
+			if (currTime >= time)
+			{
 
-			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage1);
+				g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage1);
 
-			g_Coordinator.DestroyEntity(cage1);
+				g_Coordinator.DestroyEntity(cage1);
+
+
+
+				currTime = 0.0f;
+			
+			}
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage1Collider);
 			g_Coordinator.DestroyEntity(cage1Collider);
@@ -150,7 +162,7 @@ void CageBreaker::DespawnCage(Entity entity)
 	{
 		std::tuple<int, float, float> animationMOVE = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.ANIM_BREAK];
 
-//		g_Coordinator.GetComponent<AnimationComponent>(entity).PlayAnimation(entity, std::get<1>(animationMOVE), std::get<2>(animationMOVE));
+		g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationMOVE), std::get<2>(animationMOVE));
 		if (!deletedCage2)
 		{
 			if (!playedCageSound2)
@@ -174,7 +186,7 @@ void CageBreaker::DespawnCage(Entity entity)
 	{
 		std::tuple<int, float, float> animationMOVE = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.ANIM_BREAK];
 
-//		g_Coordinator.GetComponent<AnimationComponent>(entity).PlayAnimation(entity, std::get<1>(animationMOVE), std::get<2>(animationMOVE));
+		g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationMOVE), std::get<2>(animationMOVE));
 		if (!deletedCage3)
 		{
 
