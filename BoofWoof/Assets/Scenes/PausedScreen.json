@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "87cd71a6-9b2e-45dc-b19d-053c232a3d98",
+    "SceneGUID": "b90223b2-9fd0-4ce4-892f-4f1dbfa627c0",
     "Entities": [
         {
             "MetadataComponent": {
@@ -119,7 +119,7 @@
                 "ScaleY": 1.0,
                 "Layer": 0.4700000286102295,
                 "Selectable": false,
-                "Opcaity": 0.949999988079071,
+                "Opcaity": 0.699999988079071,
                 "Animated": false,
                 "Rows": 1,
                 "Cols": 1,

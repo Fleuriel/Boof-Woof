@@ -2,8 +2,14 @@
 #include "TimerTR.h"
 #include <AssetManager/FilePaths.h>
 
+
+
 TimerTR g_TimerTR;
 Serialization serialTimer;
+
+static glm::vec2 startScale{};
+static glm::vec2 endScale{};
+
 
 void TimerTR::OnInitialize()
 {
@@ -30,6 +36,12 @@ void TimerTR::OnInitialize()
 	}
 }
 
+static double tenSecondsTimer = 10.0;
+static double scaleTransitionTimer = 0.0;
+const double scaleDuration = 1.0; // 1 second duration
+static bool isScalingDown = false;
+static int lastScaledSecond = -1;  // Prevents multiple triggers in the same second
+
 void TimerTR::OnUpdate(double deltaTime)
 {
 	if (!g_Coordinator.HaveComponent<FontComponent>(m_Minus))
@@ -43,6 +55,7 @@ void TimerTR::OnUpdate(double deltaTime)
 
 		// Decrement timer by deltaTime
 		timer -= deltaTime;
+		tenSecondsTimer -= deltaTime;
 
 		// If the timer has gone past 0, set it to 0 (so it doesn't go negative)
 		if (timer < 0.0)
@@ -54,13 +67,62 @@ void TimerTR::OnUpdate(double deltaTime)
 			text.set_color(glm::vec3(255,0,0));
 		}
 
-		if (timer != 0.0) 
+		if (startScale == glm::vec2()) {
+			startScale = text.get_scale() * 1.2f; // Enlarged scale
+		}
+
+		if (endScale == glm::vec2()) {
+			endScale = text.get_scale();	// Normal scale
+		}
+
+		if (timer != 0.0)
 		{
-			// Format the time in minutes and seconds
 			int minutes = static_cast<int>(timer) / 60;
 			int seconds = static_cast<int>(timer) % 60;
 
-			// Display the formatted time as "MM:SS"
+			if (timer > 10.0 && !isScalingDown)
+				text.set_color(glm::vec3(1.0f, 1.0f, 1.0f));
+
+			if (tenSecondsTimer <= 0.0)
+			{
+				// Instantly set to larger scale
+				text.set_scale(startScale);
+				text.set_color(glm::vec3(1.0f, 0.0f, 0.0f));
+
+				// Start shrinking back
+				scaleTransitionTimer = 0.0;
+				isScalingDown = true;
+
+				// Reset 10-second timer
+				tenSecondsTimer = 10.0;
+			}
+
+			// **Trigger scale-up every second when timer < 10**
+			if (timer <= 10.0 && seconds != lastScaledSecond)
+			{
+				if (text.get_color() != glm::vec3(1, 0, 0))
+					text.set_color(glm::vec3(1, 0, 0));
+				text.set_scale(startScale);
+				scaleTransitionTimer = 0.0;
+				isScalingDown = true;
+				lastScaledSecond = seconds;  // Prevent duplicate triggers in the same second
+			}
+
+			if (isScalingDown)
+			{
+				// Scale back down over 1 second
+				scaleTransitionTimer += deltaTime;
+				float factor = std::clamp(static_cast<float>(scaleTransitionTimer / scaleDuration), 0.0f, 1.0f);
+				glm::vec2 newScale = glm::mix(startScale, endScale, factor);
+				text.set_scale(newScale);
+
+				// Stop shrinking after 1 second
+				if (scaleTransitionTimer >= scaleDuration)
+				{
+					isScalingDown = false;
+				}
+			}
+
 			text.set_text(std::to_string(minutes) + ":" + (seconds < 10 ? "0" : "") + std::to_string(seconds));
 		}
 	}

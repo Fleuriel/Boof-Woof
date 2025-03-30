@@ -272,4 +272,8 @@ void CageBreaker::ResetCB()
 	CollidedCage1 = CollidedCage2 = CollidedCage3 = BarSpawned = false;
 	Cage1Colliding = Cage2Colliding = Cage3Colliding = firstCageTouched = secondCageTouched =  thirdCageTouched = false;
 	deletedCage1 = deletedCage2 = deletedCage3 = false;
+
+	CageHitCounts.clear();
+	speedCage.clear();
+	directionCage.clear();
 }

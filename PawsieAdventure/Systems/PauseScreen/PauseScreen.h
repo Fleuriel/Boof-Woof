@@ -20,9 +20,10 @@ protected:
 	std::vector<Entity> spawnedEntities;
 
 public:
-	Entity SFXLeft{}, SFXRight{}, BGMLeft{}, BGMRight{}, GAMMALeft{}, GAMMARight{};
-	Entity BGMVol{}, SFXVol{}, GAMMAValue{};
+	Entity SFXLeft{}, SFXRight{}, BGMLeft{}, BGMRight{}, GAMMALeft{}, GAMMARight{}, MasterLeft{}, MasterRight{};
+	Entity BGMVol{}, SFXVol{}, GAMMAValue{}, MasterVol{};
 	Entity YesBtn{}, NoBtn{};
+	Entity XitBtn{}, eXitBtn{};
 };
 
 // Main Pause Screen

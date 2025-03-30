@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "e2a7c011-c663-419b-8262-67df5a424401",
+    "SceneGUID": "0059a51d-3b53-4b68-a0b8-6cf3ba90deea",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.742150565562042e-7,
+                    "x": 4.765071537349286e-7,
                     "y": 1.1999999284744263,
-                    "z": -0.7100529670715332
+                    "z": -1.1762665510177613
                 },
                 "Scale": {
                     "x": 0.5,
@@ -29,33 +29,8 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "corgi",
+                "ModelName": "Corgi2",
                 "FollowCamera": true
-            },
-            "AnimationComponent": {
-                "Number of Animation Points": 4,
-                "Animations": [
-                    {
-                        "Animation ID": 0,
-                        "Start Time": 0.0,
-                        "End Time": 200.0
-                    },
-                    {
-                        "Animation ID": 1,
-                        "Start Time": 0.0,
-                        "End Time": 0.009999999776482582
-                    },
-                    {
-                        "Animation ID": 2,
-                        "Start Time": 15.199999809265137,
-                        "End Time": 55.279998779296878
-                    },
-                    {
-                        "Animation ID": 3,
-                        "Start Time": 69.86000061035156,
-                        "End Time": 112.54000091552735
-                    }
-                ]
             },
             "BehaviourComponent": {
                 "BehaviourName": "Player"
@@ -91,25 +66,6 @@
                     "z": 0.0
                 },
                 "Active": true
-            },
-            "MaterialComponent": {
-                "name": "Default Material",
-                "shader": "Animation",
-                "shaderIdx": 0,
-                "properties": {
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "finalAlpha": 1.0,
-                    "Diffuse": "NothingTexture",
-                    "Normal": "NothingNormal",
-                    "Height": "NothingHeight",
-                    "metallic": 0.0,
-                    "shininess": 0.0
-                }
             }
         },
         {
@@ -3851,7 +3807,7 @@
                     "z": 0.75
                 },
                 "AABBOffset": {
-                    "x": 0.0,
+                    "x": -0.15000000596046449,
                     "y": 0.0,
                     "z": 0.0
                 },
@@ -3900,7 +3856,7 @@
                     "z": 0.75
                 },
                 "AABBOffset": {
-                    "x": 0.0,
+                    "x": 0.20000000298023225,
                     "y": 0.0,
                     "z": 0.0
                 },
@@ -14443,7 +14399,7 @@
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 3.299999952316284,
-                    "y": 2.8,
+                    "y": 2.799999952316284,
                     "z": 0.699999988079071
                 },
                 "AABBOffset": {
@@ -14489,12 +14445,12 @@
                     {
                         "x": 25.5,
                         "y": 1.0,
-                        "z": -22.0
+                        "z": -21.27780532836914
                     },
                     {
-                        "x": 33.79999923706055,
+                        "x": 33.31831359863281,
                         "y": 1.0,
-                        "z": -17.04800033569336
+                        "z": -20.158185958862306
                     }
                 ]
             }
@@ -17961,9 +17917,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 32.96507263183594,
-                    "y": 1.8020007610321046,
-                    "z": -21.593591690063478
+                    "x": 31.469581604003908,
+                    "y": 1.8020000457763672,
+                    "z": 5.110624313354492
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18312,7 +18268,7 @@
                 "Position": {
                     "x": 25.5,
                     "y": 1.0,
-                    "z": -22.0
+                    "z": -21.27780532836914
                 },
                 "Scale": {
                     "x": 1.0,
@@ -18321,7 +18277,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 },
                 "RotationPivotOffset": {
@@ -18346,9 +18302,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 33.79999923706055,
+                    "x": 33.31831359863281,
                     "y": 1.0,
-                    "z": -17.04800033569336
+                    "z": -20.158185958862306
                 },
                 "Scale": {
                     "x": 1.0,
@@ -20855,7 +20811,7 @@
                     "z": 0.75
                 },
                 "AABBOffset": {
-                    "x": 0.0,
+                    "x": 0.20000000298023225,
                     "y": 0.0,
                     "z": 0.0
                 },
@@ -20904,7 +20860,7 @@
                     "z": 0.75
                 },
                 "AABBOffset": {
-                    "x": 0.0,
+                    "x": -0.10000000149011612,
                     "y": 0.0,
                     "z": 0.0
                 },
@@ -24819,7 +24775,7 @@
                 "PositionY": 1.7999999523162842,
                 "ScaleX": 1.0,
                 "ScaleY": 3.299999952316284,
-                "Layer": 0.5699999332427979,
+                "Layer": 0.5799999833106995,
                 "Selectable": false,
                 "Opcaity": 1.0,
                 "Animated": false,
@@ -25901,494 +25857,8 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Pee20",
-                "EntityID": 593
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 23.576519012451173,
-                    "y": 0.2690647542476654,
-                    "z": -46.006141662597659
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "RexPee3",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Pee20Collision",
-                "EntityID": 594
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 23.827625274658204,
-                    "y": -0.02066829800605774,
-                    "z": -46.155723571777347
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.0,
-                    "y": 0.10000000149011612,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.25,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Pee21",
-                "EntityID": 595
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 27.53053092956543,
-                    "y": 0.2690647542476654,
-                    "z": -53.990318298339847
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "RexPee3",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Pee21Collision",
-                "EntityID": 596
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 27.640077590942384,
-                    "y": -0.02066829800605774,
-                    "z": -53.89693069458008
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.0,
-                    "y": 0.10000000149011612,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.25,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Pee22",
-                "EntityID": 597
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 30.962430953979493,
-                    "y": 0.2690647542476654,
-                    "z": -45.75830078125
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "RexPee3",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Pee22Collision",
-                "EntityID": 598
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 31.3131103515625,
-                    "y": -0.02066829800605774,
-                    "z": -45.568115234375
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.0,
-                    "y": 0.10000000149011612,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.25,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Pee23",
-                "EntityID": 599
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 22.296323776245118,
-                    "y": 0.2690647542476654,
-                    "z": -62.841941833496097
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "RexPee3",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Pee23Collision",
-                "EntityID": 600
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 22.102956771850587,
-                    "y": -0.02066829800605774,
-                    "z": -62.848697662353519
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.0,
-                    "y": 0.10000000149011612,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.25,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Pee24",
-                "EntityID": 601
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 26.56452178955078,
-                    "y": 0.2690647542476654,
-                    "z": -70.98054504394531
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "RexPee3",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Pee24Collision",
-                "EntityID": 602
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 26.61953353881836,
-                    "y": -0.02066829800605774,
-                    "z": -71.17487335205078
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.0,
-                    "y": 0.10000000149011612,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.25,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Pee25",
-                "EntityID": 603
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 28.989805221557618,
-                    "y": 0.2690647542476654,
-                    "z": -65.61153411865235
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "RexPee3",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Pee25Collision",
-                "EntityID": 604
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 29.176435470581056,
-                    "y": -0.02066829800605774,
-                    "z": -65.75162506103516
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Square",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "AABBSize": {
-                    "x": 1.0,
-                    "y": 0.10000000149011612,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.25,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "PeeScent8",
-                "EntityID": 605
+                "EntityID": 593
             },
             "TransformComponent": {
                 "Position": {
@@ -26463,7 +25933,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent9",
-                "EntityID": 606
+                "EntityID": 594
             },
             "TransformComponent": {
                 "Position": {
@@ -26537,458 +26007,8 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "PeeScent10",
-                "EntityID": 607
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 30.253149032592775,
-                    "y": 1.0455282926559449,
-                    "z": -45.981285095214847
-                },
-                "Scale": {
-                    "x": 0.9999998807907105,
-                    "y": 1.0,
-                    "z": 0.9999998807907105
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.009030535817146302,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "ParticleComponent": {
-                "PositionMin": {
-                    "x": 1.0,
-                    "y": -0.5,
-                    "z": 1.0
-                },
-                "PositionMax": {
-                    "x": 1.0,
-                    "y": 0.5,
-                    "z": -2.5
-                },
-                "Density": 0.6000000238418579,
-                "VelocityMin": 1.0,
-                "VelocityMax": 3.0,
-                "TargetPositions": [
-                    {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 0.0,
-                        "y": 1.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": -1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
-                ],
-                "ParticleSize": 10.0,
-                "ParticleColor": {
-                    "r": 0.9607843160629273,
-                    "g": 0.3921568691730499,
-                    "b": 0.04313725605607033,
-                    "a": 0.0
-                },
-                "ParticleType": "TEXTURED",
-                "ParticleModel": "Bed",
-                "ParticleTexture": "cloud"
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "PeeScent11",
-                "EntityID": 608
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 23.26260757446289,
-                    "y": 1.0455282926559449,
-                    "z": -45.832454681396487
-                },
-                "Scale": {
-                    "x": 0.9999998807907105,
-                    "y": 1.0,
-                    "z": 0.9999998807907105
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.009030535817146302,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "ParticleComponent": {
-                "PositionMin": {
-                    "x": 1.0,
-                    "y": -0.5,
-                    "z": 1.0
-                },
-                "PositionMax": {
-                    "x": 1.0,
-                    "y": 0.5,
-                    "z": -2.5
-                },
-                "Density": 0.6000000238418579,
-                "VelocityMin": 1.0,
-                "VelocityMax": 3.0,
-                "TargetPositions": [
-                    {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 0.0,
-                        "y": 1.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": -1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
-                ],
-                "ParticleSize": 10.0,
-                "ParticleColor": {
-                    "r": 0.9607843160629273,
-                    "g": 0.3921568691730499,
-                    "b": 0.04313725605607033,
-                    "a": 0.0
-                },
-                "ParticleType": "TEXTURED",
-                "ParticleModel": "Bed",
-                "ParticleTexture": "cloud"
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "PeeScent12",
-                "EntityID": 609
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 27.234189987182618,
-                    "y": 1.0455282926559449,
-                    "z": -54.143733978271487
-                },
-                "Scale": {
-                    "x": 0.9999998807907105,
-                    "y": 1.0,
-                    "z": 0.9999998807907105
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.009030535817146302,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "ParticleComponent": {
-                "PositionMin": {
-                    "x": 1.0,
-                    "y": -0.5,
-                    "z": 1.0
-                },
-                "PositionMax": {
-                    "x": 1.0,
-                    "y": 0.5,
-                    "z": -2.5
-                },
-                "Density": 0.6000000238418579,
-                "VelocityMin": 1.0,
-                "VelocityMax": 3.0,
-                "TargetPositions": [
-                    {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 0.0,
-                        "y": 1.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": -1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
-                ],
-                "ParticleSize": 10.0,
-                "ParticleColor": {
-                    "r": 0.9607843160629273,
-                    "g": 0.3921568691730499,
-                    "b": 0.04313725605607033,
-                    "a": 0.0
-                },
-                "ParticleType": "TEXTURED",
-                "ParticleModel": "Bed",
-                "ParticleTexture": "cloud"
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "PeeScent13",
-                "EntityID": 610
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 21.810192108154298,
-                    "y": 1.0455282926559449,
-                    "z": -62.49992370605469
-                },
-                "Scale": {
-                    "x": 0.9999998807907105,
-                    "y": 1.0,
-                    "z": 0.9999998807907105
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.009030535817146302,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "ParticleComponent": {
-                "PositionMin": {
-                    "x": 1.0,
-                    "y": -0.5,
-                    "z": 1.0
-                },
-                "PositionMax": {
-                    "x": 1.0,
-                    "y": 0.5,
-                    "z": -2.5
-                },
-                "Density": 0.6000000238418579,
-                "VelocityMin": 1.0,
-                "VelocityMax": 3.0,
-                "TargetPositions": [
-                    {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 0.0,
-                        "y": 1.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": -1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
-                ],
-                "ParticleSize": 10.0,
-                "ParticleColor": {
-                    "r": 0.9607843160629273,
-                    "g": 0.3921568691730499,
-                    "b": 0.04313725605607033,
-                    "a": 0.0
-                },
-                "ParticleType": "TEXTURED",
-                "ParticleModel": "Bed",
-                "ParticleTexture": "cloud"
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "PeeScent14",
-                "EntityID": 611
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 28.555309295654298,
-                    "y": 1.0455282926559449,
-                    "z": -65.75422668457031
-                },
-                "Scale": {
-                    "x": 0.9999998807907105,
-                    "y": 1.0,
-                    "z": 0.9999998807907105
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.009030535817146302,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "ParticleComponent": {
-                "PositionMin": {
-                    "x": 1.0,
-                    "y": -0.5,
-                    "z": 1.0
-                },
-                "PositionMax": {
-                    "x": 1.0,
-                    "y": 0.5,
-                    "z": -2.5
-                },
-                "Density": 0.6000000238418579,
-                "VelocityMin": 1.0,
-                "VelocityMax": 3.0,
-                "TargetPositions": [
-                    {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 0.0,
-                        "y": 1.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": -1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
-                ],
-                "ParticleSize": 10.0,
-                "ParticleColor": {
-                    "r": 0.9607843160629273,
-                    "g": 0.3921568691730499,
-                    "b": 0.04313725605607033,
-                    "a": 0.0
-                },
-                "ParticleType": "TEXTURED",
-                "ParticleModel": "Bed",
-                "ParticleTexture": "cloud"
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "PeeScent15",
-                "EntityID": 612
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 26.13380241394043,
-                    "y": 1.0455282926559449,
-                    "z": -70.9642105102539
-                },
-                "Scale": {
-                    "x": 0.9999998807907105,
-                    "y": 1.0,
-                    "z": 0.9999998807907105
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 0.009030535817146302,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "ParticleComponent": {
-                "PositionMin": {
-                    "x": 1.0,
-                    "y": -0.5,
-                    "z": 1.0
-                },
-                "PositionMax": {
-                    "x": 1.0,
-                    "y": 0.5,
-                    "z": -2.5
-                },
-                "Density": 0.6000000238418579,
-                "VelocityMin": 1.0,
-                "VelocityMax": 3.0,
-                "TargetPositions": [
-                    {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 0.0,
-                        "y": 1.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": -1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
-                ],
-                "ParticleSize": 10.0,
-                "ParticleColor": {
-                    "r": 0.9607843160629273,
-                    "g": 0.3921568691730499,
-                    "b": 0.04313725605607033,
-                    "a": 0.0
-                },
-                "ParticleType": "TEXTURED",
-                "ParticleModel": "Bed",
-                "ParticleTexture": "cloud"
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "PeeScent16",
-                "EntityID": 613
+                "EntityID": 595
             },
             "TransformComponent": {
                 "Position": {
@@ -27063,7 +26083,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent17",
-                "EntityID": 614
+                "EntityID": 596
             },
             "TransformComponent": {
                 "Position": {
@@ -27138,7 +26158,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent18",
-                "EntityID": 615
+                "EntityID": 597
             },
             "TransformComponent": {
                 "Position": {
@@ -27213,7 +26233,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent19",
-                "EntityID": 616
+                "EntityID": 598
             },
             "TransformComponent": {
                 "Position": {
@@ -27288,7 +26308,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent20",
-                "EntityID": 617
+                "EntityID": 599
             },
             "TransformComponent": {
                 "Position": {
@@ -27363,7 +26383,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent21",
-                "EntityID": 618
+                "EntityID": 600
             },
             "TransformComponent": {
                 "Position": {
@@ -27438,7 +26458,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent22",
-                "EntityID": 619
+                "EntityID": 601
             },
             "TransformComponent": {
                 "Position": {
@@ -27513,7 +26533,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent23",
-                "EntityID": 620
+                "EntityID": 602
             },
             "TransformComponent": {
                 "Position": {
@@ -27588,7 +26608,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent24",
-                "EntityID": 621
+                "EntityID": 603
             },
             "TransformComponent": {
                 "Position": {
@@ -27663,7 +26683,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent25",
-                "EntityID": 622
+                "EntityID": 604
             },
             "TransformComponent": {
                 "Position": {
@@ -27733,6 +26753,48 @@
                 "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
                 "ParticleTexture": "cloud"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Stinky1",
+                "EntityID": 605
+            },
+            "UIComponent": {
+                "TextureName": "Stinky",
+                "PositionX": -0.44999998807907107,
+                "PositionY": -0.699999988079071,
+                "ScaleX": 0.15000000596046449,
+                "ScaleY": 0.25,
+                "Layer": 0.5699999332427979,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Stinky2",
+                "EntityID": 606
+            },
+            "UIComponent": {
+                "TextureName": "StinkyDog",
+                "PositionX": 0.4000000059604645,
+                "PositionY": -0.699999988079071,
+                "ScaleX": 0.15000000596046449,
+                "ScaleY": 0.25,
+                "Layer": 0.5699999332427979,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         }
     ]

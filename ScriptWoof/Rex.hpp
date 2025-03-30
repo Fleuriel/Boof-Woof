@@ -287,7 +287,7 @@ struct Rex final : public Behaviour
             if (groundEntity == INVALID_ENT)
             {
                 // No ground detected, continue moving downward
-                velocity.y -= 100.0f * static_cast<float>(m_Engine.GetDeltaTime());  // Simulated gravity effect
+                velocity.y -= 200.0f * static_cast<float>(m_Engine.GetDeltaTime());  // Simulated gravity effect
                 //std::cout << "[Rex] Falling... Current Y: " << currentPos.y << std::endl;
             }
             else
