@@ -123,7 +123,7 @@ class MainHall : public Level
 				}
 			}
 		}
-
+		g_Player = playerEnt;
 		g_Window->HideMouseCursor();
 	}
 

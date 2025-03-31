@@ -131,6 +131,7 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 
 	UIComponent& sniffa = g_Coordinator.GetComponent<UIComponent>(CDSniff);
 	UIComponent& sniffaAnimation = g_Coordinator.GetComponent<UIComponent>(Sniffa);
+	std::vector<Entity> nodePath;
 
 	if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && canPressE) 
 	{
@@ -141,19 +142,22 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 
 		sniffAnimationTimer = 5.0f;
 		
-		/*
-		 
+
 		// Check if player has pathfinding component
-		if(g_Coordinator.HaveComponent<PathfindingComponent>()){
+		if(g_Coordinator.HaveComponent<PathfindingComponent>(g_Player)){
+			auto tempPathComp = g_Coordinator.GetComponent<PathfindingComponent>(g_Player);
+			
 			// Get the path and all the nodes in the path
-
+			g_Coordinator.GetSystem<PathfindingSystem>()->FindEntityPath(tempPathComp.GetStartNode(), tempPathComp.GetGoalNode(), nodePath);
+			
 			// For each node in the path, activate particles opacity to 0.3f
-
-			// Set the timer to 3 seconds
-
-			// deactivate particles for all entities after 3 seconds
+			for (auto node : nodePath) {
+				if (g_Coordinator.HaveComponent<ParticleComponent>(node)) {
+					ParticleComponent& particle = g_Coordinator.GetComponent<ParticleComponent>(node);
+					particle.setOpacity(0.3f);
+				}
+			}
 		}
-		*/
 		// Activate particles for all entities
 		for (Entity particleEntity : particles)
 		{
@@ -172,6 +176,14 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 		particleTimer -= dt;
 		if (particleTimer <= 0.0f) 
 		{
+			// Deactivate particles for all entities
+			for (auto node : nodePath) {
+				if (g_Coordinator.HaveComponent<ParticleComponent>(node)) {
+					ParticleComponent& particle = g_Coordinator.GetComponent<ParticleComponent>(node);
+					particle.setOpacity(0.0f);
+				}
+			}
+
 			for (Entity particleEntity : particles)
 			{
 				if (g_Coordinator.HaveComponent<ParticleComponent>(particleEntity))

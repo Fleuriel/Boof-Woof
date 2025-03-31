@@ -200,6 +200,10 @@ struct Player final : public Behaviour
 			//std::tuple<int, float, float> animationWalk = m_Engine.GetAnimationVector(entity)[AANIM_WALKING];
 			//std::tuple<int, float, float> animationRun = m_Engine.GetAnimationVector(entity)[AANIM_RUNNING];
 
+			// If have Pathfinding Component, Set Start node to nearest node
+			if (m_Engine.HavePathfindingComponent(entity)) {
+				m_Engine.SetStartNode(entity, m_Engine.GetNearestNode(m_Engine.GetPlayerEntity()));
+			}
 
 			// If not exhausted, run. Else, stop running, walk.
 			if (m_Engine.getInputSystem().isActionPressed("Sprint") && !m_Engine.GetExhausted())

@@ -352,6 +352,14 @@ public:
 		return {};
 	}
 
+	virtual void GetEntityPathNodes(Entity entity, std::vector<Entity>& pathNodes) override {
+		if (HavePathfindingComponent(entity)) {
+			auto comp = g_Coordinator.GetComponent<PathfindingComponent>(entity);
+			g_Coordinator.GetSystem<PathfindingSystem>()->FindEntityPath(comp.GetStartNode(), comp.GetGoalNode(), pathNodes);
+			std::cout << "[Engine] Finding node path for Entity " << entity << std::endl;
+		}
+	}
+
 	virtual void SetStartNode(Entity entity, Entity node) override {
 		if (HavePathfindingComponent(entity)) {
 			g_Coordinator.GetComponent<PathfindingComponent>(entity).SetStartNode(node);
