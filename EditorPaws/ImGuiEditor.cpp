@@ -2549,6 +2549,15 @@ void ImGuiEditor::InspectorWindow()
 									// Debugging for player type
 									ImGui::Text("Is Player: %s", collisionComponent.IsPlayer() ? "Yes" : "No");
 
+									// Checkbox for Sensor flag
+									bool isSensor = collisionComponent.IsSensor();
+									if (ImGui::Checkbox("Is Sensor", &isSensor)) {
+										collisionComponent.SetIsSensor(isSensor);
+
+										// Sensors also need body rebuild to apply the Jolt sensor flag
+										g_Coordinator.GetSystem<MyPhysicsSystem>()->UpdateEntityBody(g_SelectedEntity, 0.0f);
+									}
+
 									// AABB Size Editor
 									graphicsComponent.boundingBox = collisionComponent.GetAABBSize();
 

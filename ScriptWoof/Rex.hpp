@@ -280,7 +280,7 @@ struct Rex final : public Behaviour
             }
 
             // **Ground Check Implementation (Continuous Falling)**
-            float maxGroundCheckDistance = 1.40f;
+            float maxGroundCheckDistance = 1.4f;
             glm::vec3 downward = glm::vec3(0.0f, -1.0f, 0.0f);
             Entity groundEntity = m_Engine.getPhysicsSystem().Raycast(currentPos, downward, maxGroundCheckDistance, entity);
 
@@ -295,8 +295,8 @@ struct Rex final : public Behaviour
                 // Ground detected, adjust position to the ground height
                 float raycastFraction = m_Engine.getPhysicsSystem().RaycastFraction(currentPos, downward, maxGroundCheckDistance, entity);
                 glm::vec3 groundPosition = currentPos + downward * raycastFraction * maxGroundCheckDistance;
-
-                currentPos.y = groundPosition.y + 0.1f;
+                float groundY = groundPosition.y;
+                currentPos.y = groundY + 0.1f;  // Normal positioning
                 velocity.y = 0.0f;  // Stop falling
 
                 //std::cout << "[Rex] Landed on ground at Y: " << groundPosition.y << std::endl;

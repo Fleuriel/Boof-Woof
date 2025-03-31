@@ -37,6 +37,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -86,6 +87,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -135,6 +137,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -184,6 +187,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -236,6 +240,7 @@
                 "IsDynamic": true,
                 "IsKinematic": false,
                 "IsPlayer": true,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 2.9000000953674318,
                     "y": 1.7999999523162842,
@@ -428,6 +433,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -477,6 +483,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -526,6 +533,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -703,6 +711,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -752,6 +761,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -865,6 +875,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -914,6 +925,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -963,6 +975,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -1076,6 +1089,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -1125,6 +1139,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -1174,6 +1189,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -1255,6 +1271,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -1304,6 +1321,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -1353,6 +1371,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -1530,6 +1549,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -1579,6 +1599,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -1628,6 +1649,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -1677,6 +1699,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -1726,6 +1749,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -1775,6 +1799,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -1824,6 +1849,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -1873,6 +1899,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -1922,6 +1949,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -1971,6 +1999,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2020,6 +2049,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2069,6 +2099,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2118,6 +2149,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2167,6 +2199,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2216,6 +2249,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2265,6 +2299,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2410,6 +2445,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2459,6 +2495,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2508,6 +2545,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2557,6 +2595,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2606,6 +2645,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2655,6 +2695,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2704,6 +2745,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2753,6 +2795,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2802,6 +2845,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2851,6 +2895,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2900,6 +2945,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2949,6 +2995,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -2998,6 +3045,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3047,6 +3095,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3096,6 +3145,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3145,6 +3195,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3194,6 +3245,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3243,6 +3295,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3292,6 +3345,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3341,6 +3395,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.600000023841858,
                     "y": 2.450000047683716,
@@ -3390,6 +3445,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3439,6 +3495,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3488,6 +3545,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3537,6 +3595,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3586,6 +3645,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3635,6 +3695,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3684,6 +3745,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3733,6 +3795,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3782,6 +3845,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3831,6 +3895,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -3880,6 +3945,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -4057,6 +4123,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -4106,6 +4173,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -4155,6 +4223,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -4204,6 +4273,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -4253,6 +4323,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
                     "y": 3.0,
@@ -4302,6 +4373,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.75,
                     "y": 3.0,
@@ -4351,6 +4423,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -4400,6 +4473,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -4449,6 +4523,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -4498,6 +4573,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -4547,6 +4623,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -4596,6 +4673,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -4645,6 +4723,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.600000023841858,
                     "y": 2.450000047683716,
@@ -4694,6 +4773,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -4743,6 +4823,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -4792,6 +4873,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.8999999761581421,
                     "y": 3.0,
@@ -4841,6 +4923,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
                     "y": 3.0,
@@ -4890,6 +4973,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.75,
                     "y": 3.0999999046325685,
@@ -4939,6 +5023,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.699999988079071,
                     "y": 3.0,
@@ -4988,6 +5073,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5037,6 +5123,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5086,6 +5173,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5135,6 +5223,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5184,6 +5273,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5233,6 +5323,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5282,6 +5373,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5331,6 +5423,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5380,6 +5473,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5429,6 +5523,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5478,6 +5573,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5527,6 +5623,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5576,6 +5673,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5625,6 +5723,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5674,6 +5773,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5723,6 +5823,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5772,6 +5873,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5821,6 +5923,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5870,6 +5973,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5919,6 +6023,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -5968,6 +6073,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -6017,6 +6123,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -6066,6 +6173,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -6115,6 +6223,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -6164,6 +6273,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -6213,6 +6323,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -6262,6 +6373,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -6311,6 +6423,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -6360,6 +6473,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 3.049999952316284,
                     "y": 2.75,
@@ -6473,6 +6587,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -6522,6 +6637,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -6571,6 +6687,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -6620,6 +6737,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -6669,6 +6787,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -6718,6 +6837,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -6767,6 +6887,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -6816,6 +6937,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -6865,6 +6987,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -6914,6 +7037,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -6963,6 +7087,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -7012,6 +7137,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -7093,6 +7219,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -7142,6 +7269,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -7191,6 +7319,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -7400,6 +7529,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.699999988079071,
                     "y": 3.0,
@@ -7481,6 +7611,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.699999988079071,
                     "y": 3.0,
@@ -7530,6 +7661,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -7579,6 +7711,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -7692,6 +7825,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -7741,6 +7875,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -7790,6 +7925,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -7839,6 +7975,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -7888,6 +8025,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.800000011920929,
@@ -7937,6 +8075,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -7986,6 +8125,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -8035,6 +8175,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -8212,6 +8353,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": true,
                 "AABBSize": {
                     "x": 3.0999999046325685,
                     "y": 0.10000000149011612,
@@ -8219,7 +8361,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": -0.05000000074505806,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -8233,7 +8375,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 19.595211029052736,
-                    "y": 0.05765911936759949,
+                    "y": 0.05765911564230919,
                     "z": -51.21894836425781
                 },
                 "Scale": {
@@ -8261,6 +8403,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": true,
                 "AABBSize": {
                     "x": 3.0999999046325685,
                     "y": 0.10000000149011612,
@@ -8268,7 +8411,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": -0.05000000074505806,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -8282,7 +8425,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 26.587562561035158,
-                    "y": 0.05443340539932251,
+                    "y": 0.05443340167403221,
                     "z": -51.18040084838867
                 },
                 "Scale": {
@@ -8310,6 +8453,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": true,
                 "AABBSize": {
                     "x": 3.0999999046325685,
                     "y": 0.10000000149011612,
@@ -8317,7 +8461,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": -0.05000000074505806,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -8359,6 +8503,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": true,
                 "AABBSize": {
                     "x": 3.0999999046325685,
                     "y": 0.10000000149011612,
@@ -8366,7 +8511,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": -0.05000000074505806,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -8380,7 +8525,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 8.231480598449707,
-                    "y": 0.05154973268508911,
+                    "y": 0.05154972895979881,
                     "z": -48.547019958496097
                 },
                 "Scale": {
@@ -8408,6 +8553,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": true,
                 "AABBSize": {
                     "x": 3.0999999046325685,
                     "y": 0.10000000149011612,
@@ -8415,7 +8561,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": -0.05000000074505806,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -8457,6 +8603,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 3.0999999046325685,
                     "y": 0.10000000149011612,
@@ -8464,7 +8611,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": -0.05000000074505806,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -8538,6 +8685,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -8587,6 +8735,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -8636,6 +8785,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -8685,6 +8835,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -8734,6 +8885,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -8783,6 +8935,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -8832,6 +8985,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -8881,6 +9035,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -8930,6 +9085,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -8979,6 +9135,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9028,6 +9185,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9077,6 +9235,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9126,6 +9285,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9175,6 +9335,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9224,6 +9385,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9273,6 +9435,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9322,6 +9485,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9371,6 +9535,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9420,6 +9585,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9469,6 +9635,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9518,6 +9685,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9567,6 +9735,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9616,6 +9785,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9665,6 +9835,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9714,6 +9885,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9763,6 +9935,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9812,6 +9985,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9861,6 +10035,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.75,
                     "y": 3.0,
@@ -9910,6 +10085,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -9959,6 +10135,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10008,6 +10185,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10057,6 +10235,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10106,6 +10285,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10155,6 +10335,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10204,6 +10385,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10253,6 +10435,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10302,6 +10485,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10351,6 +10535,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10400,6 +10585,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10449,6 +10635,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10498,6 +10685,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10547,6 +10735,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10596,6 +10785,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10645,6 +10835,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10694,6 +10885,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10743,6 +10935,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10792,6 +10985,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -10905,6 +11099,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 2.799999952316284,
                     "y": 3.0,
@@ -11114,6 +11309,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11163,6 +11359,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11212,6 +11409,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11261,6 +11459,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11310,6 +11509,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11359,6 +11559,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11408,6 +11609,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11457,6 +11659,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11506,6 +11709,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11555,6 +11759,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11604,6 +11809,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11653,6 +11859,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11702,6 +11909,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11751,6 +11959,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11800,6 +12009,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11849,6 +12059,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11898,6 +12109,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11947,6 +12159,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -11996,6 +12209,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12045,6 +12259,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12094,6 +12309,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12143,6 +12359,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12192,6 +12409,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12241,6 +12459,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12290,6 +12509,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12339,6 +12559,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12388,6 +12609,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12437,6 +12659,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12486,6 +12709,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12535,6 +12759,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12584,6 +12809,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12633,6 +12859,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12682,6 +12909,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12731,6 +12959,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -12780,6 +13009,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.800000011920929,
                     "y": 3.0,
@@ -14551,6 +14781,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 2.0,
                     "y": 1.899999976158142,
@@ -14651,9 +14882,9 @@
                     "z": -33.5359992980957
                 },
                 "Scale": {
-                    "x": 0.4999999403953552,
+                    "x": 0.49999988079071047,
                     "y": 0.5,
-                    "z": 0.4999999403953552
+                    "z": 0.49999988079071047
                 },
                 "Rotation": {
                     "x": -3.1415908336639406,
@@ -14678,6 +14909,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.15000000596046449,
@@ -14805,6 +15037,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 2.0,
                     "y": 1.7999999523162842,
@@ -14932,6 +15165,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 0.5,
                     "y": 0.15000000596046449,
@@ -15833,6 +16067,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 1.649999976158142,
                     "y": 2.450000047683716,
@@ -15946,6 +16181,7 @@
                 "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 7.900000095367432,
                     "y": 0.20000000298023225,
@@ -15966,8 +16202,8 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 20.049699783325197,
-                    "y": 1.5022042989730836,
+                    "x": 20.100643157958986,
+                    "y": 1.5353432893753052,
                     "z": 17.999996185302736
                 },
                 "Scale": {
@@ -16023,6 +16259,7 @@
                 "IsDynamic": true,
                 "IsKinematic": false,
                 "IsPlayer": false,
+                "IsSensor": false,
                 "AABBSize": {
                     "x": 3.450000047683716,
                     "y": 2.799999952316284,
