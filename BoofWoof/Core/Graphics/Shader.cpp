@@ -313,7 +313,7 @@ void OpenGLShader::SetUniform(GLchar const* name, GLboolean val) {
         glUniform1i(loc, val);
     }
     else {
-        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -330,7 +330,7 @@ void OpenGLShader::SetUniform(GLchar const* name, GLint val) {
         glUniform1i(loc, val);
     }
     else {
-        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -347,7 +347,7 @@ void OpenGLShader::SetUniform(GLchar const* name, GLfloat val) {
         glUniform1f(loc, val);
     }
     else {
-        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -364,7 +364,7 @@ void OpenGLShader::SetUniform(GLchar const* name, GLfloat x, GLfloat y) {
         glUniform2f(loc, x, y);
     }
     else {
-        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -384,7 +384,7 @@ void OpenGLShader::SetUniform(GLchar const* name, GLfloat x, GLfloat y, GLfloat 
         glUniform3f(loc, x, y, z);
     }
     else {
-        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -402,7 +402,7 @@ OpenGLShader::SetUniform(GLchar const* name, GLfloat x, GLfloat y, GLfloat z, GL
         glUniform4f(loc, x, y, z, w);
     }
     else {
-        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -419,7 +419,7 @@ void OpenGLShader::SetUniform(GLchar const* name, glm::vec2 const& val) {
         glUniform2f(loc, val.x, val.y);
     }
     else {
-        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -436,7 +436,7 @@ void OpenGLShader::SetUniform(GLchar const* name, glm::vec3 const& val) {
         glUniform3f(loc, val.x, val.y, val.z);
     }
     else {
-        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -453,7 +453,7 @@ void OpenGLShader::SetUniform(GLchar const* name, glm::vec4 const& val) {
         glUniform4f(loc, val.x, val.y, val.z, val.w);
     }
     else {
-        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -484,7 +484,7 @@ void OpenGLShader::SetUniform(GLchar const* name, glm::mat3 const& val) {
         glUniformMatrix3fv(loc, 1, GL_FALSE, &val[0][0]);
     }
     else {
-        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 /**************************************************************************
@@ -501,7 +501,7 @@ void OpenGLShader::SetUniform(GLchar const* name, glm::mat4 const& val) {
         glUniformMatrix4fv(loc, 1, GL_FALSE, &val[0][0]);
     }
     else {
-        std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
+        //std::cout << "Uniform variable " << name << " doesn't exist" << std::endl;
     }
 }
 
