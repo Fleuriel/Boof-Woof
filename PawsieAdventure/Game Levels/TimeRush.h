@@ -29,7 +29,6 @@ class TimeRush : public Level
 	bool isColorChanged = false;
 	bool hasBarked = false;  // Ensures barking only happens once when time is up
 
-
 	// Timer for the level
 	double timerLimit = 40.0;
 	bool finishTR{ false };
@@ -38,6 +37,9 @@ class TimeRush : public Level
 	double sniffCooldownTimer = 0.0;  // Accumulates time
 	const double sniffCooldownDuration = 17.0;  // 17 seconds
 	bool isSniffOnCooldown = false;
+
+	Entity heart;
+	bool heartgozoomies = false;
 
 	std::vector<Entity> particleEntities;
 
@@ -110,6 +112,12 @@ class TimeRush : public Level
 					&& scentEntity5 && scentEntity6 && scentEntity7 && scentEntity8 && scentEntity9 && TimeRushBGM && AggroDog && CorgiSniff && FireSound && rexEnt)
 				{
 					break;
+				}
+			}
+
+			if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
+				if (g_Coordinator.GetComponent<UIComponent>(entity).get_texturename() == "Heart") {
+					heart = entity;
 				}
 			}
 		}
@@ -185,6 +193,9 @@ class TimeRush : public Level
 		g_UI.OnInitialize();
 
 		g_TimerTR.timer = timerLimit;
+
+
+		g_Coordinator.GetComponent<UIComponent>(heart).set_opacity(0.f);
 	}
 
 	void UpdateLevel(double deltaTime) override
@@ -266,6 +277,38 @@ class TimeRush : public Level
 
 			g_DialogueText.checkCollision(playerEnt, deltaTime);
 			g_DialogueText.OnUpdate(deltaTime);
+
+
+			std::string collidedObject = g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName();
+
+			if (g_TimerTR.touched && (collidedObject == "TennisBall" || collidedObject == "Bone")) {
+				heartgozoomies = true;
+			}
+
+			auto& heartUIComp = g_Coordinator.GetComponent<UIComponent>(heart);
+
+			if (heartgozoomies) {
+				heartUIComp.set_opacity(1.f);
+
+				float currentY = heartUIComp.get_position().y;
+				float limitY = 0.2f;
+
+				// Speed factor that decreases as it nears the limit
+				float heartSpeed = 0.05f * (limitY - currentY);
+
+				heartUIComp.set_position(heartUIComp.get_position() + glm::vec2{ 0.0f, heartSpeed });
+			}
+			else {
+				if (heartUIComp.get_opacity() > 0.f)
+					heartUIComp.set_opacity(heartUIComp.get_opacity() - 0.01f);
+				else
+					heartUIComp.set_position(glm::vec2{ heartUIComp.get_position().x, -1.2f });
+			}
+
+			// Stop movement once it reaches the limit
+			if (heartUIComp.get_position().y >= 0.17f) {
+				heartgozoomies = false;
+			}
 
 			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
 			/*
