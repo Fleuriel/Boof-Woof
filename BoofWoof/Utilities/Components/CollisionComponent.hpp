@@ -55,6 +55,7 @@ public:
     void SetIsKinematic(bool isKinematic) { m_IsKinematic = isKinematic; }
     void SetIsPlayer(bool isPlayer) { m_IsPlayer = isPlayer; }
     void SetIsColliding(bool value) { isColliding = value; }
+    void SetIsSensor(bool isSensor) { m_IsSensor = isSensor; }
 
     // Getters
 	Entity GetEntityID() const { return m_EntityID; }
@@ -65,6 +66,7 @@ public:
     bool IsKinematic() const { return m_IsKinematic; }
     bool IsPlayer() const { return m_IsPlayer; }
     bool GetIsColliding() const { return isColliding; }
+    bool IsSensor() const { return m_IsSensor; }
 
     // AABB Size Getters and Setters
     void SetAABBSize(const glm::vec3& size) 
@@ -148,6 +150,7 @@ public:
         REGISTER_PROPERTY(CollisionComponent, IsGrounded, bool, SetIsGrounded, GetIsGrounded);  // Add this line
         REGISTER_PROPERTY(CollisionComponent, Friction, float, SetFriction, GetFriction);
         REGISTER_PROPERTY(CollisionComponent, CollisionNormal, glm::vec3, SetCollisionNormal, GetCollisionNormal);
+        REGISTER_PROPERTY(CollisionComponent, IsSensor, bool, SetIsSensor, IsSensor);
     }
 
 private:
@@ -159,6 +162,7 @@ private:
     glm::vec3 AABBOffset = glm::vec3(0.0f); // Default to no offset
     bool m_IsDynamic = false;             // Flag to determine if the entity is dynamic or static
     bool m_IsKinematic = false;
+    bool m_IsSensor = false;
     bool m_IsPlayer = false;            // Determines if the entity is a player
     bool isColliding = false; // Flag to track collision status
     std::string lastCollidedObjectName = "None"; // Default to no collision

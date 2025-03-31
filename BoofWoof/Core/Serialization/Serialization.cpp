@@ -326,6 +326,7 @@ bool Serialization::SaveScene(const std::string& filepath) {
             collisionData.AddMember("IsDynamic", collisionComp.IsDynamic(), allocator);
             collisionData.AddMember("IsKinematic", collisionComp.IsKinematic(), allocator);
             collisionData.AddMember("IsPlayer", collisionComp.IsPlayer(), allocator);
+            collisionData.AddMember("IsSensor", collisionComp.IsSensor(), allocator);
 
             // Save AABB size
             rapidjson::Value aabbSize(rapidjson::kObjectType);
@@ -1045,11 +1046,13 @@ bool Serialization::LoadScene(const std::string& filepath)
                 bool isDynamic = collisionData.HasMember("IsDynamic") ? collisionData["IsDynamic"].GetBool() : false;
                 bool isKinematic = collisionData.HasMember("IsKinematic") ? collisionData["IsKinematic"].GetBool() : false;
                 bool isPlayer = collisionData.HasMember("IsPlayer") ? collisionData["IsPlayer"].GetBool() : false;
+                bool isSensor = collisionData.HasMember("IsSensor") ? collisionData["IsSensor"].GetBool() : false;
 
                 CollisionComponent collisionComponent(layer);
                 collisionComponent.SetIsDynamic(isDynamic);
                 collisionComponent.SetIsKinematic(isKinematic);
                 collisionComponent.SetIsPlayer(isPlayer);
+                collisionComponent.SetIsSensor(isSensor);
 
                 // Load AABB size
                 if (collisionData.HasMember("AABBSize")) {
@@ -1679,11 +1682,13 @@ void Serialization::FinalizeEntitiesFromSceneData(const SceneData& data)
             bool isDynamic = CData["IsDynamic"].GetBool();
             bool isKinematic = CData["IsKinematic"].GetBool();
             bool isPlayer = CData["IsPlayer"].GetBool();
+            bool isSensor = CData["IsSensor"].GetBool();
 
             CollisionComponent colComp(layer);
             colComp.SetIsDynamic(isDynamic);
             colComp.SetIsKinematic(isKinematic);
             colComp.SetIsPlayer(isPlayer);
+            colComp.SetIsSensor(isSensor);
 
             if (CData.HasMember("AABBSize"))
             {
