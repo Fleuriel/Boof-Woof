@@ -295,9 +295,20 @@ struct Rex final : public Behaviour
                 // Ground detected, adjust position to the ground height
                 float raycastFraction = m_Engine.getPhysicsSystem().RaycastFraction(currentPos, downward, maxGroundCheckDistance, entity);
                 glm::vec3 groundPosition = currentPos + downward * raycastFraction * maxGroundCheckDistance;
+                float groundY = groundPosition.y;
 
-                currentPos.y = groundPosition.y + 0.1f;
-                velocity.y = 0.0f;  // Stop falling
+                // Check if Rex is too close to the ground (likely sank)
+                if (currentPos.y <= 1.68f)
+                {
+                    velocity.y += 1000.0f * static_cast<float>(m_Engine.GetDeltaTime());
+                    std::cout << "[Rex] Adjusting Y due to potential sink: " << velocity.y << std::endl;
+                    std::cout << "[Rex] Current Pos: " << currentPos.y << std::endl;
+                }
+                else
+                {
+                    currentPos.y = groundY + 0.1f;  // Normal positioning
+                    velocity.y = 0.0f;  // Stop falling
+                }     
 
                 //std::cout << "[Rex] Landed on ground at Y: " << groundPosition.y << std::endl;
             }

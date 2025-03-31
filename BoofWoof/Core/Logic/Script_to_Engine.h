@@ -541,7 +541,7 @@ public:
 
 			if (animDeltaTime < timeStart || animDeltaTime > timeEnd)
 			{
-				std::cout << "it entered here in playAnim \n";
+				//std::cout << "it entered here in playAnim \n";
 				animatorIt->second->SetAnimationTime(timeStart);
 			}
 		}

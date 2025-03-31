@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "0059a51d-3b53-4b68-a0b8-6cf3ba90deea",
+    "SceneGUID": "b89e7b76-77e5-465b-b8fb-6dfec955730a",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,7 +8,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.765071537349286e-7,
+                    "x": 4.765063295053551e-7,
                     "y": 1.1999999284744263,
                     "z": -1.1762665510177613
                 },
@@ -3807,7 +3807,7 @@
                     "z": 0.75
                 },
                 "AABBOffset": {
-                    "x": -0.15000000596046449,
+                    "x": -0.30000001192092898,
                     "y": 0.0,
                     "z": 0.0
                 },
@@ -3856,7 +3856,7 @@
                     "z": 0.75
                 },
                 "AABBOffset": {
-                    "x": 0.20000000298023225,
+                    "x": 0.4000000059604645,
                     "y": 0.0,
                     "z": 0.0
                 },
@@ -14394,7 +14394,7 @@
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
-                "IsDynamic": true,
+                "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
                 "AABBSize": {
@@ -21815,7 +21815,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -21896,7 +21896,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -21977,7 +21977,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -22058,7 +22058,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -22139,7 +22139,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -23298,7 +23298,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.7000000476837159,
@@ -23379,7 +23379,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.7000000476837159,
@@ -23460,7 +23460,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.7000000476837159,
@@ -24719,7 +24719,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -24800,7 +24800,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -24881,7 +24881,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -24962,7 +24962,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -25043,7 +25043,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -25124,7 +25124,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -25254,7 +25254,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -25335,7 +25335,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -25416,7 +25416,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -25497,7 +25497,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -25578,7 +25578,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
@@ -25659,7 +25659,7 @@
             "CollisionComponent": {
                 "CollisionLayer": 0,
                 "IsDynamic": false,
-                "IsKinematic": false,
+                "IsKinematic": true,
                 "IsPlayer": false,
                 "AABBSize": {
                     "x": 1.0,
