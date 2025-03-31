@@ -18,6 +18,7 @@ float UI::savedPelletOpacities[5] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f }; // Default
 
 bool UI::isExhausted = false;
 bool UI::isStunned = false;
+std::vector<Entity> nodePath;
 
 void UI::OnInitialize()
 {
@@ -131,7 +132,7 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 
 	UIComponent& sniffa = g_Coordinator.GetComponent<UIComponent>(CDSniff);
 	UIComponent& sniffaAnimation = g_Coordinator.GetComponent<UIComponent>(Sniffa);
-	std::vector<Entity> nodePath;
+	//std::vector<Entity> nodePath;
 
 	if (g_Input.GetKeyState(GLFW_KEY_E) >= 1 && canPressE) 
 	{
