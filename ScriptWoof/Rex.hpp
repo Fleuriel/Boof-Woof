@@ -11,6 +11,7 @@ struct Rex final : public Behaviour
     int currentPathIndex = 0;
     bool followingPath = false;
     bool pathInitialized = false;
+	bool reachedDestination = false;
     float speed = 5.0f;
     float pathThreshold = 0.2f;
     bool isMovingRex = false;
@@ -20,6 +21,7 @@ struct Rex final : public Behaviour
     Entity playerEntity = INVALID_ENT;
 	int rotationCounter = 0;
 	double timer = 0.0f;
+	double patroldelay = 0.0f;
     bool gravitySet = false;  // Track if gravity has been disabled for Rex
 
     double dialogueCDTimer = 10.0;
@@ -84,7 +86,7 @@ struct Rex final : public Behaviour
             //CheckForObjectsBelow(entity);
 
 
-            //std::tuple<int, float, float> animationIdle = m_Engine.GetAnimationVector(entity)[ANIM_IDLE];
+            std::tuple<int, float, float> animationIdle = m_Engine.GetAnimationVector(entity)[ANIM_IDLE];
             std::tuple<int, float, float> animationWalk = m_Engine.GetAnimationVector(entity)[ANIM_WALKING];
             std::tuple<int, float, float> animationRun = m_Engine.GetAnimationVector(entity)[ANIM_RUNNING];
 
@@ -102,123 +104,135 @@ struct Rex final : public Behaviour
                     break;
                 }
                 //std::cout << "[Rex] Patrolling...\n";
-
-                // Ensure path is properly initialized after resetting the scene
-                if (!pathInitialized)
-                {
-
-                    //std::cout << "[Pathfinding] Checking if entity " << entity << " has a pathfinding component..." << std::endl;
-
-                    if (m_Engine.HavePathfindingComponent(entity))
+				if (reachedDestination) {
+					if (patroldelay > 0.0f) {
+						patroldelay -= m_Engine.GetDeltaTime();
+						m_Engine.PlayAnimation(entity, std::get<1>(animationIdle), std::get<1>(animationIdle));
+					}
+					else {
+						reachedDestination = false;
+					}
+				}
+                else {
+                    // Ensure path is properly initialized after resetting the scene
+                    if (!pathInitialized)
                     {
-                        path = m_Engine.GetPath(entity);
-                        //std::cout << "[Pathfinding] Retrieved path of length " << path.size() << std::endl;
-                        // print start and end node
-                        std::cout << "Start node : " << m_Engine.GetStartNode(entity) << " , " << "End node : " << m_Engine.GetGoalNode(entity) << std::endl;
 
-                        if (!path.empty())
+                        //std::cout << "[Pathfinding] Checking if entity " << entity << " has a pathfinding component..." << std::endl;
+
+                        if (m_Engine.HavePathfindingComponent(entity))
                         {
-                            currentPathIndex = 0;
-                            followingPath = true; // <-- This was missing before
-                            std::cout << "[Pathfinding] Path successfully retrieved! Entity " << entity << " will start moving." << std::endl;
+                            path = m_Engine.GetPath(entity);
+                            //std::cout << "[Pathfinding] Retrieved path of length " << path.size() << std::endl;
+                            // print start and end node
+                            std::cout << "Start node : " << m_Engine.GetStartNode(entity) << " , " << "End node : " << m_Engine.GetGoalNode(entity) << std::endl;
+
+                            if (!path.empty())
+                            {
+                                currentPathIndex = 0;
+                                followingPath = true; // <-- This was missing before
+                                std::cout << "[Pathfinding] Path successfully retrieved! Entity " << entity << " will start moving." << std::endl;
+                            }
+                            else
+                            {
+                                followingPath = false;
+                                isMovingRex = false;
+                                std::cout << "[Pathfinding] ERROR: No valid path! Entity " << entity << " will NOT start moving." << std::endl;
+                                //std::cout << "[Pathfinding] ERROR: Path is empty after scene reload!" << std::endl;
+                                m_Engine.SetGoalNode(entity, m_Engine.GetRandomNode(entity));
+                                break;
+                            }
                         }
                         else
                         {
-                            followingPath = false;
-                            isMovingRex = false;
-                            std::cout << "[Pathfinding] ERROR: No valid path! Entity " << entity << " will NOT start moving." << std::endl;
-                            //std::cout << "[Pathfinding] ERROR: Path is empty after scene reload!" << std::endl;
-                            m_Engine.SetGoalNode(entity, m_Engine.GetRandomNode(entity));
-                            break;
+                            //std::cout << "[Pathfinding] ERROR: No pathfinding component found!" << std::endl;
                         }
-                    }
-                    else
-                    {
-                        //std::cout << "[Pathfinding] ERROR: No pathfinding component found!" << std::endl;
+
+                        pathInitialized = true; // Set after we have attempted to load the path
                     }
 
-                    pathInitialized = true; // Set after we have attempted to load the path
-                }
-
-                // Fix: Ensure followingPath is set to true if the path is valid
-                if (path.size() > 0 && !followingPath)
-                {
-                    //std::cout << "[Pathfinding] WARNING: Path exists but followingPath is FALSE! Fixing..." << std::endl;
-                    followingPath = true;
-                }
-
-                // If not at the nearest node, move to the nearest node
-
-
-                // Move towards the next waypoint
-                if (followingPath && currentPathIndex < path.size())
-                {
-                    glm::vec3 targetPos = path[currentPathIndex];
-
-                    // Lock Y-axis movement to keep the entity on the ground
-                    targetPos.y = currentPos.y;
-
-                    glm::vec3 direction = glm::normalize(targetPos - currentPos);
-
-                    //// Debugging direction calculation
-                    //std::cout << "[Pathfinding] Calculated direction vector: ("
-                    //    << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
-
-                    //// *** ADD RAYCAST CHECK HERE ***
-                    //float rayDistance = 2.0f; // Check 2 meters ahead
-                    //Entity hitEntity = m_Engine.getPhysicsSystem().Raycast(currentPos, direction, rayDistance);
-
-                    //if (hitEntity != invalid_entity)
-                    //{
-                    //    std::cout << "[Rex] Object detected in front! Entity ID: " << hitEntity << std::endl;
-                    //    velocity = glm::vec3(0.0f); // Stop movement if an obstacle is in front
-                    //}
-
-                    // Ensure no division by zero and check if movement is happening
-                    if (glm::length(direction) > 0.0001f)
+                    // Fix: Ensure followingPath is set to true if the path is valid
+                    if (path.size() > 0 && !followingPath)
                     {
-                        velocity = direction * speed;
-                    }
-                    else
-                    {
-                        //std::cout << "[Pathfinding] WARNING: Direction vector too small, setting velocity to zero." << std::endl;
-                        velocity = glm::vec3(0.0f);
+                        //std::cout << "[Pathfinding] WARNING: Path exists but followingPath is FALSE! Fixing..." << std::endl;
+                        followingPath = true;
                     }
 
-                    float distance = glm::length(targetPos - currentPos);
-                    //std::cout << "[Pathfinding] Moving towards waypoint " << currentPathIndex + 1 << " at (" << targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << std::endl;
-                    //std::cout << "[Pathfinding] Distance to next waypoint: " << distance << std::endl;
+                    // If not at the nearest node, move to the nearest node
 
-                    // Check if the entity has reached the waypoint
-                    if (distance <= pathThreshold)
+
+                    // Move towards the next waypoint
+                    if (followingPath && currentPathIndex < path.size())
                     {
-                        std::cout << "[Pathfinding] Reached waypoint " << currentPathIndex + 1 << std::endl;
-                        currentPathIndex++;
+                        glm::vec3 targetPos = path[currentPathIndex];
 
-                        if (currentPathIndex >= path.size())
+                        // Lock Y-axis movement to keep the entity on the ground
+                        targetPos.y = currentPos.y;
+
+                        glm::vec3 direction = glm::normalize(targetPos - currentPos);
+
+                        //// Debugging direction calculation
+                        //std::cout << "[Pathfinding] Calculated direction vector: ("
+                        //    << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
+
+                        //// *** ADD RAYCAST CHECK HERE ***
+                        //float rayDistance = 2.0f; // Check 2 meters ahead
+                        //Entity hitEntity = m_Engine.getPhysicsSystem().Raycast(currentPos, direction, rayDistance);
+
+                        //if (hitEntity != invalid_entity)
+                        //{
+                        //    std::cout << "[Rex] Object detected in front! Entity ID: " << hitEntity << std::endl;
+                        //    velocity = glm::vec3(0.0f); // Stop movement if an obstacle is in front
+                        //}
+
+                        // Ensure no division by zero and check if movement is happening
+                        if (glm::length(direction) > 0.0001f)
                         {
-
-                            followingPath = false;                // Commented out to allow for continuous path following
-                            currentPathIndex = 0;
-                            velocity = glm::vec3(0.0f);
-                            std::cout << "[Pathfinding] Entity " << entity << " has reached the final destination!" << std::endl;
-                            pathInitialized = false;
-                            // Find nearest node
-                            m_Engine.SetStartNode(entity, m_Engine.GetGoalNode(entity));
-
-                            // Get a random node to go to
-                            m_Engine.SetGoalNode(entity, m_Engine.GetRandomNode(entity));
-
-                            m_Engine.SetBuilt(entity, false);
+                            velocity = direction * speed;
                         }
+                        else
+                        {
+                            //std::cout << "[Pathfinding] WARNING: Direction vector too small, setting velocity to zero." << std::endl;
+                            velocity = glm::vec3(0.0f);
+                        }
+
+                        float distance = glm::length(targetPos - currentPos);
+                        //std::cout << "[Pathfinding] Moving towards waypoint " << currentPathIndex + 1 << " at (" << targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << std::endl;
+                        //std::cout << "[Pathfinding] Distance to next waypoint: " << distance << std::endl;
+
+                        // Check if the entity has reached the waypoint
+                        if (distance <= pathThreshold)
+                        {
+                            std::cout << "[Pathfinding] Reached waypoint " << currentPathIndex + 1 << std::endl;
+                            currentPathIndex++;
+
+                            if (currentPathIndex >= path.size())
+                            {
+
+                                followingPath = false;                // Commented out to allow for continuous path following
+                                currentPathIndex = 0;
+                                velocity = glm::vec3(0.0f);
+                                std::cout << "[Pathfinding] Entity " << entity << " has reached the final destination!" << std::endl;
+                                pathInitialized = false;
+                                reachedDestination = true;
+                                patroldelay = 4.0f;
+                                // Find nearest node
+                                m_Engine.SetStartNode(entity, m_Engine.GetGoalNode(entity));
+
+                                // Get a random node to go to
+                                m_Engine.SetGoalNode(entity, m_Engine.GetRandomNode(entity));
+
+                                m_Engine.SetBuilt(entity, false);
+                            }
+                        }
+                        isMovingRex = true;
                     }
-                    isMovingRex = true;
-                }
-                else if (!followingPath)
-                {
-                    std::cout << "[Pathfinding] No path to follow or already at the destination." << std::endl;
-                    //std::cout << "[Pathfinding] Debugging: pathInitialized = " << pathInitialized
-                    //    << ", followingPath = " << followingPath << ", path size = " << path.size() << std::endl;
+                    else if (!followingPath)
+                    {
+                        std::cout << "[Pathfinding] No path to follow or already at the destination." << std::endl;
+                        //std::cout << "[Pathfinding] Debugging: pathInitialized = " << pathInitialized
+                        //    << ", followingPath = " << followingPath << ", path size = " << path.size() << std::endl;
+                    }
                 }
                 break;
             case State::CHASE:
@@ -362,6 +376,8 @@ struct Rex final : public Behaviour
             }
         }
         else{
+            std::tuple<int, float, float> animationIdle = m_Engine.GetAnimationVector(entity)[ANIM_IDLE];
+			m_Engine.PlayAnimation(entity, std::get<1>(animationIdle), std::get<1>(animationIdle));
 			m_Engine.SetVelocity(entity, glm::vec3(0.0f));
         }
     }
@@ -501,6 +517,4 @@ struct Rex final : public Behaviour
             std::cout << "[Rex] Single Ray Test: No objects detected in front." << std::endl;
         }
     }
-
-
 };
