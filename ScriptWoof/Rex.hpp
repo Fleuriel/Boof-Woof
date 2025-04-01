@@ -22,7 +22,8 @@ struct Rex final : public Behaviour
 	double timer = 0.0f;
     bool gravitySet = false;  // Track if gravity has been disabled for Rex
 
-    
+    double dialogueCDTimer = 10.0;
+    bool justEnteredChase{ true };
 
     enum AnimState
     {
@@ -92,13 +93,12 @@ struct Rex final : public Behaviour
             switch (state) {
             case State::PATROL:
 
-                m_Engine.PlayAnimation(entity, std::get<1>(animationWalk), std::get<2>(animationWalk));
-
+                m_Engine.PlayAnimation(entity, std::get<1>(animationWalk), std::get<2>(animationWalk));              
+                
                 // Check if player is in front
                 if (CheckifPlayerInFront(entity)) {
-                    //std::cout << "This is crazy\n\n\n\n\n";
                     state = State::CHASE;
-                    m_Engine.SetDialogue(8);
+                    justEnteredChase = true;
                     break;
                 }
                 //std::cout << "[Rex] Patrolling...\n";
@@ -222,7 +222,25 @@ struct Rex final : public Behaviour
                 }
                 break;
             case State::CHASE:
-                std::cout << "[Rex] Chasing player...\n";
+
+                if (justEnteredChase) 
+                {
+                    m_Engine.SetDialogue(8);
+                    dialogueCDTimer = 10.0;
+                    justEnteredChase = false;
+                }
+                else 
+                {
+                    if (dialogueCDTimer > 0.0) {
+                        dialogueCDTimer -= m_Engine.GetDeltaTime();
+                    }
+
+                    if (dialogueCDTimer <= 0.0) {
+                        m_Engine.SetDialogue(8);
+                        dialogueCDTimer = 10.0;
+                    }
+                }
+
                 // Chase the player x and z only
                 glm::vec3 playerPos = m_Engine.GetPosition(playerEntity);
                 glm::vec3 direction = glm::normalize(playerPos - currentPos);
@@ -280,7 +298,7 @@ struct Rex final : public Behaviour
             }
 
             // **Ground Check Implementation (Continuous Falling)**
-            float maxGroundCheckDistance = 1.40f;
+            float maxGroundCheckDistance = 1.4f;
             glm::vec3 downward = glm::vec3(0.0f, -1.0f, 0.0f);
             Entity groundEntity = m_Engine.getPhysicsSystem().Raycast(currentPos, downward, maxGroundCheckDistance, entity);
 
@@ -295,8 +313,8 @@ struct Rex final : public Behaviour
                 // Ground detected, adjust position to the ground height
                 float raycastFraction = m_Engine.getPhysicsSystem().RaycastFraction(currentPos, downward, maxGroundCheckDistance, entity);
                 glm::vec3 groundPosition = currentPos + downward * raycastFraction * maxGroundCheckDistance;
-
-                currentPos.y = groundPosition.y + 0.1f;
+                float groundY = groundPosition.y;
+                currentPos.y = groundY + 0.1f;  // Normal positioning
                 velocity.y = 0.0f;  // Stop falling
 
                 //std::cout << "[Rex] Landed on ground at Y: " << groundPosition.y << std::endl;

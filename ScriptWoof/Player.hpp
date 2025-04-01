@@ -200,6 +200,10 @@ struct Player final : public Behaviour
 			//std::tuple<int, float, float> animationWalk = m_Engine.GetAnimationVector(entity)[AANIM_WALKING];
 			//std::tuple<int, float, float> animationRun = m_Engine.GetAnimationVector(entity)[AANIM_RUNNING];
 
+			// If have Pathfinding Component, Set Start node to nearest node
+			if (m_Engine.HavePathfindingComponent(entity)) {
+				m_Engine.SetStartNode(entity, m_Engine.GetNearestNode(m_Engine.GetPlayerEntity()));
+			}
 
 			// If not exhausted, run. Else, stop running, walk.
 			if (m_Engine.getInputSystem().isActionPressed("Sprint") && !m_Engine.GetExhausted())
@@ -277,6 +281,11 @@ struct Player final : public Behaviour
 				inCageBreaker = false;
 			}
 
+			/**************************************************************
+			*
+			* Escape key to exit cage breaker or rope breaker
+			*
+			***************************************************************/
 			if (m_Engine.getInputSystem().isActionPressed("Escape") && !m_Engine.isDialogueActive())
 			{
 				m_Engine.SetCollidingEntityName(entity);
@@ -284,6 +293,9 @@ struct Player final : public Behaviour
 				inRopeBreaker = false;
 			}
 
+			/**************************************************************
+			* Stun player for 2 seconds when touching toy
+			* **************************************************************/
 			if (touchingToy)
 			{
 				m_Engine.SetTouched(true);
@@ -304,6 +316,9 @@ struct Player final : public Behaviour
 				}
 			}
 
+			/**************************************************************
+			* Cooldown phase after being stunned
+			* **************************************************************/
 			if (cooldownActive)
 			{
 				cooldownTimer += m_Engine.GetDeltaTime();
@@ -317,8 +332,11 @@ struct Player final : public Behaviour
 				}
 			}
 
-
-			// Allow movement only if the player is grounded & not in rope breaker or touching toy or stunned
+			/**************************************************************
+			*
+			* Movement input handling for player ( only when not stunned/ in dialogue/ in minigame )
+			*
+			***************************************************************/
 			if (isGrounded && !inRopeBreaker && !touchingToy && !m_Engine.GetStunned() && !inCageBreaker && !m_Engine.isDialogueActive())
 			{
 				if (m_Engine.HaveCameraComponent(entity))

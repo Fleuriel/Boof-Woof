@@ -134,7 +134,7 @@ void TimerTR::OnUpdate(double deltaTime)
 	if (touched) 
 	{
 		// Show the world
-		if (!scaleUp)
+		if (!scaleUp && timer != 0.0)
 		{
 			minus.set_scale(glm::vec2(0.6f, 1.0f));
 			scaleUp = true;
