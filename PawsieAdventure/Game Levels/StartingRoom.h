@@ -39,6 +39,11 @@ public:
 	"Corgi/DogBite_07.wav",
 	};
 
+	// Transition state variables
+	bool transitionActive = false;
+	float transitionTimer = 0.0f;
+	const float transitionDuration = 1.0f; // Duration in seconds
+
 
 	// Function to get a random sound from a vector
 	std::string GetRandomSound(const std::vector<std::string>& soundList) {
@@ -268,10 +273,25 @@ public:
 			{
 				if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
 				{
+					transitionActive = true;
+					transitionTimer = 0.0f;
+				}
+			}
+
+			// If transition is active, update timer and render the effect.
+			if (transitionActive)
+			{
+				transitionTimer += static_cast<float>(deltaTime);
+				float progress = transitionTimer / transitionDuration; // Progress from 0.0 to 1.0.
+				// Call the GraphicsSystem's modern transition effect.
+				g_Coordinator.GetSystem<GraphicsSystem>()->RenderTransitionEffect(progress);
+
+				if (transitionTimer >= transitionDuration)
+				{
+					// Transition complete, trigger level change.
 					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 					if (loading)
 					{
-						// Pass in the name of the real scene we want AFTER the loading screen
 						loading->m_NextScene = "TimeRush";
 						g_LevelManager.SetNextLevel("LoadingLevel");
 					}
@@ -307,6 +327,8 @@ public:
 		sniff = false;
 		initChecklist = false;
 		destroyedRope = false;
+		transitionActive = false;
+		transitionTimer = 0.0f;
 		g_Audio.Stop(BedRoomBGM);
 
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
@@ -322,6 +344,8 @@ private:
 		sniff = false;
 		initChecklist = false;
 		savedcamdir = false;
+		transitionActive = false;
+		transitionTimer = 0.0f;
 		camdir = glm::vec3(0.0f);
 		particleEntities.clear();
 		sniffCooldownTimer = 0.0;

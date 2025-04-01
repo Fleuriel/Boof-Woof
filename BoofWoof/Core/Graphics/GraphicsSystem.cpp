@@ -1367,3 +1367,146 @@ void GraphicsSystem::RenderLightPos()
 
 
 
+static GLuint CompileShader(GLenum type, const char* source)
+{
+	GLuint shader = glCreateShader(type);
+	glShaderSource(shader, 1, &source, nullptr);
+	glCompileShader(shader);
+
+	GLint success;
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		char infoLog[512];
+		glGetShaderInfoLog(shader, 512, nullptr, infoLog);
+		std::cerr << "Shader compilation error: " << infoLog << std::endl;
+	}
+	return shader;
+}
+
+void GraphicsSystem::RenderTransitionEffect(float progress)
+{
+	// Clamp progress between 0.0 and 1.0.
+	if (progress < 0.0f)
+		progress = 0.0f;
+	if (progress > 1.0f)
+		progress = 1.0f;
+
+	// Static variables to hold our transition resources.
+	static bool initialized = false;
+	static GLuint transitionVAO = 0, transitionVBO = 0, transitionEBO = 0;
+	static GLuint transitionShaderProgram = 0;
+
+	if (!initialized)
+	{
+		// Define vertex shader source.
+		const char* vertexShaderSource = R"(
+            #version 330 core
+            layout (location = 0) in vec2 aPos;
+            uniform mat4 u_transform;
+            void main()
+            {
+                gl_Position = u_transform * vec4(aPos, 0.0, 1.0);
+            }
+        )";
+
+		// Define fragment shader source.
+		const char* fragmentShaderSource = R"(
+            #version 330 core
+            out vec4 FragColor;
+            uniform float u_alpha;
+            void main()
+            {
+                FragColor = vec4(0.0, 0.0, 0.0, u_alpha);
+            }
+        )";
+
+		// Compile shaders.
+		GLuint vertexShader = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
+		GLuint fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
+
+		// Create shader program and link.
+		transitionShaderProgram = glCreateProgram();
+		glAttachShader(transitionShaderProgram, vertexShader);
+		glAttachShader(transitionShaderProgram, fragmentShader);
+		glLinkProgram(transitionShaderProgram);
+
+		// Check linking.
+		GLint success;
+		glGetProgramiv(transitionShaderProgram, GL_LINK_STATUS, &success);
+		if (!success)
+		{
+			char infoLog[512];
+			glGetProgramInfoLog(transitionShaderProgram, 512, nullptr, infoLog);
+			std::cerr << "Shader Program linking error: " << infoLog << std::endl;
+		}
+		// Shaders are linked; we can delete them now.
+		glDeleteShader(vertexShader);
+		glDeleteShader(fragmentShader);
+
+		// Define full-screen quad vertices (in Normalized Device Coordinates).
+		float quadVertices[] = {
+			// positions (x, y)
+			-1.0f, -1.0f,
+			 1.0f, -1.0f,
+			 1.0f,  1.0f,
+			-1.0f,  1.0f
+		};
+
+		// Define indices for two triangles.
+		unsigned int indices[] = {
+			0, 1, 2,
+			0, 2, 3
+		};
+
+		// Generate VAO, VBO, and EBO.
+		glGenVertexArrays(1, &transitionVAO);
+		glGenBuffers(1, &transitionVBO);
+		glGenBuffers(1, &transitionEBO);
+
+		glBindVertexArray(transitionVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, transitionVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, transitionEBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+		// Vertex attribute: position (location = 0)
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+
+		// Unbind VAO for now.
+		glBindVertexArray(0);
+
+		initialized = true;
+	}
+
+	// Compute transformation matrix.
+	// Since our quad vertices cover [-1,1], its center is at (0,0).
+	// We want to rotate by -90 degrees * progress.
+	// To ensure full-screen coverage during rotation, we scale the quad by sqrt(2).
+	float scaleFactor = 1.41421356f; // Approximately sqrt(2)
+	glm::mat4 transform = glm::scale(glm::mat4(1.0f), glm::vec3(scaleFactor));
+	transform = glm::rotate(transform, glm::radians(-90.0f * progress), glm::vec3(0.0f, 0.0f, 1.0f));
+
+	// Save current OpenGL state if needed.
+	// (Make sure blending is enabled and depth test is disabled for overlay rendering.)
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// Render the quad.
+	glUseProgram(transitionShaderProgram);
+	// Set uniforms.
+	glUniformMatrix4fv(glGetUniformLocation(transitionShaderProgram, "u_transform"), 1, GL_FALSE, &transform[0][0]);
+	glUniform1f(glGetUniformLocation(transitionShaderProgram, "u_alpha"), progress);
+
+	glBindVertexArray(transitionVAO);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+
+	glUseProgram(0);
+
+	// Restore state.
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+}

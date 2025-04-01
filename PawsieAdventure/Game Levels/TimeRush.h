@@ -41,6 +41,11 @@ class TimeRush : public Level
 
 	std::vector<Entity> particleEntities;
 
+
+	bool transitionActive = false;
+	float transitionTimer = 0.0f;
+	const float transitionDuration = 1.0f; // Duration in seconds
+
 	bool bark = false;
 	std::vector<std::string> bitingSounds = {
 	"Corgi/DogBite_01.wav",
@@ -323,6 +328,33 @@ class TimeRush : public Level
 				}
 			}
 
+			if (g_Checklist.finishTR && g_Checklist.shutted)
+			{
+				if (!transitionActive)
+				{
+					transitionActive = true;
+					transitionTimer = 0.0f;
+				}
+				else
+				{
+					transitionTimer += static_cast<float>(deltaTime);
+					float progress = transitionTimer / transitionDuration;
+					// Call the GraphicsSystem's transition effect (modern shader-based).
+					g_Coordinator.GetSystem<GraphicsSystem>()->RenderTransitionEffect(progress);
+					if (transitionTimer >= transitionDuration)
+					{
+						g_TimerTR.OnShutdown();
+						auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+						if (loading)
+						{
+							// Set the next scene.
+							loading->m_NextScene = "Corridor";
+							g_LevelManager.SetNextLevel("LoadingLevel");
+						}
+					}
+				}
+			}
+
 			// Take this away once u shift to script
 			// Accumulate time for cooldown
 			if (isSniffOnCooldown) {
@@ -390,17 +422,7 @@ class TimeRush : public Level
 				}
 			}
 
-			if (g_Checklist.finishTR && g_Checklist.shutted)
-			{
-				g_TimerTR.OnShutdown();
-				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
-				if (loading)
-				{
-					// Pass in the name of the real scene we want AFTER the loading screen
-					loading->m_NextScene = "Corridor";
-					g_LevelManager.SetNextLevel("LoadingLevel");
-				}
-			}
+
 		}
 	}
 
@@ -483,6 +505,9 @@ private:
 		particleEntities.clear();
 		bark = false;
 		hasBarked = false;
+
+		transitionActive = false;
+		transitionTimer = 0.0f;
 
 		// If there are any other member variables that persist across plays,
 		// reset them here.
