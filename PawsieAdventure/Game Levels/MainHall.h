@@ -34,7 +34,7 @@ class MainHall : public Level
 
 	Entity stealthCollider1{}, stealthCollider2{}, stealthCollider3{}, stealthCollider4{};
 	Entity VFXBG{}, VFX1{}, VFX2{};
-	float VFX1Dir{ -0.005 }, VFX2Dir{ -0.005 };
+	float VFX1Dir{ -0.005f }, VFX2Dir{ -0.005f };
 
 	// Existing member variables...
 	float originalBrightness = 1.0f;
