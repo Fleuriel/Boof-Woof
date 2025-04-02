@@ -143,7 +143,7 @@ class MainHall : public Level
 		reverseTransitionTimer = 0.0f;
 
 		cameraController = new CameraController(playerEnt);
-		g_CageBreaker = CageBreaker(playerEnt, Cage1, Cage2, Cage3, Cage1Collider, Cage2Collider, Cage3Collider);
+		g_CageBreaker = CageBreaker(playerEnt, Cage1, Cage2, Cage3, Cage1Collider, Cage2Collider, Cage3Collider, puppy1, puppy2, puppy3);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
 
 		// Smell Avoidance
