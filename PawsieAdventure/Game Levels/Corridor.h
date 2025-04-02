@@ -36,6 +36,13 @@ class Corridor : public Level
     float transitionTimer = 0.0f;
     const float transitionDuration = 1.0f; // Duration in seconds
 
+    // Reverse transition state variables (for level start)
+    bool reverseTransitionActive = true;
+    float reverseTransitionTimer = 0.0f;
+    const float reverseTransitionDuration = 1.0f; // Duration for reverse transition
+
+
+
     // Function to get a random sound from a vector
     std::string GetRandomSound(const std::vector<std::string>& soundList) {
         static std::random_device rd;
@@ -82,6 +89,12 @@ public:
 
     void InitLevel() override
     {
+
+
+        // Activate reverse transition at level start.
+        reverseTransitionActive = true;
+        reverseTransitionTimer = 0.0f;
+
         // Ensure player entity is valid.
         cameraController = new CameraController(playerEnt);
         camerachange = false;
@@ -96,6 +109,26 @@ public:
 
     void UpdateLevel(double deltaTime) override
     {
+        // --- Reverse Transition Effect at Level Start ---
+        if (reverseTransitionActive)
+        {
+            g_Input.LockInput();
+            reverseTransitionTimer += static_cast<float>(deltaTime);
+            float revProgress = reverseTransitionTimer / reverseTransitionDuration;
+            if (revProgress > 1.0f) revProgress = 1.0f;
+            // Call the reverse transition effect from GraphicsSystem.
+            g_Coordinator.GetSystem<GraphicsSystem>()->RenderReverseTransitionEffect(revProgress);
+            if (reverseTransitionTimer >= reverseTransitionDuration)
+            {
+                g_Input.UnlockInput();
+                reverseTransitionActive = false;
+            }
+        }
+        else {
+            g_Input.UnlockInput();
+        }
+        // --- End Reverse Transition ---
+
         if (!g_DialogueText.dialogueActive)
         {
             pauseLogic::OnUpdate();
