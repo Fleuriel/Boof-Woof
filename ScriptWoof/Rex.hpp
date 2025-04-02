@@ -107,7 +107,7 @@ struct Rex final : public Behaviour
 				if (reachedDestination) {
 					if (patroldelay > 0.0f) {
 						patroldelay -= m_Engine.GetDeltaTime();
-						m_Engine.PlayAnimation(entity, std::get<1>(animationIdle), std::get<1>(animationIdle));
+						m_Engine.PlayAnimation(entity, std::get<1>(animationIdle), std::get<2>(animationIdle));
 					}
 					else {
 						reachedDestination = false;
