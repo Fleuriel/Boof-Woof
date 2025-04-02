@@ -128,14 +128,16 @@ class MainMenu : public Level
 				eXit = MenuPauser->eXitBtn;
 			}
 			if (eXit != INVALID_ENTITY) {
-				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(eXit);
-				if (UICompt.get_selected())
-				{
-					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/EscSFX.wav", false, "SFX");
-					RestoreUI();
+				if (g_Coordinator.HaveComponent<UIComponent>(eXit)) {
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(eXit);
+					if (UICompt.get_selected())
+					{
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/EscSFX.wav", false, "SFX");
+						RestoreUI();
 
-					inSmth = false;
-					MenuPauser->OnExit();
+						inSmth = false;
+						MenuPauser->OnExit();
+					}
 				}
 			}
 		}
