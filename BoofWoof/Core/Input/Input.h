@@ -90,6 +90,12 @@ public:
      *************************************************************************/
     void UpdateStatesForNextFrame();
 
+
+    // --- New Methods to Lock/Unlock Input ---
+    void LockInput() { inputLocked = true; }
+    void UnlockInput() { inputLocked = false; }
+    bool IsInputLocked() const { return inputLocked; }
+
     // Other Variables
     bool capsLockReleased{ true };
     bool capsLockOn{ false };
@@ -108,6 +114,9 @@ private:
     glm::vec2 mouse_position{ 0, 0 };                                // Stores mouse position
     
 	glm::vec2 mouse_pos_UI{ 0, 0 };                                  // Stores mouse position for UI
+
+    // --- New input lock variable ---
+    bool inputLocked = false;
 };
 
 #endif

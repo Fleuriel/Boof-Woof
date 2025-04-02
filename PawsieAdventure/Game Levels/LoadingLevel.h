@@ -12,6 +12,20 @@
 // (Assuming that "Entity" and MAX_ENTITIES are defined in your ECS system.)
 // For example, you might have: using Entity = unsigned int; and a constant MAX_ENTITIES.
 
+
+// Add this mapping at a global scope or as a static member in your LoadingLevel class.
+static const std::unordered_map<std::string, std::string> sceneNameMapping = {
+    {"Splashscreen", "Splash Screen"},
+    {"MainMenu",     "Main Menu"},
+    {"Cutscene",     "Cutscene"},
+    {"StartingRoom", "Starting Room"},
+    {"Corridor",     "Corridor"},
+    {"TimeRush",     "Library"},
+    {"MainHall",     "Main Hall"},
+    {"LoadingLevel", "Loading Level"},
+    {"CutsceneEnd",  "Cutscene End"},
+    {"TYVM",         "TYVM"}
+};
 class LoadingLevel : public Level
 {
 public:
@@ -76,6 +90,30 @@ public:
      */
     void UpdateLevel(double deltaTime) override
     {
+
+        std::string formattedNextScene = m_NextScene;
+        auto it = sceneNameMapping.find(m_NextScene);
+        if (it != sceneNameMapping.end())
+        {
+            formattedNextScene = it->second;
+        }
+
+        for (auto entity : g_Coordinator.GetAliveEntitiesSet())
+        {
+            if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+            {
+                auto& metadata = g_Coordinator.GetComponent<MetadataComponent>(entity);
+                if (metadata.GetName() == "HeadingToText")
+                {
+                    if (g_Coordinator.HaveComponent<FontComponent>(entity))
+                    {
+                        // Set the text to "Heading to " followed by the formatted scene name.
+                        g_Coordinator.GetComponent<FontComponent>(entity).set_text("Heading to " + formattedNextScene);
+                    }
+                }
+            }
+        }
+
         // (1) Start async load if not started yet.
         if (!m_LoadingStarted)
         {

@@ -43,6 +43,16 @@ class TimeRush : public Level
 
 	std::vector<Entity> particleEntities;
 
+
+	bool transitionActive = false;
+	float transitionTimer = 0.0f;
+	const float transitionDuration = 1.0f; // Duration in seconds
+
+	// Reverse transition state variables (for level start)
+	bool reverseTransitionActive = true;
+	float reverseTransitionTimer = 0.0f;
+	const float reverseTransitionDuration = 1.0f; // Duration for reverse transition
+
 	bool bark = false;
 	std::vector<std::string> bitingSounds = {
 	"Corgi/DogBite_01.wav",
@@ -115,9 +125,16 @@ class TimeRush : public Level
 				}
 			}
 
+
+		}
+		for (auto entity : entities) {
 			if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
-				if (g_Coordinator.GetComponent<UIComponent>(entity).get_texturename() == "Heart") {
+				auto& uiComp = g_Coordinator.GetComponent<UIComponent>(entity);
+				std::cout << "Found UIComponent with texturename: " << uiComp.get_texturename() << std::endl;
+				if (uiComp.get_texturename() == "Heart") {
 					heart = entity;
+					std::cout << "Heart entity assigned: " << heart << std::endl;
+					break;
 				}
 			}
 		}
@@ -128,6 +145,11 @@ class TimeRush : public Level
 	void InitLevel() override
 	{
 		ResetLevelState();
+
+		// Activate reverse transition at level start.
+		reverseTransitionActive = true;
+		reverseTransitionTimer = 0.0f;
+
 		g_IsCamPanning = true;
 		camtimer = 0.f;
 		camThirdPerson = panCam = returnCam = false;
@@ -195,12 +217,32 @@ class TimeRush : public Level
 
 		g_TimerTR.timer = timerLimit;
 
-
 		g_Coordinator.GetComponent<UIComponent>(heart).set_opacity(0.f);
 	}
 
 	void UpdateLevel(double deltaTime) override
 	{
+
+		// --- Reverse Transition Effect at Level Start ---
+		if (reverseTransitionActive)
+		{
+			g_Input.LockInput();
+			reverseTransitionTimer += static_cast<float>(deltaTime);
+			float revProgress = reverseTransitionTimer / reverseTransitionDuration;
+			if (revProgress > 1.0f) revProgress = 1.0f;
+			// Call the reverse transition effect from GraphicsSystem.
+			g_Coordinator.GetSystem<GraphicsSystem>()->RenderReverseTransitionEffect(revProgress);
+			if (reverseTransitionTimer >= reverseTransitionDuration)
+			{
+				g_Input.UnlockInput();
+				reverseTransitionActive = false;
+			}
+		}
+		else {
+			g_Input.UnlockInput();
+		}
+		// --- End Reverse Transition ---
+
 		if (g_IsPaused && !savedcamdir) {
 			camdir = cameraController->GetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
 			savedcamdir = true;
@@ -367,6 +409,33 @@ class TimeRush : public Level
 				}
 			}
 
+			if (g_Checklist.finishTR && g_Checklist.shutted)
+			{
+				if (!transitionActive)
+				{
+					transitionActive = true;
+					transitionTimer = 0.0f;
+				}
+				else
+				{
+					transitionTimer += static_cast<float>(deltaTime);
+					float progress = transitionTimer / transitionDuration;
+					// Call the GraphicsSystem's transition effect (modern shader-based).
+					g_Coordinator.GetSystem<GraphicsSystem>()->RenderTransitionEffect(progress);
+					if (transitionTimer >= transitionDuration)
+					{
+						g_TimerTR.OnShutdown();
+						auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+						if (loading)
+						{
+							// Set the next scene.
+							loading->m_NextScene = "Corridor";
+							g_LevelManager.SetNextLevel("LoadingLevel");
+						}
+					}
+				}
+			}
+
 			// Take this away once u shift to script
 			// Accumulate time for cooldown
 			if (isSniffOnCooldown) {
@@ -434,17 +503,7 @@ class TimeRush : public Level
 				}
 			}
 
-			if (g_Checklist.finishTR && g_Checklist.shutted)
-			{
-				g_TimerTR.OnShutdown();
-				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
-				if (loading)
-				{
-					// Pass in the name of the real scene we want AFTER the loading screen
-					loading->m_NextScene = "Corridor";
-					g_LevelManager.SetNextLevel("LoadingLevel");
-				}
-			}
+
 		}
 	}
 
@@ -527,6 +586,9 @@ private:
 		particleEntities.clear();
 		bark = false;
 		hasBarked = false;
+
+		transitionActive = false;
+		transitionTimer = 0.0f;
 
 		// If there are any other member variables that persist across plays,
 		// reset them here.

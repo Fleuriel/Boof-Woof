@@ -148,7 +148,8 @@ public:
     void RenderScence(OpenGLShader& shader);
     void RenderLightPos();
 
-
+    void RenderTransitionEffect(float progress);
+    void RenderReverseTransitionEffect(float progress);
 
 private:
     unsigned int fbo;
