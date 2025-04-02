@@ -5,7 +5,7 @@
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 #include "../Systems/PauseScreen/PauseScreen.h"
 
-Entity BackCamera{}, MenuMusic{}, MenuClick{}, StartGame{}, X{}, HTP{}, Cog{}, eXit{};
+Entity BackCamera{}, MenuMusic{}, MenuClick{}, StartGame{}, X{}, HTP{}, Cog{}, eXit{INVALID_ENTITY};
 std::unique_ptr<PauseMenu> MenuPauser = CreatePausedMenu(PauseState::Paused);
 float sfxVolume{ 1.0f }, bgmVolume{ 1.0f }, MasterVol{ 1.0f };
 bool inSmth{ false };
@@ -127,15 +127,16 @@ class MainMenu : public Level
 			{
 				eXit = MenuPauser->eXitBtn;
 			}
+			if (eXit != INVALID_ENTITY) {
+				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(eXit);
+				if (UICompt.get_selected())
+				{
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/EscSFX.wav", false, "SFX");
+					RestoreUI();
 
-			auto& UICompt = g_Coordinator.GetComponent<UIComponent>(eXit);
-			if (UICompt.get_selected())
-			{
-				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/EscSFX.wav", false, "SFX");
-				RestoreUI();
-
-				inSmth = false;
-				MenuPauser->OnExit();
+					inSmth = false;
+					MenuPauser->OnExit();
+				}
 			}
 		}
 
