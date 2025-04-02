@@ -125,9 +125,16 @@ class TimeRush : public Level
 				}
 			}
 
+
+		}
+		for (auto entity : entities) {
 			if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
-				if (g_Coordinator.GetComponent<UIComponent>(entity).get_texturename() == "Heart") {
+				auto& uiComp = g_Coordinator.GetComponent<UIComponent>(entity);
+				std::cout << "Found UIComponent with texturename: " << uiComp.get_texturename() << std::endl;
+				if (uiComp.get_texturename() == "Heart") {
 					heart = entity;
+					std::cout << "Heart entity assigned: " << heart << std::endl;
+					break;
 				}
 			}
 		}
@@ -209,7 +216,6 @@ class TimeRush : public Level
 		g_UI.OnInitialize();
 
 		g_TimerTR.timer = timerLimit;
-
 
 		g_Coordinator.GetComponent<UIComponent>(heart).set_opacity(0.f);
 	}
