@@ -30,7 +30,7 @@ class TimeRush : public Level
 	bool hasBarked = false;  // Ensures barking only happens once when time is up
 
 	// Timer for the level
-	double timerLimit = 40.0;
+	double timerLimit = 20.0;
 	bool finishTR{ false };
 	double timesUp = 2.0;
 
@@ -414,6 +414,7 @@ class TimeRush : public Level
 				if (!transitionActive)
 				{
 					transitionActive = true;
+					g_Input.LockInput();
 					transitionTimer = 0.0f;
 				}
 				else
@@ -534,7 +535,7 @@ class TimeRush : public Level
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
 			music.StopAudio();
 		}
-
+		g_Input.UnlockInput();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 		g_Checklist.finishTR = false;
@@ -575,7 +576,7 @@ private:
 		cooldownTimer = 0.0;
 		isColorChanged = false;
 
-		timerLimit = 40.0;
+		timerLimit = 20.0;
 		finishTR = false;
 		timesUp = 2.0;
 

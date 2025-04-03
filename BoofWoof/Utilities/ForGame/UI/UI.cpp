@@ -153,12 +153,36 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 			
 			// For each node in the path, activate particles opacity to 0.3f
 			for (auto node : nodePath) {
+				std::cout << "[UI] Node: " << node << ", ";
 				if (g_Coordinator.HaveComponent<ParticleComponent>(node)) {
 					ParticleComponent& particle = g_Coordinator.GetComponent<ParticleComponent>(node);
 					particle.setOpacity(0.3f);
+					std::cout << "yes\n";
+				}
+				else
+				{
+					std::cout << "no\n";
 				}
 			}
 		}
+		// If player does not have pathfinding component, get all nodes in the pathfinding system and light them up
+		else {
+			nodePath = g_Coordinator.GetSystem<PathfindingSystem>()->GetNodeList();
+			std::cout << "[UI] No pathfinding component found on player entity. Lighting up all nodes in pathfinding system." << std::endl;
+			for (auto node : nodePath) {
+				std::cout << "[UI] Node: " << node << ", ";
+				if (g_Coordinator.HaveComponent<ParticleComponent>(node)) {
+					ParticleComponent& particle = g_Coordinator.GetComponent<ParticleComponent>(node);
+					particle.setOpacity(0.3f);
+					std::cout << "yes\n";
+				}
+				else
+				{
+					std::cout << "no\n";
+				}
+			}
+		}
+
 		// Activate particles for all entities
 		for (Entity particleEntity : particles)
 		{

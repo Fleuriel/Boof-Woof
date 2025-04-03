@@ -15,7 +15,7 @@
 class StartingRoom : public Level
 {
 public:
-	Entity playerEnt{}, scentEntity{}, RopeE{}, RopeObj{};
+	Entity playerEnt{}, RopeE{}, RopeObj{};
 	CameraController* cameraController = nullptr;
 	bool bark{ false }, sniff{ false }, initChecklist{ false };
 	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{}, FireSound{};
@@ -71,7 +71,6 @@ public:
 		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
 		{
 			{"Player", [&](Entity entity) { playerEnt = entity; }},
-			{"ScentTrail", [&](Entity entity) { scentEntity = entity; }},
 			{"BedRoomMusic", [&](Entity entity) { BedRoomBGM = entity; }},
 			{"CorgiBark1", [&](Entity entity) { CorgiBark = entity; }},
 			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }},
@@ -119,7 +118,7 @@ public:
 				}
 
 				// Exit early if all entities are found
-				if (playerEnt && scentEntity && BedRoomBGM && CorgiBark && CorgiSniff && FireSound && RopeE && RopeObj)
+				if (playerEnt && BedRoomBGM && CorgiBark && CorgiSniff && FireSound && RopeE && RopeObj)
 				{
 					break;
 				}
@@ -145,7 +144,6 @@ public:
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
 
-		particleEntities = { scentEntity };
 		g_UI.OnInitialize();
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeE);
 		g_UI.inStartingRoom = true;
