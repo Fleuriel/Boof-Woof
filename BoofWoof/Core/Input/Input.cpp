@@ -37,6 +37,8 @@ InputSystem::InputSystem() {
 int InputSystem::GetKeyState(int index) {
     if (g_IsCamPanning)
         return 0;
+    if (inputLocked)
+        return false;
     return keyStates[index];
 }
 

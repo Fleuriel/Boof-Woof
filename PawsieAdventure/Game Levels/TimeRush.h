@@ -414,6 +414,7 @@ class TimeRush : public Level
 				if (!transitionActive)
 				{
 					transitionActive = true;
+					g_Input.LockInput();
 					transitionTimer = 0.0f;
 				}
 				else
@@ -534,7 +535,7 @@ class TimeRush : public Level
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
 			music.StopAudio();
 		}
-
+		g_Input.UnlockInput();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 		g_Checklist.finishTR = false;
