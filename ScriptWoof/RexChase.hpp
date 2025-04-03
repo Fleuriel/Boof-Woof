@@ -109,20 +109,30 @@ struct RexChase final : public Behaviour
                 // If player is in front
                 if (CheckifPlayerInFront(entity)) {
                     state = ATTACKING;
-                    std::cout << "Player is in front of Rex" << std::endl;
+                    //std::cout << "Player is in front of Rex" << std::endl;
                 }
                 // if player nearest node is the same as rex nearest node, stop and look around
                 else if (EntityNearestNode == PlayerNodeCheck) {
                     state = ATTACKING;
                     PlayerNearestNode = PlayerNodeCheck;
-                    std::cout << "Player is at the same node as Rex" << std::endl;
+                    //std::cout << "Player is at the same node as Rex" << std::endl;
                 }
                 else if (PlayerNearestNode != PlayerNodeCheck) {
-                    PlayerNearestNode = PlayerNodeCheck;
-                    pathInitialized = false;
-                    std::cout << "Player moved to a new node" << std::endl;
-                    state = MOVING;
-                    // Play animation for Run?
+                    //PlayerNearestNode = PlayerNodeCheck;
+                    //pathInitialized = false;
+                    //std::cout << "Player moved to a new node" << std::endl;
+                    //state = MOVING;
+                    //// Play animation for Run?
+
+                    if (state != ATTACKING) {
+                        PlayerNearestNode = PlayerNodeCheck;
+                        pathInitialized = false;
+                        std::cout << "Player moved to a new node" << std::endl;
+                        state = MOVING;
+                    }
+                    else {
+                        //std::cout << "[RexChase] Player moved but Rex is attacking, so pathfinding won't reset.\n";
+                    }
                 }
                 else {
                     /*
@@ -262,9 +272,9 @@ struct RexChase final : public Behaviour
 
                         float distance = glm::length(targetPos - currentPos);
 
-                        // DEBUG: Print movement towards next waypoint
-                        std::cout << "[RexChase] Moving towards waypoint " << currentPathIndex + 1 << " at ("
-                            << targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << " | Position: "<< currentPos.x << ", " << currentPos.y << ", " << currentPos.z << std::endl;
+                        //// DEBUG: Print movement towards next waypoint
+                        //std::cout << "[RexChase] Moving towards waypoint " << currentPathIndex + 1 << " at ("
+                        //    << targetPos.x << ", " << targetPos.y << ", " << targetPos.z << ")" << " | Position: "<< currentPos.x << ", " << currentPos.y << ", " << currentPos.z << std::endl;
 
                         if (distance <= pathThreshold)
                         {
