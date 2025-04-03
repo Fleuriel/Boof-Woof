@@ -33,12 +33,12 @@
                 "FollowCamera": true
             },
             "AnimationComponent": {
-                "Number of Animation Points": 4,
+                "Number of Animation Points": 5,
                 "Animations": [
                     {
                         "Animation ID": 0,
-                        "Start Time": 0.10000000149011612,
-                        "End Time": 340
+                        "Start Time": 0.0,
+                        "End Time": 500
                     },
                     {
                         "Animation ID": 1,
@@ -54,6 +54,12 @@
                         "Animation ID": 3,
                         "Start Time": 230.52999877929688,
                         "End Time": 279.739990234375
+                    },
+                    {
+                        "Animation ID": 4,
+                        "Start Time": 361,
+                        "End Time": 490
+
                     }
                 ]
             },
