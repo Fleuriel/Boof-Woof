@@ -32,7 +32,7 @@ class MainHall : public Level
 	Entity Cage1{}, Cage1Collider{}, Cage2{}, Cage2Collider{}, Cage3{}, Cage3Collider{};
 	bool cage1Collided{ false }, cage2Collided{ false }, cage3Collided{ false };
 
-	Entity stealthCollider1{}, stealthCollider2{}, stealthCollider3{}, stealthCollider4{};
+	Entity stealthCollider1{}, stealthCollider2{}, stealthCollider3{}, stealthCollider4{}, stealthCollider5{}, stealthCollider6{};
 	Entity VFXBG{}, VFX1{}, VFX2{};
 	float VFX1Dir{ -0.005f }, VFX2Dir{ -0.005f };
 
@@ -594,6 +594,8 @@ private:
 			{"StealthCollider2", [&](Entity entity) { stealthCollider2 = entity; }},
 			{"StealthCollider3", [&](Entity entity) { stealthCollider3 = entity; }},
 			{"StealthCollider4", [&](Entity entity) { stealthCollider4 = entity; }},
+			{"StealthCollider5", [&](Entity entity) { stealthCollider5 = entity; }},
+			{"StealthCollider6", [&](Entity entity) { stealthCollider6 = entity; }},
 			{"PeeScent1", [&](Entity entity) { peeScent1 = entity; }},
 			{"PeeScent2", [&](Entity entity) { peeScent2 = entity; }},
 			{"PeeScent3", [&](Entity entity) { peeScent3 = entity; }},
@@ -618,7 +620,7 @@ private:
 
 	bool AllEntitiesInitialized() const
 	{
-		return playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3 && peeScent25;
+		return playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3 && stealthCollider6;
 	}
 
 	void InitializeChecklist()
@@ -723,7 +725,9 @@ private:
 		bool isColliding = CheckEntityWithPlayerCollision(stealthCollider1) ||
 			CheckEntityWithPlayerCollision(stealthCollider2) ||
 			CheckEntityWithPlayerCollision(stealthCollider3) ||
-			CheckEntityWithPlayerCollision(stealthCollider4);
+			CheckEntityWithPlayerCollision(stealthCollider4) ||
+			CheckEntityWithPlayerCollision(stealthCollider5) ||
+			CheckEntityWithPlayerCollision(stealthCollider6);
 
 		static bool wasColliding = false;
 
