@@ -363,7 +363,7 @@ public:
 	virtual void SetStartNode(Entity entity, Entity node) override {
 		if (HavePathfindingComponent(entity)) {
 			g_Coordinator.GetComponent<PathfindingComponent>(entity).SetStartNode(node);
-			std::cout << "[Engine] Set start node for Entity " << entity << " to " << node << std::endl;
+			// std::cout << "[Engine] Set start node for Entity " << entity << " to " << node << std::endl;
 		}
 	}
 
@@ -380,7 +380,7 @@ public:
 	virtual void SetGoalNode(Entity entity, Entity node) override {
 		if (HavePathfindingComponent(entity)) {
 			g_Coordinator.GetComponent<PathfindingComponent>(entity).SetGoalNode(node);
-			std::cout << "[Engine] Set goal node for Entity " << entity << " to " << node << std::endl;
+			//std::cout << "[Engine] Set goal node for Entity " << entity << " to " << node << std::endl;
 		}
 	}
 
@@ -543,7 +543,7 @@ public:
 		if (animatorIt != g_ResourceManager.AnimatorMap.end() && animatorIt->second)
 		{
 			// Update the animation with the given delta time
-			animatorIt->second->UpdateAnimation(graphicsComp.deltaTime);
+			animatorIt->second->UpdateAnimation(anim, graphicsComp.deltaTime);
 
 			//std::cout << animDeltaTime << '\t' << timeStart << '\t' << timeEnd << '\t' << '\n';
 			//	std::cout << "Graphics Component Model name : " << modelName << '\n';
@@ -558,6 +558,24 @@ public:
 		{
 			std::cerr << "Animator for model \"" << modelName << "\" not found or is null." << std::endl;
 		}
+	}
+
+	virtual void PauseAnimation(Entity entity) override
+	{
+
+		auto& anim = g_Coordinator.GetComponent<AnimationComponent>(entity);
+		anim.pauseAnimation = true;
+	}
+	virtual void PlayAnimation(Entity entity)override
+	{
+
+		auto& anim = g_Coordinator.GetComponent<AnimationComponent>(entity);
+		anim.pauseAnimation = false;
+
+	}
+	virtual void UnPauseAnimation(Entity entity)override
+	{
+		PlayAnimation(entity);
 	}
 
 };

@@ -133,6 +133,10 @@ struct engine_interface
 
 	virtual void PlayAnimation(Entity entity, float timeStart, float timeEnd) = 0;
 
+	virtual void PauseAnimation(Entity entity) = 0;
+	virtual void PlayAnimation(Entity entity) = 0;
+	virtual void UnPauseAnimation(Entity entity) = 0;
+
 
 };
 

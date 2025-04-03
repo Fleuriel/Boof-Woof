@@ -469,8 +469,8 @@ struct Player final : public Behaviour
 
 					if (!footstepSound.empty())
 					{
-						std::cout << "[DEBUG] Playing sound: " << footstepSound << std::endl;
-						m_Engine.getAudioSystem().PlaySoundByFile(footstepSound.c_str(), false, "SFX");
+						//std::cout << "[DEBUG] Playing sound: " << footstepSound << std::endl;
+						//m_Engine.getAudioSystem().PlaySoundByFile(footstepSound.c_str(), false, "SFX");
 					}
 
 					footstepTimer = footstepInterval; // ? Reset timer
