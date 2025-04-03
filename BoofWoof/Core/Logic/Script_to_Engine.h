@@ -405,10 +405,11 @@ public:
 		return g_Coordinator.GetSystem<PathfindingSystem>()->GetClosestNode(entityPosition);
 	}
 
+	// For MainHall Only
 	virtual Entity GetRandomNode(Entity entity) override {
 		Entity start = g_Coordinator.GetComponent<PathfindingComponent>(entity).GetStartNode();
 
-		std::vector<Entity> list = g_Coordinator.GetSystem<PathfindingSystem>()->GetNodeList();
+		std::vector<Entity> list = { 0,0,0,0,6,7,8,9,10,11,12,13,14,15,16,17 }; // Hardcoded list of nodes to choose from
 		// Get a random node from the list
 		std::random_device rd;   // Seed
 		std::mt19937 gen(rd());  // Mersenne Twister random engine

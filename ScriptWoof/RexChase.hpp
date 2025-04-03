@@ -26,8 +26,7 @@ struct RexChase final : public Behaviour
     glm::vec3 previousPlayerPosition = glm::vec3(0.0f);  // New: Store player's last position
     float movementThreshold = 0.1f;  // New: Define a movement threshold to prevent unnecessary updates
 
-    double dialogueCDTimer = 10.0;
-    bool justEnteredChase{ true };
+    bool sawPlayer{ false };
 
     enum AnimState
     {
@@ -116,7 +115,6 @@ struct RexChase final : public Behaviour
                 // if player nearest node is the same as rex nearest node, stop and look around
                 else if (EntityNearestNode == PlayerNodeCheck) {
                     state = ATTACKING;
-                    justEnteredChase = true;
                     PlayerNearestNode = PlayerNodeCheck;
                     //std::cout << "Player is at the same node as Rex" << std::endl;
                 }
@@ -326,22 +324,9 @@ struct RexChase final : public Behaviour
                     }
                     isMovingRex = true;
 
-                    if (justEnteredChase)
-                    {
+                    if (!sawPlayer) {
                         m_Engine.SetDialogue(8);
-                        dialogueCDTimer = 10.0;
-                        justEnteredChase = false;
-                    }
-                    else
-                    {
-                        if (dialogueCDTimer > 0.0) {
-                            dialogueCDTimer -= m_Engine.GetDeltaTime();
-                        }
-
-                        if (dialogueCDTimer <= 0.0) {
-                            m_Engine.SetDialogue(8);
-                            dialogueCDTimer = 10.0;
-                        }
+                        sawPlayer = true;
                     }
 
                     break;

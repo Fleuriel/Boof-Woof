@@ -26,17 +26,17 @@ std::filesystem::path FindDllPath(const std::string& targetPath, const std::stri
     // Check if the DLL is already in the current directory
     std::filesystem::path workingDirPath = currentPath / targetName;
     if (std::filesystem::exists(workingDirPath)) {
-        std::cout << targetName << " found in the working directory: " << workingDirPath << std::endl;
+        std::cout <<"[LogicSystem]" << targetName << " found in the working directory: " << workingDirPath << std::endl;
         return workingDirPath; // Use the DLL from the current directory
     }
 
     // If not found, traverse parent directories
     for (int counter = 0; counter <= 5; ++counter) {
         std::filesystem::path tempPath = currentPath / targetPath / targetName;
-        std::cout << "Checking: " << tempPath << std::endl;
+        std::cout << "[LogicSystem]Checking: " << tempPath << std::endl;
 
         if (std::filesystem::exists(tempPath)) {
-            std::cout << targetName << " found in parent directory: " << tempPath << std::endl;
+            std::cout << "[LogicSystem]" << targetName << " found in parent directory: " << tempPath << std::endl;
             return tempPath;
         }
 
@@ -45,7 +45,7 @@ std::filesystem::path FindDllPath(const std::string& targetPath, const std::stri
     }
 
     // DLL not found after 5 levels of traversal
-    std::cerr << targetName << " not found within 5 parent directories or in the working directory." << std::endl;
+    std::cerr << "[LogicSystem]" << targetName << " not found within 5 parent directories or in the working directory." << std::endl;
     return "";
 }
 
