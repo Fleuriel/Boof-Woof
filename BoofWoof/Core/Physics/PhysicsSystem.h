@@ -338,9 +338,9 @@ public:
         const JPH::ContactManifold& inManifold,
         JPH::ContactSettings& ioSettings)
     {
-        std::cout << "Collision detected between bodies with IDs: "
-            << inBody1.GetID().GetIndex() << " and "
-            << inBody2.GetID().GetIndex() << std::endl;
+        //std::cout << "Collision detected between bodies with IDs: "
+        //    << inBody1.GetID().GetIndex() << " and "
+        //    << inBody2.GetID().GetIndex() << std::endl;
 
         Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
         Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
@@ -398,8 +398,8 @@ public:
                 collisionComponent1.SetIsColliding(true);
 				collisionComponent1.SetLastCollidedObjectName(metaComponent.GetName());
 
-				std::cout << "Entity " << entity1 << " is colliding with: "
-					<< metaComponent.GetName() << std::endl;
+				//std::cout << "Entity " << entity1 << " is colliding with: "
+				//	<< metaComponent.GetName() << std::endl;
             }
 
             if (g_Coordinator.HaveComponent<MetadataComponent>(entity2))
@@ -408,8 +408,8 @@ public:
                 collisionComponent2.SetIsColliding(true);
                 collisionComponent2.SetLastCollidedObjectName(metaComponent.GetName());
 
-                std::cout << "Entity " << entity2 << " is colliding with: "
-                    << metaComponent.GetName() << std::endl;
+                //std::cout << "Entity " << entity2 << " is colliding with: "
+                //    << metaComponent.GetName() << std::endl;
             }
             /*
             if (g_Coordinator.HaveComponent<GraphicsComponent>(entity2)) {

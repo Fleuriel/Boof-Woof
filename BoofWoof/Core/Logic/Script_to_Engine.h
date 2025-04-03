@@ -363,7 +363,7 @@ public:
 	virtual void SetStartNode(Entity entity, Entity node) override {
 		if (HavePathfindingComponent(entity)) {
 			g_Coordinator.GetComponent<PathfindingComponent>(entity).SetStartNode(node);
-			std::cout << "[Engine] Set start node for Entity " << entity << " to " << node << std::endl;
+			// std::cout << "[Engine] Set start node for Entity " << entity << " to " << node << std::endl;
 		}
 	}
 
@@ -380,7 +380,7 @@ public:
 	virtual void SetGoalNode(Entity entity, Entity node) override {
 		if (HavePathfindingComponent(entity)) {
 			g_Coordinator.GetComponent<PathfindingComponent>(entity).SetGoalNode(node);
-			std::cout << "[Engine] Set goal node for Entity " << entity << " to " << node << std::endl;
+			//std::cout << "[Engine] Set goal node for Entity " << entity << " to " << node << std::endl;
 		}
 	}
 
