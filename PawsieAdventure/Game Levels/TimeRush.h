@@ -30,7 +30,7 @@ class TimeRush : public Level
 	bool hasBarked = false;  // Ensures barking only happens once when time is up
 
 	// Timer for the level
-	double timerLimit = 40.0;
+	double timerLimit = 20.0;
 	bool finishTR{ false };
 	double timesUp = 2.0;
 
@@ -575,7 +575,7 @@ private:
 		cooldownTimer = 0.0;
 		isColorChanged = false;
 
-		timerLimit = 40.0;
+		timerLimit = 20.0;
 		finishTR = false;
 		timesUp = 2.0;
 
