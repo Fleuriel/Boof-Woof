@@ -501,13 +501,13 @@ void GraphicsSystem::UpdateLoop() {
 					// Bind and use the animation shader
 					g_AssetManager.GetShader("Animation").Use();
 
-					if (!graphicsComp.pauseAnimation)
-					{
-						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp ,graphicsComp.deltaTime);
-					}
-					else
-						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
-
+					//if (!graphicsComp.pauseAnimation)
+					//{
+					//	g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp ,graphicsComp.deltaTime);
+					//}
+					//else
+					//	g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
+					//
 
 
 
