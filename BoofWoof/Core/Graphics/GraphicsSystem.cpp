@@ -503,7 +503,7 @@ void GraphicsSystem::UpdateLoop() {
 
 					if (!graphicsComp.pauseAnimation)
 					{
-						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime);
+						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp ,graphicsComp.deltaTime);
 					}
 					else
 						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());

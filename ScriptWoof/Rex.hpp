@@ -107,7 +107,10 @@ struct Rex final : public Behaviour
 				if (reachedDestination) {
 					if (patroldelay > 0.0f) {
 						patroldelay -= m_Engine.GetDeltaTime();
-						m_Engine.PlayAnimation(entity, std::get<1>(animationIdle), std::get<2>(animationIdle));
+						
+                        m_Engine.PauseAnimation(entity);
+                        
+                        //m_Engine.PlayAnimation(entity, std::get<1>(animationIdle), std::get<2>(animationIdle));
 					}
 					else {
 						reachedDestination = false;
@@ -118,6 +121,7 @@ struct Rex final : public Behaviour
                     if (!pathInitialized)
                     {
 
+                        m_Engine.UnPauseAnimation(entity);
                         //std::cout << "[Pathfinding] Checking if entity " << entity << " has a pathfinding component..." << std::endl;
 
                         if (m_Engine.HavePathfindingComponent(entity))

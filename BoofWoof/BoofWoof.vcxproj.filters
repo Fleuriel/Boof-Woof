@@ -48,6 +48,7 @@
     <ClCompile Include="Utilities\Components\NodeComponent.cpp" />
     <ClCompile Include="Utilities\ForGame\UI\UI.cpp" />
     <ClCompile Include="Utilities\ForGame\Dialogue\Dialogue.cpp" />
+    <ClCompile Include="Core\Animation\Animator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ECS\ComponentArray.hpp" />
