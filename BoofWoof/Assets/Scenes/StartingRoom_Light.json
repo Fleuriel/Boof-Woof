@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "1124d258-dae1-4839-ad0f-4a7864a9ae9e",
+    "SceneGUID": "d904eb85-aef1-45cf-b003-b9ee4b15778f",
     "Entities": [
         {
             "MetadataComponent": {
@@ -69,20 +69,9 @@
                 "Active": true
             },
             "PathfindingComponent": {
-                "StartNode": 1,
+                "StartNode": 0,
                 "GoalNode": 7,
-                "Path": [
-                    {
-                        "x": 3.5999999046325685,
-                        "y": 1.600000023841858,
-                        "z": -2.0
-                    },
-                    {
-                        "x": 3.299999952316284,
-                        "y": 1.100000023841858,
-                        "z": -0.10000000149011612
-                    }
-                ]
+                "Path": []
             }
         },
         {
@@ -2670,81 +2659,6 @@
                     "g": 0.512301504611969,
                     "b": 0.3473183512687683,
                     "a": 1.0
-                },
-                "ParticleType": "POINT",
-                "ParticleModel": "Bed",
-                "ParticleTexture": "Bed"
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "ScentTrail",
-                "EntityID": 52
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 7.387679100036621,
-                    "y": 2.99297833442688,
-                    "z": 1.1842467784881592
-                },
-                "Scale": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "ParticleComponent": {
-                "PositionMin": {
-                    "x": 0.0,
-                    "y": -0.5,
-                    "z": 0.0
-                },
-                "PositionMax": {
-                    "x": 0.0,
-                    "y": 0.5,
-                    "z": 0.0
-                },
-                "Density": 0.10000000149011612,
-                "VelocityMin": 1.0,
-                "VelocityMax": 3.0,
-                "TargetPositions": [
-                    {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": -13.0
-                    },
-                    {
-                        "x": 1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": 0.0,
-                        "y": 1.0,
-                        "z": 0.0
-                    },
-                    {
-                        "x": -1.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
-                ],
-                "ParticleSize": 10.0,
-                "ParticleColor": {
-                    "r": 0.09019608050584793,
-                    "g": 0.7843137383460999,
-                    "b": 0.8549019694328308,
-                    "a": 0.0
                 },
                 "ParticleType": "POINT",
                 "ParticleModel": "Bed",
