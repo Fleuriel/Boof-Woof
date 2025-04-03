@@ -109,7 +109,6 @@ struct RexChase final : public Behaviour
                 // If player is in front
                 if (CheckifPlayerInFront(entity)) {
                     state = ATTACKING;
-                    justEnteredChase = true;
                     //std::cout << "Player is in front of Rex" << std::endl;
                 }
                 // if player nearest node is the same as rex nearest node, stop and look around
@@ -132,7 +131,7 @@ struct RexChase final : public Behaviour
                         state = MOVING;
                     }
                     else {
-                        std::cout << "[RexChase] Player moved but Rex is attacking, so pathfinding won't reset.\n";
+                        //std::cout << "[RexChase] Player moved but Rex is attacking, so pathfinding won't reset.\n";
                     }
                 }
                 else {

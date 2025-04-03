@@ -370,8 +370,8 @@ public:
                     contactNormal = -contactNormal; // Flip normal to be from player’s POV
                 }
 
-                std::cout << "[DEBUG] Normal from Player POV with entity " << other << ": ("
-                    << contactNormal.x << ", " << contactNormal.y << ", " << contactNormal.z << ")\n";
+                //std::cout << "[DEBUG] Normal from Player POV with entity " << other << ": ("
+                //    << contactNormal.x << ", " << contactNormal.y << ", " << contactNormal.z << ")\n";
 
                 if (contactNormal.y < -0.7f) {
                     auto& playerCollision = g_Coordinator.GetComponent<CollisionComponent>(playerEntity);
