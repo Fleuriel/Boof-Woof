@@ -333,6 +333,13 @@ public:
         return JPH::ValidateResult::AcceptAllContactsForThisBodyPair;
     }
 
+    bool IsEntityPlayer(Entity entity) {
+        if (g_Coordinator.HaveComponent<CollisionComponent>(entity)) {
+            return g_Coordinator.GetComponent<CollisionComponent>(entity).IsPlayer();
+        }
+        return false;
+    }
+
     void OnContactAdded(const JPH::Body& inBody1,
         const JPH::Body& inBody2,
         const JPH::ContactManifold& inManifold,
@@ -356,40 +363,26 @@ public:
                 inManifold.mWorldSpaceNormal.GetY(),
                 inManifold.mWorldSpaceNormal.GetZ());
 
-            if (contactNormal.y < 0) {
-                contactNormal = -contactNormal; // Flip normal if it's pointing down
-            }
+            Entity playerEntity = IsEntityPlayer(entity1) ? entity1 : (IsEntityPlayer(entity2) ? entity2 : invalid_entity);
+            if (playerEntity != invalid_entity) {
+                Entity other = (playerEntity == entity1) ? entity2 : entity1;
+                if (playerEntity == entity2) {
+                    contactNormal = -contactNormal; // Flip normal to be from player’s POV
+                }
 
-            bool isGroundCollision1 = (contactNormal.y > 0.7f);
-            bool isGroundCollision2 = (contactNormal.y > 0.7f);
+                std::cout << "[DEBUG] Normal from Player POV with entity " << other << ": ("
+                    << contactNormal.x << ", " << contactNormal.y << ", " << contactNormal.z << ")\n";
 
-            if (isGroundCollision1) {
-                collisionComponent1.SetIsGrounded(true);
-                collisionComponent1.AddGroundContact();
-                //std::cout << "[DEBUG] Entity " << entity1 << " now has " << collisionComponent1.GetGroundContacts() << " ground contacts.\n";
-            }
-
-            if (isGroundCollision2) {
-                collisionComponent2.SetIsGrounded(true);
-                collisionComponent2.AddGroundContact();
-                //std::cout << "[DEBUG] Entity " << entity2 << " now has " << collisionComponent2.GetGroundContacts() << " ground contacts.\n";
+                if (contactNormal.y < -0.7f) {
+                    auto& playerCollision = g_Coordinator.GetComponent<CollisionComponent>(playerEntity);
+                    playerCollision.SetIsGrounded(true);
+                    playerCollision.AddGroundContact();
+                }
             }
 
             collisionComponent1.SetIsColliding(true);
             collisionComponent2.SetIsColliding(true);
 
-            /*
-            if (g_Coordinator.HaveComponent<GraphicsComponent>(entity1)) {
-                auto& graphicsComponent2 = g_Coordinator.GetComponent<GraphicsComponent>(entity2);
-
-                // Set entity 1's collided object name to entity 2's model name
-                collisionComponent1.SetIsColliding(true);
-                collisionComponent1.SetLastCollidedObjectName(graphicsComponent2.getModelName());
-
-                std::cout << "Entity " << entity1 << " is colliding with: "
-                    << graphicsComponent2.getModelName() << std::endl;
-            }
-            */
             if (g_Coordinator.HaveComponent<MetadataComponent>(entity1))
             {
                 auto& metaComponent = g_Coordinator.GetComponent<MetadataComponent>(entity2);
@@ -411,22 +404,8 @@ public:
                 //std::cout << "Entity " << entity2 << " is colliding with: "
                 //    << metaComponent.GetName() << std::endl;
             }
-            /*
-            if (g_Coordinator.HaveComponent<GraphicsComponent>(entity2)) {
-                auto& graphicsComponent1 = g_Coordinator.GetComponent<GraphicsComponent>(entity1);
-
-                // Set entity 2's collided object name to entity 1's model name
-                collisionComponent2.SetIsColliding(true);
-                
-                collisionComponent2.SetLastCollidedObjectName(graphicsComponent1.getModelName());
-
-                std::cout << "Entity " << entity2 << " is colliding with: "
-                    << graphicsComponent1.getModelName() << std::endl;
-            }
-            */
         }
     }
-
 
     void OnContactPersisted(const JPH::Body& inBody1,
         const JPH::Body& inBody2,
@@ -436,63 +415,33 @@ public:
         Entity entity1 = static_cast<Entity>(inBody1.GetUserData());
         Entity entity2 = static_cast<Entity>(inBody2.GetUserData());
 
-        //std::cout << "[DEBUG] OnContactPersisted Triggered for Entities: "
-        //    << entity1 << " and " << entity2 << std::endl;
+        if (entity1 == invalid_entity || entity2 == invalid_entity) return;
 
-        if (entity1 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity1)) {
-            auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
+        auto& collision1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
+        auto& collision2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
 
-            glm::vec3 contactNormal = glm::vec3(
-                inManifold.mWorldSpaceNormal.GetX(),
-                inManifold.mWorldSpaceNormal.GetY(),
-                inManifold.mWorldSpaceNormal.GetZ());
+        glm::vec3 contactNormal = glm::vec3(inManifold.mWorldSpaceNormal.GetX(),
+            inManifold.mWorldSpaceNormal.GetY(),
+            inManifold.mWorldSpaceNormal.GetZ());
 
-            if (contactNormal.y < 0) {
+        Entity playerEntity = IsEntityPlayer(entity1) ? entity1 : (IsEntityPlayer(entity2) ? entity2 : invalid_entity);
+        if (playerEntity != invalid_entity) {
+            Entity other = (playerEntity == entity1) ? entity2 : entity1;
+            if (playerEntity == entity2) {
                 contactNormal = -contactNormal;
             }
 
-            // **Prevent infinite ground contact accumulation**
-            if (contactNormal.y > 0.7f && collisionComponent1.GetGroundContacts() == 0) {
-                collisionComponent1.AddGroundContact();
-                collisionComponent1.SetIsGrounded(true);
-                //std::cout << "[DEBUG] Entity " << entity1 << " REGAINED Ground Contact. Total: "
-                //    << collisionComponent1.GetGroundContacts() << std::endl;
-            }
+            //std::cout << "[DEBUG] Persisted Normal from Player POV with entity " << other << ": ("
+            //    << contactNormal.x << ", " << contactNormal.y << ", " << contactNormal.z << ")\n";
 
-        }
-
-        if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
-            auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
-
-            glm::vec3 contactNormal = glm::vec3(
-                inManifold.mWorldSpaceNormal.GetX(),
-                inManifold.mWorldSpaceNormal.GetY(),
-                inManifold.mWorldSpaceNormal.GetZ());
-
-            if (contactNormal.y < 0) {
-                contactNormal = -contactNormal;
-            }
-
-            // **Prevent infinite ground contact accumulation**
-            if (contactNormal.y > 0.7f && collisionComponent2.GetGroundContacts() == 0) {
-                collisionComponent2.AddGroundContact();
-                collisionComponent2.SetIsGrounded(true);
-                //std::cout << "[DEBUG] Entity " << entity2 << " REGAINED Ground Contact. Total: "
-                //    << collisionComponent2.GetGroundContacts() << std::endl;
+            if (contactNormal.y < -0.7f) {
+                auto& playerCollision = g_Coordinator.GetComponent<CollisionComponent>(playerEntity);
+                if (playerCollision.GetGroundContacts() == 0) {
+                    playerCollision.AddGroundContact();
+                    playerCollision.SetIsGrounded(true);
+                }
             }
         }
-
-        //if (entity1 != invalid_entity) {
-        //    auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
-        //    std::cout << "Entity " << entity1 << ": isColliding = "
-        //        << collisionComponent1.GetIsColliding() << std::endl;
-        //}
-
-        //if (entity2 != invalid_entity) {
-        //    auto& collisionComponent2 = g_Coordinator.GetComponent<CollisionComponent>(entity2);
-        //    std::cout << "Entity " << entity2 << ": isColliding = "
-        //        << collisionComponent2.GetIsColliding() << std::endl;
-        //}
     }
 
 
@@ -518,7 +467,7 @@ public:
             auto& collisionComponent1 = g_Coordinator.GetComponent<CollisionComponent>(entity1);
 
             // Only remove ground contact if the removed collision was a floor
-            if (collisionComponent1.GetCollisionNormal().y > 0.7f) {
+            if (collisionComponent1.GetCollisionNormal().y > -0.7f) {
                 collisionComponent1.RemoveGroundContact();
                 //std::cout << "[DEBUG] Entity " << entity1 << " lost a ground contact. Remaining: "
                 //    << collisionComponent1.GetGroundContacts() << std::endl;
@@ -553,7 +502,7 @@ public:
             if (entity2 != invalid_entity && g_Coordinator.HaveComponent<CollisionComponent>(entity2)) {
 
                 // Only remove ground contact if the removed collision was a floor
-                if (collisionComponent2.GetCollisionNormal().y > 0.7f) {
+                if (collisionComponent2.GetCollisionNormal().y > -0.7f) {
                     collisionComponent2.RemoveGroundContact();
                     //std::cout << "[DEBUG] Entity " << entity2 << " lost a ground contact. Remaining: "
                     //    << collisionComponent2.GetGroundContacts() << std::endl;
