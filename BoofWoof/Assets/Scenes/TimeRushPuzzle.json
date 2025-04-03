@@ -16382,8 +16382,8 @@
                     },
                     {
                         "Animation ID": 1,
-                        "Start Time": 0.0,
-                        "End Time": 0.10000000149011612
+                        "Start Time": 335,
+                        "End Time": 336
                     },
                     {
                         "Animation ID": 2,
@@ -24980,6 +24980,27 @@
                 "StartNode": 12,
                 "EndNode": 20,
                 "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Heart",
+                "EntityID": 476
+            },
+            "UIComponent": {
+                "TextureName": "Heart",
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "ScaleX": 0.10000000149011612,
+                "ScaleY": 0.15000000596046449,
+                "Layer": 0.5699999332427979,
+                "Selectable": false,
+                "Opcaity": 1.0,
+                "Animated": false,
+                "Rows": 1,
+                "Cols": 1,
+                "FrameInterval": 0.10000000149011612,
+                "StayOnRow": true
             }
         }
     ]

@@ -76,6 +76,13 @@ class MainHall : public Level
 	};
 
 
+	// Reverse transition state variables (for level start)
+	bool reverseTransitionActive = true;
+	float reverseTransitionTimer = 0.0f;
+	const float reverseTransitionDuration = 1.0f; // Duration for reverse transition
+
+
+
 	// Function to get a random sound from a vector
 	std::string GetRandomSound(const std::vector<std::string>& soundList) {
 		static std::random_device rd;
@@ -130,6 +137,11 @@ class MainHall : public Level
 	void InitLevel() override
 	{
 		ResetLevelState();
+
+		// Activate reverse transition at level start.
+		reverseTransitionActive = true;
+		reverseTransitionTimer = 0.0f;
+
 		cameraController = new CameraController(playerEnt);
 		g_CageBreaker = CageBreaker(playerEnt, Cage1, Cage2, Cage3, Cage1Collider, Cage2Collider, Cage3Collider);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
@@ -178,6 +190,27 @@ class MainHall : public Level
 
 	void UpdateLevel(double deltaTime) override
 	{
+
+		// --- Reverse Transition Effect at Level Start ---
+		if (reverseTransitionActive)
+		{
+			g_Input.LockInput();
+			reverseTransitionTimer += static_cast<float>(deltaTime);
+			float revProgress = reverseTransitionTimer / reverseTransitionDuration;
+			if (revProgress > 1.0f) revProgress = 1.0f;
+			// Call the reverse transition effect from GraphicsSystem.
+			g_Coordinator.GetSystem<GraphicsSystem>()->RenderReverseTransitionEffect(revProgress);
+			if (reverseTransitionTimer >= reverseTransitionDuration)
+			{
+				g_Input.UnlockInput();
+				reverseTransitionActive = false;
+			}
+		}
+		else {
+			g_Input.UnlockInput();
+		}
+		// --- End Reverse Transition ---
+
 		if (g_IsPaused && !savedcamdir) {
 			camdir = cameraController->GetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
 			savedcamdir = true;
