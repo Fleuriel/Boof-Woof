@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "37ffb0c1-0255-41e3-a4d5-3ef4706b06c1",
+    "SceneGUID": "c38f4251-3618-4435-b79d-6df68710fe96",
     "Entities": [
         {
             "MetadataComponent": {
@@ -784,12 +784,12 @@
                 "IsPlayer": false,
                 "IsSensor": false,
                 "AABBSize": {
-                    "x": 1.7000000476837159,
+                    "x": 1.4500000476837159,
                     "y": 2.9000000953674318,
                     "z": 0.8500000238418579
                 },
                 "AABBOffset": {
-                    "x": -2.200000047683716,
+                    "x": -1.399999976158142,
                     "y": -0.05000000074505806,
                     "z": 0.0
                 },
@@ -871,7 +871,7 @@
                     "z": 0.800000011920929
                 },
                 "AABBOffset": {
-                    "x": -1.0499999523162842,
+                    "x": -0.6000000238418579,
                     "y": 0.0,
                     "z": 0.0
                 },
@@ -1003,7 +1003,7 @@
                     "z": 0.800000011920929
                 },
                 "AABBOffset": {
-                    "x": 0.6499999761581421,
+                    "x": 0.10000000149011612,
                     "y": 0.0,
                     "z": 0.0
                 },
@@ -1299,9 +1299,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 13.085339546203614,
-                    "y": 4.160999298095703,
-                    "z": 14.746463775634766
+                    "x": 9.64582347869873,
+                    "y": 4.1610002517700199,
+                    "z": 14.546747207641602
                 },
                 "Scale": {
                     "x": 1.0,
@@ -2926,48 +2926,7 @@
                 "LightDirectionX": -3.299999952316284,
                 "LightDirectionY": -0.699999988079071,
                 "LightDirectionZ": -0.10000000149011612,
-                "LightRange": 15.300000190734864
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 57
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -2.5945162773132326,
-                    "y": 5.379566669464111,
-                    "z": -3.403132438659668
-                },
-                "Scale": {
-                    "x": 0.020000001415610315,
-                    "y": 0.020000001415610315,
-                    "z": 0.020000001415610315
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "LightComponent": {
-                "LightIntensity": 0.20000000298023225,
-                "LightColor": {
-                    "r": 1.0,
-                    "g": 1.0,
-                    "b": 1.0
-                },
-                "LightShadow": false,
-                "LightDirectionX": 1.0,
-                "LightDirectionY": 0.0,
-                "LightDirectionZ": 0.0,
-                "LightRange": 7.900000095367432
+                "LightRange": 17.0
             }
         },
         {
@@ -5240,68 +5199,18 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 100
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 7.255985736846924,
-                    "y": 2.7942869663238527,
-                    "z": 9.01099967956543
-                },
-                "Scale": {
-                    "x": 1.260003685951233,
-                    "y": 1.2599999904632569,
-                    "z": 1.260003685951233
-                },
-                "Rotation": {
-                    "x": -3.1415863037109377,
-                    "y": -1.5693678855895997,
-                    "z": -3.1415884494781496
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.049999952316284,
-                    "y": 0.699999988079071,
-                    "z": 1.2000000476837159
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
                 "EntityID": 101
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -12.124641418457032,
-                    "y": 5.379566669464111,
-                    "z": -3.403132438659668
+                    "x": -10.042017936706543,
+                    "y": 5.185604095458984,
+                    "z": -2.4142258167266847
                 },
                 "Scale": {
-                    "x": 0.020000001415610315,
-                    "y": 0.020000001415610315,
-                    "z": 0.020000001415610315
+                    "x": 0.05000000074505806,
+                    "y": 0.05000000074505806,
+                    "z": 0.05000000074505806
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -5315,7 +5224,7 @@
                 }
             },
             "LightComponent": {
-                "LightIntensity": 0.20000000298023225,
+                "LightIntensity": 0.5,
                 "LightColor": {
                     "r": 1.0,
                     "g": 1.0,
@@ -5325,7 +5234,7 @@
                 "LightDirectionX": 1.0,
                 "LightDirectionY": 0.0,
                 "LightDirectionZ": 0.0,
-                "LightRange": 7.900000095367432
+                "LightRange": 10.0
             }
         },
         {
@@ -5335,14 +5244,14 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -12.124641418457032,
-                    "y": 5.379566669464111,
-                    "z": 3.1919748783111574
+                    "x": -9.307842254638672,
+                    "y": 5.1317219734191898,
+                    "z": 2.1797380447387697
                 },
                 "Scale": {
-                    "x": 0.020000001415610315,
-                    "y": 0.020000001415610315,
-                    "z": 0.020000001415610315
+                    "x": 0.05000000074505806,
+                    "y": 0.05000000074505806,
+                    "z": 0.05000000074505806
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -5356,7 +5265,7 @@
                 }
             },
             "LightComponent": {
-                "LightIntensity": 0.20000000298023225,
+                "LightIntensity": 0.5,
                 "LightColor": {
                     "r": 1.0,
                     "g": 1.0,
@@ -5366,7 +5275,7 @@
                 "LightDirectionX": 1.0,
                 "LightDirectionY": 0.0,
                 "LightDirectionZ": 0.0,
-                "LightRange": 7.900000095367432
+                "LightRange": 9.5
             }
         }
     ]
