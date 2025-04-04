@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "c1e88da5-dc83-4d00-ba3d-550eb3c63279",
+    "SceneGUID": "85e12106-8c80-4c3f-ab90-4b37312ee968",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,7 +8,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.000001545113946122001,
+                    "x": 0.0000015451166746061063,
                     "y": 1.1999999284744263,
                     "z": -1.7682691812515259
                 },
@@ -8908,7 +8908,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 44.81730270385742,
+                    "x": 44.78028106689453,
                     "y": 13.909482955932618,
                     "z": 5.278100967407227
                 },
@@ -9100,7 +9100,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 44.794715881347659,
+                    "x": 44.73447036743164,
                     "y": 13.909482955932618,
                     "z": -4.7071051597595219
                 },
@@ -9292,7 +9292,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 44.820343017578128,
+                    "x": 44.78336715698242,
                     "y": 13.909482955932618,
                     "z": -14.697941780090332
                 },
@@ -9484,7 +9484,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 44.83808135986328,
+                    "x": 44.813297271728519,
                     "y": 13.909482955932618,
                     "z": -24.69110107421875
                 },
@@ -13583,24 +13583,24 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Bed",
+                "EntityName": "Wardrobe",
                 "EntityID": 320
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -25.70138168334961,
-                    "y": 7.805121421813965,
-                    "z": 7.418247222900391
+                    "x": -45.365150451660159,
+                    "y": 9.546420097351075,
+                    "z": 6.073680400848389
                 },
                 "Scale": {
-                    "x": 2.0,
-                    "y": 2.0,
-                    "z": 2.0
+                    "x": 1.5000832080841065,
+                    "y": 1.5,
+                    "z": 1.5000832080841065
                 },
                 "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
+                    "x": 0.0115858418866992,
+                    "y": 1.5684471130371094,
+                    "z": 0.011617036536335945
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -13609,7 +13609,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "Bed",
+                "ModelName": "Wardrobe2",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -13619,8 +13619,8 @@
                 "IsPlayer": false,
                 "IsSensor": false,
                 "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
+                    "x": 3.0,
+                    "y": 2.0,
                     "z": 1.0
                 },
                 "AABBOffset": {
@@ -13629,6 +13629,25 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Shader3D",
+                "shaderIdx": 6,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -13638,406 +13657,6 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -43.188716888427737,
-                    "y": 7.8051438331604,
-                    "z": 6.759184837341309
-                },
-                "Scale": {
-                    "x": 1.9999971389770508,
-                    "y": 2.0,
-                    "z": 1.9999971389770508
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0015431272331625224,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 322
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -43.17438888549805,
-                    "y": 7.805160045623779,
-                    "z": -2.5287513732910158
-                },
-                "Scale": {
-                    "x": 1.9999971389770508,
-                    "y": 2.0,
-                    "z": 1.9999971389770508
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0015431272331625224,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 323
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -43.147613525390628,
-                    "y": 7.805190563201904,
-                    "z": -19.887401580810548
-                },
-                "Scale": {
-                    "x": 1.9999971389770508,
-                    "y": 2.0,
-                    "z": 1.9999971389770508
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0015431272331625224,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 324
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -43.133514404296878,
-                    "y": 7.805206775665283,
-                    "z": -29.02178192138672
-                },
-                "Scale": {
-                    "x": 1.9999971389770508,
-                    "y": 2.0,
-                    "z": 1.9999971389770508
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0015431272331625224,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 325
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -43.12055969238281,
-                    "y": 7.805222034454346,
-                    "z": -37.41824722290039
-                },
-                "Scale": {
-                    "x": 1.9999971389770508,
-                    "y": 2.0,
-                    "z": 1.9999971389770508
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0015431272331625224,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 326
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -43.205604553222659,
-                    "y": 7.8051252365112309,
-                    "z": 17.710914611816408
-                },
-                "Scale": {
-                    "x": 1.9999971389770508,
-                    "y": 2.0,
-                    "z": 1.9999971389770508
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0015431272331625224,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 327
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -25.70138168334961,
-                    "y": 7.805121421813965,
-                    "z": -2.591207504272461
-                },
-                "Scale": {
-                    "x": 2.0,
-                    "y": 2.0,
-                    "z": 2.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 328
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -25.70138168334961,
-                    "y": 7.805122375488281,
-                    "z": -29.167661666870118
-                },
-                "Scale": {
-                    "x": 2.0,
-                    "y": 2.0,
-                    "z": 2.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 329
-            },
-            "TransformComponent": {
-                "Position": {
                     "x": -25.70138168334961,
                     "y": 7.805121421813965,
                     "z": -19.857271194458009
@@ -14051,506 +13670,6 @@
                     "x": 0.0,
                     "y": -0.0,
                     "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 330
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -25.70138168334961,
-                    "y": 10.485298156738282,
-                    "z": -29.167661666870118
-                },
-                "Scale": {
-                    "x": 2.0,
-                    "y": 2.0,
-                    "z": 2.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 331
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -25.70138168334961,
-                    "y": 10.49471378326416,
-                    "z": -19.857271194458009
-                },
-                "Scale": {
-                    "x": 2.0,
-                    "y": 2.0,
-                    "z": 2.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 332
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -25.70138168334961,
-                    "y": 10.493868827819825,
-                    "z": -2.591207504272461
-                },
-                "Scale": {
-                    "x": 2.0,
-                    "y": 2.0,
-                    "z": 2.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 333
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -25.70138168334961,
-                    "y": 10.516193389892579,
-                    "z": 7.418247222900391
-                },
-                "Scale": {
-                    "x": 2.0,
-                    "y": 2.0,
-                    "z": 2.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 334
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -43.205604553222659,
-                    "y": 10.423295974731446,
-                    "z": 17.710914611816408
-                },
-                "Scale": {
-                    "x": 1.9999971389770508,
-                    "y": 2.0,
-                    "z": 1.9999971389770508
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0015431272331625224,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 335
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -43.188716888427737,
-                    "y": 10.46599292755127,
-                    "z": 6.759187698364258
-                },
-                "Scale": {
-                    "x": 1.9999971389770508,
-                    "y": 2.0,
-                    "z": 1.9999971389770508
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0015431272331625224,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 336
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -43.17438888549805,
-                    "y": 10.516374588012696,
-                    "z": -2.528748035430908
-                },
-                "Scale": {
-                    "x": 1.9999971389770508,
-                    "y": 2.0,
-                    "z": 1.9999971389770508
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0015431272331625224,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 337
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -43.147613525390628,
-                    "y": 10.56053352355957,
-                    "z": -19.887401580810548
-                },
-                "Scale": {
-                    "x": 1.9999971389770508,
-                    "y": 2.0,
-                    "z": 1.9999971389770508
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0015431272331625224,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 338
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -43.133514404296878,
-                    "y": 10.53713321685791,
-                    "z": -29.02178192138672
-                },
-                "Scale": {
-                    "x": 1.9999971389770508,
-                    "y": 2.0,
-                    "z": 1.9999971389770508
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0015431272331625224,
-                    "z": 3.1415908336639406
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Bed",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.0,
-                    "y": 0.4000000059604645,
-                    "z": 1.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Bed",
-                "EntityID": 339
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -43.12055969238281,
-                    "y": 10.539609909057618,
-                    "z": -37.41824722290039
-                },
-                "Scale": {
-                    "x": 1.9999971389770508,
-                    "y": 2.0,
-                    "z": 1.9999971389770508
-                },
-                "Rotation": {
-                    "x": 3.1415908336639406,
-                    "y": 0.0015431272331625224,
-                    "z": 3.1415908336639406
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -14584,7 +13703,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Rex",
-                "EntityID": 340
+                "EntityID": 322
             },
             "TransformComponent": {
                 "Position": {
@@ -14599,7 +13718,7 @@
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 4.699999809265137,
+                    "y": 6.300000190734863,
                     "z": 0.0
                 },
                 "RotationPivotOffset": {
@@ -14622,8 +13741,8 @@
                     },
                     {
                         "Animation ID": 1,
-                        "Start Time": 335,
-                        "End Time": 336
+                        "Start Time": 335.0,
+                        "End Time": 336.0
                     },
                     {
                         "Animation ID": 2,
@@ -14692,7 +13811,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 341
+                "EntityID": 323
             },
             "TransformComponent": {
                 "Position": {
@@ -14742,7 +13861,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 342
+                "EntityID": 324
             },
             "TransformComponent": {
                 "Position": {
@@ -14792,7 +13911,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 343
+                "EntityID": 325
             },
             "TransformComponent": {
                 "Position": {
@@ -14842,7 +13961,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 344
+                "EntityID": 326
             },
             "TransformComponent": {
                 "Position": {
@@ -14892,7 +14011,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 345
+                "EntityID": 327
             },
             "TransformComponent": {
                 "Position": {
@@ -14942,7 +14061,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 346
+                "EntityID": 328
             },
             "TransformComponent": {
                 "Position": {
@@ -14992,7 +14111,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 347
+                "EntityID": 329
             },
             "TransformComponent": {
                 "Position": {
@@ -15042,7 +14161,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 348
+                "EntityID": 330
             },
             "TransformComponent": {
                 "Position": {
@@ -15092,7 +14211,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 349
+                "EntityID": 331
             },
             "TransformComponent": {
                 "Position": {
@@ -15142,7 +14261,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 350
+                "EntityID": 332
             },
             "TransformComponent": {
                 "Position": {
@@ -15192,7 +14311,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 351
+                "EntityID": 333
             },
             "TransformComponent": {
                 "Position": {
@@ -15242,7 +14361,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 352
+                "EntityID": 334
             },
             "TransformComponent": {
                 "Position": {
@@ -15292,7 +14411,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 353
+                "EntityID": 335
             },
             "TransformComponent": {
                 "Position": {
@@ -15342,7 +14461,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 354
+                "EntityID": 336
             },
             "TransformComponent": {
                 "Position": {
@@ -15392,7 +14511,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 355
+                "EntityID": 337
             },
             "TransformComponent": {
                 "Position": {
@@ -15442,7 +14561,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 356
+                "EntityID": 338
             },
             "TransformComponent": {
                 "Position": {
@@ -15492,7 +14611,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 357
+                "EntityID": 339
             },
             "TransformComponent": {
                 "Position": {
@@ -15542,7 +14661,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 358
+                "EntityID": 340
             },
             "TransformComponent": {
                 "Position": {
@@ -15592,7 +14711,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 359
+                "EntityID": 341
             },
             "TransformComponent": {
                 "Position": {
@@ -15642,7 +14761,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WindowWall",
-                "EntityID": 360
+                "EntityID": 342
             },
             "TransformComponent": {
                 "Position": {
@@ -15692,7 +14811,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chandelier",
-                "EntityID": 361
+                "EntityID": 343
             },
             "TransformComponent": {
                 "Position": {
@@ -15724,7 +14843,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chandelier",
-                "EntityID": 362
+                "EntityID": 344
             },
             "TransformComponent": {
                 "Position": {
@@ -15756,7 +14875,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 363
+                "EntityID": 345
             },
             "TransformComponent": {
                 "Position": {
@@ -15783,12 +14902,30 @@
             "GraphicsComponent": {
                 "ModelName": "PottedPlant1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 1.0,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 364
+                "EntityID": 346
             },
             "TransformComponent": {
                 "Position": {
@@ -15815,12 +14952,30 @@
             "GraphicsComponent": {
                 "ModelName": "PottedPlant2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 1.0,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 365
+                "EntityID": 347
             },
             "TransformComponent": {
                 "Position": {
@@ -15847,12 +15002,30 @@
             "GraphicsComponent": {
                 "ModelName": "PottedPlant3",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 1.0,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 366
+                "EntityID": 348
             },
             "TransformComponent": {
                 "Position": {
@@ -15879,12 +15052,30 @@
             "GraphicsComponent": {
                 "ModelName": "PottedPlant4",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 1.0,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 367
+                "EntityID": 349
             },
             "TransformComponent": {
                 "Position": {
@@ -15934,7 +15125,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 368
+                "EntityID": 350
             },
             "TransformComponent": {
                 "Position": {
@@ -15984,7 +15175,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 369
+                "EntityID": 351
             },
             "TransformComponent": {
                 "Position": {
@@ -16034,7 +15225,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 370
+                "EntityID": 352
             },
             "TransformComponent": {
                 "Position": {
@@ -16084,7 +15275,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 371
+                "EntityID": 353
             },
             "TransformComponent": {
                 "Position": {
@@ -16134,7 +15325,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 372
+                "EntityID": 354
             },
             "TransformComponent": {
                 "Position": {
@@ -16184,7 +15375,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 373
+                "EntityID": 355
             },
             "TransformComponent": {
                 "Position": {
@@ -16234,7 +15425,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 374
+                "EntityID": 356
             },
             "TransformComponent": {
                 "Position": {
@@ -16284,7 +15475,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 375
+                "EntityID": 357
             },
             "TransformComponent": {
                 "Position": {
@@ -16334,7 +15525,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 376
+                "EntityID": 358
             },
             "TransformComponent": {
                 "Position": {
@@ -16384,7 +15575,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 377
+                "EntityID": 359
             },
             "TransformComponent": {
                 "Position": {
@@ -16411,12 +15602,30 @@
             "GraphicsComponent": {
                 "ModelName": "PottedPlant4",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 1.0,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 378
+                "EntityID": 360
             },
             "TransformComponent": {
                 "Position": {
@@ -16443,12 +15652,30 @@
             "GraphicsComponent": {
                 "ModelName": "PottedPlant4",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 379
+                "EntityID": 361
             },
             "TransformComponent": {
                 "Position": {
@@ -16498,7 +15725,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 380
+                "EntityID": 362
             },
             "TransformComponent": {
                 "Position": {
@@ -16548,7 +15775,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 381
+                "EntityID": 363
             },
             "TransformComponent": {
                 "Position": {
@@ -16598,7 +15825,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Railing",
-                "EntityID": 382
+                "EntityID": 364
             },
             "TransformComponent": {
                 "Position": {
@@ -16648,7 +15875,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Railing",
-                "EntityID": 383
+                "EntityID": 365
             },
             "TransformComponent": {
                 "Position": {
@@ -16698,7 +15925,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Railing",
-                "EntityID": 384
+                "EntityID": 366
             },
             "TransformComponent": {
                 "Position": {
@@ -16748,7 +15975,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Railing",
-                "EntityID": 385
+                "EntityID": 367
             },
             "TransformComponent": {
                 "Position": {
@@ -16780,7 +16007,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 386
+                "EntityID": 368
             },
             "TransformComponent": {
                 "Position": {
@@ -16821,7 +16048,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -16830,7 +16057,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 387
+                "EntityID": 369
             },
             "TransformComponent": {
                 "Position": {
@@ -16871,7 +16098,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -16880,7 +16107,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 388
+                "EntityID": 370
             },
             "TransformComponent": {
                 "Position": {
@@ -16921,7 +16148,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -16930,7 +16157,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 389
+                "EntityID": 371
             },
             "TransformComponent": {
                 "Position": {
@@ -16971,7 +16198,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -16980,7 +16207,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 390
+                "EntityID": 372
             },
             "TransformComponent": {
                 "Position": {
@@ -17021,7 +16248,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -17030,7 +16257,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 391
+                "EntityID": 373
             },
             "TransformComponent": {
                 "Position": {
@@ -17071,7 +16298,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -17080,7 +16307,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 392
+                "EntityID": 374
             },
             "TransformComponent": {
                 "Position": {
@@ -17121,7 +16348,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -17130,7 +16357,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 393
+                "EntityID": 375
             },
             "TransformComponent": {
                 "Position": {
@@ -17171,7 +16398,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -17180,7 +16407,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 394
+                "EntityID": 376
             },
             "TransformComponent": {
                 "Position": {
@@ -17221,7 +16448,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -17230,7 +16457,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 395
+                "EntityID": 377
             },
             "TransformComponent": {
                 "Position": {
@@ -17271,7 +16498,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -17280,7 +16507,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 396
+                "EntityID": 378
             },
             "TransformComponent": {
                 "Position": {
@@ -17312,7 +16539,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 397
+                "EntityID": 379
             },
             "TransformComponent": {
                 "Position": {
@@ -17344,7 +16571,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 398
+                "EntityID": 380
             },
             "TransformComponent": {
                 "Position": {
@@ -17376,7 +16603,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 399
+                "EntityID": 381
             },
             "TransformComponent": {
                 "Position": {
@@ -17408,7 +16635,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 400
+                "EntityID": 382
             },
             "TransformComponent": {
                 "Position": {
@@ -17440,7 +16667,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Banner",
-                "EntityID": 401
+                "EntityID": 383
             },
             "TransformComponent": {
                 "Position": {
@@ -17472,7 +16699,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 402
+                "EntityID": 384
             },
             "TransformComponent": {
                 "Position": {
@@ -17504,7 +16731,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 403
+                "EntityID": 385
             },
             "TransformComponent": {
                 "Position": {
@@ -17536,7 +16763,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 404
+                "EntityID": 386
             },
             "TransformComponent": {
                 "Position": {
@@ -17568,7 +16795,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 405
+                "EntityID": 387
             },
             "TransformComponent": {
                 "Position": {
@@ -17600,7 +16827,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 406
+                "EntityID": 388
             },
             "TransformComponent": {
                 "Position": {
@@ -17632,7 +16859,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 407
+                "EntityID": 389
             },
             "TransformComponent": {
                 "Position": {
@@ -17664,7 +16891,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 408
+                "EntityID": 390
             },
             "TransformComponent": {
                 "Position": {
@@ -17696,7 +16923,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 409
+                "EntityID": 391
             },
             "TransformComponent": {
                 "Position": {
@@ -17728,7 +16955,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 410
+                "EntityID": 392
             },
             "TransformComponent": {
                 "Position": {
@@ -17760,7 +16987,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 411
+                "EntityID": 393
             },
             "TransformComponent": {
                 "Position": {
@@ -17792,7 +17019,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 412
+                "EntityID": 394
             },
             "TransformComponent": {
                 "Position": {
@@ -17824,7 +17051,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 413
+                "EntityID": 395
             },
             "TransformComponent": {
                 "Position": {
@@ -17856,7 +17083,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 414
+                "EntityID": 396
             },
             "TransformComponent": {
                 "Position": {
@@ -17888,7 +17115,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 415
+                "EntityID": 397
             },
             "TransformComponent": {
                 "Position": {
@@ -17920,7 +17147,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 416
+                "EntityID": 398
             },
             "TransformComponent": {
                 "Position": {
@@ -17952,54 +17179,22 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 417
+                "EntityID": 399
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -24.4759521484375,
+                    "x": -24.282581329345704,
                     "y": 8.035259246826172,
-                    "z": -10.912345886230469
+                    "z": -10.912971496582032
                 },
                 "Scale": {
-                    "x": 2.0999035835266115,
+                    "x": 2.099966287612915,
                     "y": 1.7000000476837159,
-                    "z": 2.0999035835266115
+                    "z": 2.8999998569488527
                 },
                 "Rotation": {
-                    "x": 3.463642030965275e-7,
-                    "y": 0.003212056588381529,
-                    "z": 0.000005484093435370596
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Table2",
-                "FollowCamera": true
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Table",
-                "EntityID": 418
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -44.3671760559082,
-                    "y": 8.035148620605469,
-                    "z": -10.848453521728516
-                },
-                "Scale": {
-                    "x": 2.0998923778533937,
-                    "y": 1.7000000476837159,
-                    "z": 2.0998923778533937
-                },
-                "Rotation": {
-                    "x": 3.4636005352695067e-7,
-                    "y": 0.003212056588381529,
+                    "x": 3.4635723977771706e-7,
+                    "y": 0.0032120777759701015,
                     "z": 0.000005484093890117947
                 },
                 "RotationPivotOffset": {
@@ -18016,7 +17211,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 419
+                "EntityID": 400
             },
             "TransformComponent": {
                 "Position": {
@@ -18043,12 +17238,30 @@
             "GraphicsComponent": {
                 "ModelName": "PottedPlant1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 1.0,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 420
+                "EntityID": 401
             },
             "TransformComponent": {
                 "Position": {
@@ -18075,12 +17288,30 @@
             "GraphicsComponent": {
                 "ModelName": "PottedPlant1",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 1.0,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 421
+                "EntityID": 402
             },
             "TransformComponent": {
                 "Position": {
@@ -18107,12 +17338,30 @@
             "GraphicsComponent": {
                 "ModelName": "PottedPlant2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 1.0,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "PottedPlant",
-                "EntityID": 422
+                "EntityID": 403
             },
             "TransformComponent": {
                 "Position": {
@@ -18139,12 +17388,30 @@
             "GraphicsComponent": {
                 "ModelName": "PottedPlant2",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 1.0,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
             "MetadataComponent": {
                 "EntityName": "DrawBridgeDoor",
-                "EntityID": 423
+                "EntityID": 404
             },
             "TransformComponent": {
                 "Position": {
@@ -18194,7 +17461,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WaterBucket",
-                "EntityID": 424
+                "EntityID": 405
             },
             "TransformComponent": {
                 "Position": {
@@ -18244,13 +17511,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Puppy1",
-                "EntityID": 425
+                "EntityID": 406
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.7120537757873539,
+                    "x": 4.80448055267334,
                     "y": 0.699999988079071,
-                    "z": -23.49387550354004
+                    "z": -23.20768928527832
                 },
                 "Scale": {
                     "x": 0.49999967217445376,
@@ -18297,7 +17564,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Puppy2",
-                "EntityID": 426
+                "EntityID": 407
             },
             "TransformComponent": {
                 "Position": {
@@ -18350,7 +17617,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Puppy3",
-                "EntityID": 427
+                "EntityID": 408
             },
             "TransformComponent": {
                 "Position": {
@@ -18403,7 +17670,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RoyalChair",
-                "EntityID": 428
+                "EntityID": 409
             },
             "TransformComponent": {
                 "Position": {
@@ -18444,7 +17711,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.399999976158142,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -18453,7 +17720,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RoyalChair",
-                "EntityID": 429
+                "EntityID": 410
             },
             "TransformComponent": {
                 "Position": {
@@ -18494,7 +17761,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.399999976158142,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -18503,18 +17770,18 @@
         {
             "MetadataComponent": {
                 "EntityName": "RoyalChair",
-                "EntityID": 430
+                "EntityID": 411
             },
             "TransformComponent": {
                 "Position": {
                     "x": 42.2598991394043,
-                    "y": 2.390000104904175,
-                    "z": -0.008354250341653824
+                    "y": 2.390000343322754,
+                    "z": -0.008354485034942627
                 },
                 "Scale": {
-                    "x": 1.8000414371490479,
+                    "x": 1.8000421524047852,
                     "y": 1.600000023841858,
-                    "z": 1.8001015186309815
+                    "z": 1.8001022338867188
                 },
                 "Rotation": {
                     "x": -3.1411173343658449,
@@ -18544,7 +17811,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.2999999523162842,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -18553,7 +17820,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RoyalChair",
-                "EntityID": 431
+                "EntityID": 412
             },
             "TransformComponent": {
                 "Position": {
@@ -18594,7 +17861,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 1.2999999523162842,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -18603,7 +17870,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 432
+                "EntityID": 413
             },
             "TransformComponent": {
                 "Position": {
@@ -18653,7 +17920,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 433
+                "EntityID": 414
             },
             "TransformComponent": {
                 "Position": {
@@ -18703,7 +17970,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 434
+                "EntityID": 415
             },
             "TransformComponent": {
                 "Position": {
@@ -18753,7 +18020,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 435
+                "EntityID": 416
             },
             "TransformComponent": {
                 "Position": {
@@ -18803,7 +18070,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 436
+                "EntityID": 417
             },
             "TransformComponent": {
                 "Position": {
@@ -18853,7 +18120,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WaterBucket2",
-                "EntityID": 437
+                "EntityID": 418
             },
             "TransformComponent": {
                 "Position": {
@@ -18903,7 +18170,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WaterBucket3",
-                "EntityID": 438
+                "EntityID": 419
             },
             "TransformComponent": {
                 "Position": {
@@ -18953,7 +18220,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 439
+                "EntityID": 420
             },
             "TransformComponent": {
                 "Position": {
@@ -19003,7 +18270,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 440
+                "EntityID": 421
             },
             "TransformComponent": {
                 "Position": {
@@ -19053,7 +18320,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WhiteParticle",
-                "EntityID": 441
+                "EntityID": 422
             },
             "TransformComponent": {
                 "Position": {
@@ -19118,7 +18385,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WhiteParticle",
-                "EntityID": 442
+                "EntityID": 423
             },
             "TransformComponent": {
                 "Position": {
@@ -19188,7 +18455,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WhiteParticle",
-                "EntityID": 443
+                "EntityID": 424
             },
             "TransformComponent": {
                 "Position": {
@@ -19253,7 +18520,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "YellowParticle",
-                "EntityID": 444
+                "EntityID": 425
             },
             "TransformComponent": {
                 "Position": {
@@ -19318,7 +18585,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "YellowParticle",
-                "EntityID": 445
+                "EntityID": 426
             },
             "TransformComponent": {
                 "Position": {
@@ -19383,7 +18650,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "YellowParticle",
-                "EntityID": 446
+                "EntityID": 427
             },
             "TransformComponent": {
                 "Position": {
@@ -19448,7 +18715,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "left particle",
-                "EntityID": 447
+                "EntityID": 428
             },
             "TransformComponent": {
                 "Position": {
@@ -19513,7 +18780,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "right particle",
-                "EntityID": 448
+                "EntityID": 429
             },
             "TransformComponent": {
                 "Position": {
@@ -19578,7 +18845,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RedParticle",
-                "EntityID": 449
+                "EntityID": 430
             },
             "TransformComponent": {
                 "Position": {
@@ -19643,7 +18910,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RedParticle",
-                "EntityID": 450
+                "EntityID": 431
             },
             "TransformComponent": {
                 "Position": {
@@ -19708,7 +18975,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "red particle",
-                "EntityID": 451
+                "EntityID": 432
             },
             "TransformComponent": {
                 "Position": {
@@ -19778,7 +19045,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 452
+                "EntityID": 433
             },
             "TransformComponent": {
                 "Position": {
@@ -19810,7 +19077,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 453
+                "EntityID": 434
             },
             "TransformComponent": {
                 "Position": {
@@ -19860,7 +19127,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoor",
-                "EntityID": 454
+                "EntityID": 435
             },
             "TransformComponent": {
                 "Position": {
@@ -19892,7 +19159,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 455
+                "EntityID": 436
             },
             "TransformComponent": {
                 "Position": {
@@ -19924,7 +19191,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 456
+                "EntityID": 437
             },
             "TransformComponent": {
                 "Position": {
@@ -19956,7 +19223,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 457
+                "EntityID": 438
             },
             "TransformComponent": {
                 "Position": {
@@ -19988,7 +19255,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 458
+                "EntityID": 439
             },
             "TransformComponent": {
                 "Position": {
@@ -20020,7 +19287,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 459
+                "EntityID": 440
             },
             "TransformComponent": {
                 "Position": {
@@ -20052,7 +19319,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 460
+                "EntityID": 441
             },
             "TransformComponent": {
                 "Position": {
@@ -20084,7 +19351,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 461
+                "EntityID": 442
             },
             "TransformComponent": {
                 "Position": {
@@ -20134,7 +19401,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 462
+                "EntityID": 443
             },
             "TransformComponent": {
                 "Position": {
@@ -20184,7 +19451,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCastle",
-                "EntityID": 463
+                "EntityID": 444
             },
             "TransformComponent": {
                 "Position": {
@@ -20234,7 +19501,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 464
+                "EntityID": 445
             },
             "TransformComponent": {
                 "Position": {
@@ -20284,7 +19551,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wallcorner",
-                "EntityID": 465
+                "EntityID": 446
             },
             "TransformComponent": {
                 "Position": {
@@ -20316,7 +19583,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorRight",
-                "EntityID": 466
+                "EntityID": 447
             },
             "TransformComponent": {
                 "Position": {
@@ -20366,7 +19633,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorLeft",
-                "EntityID": 467
+                "EntityID": 448
             },
             "TransformComponent": {
                 "Position": {
@@ -20416,7 +19683,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoorTop",
-                "EntityID": 468
+                "EntityID": 449
             },
             "TransformComponent": {
                 "Position": {
@@ -20466,7 +19733,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 469
+                "EntityID": 450
             },
             "TransformComponent": {
                 "Position": {
@@ -20516,7 +19783,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 470
+                "EntityID": 451
             },
             "TransformComponent": {
                 "Position": {
@@ -20548,7 +19815,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 471
+                "EntityID": 452
             },
             "TransformComponent": {
                 "Position": {
@@ -20598,7 +19865,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 472
+                "EntityID": 453
             },
             "TransformComponent": {
                 "Position": {
@@ -20648,7 +19915,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 473
+                "EntityID": 454
             },
             "TransformComponent": {
                 "Position": {
@@ -20698,7 +19965,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 474
+                "EntityID": 455
             },
             "TransformComponent": {
                 "Position": {
@@ -20748,7 +20015,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 475
+                "EntityID": 456
             },
             "TransformComponent": {
                 "Position": {
@@ -20798,7 +20065,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 476
+                "EntityID": 457
             },
             "TransformComponent": {
                 "Position": {
@@ -20848,7 +20115,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 477
+                "EntityID": 458
             },
             "TransformComponent": {
                 "Position": {
@@ -20889,7 +20156,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 478
+                "EntityID": 459
             },
             "TransformComponent": {
                 "Position": {
@@ -20930,7 +20197,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 479
+                "EntityID": 460
             },
             "TransformComponent": {
                 "Position": {
@@ -20971,7 +20238,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 480
+                "EntityID": 461
             },
             "TransformComponent": {
                 "Position": {
@@ -21012,7 +20279,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 481
+                "EntityID": 462
             },
             "TransformComponent": {
                 "Position": {
@@ -21062,7 +20329,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 482
+                "EntityID": 463
             },
             "TransformComponent": {
                 "Position": {
@@ -21112,7 +20379,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 483
+                "EntityID": 464
             },
             "TransformComponent": {
                 "Position": {
@@ -21162,7 +20429,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 484
+                "EntityID": 465
             },
             "TransformComponent": {
                 "Position": {
@@ -21212,7 +20479,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 485
+                "EntityID": 466
             },
             "TransformComponent": {
                 "Position": {
@@ -21262,7 +20529,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Chair",
-                "EntityID": 486
+                "EntityID": 467
             },
             "TransformComponent": {
                 "Position": {
@@ -21312,7 +20579,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee7",
-                "EntityID": 487
+                "EntityID": 468
             },
             "TransformComponent": {
                 "Position": {
@@ -21344,12 +20611,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee7Collision",
-                "EntityID": 488
+                "EntityID": 469
             },
             "TransformComponent": {
                 "Position": {
                     "x": 14.927407264709473,
-                    "y": -0.02066829800605774,
+                    "y": 0.22034868597984315,
                     "z": 0.5615170001983643
                 },
                 "Scale": {
@@ -21385,7 +20652,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -21394,7 +20661,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee1",
-                "EntityID": 489
+                "EntityID": 470
             },
             "TransformComponent": {
                 "Position": {
@@ -21426,12 +20693,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee1Collision",
-                "EntityID": 490
+                "EntityID": 471
             },
             "TransformComponent": {
                 "Position": {
                     "x": 38.15755844116211,
-                    "y": -0.019301965832710267,
+                    "y": 0.22798416018486024,
                     "z": -29.348037719726564
                 },
                 "Scale": {
@@ -21467,7 +20734,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -21476,7 +20743,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee2",
-                "EntityID": 491
+                "EntityID": 472
             },
             "TransformComponent": {
                 "Position": {
@@ -21508,12 +20775,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee2Collision",
-                "EntityID": 492
+                "EntityID": 473
             },
             "TransformComponent": {
                 "Position": {
                     "x": 54.535091400146487,
-                    "y": 6.215185165405273,
+                    "y": 6.473362445831299,
                     "z": -10.048233985900879
                 },
                 "Scale": {
@@ -21549,7 +20816,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -21558,7 +20825,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee3",
-                "EntityID": 493
+                "EntityID": 474
             },
             "TransformComponent": {
                 "Position": {
@@ -21590,12 +20857,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee3Collision",
-                "EntityID": 494
+                "EntityID": 475
             },
             "TransformComponent": {
                 "Position": {
                     "x": 43.40178298950195,
-                    "y": 6.22283935546875,
+                    "y": 6.495391845703125,
                     "z": 10.147505760192871
                 },
                 "Scale": {
@@ -21631,7 +20898,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -21640,7 +20907,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee4",
-                "EntityID": 495
+                "EntityID": 476
             },
             "TransformComponent": {
                 "Position": {
@@ -21672,12 +20939,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee4Collision",
-                "EntityID": 496
+                "EntityID": 477
             },
             "TransformComponent": {
                 "Position": {
                     "x": 2.5927584171295168,
-                    "y": 6.207836151123047,
+                    "y": 6.477041244506836,
                     "z": 17.402359008789064
                 },
                 "Scale": {
@@ -21713,7 +20980,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -21722,7 +20989,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 497
+                "EntityID": 478
             },
             "TransformComponent": {
                 "Position": {
@@ -21772,7 +21039,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 498
+                "EntityID": 479
             },
             "TransformComponent": {
                 "Position": {
@@ -21822,7 +21089,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 499
+                "EntityID": 480
             },
             "TransformComponent": {
                 "Position": {
@@ -21872,7 +21139,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 500
+                "EntityID": 481
             },
             "TransformComponent": {
                 "Position": {
@@ -21922,7 +21189,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 501
+                "EntityID": 482
             },
             "TransformComponent": {
                 "Position": {
@@ -21972,7 +21239,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 502
+                "EntityID": 483
             },
             "TransformComponent": {
                 "Position": {
@@ -22022,7 +21289,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 503
+                "EntityID": 484
             },
             "TransformComponent": {
                 "Position": {
@@ -22072,7 +21339,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 504
+                "EntityID": 485
             },
             "TransformComponent": {
                 "Position": {
@@ -22122,7 +21389,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 505
+                "EntityID": 486
             },
             "TransformComponent": {
                 "Position": {
@@ -22172,7 +21439,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 506
+                "EntityID": 487
             },
             "TransformComponent": {
                 "Position": {
@@ -22222,7 +21489,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 507
+                "EntityID": 488
             },
             "TransformComponent": {
                 "Position": {
@@ -22272,7 +21539,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 508
+                "EntityID": 489
             },
             "TransformComponent": {
                 "Position": {
@@ -22322,7 +21589,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 509
+                "EntityID": 490
             },
             "TransformComponent": {
                 "Position": {
@@ -22372,7 +21639,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 510
+                "EntityID": 491
             },
             "TransformComponent": {
                 "Position": {
@@ -22422,7 +21689,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 511
+                "EntityID": 492
             },
             "TransformComponent": {
                 "Position": {
@@ -22472,7 +21739,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 512
+                "EntityID": 493
             },
             "TransformComponent": {
                 "Position": {
@@ -22522,7 +21789,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 513
+                "EntityID": 494
             },
             "TransformComponent": {
                 "Position": {
@@ -22572,7 +21839,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "FloorCastle",
-                "EntityID": 514
+                "EntityID": 495
             },
             "TransformComponent": {
                 "Position": {
@@ -22622,7 +21889,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "StealthCollider1",
-                "EntityID": 515
+                "EntityID": 496
             },
             "TransformComponent": {
                 "Position": {
@@ -22672,7 +21939,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "StealthCollider2",
-                "EntityID": 516
+                "EntityID": 497
             },
             "TransformComponent": {
                 "Position": {
@@ -22722,7 +21989,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "StealthCollider3",
-                "EntityID": 517
+                "EntityID": 498
             },
             "TransformComponent": {
                 "Position": {
@@ -22772,7 +22039,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "StealthCollider4",
-                "EntityID": 518
+                "EntityID": 499
             },
             "TransformComponent": {
                 "Position": {
@@ -22822,7 +22089,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Cage1",
-                "EntityID": 519
+                "EntityID": 500
             },
             "TransformComponent": {
                 "Position": {
@@ -22854,13 +22121,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Cage1Collider",
-                "EntityID": 520
+                "EntityID": 501
             },
             "TransformComponent": {
                 "Position": {
                     "x": 4.840205669403076,
-                    "y": 0.26959550380706789,
-                    "z": -23.079669952392579
+                    "y": 1.2033363580703736,
+                    "z": -23.143861770629884
                 },
                 "Scale": {
                     "x": 1.0,
@@ -22889,9 +22156,9 @@
                 "IsPlayer": false,
                 "IsSensor": true,
                 "AABBSize": {
-                    "x": 1.7000000476837159,
-                    "y": 0.10000000149011612,
-                    "z": 1.7000000476837159
+                    "x": 1.399999976158142,
+                    "y": 0.8999999761581421,
+                    "z": 1.399999976158142
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -22904,7 +22171,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Cage2",
-                "EntityID": 521
+                "EntityID": 502
             },
             "TransformComponent": {
                 "Position": {
@@ -22936,12 +22203,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Cage2Collider",
-                "EntityID": 522
+                "EntityID": 503
             },
             "TransformComponent": {
                 "Position": {
                     "x": 62.0240592956543,
-                    "y": 6.534568786621094,
+                    "y": 7.445659160614014,
                     "z": 4.775880813598633
                 },
                 "Scale": {
@@ -22971,9 +22238,9 @@
                 "IsPlayer": false,
                 "IsSensor": true,
                 "AABBSize": {
-                    "x": 1.7000000476837159,
-                    "y": 0.10000000149011612,
-                    "z": 1.7000000476837159
+                    "x": 1.399999976158142,
+                    "y": 0.8999999761581421,
+                    "z": 1.399999976158142
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -22986,7 +22253,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Cage3",
-                "EntityID": 523
+                "EntityID": 504
             },
             "TransformComponent": {
                 "Position": {
@@ -23018,12 +22285,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Cage3Collider",
-                "EntityID": 524
+                "EntityID": 505
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -23.933822631835939,
-                    "y": 6.53396463394165,
+                    "x": -24.039506912231447,
+                    "y": 7.44303035736084,
                     "z": -11.516495704650879
                 },
                 "Scale": {
@@ -23053,9 +22320,9 @@
                 "IsPlayer": false,
                 "IsSensor": true,
                 "AABBSize": {
-                    "x": 1.7000000476837159,
-                    "y": 0.10000000149011612,
-                    "z": 1.7000000476837159
+                    "x": 1.399999976158142,
+                    "y": 0.8999999761581421,
+                    "z": 1.399999976158142
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -23068,7 +22335,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail1",
-                "EntityID": 525
+                "EntityID": 506
             },
             "TransformComponent": {
                 "Position": {
@@ -23143,7 +22410,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail2",
-                "EntityID": 526
+                "EntityID": 507
             },
             "TransformComponent": {
                 "Position": {
@@ -23218,7 +22485,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "ScentTrail3",
-                "EntityID": 527
+                "EntityID": 508
             },
             "TransformComponent": {
                 "Position": {
@@ -23293,7 +22560,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee5",
-                "EntityID": 528
+                "EntityID": 509
             },
             "TransformComponent": {
                 "Position": {
@@ -23325,12 +22592,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee5Collision",
-                "EntityID": 529
+                "EntityID": 510
             },
             "TransformComponent": {
                 "Position": {
                     "x": 23.259891510009767,
-                    "y": -0.019301965832710267,
+                    "y": 0.25088244676589968,
                     "z": -10.213871002197266
                 },
                 "Scale": {
@@ -23366,7 +22633,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -23375,7 +22642,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee6",
-                "EntityID": 530
+                "EntityID": 511
             },
             "TransformComponent": {
                 "Position": {
@@ -23407,12 +22674,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee6Collision",
-                "EntityID": 531
+                "EntityID": 512
             },
             "TransformComponent": {
                 "Position": {
                     "x": 51.056209564208987,
-                    "y": 6.215185165405273,
+                    "y": 6.477432727813721,
                     "z": -20.942089080810548
                 },
                 "Scale": {
@@ -23448,7 +22715,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -23457,7 +22724,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 532
+                "EntityID": 513
             },
             "TransformComponent": {
                 "Position": {
@@ -23507,7 +22774,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 533
+                "EntityID": 514
             },
             "TransformComponent": {
                 "Position": {
@@ -23557,7 +22824,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 534
+                "EntityID": 515
             },
             "TransformComponent": {
                 "Position": {
@@ -23607,22 +22874,22 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 535
+                "EntityID": 516
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 4.602024555206299,
+                    "x": 4.603538990020752,
                     "y": 9.873334884643555,
-                    "z": -26.894453048706056
+                    "z": -27.123767852783204
                 },
                 "Scale": {
-                    "x": 1.4000244140625,
+                    "x": 1.4000370502471924,
                     "y": 1.399999976158142,
-                    "z": 1.0
+                    "z": 1.4000170230865479
                 },
                 "Rotation": {
                     "x": -3.1415908336639406,
-                    "y": 0.0065976534970104698,
+                    "y": 0.0065975734032690529,
                     "z": -3.1415908336639406
                 },
                 "RotationPivotOffset": {
@@ -23657,22 +22924,22 @@
         {
             "MetadataComponent": {
                 "EntityName": "Table",
-                "EntityID": 536
+                "EntityID": 517
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -0.3217066526412964,
+                    "x": -0.32013624906539919,
                     "y": 9.87332820892334,
-                    "z": -26.92693519592285
+                    "z": -27.16496467590332
                 },
                 "Scale": {
-                    "x": 1.4000507593154908,
+                    "x": 1.4000587463378907,
                     "y": 1.399999976158142,
-                    "z": 1.0
+                    "z": 1.4000086784362794
                 },
                 "Rotation": {
                     "x": -3.1415908336639406,
-                    "y": 0.006597323343157768,
+                    "y": 0.00659727118909359,
                     "z": -3.1415908336639406
                 },
                 "RotationPivotOffset": {
@@ -23707,7 +22974,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent1",
-                "EntityID": 537
+                "EntityID": 518
             },
             "TransformComponent": {
                 "Position": {
@@ -23782,7 +23049,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent2",
-                "EntityID": 538
+                "EntityID": 519
             },
             "TransformComponent": {
                 "Position": {
@@ -23857,7 +23124,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent3",
-                "EntityID": 539
+                "EntityID": 520
             },
             "TransformComponent": {
                 "Position": {
@@ -23932,7 +23199,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent4",
-                "EntityID": 540
+                "EntityID": 521
             },
             "TransformComponent": {
                 "Position": {
@@ -24007,7 +23274,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent5",
-                "EntityID": 541
+                "EntityID": 522
             },
             "TransformComponent": {
                 "Position": {
@@ -24082,7 +23349,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent6",
-                "EntityID": 542
+                "EntityID": 523
             },
             "TransformComponent": {
                 "Position": {
@@ -24157,7 +23424,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent7",
-                "EntityID": 543
+                "EntityID": 524
             },
             "TransformComponent": {
                 "Position": {
@@ -24232,7 +23499,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WashingVFXBG",
-                "EntityID": 544
+                "EntityID": 525
             },
             "UIComponent": {
                 "TextureName": "WashingVFX",
@@ -24253,7 +23520,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee8",
-                "EntityID": 545
+                "EntityID": 526
             },
             "TransformComponent": {
                 "Position": {
@@ -24285,13 +23552,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee8Collision",
-                "EntityID": 546
+                "EntityID": 527
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 34.5118293762207,
-                    "y": -0.02066829800605774,
-                    "z": -2.7017903327941896
+                    "x": 34.771427154541019,
+                    "y": 0.22953104972839356,
+                    "z": -2.9891929626464845
                 },
                 "Scale": {
                     "x": 1.0,
@@ -24326,7 +23593,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -24335,7 +23602,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee9",
-                "EntityID": 547
+                "EntityID": 528
             },
             "TransformComponent": {
                 "Position": {
@@ -24367,12 +23634,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee9Collision",
-                "EntityID": 548
+                "EntityID": 529
             },
             "TransformComponent": {
                 "Position": {
                     "x": 19.691614151000978,
-                    "y": -0.02066829800605774,
+                    "y": 0.2359890341758728,
                     "z": -18.060165405273439
                 },
                 "Scale": {
@@ -24408,7 +23675,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -24417,7 +23684,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee10",
-                "EntityID": 549
+                "EntityID": 530
             },
             "TransformComponent": {
                 "Position": {
@@ -24449,12 +23716,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee10Collision",
-                "EntityID": 550
+                "EntityID": 531
             },
             "TransformComponent": {
                 "Position": {
                     "x": 58.894798278808597,
-                    "y": 6.215185165405273,
+                    "y": 6.4724602699279789,
                     "z": -28.073474884033204
                 },
                 "Scale": {
@@ -24490,7 +23757,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -24499,7 +23766,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee11",
-                "EntityID": 551
+                "EntityID": 532
             },
             "TransformComponent": {
                 "Position": {
@@ -24531,12 +23798,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee11Collision",
-                "EntityID": 552
+                "EntityID": 533
             },
             "TransformComponent": {
                 "Position": {
                     "x": 59.43983840942383,
-                    "y": 6.215185165405273,
+                    "y": 6.4970927238464359,
                     "z": -2.730900764465332
                 },
                 "Scale": {
@@ -24572,7 +23839,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -24581,7 +23848,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee12",
-                "EntityID": 553
+                "EntityID": 534
             },
             "TransformComponent": {
                 "Position": {
@@ -24613,13 +23880,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee12Collision",
-                "EntityID": 554
+                "EntityID": 535
             },
             "TransformComponent": {
                 "Position": {
                     "x": 50.61693572998047,
-                    "y": 6.215185165405273,
-                    "z": 3.5217061042785646
+                    "y": 6.494500637054443,
+                    "z": 3.652125835418701
                 },
                 "Scale": {
                     "x": 1.0,
@@ -24654,7 +23921,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -24663,7 +23930,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee13",
-                "EntityID": 555
+                "EntityID": 536
             },
             "TransformComponent": {
                 "Position": {
@@ -24695,12 +23962,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee13Collision",
-                "EntityID": 556
+                "EntityID": 537
             },
             "TransformComponent": {
                 "Position": {
                     "x": 28.672956466674806,
-                    "y": 6.215185165405273,
+                    "y": 6.515335559844971,
                     "z": 16.488149642944337
                 },
                 "Scale": {
@@ -24736,7 +24003,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -24745,7 +24012,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WaterBucket4",
-                "EntityID": 557
+                "EntityID": 538
             },
             "TransformComponent": {
                 "Position": {
@@ -24795,7 +24062,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee14",
-                "EntityID": 558
+                "EntityID": 539
             },
             "TransformComponent": {
                 "Position": {
@@ -24827,12 +24094,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee14Collision",
-                "EntityID": 559
+                "EntityID": 540
             },
             "TransformComponent": {
                 "Position": {
                     "x": -37.80224609375,
-                    "y": 6.215185165405273,
+                    "y": 6.5355329513549809,
                     "z": 6.6620893478393559
                 },
                 "Scale": {
@@ -24868,7 +24135,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -24877,7 +24144,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee15",
-                "EntityID": 560
+                "EntityID": 541
             },
             "TransformComponent": {
                 "Position": {
@@ -24909,12 +24176,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee15Collision",
-                "EntityID": 561
+                "EntityID": 542
             },
             "TransformComponent": {
                 "Position": {
                     "x": -33.52092361450195,
-                    "y": 6.215185165405273,
+                    "y": 6.533095359802246,
                     "z": -3.5768394470214845
                 },
                 "Scale": {
@@ -24950,7 +24217,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -24959,7 +24226,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee16",
-                "EntityID": 562
+                "EntityID": 543
             },
             "TransformComponent": {
                 "Position": {
@@ -24991,13 +24258,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee16Collision",
-                "EntityID": 563
+                "EntityID": 544
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -28.508275985717775,
-                    "y": 6.215185165405273,
-                    "z": -14.024063110351563
+                    "x": -28.827835083007814,
+                    "y": 6.492034435272217,
+                    "z": -13.786489486694336
                 },
                 "Scale": {
                     "x": 1.0,
@@ -25032,7 +24299,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -25041,7 +24308,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee17",
-                "EntityID": 564
+                "EntityID": 545
             },
             "TransformComponent": {
                 "Position": {
@@ -25073,13 +24340,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee17Collision",
-                "EntityID": 565
+                "EntityID": 546
             },
             "TransformComponent": {
                 "Position": {
                     "x": -33.35171890258789,
-                    "y": 6.215185165405273,
-                    "z": -20.91561508178711
+                    "y": 6.527200698852539,
+                    "z": -20.79219627380371
                 },
                 "Scale": {
                     "x": 1.0,
@@ -25114,7 +24381,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -25123,13 +24390,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee18",
-                "EntityID": 566
+                "EntityID": 547
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -43.353599548339847,
+                    "x": -39.656707763671878,
                     "y": 6.538174629211426,
-                    "z": -10.466540336608887
+                    "z": -10.789963722229004
                 },
                 "Scale": {
                     "x": 1.0,
@@ -25155,12 +24422,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee18Collision",
-                "EntityID": 567
+                "EntityID": 548
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -43.50012969970703,
-                    "y": 6.215185165405273,
+                    "x": -39.691001892089847,
+                    "y": 6.512423038482666,
                     "z": -10.829278945922852
                 },
                 "Scale": {
@@ -25196,7 +24463,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -25205,7 +24472,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee19",
-                "EntityID": 568
+                "EntityID": 549
             },
             "TransformComponent": {
                 "Position": {
@@ -25237,12 +24504,12 @@
         {
             "MetadataComponent": {
                 "EntityName": "Pee19Collision",
-                "EntityID": 569
+                "EntityID": 550
             },
             "TransformComponent": {
                 "Position": {
                     "x": -31.552780151367189,
-                    "y": 6.215185165405273,
+                    "y": 6.505425930023193,
                     "z": -34.90878677368164
                 },
                 "Scale": {
@@ -25278,7 +24545,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 0.25,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -25287,7 +24554,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "WaterBucket5",
-                "EntityID": 570
+                "EntityID": 551
             },
             "TransformComponent": {
                 "Position": {
@@ -25337,7 +24604,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent8",
-                "EntityID": 571
+                "EntityID": 552
             },
             "TransformComponent": {
                 "Position": {
@@ -25412,7 +24679,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent9",
-                "EntityID": 572
+                "EntityID": 553
             },
             "TransformComponent": {
                 "Position": {
@@ -25487,7 +24754,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent16",
-                "EntityID": 573
+                "EntityID": 554
             },
             "TransformComponent": {
                 "Position": {
@@ -25562,7 +24829,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent17",
-                "EntityID": 574
+                "EntityID": 555
             },
             "TransformComponent": {
                 "Position": {
@@ -25637,7 +24904,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent18",
-                "EntityID": 575
+                "EntityID": 556
             },
             "TransformComponent": {
                 "Position": {
@@ -25712,7 +24979,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent19",
-                "EntityID": 576
+                "EntityID": 557
             },
             "TransformComponent": {
                 "Position": {
@@ -25787,7 +25054,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent20",
-                "EntityID": 577
+                "EntityID": 558
             },
             "TransformComponent": {
                 "Position": {
@@ -25862,7 +25129,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent21",
-                "EntityID": 578
+                "EntityID": 559
             },
             "TransformComponent": {
                 "Position": {
@@ -25937,7 +25204,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent22",
-                "EntityID": 579
+                "EntityID": 560
             },
             "TransformComponent": {
                 "Position": {
@@ -26012,7 +25279,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent23",
-                "EntityID": 580
+                "EntityID": 561
             },
             "TransformComponent": {
                 "Position": {
@@ -26087,7 +25354,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent24",
-                "EntityID": 581
+                "EntityID": 562
             },
             "TransformComponent": {
                 "Position": {
@@ -26162,7 +25429,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "PeeScent25",
-                "EntityID": 582
+                "EntityID": 563
             },
             "TransformComponent": {
                 "Position": {
@@ -26237,7 +25504,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Stinky1",
-                "EntityID": 583
+                "EntityID": 564
             },
             "UIComponent": {
                 "TextureName": "Stinky",
@@ -26258,7 +25525,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Stinky2",
-                "EntityID": 584
+                "EntityID": 565
             },
             "UIComponent": {
                 "TextureName": "StinkyDog",
@@ -26279,7 +25546,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 585
+                "EntityID": 566
             },
             "TransformComponent": {
                 "Position": {
@@ -26372,7 +25639,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 586
+                "EntityID": 567
             },
             "TransformComponent": {
                 "Position": {
@@ -26465,7 +25732,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 587
+                "EntityID": 568
             },
             "TransformComponent": {
                 "Position": {
@@ -26558,7 +25825,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 588
+                "EntityID": 569
             },
             "TransformComponent": {
                 "Position": {
@@ -26651,7 +25918,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 589
+                "EntityID": 570
             },
             "TransformComponent": {
                 "Position": {
@@ -26744,7 +26011,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 590
+                "EntityID": 571
             },
             "TransformComponent": {
                 "Position": {
@@ -26837,7 +26104,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 591
+                "EntityID": 572
             },
             "TransformComponent": {
                 "Position": {
@@ -26930,7 +26197,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node1",
-                "EntityID": 592
+                "EntityID": 573
             },
             "TransformComponent": {
                 "Position": {
@@ -27023,7 +26290,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node2",
-                "EntityID": 593
+                "EntityID": 574
             },
             "TransformComponent": {
                 "Position": {
@@ -27116,7 +26383,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node3",
-                "EntityID": 594
+                "EntityID": 575
             },
             "TransformComponent": {
                 "Position": {
@@ -27209,7 +26476,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 595
+                "EntityID": 576
             },
             "TransformComponent": {
                 "Position": {
@@ -27302,7 +26569,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 596
+                "EntityID": 577
             },
             "TransformComponent": {
                 "Position": {
@@ -27395,7 +26662,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 597
+                "EntityID": 578
             },
             "TransformComponent": {
                 "Position": {
@@ -27488,7 +26755,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 598
+                "EntityID": 579
             },
             "TransformComponent": {
                 "Position": {
@@ -27581,7 +26848,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 599
+                "EntityID": 580
             },
             "TransformComponent": {
                 "Position": {
@@ -27674,7 +26941,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 600
+                "EntityID": 581
             },
             "TransformComponent": {
                 "Position": {
@@ -27767,7 +27034,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 601
+                "EntityID": 582
             },
             "TransformComponent": {
                 "Position": {
@@ -27860,7 +27127,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 602
+                "EntityID": 583
             },
             "TransformComponent": {
                 "Position": {
@@ -27953,7 +27220,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 603
+                "EntityID": 584
             },
             "TransformComponent": {
                 "Position": {
@@ -27986,7 +27253,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 604
+                "EntityID": 585
             },
             "TransformComponent": {
                 "Position": {
@@ -28019,7 +27286,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 605
+                "EntityID": 586
             },
             "TransformComponent": {
                 "Position": {
@@ -28052,7 +27319,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 606
+                "EntityID": 587
             },
             "TransformComponent": {
                 "Position": {
@@ -28085,7 +27352,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 607
+                "EntityID": 588
             },
             "TransformComponent": {
                 "Position": {
@@ -28118,7 +27385,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 608
+                "EntityID": 589
             },
             "TransformComponent": {
                 "Position": {
@@ -28151,7 +27418,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 609
+                "EntityID": 590
             },
             "TransformComponent": {
                 "Position": {
@@ -28184,7 +27451,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 610
+                "EntityID": 591
             },
             "TransformComponent": {
                 "Position": {
@@ -28217,7 +27484,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 611
+                "EntityID": 592
             },
             "TransformComponent": {
                 "Position": {
@@ -28250,7 +27517,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 612
+                "EntityID": 593
             },
             "TransformComponent": {
                 "Position": {
@@ -28283,7 +27550,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 613
+                "EntityID": 594
             },
             "TransformComponent": {
                 "Position": {
@@ -28316,7 +27583,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 614
+                "EntityID": 595
             },
             "TransformComponent": {
                 "Position": {
@@ -28349,7 +27616,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 615
+                "EntityID": 596
             },
             "TransformComponent": {
                 "Position": {
@@ -28382,7 +27649,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 616
+                "EntityID": 597
             },
             "TransformComponent": {
                 "Position": {
@@ -28415,7 +27682,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 617
+                "EntityID": 598
             },
             "TransformComponent": {
                 "Position": {
@@ -28448,7 +27715,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 618
+                "EntityID": 599
             },
             "TransformComponent": {
                 "Position": {
@@ -28481,7 +27748,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 619
+                "EntityID": 600
             },
             "TransformComponent": {
                 "Position": {
@@ -28514,7 +27781,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 620
+                "EntityID": 601
             },
             "TransformComponent": {
                 "Position": {
@@ -28547,7 +27814,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 621
+                "EntityID": 602
             },
             "TransformComponent": {
                 "Position": {
@@ -28575,6 +27842,1855 @@
                 "StartNode": 14,
                 "EndNode": 17,
                 "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wardrobe",
+                "EntityID": 603
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -45.34706497192383,
+                    "y": 9.54662036895752,
+                    "z": -1.5907360315322877
+                },
+                "Scale": {
+                    "x": 1.5000989437103272,
+                    "y": 1.5,
+                    "z": 1.5000989437103272
+                },
+                "Rotation": {
+                    "x": 0.011586292646825314,
+                    "y": 1.5684469938278199,
+                    "z": 0.011616526171565056
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Wardrobe",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wardrobe",
+                "EntityID": 604
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -45.383121490478519,
+                    "y": 9.546207427978516,
+                    "z": 13.74096393585205
+                },
+                "Scale": {
+                    "x": 1.5001072883605958,
+                    "y": 1.5,
+                    "z": 1.5001072883605958
+                },
+                "Rotation": {
+                    "x": 0.011585948057472706,
+                    "y": 1.5684469938278199,
+                    "z": 0.011615747585892678
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Wardrobe",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Fireplace",
+                "EntityID": 605
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -45.197383880615237,
+                    "y": 10.983603477478028,
+                    "z": -9.722095489501954
+                },
+                "Scale": {
+                    "x": 1.500133991241455,
+                    "y": 1.5,
+                    "z": 1.500133991241455
+                },
+                "Rotation": {
+                    "x": 0.011585833504796029,
+                    "y": 1.5684469938278199,
+                    "z": 0.011614182032644749
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Fireplace",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 3.1500000953674318,
+                    "y": 3.0,
+                    "z": 1.2000000476837159
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wardrobe",
+                "EntityID": 606
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -45.30859375,
+                    "y": 9.547079086303711,
+                    "z": -17.96522331237793
+                },
+                "Scale": {
+                    "x": 1.500110387802124,
+                    "y": 1.5,
+                    "z": 1.500110387802124
+                },
+                "Rotation": {
+                    "x": 0.011586058884859085,
+                    "y": 1.5684471130371094,
+                    "z": 0.011615695431828499
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Wardrobe",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bed",
+                "EntityID": 607
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -25.744888305664064,
+                    "y": 9.959066390991211,
+                    "z": -1.1952348947525025
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 2.0
+                },
+                "Rotation": {
+                    "x": 3.131913185119629,
+                    "y": -1.5664926767349244,
+                    "z": -3.131913185119629
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed2",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bookshelf",
+                "EntityID": 608
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -22.455066680908204,
+                    "y": 9.776029586791993,
+                    "z": 5.0740790367126469
+                },
+                "Scale": {
+                    "x": 1.4000000953674317,
+                    "y": 1.399999976158142,
+                    "z": 1.4000000953674317
+                },
+                "Rotation": {
+                    "x": 3.131913185119629,
+                    "y": -1.5664926767349244,
+                    "z": -3.131913185119629
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bookshelf1",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 1.7000000476837159,
+                    "y": 2.299999952316284,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bookshelf",
+                "EntityID": 609
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -22.475826263427736,
+                    "y": 9.775832176208496,
+                    "z": 9.898506164550782
+                },
+                "Scale": {
+                    "x": 1.4000000953674317,
+                    "y": 1.399999976158142,
+                    "z": 1.4000000953674317
+                },
+                "Rotation": {
+                    "x": 3.131913185119629,
+                    "y": -1.5664926767349244,
+                    "z": -3.131913185119629
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bookshelf1",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 1.7000000476837159,
+                    "y": 2.299999952316284,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bookshelf",
+                "EntityID": 610
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -22.32484245300293,
+                    "y": 9.777295112609864,
+                    "z": -25.188140869140626
+                },
+                "Scale": {
+                    "x": 1.4000000953674317,
+                    "y": 1.399999976158142,
+                    "z": 1.4000000953674317
+                },
+                "Rotation": {
+                    "x": 3.131913185119629,
+                    "y": -1.5664926767349244,
+                    "z": -3.131913185119629
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bookshelf2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 1.7000000476837159,
+                    "y": 2.299999952316284,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bookshelf",
+                "EntityID": 611
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -22.303855895996095,
+                    "y": 9.777493476867676,
+                    "z": -30.065210342407228
+                },
+                "Scale": {
+                    "x": 1.4000000953674317,
+                    "y": 1.399999976158142,
+                    "z": 1.4000000953674317
+                },
+                "Rotation": {
+                    "x": 3.131913185119629,
+                    "y": -1.5664926767349244,
+                    "z": -3.131913185119629
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bookshelf2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 1.7000000476837159,
+                    "y": 2.299999952316284,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wardrobe",
+                "EntityID": 612
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -45.29057312011719,
+                    "y": 9.547307968139649,
+                    "z": -25.654407501220704
+                },
+                "Scale": {
+                    "x": 1.5000991821289063,
+                    "y": 1.5,
+                    "z": 1.5000991821289063
+                },
+                "Rotation": {
+                    "x": 0.011585741303861142,
+                    "y": 1.5684469938278199,
+                    "z": 0.011615955270826817
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Wardrobe2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 3.0,
+                    "y": 2.0,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wardrobe",
+                "EntityID": 613
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -45.27235794067383,
+                    "y": 9.54753303527832,
+                    "z": -33.417572021484378
+                },
+                "Scale": {
+                    "x": 1.5001318454742432,
+                    "y": 1.5,
+                    "z": 1.5001318454742432
+                },
+                "Rotation": {
+                    "x": 0.011585758998990059,
+                    "y": 1.5684469938278199,
+                    "z": 0.011614255607128144
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Wardrobe",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 1.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Table",
+                "EntityID": 614
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -27.894655227661134,
+                    "y": 7.8805694580078129,
+                    "z": -38.29200744628906
+                },
+                "Scale": {
+                    "x": 2.0999438762664797,
+                    "y": 1.6999999284744263,
+                    "z": 2.900003671646118
+                },
+                "Rotation": {
+                    "x": 3.141315460205078,
+                    "y": 1.5692379474639893,
+                    "z": 3.141324520111084
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Table2",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Table",
+                "EntityID": 615
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -39.61472702026367,
+                    "y": 7.8835673332214359,
+                    "z": -38.273719787597659
+                },
+                "Scale": {
+                    "x": 2.0999438762664797,
+                    "y": 1.6999999284744263,
+                    "z": 2.900003671646118
+                },
+                "Rotation": {
+                    "x": 3.141315460205078,
+                    "y": 1.5692379474639893,
+                    "z": 3.141324520111084
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Table2",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair",
+                "EntityID": 616
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -40.75294494628906,
+                    "y": 8.620423316955567,
+                    "z": -37.288482666015628
+                },
+                "Scale": {
+                    "x": 1.499998927116394,
+                    "y": 1.5,
+                    "z": 1.499998927116394
+                },
+                "Rotation": {
+                    "x": 4.365989809684834e-7,
+                    "y": -0.0,
+                    "z": 0.000009122725714405533
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair4",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 1.399999976158142,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair",
+                "EntityID": 617
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -37.1158447265625,
+                    "y": 8.62045669555664,
+                    "z": -37.288482666015628
+                },
+                "Scale": {
+                    "x": 1.499998927116394,
+                    "y": 1.5,
+                    "z": 1.499998927116394
+                },
+                "Rotation": {
+                    "x": 4.365989809684834e-7,
+                    "y": -0.0,
+                    "z": 0.000009122725714405533
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair4",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 1.399999976158142,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair",
+                "EntityID": 618
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -28.011489868164064,
+                    "y": 7.687547206878662,
+                    "z": -25.308088302612306
+                },
+                "Scale": {
+                    "x": 1.5000015497207642,
+                    "y": 1.5000014305114747,
+                    "z": 1.4999991655349732
+                },
+                "Rotation": {
+                    "x": 1.0583009719848633,
+                    "y": -2.6822092991096726e-7,
+                    "z": 1.5555484294891358
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair4",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 1.399999976158142,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair",
+                "EntityID": 619
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -27.990474700927736,
+                    "y": 7.687888145446777,
+                    "z": -29.40425682067871
+                },
+                "Scale": {
+                    "x": 1.5000003576278687,
+                    "y": 1.500000238418579,
+                    "z": 1.4999991655349732
+                },
+                "Rotation": {
+                    "x": -0.6762619018554688,
+                    "y": 3.874301341966202e-7,
+                    "z": -1.5635188817977906
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair4",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 1.399999976158142,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair",
+                "EntityID": 620
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -27.997264862060548,
+                    "y": 8.620535850524903,
+                    "z": 5.765143871307373
+                },
+                "Scale": {
+                    "x": 1.4999994039535523,
+                    "y": 1.5,
+                    "z": 1.4999994039535523
+                },
+                "Rotation": {
+                    "x": 5.040512291998311e-7,
+                    "y": -0.5232832431793213,
+                    "z": 0.000008870831152307801
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair4",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 1.399999976158142,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WhiteParticle",
+                "EntityID": 621
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -44.887699127197269,
+                    "y": 7.591299533843994,
+                    "z": -9.486394882202149
+                },
+                "Scale": {
+                    "x": 0.9999997019767761,
+                    "y": 0.9999998807907105,
+                    "z": 0.9999997019767761
+                },
+                "Rotation": {
+                    "x": -1.7498207092285157,
+                    "y": -0.8168855309486389,
+                    "z": 1.7007734775543213
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 1.0,
+                "VelocityMax": 3.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.5,
+                        "y": 0.6000000238418579,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WhiteParticle",
+                "EntityID": 622
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -44.158203125,
+                    "y": 7.849543571472168,
+                    "z": -9.322884559631348
+                },
+                "Scale": {
+                    "x": 1.0000003576278687,
+                    "y": 0.9999999403953552,
+                    "z": 0.9999995827674866
+                },
+                "Rotation": {
+                    "x": 0.8442333340644836,
+                    "y": 0.5703670382499695,
+                    "z": 1.156847357749939
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/Fire.wav",
+                "Volume": 1.0,
+                "ShouldLoop": true
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.5,
+                "VelocityMax": 2.5999999046325685,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.6000000238418579,
+                        "y": 0.6000000238418579,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WhiteParticle",
+                "EntityID": 623
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -44.570533752441409,
+                    "y": 7.881017208099365,
+                    "z": -9.89942455291748
+                },
+                "Scale": {
+                    "x": 0.9999998807907105,
+                    "y": 0.9999999403953552,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.004273882135748863,
+                    "y": 0.23020069301128388,
+                    "z": 0.7812889218330383
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 1.2999999523162842,
+                "VelocityMax": 2.5,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.800000011920929,
+                        "y": 0.6000000238418579,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "YellowParticle",
+                "EntityID": 624
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -44.343318939208987,
+                    "y": 7.90933895111084,
+                    "z": -9.345246315002442
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.7999999523162842
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 1.2000000476837159,
+                "VelocityMax": 2.5999999046325685,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.5,
+                        "y": 0.6000000238418579,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9656862616539002,
+                    "g": 0.9499534964561462,
+                    "b": 0.4307717978954315,
+                    "a": 1.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "YellowParticle",
+                "EntityID": 625
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -44.16445541381836,
+                    "y": 7.751778602600098,
+                    "z": -10.147794723510743
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.7999999523162842
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 1.100000023841858,
+                "VelocityMax": 2.799999952316284,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.6000000238418579,
+                        "y": 0.6000000238418579,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9656862616539002,
+                    "g": 0.9499534964561462,
+                    "b": 0.4307717978954315,
+                    "a": 1.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "YellowParticle",
+                "EntityID": 626
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -44.264156341552737,
+                    "y": 7.673202037811279,
+                    "z": -9.705123901367188
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.7999999523162842
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.800000011920929,
+                "VelocityMax": 2.5,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.699999988079071,
+                        "y": 0.6000000238418579,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9656862616539002,
+                    "g": 0.9499534964561462,
+                    "b": 0.4307717978954315,
+                    "a": 1.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "left particle",
+                "EntityID": 627
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -44.6063232421875,
+                    "y": 7.82001256942749,
+                    "z": -8.320378303527832
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -3.1415793895721437,
+                    "y": -1.3685274124145508,
+                    "z": -3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": -0.800000011920929,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.800000011920929,
+                "VelocityMax": 2.4000000953674318,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 1.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9754902124404907,
+                    "g": 0.2151816338300705,
+                    "b": 0.2151816338300705,
+                    "a": 1.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "right particle",
+                "EntityID": 628
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -45.0,
+                    "y": 7.754973888397217,
+                    "z": -10.519464492797852
+                },
+                "Scale": {
+                    "x": 0.9999994039535523,
+                    "y": 1.0,
+                    "z": 0.9999994039535523
+                },
+                "Rotation": {
+                    "x": -3.1415905952453615,
+                    "y": 1.2319848537445069,
+                    "z": -3.1415905952453615
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": -0.800000011920929,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.800000011920929,
+                "VelocityMax": 2.700000047683716,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.4000000059604645,
+                        "y": 1.0,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9764705896377564,
+                    "g": 0.21568627655506135,
+                    "b": 0.21568627655506135,
+                    "a": 1.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "RedParticle",
+                "EntityID": 629
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -44.06797409057617,
+                    "y": 7.796811103820801,
+                    "z": -10.235504150390625
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.7999999523162842
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 1.5,
+                "VelocityMax": 2.799999952316284,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.5,
+                        "y": 0.6000000238418579,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9647058844566345,
+                    "g": 0.21568627655506135,
+                    "b": 0.21568627655506135,
+                    "a": 1.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "RedParticle",
+                "EntityID": 630
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.80313491821289,
+                    "y": 8.220473289489746,
+                    "z": -9.385394096374512
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.7999999523162842
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 1.5,
+                "VelocityMax": 2.799999952316284,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.6000000238418579,
+                        "y": 0.6000000238418579,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9647058844566345,
+                    "g": 0.21568627655506135,
+                    "b": 0.21568627655506135,
+                    "a": 1.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "red particle",
+                "EntityID": 631
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -44.19325256347656,
+                    "y": 7.955123424530029,
+                    "z": -9.624855041503907
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.7999999523162842
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/Fire.wav",
+                "Volume": 1.0,
+                "ShouldLoop": true
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": -0.5,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 1.5,
+                "VelocityMax": 2.799999952316284,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.699999988079071,
+                        "y": 0.6000000238418579,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 15.0,
+                "ParticleColor": {
+                    "r": 0.9647058844566345,
+                    "g": 0.21568627655506135,
+                    "b": 0.21568627655506135,
+                    "a": 1.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PottedPlant",
+                "EntityID": 632
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -24.898765563964845,
+                    "y": 10.528594970703125,
+                    "z": -10.844683647155762
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.0000013687154023500626,
+                    "y": -1.3860266208648682,
+                    "z": 0.0000013970030749987928
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant4",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PottedPlant",
+                "EntityID": 633
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -40.128719329833987,
+                    "y": 10.407672882080079,
+                    "z": -38.52370071411133
+                },
+                "Scale": {
+                    "x": 0.999996542930603,
+                    "y": 1.0,
+                    "z": 0.999996542930603
+                },
+                "Rotation": {
+                    "x": -3.1415908336639406,
+                    "y": -1.1303024291992188,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant4",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PottedPlant",
+                "EntityID": 634
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -30.909793853759767,
+                    "y": 10.40347957611084,
+                    "z": -38.40265655517578
+                },
+                "Scale": {
+                    "x": 0.9999967813491821,
+                    "y": 1.0,
+                    "z": 0.9999967813491821
+                },
+                "Rotation": {
+                    "x": -9.586293572283467e-7,
+                    "y": -0.7049127817153931,
+                    "z": 6.533510941153509e-7
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant2",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PottedPlant",
+                "EntityID": 635
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -23.465965270996095,
+                    "y": 10.42404556274414,
+                    "z": -37.998130798339847
+                },
+                "Scale": {
+                    "x": 0.9999967813491821,
+                    "y": 1.0,
+                    "z": 0.9999967813491821
+                },
+                "Rotation": {
+                    "x": -9.586293572283467e-7,
+                    "y": -0.7049127817153931,
+                    "z": 6.533510941153509e-7
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant3",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "PottedPlant",
+                "EntityID": 636
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -45.49223327636719,
+                    "y": 8.134934425354004,
+                    "z": 18.43075180053711
+                },
+                "Scale": {
+                    "x": 1.500001072883606,
+                    "y": 1.5,
+                    "z": 1.500001072883606
+                },
+                "Rotation": {
+                    "x": -0.000001368714379168523,
+                    "y": -1.3860266208648682,
+                    "z": 0.0000013970008012620383
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "PottedPlant1",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.5,
+                    "y": 1.0,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "StealthCollider5",
+                "EntityID": 637
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 39.40814208984375,
+                    "y": 0.20279991626739503,
+                    "z": -4.476512432098389
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000044425425585359338,
+                    "y": 1.569791555404663,
+                    "z": -0.00004442596764420159
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": true,
+                "AABBSize": {
+                    "x": 5.5,
+                    "y": 0.10000000149011612,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "StealthCollider6",
+                "EntityID": 638
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 39.41924285888672,
+                    "y": 0.20279942452907563,
+                    "z": -15.500009536743164
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": -0.000044425425585359338,
+                    "y": 1.569791555404663,
+                    "z": -0.00004442596764420159
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Square",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": true,
+                "AABBSize": {
+                    "x": 5.5,
+                    "y": 0.10000000149011612,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         }
     ]
