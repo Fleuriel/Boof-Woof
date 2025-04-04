@@ -1776,6 +1776,24 @@
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -1785,7 +1803,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 35.81442642211914,
+                    "x": 36.069305419921878,
                     "y": 10.090638160705567,
                     "z": 5.6880903244018559
                 },
@@ -1817,7 +1835,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 40.76202392578125,
+                    "x": 40.87308883666992,
                     "y": 10.092916488647461,
                     "z": 5.682155609130859
                 },
@@ -6200,6 +6218,24 @@
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.25,
+                    "y": 3.0,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -6240,9 +6276,9 @@
                 "IsPlayer": false,
                 "IsSensor": false,
                 "AABBSize": {
-                    "x": 7.849999904632568,
+                    "x": 2.25,
                     "y": 3.0,
-                    "z": 0.800000011920929
+                    "z": 0.75
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -6282,6 +6318,24 @@
             "GraphicsComponent": {
                 "ModelName": "WallBothSide",
                 "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.25,
+                    "y": 3.0,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
             }
         },
         {
@@ -13723,7 +13777,7 @@
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
-                "IsDynamic": false,
+                "IsDynamic": true,
                 "IsKinematic": false,
                 "IsPlayer": false,
                 "IsSensor": false,
@@ -14364,7 +14418,7 @@
                 },
                 "AABBOffset": {
                     "x": 0.0,
-                    "y": 3.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "Mass": 0.0
@@ -20049,7 +20103,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 20.72614860534668,
+                    "x": 20.843015670776368,
                     "y": 3.299999952316284,
                     "z": -36.568199157714847
                 },
@@ -25409,7 +25463,7 @@
                     "r": 0.9607843160629273,
                     "g": 0.3921568691730499,
                     "b": 0.04313725605607033,
-                    "a": 0.5
+                    "a": 0.0
                 },
                 "ParticleType": "TEXTURED",
                 "ParticleModel": "Bed",
