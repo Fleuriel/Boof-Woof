@@ -147,7 +147,7 @@ public:
 
             cameraController->Update(static_cast<float>(deltaTime));
             g_UI.OnUpdate(static_cast<float>(deltaTime));
-            g_UI.Sniff(std::vector<Entity>{}, goalnode, deltaTime, 
+            g_UI.Sniff(std::vector<Entity>{}, goalnode, static_cast<float>(deltaTime), 
                 g_Coordinator.GetSystem<PathfindingSystem>()->GetClosestNode(
                     g_Coordinator.GetComponent<TransformComponent>(g_Player).GetPosition()));
             g_DialogueText.OnUpdate(deltaTime);

@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "b7552cfa-4613-4df4-8a96-f4dde493fbeb",
+    "SceneGUID": "e10b0829-158d-49c7-9af6-76f3705f6484",
     "Entities": [
         {
             "MetadataComponent": {
@@ -58,7 +58,7 @@
                 ]
             },
             "BehaviourComponent": {
-                "BehaviourName": "Null"
+                "BehaviourName": "Player"
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
@@ -17621,9 +17621,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -43.44088363647461,
+                    "x": -43.69557571411133,
                     "y": 6.989960670471191,
-                    "z": -20.898229598999025
+                    "z": -20.56533432006836
                 },
                 "Scale": {
                     "x": 0.5,
@@ -22289,9 +22289,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -24.039506912231447,
+                    "x": -43.63130187988281,
                     "y": 7.44303035736084,
-                    "z": -11.516495704650879
+                    "z": -20.621265411376954
                 },
                 "Scale": {
                     "x": 1.0,
@@ -23579,7 +23579,7 @@
                 "ScaleY": 3.299999952316284,
                 "Layer": 0.5799999833106995,
                 "Selectable": false,
-                "Opcaity": 0.0,
+                "Opcaity": 1.0,
                 "Animated": false,
                 "Rows": 1,
                 "Cols": 1,
@@ -25704,7 +25704,7 @@
                 "ScaleY": 0.25,
                 "Layer": 0.5699999332427979,
                 "Selectable": false,
-                "Opcaity": 0.0,
+                "Opcaity": 1.0,
                 "Animated": false,
                 "Rows": 1,
                 "Cols": 1,
@@ -25725,7 +25725,7 @@
                 "ScaleY": 0.25,
                 "Layer": 0.5699999332427979,
                 "Selectable": false,
-                "Opcaity": 0.0,
+                "Opcaity": 1.0,
                 "Animated": false,
                 "Rows": 1,
                 "Cols": 1,
@@ -28505,9 +28505,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -27.411762237548829,
-                    "y": 8.620529174804688,
-                    "z": 6.751808166503906
+                    "x": -27.29960060119629,
+                    "y": 8.62054443359375,
+                    "z": -10.04043960571289
                 },
                 "Scale": {
                     "x": 1.4999994039535523,
@@ -28515,9 +28515,9 @@
                     "z": 1.4999994039535523
                 },
                 "Rotation": {
-                    "x": 5.040512291998311e-7,
-                    "y": -0.5232832431793213,
-                    "z": 0.000008870831152307801
+                    "x": 0.000003920877134078182,
+                    "y": -0.921520471572876,
+                    "z": 0.000005331277861841954
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
