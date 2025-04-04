@@ -218,7 +218,8 @@ struct RexChase final : public Behaviour
 
                             if (!path.empty())
                             {
-                                currentPathIndex = 0;
+								// Skip first node to prevent Rex from moving backwards after exceeding the node
+                                currentPathIndex = 1;
                                 followingPath = true;
                                 pathInitialized = true;  // Ensure new path is recognized
 
