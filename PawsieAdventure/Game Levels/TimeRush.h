@@ -213,7 +213,7 @@ class TimeRush : public Level
 
 		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 
-		particleEntities = { scentEntity1, scentEntity2, scentEntity3, scentEntity4, scentEntity5, scentEntity6, scentEntity7, scentEntity8, scentEntity9 };
+		//particleEntities = { scentEntity1, scentEntity2, scentEntity3, scentEntity4, scentEntity5, scentEntity6, scentEntity7, scentEntity8, scentEntity9 };
 		g_UI.OnInitialize();
 
 		g_TimerTR.timer = timerLimit;
