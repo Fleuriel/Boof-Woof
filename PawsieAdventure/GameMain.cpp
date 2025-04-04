@@ -35,9 +35,9 @@ void InitializeLevels()
 
     // Set the initial level
 
-    g_LevelManager.Initialize("Splashscreen");
-    g_LevelManager.SetNextLevel("Splashscreen");
-    g_LevelManager.SetPreviousLevel("Splashscreen");
+    g_LevelManager.Initialize("MainHall");
+    g_LevelManager.SetNextLevel("MainHall");
+    g_LevelManager.SetPreviousLevel("MainHall");
 
 }
 

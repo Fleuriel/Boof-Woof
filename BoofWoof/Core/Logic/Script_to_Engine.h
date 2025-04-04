@@ -578,6 +578,12 @@ public:
 		PlayAnimation(entity);
 	}
 
+	// Logic
+	virtual bool isPlayerHidden() override
+	{
+		return g_Coordinator.GetSystem<LogicSystem>()->isPlayerhidden;
+	}
+
 };
 
 #endif // !SCRIPT_TO_ENGINE_H

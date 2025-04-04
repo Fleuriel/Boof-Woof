@@ -759,12 +759,14 @@ private:
 			float newBrightness = std::max(0.5f, currentBrightness - 0.05f); // Decrease by 0.1, but not below 0
 			g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(newBrightness);
 			wasColliding = true;
+			g_Coordinator.GetSystem<LogicSystem>()->isPlayerhidden = true;
 		}
 		else if (wasColliding)
 		{
 			// Reset the brightness to the original value
 			g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(originalBrightness);
 			wasColliding = false;
+			g_Coordinator.GetSystem<LogicSystem>()->isPlayerhidden = false;
 		}
 	}
 	void ResetLevelState()

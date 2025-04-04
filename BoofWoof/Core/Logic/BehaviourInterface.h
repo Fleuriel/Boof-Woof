@@ -137,7 +137,8 @@ struct engine_interface
 	virtual void PlayAnimation(Entity entity) = 0;
 	virtual void UnPauseAnimation(Entity entity) = 0;
 
-
+	//Logic
+	virtual bool isPlayerHidden() = 0;
 };
 
 
