@@ -91,7 +91,7 @@
                     "y": 1.0,
                     "z": 0.0
                 },
-                "Active": false
+                "Active": true
             },
             "MaterialComponent": {
                 "name": "Default Material",
