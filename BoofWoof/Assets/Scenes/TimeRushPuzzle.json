@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "99bec8be-99df-46ff-a13a-ebe299e05b56",
+    "SceneGUID": "33ed0636-2a32-4cbb-877a-5c10483d5c25",
     "Entities": [
         {
             "MetadataComponent": {
@@ -208,9 +208,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 19.82200050354004,
+                    "x": 19.145933151245118,
                     "y": 0.9999999403953552,
-                    "z": 3.655076742172241
+                    "z": 4.124079704284668
                 },
                 "Scale": {
                     "x": 0.4999885857105255,
@@ -273,29 +273,19 @@
                 "GoalNode": 65,
                 "Path": [
                     {
-                        "x": 20.0,
+                        "x": -3.0,
                         "y": 0.0,
-                        "z": 3.0
-                    },
-                    {
-                        "x": 12.0,
-                        "y": 0.0,
-                        "z": 3.0
-                    },
-                    {
-                        "x": 4.0,
-                        "y": 0.0,
-                        "z": 3.0
-                    },
-                    {
-                        "x": -4.0,
-                        "y": 0.0,
-                        "z": 3.0
+                        "z": -38.0
                     },
                     {
                         "x": -3.0,
                         "y": 0.0,
-                        "z": -7.0
+                        "z": -32.0
+                    },
+                    {
+                        "x": -3.0,
+                        "y": 0.0,
+                        "z": -22.0
                     },
                     {
                         "x": -3.0,
@@ -16349,7 +16339,7 @@
             "TransformComponent": {
                 "Position": {
                     "x": 20.119962692260743,
-                    "y": 1.500000238418579,
+                    "y": 1.5,
                     "z": 17.999996185302736
                 },
                 "Scale": {
@@ -16382,8 +16372,8 @@
                     },
                     {
                         "Animation ID": 1,
-                        "Start Time": 335,
-                        "End Time": 336
+                        "Start Time": 335.0,
+                        "End Time": 336.0
                     },
                     {
                         "Animation ID": 2,
@@ -16396,6 +16386,11 @@
                         "End Time": 279.739990234375
                     }
                 ]
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/Rex_Growl_Loop_v1.wav",
+                "Volume": 1.0,
+                "ShouldLoop": true
             },
             "BehaviourComponent": {
                 "BehaviourName": "RexChase"
