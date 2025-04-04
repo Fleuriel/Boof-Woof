@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "9cf1a53f-4be6-460e-9480-781ecfcadb8b",
+    "SceneGUID": "37ffb0c1-0255-41e3-a4d5-3ef4706b06c1",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -1.0809998512268067,
+                    "x": -8.44528579711914,
                     "y": 0.34999990463256838,
-                    "z": -2.170999526977539
+                    "z": -0.25
                 },
                 "Scale": {
                     "x": 0.5,
@@ -80,9 +80,9 @@
             },
             "CameraComponent": {
                 "Position": {
-                    "x": 0.4000000059604645,
+                    "x": -7.368000030517578,
                     "y": 1.600000023841858,
-                    "z": -2.1700000762939455
+                    "z": -0.25
                 },
                 "Yaw": 0.0,
                 "Pitch": 0.0,
@@ -257,7 +257,7 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -2.5934982299804689,
+                    "x": -2.6032841205596926,
                     "y": 3.6542694568634035,
                     "z": -5.626296043395996
                 },
@@ -307,19 +307,19 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -5.736772060394287,
+                    "x": -15.216109275817871,
                     "y": 3.6551718711853029,
-                    "z": -5.626440525054932
+                    "z": -5.638027191162109
                 },
                 "Scale": {
-                    "x": 1.0,
+                    "x": 0.9999760389328003,
                     "y": 1.2000000476837159,
-                    "z": 1.0
+                    "z": 0.9999760389328003
                 },
                 "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
+                    "x": -3.1415908336639406,
+                    "y": 1.5671663284301758,
+                    "z": -3.1415908336639406
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
@@ -885,14 +885,14 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -5.736634731292725,
+                    "x": -15.34948444366455,
                     "y": 3.6551718711853029,
-                    "z": 5.72086763381958
+                    "z": 6.215196132659912
                 },
                 "Scale": {
-                    "x": 0.9999874234199524,
+                    "x": 0.9999522566795349,
                     "y": 1.2000000476837159,
-                    "z": 0.9999874234199524
+                    "z": 0.9999522566795349
                 },
                 "Rotation": {
                     "x": -3.140409469604492,
@@ -912,58 +912,8 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "Wall",
-                "EntityID": 19
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": -0.7526137828826904,
-                    "y": 3.6542694568634035,
-                    "z": 5.709837913513184
-                },
-                "Scale": {
-                    "x": 1.7999999523162842,
-                    "y": 1.2000000476837159,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallBothSide",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.5,
-                    "y": 3.0,
-                    "z": 0.800000011920929
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
                 "EntityName": "WallCorner",
-                "EntityID": 20
+                "EntityID": 19
             },
             "TransformComponent": {
                 "Position": {
@@ -1013,7 +963,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Wall",
-                "EntityID": 21
+                "EntityID": 20
             },
             "TransformComponent": {
                 "Position": {
@@ -1063,7 +1013,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Ceiling",
-                "EntityID": 22
+                "EntityID": 21
             },
             "TransformComponent": {
                 "Position": {
@@ -1074,7 +1024,57 @@
                 "Scale": {
                     "x": 1.2000000476837159,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 1.100000023841858
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Ceiling",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.15000000596046449,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.30000001192092898,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Ceiling",
+                "EntityID": 22
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 10.510055541992188,
+                    "y": 6.939372539520264,
+                    "z": 0.0065419673919677738
+                },
+                "Scale": {
+                    "x": 1.2000000476837159,
+                    "y": 1.0,
+                    "z": 1.100000023841858
                 },
                 "Rotation": {
                     "x": 0.0,
@@ -1118,61 +1118,11 @@
             "TransformComponent": {
                 "Position": {
                     "x": 10.513819694519043,
-                    "y": 6.939372539520264,
-                    "z": 0.0
-                },
-                "Scale": {
-                    "x": 1.100000023841858,
-                    "y": 1.0,
-                    "z": 1.0
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "Ceiling",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 5.0,
-                    "y": 0.15000000596046449,
-                    "z": 5.0
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.30000001192092898,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "Ceiling",
-                "EntityID": 24
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 10.513819694519043,
                     "y": 6.967649459838867,
                     "z": 10.437784194946289
                 },
                 "Scale": {
-                    "x": 1.100000023841858,
+                    "x": 1.2000000476837159,
                     "y": 1.0,
                     "z": 1.100000023841858
                 },
@@ -1213,18 +1163,18 @@
         {
             "MetadataComponent": {
                 "EntityName": "WallDoor",
-                "EntityID": 25
+                "EntityID": 24
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -5.454008102416992,
+                    "x": -15.461234092712403,
                     "y": 3.662215232849121,
-                    "z": 0.14824530482292176
+                    "z": 0.1609693318605423
                 },
                 "Scale": {
-                    "x": 1.7999902963638306,
+                    "x": 1.7999756336212159,
                     "y": 1.2000000476837159,
-                    "z": 0.9998771548271179
+                    "z": 0.9998698234558106
                 },
                 "Rotation": {
                     "x": -3.1415770053863527,
@@ -1245,13 +1195,13 @@
         {
             "MetadataComponent": {
                 "EntityName": "Door",
-                "EntityID": 26
+                "EntityID": 25
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -5.19398832321167,
-                    "y": 2.717630386352539,
-                    "z": 0.11689269542694092
+                    "x": -15.115745544433594,
+                    "y": 2.407681941986084,
+                    "z": 0.10285097360610962
                 },
                 "Scale": {
                     "x": 1.100000023841858,
@@ -1295,22 +1245,22 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 27
+                "EntityID": 26
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 7.25600004196167,
-                    "y": 2.456007719039917,
+                    "x": 7.256002902984619,
+                    "y": 1.0335897207260132,
                     "z": 9.01099967956543
                 },
                 "Scale": {
-                    "x": 1.2599999904632569,
+                    "x": 1.260003685951233,
                     "y": 1.2599999904632569,
-                    "z": 1.2599999904632569
+                    "z": 1.260003685951233
                 },
                 "Rotation": {
-                    "x": -3.1415884494781496,
-                    "y": -0.0,
+                    "x": -3.1415863037109377,
+                    "y": -1.5693678855895997,
                     "z": -3.1415884494781496
                 },
                 "RotationPivotOffset": {
@@ -1320,7 +1270,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "Bed2",
+                "ModelName": "Bed",
                 "FollowCamera": true
             },
             "CollisionComponent": {
@@ -1330,9 +1280,9 @@
                 "IsPlayer": false,
                 "IsSensor": false,
                 "AABBSize": {
-                    "x": 1.5,
-                    "y": 1.7999999523162842,
-                    "z": 2.0
+                    "x": 2.049999952316284,
+                    "y": 0.699999988079071,
+                    "z": 1.2000000476837159
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -1345,7 +1295,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 28
+                "EntityID": 27
             },
             "TransformComponent": {
                 "Position": {
@@ -1395,7 +1345,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Carpet",
-                "EntityID": 29
+                "EntityID": 28
             },
             "TransformComponent": {
                 "Position": {
@@ -1445,7 +1395,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 30
+                "EntityID": 29
             },
             "TransformComponent": {
                 "Position": {
@@ -1495,7 +1445,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 31
+                "EntityID": 30
             },
             "TransformComponent": {
                 "Position": {
@@ -1545,7 +1495,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 32
+                "EntityID": 31
             },
             "TransformComponent": {
                 "Position": {
@@ -1595,22 +1545,72 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
+                "EntityID": 32
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -10.298604965209961,
+                    "y": 3.649996757507324,
+                    "z": 3.9019229412078859
+                },
+                "Scale": {
+                    "x": 1.2000181674957276,
+                    "y": 1.2000000476837159,
+                    "z": 1.2000181674957276
+                },
+                "Rotation": {
+                    "x": 3.1415908336639406,
+                    "y": 0.0004132350441068411,
+                    "z": 3.1415908336639406
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallTorch",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 3.0,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.20000000298023225
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
                 "EntityID": 33
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -3.676949977874756,
-                    "y": 3.6500000953674318,
-                    "z": 4.211629867553711
+                    "x": -10.466073036193848,
+                    "y": 3.6499617099761965,
+                    "z": -3.842005491256714
                 },
                 "Scale": {
-                    "x": 1.1999510526657105,
+                    "x": 1.1999502182006837,
                     "y": 1.2000000476837159,
-                    "z": 1.1999510526657105
+                    "z": 1.1999502182006837
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": 1.5699999332427979,
+                    "y": 0.0004994427436031401,
                     "z": 0.0
                 },
                 "RotationPivotOffset": {
@@ -1630,14 +1630,14 @@
                 "IsPlayer": false,
                 "IsSensor": false,
                 "AABBSize": {
-                    "x": 2.5,
+                    "x": 0.8999999761581421,
                     "y": 3.0,
-                    "z": 0.800000011920929
+                    "z": 0.5
                 },
                 "AABBOffset": {
                     "x": 0.0,
                     "y": 0.0,
-                    "z": 0.0
+                    "z": -0.20000000298023225
                 },
                 "Mass": 0.0
             }
@@ -1649,68 +1649,18 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -3.6702210903167726,
-                    "y": 3.6499617099761965,
-                    "z": -4.232629299163818
+                    "x": 5.919100761413574,
+                    "y": 3.6499669551849367,
+                    "z": 4.998069763183594
                 },
                 "Scale": {
-                    "x": 1.1999510526657105,
+                    "x": 1.200193166732788,
                     "y": 1.2000000476837159,
-                    "z": 1.1999510526657105
-                },
-                "Rotation": {
-                    "x": 0.0,
-                    "y": 1.5699999332427979,
-                    "z": 0.0
-                },
-                "RotationPivotOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                }
-            },
-            "GraphicsComponent": {
-                "ModelName": "WallTorch",
-                "FollowCamera": true
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": false,
-                "IsKinematic": false,
-                "IsPlayer": false,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.5,
-                    "y": 3.0,
-                    "z": 0.800000011920929
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            }
-        },
-        {
-            "MetadataComponent": {
-                "EntityName": "GameObject",
-                "EntityID": 35
-            },
-            "TransformComponent": {
-                "Position": {
-                    "x": 5.708400249481201,
-                    "y": 3.64996600151062,
-                    "z": 4.750438690185547
-                },
-                "Scale": {
-                    "x": 1.2001147270202637,
-                    "y": 1.2000000476837159,
-                    "z": 1.2001147270202637
+                    "z": 1.200193166732788
                 },
                 "Rotation": {
                     "x": -3.1415908336639406,
-                    "y": 0.0015923726605251432,
+                    "y": 0.0015922888414934278,
                     "z": -3.1415908336639406
                 },
                 "RotationPivotOffset": {
@@ -1745,7 +1695,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 36
+                "EntityID": 35
             },
             "TransformComponent": {
                 "Position": {
@@ -1777,7 +1727,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 37
+                "EntityID": 36
             },
             "TransformComponent": {
                 "Position": {
@@ -1827,7 +1777,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 38
+                "EntityID": 37
             },
             "TransformComponent": {
                 "Position": {
@@ -1877,7 +1827,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Carpet",
-                "EntityID": 39
+                "EntityID": 38
             },
             "TransformComponent": {
                 "Position": {
@@ -1927,7 +1877,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "white1",
-                "EntityID": 40
+                "EntityID": 39
             },
             "TransformComponent": {
                 "Position": {
@@ -1992,7 +1942,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "white2",
-                "EntityID": 41
+                "EntityID": 40
             },
             "TransformComponent": {
                 "Position": {
@@ -2057,7 +2007,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "white3",
-                "EntityID": 42
+                "EntityID": 41
             },
             "TransformComponent": {
                 "Position": {
@@ -2122,7 +2072,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "yellow1",
-                "EntityID": 43
+                "EntityID": 42
             },
             "TransformComponent": {
                 "Position": {
@@ -2187,7 +2137,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "yellow2",
-                "EntityID": 44
+                "EntityID": 43
             },
             "TransformComponent": {
                 "Position": {
@@ -2252,7 +2202,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "yellow3",
-                "EntityID": 45
+                "EntityID": 44
             },
             "TransformComponent": {
                 "Position": {
@@ -2317,7 +2267,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "orangey1",
-                "EntityID": 46
+                "EntityID": 45
             },
             "TransformComponent": {
                 "Position": {
@@ -2382,7 +2332,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "orangey2",
-                "EntityID": 47
+                "EntityID": 46
             },
             "TransformComponent": {
                 "Position": {
@@ -2447,7 +2397,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "orangey3",
-                "EntityID": 48
+                "EntityID": 47
             },
             "TransformComponent": {
                 "Position": {
@@ -2512,7 +2462,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "left particle",
-                "EntityID": 49
+                "EntityID": 48
             },
             "TransformComponent": {
                 "Position": {
@@ -2577,7 +2527,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "right particle",
-                "EntityID": 50
+                "EntityID": 49
             },
             "TransformComponent": {
                 "Position": {
@@ -2642,7 +2592,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "middle particle",
-                "EntityID": 51
+                "EntityID": 50
             },
             "TransformComponent": {
                 "Position": {
@@ -2712,7 +2662,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "left particle",
-                "EntityID": 52
+                "EntityID": 51
             },
             "TransformComponent": {
                 "Position": {
@@ -2777,7 +2727,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "right particle",
-                "EntityID": 53
+                "EntityID": 52
             },
             "TransformComponent": {
                 "Position": {
@@ -2842,7 +2792,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "BedRoomMusic",
-                "EntityID": 54
+                "EntityID": 53
             },
             "TransformComponent": {
                 "Position": {
@@ -2875,7 +2825,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CorgiBark1",
-                "EntityID": 55
+                "EntityID": 54
             },
             "TransformComponent": {
                 "Position": {
@@ -2908,7 +2858,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "CorgiSniff",
-                "EntityID": 56
+                "EntityID": 55
             },
             "TransformComponent": {
                 "Position": {
@@ -2941,7 +2891,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 57
+                "EntityID": 56
             },
             "TransformComponent": {
                 "Position": {
@@ -2982,7 +2932,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 58
+                "EntityID": 57
             },
             "TransformComponent": {
                 "Position": {
@@ -3023,7 +2973,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 59
+                "EntityID": 58
             },
             "TransformComponent": {
                 "Position": {
@@ -3064,7 +3014,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 60
+                "EntityID": 59
             },
             "TransformComponent": {
                 "Position": {
@@ -3105,7 +3055,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 61
+                "EntityID": 60
             },
             "TransformComponent": {
                 "Position": {
@@ -3155,7 +3105,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 62
+                "EntityID": 61
             },
             "TransformComponent": {
                 "Position": {
@@ -3205,7 +3155,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 63
+                "EntityID": 62
             },
             "TransformComponent": {
                 "Position": {
@@ -3255,7 +3205,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 64
+                "EntityID": 63
             },
             "TransformComponent": {
                 "Position": {
@@ -3305,7 +3255,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 65
+                "EntityID": 64
             },
             "TransformComponent": {
                 "Position": {
@@ -3337,7 +3287,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 66
+                "EntityID": 65
             },
             "TransformComponent": {
                 "Position": {
@@ -3369,7 +3319,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "RopeObject",
-                "EntityID": 67
+                "EntityID": 66
             },
             "TransformComponent": {
                 "Position": {
@@ -3420,7 +3370,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 68
+                "EntityID": 67
             },
             "TransformComponent": {
                 "Position": {
@@ -3470,7 +3420,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 69
+                "EntityID": 68
             },
             "TransformComponent": {
                 "Position": {
@@ -3520,7 +3470,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 70
+                "EntityID": 69
             },
             "TransformComponent": {
                 "Position": {
@@ -3552,7 +3502,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 71
+                "EntityID": 70
             },
             "TransformComponent": {
                 "Position": {
@@ -3584,7 +3534,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "GameObject",
-                "EntityID": 72
+                "EntityID": 71
             },
             "TransformComponent": {
                 "Position": {
@@ -3616,7 +3566,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Rope",
-                "EntityID": 73
+                "EntityID": 72
             },
             "TransformComponent": {
                 "Position": {
@@ -3689,7 +3639,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 74
+                "EntityID": 73
             },
             "TransformComponent": {
                 "Position": {
@@ -3782,7 +3732,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 75
+                "EntityID": 74
             },
             "TransformComponent": {
                 "Position": {
@@ -3875,7 +3825,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 76
+                "EntityID": 75
             },
             "TransformComponent": {
                 "Position": {
@@ -3968,7 +3918,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 77
+                "EntityID": 76
             },
             "TransformComponent": {
                 "Position": {
@@ -4061,7 +4011,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 78
+                "EntityID": 77
             },
             "TransformComponent": {
                 "Position": {
@@ -4154,7 +4104,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 79
+                "EntityID": 78
             },
             "TransformComponent": {
                 "Position": {
@@ -4247,7 +4197,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 80
+                "EntityID": 79
             },
             "TransformComponent": {
                 "Position": {
@@ -4340,7 +4290,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 81
+                "EntityID": 80
             },
             "TransformComponent": {
                 "Position": {
@@ -4433,7 +4383,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Node",
-                "EntityID": 82
+                "EntityID": 81
             },
             "TransformComponent": {
                 "Position": {
@@ -4526,7 +4476,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 83
+                "EntityID": 82
             },
             "TransformComponent": {
                 "Position": {
@@ -4559,7 +4509,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 84
+                "EntityID": 83
             },
             "TransformComponent": {
                 "Position": {
@@ -4592,7 +4542,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 85
+                "EntityID": 84
             },
             "TransformComponent": {
                 "Position": {
@@ -4625,7 +4575,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 86
+                "EntityID": 85
             },
             "TransformComponent": {
                 "Position": {
@@ -4658,7 +4608,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 87
+                "EntityID": 86
             },
             "TransformComponent": {
                 "Position": {
@@ -4691,7 +4641,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 88
+                "EntityID": 87
             },
             "TransformComponent": {
                 "Position": {
@@ -4724,7 +4674,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 89
+                "EntityID": 88
             },
             "TransformComponent": {
                 "Position": {
@@ -4757,7 +4707,7 @@
         {
             "MetadataComponent": {
                 "EntityName": "Edge",
-                "EntityID": 90
+                "EntityID": 89
             },
             "TransformComponent": {
                 "Position": {
@@ -4785,6 +4735,638 @@
                 "StartNode": 7,
                 "EndNode": 8,
                 "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Floor",
+                "EntityID": 90
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -9.991687774658204,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Floor3tripleheight",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 9.899999618530274,
+                    "y": 0.30000001192092898,
+                    "z": 4.699999809265137
+                },
+                "AABBOffset": {
+                    "x": 5.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wall",
+                "EntityID": 91
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -7.422842979431152,
+                    "y": 3.6542694568634035,
+                    "z": -5.626296043395996
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.2000000476837159,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wall",
+                "EntityID": 92
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -12.202838897705079,
+                    "y": 3.6542694568634035,
+                    "z": -5.626296043395996
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.2000000476837159,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wall",
+                "EntityID": 93
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 1.1897679567337037,
+                    "y": 3.6542694568634035,
+                    "z": 5.766811847686768
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.2000000476837159,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wall",
+                "EntityID": 94
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -3.602970838546753,
+                    "y": 3.6542694568634035,
+                    "z": 5.766811847686768
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.2000000476837159,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wall",
+                "EntityID": 95
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -8.416337966918946,
+                    "y": 3.6542694568634035,
+                    "z": 5.766811847686768
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.2000000476837159,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Wall",
+                "EntityID": 96
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -13.211588859558106,
+                    "y": 3.6542694568634035,
+                    "z": 5.766811847686768
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.2000000476837159,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Ceiling",
+                "EntityID": 97
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -12.973758697509766,
+                    "y": 6.939393997192383,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.2000000476837159,
+                    "y": 1.0,
+                    "z": 1.100000023841858
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Ceiling",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 5.0,
+                    "y": 0.15000000596046449,
+                    "z": 5.0
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.30000001192092898,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Carpet",
+                "EntityID": 98
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -8.204581260681153,
+                    "y": 0.36121654510498049,
+                    "z": -0.13033007085323335
+                },
+                "Scale": {
+                    "x": 0.999966025352478,
+                    "y": 1.0,
+                    "z": 0.999966025352478
+                },
+                "Rotation": {
+                    "x": -3.1415884494781496,
+                    "y": 1.5700000524520875,
+                    "z": -3.1415884494781496
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Carpet",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": true,
+                "AABBSize": {
+                    "x": 3.0999999046325685,
+                    "y": 0.10000000149011612,
+                    "z": 5.900000095367432
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 99
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -3.6636531352996828,
+                    "y": 1.2872591018676758,
+                    "z": -2.6600096225738527
+                },
+                "Scale": {
+                    "x": 0.9999207258224487,
+                    "y": 0.9998992681503296,
+                    "z": 0.9999943971633911
+                },
+                "Rotation": {
+                    "x": -2.564885139465332,
+                    "y": 0.052413344383239749,
+                    "z": -1.6422390937805176
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair4",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 1.399999976158142,
+                    "z": 0.699999988079071
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 100
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 7.255985736846924,
+                    "y": 2.7942869663238527,
+                    "z": 9.01099967956543
+                },
+                "Scale": {
+                    "x": 1.260003685951233,
+                    "y": 1.2599999904632569,
+                    "z": 1.260003685951233
+                },
+                "Rotation": {
+                    "x": -3.1415863037109377,
+                    "y": -1.5693678855895997,
+                    "z": -3.1415884494781496
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bed",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.049999952316284,
+                    "y": 0.699999988079071,
+                    "z": 1.2000000476837159
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 101
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -12.124641418457032,
+                    "y": 5.379566669464111,
+                    "z": -3.403132438659668
+                },
+                "Scale": {
+                    "x": 0.020000001415610315,
+                    "y": 0.020000001415610315,
+                    "z": 0.020000001415610315
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 0.20000000298023225,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 1.0,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 7.900000095367432
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "GameObject",
+                "EntityID": 102
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -12.124641418457032,
+                    "y": 5.379566669464111,
+                    "z": 3.1919748783111574
+                },
+                "Scale": {
+                    "x": 0.020000001415610315,
+                    "y": 0.020000001415610315,
+                    "z": 0.020000001415610315
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "LightComponent": {
+                "LightIntensity": 0.20000000298023225,
+                "LightColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                },
+                "LightShadow": false,
+                "LightDirectionX": 1.0,
+                "LightDirectionY": 0.0,
+                "LightDirectionZ": 0.0,
+                "LightRange": 7.900000095367432
             }
         }
     ]
