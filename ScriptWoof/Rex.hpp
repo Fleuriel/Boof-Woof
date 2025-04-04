@@ -38,6 +38,7 @@ struct Rex final : public Behaviour
     // Create a state machine
     enum class State
     {
+        IDLE,
         PATROL,
 		CHASE,
         FIND
@@ -93,6 +94,18 @@ struct Rex final : public Behaviour
             // Single Ray Check
             //SingleRayCheck(entity, currentPos);
             switch (state) {
+            case State::IDLE:
+                if (patroldelay > 0.0f) {
+                    patroldelay -= m_Engine.GetDeltaTime();
+
+                    m_Engine.PauseAnimation(entity);
+
+                    //m_Engine.PlayAnimation(entity, std::get<1>(animationIdle), std::get<2>(animationIdle));
+                }
+                else {
+                    reachedDestination = false;
+					state = State::PATROL;
+                }
             case State::PATROL:
 
                 m_Engine.PlayAnimation(entity, std::get<1>(animationWalk), std::get<2>(animationWalk));              
@@ -105,16 +118,8 @@ struct Rex final : public Behaviour
                 }
                 //std::cout << "[Rex] Patrolling...\n";
 				if (reachedDestination) {
-					if (patroldelay > 0.0f) {
-						patroldelay -= m_Engine.GetDeltaTime();
-						
-                        m_Engine.PauseAnimation(entity);
-                        
-                        //m_Engine.PlayAnimation(entity, std::get<1>(animationIdle), std::get<2>(animationIdle));
-					}
-					else {
-						reachedDestination = false;
-					}
+					state = State::IDLE;
+                    break;
 				}
                 else {
                     // Ensure path is properly initialized after resetting the scene
