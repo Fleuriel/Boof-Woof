@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "3c45adbb-5e57-44fa-975e-41e8cf95c25e",
+    "SceneGUID": "9cf1a53f-4be6-460e-9480-781ecfcadb8b",
     "Entities": [
         {
             "MetadataComponent": {
@@ -80,8 +80,8 @@
             },
             "CameraComponent": {
                 "Position": {
-                    "x": 0.30000001192092898,
-                    "y": 1.7000000476837159,
+                    "x": 0.4000000059604645,
+                    "y": 1.600000023841858,
                     "z": -2.1700000762939455
                 },
                 "Yaw": 0.0,
