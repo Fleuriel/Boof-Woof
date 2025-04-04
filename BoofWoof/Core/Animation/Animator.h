@@ -41,7 +41,7 @@ public:
 
 		m_CurrentTime += ticksPerSecond * dt;
 
-		// ✅ Check if using playback range
+		// Check if using playback range
 		if (m_UsingPlaybackRange)
 		{
 			// Loop within custom range
@@ -59,6 +59,11 @@ public:
 		CalculateBoneTransform(&m_CurrentAnimation->GetRootNode(), glm::mat4(1.0f));
 	}
 
+
+	void SetDeltaTime(float dt)
+	{
+		m_DeltaTime = dt;
+	}
 
 	void SetPlaybackRange(float start, float end)
 	{
