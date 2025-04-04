@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "83da7ea2-9759-498c-9f30-6ce4f40bd1e9",
+    "SceneGUID": "b7552cfa-4613-4df4-8a96-f4dde493fbeb",
     "Entities": [
         {
             "MetadataComponent": {
@@ -5405,9 +5405,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -20.85760498046875,
+                    "x": -20.857629776000978,
                     "y": 10.166004180908204,
-                    "z": -19.84096336364746
+                    "z": -19.817575454711915
                 },
                 "Scale": {
                     "x": 1.4999998807907105,
@@ -12987,9 +12987,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -48.07072830200195,
+                    "x": -48.07077407836914,
                     "y": 10.165905952453614,
-                    "z": -22.012401580810548
+                    "z": -21.995542526245118
                 },
                 "Scale": {
                     "x": 1.600000023841858,
@@ -13719,18 +13719,18 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -25.70138168334961,
+                    "x": -24.34688949584961,
                     "y": 7.805121421813965,
-                    "z": -25.345062255859376
+                    "z": -23.558534622192384
                 },
                 "Scale": {
-                    "x": 2.0,
+                    "x": 1.9999197721481324,
                     "y": 2.0,
-                    "z": 2.0
+                    "z": 1.9999197721481324
                 },
                 "Rotation": {
                     "x": 0.0,
-                    "y": -0.0,
+                    "y": -1.5699999332427979,
                     "z": 0.0
                 },
                 "RotationPivotOffset": {
@@ -17223,9 +17223,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -34.42319107055664,
+                    "x": -33.03507995605469,
                     "y": 6.535404682159424,
-                    "z": -26.077665328979493
+                    "z": -28.111486434936525
                 },
                 "Scale": {
                     "x": 1.0,
@@ -17255,18 +17255,18 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -24.282581329345704,
-                    "y": 8.035259246826172,
-                    "z": -10.912971496582032
+                    "x": -24.678464889526368,
+                    "y": 8.03524398803711,
+                    "z": -10.911697387695313
                 },
                 "Scale": {
-                    "x": 2.099966287612915,
+                    "x": 2.099891185760498,
                     "y": 1.7000000476837159,
                     "z": 2.8999998569488527
                 },
                 "Rotation": {
-                    "x": 3.4635723977771706e-7,
-                    "y": 0.0032120777759701015,
+                    "x": 3.4634265944077927e-7,
+                    "y": 0.003212124574929476,
                     "z": 0.000005484093890117947
                 },
                 "RotationPivotOffset": {
@@ -17693,9 +17693,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -24.06116485595703,
+                    "x": -43.44088363647461,
                     "y": 6.989960670471191,
-                    "z": -11.522852897644043
+                    "z": -20.898229598999025
                 },
                 "Scale": {
                     "x": 0.5,
@@ -20345,7 +20345,7 @@
                 "LightDirectionX": 1.0,
                 "LightDirectionY": 0.0,
                 "LightDirectionZ": 0.0,
-                "LightRange": 47.900001525878909
+                "LightRange": 74.9000015258789
             }
         },
         {
@@ -22329,9 +22329,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -24.01190185546875,
+                    "x": -43.617462158203128,
                     "y": 7.4480671882629398,
-                    "z": -11.553563117980957
+                    "z": -20.644498825073243
                 },
                 "Scale": {
                     "x": 0.5,
@@ -22561,9 +22561,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -24.727802276611329,
-                    "y": 7.170868396759033,
-                    "z": -11.764572143554688
+                    "x": -42.3192024230957,
+                    "y": 7.431151390075684,
+                    "z": -20.550954818725587
                 },
                 "Scale": {
                     "x": 1.0,
@@ -32846,7 +32846,7 @@
                 "Position": {
                     "x": -25.2355899810791,
                     "y": 10.085956573486329,
-                    "z": -18.323768615722658
+                    "z": -18.215801239013673
                 },
                 "Scale": {
                     "x": 1.4999998807907105,
@@ -32894,9 +32894,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": -22.33096694946289,
-                    "y": 10.729132652282715,
-                    "z": -20.37009620666504
+                    "x": -27.763723373413087,
+                    "y": 10.089824676513672,
+                    "z": -20.096176147460939
                 },
                 "Scale": {
                     "x": 1.4000662565231324,
@@ -33007,6 +33007,338 @@
                     "x": 0.000004362570052762749,
                     "y": 1.2382928133010865,
                     "z": 0.000004372915554995416
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Couch",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 1.899999976158142,
+                    "y": 0.44999998807907107,
+                    "z": 1.600000023841858
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": -0.800000011920929,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 688
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -39.43147659301758,
+                    "y": 10.085956573486329,
+                    "z": -22.894451141357423
+                },
+                "Scale": {
+                    "x": 1.4999998807907105,
+                    "y": 1.399999976158142,
+                    "z": 0.9998276829719544
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -1.5699999332427979,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallBothSide",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.5,
+                    "y": 3.0,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "WallCastle",
+                "EntityID": 689
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -39.63225555419922,
+                    "y": 10.093732833862305,
+                    "z": -18.555580139160158
+                },
+                "Scale": {
+                    "x": 1.399999976158142,
+                    "y": 1.399999976158142,
+                    "z": 1.399999976158142
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallCorner",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 2.549999952316284,
+                    "z": 0.800000011920929
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Table",
+                "EntityID": 690
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -43.21894454956055,
+                    "y": 7.883529186248779,
+                    "z": -21.992441177368165
+                },
+                "Scale": {
+                    "x": 1.399999976158142,
+                    "y": 1.399999976158142,
+                    "z": 1.399999976158142
+                },
+                "Rotation": {
+                    "x": 3.141315460205078,
+                    "y": 1.5692379474639893,
+                    "z": 3.141324520111084
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Table2",
+                "FollowCamera": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Chair",
+                "EntityID": 691
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -45.16801834106445,
+                    "y": 8.71785831451416,
+                    "z": -24.158538818359376
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 2.0
+                },
+                "Rotation": {
+                    "x": 0.000012618237633432728,
+                    "y": -1.0351216793060303,
+                    "z": -6.51034923748739e-8
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Chair",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.75,
+                    "y": 1.399999976158142,
+                    "z": 0.75
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Bookshelf",
+                "EntityID": 692
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -46.277099609375,
+                    "y": 9.854280471801758,
+                    "z": -30.68558120727539
+                },
+                "Scale": {
+                    "x": 1.3999969959259034,
+                    "y": 1.399999976158142,
+                    "z": 1.3999969959259034
+                },
+                "Rotation": {
+                    "x": -0.000010865245712921024,
+                    "y": 1.5699999332427979,
+                    "z": -0.00001059362057276303
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "Bookshelf2",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 1.7000000476837159,
+                    "y": 2.299999952316284,
+                    "z": 0.6000000238418579
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "walltorch",
+                "EntityID": 693
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -39.530372619628909,
+                    "y": 10.225184440612793,
+                    "z": -27.421260833740236
+                },
+                "Scale": {
+                    "x": 1.2999999523162842,
+                    "y": 1.2999999523162842,
+                    "z": 1.2999999523162842
+                },
+                "Rotation": {
+                    "x": 3.1415793895721437,
+                    "y": -0.0,
+                    "z": 3.1415884494781496
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "GraphicsComponent": {
+                "ModelName": "WallTorch",
+                "FollowCamera": true
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": false,
+                "IsKinematic": false,
+                "IsPlayer": false,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 0.800000011920929,
+                    "y": 2.4000000953674318,
+                    "z": 0.5
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -0.20000000298023225
+                },
+                "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "couch",
+                "EntityID": 694
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -23.339275360107423,
+                    "y": 8.662046432495118,
+                    "z": -30.06044578552246
+                },
+                "Scale": {
+                    "x": 0.999972939491272,
+                    "y": 1.0,
+                    "z": 0.999972939491272
+                },
+                "Rotation": {
+                    "x": -3.1415793895721437,
+                    "y": -1.5700000524520875,
+                    "z": 3.141558885574341
                 },
                 "RotationPivotOffset": {
                     "x": 0.0,
