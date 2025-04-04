@@ -91,6 +91,7 @@ struct Rex final : public Behaviour
             std::tuple<int, float, float> animationWalk = m_Engine.GetAnimationVector(entity)[ANIM_WALKING];
             std::tuple<int, float, float> animationRun = m_Engine.GetAnimationVector(entity)[ANIM_RUNNING];
 
+
             // Single Ray Check
             //SingleRayCheck(entity, currentPos);
             switch (state) {
