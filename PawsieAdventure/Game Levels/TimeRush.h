@@ -34,6 +34,7 @@ class TimeRush : public Level
 	bool finishTR{ false };
 	double timesUp = 2.0;
 
+	int goalnode = 65;
 	double sniffCooldownTimer = 0.0;  // Accumulates time
 	const double sniffCooldownDuration = 17.0;  // 17 seconds
 	bool isSniffOnCooldown = false;
@@ -311,7 +312,7 @@ class TimeRush : public Level
 			cooldownTimer += deltaTime;
 
 			g_UI.OnUpdate(static_cast<float>(deltaTime));
-			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
+			g_UI.Sniff(particleEntities, goalnode, static_cast<float>(deltaTime));
 
 			if (!g_IsCamPanning) 
 			{

@@ -125,7 +125,7 @@ void UI::OnShutdown()
 	storage.clear();
 }
 
-void UI::Sniff(const std::vector<Entity>& particles, float dt)
+void UI::Sniff(const std::vector<Entity>& particles, int goalnode, float dt, int startnode)
 {
 	if (!g_Coordinator.HaveComponent<UIComponent>(CDSniff))
 		return;
@@ -149,7 +149,10 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 			auto tempPathComp = g_Coordinator.GetComponent<PathfindingComponent>(g_Player);
 			
 			// Get the path and all the nodes in the path
-			g_Coordinator.GetSystem<PathfindingSystem>()->FindEntityPath(tempPathComp.GetStartNode(), tempPathComp.GetGoalNode(), nodePath);
+			if(startnode == -1)
+				g_Coordinator.GetSystem<PathfindingSystem>()->FindEntityPath(tempPathComp.GetStartNode(), goalnode, nodePath);
+			else 
+				g_Coordinator.GetSystem<PathfindingSystem>()->FindEntityPath(startnode, goalnode, nodePath);
 			
 			// For each node in the path, activate particles opacity to 0.3f
 			for (auto node : nodePath) {
@@ -183,6 +186,7 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 			}
 		}
 
+		
 		// Activate particles for all entities
 		for (Entity particleEntity : particles)
 		{
@@ -192,7 +196,7 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 				particle.setOpacity(0.5f);
 			}
 		}
-
+		
 		particleTimer = 3.0f; // 3 seconds
 	}
 
@@ -207,17 +211,20 @@ void UI::Sniff(const std::vector<Entity>& particles, float dt)
 					ParticleComponent& particle = g_Coordinator.GetComponent<ParticleComponent>(node);
 					particle.setOpacity(0.0f);
 				}
+					
 			}
-
+			
 			for (Entity particleEntity : particles)
 			{
 				if (g_Coordinator.HaveComponent<ParticleComponent>(particleEntity))
 				{
 					ParticleComponent& particle = g_Coordinator.GetComponent<ParticleComponent>(particleEntity);
 					particle.setOpacity(0.0f);
-					sniffaAnimation.set_playing(false);
+					//sniffaAnimation.set_playing(false);
 				}
 			}
+			sniffaAnimation.set_playing(false);
+			
 		}
 	}
 

@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "018ab952-1af1-4a21-a412-9933f1fb0ed4",
+    "SceneGUID": "f46b2548-a7d4-4d7a-80fb-6ad8e935f72c",
     "Entities": [
         {
             "MetadataComponent": {
@@ -32,27 +32,6 @@
                 "ModelName": "corgi",
                 "FollowCamera": true
             },
-            "BehaviourComponent": {
-                "BehaviourName": "Player"
-            },
-            "CollisionComponent": {
-                "CollisionLayer": 0,
-                "IsDynamic": true,
-                "IsKinematic": false,
-                "IsPlayer": true,
-                "IsSensor": false,
-                "AABBSize": {
-                    "x": 2.9000000953674318,
-                    "y": 1.7999999523162842,
-                    "z": 1.2999999523162842
-                },
-                "AABBOffset": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "Mass": 0.0
-            },
             "AnimationComponent": {
                 "Number of Animation Points": 3,
                 "Animations": [
@@ -79,6 +58,42 @@
                     }
                 ]
             },
+            "BehaviourComponent": {
+                "BehaviourName": "Player"
+            },
+            "CollisionComponent": {
+                "CollisionLayer": 0,
+                "IsDynamic": true,
+                "IsKinematic": false,
+                "IsPlayer": true,
+                "IsSensor": false,
+                "AABBSize": {
+                    "x": 2.9000000953674318,
+                    "y": 1.7999999523162842,
+                    "z": 1.2999999523162842
+                },
+                "AABBOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Mass": 0.0
+            },
+            "CameraComponent": {
+                "Position": {
+                    "x": 1.399999976158142,
+                    "y": 1.600000023841858,
+                    "z": 0.0
+                },
+                "Yaw": 0.0,
+                "Pitch": 0.0,
+                "Up": {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                "Active": true
+            },
             "MaterialComponent": {
                 "name": "Default Material",
                 "shader": "Animation",
@@ -98,21 +113,16 @@
                     "shininess": 0.0
                 }
             },
-            
-            "CameraComponent": {
-                "Position": {
-                    "x": 1.399999976158142,
-                    "y": 1.600000023841858,
-                    "z": 0.0
-                },
-                "Yaw": 0.0,
-                "Pitch": 0.0,
-                "Up": {
-                    "x": 0.0,
-                    "y": 1.0,
-                    "z": 0.0
-                },
-                "Active": true
+            "PathfindingComponent": {
+                "StartNode": 17,
+                "GoalNode": 0,
+                "Path": [
+                    {
+                        "x": 26.0,
+                        "y": 0.0,
+                        "z": -77.0
+                    }
+                ]
             }
         },
         {
@@ -33092,6 +33102,39 @@
             "EdgeComponent": {
                 "StartNode": 43,
                 "EndNode": 44,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 692
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 44,
+                "EndNode": 26,
                 "Cost": 1.0
             }
         }

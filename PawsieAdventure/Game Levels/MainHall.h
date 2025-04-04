@@ -52,7 +52,7 @@ class MainHall : public Level
 
 	// Puppies
 	int puppiesCollected = 0;
-	const int puppiesNode[3] = { 11, 29, 38 };
+	const int puppiesNode[4] = { 11, 29, 38, 0 };
 	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
 	bool puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
 	bool dialogueFirst{ false }, dialogueSecond{ false }, dialogueThird{ false };
@@ -61,7 +61,6 @@ class MainHall : public Level
 	const double sniffCooldownDuration = 17.0;  // 17 seconds cooldown
 	bool isSniffOnCooldown = false;  // Track cooldown state
 	bool bark = false;
-
 	std::vector<Entity> particleEntities;
 	std::vector<Entity> peeEntities;
 	std::vector<Entity> peeColliders;
@@ -221,10 +220,10 @@ class MainHall : public Level
 			cameraController->SetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt), camdir);
 			savedcamdir = false;
 		}
-
+		glm::vec3 playerPos;
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
 			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
-			glm::vec3 playerPos = playerTransform.GetPosition();
+			playerPos = playerTransform.GetPosition();
 			glm::vec3 playerRot = playerTransform.GetRotation();  // Get rotation from TransformComponent
 
 			g_Audio.SetListenerPosition(playerPos, playerRot);
@@ -244,7 +243,10 @@ class MainHall : public Level
 			cooldownTimer += deltaTime;
 
 			g_UI.OnUpdate(static_cast<float>(deltaTime));
-			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
+			if(g_Coordinator.HaveComponent<TransformComponent>(playerEnt))
+				g_UI.Sniff(particleEntities, puppiesNode[puppiesCollected], static_cast<float>(deltaTime), g_Coordinator.GetSystem<PathfindingSystem>()->GetClosestNode(playerPos));
+			else
+				g_UI.Sniff(particleEntities, puppiesNode[puppiesCollected], static_cast<float>(deltaTime));
 			g_DialogueText.OnUpdate(deltaTime);
 
 			if (!g_Checklist.shutted)
