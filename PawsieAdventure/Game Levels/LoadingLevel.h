@@ -20,7 +20,7 @@ static const std::unordered_map<std::string, std::string> sceneNameMapping = {
     {"Cutscene",     "Cutscene"},
     {"StartingRoom", "Starting Room"},
     {"Corridor",     "Corridor"},
-    {"TimeRush",     "Library"},
+    {"TimeRush",     "Time Rush"},
     {"MainHall",     "Main Hall"},
     {"LoadingLevel", "Loading Level"},
     {"CutsceneEnd",  "Cutscene End"},
