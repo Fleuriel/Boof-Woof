@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "6cb13e50-fd1b-4cbd-8c99-56b3ca3650a6",
+    "SceneGUID": "b1ed0846-ef8c-4525-ab8c-51e41897966a",
     "Entities": [
         {
             "MetadataComponent": {
@@ -50,14 +50,33 @@
             },
             "FontComponent": {
                 "Family": "manga-temple",
-                "PositionX": -0.1899999976158142,
-                "PositionY": -0.20000000298023225,
-                "ScaleX": 1.5,
-                "ScaleY": 2.200000047683716,
+                "PositionX": -0.1599999964237213,
+                "PositionY": -0.18000000715255738,
+                "ScaleX": 1.2000000476837159,
+                "ScaleY": 2.0,
                 "ColorR": 0.0,
                 "ColorG": 0.0,
                 "ColorB": 0.0,
-                "Text": "Loading..."
+                "Text": "Loading...",
+                "Layer": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "HeadingToText",
+                "EntityID": 3
+            },
+            "FontComponent": {
+                "Family": "manga-temple",
+                "PositionX": -0.44999998807907107,
+                "PositionY": -0.4000000059604645,
+                "ScaleX": 1.5,
+                "ScaleY": 2.200000047683716,
+                "ColorR": 0.0,
+                "ColorG": 0.04109000414609909,
+                "ColorB": 0.46568626165390017,
+                "Text": "Heading to",
+                "Layer": 0.0
             }
         }
     ]

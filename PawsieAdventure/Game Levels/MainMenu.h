@@ -5,14 +5,14 @@
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 #include "../Systems/PauseScreen/PauseScreen.h"
 
-Entity BackCamera{}, MenuMusic{}, MenuClick{}, StartGame{}, X{}, HTP{}, Cog{}, eXit{};
+Entity BackCamera{}, MenuMusic{}, MenuClick{}, StartGame{}, X{}, HTP{}, Cog{}, eXit{INVALID_ENTITY};
 std::unique_ptr<PauseMenu> MenuPauser = CreatePausedMenu(PauseState::Paused);
 float sfxVolume{ 1.0f }, bgmVolume{ 1.0f }, MasterVol{ 1.0f };
 bool inSmth{ false };
 std::unordered_map<Entity, glm::vec2> originalScales;
 extern std::shared_ptr<GraphicsSystem> mGraphicsSys;
-double waitingTime = 0.0;
-
+double twoSecondsPls = 0.0;
+bool startingGame = false;
 
 class MainMenu : public Level
 {
@@ -127,15 +127,28 @@ class MainMenu : public Level
 			{
 				eXit = MenuPauser->eXitBtn;
 			}
+			if (eXit != INVALID_ENTITY) {
+				if (g_Coordinator.HaveComponent<UIComponent>(eXit)) {
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(eXit);
+					if (UICompt.get_selected())
+					{
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/EscSFX.wav", false, "SFX");
+						RestoreUI();
 
-			auto& UICompt = g_Coordinator.GetComponent<UIComponent>(eXit);
-			if (UICompt.get_selected())
+						inSmth = false;
+						MenuPauser->OnExit();
+					}
+				}
+			}
+		}
+
+		if (startingGame) 
+		{
+			twoSecondsPls += deltaTime;
+			if (twoSecondsPls >= 2.0)
 			{
-				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/EscSFX.wav", false, "SFX");
-				RestoreUI();
-
-				inSmth = false;
-				MenuPauser->OnExit();
+				g_LevelManager.SetNextLevel("Cutscene");
+				startingGame = false;
 			}
 		}
 
@@ -147,21 +160,9 @@ class MainMenu : public Level
 				if (UICompt.get_selected())
 				{
 					inSmth = true;
-
-					//// Play the button click sound
-					//if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
-					//	auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
-					//	music1.PlayAudio();
-					//}
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PressStart.wav", false, "SFX");
-
 					g_Window->HideMouseCursor();
-					
-					g_LevelManager.SetNextLevel("Cutscene");
-						
-					
-
-
+					startingGame = true;
 				}
 			}
 
@@ -355,8 +356,8 @@ class MainMenu : public Level
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->MasterLeft);
 				if (UICompt.get_selected())
 				{
-					/*MasterVol = std::max(0.0f, (float)(g_Audio.GetBGMVolume() - volumeStep));
-					g_Audio.SetBGMVolume(MasterVol);*/
+					MasterVol = std::max(0.0f, g_Audio.GetMasterVolume() - volumeStep);
+					g_Audio.SetMasterVolume(MasterVol);
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 				}
 			}
@@ -366,14 +367,16 @@ class MainMenu : public Level
 				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(MenuPauser->MasterRight);
 				if (UICompt.get_selected())
 				{
-					/*MasterVol = std::min(1.0f, (float)(g_Audio.GetBGMVolume() + volumeStep));
-					g_Audio.SetBGMVolume(MasterVol);*/
+					MasterVol = std::min(1.0f, g_Audio.GetMasterVolume() + volumeStep);
+					g_Audio.SetMasterVolume(MasterVol);
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 				}
 			}
 
 			if (g_Coordinator.HaveComponent<FontComponent>(MenuPauser->MasterVol))
 			{
+				MasterVol = g_Audio.GetMasterVolume(); 
+
 				int volDisplay = static_cast<int>(std::round(MasterVol * 10));
 				FontComponent& MastaVolFont = g_Coordinator.GetComponent<FontComponent>(MenuPauser->MasterVol);
 				if (volDisplay >= 0 && volDisplay < 10)
@@ -427,7 +430,7 @@ class MainMenu : public Level
 	void UnloadLevel() override
 	{
 		g_Audio.Stop(MenuMusic);
-		waitingTime = 0.f;
+		twoSecondsPls = 0.0;
 
 		// Reset all entities
 		g_Coordinator.ResetEntities();

@@ -485,6 +485,11 @@ void MyPhysicsSystem::AddEntityBody(Entity entity, float mass) {
             //motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING
         );
 
+        // Check if it is sensor:
+        if (collisionComponent.IsSensor()) {
+            bodySettings.mIsSensor = true;
+        }
+
         JPH::BodyInterface& bodyInterface = mPhysicsSystem->GetBodyInterface();
         JPH::Body* body = bodyInterface.CreateBody(bodySettings);
 
@@ -634,6 +639,11 @@ void MyPhysicsSystem::UpdateEntityBody(Entity entity, float mass)
             layer
             //motionType == JPH::EMotionType::Dynamic ? Layers::MOVING : Layers::NON_MOVING
         );
+
+        // Check if it is sensor:
+        if (collisionComponent.IsSensor()) {
+            bodySettings.mIsSensor = true;
+        }
 
         // Allow full rotational freedom
         bodySettings.mAllowedDOFs = JPH::EAllowedDOFs::All;

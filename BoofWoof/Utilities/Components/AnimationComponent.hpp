@@ -77,7 +77,6 @@ public:
 	std::tuple<int, float, float> playThisAnimation;
 
 
-
 	bool pauseAnimation;
 
 private:

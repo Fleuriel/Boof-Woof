@@ -352,10 +352,18 @@ public:
 		return {};
 	}
 
+	virtual void GetEntityPathNodes(Entity entity, std::vector<Entity>& pathNodes) override {
+		if (HavePathfindingComponent(entity)) {
+			auto comp = g_Coordinator.GetComponent<PathfindingComponent>(entity);
+			g_Coordinator.GetSystem<PathfindingSystem>()->FindEntityPath(comp.GetStartNode(), comp.GetGoalNode(), pathNodes);
+			std::cout << "[Engine] Finding node path for Entity " << entity << std::endl;
+		}
+	}
+
 	virtual void SetStartNode(Entity entity, Entity node) override {
 		if (HavePathfindingComponent(entity)) {
 			g_Coordinator.GetComponent<PathfindingComponent>(entity).SetStartNode(node);
-			std::cout << "[Engine] Set start node for Entity " << entity << " to " << node << std::endl;
+			// std::cout << "[Engine] Set start node for Entity " << entity << " to " << node << std::endl;
 		}
 	}
 
@@ -372,7 +380,7 @@ public:
 	virtual void SetGoalNode(Entity entity, Entity node) override {
 		if (HavePathfindingComponent(entity)) {
 			g_Coordinator.GetComponent<PathfindingComponent>(entity).SetGoalNode(node);
-			std::cout << "[Engine] Set goal node for Entity " << entity << " to " << node << std::endl;
+			//std::cout << "[Engine] Set goal node for Entity " << entity << " to " << node << std::endl;
 		}
 	}
 
@@ -397,10 +405,11 @@ public:
 		return g_Coordinator.GetSystem<PathfindingSystem>()->GetClosestNode(entityPosition);
 	}
 
+	// For MainHall Only
 	virtual Entity GetRandomNode(Entity entity) override {
 		Entity start = g_Coordinator.GetComponent<PathfindingComponent>(entity).GetStartNode();
 
-		std::vector<Entity> list = g_Coordinator.GetSystem<PathfindingSystem>()->GetNodeList();
+		std::vector<Entity> list = { 0,0,0,0,6,7,8,9,10,11,12,13,14,15,16,17 }; // Hardcoded list of nodes to choose from
 		// Get a random node from the list
 		std::random_device rd;   // Seed
 		std::mt19937 gen(rd());  // Mersenne Twister random engine
@@ -534,14 +543,14 @@ public:
 		if (animatorIt != g_ResourceManager.AnimatorMap.end() && animatorIt->second)
 		{
 			// Update the animation with the given delta time
-			animatorIt->second->UpdateAnimation(graphicsComp.deltaTime);
+			animatorIt->second->UpdateAnimation(anim, graphicsComp.deltaTime);
 
 			//std::cout << animDeltaTime << '\t' << timeStart << '\t' << timeEnd << '\t' << '\n';
 			//	std::cout << "Graphics Component Model name : " << modelName << '\n';
 
 			if (animDeltaTime < timeStart || animDeltaTime > timeEnd)
 			{
-				std::cout << "it entered here in playAnim \n";
+				//std::cout << "it entered here in playAnim \n";
 				animatorIt->second->SetAnimationTime(timeStart);
 			}
 		}
@@ -549,6 +558,24 @@ public:
 		{
 			std::cerr << "Animator for model \"" << modelName << "\" not found or is null." << std::endl;
 		}
+	}
+
+	virtual void PauseAnimation(Entity entity) override
+	{
+
+		auto& anim = g_Coordinator.GetComponent<AnimationComponent>(entity);
+		anim.pauseAnimation = true;
+	}
+	virtual void PlayAnimation(Entity entity)override
+	{
+
+		auto& anim = g_Coordinator.GetComponent<AnimationComponent>(entity);
+		anim.pauseAnimation = false;
+
+	}
+	virtual void UnPauseAnimation(Entity entity)override
+	{
+		PlayAnimation(entity);
 	}
 
 };

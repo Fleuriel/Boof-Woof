@@ -67,6 +67,8 @@ public:
     void Update3DSoundPositions();
     void SetListenerPosition(const glm::vec3& position, const glm::vec3& rotation);
     void SetSoundVolume(const std::string& filePath, float volume);
+    void SetMasterVolume(float volume);
+    float GetMasterVolume() const;
 
 
 
@@ -80,6 +82,8 @@ private:
     std::unordered_map<FMOD::Channel*, std::string> channelToFileMap;
     float bgmVolume = 1.0f;  // Default volume for BGM
     float sfxVolume = 1.0f;  // Default volume for SFX
+    float masterVolume = 1.0f; // New master volume (default 100%)
+
     std::unordered_map<Entity, std::string> entitySoundTypeMap;
 
 

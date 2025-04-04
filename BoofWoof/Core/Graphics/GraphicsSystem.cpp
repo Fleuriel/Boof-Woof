@@ -1376,3 +1376,281 @@ void GraphicsSystem::RenderLightPos()
 
 
 
+static GLuint CompileShader(GLenum type, const char* source)
+{
+	GLuint shader = glCreateShader(type);
+	glShaderSource(shader, 1, &source, nullptr);
+	glCompileShader(shader);
+
+	GLint success;
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		char infoLog[512];
+		glGetShaderInfoLog(shader, 512, nullptr, infoLog);
+		std::cerr << "Shader compilation error: " << infoLog << std::endl;
+	}
+	return shader;
+}
+
+void GraphicsSystem::RenderTransitionEffect(float progress)
+{
+	// We assume progress goes from 0.0 (full screen visible) to 1.0 (entire screen black).
+	// The effect is a circle centered on the screen that shrinks from full screen (u_radius = 1.0)
+	// down to nothing (u_radius = 0.0).
+	float currentRadius = 1.0f - progress;
+	if (currentRadius < 0.0f)
+		currentRadius = 0.0f;
+	if (currentRadius > 1.0f)
+		currentRadius = 1.0f;
+
+	// Static variables to hold our transition resources.
+	static bool initialized = false;
+	static GLuint transitionVAO = 0, transitionVBO = 0, transitionEBO = 0;
+	static GLuint transitionShaderProgram = 0;
+	static GLint uniformResolution = -1;
+	static GLint uniformRadius = -1;
+
+	if (!initialized)
+	{
+		// Vertex shader: passes through the vertex positions.
+		const char* vertexShaderSource = R"(
+            #version 330 core
+            layout (location = 0) in vec2 aPos;
+            void main()
+            {
+                gl_Position = vec4(aPos, 0.0, 1.0);
+            }
+        )";
+
+		// Fragment shader: calculates a symmetric circle by converting screen coordinates
+		// to a normalized space and adjusting for aspect ratio.
+		const char* fragmentShaderSource = R"(
+            #version 330 core
+            out vec4 FragColor;
+            uniform vec2 u_resolution;
+            uniform float u_radius; // Circle radius from 0.0 (no circle) to 1.0 (full screen)
+            void main()
+            {
+                // Convert fragment coordinates to normalized coordinates in [-1, 1].
+                vec2 uv = gl_FragCoord.xy / u_resolution; 
+                uv = uv * 2.0 - 1.0;
+                // Correct the x coordinate for the aspect ratio.
+                uv.x *= u_resolution.x / u_resolution.y;
+                // Compute the distance from the center.
+                float dist = length(uv);
+                // If the fragment is outside the circle, output opaque black;
+                // otherwise, output transparent.
+                if(dist > u_radius)
+                    FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+                else
+                    FragColor = vec4(0.0, 0.0, 0.0, 0.0);
+            }
+        )";
+
+		// Compile the vertex and fragment shaders.
+		GLuint vertexShader = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
+		GLuint fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
+
+		// Create and link the shader program.
+		transitionShaderProgram = glCreateProgram();
+		glAttachShader(transitionShaderProgram, vertexShader);
+		glAttachShader(transitionShaderProgram, fragmentShader);
+		glLinkProgram(transitionShaderProgram);
+		GLint success;
+		glGetProgramiv(transitionShaderProgram, GL_LINK_STATUS, &success);
+		if (!success)
+		{
+			char infoLog[512];
+			glGetProgramInfoLog(transitionShaderProgram, 512, nullptr, infoLog);
+			std::cerr << "Shader Program linking error: " << infoLog << std::endl;
+		}
+		// Shaders are linked; delete them.
+		glDeleteShader(vertexShader);
+		glDeleteShader(fragmentShader);
+
+		// Define full-screen quad vertices (in NDC coordinates).
+		float quadVertices[] = {
+			-1.0f, -1.0f,
+			 1.0f, -1.0f,
+			 1.0f,  1.0f,
+			-1.0f,  1.0f
+		};
+
+		// Define indices for two triangles.
+		unsigned int indices[] = {
+			0, 1, 2,
+			0, 2, 3
+		};
+
+		// Generate VAO, VBO, and EBO.
+		glGenVertexArrays(1, &transitionVAO);
+		glGenBuffers(1, &transitionVBO);
+		glGenBuffers(1, &transitionEBO);
+
+		glBindVertexArray(transitionVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, transitionVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, transitionEBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+		// Vertex attribute for position.
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+		glBindVertexArray(0);
+
+		// Get uniform locations.
+		uniformResolution = glGetUniformLocation(transitionShaderProgram, "u_resolution");
+		uniformRadius = glGetUniformLocation(transitionShaderProgram, "u_radius");
+
+		initialized = true;
+	}
+
+	// Set state for overlay rendering.
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glUseProgram(transitionShaderProgram);
+	glUniform2f(uniformResolution, (float)g_WindowX, (float)g_WindowY);
+	glUniform1f(uniformRadius, currentRadius);
+
+	glBindVertexArray(transitionVAO);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+	glUseProgram(0);
+
+	// Restore state.
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+}
+
+void GraphicsSystem::RenderReverseTransitionEffect(float progress)
+{
+	// Clamp progress between 0.0 and 1.0.
+	if (progress < 0.0f)
+		progress = 0.0f;
+	if (progress > 1.0f)
+		progress = 1.0f;
+
+	// Compute the aspect ratio and maximum distance from the center in normalized space.
+	// In the fragment shader we convert gl_FragCoord to coordinates in [-1,1] (with aspect correction).
+	float aspect = (float)g_WindowX / (float)g_WindowY;
+	float maxDist = std::sqrt(aspect * aspect + 1.0f);
+	// For the reverse effect, when progress is 0, the clear circle is 0 (i.e. fully black)
+	// and when progress is 1, the clear circle has a radius equal to maxDist.
+	float currentRadius = progress * maxDist;
+
+	// Static variables for reverse transition resources.
+	static bool reverseInitialized = false;
+	static GLuint reverseVAO = 0, reverseVBO = 0, reverseEBO = 0;
+	static GLuint reverseShaderProgram = 0;
+	static GLint reverseUniformResolution = -1;
+	static GLint reverseUniformRadius = -1;
+
+	if (!reverseInitialized)
+	{
+		// Vertex shader: pass through vertex positions.
+		const char* vertexShaderSource = R"(
+            #version 330 core
+            layout (location = 0) in vec2 aPos;
+            void main()
+            {
+                gl_Position = vec4(aPos, 0.0, 1.0);
+            }
+        )";
+
+		// Fragment shader: outputs opaque black outside a clear circle of radius u_radius
+		// and transparent inside. Coordinates are normalized and aspect-corrected.
+		const char* fragmentShaderSource = R"(
+            #version 330 core
+            out vec4 FragColor;
+            uniform vec2 u_resolution;
+            uniform float u_radius; // Clear circle radius (from 0.0 to maxDist)
+            void main()
+            {
+                vec2 uv = gl_FragCoord.xy / u_resolution; 
+                uv = uv * 2.0 - 1.0;
+                uv.x *= u_resolution.x / u_resolution.y;
+                float dist = length(uv);
+                if(dist > u_radius)
+                    FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+                else
+                    FragColor = vec4(0.0, 0.0, 0.0, 0.0);
+            }
+        )";
+
+		// Compile shaders.
+		GLuint vertexShader = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
+		GLuint fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
+
+		// Create shader program.
+		reverseShaderProgram = glCreateProgram();
+		glAttachShader(reverseShaderProgram, vertexShader);
+		glAttachShader(reverseShaderProgram, fragmentShader);
+		glLinkProgram(reverseShaderProgram);
+		GLint success;
+		glGetProgramiv(reverseShaderProgram, GL_LINK_STATUS, &success);
+		if (!success)
+		{
+			char infoLog[512];
+			glGetProgramInfoLog(reverseShaderProgram, 512, nullptr, infoLog);
+			std::cerr << "Reverse Transition Shader Program linking error: " << infoLog << std::endl;
+		}
+		glDeleteShader(vertexShader);
+		glDeleteShader(fragmentShader);
+
+		// Define full-screen quad vertices (NDC).
+		float quadVertices[] = {
+			-1.0f, -1.0f,
+			 1.0f, -1.0f,
+			 1.0f,  1.0f,
+			-1.0f,  1.0f
+		};
+
+		// Define indices.
+		unsigned int indices[] = {
+			0, 1, 2,
+			0, 2, 3
+		};
+
+		// Generate VAO, VBO, and EBO.
+		glGenVertexArrays(1, &reverseVAO);
+		glGenBuffers(1, &reverseVBO);
+		glGenBuffers(1, &reverseEBO);
+
+		glBindVertexArray(reverseVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, reverseVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, reverseEBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+		// Vertex attribute for position.
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+		glBindVertexArray(0);
+
+		// Get uniform locations.
+		reverseUniformResolution = glGetUniformLocation(reverseShaderProgram, "u_resolution");
+		reverseUniformRadius = glGetUniformLocation(reverseShaderProgram, "u_radius");
+
+		reverseInitialized = true;
+	}
+
+	// Set state for overlay rendering.
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glUseProgram(reverseShaderProgram);
+	glUniform2f(reverseUniformResolution, (float)g_WindowX, (float)g_WindowY);
+	glUniform1f(reverseUniformRadius, currentRadius);
+
+	glBindVertexArray(reverseVAO);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+	glUseProgram(0);
+
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+}

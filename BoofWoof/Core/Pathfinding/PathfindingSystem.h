@@ -49,14 +49,15 @@ namespace std {
 class Node3D {
 public:
     uint32_t nodeID;  // Store Node ID
+    Entity entityID;
     glm::vec3 position;
     bool isWalkable;
     float givenCost;
     float finalCost;
     std::shared_ptr<Node3D> parent;
 
-    Node3D(uint32_t id, glm::vec3 pos, bool walkable)
-        : nodeID(id), position(pos), isWalkable(walkable), givenCost(FLT_MAX), finalCost(FLT_MAX), parent(nullptr) {}
+    Node3D(uint32_t id, Entity ent, glm::vec3 pos, bool walkable)
+        : nodeID(id), entityID(ent), position(pos), isWalkable(walkable), givenCost(FLT_MAX), finalCost(FLT_MAX), parent(nullptr) {}
 };
 
 
@@ -89,7 +90,7 @@ public:
 
     void BuildGraph();
     bool FindPath(Entity startNode, Entity goalNode, std::vector<glm::vec3>& outPath);
-    //bool FindPath(Entity startNode, Entity goalNode, std::vector<glm::vec3>& outPath, std::unordered_set<uint32_t> attemptedFallbacks = {}, int maxFallbackAttempts = 5);
+    bool FindEntityPath(Entity startNode, Entity goalNode, std::vector<Entity>& outEntityPath);
 
     void Update(float deltaTime);
 
@@ -114,6 +115,7 @@ private:
     float GetCost(Entity start, Entity end) const;
     float Heuristic(const glm::vec3& a, const glm::vec3& b) const;
     void ReconstructPath(const std::shared_ptr<Node3D>& goalNode, std::vector<glm::vec3>& outPath);
+    void ReconstructEntityPath(const std::shared_ptr<Node3D>& goalNode, std::vector<Entity>& outEntityPath);
     std::vector<Entity> GetNeighbors(Entity node);
     //std::vector<int> GetNeighbors(int nodeID);
 

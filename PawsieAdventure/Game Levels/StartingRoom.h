@@ -15,7 +15,7 @@
 class StartingRoom : public Level
 {
 public:
-	Entity playerEnt{}, scentEntity{}, RopeE{}, RopeObj{};
+	Entity playerEnt{}, RopeE{}, RopeObj{};
 	CameraController* cameraController = nullptr;
 	bool bark{ false }, sniff{ false }, initChecklist{ false };
 	Entity BedRoomBGM{}, CorgiBark{}, CorgiSniff{}, FireSound{};
@@ -29,6 +29,11 @@ public:
 	bool isSniffOnCooldown = false;
 	bool destroyedRope{ false };
 
+	// Reverse transition state variables (for level start)
+	bool reverseTransitionActive = true;
+	float reverseTransitionTimer = 0.0f;
+	const float reverseTransitionDuration = 1.0f; // Duration for reverse transition
+
 	std::vector<std::string> bitingSounds = {
 	"Corgi/DogBite_01.wav",
 	"Corgi/DogBite_02.wav",
@@ -38,6 +43,11 @@ public:
 	"Corgi/DogBite_06.wav",
 	"Corgi/DogBite_07.wav",
 	};
+
+	// Transition state variables
+	bool transitionActive = false;
+	float transitionTimer = 0.0f;
+	const float transitionDuration = 1.0f; // Duration in seconds
 
 
 	// Function to get a random sound from a vector
@@ -61,7 +71,6 @@ public:
 		std::unordered_map<std::string, std::function<void(Entity)>> nameToAction =
 		{
 			{"Player", [&](Entity entity) { playerEnt = entity; }},
-			{"ScentTrail", [&](Entity entity) { scentEntity = entity; }},
 			{"BedRoomMusic", [&](Entity entity) { BedRoomBGM = entity; }},
 			{"CorgiBark1", [&](Entity entity) { CorgiBark = entity; }},
 			{"CorgiSniff", [&](Entity entity) { CorgiSniff = entity; }},
@@ -109,7 +118,7 @@ public:
 				}
 
 				// Exit early if all entities are found
-				if (playerEnt && scentEntity && BedRoomBGM && CorgiBark && CorgiSniff && FireSound && RopeE && RopeObj)
+				if (playerEnt && BedRoomBGM && CorgiBark && CorgiSniff && FireSound && RopeE && RopeObj)
 				{
 					break;
 				}
@@ -123,6 +132,9 @@ public:
 
 		ResetLevelState();
 
+		// Activate reverse transition at level start.
+		reverseTransitionActive = true;
+		reverseTransitionTimer = 0.0f;
 
 		// Ensure player entity is valid
 		cameraController = new CameraController(playerEnt);
@@ -132,7 +144,6 @@ public:
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
 		g_Audio.SetSFXVolume(g_Audio.GetSFXVolume());
 
-		particleEntities = { scentEntity };
 		g_UI.OnInitialize();
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeE);
 		g_UI.inStartingRoom = true;
@@ -142,6 +153,26 @@ public:
 
 	void UpdateLevel(double deltaTime) override
 	{
+
+		// --- Reverse Transition Effect at Level Start ---
+		if (reverseTransitionActive)
+		{
+			g_Input.LockInput();
+			reverseTransitionTimer += static_cast<float>(deltaTime);
+			float revProgress = reverseTransitionTimer / reverseTransitionDuration;
+			if (revProgress > 1.0f) revProgress = 1.0f;
+			// Call the reverse transition effect from GraphicsSystem.
+			g_Coordinator.GetSystem<GraphicsSystem>()->RenderReverseTransitionEffect(revProgress);
+			if (reverseTransitionTimer >= reverseTransitionDuration)
+			{
+				g_Input.UnlockInput();
+				reverseTransitionActive = false;
+			}
+		}
+		else {
+			g_Input.UnlockInput();
+		}
+		// --- End Reverse Transition ---
 
 		if (g_IsPaused && !savedcamdir) {
 			camdir = cameraController->GetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
@@ -264,14 +295,29 @@ public:
 
 			// until here
 
-			if (g_Checklist.shutted && !g_DialogueText.dialogueActive)
+			if (g_Checklist.shutted && !g_DialogueText.dialogueActive && transitionActive == false)
 			{
 				if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
 				{
+					transitionActive = true;
+					transitionTimer = 0.0f;
+				}
+			}
+
+			// If transition is active, update timer and render the effect.
+			if (transitionActive)
+			{
+				transitionTimer += static_cast<float>(deltaTime);
+				float progress = transitionTimer / transitionDuration; // Progress from 0.0 to 1.0.
+				// Call the GraphicsSystem's modern transition effect.
+				g_Coordinator.GetSystem<GraphicsSystem>()->RenderTransitionEffect(progress);
+
+				if (transitionTimer >= transitionDuration)
+				{
+					// Transition complete, trigger level change.
 					auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
 					if (loading)
 					{
-						// Pass in the name of the real scene we want AFTER the loading screen
 						loading->m_NextScene = "TimeRush";
 						g_LevelManager.SetNextLevel("LoadingLevel");
 					}
@@ -307,6 +353,8 @@ public:
 		sniff = false;
 		initChecklist = false;
 		destroyedRope = false;
+		transitionActive = false;
+		transitionTimer = 0.0f;
 		g_Audio.Stop(BedRoomBGM);
 
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
@@ -322,6 +370,8 @@ private:
 		sniff = false;
 		initChecklist = false;
 		savedcamdir = false;
+		transitionActive = false;
+		transitionTimer = 0.0f;
 		camdir = glm::vec3(0.0f);
 		particleEntities.clear();
 		sniffCooldownTimer = 0.0;

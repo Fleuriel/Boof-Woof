@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Level Manager/Level.h"
 #include "ECS/Coordinator.hpp"
 #include "../Systems/CameraController/CameraController.h"
@@ -32,9 +32,9 @@ class MainHall : public Level
 	Entity Cage1{}, Cage1Collider{}, Cage2{}, Cage2Collider{}, Cage3{}, Cage3Collider{};
 	bool cage1Collided{ false }, cage2Collided{ false }, cage3Collided{ false };
 
-	Entity stealthCollider1{}, stealthCollider2{}, stealthCollider3{}, stealthCollider4{};
+	Entity stealthCollider1{}, stealthCollider2{}, stealthCollider3{}, stealthCollider4{}, stealthCollider5{}, stealthCollider6{};
 	Entity VFXBG{}, VFX1{}, VFX2{};
-	float VFX1Dir{ -0.005 }, VFX2Dir{ -0.005 };
+	float VFX1Dir{ -0.005f }, VFX2Dir{ -0.005f };
 
 	// Existing member variables...
 	float originalBrightness = 1.0f;
@@ -74,6 +74,13 @@ class MainHall : public Level
 	"Corgi/DogBite_06.wav",
 	"Corgi/DogBite_07.wav",
 	};
+
+
+	// Reverse transition state variables (for level start)
+	bool reverseTransitionActive = true;
+	float reverseTransitionTimer = 0.0f;
+	const float reverseTransitionDuration = 1.0f; // Duration for reverse transition
+
 
 
 	// Function to get a random sound from a vector
@@ -123,15 +130,20 @@ class MainHall : public Level
 				}
 			}
 		}
-
+		g_Player = playerEnt;
 		g_Window->HideMouseCursor();
 	}
 
 	void InitLevel() override
 	{
 		ResetLevelState();
+
+		// Activate reverse transition at level start.
+		reverseTransitionActive = true;
+		reverseTransitionTimer = 0.0f;
+
 		cameraController = new CameraController(playerEnt);
-		g_CageBreaker = CageBreaker(playerEnt, Cage1, Cage2, Cage3, Cage1Collider, Cage2Collider, Cage3Collider);
+		g_CageBreaker = CageBreaker(playerEnt, Cage1, Cage2, Cage3, Cage1Collider, Cage2Collider, Cage3Collider, puppy1, puppy2, puppy3);
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeEnt, RopeEnt2, BridgeEnt);
 
 		// Smell Avoidance
@@ -148,6 +160,15 @@ class MainHall : public Level
 		g_Checklist.OnInitialize();
 		InitializeChecklist();
 		InitializeFireSound();
+		if (g_Coordinator.HaveComponent<AudioComponent>(rex)) {
+			auto& rexAudio = g_Coordinator.GetComponent<AudioComponent>(rex);
+			rexAudio.SetAudioSystem(&g_Audio);
+
+			// 🔊 Play 3D spatial sound for Rex (looped idle bark or breathing sound)
+			g_Audio.PlayEntity3DAudio(rex, FILEPATH_ASSET_AUDIO + "/Rex_Growl_Loop_v1.wav", true, "BGM");
+		}
+		
+
 		g_SmellAvoidance.Initialize();
 
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
@@ -178,6 +199,27 @@ class MainHall : public Level
 
 	void UpdateLevel(double deltaTime) override
 	{
+
+		// --- Reverse Transition Effect at Level Start ---
+		if (reverseTransitionActive)
+		{
+			g_Input.LockInput();
+			reverseTransitionTimer += static_cast<float>(deltaTime);
+			float revProgress = reverseTransitionTimer / reverseTransitionDuration;
+			if (revProgress > 1.0f) revProgress = 1.0f;
+			// Call the reverse transition effect from GraphicsSystem.
+			g_Coordinator.GetSystem<GraphicsSystem>()->RenderReverseTransitionEffect(revProgress);
+			if (reverseTransitionTimer >= reverseTransitionDuration)
+			{
+				g_Input.UnlockInput();
+				reverseTransitionActive = false;
+			}
+		}
+		else {
+			g_Input.UnlockInput();
+		}
+		// --- End Reverse Transition ---
+
 		if (g_IsPaused && !savedcamdir) {
 			camdir = cameraController->GetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
 			savedcamdir = true;
@@ -478,6 +520,13 @@ class MainHall : public Level
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
 			music.StopAudio();
 		}
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(rex)) {
+			auto& rexAudio = g_Coordinator.GetComponent<AudioComponent>(rex);
+			rexAudio.StopAudio();
+			std::cout << "[Rex] Audio stopped in UnloadLevel().\n";
+		}
+
 		g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
@@ -561,6 +610,8 @@ private:
 			{"StealthCollider2", [&](Entity entity) { stealthCollider2 = entity; }},
 			{"StealthCollider3", [&](Entity entity) { stealthCollider3 = entity; }},
 			{"StealthCollider4", [&](Entity entity) { stealthCollider4 = entity; }},
+			{"StealthCollider5", [&](Entity entity) { stealthCollider5 = entity; }},
+			{"StealthCollider6", [&](Entity entity) { stealthCollider6 = entity; }},
 			{"PeeScent1", [&](Entity entity) { peeScent1 = entity; }},
 			{"PeeScent2", [&](Entity entity) { peeScent2 = entity; }},
 			{"PeeScent3", [&](Entity entity) { peeScent3 = entity; }},
@@ -585,7 +636,7 @@ private:
 
 	bool AllEntitiesInitialized() const
 	{
-		return playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3 && peeScent25;
+		return playerEnt && RopeEnt && RopeEnt2 && BridgeEnt && puppy1 && puppy2 && puppy3 && scentEntity1 && scentEntity2 && scentEntity3 && stealthCollider6;
 	}
 
 	void InitializeChecklist()
@@ -690,7 +741,9 @@ private:
 		bool isColliding = CheckEntityWithPlayerCollision(stealthCollider1) ||
 			CheckEntityWithPlayerCollision(stealthCollider2) ||
 			CheckEntityWithPlayerCollision(stealthCollider3) ||
-			CheckEntityWithPlayerCollision(stealthCollider4);
+			CheckEntityWithPlayerCollision(stealthCollider4) ||
+			CheckEntityWithPlayerCollision(stealthCollider5) ||
+			CheckEntityWithPlayerCollision(stealthCollider6);
 
 		static bool wasColliding = false;
 
