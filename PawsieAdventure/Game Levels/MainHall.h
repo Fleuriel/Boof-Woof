@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Level Manager/Level.h"
 #include "ECS/Coordinator.hpp"
 #include "../Systems/CameraController/CameraController.h"
@@ -160,6 +160,15 @@ class MainHall : public Level
 		g_Checklist.OnInitialize();
 		InitializeChecklist();
 		InitializeFireSound();
+		if (g_Coordinator.HaveComponent<AudioComponent>(rex)) {
+			auto& rexAudio = g_Coordinator.GetComponent<AudioComponent>(rex);
+			rexAudio.SetAudioSystem(&g_Audio);
+
+			// 🔊 Play 3D spatial sound for Rex (looped idle bark or breathing sound)
+			g_Audio.PlayEntity3DAudio(rex, FILEPATH_ASSET_AUDIO + "/Rex_Growl_Loop_v1.wav", true, "BGM");
+		}
+		
+
 		g_SmellAvoidance.Initialize();
 
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
@@ -514,6 +523,13 @@ class MainHall : public Level
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
 			music.StopAudio();
 		}
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(rex)) {
+			auto& rexAudio = g_Coordinator.GetComponent<AudioComponent>(rex);
+			rexAudio.StopAudio();
+			std::cout << "[Rex] Audio stopped in UnloadLevel().\n";
+		}
+
 		g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();

@@ -297,7 +297,7 @@ public:
 
 			// until here
 
-			if (g_Checklist.shutted && !g_DialogueText.dialogueActive)
+			if (g_Checklist.shutted && !g_DialogueText.dialogueActive && transitionActive == false)
 			{
 				if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
 				{

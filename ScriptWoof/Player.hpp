@@ -470,16 +470,19 @@ struct Player final : public Behaviour
 					if (!footstepSound.empty())
 					{
 						//std::cout << "[DEBUG] Playing sound: " << footstepSound << std::endl;
-						//m_Engine.getAudioSystem().PlaySoundByFile(footstepSound.c_str(), false, "SFX");
+						m_Engine.getAudioSystem().PlaySoundByFile(footstepSound.c_str(), false, "SFX");
+					
 					}
 
 					footstepTimer = footstepInterval; // ? Reset timer
 				}
 			}
-			else
+			else if (footstepTimer <= 0.0f)
 			{
-				footstepTimer = 0.0f; // ? Reset when not moving
+				// Only reset if it already played the last step
+				footstepTimer = footstepInterval;
 			}
+
 
 
 
