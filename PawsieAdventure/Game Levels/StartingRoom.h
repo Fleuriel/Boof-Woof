@@ -24,7 +24,7 @@ public:
 	glm::vec3 camdir{};
 
 	std::vector<Entity> particleEntities;
-	int goalnode{ 8 };
+	const int goalnode = 8 ;
 	double sniffCooldownTimer = 0.0;  // Accumulates time
 	const double sniffCooldownDuration = 17.0;  // 17 seconds
 	bool isSniffOnCooldown = false;
@@ -148,6 +148,7 @@ public:
 		g_UI.OnInitialize();
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeE);
 		g_UI.inStartingRoom = true;
+		g_Player = playerEnt;
 	}
 
 	bool teb_last = false;
