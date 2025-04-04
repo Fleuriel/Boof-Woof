@@ -495,8 +495,8 @@ namespace pauseLogic
 					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->MasterLeft);
 					if (UICompt.get_selected())
 					{
-						/*MastaVolume = std::max(0.0f, (float)(g_Audio.GetBGMVolume() - volumeStep));
-						g_Audio.SetBGMVolume(MastaVolume);*/
+						MastaVolume = std::max(0.0f, g_Audio.GetMasterVolume() - volumeStep);
+						g_Audio.SetMasterVolume(MastaVolume);
 						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 					}
 				}
@@ -506,14 +506,16 @@ namespace pauseLogic
 					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->MasterRight);
 					if (UICompt.get_selected())
 					{
-						/*MastaVolume = std::min(1.0f, (float)(g_Audio.GetBGMVolume() + volumeStep));
-						g_Audio.SetBGMVolume(MastaVolume);*/
+						MastaVolume = std::min(1.0f, g_Audio.GetMasterVolume() + volumeStep);
+						g_Audio.SetMasterVolume(MastaVolume);
 						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
 					}
 				}
 
 				if (g_Coordinator.HaveComponent<FontComponent>(pauser->MasterVol))
 				{
+					MastaVolume = g_Audio.GetMasterVolume();
+
 					int volDisplay = static_cast<int>(std::round(MastaVolume * 10)); 
 					FontComponent& MastaVolFont = g_Coordinator.GetComponent<FontComponent>(pauser->MasterVol);
 					if (volDisplay >= 0 && volDisplay < 10)
