@@ -185,6 +185,15 @@ class TimeRush : public Level
 			std::cerr << " ERROR: FireSound entity has no AudioComponent in InitLevel!" << std::endl;
 		}
 
+		if (g_Coordinator.HaveComponent<AudioComponent>(rexEnt)) {
+			auto& rexAudio = g_Coordinator.GetComponent<AudioComponent>(rexEnt);
+			rexAudio.SetAudioSystem(&g_Audio);
+
+			//  Play 3D spatial sound for Rex (looped idle bark or breathing sound)
+			//g_Audio.PlayEntity3DAudio(rexEnt, FILEPATH_ASSET_AUDIO + "/Rex_Growl_Loop_v1.wav", true, "BGM");
+		}
+	
+
 
 		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {
 			auto& bgmAudio = g_Coordinator.GetComponent<AudioComponent>(TimeRushBGM);
@@ -486,6 +495,9 @@ class TimeRush : public Level
 				hasBarked = true;
 
 			}
+			if (g_TimerTR.timer <= 0.0)
+				g_Audio.PlayEntity3DAudio(rexEnt, FILEPATH_ASSET_AUDIO + "/Rex_Growl_Loop_v1.wav", true, "BGM");
+
 
 
 
@@ -535,6 +547,14 @@ class TimeRush : public Level
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
 			music.StopAudio();
 		}
+
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(rexEnt)) {
+			auto& rexAudio = g_Coordinator.GetComponent<AudioComponent>(rexEnt);
+			rexAudio.StopAudio();
+			std::cout << "[Rex] Audio stopped in UnloadLevel().\n";
+		}
+
 		g_Input.UnlockInput();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
