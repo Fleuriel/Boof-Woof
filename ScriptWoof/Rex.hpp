@@ -32,7 +32,8 @@ struct Rex final : public Behaviour
         ANIM_FULLDURATION = 0,
         ANIM_IDLE,
         ANIM_WALKING,
-        ANIM_RUNNING
+        ANIM_RUNNING,
+        ANIM_HEAD
     };
 
     // Create a state machine
@@ -90,6 +91,7 @@ struct Rex final : public Behaviour
             std::tuple<int, float, float> animationIdle = m_Engine.GetAnimationVector(entity)[ANIM_IDLE];
             std::tuple<int, float, float> animationWalk = m_Engine.GetAnimationVector(entity)[ANIM_WALKING];
             std::tuple<int, float, float> animationRun = m_Engine.GetAnimationVector(entity)[ANIM_RUNNING];
+            std::tuple<int, float, float> animationHead = m_Engine.GetAnimationVector(entity)[ANIM_HEAD];
 
             // Single Ray Check
             //SingleRayCheck(entity, currentPos);
@@ -98,14 +100,15 @@ struct Rex final : public Behaviour
                 if (patroldelay > 0.0f) {
                     patroldelay -= m_Engine.GetDeltaTime();
 
-                    m_Engine.PauseAnimation(entity);
+                   // m_Engine.PauseAnimation(entity);
 
-                    //m_Engine.PlayAnimation(entity, std::get<1>(animationIdle), std::get<2>(animationIdle));
+                    m_Engine.PlayAnimation(entity, std::get<1>(animationHead), std::get<2>(animationHead));
                 }
                 else {
                     reachedDestination = false;
 					state = State::PATROL;
                 }
+                break;
             case State::PATROL:
 
                 m_Engine.PlayAnimation(entity, std::get<1>(animationWalk), std::get<2>(animationWalk));              
