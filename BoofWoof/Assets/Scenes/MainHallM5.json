@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "636e636d-1852-4ed1-a570-97fc8f9090fe",
+    "SceneGUID": "43eb8257-4551-4afd-8259-0c5f254eaa7a",
     "Entities": [
         {
             "MetadataComponent": {
@@ -8,9 +8,9 @@
             },
             "TransformComponent": {
                 "Position": {
-                    "x": 0.0000015451166746061063,
-                    "y": 1.1999999284744263,
-                    "z": -1.7682691812515259
+                    "x": 4.7421744397979639e-7,
+		    "y": 1.1999999284744263,
+		    "z": -0.7100529670715332
                 },
                 "Scale": {
                     "x": 0.5,
@@ -13760,6 +13760,11 @@
                     }
                 ]
             },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/Rex_Growl_Loop_v1.wav",
+                "Volume": 1.0,
+                "ShouldLoop": true
+            },
             "BehaviourComponent": {
                 "BehaviourName": "Rex"
             },
@@ -22160,9 +22165,9 @@
                 "IsPlayer": false,
                 "IsSensor": true,
                 "AABBSize": {
-                    "x": 1.399999976158142,
-                    "y": 0.8999999761581421,
-                    "z": 1.399999976158142
+                    "x": 1.20,
+                    "y": 0.90,
+                    "z": 1.25
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -22242,9 +22247,9 @@
                 "IsPlayer": false,
                 "IsSensor": true,
                 "AABBSize": {
-                    "x": 1.399999976158142,
-                    "y": 0.8999999761581421,
-                    "z": 1.399999976158142
+                    "x": 1.20,
+                    "y": 0.90,
+                    "z": 1.25
                 },
                 "AABBOffset": {
                     "x": 0.0,
@@ -22324,9 +22329,9 @@
                 "IsPlayer": false,
                 "IsSensor": true,
                 "AABBSize": {
-                    "x": 1.399999976158142,
-                    "y": 0.8999999761581421,
-                    "z": 1.399999976158142
+                    "x": 1.20,
+                    "y": 0.90,
+                    "z": 1.25
                 },
                 "AABBOffset": {
                     "x": 0.0,

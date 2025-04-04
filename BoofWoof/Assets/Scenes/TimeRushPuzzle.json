@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "99bec8be-99df-46ff-a13a-ebe299e05b56",
+    "SceneGUID": "33ed0636-2a32-4cbb-877a-5c10483d5c25",
     "Entities": [
         {
             "MetadataComponent": {
@@ -209,8 +209,8 @@
             "TransformComponent": {
                 "Position": {
                     "x": 19.82200050354004,
-                    "y": 0.9999999403953552,
-                    "z": 3.655076742172241
+		    "y": 0.9999999403953552,
+		    "z": 3.4649999141693117
                 },
                 "Scale": {
                     "x": 0.4999885857105255,
@@ -16427,8 +16427,8 @@
                     },
                     {
                         "Animation ID": 1,
-                        "Start Time": 335,
-                        "End Time": 336
+                        "Start Time": 335.0,
+                        "End Time": 336.0
                     },
                     {
                         "Animation ID": 2,
@@ -16441,6 +16441,11 @@
                         "End Time": 279.739990234375
                     }
                 ]
+            },
+            "AudioComponent": {
+                "AudioFilePath": "../BoofWoof/Assets/Audio/Rex_Growl_Loop_v1.wav",
+                "Volume": 1.0,
+                "ShouldLoop": true
             },
             "BehaviourComponent": {
                 "BehaviourName": "RexChase"

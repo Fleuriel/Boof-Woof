@@ -11,8 +11,8 @@ float sfxVolume{ 1.0f }, bgmVolume{ 1.0f }, MasterVol{ 1.0f };
 bool inSmth{ false };
 std::unordered_map<Entity, glm::vec2> originalScales;
 extern std::shared_ptr<GraphicsSystem> mGraphicsSys;
-double waitingTime = 0.0;
-
+double twoSecondsPls = 0.0;
+bool startingGame = false;
 
 class MainMenu : public Level
 {
@@ -142,6 +142,16 @@ class MainMenu : public Level
 			}
 		}
 
+		if (startingGame) 
+		{
+			twoSecondsPls += deltaTime;
+			if (twoSecondsPls >= 2.0)
+			{
+				g_LevelManager.SetNextLevel("Cutscene");
+				startingGame = false;
+			}
+		}
+
 		if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 1 && !inSmth)
 		{
 			if (g_Coordinator.HaveComponent<UIComponent>(StartGame))
@@ -150,21 +160,9 @@ class MainMenu : public Level
 				if (UICompt.get_selected())
 				{
 					inSmth = true;
-
-					//// Play the button click sound
-					//if (g_Coordinator.HaveComponent<AudioComponent>(MenuClick)) {
-					//	auto& music1 = g_Coordinator.GetComponent<AudioComponent>(MenuClick);
-					//	music1.PlayAudio();
-					//}
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PressStart.wav", false, "SFX");
-
 					g_Window->HideMouseCursor();
-					
-					g_LevelManager.SetNextLevel("Cutscene");
-						
-					
-
-
+					startingGame = true;
 				}
 			}
 
@@ -430,7 +428,7 @@ class MainMenu : public Level
 	void UnloadLevel() override
 	{
 		g_Audio.Stop(MenuMusic);
-		waitingTime = 0.f;
+		twoSecondsPls = 0.0;
 
 		// Reset all entities
 		g_Coordinator.ResetEntities();
