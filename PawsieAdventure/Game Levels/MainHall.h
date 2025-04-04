@@ -52,6 +52,7 @@ class MainHall : public Level
 
 	// Puppies
 	int puppiesCollected = 0;
+	const int puppiesNode[3] = { 11, 29, 38 };
 	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
 	bool puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
 	bool dialogueFirst{ false }, dialogueSecond{ false }, dialogueThird{ false };
@@ -699,6 +700,8 @@ private:
 			g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Corgi/SmallDogBark3.wav", false, "SFX");
 			g_BoneCatcher.puppyCollisionOrder.push_back(3);
 		}
+
+		// Update the checklist and dialogue based on the number of puppies collected
 
 		if (puppiesCollected == 1 && !dialogueFirst)
 		{

@@ -1,5 +1,5 @@
 {
-    "SceneGUID": "85e12106-8c80-4c3f-ab90-4b37312ee968",
+    "SceneGUID": "018ab952-1af1-4a21-a412-9933f1fb0ed4",
     "Entities": [
         {
             "MetadataComponent": {
@@ -13761,7 +13761,7 @@
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
-                "IsDynamic": true,
+                "IsDynamic": false,
                 "IsKinematic": false,
                 "IsPlayer": false,
                 "IsSensor": false,
@@ -29691,6 +29691,3408 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 639
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 31.5,
+                    "y": 0.0,
+                    "z": -29.5
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 640
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 31.799999237060548,
+                    "y": 0.5,
+                    "z": -34.29999923706055
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 641
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 34.79999923706055,
+                    "y": 1.2000000476837159,
+                    "z": -34.29999923706055
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 642
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 37.599998474121097,
+                    "y": 2.0,
+                    "z": -34.29999923706055
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 643
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 40.599998474121097,
+                    "y": 2.8499999046325685,
+                    "z": -34.29999923706055
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 644
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 43.5,
+                    "y": 3.75,
+                    "z": -34.29999923706055
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 645
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 46.400001525878909,
+                    "y": 4.75,
+                    "z": -34.29999923706055
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Node",
+                "EntityID": 646
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 49.20000076293945,
+                    "y": 5.75,
+                    "z": -34.29999923706055
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 647
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 54.20000076293945,
+                    "y": 6.599999904632568,
+                    "z": -34.29999923706055
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 648
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 54.20000076293945,
+                    "y": 6.599999904632568,
+                    "z": -24.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 649
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 54.20000076293945,
+                    "y": 6.599999904632568,
+                    "z": -14.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "NodePup2",
+                "EntityID": 650
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 54.20000076293945,
+                    "y": 6.599999904632568,
+                    "z": -2.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 651
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 54.20000076293945,
+                    "y": 6.599999904632568,
+                    "z": 13.5
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 652
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 40.0,
+                    "y": 6.599999904632568,
+                    "z": 13.5
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 653
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 25.0,
+                    "y": 6.599999904632568,
+                    "z": 13.5
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 654
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 10.0,
+                    "y": 6.599999904632568,
+                    "z": 15.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 655
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -5.0,
+                    "y": 6.599999904632568,
+                    "z": 15.199999809265137
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 656
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -20.0,
+                    "y": 6.599999904632568,
+                    "z": 15.199999809265137
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 657
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -35.0,
+                    "y": 6.599999904632568,
+                    "z": 15.199999809265137
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 658
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -35.0,
+                    "y": 6.599999904632568,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "NodePup3",
+                "EntityID": 659
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -35.0,
+                    "y": 6.599999904632568,
+                    "z": -12.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 660
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -35.0,
+                    "y": 6.599999904632568,
+                    "z": -27.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 661
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -28.0,
+                    "y": 6.599999904632568,
+                    "z": -35.099998474121097
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 662
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": -13.300000190734864,
+                    "y": 6.599999904632568,
+                    "z": -35.099998474121097
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 663
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 6.599999904632568,
+                    "z": -34.5
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 664
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 15.0,
+                    "y": 6.599999904632568,
+                    "z": -33.70000076293945
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Nodelvl2",
+                "EntityID": 665
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 30.0,
+                    "y": 6.599999904632568,
+                    "z": -33.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "ParticleComponent": {
+                "PositionMin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "PositionMax": {
+                    "x": 0.0,
+                    "y": 0.5,
+                    "z": 0.0
+                },
+                "Density": 0.10000000149011612,
+                "VelocityMin": 0.0,
+                "VelocityMax": 1.0,
+                "TargetPositions": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.20000000298023225
+                    },
+                    {
+                        "x": -0.20000000298023225,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.20000000298023225,
+                        "z": 0.0
+                    }
+                ],
+                "ParticleSize": 7.0,
+                "ParticleColor": {
+                    "r": 0.01509034913033247,
+                    "g": 0.7696078419685364,
+                    "b": 0.01509034913033247,
+                    "a": 0.0
+                },
+                "ParticleType": "POINT",
+                "ParticleModel": "Bed",
+                "ParticleTexture": "Bed"
+            },
+            "NodeComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "IsWalkable": true
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 666
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 5,
+                "EndNode": 18,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 667
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 18,
+                "EndNode": 19,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 668
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 19,
+                "EndNode": 20,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 669
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 20,
+                "EndNode": 21,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 670
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 21,
+                "EndNode": 22,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 671
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 22,
+                "EndNode": 23,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 672
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 23,
+                "EndNode": 24,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 673
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 24,
+                "EndNode": 25,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 674
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 25,
+                "EndNode": 26,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 675
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 26,
+                "EndNode": 27,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 676
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 27,
+                "EndNode": 28,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 677
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 28,
+                "EndNode": 29,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 678
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 29,
+                "EndNode": 30,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 679
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 30,
+                "EndNode": 31,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 680
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 31,
+                "EndNode": 32,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 681
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 32,
+                "EndNode": 33,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 682
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 33,
+                "EndNode": 34,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 683
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 34,
+                "EndNode": 35,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 684
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 35,
+                "EndNode": 36,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 685
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 36,
+                "EndNode": 37,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 686
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 37,
+                "EndNode": 38,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 687
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 38,
+                "EndNode": 39,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 688
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 39,
+                "EndNode": 40,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 689
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 40,
+                "EndNode": 41,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 690
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 41,
+                "EndNode": 42,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 691
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 42,
+                "EndNode": 43,
+                "Cost": 1.0
+            }
+        },
+        {
+            "MetadataComponent": {
+                "EntityName": "Edge",
+                "EntityID": 692
+            },
+            "TransformComponent": {
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "RotationPivotOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "EdgeComponent": {
+                "StartNode": 43,
+                "EndNode": 44,
+                "Cost": 1.0
             }
         }
     ]
