@@ -13765,7 +13765,7 @@
             },
             "CollisionComponent": {
                 "CollisionLayer": 0,
-                "IsDynamic": false,
+                "IsDynamic": true,
                 "IsKinematic": false,
                 "IsPlayer": false,
                 "IsSensor": false,
