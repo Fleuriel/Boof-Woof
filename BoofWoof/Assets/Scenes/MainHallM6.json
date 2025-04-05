@@ -22653,7 +22653,7 @@
                     "y": 0.5,
                     "z": 0.0
                 },
-                "Density": -1.0,
+                "Density": 0.2,
                 "VelocityMin": 1.0,
                 "VelocityMax": 3.0,
                 "TargetPositions": [
@@ -22728,7 +22728,7 @@
                     "y": 0.5,
                     "z": 1.0
                 },
-                "Density": -1.0,
+                "Density": 0.2,
                 "VelocityMin": 1.0,
                 "VelocityMax": 3.0,
                 "TargetPositions": [
@@ -22803,7 +22803,7 @@
                     "y": 0.5,
                     "z": 0.0
                 },
-                "Density": -1.0,
+                "Density": 0.2,
                 "VelocityMin": 1.0,
                 "VelocityMax": 3.0,
                 "TargetPositions": [
