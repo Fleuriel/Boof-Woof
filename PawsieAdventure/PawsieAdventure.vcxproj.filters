@@ -42,6 +42,9 @@
     <ClCompile Include="Systems\CageBreaker\CageBreaker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\SettingsManager\SettingsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game Levels\Splashscreen.h">
@@ -99,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\CageBreaker\CageBreaker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\SettingsManager\SettingsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

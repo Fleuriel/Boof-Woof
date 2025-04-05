@@ -89,8 +89,8 @@ struct RexChase final : public Behaviour
             }
             else if (m_Engine.GetTRtimer() > 0.0f)
             {
-				// COMMENTED OUT FOR TESTING PURPOSES
-                 return;
+			    // COMMENTED OUT FOR TESTING PURPOSES
+                return;
             }
 
             if (playerEntity == INVALID_ENT)
@@ -110,6 +110,10 @@ struct RexChase final : public Behaviour
                 if (CheckifPlayerInFront(entity)) {
                     state = ATTACKING;
                     //std::cout << "Player is in front of Rex" << std::endl;
+                }
+                else if (!CheckifPlayerInFront(entity) && (state != MOVING)) {
+                    state = MOVING;
+                    //std::cout << "Lost sight of player, back to pathfinding" << std::endl;
                 }
                 // if player nearest node is the same as rex nearest node, stop and look around
                 else if (EntityNearestNode == PlayerNodeCheck) {
@@ -218,7 +222,8 @@ struct RexChase final : public Behaviour
 
                             if (!path.empty())
                             {
-                                currentPathIndex = 0;
+								// Skip first node to prevent Rex from moving backwards after exceeding the node
+                                currentPathIndex = 1;
                                 followingPath = true;
                                 pathInitialized = true;  // Ensure new path is recognized
 
@@ -327,7 +332,6 @@ struct RexChase final : public Behaviour
                         m_Engine.SetDialogue(8);
                         sawPlayer = true;
                     }
-
                     break;
                 }
                 /*
@@ -421,12 +425,12 @@ struct RexChase final : public Behaviour
         float yaw = rexRotation.y;
         glm::vec3 forwardDirection = glm::vec3(glm::cos(yaw), 0.0f, -glm::sin(yaw));
 
-        float maxRayDistance = 10.0f;
+        float maxRayDistance = 15.0f;
         //float fovAngle = 30.0f; // 30-degree cone
-        float horizontalFOVAngle = 20.0f; // Customize how wide the spread is
-        float verticalFOVAngle = 10.0f;   // Customize how far up/down the rays spread
-        int horizontalRays = 7; // Number of horizontal rays
-        int verticalRays = 7;   // Number of vertical rays
+        float horizontalFOVAngle = 30.0f; // Customize how wide the spread is
+        float verticalFOVAngle = 15.0f;   // Customize how far up/down the rays spread
+        int horizontalRays = 12; // Number of horizontal rays
+        int verticalRays = 12;   // Number of vertical rays
         //glm::vec3 rayOffset = glm::vec3(0.0f, 0.0f, 0.0f);
 
         // Original eye offset (Local Space)

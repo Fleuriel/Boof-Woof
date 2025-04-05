@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Level Manager/Level.h"
 #include "ECS/Coordinator.hpp"
 #include "../Systems/CameraController/CameraController.h"
@@ -52,6 +52,7 @@ class MainHall : public Level
 
 	// Puppies
 	int puppiesCollected = 0;
+	const int puppiesNode[4] = { 11, 29, 38, 0 };
 	bool collectedPuppy1{ false }, collectedPuppy2{ false }, collectedPuppy3{ false }, chgChecklist{ false };
 	bool puppy1Collided{ false }, puppy2Collided{ false }, puppy3Collided{ false };
 	bool dialogueFirst{ false }, dialogueSecond{ false }, dialogueThird{ false };
@@ -60,7 +61,6 @@ class MainHall : public Level
 	const double sniffCooldownDuration = 17.0;  // 17 seconds cooldown
 	bool isSniffOnCooldown = false;  // Track cooldown state
 	bool bark = false;
-
 	std::vector<Entity> particleEntities;
 	std::vector<Entity> peeEntities;
 	std::vector<Entity> peeColliders;
@@ -93,7 +93,7 @@ class MainHall : public Level
 
 	void LoadLevel() override
 	{
-		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/MainHallM5.json");
+		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/MainHallM6.json");
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav", true, "BGM");
 		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/ambienceSFX.wav", true, "SFX");
 
@@ -160,6 +160,15 @@ class MainHall : public Level
 		g_Checklist.OnInitialize();
 		InitializeChecklist();
 		InitializeFireSound();
+		if (g_Coordinator.HaveComponent<AudioComponent>(rex)) {
+			auto& rexAudio = g_Coordinator.GetComponent<AudioComponent>(rex);
+			rexAudio.SetAudioSystem(&g_Audio);
+
+			// 🔊 Play 3D spatial sound for Rex (looped idle bark or breathing sound)
+			g_Audio.PlayEntity3DAudio(rex, FILEPATH_ASSET_AUDIO + "/Rex_Growl_Loop_v1.wav", true, "BGM");
+		}
+		
+
 		g_SmellAvoidance.Initialize();
 
 		g_Audio.SetBGMVolume(g_Audio.GetBGMVolume());
@@ -220,10 +229,10 @@ class MainHall : public Level
 			cameraController->SetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt), camdir);
 			savedcamdir = false;
 		}
-
+		glm::vec3 playerPos;
 		if (g_Coordinator.HaveComponent<TransformComponent>(playerEnt)) {
 			auto& playerTransform = g_Coordinator.GetComponent<TransformComponent>(playerEnt);
-			glm::vec3 playerPos = playerTransform.GetPosition();
+			playerPos = playerTransform.GetPosition();
 			glm::vec3 playerRot = playerTransform.GetRotation();  // Get rotation from TransformComponent
 
 			g_Audio.SetListenerPosition(playerPos, playerRot);
@@ -243,7 +252,10 @@ class MainHall : public Level
 			cooldownTimer += deltaTime;
 
 			g_UI.OnUpdate(static_cast<float>(deltaTime));
-			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
+			if(g_Coordinator.HaveComponent<TransformComponent>(playerEnt))
+				g_UI.Sniff(particleEntities, puppiesNode[puppiesCollected], static_cast<float>(deltaTime), g_Coordinator.GetSystem<PathfindingSystem>()->GetClosestNode(playerPos));
+			else
+				g_UI.Sniff(particleEntities, puppiesNode[puppiesCollected], static_cast<float>(deltaTime));
 			g_DialogueText.OnUpdate(deltaTime);
 
 			if (!g_Checklist.shutted)
@@ -511,6 +523,13 @@ class MainHall : public Level
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
 			music.StopAudio();
 		}
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(rex)) {
+			auto& rexAudio = g_Coordinator.GetComponent<AudioComponent>(rex);
+			rexAudio.StopAudio();
+			std::cout << "[Rex] Audio stopped in UnloadLevel().\n";
+		}
+
 		g_Audio.StopBGM();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
@@ -700,6 +719,8 @@ private:
 			g_BoneCatcher.puppyCollisionOrder.push_back(3);
 		}
 
+		// Update the checklist and dialogue based on the number of puppies collected
+
 		if (puppiesCollected == 1 && !dialogueFirst)
 		{
 			g_DialogueText.OnInitialize();
@@ -738,12 +759,14 @@ private:
 			float newBrightness = std::max(0.5f, currentBrightness - 0.05f); // Decrease by 0.1, but not below 0
 			g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(newBrightness);
 			wasColliding = true;
+			g_Coordinator.GetSystem<LogicSystem>()->isPlayerhidden = true;
 		}
 		else if (wasColliding)
 		{
 			// Reset the brightness to the original value
 			g_Coordinator.GetSystem<GraphicsSystem>()->SetBrightness(originalBrightness);
 			wasColliding = false;
+			g_Coordinator.GetSystem<LogicSystem>()->isPlayerhidden = false;
 		}
 	}
 	void ResetLevelState()

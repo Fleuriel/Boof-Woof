@@ -39,6 +39,9 @@ public:
 	void ToggleMoveCam() { moveCam = !moveCam; }
 	void ToggleTurnCam() { turnCam = !turnCam; }
 
+	glm::vec3 getfirstPersonOffset() { return firstPersonOffset; }
+	glm::vec3 getThirdPersonOffset() { return thirdPersonOffset; }
+
 private:
     void UpdateFirstPersonView(CameraComponent& camera);
     void UpdateThirdPersonView(CameraComponent& camera);
@@ -54,8 +57,6 @@ private:
 private:
     Entity playerEntity{};
 	CameraMode currentMode = CameraMode::FIRST_PERSON;
-    glm::vec3 thirdPersonOffset = glm::vec3(0.0f, 1.7f, 3.718f); // Example offset for third-person view
-	glm::vec3 firstPersonOffset = glm::vec3(0.0f, 0.21f, -1.389f); // Example offset for first-person view
 	CameraMode lastMode = CameraMode::FIRST_PERSON;
     CameraMove cameraMove;
 	float cameraSpeed = 0.05f;
@@ -67,6 +68,9 @@ private:
 	glm::vec3 shakeRange = glm::vec3(0.0f);
 	glm::vec3 player_old_pos = glm::vec3(0.0f);
 	glm::vec3 camera_old_pos = glm::vec3(0.0f);
+
+	glm::vec3 firstPersonOffset = glm::vec3(0.0f, 1.4f, -1.389f); // Example offset for first-person view
+	glm::vec3 thirdPersonOffset = glm::vec3(0.0f, 1.7f, 3.718f); // Example offset for third-person view
 
 	float low_limit_pitch_first = -10.0f;
 	float high_limit_pitch_first = 45.0f;

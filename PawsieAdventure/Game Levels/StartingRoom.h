@@ -24,6 +24,7 @@ public:
 	glm::vec3 camdir{};
 
 	std::vector<Entity> particleEntities;
+	const int goalnode = 8 ;
 	double sniffCooldownTimer = 0.0;  // Accumulates time
 	const double sniffCooldownDuration = 17.0;  // 17 seconds
 	bool isSniffOnCooldown = false;
@@ -147,6 +148,7 @@ public:
 		g_UI.OnInitialize();
 		g_RopeBreaker = RopeBreaker(playerEnt, RopeE);
 		g_UI.inStartingRoom = true;
+		g_Player = playerEnt;
 	}
 
 	bool teb_last = false;
@@ -212,7 +214,7 @@ public:
 			cameraController->Update(static_cast<float>(deltaTime));
 
 			g_UI.OnUpdate(static_cast<float>(deltaTime));
-			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
+			g_UI.Sniff(particleEntities ,goalnode, static_cast<float>(deltaTime));
 			g_DialogueText.OnUpdate(deltaTime);
 
 			if (!g_DialogueText.dialogueActive)
@@ -295,7 +297,7 @@ public:
 
 			// until here
 
-			if (g_Checklist.shutted && !g_DialogueText.dialogueActive)
+			if (g_Checklist.shutted && !g_DialogueText.dialogueActive && transitionActive == false)
 			{
 				if (g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName() == "WallHole")
 				{

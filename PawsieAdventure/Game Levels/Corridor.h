@@ -19,6 +19,8 @@ class Corridor : public Level
     const double sniffCooldownDuration = 17.0; // 17 seconds cooldown
     bool isSniffOnCooldown = false;            // Track cooldown state
 
+	const int goalnode = 2; // goal node for sniffing
+
     bool bark = false;
 
     std::vector<std::string> bitingSounds = {
@@ -84,6 +86,7 @@ public:
                 }
             }
         }
+		g_Player = playerEnt;
         g_Window->HideMouseCursor();
     }
 
@@ -144,6 +147,9 @@ public:
 
             cameraController->Update(static_cast<float>(deltaTime));
             g_UI.OnUpdate(static_cast<float>(deltaTime));
+            g_UI.Sniff(std::vector<Entity>{}, goalnode, static_cast<float>(deltaTime), 
+                g_Coordinator.GetSystem<PathfindingSystem>()->GetClosestNode(
+                    g_Coordinator.GetComponent<TransformComponent>(g_Player).GetPosition()));
             g_DialogueText.OnUpdate(deltaTime);
 
             // Process bark action (bite sound)

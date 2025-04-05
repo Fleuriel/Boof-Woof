@@ -32,7 +32,8 @@ struct Rex final : public Behaviour
         ANIM_FULLDURATION = 0,
         ANIM_IDLE,
         ANIM_WALKING,
-        ANIM_RUNNING
+        ANIM_RUNNING,
+        ANIM_HEAD
     };
 
     // Create a state machine
@@ -61,6 +62,9 @@ struct Rex final : public Behaviour
 
     virtual void Update(Entity entity) override
     {
+        bool playerInvisible = m_Engine.isPlayerHidden();
+		if (playerInvisible == true) 
+            std::cout << "[Rex] Player invisible: " << playerInvisible << std::endl;
         // Check if Rex's physics body exists before setting gravity
         if (!gravitySet && m_Engine.HavePhysicsBody(entity))
         {
@@ -90,6 +94,7 @@ struct Rex final : public Behaviour
             std::tuple<int, float, float> animationIdle = m_Engine.GetAnimationVector(entity)[ANIM_IDLE];
             std::tuple<int, float, float> animationWalk = m_Engine.GetAnimationVector(entity)[ANIM_WALKING];
             std::tuple<int, float, float> animationRun = m_Engine.GetAnimationVector(entity)[ANIM_RUNNING];
+            std::tuple<int, float, float> animationHead = m_Engine.GetAnimationVector(entity)[ANIM_HEAD];
 
 
             // Single Ray Check
@@ -99,20 +104,21 @@ struct Rex final : public Behaviour
                 if (patroldelay > 0.0f) {
                     patroldelay -= m_Engine.GetDeltaTime();
 
-                    m_Engine.PauseAnimation(entity);
+                   // m_Engine.PauseAnimation(entity);
 
-                    //m_Engine.PlayAnimation(entity, std::get<1>(animationIdle), std::get<2>(animationIdle));
+                    m_Engine.PlayAnimation(entity, std::get<1>(animationHead), std::get<2>(animationHead));
                 }
                 else {
                     reachedDestination = false;
 					state = State::PATROL;
                 }
+                break;
             case State::PATROL:
 
                 m_Engine.PlayAnimation(entity, std::get<1>(animationWalk), std::get<2>(animationWalk));              
                 
                 // Check if player is in front
-                if (CheckifPlayerInFront(entity)) {
+                if (CheckifPlayerInFront(entity) && !playerInvisible) {
                     state = State::CHASE;
                     justEnteredChase = true;
                     break;
@@ -265,15 +271,9 @@ struct Rex final : public Behaviour
                     }
                 }
 
-                // Chase the player x and z only
-                glm::vec3 playerPos = m_Engine.GetPosition(playerEntity);
-                glm::vec3 direction = glm::normalize(playerPos - currentPos);
-                direction.y = 0.0f; // Lock Y-axis movement to keep the entity on the ground
-                velocity = direction * speed;
-                isMovingRex = true;
-
-                m_Engine.PlayAnimation(entity, std::get<1>(animationRun), std::get<2>(animationRun));
-
+                
+                if (playerInvisible) 
+					state = State::FIND;
                 // Check if player is in front
                 if (!CheckifPlayerInFront(entity)) {
                     if (timer > 0.0f) {
@@ -287,13 +287,29 @@ struct Rex final : public Behaviour
                         state = State::FIND;
                     }
                 }
+
+                // Chase the player x and z only
+                glm::vec3 playerPos = m_Engine.GetPosition(playerEntity);
+                glm::vec3 direction = glm::normalize(playerPos - currentPos);
+                direction.y = 0.0f; // Lock Y-axis movement to keep the entity on the ground
+                velocity = direction * speed;
+                isMovingRex = true;
+
+                m_Engine.PlayAnimation(entity, std::get<1>(animationRun), std::get<2>(animationRun));
+
                 break;
             case State::FIND:
                 std::cout << "[Rex] Finding player...\n";
                 // Rotate entity bit by bit till 360 degrees
                 // Rotate entity by 10 degrees
 
-                m_Engine.PlayAnimation(entity, std::get<1>(animationWalk), std::get<2>(animationWalk));
+                m_Engine.PlayAnimation(entity, std::get<1>(animationHead), std::get<2>(animationHead));
+                
+                if (CheckifPlayerInFront(entity) && !playerInvisible) {
+                    state = State::CHASE;
+                    justEnteredChase = true;
+                    break;
+                }
 
                 if (timer <= 0) {
                     if (rotationCounter < 6) {
@@ -311,6 +327,7 @@ struct Rex final : public Behaviour
                         m_Engine.SetBuilt(entity, false);
                         m_Engine.SetStartNode(entity, m_Engine.GetNearestNode(entity));
                         m_Engine.SetGoalNode(entity, m_Engine.GetRandomNode(entity));
+						pathInitialized = false;
                     }
                 }
                 else {

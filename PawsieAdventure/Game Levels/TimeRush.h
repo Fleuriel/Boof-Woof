@@ -15,7 +15,7 @@ class TimeRush : public Level
 	Entity rexEnt{};
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
-	glm::vec3 camdir{}, originalcamPos, originalcamDir;
+	glm::vec3 camdir{}, originalcamDir;
 
 	bool camThirdPerson{ false }, panCam{ false }, returnCam{ false };	
 	float camtimer = 0.f;
@@ -34,6 +34,7 @@ class TimeRush : public Level
 	bool finishTR{ false };
 	double timesUp = 2.0;
 
+	int goalnode = 65;
 	double sniffCooldownTimer = 0.0;  // Accumulates time
 	const double sniffCooldownDuration = 17.0;  // 17 seconds
 	bool isSniffOnCooldown = false;
@@ -153,7 +154,6 @@ class TimeRush : public Level
 		g_IsCamPanning = true;
 		camtimer = 0.f;
 		camThirdPerson = panCam = returnCam = false;
-		originalcamPos = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraPosition();
 		originalcamDir = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraDirection();
 		cameraController = new CameraController(playerEnt);
 		cameraController->ChangeToThirdPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
@@ -185,6 +185,15 @@ class TimeRush : public Level
 			std::cerr << " ERROR: FireSound entity has no AudioComponent in InitLevel!" << std::endl;
 		}
 
+		if (g_Coordinator.HaveComponent<AudioComponent>(rexEnt)) {
+			auto& rexAudio = g_Coordinator.GetComponent<AudioComponent>(rexEnt);
+			rexAudio.SetAudioSystem(&g_Audio);
+
+			//  Play 3D spatial sound for Rex (looped idle bark or breathing sound)
+			//g_Audio.PlayEntity3DAudio(rexEnt, FILEPATH_ASSET_AUDIO + "/Rex_Growl_Loop_v1.wav", true, "BGM");
+		}
+	
+
 
 		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {
 			auto& bgmAudio = g_Coordinator.GetComponent<AudioComponent>(TimeRushBGM);
@@ -212,7 +221,7 @@ class TimeRush : public Level
 
 		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 
-		particleEntities = { scentEntity1, scentEntity2, scentEntity3, scentEntity4, scentEntity5, scentEntity6, scentEntity7, scentEntity8, scentEntity9 };
+		//particleEntities = { scentEntity1, scentEntity2, scentEntity3, scentEntity4, scentEntity5, scentEntity6, scentEntity7, scentEntity8, scentEntity9 };
 		g_UI.OnInitialize();
 
 		g_TimerTR.timer = timerLimit;
@@ -265,13 +274,12 @@ class TimeRush : public Level
 			cameraController->SetCameraTargetDirection(glm::vec3(0, -0.2, 1));
 			cameraController->LockUnlockCam();
 			panCam = true;
-			originalcamPos = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraPosition();
 			originalcamDir = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraDirection();
 		}
 
 		float timeVariable = 8.f;
 		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && camtimer >= timeVariable && returnCam == false) {
-			cameraController->SetCameraTargetPosition(originalcamPos);
+			cameraController->SetCameraTargetPosition(g_Coordinator.GetComponent<TransformComponent>(playerEnt).GetPosition() + cameraController->getThirdPersonOffset());
 			cameraController->SetCameraTargetDirection(originalcamDir);
 			returnCam = true;
 		}
@@ -311,7 +319,7 @@ class TimeRush : public Level
 			cooldownTimer += deltaTime;
 
 			g_UI.OnUpdate(static_cast<float>(deltaTime));
-			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
+			g_UI.Sniff(particleEntities, goalnode, static_cast<float>(deltaTime));
 
 			if (!g_IsCamPanning) 
 			{
@@ -486,6 +494,9 @@ class TimeRush : public Level
 				hasBarked = true;
 
 			}
+			if (g_TimerTR.timer <= 0.0)
+				g_Audio.PlayEntity3DAudio(rexEnt, FILEPATH_ASSET_AUDIO + "/Rex_Growl_Loop_v1.wav", true, "BGM");
+
 
 
 
@@ -535,6 +546,14 @@ class TimeRush : public Level
 			auto& music = g_Coordinator.GetComponent<AudioComponent>(FireSound);
 			music.StopAudio();
 		}
+
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(rexEnt)) {
+			auto& rexAudio = g_Coordinator.GetComponent<AudioComponent>(rexEnt);
+			rexAudio.StopAudio();
+			std::cout << "[Rex] Audio stopped in UnloadLevel().\n";
+		}
+
 		g_Input.UnlockInput();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
@@ -563,7 +582,6 @@ private:
 		// Reset pause and camera state variables
 		savedcamdir = false;
 		camdir = glm::vec3(0.0f);
-		originalcamPos = glm::vec3(0.0f);
 		originalcamDir = glm::vec3(0.0f);
 
 		camThirdPerson = false;

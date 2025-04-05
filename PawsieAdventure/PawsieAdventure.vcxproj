@@ -186,6 +186,7 @@ xcopy "$(SolutionDir)ScriptWoof\x64\Release\ScriptWoof.dll" "$(TargetDir)" /Y
     <ClCompile Include="Systems\Checklist\Checklist.cpp" />
     <ClCompile Include="Systems\PauseScreen\PauseScreen.cpp" />
     <ClCompile Include="Systems\RopeBreaker\RopeBreaker.cpp" />
+    <ClCompile Include="Systems\SettingsManager\SettingsManager.cpp" />
     <ClCompile Include="Systems\SmellAvoidance\SmellAvoidance.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +208,7 @@ xcopy "$(SolutionDir)ScriptWoof\x64\Release\ScriptWoof.dll" "$(TargetDir)" /Y
     <ClInclude Include="Systems\Checklist\Checklist.h" />
     <ClInclude Include="Systems\PauseScreen\PauseScreen.h" />
     <ClInclude Include="Systems\RopeBreaker\RopeBreaker.h" />
+    <ClInclude Include="Systems\SettingsManager\SettingsManager.h" />
     <ClInclude Include="Systems\SmellAvoidance\SmellAvoidance.h" />
   </ItemGroup>
   <ItemGroup>
