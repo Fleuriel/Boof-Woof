@@ -15,9 +15,6 @@ uniform int textureCount;
 uniform bool lightOn;
 
 
-uniform float finalAlpha;
-
-
 
 // PBR Uniforms
 uniform float u_Metallic;
