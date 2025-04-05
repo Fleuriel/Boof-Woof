@@ -39,7 +39,6 @@ void CageBreaker::OnUpdate(double deltaTime)
 
 	if (BarSpawned)
 	{
-		std::cout << "bar spawn1 \n";
 		g_BoneCatcher.OnUpdate(getEntity, deltaTime);
 
 		// Only saves when you press ESC key
@@ -54,18 +53,6 @@ void CageBreaker::OnUpdate(double deltaTime)
 			if (entity == cage1 || entity == cage2 || entity == cage3)
 			{
 
-				std::cout << "bar spawned NOT\n";
-				//g_Coordinator.GetComponent<AnimationComponent>(entity).isBreak = false;
-				//g_Coordinator.GetComponent<AnimationComponent>(entity).isIdle = true;
-				//g_Coordinator.GetComponent<AnimationComponent>(entity).isMoving = false;
-
-
-			/*	std::tuple<int, float, float> animationIdle1 = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.IDLE];
-
-
-
-
-				g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle1), std::get<2>(animationIdle1));*/
 			}
 		}
 

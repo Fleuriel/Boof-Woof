@@ -9,17 +9,19 @@ void Animator::UpdateAnimation(AnimationComponent& anim, float dt, float start, 
 
 	
 	
-	if (start == 0 || end == 0)
+	if (start == 0 && end == 0)
 	{
 		return;
 	}
 	else
 	{
-		////m_UseCustomRange = true;
+		m_UseCustomRange = true;
 		//m_PlaybackStart = start;
 		//m_PlaybackEnd = end;
 		//m_CurrentTime = start;
 	}
+
+
 
 
 
@@ -44,9 +46,12 @@ void Animator::UpdateAnimation(AnimationComponent& anim, float dt, float start, 
 
 			if (m_CurrentTime < start)
 				m_CurrentTime = start;
+
+			std::cout << "Loop only this part: " << m_CurrentTime << '\n';
 		}
 		else
 		{
+			std::cout << "loop thru whole" << m_CurrentTime << '\n';
 			// Loop over full animation
 			m_CurrentTime = fmod(m_CurrentTime, duration);
 			if (m_CurrentTime < 0.0f)

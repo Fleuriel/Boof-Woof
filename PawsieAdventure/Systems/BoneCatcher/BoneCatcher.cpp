@@ -212,7 +212,6 @@ void BoneCatcher::OnUpdate(Entity& entity, double deltaTime)
 		}
 		else
 		{
-			std::cout << "bar spawn2 \n";
 			BiteDown(entity, deltaTime);
 		}
 	}
@@ -378,7 +377,6 @@ void BoneCatcher::BiteDown(Entity &entity, double deltaTime)
 				g_Coordinator.GetComponent<AnimationComponent>(entity).isIdle = false;
 				g_Coordinator.GetComponent<AnimationComponent>(entity).isMoving = true;
 
-				std::cout << "Break\n";
 
 			/*	std::tuple<int, float, float> animationIdle1 = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.BREAK];
 
@@ -390,7 +388,7 @@ void BoneCatcher::BiteDown(Entity &entity, double deltaTime)
 				g_Coordinator.GetComponent<AnimationComponent>(entity).isBreak = true;
 				g_Coordinator.GetComponent<AnimationComponent>(entity).isIdle = false;
 				g_Coordinator.GetComponent<AnimationComponent>(entity).isMoving = false;
-				std::cout << "Mov\n";
+			//	std::cout << "Mov\n";
 				//std::tuple<int, float, float> animationIdle1 = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.MOVE];
 				//
 				//g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle1), std::get<2>(animationIdle1));
@@ -440,7 +438,7 @@ void BoneCatcher::BiteDown(Entity &entity, double deltaTime)
 			m_IsMoving = true;
 
 			g_Coordinator.GetComponent<AnimationComponent>(entity).isBreak = false;
-//			g_Coordinator.GetComponent<AnimationComponent>(entity).isIdle = true;
+	//		g_Coordinator.GetComponent<AnimationComponent>(entity).isIdle = true;
 			g_Coordinator.GetComponent<AnimationComponent>(entity).isMoving = false;
 //			g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->m_UseCustomRange = false;
 		

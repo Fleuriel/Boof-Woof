@@ -515,23 +515,26 @@ void GraphicsSystem::UpdateLoop() {
 
 							
 
-							std::cout << animationComp.isIdle << '\t' << animationComp.isMoving << '\t' << animationComp.isBreak << '\n';
 							if (animationComp.isBreak)
-							{
-								start = std::get<1>(animationBreak);
-								end = std::get<2>(animationBreak);
-							}
-							if (animationComp.isIdle)
-							{
-								start = std::get<1>(animationIdle);
-								end = std::get<2>(animationIdle);
-							}
-							if (animationComp.isMoving)
 							{
 								start = std::get<1>(animationMoving);
 								end = std::get<2>(animationMoving);
 							}
+							else if (animationComp.isIdle)
+							{
+								start = std::get<1>(animationIdle);
+								end = std::get<2>(animationIdle);
+							}
+							else if (animationComp.isMoving)
+							{
+								start = std::get<1>(animationBreak);
+								end = std::get<2>(animationBreak);
+							}
+							else
+							{
+								start = end = 0;
 
+							}
 
 
 							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
@@ -546,11 +549,10 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-
 							if (animationComp.isBreak)
 							{
-								start = std::get<1>(animationBreak);
-								end = std::get<2>(animationBreak);
+								start = std::get<1>(animationMoving);
+								end = std::get<2>(animationMoving);
 							}
 							else if (animationComp.isIdle)
 							{
@@ -559,14 +561,20 @@ void GraphicsSystem::UpdateLoop() {
 							}
 							else if (animationComp.isMoving)
 							{
-								start = std::get<1>(animationMoving);
-								end = std::get<2>(animationMoving);
+								start = std::get<1>(animationBreak);
+								end = std::get<2>(animationBreak);
 							}
+							else
+							{
+								start = end = 0;
+
+							}
+
 
 							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
 
 						}
-						else if (g_Coordinator.GetEntityId(entity) == 503 && graphicsComp.getModelName() == "Cage1")
+						else if (g_Coordinator.GetEntityId(entity) == 503 && graphicsComp.getModelName() == "Cage2")
 						{
 							static float start = 0, end = 0;
 
@@ -576,26 +584,26 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-
 							if (animationComp.isBreak)
-							{
-								start = std::get<1>(animationBreak);
-								end = std::get<2>(animationBreak);
-								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
-							}
-							if (animationComp.isIdle)
-							{
-								start = std::get<1>(animationIdle);
-								end = std::get<2>(animationIdle);
-								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
-							}
-							if (animationComp.isMoving)
 							{
 								start = std::get<1>(animationMoving);
 								end = std::get<2>(animationMoving);
-								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
 							}
+							else if (animationComp.isIdle)
+							{
+								start = std::get<1>(animationIdle);
+								end = std::get<2>(animationIdle);
+							}
+							else if (animationComp.isMoving)
+							{
+								start = std::get<1>(animationBreak);
+								end = std::get<2>(animationBreak);
+							}
+							else
+							{
+								start = end = 0;
 
+							}
 
 
 							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
