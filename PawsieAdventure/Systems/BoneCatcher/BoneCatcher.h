@@ -7,17 +7,27 @@ class BoneCatcher
 {
 public:
 	void OnInitialize();
-	void OnUpdate(double deltaTime);
+	void OnUpdate(Entity & entity, double deltaTime);
 	void Stop(double deltaTime);
 
 	void MoveLeftRightVisual(double deltaTime);
-	void BiteDown(double deltaTime);	// Check whether collided with catchzone + visual feedback
+	void BiteDown(Entity &entity, double deltaTime);	// Check whether collided with catchzone + visual feedback
 	void ClearBoneCatcher();
 	
 	void ChangeBase(std::string hit2TextureName, std::string hit4TextureName);
 	void UpdatePuppyHeads();
 
 	void ResetBC();
+
+	enum animation
+	{
+		BREAK = 0,
+		IDLE,
+		MOVE
+	};
+
+
+
 
 public:
 	bool isRope{ false }, isCage{ false }, isActive{ false }, savePawgress{ false };

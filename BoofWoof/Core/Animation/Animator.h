@@ -31,7 +31,10 @@ public:
 			m_FinalBoneMatrices.push_back(glm::mat4(1.0f));
 	}
 
-	void UpdateAnimation(AnimationComponent& anim, float dt);
+
+	void SetPlaybackRange(float start, float end);
+
+	void UpdateAnimation(AnimationComponent& anim, float dt, float start = 0 , float end = 0);
 
 	void SetAnimationTime(float dt);
 
@@ -44,10 +47,17 @@ public:
 
 	float GetCurrTime();
 
+	bool m_UseCustomRange = false; // Flag to determine whether to loop within a range
+
+
+
 private:
 	std::vector<glm::mat4> m_FinalBoneMatrices;
 	Animation* m_CurrentAnimation;
 	float m_CurrentTime;
 	float m_DeltaTime;
+
+	float m_PlaybackStart = 0.0f;
+	float m_PlaybackEnd = 0.0f;
 
 };

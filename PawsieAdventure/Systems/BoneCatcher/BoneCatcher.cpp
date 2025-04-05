@@ -175,7 +175,7 @@ void BoneCatcher::OnInitialize()
 	}
 }
 
-void BoneCatcher::OnUpdate(double deltaTime)
+void BoneCatcher::OnUpdate(Entity& entity, double deltaTime)
 {
 
 	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT))
@@ -212,7 +212,8 @@ void BoneCatcher::OnUpdate(double deltaTime)
 		}
 		else
 		{
-			BiteDown(deltaTime);
+			std::cout << "bar spawn2 \n";
+			BiteDown(entity, deltaTime);
 		}
 	}
 
@@ -319,7 +320,7 @@ void BoneCatcher::MoveLeftRightVisual(double deltaTime)
 }
 
 // Check whether collided with catchzone + visual feedback
-void BoneCatcher::BiteDown(double deltaTime)
+void BoneCatcher::BiteDown(Entity &entity, double deltaTime)
 {
 	// Catchzone Position changes each time so need to check here to update
 	BoxMin = CatchZonePos - CatchZoneScale * 0.5f;	// Bottom left
@@ -369,6 +370,34 @@ void BoneCatcher::BiteDown(double deltaTime)
 			// Randomize the X scale (must stay within the smaller range after each hit) - if want to change scale.
 			//dist = std::uniform_real_distribution<float>(MinMaxScale.x, CatchZoneScale.x);
 			//CatchZoneScale.x = dist(gen);
+
+
+			if (m_HitCount == m_NoOfHitsRequired)
+			{
+				g_Coordinator.GetComponent<AnimationComponent>(entity).isBreak = false;
+				g_Coordinator.GetComponent<AnimationComponent>(entity).isIdle = false;
+				g_Coordinator.GetComponent<AnimationComponent>(entity).isMoving = true;
+
+				std::cout << "Break\n";
+
+			/*	std::tuple<int, float, float> animationIdle1 = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.BREAK];
+
+				g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle1), std::get<2>(animationIdle1));*/
+
+			}
+			else
+			{
+				g_Coordinator.GetComponent<AnimationComponent>(entity).isBreak = true;
+				g_Coordinator.GetComponent<AnimationComponent>(entity).isIdle = false;
+				g_Coordinator.GetComponent<AnimationComponent>(entity).isMoving = false;
+				std::cout << "Mov\n";
+				//std::tuple<int, float, float> animationIdle1 = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.MOVE];
+				//
+				//g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle1), std::get<2>(animationIdle1));
+
+
+			}
+
 		}
 		else {
 			// Play BOO sound
@@ -409,6 +438,12 @@ void BoneCatcher::BiteDown(double deltaTime)
 			m_Down = false;
 			m_HitDetected = false;
 			m_IsMoving = true;
+
+			g_Coordinator.GetComponent<AnimationComponent>(entity).isBreak = false;
+//			g_Coordinator.GetComponent<AnimationComponent>(entity).isIdle = true;
+			g_Coordinator.GetComponent<AnimationComponent>(entity).isMoving = false;
+//			g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->m_UseCustomRange = false;
+		
 		}
 	}
 }

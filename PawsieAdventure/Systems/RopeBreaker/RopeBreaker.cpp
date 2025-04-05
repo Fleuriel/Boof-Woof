@@ -10,7 +10,7 @@
 
 RopeBreaker g_RopeBreaker;
 
-void RopeBreaker::OnUpdate(double deltaTime)
+void RopeBreaker::OnUpdate(double deltaTime, Entity entity)
 {
 	if (!PlayerCollidedRope1 || !PlayerCollidedRope2) 
 	{
@@ -22,7 +22,7 @@ void RopeBreaker::OnUpdate(double deltaTime)
 
 	if (BoneSpawned)
 	{
-		g_BoneCatcher.OnUpdate(deltaTime);
+		g_BoneCatcher.OnUpdate(entity , deltaTime);
 
 		// Only saves when you press ESC key
 		SaveRopeProgress();

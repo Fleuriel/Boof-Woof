@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="..\BoofWoof\Core\Logic\Behaviour.h" />
     <ClInclude Include="..\BoofWoof\Core\Logic\BehaviourInterface.h" />
+    <ClInclude Include="Cage.hpp" />
     <ClInclude Include="Null.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.hpp" />

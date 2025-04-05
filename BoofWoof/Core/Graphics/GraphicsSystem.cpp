@@ -501,13 +501,124 @@ void GraphicsSystem::UpdateLoop() {
 					// Bind and use the animation shader
 					g_AssetManager.GetShader("Animation").Use();
 
-					//if (!graphicsComp.pauseAnimation)
-					//{
-					//	g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp ,graphicsComp.deltaTime);
-					//}
-					//else
-					//	g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
-					//
+					if (!graphicsComp.pauseAnimation)
+					{
+
+						if (g_Coordinator.GetEntityId(entity) == 499 && animationComp.cage1Hit)
+						{
+
+							static float start = 0, end = 0;
+
+							std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[1];
+							std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[2];
+							std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[3];
+
+							
+
+							if (animationComp.isBreak)
+							{
+								start = std::get<1>(animationBreak);
+								end = std::get<2>(animationBreak);
+							}
+							if (animationComp.isIdle)
+							{
+								start = std::get<1>(animationIdle);
+								end = std::get<2>(animationIdle);
+							}
+							if (animationComp.isMoving)
+							{
+								start = std::get<1>(animationMoving);
+								end = std::get<2>(animationMoving);
+							}
+
+
+							std::cout << start << '\t' << end << '\n';
+
+							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
+							animationComp.cage1Hit = false;
+						}
+						else if (g_Coordinator.GetEntityId(entity) == 501 && animationComp.cage2Hit)
+						{
+							static float start = 0, end = 0;
+
+							std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[1];
+							std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[2];
+							std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[3];
+
+//							std::cout << "inside entity " << entity << '\t' << animationComp.isBreak << '\t' << animationComp.isIdle << '\t' << animationComp.isMoving << '\t';
+
+
+							if (animationComp.isBreak)
+							{
+								start = std::get<1>(animationBreak);
+								end = std::get<2>(animationBreak);
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
+							}
+							else if (animationComp.isIdle)
+							{
+								start = std::get<1>(animationIdle);
+								end = std::get<2>(animationIdle);
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
+							}
+							else if (animationComp.isMoving)
+							{
+								start = std::get<1>(animationMoving);
+								end = std::get<2>(animationMoving);
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
+							}
+
+							animationComp.cage2Hit = false;
+						//	std::cout << start << '\t' << end << '\n';
+
+
+						}
+						else if (g_Coordinator.GetEntityId(entity) == 503 && animationComp.cage3Hit)
+						{
+							static float start = 0, end = 0;
+
+							std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[1];
+							std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[2];
+							std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[3];
+
+						//	std::cout << "inside entity " << entity << '\t' << animationComp.isBreak << '\t' << animationComp.isIdle << '\t' << animationComp.isMoving << '\t';
+
+
+
+							if (animationComp.isBreak)
+							{
+								start = std::get<1>(animationBreak);
+								end = std::get<2>(animationBreak);
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
+							}
+							if (animationComp.isIdle)
+							{
+								start = std::get<1>(animationIdle);
+								end = std::get<2>(animationIdle);
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
+							}
+							if (animationComp.isMoving)
+							{
+								start = std::get<1>(animationMoving);
+								end = std::get<2>(animationMoving);
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
+							}
+
+
+							animationComp.cage3Hit = false;
+						//	std::cout << start << '\t' << end << '\n';
+
+							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
+						}
+						else
+						{
+							
+							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime);
+						}
+
+					}
+					else
+						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
+					
 
 
 

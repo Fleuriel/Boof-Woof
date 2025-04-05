@@ -39,6 +39,17 @@ public:
 
 	bool pauseAnimation;
 
+
+	bool isIdle = false;
+	bool isMoving = false;
+	bool isBreak = false;
+
+	bool cage1Hit = false;
+	bool cage2Hit = false;
+	bool cage3Hit = false;
+
+
+
 private:
 
 };

@@ -13,7 +13,7 @@ public:
 		: player(playerEntity), rope1(ropeEntity1), rope2(ropeEntity2), bridge(bridgeEntity), PlayerCollidedRope1(false), PlayerCollidedRope2(false), RopeCount(2) {}
 	RopeBreaker(Entity playerEntity, Entity ropeEntity) : player(playerEntity), rope1(ropeEntity), PlayerCollidedRope1(false), RopeCount(1) {}
 
-	void OnUpdate(double deltaTime);
+	void OnUpdate(double deltaTime, Entity entity = 100000000);
 
 	void CheckCollision();
 

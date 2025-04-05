@@ -16,12 +16,70 @@ void CageBreaker::OnUpdate(double deltaTime)
 	// Only when collided and when dialogue isn't active
 	SpawnBoneCatcher();
 
+
+	Entity getEntity = 2147483647;
+
+	if (CollidedCage1)
+	{
+		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage1Hit = true;
+		getEntity = cage1;
+		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage2Hit = false;
+		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage3Hit = false;
+	}
+	else if (CollidedCage2)
+	{
+		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage2Hit = true;
+		getEntity = cage2;
+		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage1Hit = false;
+		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage3Hit = false;
+	}
+	else if (CollidedCage3)
+	{
+		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage3Hit = true;
+		getEntity = cage3;
+		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage2Hit = false;
+		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage1Hit = false;
+
+	}
+
+
+
+
+
 	if (BarSpawned)
 	{
-		g_BoneCatcher.OnUpdate(deltaTime);
+		std::cout << "bar spawn1 \n";
+		g_BoneCatcher.OnUpdate(getEntity, deltaTime);
 
 		// Only saves when you press ESC key
 		SaveProgress();
+	}
+	else
+	{
+
+		auto allEntities = g_Coordinator.GetAliveEntitiesSet();
+		for (auto& entity : allEntities)
+		{
+			if (entity == cage1 || entity == cage2 || entity == cage3)
+			{
+
+				std::cout << "bar spawned NOT\n";
+				//g_Coordinator.GetComponent<AnimationComponent>(entity).isBreak = false;
+				//g_Coordinator.GetComponent<AnimationComponent>(entity).isIdle = true;
+				//g_Coordinator.GetComponent<AnimationComponent>(entity).isMoving = false;
+
+
+			/*	std::tuple<int, float, float> animationIdle1 = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[g_BoneCatcher.IDLE];
+
+
+
+
+				g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(entity).getModelName()]->SetPlaybackRange(std::get<1>(animationIdle1), std::get<2>(animationIdle1));*/
+			}
+		}
+
+
+
 	}
 }
 
@@ -106,6 +164,8 @@ void CageBreaker::DespawnCage()
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage1);
 			g_Coordinator.DestroyEntity(cage1);
+			
+			cage1 = 2147483648;
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage1Collider);
 			g_Coordinator.DestroyEntity(cage1Collider);
@@ -131,6 +191,9 @@ void CageBreaker::DespawnCage()
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage2);
 			g_Coordinator.DestroyEntity(cage2);
 
+
+			cage2 = 2147483649;
+
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage2Collider);
 			g_Coordinator.DestroyEntity(cage2Collider);
 			CollidedCage2 = false;
@@ -155,6 +218,8 @@ void CageBreaker::DespawnCage()
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage3);
 			g_Coordinator.DestroyEntity(cage3);
+
+			cage1 = 2147483650;
 
 			g_Coordinator.GetSystem<MyPhysicsSystem>()->RemoveEntityBody(cage3Collider);
 			g_Coordinator.DestroyEntity(cage3Collider);

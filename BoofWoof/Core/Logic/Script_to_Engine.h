@@ -543,7 +543,7 @@ public:
 		if (animatorIt != g_ResourceManager.AnimatorMap.end() && animatorIt->second)
 		{
 			// Update the animation with the given delta time
-			animatorIt->second->UpdateAnimation(anim, graphicsComp.deltaTime);
+			animatorIt->second->UpdateAnimation(anim, graphicsComp.deltaTime, timeStart, timeEnd);
 
 			//std::cout << animDeltaTime << '\t' << timeStart << '\t' << timeEnd << '\t' << '\n';
 			//	std::cout << "Graphics Component Model name : " << modelName << '\n';

@@ -4,20 +4,67 @@
 #include "../Utilities/Components/AnimationComponent.hpp"
 
 
-void Animator::UpdateAnimation(AnimationComponent& anim, float dt)
+void Animator::UpdateAnimation(AnimationComponent& anim, float dt, float start, float end)
 {
+
+	
+	
+	if (start == 0 || end == 0)
+	{
+		return;
+	}
+	else
+	{
+		////m_UseCustomRange = true;
+		//m_PlaybackStart = start;
+		//m_PlaybackEnd = end;
+		//m_CurrentTime = start;
+	}
+
+
+
+
 	if (!anim.pauseAnimation)
 	{
 		m_DeltaTime = dt;
-		//std::cout <<"Animator.h : \t" << m_DeltaTime << '\n';
 
-		if (m_CurrentAnimation)
+		if (!m_CurrentAnimation) return;
+
+		float ticksPerSecond = m_CurrentAnimation->GetTicksPerSecond();
+		float duration = m_CurrentAnimation->GetDuration();
+
+		m_CurrentTime += ticksPerSecond * dt;
+
+		// Check if using playback range
+		if (m_UseCustomRange)
 		{
-			m_CurrentTime += m_CurrentAnimation->GetTicksPerSecond() * dt;
-			m_CurrentTime = fmod(m_CurrentTime, m_CurrentAnimation->GetDuration());
-			CalculateBoneTransform(&m_CurrentAnimation->GetRootNode(), glm::mat4(1.0f));
+			// Loop within custom range
+			if (m_CurrentTime > end)
+				m_CurrentTime = start;
+
+			if (m_CurrentTime < start)
+				m_CurrentTime = start;
 		}
+		else
+		{
+			// Loop over full animation
+			m_CurrentTime = fmod(m_CurrentTime, duration);
+			if (m_CurrentTime < 0.0f)
+				m_CurrentTime += duration;
+		}
+
+		CalculateBoneTransform(&m_CurrentAnimation->GetRootNode(), glm::mat4(1.0f));
+		
 	}
+}
+
+
+void Animator::SetPlaybackRange(float start, float end)
+{
+	m_PlaybackStart = start;
+	m_PlaybackEnd = end;
+	m_CurrentTime = start;       // Start from 'start'
+	m_UseCustomRange = true;     // Enable custom playback
 }
 
 void Animator::SetAnimationTime(float dt) {
