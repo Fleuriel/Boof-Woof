@@ -127,18 +127,42 @@ void BoneCatcher::OnInitialize()
 			m_HitCount = g_CageBreaker.CageHitCounts[1];
 			m_Speed = g_CageBreaker.speedCage[1];
 			m_Direction = g_CageBreaker.directionCage[1];
+
+			if (g_Coordinator.GetComponent<GraphicsComponent>(g_CageBreaker.cage1).getModelName() == "Cage")
+			{
+				if (g_Coordinator.HaveComponent<AnimationComponent>(g_CageBreaker.cage1))
+				{
+					g_Coordinator.GetComponent<AnimationComponent>(g_CageBreaker.cage1).pauseAnimation = false;
+				}
+			}
 		}
 		else if (g_CageBreaker.CageHitCounts.count(2) > 0 && g_CageBreaker.Cage2Colliding)
 		{
 			m_HitCount = g_CageBreaker.CageHitCounts[2];
 			m_Speed = g_CageBreaker.speedCage[2];
 			m_Direction = g_CageBreaker.directionCage[2];
+
+			if (g_Coordinator.GetComponent<GraphicsComponent>(g_CageBreaker.cage2).getModelName() == "Cage1")
+			{
+				if (g_Coordinator.HaveComponent<AnimationComponent>(g_CageBreaker.cage2))
+				{
+					g_Coordinator.GetComponent<AnimationComponent>(g_CageBreaker.cage2).pauseAnimation = false;
+				}
+			}
 		}
 		else if (g_CageBreaker.CageHitCounts.count(3) > 0 && g_CageBreaker.Cage3Colliding)
 		{
 			m_HitCount = g_CageBreaker.CageHitCounts[3];
 			m_Speed = g_CageBreaker.speedCage[3];
 			m_Direction = g_CageBreaker.directionCage[3];
+
+			if (g_Coordinator.GetComponent<GraphicsComponent>(g_CageBreaker.cage3).getModelName() == "Cage2")
+			{
+				if (g_Coordinator.HaveComponent<AnimationComponent>(g_CageBreaker.cage3))
+				{
+					g_Coordinator.GetComponent<AnimationComponent>(g_CageBreaker.cage3).pauseAnimation = false;
+				}
+			}
 		}
 
 		UpdatePuppyHeads();		

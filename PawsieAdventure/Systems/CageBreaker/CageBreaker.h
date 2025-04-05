@@ -40,11 +40,12 @@ public:
 	std::unordered_map<int, int> CageHitCounts; // Map to store hit counts per cage
 	std::unordered_map<int, float> speedCage;
 	std::unordered_map<int, int> directionCage;
+	Entity cage1{}, cage2{}, cage3{};
 
 private:
 
 	// Rope
-	Entity player{}, cage1{}, cage2{}, cage3{}, cage1Collider{}, cage2Collider{}, cage3Collider{}, puppy1{}, puppy2{}, puppy3{};
+	Entity player{}, cage1Collider{}, cage2Collider{}, cage3Collider{}, puppy1{}, puppy2{}, puppy3{};
 	bool firstCageTouched{ false }, secondCageTouched{ false }, thirdCageTouched{ false };
 	bool deletedCage1{ false }, deletedCage2{ false }, deletedCage3{ false };
 	bool CollidedCage1{ false }, CollidedCage2{ false }, CollidedCage3{ false };

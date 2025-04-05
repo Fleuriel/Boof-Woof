@@ -222,6 +222,8 @@ void CageBreaker::SaveProgress()
 		std::vector<Entity> checklistEnt = { g_Checklist.Paper, g_Checklist.Do1, g_Checklist.Do2, g_Checklist.Do3, g_Checklist.Box1, g_Checklist.Box2, g_Checklist.Box3 };
 		g_Checklist.HideChecklistUI(checklistEnt, false);
 
+		static float start = 0, end = 0;
+
 		if (CollidedCage1) 
 		{
 			g_Coordinator.GetComponent<CollisionComponent>(cage1Collider).SetLastCollidedObjectName("Floor");
@@ -229,6 +231,23 @@ void CageBreaker::SaveProgress()
 			CageHitCounts[1] = g_BoneCatcher.m_HitCount;
 			speedCage[1] = g_BoneCatcher.m_Speed;
 			directionCage[1] = g_BoneCatcher.m_Direction;
+
+			std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(cage1).animationVector[1];
+			std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(cage1).animationVector[2];
+			std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(cage1).animationVector[3];
+
+			if (g_Coordinator.GetComponent<GraphicsComponent>(cage1).getModelName() == "Cage") 
+			{
+				if (g_Coordinator.HaveComponent<AnimationComponent>(cage1)) 
+				{
+					start = std::get<1>(animationIdle);
+					end = std::get<2>(animationIdle);
+
+					g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(cage1).getModelName()]->UpdateAnimation(g_Coordinator.GetComponent<AnimationComponent>(cage1), g_Coordinator.GetComponent<GraphicsComponent>(cage1).deltaTime, start, end);
+
+					g_Coordinator.GetComponent<AnimationComponent>(cage1).pauseAnimation = true;
+				}
+			}
 
 			CollidedCage1 = false;
 		}
@@ -240,6 +259,23 @@ void CageBreaker::SaveProgress()
 			speedCage[2] = g_BoneCatcher.m_Speed;
 			directionCage[2] = g_BoneCatcher.m_Direction;
 
+			std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(cage2).animationVector[1];
+			std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(cage2).animationVector[2];
+			std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(cage2).animationVector[3];
+
+			if (g_Coordinator.GetComponent<GraphicsComponent>(cage2).getModelName() == "Cage1")
+			{
+				if (g_Coordinator.HaveComponent<AnimationComponent>(cage2))
+				{
+					start = std::get<1>(animationIdle);
+					end = std::get<2>(animationIdle);
+
+					g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(cage2).getModelName()]->UpdateAnimation(g_Coordinator.GetComponent<AnimationComponent>(cage2), g_Coordinator.GetComponent<GraphicsComponent>(cage2).deltaTime, start, end);
+
+					g_Coordinator.GetComponent<AnimationComponent>(cage2).pauseAnimation = true;
+				}
+			}
+
 			CollidedCage2 = false;
 		}
 
@@ -249,6 +285,23 @@ void CageBreaker::SaveProgress()
 			CageHitCounts[3] = g_BoneCatcher.m_HitCount;
 			speedCage[3] = g_BoneCatcher.m_Speed;
 			directionCage[3] = g_BoneCatcher.m_Direction;
+
+			std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(cage3).animationVector[1];
+			std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(cage3).animationVector[2];
+			std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(cage3).animationVector[3];
+
+			if (g_Coordinator.GetComponent<GraphicsComponent>(cage3).getModelName() == "Cage2")
+			{
+				if (g_Coordinator.HaveComponent<AnimationComponent>(cage3))
+				{
+					start = std::get<1>(animationIdle);
+					end = std::get<2>(animationIdle);
+
+					g_ResourceManager.AnimatorMap[g_Coordinator.GetComponent<GraphicsComponent>(cage3).getModelName()]->UpdateAnimation(g_Coordinator.GetComponent<AnimationComponent>(cage3), g_Coordinator.GetComponent<GraphicsComponent>(cage3).deltaTime, start, end);
+
+					g_Coordinator.GetComponent<AnimationComponent>(cage3).pauseAnimation = true;
+				}
+			}
 
 			CollidedCage3 = false;
 		}
