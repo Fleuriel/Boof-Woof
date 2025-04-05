@@ -843,11 +843,11 @@ void AudioSystem::PlayEntityAudio(Entity entity, const std::string& filePath, bo
 
     // Apply the correct volume (BGM or SFX) based on the file name
     if (finalFilePath.find("BGM") != std::string::npos) {
-        newChannel->setVolume(bgmVolume);
+        newChannel->setVolume(bgmVolume * masterVolume);
         std::cout << "Applied BGM volume: " << bgmVolume << "\n";
     }
     else {
-        newChannel->setVolume(sfxVolume);
+        newChannel->setVolume(sfxVolume * masterVolume);
         std::cout << "Applied SFX volume: " << sfxVolume << "\n";
     }
 
