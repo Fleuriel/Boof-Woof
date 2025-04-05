@@ -15,27 +15,24 @@ void CageBreaker::OnUpdate(double deltaTime)
 
 	// Only when collided and when dialogue isn't active
 	SpawnBoneCatcher();
-
-
 	Entity getEntity = 2147483647;
 
 	if (CollidedCage1)
 	{
 		getEntity = cage1;
 		g_Coordinator.GetComponent<AnimationComponent>(getEntity).cage1Hit = true;
+		DisablePuppyCollision(puppy1);
 	}
 	else if (CollidedCage2)
 	{
 		getEntity = cage2;
+		DisablePuppyCollision(puppy2);
 	}
 	else if (CollidedCage3)
 	{
 		getEntity = cage3;
+		DisablePuppyCollision(puppy3);
 	}
-
-
-
-
 
 	if (BarSpawned)
 	{
@@ -46,18 +43,26 @@ void CageBreaker::OnUpdate(double deltaTime)
 	}
 	else
 	{
-
 		auto allEntities = g_Coordinator.GetAliveEntitiesSet();
 		for (auto& entity : allEntities)
 		{
 			if (entity == cage1 || entity == cage2 || entity == cage3)
 			{
-
+				// Ensure puppy collision is disabled while cage is alive
+				if (entity == cage1)
+				{
+					DisablePuppyCollision(puppy1);
+				}
+				else if (entity == cage2)
+				{
+					DisablePuppyCollision(puppy2);
+				}
+				else if (entity == cage3)
+				{
+					DisablePuppyCollision(puppy3);
+				}
 			}
 		}
-
-
-
 	}
 }
 
@@ -150,8 +155,8 @@ void CageBreaker::DespawnCage()
 			CollidedCage1 = false;
 			deletedCage1 = true;
 
-			// Toggle isDynamic for the respective puppy
-			//TogglePuppyDynamic(puppy1);
+			// Re-enable collision for the respective puppy
+			EnablePuppyCollision(puppy1);
 		}
 	}
 
@@ -177,8 +182,8 @@ void CageBreaker::DespawnCage()
 			CollidedCage2 = false;
 			deletedCage2 = true;
 
-			// Toggle isDynamic for the respective puppy
-			//TogglePuppyDynamic(puppy2);
+			// Re-enable collision for the respective puppy
+			EnablePuppyCollision(puppy2);
 		}
 	}
 
@@ -204,8 +209,8 @@ void CageBreaker::DespawnCage()
 			CollidedCage3 = false;
 			deletedCage3 = true;
 
-			// Toggle isDynamic for the respective puppy
-			//TogglePuppyDynamic(puppy3);
+			// Re-enable collision for the respective puppy
+			EnablePuppyCollision(puppy3);
 		}
 	}
 
@@ -326,12 +331,27 @@ bool CageBreaker::CheckEntityWithPlayerCollision(Entity entity) const
 	return false;
 }
 
-void CageBreaker::TogglePuppyDynamic(Entity puppy)
+void CageBreaker::DisablePuppyCollision(Entity puppy)
 {
 	if (g_Coordinator.HaveComponent<CollisionComponent>(puppy)) {
 		auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(puppy);
-		collisionComponent.SetIsDynamic(true);
-		//g_Coordinator.GetSystem<MyPhysicsSystem>()->EnablePhysics(puppy);
+		collisionComponent.SetIsSensor(true); // Make it a sensor to disable collision response
+		collisionComponent.SetIsColliding(false); // Ensure it is not colliding
+		collisionComponent.SetLastCollidedObjectName(""); // Clear last collided object name
+
+		// Disable physics to prevent movement
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->DisablePhysics(puppy);
+	}
+}
+
+void CageBreaker::EnablePuppyCollision(Entity puppy)
+{
+	if (g_Coordinator.HaveComponent<CollisionComponent>(puppy)) {
+		auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(puppy);
+		collisionComponent.SetIsSensor(false); // Re-enable collision response
+
+		// Enable physics to allow movement
+		g_Coordinator.GetSystem<MyPhysicsSystem>()->EnablePhysics(puppy);
 	}
 }
 

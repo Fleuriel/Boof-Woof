@@ -31,7 +31,8 @@ public:
 	void SaveProgress();
 
 	bool CheckEntityWithPlayerCollision(Entity entity) const;
-	void TogglePuppyDynamic(Entity puppy);
+	void DisablePuppyCollision(Entity puppy);
+	void EnablePuppyCollision(Entity puppy);
 	void ResetCB();
 
 public:
