@@ -21,25 +21,16 @@ void CageBreaker::OnUpdate(double deltaTime)
 
 	if (CollidedCage1)
 	{
-		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage1Hit = true;
 		getEntity = cage1;
-		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage2Hit = false;
-		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage3Hit = false;
+		g_Coordinator.GetComponent<AnimationComponent>(getEntity).cage1Hit = true;
 	}
 	else if (CollidedCage2)
 	{
-		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage2Hit = true;
 		getEntity = cage2;
-		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage1Hit = false;
-		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage3Hit = false;
 	}
 	else if (CollidedCage3)
 	{
-		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage3Hit = true;
 		getEntity = cage3;
-		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage2Hit = false;
-		g_Coordinator.GetComponent<AnimationComponent>(cage1).cage1Hit = false;
-
 	}
 
 

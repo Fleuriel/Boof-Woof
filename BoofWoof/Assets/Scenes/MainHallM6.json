@@ -22274,7 +22274,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "Cage",
+                "ModelName": "Cage1",
                 "FollowCamera": true
             },
             "AnimationComponent": {
@@ -22400,7 +22400,7 @@
                 }
             },
             "GraphicsComponent": {
-                "ModelName": "Cage",
+                "ModelName": "Cage2",
                 "FollowCamera": true
             },
             "AnimationComponent": {
