@@ -494,8 +494,8 @@ void GraphicsSystem::UpdateLoop() {
 				if (g_ResourceManager.AnimationMap.find(graphicsComp.getModelName()) != g_ResourceManager.AnimationMap.end()) {
 
 
-					animationComp.m_DeltaTime = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetCurrTime();
-					animationComp.m_Duration = g_ResourceManager.AnimationMap[graphicsComp.getModelName()]->GetDuration();
+//					animationComp.m_DeltaTime = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetCurrTime();
+//					animationComp.m_Duration = g_ResourceManager.AnimationMap[graphicsComp.getModelName()]->GetDuration();
 
 					if (material.GetShaderName() == "Animation") {
 						// Bind and use the animation shader
@@ -507,12 +507,18 @@ void GraphicsSystem::UpdateLoop() {
 
 						if (!graphicsComp.pauseAnimation)
 						{
-							if(graphicsComp.getModelName() == "Cage")
-								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime/3);
-							else
+							if (g_Coordinator.GetEntityId(entity) == 541)
 							{
-								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime);
+								std::cout << "it did entered here \n";
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime / 3);
 							}
+							if (g_Coordinator.GetEntityId(entity) == 543)
+							{
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime / 2);
+							}
+							else
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(graphicsComp.deltaTime);
+							
 						}
 						else
 							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());

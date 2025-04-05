@@ -58,9 +58,6 @@ public:
 				animatorIt->second->SetAnimationTime(timeStart);
 				return true;
 			}
-
-
-
 		}
 		else
 		{

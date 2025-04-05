@@ -445,6 +445,7 @@ void BoneCatcher::BiteDown(double deltaTime, Entity entity)
 			m_Down = false;
 			m_HitDetected = false;
 			m_IsMoving = true;
+			playedAlready = false;
 		}
 		else
 		{

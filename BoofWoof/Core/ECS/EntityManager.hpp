@@ -94,6 +94,8 @@ public:
 	// Get entity ID
 	Entity GetEntityId(Entity entity) 
 	{
+//		std::cout << "Current ENTITY:\t" << entity << '\n';
+
 		// Ensure that the provided entity is within range
 		assert(entity < MAX_ENTITIES && "Entity ID out of range");
 
