@@ -197,7 +197,7 @@ void UI::Sniff(const std::vector<Entity>& particles, int goalnode, float dt, int
 			}
 		}
 		
-		particleTimer = 3.0f; // 3 seconds
+		particleTimer = 6.0f; // 6 seconds
 	}
 
 	if (particleTimer > 0.0f) 

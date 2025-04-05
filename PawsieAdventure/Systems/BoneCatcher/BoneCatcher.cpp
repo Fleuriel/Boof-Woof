@@ -178,8 +178,7 @@ void BoneCatcher::OnInitialize()
 void BoneCatcher::OnUpdate(Entity& entity, double deltaTime)
 {
 
-	if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT))
-		return;
+	
 
 	ClearBoneCatcherTimer += deltaTime;
 

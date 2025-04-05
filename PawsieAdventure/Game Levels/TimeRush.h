@@ -15,7 +15,7 @@ class TimeRush : public Level
 	Entity rexEnt{};
 	CameraController* cameraController = nullptr;
 	bool savedcamdir{ false };
-	glm::vec3 camdir{}, originalcamPos, originalcamDir;
+	glm::vec3 camdir{}, originalcamDir;
 
 	bool camThirdPerson{ false }, panCam{ false }, returnCam{ false };	
 	float camtimer = 0.f;
@@ -154,7 +154,6 @@ class TimeRush : public Level
 		g_IsCamPanning = true;
 		camtimer = 0.f;
 		camThirdPerson = panCam = returnCam = false;
-		originalcamPos = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraPosition();
 		originalcamDir = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraDirection();
 		cameraController = new CameraController(playerEnt);
 		cameraController->ChangeToThirdPerson(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
@@ -275,13 +274,12 @@ class TimeRush : public Level
 			cameraController->SetCameraTargetDirection(glm::vec3(0, -0.2, 1));
 			cameraController->LockUnlockCam();
 			panCam = true;
-			originalcamPos = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraPosition();
 			originalcamDir = g_Coordinator.GetComponent<CameraComponent>(playerEnt).GetCameraDirection();
 		}
 
 		float timeVariable = 8.f;
 		if (cameraController->getCameraMode() == CameraMode::THIRD_PERSON && camtimer >= timeVariable && returnCam == false) {
-			cameraController->SetCameraTargetPosition(originalcamPos);
+			cameraController->SetCameraTargetPosition(g_Coordinator.GetComponent<TransformComponent>(playerEnt).GetPosition() + cameraController->getThirdPersonOffset());
 			cameraController->SetCameraTargetDirection(originalcamDir);
 			returnCam = true;
 		}
@@ -584,7 +582,6 @@ private:
 		// Reset pause and camera state variables
 		savedcamdir = false;
 		camdir = glm::vec3(0.0f);
-		originalcamPos = glm::vec3(0.0f);
 		originalcamDir = glm::vec3(0.0f);
 
 		camThirdPerson = false;
