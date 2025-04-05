@@ -532,7 +532,8 @@ void GraphicsSystem::UpdateLoop() {
 							}
 							else
 							{
-								start = end = 0;
+								start = std::get<1>(animationIdle);
+								end = std::get<2>(animationIdle);
 
 							}
 
@@ -566,8 +567,8 @@ void GraphicsSystem::UpdateLoop() {
 							}
 							else
 							{
-								start = end = 0;
-
+								start = std::get<1>(animationIdle);
+								end = std::get<2>(animationIdle);
 							}
 
 
@@ -601,8 +602,8 @@ void GraphicsSystem::UpdateLoop() {
 							}
 							else
 							{
-								start = end = 0;
-
+								start = std::get<1>(animationIdle);
+								end = std::get<2>(animationIdle);
 							}
 
 
