@@ -501,6 +501,9 @@ void GraphicsSystem::UpdateLoop() {
 					// Bind and use the animation shader
 					g_AssetManager.GetShader("Animation").Use();
 
+
+					g_AssetManager.GetShader("Animation").SetUniform("gammaValue", gammaValue);
+
 					if (!graphicsComp.pauseAnimation)
 					{
 
