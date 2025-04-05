@@ -145,7 +145,7 @@ class MainMenu : public Level
 		if (startingGame) 
 		{
 			twoSecondsPls += deltaTime;
-			if (twoSecondsPls >= 2.0)
+			if (twoSecondsPls >= 1.0)
 			{
 				g_LevelManager.SetNextLevel("Cutscene");
 				startingGame = false;
