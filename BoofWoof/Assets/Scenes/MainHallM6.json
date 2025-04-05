@@ -17575,6 +17575,46 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
+            },
+            "AnimationComponent": {
+                "Number of Animation Points": 3,
+                "Animations": [
+                    {
+                        "Animation ID": 0,
+                        "Start Time": 0.0,
+                        "End Time": 200
+                    },
+                    {
+                        "Animation ID": 1,
+                        "Start Time": 60,
+                        "End Time": 70
+                    },
+                    {
+                        "Animation ID": 2,
+                        "Start Time": 10,
+                        "End Time": 30
+                    }
+  
+                ]
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Animation",
+                "shaderIdx": 0,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -17628,6 +17668,46 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
+            },
+            "AnimationComponent": {
+                "Number of Animation Points": 3,
+                "Animations": [
+                    {
+                        "Animation ID": 0,
+                        "Start Time": 0.0,
+                        "End Time": 200
+                    },
+                    {
+                        "Animation ID": 1,
+                        "Start Time": 60,
+                        "End Time": 70
+                    },
+                    {
+                        "Animation ID": 2,
+                        "Start Time": 10,
+                        "End Time": 30
+                    }
+  
+                ]
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Animation",
+                "shaderIdx": 0,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
@@ -17681,6 +17761,46 @@
                     "z": 0.0
                 },
                 "Mass": 0.0
+            },
+            "AnimationComponent": {
+                "Number of Animation Points": 3,
+                "Animations": [
+                    {
+                        "Animation ID": 0,
+                        "Start Time": 0.0,
+                        "End Time": 200
+                    },
+                    {
+                        "Animation ID": 1,
+                        "Start Time": 60,
+                        "End Time": 70
+                    },
+                    {
+                        "Animation ID": 2,
+                        "Start Time": 10,
+                        "End Time": 30
+                    }
+  
+                ]
+            },
+            "MaterialComponent": {
+                "name": "Default Material",
+                "shader": "Animation",
+                "shaderIdx": 0,
+                "properties": {
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "finalAlpha": 1.0,
+                    "Diffuse": "NothingTexture",
+                    "Normal": "NothingNormal",
+                    "Height": "NothingHeight",
+                    "metallic": 0.0,
+                    "shininess": 0.0
+                }
             }
         },
         {
