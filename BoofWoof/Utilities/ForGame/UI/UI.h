@@ -7,7 +7,7 @@ public:
     void OnInitialize();
     void OnUpdate(double deltaTime);
     void OnShutdown();
-    void Sniff(const std::vector<Entity>& particles, float dt);
+    void Sniff(const std::vector<Entity>& particles, int goalnode, float dt, int startnode = -1);
     void Sprint(float dt);
 
 private:

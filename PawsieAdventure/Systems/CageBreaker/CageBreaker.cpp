@@ -157,6 +157,9 @@ void CageBreaker::DespawnCage(Entity entity)
 			g_Coordinator.DestroyEntity(cage1Collider);
 			CollidedCage1 = false;
 			deletedCage1 = true;
+
+			// Toggle isDynamic for the respective puppy
+			//TogglePuppyDynamic(puppy1);
 		}
 	}
 
@@ -178,6 +181,9 @@ void CageBreaker::DespawnCage(Entity entity)
 			g_Coordinator.DestroyEntity(cage2Collider);
 			CollidedCage2 = false;
 			deletedCage2 = true;
+
+			// Toggle isDynamic for the respective puppy
+			//TogglePuppyDynamic(puppy2);
 		}
 	}
 
@@ -200,6 +206,9 @@ void CageBreaker::DespawnCage(Entity entity)
 			g_Coordinator.DestroyEntity(cage3Collider);
 			CollidedCage3 = false;
 			deletedCage3 = true;
+
+			// Toggle isDynamic for the respective puppy
+			//TogglePuppyDynamic(puppy3);
 		}
 	}
 
@@ -267,9 +276,22 @@ bool CageBreaker::CheckEntityWithPlayerCollision(Entity entity) const
 	return false;
 }
 
+void CageBreaker::TogglePuppyDynamic(Entity puppy)
+{
+	if (g_Coordinator.HaveComponent<CollisionComponent>(puppy)) {
+		auto& collisionComponent = g_Coordinator.GetComponent<CollisionComponent>(puppy);
+		collisionComponent.SetIsDynamic(true);
+		//g_Coordinator.GetSystem<MyPhysicsSystem>()->EnablePhysics(puppy);
+	}
+}
+
 void CageBreaker::ResetCB()
 {
 	CollidedCage1 = CollidedCage2 = CollidedCage3 = BarSpawned = false;
 	Cage1Colliding = Cage2Colliding = Cage3Colliding = firstCageTouched = secondCageTouched =  thirdCageTouched = false;
 	deletedCage1 = deletedCage2 = deletedCage3 = false;
+
+	CageHitCounts.clear();
+	speedCage.clear();
+	directionCage.clear();
 }

@@ -8,6 +8,7 @@ class CutsceneEnd : public Level
 {
 	double cutsceneTimer = 0.0;
 	double timerLimit = 4.0;
+	double waitingTime = 0.0;
 
 	Entity P1{}, P2{}, P3{}, P4{}, P5{}, P6{}, P7{}, P8{}, P9{}, P10{}, P11{}, P12{}, P13{}, P14{};
 	bool rightAppeared{ false }, finishCutscene{ false };
@@ -16,7 +17,7 @@ class CutsceneEnd : public Level
 	{
 		// Use FILEPATH_ASSET_SCENES to construct the scene file path
 		g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/CutsceneEnd.json");
-		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/CutsceneBGM3.wav", false, "BGM");
+		g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/EndCutsceneBGM3.wav", false, "BGM");
 		//g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/cutsceneSFX.wav", false, "SFX");*
 
 		std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -214,12 +215,21 @@ class CutsceneEnd : public Level
 					}
 				}
 
-				if (thirteen.get_opacity() >= 0.6f)
+				if (thirteen.get_opacity() >= 1.0f)
 				{
-					if (fourteen.get_opacity() < 1.0f)
+					waitingTime += deltaTime;
+
+					if (waitingTime >= 3.0f) 
 					{
-						fourteen.set_opacity(fourteen.get_opacity() + 0.3f * static_cast<float>(deltaTime));
-					}
+						if (fourteen.get_opacity() < 1.0f)
+						{
+							fourteen.set_opacity(fourteen.get_opacity() + 0.3f * static_cast<float>(deltaTime));
+						}
+					}	
+				}
+				else 
+				{
+					waitingTime = 0.0;
 				}
 
 				if (fourteen.get_opacity() >= 1.0f)
@@ -254,12 +264,11 @@ class CutsceneEnd : public Level
 
 	void UnloadLevel() override
 	{
-		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/CutsceneBGM3.wav");
-		//g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/cutsceneSFX.wav");*/
-
+		g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/EndCutsceneBGM3.wav");
 
 		g_Coordinator.ResetEntities();
 		cutsceneTimer = 0.0;
+		waitingTime = 0.0;
 		finishCutscene = false;
 		rightAppeared = false;
 	}

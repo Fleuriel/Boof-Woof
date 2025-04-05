@@ -14,9 +14,9 @@
 
 std::unique_ptr<PauseMenu> pauser = CreatePausedMenu(PauseState::Paused);
 Serialization serialPause;
-Entity ResumeGame{}, SettingsBtn{}, HTPBtn{}, ExitGame{};
+Entity ResumeGame{}, SettingsBtn{}, HTPBtn{}, ExitGame{}, XBtn{};
 bool inSmthAgain{ false };
-float sfVolume{ 1.f }, bgVolume{ 1.f };
+float sfVolume{ 1.f }, bgVolume{ 1.f }, MastaVolume{ 1.f };
 
 extern std::shared_ptr<GraphicsSystem> mGraphicsSys;
 
@@ -133,7 +133,11 @@ void Settings::OnLoad()
 		{"GAMMARight", [&](Entity entity) { GAMMARight = entity; }},
 		{"SFXVol", [&](Entity entity) { SFXVol = entity; }},
 		{"BGMVol", [&](Entity entity) { BGMVol = entity; }},
-		{"GAMMAValue", [&](Entity entity) { GAMMAValue = entity; }}
+		{"GAMMAValue", [&](Entity entity) { GAMMAValue = entity; }},
+		{"MastaLeft", [&](Entity entity) { MasterLeft = entity; }},
+		{"MastaRight", [&](Entity entity) { MasterRight = entity; }},
+		{"MastaVol", [&](Entity entity) { MasterVol = entity; }},
+		{"eXit", [&](Entity entity) { eXitBtn = entity; }}
 	};
 
 	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
@@ -148,7 +152,7 @@ void Settings::OnLoad()
 		}
 
 		// Exit early if all entities are found
-		if (SFXLeft && SFXRight && BGMLeft && BGMRight && SFXVol && BGMVol && GAMMALeft && GAMMARight && GAMMAValue)
+		if (SFXLeft && SFXRight && BGMLeft && BGMRight && SFXVol && BGMVol && GAMMALeft && GAMMARight && GAMMAValue && MasterLeft && MasterRight && MasterVol && eXitBtn)
 		{
 			break;
 		}
@@ -177,6 +181,19 @@ void HowToPlay::OnLoad()
 {
 	g_SceneManager.LoadScene(FILEPATH_ASSET_SCENES + "/HTPScreen.json");
 	spawnedEntities = serialPause.GetStored();
+
+	std::vector<Entity> entities = g_Coordinator.GetAliveEntitiesSet();
+	for (auto entity : entities)
+	{
+		if (g_Coordinator.HaveComponent<MetadataComponent>(entity))
+		{
+			if (g_Coordinator.GetComponent<MetadataComponent>(entity).GetName() == "Xit")
+			{
+				XitBtn = entity;
+				break;
+			}
+		}
+	}
 }
 
 void HowToPlay::OnExit()
@@ -242,6 +259,31 @@ namespace pauseLogic
 				pauser = CreatePausedMenu(PauseState::Paused);
 				pauser->OnLoad();
 				inSmthAgain = false;
+			}
+
+			// Click on the X btn in Settings/HTP page
+			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 1 && inSmthAgain)
+			{
+				if (g_Coordinator.HaveComponent<UIComponent>(pauser->XitBtn))
+				{
+					XBtn = pauser->XitBtn;					
+				}
+				else if (g_Coordinator.HaveComponent<UIComponent>(pauser->eXitBtn))
+				{
+					XBtn = pauser->eXitBtn;
+				}
+
+				auto& UICompt = g_Coordinator.GetComponent<UIComponent>(XBtn);
+				if (UICompt.get_selected())
+				{
+					// Add in audio feedback
+					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/PauseMenuButton.wav", false, "SFX");
+
+					pauser->OnExit();
+					pauser = CreatePausedMenu(PauseState::Paused);
+					pauser->OnLoad();
+					inSmthAgain = false;
+				}
 			}
 
 			if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 1 && !inSmthAgain)
@@ -360,12 +402,12 @@ namespace pauseLogic
 						std::stringstream ss;
 						ss << std::setfill('0') << std::setw(2) << volDisplay;
 						std::string text = ss.str();
-						SFXFont.set_pos(glm::vec2(0.12f, 0.35f));
+						SFXFont.set_pos(glm::vec2(0.1f, 0.05f));
 						SFXFont.set_text(text);
 					}
 					else
 					{
-						SFXFont.set_pos(glm::vec2(0.14f, 0.35f));
+						SFXFont.set_pos(glm::vec2(0.12f, 0.05f));
 						SFXFont.set_text("10");
 					}
 				}
@@ -401,12 +443,12 @@ namespace pauseLogic
 						std::stringstream ss;
 						ss << std::setfill('0') << std::setw(2) << volDisplay;
 						std::string text = ss.str();
-						BGMFont.set_pos(glm::vec2(0.12f, -0.05f));
+						BGMFont.set_pos(glm::vec2(0.10f, -0.3f));
 						BGMFont.set_text(text);
 					}
 					else
 					{
-						BGMFont.set_pos(glm::vec2(0.14f, -0.05f));
+						BGMFont.set_pos(glm::vec2(0.12f, -0.3f));
 						BGMFont.set_text("10");
 					}
 				}
@@ -444,9 +486,53 @@ namespace pauseLogic
 					std::string str = ss.str();
 
 					FontComponent& gammaFont = g_Coordinator.GetComponent<FontComponent>(pauser->GAMMAValue);
-					gammaFont.set_pos(glm::vec2(0.12f, -0.45f));
+					gammaFont.set_pos(glm::vec2(0.12f, -0.65f));
 					gammaFont.set_text(str);
 				}
+
+				if (g_Coordinator.HaveComponent<UIComponent>(pauser->MasterLeft))
+				{
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->MasterLeft);
+					if (UICompt.get_selected())
+					{
+						MastaVolume = std::max(0.0f, g_Audio.GetMasterVolume() - volumeStep);
+						g_Audio.SetMasterVolume(MastaVolume);
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<UIComponent>(pauser->MasterRight))
+				{
+					auto& UICompt = g_Coordinator.GetComponent<UIComponent>(pauser->MasterRight);
+					if (UICompt.get_selected())
+					{
+						MastaVolume = std::min(1.0f, g_Audio.GetMasterVolume() + volumeStep);
+						g_Audio.SetMasterVolume(MastaVolume);
+						g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/(MenuButtonClick).wav", false, "SFX");
+					}
+				}
+
+				if (g_Coordinator.HaveComponent<FontComponent>(pauser->MasterVol))
+				{
+					MastaVolume = g_Audio.GetMasterVolume();
+
+					int volDisplay = static_cast<int>(std::round(MastaVolume * 10)); 
+					FontComponent& MastaVolFont = g_Coordinator.GetComponent<FontComponent>(pauser->MasterVol);
+					if (volDisplay >= 0 && volDisplay < 10)
+					{
+						std::stringstream ss;
+						ss << std::setfill('0') << std::setw(2) << volDisplay;
+						std::string text = ss.str();
+						MastaVolFont.set_pos(glm::vec2(0.10f, 0.39f));
+						MastaVolFont.set_text(text);
+					}
+					else
+					{
+						MastaVolFont.set_pos(glm::vec2(0.12f, 0.39f));
+						MastaVolFont.set_text("10");
+					}
+				}
+
 			}
 			else if (g_Input.GetMouseState(GLFW_MOUSE_BUTTON_LEFT) == 0)
 			{

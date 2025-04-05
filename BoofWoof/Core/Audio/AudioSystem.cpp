@@ -670,10 +670,10 @@ void AudioSystem::PlayFileOnNewChannel(const std::string& filePath, bool loop, c
 
     // Set volume based on sound type
     if (soundType == "BGM") {
-        newChannel->setVolume(bgmVolume);
+        newChannel->setVolume(bgmVolume * masterVolume);
     }
     else if (soundType == "SFX") {
-        newChannel->setVolume(sfxVolume);
+        newChannel->setVolume(sfxVolume * masterVolume);
     }
 
     // Map channel to the file path (instead of sound type)
@@ -716,7 +716,8 @@ void AudioSystem::SetBGMVolume(float volume) {
     for (auto& [channel, filePath] : channelToFileMap) {
         if (filePath.find("BGM") != std::string::npos) {  // Only update BGM sounds
             if (channel) {
-                channel->setVolume(bgmVolume);
+                channel->setVolume(bgmVolume * masterVolume);
+
             }
         }
     }
@@ -726,7 +727,8 @@ void AudioSystem::SetBGMVolume(float volume) {
         if (entitySoundTypeMap[entity] == "BGM") {  // Only update BGM sounds
             for (auto* channel : channels) {
                 if (channel) {
-                    channel->setVolume(bgmVolume);
+                    channel->setVolume(bgmVolume * masterVolume);
+
                 }
             }
         }
@@ -741,24 +743,25 @@ void AudioSystem::SetSFXVolume(float volume) {
 
     // Update 2D SFX sounds
     for (auto& [channel, filePath] : channelToFileMap) {
-        if (filePath.find("BGM") == std::string::npos) {  // Only update SFX sounds
+        if (filePath.find("BGM") == std::string::npos) {  
             if (channel) {
-                channel->setVolume(sfxVolume);
+                channel->setVolume(sfxVolume * masterVolume);  
             }
         }
     }
 
+    // Update 3D SFX sounds
     for (auto& [entity, channels] : channelMap) {
-        if (entitySoundTypeMap[entity] == "SFX") {  // Only update SFX sounds
+        if (entitySoundTypeMap[entity] == "SFX") {
             for (auto* channel : channels) {
                 if (channel) {
-                    channel->setVolume(sfxVolume);
+                    channel->setVolume(sfxVolume * masterVolume);  
                 }
             }
         }
     }
 
-    std::cout << "SFX volume set to: " << sfxVolume << " (Updated 2D & 3D SFX)\n";
+    std::cout << "SFX volume set to: " << sfxVolume << " (Applied master volume too)\n";
 }
 
 
@@ -840,11 +843,11 @@ void AudioSystem::PlayEntityAudio(Entity entity, const std::string& filePath, bo
 
     // Apply the correct volume (BGM or SFX) based on the file name
     if (finalFilePath.find("BGM") != std::string::npos) {
-        newChannel->setVolume(bgmVolume);
+        newChannel->setVolume(bgmVolume * masterVolume);
         std::cout << "Applied BGM volume: " << bgmVolume << "\n";
     }
     else {
-        newChannel->setVolume(sfxVolume);
+        newChannel->setVolume(sfxVolume * masterVolume);
         std::cout << "Applied SFX volume: " << sfxVolume << "\n";
     }
 
@@ -1013,3 +1016,31 @@ void AudioSystem::SetSoundVolume(const std::string& filePath, float volume) {
         }
     }
 }
+
+void AudioSystem::SetMasterVolume(float volume) {
+    masterVolume = glm::clamp(volume, 0.0f, 1.0f); // Clamp between 0 and 1
+
+    // Reapply master volume to all channels
+    for (auto& [entity, channels] : channelMap) {
+        for (auto* channel : channels) {
+            if (channel) {
+                float effectiveVol = (entitySoundTypeMap[entity] == "BGM" ? bgmVolume : sfxVolume) * masterVolume;
+                channel->setVolume(effectiveVol);
+            }
+        }
+    }
+
+    for (auto& [channel, filePath] : channelToFileMap) {
+        if (channel) {
+            float baseVol = (filePath.find("BGM") != std::string::npos) ? bgmVolume : sfxVolume;
+            channel->setVolume(baseVol * masterVolume);
+        }
+    }
+
+    std::cout << "[Audio] Master volume set to: " << masterVolume << std::endl;
+}
+
+float AudioSystem::GetMasterVolume() const {
+    return masterVolume;
+}
+

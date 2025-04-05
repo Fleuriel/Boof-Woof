@@ -29,6 +29,8 @@ public:
 	void AddBehaviours(void* scriptBehavioursPtr);
 	//void AddBehaviours(std::vector<std::unique_ptr<Behaviour_i>>* B_Vec);
 
+public:
+	bool isPlayerhidden = false;
 private:
 	// Keep track of all the behaviours
 	 std::map<std::string, std::unique_ptr<Behaviour_i>> mBehaviours;

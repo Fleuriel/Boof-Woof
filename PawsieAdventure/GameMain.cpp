@@ -15,6 +15,7 @@
 #include "Game Levels/LoadingLevel.h"
 #include "Game Levels/CutsceneEnd.h"
 #include "Game Levels/TYVM.h"
+#include "Systems/SettingsManager/SettingsManager.h"
 #include "../BoofWoof/Core/AssetManager/FilePaths.h"
 
 EngineCore* g_Core = nullptr;
@@ -62,6 +63,7 @@ int RunGame()
     InitializeLevels();
     UpdateGSM();
 
+
     // Main game loop
     while (!glfwWindowShouldClose(g_Window->GetGLFWWindow()))
     {
@@ -69,7 +71,9 @@ int RunGame()
         // g_Core->OnUpdate();
     }
 
+    SettingsManager::SaveSettingsFromEngine();
     g_Core->OnShutdown();
+
 
     delete g_Core;
 

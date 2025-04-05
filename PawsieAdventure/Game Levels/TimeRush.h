@@ -29,17 +29,30 @@ class TimeRush : public Level
 	bool isColorChanged = false;
 	bool hasBarked = false;  // Ensures barking only happens once when time is up
 
-
 	// Timer for the level
-	double timerLimit = 40.0;
+	double timerLimit = 20.0;
 	bool finishTR{ false };
 	double timesUp = 2.0;
 
+	int goalnode = 65;
 	double sniffCooldownTimer = 0.0;  // Accumulates time
 	const double sniffCooldownDuration = 17.0;  // 17 seconds
 	bool isSniffOnCooldown = false;
 
+	Entity heart;
+	bool heartgozoomies = false;
+
 	std::vector<Entity> particleEntities;
+
+
+	bool transitionActive = false;
+	float transitionTimer = 0.0f;
+	const float transitionDuration = 1.0f; // Duration in seconds
+
+	// Reverse transition state variables (for level start)
+	bool reverseTransitionActive = true;
+	float reverseTransitionTimer = 0.0f;
+	const float reverseTransitionDuration = 1.0f; // Duration for reverse transition
 
 	bool bark = false;
 	std::vector<std::string> bitingSounds = {
@@ -112,13 +125,32 @@ class TimeRush : public Level
 					break;
 				}
 			}
+
+
 		}
+		for (auto entity : entities) {
+			if (g_Coordinator.HaveComponent<UIComponent>(entity)) {
+				auto& uiComp = g_Coordinator.GetComponent<UIComponent>(entity);
+				std::cout << "Found UIComponent with texturename: " << uiComp.get_texturename() << std::endl;
+				if (uiComp.get_texturename() == "Heart") {
+					heart = entity;
+					std::cout << "Heart entity assigned: " << heart << std::endl;
+					break;
+				}
+			}
+		}
+		g_Player = playerEnt;
 		g_Window->HideMouseCursor();
 	}
 
 	void InitLevel() override
 	{
 		ResetLevelState();
+
+		// Activate reverse transition at level start.
+		reverseTransitionActive = true;
+		reverseTransitionTimer = 0.0f;
+
 		g_IsCamPanning = true;
 		camtimer = 0.f;
 		camThirdPerson = panCam = returnCam = false;
@@ -154,6 +186,15 @@ class TimeRush : public Level
 			std::cerr << " ERROR: FireSound entity has no AudioComponent in InitLevel!" << std::endl;
 		}
 
+		if (g_Coordinator.HaveComponent<AudioComponent>(rexEnt)) {
+			auto& rexAudio = g_Coordinator.GetComponent<AudioComponent>(rexEnt);
+			rexAudio.SetAudioSystem(&g_Audio);
+
+			//  Play 3D spatial sound for Rex (looped idle bark or breathing sound)
+			//g_Audio.PlayEntity3DAudio(rexEnt, FILEPATH_ASSET_AUDIO + "/Rex_Growl_Loop_v1.wav", true, "BGM");
+		}
+	
+
 
 		if (g_Coordinator.HaveComponent<AudioComponent>(TimeRushBGM)) {
 			auto& bgmAudio = g_Coordinator.GetComponent<AudioComponent>(TimeRushBGM);
@@ -181,14 +222,37 @@ class TimeRush : public Level
 
 		g_Coordinator.GetSystem<LogicSystem>()->ReInit();
 
-		particleEntities = { scentEntity1, scentEntity2, scentEntity3, scentEntity4, scentEntity5, scentEntity6, scentEntity7, scentEntity8, scentEntity9 };
+		//particleEntities = { scentEntity1, scentEntity2, scentEntity3, scentEntity4, scentEntity5, scentEntity6, scentEntity7, scentEntity8, scentEntity9 };
 		g_UI.OnInitialize();
 
 		g_TimerTR.timer = timerLimit;
+
+		g_Coordinator.GetComponent<UIComponent>(heart).set_opacity(0.f);
 	}
 
 	void UpdateLevel(double deltaTime) override
 	{
+
+		// --- Reverse Transition Effect at Level Start ---
+		if (reverseTransitionActive)
+		{
+			g_Input.LockInput();
+			reverseTransitionTimer += static_cast<float>(deltaTime);
+			float revProgress = reverseTransitionTimer / reverseTransitionDuration;
+			if (revProgress > 1.0f) revProgress = 1.0f;
+			// Call the reverse transition effect from GraphicsSystem.
+			g_Coordinator.GetSystem<GraphicsSystem>()->RenderReverseTransitionEffect(revProgress);
+			if (reverseTransitionTimer >= reverseTransitionDuration)
+			{
+				g_Input.UnlockInput();
+				reverseTransitionActive = false;
+			}
+		}
+		else {
+			g_Input.UnlockInput();
+		}
+		// --- End Reverse Transition ---
+
 		if (g_IsPaused && !savedcamdir) {
 			camdir = cameraController->GetCameraDirection(g_Coordinator.GetComponent<CameraComponent>(playerEnt));
 			savedcamdir = true;
@@ -257,7 +321,7 @@ class TimeRush : public Level
 			cooldownTimer += deltaTime;
 
 			g_UI.OnUpdate(static_cast<float>(deltaTime));
-			g_UI.Sniff(particleEntities, static_cast<float>(deltaTime));
+			g_UI.Sniff(particleEntities, goalnode, static_cast<float>(deltaTime));
 
 			if (!g_IsCamPanning) 
 			{
@@ -266,6 +330,38 @@ class TimeRush : public Level
 
 			g_DialogueText.checkCollision(playerEnt, deltaTime);
 			g_DialogueText.OnUpdate(deltaTime);
+
+
+			std::string collidedObject = g_Coordinator.GetComponent<CollisionComponent>(playerEnt).GetLastCollidedObjectName();
+
+			if (g_TimerTR.touched && (collidedObject == "TennisBall" || collidedObject == "Bone")) {
+				heartgozoomies = true;
+			}
+
+			auto& heartUIComp = g_Coordinator.GetComponent<UIComponent>(heart);
+
+			if (heartgozoomies) {
+				heartUIComp.set_opacity(1.f);
+
+				float currentY = heartUIComp.get_position().y;
+				float limitY = 0.2f;
+
+				// Speed factor that decreases as it nears the limit
+				float heartSpeed = 0.05f * (limitY - currentY);
+
+				heartUIComp.set_position(heartUIComp.get_position() + glm::vec2{ 0.0f, heartSpeed });
+			}
+			else {
+				if (heartUIComp.get_opacity() > 0.f)
+					heartUIComp.set_opacity(heartUIComp.get_opacity() - 0.01f);
+				else
+					heartUIComp.set_position(glm::vec2{ heartUIComp.get_position().x, -1.2f });
+			}
+
+			// Stop movement once it reaches the limit
+			if (heartUIComp.get_position().y >= 0.17f) {
+				heartgozoomies = false;
+			}
 
 			// Player lost, sent back to starting point -> checklist doesn't need to reset since it means u nvr clear the level.
 			/*
@@ -323,6 +419,34 @@ class TimeRush : public Level
 				}
 			}
 
+			if (g_Checklist.finishTR && g_Checklist.shutted)
+			{
+				if (!transitionActive)
+				{
+					transitionActive = true;
+					g_Input.LockInput();
+					transitionTimer = 0.0f;
+				}
+				else
+				{
+					transitionTimer += static_cast<float>(deltaTime);
+					float progress = transitionTimer / transitionDuration;
+					// Call the GraphicsSystem's transition effect (modern shader-based).
+					g_Coordinator.GetSystem<GraphicsSystem>()->RenderTransitionEffect(progress);
+					if (transitionTimer >= transitionDuration)
+					{
+						g_TimerTR.OnShutdown();
+						auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
+						if (loading)
+						{
+							// Set the next scene.
+							loading->m_NextScene = "Corridor";
+							g_LevelManager.SetNextLevel("LoadingLevel");
+						}
+					}
+				}
+			}
+
 			// Take this away once u shift to script
 			// Accumulate time for cooldown
 			if (isSniffOnCooldown) {
@@ -367,9 +491,14 @@ class TimeRush : public Level
 			if (g_TimerTR.timer <= 0.0 && hasBarked == false)
 			{
 				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/AggressiveDogBarking.wav", false, "SFX");
+				g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timeup.wav", false, "SFX");
+
 				hasBarked = true;
 
 			}
+			if (g_TimerTR.timer <= 0.0)
+				g_Audio.PlayEntity3DAudio(rexEnt, FILEPATH_ASSET_AUDIO + "/Rex_Growl_Loop_v1.wav", true, "BGM");
+
 
 
 
@@ -388,17 +517,7 @@ class TimeRush : public Level
 				}
 			}
 
-			if (g_Checklist.finishTR && g_Checklist.shutted)
-			{
-				g_TimerTR.OnShutdown();
-				auto* loading = dynamic_cast<LoadingLevel*>(g_LevelManager.GetLevel("LoadingLevel"));
-				if (loading)
-				{
-					// Pass in the name of the real scene we want AFTER the loading screen
-					loading->m_NextScene = "Corridor";
-					g_LevelManager.SetNextLevel("LoadingLevel");
-				}
-			}
+
 		}
 	}
 
@@ -430,6 +549,14 @@ class TimeRush : public Level
 			music.StopAudio();
 		}
 
+
+		if (g_Coordinator.HaveComponent<AudioComponent>(rexEnt)) {
+			auto& rexAudio = g_Coordinator.GetComponent<AudioComponent>(rexEnt);
+			rexAudio.StopAudio();
+			std::cout << "[Rex] Audio stopped in UnloadLevel().\n";
+		}
+
+		g_Input.UnlockInput();
 		g_Coordinator.GetSystem<MyPhysicsSystem>()->ClearAllBodies();
 		g_Coordinator.ResetEntities();
 		g_Checklist.finishTR = false;
@@ -470,7 +597,7 @@ private:
 		cooldownTimer = 0.0;
 		isColorChanged = false;
 
-		timerLimit = 40.0;
+		timerLimit = 20.0;
 		finishTR = false;
 		timesUp = 2.0;
 
@@ -481,6 +608,9 @@ private:
 		particleEntities.clear();
 		bark = false;
 		hasBarked = false;
+
+		transitionActive = false;
+		transitionTimer = 0.0f;
 
 		// If there are any other member variables that persist across plays,
 		// reset them here.

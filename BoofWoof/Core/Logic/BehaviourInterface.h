@@ -88,6 +88,7 @@ struct engine_interface
 	// Pathfinding functions
 	virtual bool HavePathfindingComponent(Entity entity) = 0;
 	virtual std::vector<glm::vec3> GetPath(Entity entity) = 0;
+	virtual void GetEntityPathNodes(Entity entity, std::vector<Entity>& pathNodes) = 0;
 	virtual void SetStartNode(Entity entity, Entity node) = 0;
 	virtual Entity GetStartNode(Entity entity) = 0;
 	virtual void SetGoalNode(Entity entity, Entity node) = 0;
@@ -132,7 +133,12 @@ struct engine_interface
 
 	virtual void PlayAnimation(Entity entity, float timeStart, float timeEnd) = 0;
 
+	virtual void PauseAnimation(Entity entity) = 0;
+	virtual void PlayAnimation(Entity entity) = 0;
+	virtual void UnPauseAnimation(Entity entity) = 0;
 
+	//Logic
+	virtual bool isPlayerHidden() = 0;
 };
 
 
