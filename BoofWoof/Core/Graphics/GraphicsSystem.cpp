@@ -501,7 +501,7 @@ void GraphicsSystem::UpdateLoop() {
 						if (!graphicsComp.pauseAnimation)
 						{
 
-							if (g_Coordinator.GetEntityId(entity) == 499 && graphicsComp.getModelName() == "Cage")
+							if (g_Coordinator.GetEntityId(entity) == 490 && graphicsComp.getModelName() == "Cage")
 							{
 
 								static float start = 0, end = 0;
@@ -537,7 +537,7 @@ void GraphicsSystem::UpdateLoop() {
 
 								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
 							}
-							else if (g_Coordinator.GetEntityId(entity) == 501 && graphicsComp.getModelName() == "Cage1")
+							else if (g_Coordinator.GetEntityId(entity) == 492 && graphicsComp.getModelName() == "Cage1")
 							{
 								static float start = 0, end = 0;
 
@@ -572,7 +572,7 @@ void GraphicsSystem::UpdateLoop() {
 								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
 
 							}
-							else if (g_Coordinator.GetEntityId(entity) == 503 && graphicsComp.getModelName() == "Cage2")
+							else if (g_Coordinator.GetEntityId(entity) == 494 && graphicsComp.getModelName() == "Cage2")
 							{
 								static float start = 0, end = 0;
 
@@ -701,7 +701,7 @@ void GraphicsSystem::UpdateLoop() {
 						if (!graphicsComp.pauseAnimation)
 						{
 
-							if (g_Coordinator.GetEntityId(entity) == 499 && graphicsComp.getModelName() == "Cage")
+							if (g_Coordinator.GetEntityId(entity) == 490 && graphicsComp.getModelName() == "Cage")
 							{
 
 								static float start = 0, end = 0;
@@ -737,7 +737,7 @@ void GraphicsSystem::UpdateLoop() {
 
 								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
 							}
-							else if (g_Coordinator.GetEntityId(entity) == 501 && graphicsComp.getModelName() == "Cage1")
+							else if (g_Coordinator.GetEntityId(entity) == 492 && graphicsComp.getModelName() == "Cage1")
 							{
 								static float start = 0, end = 0;
 
@@ -772,7 +772,7 @@ void GraphicsSystem::UpdateLoop() {
 								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
 
 							}
-							else if (g_Coordinator.GetEntityId(entity) == 503 && graphicsComp.getModelName() == "Cage2")
+							else if (g_Coordinator.GetEntityId(entity) == 494 && graphicsComp.getModelName() == "Cage2")
 							{
 								static float start = 0, end = 0;
 
