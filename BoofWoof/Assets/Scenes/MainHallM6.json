@@ -18517,7 +18517,7 @@
         },
         {
             "MetadataComponent": {
-                "EntityName": "right particle",
+                "EntityName": "red particle",
                 "EntityID": 422
             },
             "TransformComponent": {
