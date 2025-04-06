@@ -1,5 +1,5 @@
  ===========================================
-		Milestone 5
+		Milestone 6
  ===========================================
 BoofWoof consists of:
 
@@ -39,9 +39,11 @@ All audios taken from Audio Professors & Soundly by Tan Wei Fong.
  >  Open BoofWoof.sln, clean and rebuild
  >  Go to ScriptWoof.sln, clean and rebuild
  >  Under the lib folder, go to JoltPhysics-master > LinkLib, extract the zip files for the Jolt.lib
+ >  Under the lib folder, extract the assimp2016.zip file
  >  Set either PawsieAdventure or EditorPaws as your startup project, depending on what you are aiming to test.
 
 If you have linker error for Jolt.lib, please unzip the folders in lib > JoltPhysics-master > LinkLib
+If you have linker error for assimp.lib, please unzip the folders in lib > assimp2016
 If you try to move using WASD keys and you cannot move the corgi, please clean and build ScriptWoof.
 
  EDITOR CONTROLS ========================== 
@@ -67,16 +69,14 @@ If you try to move using WASD keys and you cannot move the corgi, please clean a
 - After Drawbridge lands on the ground, our beautiful end cutscene will play!
 - To exit game, press ESC and exit game to return to main menu and click on the X button on the top right.
 
- MAJOR CHANGES IN M5 ==========================
+ MAJOR CHANGES IN M6 ==========================
 
- > 3D Animation System
- > Fixed Jaggered Shadows
- > Able to add 2D images as particles
- > Different surface, different audio for player footsteps
- > Rex can chase after player if detected via Raycasting
- > Puppies are able to follow Player behind after collection
- > Player can detect urine from afar via Raycasting
-
- KNOWN PROBLEMS ========================== 
-
- > Able to walk on ceilings due to IsGrounded from collision
+ > Added in 3D objects as particles
+ > Added in more 3D animations - Puppies, Scruffy, Rex and Cage
+ > Added in more Audio for cutscenes and menus
+ > Added Sensor for collision that will not affect Player/Rex
+ > Added Scent trails on the floor for Player to follow
+ > Added VFX when timer is low and when Player touches toy
+ > Expanded StartingRoom and Changed a room design in Main Hall
+ > Added Master Volume in Settings and having persistent settings
+ > Added scene fade out and in before going to another scene with scene name in Loading screen
