@@ -634,6 +634,44 @@ void GraphicsSystem::UpdateLoop() {
 
 
 					g_AssetManager.GetShader("Animation").SetUniform("model", transformComp.GetWorldMatrix());
+					
+					
+					g_AssetManager.GetShader("Animation").SetUniform("objectColor", glm::vec3{ 1.0f });
+					g_AssetManager.GetShader("Animation").SetUniform("brightness", brightness);
+
+					glm::mat4 lightmtx(1.0f);
+
+					for (int i = 0; i < lights_infos.size(); i++)
+					{
+						std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
+						g_AssetManager.GetShader("Animation").SetUniform(lightPosStr.c_str(), lights_infos[i].position);
+						std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
+						g_AssetManager.GetShader("Animation").SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
+						std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
+						g_AssetManager.GetShader("Animation").SetUniform(lightColorStr.c_str(), lights_infos[i].color);
+						std::string lightShadowStr = "lights[" + std::to_string(i) + "].haveshadow";
+						g_AssetManager.GetShader("Animation").SetUniform(lightShadowStr.c_str(), lights_infos[i].haveshadow);
+						if (lights_infos[i].haveshadow)
+							lightmtx = lights_infos[i].lightSpaceMatrix;
+						std::string lightRangeStr = "lights[" + std::to_string(i) + "].range";
+
+						g_AssetManager.GetShader("Animation").SetUniform(lightRangeStr.c_str(), lights_infos[i].range);
+					}
+					g_AssetManager.GetShader("Animation").SetUniform("lightSpaceMatrix", lightmtx);
+
+					g_AssetManager.GetShader("Animation").SetUniform("gammaValue", gammaValue);
+					
+					// Bind the depth texture to texture unit 1 and tell the shader to use unit 1 for the shadow map.
+					glActiveTexture(GL_TEXTURE1);
+					glBindTexture(GL_TEXTURE_2D, depthMap_texture);
+					g_AssetManager.GetShader("Animation").SetUniform("shadowMap", 1);
+					/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
+					g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
+					g_AssetManager.GetShader("Animation").SetUniform("numLights", static_cast<int>(lights_infos.size()));
+					//g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
+					g_AssetManager.GetShader("Animation").SetUniform("lightOn", lightOn);
+					
+					
 					graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
 
 
