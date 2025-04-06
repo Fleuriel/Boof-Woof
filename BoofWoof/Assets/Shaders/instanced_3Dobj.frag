@@ -6,7 +6,7 @@ layout(location = 1) in vec2 vTexCoord;
 layout(location = 2) in float outVisibility;
 
 
-uniform sampler2D uTex2d;
+uniform sampler2D texture_diffuse1;
 uniform float gammaValue;
 uniform float opacity;
 
@@ -15,7 +15,7 @@ void main()
       if(outVisibility < 0.5f || opacity < 0.1){
             discard;
       }else{ 
-            fragColor = texture(uTex2d, vTexCoord); // Solid color with full opacity
+            fragColor = texture(texture_diffuse1, vTexCoord); // Solid color with full opacity
             if(fragColor.a < 0.1) discard;
             
       }  
