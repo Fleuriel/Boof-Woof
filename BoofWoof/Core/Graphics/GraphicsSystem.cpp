@@ -892,7 +892,7 @@ void GraphicsSystem::UpdateLoop() {
 				}
 				g_AssetManager.GetShader(ShaderName).SetUniform("lightSpaceMatrix", lightmtx);
 
-
+				
 
 				if (graphicsComp.getModelName() == "cubeModel")
 				{
@@ -921,6 +921,11 @@ void GraphicsSystem::UpdateLoop() {
 				//g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
 				g_AssetManager.GetShader(ShaderName).SetUniform("lightOn", lightOn);
 				//g_AssetManager.GetShader(ShaderName).SetUniform("inputColor", glm::vec4(1.0f,1.0f,1.0f,1.0f));
+				g_AssetManager.GetShader(ShaderName).SetUniform("albedo", material.GetColor());
+
+
+				
+
 
 				//g_AssetManager.GetShader(ShaderName).SetUniform("roughness", 1.0f);
 

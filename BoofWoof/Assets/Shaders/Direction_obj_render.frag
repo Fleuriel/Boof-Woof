@@ -17,11 +17,12 @@ uniform bool lightOn;
 
 uniform float finalAlpha;
 
-
+uniform vec4 albedo;
 
 // PBR Uniforms
 uniform float u_Metallic;
 uniform float u_Roughness;
+
 
 
 struct Light {
@@ -184,6 +185,7 @@ void main()
 
     result *= baseColor.rgb;
     
+
     baseColor.rgb = pow(baseColor.rgb, vec3(1.0f/2.2f));
 
     if(lightOn)
@@ -200,6 +202,8 @@ void main()
         fragColor = vec4(baseColor);
     }
 
+
+    fragColor.rgb *= albedo.rgb;
 
 	fragColor.rgb = pow(fragColor.rgb, vec3(1.0/gammaValue)); 
     fragColor.rgb = fragColor.rgb * brightness;

@@ -684,30 +684,30 @@ void ImGuiEditor::InspectorWindow()
 
 						}
 
-						if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
-
-
-
-
-							g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
-
-
-
-
-
-							g_UndoRedoManager.ExecuteCommand(
-								[this]() {
-									if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
-										g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
-									}
-								},
-								[this]() {
-									if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
-										g_Coordinator.RemoveComponent<AnimationComponent>(g_SelectedEntity);
-									}
-								}
-							);
-						}
+					//	if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+					//
+					//
+					//
+					//
+					//		g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
+					//
+					//
+					//
+					//
+					//
+					//		g_UndoRedoManager.ExecuteCommand(
+					//			[this]() {
+					//				if (!g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+					//					g_Coordinator.AddComponent<AnimationComponent>(g_SelectedEntity, AnimationComponent());
+					//				}
+					//			},
+					//			[this]() {
+					//				if (g_Coordinator.HaveComponent<AnimationComponent>(g_SelectedEntity)) {
+					//					g_Coordinator.RemoveComponent<AnimationComponent>(g_SelectedEntity);
+					//				}
+					//			}
+					//		);
+					//	}
 
 
 						 if (!g_Coordinator.HaveComponent<MaterialComponent>(g_SelectedEntity))
