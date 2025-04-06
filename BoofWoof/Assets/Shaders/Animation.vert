@@ -67,12 +67,12 @@ void main()
     mat4 viewModel = view * model;
     gl_Position =  projection * viewModel * totalPosition;
 
-    vs_out.FragPos = vec3( model*vec4(totalPosition,11.0) );
+    vs_out.FragPos = vec3( model  * totalPosition );
 	vs_out.TexCoords = tex;
 
     mat3 normalMatrix = transpose(inverse(mat3(model)));
 
-    vec3 N = normalize(normalMatrix * vertexNormal);
+    vec3 N = normalize(normalMatrix * norm);
 
     for(int i =0; i < NUM_LIGHTS; i++){
         vs_out.TangentLightPos[i] = lights[i].position; 
@@ -83,7 +83,7 @@ void main()
 
     //vertColor = objectColor;
     vertNormal = N; // Normal is now transformed correctly in world space
-    TexCoords = aTexCoord;
+    TexCoords = tex;
     FragPos = vs_out.FragPos;
 
 

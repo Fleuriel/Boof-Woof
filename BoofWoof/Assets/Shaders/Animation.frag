@@ -1,4 +1,4 @@
-#version 330 core
+#version 450 core
 
 //layout(location = 0) in vec3 vertColor;
 layout(location = 1) in vec3 vertNormal;
@@ -7,14 +7,6 @@ layout(location = 3) in vec2 TexCoords;
 layout(location = 4) in vec4 FragPosLightSpace;
 
 
-in VS_OUT {
-	vec3 FragPos;
-    vec2 TexCoords;
-    vec3 TangentLightPos[NUM_LIGHTS];
-    vec3 TangentViewPos;
-} fs_in;
-
-out vec4 fragColor;
 
 
 uniform sampler2D texture_diffuse1;
@@ -36,6 +28,16 @@ uniform Light lights[NUM_LIGHTS];
 uniform int numLights;
 
 uniform float gammaValue;
+
+
+in VS_OUT {
+	vec3 FragPos;
+    vec2 TexCoords;
+    vec3 TangentLightPos[NUM_LIGHTS];
+    vec3 TangentViewPos;
+} fs_in;
+
+out vec4 fragColor;
 
 const int POISSON_COUNT = 16; 
 const vec2 poissonDisk[POISSON_COUNT] = vec2[](

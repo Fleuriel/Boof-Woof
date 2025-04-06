@@ -405,13 +405,9 @@ void GraphicsSystem::UpdateLoop() {
 				break;
 			case ParticleType::TEXTURED_3D:
 
-				text = g_ResourceManager.GetTextureDDS(particleComp.getParticleTexturename());
-				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, text);
-				tex_loc = glGetUniformLocation(particleShader.GetHandle(), "uTex2d");
-				glUniform1i(tex_loc, 0);
-				particleComp.draw();
-				glActiveTexture(GL_TEXTURE0);
+				Model* model = g_ResourceManager.ModelMap[particleComp.getParticleModelname()].get();
+				model->Draw(particleShader);
+				
 				break;
 			}
 			particleShader.UnUse();
@@ -450,14 +446,14 @@ void GraphicsSystem::UpdateLoop() {
 
 
 	//	std::cout << ShaderName << '\n';
-		auto& ShaderName = "Direction_obj_render";
+		
 
 #ifdef _DEBUG
 		//		std::cout << "ShaderName: " << material.GetShaderName() << '\n';
 
 #endif
 
-		g_AssetManager.GetShader(ShaderName).Use();
+		
 
 		//if (!g_ResourceManager.hasModel(graphicsComp.getModelName()))
 		//{
@@ -471,7 +467,7 @@ void GraphicsSystem::UpdateLoop() {
 		//	continue;
 		//}
 
-		g_AssetManager.GetShader(ShaderName).SetUniform("gammaValue", gammaValue);
+		
 
 		//	std::cout << material.GetGammaValue();
 
@@ -501,16 +497,6 @@ void GraphicsSystem::UpdateLoop() {
 					// Bind and use the animation shader
 					g_AssetManager.GetShader("Animation").Use();
 
-					//if (!graphicsComp.pauseAnimation)
-					//{
-					//	g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp ,graphicsComp.deltaTime);
-					//}
-					//else
-					//	g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
-					//
-
-
-
 
 					g_AssetManager.GetShader("Animation").SetUniform("view", shdrParam.View);
 					g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
@@ -525,6 +511,35 @@ void GraphicsSystem::UpdateLoop() {
 
 
 					g_AssetManager.GetShader("Animation").SetUniform("model", transformComp.GetWorldMatrix());
+					g_AssetManager.GetShader("Animation").SetUniform("brightness", brightness);
+
+					glm::mat4 lightmtx(1.0f);
+
+					for (int i = 0; i < lights_infos.size(); i++)
+					{
+						std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
+						g_AssetManager.GetShader("Animation").SetUniform(lightPosStr.c_str(), lights_infos[i].position);
+						std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
+						g_AssetManager.GetShader("Animation").SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
+						std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
+						g_AssetManager.GetShader("Animation").SetUniform(lightColorStr.c_str(), lights_infos[i].color);
+						std::string lightShadowStr = "lights[" + std::to_string(i) + "].haveshadow";
+						g_AssetManager.GetShader("Animation").SetUniform(lightShadowStr.c_str(), lights_infos[i].haveshadow);
+						if (lights_infos[i].haveshadow)
+							lightmtx = lights_infos[i].lightSpaceMatrix;
+						std::string lightRangeStr = "lights[" + std::to_string(i) + "].range";
+
+						g_AssetManager.GetShader("Animation").SetUniform(lightRangeStr.c_str(), lights_infos[i].range);
+					}
+					g_AssetManager.GetShader("Animation").SetUniform("lightSpaceMatrix", lightmtx);
+					g_AssetManager.GetShader("Animation").SetUniform("shadowMap", 1);
+					g_AssetManager.GetShader("Animation").SetUniform("numLights", static_cast<int>(lights_infos.size()));
+					g_AssetManager.GetShader("Animation").SetUniform("lightOn", lightOn);
+					
+					
+					
+					
+					
 					graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
 
 
@@ -541,12 +556,9 @@ void GraphicsSystem::UpdateLoop() {
 		else
 		{
 
-
-
-
-
-
-
+			auto& ShaderName = "Direction_obj_render";
+			g_AssetManager.GetShader(ShaderName).Use();
+			g_AssetManager.GetShader(ShaderName).SetUniform("gammaValue", gammaValue);
 			//if (ShaderName == "Shader3D")
 			if (strcmp(ShaderName, "Direction_obj_render") == 0)
 			{
@@ -690,6 +702,9 @@ void GraphicsSystem::UpdateLoop() {
 			//
 			//	}
 			//
+
+			g_AssetManager.GetShader(ShaderName).UnUse();
+
 		}
 		if (debug && (D2 || D3))
 		{
@@ -740,8 +755,6 @@ void GraphicsSystem::UpdateLoop() {
 
 
 
-
-		g_AssetManager.GetShader(ShaderName).UnUse();
 
 
 	}
