@@ -84,3 +84,4 @@ If you try to move using WASD keys and you cannot move the corgi, please clean a
  KNOWN BUG ==========================
 
  > If you're in RopeBreaker and Rex touches you, the scene will reset and you might not be able to play the game properly
+ > If you set master volume to 3 and you touch the water bucket, the master volume will be resetted back to 10 in the game but when you open the settings, it goes back to 3
