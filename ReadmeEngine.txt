@@ -80,3 +80,7 @@ If you try to move using WASD keys and you cannot move the corgi, please clean a
  > Expanded StartingRoom and Changed a room design in Main Hall
  > Added Master Volume in Settings and having persistent settings
  > Added scene fade out and in before going to another scene with scene name in Loading screen
+
+ KNOWN BUG ==========================
+
+ > If you're in RopeBreaker and Rex touches you, the scene will reset and you might not be able to play the game properly
