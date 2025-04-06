@@ -481,208 +481,368 @@ void GraphicsSystem::UpdateLoop() {
 
 		if (g_Coordinator.HaveComponent<AnimationComponent>(entity))
 		{
-			auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
-			//std::cout << "it has animationComp.\n";
+			if (graphicsComp.getModelName() != "Cage1" && graphicsComp.getModelName() != "Cage2" && graphicsComp.getModelName() != "Cage") {
+				auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
+				//std::cout << "it has animationComp.\n";
 
 
 
-			if (g_ResourceManager.AnimationMap.find(graphicsComp.getModelName()) != g_ResourceManager.AnimationMap.end()) {
+				if (g_ResourceManager.AnimationMap.find(graphicsComp.getModelName()) != g_ResourceManager.AnimationMap.end()) {
+					animationComp.m_DeltaTime = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetCurrTime();
+					animationComp.m_Duration = g_ResourceManager.AnimationMap[graphicsComp.getModelName()]->GetDuration();
+
+					if (material.GetShaderName() == "Animation") {
+						// Bind and use the animation shader
+						g_AssetManager.GetShader("Animation").Use();
 
 
-				animationComp.m_DeltaTime = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetCurrTime();
-				animationComp.m_Duration = g_ResourceManager.AnimationMap[graphicsComp.getModelName()]->GetDuration();
+						g_AssetManager.GetShader("Animation").SetUniform("gammaValue", gammaValue);
 
-				if (material.GetShaderName() == "Animation") {
-					// Bind and use the animation shader
-					g_AssetManager.GetShader("Animation").Use();
-
-
-					g_AssetManager.GetShader("Animation").SetUniform("gammaValue", gammaValue);
-
-					if (!graphicsComp.pauseAnimation)
-					{
-
-						if (g_Coordinator.GetEntityId(entity) == 499 && graphicsComp.getModelName() == "Cage")
+						if (!graphicsComp.pauseAnimation)
 						{
 
-							static float start = 0, end = 0;
-
-							std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[1];
-							std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[2];
-							std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[3];
-
-							
-
-							if (animationComp.isBreak)
+							if (g_Coordinator.GetEntityId(entity) == 499 && graphicsComp.getModelName() == "Cage")
 							{
-								start = std::get<1>(animationMoving);
-								end = std::get<2>(animationMoving);
+
+								static float start = 0, end = 0;
+
+								std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[1];
+								std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[2];
+								std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[3];
+
+
+
+								if (animationComp.isBreak)
+								{
+									start = std::get<1>(animationMoving);
+									end = std::get<2>(animationMoving);
+								}
+								else if (animationComp.isIdle)
+								{
+									start = std::get<1>(animationIdle);
+									end = std::get<2>(animationIdle);
+								}
+								else if (animationComp.isMoving)
+								{
+									start = std::get<1>(animationBreak);
+									end = std::get<2>(animationBreak);
+								}
+								else
+								{
+									start = std::get<1>(animationIdle);
+									end = std::get<2>(animationIdle);
+
+								}
+
+
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
 							}
-							else if (animationComp.isIdle)
+							else if (g_Coordinator.GetEntityId(entity) == 501 && graphicsComp.getModelName() == "Cage1")
 							{
-								start = std::get<1>(animationIdle);
-								end = std::get<2>(animationIdle);
+								static float start = 0, end = 0;
+
+								std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[1];
+								std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[2];
+								std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[3];
+
+
+
+								if (animationComp.isBreak)
+								{
+									start = std::get<1>(animationMoving);
+									end = std::get<2>(animationMoving);
+								}
+								else if (animationComp.isIdle)
+								{
+									start = std::get<1>(animationIdle);
+									end = std::get<2>(animationIdle);
+								}
+								else if (animationComp.isMoving)
+								{
+									start = std::get<1>(animationBreak);
+									end = std::get<2>(animationBreak);
+								}
+								else
+								{
+									start = std::get<1>(animationIdle);
+									end = std::get<2>(animationIdle);
+								}
+
+
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
+
 							}
-							else if (animationComp.isMoving)
+							else if (g_Coordinator.GetEntityId(entity) == 503 && graphicsComp.getModelName() == "Cage2")
 							{
-								start = std::get<1>(animationBreak);
-								end = std::get<2>(animationBreak);
+								static float start = 0, end = 0;
+
+								std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[1];
+								std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[2];
+								std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[3];
+
+
+
+								if (animationComp.isBreak)
+								{
+									start = std::get<1>(animationMoving);
+									end = std::get<2>(animationMoving);
+								}
+								else if (animationComp.isIdle)
+								{
+									start = std::get<1>(animationIdle);
+									end = std::get<2>(animationIdle);
+								}
+								else if (animationComp.isMoving)
+								{
+									start = std::get<1>(animationBreak);
+									end = std::get<2>(animationBreak);
+								}
+								else
+								{
+									start = std::get<1>(animationIdle);
+									end = std::get<2>(animationIdle);
+								}
+
+
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
 							}
 							else
 							{
-								start = std::get<1>(animationIdle);
-								end = std::get<2>(animationIdle);
 
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime);
 							}
 
-
-							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
-						}
-						else if (g_Coordinator.GetEntityId(entity) == 501&& graphicsComp.getModelName() == "Cage1")
-						{
-							static float start = 0, end = 0;
-
-							std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[1];
-							std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[2];
-							std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[3];
-
-
-
-							if (animationComp.isBreak)
-							{
-								start = std::get<1>(animationMoving);
-								end = std::get<2>(animationMoving);
-							}
-							else if (animationComp.isIdle)
-							{
-								start = std::get<1>(animationIdle);
-								end = std::get<2>(animationIdle);
-							}
-							else if (animationComp.isMoving)
-							{
-								start = std::get<1>(animationBreak);
-								end = std::get<2>(animationBreak);
-							}
-							else
-							{
-								start = std::get<1>(animationIdle);
-								end = std::get<2>(animationIdle);
-							}
-
-
-							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
-
-						}
-						else if (g_Coordinator.GetEntityId(entity) == 503 && graphicsComp.getModelName() == "Cage2")
-						{
-							static float start = 0, end = 0;
-
-							std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[1];
-							std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[2];
-							std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[3];
-
-
-
-							if (animationComp.isBreak)
-							{
-								start = std::get<1>(animationMoving);
-								end = std::get<2>(animationMoving);
-							}
-							else if (animationComp.isIdle)
-							{
-								start = std::get<1>(animationIdle);
-								end = std::get<2>(animationIdle);
-							}
-							else if (animationComp.isMoving)
-							{
-								start = std::get<1>(animationBreak);
-								end = std::get<2>(animationBreak);
-							}
-							else
-							{
-								start = std::get<1>(animationIdle);
-								end = std::get<2>(animationIdle);
-							}
-
-
-							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
 						}
 						else
+							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
+
+
+
+
+
+						g_AssetManager.GetShader("Animation").SetUniform("view", shdrParam.View);
+						g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
+
+
+						auto transforms = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetFinalBoneMatrices();
+						for (int i = 0; i < transforms.size(); ++i)
 						{
-							
-							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime);
+							std::string lel = "finalBonesMatrices[" + std::to_string(i) + "]";
+							g_AssetManager.GetShader("Animation").SetUniform(lel.c_str(), transforms[i]);
 						}
 
+
+						g_AssetManager.GetShader("Animation").SetUniform("model", transformComp.GetWorldMatrix());
+
+
+						g_AssetManager.GetShader("Animation").SetUniform("objectColor", glm::vec3{ 1.0f });
+						g_AssetManager.GetShader("Animation").SetUniform("brightness", brightness);
+
+						glm::mat4 lightmtx(1.0f);
+
+						for (int i = 0; i < lights_infos.size(); i++)
+						{
+							std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
+							g_AssetManager.GetShader("Animation").SetUniform(lightPosStr.c_str(), lights_infos[i].position);
+							std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
+							g_AssetManager.GetShader("Animation").SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
+							std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
+							g_AssetManager.GetShader("Animation").SetUniform(lightColorStr.c_str(), lights_infos[i].color);
+							std::string lightShadowStr = "lights[" + std::to_string(i) + "].haveshadow";
+							g_AssetManager.GetShader("Animation").SetUniform(lightShadowStr.c_str(), lights_infos[i].haveshadow);
+							if (lights_infos[i].haveshadow)
+								lightmtx = lights_infos[i].lightSpaceMatrix;
+							std::string lightRangeStr = "lights[" + std::to_string(i) + "].range";
+
+							g_AssetManager.GetShader("Animation").SetUniform(lightRangeStr.c_str(), lights_infos[i].range);
+						}
+						g_AssetManager.GetShader("Animation").SetUniform("lightSpaceMatrix", lightmtx);
+
+						g_AssetManager.GetShader("Animation").SetUniform("gammaValue", gammaValue);
+
+						// Bind the depth texture to texture unit 1 and tell the shader to use unit 1 for the shadow map.
+						glActiveTexture(GL_TEXTURE1);
+						glBindTexture(GL_TEXTURE_2D, depthMap_texture);
+						g_AssetManager.GetShader("Animation").SetUniform("shadowMap", 1);
+						/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
+						g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
+						g_AssetManager.GetShader("Animation").SetUniform("numLights", static_cast<int>(lights_infos.size()));
+						//g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
+						g_AssetManager.GetShader("Animation").SetUniform("lightOn", lightOn);
+
+
+						graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
+
+
+						// Unbind the shader after rendering
+						g_AssetManager.GetShader("Animation").UnUse();
 					}
-					else
-						g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
-					
-
-
-
-
-					g_AssetManager.GetShader("Animation").SetUniform("view", shdrParam.View);
-					g_AssetManager.GetShader("Animation").SetUniform("projection", shdrParam.Projection);
-
-
-					auto transforms = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetFinalBoneMatrices();
-					for (int i = 0; i < transforms.size(); ++i)
-					{
-						std::string lel = "finalBonesMatrices[" + std::to_string(i) + "]";
-						g_AssetManager.GetShader("Animation").SetUniform(lel.c_str(), transforms[i]);
-					}
-
-
-					g_AssetManager.GetShader("Animation").SetUniform("model", transformComp.GetWorldMatrix());
-					
-					
-					g_AssetManager.GetShader("Animation").SetUniform("objectColor", glm::vec3{ 1.0f });
-					g_AssetManager.GetShader("Animation").SetUniform("brightness", brightness);
-
-					glm::mat4 lightmtx(1.0f);
-
-					for (int i = 0; i < lights_infos.size(); i++)
-					{
-						std::string lightPosStr = "lights[" + std::to_string(i) + "].position";
-						g_AssetManager.GetShader("Animation").SetUniform(lightPosStr.c_str(), lights_infos[i].position);
-						std::string lightIntensityStr = "lights[" + std::to_string(i) + "].intensity";
-						g_AssetManager.GetShader("Animation").SetUniform(lightIntensityStr.c_str(), lights_infos[i].intensity);
-						std::string lightColorStr = "lights[" + std::to_string(i) + "].color";
-						g_AssetManager.GetShader("Animation").SetUniform(lightColorStr.c_str(), lights_infos[i].color);
-						std::string lightShadowStr = "lights[" + std::to_string(i) + "].haveshadow";
-						g_AssetManager.GetShader("Animation").SetUniform(lightShadowStr.c_str(), lights_infos[i].haveshadow);
-						if (lights_infos[i].haveshadow)
-							lightmtx = lights_infos[i].lightSpaceMatrix;
-						std::string lightRangeStr = "lights[" + std::to_string(i) + "].range";
-
-						g_AssetManager.GetShader("Animation").SetUniform(lightRangeStr.c_str(), lights_infos[i].range);
-					}
-					g_AssetManager.GetShader("Animation").SetUniform("lightSpaceMatrix", lightmtx);
-
-					g_AssetManager.GetShader("Animation").SetUniform("gammaValue", gammaValue);
-					
-					// Bind the depth texture to texture unit 1 and tell the shader to use unit 1 for the shadow map.
-					glActiveTexture(GL_TEXTURE1);
-					glBindTexture(GL_TEXTURE_2D, depthMap_texture);
-					g_AssetManager.GetShader("Animation").SetUniform("shadowMap", 1);
-					/*g_AssetManager.GetShader(ShaderName).SetUniform("lights[0].position", lightPos);
-					g_AssetManager.GetShader(ShaderName).SetUniform("lights[1].position", glm::vec3(0.0f, 0.0f, 0.0f));*/
-					g_AssetManager.GetShader("Animation").SetUniform("numLights", static_cast<int>(lights_infos.size()));
-					//g_AssetManager.GetShader(ShaderName).SetUniform("viewPos", camera_render.Position);
-					g_AssetManager.GetShader("Animation").SetUniform("lightOn", lightOn);
-					
-					
-					graphicsComp.getModel()->Draw(g_AssetManager.GetShader("Animation"));
-
-
-					// Unbind the shader after rendering
-					g_AssetManager.GetShader("Animation").UnUse();
-
 				}
 			}
+			else {
+				auto& animationComp = g_Coordinator.GetComponent<AnimationComponent>(entity);
+				//std::cout << "it has animationComp.\n";
 
 
 
+				if (g_ResourceManager.AnimationMap.find(graphicsComp.getModelName()) != g_ResourceManager.AnimationMap.end()) {
+
+
+					animationComp.m_DeltaTime = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetCurrTime();
+					animationComp.m_Duration = g_ResourceManager.AnimationMap[graphicsComp.getModelName()]->GetDuration();
+
+					if (material.GetShaderName() == "Animation") {
+						// Bind and use the animation shader
+						g_AssetManager.GetShader("AnimationCage").Use();
+
+
+						g_AssetManager.GetShader("AnimationCage").SetUniform("gammaValue", gammaValue);
+
+						if (!graphicsComp.pauseAnimation)
+						{
+
+							if (g_Coordinator.GetEntityId(entity) == 499 && graphicsComp.getModelName() == "Cage")
+							{
+
+								static float start = 0, end = 0;
+
+								std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[1];
+								std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[2];
+								std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[3];
+
+
+
+								if (animationComp.isBreak)
+								{
+									start = std::get<1>(animationMoving);
+									end = std::get<2>(animationMoving);
+								}
+								else if (animationComp.isIdle)
+								{
+									start = std::get<1>(animationIdle);
+									end = std::get<2>(animationIdle);
+								}
+								else if (animationComp.isMoving)
+								{
+									start = std::get<1>(animationBreak);
+									end = std::get<2>(animationBreak);
+								}
+								else
+								{
+									start = std::get<1>(animationIdle);
+									end = std::get<2>(animationIdle);
+
+								}
+
+
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
+							}
+							else if (g_Coordinator.GetEntityId(entity) == 501 && graphicsComp.getModelName() == "Cage1")
+							{
+								static float start = 0, end = 0;
+
+								std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[1];
+								std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[2];
+								std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[3];
+
+
+
+								if (animationComp.isBreak)
+								{
+									start = std::get<1>(animationMoving);
+									end = std::get<2>(animationMoving);
+								}
+								else if (animationComp.isIdle)
+								{
+									start = std::get<1>(animationIdle);
+									end = std::get<2>(animationIdle);
+								}
+								else if (animationComp.isMoving)
+								{
+									start = std::get<1>(animationBreak);
+									end = std::get<2>(animationBreak);
+								}
+								else
+								{
+									start = std::get<1>(animationIdle);
+									end = std::get<2>(animationIdle);
+								}
+
+
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
+
+							}
+							else if (g_Coordinator.GetEntityId(entity) == 503 && graphicsComp.getModelName() == "Cage2")
+							{
+								static float start = 0, end = 0;
+
+								std::tuple<int, float, float> animationBreak = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[1];
+								std::tuple<int, float, float> animationIdle = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[2];
+								std::tuple<int, float, float> animationMoving = g_Coordinator.GetComponent<AnimationComponent>(entity).animationVector[3];
+
+
+
+								if (animationComp.isBreak)
+								{
+									start = std::get<1>(animationMoving);
+									end = std::get<2>(animationMoving);
+								}
+								else if (animationComp.isIdle)
+								{
+									start = std::get<1>(animationIdle);
+									end = std::get<2>(animationIdle);
+								}
+								else if (animationComp.isMoving)
+								{
+									start = std::get<1>(animationBreak);
+									end = std::get<2>(animationBreak);
+								}
+								else
+								{
+									start = std::get<1>(animationIdle);
+									end = std::get<2>(animationIdle);
+								}
+
+
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime, start, end);
+							}
+							else
+							{
+
+								g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->UpdateAnimation(animationComp, graphicsComp.deltaTime);
+							}
+
+						}
+						else
+							g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->SetAnimationTime(graphicsComp.GetAnimationTime());
+
+
+
+
+
+						g_AssetManager.GetShader("AnimationCage").SetUniform("view", shdrParam.View);
+						g_AssetManager.GetShader("AnimationCage").SetUniform("projection", shdrParam.Projection);
+
+
+						auto transforms = g_ResourceManager.AnimatorMap[graphicsComp.getModelName()]->GetFinalBoneMatrices();
+						for (int i = 0; i < transforms.size(); ++i)
+						{
+							std::string lel = "finalBonesMatrices[" + std::to_string(i) + "]";
+							g_AssetManager.GetShader("Animation").SetUniform(lel.c_str(), transforms[i]);
+						}
+
+
+						g_AssetManager.GetShader("AnimationCage").SetUniform("model", transformComp.GetWorldMatrix());
+						graphicsComp.getModel()->Draw(g_AssetManager.GetShader("AnimationCage"));
+
+
+						// Unbind the shader after rendering
+						g_AssetManager.GetShader("AnimationCage").UnUse();
+
+					}
+				}
+			}
+			
 
 		}
 		else
