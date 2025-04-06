@@ -752,7 +752,7 @@ void ImGuiEditor::InspectorWindow()
 						 
 						 			// Add name and type (similar to your previous structure)
 						 			document.AddMember("name", rapidjson::Value(materialName.c_str(), allocator), allocator);
-						 			document.AddMember("shader", rapidjson::Value("Shader3D", allocator), allocator);
+						 			document.AddMember("shader", rapidjson::Value("Direction_obj_render", allocator), allocator);
 						 
 						 			// Add material properties (color, shininess, textureID, etc.)
 						 			rapidjson::Value properties(rapidjson::kObjectType);
@@ -3657,10 +3657,13 @@ void ImGuiEditor::InspectorWindow()
 										// Go back to default settings
 										MaterialDescriptor desc;
 							
+										std::string file = FILEPATH_ASSETS + "\\Material\\GameObject.mat";
+
+//										std::cout << "here1123" << file << '\n';
 										// Save default settings to the descriptor file
-										if (desc.SaveMaterialDescriptor(m_SelectedFile.string())) {
+										if (desc.SaveMaterialDescriptor(file) ){
 											// Load the reverted settings to refresh the inspector
-											if (material.LoadMaterialDescriptor(m_SelectedFile.string())) {
+											if (material.LoadMaterialDescriptor(file) ){
 												std::cout << "Reverted to default settings." << std::endl;
 											}
 											else {
@@ -4705,6 +4708,8 @@ void ImGuiEditor::InspectorWindow()
 
 				if (ImGui::Button("Apply"))
 				{
+					std::cout << "lmeo\t" << FILEPATH_DESCRIPTORS << '\n';
+
 
 					//Save
 					std::cout << FILEPATH_DESCRIPTOR_TEXTURES + "/" + selectedFileName + ".json";
@@ -4717,6 +4722,8 @@ void ImGuiEditor::InspectorWindow()
 				{
 					// Go back to default settings
 					TextureDescriptor desc;
+
+					std::cout << FILEPATH_DESCRIPTOR_TEXTURES << '\n';
 
 					// Save default settings to the descriptor file
 					if (desc.SaveTextureDescriptor(FILEPATH_DESCRIPTOR_TEXTURES + "/" + selectedFileName + ".json")) {
@@ -4952,6 +4959,8 @@ void ImGuiEditor::InspectorWindow()
 					// Go back to default settings
 					MaterialDescriptor desc;
 
+
+					std::cout <<  "WHART: " << m_SelectedFile.string() << '\n';
 					// Save default settings to the descriptor file
 					if (desc.SaveMaterialDescriptor(m_SelectedFile.string())) {
 						// Load the reverted settings to refresh the inspector
@@ -5422,7 +5431,7 @@ void ImGuiEditor::AssetWindow()
 				properties.AddMember("textureID", 0, allocator);  // Modify this if you have a specific texture ID
 
 				// Add shader name
-				properties.AddMember("shader", rapidjson::Value("Shader3D", allocator), allocator);
+				properties.AddMember("shader", rapidjson::Value("Direction_obj_render", allocator), allocator);
 
 				// Add reflectivity
 				properties.AddMember("reflectivity", 0.8f, allocator);
