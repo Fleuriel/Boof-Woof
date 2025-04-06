@@ -302,21 +302,25 @@ class MainHall : public Level
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav", false, "SFX");
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav", true, "BGM");
 
-					g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", 0.4f);
+					g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", g_Audio.GetSFXVolume() * g_Audio.GetMasterVolume());
 					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/BedRoomMusicBGM.wav");
 				}
 				g_TimerTR.OnUpdate(deltaTime);
 
 				// Gradually Increase Clock Ticking Volume (Only for this sound)
 				float timeLeft = static_cast<float>(g_TimerTR.timer);  // Get remaining time
-				float maxVolume = 1.0f;  // 100% Volume
-				float minVolume = 0.6f;  // Starting Volume (20%)
+				float maxVolume = 1.0f;  // Maximum volume factor
+				float minVolume = 0.6f;  // Minimum volume factor
 
 				// Scale volume based on time left (louder as it approaches 0)
 				float newVolume = minVolume + (1.0f - (timeLeft / static_cast<float>(timerLimit))) * (maxVolume - minVolume);
 
-				// Update the ticking sound volume
-				g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", newVolume);
+				// Apply the global SFX and master volume settings:
+				float adjustedVolume = newVolume * g_Audio.GetSFXVolume() * g_Audio.GetMasterVolume();
+
+				// Update the ticking sound volume using the adjusted volume
+				g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", adjustedVolume);
+
 
 				// UI
 				VFXBG_UICOMP.set_position({ 0.f, 1.8f });
