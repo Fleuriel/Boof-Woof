@@ -1,6 +1,6 @@
 {
     "name": "GameObject",
-    "shader": "Shader3D",
+    "shader": "Direction_obj_render",
     "shaderIdx": 6,
     "properties": {
         "color": [

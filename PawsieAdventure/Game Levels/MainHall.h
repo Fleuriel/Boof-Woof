@@ -75,6 +75,7 @@ class MainHall : public Level
 	"Corgi/DogBite_07.wav",
 	};
 
+	float defaultVolume = g_Audio.GetSFXVolume() * g_Audio.GetMasterVolume();
 
 	// Reverse transition state variables (for level start)
 	bool reverseTransitionActive = true;
@@ -200,6 +201,7 @@ class MainHall : public Level
 	void UpdateLevel(double deltaTime) override
 	{
 
+
 		// --- Reverse Transition Effect at Level Start ---
 		if (reverseTransitionActive)
 		{
@@ -307,10 +309,9 @@ class MainHall : public Level
 				}
 				g_TimerTR.OnUpdate(deltaTime);
 
-				// Gradually Increase Clock Ticking Volume (Only for this sound)
 				float timeLeft = static_cast<float>(g_TimerTR.timer);  // Get remaining time
-				float maxVolume = 1.0f;  // Maximum volume factor
-				float minVolume = 0.6f;  // Minimum volume factor
+				float maxVolume = 1.0f;   // Maximum volume factor
+				float minVolume = 0.6f;   // Minimum volume factor
 
 				// Scale volume based on time left (louder as it approaches 0)
 				float newVolume = minVolume + (1.0f - (timeLeft / static_cast<float>(timerLimit))) * (maxVolume - minVolume);
@@ -365,11 +366,15 @@ class MainHall : public Level
 				{
 					timesUp -= deltaTime;
 
+					// Restore clock-ticking sound volume to its default setting
+					g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", defaultVolume);
+
+					// Now stop the specific sounds and trigger the "Times up!" sound
 					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav");
 					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/GameOver_Hit 1.wav");
 					g_Audio.StopSpecificSound(FILEPATH_ASSET_AUDIO + "/Music_Danger_Loop.wav");
 
-					// Times up! sound
+					// Play "Times up!" sound
 					g_Audio.PlayFileOnNewChannel(FILEPATH_ASSET_AUDIO + "/Timesup.wav", false, "SFX");
 
 					if (timesUp < 0.0)
@@ -391,22 +396,24 @@ class MainHall : public Level
 					}
 				}
 			}
-			else 
-			{
-				if (VFXBG_UICOMP.get_position().y > -1.8f)
-					VFXBG_UICOMP.set_position({ 0 , VFXBG_UICOMP.get_position().y - 0.02f });
-				else
-					VFXBG_UICOMP.set_opacity((VFXBG_UICOMP.get_opacity() > 0.f) ? VFXBG_UICOMP.get_opacity() - 0.01f : 0.f); //Temporary
+else
+{
+	// When pee is not marked, restore the clock-ticking sound volume to default
+	float defaultVolume = g_Audio.GetSFXVolume() * g_Audio.GetMasterVolume();
+	g_Audio.SetSoundVolume(FILEPATH_ASSET_AUDIO + "/ClockTicking_Loop.wav", defaultVolume);
 
+	if (VFXBG_UICOMP.get_position().y > -1.8f)
+		VFXBG_UICOMP.set_position({ 0, VFXBG_UICOMP.get_position().y - 0.02f });
+	else
+		VFXBG_UICOMP.set_opacity((VFXBG_UICOMP.get_opacity() > 0.f) ? VFXBG_UICOMP.get_opacity() - 0.01f : 0.f);
 
-				VFX1_UICOMP.set_position({ VFX1_UICOMP.get_position().x, -0.69f });
-				VFX1_UICOMP.set_opacity(1);
-				VFX1_UICOMP.set_scale(glm::vec2{ 0,0 });
-				VFX2_UICOMP.set_position({ VFX2_UICOMP.get_position().x, -0.69f });
-				VFX2_UICOMP.set_opacity(1);
-				VFX2_UICOMP.set_scale(glm::vec2{ 0,0 });
-				
-			}
+	VFX1_UICOMP.set_position({ VFX1_UICOMP.get_position().x, -0.69f });
+	VFX1_UICOMP.set_opacity(1);
+	VFX1_UICOMP.set_scale(glm::vec2{ 0, 0 });
+	VFX2_UICOMP.set_position({ VFX2_UICOMP.get_position().x, -0.69f });
+	VFX2_UICOMP.set_opacity(1);
+	VFX2_UICOMP.set_scale(glm::vec2{ 0, 0 });
+}
 
 			// just for speed testing to rope breaker
 			if (g_Input.GetKeyState(GLFW_KEY_F5) >= 1 && !g_UI.finishCaged)

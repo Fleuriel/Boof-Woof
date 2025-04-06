@@ -29,6 +29,8 @@ bool TextureDescriptor::SaveTextureDescriptor(const std::string& filepath) {
 
 	// Add members to the JSON object
 
+	std::cout << filepath << '\n';
+
 	document.AddMember("textureType", textureType, allocator);
 	document.AddMember("textureShape", textureShape, allocator);
 	document.AddMember("sRGB", sRGB, allocator);
@@ -76,6 +78,8 @@ bool TextureDescriptor::SaveTextureDescriptor(const std::string& filepath) {
 
 bool TextureDescriptor::LoadTextureDescriptor(const std::string& filepath) {
 	using namespace rapidjson;
+
+	std::cout << filepath << '\n';
 
 	// Open the file
 	std::ifstream ifs(filepath, std::ios::in);
@@ -175,6 +179,9 @@ bool MaterialDescriptor::SaveMaterialDescriptor(const std::string& filepath) {
 	rapidjson::Value shaderValue(shaderChosen.c_str(), allocator); // Convert std::string to rapidjson::Value
 	document.AddMember("shader", shaderValue, allocator);
 	document.AddMember("shaderIdx", shaderIndex, allocator);
+
+	std::cout << shaderChosen.c_str() << '\n';
+	std::cout << shaderIndex << '\n';
 
 	// Add "properties" object
 	Value properties(kObjectType);
