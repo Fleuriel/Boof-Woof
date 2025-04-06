@@ -542,7 +542,7 @@ void GraphicsSystem::UpdateLoop() {
 					g_AssetManager.GetShader("Animation").SetUniform("shadowMap", 1);
 					g_AssetManager.GetShader("Animation").SetUniform("numLights", static_cast<int>(lights_infos.size()));
 					g_AssetManager.GetShader("Animation").SetUniform("lightOn", lightOn);
-					
+					g_AssetManager.GetShader("Animation").SetUniform("gammaValue", gammaValue);
 					
 					
 					
