@@ -391,7 +391,7 @@ void GraphicsSystem::UpdateLoop() {
 			switch (particleComp.getParticleType())
 			{
 			case ParticleType::POINT:
-				particleComp.draw();
+				particleComp.draw(particleShader);
 				break;
 			case ParticleType::TEXTURED:
 				shdrParam.WorldMatrix = transformComp.GetWorldMatrix_withoutRotate();
@@ -401,16 +401,11 @@ void GraphicsSystem::UpdateLoop() {
 				glBindTexture(GL_TEXTURE_2D, text);
 				tex_loc = glGetUniformLocation(particleShader.GetHandle(), "uTex2d");
 				glUniform1i(tex_loc, 6);
-				particleComp.draw();
+				particleComp.draw(particleShader);
 				break;
 			case ParticleType::TEXTURED_3D:
 
-				text = g_ResourceManager.GetTextureDDS(particleComp.getParticleTexturename());
-				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, text);
-				tex_loc = glGetUniformLocation(particleShader.GetHandle(), "uTex2d");
-				glUniform1i(tex_loc, 0);
-				particleComp.draw();
+				particleComp.draw(particleShader);
 				glActiveTexture(GL_TEXTURE0);
 				break;
 			}

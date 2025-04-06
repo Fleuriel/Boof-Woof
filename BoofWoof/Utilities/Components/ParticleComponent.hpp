@@ -437,11 +437,11 @@ public:
 		
 	}
 
-	void draw() {
+	void draw(OpenGLShader shader) {
 		switch (particle_type)
 		{
 		case ParticleType::TEXTURED_3D:
-			draw_3Dobj();
+			draw_3Dobj(shader);
 			break;
 		case ParticleType::TEXTURED:
 			draw_textured();
@@ -461,7 +461,10 @@ public:
 		
 	}
 
-	void draw_3Dobj() {
+	void draw_3Dobj(OpenGLShader shader) {
+		glActiveTexture(GL_TEXTURE0);
+		glUniform1i(glGetUniformLocation(shader.GetHandle(), "texture_diffuse1"), 0);
+		glBindTexture(GL_TEXTURE_2D, particle_mesh.textures[0].id);
 		glBindVertexArray(quadVAO);
 		glDrawArraysInstanced(GL_TRIANGLES, 0, static_cast<GLsizei>(particle_mesh.vertices.size()), PARTICLE_NUM);
 		glBindVertexArray(0);
