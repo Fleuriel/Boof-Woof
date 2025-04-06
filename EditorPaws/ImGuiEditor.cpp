@@ -1956,8 +1956,7 @@ void ImGuiEditor::InspectorWindow()
 											}
 										}
 
-										ImGui::Text("elegiggle");
-
+										
 										ImGui::PushItemWidth(123.0f);
 										ImGui::Text("Model   ");
 										ImGui::SameLine();
