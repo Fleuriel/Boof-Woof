@@ -10,13 +10,6 @@ This project was developed using a custom **Entity Component System (ECS) archit
 
 ---
 
-## 📥 Download & Play
-
-* **Download:** [Link to Release Build / Itch.io page]
-* **Installation:** Unzip the folder and run `BoofWoof.exe`.
-
----
-
 ## 🏰 Story
 
 > In a medieval castle, a cheerful corgi named Scruffy finds comfort in his new home—until Rex, the resident Dobermann who once ruled the castle's halls, turns against him. Consumed by jealousy and rage, Rex sees Scruffy as an intruder and chases him relentlessly through the castle's grand halls and chambers.
